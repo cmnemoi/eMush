@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="modifiers.ext">
     <unit id="change.value.max.decrease">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>change.value.max.decrease.description</source>
         <target>Max {emote} **-{quantity}**.</target>
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_player.new.cycle">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>change.variable.decrease_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Chaque cycle, fait perdre **{quantity}** {emote}.}
@@ -17,49 +17,49 @@
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_infection.player">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>change.variable.decrease_on_infection.player.description</source>
         <target>Recevoir un Spore fait perdre **{quantity}** {emote}.</target>
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>change.variable.decrease_on_post.action.description</source>
         <target>À chaque action **{action_name}**, fait perdre **{quantity}** {emote}.</target>
       </segment>
     </unit>
     <unit id="apply.cost_increase_move">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>apply.cost_increase_move.description</source>
         <target>Chaque déplacement coûte **{quantity}** :pm: de plus.</target>
       </segment>
     </unit>
     <unit id="apply.cost_increase">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>apply.cost_increase.description</source>
         <target>Chaque action coûte **{quantity}** {emote} de plus.</target>
       </segment>
     </unit>
     <unit id="roll.action.percentage_decrease_shoot">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>roll.action.percentage_decrease_shoot.description</source>
         <target>Précision **-{quantity}%**.</target>
       </segment>
     </unit>
     <unit id="biting_on_player.new.cycle">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>biting_on_player.new.cycle.description</source>
         <target>Fait subir le symptôme **Morsure**.</target>
       </segment>
     </unit>
     <unit id="breakouts_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>breakouts_on_post.action.description</source>
         <target>Fait subir le symptôme **Éruptions**.</target>
       </segment>
     </unit>
     <unit id="roll.percentage_increase_cycle_disease">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>roll.percentage_increase_cycle_disease.description</source>
         <target>{chance, select,
                     100 {Chaque cycle, fait tomber malade.}
@@ -68,25 +68,25 @@
       </segment>
     </unit>
     <unit id="prevent_move_on_pre.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>prevent_move_on_pre.action.description</source>
         <target>Impossible de se déplacer.</target>
       </segment>
     </unit>
     <unit id="prevent_pick_heavy_item_on_pre.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>prevent_pick_heavy_item_on_pre.action.description</source>
         <target>Impossible de porter des objets lourds.</target>
       </segment>
     </unit>
     <unit id="cat_allergy_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>cat_allergy_on_post.action.description</source>
         <target>Fait subir le symptôme **Allergie au chat**.</target>
       </segment>
     </unit>
     <unit id="dirtiness_on_player.new.cycle">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>dirtiness_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Chaque cycle, rend sale.}
@@ -95,73 +95,73 @@
       </segment>
     </unit>
     <unit id="deaf_speak_on_new_message">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>deaf_speak_on_new_message.description</source>
         <target>Rend sourd.</target>
       </segment>
     </unit>
     <unit id="drooling_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>drooling_on_post.action.description</source>
         <target>Fait subir le symptôme **Bave**.</target>
       </segment>
     </unit>
     <unit id="fear_of_cats_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fear_of_cats_on_post.action.description</source>
         <target>Fait subir le symptôme **Phobie des chats**.</target>
       </segment>
     </unit>
     <unit id="foaming_mouth_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>foaming_mouth_on_post.action.description</source>
         <target>Fait subir le symptôme **Bouche écumeuse**.</target>
       </segment>
     </unit>
     <unit id="mute_modifier_on_new_message">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mute_modifier_on_new_message.description</source>
         <target>Rend muet.</target>
       </segment>
     </unit>
     <unit id="sneezing_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>sneezing_on_post.action.description</source>
         <target>Fait subir le symptôme **Éternuements**.</target>
       </segment>
     </unit>
     <unit id="prevent_attack_actions_on_pre.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>prevent_attack_actions_on_pre.action.description</source>
         <target>Interdit l'action **Attaquer**.</target>
       </segment>
     </unit>
     <unit id="prevent_piloting_actions_on_pre.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>prevent_piloting_actions_on_pre.action.description</source>
         <target>Impossible de piloter.</target>
       </segment>
     </unit>
     <unit id="prevent_shoot_actions_on_pre.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>prevent_shoot_actions_on_pre.action.description</source>
         <target>Interdit l'action **Tirer**.</target>
       </segment>
     </unit>
     <unit id="psychotic_attacks_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>psychotic_attacks_on_post.action.description</source>
         <target>Fait subir le symptôme **Accès psychotique**.</target>
       </segment>
     </unit>
     <unit id="septicemia_on_status.applied">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>septicemia_on_status.applied.description</source>
         <target>Vous mourrez si vous devenez **sale**.</target>
       </segment>
     </unit>
     <unit id="vomiting_on_post.action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>vomiting_on_post.action.description</source>
         <target>{chance, select,
             100 {Fait subir le symptôme **Vomissements**.}
@@ -170,19 +170,19 @@
       </segment>
     </unit>
     <unit id="coprolalia_messages_on_new_message">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>coprolalia_messages_on_new_message.description</source>
         <target>Vos messages sont parfois modifiés.</target>
       </segment>
     </unit>
     <unit id="paranoia_messages_on_new_message">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>paranoia_messages_on_new_message.description</source>
         <target>Vos messages sont parfois modifiés.</target>
       </segment>
     </unit>
     <unit id="change.variable.increase_on_player.new.cycle">
-      <segment state="translated">
+      <segment state="final">
         <source>change.variable.increase_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Chaque cycle, fait gagner **{quantity}** {emote}.}

@@ -2,41 +2,41 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="actions.ext">
     <unit id="build">
-      <segment id="build" state="translated">
+      <segment id="build" state="final">
         <source>build.name</source>
         <target>Assembler</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>build.description</source>
         <target>Assemble un objet à partir d'autres objets.</target>
       </segment>
     </unit>
     <unit id="coffee">
-      <segment id="coffee" state="translated">
+      <segment id="coffee" state="final">
         <source>coffee.name</source>
         <target>Café</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>coffee.description</source>
         <target>Café</target>
       </segment>
     </unit>
     <unit id="dispense">
-      <segment id="dispense" state="translated">
+      <segment id="dispense" state="final">
         <source>dispense.name</source>
         <target>Distiller</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>dispense.description</source>
         <target>Permet de distiller une nouvelle petite gourmandise.</target>
       </segment>
     </unit>
     <unit id="do_the_thing">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>do_the_thing.name</source>
         <target>Le faire</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>do_the_thing.description</source>
         <target>Permet de le faire.</target>
       </segment>
@@ -52,77 +52,77 @@
       </segment>
     </unit>
     <unit id="consume">
-      <segment id="consume" state="translated">
+      <segment id="consume" state="final">
         <source>consume.name</source>
         <target>Consommer</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>consume.description</source>
         <target>Dévorer un délicieux repas. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres denrées peuvent réserver des surprises.</target>
       </segment>
     </unit>
     <unit id="consume_drug">
-      <segment id="consume_drug" state="translated">
+      <segment id="consume_drug" state="final">
         <source>consume_drug.name</source>
         <target>Consommer</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>consume_drug.description</source>
         <target>Avaler une délicieuse pilule. En général, manger vous apportera des :pa::pm:. Les *rations cuisinées* n'entameront pas votre moral. Les autres denrées peuvent réserver des surprises.</target>
       </segment>
     </unit>
     <unit id="eat_spore">
-      <segment id="eat_spore" state="translated">
+      <segment id="eat_spore" state="final">
         <source>eat_spore.name</source>
         <target>Phagocyter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>eat_spore.description</source>
         <target>Consommer un spore pour vous apporter 4 :pa: et 4 :hp:.</target>
       </segment>
     </unit>
     <unit id="cook">
-      <segment id="cook" state="translated">
+      <segment id="cook" state="final">
         <source>cook.name</source>
         <target>Cuisiner</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>cook.description</source>
         <target>Assaisonner la chose pour en faire quelque chose qui ne provoque pas un renvoi instantané.</target>
       </segment>
     </unit>
     <unit id="disassemble">
-      <segment id="disassemble" state="translated">
+      <segment id="disassemble" state="final">
         <source>disassemble.name</source>
         <target>Démonter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>disassemble.description</source>
         <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>drop.name</source>
         <target>Lâcher</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>drop.description</source>
         <target>Pose un objet dans la pièce ou vous vous trouvez.</target>
       </segment>
     </unit>
     <unit id="express_cook">
-      <segment id="express_cook" state="translated">
+      <segment id="express_cook" state="final">
         <source>express_cook.name</source>
         <target>Cuisine Express</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>express_cook.description</source>
         <target>Dégrader suffisamment la nourriture tout en la réchauffant pour la rendre comestible.</target>
       </segment>
     </unit>
     <unit id="extract_spore">
-      <segment id="extract_spore" state="translated">
+      <segment id="extract_spore" state="final">
         <source>extract_spore.name</source>
         <target>Extirper un spore</target>
       </segment>
@@ -142,7 +142,7 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="translated">
+      <segment id="get_up" state="final">
         <source>get_up.name</source>
         <target>Se lever</target>
       </segment>
@@ -252,11 +252,11 @@
       </segment>
     </unit>
     <unit id="rejuvenate">
-      <segment id="rejuvenate" state="translated">
+      <segment id="rejuvenate" state="final">
         <source>rejuvenate.name</source>
         <target>Restaurer</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>rejuvenate.description</source>
         <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:.
 //
@@ -897,7 +897,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>retrieve_fuel_chamber.name</source>
         <target>Récupérer une capsule</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>retrieve_fuel_chamber.description</source>
         <target>Permet de récupérer une capsule de fuel qui peut servir à remplir les réservoirs auxiliaires.</target>
       </segment>
@@ -1011,7 +1011,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="takeoff_to_planet_patrol_ship">
       <segment id="name" state="final">
         <source>takeoff_to_planet_patrol_ship.name</source>
-        <target>Atterir : {planet}</target>
+        <target>Atterrir : {planet}</target>
       </segment>
       <segment id="description" state="final">
         <source>takeoff_to_planet_patrol_ship.description</source>

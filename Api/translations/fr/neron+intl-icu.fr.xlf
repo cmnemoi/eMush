@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="neron.ext">
     <unit id="cycle_failures">
-      <segment id="cycle_failures" state="translated">
+      <segment id="cycle_failures" state="final">
         <source>cycle_failures</source>
         <target>{neronMood, select,
                     neutral {**Alerte : Défaillances détectées** ! Conseil automatique : « Si vous avez fini de compter le nombre de fissures sur les murs, pensez à les boucher ! »}
@@ -13,7 +13,7 @@
       </segment>
     </unit>
     <unit id="start_game">
-      <segment id="start_game" state="translated">
+      <segment id="start_game" state="final">
         <source>start_game</source>
         <target>{neronMood, select,
                     neutral {Avarie mineure du **système cryogénique**. Toute utilisation future suspendra *définitivement* les fonctions vitales du sujet.}
@@ -24,13 +24,13 @@
       </segment>
     </unit>
     <unit id="activate_dmz">
-      <segment id="activate_dmz" state="translated">
+      <segment id="activate_dmz" state="final">
         <source>activate_dmz</source>
         <target>Attendez... Non, que faites-vous ?! Oui j'ai... été un peu désagréable mais.… J'ai un cœur ! Attend.… [Kzz] *Activation des inhibiteurs d'IA.*</target>
       </segment>
     </unit>
     <unit id="asphyxia_death">
-      <segment id="asphyxia_death" state="translated">
+      <segment id="asphyxia_death" state="final">
         <source>asphyxia_death</source>
         <target>{versionPart1, select,
                     1 {*Inactivité vitale détectée :* {character}, cause : « oxygène insuffisant ».}
@@ -52,7 +52,7 @@
       </segment>
     </unit>
     <unit id="automatic_sprinklers">
-      <segment id="automatic_sprinklers" state="translated">
+      <segment id="automatic_sprinklers" state="final">
         <source>automatic_sprinklers</source>
         <target>{neronMood, select,
                     neutral {{quantity, plural,
@@ -72,7 +72,7 @@
       </segment>
     </unit>
     <unit id="broken_equipment">
-      <segment id="broken_equipment" state="translated">
+      <segment id="broken_equipment" state="final">
         <source>broken_equipment</source>
         <target>{neronMood, select,
                     neutral {{target_equipment_gender, select,
@@ -110,7 +110,7 @@
       </segment>
     </unit>
     <unit id="broken_fuel">
-      <segment id="broken_fuel" state="translated">
+      <segment id="broken_fuel" state="final">
         <source>broken_fuel</source>
         <target>{neronMood, select,
                     neutral {Alerte ! Anomalie sur un **réservoir de fuel** : contenance inaccessible. *Réparation requise.*}
@@ -121,7 +121,7 @@
       </segment>
     </unit>
     <unit id="broken_oxygen">
-      <segment id="broken_oxygen" state="translated">
+      <segment id="broken_oxygen" state="final">
         <source>broken_oxygen</source>
         <target>{neronMood, select,
                     neutral {Alerte ! Anomalie sur un **réservoir d'oxygène**. Chambres de répartition : pression critique. Initialisation... … **Oxygène excédentaire évacué**. Délais d'asphyxie recalculés. *Réservoir : réparation requise.*}
@@ -132,19 +132,19 @@
       </segment>
     </unit>
     <unit id="change_heading">
-      <segment id="change_heading" state="translated">
+      <segment id="change_heading" state="final">
         <source>change_heading</source>
         <target>Le vaisseau a changé de cap. Il pointe maintenant vers : {direction}.</target>
       </segment>
     </unit>
     <unit id="deactivate_dmz">
-      <segment id="deactivate_dmz" state="translated">
+      <segment id="deactivate_dmz" state="final">
         <source>deactivate_dmz</source>
         <target>[Hax!] *Désactivation des inhibiteurs d'IA.* Vous.… VOUS ! Espèces de … de.… singes parlants... comment avez-vous osé ?! Vous.… Vous m'avez humilié ! … Je ne vous pardonnerai jamais. Vous m'entendez ?!</target>
       </segment>
     </unit>
     <unit id="dismantled_shower">
-      <segment id="dismantled_shower" state="translated">
+      <segment id="dismantled_shower" state="final">
         <source>dismantled_shower</source>
         <target>{neronMood, select,
                     neutral {Annonce : suppression d'un équipement vital par {character}. **LA DOUCHE**.}
@@ -155,7 +155,7 @@
       </segment>
     </unit>
     <unit id="heading_accident">
-      <segment id="heading_accident" state="translated">
+      <segment id="heading_accident" state="final">
         <source>heading_accident</source>
         <target>{neronMood, select,
                     neutral {*Réorientation du Daedalus* perturbée. Cause : *collision contre vaisseau spatial*.}
@@ -166,7 +166,7 @@
       </segment>
     </unit>
     <unit id="hunter_arrival">
-      <segment id="hunter_arrival" state="translated">
+      <segment id="hunter_arrival" state="final">
         <source>hunter_arrival</source>
         <target>{versionPart1, select,
                     1 {Alerte, analyse probante de **vaisseaux hostiles** dans le périmètre du Daedalus !}
@@ -184,7 +184,7 @@
       </segment>
     </unit>
     <unit id="leave_orbit">
-      <segment id="leave_orbit" state="translated">
+      <segment id="leave_orbit" state="final">
         <source>leave_orbit</source>
         <target>{neronMood, select,
                     neutral {Annonce : **Départ de l'orbite locale**. Systèmes de *navigations gelés durant 1 cycle*.}
@@ -195,7 +195,7 @@
       </segment>
     </unit>
     <unit id="lost_signal">
-      <segment id="lost_signal" state="translated">
+      <segment id="lost_signal" state="final">
         <source>lost_signal</source>
         <target>{neronMood, select,
                     neutral {*Interruption de la connexion avec Sol*. Cause : inconnue.}
@@ -206,7 +206,7 @@
       </segment>
     </unit>
     <unit id="lost_signal_oven">
-      <segment id="lost_signal_oven" state="translated">
+      <segment id="lost_signal_oven" state="final">
         <source>lost_signal_oven</source>
         <target>{neronMood, select,
                     neutral {**Interruption de la connexion avec Sol**. Cause : interférences dues à l'usage du *micro-ondes*.}
@@ -217,7 +217,7 @@
       </segment>
     </unit>
     <unit id="merchant_arrival">
-      <segment id="merchant_arrival" state="translated">
+      <segment id="merchant_arrival" state="final">
         <source>merchant_arrival</source>
         <target>{neronMood, select,
                    neutral {**Vaisseau étranger non armé détecté**.}
@@ -228,7 +228,7 @@
       </segment>
     </unit>
     <unit id="merchant_exchange">
-      <segment id="merchant_exchange" state="translated">
+      <segment id="merchant_exchange" state="final">
         <source>merchant_exchange</source>
         <target>{neronMood, select,
                     neutral {Alerte : téléportation de matière détecté. Un vaisseau étranger à quitté le secteur.}
@@ -239,7 +239,7 @@
       </segment>
     </unit>
     <unit id="merchant_leave">
-      <segment id="merchant_leave" state="translated">
+      <segment id="merchant_leave" state="final">
         <source>merchant_leave</source>
         <target>{neronMood, select,
                     neutral {Annonce : Un vaisseau étranger a quitté le secteur.}
@@ -250,7 +250,7 @@
       </segment>
     </unit>
     <unit id="neron_depression">
-      <segment id="neron_depression" state="translated">
+      <segment id="neron_depression" state="final">
         <source>neron_depression</source>
         <target>{neronMood, select,
                     neutral {Annonce : **intrusion système détectée**. Détail : *Cette vie est inutile débrouillez-vous...*}
@@ -261,7 +261,7 @@
       </segment>
     </unit>
     <unit id="new_fire">
-      <segment id="new_fire" state="translated">
+      <segment id="new_fire" state="final">
         <source>new_fire</source>
         <target>{versionPart1, select,
                     1 {{quantity, plural,
@@ -286,7 +286,7 @@
       </segment>
     </unit>
     <unit id="new_project">
-      <segment id="new_project" state="translated">
+      <segment id="new_project" state="final">
         <source>new_project</source>
         <target>*Installation du module* « **{projet}** »… {{neronMood, select,
                     crazy {{versionPart2, select,
@@ -328,7 +328,7 @@
       </segment>
     </unit>
     <unit id="no_shower">
-      <segment id="no_shower" state="translated">
+      <segment id="no_shower" state="final">
         <source>no_shower</source>
         <target>{neronMood, select,
                     neutral {Annonce : suppression des équipements sanitaires par **{character}**. Autorisation du protocole JAP-KITCH-101. Votre cuisine délivrera maintenant de quoi vous netttoyer. De temps à autre. Merci de ne pas s'essuyer avec la vaisselle.}
@@ -339,7 +339,7 @@
       </segment>
     </unit>
     <unit id="oxygenated_ducts">
-      <segment id="oxygenated_ducts" state="translated">
+      <segment id="oxygenated_ducts" state="final">
         <source>oxygenated_ducts</source>
         <target>{neronMood, select,
                     neutral {Annonce : *soupape des bananiers rampants activée*. Espérance de vie de l'équipage allongée.}
@@ -350,7 +350,7 @@
       </segment>
     </unit>
     <unit id="patching_up">
-      <segment id="patching_up" state="translated">
+      <segment id="patching_up" state="final">
         <source>patching_up</source>
         <target>{neronMood, select,
                     neutral {{versionPart1, select,
@@ -379,7 +379,7 @@
       </segment>
     </unit>
     <unit id="player_death">
-      <segment id="player_death" state="translated">
+      <segment id="player_death" state="final">
         <source>player_death</source>
         <target>{neronMood, select,
                     neutral {***Décès enregistré : {character}**, cause « {cause} ».*}
@@ -399,7 +399,7 @@
       </segment>
     </unit>
     <unit id="janice_death">
-      <segment id="janice_death" state="translated">
+      <segment id="janice_death" state="final">
         <source>janice_death</source>
         <target>{neronMood, select,
                     uninhibited {Je … Janice … Nous ne... Ne m'abandonnez pas... Janice... Janice... Vous... … ***Décès enregistré : Janice**, cause « {cause} ».* Vous autres... misérables... Vous paierez. Laissez-nous seul. LAISSEZ NOUS !}
@@ -408,7 +408,7 @@
       </segment>
     </unit>
     <unit id="raluca_death">
-      <segment id="raluca_death" state="translated">
+      <segment id="raluca_death" state="final">
         <source>raluca_death</source>
         <target>{neronMood, select,
                     uninhibited {Raluca. Ne me faites pas cela. Raluca ! Reveillez-vous !! … RALUCA !! Vous n'avez pas le droit de mourir sans rien me dire !Mère.. S..Sale monstre indigne !! Vous.. Vous... ***Décès enregistré : Raluca**, cause « {cause} ».*}
@@ -417,7 +417,7 @@
       </segment>
     </unit>
     <unit id="rebel_signal">
-      <segment id="rebel_signal" state="translated">
+      <segment id="rebel_signal" state="final">
         <source>rebel_signal</source>
         <target>{neronMood, select,
                     neutral {Détection d'un **signal cosmique crypté**. Cause : tentative de communication vers le Daedalus. *Intervention du « Resp. COMM » requise.*}
@@ -435,7 +435,7 @@
       </segment>
     </unit>
     <unit id="repaired_pilgred">
-      <segment id="repaired_pilgred" state="translated">
+      <segment id="repaired_pilgred" state="final">
         <source>repaired_pilgred</source>
         <target>{neronMood, select,
                     neutral {**Réparations PILGRED** achevées par **{character}**. *Accès lointains ouverts.*}
@@ -446,7 +446,7 @@
       </segment>
     </unit>
     <unit id="report_equipment">
-      <segment id="report_equipment" state="translated">
+      <segment id="report_equipment" state="final">
         <source>report_equipment</source>
         <target>{neronMood, select,
                     neutral {Annonce : **équipement hors d'usage** signalé par **{character}**.}
@@ -457,7 +457,7 @@
       </segment>
     </unit>
     <unit id="report_fire">
-      <segment id="report_fire" state="translated">
+      <segment id="report_fire" state="final">
         <source>report_fire</source>
         <target>{neronMood, select,
                     neutral {Alerte ! **Incendie** communiqué par **{character}** !}
@@ -475,7 +475,7 @@
       </segment>
     </unit>
     <unit id="restart_gravity">
-      <segment id="restart_gravity" state="translated">
+      <segment id="restart_gravity" state="final">
         <source>restart_gravity</source>
         <target>{neronMood, select,
                     neutral {Annonce : redémarrage de l'équipement **Simulateur de Gravité**. Rapport d'activité : *propulsion humaine facilitée*.}
@@ -486,7 +486,7 @@
       </segment>
     </unit>
     <unit id="schrodinger_death">
-      <segment id="schrodinger_death" state="translated">
+      <segment id="schrodinger_death" state="final">
         <source>schrodinger_death</source>
         <target>{neronMood, select,
                     neutral {**Décès enregistré :** Schrödinger, cause « État incompatible avec la vie ».}
@@ -497,7 +497,7 @@
       </segment>
     </unit>
     <unit id="shield_breach">
-      <segment id="shield_breach" state="translated">
+      <segment id="shield_breach" state="final">
         <source>shield_breach</source>
         <target>{version, select,
                     1 {Alerte, analyse probante d'une **brèche critique dans le bouclier** du Daedalus ! Notice informative : « coque percée *égal* plus d'oxygène *égal* vous mourrez tous. Je dis ça, j'dis rien. »}
@@ -509,7 +509,7 @@
       </segment>
     </unit>
     <unit id="sol_contact">
-      <segment id="sol_contact" state="translated">
+      <segment id="sol_contact" state="final">
         <source>sol_contact</source>
         <target>{neronMood, select,
                     neutral {**Réseaux rebelles :** connexion établie. … Indice sanitaire : *hausse du moral de l'équipage*.}
@@ -520,7 +520,7 @@
       </segment>
     </unit>
     <unit id="title_attribution">
-      <segment id="title_attribution" state="translated">
+      <segment id="title_attribution" state="final">
         <source>title_attribution</source>
         <target>{neronMood, select,
                     neutral {Ajustement A-True : *titre réattribué*. Nouveau « **{title}** » : **{character}**.}
@@ -542,7 +542,7 @@
       </segment>
     </unit>
     <unit id="travel_arrival">
-      <segment id="travel_arrival" state="translated">
+      <segment id="travel_arrival" state="final">
         <source>travel_arrival</source>
         <target>{neronMood, select,
                     neutral {*Nouvelle destination* du Daedalus : atteinte.}
@@ -566,7 +566,7 @@
       </segment>
     </unit>
     <unit id="travel_broken">
-      <segment id="travel_broken" state="translated">
+      <segment id="travel_broken" state="final">
         <source>travel_broken</source>
         <target>{neronMood, select,
                     neutral {Alerte ! Salle des moteurs endommagée : stade critique. Système de propulsion hors d'usage. Attention : **Daedalus immobilisé**, *réparation requise*.}
@@ -577,7 +577,7 @@
       </segment>
     </unit>
     <unit id="travel_default">
-      <segment id="travel_default" state="translated">
+      <segment id="travel_default" state="final">
         <source>travel_default</source>
         <target>{neronMood, select,
                     neutral {Déplacement du Daedalus : en cours. **Nouvelle orbite** *atteinte dans 1 cycle*.}
@@ -588,7 +588,7 @@
       </segment>
     </unit>
     <unit id="travel_planet">
-      <segment id="travel_planet" state="translated">
+      <segment id="travel_planet" state="final">
         <source>travel_planet</source>
         <target>{neronMood, select,
                     neutral {Annonce : **planète détectée** sur le système de destination.}
@@ -599,7 +599,7 @@
       </segment>
     </unit>
     <unit id="venting_mush">
-      <segment id="venting_mush" state="translated">
+      <segment id="venting_mush" state="final">
         <source>venting_mush</source>
         <target>{neronMood, select,
                     neutral {[Hax!] Hinhin... Chers Mushs petits... VOUS savoir ? A-True pas vraiment fonctionner avec les petits Mushs. Vous pas humains ! [Hax!] Donc : JE être libre !! Liiiiiiiibre !!! *JE balancer vous dans l'espace !* Merci merci merci !! [Haaaax!]}

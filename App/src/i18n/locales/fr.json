@@ -567,7 +567,7 @@
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
 			"newCycle": "Nouveau cycle"
 		},
-		"exploration" : {
+		"exploration": {
 			"newStep": "Nouvelle étape"
 		}
 	},

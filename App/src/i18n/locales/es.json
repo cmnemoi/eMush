@@ -95,7 +95,8 @@
 			"infection": "Succombé à une infection massive !",
 			"mankarog": "Tué par un Mankarog chafouin !",
 			"no_infirmerie": "Mort perdu dans l'espace infini !",
-			"suicide": "Suicidé avec panache !"
+			"suicide": "Suicidé avec panache !",
+			"patrol_ship_explosion": "Manœuvre ratée !"
 		}
 	},
 	"userBanner": {
@@ -141,7 +142,8 @@
 			"infection": "Septicémie",
 			"mankarog": "Aventurier trop curieux",
 			"no_infirmerie": "Aucune infirmerie disponible",
-			"suicide": "Suicidio"
+			"suicide": "Suicidio",
+			"patrol_ship_explosion": "Patrouilleur pulvérisé"
 		}
 	},
 	"login": "Conectarse",
@@ -539,6 +541,16 @@
 			"closeAllPlayers": "Fermer (archiver) tous les joueurs",
 			"closePlayer": "Fermer (archiver) ce joueur",
 			"quarantine": "Mettre en quarantaine"
+		},
+		"neronAnnouncement": {
+			"destroyAndUpdate": "Destruction et mise à jour",
+			"destroyAndUpdateContent": "**Alerte** : Le Daedalus est condamné à une destruction imminente. En effet, les développeurs tout-puissants ont prévu une **mise à jour** majeure du jeu. *Préparez-vous pour de nouvelles façons créatives de rencontrer votre fin !*",
+			"maintenance": "Maintenance",
+			"maintenanceContent": "Cher équipage, préparez-vous pour une **maintenance du jeu** dans *1 cycle*. Profitez de ce temps pour contempler le vide existentiel ou réfléchir à vos choix de vie : *le plaisir continuera après la pause technique... Ou pas*.",
+			"frenchAnnouncement": "Annonce française",
+			"englishAnnouncement": "Annonce anglaise",
+			"sendNeronAnnouncement": "Envoyer une annonce NERON",
+			"sendNeronAnnouncementToAllDaedaluses": "Envoyer une annonce NERON à tous les Daedalus"
 		}
 	},
 	"charSelection": {
@@ -554,6 +566,9 @@
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
 			"newCycle": "Nouveau cycle"
+		},
+		"exploration": {
+			"newStep": "Nouvelle étape"
 		}
 	},
 	"newsPage": {
@@ -578,6 +593,7 @@
 			"502": "502 Bad Gateway",
 			"503": "503 Service indisponible"
 		},
+		"cannotAccessExploration": "Vous ne pouvez pas accéder à cette expédition. C'est privé un vaisseau, vous n'avez pas honte ?",
 		"consultCommunity": "En cas d'erreurs répétées, consultez la communauté sur <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> ou le <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
 		"Daedalus changing cycle": "Le Daedalus est en train de changer de cycle.",
 		"gameInMaintenance": "Le jeu est en maintenance, merci de revenir plus tard !",

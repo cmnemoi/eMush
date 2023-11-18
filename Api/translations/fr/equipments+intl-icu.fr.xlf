@@ -2,495 +2,495 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="equipments.ext">
     <unit id="antenna">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>antenna.name</source>
         <target>Antenne</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>antenna.short_name</source>
         <target>Antenne</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>antenna.plural_name</source>
         <target>Antennes</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>antenna.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>antenna.first_letter</source>
         <target>vowel</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>antenna.examine</source>
         <target>Améliore grandement le rendement du Centre de Communication. Diminue de 1 pa le coût des actions de communication. Le manuel stipule que l'antenne stellaire est le must have en terme de communication, avec sa bande passante de 24 Bauds, il vous permettra de communiquer à l'autre bout de l'univers sans effort.</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>astro_terminal.name</source>
         <target>Terminal Astro</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>astro_terminal.short_name</source>
         <target>Terminal Astro</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>astro_terminal.plural_name</source>
         <target>Terminaux Astro</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>astro_terminal.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>astro_terminal.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>astro_terminal.examine</source>
         <target>Permet de chercher des planètes dans les systèmes proches et de les sonder. Le terminal Astro permet de scanner l'espace proche à la recherche d'une planète à explorer. Les informations qui sont contenues dedans sont strictement réservées aux navigateurs dans le but de préserver le moral de l'équipage.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>auxiliary_terminal.name</source>
         <target>Terminal Auxiliaire</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>auxiliary_terminal.short_name</source>
         <target>Terminal Auxiliaire</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>auxiliary_terminal.plural_name</source>
         <target>Terminaux Auxiliaires</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>auxiliary_terminal.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>auxiliary_terminal.first_letter</source>
         <target>vowel</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>auxiliary_terminal.examine</source>
         <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="bed">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>bed.name</source>
         <target>Lit</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>bed.short_name</source>
         <target>Lit</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>bed.plural_name</source>
         <target>Lits</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>bed.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>bed.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>bed.examine</source>
         <target>Le lit vous permet de dormir pour régénérer des :pa:. Faites de beaux rêves !</target>
       </segment>
     </unit>
     <unit id="medlab_bed">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>medlab_bed.name</source>
         <target>Lit</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>medlab_bed.short_name</source>
         <target>Lit</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>medlab_bed.plural_name</source>
         <target>Lits</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>medlab_bed.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>medlab_bed.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>medlab_bed.examine</source>
         <target>Le lit vous permet de dormir pour régénérer des :pa:. Faites de beaux rêves !</target>
       </segment>
     </unit>
     <unit id="bios_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>bios_terminal.name</source>
         <target>Terminal BIOS</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>bios_terminal.short_name</source>
         <target>Terminal BIOS</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>bios_terminal.plural_name</source>
         <target>Terminaux BIOS</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>bios_terminal.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>bios_terminal.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>bios_terminal.examine</source>
         <target>Permet à l' Admin. NERON de modifier certains comportements de l' IA de bord. Lors de la psychothérapie de NERON, l'interface de celui-ci à été ouverte pour qu'il soit plus malléable. L' interface basique d'entrée-sortie reste donc accessible pour une poignée d'élus.</target>
       </segment>
     </unit>
     <unit id="calculator">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>calculator.name</source>
         <target>Calculateur</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>calculator.short_name</source>
         <target>Calculateur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>calculator.plural_name</source>
         <target>Calculateurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>calculator.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>calculator.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>calculator.examine</source>
         <target>Permet de calculer quelque chose... Reste à savoir quoi...</target>
       </segment>
     </unit>
     <unit id="coffee_machine">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>coffee_machine.name</source>
         <target>Machine à café</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>coffee_machine.short_name</source>
         <target>Machine à café</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>coffee_machine.plural_name</source>
         <target>Machines à café</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>coffee_machine.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>coffee_machine.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>coffee_machine.examine</source>
         <target>Cette fantastique machine a café produit un pur Arabica à une vitesse proche de la lumière. Malheureusement elle consomme autant d'énergie qu'une centrale nucléaire, et en l'absence du réacteur PILGRED il vous faudra vous contenter d'un café toutes les 24 heures. La machine a café est la meilleur ami de l'Homme. Après le chat.</target>
       </segment>
     </unit>
     <unit id="combustion_chamber">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>combustion_chamber.name</source>
         <target>Chambre de Combustion</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>combustion_chamber.short_name</source>
         <target>Chambre de Combustion</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>combustion_chamber.plural_name</source>
         <target>Chambres de Combustion</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>combustion_chamber.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>combustion_chamber.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>combustion_chamber.examine</source>
         <target>La chambre de combustion se trouve dans la Salle de Moteurs. Elle permet d'alimenter les réacteurs auxiliaires en Fuel pour voyager. Réserve de carburant destinée au moteur diesel. Une technologie sublime et un usage assez particulier. Les canaux de transfert de carburant ne fonctionnant plus, il faut transporter le mélange des buses des réservoirs jusqu'à la pré chambre de combustion. Les concepteurs auraient pu propulser la bête au charbon tant qu'ils y étaient...</target>
       </segment>
     </unit>
     <unit id="command_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>command_terminal.name</source>
         <target>Terminal de Commandement</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>command_terminal.short_name</source>
         <target>Terminal de Commandement</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>command_terminal.plural_name</source>
         <target>Terminaux de Commandement</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>command_terminal.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>command_terminal.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>command_terminal.examine</source>
         <target>Le module de commandement sert uniquement au Commandant. Accès Interdit. Permet au Commandant d'effectuer ses devoirs. Le module de pilotage possède plein d'outils facilitant la gestion quotidien du Daedalus.</target>
       </segment>
     </unit>
     <unit id="communication_center">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>communication_center.name</source>
         <target>Centre de Communication</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>communication_center.short_name</source>
         <target>Centre de Communication</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>communication_center.plural_name</source>
         <target>Centres de Communication</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>communication_center.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>communication_center.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>communication_center.examine</source>
         <target>Le centre de communication permet de joindre les systèmes très éloignés. Le centre de communication ultra-moderne permet de rassembler les résultats d'analyse des senseurs et autres radars. Il permet également d'établir des communications longues distances.</target>
       </segment>
     </unit>
     <unit id="cryo_module">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>cryo_module.name</source>
         <target>Module Cryo®</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>cryo_module.short_name</source>
         <target>Module Cryo®</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>cryo_module.plural_name</source>
         <target>Modules Cryo®</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>cryo_module.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>cryo_module.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>cryo_module.examine</source>
         <target>Le Module Cryo® contient les corps de vos compagnons encore inanimés. Le module de cryogénisation vous contenait pendant votre long sommeil. Charge à vous de ne pas y retourner.</target>
       </segment>
     </unit>
     <unit id="door">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>door.name</source>
         <target>Porte</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>door.short_name</source>
         <target>Porte</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>door.plural_name</source>
         <target>Portes</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>door.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>door.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>door.examine</source>
         <target>Les portes du Daedalus sont fragiles et ont la fâcheuse habitude de rester bloquées... En cas de panne, contacter un technicien. Qu'elle que soit son matériau, sa densité, son état, une porte mène quelque part.</target>
       </segment>
     </unit>
     <unit id="dynarcade">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>dynarcade.name</source>
         <target>Dynarcade</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>dynarcade.short_name</source>
         <target>Dynacarde</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>dynarcade.plural_name</source>
         <target>Dynarcades</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>dynarcade.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>dynarcade.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>dynarcade.examine</source>
         <target>Une borne de jeu d'arcade monté sur verrin hydraulique, le nec plus ultra de la fracture cranienne. Trop mortel ! La réplique authentique de la borde DYN-X666 qui n'a fait que 63 morts à Shanghai2000 en 2117. Fait tourner Rage Storm Of Fury et Call Of Dirty à 240 FPS !!!! À utiliser avec précaution.</target>
       </segment>
     </unit>
     <unit id="emergency_reactor">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>emergency_reactor.name</source>
         <target>Réacteur d'urgence</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>emergency_reactor.short_name</source>
         <target>Réacteur d'urgence</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>emergency_reactor.plural_name</source>
         <target>Réacteurs d'urgence</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>emergency_reactor.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>emergency_reactor.first_letter</source>
         <target>vowel</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>emergency_reactor.examine</source>
         <target>Il permet de faire avancer Daedalus en cas de défaillance du PILGRED. La fulgurante technologie Diesel a encore de beaux restes. Désormais c'est la seule façon pour Daedalus d'avancer. Chaque réacteur permet de brûler deux unités de fuel par voyage.</target>
       </segment>
     </unit>
     <unit id="fuel_tank">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>fuel_tank.name</source>
         <target>Réservoir de Fuel</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>fuel_tank.short_name</source>
         <target>Réservoir de Fuel</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>fuel_tank.plural_name</source>
         <target>Réservoirs de Fuel</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>fuel_tank.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>fuel_tank.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>fuel_tank.examine</source>
         <target>Le réservoir de fuel sert à stocker le précieux carburant et est muni d'un distributeur. Réserve de fuel du Daedalus, manipuler avec précaution. NE PAS FUMER.</target>
       </segment>
     </unit>
     <unit id="gravity_simulator">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>gravity_simulator.name</source>
         <target>Simulateur de Gravité</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>gravity_simulator.short_name</source>
         <target>Simulateur de Gravité</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>gravity_simulator.plural_name</source>
         <target>Simulateurs de Gravité</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>gravity_simulator.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>gravity_simulator.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>gravity_simulator.examine</source>
         <target>Le simulateur permet d'obtenir de la gravité. Cela facilite les déplacements de tout l'équipage dans le vaisseau. *Et la lourdeur fut !*</target>
       </segment>
     </unit>
     <unit id="kitchen">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>kitchen.name</source>
         <target>Cuisine</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>kitchen.short_name</source>
         <target>Cuisine</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>kitchen.plural_name</source>
         <target>Cuisines</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>kitchen.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>kitchen.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>kitchen.examine</source>
         <target>Domaine réservé d'un célèbre moustachu. Sert aussi à faire la popote. Poste de cuisine d'élite inter-galactique, certaines compétences en arts martiaux peuvent être nécessaires.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>reactor_lateral.name</source>
         <target>Réacteur Latéral</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>reactor_lateral.short_name</source>
         <target>Réacteur Latéral</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>reactor_lateral.plural_name</source>
         <target>Réacteurs Latéraux</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>reactor_lateral.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>reactor_lateral.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>reactor_lateral.examine</source>
         <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. 
 //
@@ -498,53 +498,53 @@ Permettent de faire tourner cette bonne vieille carne.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral_alpha">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>reactor_lateral_alpha.name</source>
         <target>Réacteur Latéral</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>reactor_lateral_alpha.short_name</source>
         <target>Réacteur Latéral</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>reactor_lateral_alpha.plural_name</source>
         <target>Réacteurs Latéraux</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>reactor_lateral_alpha.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>reactor_lateral_alpha.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>reactor_lateral_alpha.examine</source>
         <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. Permettent de faire tourner cette bonne vieille carne.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral_bravo">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>reactor_lateral_bravo.name</source>
         <target>Réacteur Latéral</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>reactor_lateral_bravo.short_name</source>
         <target>Réacteur Latéral</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>reactor_lateral_bravo.plural_name</source>
         <target>Réacteurs Latéraux</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>reactor_lateral_bravo.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>reactor_lateral_bravo.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>reactor_lateral_bravo.examine</source>
         <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. 
 //
@@ -552,131 +552,131 @@ Permet de faire tourner cette bonne vieille carne.</target>
       </segment>
     </unit>
     <unit id="mycoscan">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mycoscan.name</source>
         <target>Mycoscan</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>mycoscan.short_name</source>
         <target>Mycoscan</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>mycoscan.plural_name</source>
         <target>Mycoscans</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>mycoscan.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>mycoscan.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>mycoscan.examine</source>
         <target>Permet de trouver les traces de spore Mush dans les organismes. Prototype de détecteur de traces de Mush, originalement élaboré par Finola puis perfectionné dans le cadre du projet Magellan.</target>
       </segment>
     </unit>
     <unit id="narcotic_distiller">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>narcotic_distiller.name</source>
         <target>Distilateur de Stupéfiants</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>narcotic_distiller.short_name</source>
         <target>Distilateur de Stupéfiants</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>narcotic_distiller.plural_name</source>
         <target>Distilateurs de Stupéfiants</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>narcotic_distiller.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>narcotic_distiller.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>narcotic_distiller.examine</source>
         <target>Le distilleur permet de fabriquer des médicaments. Hélas son comportement erratique le rend peu fiable. Distributeur de bonheur agrée par le professeur Albus Haxley.</target>
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>neron_core.name</source>
         <target>Cœur de NERON</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>neron_core.short_name</source>
         <target>Cœur de NERON</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>neron_core.plural_name</source>
         <target>Cœurs de NERON</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>neron_core.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>neron_core.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>neron_core.examine</source>
         <target>Le cœur de NERON donne accès aux projets NERON. Le cœur de NERON permet de modifier ses programmes pour l'améliorer.</target>
       </segment>
     </unit>
     <unit id="oxygen_tank">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>oxygen_tank.name</source>
         <target>Réservoir d'Oxygène</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>oxygen_tank.short_name</source>
         <target>Réservoir d'Oxygène</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>oxygen_tank.plural_name</source>
         <target>Réservoirs d'Oxygène</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>oxygen_tank.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>oxygen_tank.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>oxygen_tank.examine</source>
         <target>Le réservoir d'oxygène stocke l'oxygène nécessaire à votre respiration. Réserve d'oxygène du Daedalus, manipuler avec précaution. NE PAS VIDER à mauvais escient.</target>
       </segment>
     </unit>
     <unit id="pasiphae">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>pasiphae.name</source>
         <target>Patrouilleur Pasiphae</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>pasiphae.short_name</source>
         <target>Pasiphae</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>pasiphae.plural_name</source>
         <target>Pasiphae</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>pasiphae.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>pasiphae.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>pasiphae.examine</source>
         <target>Pasiphae
 //
@@ -686,27 +686,27 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_2_wallis">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_alpha_2_wallis.name</source>
         <target>Patrouilleur Wallis</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>patrol_ship_alpha_2_wallis.short_name</source>
         <target>Patrouilleur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>patrol_ship_alpha_2_wallis.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>patrol_ship_alpha_2_wallis.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>patrol_ship_alpha_2_wallis.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>patrol_ship_alpha_2_wallis.examine</source>
         <target>Patrouilleur Wallis
         //
@@ -718,27 +718,27 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_epicure">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_bravo_epicure.name</source>
         <target>Patrouilleur Epicure</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>patrol_ship_bravo_epicure.short_name</source>
         <target>Patrouilleur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>patrol_ship_bravo_epicure.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>patrol_ship_bravo_epicure.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>patrol_ship_bravo_epicure.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>patrol_ship_bravo_epicure.examine</source>
         <target>Patrouilleur Epicure
         //
@@ -750,27 +750,27 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_jujube">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_alpha_jujube.name</source>
         <target>Patrouilleur Jujube</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>patrol_ship_alpha_jujube.short_name</source>
         <target>Patrouilleur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>patrol_ship_alpha_jujube.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>patrol_ship_alpha_jujube.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>patrol_ship_alpha_jujube.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>patrol_ship_alpha_jujube.examine</source>
         <target>Patrouilleur Jujube
         //
@@ -782,27 +782,27 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_longane">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_alpha_longane.name</source>
         <target>Patrouilleur Longane</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>patrol_ship_alpha_longane.short_name</source>
         <target>Patrouilleur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>patrol_ship_alpha_longane.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>patrol_ship_alpha_longane.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>patrol_ship_alpha_longane.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>patrol_ship_alpha_longane.examine</source>
         <target>Patrouilleur Longane
         //
@@ -814,27 +814,27 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_beta_planton">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
         <target>Patrouilleur Platon</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>patrol_ship_bravo_planton.short_name</source>
         <target>Patrouilleur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>patrol_ship_bravo_planton.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>patrol_ship_bravo_planton.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>patrol_ship_bravo_planton.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>patrol_ship_bravo_planton.examine</source>
         <target>Patrouilleur Planton
         //
@@ -846,27 +846,27 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_beta_socrate">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_bravo_socrate.name</source>
         <target>Patrouilleur Socrate</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>patrol_ship_bravo_socrate.short_name</source>
         <target>Patrouilleur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>patrol_ship_bravo_socrate.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>patrol_ship_bravo_socrate.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>patrol_ship_bravo_socrate.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>patrol_ship_bravo_socrate.examine</source>
         <target>Patrouilleur Socrate
         //
@@ -878,27 +878,27 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_alpha_tamarin">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_alpha_tamarin.name</source>
         <target>Patrouilleur Tamarin</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>patrol_ship_alpha_tamarin.short_name</source>
         <target>Patrouilleur</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>patrol_ship_alpha_tamarin.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>patrol_ship_alpha_tamarin.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>patrol_ship_alpha_tamarin.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>patrol_ship_alpha_tamarin.examine</source>
         <target>Patrouilleur Tamarin
         //
@@ -910,79 +910,79 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>pilgred.name</source>
         <target>Pilgred</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>pilgred.short_name</source>
         <target>Pilgred</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>pilgred.plural_name</source>
         <target>Pilgreds</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>pilgred.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>pilgred.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>pilgred.examine</source>
         <target>Le réacteur PILGRED. La seule façon de voyager plus vite que la lumière connue au moment du départ du Daedalus. Sa remise en état vous permettra peut-être de retourner sur Sol. Déchirez votre espace-temps en toute sécurité.</target>
       </segment>
     </unit>
     <unit id="planet_scanner">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>planet_scanner.name</source>
         <target>Scanner de Planète</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>planet_scanner.short_name</source>
         <target>Scanner de Planète</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>planet_scanner.plural_name</source>
         <target>Scanners de Planète</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>planet_scanner.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>planet_scanner.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>planet_scanner.examine</source>
         <target>Améliore grandement le rendement du Terminal Astro. +30% de chance de trouver une planète. Il émet de la musique quand vous le démarrez. Ces ingénieurs sont décidément excentriques... Qui eût cru que Verdi aurait pu inspirer un tel calculateur...</target>
       </segment>
     </unit>
     <unit id="research_laboratory">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>research_laboratory.name</source>
         <target>Laboratoire de Recherche</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>research_laboratory.short_name</source>
         <target>Laboratoire de Recherche</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>research_laboratory.plural_name</source>
         <target>Laboratoires de Recherche</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>research_laboratory.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>research_laboratory.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>research_laboratory.examine</source>
         <target>Le laboratoire permet de rassembler les recherches les plus pointues sur le Mush.
 //
@@ -990,215 +990,215 @@ Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compa
       </segment>
     </unit>
     <unit id="shower">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>shower.name</source>
         <target>Douche</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>shower.short_name</source>
         <target>Douche</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>shower.plural_name</source>
         <target>Douches</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>shower.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>shower.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>shower.examine</source>
         <target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</target>
       </segment>
     </unit>
     <unit id="swedish_sofa">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>.name</source>
         <target>Sofa suédois</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>swedish_sofa.short_name</source>
         <target>Sofa suédois</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>swedish_sofa.plural_name</source>
         <target>Sofas suédois</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>swedish_sofa.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>swedish_sofa.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>swedish_sofa.examine</source>
         <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher. Qui eu crû que quelques coussins et une structure de contre-plaqué puissent autant détendre...</target>
       </segment>
     </unit>
     <unit id="surgery_plot">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>surgery_plot.name</source>
         <target>Plot Chirurgical</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>surgery_plot.short_name</source>
         <target>Plot Chirurgical</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>surgery_plot.plural_name</source>
         <target>Plots Chirurgicaux</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>surgery_plot.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>surgery_plot.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>surgery_plot.examine</source>
         <target>Ce plot comprend tous les instruments. Automate nécessaire à des soins efficaces. En cas de coups durs vous devriez toujours savoir où il se trouve.</target>
       </segment>
     </unit>
     <unit id="thalasso">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>thalasso.name</source>
         <target>Thalasso</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>thalasso.short_name</source>
         <target>Thalasso</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>thalasso.plural_name</source>
         <target>Thalassos</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>thalasso.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>thalasso.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>thalasso.examine</source>
         <target>L’hygiène aide à rester sain. Dans l'espace tout peut arriver, parfois pour se laver de toutes les péripéties, une bonne douche et c'est reparti.</target>
       </segment>
     </unit>
     <unit id="turret_command">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>turret_command.name</source>
         <target>Poste de Tir</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>turret_command.short_name</source>
         <target>Poste de Tir</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>turret_command.plural_name</source>
         <target>Postes de Tir</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>turret_command.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>turret_command.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>turret_command.examine</source>
         <target>La défense contre les Hunters est une priorité Camarade. Poste de tir de la tourelle Bidulotron 3000. En pointe de la technologie, ses boucliers de verres et son teslatron en font une arme redoutable contre les Hunters.</target>
       </segment>
     </unit>
     <unit id="icarus">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>icarus.name</source>
         <target>Icarus</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>icarus.short_name</source>
         <target>Icarus</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>icarus.plural_name</source>
         <target>Icari</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>icarus.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>icarus.first_letter</source>
         <target>vowel</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>icarus.examine</source>
         <target>Permet de mener l'Icarus vers de nouvelles aventures. L'Icarus était un vaisseau d'exploration d'élite... il y a quelques centaines d'années.</target>
       </segment>
     </unit>
     <unit id="jukebox">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>jukebox.name</source>
         <target>Jukebox</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>jukebox.short_name</source>
         <target>Jukebox</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>jukebox.plural_name</source>
         <target>Jukeboxes</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>jukebox.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>jukebox.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>jukebox.examine</source>
         <target>Le jukebox permet de se faire une bonne petite séance de regression de temps à autre. Le jukebox des années folles par excellence. Et en plus chargé avec les tubes préféré de l'équipage !</target>
       </segment>
     </unit>
     <unit id="camera_equipment">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>camera_equipment.name</source>
         <target>Caméra</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>camera_equipment.short_name</source>
         <target>Caméra</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>camera_equipment.plural_name</source>
         <target>Caméras</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>camera_equipment.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>camera_equipment.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>camera_equipment.examine</source>
         <target>La caméra est un outils de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. La caméra repère également les actions discrètes et furtives effectuées. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.examine">
-      <segment state="translated">
+      <segment state="final">
         <source>patrol_ship.examine</source>
         <target>Patrouilleur
 //
@@ -1210,61 +1210,61 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.name">
-      <segment state="translated">
+      <segment state="final">
         <source>patrol_ship.name</source>
         <target>Patrouilleur</target>
       </segment>
     </unit>
     <unit id="patrol_ship.short_name">
-      <segment state="translated">
+      <segment state="final">
         <source>patrol_ship.short_name</source>
         <target>Patrouilleur</target>
       </segment>
     </unit>
     <unit id="patrol_ship.plural_name">
-      <segment state="translated">
+      <segment state="final">
         <source>patrol_ship.plural_name</source>
         <target>Patrouilleurs</target>
       </segment>
     </unit>
     <unit id="patrol_ship.gender">
-      <segment state="translated">
+      <segment state="final">
         <source>patrol_ship.gender</source>
         <target>male</target>
       </segment>
     </unit>
     <unit id="patrol_ship.first_letter">
-      <segment state="translated">
+      <segment state="final">
         <source>patrol_ship.first_letter</source>
         <target>consonant</target>
       </segment>
     </unit>
     <unit id="tabulatrix">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>tabulatrix.name</source>
         <target>Tabulatrice</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="final">
         <source>tabulatrix.short_name</source>
         <target>Tabulatrice</target>
       </segment>
-      <segment id="plural_name" state="translated">
+      <segment id="plural_name" state="final">
         <source>tabulatrix.plural_name</source>
         <target>Tabulatrices</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="final">
         <source>tabulatrix.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>tabulatrix.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>tabulatrix.description</source>
         <target>La tabulatrice permet à NERON de vous fournir des documents écrits.</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="final">
         <source>tabulatrix.examine</source>
         <target>La tabulatrice permet à NERON de vous fournir des documents écrits.
         //

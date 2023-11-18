@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="disease_message.ext">
     <unit id="coprolalia">
-      <segment id="pre" state="translated">
+      <segment id="pre" state="final">
         <source>pre_coprolalia</source>
         <target>{version, select,
                         1 {Hey bande {word, select,
@@ -16,7 +16,7 @@
                     other {invalid version}
                 }</target>
       </segment>
-      <segment id="post" state="translated">
+      <segment id="post" state="final">
         <source>post_coprolalia</source>
         <target>{version, select,
                     1 {, tous des {word_plural_coprolalia} de tte façon.}
@@ -30,7 +30,7 @@
                     other {invalid version}
                 }</target>
       </segment>
-      <segment id="replace" state="translated">
+      <segment id="replace" state="final">
         <source>replace_coprolalia</source>
         <target>{version, select,
                     1 {Tous des {word_plural_coprolalia}.}
@@ -92,7 +92,7 @@
                     other {invalid version}
                     }</target>
       </segment>
-      <segment id="word_plural" state="translated">
+      <segment id="word_plural" state="final">
         <source>word_plural_coprolalia</source>
         <target>{word, select,
                     1 {analphabètes}
@@ -124,7 +124,7 @@
                     other {invalid version}
                     }</target>
       </segment>
-      <segment id="animal" state="translated">
+      <segment id="animal" state="final">
         <source>animal_coprolalia</source>
         <target>{animal, select,
                     1 {loutre}
@@ -144,7 +144,7 @@
                     other {invalid version}
                 }</target>
       </segment>
-      <segment id="animal_plural" state="translated">
+      <segment id="animal_plural" state="final">
         <source>animal_plural_coprolalia</source>
         <target>{animal, select,
                     1 {loutres}
@@ -164,7 +164,7 @@
                     other {invalid version}
                     }</target>
       </segment>
-      <segment id="balls" state="translated">
+      <segment id="balls" state="final">
         <source>balls_coprolalia</source>
         <target>{balls, select,
                     1 {bouloches}
@@ -179,7 +179,7 @@
                     other {invalid version}
                 }</target>
       </segment>
-      <segment id="adjective_male_single" state="translated">
+      <segment id="adjective_male_single" state="final">
         <source>adjective_male_single_coprolalia</source>
         <target>{adjective, select,
                     1 {bourré}
@@ -191,7 +191,7 @@
                     other {invalid adjective}
                 }</target>
       </segment>
-      <segment id="adjective_male_plural" state="translated">
+      <segment id="adjective_male_plural" state="final">
         <source>adjective_male_plural_coprolalia</source>
         <target>{adjective, select,
                     1 {bourrés}
@@ -207,7 +207,7 @@
         <source>adjective_coprolalia</source>
         <target>adjective_coprolalia</target>
       </segment>
-      <segment id="adjective_female_single" state="translated">
+      <segment id="adjective_female_single" state="final">
         <source>adjective_female_single_coprolalia</source>
         <target>{adjective, select,
                     1 {bourrée}
@@ -219,7 +219,7 @@
                     other {invalid adjective}
                     }</target>
       </segment>
-      <segment id="adjective_female_plural" state="translated">
+      <segment id="adjective_female_plural" state="final">
         <source>adjective_female_plural_coprolalia</source>
         <target>{adjective, select,
                     1 {bourrées}
@@ -231,7 +231,7 @@
                     other {invalid adjective}
                     }</target>
       </segment>
-      <segment id="preposition" state="translated">
+      <segment id="preposition" state="final">
         <source>preposition_coprolalia</source>
         <target>{adjective, select,
                     1 {{animal, select, 3{d''} 9{d''} 11{d''} other {de }}{animal_coprolalia}}
@@ -243,7 +243,7 @@
                     other {invalid version}
                 }</target>
       </segment>
-      <segment id="prefix" state="translated">
+      <segment id="prefix" state="final">
         <source>prefix_coprolalia</source>
         <target>{prefix, select,
                     1 {purée}
@@ -255,7 +255,7 @@
       </segment>
     </unit>
     <unit id="paranoia">
-      <segment id="replace" state="translated">
+      <segment id="replace" state="final">
         <source>replace_paranoia</source>
         <target>{version, select,
                     1 {Cette partie est vraiment nulle…}
@@ -310,7 +310,7 @@
                     other {invalid version}
                     }</target>
       </segment>
-      <segment id="accuse" state="translated">
+      <segment id="accuse" state="final">
         <source>accuse_paranoia</source>
         <target>{version, select,
                     1 {Tu sais, {character} est du Mush…}
@@ -345,7 +345,7 @@
                     other {invalid version}
                     }</target>
       </segment>
-      <segment id="pre" state="translated">
+      <segment id="pre" state="final">
         <source>pre_paranoia</source>
         <target>{version, select,
                     {Ptain, }
@@ -357,7 +357,7 @@
       </segment>
     </unit>
     <unit id="deaf">
-      <segment id="deaf" state="translated">
+      <segment id="deaf" state="final">
         <source>deaf</source>
         <target>...</target>
       </segment>

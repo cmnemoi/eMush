@@ -977,5 +977,25 @@
         <target>leave_orbit.description</target>
       </segment>
     </unit>
+    <unit id="takeoff_to_planet">
+      <segment id="name" state="initial">
+        <source>takeoff_to_planet.name</source>
+        <target>takeoff_to_planet.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>takeoff_to_planet.description</source>
+        <target>takeoff_to_planet.description</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_to_planet_patrol_ship">
+      <segment id="name" state="initial">
+        <source>takeoff_to_planet_patrol_ship.name</source>
+        <target>takeoff_to_planet_patrol_ship.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>takeoff_to_planet_patrol_ship.description</source>
+        <target>takeoff_to_planet_patrol_ship.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

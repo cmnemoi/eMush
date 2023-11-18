@@ -125,25 +125,25 @@
       </segment>
     </unit>
     <unit id="terminal_role_restricted">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>terminal_role_restricted.description</source>
         <target>Vous n'avez pas accès à ce terminal. Les droits d'accès à certains terminaux sont assujettis à la possession de *Titres* ou de *Compétences* spécifiques.</target>
       </segment>
     </unit>
     <unit id="terminal_neron_lock">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>terminal_neron_lock.description</source>
         <target>NERON vous a interdit cette action. Veuillez en référer à l'Administrateur.</target>
       </segment>
     </unit>
     <unit id="explore_nothing_left">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>explore_nothing_left.description</source>
         <target>Cette planète a été entièrement visitée, une exploration supplémentaire ne vous apporterait plus rien.</target>
       </segment>
     </unit>
     <unit id="explore_not_in_orbit">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>explore_not_in_orbit.description</source>
         <target>Nous ne sommes pas en orbite. Veuillez en référer aux *Astrophysiciens*.</target>
       </segment>
@@ -155,19 +155,19 @@
       </segment>
     </unit>
     <unit id="unloaded_weapon">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>unloaded_weapon.description</source>
         <target>Cette arme n'est pas chargée. Elle regagnera une charge au prochain cycle.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_already_done">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>do_the_thing_already_done.description</source>
         <target>Vous l'avez déjà fait aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_camera">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>do_the_thing_camera.description</source>
         <target>Pas besoin d'enregistrer cela non plus...</target>
       </segment>
@@ -179,19 +179,19 @@
       </segment>
     </unit>
     <unit id="do_the_thing_asleep">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>do_the_thing_asleep.description</source>
         <target>Cette personne est endormie, elle n'a pas l'air d'avoir envie de le faire...</target>
       </segment>
     </unit>
     <unit id="do_the_thing_not_interested">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>do_the_thing_not_interested.description</source>
         <target>Cette personne n'a jamais montré la moindre attention à votre égard...</target>
       </segment>
     </unit>
     <unit id="flirt_already_flirted">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>flirt_already_flirted.description</source>
         <target>{character_gender, select,
             male {Vous êtes déjà très lié à cette personne.}
@@ -201,7 +201,7 @@
       </segment>
     </unit>
     <unit id="flirt_antisocial">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>flirt_antisocial.description</source>
         <target>{character_gender, select,
             male {Vous n'êtes pas intéressé par ce genre d'interaction sociale...}
@@ -211,19 +211,19 @@
       </segment>
     </unit>
     <unit id="flirt_same_family">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>flirt_same_family.description</source>
         <target>Ce flirt est impossible.</target>
       </segment>
     </unit>
     <unit id="daily_spore_limit">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>daily_spore_limit.description</source>
         <target>L'ensemble des *Mush* ne peuvent produire plus de *{quantity} spores* par jour.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>personal_spore_limit.description</source>
         <target>Vous ne pouvez pas transporter plus de deux spores.</target>
       </segment>
@@ -241,25 +241,25 @@
       </segment>
     </unit>
     <unit id="infect_immune">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>infect_immune.description</source>
         <target>Cette cible est immunisée au Mush.</target>
       </segment>
     </unit>
     <unit id="infect_no_spore">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>infect_no_spore.description</source>
         <target>Vous devez extirper des spores avant de pouvoir poinçonner quelqu'un.</target>
       </segment>
     </unit>
     <unit id="infect_mush">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>infect_mush.description</source>
         <target>Cette cible est déjà agent du Mush.</target>
       </segment>
     </unit>
     <unit id="infect_daily_limit">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>infect_daily_limit.description</source>
         <target>Vous ne pouvez plus effectuer cette action aujourd'hui.</target>
       </segment>
@@ -271,7 +271,7 @@
       </segment>
     </unit>
     <unit id="phagocyte_no_spore">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>phagocyte_no_spore.description</source>
         <target>Vous n'avez pas de spore à absorber.</target>
       </segment>
@@ -283,13 +283,13 @@
       </segment>
     </unit>
     <unit id="whisper_mute">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>whisper_mute.description</source>
         <target>Vous ne pouvez plus communiquer.</target>
       </segment>
     </unit>
     <unit id="whisper_no_available_chanel">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>whisper_no_available_chanel.description</source>
         <target>Cet équipier est déjà trop pris par d'autres conversations.</target>
       </segment>
@@ -311,7 +311,7 @@
       </segment>
     </unit>
     <unit id="lonely_apprenticeship">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>lonely_apprenticeship.description</source>
         <target>Pour réaliser cette action, vous avez besoin d'autres équipiers.</target>
       </segment>
@@ -323,19 +323,19 @@
       </segment>
     </unit>
     <unit id="list_no_mush">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>list_no_mush.description</source>
         <target>Quel est l'intérêt d'imprimer la liste s'il n'y a pas de Mush à bord ?</target>
       </segment>
     </unit>
     <unit id="issue_mission_already_issued">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>issue_mission_already_issued.description</source>
         <target>Vous avez déjà ordonné une mission, vous pourrez le refaire demain ou si votre subalterne la refuse.</target>
       </segment>
     </unit>
     <unit id="issue_mission_no_target">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>issue_mission_no_target.description</source>
         <target>Personne n'est actuellement accessible pour recevoir vos ordres.</target>
       </segment>
@@ -347,7 +347,7 @@
       </segment>
     </unit>
     <unit id="mage_book_already_have_skill">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mage_book_already_have_skill.description</source>
         <target>Votre soif de connaissance est trop grande... Vous possédez déjà cette ||Compétence||.</target>
       </segment>
@@ -365,7 +365,7 @@
       </segment>
     </unit>
     <unit id="consume_full_belly">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>consume_full_belly.description</source>
         <target>{character_gender, select,
             male {Vous êtes rassasié.}
@@ -375,37 +375,37 @@
       </segment>
     </unit>
     <unit id="reinforce_full_hull">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>reinforce_full_hull.description</source>
         <target>La coque n'a pas besoin de réparations.</target>
       </segment>
     </unit>
     <unit id="already_installed_camera">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>already_installed_camera.description</source>
         <target>Cette salle dispose déjà d'une **Caméra**.</target>
       </segment>
     </unit>
     <unit id="water_plant_no_thirsty">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>water_plant_no_thirsty.description</source>
         <target>Cette plante n'a pas l'air de manquer d'eau.</target>
       </segment>
     </unit>
     <unit id="treat_plant_no_disease">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>treat_plant_no_disease.description</source>
         <target>Cette plante n'a pas l'air d'avoir besoin d'être traitée.</target>
       </segment>
     </unit>
     <unit id="launch_grenade_alone">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>launch_grenade_alone.description</source>
         <target>Faire cela seul serait inutile... Drôle mais inutile.</target>
       </segment>
     </unit>
     <unit id="sabotage_no_door">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>sabotage_no_door.description</source>
         <target>Pas de **Porte** à saboter.</target>
       </segment>
@@ -417,67 +417,67 @@
       </segment>
     </unit>
     <unit id="no_pilgred">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_pilgred.description</source>
         <target>PILGRED n'est pas opérationnel.</target>
       </segment>
     </unit>
     <unit id="not_enough_map_fragments">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>not_enough_map_fragments.description</source>
         <target>Ce morceau de carte stellaire est intéressant, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
       </segment>
     </unit>
     <unit id="no_direction_picked">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_direction_picked.description</source>
         <target>Il faut choisir une direction pour pouvoir orienter le vaisseau.</target>
       </segment>
     </unit>
     <unit id="coms_already_attempted">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>coms_already_attempted.description</source>
         <target>La tranche CPU de NERON qui vous est assignée est épuisée car vous avez déjà fait cette action aujourd'hui. Revenez demain !</target>
       </segment>
     </unit>
     <unit id="no_active_rebel">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_active_rebel.description</source>
         <target>Aucune base rebelle n'a émis de signal.</target>
       </segment>
     </unit>
     <unit id="no_selected_rebel">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_selected_rebel.description</source>
         <target>Choisissez une base rebelle pour pouvoir décoder son signal.</target>
       </segment>
     </unit>
     <unit id="no_xyloph_left">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_xyloph_left.description</source>
         <target>La base de données de Xyloph est vide.</target>
       </segment>
     </unit>
     <unit id="no_project_left">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_project_left.description</source>
         <target>NERON a atteint son numéro de version maximal.</target>
       </segment>
     </unit>
     <unit id="coms_not_officer">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>coms_not_officer.description</source>
         <target>Vous devez avoir le titre de Responsable Comm. pour effectuer cette action.</target>
       </segment>
     </unit>
     <unit id="deal_lack_ressources">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>deal_lack_ressources.description</source>
         <target>Vous ne disposez pas des prérequis pour cet échange.</target>
       </segment>
     </unit>
     <unit id="deal_not_coms_officer">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>deal_not_coms_officer.description</source>
         <target>Seul le **Responsable Comm.** peut effectuer cette action !</target>
       </segment>
@@ -489,19 +489,19 @@
       </segment>
     </unit>
     <unit id="bed_occupied">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>bed_occupied.description</source>
         <target>Ce couchage est déjà occupé.</target>
       </segment>
     </unit>
     <unit id="already_washed_in_sink_today">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>already_washed_in_sink_today.description</source>
         <target>Cette galère pour se nettoyer vous a suffi pour aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="already_in_bed">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>already_in_bed.description</source>
         <target>{character_gender, select,
             male {Vous êtes déjà couché.}
@@ -511,19 +511,19 @@
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>reinforce_lack_ressources.description</source>
         <target>Cette action nécessite un **Débris Métallique**.</target>
       </segment>
     </unit>
     <unit id="renovate_lack_ressources">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>renovate_lack_ressources.description</source>
         <target>Remettre à neuf un Patrouilleur nécessite un *Débris Métallique*</target>
       </segment>
     </unit>
     <unit id="surgery_not_lying_down">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>surgery_not_lying_down.description</source>
         <target>{character_gender, select,
             male {Cette action nécessite que vous soyez allongé.}
@@ -533,31 +533,31 @@
       </segment>
     </unit>
     <unit id="mush_remove_spore">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mush_remove_spore.description</source>
         <target>Pax Fungi : Le Mush ne tolère pas les actions violentes directes envers lui-même.</target>
       </segment>
     </unit>
     <unit id="already_did_boring_speech">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>already_did_boring_speech.description</source>
         <target>Vous avez déjà donné un discours barbant aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="have_all_fake_diseases">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>have_all_fake_diseases.description</source>
         <target>Buurrp, vous ne vous sentez pas très bien... Vous ne pouvez plus imiter d'autre maladie.</target>
       </segment>
     </unit>
     <unit id="symptoms_are_preventing_action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>symptoms_are_preventing_action.description</source>
         <target>Votre état de santé vous empêche de faire cette action. Dommage.</target>
       </segment>
     </unit>
     <unit id="gagged_prevent_spoken_action">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>gagged_prevent_spoken_action.description</source>
         <target>{character_gender, select,
             male {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassé de ce fichu bout de scotch.}
@@ -567,31 +567,31 @@
       </segment>
     </unit>
     <unit id="screwed_talkie_already_pirated">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>screwed_talkie_already_pirated.description</source>
         <target>Impossible de pirater plus d'un talkie à la fois.</target>
       </segment>
     </unit>
     <unit id="screwed_talkie_no_talkie">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>screwed_talkie_no_talkie.description</source>
         <target>C'est dommage, votre coéquipier n'a pas son talkie sur lui.</target>
       </segment>
     </unit>
     <unit id="update_talkie_require_neron">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>update_talkie_require_neron.description</source>
         <target>Vous avez besoin de vous brancher au cœur de NERON pour effectuer cette mise à jour.</target>
       </segment>
     </unit>
     <unit id="update_talkie_require_tracker">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>update_talkie_require_tracker.description</source>
         <target>Pour une raison obscure, vous avez besoin de votre tracker pour mettre à jour votre talkie.</target>
       </segment>
     </unit>
     <unit id="immunized_remove_spore">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>immunized_remove_spore.description</source>
         <target>{character_gender, select,
             male {Vous êtes immunisé contre le Mush, pourquoi vouloir vous faire du mal ?}

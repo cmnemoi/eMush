@@ -2,55 +2,55 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="planet.ext">
     <unit id="nothing_to_report">
-      <segment id="name">
+      <segment id="name" state="final">
         <source>nothing_to_report.name</source>
         <target>Rien à signaler</target>
       </segment>
-      <segment id="description">
+      <segment id="description" state="final">
         <source>nothing_to_report.description</source>
         <target>La zone est explorée, rien à signaler.</target>
       </segment>
-      <segment id="landing_description">
+      <segment id="landing_description" state="final">
         <source>nothing_to_report.landing_description</source>
         <target>L'atterrissage se passe parfaitement bien, rien à signaler !</target>
       </segment>
-      <segment id="fruit_trees_description">
+      <segment id="fruit_trees_description" state="final">
         <source>nothing_to_report.fruit_trees_description</source>
-        <target>Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé a la bonne saison il faudra revenir plus tard !</target>
+        <target>Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé à la bonne saison, il faudra revenir plus tard !</target>
       </segment>
-      <segment id="strong_wind_description">
+      <segment id="strong_wind_description" state="final">
         <source>nothing_to_report.strong_wind_description</source>
-        <target>A part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.</target>
+        <target>À part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.</target>
       </segment>
-      <segment id="cold_description">
+      <segment id="cold_description" state="final">
         <source>nothing_to_report.cold_description</source>
         <target>A part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand chose d'intéressant dans cette zone… Brrrr…</target>
       </segment>
-      <segment id="swamp_description">
+      <segment id="swamp_description" state="final">
         <source>nothing_to_report.swamp_description</source>
         <target>Ce marais est incroyablement calme… Rien de notable dans les parages.</target>
       </segment>
-      <segment id="predator_description">
+      <segment id="predator_description" state="final">
         <source>nothing_to_report.predator_description</source>
-        <target>Vous avez remarqué la présence d'un Écorcheur. La créature rode un moment aux alentours de votre route mais renonce à vous attaquer… Ouf !</target>
+        <target>Vous avez remarqué la présence d'un Écorcheur. La créature rôde un moment aux alentours de votre route, mais renonce à vous attaquer… Ouf !</target>
       </segment>
-      <segment id="hot_description">
+      <segment id="hot_description" state="final">
         <source>nothing_to_report.hot_description</source>
         <target>Rien à signaler dans cette zone, mis à part ces trois *#@µ% de soleils qui massacrent l'expédition depuis… heu… C'était quand le matin, déjà ?</target>
       </segment>
-      <segment id="volcanic_activity_description">
+      <segment id="volcanic_activity_description" state="final">
         <source>nothing_to_report.volcanic_activity_description</source>
-        <target>Un grand volcan trône au milieu de cette zone, à votre niveau de grand jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…</target>
+        <target>Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…</target>
       </segment>
-      <segment id="desert_description">
+      <segment id="desert_description" state="final">
         <source>nothing_to_report.desert_description</source>
         <target>Avec surprise, vous découvrez que cette étendue désertique ne contient absolument aucun élément permettant d'améliorer votre situation.</target>
       </segment>
-      <segment id="ocean_description">
+      <segment id="ocean_description" state="final">
         <source>nothing_to_report.ocean_description</source>
         <target>De violents vents agitent l'océan. C'est un temps idéal pour faire du surf, mais vous devez sauver l'humanité...</target>
       </segment>
-      <segment id="oxygen_description">
+      <segment id="oxygen_description" state="final">
         <source>nothing_to_report.oxygen_description</source>
         <target>{equipment_first_letter, select,
         vowel {La pompe d'oxygène de {equipment} est enrayée, il n'y a rien à en tirer !}
@@ -58,134 +58,134 @@
         other {La pompe d'oxygène du {equipment} est enrayée, il n'y a rien à en tirer !}
         }</target>
       </segment>
-      <segment id="sismic_activity_description">
+      <segment id="sismic_activity_description" state="final">
         <source>nothing_to_report.sismic_activity_description</source>
         <target>Le sol de cette planète est balafré de profondes crevasses... Ce n'est pas bon signe...</target>
       </segment>
-      <segment id="ruins_description">
+      <segment id="ruins_description" state="final">
         <source>nothing_to_report.ruins_description</source>
         <target>Vous déambulez pendant plusieurs heures dans la cité en ruine sans trouver quoi que ce soit d'intéressant.</target>
       </segment>
-      <segment id="wreck_description">
+      <segment id="wreck_description" state="final">
         <source>nothing_to_report.wreck_description</source>
         <target>L'épave est totalement vide... Quelle déception !</target>
       </segment>
-      <segment id="forest_description">
+      <segment id="forest_description" state="final">
         <source>nothing_to_report.forest_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="cave_description">
+      <segment id="cave_description" state="final">
         <source>nothing_to_report.cave_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="ruminant_description">
+      <segment id="ruminant_description" state="final">
         <source>nothing_to_report.ruminant_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="intelligent_description">
+      <segment id="intelligent_description" state="final">
         <source>nothing_to_report.intelligent_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="insect_description">
+      <segment id="insect_description" state="final">
         <source>nothing_to_report.insect_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="mankarog_description">
+      <segment id="mankarog_description" state="final">
         <source>nothing_to_report.mankarog_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="cristal_field_description">
+      <segment id="cristal_field_description" state="final">
         <source>nothing_to_report.cristal_field_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
     </unit>
     <unit id="tired">
-      <segment id="name">
+      <segment id="name" state="final">
         <source>tired.name</source>
         <target>Fatigue</target>
       </segment>
-      <segment id="description">
+      <segment id="description" state="final">
         <source>tired.description</source>
         <target>{quantity, plural,
         one {Tous les équipiers subissent # point de dégâts.}
         other {Tous les équipiers subissent # points de dégâts.}
         }</target>
       </segment>
-      <segment id="landing_description">
+      <segment id="landing_description" state="final">
         <source>tired.landing_description</source>
         <target>L'atterrissage est difficile, le vaisseau tourne et vire dans tous les sens, l'équipage est malade.</target>
       </segment>
-      <segment id="cold_description">
+      <segment id="cold_description" state="final">
         <source>tired.cold_description</source>
         <target>Le froid ralentit de plus en plus votre progression. L'équipe a les membres gelés !</target>
       </segment>
-      <segment id="hot_description">
+      <segment id="hot_description" state="final">
         <source>tired.hot_description</source>
         <target>Il règne ici une chaleur accablante, les membres de l'équipe suent à grosses gouttes !</target>
       </segment>
-      <segment id="swamp_description">
+      <segment id="swamp_description" state="final">
         <source>tired.swamp_description</source>
         <target>Après deux heures de marche dans la vase, vous n'en pouvez plus de cette mélasse. Et des parasites. Et de la chaleur. Et de l'humidité. Et des hurlements…</target>
       </segment>
-      <segment id="mountain_description">
+      <segment id="mountain_description" state="final">
         <source>tired.mountain_description</source>
         <target>L'exploration se transforme en séance d'escalade, l'équipe est épuisée.</target>
       </segment>
-      <segment id="strong_wind_description">
+      <segment id="strong_wind_description" state="final">
         <source>tired.strong_wind_description</source>
         <target>L'équipe doit progresser en marchant contre un vent violent qui ralentit sa progression.</target>
       </segment>
-      <segment id="desert_description">
+      <segment id="desert_description" state="final">
         <source>tired.desert_description</source>
         <target>La marche dans cette étendue désertique est pénible et très douloureuse.</target>
       </segment>
     </unit>
     <unit id="accident">
-      <segment id="name">
+      <segment id="name" state="final">
         <source>accident.name</source>
         <target>Accident</target>
       </segment>
-      <segment id="description">
+      <segment id="description" state="final">
         <source>accident.description</source>
         <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.</target>
       </segment>
-      <segment id="predator_description">
+      <segment id="predator_description" state="final">
         <source>accident.predator_description</source>
         <target>Un Écorcheur attaque {character}… Vous parvenez à l'effrayer et la créature s'enfuit. {character} subit de graves blessures !</target>
       </segment>
-      <segment id="mountain_description">
+      <segment id="mountain_description" state="final">
         <source>accident.mountain_description</source>
         <target>{character} chute d'une petite falaise et s'écrase 4 mètres plus bas… Ouch !</target>
       </segment>
-      <segment id="ruminant_description">
+      <segment id="ruminant_description" state="final">
         <source>accident.ruminant_description</source>
         <target>Alors que vous mettez en joue un Chab Chab, la créature se précipite vers vous et heurte violemment {character} avant de s'enfuir…</target>
       </segment>
-      <segment id="insect_description">
+      <segment id="insect_description" state="final">
         <source>accident.insect_description</source>
         <target>Un scolopendre géant se laisse tomber d'un arbre sur {character}. {character} parvient à le repousser mais la créature a entamé son repas…</target>
       </segment>
-      <segment id="cave_description">
+      <segment id="cave_description" state="final">
         <source>accident.cave_description</source>
         <target>En sautant pour éviter un scorpion alien qui passait par là, {character} s'ouvre le cuir chevelu sur une stalactite.</target>
       </segment>
-      <segment id="sismic_activity_description">
+      <segment id="sismic_activity_description" state="final">
         <source>accident.sismic_activity_description</source>
         <target>{character} chute dans une crevasse… Aïe !</target>
       </segment>
-      <segment id="ruins_description">
+      <segment id="ruins_description" state="final">
         <source>accident.ruins_description</source>
         <target>Une arche en ruine s'écroule sur {character} !</target>
       </segment>
-      <segment id="cold_description">
+      <segment id="cold_description" state="final">
         <source>accident.cold_description</source>
         <target>Le bras de {character} est gelé, ça a l'air de lui faire terriblement mal et en plus il y a de bonnes chances qu'il faille le couper !</target>
       </segment>
-      <segment id="hot_description">
+      <segment id="hot_description" state="final">
         <source>accident.hot_description</source>
         <target>{character} s'écroule victime d'une insolation majeure.</target>
       </segment>
-      <segment id="landing_description">
+      <segment id="landing_description" state="final">
         <source>accident.landing_description</source>
         <target>{character_gender, select,
         male {{equipment} atterit en catastrophe sur {planet}, durant la manoeuvre, {character} est blessé !}
@@ -195,48 +195,48 @@
       </segment>
     </unit>
     <unit id="disaster">
-      <segment id="name">
+      <segment id="name" state="final">
         <source>disaster.name</source>
         <target>Catastrophe</target>
       </segment>
-      <segment id="description">
+      <segment id="description" state="final">
         <source>disaster.description</source>
         <target>Tous les équipiers subissent entre {min_quantity} et {max_quantity} points de dégâts.</target>
       </segment>
-      <segment id="landing_description">
+      <segment id="landing_description" state="final">
         <source>disaster.landing_description</source>
         <target>{equipment} s'écrase sur le sol de {planet}. L'équipage est K.O.</target>
       </segment>
     </unit>
     <unit id="oxygen">
-      <segment id="name">
+      <segment id="name" state="final">
         <source>oxygen.name</source>
         <target>Pompage</target>
       </segment>
-      <segment id="description">
+      <segment id="description" state="final">
         <source>oxygen.description</source>
         <target>Vous gagnez {quantity} unités d'O².</target>
       </segment>
-      <segment id="oxygen_description">
+      <segment id="oxygen_description" state="final">
         <source>oxygen.oxygen_description</source>
         <target>{quantity, select,
         8 {La pompe d'oxygène de {equipment} est prête a rendre l'âme, elle aspire péniblement {quantity} m³ d'oxygène.}
         16 {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Apparemment la pompe de {equipment} n'est plus toute jeune… Hop, {quantity} m³ d'oxygène !}
         24 {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Tout se passe à merveille, vous avez récupéré {quantity} m³ d'oxygène !}
         other {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Vous récupérez {quantity} m³ d'oxygène !}
-        }</target>      
+        }</target>
       </segment>
     </unit>
     <unit id="fuel">
-      <segment id="name">
+      <segment id="name" state="final">
         <source>fuel.name</source>
         <target>Hydrocarbures</target>
       </segment>
-      <segment id="description">
+      <segment id="description" state="final">
         <source>fuel.description</source>
         <target>Vous gagnez {quantity} unités de Fuel.</target>
       </segment>
-      <segment id="hydrocarbon_description">
+      <segment id="hydrocarbon_description" state="final">
         <source>fuel.hydrocarbon_description</source>
         <target>{quantity, select,
         3 {Au fond d'une crevasse, vous tombez sur une jolie veine de charbonite…}
@@ -244,7 +244,7 @@
         5 {Incroyable ! L'expédition vient de découvrir un gigantesque monolithe de charbonite ! Il ne rentrera jamais dans le réacteur…}
         6 {L'expédition trouve un petit lac d'heptanol violacé ! Avec tout ça le Daedalus n'est pas prêt de tomber en panne !}
         other {Vous récupérez {quantity} unités de fuel.}
-        }</target>      
+        }</target>
       </segment>
     </unit>
   </file>

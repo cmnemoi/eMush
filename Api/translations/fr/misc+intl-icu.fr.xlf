@@ -2,51 +2,51 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="misc.ext">
     <unit id="delayed_disease_info">
-      <segment id="satiety_point" state="translated">
+      <segment id="satiety_point" state="final">
         <source>satiety_point</source>
         <target>:pa_cook:</target>
       </segment>
-      <segment id="action_point" state="translated">
+      <segment id="action_point" state="final">
         <source>action_point</source>
         <target>:pa:</target>
       </segment>
-      <segment id="movement_point" state="translated">
+      <segment id="movement_point" state="final">
         <source>movement_point</source>
         <target>:pm:</target>
       </segment>
-      <segment id="health_point" state="translated">
+      <segment id="health_point" state="final">
         <source>health_point</source>
         <target>:hp:</target>
       </segment>
-      <segment id="moral_point" state="translated">
+      <segment id="moral_point" state="final">
         <source>moral_point</source>
         <target>:pmo:</target>
       </segment>
-      <segment id="ration_data" state="translated">
+      <segment id="ration_data" state="final">
         <source>ration_data</source>
         <target>Données sur les effets :</target>
       </segment>
-      <segment id="delayed_disease_info_with_range" state="translated">
+      <segment id="delayed_disease_info_with_range" state="final">
         <source>delayed_disease_info_with_range</source>
         <target>{ quantity } % de chances de provoquer la maladie { diseaseName } dans un délai de {start} à {end} cycles</target>
       </segment>
-      <segment id="delayed_disease_info" state="translated">
+      <segment id="delayed_disease_info" state="final">
         <source>delayed_disease_info</source>
         <target>{ quantity } % de chances de provoquer la maladie { diseaseName } dans un délai de {start} cycles</target>
       </segment>
-      <segment id="disease_info" state="translated">
+      <segment id="disease_info" state="final">
         <source>disease_info</source>
         <target>{ quantity } %  de chances de provoquer la maladie {diseaseName}</target>
       </segment>
-      <segment id="delayed_cure_info_with_range" state="translated">
+      <segment id="delayed_cure_info_with_range" state="final">
         <source>delayed_cure_info_with_range</source>
         <target>Guérit la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
       </segment>
-      <segment id="delayed_cure_info" state="translated">
+      <segment id="delayed_cure_info" state="final">
         <source>delayed_cure_info</source>
         <target>Guérit la maladie {diseaseName} dans un délai de {start} cycles</target>
       </segment>
-      <segment id="cure_info" state="translated">
+      <segment id="cure_info" state="final">
         <source>cure_info</source>
         <target>Guérit la maladie {diseaseName}</target>
       </segment>

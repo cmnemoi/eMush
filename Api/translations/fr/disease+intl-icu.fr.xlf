@@ -2,51 +2,51 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="disease.ext">
     <unit id="acid_reflux">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>acid_reflux.name</source>
         <target>Reflux Gastriques</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>acid_reflux.description</source>
         <target>Vous rendez votre nourriture, c'est irritant et pénible...</target>
       </segment>
     </unit>
     <unit id="food_poisoning">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>food_poisoning.name</source>
         <target>Intoxication Alimentaire</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>food_poisoning.description</source>
         <target>Vous êtes très atteint, vous vomissez, y en a partout. quelle idée de manger ça aussi. Ah bravo...</target>
       </segment>
     </unit>
     <unit id="gastroenteritis">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>gastroenteritis.name</source>
         <target>GastroEntérite</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>gastroenteritis.description</source>
         <target>Y a-t-il vraiment besoin de faire un dessin, de parler de l'odeur ou des spasmes de l'estomac ?</target>
       </segment>
     </unit>
     <unit id="tapeworm">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>tapeworm.name</source>
         <target>Vers Solitaire</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>tapeworm.description</source>
         <target>Vous avez faim, très faim, tout le temps faim... À manger bon sang !</target>
       </segment>
     </unit>
     <unit id="black_bite">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>black_bite.name</source>
         <target>Morsure Noire</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>black_bite.description</source>
         <target>Relativement bénin mais persistant, la Morsure Noire est un syndrome récent que personne ne connaît.</target>
       </segment>
@@ -56,613 +56,613 @@
         <source>cat_allergy.name</source>
         <target>Allergie au chat</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>cat_allergy.description</source>
         <target>La simple vue d'un chat provoque des éternuements insupportables et des pustules. Son contact pourrait s'avérer mortel...</target>
       </segment>
     </unit>
     <unit id="cold">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>cold.name</source>
         <target>Rhume</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>cold.description</source>
         <target>Ne sortez jamais sans vos mouchoirs !</target>
       </segment>
     </unit>
     <unit id="extreme_tinnitus">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>extreme_tinnitus.name</source>
         <target>Acouphènes Extrême</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>extreme_tinnitus.description</source>
         <target>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</target>
       </segment>
     </unit>
     <unit id="flu">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>flu.name</source>
         <target>Grippe</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>flu.description</source>
         <target>Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.</target>
       </segment>
     </unit>
     <unit id="fungic_infection">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>fungic_infection.name</source>
         <target>Infection fongique</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fungic_infection.description</source>
         <target>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</target>
       </segment>
     </unit>
     <unit id="junkbumpkinitis">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>junkbumpkinitis.name</source>
         <target>Citrouillite</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>junkbumpkinitis.description</source>
         <target>C'est pas que c'était pas frais...</target>
       </segment>
     </unit>
     <unit id="migraine">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>migraine.name</source>
         <target>Migraine</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>migraine.description</source>
         <target>Une grosse migraine bien carabinée harcèle le patient en ce moment, ça va passer...</target>
       </segment>
     </unit>
     <unit id="mush_allergy">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mush_allergy.name</source>
         <target>Allergie au mush</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mush_allergy.description</source>
         <target>Le contact au Mush vous donne des pustules horribles et douloureuses.</target>
       </segment>
     </unit>
     <unit id="quincks_oedema">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>quincks_oedema.name</source>
         <target>Œdème de Quincke</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>quincks_oedema.description</source>
         <target>Vous avez dû frôler de trop près un de vos allergènes...</target>
       </segment>
     </unit>
     <unit id="rejuvenation">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>rejuvenation.name</source>
         <target>Verdoiement</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>rejuvenation.description</source>
         <target>Votre corps émet des lueurs pulsatiles vertes, ça ne favorise pas vraiment un sommeil reposant...</target>
       </segment>
     </unit>
     <unit id="rubella">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>rubella.name</source>
         <target>Rubéole</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>rubella.description</source>
         <target>Mal au crâne, puis pustules sèches, très très fatiguant. Vous devriez vous en remettre.</target>
       </segment>
     </unit>
     <unit id="sepsis">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>sepsis.name</source>
         <target>Infection aïgue</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>sepsis.description</source>
         <target>Vous êtes très infecté. Pas facile de se remettre sur pied. Vous ne survivrez sans doute pas...</target>
       </segment>
     </unit>
     <unit id="sinus_storm">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>sinus_storm.name</source>
         <target>Tempête sinusale</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>sinus_storm.description</source>
         <target>Vos sinus sont en feu, de glace, puis vous déchirent la tête... C'est lourd et ça ne passe pas...</target>
       </segment>
     </unit>
     <unit id="skin_inflammation">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>skin_inflammation.name</source>
         <target>Éruption cutanée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>skin_inflammation.description</source>
         <target>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible.</target>
       </segment>
     </unit>
     <unit id="slight_nausea">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>slight_nausea.name</source>
         <target>Nausée légère</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>slight_nausea.description</source>
         <target>Vous vous sentez un peu barbouillé... Ça va passer mais vous n'avez plus faim et vous ne devriez pas vous approchez de bluuuuuurrrpppp...</target>
       </segment>
     </unit>
     <unit id="smallpox">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>smallpox.name</source>
         <target>Variole</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>smallpox.description</source>
         <target>Maladie disparue de Sol mais apparemment bien présente ailleurs. Son aspect appétissant devrait vous convaincre de vous soigner...</target>
       </segment>
     </unit>
     <unit id="space_rabies">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>space_rabies.name</source>
         <target>Rage spatiale</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>space_rabies.description</source>
         <target>Vous avez la rage. Vous pouvez devenir violent et cela va sans doute finir par vous tuer.</target>
       </segment>
     </unit>
     <unit id="syphilis">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>syphilis.name</source>
         <target>Syphilis</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>syphilis.description</source>
         <target>Maladie vénérienne par excellence, votre aspect effroyable et les rumeurs qui vous entoureront vous lasseront vite. Quel Dom Juan quand même...</target>
       </segment>
     </unit>
     <unit id="vitamin_deficiency">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>vitamin_deficiency.name</source>
         <target>Carence en vitamines</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>vitamin_deficiency.description</source>
         <target>Des carences en vitamines, minéraux, oligo-éléments et autres, vous n'avez pas trop la pêche...</target>
       </segment>
     </unit>
     <unit id="agoraphobia">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>agoraphobia.name</source>
         <target>Agoraphobie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>agoraphobia.description</source>
         <target>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</target>
       </segment>
     </unit>
     <unit id="ailurophobia">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>ailurophobia.name</source>
         <target>Ailurophobie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>ailurophobia.description</source>
         <target>Vous avez une terrible phobie des chats. Leur simple vue vous met hors d'état d'agir.</target>
       </segment>
     </unit>
     <unit id="chronic_migraine">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>chronic_migraine.name</source>
         <target>Migraine chronique</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>chronic_migraine.description</source>
         <target>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</target>
       </segment>
     </unit>
     <unit id="chronic_vertigo">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>chronic_vertigo.name</source>
         <target>Vertige chronique</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>chronic_vertigo.description</source>
         <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
       </segment>
     </unit>
     <unit id="coprolalia">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>coprolalia.name</source>
         <target>Coprolalie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>coprolalia.description</source>
         <target>Vous lancez des chapelets d'insultes de façon impromptu. Au début ça choque un peu.</target>
       </segment>
     </unit>
     <unit id="crabism">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>crabism.name</source>
         <target>Crabisme</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>crabism.description</source>
         <target>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</target>
       </segment>
     </unit>
     <unit id="depression">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>depression.name</source>
         <target>Dépression</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>depression.description</source>
         <target>Vous souffrez tout le temps. La vie est devenue longue trop longue et chaque nouvelle épreuve vous fait perdre le goût des choses.</target>
       </segment>
     </unit>
     <unit id="paranoia">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>paranoia.name</source>
         <target>Crise Paranoïaque</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>paranoia.description</source>
         <target>Vous avez peur pour votre vie et éventuellement le faites savoir.</target>
       </segment>
     </unit>
     <unit id="psychotic_episodes">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>psychotic_episodes.name</source>
         <target>Episodes Psychotiques</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>psychotic_episodes.description</source>
         <target>Vous ne vous maitrisez plus et rentrez souvent dans des colères noires. Il est fortement avisé de s'éloigner de toute forme d'armement.</target>
       </segment>
     </unit>
     <unit id="spleen">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>spleen.name</source>
         <target>Spleen</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>spleen.description</source>
         <target>Vous êtes atteint d'une forme très aiguë de dépression qui vous entraîne dans la mort très vite.</target>
       </segment>
     </unit>
     <unit id="vertigo">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>vertigo.name</source>
         <target>Vertige</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>vertigo.description</source>
         <target>Vous êtes frappé d'un vertige passager qui vous rend incapable de piloter un vaisseau...</target>
       </segment>
     </unit>
     <unit id="weapon_phobia">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>weapon_phobia.name</source>
         <target>Phobie des armes</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>weapon_phobia.description</source>
         <target>Vous ne pouvez plus tirer avec une arme, et leur simple vue vous incommode...</target>
       </segment>
     </unit>
     <unit id="burns_50_of_body">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>burns_50_of_body.name</source>
         <target>Brûlure au 3ème degré sur 50%</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>burns_50_of_body.description</source>
         <target>La partie avant de votre corps est brûlée, pas trop non plus mais tout de même.</target>
       </segment>
     </unit>
     <unit id="burns_90_of_body">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>burns_90_of_body.name</source>
         <target>Brûlure au 3ème degré sur 90%</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>burns_90_of_body.description</source>
         <target>Votre corps est très gravement brulé et risque une septicémie.</target>
       </segment>
     </unit>
     <unit id="broken_finger">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>broken_finger.name</source>
         <target>Doigt cassé</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>broken_finger.description</source>
         <target>Un des doigts de votre bonne main est cassé.</target>
       </segment>
     </unit>
     <unit id="broken_foot">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>broken_foot.name</source>
         <target>Pied cassé</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>broken_foot.description</source>
         <target>Votre pied est cassé.</target>
       </segment>
     </unit>
     <unit id="broken_leg">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>broken_leg.name</source>
         <target>Jambe cassée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>broken_leg.description</source>
         <target>Votre jambe a subi de multiples fractures qui l'handicapent...</target>
       </segment>
     </unit>
     <unit id="broken_ribs">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>broken_ribs.name</source>
         <target>Côtes pétées</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>broken_ribs.description</source>
         <target>Vos côtes sont cassées, occasionnant une douleur en posture debout.</target>
       </segment>
     </unit>
     <unit id="broken_shoulder">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>broken_shoulder.name</source>
         <target>Épaule brisée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>broken_shoulder.description</source>
         <target>Votre épaule a été brisée et démise. Impossible de porter des objets lourds...</target>
       </segment>
     </unit>
     <unit id="bruised_shoulder">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>bruised_shoulder.name</source>
         <target>Épaule froissée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>bruised_shoulder.description</source>
         <target>Votre épaule a subi des contusions majeures réversibles.</target>
       </segment>
     </unit>
     <unit id="burnt_arms">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>burnt_arms.name</source>
         <target>Bras brûlés</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>burnt_arms.description</source>
         <target>Vos bras sont fortement brûlés. Saisir le moindre objet est une torture.</target>
       </segment>
     </unit>
     <unit id="burnt_hand">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>burnt_hand.name</source>
         <target>Main brûlée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>burnt_hand.description</source>
         <target>Votre main est brûlée.</target>
       </segment>
     </unit>
     <unit id="burst_nose">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>burst_nose.name</source>
         <target>Nez explosé</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>burst_nose.description</source>
         <target>Votre nez n'est plus, plus du tout, vous faites un peu peur aussi...</target>
       </segment>
     </unit>
     <unit id="busted_arm_joint">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>busted_arm_joint.name</source>
         <target>Articulation du bras fort morte</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>busted_arm_joint.description</source>
         <target>Le bras pendouillant peut faire rire mais reste tout de même très handicapant.</target>
       </segment>
     </unit>
     <unit id="busted_shoulder">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>busted_shoulder.name</source>
         <target>Épaule pulvérisée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>busted_shoulder.description</source>
         <target>L'épaule a subi des contusions majeures irréversibles, le bras est considéré comme mort.</target>
       </segment>
     </unit>
     <unit id="critical_haemorrhage">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>critical_haemorrhage.name</source>
         <target>Hémorragie critique</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>critical_haemorrhage.description</source>
         <target>Vous avez une hémorragie sur une artère majeure qui nécessite une chirurgie lourde. Bonne chance.</target>
       </segment>
     </unit>
     <unit id="damaged_ears">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>damaged_ears.name</source>
         <target>Oreilles incapacitées</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>damaged_ears.description</source>
         <target>Vos oreilles ne vous sont plus d'aucune utilité.</target>
       </segment>
     </unit>
     <unit id="destroyed_ears">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>destroyed_ears.name</source>
         <target>Oreilles pulvérisées</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>destroyed_ears.description</source>
         <target>Vos oreilles ont disparues. Peut-être qu'en cherchant bien...</target>
       </segment>
     </unit>
     <unit id="dysfunctional_liver">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>dysfunctional_liver.name</source>
         <target>Foie hors d'état</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>dysfunctional_liver.description</source>
         <target>Vous pouvez encore vivre avec votre foie détruit mais combien de temps et dans quelles conditions ?</target>
       </segment>
     </unit>
     <unit id="haemorrhage">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>haemorrhage.name</source>
         <target>Hémorragie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>haemorrhage.description</source>
         <target>Vous avez une hémorragie : il vous faut une chirurgie.</target>
       </segment>
     </unit>
     <unit id="head_trauma">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>head_trauma.name</source>
         <target>Trauma crânien</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>head_trauma.description</source>
         <target>Vous avez subi un traumatisme crânien récent, à moins d'arriver à trouver un médecin amateur de puzzle rapidement, vous risquez gros.</target>
       </segment>
     </unit>
     <unit id="implanted_bullet">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>implanted_bullet.name</source>
         <target>Balle en balade</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>implanted_bullet.description</source>
         <target>Un éclat de balle se balade désormais dans votre corps, ce n'est pas douloureux mais on ne sait pas quelle sera sa prochaine destination.</target>
       </segment>
     </unit>
     <unit id="inner_ear_damaged">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>inner_ear_damaged.name</source>
         <target>Oreille interne déréglée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>inner_ear_damaged.description</source>
         <target>L'oreille interne ne semble plus fonctionner correctement. Vous pouvez être pris de vertiges, de surdité partielle ou de vomissements intempestifs quand vous voyagez.</target>
       </segment>
     </unit>
     <unit id="mashed_foot">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mashed_foot.name</source>
         <target>Pied en bouillie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mashed_foot.description</source>
         <target>Vous n'avez plus de pied digne de ce nom...</target>
       </segment>
     </unit>
     <unit id="mashed_hand">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mashed_hand.name</source>
         <target>Main en charpie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mashed_hand.description</source>
         <target>Votre main ne vous sera plus d'aucun secours.</target>
       </segment>
     </unit>
     <unit id="minor_haemorrhage">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>minor_haemorrhage.name</source>
         <target>Hémorragie légère</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>minor_haemorrhage.description</source>
         <target>Vous avez une hémorragie sur une artère mineure qu'un médecin peut contenir. Attention à ne pas laisser traîner.</target>
       </segment>
     </unit>
     <unit id="missing_finger">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>missing_finger.name</source>
         <target>Doigt manquant</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>missing_finger.description</source>
         <target>Vous ne pouvez plus compter que jusqu'à 4 sur votre bonne main.</target>
       </segment>
     </unit>
     <unit id="open_air_brain">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>open_air_brain.name</source>
         <target>Cerveau à l'air libre</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>open_air_brain.description</source>
         <target>Il manque un morceau de votre crâne. Dans beaucoup de circonstances, il ne serait pas faux de dire que cela peut poser problème.</target>
       </segment>
     </unit>
     <unit id="punctured_lung">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>punctured_lung.name</source>
         <target>Poumon à trou</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>punctured_lung.description</source>
         <target>Souffle court, du sang dans les poumons... Sans soins, vous n'en avez plus pour longtemps à vivre.</target>
       </segment>
     </unit>
     <unit id="mashed_arms">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mashed_arms.name</source>
         <target>Absence de bras</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mashed_arms.description</source>
         <target>Vos bras sont complètement inutiles.</target>
       </segment>
     </unit>
     <unit id="mashed_legs">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mashed_legs.name</source>
         <target>Jambes inutilisables</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mashed_legs.description</source>
         <target>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</target>
       </segment>
     </unit>
     <unit id="torn_tongue">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>torn_tongue.name</source>
         <target>Langue cisaillée</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>torn_tongue.description</source>
         <target>Votre langue est réduite à un amas flasque sans vie.</target>
       </segment>
     </unit>
     <unit id="mashed_leg.description">
-      <segment state="translated">
+      <segment state="final">
         <source>mashed_leg.description</source>
         <target>Vous n'avez plus l'usage de vos jambes, dommage, ça peut servir.</target>
       </segment>

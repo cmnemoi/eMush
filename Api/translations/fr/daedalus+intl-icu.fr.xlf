@@ -2,31 +2,31 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="daedalus.ext">
     <unit id="oxygen">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>oxygen.name</source>
         <target>Oxygène du vaisseau [ {quantity}/{maximum} ]</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>oxygen.description</source>
         <target>Quantité d'**Oxygène (o²)** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.</target>
       </segment>
     </unit>
     <unit id="fuel">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>fuel.name</source>
         <target>Fuel en réserve [ {quantity}/{maximum} ]</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fuel.description</source>
         <target>Le **Fuel** est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos **explorations** sur les planètes. Cet indicateur n'affiche pas le fuel dans la **Chambre de Combustion**.</target>
       </segment>
     </unit>
     <unit id="shield">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>shield.name</source>
         <target>Armure : {quantity}</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>shield.description</source>
         <target>Le bouclier plasma a été désactivé par l'Administrateur NERON.
 //
@@ -34,31 +34,31 @@ L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 
       </segment>
     </unit>
     <unit id="hull">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>hull.name</source>
         <target>Armure : {quantity}</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>hull.description</source>
         <target>L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
       </segment>
     </unit>
     <unit id="crewPlayer">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>crewPlayer.name</source>
         <target>Camarades</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>crewPlayer.description</source>
         <target>{playerAlive, plural, one {# membre d'équipage actif} other {# membres d'équipage actifs}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {playerDead, plural, one {# membre défunt} other {# membres défunts}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# cryogénisé} other {# cryogénisés}}.</target>
       </segment>
     </unit>
     <unit id="currentCycle">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>currentCycle.name</source>
         <target>Prochain cycle</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>currentCycle.description</source>
         <target>Votre montre incassable affiche le temps qu'il reste avant le prochain **Cycle**. 
 //
@@ -66,24 +66,24 @@ Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.</ta
       </segment>
     </unit>
     <unit id="triumph">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>triumph.name</source>
         <target>Triomphe personnel</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>triumph.description</source>
         <target>Triomphe accumulé par ce héros pendant ce voyage.
 La valeur sera finalisée après la fin du voyage. Elle déterminera votre classement dans le palmarès du vaisseau.</target>
       </segment>
     </unit>
     <unit id="calendar.name">
-      <segment state="translated">
+      <segment state="final">
         <source>calendar.name</source>
         <target>Le temps du jeu</target>
       </segment>
     </unit>
     <unit id="calendar.description">
-      <segment state="translated">
+      <segment state="final">
         <source>calendar.description</source>
         <target>Les jours du jeu correspondent aux jours de la vie réelle.
 //
@@ -91,13 +91,13 @@ Un **Cycle dure 3 heures**. À chaque Cycle vous cumulez plus de :pa::pm:, indis
       </segment>
     </unit>
     <unit id="cycle.name">
-      <segment state="translated">
+      <segment state="final">
         <source>cycle.name</source>
         <target>Cycle</target>
       </segment>
     </unit>
     <unit id="day.name">
-      <segment state="translated">
+      <segment state="final">
         <source>day.name</source>
         <target>Jour</target>
       </segment>

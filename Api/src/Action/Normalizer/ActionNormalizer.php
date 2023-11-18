@@ -2,6 +2,7 @@
 
 namespace Mush\Action\Normalizer;
 
+use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -9,6 +10,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -21,6 +23,7 @@ class ActionNormalizer implements NormalizerInterface
     private TranslationServiceInterface $translationService;
     private ActionStrategyServiceInterface $actionStrategyService;
     private ActionServiceInterface $actionService;
+    private PlanetServiceInterface $planetService;
 
     private const ACTION_TYPE_DESCRIPTION_MAP = [
         ActionTypeEnum::ACTION_AGGRESSIVE => ActionTypeEnum::ACTION_AGGRESSIVE,
@@ -31,11 +34,13 @@ class ActionNormalizer implements NormalizerInterface
     public function __construct(
         TranslationServiceInterface $translationService,
         ActionStrategyServiceInterface $actionStrategyService,
-        ActionServiceInterface $actionService
+        ActionServiceInterface $actionService,
+        PlanetServiceInterface $planetService
     ) {
         $this->translationService = $translationService;
         $this->actionStrategyService = $actionStrategyService;
         $this->actionService = $actionService;
+        $this->planetService = $planetService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -64,13 +69,7 @@ class ActionNormalizer implements NormalizerInterface
         $actionClass->loadParameters($object, $currentPlayer, $actionTarget, $parameters);
 
         // translation parameters
-        $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
-        if ($actionName === ActionEnum::EXTRACT_SPORE) {
-            $translationParameters['quantity'] = $currentPlayer->getDaedalus()->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
-        }
-        if ($actionTarget instanceof Player) {
-            $translationParameters['target.' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
-        }
+        $translationParameters = $this->getTranslationParameters($actionClass, $currentPlayer, $actionTarget);
 
         if ($actionClass->isVisible()) {
             $normalizedAction = [
@@ -175,5 +174,33 @@ class ActionNormalizer implements NormalizerInterface
         }
 
         return $description;
+    }
+
+    private function getTranslationParameters(AbstractAction $actionClass, Player $currentPlayer, ?LogParameterInterface $actionTarget): array
+    {
+        $actionName = $actionClass->getActionName();
+        $daedalus = $currentPlayer->getDaedalus();
+
+        $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
+
+        if ($actionName === ActionEnum::EXTRACT_SPORE) {
+            $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
+        }
+        if ($actionTarget instanceof Player) {
+            $translationParameters['target.' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
+        }
+        if (ActionEnum::getTakeOffToPlanetActions()->contains($actionName)) {
+            $inOrbitPlanet = $this->planetService->findPlanetInDaedalusOrbit($daedalus);
+            if ($inOrbitPlanet) {
+                $translationParameters['planet'] = $this->translationService->translate(
+                    key: 'planet_name',
+                    parameters: $inOrbitPlanet->getName()->toArray(),
+                    domain: 'planet',
+                    language: $daedalus->getLanguage()
+                );
+            }
+        }
+
+        return $translationParameters;
     }
 }

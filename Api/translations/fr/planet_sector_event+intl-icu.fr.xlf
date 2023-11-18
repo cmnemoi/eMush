@@ -70,6 +70,34 @@
         <source>nothing_to_report.wreck_description</source>
         <target>L'épave est totalement vide... Quelle déception !</target>
       </segment>
+      <segment id="forest_description">
+        <source>nothing_to_report.forest_description</source>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+      </segment>
+      <segment id="cave_description">
+        <source>nothing_to_report.cave_description</source>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+      </segment>
+      <segment id="ruminant_description">
+        <source>nothing_to_report.ruminant_description</source>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+      </segment>
+      <segment id="intelligent_description">
+        <source>nothing_to_report.intelligent_description</source>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+      </segment>
+      <segment id="insect_description">
+        <source>nothing_to_report.insect_description</source>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+      </segment>
+      <segment id="mankarog_description">
+        <source>nothing_to_report.mankarog_description</source>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+      </segment>
+      <segment id="cristal_field_description">
+        <source>nothing_to_report.cristal_field_description</source>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+      </segment>
     </unit>
     <unit id="tired">
       <segment id="name">

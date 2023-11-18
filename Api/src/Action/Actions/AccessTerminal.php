@@ -71,7 +71,7 @@ final class AccessTerminal extends AbstractAction
             'contain' => false,
             'groups' => ['visibility'],
         ]));
-        self::addTerminalTitleConstraints($metadata);
+        // self::addTerminalTitleConstraints($metadata);
     }
 
     protected function applyEffect(ActionResult $result): void

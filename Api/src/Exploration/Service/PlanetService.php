@@ -51,7 +51,7 @@ final class PlanetService implements PlanetServiceInterface
         $availableCoordinates = $this->getAvailaibleCoordinatesForPlanet($planet);
         $drawnCoordinates = $this->randomService->getRandomElement($availableCoordinates);
 
-        $planet->setCoordinates($drawnCoordinates);
+        $planet->setCoordinates(new SpaceCoordinates('north', 2));
 
         $planet = $this->generatePlanetSectors($planet);
 

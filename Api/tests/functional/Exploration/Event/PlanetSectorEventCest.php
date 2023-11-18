@@ -204,4 +204,26 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
         $I->assertInstanceOf(ChargeStatus::class, $daedalusOxygenStatus);
         $I->assertNotEquals(0, $daedalusOxygenStatus->getCharge());
     }
+
+    public function testFuelCreatesFuelStatus(FunctionalTester $I): void
+    {
+        // given there is an fuel sector with an fuel event
+        $fuelSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::HYDROCARBON)->first();
+
+        /** @var PlanetSectorEventConfig $fuelEventConfig */
+        $fuelEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::FUEL . '_3_6']);
+
+        // when fuel event is dispatched
+        $fuelEvent = new PlanetSectorEvent(
+            planetSector: $fuelSector,
+            config: $fuelEventConfig,
+        );
+        $this->eventService->callEvent($fuelEvent, $fuelEventConfig->getEventName());
+
+        // then daedalus has an fuel status
+        /** @var ChargeStatus $daedalusFuelStatus */
+        $daedalusFuelStatus = $this->daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_OXYGEN);
+        $I->assertInstanceOf(ChargeStatus::class, $daedalusFuelStatus);
+        $I->assertNotEquals(0, $daedalusFuelStatus->getCharge());
+    }
 }

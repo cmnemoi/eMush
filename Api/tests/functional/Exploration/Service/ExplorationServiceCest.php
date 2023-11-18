@@ -245,4 +245,39 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
         // then oxygen is added to Daedalus
         $I->assertEquals(8, $this->daedalus->getOxygen());
     }
+
+    public function testCloseExplorationAddFuelToDaedalus(FunctionalTester $I): void
+    {
+        // given Daedalus has 0 units of fuel
+        $this->daedalus->setFuel(0);
+
+        // given an exploration is created
+        $exploration = $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->player1, $this->player2]),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: $this->planet->getSize(),
+            reasons: ['test'],
+        );
+
+        // given exploration has found 8 units of fuel
+        /** @var ChargeStatus $fuelStatus */
+        $fuelStatus = $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->updateCharge(
+            chargeStatus: $fuelStatus,
+            delta: 8,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when exploration is finished
+        $this->explorationService->closeExploration($exploration, ['test']);
+
+        // then fuel is added to Daedalus
+        $I->assertEquals(8, $this->daedalus->getFuel());
+    }
 }

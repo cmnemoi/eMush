@@ -947,5 +947,18 @@ class StatusConfigData
                 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             ],
         ],
+        [
+            'name' => 'exploration_oxygen_default',
+            'statusName' => 'exploration_oxygen',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => 24,
+            'startCharge' => 0,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+        ],
     ];
 }

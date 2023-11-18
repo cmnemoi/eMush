@@ -52,8 +52,8 @@
       </segment>
       <segment id="oxygen_description">
         <source>nothing_to_report.oxygen_description</source>
-        <target>{target_equipment_first_letter, select,
-        vowel {La pompe d'oxygène de l'{equipment} est enrayée, il n'y a rien à en tirer !}
+        <target>{equipment_first_letter, select,
+        vowel {La pompe d'oxygène de {equipment} est enrayée, il n'y a rien à en tirer !}
         consonant {La pompe d'oxygène du {equipment} est enrayée, il n'y a rien à en tirer !}
         other {La pompe d'oxygène du {equipment} est enrayée, il n'y a rien à en tirer !}
         }</target>
@@ -206,6 +206,25 @@
       <segment id="landing_description">
         <source>disaster.landing_description</source>
         <target>{equipment} s'écrase sur le sol de {planet}. L'équipage est K.O.</target>
+      </segment>
+    </unit>
+    <unit id="oxygen">
+      <segment id="name">
+        <source>oxygen.name</source>
+        <target>Pompage</target>
+      </segment>
+      <segment id="description">
+        <source>oxygen.description</source>
+        <target>Vous gagnez {quantity} unités d'O².</target>
+      </segment>
+      <segment id="oxygen_description">
+        <source>oxygen.oxygen_description</source>
+        <target>{quantity, select,
+        8 {La pompe d'oxygène de {equipment} est prête a rendre l'âme, elle aspire péniblement {quantity} m³ d'oxygène.}
+        16 {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Apparemment la pompe de {equipment} n'est plus toute jeune… Hop, {quantity} m³ d'oxygène !}
+        24 {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Tout se passe à merveille, vous avez récupéré {quantity} m³ d'oxygène !}
+        other {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Vous récupérez {quantity} m³ d'oxygène !}
+        }</target>      
       </segment>
     </unit>
   </file>

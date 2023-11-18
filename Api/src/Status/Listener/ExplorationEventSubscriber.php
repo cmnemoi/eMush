@@ -78,6 +78,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     {
         $this->removeStuckInTheShipStatusToExplorators($event);
         $this->addLootedOxygenToDaedalus($event);
+        $this->addLootedFuelToDaedalus($event);
     }
 
     private function removeStuckInTheShipStatusToExplorators(ExplorationEvent $event): void
@@ -115,6 +116,32 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
         $this->statusService->removeStatus(
             statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
+            holder: $daedalus,
+            tags: $event->getTags(),
+            time: $event->getTime(),
+        );
+    }
+
+    private function addLootedFuelToDaedalus(ExplorationEvent $event): void
+    {
+        $daedalus = $event->getExploration()->getDaedalus();
+        /** @var ChargeStatus $fuelStatus */
+        $fuelStatus = $daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_FUEL);
+        if ($fuelStatus === null) {
+            return;
+        }
+
+        $daedalusModifierEvent = new DaedalusVariableEvent(
+            $daedalus,
+            DaedalusVariableEnum::FUEL,
+            $fuelStatus->getCharge(),
+            $event->getTags(),
+            $event->getTime(),
+        );
+        $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        $this->statusService->removeStatus(
+            statusName: DaedalusStatusEnum::EXPLORATION_FUEL,
             holder: $daedalus,
             tags: $event->getTags(),
             time: $event->getTime(),

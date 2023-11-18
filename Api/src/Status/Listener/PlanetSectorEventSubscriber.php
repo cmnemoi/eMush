@@ -31,31 +31,42 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
+            PlanetSectorEvent::FUEL => 'onFuel',
             PlanetSectorEvent::OXYGEN => 'onOxygen',
         ];
     }
 
+    public function onFuel(PlanetSectorEvent $event): void
+    {
+        $this->createLootStatus($event, DaedalusStatusEnum::EXPLORATION_FUEL);
+    }
+
     public function onOxygen(PlanetSectorEvent $event): void
+    {
+        $this->createLootStatus($event, DaedalusStatusEnum::EXPLORATION_OXYGEN);
+    }
+
+    private function createLootStatus(PlanetSectorEvent $event, string $lootName): void
     {
         $table = $event->getOutputQuantityTable();
         if (!$table) {
-            throw new \Exception('Oxygen planet sector event must have an output quantity table');
+            throw new \Exception('Planet sector event must have an output quantity table');
         }
 
-        $lootedOxygen = (int) $this->randomService->getSingleRandomElementFromProbaCollection($table);
-        $logParameters = ['quantity' => $lootedOxygen];
+        $lootedQuantity = (int) $this->randomService->getSingleRandomElementFromProbaCollection($table);
+        $logParameters = ['quantity' => $lootedQuantity];
 
-        /** @var ChargeStatus $oxygenStatus */
-        $oxygenStatus = $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
+        /** @var ChargeStatus $lootStatus */
+        $lootStatus = $this->statusService->createStatusFromName(
+            statusName: $lootName,
             holder: $event->getExploration()->getDaedalus(),
             tags: $event->getTags(),
             time: $event->getTime(),
         );
 
         $this->statusService->updateCharge(
-            chargeStatus: $oxygenStatus,
-            delta: $lootedOxygen,
+            chargeStatus: $lootStatus,
+            delta: $lootedQuantity,
             tags: $event->getTags(),
             time: $event->getTime(),
         );

@@ -15,20 +15,17 @@ Or for a fix
 ```
 git checkout -b fix-some-fix
 ```
-2- Verify coding style before creating the merge request
+2- Verify coding style before creating the merge request with `composer lint`
 
 3- Merge go through a pipeline that check unit test and syntax. Be sure to run following commands before merging:
 ```
-php vendor/bin/codecept run
-vendor/bin/php-cs-fixer fix
-vendor/bin/psalm
-. linters.sh 
+composer lint
+composer test
 ```
-In case of trouble when running tests
+In case of trouble when running tests, run following commands:
 ```
-vendor/bin/codecept clean
-vendor/bin/psalm --no-cache
-PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix
+composer codecept:clean
+composer psalm:clear-cache
 ```
 Test should cover at least 70 % of the lines. To check test coverage run:
 ```
@@ -39,18 +36,20 @@ XDEBUG_MODE=coverage php vendor/bin/codecept run  --coverage
 
 eMush uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) to generate changelogs and versioning.
 Therefore, your Merge Request title must follow the [Conventional commits convention](https://www.conventionalcommits.org/en/v1.0.0/#summary).
-In short, your MR title must be prefixed by one of the following:
+
+In short, your MR title must be prefixed by one of the following to appear in the changelog:
 - feat: A new feature
 - fix: A bug fix
+
+You can also use the following prefixes. They will not appear in the changelog, so they are only for informative purposes:
 - docs: Documentation only changes
 - style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - refactor: A code change that neither fixes a bug nor adds a feature
-- perf: A code change that improves performance
 - test: Adding missing tests or correcting existing tests
 - ci: Changes to our CI configuration files and scripts
-- chore: Other changes that don't modify src or test files
+- internal: Changes that do not affect the users. Use this for bugs that are in production, or internal tools (admin panel, composer commands etc.)
 
-5- We advise new back-end developers to add an [action](./Api/src/Action/README.md).
+5- We advise new back-end developers to add an [action](./Api/src/Action/README.md). Do not hesitate to read the [API README](./Api/README.md).
 
 ## Code of Conduct
 
@@ -109,7 +108,7 @@ further defined and clarified by project maintainers.
 ### Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at [INSERT EMAIL ADDRESS]. All
+reported by contacting the project team at `contact<@>eternaltwin.org`. All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an incident.

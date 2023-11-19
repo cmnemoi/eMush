@@ -43,19 +43,36 @@ class ModifierSubscriber implements EventSubscriberInterface
         $holder = $modifier->getModifierHolder();
         $player = null;
 
+        $parameters = [];
+        if ($author = $event->getAuthor()) {
+            $parameters = array_merge($parameters, ['target_' . $author->getLogKey() => $author->getLogName()]);
+        }
+
         switch (true) {
             case $holder instanceof Player:
                 $player = $holder;
-                $place = $holder->getPlace();
-                $parameters = [$player->getLogKey() => $player->getLogName()];
+                $place = $player->getPlace();
+                $parameters = array_merge(
+                    $parameters,
+                    [
+                        $place->getLogKey() => $place->getLogName(),
+                        $player->getLogKey() => $player->getLogName(),
+                    ]
+                );
                 break;
             case $holder instanceof Place:
                 $place = $holder;
-                $parameters = [];
+                $parameters = array_merge($parameters, [$place->getLogKey() => $place->getLogName()]);
                 break;
             case $holder instanceof GameEquipment:
                 $place = $holder->getPlace();
-                $parameters = [$holder->getLogKey() => $holder->getLogName()];
+                $parameters = array_merge(
+                    $parameters,
+                    [
+                        $place->getLogKey() => $place->getLogName(),
+                        $holder->getLogKey() => $holder->getLogName(),
+                    ]
+                );
                 break;
             case $holder instanceof Daedalus:
             default:

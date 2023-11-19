@@ -19,3 +19,4 @@ coverage:
         - src/*
     exclude:
         - src/*/DataFixtures/*
+        - stc/*/ConfigData/*

@@ -49,7 +49,7 @@ You can also use the following prefixes. They will not appear in the changelog, 
 - ci: Changes to our CI configuration files and scripts
 - internal: Changes that do not affect the users. Use this for bugs that are in production, or internal tools (admin panel, composer commands etc.)
 
-5- We advise new back-end developers to add an [action](./Api/src/Action/README.md). Do not hesitate to read the [API README](./src/Api/README.md).
+5- We advise new back-end developers to add an [action](./Api/src/Action/README.md). Do not hesitate to read the [API README](./Api/README.md).
 
 ## Code of Conduct
 

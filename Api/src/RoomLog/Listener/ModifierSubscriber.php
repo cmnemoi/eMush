@@ -43,16 +43,17 @@ class ModifierSubscriber implements EventSubscriberInterface
         $holder = $modifier->getModifierHolder();
         $player = null;
 
-        $parameters = [
-            'target_character' => $event->getAuthor()->getLogName(),
-        ];
+        $parameters = [];
+        if ($author = $event->getAuthor()) {
+            $parameters = array_merge($parameters, ['target_' . $author->getLogKey() => $author->getLogName()]);
+        }
 
         switch (true) {
             case $holder instanceof Player:
                 $player = $holder;
                 $place = $player->getPlace();
                 $parameters = array_merge(
-                    $parameters, 
+                    $parameters,
                     [
                         $place->getLogKey() => $place->getLogName(),
                         $player->getLogKey() => $player->getLogName(),
@@ -66,7 +67,7 @@ class ModifierSubscriber implements EventSubscriberInterface
             case $holder instanceof GameEquipment:
                 $place = $holder->getPlace();
                 $parameters = array_merge(
-                    $parameters, 
+                    $parameters,
                     [
                         $place->getLogKey() => $place->getLogName(),
                         $holder->getLogKey() => $holder->getLogName(),

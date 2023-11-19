@@ -49,6 +49,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const GRAVITY_CYCLE_MODIFIER = 'gravity_cycle_modifier';
     public const OXYGEN_TANK_MODIFIER = 'oxygen_tank_modifier';
     public const PLANET_SCANNER_MODIFIER = 'planet_scanner_modifier';
+    public const LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
+    public const LIQUID_MAP_MODIFIER_RANDOM_50 = 'liquid_map_modifier_random_50';
 
     public function load(ObjectManager $manager): void
     {
@@ -281,6 +283,34 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($planetScannerModifier);
 
+        $liquidMapModifier = new VariableEventModifierConfig('modifier_for_place_+1sector_revealed_on_action_scan_planet');
+        $liquidMapModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::PLACE)
+            ->setModifierName(ModifierNameEnum::LIQUID_MAP_MODIFIER)
+        ;
+        $manager->persist($liquidMapModifier);
+
+        $random50 = $this->getReference(DiseaseModifierConfigFixtures::RANDOM_50);
+
+        $liquidMapRandom50Modifier = new VariableEventModifierConfig('modifier_for_place_+1sector_revealed_on_action_scan_planet_random_50');
+        $liquidMapRandom50Modifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::PLACE)
+            ->setModifierActivationRequirements([$random50])
+        ;
+        $manager->persist($liquidMapRandom50Modifier);
+
         $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
@@ -300,6 +330,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::GRAVITY_CYCLE_MODIFIER, $gravityCycleModifier);
         $this->addReference(self::OXYGEN_TANK_MODIFIER, $oxygenTankModifier);
         $this->addReference(self::PLANET_SCANNER_MODIFIER, $planetScannerModifier);
+        $this->addReference(self::LIQUID_MAP_MODIFIER, $liquidMapModifier);
+        $this->addReference(self::LIQUID_MAP_MODIFIER_RANDOM_50, $liquidMapRandom50Modifier);
     }
 
     public function getDependencies(): array
@@ -307,6 +339,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         return [
             GameConfigFixtures::class,
             EventConfigFixtures::class,
+            DiseaseModifierConfigFixtures::class,
         ];
     }
 }

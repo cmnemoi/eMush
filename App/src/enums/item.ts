@@ -88,6 +88,7 @@ const SPORE_SUCKER = "spore_sucker";
 const ALIEN_HOLOGRAPHIC_TV = "alien_holographic_tv";
 const ORGANIC_WASTE = "organic_waste";
 const SPACESUIT = "spacesuit";
+const MAGELLAN_LIQUID_MAP = "magellan_liquid_map";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -364,6 +365,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SPACESUIT]: {
         'image': require('@/assets/images/items/space_suit.jpg')
-    }
-}
-;
+    },
+    [MAGELLAN_LIQUID_MAP]: {
+        'image': require('@/assets/images/items/magellan_liquid_map.jpg')
+    },
+};

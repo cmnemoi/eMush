@@ -2312,7 +2312,9 @@ class EquipmentConfigData
                 'repair_percent_1',
                 'sabotage_percent_1',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'gear_magellan_liquid_map_default',
+            ],
             'initStatuses' => [
                 'alien_artefact_default',
             ],

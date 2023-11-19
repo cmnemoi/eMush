@@ -10,11 +10,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
-use Mush\Modifier\Entity\GameModifier;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -25,6 +28,7 @@ final class ScanCest extends AbstractFunctionalTest
     private Action $scanActionConfig;
     private Scan $scanAction;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     private Place $bridge;
@@ -37,6 +41,7 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SCAN]);
         $this->scanAction = $I->grabService(Scan::class);
 
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->scanActionConfig->setSuccessRate(100);
@@ -112,27 +117,51 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanActionConfig->setSuccessRate(50);
 
         // given there is a planet scanner on the Daedalus
-        $planetScannerConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PLANET_SCANNER]);
-        $planetScanner = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $planetScanner
-            ->setName(EquipmentEnum::PLANET_SCANNER)
-            ->setEquipment($planetScannerConfig)
-        ;
-        $I->haveInRepository($planetScanner);
-
-        // given this planet scanner has the right modifier
-        /** @var VariableEventModifierConfig $planetScannerModifierConfig */
-        $planetScannerModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_daedalus_+30percentage_on_action_scan']);
-        $planetScannerModifier = new GameModifier($this->daedalus, $planetScannerModifierConfig);
-        $I->haveInRepository($planetScannerModifier);
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PLANET_SCANNER,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime(),
+        );
 
         // when player scans
         $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
 
         // then success rate is improved by the right amount
         $I->assertEquals(
-            expected: $this->scanActionConfig->getSuccessRate() + $planetScannerModifierConfig->getDelta(),
+            expected: $this->scanActionConfig->getSuccessRate() + 30,
             actual: $this->scanAction->getSuccessRate()
+        );
+    }
+
+    public function testScanRevealsPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
+    {
+        // given magellan's liquid map is on the bridge
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::MAGELLAN_LIQUID_MAP,
+            equipmentHolder: $this->bridge,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when player scans
+        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->execute();
+
+        // then the scanned planet should have some sections revealed
+        /** @var Planet $planet */
+        $planet = $I->grabEntityFromRepository(Planet::class);
+        $I->assertNotEmpty($planet->getRevealedSectors());
+
+        // then there should be a specific public log to tell that the map worked
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::BRIDGE,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'log' => LogEnum::LIQUID_MAP_HELPED,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
         );
     }
 }

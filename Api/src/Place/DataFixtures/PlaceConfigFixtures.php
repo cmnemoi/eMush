@@ -55,6 +55,9 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::COMMAND_TERMINAL,
                 EquipmentEnum::TABULATRIX,
             ])
+            ->setItems([
+                GearItemEnum::MAGELLAN_LIQUID_MAP,
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
 

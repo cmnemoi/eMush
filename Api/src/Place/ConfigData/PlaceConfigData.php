@@ -14,7 +14,7 @@ class PlaceConfigData
             'placeName' => 'bridge',
             'type' => 'room',
             'doors' => ['bridge_front_alpha_turret', 'bridge_front_bravo_turret', 'front_corridor_bridge'],
-            'items' => [],
+            'items' => ['magellan_liquid_map'],
             'equipments' => ['communication_center', 'astro_terminal', 'command_terminal', 'tabulatrix'],
         ],
         [

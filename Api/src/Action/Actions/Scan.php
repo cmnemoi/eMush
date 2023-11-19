@@ -68,6 +68,13 @@ final class Scan extends AttemptAction
             return;
         }
 
-        $this->planetService->createPlanet($this->player);
+        $planet = $this->planetService->createPlanet($this->player);
+
+        $numberOfSectorsToReveal = $this->getOutputQuantity();
+        if ($numberOfSectorsToReveal <= 0) {
+            return;
+        }
+
+        $this->planetService->revealPlanetSectors($planet, $numberOfSectorsToReveal);
     }
 }

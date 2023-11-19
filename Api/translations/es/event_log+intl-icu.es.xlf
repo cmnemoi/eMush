@@ -511,5 +511,11 @@
         <target>all_explorators_stucked</target>
       </segment>
     </unit>
+    <unit id="liquid_map_helped">
+      <segment id="liquid_map_helped" state="initial">
+        <source>liquid_map_helped</source>
+        <target>liquid_map_helped</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

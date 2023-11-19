@@ -599,5 +599,11 @@
         <target>The exploration came back sooner than expected: nobody had a spacesuit!</target>
       </segment>
     </unit>
+    <unit id="liquid_map_helped">
+      <segment id="liquid_map_helped" state="translated">
+        <source>liquid_map_helped</source>
+        <target>The liquid map was a great help to **{target_character}**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

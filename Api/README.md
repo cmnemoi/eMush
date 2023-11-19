@@ -24,7 +24,9 @@
             |-- Validator
         |-- Disease/
         |-- Equipment/
+        |-- Exploration/
         |-- Game/
+        |-- Hunter/
         |-- MetaGame/
         |-- Modifier/
         |-- Place/
@@ -128,7 +130,9 @@ Obvious example:
 - [Daedalus](./src/Daedalus/README.md)
 - [Disease](./src/Disease/README.md)
 - [Equipment](./src/Equipment/README.md)
+- [Exploration](./src/Exploration/README.md)
 - [Game](./src/Game/README.md)
+- [Hunter](./src/Hunter/README.md)
 - [MetaGame](./src/MetaGame/README.md)
 - [Modifier](./src/Modifier/README.md)
 - [Place](./src/Place/README.md)
@@ -160,7 +164,7 @@ You can run a unit test with
 php vendor/bin/codecept run
 ```
 
-##Xdebug
+## Xdebug
 
 ### Phpstorm
 Ensure you have the following configuration

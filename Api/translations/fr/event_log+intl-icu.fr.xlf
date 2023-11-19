@@ -623,10 +623,10 @@
       </segment>
     </unit>
     <unit id="stuck_in_the_ship">
-      <segment id="stuck_in_the_ship" state="final">
+      <segment id="stuck_in_the_ship" state="translated">
         <source>stuck_in_the_ship</source>
         <target>{character_gender, select,
-        male {*{character}** est resté à bord car il n'avait pas sa **Combinaison**.}
+        male {**{character}** est resté à bord car il n'avait pas sa **Combinaison**.}
         female {**{character}** est restée à bord car elle n'avait pas sa **Combinaison**.}
         other {**{character}** est resté à bord car il n'avait pas sa **Combinaison**.}
         }</target>

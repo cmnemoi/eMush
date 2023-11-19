@@ -47,7 +47,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         // integer seed from planet name to get always the same image for the same planet
         $planetImageId = intval(hash('crc32', $planet->getName()->toString()), 16) % self::NUMBER_OF_PLANET_IMAGES;
 
-        // Normalize full planet only under those conditions
+        // Normalize full planet only under those conditions to avoid leaking information
         // because the planet has to be normalized to be displayed in Phaser scene too
         $currentPlayerFocusedOnAstroTerminal = $currentPlayer->getFocusedTerminal()?->getName() === EquipmentEnum::ASTRO_TERMINAL;
         $currentPlayerIsExploring = $currentPlayer->isExploring();

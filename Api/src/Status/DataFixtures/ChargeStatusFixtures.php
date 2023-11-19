@@ -55,6 +55,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
     public const PASIPHAE_ARMOR = 'pasiphae_armor';
     public const TRAVELING_STATUS = 'traveling_status';
+    public const EXPLORATION_OXYGEN_STATUS = 'exploration_oxygen_status';
+    public const EXPLORATION_FUEL_STATUS = 'exploration_fuel_status';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -404,6 +406,30 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($noGravityRepaired);
 
+        $explorationOxygenStatus = new ChargeStatusConfig();
+        $explorationOxygenStatus
+            ->setStatusName(DaedalusStatusEnum::EXPLORATION_OXYGEN)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(0)
+            ->setMaxCharge(24)
+            ->setAutoRemove(false)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($explorationOxygenStatus);
+
+        $explorationFuelStatus = new ChargeStatusConfig();
+        $explorationFuelStatus
+            ->setStatusName(DaedalusStatusEnum::EXPLORATION_FUEL)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(0)
+            ->setMaxCharge(24)
+            ->setAutoRemove(false)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($explorationFuelStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -432,6 +458,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($patrolShipArmor)
             ->addStatusConfig($pasiphaeArmor)
             ->addStatusConfig($traveling)
+            ->addStatusConfig($explorationOxygenStatus)
+            ->addStatusConfig($explorationFuelStatus)
         ;
         $manager->persist($gameConfig);
 
@@ -464,6 +492,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::TRUCE_CYCLES, $asteroidCharge);
         $this->addReference(self::HAS_REJUVENATED, $rejuvenationCharge);
         $this->addReference(self::TRAVELING_STATUS, $traveling);
+        $this->addReference(self::EXPLORATION_OXYGEN_STATUS, $explorationOxygenStatus);
+        $this->addReference(self::EXPLORATION_FUEL_STATUS, $explorationFuelStatus);
     }
 
     public function getDependencies(): array

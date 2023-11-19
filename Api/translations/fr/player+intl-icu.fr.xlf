@@ -2,21 +2,21 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="player.ext">
     <unit id="healthPoint">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>healthPoint.name</source>
         <target>{quantityHealth} points de Vie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>healthPoint.description</source>
         <target>Les *Points de Vie* (:hp:) représentent votre forme actuelle. Quand la barre est vide, c'est la mort.</target>
       </segment>
     </unit>
     <unit id="moralPoint">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>moralPoint.name</source>
         <target>{quantityMoral} points de Moral</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>moralPoint.description</source>
         <target>Les *Points de Moral* (:pmo:) représentent votre espoir et votre résistance aux pires épreuves.
 //
@@ -24,11 +24,11 @@ C'est un capital précieux : pour le remonter rapidement, vous pouvez manger des
       </segment>
     </unit>
     <unit id="actionPoint">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>actionPoint.name</source>
         <target>Points d'Action et de Mouvement</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>actionPoint.description</source>
         <target>Vous gagnez des *Points d'Action* (:pa:) et des *Points de Mouvement* (:pm:) à chaque **nouveau cycle** et en **mangeant**.
 //
@@ -36,37 +36,37 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
     </unit>
     <unit id="triumph">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>triumph.name</source>
         <target>Triomphe personnel</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>triumph.description</source>
         <target>Triomphe accumulé pendant ce voyage. (en chantier)</target>
       </segment>
     </unit>
     <unit id="titles">
-      <segment id="commander.name" state="translated">
+      <segment id="commander.name" state="final">
         <source>commander.name</source>
         <target>Commandant</target>
       </segment>
-      <segment id="commander.desc" state="translated">
+      <segment id="commander.desc" state="final">
         <source>commander.desc</source>
         <target>Décide de l'orientation du Daedalus. Il est aussi le seul à pouvoir enclencher la séquence de voyage.</target>
       </segment>
-      <segment id="neron_manager.name" state="translated">
+      <segment id="neron_manager.name" state="final">
         <source>neron_manager.name</source>
         <target>Admin. NERON</target>
       </segment>
-      <segment id="neron_manager.desc" state="translated">
+      <segment id="neron_manager.desc" state="final">
         <source>neron_manager.desc</source>
         <target>L'Administrateur NERON peut accéder au BIOS de NERON. Il a également des accès privilégiés aux programmes de gestion du quotidien.</target>
       </segment>
-      <segment id="com_manager.name" state="translated">
+      <segment id="com_manager.name" state="final">
         <source>com_manager.name</source>
         <target>Resp. Communications</target>
       </segment>
-      <segment id="com_manager.desc" state="translated">
+      <segment id="com_manager.desc" state="final">
         <source>com_manager.desc</source>
         <target>Le Responsable de Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
       </segment>

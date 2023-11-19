@@ -18,6 +18,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -78,6 +79,8 @@ class NeronMessageCycleCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
         /** @var Place $room3 */
         $room3 = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room4 */

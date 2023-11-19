@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="planet.ext">
+    <unit id="nothing_to_report">
+      <segment id="name" state="translated">
+        <source>nothing_to_report.name</source>
+        <target>Nothing to report</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>nothing_to_report.description</source>
+        <target>The zone has been explored, nothing to report.</target>
+      </segment>
+      <segment id="landing_description" state="translated">
+        <source>nothing_to_report.landing_description</source>
+        <target>The landing went exactly as planned. Nothing to report!</target>
+      </segment>
+      <segment id="fruit_trees_description" state="translated">
+        <source>nothing_to_report.fruit_trees_description</source>
+        <target>The trees in this zone contain no fruit, it would seem as though you've arrived in the wrong season!</target>
+      </segment>
+      <segment id="strong_wind_description" state="translated">
+        <source>nothing_to_report.strong_wind_description</source>
+        <target>Apart from the winds tearing across the plains, there is not a damn thing happening in this zone.</target>
+      </segment>
+      <segment id="cold_description" state="translated">
+        <source>nothing_to_report.cold_description</source>
+        <target>Apart from the biting cold which is freezing your fingers and toes, there's not much of interest in this zone... Brrrr...</target>
+      </segment>
+      <segment id="swamp_description" state="translated">
+        <source>nothing_to_report.swamp_description</source>
+        <target>This swamp is incredibly calm... Nothing to report in the vicinity.</target>
+      </segment>
+      <segment id="predator_description" state="translated">
+        <source>nothing_to_report.predator_description</source>
+        <target>You spotted a dangerous Skinner. The creature wanders around nearby for a while, but decided not to attack in the end... Phew!</target>
+      </segment>
+      <segment id="hot_description" state="translated">
+        <source>nothing_to_report.hot_description</source>
+        <target>Nothing to report in this zone, apart from the three *#@µ% suns which have been wrecking expeditions since... err... When was the morning again?</target>
+      </segment>
+      <segment id="volcanic_activity_description" state="translated">
+        <source>nothing_to_report.volcanic_activity_description</source>
+        <target>A large volcano sits imposingly in the middle of the zone, at your current altitude, clouds of vapor punctuate the landscape. The smell of sulphur scorches your nostrils...</target>
+      </segment>
+      <segment id="desert_description" state="translated">
+        <source>nothing_to_report.desert_description</source>
+        <target>A large volcano sits imposingly in the middle of the zone, at your current altitude, clouds of vapor punctuate the landscape. The smell of sulphur scorches your nostrils...</target>
+      </segment>
+      <segment id="ocean_description" state="translated">
+        <source>nothing_to_report.ocean_description</source>
+        <target>Violent winds are moving the ocean. Perfect weather for a spot of surfing, but you have to save humanity instead...</target>
+      </segment>
+      <segment id="oxygen_description" state="translated">
+        <source>nothing_to_report.oxygen_description</source>
+        <target>The {equipment} oxygen pump is jammed, there's nothing coming through! </target>
+      </segment>
+      <segment id="sismic_activity_description" state="translated">
+        <source>nothing_to_report.sismic_activity_description</source>
+        <target>This planet's soil is scarred with crevasses... That's not a good sign...</target>
+      </segment>
+      <segment id="ruins_description" state="translated">
+        <source>nothing_to_report.ruins_description</source>
+        <target>For several hours, you wander around the ruined city without finding anything even slightly interesting.</target>
+      </segment>
+      <segment id="wreck_description" state="translated">
+        <source>nothing_to_report.wreck_description</source>
+        <target>The wreck is totally empty... How disappointing!</target>
+      </segment>
+      <segment id="forest_description" state="translated">
+        <source>nothing_to_report.forest_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
+      <segment id="cave_description" state="translated">
+        <source>nothing_to_report.cave_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
+      <segment id="ruminant_description" state="translated">
+        <source>nothing_to_report.ruminant_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
+      <segment id="intelligent_description" state="translated">
+        <source>nothing_to_report.intelligent_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
+      <segment id="insect_description" state="translated">
+        <source>nothing_to_report.insect_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
+      <segment id="mankarog_description" state="translated">
+        <source>nothing_to_report.mankarog_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
+      <segment id="cristal_field_description" state="translated">
+        <source>nothing_to_report.cristal_field_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
+    </unit>
+    <unit id="tired">
+      <segment id="name" state="translated">
+        <source>tired.name</source>
+        <target>Fatigue</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>tired.description</source>
+        <target>{quantity, plural,
+        one {All team members sustain # point of damage.}
+        other {All team members sustain # points of damage}
+        }</target>
+      </segment>
+      <segment id="landing_description" state="translated">
+        <source>tired.landing_description</source>
+        <target>The landing is difficult, {equipment} turns and shocks violently, the crew is sick. </target>
+      </segment>
+      <segment id="cold_description" state="translated">
+        <source>tired.cold_description</source>
+        <target>The cold is slowing your progression more and more. Members of the team are freezing up!</target>
+      </segment>
+      <segment id="hot_description" state="translated">
+        <source>tired.hot_description</source>
+        <target>There is a stifling heat here, the team members are sweating buckets!</target>
+      </segment>
+      <segment id="swamp_description" state="translated">
+        <source>tired.swamp_description</source>
+        <target>After two hours marching in slime, you can't take it anymore. Don't even let us get started on the parasites. And the heat. And the humidity. And the screaming...</target>
+      </segment>
+      <segment id="mountain_description" state="translated">
+        <source>tired.mountain_description</source>
+        <target>The expedition has turned into a climbing lesson, the team is exhausted.</target>
+      </segment>
+      <segment id="strong_wind_description" state="translated">
+        <source>tired.strong_wind_description</source>
+        <target>To advance, the team must march against a violent wind, which is slowing their progress considerably.</target>
+      </segment>
+      <segment id="desert_description" state="translated">
+        <source>tired.desert_description</source>
+        <target>Marching in this desert wasteland is tough, not to mention painful.</target>
+      </segment>
+    </unit>
+    <unit id="accident">
+      <segment id="name" state="translated">
+        <source>accident.name</source>
+        <target>Accident</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>accident.description</source>
+        <target>A team member sustains {min_quantity} and {max_quantity} points of damage.</target>
+      </segment>
+      <segment id="predator_description" state="translated">
+        <source>accident.predator_description</source>
+        <target>A savage Skinner attacked {character}... You manage to scare it and the creature ran off, but {character} was seriously wounded!</target>
+      </segment>
+      <segment id="mountain_description" state="translated">
+        <source>accident.mountain_description</source>
+        <target>{character} falls off a small ledge and lands 4 metres below... Ouch !</target>
+      </segment>
+      <segment id="ruminant_description" state="translated">
+        <source>accident.ruminant_description</source>
+        <target>When a normally docile Chew Chew enters the mix, the creature rushes {character} violently and seriously injures them before fleeing...</target>
+      </segment>
+      <segment id="insect_description" state="translated">
+        <source>accident.insect_description</source>
+        <target>A giant centipede just fell out of a tree onto {character}. {character} managed to fight it off, but not before it could begin its meal...</target>
+      </segment>
+      <segment id="cave_description" state="translated">
+        <source>accident.cave_description</source>
+        <target>Jumping to avoid a passing alien scorpion, {character} split their head open on a stalactite.</target>
+      </segment>
+      <segment id="sismic_activity_description" state="translated">
+        <source>accident.sismic_activity_description</source>
+        <target>{character} fell into a crevasse... Aaaargh!</target>
+      </segment>
+      <segment id="ruins_description" state="translated">
+        <source>accident.ruins_description</source>
+        <target>A ruined arch collapses on {character}!</target>
+      </segment>
+      <segment id="cold_description" state="translated">
+        <source>accident.cold_description</source>
+        <target>{character}'s arm is frozen, which seems to be causing them a lot of pain... there's a good chance we'll have to cut it off!</target>
+      </segment>
+      <segment id="hot_description" state="translated">
+        <source>accident.hot_description</source>
+        <target>{character} collapsed from heatstroke.</target>
+      </segment>
+      <segment id="landing_description" state="translated">
+        <source>accident.landing_description</source>
+        <target>{equipment} has a catastrophic landing on {planet}, and during the manoeuvre, {character} got hurt!</target>
+      </segment>
+    </unit>
+    <unit id="disaster">
+      <segment id="name" state="translated">
+        <source>disaster.name</source>
+        <target>Catastrophy</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>disaster.description</source>
+        <target>All team members have sustained {min_quantity} and {max_quantity} points of damage. </target>
+      </segment>
+      <segment id="landing_description" state="translated">
+        <source>disaster.landing_description</source>
+        <target>{equipment} crashed to earth on {planet}. The crew has been knocked out. </target>
+      </segment>
+    </unit>
+    <unit id="oxygen">
+      <segment id="name" state="translated">
+        <source>oxygen.name</source>
+        <target>Pump</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>oxygen.description</source>
+        <target>You have gained {quantity} units of O². </target>
+      </segment>
+      <segment id="oxygen_description" state="translated">
+        <source>oxygen.oxygen_description</source>
+        <target>{quantity, select,
+        8 {The {equipment} oxygen pump is ready to give up the ghost, it struggles to suck up {quantity} units of oxygen.}
+        16 {You begin an oxygen pumping operation to refill the reservoirs aboard the Daedalus. Apparently the {equipment} pump isn't new... Ah well, that's {quantity} units of oxygen in the bank!}
+        24 {You begin an oxygen pumping operation to refill the reservoirs aboard the Daedalus. Everything goes swimmingly, you have retrieved {quantity} units of oxygen!}
+        other {You begin an oxygen pumping operation to refill the reservoirs aboard the Daedalus. You have retrieved {quantity} units of oxygen!}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="fuel">
+      <segment id="name" state="translated">
+        <source>fuel.name</source>
+        <target>Hydrocarbon Deposits</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fuel.description</source>
+        <target>You have earned {quantity} units of Fuel.</target>
+      </segment>
+      <segment id="hydrocarbon_description" state="translated">
+        <source>fuel.hydrocarbon_description</source>
+        <target>{quantity, select,
+        3 {At the bottom of a crevasse, you find a sizeable vein of carbonite...}
+        4 {These massive muddy puddles seem to contain traces of supercarbonated tar, we have to collect some for the Daedalus.}
+        5 {Incredible! The expedition has just discovered a gigantic carbonite monolith! It'll never fit in the reactor...}
+        6 {The expedition has found a bluish-purple lake of heptanol! With all that, the Daedalus is unlikely to break down!}
+        other {You have earned {quantity} units of Fuel.}
+        }</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

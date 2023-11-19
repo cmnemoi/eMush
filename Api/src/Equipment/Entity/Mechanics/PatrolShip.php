@@ -31,6 +31,9 @@ class PatrolShip extends EquipmentMechanic
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $failedManoeuvrePlayerDamage = [];
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $numberOfExplorationSteps = 0;
+
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
@@ -143,6 +146,18 @@ class PatrolShip extends EquipmentMechanic
         }
 
         $this->failedManoeuvrePlayerDamage = $failedManoeuvrePlayerDamage;
+
+        return $this;
+    }
+
+    public function getNumberOfExplorationSteps(): int
+    {
+        return $this->numberOfExplorationSteps;
+    }
+
+    public function setNumberOfExplorationSteps(int $numberOfExplorationSteps): static
+    {
+        $this->numberOfExplorationSteps = $numberOfExplorationSteps;
 
         return $this;
     }

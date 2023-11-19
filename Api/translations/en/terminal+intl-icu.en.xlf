@@ -95,5 +95,20 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <target/>
       </segment>
     </unit>
+    <unit id="exploration">
+      <segment id="tips" state="translated">
+        <source>exploration.tips</source>
+        <target>{quantity, plural,
+        one {Exploration takes place automatically. Every minute, a new step takes place. Once you've left, there is no turning back.}
+        other {Exploration takes place automatically. Every # minutes, a new step takes place. Once you've left, there is no turning back.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="closed_exploration">
+      <segment id="tips" state="translated">
+        <source>closed_exploration.tips</source>
+        <target>Here you can read the report on your expedition.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

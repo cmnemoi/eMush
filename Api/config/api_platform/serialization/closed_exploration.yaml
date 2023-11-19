@@ -1,0 +1,16 @@
+Mush\Exploration\Entity\ClosedExploration:
+  attributes:
+    id:
+      groups: [ 'closed_exploration_read' ]
+    createdAt:
+      groups: [ 'closed_exploration_read' ]
+    updatedAt:
+      groups: [ 'closed_exploration_read' ]
+    exploratorNames:
+      groups: [ 'closed_exploration_read' ]
+    planetName:
+      groups: [ 'closed_exploration_read' ]
+    exploredSectorKeys:
+      groups: [ 'closed_exploration_read' ]
+    logs:
+      groups: [ 'closed_exploration_read' ]

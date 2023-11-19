@@ -43,6 +43,7 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -85,6 +86,8 @@ class ActionSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -307,6 +310,8 @@ class ActionSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -413,6 +418,8 @@ class ActionSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -520,6 +527,8 @@ class ActionSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -633,6 +642,8 @@ class ActionSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         $moveActionEntity = new Action();
         $moveActionEntity
@@ -809,6 +820,8 @@ class ActionSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         /** @var EquipmentConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
@@ -1007,6 +1020,8 @@ class ActionSubscriberCest
         ]);
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'alpha_bay']);
+        /** @var Place $icarusBay */
+        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         /** @var EquipmentConfig $doorConfig */
         $doorConfig = new EquipmentConfig();

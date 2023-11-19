@@ -2,11 +2,11 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="terminal.ext">
     <unit id="command_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>command_terminal.name</source>
         <target>Terminal de Commandement</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>command_terminal.tips</source>
         <target>En tant que *Commandant* vous êtes le seul à avoir accès à ce terminal.
 ////
@@ -16,53 +16,53 @@ Pour aller vers une planète il faut **connaître l'orientation et le nombre d'u
 ////
 Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète qui pourra être explorée par l'équipage et ainsi obtenir des nouvelles ressources !</target>
       </segment>
-      <segment id="orientate_daedalus" state="translated">
+      <segment id="orientate_daedalus" state="final">
         <source>command_terminal.orientate_daedalus</source>
         <target>Orientation du Daedalus</target>
       </segment>
-      <segment id="move_daedalus" state="translated">
+      <segment id="move_daedalus" state="final">
         <source>command_terminal.move_daedalus</source>
         <target>Déplacement du Daedalus</target>
       </segment>
-      <segment id="general_informations" state="translated">
+      <segment id="general_informations" state="final">
         <source>command_terminal.general_informations</source>
         <target>Informations générales</target>
       </segment>
-      <segment id="difficulty_normal" state="translated">
+      <segment id="difficulty_normal" state="final">
         <source>command_terminal.difficulty_normal</source>
         <target>Nous voyageons actuellement dans l'**Espace proche**.</target>
       </segment>
-      <segment id="difficulty_hard" state="translated">
+      <segment id="difficulty_hard" state="final">
         <source>command_terminal.difficulty_hard</source>
         <target>Nous voyageons actuellement dans l'**Espace éloigné**.</target>
       </segment>
-      <segment id="difficulty_very_hard" state="translated">
+      <segment id="difficulty_very_hard" state="final">
         <source>command_terminal.difficulty_very_hard</source>
         <target>Nous voyageons actuellement dans l'**Espace infini**.</target>
       </segment>
-      <segment id="advance_daedalus_status_ok" state="translated">
+      <segment id="advance_daedalus_status_ok" state="final">
         <source>command_terminal.advance_daedalus_status_ok</source>
         <target>Les systèmes sont fonctionnels.</target>
       </segment>
-      <segment id="advance_daedalus_status_no_fuel" state="translated">
+      <segment id="advance_daedalus_status_no_fuel" state="final">
         <source>command_terminal.advance_daedalus_status_no_fuel</source>
         <target>Il n'y a pas de fuel dans la *Chambre de Combustion* ! Le voyage infra-luminique est impossible.</target>
       </segment>
-      <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
+      <segment id="advance_daedalus_status_emergency_reactor_broken" state="final">
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
         <target>Le *Réacteur d'urgence* est en carafe ! Le voyage infra-luminique est impossible.</target>
       </segment>
-      <segment id="orientation" state="translated">
+      <segment id="orientation" state="final">
         <source>command_terminal.orientation</source>
         <target>Le Daedalus pointe actuellement vers : **{orientation}**.</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>astro_terminal.name</source>
         <target>Terminal Astro</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>astro_terminal.tips</source>
         <target>Afin de trouver une planète à explorer, il faut d'abord *réaliser un scan* pour en trouver jusqu'à un maximum de {max_planets}. Les résultats des planètes trouvées sont personnels et exclusifs à chaque personne.
 ////
@@ -72,27 +72,42 @@ Lorsque le Daedalus est arrivé et en orbite, il est impossible de scanner pour 
 ////
 Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis le Terminal de Commandement.</target>
       </segment>
-      <segment id="orientation" state="translated">
+      <segment id="orientation" state="final">
         <source>astro_terminal.orientation</source>
         <target>Direction</target>
       </segment>
-      <segment id="distance" state="translated">
+      <segment id="distance" state="final">
         <source>astro_terminal.distance</source>
         <target>Fuel requis</target>
       </segment>
-      <segment id="in_orbit" state="translated">
+      <segment id="in_orbit" state="final">
         <source>astro_terminal.in_orbit</source>
         <target>*En orbite !*</target>
       </segment>
     </unit>
     <unit id="block_of_post_it">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>block_of_post_it.name</source>
         <target>Bloc de pense-bêtes</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
+      </segment>
+    </unit>
+    <unit id="exploration">
+      <segment id="tips" state="final">
+        <source>exploration.tips</source>
+        <target>{quantity, plural,
+        one {L'exploration se déroule automatiquement. Toutes les minutes, une nouvelle étape se déroule. Une fois parti, impossible de faire demi-tour.}
+        other {L'exploration se déroule automatiquement. Toutes les # minutes, une nouvelle étape se déroule. Une fois parti, impossible de faire demi-tour.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="closed_exploration">
+      <segment id="tips" state="final">
+        <source>closed_exploration.tips</source>
+        <target>Ici vous pouvez lire le rapport de l'expédition que vous avez réalisée.</target>
       </segment>
     </unit>
   </file>

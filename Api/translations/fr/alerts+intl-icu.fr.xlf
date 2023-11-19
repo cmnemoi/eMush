@@ -2,145 +2,145 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="alerts.ext">
     <unit id="broken_doors">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>broken_doors.name</source>
         <target>{quantity, plural, one {# Porte cassée} other {# Portes cassées}}</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>broken_doors.description</source>
         <target>Contactez un technicien ou mettez-vous au boulot !</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="final">
         <source>broken_doors.report</source>
         <target>**{character}** a reporté une porte bloquée {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="fires">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>fires.name</source>
         <target>{quantity, plural, one {# Incendie en cours} other {# Incendies en cours}}</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fires.description</source>
         <target>Prévenez une personne responsable ou attrapez un extincteur !</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="final">
         <source>fires.report</source>
         <target>**{character}** a reporté un incendie {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="broken_equipments">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>broken_equipments.name</source>
         <target>{quantity, plural, one {# Équipement hors-service} other {# Équipements hors-service}}</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>broken_equipments.description</source>
         <target>Contactez un technicien ou mettez-vous au boulot !</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="final">
         <source>broken_equipments.report</source>
         <target>**{character}** a reporté un équipement endommagé {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="no_gravity">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>no_gravity.name</source>
         <target>Pas de simulateur de gravité</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_gravity.description</source>
         <target>Le Simulateur de gravité n'est pas démarré. Chaque gain de Points de mouvement est réduit de 1 :pm: ! Réparez-le pour que NERON puisse rétablir la gravité au cycle d'après.</target>
       </segment>
     </unit>
     <unit id="gravity_reboot">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>gravity_reboot.name</source>
         <target>Pas de simulateur de gravité</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>gravity_reboot.description</source>
         <target>Le Simulateur de gravité est en train de redémarrer. Chaque gain de Points de mouvement est réduit de 1 :pm: !</target>
       </segment>
     </unit>
     <unit id="low_oxygen">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>low_oxygen.name</source>
         <target>Asphyxie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>low_oxygen.description</source>
         <target>**Moins de 1 jour** d'Oxygène en réserve !
                         Si la situation ne change pas rapidement, l'équipage va mourir.</target>
       </segment>
     </unit>
     <unit id="outcast">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>outcast.name</source>
         <target>Paria</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>outcast.description</source>
         <target>On vous a jeté l'anathème. Un poids pèse sur vos épaules. On vous montre du doigt, on vous épie, on vous regarde attentivement. Vous êtes le bouc-émissaire. La victime. Vos actions sont plus dures.</target>
       </segment>
     </unit>
     <unit id="lost_crewmate">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>lost_crewmate.name</source>
         <target>Équipier perdu</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>lost_crewmate.description</source>
         <target>Un de vos co-équipier est perdu sur une planète, vous devriez monter une mission pour le rapatrier !</target>
       </segment>
     </unit>
     <unit id="low_hull">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>low_hull.name</source>
         <target>{quantity}% d'armure</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>low_hull.description</source>
         <target>La structure du vaisseau est mal en point. Contactez un technicien ou mettez-vous au boulot !</target>
       </segment>
     </unit>
     <unit id="hunger">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>hunger.name</source>
         <target>Famine</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>hunger.description</source>
         <target>L'équipage est gravement **affamé**. Il vous faut trouver quelque chose à manger.</target>
       </segment>
     </unit>
     <unit id="communication_down">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>communication_down.name</source>
         <target>Pas de liaison</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>communication_down.description</source>
         <target>Le Daedalus n'a pas de liaison de communication avec Sol !
                         Garder un lien avec Sol est important pour le moral du groupe et essentiel pour survivre.</target>
       </segment>
     </unit>
     <unit id="hunter">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>hunter.name</source>
         <target>{quantity, plural, one {# Hunter nous attaque !} other {# Hunters nous attaquent !}}</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>hunter.description</source>
         <target>Prévenez la chasse ou prenez la défense en main !</target>
       </segment>
     </unit>
     <unit id="no_alert">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>no_alert.name</source>
         <target>Calme</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>no_alert.description</source>
         <target>Pas d'alertes en cours : l'équipage peut être tranquille.</target>
       </segment>

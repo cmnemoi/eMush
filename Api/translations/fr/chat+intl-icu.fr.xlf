@@ -2,83 +2,83 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="chat.ext">
     <unit id="tips">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>tips.name</source>
         <target>Conseils</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>tips.description</source>
         <target>Trouvez ici des **conseils pratiques** pour la vie quotidienne (sponsorisé par mangerbouger.fr).</target>
       </segment>
     </unit>
     <unit id="room_log">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>room_log.name</source>
         <target>Événements salle</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>room_log.description</source>
         <target>Ici vous avez l'historique des **événements de la salle où vous vous trouvez actuellement**.
 S'il y a une caméra, les actions discrètes et furtives seront révélées.</target>
       </segment>
     </unit>
     <unit id="public">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>public.name</source>
         <target>Discussion</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>public.description</source>
         <target>Le canal de discussion est indispensable pour s'organiser avec l'équipage.
 Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
     </unit>
     <unit id="private">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>private.name</source>
         <target>Canal privé</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>private.description</source>
         <target>Les canaux de discussion privés permettent de manigancer à l'abri des oreilles indiscrètes.
                     **Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
       </segment>
     </unit>
     <unit id="mush">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mush.name</source>
         <target>Canal Mush</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mush.description</source>
         <target>Ssshh, personne nous entend ici... Le Canal Mush est le *canal privé* pour les adhérents au **Mush** :mush:.</target>
       </segment>
     </unit>
     <unit id="new">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>new.name</source>
         <target>Canal privé</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>new.description</source>
         <target>Votre talkie dispose d'un canal privé libre. Cliquez ici pour ouvrir une conversation privée avec un ou plusieurs camarades qui possèdent un :talkie: **talkie-walkie**.
 **Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
       </segment>
     </unit>
     <unit id="message_date">
-      <segment id="message_date.less_minute" state="translated">
+      <segment id="message_date.less_minute" state="final">
         <source>message_date.less_minute</source>
         <target>à l'instant</target>
       </segment>
-      <segment id="message_date.more_minute" state="translated">
+      <segment id="message_date.more_minute" state="final">
         <source>message_date.more_minute</source>
         <target>{quantity}min</target>
       </segment>
-      <segment id="message_date.more_hour" state="translated">
+      <segment id="message_date.more_hour" state="final">
         <source>message_date.more_hour</source>
         <target>~{quantity}h</target>
       </segment>
-      <segment id="message_date.more_day" state="translated">
+      <segment id="message_date.more_day" state="final">
         <source>message_date.more_day</source>
         <target>~{quantity}j</target>
       </segment>

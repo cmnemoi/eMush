@@ -2508,7 +2508,7 @@ class EquipmentConfigData
             'actions' => [
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => ['patrol_ship_icarus_default'],
             'initStatuses' => [],
         ],
         [

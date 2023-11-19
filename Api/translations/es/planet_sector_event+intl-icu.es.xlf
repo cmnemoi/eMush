@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="planet.ext">
+    <unit id="nothing_to_report">
+      <segment id="name" state="initial">
+        <source>nothing_to_report.name</source>
+        <target>nothing_to_report.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>nothing_to_report.description</source>
+        <target>nothing_to_report.description</target>
+      </segment>
+      <segment id="landing_description" state="initial">
+        <source>nothing_to_report.landing_description</source>
+        <target>nothing_to_report.landing_description</target>
+      </segment>
+      <segment id="fruit_trees_description" state="initial">
+        <source>nothing_to_report.fruit_trees_description</source>
+        <target>nothing_to_report.fruit_trees_description</target>
+      </segment>
+      <segment id="strong_wind_description" state="initial">
+        <source>nothing_to_report.strong_wind_description</source>
+        <target>nothing_to_report.strong_wind_description</target>
+      </segment>
+      <segment id="cold_description" state="initial">
+        <source>nothing_to_report.cold_description</source>
+        <target>nothing_to_report.cold_description</target>
+      </segment>
+      <segment id="swamp_description" state="initial">
+        <source>nothing_to_report.swamp_description</source>
+        <target>nothing_to_report.swamp_description</target>
+      </segment>
+      <segment id="predator_description" state="initial">
+        <source>nothing_to_report.predator_description</source>
+        <target>nothing_to_report.predator_description</target>
+      </segment>
+      <segment id="hot_description" state="initial">
+        <source>nothing_to_report.hot_description</source>
+        <target>nothing_to_report.hot_description</target>
+      </segment>
+      <segment id="volcanic_activity_description" state="initial">
+        <source>nothing_to_report.volcanic_activity_description</source>
+        <target>nothing_to_report.volcanic_activity_description</target>
+      </segment>
+      <segment id="desert_description" state="initial">
+        <source>nothing_to_report.desert_description</source>
+        <target>nothing_to_report.desert_description</target>
+      </segment>
+      <segment id="ocean_description" state="initial">
+        <source>nothing_to_report.ocean_description</source>
+        <target>nothing_to_report.ocean_description</target>
+      </segment>
+      <segment id="oxygen_description" state="initial">
+        <source>nothing_to_report.oxygen_description</source>
+        <target>nothing_to_report.oxygen_description</target>
+      </segment>
+      <segment id="sismic_activity_description" state="initial">
+        <source>nothing_to_report.sismic_activity_description</source>
+        <target>nothing_to_report.sismic_activity_description</target>
+      </segment>
+      <segment id="ruins_description" state="initial">
+        <source>nothing_to_report.ruins_description</source>
+        <target>nothing_to_report.ruins_description</target>
+      </segment>
+      <segment id="wreck_description" state="initial">
+        <source>nothing_to_report.wreck_description</source>
+        <target>nothing_to_report.wreck_description</target>
+      </segment>
+      <segment id="forest_description" state="initial">
+        <source>nothing_to_report.forest_description</source>
+        <target>nothing_to_report.forest_description</target>
+      </segment>
+      <segment id="cave_description" state="initial">
+        <source>nothing_to_report.cave_description</source>
+        <target>nothing_to_report.cave_description</target>
+      </segment>
+      <segment id="ruminant_description" state="initial">
+        <source>nothing_to_report.ruminant_description</source>
+        <target>nothing_to_report.ruminant_description</target>
+      </segment>
+      <segment id="intelligent_description" state="initial">
+        <source>nothing_to_report.intelligent_description</source>
+        <target>nothing_to_report.intelligent_description</target>
+      </segment>
+      <segment id="insect_description" state="initial">
+        <source>nothing_to_report.insect_description</source>
+        <target>nothing_to_report.insect_description</target>
+      </segment>
+      <segment id="mankarog_description" state="initial">
+        <source>nothing_to_report.mankarog_description</source>
+        <target>nothing_to_report.mankarog_description</target>
+      </segment>
+      <segment id="cristal_field_description" state="initial">
+        <source>nothing_to_report.cristal_field_description</source>
+        <target>nothing_to_report.cristal_field_description</target>
+      </segment>
+    </unit>
+    <unit id="tired">
+      <segment id="name" state="initial">
+        <source>tired.name</source>
+        <target>tired.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>tired.description</source>
+        <target>tired.description</target>
+      </segment>
+      <segment id="landing_description" state="initial">
+        <source>tired.landing_description</source>
+        <target>tired.landing_description</target>
+      </segment>
+      <segment id="cold_description" state="initial">
+        <source>tired.cold_description</source>
+        <target>tired.cold_description</target>
+      </segment>
+      <segment id="hot_description" state="initial">
+        <source>tired.hot_description</source>
+        <target>tired.hot_description</target>
+      </segment>
+      <segment id="swamp_description" state="initial">
+        <source>tired.swamp_description</source>
+        <target>tired.swamp_description</target>
+      </segment>
+      <segment id="mountain_description" state="initial">
+        <source>tired.mountain_description</source>
+        <target>tired.mountain_description</target>
+      </segment>
+      <segment id="strong_wind_description" state="initial">
+        <source>tired.strong_wind_description</source>
+        <target>tired.strong_wind_description</target>
+      </segment>
+      <segment id="desert_description" state="initial">
+        <source>tired.desert_description</source>
+        <target>tired.desert_description</target>
+      </segment>
+    </unit>
+    <unit id="accident">
+      <segment id="name" state="initial">
+        <source>accident.name</source>
+        <target>accident.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>accident.description</source>
+        <target>accident.description</target>
+      </segment>
+      <segment id="predator_description" state="initial">
+        <source>accident.predator_description</source>
+        <target>accident.predator_description</target>
+      </segment>
+      <segment id="mountain_description" state="initial">
+        <source>accident.mountain_description</source>
+        <target>accident.mountain_description</target>
+      </segment>
+      <segment id="ruminant_description" state="initial">
+        <source>accident.ruminant_description</source>
+        <target>accident.ruminant_description</target>
+      </segment>
+      <segment id="insect_description" state="initial">
+        <source>accident.insect_description</source>
+        <target>accident.insect_description</target>
+      </segment>
+      <segment id="cave_description" state="initial">
+        <source>accident.cave_description</source>
+        <target>accident.cave_description</target>
+      </segment>
+      <segment id="sismic_activity_description" state="initial">
+        <source>accident.sismic_activity_description</source>
+        <target>accident.sismic_activity_description</target>
+      </segment>
+      <segment id="ruins_description" state="initial">
+        <source>accident.ruins_description</source>
+        <target>accident.ruins_description</target>
+      </segment>
+      <segment id="cold_description" state="initial">
+        <source>accident.cold_description</source>
+        <target>accident.cold_description</target>
+      </segment>
+      <segment id="hot_description" state="initial">
+        <source>accident.hot_description</source>
+        <target>accident.hot_description</target>
+      </segment>
+      <segment id="landing_description" state="initial">
+        <source>accident.landing_description</source>
+        <target>accident.landing_description</target>
+      </segment>
+    </unit>
+    <unit id="disaster">
+      <segment id="name" state="initial">
+        <source>disaster.name</source>
+        <target>disaster.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>disaster.description</source>
+        <target>disaster.description</target>
+      </segment>
+      <segment id="landing_description" state="initial">
+        <source>disaster.landing_description</source>
+        <target>disaster.landing_description</target>
+      </segment>
+    </unit>
+    <unit id="oxygen">
+      <segment id="name" state="initial">
+        <source>oxygen.name</source>
+        <target>oxygen.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>oxygen.description</source>
+        <target>oxygen.description</target>
+      </segment>
+      <segment id="oxygen_description" state="initial">
+        <source>oxygen.oxygen_description</source>
+        <target>oxygen.oxygen_description</target>
+      </segment>
+    </unit>
+    <unit id="fuel">
+      <segment id="name" state="initial">
+        <source>fuel.name</source>
+        <target>fuel.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>fuel.description</source>
+        <target>fuel.description</target>
+      </segment>
+      <segment id="hydrocarbon_description" state="initial">
+        <source>fuel.hydrocarbon_description</source>
+        <target>fuel.hydrocarbon_description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

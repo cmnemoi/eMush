@@ -1,0 +1,19 @@
+Mush\Exploration\Entity\ClosedExploration:
+  shortName: 'ClosedExploration'
+  description: 'eMush Closed Explorations'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'closed_exploration_read' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get: 
+      security: 'is_granted("ROLE_USER") and (is_granted("DAEDALUS_IS_FINISHED", object) or is_granted("IS_AN_EXPLORATOR", object) or is_granted("IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED", object))'
+  properties:
+    logs:
+      subresource:
+        resourceClass: 'Mush\Exploration\Entity\ExplorationLog'
+        collection: true

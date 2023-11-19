@@ -53,4 +53,10 @@ export default defineComponent ({
     padding: 1px 0 !important;
 }
 
+.cycle-events {
+    &::v-deep(a) {
+        color: $green;
+    }
+}
+
 </style>

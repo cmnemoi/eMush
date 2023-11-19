@@ -165,6 +165,11 @@ const routes = [
         component: NewsPage
     },
     {
+        path: "/expPerma/:id",
+        name: "ClosedExpeditionPage",
+        component: () => import("@/components/Game/ClosedExpeditionPage.vue")
+    },
+    {
         path: "/token",
         name: "Token",
         component: Token

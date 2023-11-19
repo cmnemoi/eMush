@@ -39,6 +39,9 @@ class Planet implements LogParameterInterface
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'planets')]
     private Player $player;
 
+    #[ORM\OneToOne(targetEntity: Exploration::class, mappedBy: 'planet', cascade: ['remove'], orphanRemoval: true)]
+    private ?Exploration $exploration = null;
+
     public function __construct(Player $player)
     {
         $this->player = $player;
@@ -112,6 +115,11 @@ class Planet implements LogParameterInterface
         return $this;
     }
 
+    public function hasSectorByName(string $name): bool
+    {
+        return $this->sectors->exists(fn (int $key, PlanetSector $sector) => $sector->getName() === $name);
+    }
+
     /** @return Collection<int, PlanetSector> */
     public function getRevealedSectors(): Collection
     {
@@ -124,9 +132,33 @@ class Planet implements LogParameterInterface
         return $this->sectors->filter(fn (PlanetSector $sector) => !$sector->isRevealed());
     }
 
+    /** @return Collection<int, PlanetSector> */
+    public function getVisitedSectors(): Collection
+    {
+        return $this->sectors->filter(fn (PlanetSector $sector) => $sector->isVisited());
+    }
+
+    /** @return Collection<int, PlanetSector> */
+    public function getUnvisitedSectors(): Collection
+    {
+        return $this->sectors->filter(fn (PlanetSector $sector) => !$sector->isVisited());
+    }
+
     public function getPlayer(): Player
     {
         return $this->player;
+    }
+
+    public function getExploration(): ?Exploration
+    {
+        return $this->exploration;
+    }
+
+    public function setExploration(?Exploration $exploration): self
+    {
+        $this->exploration = $exploration;
+
+        return $this;
     }
 
     public function getDaedalus(): Daedalus

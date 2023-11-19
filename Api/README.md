@@ -24,7 +24,9 @@
             |-- Validator
         |-- Disease/
         |-- Equipment/
+        |-- Exploration/
         |-- Game/
+        |-- Hunter/
         |-- MetaGame/
         |-- Modifier/
         |-- Place/
@@ -128,7 +130,9 @@ Obvious example:
 - [Daedalus](./src/Daedalus/README.md)
 - [Disease](./src/Disease/README.md)
 - [Equipment](./src/Equipment/README.md)
+- [Exploration](./src/Exploration/README.md)
 - [Game](./src/Game/README.md)
+- [Hunter](./src/Hunter/README.md)
 - [MetaGame](./src/MetaGame/README.md)
 - [Modifier](./src/Modifier/README.md)
 - [Place](./src/Place/README.md)
@@ -137,6 +141,18 @@ Obvious example:
 - [Status](./src/Status/README.md)
 - [User](./src/User/README.md)
 
+
+## Useful commands
+- `composer reset` : Reset database, load data and fixtures and create a new Daedalus. Use this for a fresh start
+- `composer load-data` / `composer load-fixtures` : Load data / fixtures
+- `composer fill-daedalus` : Fill a Daedalus with players
+- `composer lint` : Lint the code
+- `composer test` : Run the tests
+- `composer test:action` : Run the tests for the Action module
+- `composer generate-migrations` / `composer diff` : Generate migrations by comparing the database schema with your code entities
+- `composer apply-migrations` : Run the migrations to update the database schema
+
+Please find more commands in the [composer.json](./composer.json) file.
 
 
 ## Tests Codeception
@@ -148,7 +164,7 @@ You can run a unit test with
 php vendor/bin/codecept run
 ```
 
-##Xdebug
+## Xdebug
 
 ### Phpstorm
 Ensure you have the following configuration

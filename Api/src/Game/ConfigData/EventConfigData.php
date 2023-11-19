@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -217,6 +218,60 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => 'change.variable_player_1_satiety',
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::ACCIDENT . '_3_5',
+            'eventName' => PlanetSectorEvent::ACCIDENT,
+            'outputQuantityTable' => [
+                3 => 1,
+                4 => 1,
+                5 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::DISASTER . '_3_5',
+            'eventName' => PlanetSectorEvent::DISASTER,
+            'outputQuantityTable' => [
+                3 => 1,
+                4 => 1,
+                5 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::NOTHING_TO_REPORT,
+            'eventName' => PlanetSectorEvent::NOTHING_TO_REPORT,
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::TIRED . '_2',
+            'eventName' => PlanetSectorEvent::TIRED,
+            'outputQuantityTable' => [
+                2 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::OXYGEN . '_8_16_24',
+            'eventName' => PlanetSectorEvent::OXYGEN,
+            'outputQuantityTable' => [
+                24 => 4,
+                16 => 3,
+                8 => 2,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL . '_3_6',
+            'eventName' => PlanetSectorEvent::FUEL,
+            'outputQuantityTable' => [
+                3 => 4,
+                4 => 3,
+                5 => 2,
+                6 => 1,
+            ],
         ],
     ];
 }

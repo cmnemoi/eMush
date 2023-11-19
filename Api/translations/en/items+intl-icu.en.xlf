@@ -796,7 +796,7 @@ Adds 2 Movement points during trips :pa:-:pm: (doesn't apply if you have the Spr
         <source>antigrav_scooter.examine</source>
         <target>The Anti-Gravity Scooter allows you to move around more quickly.
 //
-Adds 2 Movement points during trips :pa:-:pm: (doesn't apply if you have the Sprinter skill).
+Adds 2 Movement points during trips :pa:-:pm: (doesn't apply if you have the **Sprinter** skill).
 //
 The latest model from McFloat Inc. With McFloat scooters, float around effortlessly!</target>
       </segment>

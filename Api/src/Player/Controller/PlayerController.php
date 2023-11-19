@@ -304,4 +304,43 @@ class PlayerController extends AbstractGameController
 
         return $this->view(['message' => 'Cycle change triggered successfully'], Response::HTTP_OK);
     }
+
+    /**
+     * Trigger exploration cycle change.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The player id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Tag(name="Player")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/{id}/exploration-cycle-change")
+     *
+     * @Rest\View()
+     */
+    public function triggerExplorationCycleChange(Player $player): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+
+        if (!$player->getExploration()) {
+            return $this->view(['message' => 'You have to be in an exploration to do that!'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($player->getDaedalus()->isCycleChange()) {
+            return $this->view(['message' => 'Daedalus is changing cycle'], Response::HTTP_CONFLICT);
+        }
+        $this->cycleService->handleCycleChange(new \DateTime(), $player->getDaedalus());
+        $numberOfCycles = $this->cycleService->handleExplorationCycleChange(new \DateTime(), $player->getExploration());
+
+        return $this->view(['message' => "Exploration cycle change triggered successfully ({$numberOfCycles} cycles elapsed)"], Response::HTTP_OK);
+    }
 }

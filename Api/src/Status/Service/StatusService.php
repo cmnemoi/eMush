@@ -117,10 +117,11 @@ class StatusService implements StatusServiceInterface
         \DateTime $time,
         StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
-    ): ?Status {
-        // if holder already have this status, abort
-        if ($holder->hasStatus($statusConfig->getStatusName())) {
-            return null;
+    ): Status {
+        // if holder already have this status, abort and return existing status
+        $status = $holder->getStatusByName($statusConfig->getStatusName());
+        if ($status !== null) {
+            return $status;
         }
 
         // Create the entity
@@ -162,10 +163,11 @@ class StatusService implements StatusServiceInterface
         \DateTime $time,
         StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
-    ): ?Status {
-        // if holder already have this status, abort
-        if ($holder->hasStatus($statusName)) {
-            return null;
+    ): Status {
+        // if holder already have this status, abort and return existing status
+        $status = $holder->getStatusByName($statusName);
+        if ($status !== null) {
+            return $status;
         }
 
         $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $holder->getDaedalus());

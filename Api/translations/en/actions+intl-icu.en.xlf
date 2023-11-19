@@ -1004,5 +1004,25 @@ Or you simply need some fresh air.... or not.</target>
         <target>Start the engine to set the ship moving in accordance with the fuel ready.</target>
       </segment>
     </unit>
+    <unit id="takeoff_to_planet">
+      <segment id="name" state="translated">
+        <source>takeoff_to_planet.name</source>
+        <target>Take off: {planet}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>takeoff_to_planet.description</source>
+        <target>Take off to explore a planet in the Icarus exploration craft.</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_to_planet_patrol_ship">
+      <segment id="name" state="translated">
+        <source>takeoff_to_planet_patrol_ship.name</source>
+        <target>Land: {planet}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>takeoff_to_planet_patrol_ship.description</source>
+        <target>You can land on a planet with a patrol ship… *At your own risk...*</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -95,7 +95,8 @@
 			"infection": "Succumbed to a massive infection!",
 			"mankarog": "Killed by a crafty Mankarog!",
 			"no_infirmerie": "Death lost in infinite space!",
-			"suicide": "Suicide with panache!"
+			"suicide": "Suicide with panache!",
+			"patrol_ship_explosion": "A failed manoeuvre!"
 		}
 	},
 	"userBanner": {
@@ -141,7 +142,8 @@
 			"infection": "Sepsis",
 			"mankarog": "Overly curious adventurer",
 			"no_infirmerie": "No medlab available",
-			"suicide": "Suicide"
+			"suicide": "Suicide",
+			"patrol_ship_explosion": "Pulverized patrol ship"
 		}
 	},
 	"login": "Login",
@@ -539,6 +541,16 @@
 			"closeAllPlayers": "Close (archive) all players",
 			"closePlayer": "Close (archive) this player",
 			"quarantine": "Put in quarantine"
+		},
+		"neronAnnouncement": {
+			"destroyAndUpdate": "Destruction and update",
+			"destroyAndUpdateContent": "**Alert**: Daedalus is doomed to imminent destruction. Indeed, the almighty developers have planned a major **game update**. *Get ready for creative new ways to meet your end!*",
+			"maintenance": "Maintenance",
+			"maintenanceContent": "Dear crew, get ready for **game maintenance** in *1 cycle*. Use this time to contemplate the existential void or reflect on your life choices: *the fun will continue after the technical break... Or not*.",
+			"frenchAnnouncement": "French announcement",
+			"englishAnnouncement": "English announcement",
+			"sendNeronAnnouncement": "Send a NERON announcement",
+			"sendNeronAnnouncementToAllDaedaluses": "Send a NERON announcement to all Daedalus"
 		}
 	},
 	"charSelection": {
@@ -554,6 +566,9 @@
 			"showMessageChildren": "Display {count} answer | Display {count} answers",
 			"hideMessageChildren": "Hide {count} answer | Hide {count} answers",
 			"newCycle": "New cycle"
+		},
+		"exploration": {
+			"newStep": "New step"
 		}
 	},
 	"newsPage": {
@@ -578,6 +593,7 @@
 			"502": "502 Bad Gateway",
 			"503": "503 Service unavailable"
 		},
+		"cannotAccessExploration": "You're not allowed to see this expedition. It's a private ship, aren't you ashamed?",
 		"consultCommunity": "If the problem persists, please check with the community on <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> or the <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
 		"Daedalus changing cycle": "Daedalus is changing cycle.",
 		"gameInMaintenance": "The game is under maintenance, please come back later!",

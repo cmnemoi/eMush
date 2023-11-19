@@ -219,6 +219,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         )->isEmpty();
     }
 
+    public function getEquipmentByName(string $name): ?GameEquipment
+    {
+        return $this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first() ?: null;
+    }
+
     public function getDoors(): Collection
     {
         return $this->doors;

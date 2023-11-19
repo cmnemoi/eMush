@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Exploration\Repository\PlanetSectorRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -27,6 +28,8 @@ class RandomServiceTest extends TestCase
 {
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
+    /** @var PlanetSectorRepository|Mockery\Mock */
+    private PlanetSectorRepository $planetSectorRepository;
 
     private RandomService $service;
 
@@ -36,8 +39,9 @@ class RandomServiceTest extends TestCase
     public function before()
     {
         $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
+        $this->planetSectorRepository = \Mockery::mock(PlanetSectorRepository::class);
 
-        $this->service = new RandomService($this->gameEquipmentRepository);
+        $this->service = new RandomService($this->gameEquipmentRepository, $this->planetSectorRepository);
     }
 
     /**

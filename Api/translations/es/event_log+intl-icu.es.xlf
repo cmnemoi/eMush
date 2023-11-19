@@ -493,5 +493,23 @@
         <target>patrol_damage</target>
       </segment>
     </unit>
+    <unit id="stuck_in_the_ship">
+      <segment id="stuck_in_the_ship" state="initial">
+        <source>stuck_in_the_ship</source>
+        <target>stuck_in_the_ship</target>
+      </segment>
+    </unit>
+    <unit id="exploration_finished">
+      <segment id="exploration_finished" state="initial">
+        <source>exploration_finished</source>
+        <target>exploration_finished</target>
+      </segment>
+    </unit>
+    <unit id="all_explorators_stucked">
+      <segment id="all_explorators_stucked" state="initial">
+        <source>all_explorators_stucked</source>
+        <target>all_explorators_stucked</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

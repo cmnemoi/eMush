@@ -3,6 +3,7 @@
 namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 
 /**
  * Class storing the various information needed to create events.
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     'variable_event_config' => VariableEventConfig::class,
+    'planet_sector_event_config' => PlanetSectorEventConfig::class,
 ])]
 abstract class AbstractEventConfig
 {

@@ -89,5 +89,17 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <target>block_of_post_it.tips</target>
       </segment>
     </unit>
+    <unit id="exploration">
+      <segment id="tips" state="initial">
+        <source>exploration.tips</source>
+        <target>exploration.tips</target>
+      </segment>
+    </unit>
+    <unit id="closed_exploration">
+      <segment id="tips" state="initial">
+        <source>closed_exploration.tips</source>
+        <target>closed_exploration.tips</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

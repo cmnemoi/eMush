@@ -8,6 +8,7 @@
             <div class="game-content">
                 <CharPanel :player="player" />
                 <TerminalPanel v-if="player.isFocused()" :player="player" />
+                <ExpeditionPanel v-else-if="player.isExploring()" :player="player" />
                 <ShipPanel v-else :room="player.room" :player="player" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
             </div>
@@ -32,6 +33,7 @@ import InvitationPrivateChannelMenu from "@/components/Game/Communications/Invit
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import TerminalPanel from "@/components/Game/Terminals/TerminalPanel.vue";
+import ExpeditionPanel from "@/components/Game/ExpeditionPanel.vue";
 
 
 export default defineComponent ({
@@ -44,7 +46,8 @@ export default defineComponent ({
         ShipPanel,
         CommsPanel,
         ProjectsPanel,
-        TerminalPanel
+        TerminalPanel,
+        ExpeditionPanel
     },
     data() {
         return {

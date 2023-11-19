@@ -9,6 +9,7 @@ import { NameDescObject } from "@/entities/NameDescObject";
 import { SpaceBattle } from "./SpaceBattle";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { Terminal } from "@/entities/Terminal";
+import { Exploration } from "@/entities/Exploration";
 
 export class Player {
     public id!: number;
@@ -28,6 +29,7 @@ export class Player {
     public spaceBattle: SpaceBattle|null;
     public terminal: Terminal|null;
     public titles: Array<NameDescObject>;
+    public exploration: Exploration|null;
 
     public constructor() {
         this.gameStatus = null;
@@ -46,6 +48,7 @@ export class Player {
         this.spaceBattle = null;
         this.terminal = null;
         this.titles = [];
+        this.exploration = null;
     }
 
     public load(object: any): Player {
@@ -117,6 +120,9 @@ export class Player {
                     this.titles.push(title);
                 });
             }
+            if (object.exploration) {
+                this.exploration = (new Exploration()).load(object.exploration);
+            }
         }
 
         return this;
@@ -167,6 +173,16 @@ export class Player {
     public isFocusedOnTerminal(terminal: string): boolean {
         return this.statuses.filter((status: Status) => {
             return status.key === StatusPlayerNameEnum.FOCUSED && status.target?.key === terminal;
+        }).length > 0;
+    }
+
+    public isExploring(): boolean {
+        return this.exploration !== null;
+    }
+
+    public hasStatusByKey(key: string): boolean {
+        return this.statuses.filter((status: Status) => {
+            return status.key === key;
         }).length > 0;
     }
 }

@@ -69,5 +69,17 @@
         <target>West</target>
       </segment>
     </unit>
+    <unit id="here">
+      <segment id="here" state="translated">
+        <source>here</source>
+        <target>here</target>
+      </segment>
+    </unit>
+    <unit id="estimated_duration">
+      <segment id="estimated_duration" state="translated">
+        <source>estimated_duration</source>
+        <target>Estimated return in {duration} min.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

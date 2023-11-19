@@ -1,84 +1,117 @@
 <template>
-    <div class="panel">
-        <TerminalTips />
+    <div class="panel" v-if="exploration">
+        <TerminalTips :content="exploration.tips" />
         <section class="planet">
-            <h3>Goulidon</h3>
-            <span class="estimate">Retour estimé dans: 40 min.</span>
+            <h3>{{ exploration.planet.name }}</h3>
+            <span class="estimate">{{ exploration.estimatedDuration }}</span>
             <div class="card">
                 <img class="planet-img" src="@/assets/images/astro/planet_unknown.png">
                 <ul class="crew">
-                    <li>
-                        <img src="@/assets/images/char/body/finola.png" alt="Finola">
-                        <p><img src="@/assets/images/lp.png"> 12</p>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/char/body/terrence.png" alt="Terrence">
-                        <p><img src="@/assets/images/lp.png"> 4</p>
-                    </li>
-                    <li>
-                        <img src="@/assets/images/char/body/chun.png" alt="Chun">
-                        <p><img src="@/assets/images/dead.png"></p>
+                    <li v-for="(explorator, i) in exploration.explorators" :key="i">
+                        <img :src="explorator.getExploratorBody()" :alt="explorator.name">
+                        <p v-if="explorator.isAlive"><img src="@/assets/images/lp.png"> {{ explorator.healthPoints }}</p>
+                        <p v-else><img src="@/assets/images/dead.png"></p>
                     </li>
                 </ul>
             </div>
-            <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> informations collectées...</span>
+            <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> Infos recoltées...</span>
             <ul class="analysis" v-if="show">
-                <li><img src="@/assets/images/astro/cold.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/ocean.png"></li>
-                <li><img src="@/assets/images/astro/forest.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
-                <li><img src="@/assets/images/astro/ocean.png"></li>
-                <li><img src="@/assets/images/astro/unknown.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/unknown.png"></li>
-                <li><img src="@/assets/images/astro/unknown.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/forest.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
-                <li class="unexplored"><img src="@/assets/images/astro/cold.png"></li>
+                <Tippy tag="li"
+                       v-for="(sector, i) in exploration.planet.sectors"
+                       :key="i"
+                       :class="sector.isVisited ? '' : 'unexplored'">
+                    <img :src="getSectorImage(sector.key)" :alt="sector.name">
+                    <template #content>
+                        <h1 v-html="formatText(sector.name)" />
+                        <p v-html="formatText(sector.description)" />
+                    </template>
+                </Tippy>
             </ul>
-            <div v-if="lost" class="lost">
+            <div v-if="player.hasStatusByKey('lost')" class="lost">
                 <img src="@/assets/images/att.png" alt="warning">
                 <p> Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher. </p>
             </div>
         </section>
-        <section class="logs">
-            <div class="event">
-                <span class="estimate"><img src="@/assets/images/casio.png"> 09m03s</span>
-                <img src="@/assets/images/astro/forest.png">
+        <section class="logs" v-if="exploration.logs.length > 0">
+            <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle">
+                <template #default="slotProps">
+                    <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
+                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
+                        }}h</span>
+                        <span class="cycle-time-left">{{ slotProps.min }}m</span>
+                        <span class="cycle-time-left">{{ slotProps.sec }}s</span>
+                    </div>
+                    <div v-else>
+                        <button class="new-cycle-button flashing" @click="triggerCycleChange(player)">{{ $t('game.exploration.newStep') }}</button>
+                    </div>
+                </template>
+            </CountdownTimer>
+            <div v-for="(log, i) in exploration.logs" :key=i class="event">
+                <img :src="getSectorImage(log.planetSectorKey)">
                 <div>
-                    <h3>Ruminant - Provision</h3>
-                    <p class="flavor">Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l'un d'entre eux.</p>
-                    <p class="details">Vous gagnez 3 Steacks Aliens.</p>
+                    <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>
+                    <p class="flavor">{{ log.eventDescription }}</p>
+                    <p class="details">{{ log.eventOutcome }}</p>
                 </div>
-                <p class="details">+1 car l'expédition dispose de la compétence : Survie</p>
-            </div>
-            <div class="event">
-                <img src="@/assets/images/astro/forest.png">
-                <div>
-                    <h3>Ruminant - Provision</h3>
-                    <p class="flavor">Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l'un d'entre eux.</p>
-                    <p class="details">Vous gagnez 3 Steacks Aliens.</p>
-                </div>
-                <p class="details">+1 car l'expédition dispose de la compétence : Survie</p>
             </div>
         </section>
     </div>
 </template>
 
 <script lang="ts">
-import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
 import { defineComponent } from "vue";
+import { formatText } from "@/utils/formatText";
+import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
+import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
+import { Exploration } from "@/entities/Exploration";
+import { Player } from "@/entities/Player";
+import PlayerService from "@/services/player.service";
+
 
 export default defineComponent ({
     name: "ExpeditionPanel",
     components: {
+        CountdownTimer,
         TerminalTips
     },
+    computed: {
+        exploration(): Exploration {
+            if (!this.player.exploration) {
+                throw new Error("No exploration found");
+            }
+
+            return this.player.exploration;
+        }
+    },
     props: {
+        player: {
+            type: Player,
+            required: true
+        }
+    },
+    methods: {
+        getSectorImage(sectorKey: string): string {
+            return require(`@/assets/images/astro/${sectorKey}.png`);
+        },
+        formatText(text: string | null): string {
+            if (!text)
+                return '';
+            return formatText(text);
+        },
+        isCycleChangeAvailable(exploration: Exploration) {
+            if (!exploration.timer.timerCycle) {
+                return false;
+            }
+
+            return exploration.timer.timerCycle.getTime() < Date.now();
+        },
+        triggerCycleChange(player: Player) {
+            PlayerService.triggerExplorationCycleChange(player);
+        }
     },
     data() {
         return {
             show: false,
-            lost: true //only for preview purpose//
         };
     }
 });
@@ -205,6 +238,11 @@ export default defineComponent ({
 .logs {
     overflow-y: auto;
     @extend %game-scrollbar;
+
+    .estimate {
+        position: relative;
+        font-variant: small-caps; 
+    }
 }
 
 .event {
@@ -213,7 +251,10 @@ export default defineComponent ({
     padding: 0.4em 0.3em 0 0;
     border-bottom: 1px solid #aad4e5;
 
-    .estimate { font-variant: small-caps; }
+    .estimate { 
+        position: relative;
+        font-variant: small-caps; 
+    }
 
     & > img {
         width: 32px;
@@ -232,6 +273,11 @@ export default defineComponent ({
         font-style: italic;
         color: $red;
     }
+}
+
+.new-cycle-button {
+    @include button-style();
+    display: block;
 }
 
 </style>

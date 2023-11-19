@@ -577,5 +577,11 @@
         <target>daedalus_in_orbit.description</target>
       </segment>
     </unit>
+    <unit id="cannot_go_to_room">
+      <segment state="initial">
+        <source>cannot_go_to_room.description</source>
+        <target>cannot_go_to_room.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

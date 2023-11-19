@@ -577,5 +577,27 @@
         <target>The craft has sustained *{quantity} {quantity, select, 1 {point} other {points}} of damage*.</target>
       </segment>
     </unit>
+    <unit id="stuck_in_the_ship">
+      <segment id="stuck_in_the_ship" state="translated">
+        <source>stuck_in_the_ship</source>
+        <target>{character_gender, select,
+        male {**{character}** stayed aboard the ship because he forgot their **Spacesuit**.}
+        female {**{character}** stayed aboard the ship because she forgot their **Spacesuit**.}
+        other {**{character}** stayed aboard the ship because they forgot their **Spacesuit**.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="exploration_finished">
+      <segment id="exploration_finished" state="translated">
+        <source>exploration_finished</source>
+        <target>You have just completed an expedition! You can get all the details {exploration_link}.</target>
+      </segment>
+    </unit>
+    <unit id="all_explorators_stucked">
+      <segment id="all_explorators_stucked" state="translated">
+        <source>all_explorators_stucked</source>
+        <target>The exploration came back sooner than expected: nobody had a spacesuit!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

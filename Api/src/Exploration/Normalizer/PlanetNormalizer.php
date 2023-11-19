@@ -18,6 +18,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
 {
     use NormalizerAwareTrait;
 
+    private const NUMBER_OF_PLANET_IMAGES = 5;
     private GearToolServiceInterface $gearToolService;
     private TranslationServiceInterface $translationService;
 
@@ -43,17 +44,17 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         $planet = $object;
         $daedalus = $planet->getDaedalus();
 
-        // Do not leak planet sections if player is not focused on astro terminal or in exploration (TODO)
-        // as the planet is also normalized to display it in Phaser scene
-        if ($currentPlayer->getFocusedTerminal()?->getName() !== EquipmentEnum::ASTRO_TERMINAL) {
+        // integer seed from planet name to get always the same image for the same planet
+        $planetImageId = intval(hash('crc32', $planet->getName()->toString()), 16) % self::NUMBER_OF_PLANET_IMAGES;
+
+        // Normalize full planet only under those conditions to avoid leaking information
+        // because the planet has to be normalized to be displayed in Phaser scene too
+        $currentPlayerFocusedOnAstroTerminal = $currentPlayer->getFocusedTerminal()?->getName() === EquipmentEnum::ASTRO_TERMINAL;
+        $currentPlayerIsExploring = $currentPlayer->isExploring();
+        if (!$currentPlayerFocusedOnAstroTerminal && !$currentPlayerIsExploring) {
             return [
                 'id' => $planet->getId(),
-                'name' => $this->translationService->translate(
-                    key: 'planet_name',
-                    parameters: $planet->getName()->toArray(),
-                    domain: 'planet',
-                    language: $daedalus->getLanguage()
-                ),
+                'imageId' => $planetImageId,
             ];
         }
 
@@ -74,6 +75,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
             'distance' => $planet->getDistance(),
             'sectors' => $this->normalizer->normalize($planet->getSectors()->toArray(), $format, $context),
             'actions' => $this->normalizePlanetActions($planet, $format, $context),
+            'imageId' => $planetImageId,
         ];
     }
 

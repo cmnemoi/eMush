@@ -644,5 +644,11 @@
         <target>L'exploration est revenue plus tôt que prévu : personne n'avait de combinaison !</target>
       </segment>
     </unit>
+    <unit id="liquid_map_helped">
+      <segment id="liquid_map_helped" state="translated">
+        <source>liquid_map_helped</source>
+        <target>La carte liquide a bien aidé **{character}**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

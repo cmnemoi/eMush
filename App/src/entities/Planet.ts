@@ -2,25 +2,23 @@ import { Action } from "@/entities/Action";
 import { PlanetSector } from "@/entities/PlanetSector";
 
 export class Planet {
-    private readonly numberOfPlanetImages = 5;
-
     public id!: number;
-    public name!: string;
+    public imageId!: number;
+    public name: string|null = null;
     public orientation: string|null = null;
     public distance: number|null = null;
     public sectors: PlanetSector[]|null = null;
     public actions: Action[]|null = null;
-    public imageId!: number;
 
     public load(object: any): Planet {
         if (object) {
             this.id = object.id;
-            this.name = object.name;
+            this.imageId = object.imageId;
+            this.name = object.name || null;
             this.orientation = object.orientation || null;
             this.distance = object.distance || null;
             this.sectors = object.sectors || null;
             this.actions = object.actions || null;
-            this.imageId = this.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % this.numberOfPlanetImages;
         }
         return this;
     }

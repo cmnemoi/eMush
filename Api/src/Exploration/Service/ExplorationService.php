@@ -58,7 +58,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $exploration = new Exploration($planet);
         $exploration->setExplorators($players);
         $exploration->getClosedExploration()->setExploratorNames($players->map(fn (Player $player) => $player->getLogName())->toArray());
-        $exploration->setNumberOfSectionsToVisit(min($numberOfSectorsToVisit, $planet->getSectors()->count()));
+        $exploration->setNumberOfSectionsToVisit(min($numberOfSectorsToVisit, $planet->getUnvisitedSectors()->count()));
 
         if ($exploration->getNumberOfSectionsToVisit() < 1) {
             throw new \RuntimeException('You cannot visit less than 1 sector');

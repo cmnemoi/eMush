@@ -43,6 +43,10 @@ class ModifierSubscriber implements EventSubscriberInterface
         $holder = $modifier->getModifierHolder();
         $player = null;
 
+        $parameters = [
+            'target_character' => $event->getAuthor()->getLogName(),
+        ];
+
         switch (true) {
             case $holder instanceof Player:
                 $player = $holder;

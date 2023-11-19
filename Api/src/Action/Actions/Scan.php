@@ -18,7 +18,6 @@ use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -27,7 +26,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class Scan extends AttemptAction
 {
     protected string $name = ActionEnum::SCAN;
-    private RoomLogServiceInterface $roomLogService;
     private PlanetServiceInterface $planetService;
 
     public function __construct(
@@ -35,11 +33,9 @@ final class Scan extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService,
         PlanetServiceInterface $planetService
     ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
-        $this->roomLogService = $roomLogService;
         $this->planetService = $planetService;
     }
 

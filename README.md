@@ -1,11 +1,23 @@
 # Project eMush
 
-### Mush Api
+[![pipeline](https://gitlab.com/eternaltwin/mush/mush/badges/develop/pipeline.svg)](https://gitlab.com/eternaltwin/mush/mush/-/pipelines?ref=develop)
+[![coverage](https://gitlab.com/eternaltwin/mush/mush/badges/develop/coverage.svg?job=api-test-develop&key_text=Backend+Coverage&key_width=130)](https://gitlab.com/eternaltwin/mush/mush/-/graphs/develop/charts)
+[![discord](https://user-content.gitlab-static.net/7e2a439cd72fbe75267ad51eece2abd136f004b2/68747470733a2f2f696d672e736869656c64732e696f2f646973636f72642f363933303832303131343834363834333438)](https://discord.com/channels/693082011484684348/746873392463872071)
+[![localization](https://user-content.gitlab-static.net/d208b981d10933645dfa09029e4afbd7ea88b82e/68747470733a2f2f6261646765732e63726f7764696e2e6e65742f652f36626663626161663734323533613238333761646162303566613035353165332f6c6f63616c697a65642e737667)](https://eternaltwin.crowdin.com/emush)
 
-A REST Api developed using Symfony 5.1 that manage the Mush game. Creating new Daedalus and manage the players actions
+[eMush](https://emush.eternaltwin.org/) is an open-source remake of Mush: the greatest space-opera epic of Humanity, directly in your browser!
 
-### Mush App
-A front-end developed using VueJs
+### eMush Api
+
+A REST Api developed using Symfony 6.2 that manage the eMush game.
+
+Please read [API.md](./Api/README.md) for details on the API architecture.
+
+### eMush App
+
+A front-end developed using VueJs 3.
+
+Please read [APP.md](./App/README.md) for details on the APP architecture.
 
 ## Getting Started
 
@@ -43,18 +55,18 @@ Optional:
   * install build tools:
     ```bash
     > wsl -d Debian
-    $ sudo -s
-    $ apt-get update
-    $ apt-get install build-essential curl git
+    sudo -s
+    apt-get update
+    apt-get install build-essential curl git
     ```
   * install docker and docker-compose
 	```bash
-	$ apt-get install lsb-release
-	$ mkdir -m 0755 -p /etc/apt/keyrings
-	$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-	$ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-	$ apt-get update
-	$ apt-get install docker docker-compose docker-compose-plugin
+	apt-get install lsb-release
+	mkdir -m 0755 -p /etc/apt/keyrings
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	apt-get update
+	apt-get install docker docker-compose docker-compose-plugin
 	```
 
 Although, it is possible to run application checked out in Windows and mounted to WSL2, it will be very slow, so I recommend checking out repo inside WSL and then work with sources either by vscode's WSL remote https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl or accessing files through SMB (e.g. `\\wsl$\Debian\root\mush`).
@@ -72,11 +84,11 @@ On your real machine (windows) go to the folder `\\wsl$\Debian\root\.ssh` and co
 
 Clone the project
 ```bash
-$ git clone git@gitlab.com:eternaltwin/mush/mush.git
+git clone git@gitlab.com:eternaltwin/mush/mush.git
 ```
 Checkout to `develop`:
 ```bash
-$ git checkout develop
+git checkout develop
 ```
 
 Start docker service
@@ -86,7 +98,7 @@ service docker start
 
 Build the docker containers:
 ```bash
-$ make install
+make install
 ```
 
 If everything went well you should be able to access:
@@ -153,11 +165,15 @@ yarn serve
 
 In folder `EternalTwin/`
 ```
-$ cp .etwin.toml.example .etwin.toml
+cp .etwin.toml.example .etwin.toml
 yarn install
 yarn etwin db create
 yarn etwin start
 ```
+
+## Contributing
+
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Endpoints
 A swagger is available that list all the available endpoints and their specifications [Swagger](http://localhost:8080/swagger/)
@@ -174,7 +190,7 @@ The dockerfile: [Dockerfile](./docker/gitlab/Php/Dockerfile)
 #### Update the container in gitlab
 
 ```
-$ docker login registry.gitlab.com -u YOUR_USERNAME -p ACCESSS_TOKEN
+docker login registry.gitlab.com -u YOUR_USERNAME -p ACCESSS_TOKEN
 $docker build -t registry.gitlab.com/eternaltwin/mush/mush/api ./docker/gitlab/Php/
 $docker push registry.gitlab.com/eternaltwin/mush/mush/api
 ```
@@ -223,13 +239,6 @@ mush_php:
   - UID=1000
   - GID=1000
 ```
-
-## Contributing
-
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-Please read [API.md](./Api/README.md) for details on the API architecture
-Please read [APP.md](./App/README.md) for details on the APP architecture
 
 ## License
 

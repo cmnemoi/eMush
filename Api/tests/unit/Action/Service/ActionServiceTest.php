@@ -113,6 +113,14 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
+        $this->eventService->shouldReceive('callEvent')
+            ->withArgs(fn ($movementApplyEvent, $name) => (
+                $name === ActionVariableEvent::GET_OUTPUT_QUANTITY
+                && $movementApplyEvent instanceof ActionVariableEvent
+            ))
+            ->once()
+        ;
+
         $result = $this->service->applyCostToPlayer($player, $action, null);
 
         $this->assertEquals($player, $result);
@@ -232,6 +240,14 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
+        $this->eventService->shouldReceive('callEvent')
+            ->withArgs(fn ($movementApplyEvent, $name) => (
+                $name === ActionVariableEvent::GET_OUTPUT_QUANTITY
+                && $movementApplyEvent instanceof ActionVariableEvent
+            ))
+            ->once()
+        ;
+
         $result = $this->service->applyCostToPlayer($player, $action, null);
 
         $this->assertEquals($player, $result);
@@ -348,6 +364,14 @@ class ActionServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')
             ->with($movementApplyEvent, ActionVariableEvent::APPLY_COST)
+            ->once()
+        ;
+
+        $this->eventService->shouldReceive('callEvent')
+            ->withArgs(fn ($movementApplyEvent, $name) => (
+                $name === ActionVariableEvent::GET_OUTPUT_QUANTITY
+                && $movementApplyEvent instanceof ActionVariableEvent
+            ))
             ->once()
         ;
 

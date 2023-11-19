@@ -14,6 +14,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 {
     public const APPLY_COST = 'apply.cost';
     public const ROLL_ACTION_PERCENTAGE = 'roll.action.percentage';
+    public const GET_OUTPUT_QUANTITY = 'get.output.quantity';
 
     public const VARIABLE_TO_EVENT_MAP = [
         PlayerVariableEnum::ACTION_POINT => self::APPLY_COST,
@@ -23,7 +24,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         ActionVariableEnum::PERCENTAGE_CRITICAL => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
         ActionVariableEnum::PERCENTAGE_DIRTINESS => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
         ActionVariableEnum::PERCENTAGE_INJURY => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
-        ActionVariableEnum::OUTPUT_QUANTITY => self::APPLY_COST,
+        ActionVariableEnum::OUTPUT_QUANTITY => self::GET_OUTPUT_QUANTITY,
     ];
 
     private float $quantity;

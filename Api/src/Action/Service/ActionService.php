@@ -4,6 +4,7 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Game\Service\EventServiceInterface;
@@ -46,6 +47,10 @@ class ActionService implements ActionServiceInterface
         }
 
         $this->eventService->callEvent($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
+
+        // we need to call a last event to properly apply modifier logs
+        $actionPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, ActionVariableEnum::OUTPUT_QUANTITY);
+        $this->eventService->callEvent($actionPointCostEvent, ActionVariableEvent::GET_OUTPUT_QUANTITY);
 
         return $player;
     }

@@ -1705,7 +1705,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             'modifierName' => null,
-            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
@@ -1724,7 +1724,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_place_+1sector_revealed_on_action_scan_planet',
             'modifierName' => ModifierNameEnum::LIQUID_MAP_MODIFIER,
-            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
@@ -1743,7 +1743,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_place_+1sector_revealed_on_action_scan_planet_random_50',
             'modifierName' => null,
-            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,

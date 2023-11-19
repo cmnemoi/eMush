@@ -138,6 +138,18 @@ Obvious example:
 - [User](./src/User/README.md)
 
 
+## Useful commands
+- `composer reset` : Reset database, load data and fixtures and create a new Daedalus. Use this for a fresh start
+- `composer load-data` / `composer load-fixtures` : Load data / fixtures
+- `composer fill-daedalus` : Fill a Daedalus with players
+- `composer lint` : Lint the code
+- `composer test` : Run the tests
+- `composer test:action` : Run the tests for the Action module
+- `composer generate-migrations` / `composer diff` : Generate migrations by comparing the database schema with your code entities
+- `composer apply-migrations` : Run the migrations to update the database schema
+
+Please find more commands in the [composer.json](./composer.json) file.
+
 
 ## Tests Codeception
 The test folder is a mirror of the src directory

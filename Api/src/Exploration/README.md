@@ -68,4 +68,4 @@ This is handled in [`CycleService`](../Game/Service/CycleService.php).
 - The player participates in the exploration
 - The exploration is finished and player is in the Daedalus associated with the exploration
 
-This is handled by [`ClosedDaedalusVoter`](./Voter/ClosedExplorationVoter.php).
+This is handled by [`ClosedExplorationVoter`](./Voter/ClosedExplorationVoter.php).

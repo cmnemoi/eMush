@@ -43,7 +43,7 @@ export class Exploration {
         return this;
     }
 
-    public getPlanetName(): string {
+    public getPlanetName(): string | null {
         return this.planet.name;
     }
 

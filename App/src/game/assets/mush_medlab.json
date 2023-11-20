@@ -425,8 +425,66 @@
                  "width":66,
                  "x":30,
                  "y":66
-                }, 
+                },
                 {
+                 "gid":66,
+                 "height":58,
+                 "id":36,
+                 "name":"medlab_bed",
+                 "properties":[
+                   {
+                     "name":"collides",
+                     "type":"bool",
+                     "value":true
+                   },
+                   {
+                     "name":"isoSizeX",
+                     "type":"int",
+                     "value":52
+                   },
+                   {
+                     "name":"isoSizeY",
+                     "type":"int",
+                     "value":16
+                   },
+                   {
+                     "name":"sitAnimation",
+                     "type":"string",
+                     "value":"lie_down"
+                   },
+                   {
+                     "name":"sitAutoTrigger",
+                     "type":"bool",
+                     "value":false
+                   },
+                   {
+                     "name":"sitDepth",
+                     "type":"int",
+                     "value":1
+                   },
+                   {
+                     "name":"sitFlip",
+                     "type":"bool",
+                     "value":true
+                   },
+                   {
+                     "name":"sitX",
+                     "type":"float",
+                     "value":8
+                   },
+                   {
+                     "name":"sitY",
+                     "type":"float",
+                     "value":3
+                   }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":66,
+                 "x":30,
+                 "y":66
+               },
+               {
                  "gid":45,
                  "height":61,
                  "id":32,

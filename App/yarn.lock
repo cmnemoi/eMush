@@ -1642,6 +1642,39 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@unhead/dom@1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.8.4.tgz#67358cd7ef2c9ea9ab36d8ac034bda54d4c4533b"
+  integrity sha512-WJ/NM+M+JqHJpiRUcPlj+H1qqbw3MykqvfHh1tT1J/WMNFS4lac+gAFCSFFSP1P19CW+30Q92XbAgMbgA45cow==
+  dependencies:
+    "@unhead/schema" "1.8.4"
+    "@unhead/shared" "1.8.4"
+
+"@unhead/schema@1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.8.4.tgz#1839f1baebf14450bf220827565ba9b6157a9c36"
+  integrity sha512-Lfeu123sFpqUJbFYIWUygUXjTq9TTtEH148VV8iiN1NC4THa7GeDgHWbb7FbigV9c5pFTGI7oREHKFCaTtLGSg==
+  dependencies:
+    hookable "^5.5.3"
+    zhead "^2.2.4"
+
+"@unhead/shared@1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.8.4.tgz#18187275abedc6efa60e461da5588a9b61c8b3c0"
+  integrity sha512-DXgzbFPqdrms2TLJzmjG1F1tZPyejuCF95AF0cz/GjVEJErEyBMKyhWogVbkyYqPGiVCQT1uCKMYucuM9LhdZw==
+  dependencies:
+    "@unhead/schema" "1.8.4"
+
+"@unhead/vue@^1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.8.4.tgz#08e3504a583723756ed91cc793f8d31972292ecc"
+  integrity sha512-U2rXe5qocVK5qHaEj5/V2VimHVWbc6IJ4PpjpD7IwgN8uhxSt9oxNObhLIyRzdqim13PoAfS+zUAwFii4y0hpQ==
+  dependencies:
+    "@unhead/schema" "1.8.4"
+    "@unhead/shared" "1.8.4"
+    hookable "^5.5.3"
+    unhead "1.8.4"
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.4.0":
   version "1.4.0"
   resolved "https://registry.npmjs.org/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.4.0.tgz"
@@ -4643,6 +4676,11 @@ highlight.js@^10.7.1:
   version "10.7.3"
   resolved "https://registry.npmjs.org/highlight.js/-/highlight.js-10.7.3.tgz"
   integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
+
+hookable@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/hookable/-/hookable-5.5.3.tgz#6cfc358984a1ef991e2518cb9ed4a778bbd3215d"
+  integrity sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==
 
 hosted-git-info@^2.1.4:
   version "2.8.9"
@@ -7923,6 +7961,16 @@ undici-types@~5.26.4:
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
 
+unhead@1.8.4:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.8.4.tgz#02fdcc1647a8eda1914c7356cbbbeff7008d0128"
+  integrity sha512-r2SFK18KzjKgSaOBawjQXXAz4odqKjy+fYtw7g+nwlc3FU1JNQqScVeTic0gEK69IJ/cRsqL6bPqF1ILkyVmTQ==
+  dependencies:
+    "@unhead/dom" "1.8.4"
+    "@unhead/schema" "1.8.4"
+    "@unhead/shared" "1.8.4"
+    hookable "^5.5.3"
+
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-2.0.0.tgz"
@@ -8582,3 +8630,8 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zhead@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/zhead/-/zhead-2.2.4.tgz#87cd1e2c3d2f465fa9f43b8db23f9716dfe6bed7"
+  integrity sha512-8F0OI5dpWIA5IGG5NHUg9staDwz/ZPxZtvGVf01j7vHqSyZ0raHY+78atOVxRqb73AotX22uV1pXt3gYSstGag==

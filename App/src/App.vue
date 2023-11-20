@@ -1,6 +1,5 @@
 <template>
     <div class="main-container">
-        <Title :title="$t('title')" />
         <Spinner :loading="userLoading || playerLoading || configLoading" />
         <Banner />
         <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
@@ -20,19 +19,30 @@ import ConfirmPopup from "@/components/ConfirmPopup";
 import Spinner from "@/components/Utils/Spinner";
 import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
-import Title from "@/components/Utils/Title.vue";
 import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
+import { useHead } from '@unhead/vue';
 
 export default {
     name: 'App',
+    head() {
+        return {
+            title: this.$t('title'),
+            meta: [
+                { name: 'description', content: this.$t('metaSeo.description') },
+                { name: 'keywords', content: this.$t('metaSeo.keywords') },
+                { name: 'og:title', content: this.$t('metaSeo.og:title') },
+                { name: 'og:description', content: this.$t('metaSeo.og:description') },
+                { name: 'og:url', content: this.baseUrl },
+            ]
+        };
+    },
     components: {
         Spinner,
         Banner,
         ErrorPopup,
         ConfirmPopup,
         LocaleChange,
-        Title,
         Thanks,
         MaintenancePage
     },
@@ -43,7 +53,10 @@ export default {
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
             userIsAdmin: 'auth/isAdmin'
-        })
+        }),
+        baseUrl() {
+            return process.env.VUE_APP_URL;
+        }
     },
     methods: {
         ...mapActions({

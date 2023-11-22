@@ -29,7 +29,6 @@ final class MoveCest extends AbstractFunctionalTest
         $this->derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
         $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
         $kuanTi = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::KUAN_TI);
-        $this->players->add($this->derek);
         $this->players->add($jinSu);
         $this->players->add($kuanTi);
 
@@ -55,13 +54,8 @@ final class MoveCest extends AbstractFunctionalTest
         // given all 4 players except derek are in Icarus Bay
         /** @var Player $player */
         foreach ($this->players as $player) {
-            if ($player->getName() === $this->derek->getName()) {
-                continue;
-            }
             $player->changePlace($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
         }
-
-        $icarusBay = $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY);
 
         // when derek tries to move to Icarus Bay
         $this->moveAction->loadParameters($this->moveConfig, $this->derek, $door);
@@ -71,6 +65,36 @@ final class MoveCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM,
             actual: $this->moveAction->cannotExecuteReason(),
+        );
+    }
+
+    public function testMoveActionExecutableInIcarusBayIfTooMuchPeopleInside(FunctionalTester $I): void
+    {
+        // given all players are in Icarus Bay
+        /** @var Player $player */
+        foreach ($this->players as $player) {
+            $player->changePlace($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
+        }
+
+        // given there is a door for exiting Icarus Bay
+        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
+        $door = new Door($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
+        $door
+            ->setName('door_default')
+            ->setEquipment($doorConfig)
+            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::LABORATORY))
+        ;
+        $I->haveInRepository($door);
+
+        // when jinsu tries to move to the laboratory
+        $jinsu = $this->players->filter(fn (Player $player) => $player->getName() === CharacterEnum::JIN_SU)->first();
+        $this->moveAction->loadParameters($this->moveConfig, $jinsu, $door);
+        $this->moveAction->execute();
+
+        // then jin su is in the laboratory
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
+            actual: $jinsu->getPlace()->getName(),
         );
     }
 }

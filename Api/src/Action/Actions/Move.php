@@ -7,13 +7,12 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\CanGoToIcarusBay;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -50,13 +49,7 @@ class Move extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new NumberPlayersAliveInRoom([
-            'mode' => NumberPlayersAliveInRoom::EQUAL,
-            'number' => 4,
-            'placeName' => RoomEnum::ICARUS_BAY,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM,
-        ]));
+        $metadata->addConstraint(new CanGoToIcarusBay(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM]));
     }
 
     protected function checkResult(): ActionResult

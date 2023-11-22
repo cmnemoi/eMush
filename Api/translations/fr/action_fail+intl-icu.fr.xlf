@@ -625,7 +625,7 @@
       </segment>
     </unit>
     <unit id="cannot_go_to_this_room">
-      <segment state="final">
+      <segment state="translated">
         <source>cannot_go_to_this_room.description</source>
         <target>Vous ne pouvez pas aller dans cette pièce.</target>
       </segment>

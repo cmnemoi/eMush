@@ -202,8 +202,8 @@
 			"statusConfigs": "Statuses",
 			"equipmentConfigs": "Equipment",
 			"triumphConfigs": "Triumph configs",
-			"diseaseCauseConfigs": "Configuration des causes de maladie",
-			"diseaseConfigs": "Configurations de maladie",
+			"diseaseCauseConfigs": "Disease causes configuration",
+			"diseaseConfigs": "Diseases configuration",
 			"consumableDiseaseConfigs": "Consumable disease configs"
 		},
 		"modifierConfig": {
@@ -213,9 +213,9 @@
 			"targetEvent": "Trigger event",
 			"modifierHolderClass": "Modifier holder entity",
 			"mode": "Calculation Mode",
-			"variableModifier": "Modificateur de variables",
-			"triggerEventModifier": "Déclencheurs d'événements",
-			"preventEventModifier": "Bloqueur d'événements",
+			"variableModifier": "Variable modifier",
+			"triggerEventModifier": "Event trigger",
+			"preventEventModifier": "Event inhibitor",
 			"modifierRequirement": "Conditions d'activation",
 			"triggeredEvent": "Nom de l'événement déclenché",
 			"replaceEvent": "Remplace l'événement initial",
@@ -271,11 +271,11 @@
 			"isNotSuperDirty": "Is not super dirty"
 		},
 		"daedalus": {
-			"addNewRooms": "Ajouter des pièces",
+			"addNewRooms": "Add rooms",
 			"deleteDuplicatedAlertElements": "Supprimer les reports d'alertes",
 			"destroy": "Destroy",
 			"destroyAllDaedaluses": "Destroy all Daedaluses",
-			"unlock": "Débloquer le changement de cycle",
+			"unlock": "Unlock cycle change",
 			"createDaedalus": "Create a Daedalus",
 			"name": "Daedalus name :",
 			"create": "Create a Daedalus",
@@ -289,7 +289,7 @@
 		"search": "Search",
 		"edit": "Edit",
 		"updatedAt": "Updated at",
-		"class": "Type d'entité",
+		"class": "Entity type",
 		"daedalusConfig": {
 			"name": "Name",
 			"initOxygen": "Initial Oxygen",
@@ -326,10 +326,10 @@
 			"tremorPlayerDamage": "Tremor damage on players (damage => probability)",
 			"metalPlatePlayerDamage": "Metal plate damage on players (damage => probability)",
 			"panicCrisisPlayerDamage": "Panic attack damage on players (damage => probability)",
-			"difficultyModes": "Modes de difficulté (nom => jour de déclenchement)",
-			"hunterSpawnRate": "Taux d'apparition des hunters au changement de cycle",
-			"hunterSafeCycles": "Cycles où les hunters ne peuvent apparaître",
-			"startingHuntersTruceCycles": "Nombre de cycles avant l'apparition de nouveaux hunters au début de la partie"
+			"difficultyModes": "Difficulty modes (name => day triggered)",
+			"hunterSpawnRate": "Hunter spawn rate at cycle change",
+			"hunterSafeCycles": "Cycles when no hunter can spawn",
+			"startingHuntersTruceCycles": "Cycles at the beginning of the game with no new hunters spawning"
 		},
 		"characterConfig": {
 			"name": "Name",
@@ -354,7 +354,7 @@
 		"diseaseConfig": {
 			"pageTitle": "Modification of the disease ",
 			"name": "Complete name",
-			"diseaseName": "Name",
+			"diseaseName": "Disease name",
 			"type": "Type",
 			"resistance": "Resistance",
 			"delayMin": "Number of cycles before activation",
@@ -377,7 +377,7 @@
 		"symptomActivationRequirement": {
 			"pageTitle": "Modification of the activation requirement ",
 			"activationRequirementName": "Activation requirement type",
-			"name": "Name",
+			"name": "Full name",
 			"activationRequirement": "Activation requirement",
 			"value": "Activation probability"
 		},
@@ -393,7 +393,7 @@
 			"isNotFireDestroyable": "Not fire destroyable",
 			"isPersonal": "Is personal",
 			"isNotPersonal": "Is not personal",
-			"dismountedProducts": "Items given when dismounted",
+			"dismountedProducts": "Items given when dismantled",
 			"addDismountedProducts": "Add an item :",
 			"isStackable": "Stackable",
 			"isNotStackable": "Not stackable",
@@ -404,7 +404,7 @@
 		"placeConfig": {
 			"pageTitle": "Modification of the room ",
 			"name": "Complete name",
-			"placeName": "Name",
+			"placeName": "Room name",
 			"type": "Room type",
 			"doors": "Doors",
 			"equipments": "Equipment",
@@ -452,10 +452,10 @@
 			"modifierConfigs": "Modifiers",
 			"equipment": "Built piece of equipment",
 			"blueprint": "Blueprints",
-			"dockingPlace": "Pièce d'amarrage",
-			"collectScrapNumber": "Nombre de débris ramassés à chaque action Récolter (nombre => probabilité)",
+			"dockingPlace": "Docking room",
+			"collectScrapNumber": "Amount of scrap obtain for each action Collect (amount => probability)",
 			"collectScrapPatrolShipDamage": "Damage inflicted on the patroller with each Harvest action (number => probability)",
-			"collectScrapPlayerDamage": "Dégâts infligés au joueur à chaque action Récolter (nombre => probabilité)",
+			"collectScrapPlayerDamage": "Damage to player for each action Collect (amount => probability)",
 			"failedManoeuvreDaedalusDamage": "Dégâts infligés au Daedalus en cas d'échec de la manoeuvre (nombre => probabilité)",
 			"failedManoeuvrePatrolShipDamage": "Dégâts infligés au patrouilleur en cas d'échec de la manoeuvre (nombre => probabilité)",
 			"failedManoeuvrePlayerDamage": "Dégâts infligés au joueur en cas d'échec de la manoeuvre (nombre => probabilité)",

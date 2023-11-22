@@ -292,7 +292,7 @@
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_planton">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
         <target>Patrol Ship Planton</target>
       </segment>

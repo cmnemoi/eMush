@@ -577,10 +577,10 @@
         <target>This action is impossible when the Daedalus is in orbit.</target>
       </segment>
     </unit>
-    <unit id="cannot_go_to_room">
+    <unit id="cannot_go_to_this_room">
       <segment state="translated">
-        <source>cannot_go_to_room.description</source>
-        <target>You cannot go to that room.</target>
+        <source>cannot_go_to_this_room.description</source>
+        <target>You cannot go to this room.</target>
       </segment>
     </unit>
   </file>

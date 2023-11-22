@@ -336,7 +336,7 @@
       </segment>
       <segment id="examine" state="final">
         <source>door.examine</source>
-        <target>Les portes du Daedalus sont fragiles et ont la fâcheuse habitude de rester bloquées... En cas de panne, contacter un technicien. Qu'elle que soit son matériau, sa densité, son état, une porte mène quelque part.</target>
+        <target>Les portes du Daedalus sont fragiles et ont la fâcheuse habitude de rester bloquées... En cas de panne, contacter un technicien. Quel que soit son matériau, sa densité, son état, une porte mène quelque part.</target>
       </segment>
     </unit>
     <unit id="dynarcade">
@@ -816,7 +816,7 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
     <unit id="patrol_ship_beta_planton">
       <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
-        <target>Patrouilleur Platon</target>
+        <target>Patrouilleur Planton</target>
       </segment>
       <segment id="short_name" state="final">
         <source>patrol_ship_bravo_planton.short_name</source>

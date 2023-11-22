@@ -2458,13 +2458,14 @@
         <source>swedish_sofa.first_letter</source>
         <target>swedish_sofa.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>swedish_sofa.description</source>
-        <target>swedish_sofa.description</target>
+        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
-        <target>swedish_sofa.examine</target>
+        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.
+Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="thermos_of_coffee">

@@ -2645,12 +2645,12 @@ A capsule contains something. The only way to find out what it is, is to open it
       </segment>
       <segment id="description" state="translated">
         <source>swedish_sofa.description</source>
-        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.</target>
+        <target>A superb sofa in hand-stitched Nubuck leather. Designed in Sweden but produced cheaply on Enceladus.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
-        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.
-Lo único que te hacer sentir como en casa...</target>
+        <target>A superb sofa in hand-stitched Nubuck leather. Designed in Sweden but produced cheaply on Enceladus.
+Who would have thought that a plywood structure and a few cushions could be so relaxing...</target>
       </segment>
     </unit>
     <unit id="thermos_of_coffee">

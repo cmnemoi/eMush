@@ -577,10 +577,10 @@
         <target>daedalus_in_orbit.description</target>
       </segment>
     </unit>
-    <unit id="cannot_go_to_room">
+    <unit id="cannot_go_to_this_room">
       <segment state="initial">
-        <source>cannot_go_to_room.description</source>
-        <target>cannot_go_to_room.description</target>
+        <source>cannot_go_to_this_room.description</source>
+        <target>cannot_go_to_this_room.description</target>
       </segment>
     </unit>
   </file>

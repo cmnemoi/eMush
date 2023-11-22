@@ -840,9 +840,9 @@ It's no longer all shiny and new, but it does the job.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_beta_planton">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
-        <target>Patrol Ship Platon</target>
+        <target>Patrol Ship Planton</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>patrol_ship_bravo_planton.short_name</source>

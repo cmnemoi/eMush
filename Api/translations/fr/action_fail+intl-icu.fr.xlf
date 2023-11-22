@@ -624,9 +624,9 @@
         <target>Cette action est impossible lorsque le Daedalus est en orbite.</target>
       </segment>
     </unit>
-    <unit id="cannot_go_to_room">
+    <unit id="cannot_go_to_this_room">
       <segment state="final">
-        <source>cannot_go_to_room.description</source>
+        <source>cannot_go_to_this_room.description</source>
         <target>Vous ne pouvez pas aller dans cette pièce.</target>
       </segment>
     </unit>

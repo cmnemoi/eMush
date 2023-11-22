@@ -36,6 +36,7 @@
             <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle">
                 <template #default="slotProps">
                     <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
+                        <img src="@/assets/images/casio.png"> 
                         <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
                         }}h</span>
                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
@@ -148,9 +149,15 @@ export default defineComponent ({
     font-size: 0.9em;
     letter-spacing: 0.02em;
 
+    .timer {
+        display: inline;
+        align-self: flex-end;
+    }
+
     img {
         width: fit-content;
         height: fit-content;
+        vertical-align: middle;
     }
 }
 
@@ -277,7 +284,8 @@ export default defineComponent ({
 
 .new-cycle-button {
     @include button-style();
-    display: block;
+    align-self: center;
+    min-width: 45%;
 }
 
 </style>

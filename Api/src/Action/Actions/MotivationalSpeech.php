@@ -45,6 +45,6 @@ class MotivationalSpeech extends AbstractSpeech
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::GAGGED_PREVENT_SPOKEN_ACTION,
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 }

@@ -83,7 +83,7 @@ class ScrewTalkie extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::SCREWED_TALKIE_NO_TALKIE,
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function checkResult(): ActionResult

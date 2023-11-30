@@ -51,7 +51,7 @@ class Heal extends AbstractAction
             'variableName' => PlayerVariableEnum::HEALTH_POINT,
             'groups' => ['visibility'],
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function checkResult(): ActionResult

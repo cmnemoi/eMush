@@ -53,7 +53,7 @@ class TreatPlant extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::TREAT_PLANT_NO_DISEASE,
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function checkResult(): ActionResult

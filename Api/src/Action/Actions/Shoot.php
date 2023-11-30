@@ -88,7 +88,7 @@ class Shoot extends AttemptAction
             'target' => HasEquipment::PLAYER,
             'groups' => ['visibility'],
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     // Special checkResult for Shoot action waiting for a refactor

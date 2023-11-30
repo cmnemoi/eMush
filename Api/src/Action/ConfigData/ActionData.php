@@ -1508,7 +1508,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF,
             'action_name' => ActionEnum::TAKEOFF,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PUBLIC],
@@ -1540,7 +1540,7 @@ class ActionData
         [
             'name' => ActionEnum::LAND,
             'action_name' => ActionEnum::LAND,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -1823,7 +1823,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF_TO_PLANET,
             'action_name' => ActionEnum::TAKEOFF_TO_PLANET,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -1839,7 +1839,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP,
             'action_name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

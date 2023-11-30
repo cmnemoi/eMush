@@ -19,7 +19,10 @@ class PlaceTypeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, PlaceType::class);
         }
 
-        if ($value->getPlayer()->getPlace()->getType() !== $constraint->type) {
+        if (
+            ($value->getPlayer()->getPlace()->getType() !== $constraint->type && $constraint->isType)
+            || ($value->getPlayer()->getPlace()->getType() === $constraint->type && !$constraint->isType)
+        ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

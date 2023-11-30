@@ -79,18 +79,14 @@ class DoTheThing extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-
         $metadata->addConstraint(new IsSameGender(['groups' => ['visibility']]));
-
         $metadata->addConstraint(new EmptyBedInRoom(['groups' => ['visibility']]));
-
         $metadata->addConstraint(new FlirtedAlready([
             'groups' => ['execute'],
             'expectedValue' => true,
             'initiator' => false,
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_NOT_INTERESTED,
         ]));
-
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::LYING_DOWN,
             'contain' => false,
@@ -98,7 +94,6 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_ASLEEP,
         ]));
-
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DID_THE_THING,
             'contain' => false,
@@ -106,7 +101,6 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_ALREADY_DONE,
         ]));
-
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DID_THE_THING,
             'contain' => false,
@@ -114,7 +108,6 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_ALREADY_DONE,
         ]));
-
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::SHELVE,
             'equipments' => [EquipmentEnum::CAMERA_EQUIPMENT],
@@ -123,7 +116,6 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_CAMERA,
         ]));
-
         $metadata->addConstraint(new NumberPlayersAliveInRoom([
             'mode' => NumberPlayersAliveInRoom::GREATER_THAN,
             'number' => 2,

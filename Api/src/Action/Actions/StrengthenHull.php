@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
@@ -38,6 +39,7 @@ class StrengthenHull extends AttemptAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAEDALUS_ALREADY_FULL_HULL,
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
     }
 
     protected function applyEffect(ActionResult $result): void

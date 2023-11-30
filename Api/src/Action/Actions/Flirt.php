@@ -11,6 +11,7 @@ use Mush\Action\Validator\FlirtedAlready;
 use Mush\Action\Validator\ForbiddenLove;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\IsSameGender;
+use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -60,6 +61,7 @@ class Flirt extends AbstractAction
         ]));
         $metadata->addConstraint(new ForbiddenLove(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_SAME_FAMILY]));
         $metadata->addConstraint(new FlirtedAlready(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_ALREADY_FLIRTED]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function checkResult(): ActionResult

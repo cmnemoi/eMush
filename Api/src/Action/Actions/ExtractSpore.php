@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PlaceType;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -38,6 +39,7 @@ class ExtractSpore extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::PERSONAL_SPORE_LIMIT,
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool

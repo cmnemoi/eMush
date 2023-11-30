@@ -7,6 +7,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PlaceType;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -59,6 +60,7 @@ class BoringSpeech extends AbstractSpeech
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::GAGGED_PREVENT_SPOKEN_ACTION,
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function applyEffect(ActionResult $result): void

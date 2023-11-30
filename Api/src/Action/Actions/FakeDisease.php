@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasDiseases;
+use Mush\Action\Validator\PlaceType;
 use Mush\Disease\Enum\TypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -52,6 +53,7 @@ class FakeDisease extends AbstractAction
             'isEmpty' => true,
             'message' => ActionImpossibleCauseEnum::HAVE_ALL_FAKE_DISEASES,
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType'=> false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }*/
 
     protected function checkResult(): ActionResult

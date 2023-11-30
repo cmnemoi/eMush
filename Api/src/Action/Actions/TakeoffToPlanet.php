@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AllPlanetSectorsVisited;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
@@ -70,6 +71,7 @@ class TakeoffToPlanet extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::EXPLORE_NOTHING_LEFT,
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
     }
 
     protected function checkResult(): ActionResult

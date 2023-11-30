@@ -10,6 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Breakable;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PatrolShipIsNotInARoom;
+use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
@@ -63,6 +64,7 @@ class Sabotage extends AttemptAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType'=> false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function applyEffect(ActionResult $result): void

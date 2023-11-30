@@ -3170,6 +3170,9 @@ class EquipmentConfigData
             'actions' => [
                 'examine',
                 'lie_down',
+                'repair_percent_25',
+                'sabotage_percent_25',
+                'report_equipment',
             ],
             'mechanics' => [],
             'initStatuses' => [],

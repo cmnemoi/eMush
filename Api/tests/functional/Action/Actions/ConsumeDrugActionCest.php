@@ -179,6 +179,7 @@ class ConsumeDrugActionCest
         $I->assertEquals(0, $player->getStatuses()->count());
 
         $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem2);
+
         $I->assertNull($this->consumeAction->cannotExecuteReason());
     }
 }

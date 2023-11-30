@@ -923,7 +923,6 @@ class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => true,
             'modifierConfigs' => [
-                'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
                 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
             ],
         ],

@@ -2081,8 +2081,8 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'disassemble_percent_12_cost_3',
-                'repair_percent_1',
-                'sabotage_percent_1',
+                'repair_percent_25',
+                'sabotage_percent_25',
             ],
             'mechanics' => [
                 'gear_sniper_helmet_default',

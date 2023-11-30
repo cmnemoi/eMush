@@ -2360,7 +2360,7 @@ class EquipmentConfigData
                 'drop',
                 'hide',
                 'examine',
-                'disassemble_percent_25_cost_3',
+                'disassemble_percent_50_cost_3',
                 'repair_percent_25',
                 'sabotage_percent_25',
             ],

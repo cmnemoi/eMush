@@ -2220,13 +2220,15 @@ Quelle idée de rapporter cette chose à bord... Ca vous rappelle des souvenirs 
         <source>old_faithful.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>old_faithful.description</source>
-        <target>&lt;target/&gt;</target>
+        <target>La sulfateuse est une arme très lourde. Certaines règles internationales interdisent de prendre pour cible un humain avec. Quand on la voit, on sait pourquoi.
+Expédition : + 1 à la force de votre équipe en cas de combat.</target>
       </segment>
-      <segment id="examine" state="final">
+      <segment id="examine" state="translated">
         <source>old_faithful.examine</source>
-        <target>&lt;target/&gt;</target>
+        <target>La sulfateuse est une arme très lourde. Certaines règles internationales interdisent de prendre pour cible un humain avec. Quand on la voit, on sait pourquoi.
+Le fusil d'assaut automatique dit "cracheuse de plomb" F.R.A.K.U. Son débit et sa portée et ses balles enrichie et son poids... bref c'est une arme impressionnante, lourde, dangereuse...bref ça déchire.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle">

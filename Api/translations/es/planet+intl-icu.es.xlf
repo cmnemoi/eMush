@@ -252,21 +252,21 @@
       </segment>
     </unit>
     <unit id="orientation">
-      <segment id="north" state="initial">
+      <segment id="north" state="translated">
         <source>north</source>
-        <target>north</target>
+        <target>Norte</target>
       </segment>
-      <segment id="south" state="initial">
+      <segment id="south" state="translated">
         <source>south</source>
-        <target>south</target>
+        <target>Sur</target>
       </segment>
-      <segment id="east" state="initial">
+      <segment id="east" state="translated">
         <source>east</source>
-        <target>east</target>
+        <target>Este</target>
       </segment>
-      <segment id="west" state="initial">
+      <segment id="west" state="translated">
         <source>west</source>
-        <target>west</target>
+        <target>Oeste</target>
       </segment>
     </unit>
     <unit id="planet_name">

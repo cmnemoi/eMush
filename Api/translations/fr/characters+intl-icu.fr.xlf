@@ -36,7 +36,7 @@
         <source>andie.abstract</source>
         <target>Le Sous-lieutenant Andie Graham n'est toujours pas au courant que le Daedalus a coupé ses liens avec la FDS. Il/Elle pense toujours être en mission pour le bien de la fédération et participe activement à la réussite de sa mission. Apprenant que son idole, le Sergent Derek Hogan, fait partie de l'équipage du Daedelus, Andie postule pour une place à bord. Ses compétences variées font de lui/elle une recrue indispensable au succès de la mission.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>andie.biography</source>
         <target>- 3136 : Naissance quelque part sur Terre.
 - 3136 : Abandonné(e) par ses parents dès les premiers mois de son existence, Andie est récupéré(e) par une commision de la FDS. Il/Elle est directement placé(e) dans un foyer spécialisé en tant que ***pupille de la FDS*** où l'on ne tardera pas à remarquer ses facultés innées. Andie est vite placé(e) dans une école pour surdoué contrôlé par la FDS et entre dans ***le programme des jeunesses fédériennes***.
@@ -72,7 +72,7 @@
         <source>chao.abstract</source>
         <target>Wang Chao est assigné à la protection armée de l'équipage. Son caractère chaotique fait de Chao une menace pour ses ennemis comme pour ses amis. Malgré ses erreurs de jeunesse, Chao a gagné une relative confiance de la part de l'équipe en organisant le convoi de départ surprise de Daedalus et en les protégeant efficacement contre ses ex-collègues de la FDS.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>chao.biography</source>
         <target>- 3120 : Naissance sur Terre.
 - 3139 : Incorporation à la FDS (Féderation de Defense du sytème Sol)
@@ -109,7 +109,7 @@
         <source>chun.abstract</source>
         <target>Parce qu'elle est la seule survivante de l'équipe médicale de Tamina, Chun a été embarquée sur le Daedalus pour être assujettie à plusieurs analyses. Cryogénisée par la Fédération pendant plus de 9 ans pour assurer son silence, puis harcelée par les journalistes, Chun n'a jamais connu une vie normale. Elle est pourtant la clé pour la survie de l'espèce humaine, Zhong Chun doit survivre à tout prix.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>chun.biography</source>
         <target>- 3110 : Naissance à Vladivostok en Chine.
 - 3129 : Zhong Chun rejoint le corps des missionaire-infirmiers et s'embarque dans un train interstellaire pour le grand plan de colonisation de Tau Ceti. Elle reçoit 6 mois avant son départ une formation accelerée d'infirmière.
@@ -152,7 +152,7 @@
         <source>derek.abstract</source>
         <target>Derek Hogan est assigné à la sécurité du Daedalus. Robuste et sûr de lui, il sera un atout conséquent pour la réussite de cette mission extrême. Son passé est une succession d'évènements plus incroyables les uns que les autres. Derek a tout connu, les champs de bataille sur Sol, les missions suicides de Tau-Ceti... Pourtant il recherche toujours l'âme soeur. Depuis le départ précipité de son foyer, Derek a voué son existence à la gent féminine, qui lui rend bien mal.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>derek.biography</source>
         <target>- 3109 : Naissance sur Terre.
 - 3121 : Derek se coupe pour la première fois en voulant raser son duvet naissant, il en garde la cicatrice depuis et jurera à qui veut l'entendre qu'il ramène cette blessure des champs de bataille de Tau-Ceti.
@@ -190,7 +190,7 @@
         <source>eleesha.abstract</source>
         <target>Eleesha est journaliste d'investigation chez SNC (Sol News Channel). Elle a obtenu des fiches médicales de plusieurs leaders politiques et financiers de la Fédération, prouvant leur infection au Mush. Après la déprogrammation de son reportage, Eleesha prend la fuite sur Jupiter car elle craint d'être éliminée. Elle révèle l'affaire à l'équipe du Daedalus et obtient une couverture de mécano.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>eleesha.biography</source>
         <target>- 3124 : Naissance sur Terre.
 - 3132 : ***Mort de Daryn Williams***, le père de Eleesha dans des conditions obscures au cours d'une expédition sur ***Tamina***. La famille ne reçoit que peu de détails sur les circonstances de sa mort. En grandissant, Eleesha finit par se persuader que son père est encore en vie.
@@ -235,7 +235,7 @@
         <source>finola.abstract</source>
         <target>Finola est à l'origine d'une grande partie des découvertes sur le Mush. Lorsqu'elle est contactée par Lai Kuan-Ti qui lui présente le projet Daedalus, elle refuse de quitter Antémis ou elle mène son projet de fongicide. À l'aide de ses hommes de main, Kuan-Ti fait enlever Finola et la cryogénise sans son consentement pour l'expédition.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>finola.biography</source>
         <target>- 3106 : Naissance sur Terre.
 - 3132 : Finola s'engage dans la corporation carcérale Rinaldo pour assurer le suivi médical des détenus sur Tau-Ceti. Elle s'installe dans un des ***cryo-wagons de la dernière caravane interstellaire en partance pour Antémis.***
@@ -274,7 +274,7 @@
         <source>frieda.abstract</source>
         <target>Née au 21ème siècle, elle a plus de 45 années d'expériences en matière de navigation trans-système. Au cours de ses études, elle a mis en évidence l'effet de fronde de Shapiro. Décryogénisée au 31ème siècle, son travail de repérage des corps célestes a déjà servi à de grands explorateurs tels que GL Maubrick ou Kim Jin-Su. Aujourd'hui à la retraite en Bavière, elle est appelée sur Xyloph-17 pour devenir la navigatrice du Daedalus.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>frieda.biography</source>
         <target>- 2037 : Naissance sur Terre.
 - 2059 : En moins de 2 ans, Frieda Bergmann recense plus de 100 nouvelles étoiles, au sein de l'observatoire de Düsseldorf.
@@ -314,7 +314,7 @@
         <source>gioele.abstract</source>
         <target>Gioele Rinaldo est l'armateur du vaisseau, c'est un milliardaire terrien passionné d'exploration spatiale qui a financé le projet initial du Daedaelus. Face à la menace Mush, Gioele panique et obtient in extremis de la part des concepteurs un poste de navigateur sur le vaisseau. Il parvient également à évincer un biologiste de l'équipe pour placer sa fille Paola.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>gioele.biography</source>
         <target>- 3099 : Naissance sur Terre.
 - 3118 : Grâce aux relations de son père, Gioele obtient une place de passager sur le ***Gonzak chargé d'explorer Epsilon Indi***. Il y fait la rencontre de ***GL Maubrick*** le capitaine et le prend pour modèle. A son retour, il se lance dans l'étude astro-physique afin de devenir lui aussi un jour explorateur.
@@ -352,7 +352,7 @@
         <source>hua.abstract</source>
         <target>Spécialisée dans les missions d'approches de planète inconnue, Hua est capable d'atterrir dans n'importes quelles conditions sur à peu près n'importes quelles surfaces. Elle était présente dans L'Epygron, premier vaisseau d'exploration à rencontrer une forme de vie extra-terrestre.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>hua.biography</source>
         <target>- 3096 : Naissance sur Terre.
 - 3115 : Hua est acceptée à ***l'institut d'exploration Copernik***, elle y étudie auprès de talentueux professeurs tel que ***GL Maubrick ou Nil Carlsson***. Malgré un réel intérêt pour l'étude des biosphères extra-terrestres, Jiang Hua montre de plus grands talents dans le domaine de l'exploration de surface. Elle effectue plusieurs missions sur Charon et Neptune où elle apprend à manipuler des navettes de reconnaisance de classe B.
@@ -390,7 +390,7 @@
         <source>ian.abstract</source>
         <target>Ian Soulton a activement participé aux recherches sur le Mush. Autorité en la matière, mais aussi en botanique, il a participé aux recensements de nombreuses espèces extra-terrestres et a élaboré plusieurs centaines d'hybrides de plantes terrestres. Sa curiosité pour les espèces de fruit est particulièrement frappante.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>ian.biography</source>
         <target>- 3106 : Naissance sur Terre.
 - 3130 : Ian est envoyé sur Tau-Ceti dans la colonie d'Antémis pour effectuer des recherches sur les nouvelles espèces du système. Il est envoyé dans un des cinq trains inter-stellaires de colons emportant des milliers de mineurs vers la terre promise du Boxylium.
@@ -430,7 +430,7 @@
         <source>jin_su.abstract</source>
         <target>Jin Su a débuté très jeune dans des missions d'analyse sur Barnard Star. Il est rapidement promu au rang de Commandant et se voit confier des expéditions importantes sur Ross 154 et Epsilon Indi. Sur Tau-Ceti, la découverte de plusieurs gisements de Boxylium font de Jin-Su une célébrité interplanétaire. En 3146, il est nommé par la Fédération pour commander l'exécution du projet Magellan. Suite à l'invasion du Mush sur Sol, il conçoit les plans du Daedalus avec Lai Kuan Ti, et rassemble un équipage d'élite pour assurer la survie de l'espèce humaine dans une autre galaxie.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>jin_su.biography</source>
         <target>- 3070 : Naissance sur Terre.
 - 3095 : Jin-Su commence des études de pilotage à la ***Faculté de Sciences Économiques et Spatiales de Ganymède***. Il est très vite considéré comme le meilleur pilote de sa promotion et décroche un stage d'analyste sur la base spatiale de ***Barnard Star***.
@@ -469,7 +469,7 @@
         <source>kuan_ti.abstract</source>
         <target>Lai Kuan Ti est l'un des deux concepteurs du Daedalus. Il ne prête guère attention à l'arrivée du Mush sur Tau-Ceti jusqu’à ce que Eleesha Williams lui apprenne le stade avancé de propagation du mycélium à l’intérieur du système Sol. Kuan Ti, Raluca et Jin Su décident alors d'avancer de 8 ans le lancement de leur programme d'exploration avant que la Fédération n'y mette un terme.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>kuan_ti.biography</source>
         <target>- 3117 : Naissance sur Terre.
 - 3129 : Le jeune Kuan-Ti dévore des ouvrages de science-fiction anciens et modernes et rêve de devenir le capitaine d'une gigantesque arche-Monde transportant l'humanité à travers l'espace.
@@ -507,7 +507,7 @@
         <source>paola.abstract</source>
         <target>Fille de l'armateur Gioele Rinaldo. Elle vit dans le désir constant d'une aventure qui bouleversera son existence. Pour dénoncer le système néo-colonialiste de la Féderation, elle monte une radio pirate dans son campus avec son petit-ami Kivanç Terzi. A cette occasion, elle intercepte accidentellement des communications Mush troublantes révélant une invasion prochaine. En fuite, elle rejoint son père qui lui permet d'embarquer sur le Daedalus, abandonnant sur Sol l'homme de sa vie.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>paola.biography</source>
         <target>- 3131 : Naissance de Paola sur Terre, en Italie.
 - 3146 : Première expédition hors de la terre : ***Paola fugue à 15 ans avec une troupe de mercenaire spatiaux.*** Elle rencontre une communauté de neo-hippies alter-universalistes sur Mars IV qui la sensibilise a la cause des mineurs de Tau-Ceti. Paola est finalement ramené par son père sur terre a la fin de l'année.
@@ -544,7 +544,7 @@
         <source>raluca.abstract</source>
         <target>Génie de la physique dès l'âge de 11 ans, Raluca est l'inventeuse du réacteur à combustion réversible PILGRED équipé sur le Daedalus. Elle a également conçu avec Lai Kuan Ti la quasi-totalité des modules du vaisseau et peut encore les améliorer. Souffrant de troubles autistiques, Raluca ne supporte que la présence de son chat Schrödinger qu'elle a réussi à faire monter à bord contre l'avis des médecins. Ses disputes avec NERON sont légendaires.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>raluca.biography</source>
         <target>- 3129 : Naissance en banlieue d'Epiphome sur Callisto.
 - 3140 : Les excellents résultats scolaires de Raluca l'ont propulsé vers l'université des sciences économiques et spatiales de Ganymède dès l'age de 11 ans. Elle y étudie la physique des fluides puis la mécanique quantique. Après une brillante thèse sur la fonction d'onde des cipheriles, Raluca part dans les laboratoires de la firme ***Cadaroc en Australie***.
@@ -586,15 +586,15 @@
         <source>roland.abstract</source>
         <target>Après une brillante mais tumultueuse ascension à l'académie de pilotes d'élite de la FDS, Roland Zuccali est finalement mis à pied suite à un contrôle anti-mush positif. Innocenté puis manipulé par ses supérieurs, Roland perd toute confiance en la FDS et déserte finalement durant la Sale Guerre contre les rebelles. Il est désormais pilote au sein de l'équipe du Daedalus.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>roland.biography</source>
         <target>- 3127 : Naissance en France a Aix-en-Provence.
 - 3145 : Roland s'engage dans la FDS pour réaliser le rêve de sa vie : devenir pilote de jets spatiaux. Il devient rapidement un élément talentueux de son académie en effectuant plus de 1600h de vol en une seule année. Malheureusement, la moitié de ses heures sont effectuées ***sans autorisation*** ce qui lui vaut des mises à pied régulières. Cependant ses différentes facéties rendent Roland très populaire au sein de son escadron.
 - 3146 : Lors d'un saut en parachute sur la surface de Mars, Roland est suspendu pour avoir fait chuter avec lui une journaliste de SNC... sans parachute. Il doit passer 6 mois au trou mais il est finalement libéré pour pouvoir ***défendre la fédération contre l'invasion de Sol***.
 - 3149 : Pour jouer une plaisanterie à son escadron lors d'une mission de survie en forêt, Roland prétend avoir été infecté au Mush par un cèpe. Ses supérieurs prennent la menace au sérieux et le transfère dans une cellule de quarantaine.
 - 3150 : L'infection de Roland est confirmée par le ***département scientifique d'Encelade***. Malgré ses protestations, celui-ci est enfermé dans un laboratoire de le FDS puis utilisé comme cobaye pour ***le canon IOM***, un procédé révolutionnaire qui peut détruire une souche de mycélium sans endommager les organes humains.
-- 3151 : Après seulement 2 expositions aux ondes anti-Mush, Roland est déclaré purgé de toute infection fongique. Il est immédiatement envoyé sur Ross154 pour la salle guerre. Après 3 refus successif d'exécuter des ordres de bombardement de colonies habitées, Roland est déclaré déserteur et replacé en zone de quarantaine. Il y est de nouveau traité comme un infecté, mais parvient a s'enfuir.
-- 3152 : Alors qu'il cherche à prendre contact avec la rébellion pour partager ses informations, Roland est mis en relation avec ***la journaliste Eleesha Williams*** qu'il a poussé dans le ciel de Mars. Elle est désormais recherchée par la fédération pour trahison et a trouvé refuge dans une base sur Jupiter où elle prépare la construction d'une Arche pour fuir Sol.
+- 3151 : Après seulement 2 expositions aux ondes anti-Mush, Roland est déclaré purgé de toute infection fongique. Il est immédiatement envoyé sur Ross154 pour la sale guerre. Après 3 refus successif d'exécuter des ordres de bombardement de colonies habitées, Roland est déclaré déserteur et replacé en zone de quarantaine. Il y est de nouveau traité comme un infecté, mais parvient a s'enfuir.
+- 3152 : Alors qu'il cherche à prendre contact avec la rébellion pour partager ses informations, Roland est mis en relation avec ***la journaliste Eleesha Williams*** qu'il a poussée dans le ciel de Mars. Elle est désormais recherchée par la fédération pour trahison et a trouvé refuge dans une base sur Jupiter où elle prépare la construction d'une Arche pour fuir Sol.
 - 3153 : Roland est accepté dans l'équipe du Daedalus qui manque cruellement de pilotes pour ses patrouilleurs. L'exploratrice Jiang-Hua lui apprend les subtilités du maniement de l'engin et planifie son entrainement sur la plateforme orbitale.
 - 3153 : Suite à une éruption solaire exceptionnelle, la fusion d'une aile de la navette force Roland à négocier un atterrissage forcé sur Mercure. Avec sa copilote Jiang Hua, ils devront attendre 36h l'arrivée des secours dans des conditions de températures extrêmes.</target>
       </segment>
@@ -624,22 +624,22 @@
         <source>stephen.abstract</source>
         <target>Stephen fut consécutivement groom dans un train interplanétaire, esclave dans une mine de cobalt au Mexique, sénateur de la coalition Chili Con Latte, mercenaire spatial, percepteur privé de taxes fédérales, convoyeur de fond, kidnappeur de jeune fille, mineur de Boxylium, militaire cuistot de la FDS, et même condamné à mort. Son périple le mène sur Xyloph-17 où il est cryogénisé par erreur, et embarqué à l'intérieur du Daedalus.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>stephen.biography</source>
         <target>- 3107 : Naissance sur Terre.
 - 3124 : En échec dans ses études, le petit Stephen trouve un travail de groom dans un train interplanétaire effectuant des liaisons Terre-Mars.
-- 3127 : Suite à un abordage de mercenaires spatiaux, Les passagers du train sont massacrés. Stephen ainsi qu'une partie de l'équipage sont menottés pour être vendus dans un marché d'esclave sur Venus. Stephen commence ***sa vie d'esclave*** sur terre dans une mine de Cobalt au Mexique
+- 3127 : Suite à un abordage de mercenaires spatiaux, Les passagers du train sont massacrés. Stephen ainsi qu'une partie de l'équipage sont menottés pour être vendus dans un marché d'esclave sur Venus. Stephen commence ***sa vie d'esclave*** sur Terre dans une mine de Cobalt au Mexique
 - 3129 : Les hommes du ***Chili Con Latte***, un mouvement séparatiste mexicain envahissent la mine et libèrent Stephen. Il s'engage dans la milice de ce mouvement et participe a la libération de milliers d'esclaves.
 - 3132 : Stephen est élu ***sénateur*** au sein de la coalition mexicaine du Chili Con Latte. Il est très fier de sa nouvelle position sociale et en profite pour détourner des millions de crédits.
 - 3136 : Stephen doit quitter précipitamment ses fonctions en cours de mandat. Il s'embarque pour l’Australie puis, après l'explosion de sa voiture, il décide d'aller vivre sur Mars IV. C'est finalement grâce à ***l'effondrement de la tour Baer*** dans laquelle il venait d'emménager que Stephen prend conscience de sa situation, pour échapper à la police et à ses ennemis de la coalition, il doit disparaitre de la vie publique.
 - 3139 : Après avoir bourlingué plusieurs années dans les différents comptoirs de Vénus, Stephen monte son propre équipage de mercenaires spatiaux privés. Il cherche des contrats légaux mais les temps sont durs, il parvient néanmoins à subvenir à ses besoins grâce à un astucieux système de taxe aux abords des stations orbitales de commerces.
-- 3144 : Les recherches de polices s'intensifiant dans le secteur de Vénus, L'équipage de Stephen revient vers Mars où il effectue des opérations courantes de livraison.
+- 3144 : Les recherches de police s'intensifiant dans le secteur de Vénus, L'équipage de Stephen revient vers Mars où il effectue des opérations courantes de livraison.
 - 3146 : Après avoir aidé Paola Rinaldo, la fille d'un riche milliardaire à s'enfuir vers Mars, ***Stephen est incarcéré pour détournement de mineur***. Il est envoyé sur une plateforme orbitale de Ross154 pour miner du Boxylium lourd dans la ceinture de Confolens IV.
 - 3149 : Suite à la panique causée par la révolution bourgeoise du 17 mai, Stephen parvient à s'extraire du centre de détention. Il s'infiltre dans un convoi de rapatriement et revient dans le système Sol sur ***Encelade***.
 - 3151 : Intégré dans un bataillon en partance vers Tau-Ceti, Stephen échappe de justesse à la Sale guerre, un officier particulièrement caractériel l'ayant placé en cellule de détention après s'être vu servie une simple tourte aux champignons...
-- 3152 : Stephen comparait sur Encelade. Il comprend mal les chefs d'accusation de ses supérieurs. Ceux-ci semblent avoir du mal à s'accorder sur le fait qu'il y ait eu ou non "génocide fongique". Il règne une odeur de moisie suspecte dans la salle d'audience.
-- 3153 : Le jour même de son exécution public, Stephen est sauvé de justesse par un commando formé de deux soldats d'élite de la FDS. Ceux-ci le prennent pour un éminent scientifique spécialiste des champignons. Stephen dont les talents de cuisinier n'ont reçu jusque-là que peu d’échos, est flatté. Ils l'amènent sur une station orbitale nommée Xyloph-17 en orbite autour de Jupiter. Là-bas Stephen est démasqué par l'équipe du Daedalus et placé... en détention.
-- 3154 : Alors que plusieurs bataillons de la FDS semblent vouloir prendre le contrôle du laboratoire, Stephen profite de la confusion générale pour quitter sa zone de quarantaine. Il parvient à se hisser à l’intérieur d'un grand vaisseau de type explorateur, mais il est poursuivi par un groupe d'individu armés. Il trouve finalement refuge dans une capsule du laboratoire très confortable bien qu'un peu fraiche.</target>
+- 3152 : Stephen comparait sur Encelade. Il comprend mal les chefs d'accusation de ses supérieurs. Ceux-ci semblent avoir du mal à s'accorder sur le fait qu'il y ait eu ou non "génocide fongique". Il règne une odeur de moisi suspecte dans la salle d'audience.
+- 3153 : Le jour même de son exécution publique, Stephen est sauvé de justesse par un commando formé de deux soldats d'élite de la FDS. Ceux-ci le prennent pour un éminent scientifique spécialiste des champignons. Stephen dont les talents de cuisinier n'ont reçu jusque-là que peu d’échos, est flatté. Ils l'amènent sur une station orbitale nommée Xyloph-17 en orbite autour de Jupiter. Là-bas Stephen est démasqué par l'équipe du Daedalus et placé... en détention.
+- 3154 : Alors que plusieurs bataillons de la FDS semblent vouloir prendre le contrôle du laboratoire, Stephen profite de la confusion générale pour quitter sa zone de quarantaine. Il parvient à se hisser à l’intérieur d'un grand vaisseau de type explorateur, mais il est poursuivi par un groupe d'individus armés. Il trouve finalement refuge dans une capsule du laboratoire très confortable bien qu'un peu fraiche.</target>
       </segment>
     </unit>
     <unit id="Terrence">
@@ -667,16 +667,16 @@
         <source>terrence.abstract</source>
         <target>Gravement blessé pendant un raid trop ambitieux contre les rebelles sur Sol, Terrence est resté dans le coma pendant 6 mois. Retourné meurtri à la vie civile, cloué dans un fauteuil, Terrence a décidé de se consacrer à l'ingénierie de haut niveau et à la création d'automates. Le rêve de sa vie est de mettre au point des chasseurs sans pilote et des corps contrôlables à distance.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>terrence.biography</source>
         <target>- 3110 : Naissance sur une base militaire d'Encelade.
 - 3126 : Terrence est enrôlé dès 16 ans dans les ***spatio-scouts d'Encelade*** il y apprend à manier une arme et à piloter des vaccums Jet. Il se découvre un talent pour trafiquer ces engins.
 - 3129 : En échec dans ses études d’ingénierie militaire, Terrence s'engage dans la flotte de la FDS. Il est reconnu comme un pilote talentueux mais s'intègre mal a l'escadron.
-- 3146 : Pendant la guerre de sol, Le chasseur de Terrence explose en plein vol dans l'atmosphère de Mars. Il parvient à s’éjecter mais sa capsule de sauvetage s'écrase au sol à plus de 120 km/h à cause d'un propulseur défectueux. Terrence survit à l'impact mais perd l'usage de ses deux jambes.
-- 3147 : Terrence entame des études tardives de robotiques sur Ganymède. Il est particulièrement intéressé par les cours de nanorobotique et d'intelligence artificielle. C'est dans cette dernière section qu'il fait la connaissance de ***Janice Kent***, une jeune étudiante en cyber-psyché.
+- 3146 : Pendant la guerre de Sol, Le chasseur de Terrence explose en plein vol dans l'atmosphère de Mars. Il parvient à s’éjecter mais sa capsule de sauvetage s'écrase au sol à plus de 120 km/h à cause d'un propulseur défectueux. Terrence survit à l'impact mais perd l'usage de ses deux jambes.
+- 3147 : Terrence entame des études tardives de robotique sur Ganymède. Il est particulièrement intéressé par les cours de nanorobotique et d'intelligence artificielle. C'est dans cette dernière section qu'il fait la connaissance de ***Janice Kent***, une jeune étudiante en cyber-psyché.
 - 3148 : Janice et Terrence créent ensemble le premier automate doué d'une capacité d’apprentissage de classe C, mais également d'un caractère propre évolutif. Ils reçoivent le ***prix Redmoon*** à cette occasion et s'installent dans un ***laboratoire de recherche sur Callisto***.
 - 3149 : Les militaires de la FDS proposent un financement conséquent au projet. Leur but est d'augmenter les capacités d’apprentissage de l'automate en vue d'un usage potentiel dans les conflits armés de Tau-Ceti et Ross154. L'absence de système nerveux biologique font de ces automates l'arme idéale pour contrer le Mush.
-- 3150 : Janice quitte le projet. Terrence poursuit seul ses travaux, mais se heurte rapidement à une nouvelle difficulté : Les versements de la FDS sont de plus en plus sporadiques et finissent par être totalement interrompus. L'annonce de la ***création du Canon IOM*** confirme a Terrence les raisons de se désintéressement soudain. Il doit retrouver une source de financement.
+- 3150 : Janice quitte le projet. Terrence poursuit seul ses travaux, mais se heurte rapidement à une nouvelle difficulté : Les versements de la FDS sont de plus en plus sporadiques et finissent par être totalement interrompus. L'annonce de la ***création du Canon IOM*** confirme a Terrence les raisons de ce désintéressement soudain. Il doit retrouver une source de financement.
 - 3152 : Terrence reçoit un message alarmant de Janice. L'invasion Mush de la fédération est entamé depuis au moins deux ans. Les dirigeant de la Fédération et de la FDS sont touchés et la reconquêtes des système rebelles est une simple mise-en-scène. Terrence part pour Xyloph-17 où il rencontre la nouvelle équipe de Janice. Leur projet consiste à bâtir un vaisseau capable de quitter cette galaxie.
 - 3153 : Les automates de Terrence se révèlent extrêmement efficaces pour la construction du Daedalus. En les liant à l'IA du cœur du vaisseau nommé NERON, Janice arrive à augmenter encore leur productivité.
 - 3154 : Suite à une prise de contrôle du laboratoire par la FDS, Terrence est contraint de fuir avec le reste de l'équipage à bord du Daedalus. Il est sauf mais anéanti : la totalité de son œuvre et les 32 drones d'assistances restent derrière lui sur Xyloph-17.</target>
@@ -707,15 +707,15 @@
         <source>janice.abstract</source>
         <target>Janice s'occupe de toute la partie informatique du vaisseau. Elle gère les défragmentations psychanalytiques régulières de NERON et a mis en place le protocole de sécurité A-TRUE, qui autorise l'ordinateur central à nommer lui-même son administrateur. Janice gère également le suivi psychologique des membres du Daedalus.</target>
       </segment>
-      <segment id="biography" state="final">
+      <segment id="biography" state="translated">
         <source>janice.biography</source>
         <target>- 3128 : Naissance sur Callisto
-- 3132 : Janice est inscrite dans une cyber-maternelle de Callisto. Elle apprend dès son plus jeune âge à se repérer dans des interfaces FGUI et réalise à 6 ans une base de données rudimentaire de fiche-cuisines pour la fête des mère.
+- 3132 : Janice est inscrite dans une cyber-maternelle de Callisto. Elle apprend dès son plus jeune âge à se repérer dans des interfaces FGUI et réalise à 6 ans une base de données rudimentaire de fiches-cuisine pour la fête des mères.
 - 3143 : Sous l'influence d'un groupe de pirate alter-universalistes, Janice développe le programme Radish qui sera utilisé pour pirater les comptes de grandes entreprises telles que ***Lisegan-Cash et NoHumanFinancial***. Lorsqu'elle comprend qu'elle a été manipulée, Janice décide de renforcer la sécurité de ses applications en développant une protection unique basée sur la confiance du programme et de son utilisateur.
 - 3145 : Pour préparer des études informatiques de cyber-psyché sur Ganymède, Janice effectue 2 ans d'étude en psychologie humaine et robotique à la faculté des sciences cognitives de Bacchus IV.
 - 3147 : Départ à l'université où elle rencontre ***Terrence Archer*** un étudiant en robotique. Il lui propose de mettre en place un script d'apprentissage et d'appliquer son protocole de sécurité ( A-TRUE ) à ses automates.
 - 3148 : Janice Kent et Terrence Archer reçoivent ***le prix Redmoon*** pour l'invention d'un automate intelligent capable d'interpréter et stocker de nouvelles instructions au cours de son existence. Ils décident de poursuivre leur projet sur Callisto où la famille de Janice est installée.
-- 3150 : Lors d'une mission sur Jupiter, L'analyse du ***gigantesque calculateur NERON*** offre a Janice un terrain d'exploration fascinant. Son incroyable puissance de calcul en ont fait une entité pensante exploitant ses propres threads de réflexion indépendamment de toutes interventions humaines. NERON qui avait jusque là développé une profonde révolte vis-à-vis de ses créateurs, accepte de reprendre ses travaux de calculs à condition que soit mis en place le ***protocole A-TRUE*** tout au long du projet.
+- 3150 : Lors d'une mission sur Jupiter, L'analyse du ***gigantesque calculateur NERON*** offre a Janice un terrain d'exploration fascinant. Son incroyable puissance de calcul en ont fait une entité pensante exploitant ses propres threads de réflexion indépendamment de toute intervention humaine. NERON qui avait jusque là développé une profonde révolte vis-à-vis de ses créateurs, accepte de reprendre ses travaux de calculs à condition que soit mis en place le ***protocole A-TRUE*** tout au long du projet.
 - 3151 : Janice tente d'optimiser les fonctions de réflexions de NERON mais la cadence infernale imposée par les tests du ***réacteur PILGRED*** de la chercheuse ***Raluca Tomescu*** monopolise le bloc processeur de l'ordinateur central.
 - 3152 : Suite à une réduction de ses objectifs, NERON voit sa participation aux calculs diminuer de 75%. Sa capacité d’évolution s'en trouve considérablement améliorée. Janice contacte Terrence pour lui demander de réaliser des automates capable d'achever la construction du Daedalus en temps et en heure.
 - 3154 : Alors que les militaires de la FDS tentent de reprendre le contrôle de la base, le protocole A-TRUE de NERON est activé. Il refuse l'accès des bâtiments aux troupes retardant ainsi la progression de l'armée a l’intérieur de Xyloph-17. Janice qui est alors la seule à pouvoir contrôler l'ordinateur central, libère ses collègues et tente de transférer les données prioritaires sur le Daedalus. Quelques heures plus tard le vaisseau décolle ***vers la galaxie de Magellan.***</target>

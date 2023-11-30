@@ -220,7 +220,7 @@
       <segment id="oxygen_description" state="final">
         <source>oxygen.oxygen_description</source>
         <target>{quantity, select,
-        8 {La pompe d'oxygène de {equipment} est prête a rendre l'âme, elle aspire péniblement {quantity} m³ d'oxygène.}
+        8 {La pompe d'oxygène de {equipment} est prête à rendre l'âme, elle aspire péniblement {quantity} m³ d'oxygène.}
         16 {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Apparemment la pompe de {equipment} n'est plus toute jeune… Hop, {quantity} m³ d'oxygène !}
         24 {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Tout se passe à merveille, vous avez récupéré {quantity} m³ d'oxygène !}
         other {Vous lancez une opération de pompage d'oxygène afin de remplir les réserves du Daedalus. Vous récupérez {quantity} m³ d'oxygène !}

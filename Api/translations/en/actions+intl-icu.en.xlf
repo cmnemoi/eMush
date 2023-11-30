@@ -18,7 +18,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>coffee.description</source>
-        <target>A good coffee and you are good to go.</target>
+        <target>The fundamental fuel for all daedalus crewmembers</target>
       </segment>
     </unit>
     <unit id="dispense">

@@ -32,9 +32,9 @@
       </segment>
     </unit>
     <unit id="do_the_thing">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>do_the_thing.name</source>
-        <target>do_the_thing.name</target>
+        <target>Hacerlo</target>
       </segment>
       <segment id="description" state="initial">
         <source>do_the_thing.description</source>
@@ -142,9 +142,9 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="initial">
+      <segment id="get_up" state="translated">
         <source>get_up.name</source>
-        <target>get_up.name</target>
+        <target>Levantarse</target>
       </segment>
       <segment id="description" state="initial">
         <source>get_up.description</source>
@@ -162,9 +162,9 @@
       </segment>
     </unit>
     <unit id="hit">
-      <segment id="hit" state="initial">
+      <segment id="hit" state="translated">
         <source>hit.name</source>
-        <target>hit.name</target>
+        <target>Golpear</target>
       </segment>
       <segment id="description" state="initial">
         <source>hit.description</source>

@@ -44,7 +44,7 @@
       </segment>
       <segment id="desert_description" state="translated">
         <source>nothing_to_report.desert_description</source>
-        <target>A large volcano sits imposingly in the middle of the zone, at your current altitude, clouds of vapor punctuate the landscape. The smell of sulphur scorches your nostrils...</target>
+        <target>Surprisingly enough, this desert wasteland contains absolutely nothing with which to improve your situation.</target>
       </segment>
       <segment id="ocean_description" state="translated">
         <source>nothing_to_report.ocean_description</source>
@@ -141,9 +141,9 @@
         <source>accident.name</source>
         <target>Accident</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>accident.description</source>
-        <target>A team member sustains {min_quantity} and {max_quantity} points of damage.</target>
+        <target>A team member sustains {min_quantity} to {max_quantity} points of damage.</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>accident.predator_description</source>
@@ -189,11 +189,11 @@
     <unit id="disaster">
       <segment id="name" state="translated">
         <source>disaster.name</source>
-        <target>Catastrophy</target>
+        <target>Catastrophe</target>
       </segment>
       <segment id="description" state="translated">
         <source>disaster.description</source>
-        <target>All team members have sustained {min_quantity} and {max_quantity} points of damage. </target>
+        <target>All team members have sustained {min_quantity} to {max_quantity} points of damage. </target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>disaster.landing_description</source>

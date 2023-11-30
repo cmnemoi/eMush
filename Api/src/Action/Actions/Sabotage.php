@@ -64,7 +64,7 @@ class Sabotage extends AttemptAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType'=> false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'isType' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function applyEffect(ActionResult $result): void

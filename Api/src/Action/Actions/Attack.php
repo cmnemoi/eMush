@@ -14,6 +14,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\DiseaseCauseEnum;
@@ -79,6 +80,7 @@ class Attack extends AttemptAction
             'target' => HasEquipment::PLAYER,
             'groups' => ['visibility'],
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => 'room']));
     }
 
     // Special checkResult for Attack action waiting for a refactor

@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PlaceType;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -31,6 +32,7 @@ class RemoveSpore extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool

@@ -59,11 +59,11 @@
       </segment>
     </unit>
     <unit id="roll.percentage_increase_cycle_disease">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>roll.percentage_increase_cycle_disease.description</source>
-        <target>{chance, select,
+        <target>{quantity, select,
                     100 {Every cycle, fall ill.}
-                    other {Every cycle, a **{chance}%** chance, fall ill.}
+                    other {Every cycle, **+{quantity}%** chance to fall ill.}
                     }</target>
       </segment>
     </unit>

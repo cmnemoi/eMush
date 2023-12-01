@@ -61,9 +61,9 @@
     <unit id="roll.percentage_increase_cycle_disease">
       <segment id="description" state="final">
         <source>roll.percentage_increase_cycle_disease.description</source>
-        <target>{chance, select,
+        <target>{quantity, select,
                     100 {Chaque cycle, fait tomber malade.}
-                    other {Chaque cycle, **{chance}%** de chances de tomber malade.}
+                    other {Chaque cycle, **+{quantity}%** de chances de tomber malade.}
                     }</target>
       </segment>
     </unit>

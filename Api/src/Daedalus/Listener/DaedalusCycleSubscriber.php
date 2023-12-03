@@ -47,8 +47,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [
                 ['updateDaedalusCycle', EventPriorityEnum::HIGHEST],
                 ['updateDaedalusDifficulty', EventPriorityEnum::HIGHEST],
-                ['triggerEvents', EventPriorityEnum::NORMAL],
-                ['attributeTitles', EventPriorityEnum::LOW], // do this after all cycle change events to prevent titles being attributed to dead players
+                ['applyDaedalusEndCycle', EventPriorityEnum::DAEDALUS_VARIABLES],
+                ['dispatchNewCycleIncidents', EventPriorityEnum::DAEDALUS_INCIDENTS],
+                ['attributeTitles', EventPriorityEnum::ATTRIBUTE_TITTLES], // do this after all cycle change events to prevent titles being attributed to dead players
             ],
         ];
     }
@@ -76,25 +77,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public function updateDaedalusDifficulty(DaedalusCycleEvent $event): void
     {
         $this->difficultyService->updateDaedalusDifficultyPoints($event->getDaedalus(), DaedalusVariableEnum::HUNTER_POINTS);
-    }
-
-    public function triggerEvents(DaedalusCycleEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-        $time = $event->getTime();
-
-        if ($this->handleDaedalusEnd($daedalus, $time)) {
-            return;
-        }
-
-        $this->dispatchCycleChangeEvent($daedalus, $time);
-
-        if ($event->hasTag(EventEnum::NEW_DAY)) {
-            $this->resetSpores($event);
-
-            $daedalus->setDailyActionSpent(0);
-            $this->daedalusService->persist($daedalus);
-        }
     }
 
     private function resetSpores(DaedalusCycleEvent $event): void
@@ -130,7 +112,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         return false;
     }
 
-    private function handleOxygen(Daedalus $daedalus, \DateTime $date): Daedalus
+    private function handleOxygen(Daedalus $daedalus, \DateTime $time): Daedalus
     {
         // Handle oxygen loss
         $oxygenLoss = self::CYCLE_OXYGEN_LOSS;
@@ -140,20 +122,53 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             DaedalusVariableEnum::OXYGEN,
             $oxygenLoss,
             [EventEnum::NEW_CYCLE, self::BASE_DAEDALUS_CYCLE_CHANGE],
-            $date
+            $time
         );
         $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         if ($daedalus->getOxygen() <= 0) {
-            $this->daedalusService->getRandomAsphyxia($daedalus, $date);
+            $this->daedalusService->getRandomAsphyxia($daedalus, $time);
         }
 
         return $daedalus;
     }
 
-    private function dispatchCycleChangeEvent(Daedalus $daedalus, \DateTime $time): void
+    public function applyDaedalusEndCycle(DaedalusCycleEvent $event): void
     {
+        $daedalus = $event->getDaedalus();
+        $time = $event->getTime();
+
+        // Handle oxygen loss
+        $this->handleOxygen($daedalus, $time);
+
+        // close lobby if enough time is elapsed
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
+        $timeElapsedSinceStart = ($daedalus->getCycle() + ($daedalus->getDay() - 1) * $daedalusConfig->getCyclePerGameDay()) * $daedalusConfig->getCycleLength();
+        if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT && $daedalus->getGameStatus() === GameStatusEnum::STARTING) {
+            $daedalusEvent = new DaedalusEvent(
+                $daedalus,
+                [EventEnum::NEW_CYCLE],
+                $time
+            );
+            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
+        }
+
+        if ($event->hasTag(EventEnum::NEW_DAY)) {
+            $this->resetSpores($event);
+
+            $daedalus->setDailyActionSpent(0);
+            $this->daedalusService->persist($daedalus);
+        }
+    }
+
+    public function dispatchNewCycleIncidents(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $time = $event->getTime();
+
+        if ($this->handleDaedalusEnd($daedalus, $time)) {
+            return;
+        }
 
         $this->daedalusIncidentService->handleEquipmentBreak($daedalus, $time);
         $this->daedalusIncidentService->handleDoorBreak($daedalus, $time);
@@ -163,19 +178,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusIncidentService->handleElectricArcEvents($daedalus, $time);
         $this->daedalusIncidentService->handleFireEvents($daedalus, $time);
         $this->daedalusIncidentService->handleCrewDisease($daedalus, $time);
-
-        $daedalus = $this->handleOxygen($daedalus, $time);
-
-        $timeElapsedSinceStart = ($daedalus->getCycle() + ($daedalus->getDay() - 1) * $daedalusConfig->getCyclePerGameDay()) * $daedalusConfig->getCycleLength();
-
-        if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT && $daedalus->getGameStatus() === GameStatusEnum::STARTING) {
-            $daedalusEvent = new DaedalusEvent(
-                $daedalus,
-                [EventEnum::NEW_CYCLE],
-                $time
-            );
-            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
-        }
     }
 
     public function attributeTitles(DaedalusCycleEvent $event): void

@@ -26,6 +26,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -235,8 +236,10 @@ final class ActionSubscriber implements EventSubscriberInterface
             $event->getTags(),
             new \DateTime(),
         );
-
         $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
+        // change death cause from patrol ship explosion to injury because patrol ship is not destroyed
+        $playerModifierEvent->addTag(EndCauseEnum::INJURY);
+
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 

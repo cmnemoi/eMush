@@ -130,7 +130,7 @@ export default defineComponent ({
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .news-container {
     flex-direction: row;

@@ -56,7 +56,8 @@ final class Renovate extends AttemptAction
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::ROOM,
             'equipments' => [ItemEnum::METAL_SCRAPS],
-            'groups' => ['visibility'],
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
         ]));
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));

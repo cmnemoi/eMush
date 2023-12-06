@@ -105,7 +105,6 @@ class PlantCycleHandlerTest extends TestCase
         $plantEffect
             ->setMaturationTime(10)
             ->setOxygen(10);
-        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect)->once();
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
@@ -159,7 +158,6 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();
-        $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 

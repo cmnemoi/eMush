@@ -33,7 +33,6 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
         foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
             foreach ($mechanics->getMechanics() as $mechanicName) {
                 if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {
-                    // first let apply day changes
                     if ($event->hasTag(EventEnum::NEW_DAY)) {
                         $cycleHandler->handleNewDay($equipment, $event->getTime());
                     }

@@ -20,7 +20,6 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Enum\PlantLogEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -60,22 +59,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plantType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
             return;
-        }
-
-        $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
-
-        /** @var ChargeStatus $youngStatus */
-        $youngStatus = $object->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
-        if ($youngStatus
-            && $youngStatus->getCharge() >= $plantEffect->getMaturationTime()
-        ) {
-            $this->statusService->removeStatus(
-                EquipmentStatusEnum::PLANT_YOUNG,
-                $object,
-                [EventEnum::NEW_CYCLE],
-                $dateTime,
-                VisibilityEnum::PUBLIC
-            );
         }
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();

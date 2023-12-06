@@ -197,7 +197,7 @@ class RandomService implements RandomServiceInterface
             return null;
         }
 
-        $probaLim = $this->random(0, $cumuProba);
+        $probaLim = $this->random(1, $cumuProba);
 
         return $array->getElementFromDrawnProba($probaLim);
     }

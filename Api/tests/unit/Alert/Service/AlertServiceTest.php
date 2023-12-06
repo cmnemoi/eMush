@@ -355,9 +355,9 @@ class AlertServiceTest extends TestCase
         ;
         $this->alertElementRepository->shouldReceive('findOneBy')->once();
 
-        $this->entityManager->shouldReceive('persist')->twice();
+        $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
-        $this->entityManager->shouldReceive('flush')->twice();
+        $this->entityManager->shouldReceive('flush')->once();
 
         $this->alertService->handleFireStart($room);
     }

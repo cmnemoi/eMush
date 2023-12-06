@@ -5,11 +5,14 @@ namespace Mush\Player\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
 interface PlayerServiceInterface
 {
     public function persist(Player $player): Player;
+
+    public function persistPlayerInfo(PlayerInfo $player): PlayerInfo;
 
     public function delete(Player $player): bool;
 

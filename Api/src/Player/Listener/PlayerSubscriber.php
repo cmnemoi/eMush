@@ -127,6 +127,10 @@ class PlayerSubscriber implements EventSubscriberInterface
         $sporeVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
 
         $sporeVariable->setValue(0)->setMaxValue(2);
-        $this->playerService->persist($player);
+
+        $playerInfo = $player->getPlayerInfo();
+        $playerInfo->getClosedPlayer()->setIsMush(true);
+
+        $this->playerService->persistPlayerInfo($playerInfo);
     }
 }

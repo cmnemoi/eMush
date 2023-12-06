@@ -247,6 +247,7 @@ class RandomServiceTest extends TestCase
         // when we draw 100 000 times one item
         $n = 100000;
         $p = 1 / 4;
+        $sigma = 7 * sqrt($n * $p * (1 - $p));
 
         $content = new ArrayCollection();
         for ($i = 1; $i <= $n; ++$i) {
@@ -257,9 +258,9 @@ class RandomServiceTest extends TestCase
         // given a 7 sigma margin of error. The probability of a false positive is then 1 in 10^12
         foreach ($items as $expectedItem => $proba) {
             $this->assertEqualsWithDelta(
-                expected: $n * $p,
+                expected: 25000,
                 actual: $content->filter(fn ($item) => $item === $expectedItem)->count(),
-                delta: 7 * sqrt($n * $p * (1 - $p))
+                delta: 7 * $sigma
             );
         }
     }

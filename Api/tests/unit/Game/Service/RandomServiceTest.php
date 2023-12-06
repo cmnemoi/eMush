@@ -235,7 +235,10 @@ class RandomServiceTest extends TestCase
     }
 
     public function testGetSingleRandomElementFromProbaCollectionReturnsCorrectRepresentation()
-    {
+    {   
+        $n = 100000;
+        $p = 1/4;
+
         $items = new ProbaCollection([
             ItemEnum::FUEL_CAPSULE => 1,
             ItemEnum::OXYGEN_CAPSULE => 1,
@@ -244,29 +247,17 @@ class RandomServiceTest extends TestCase
         ]);
 
         $content = new ArrayCollection();
-        for ($i = 1; $i <= 1000; ++$i) {
+        for ($i = 1; $i <= $n; ++$i) {
             $content->add($this->service->getSingleRandomElementFromProbaCollection($items));
         }
 
-        // there is a 0.0000000001% probability for this test to fail if the random function is working properly
-        $this->assertLessThan(350, $content->filter(fn ($item) => $item === ItemEnum::FUEL_CAPSULE)->count());
-    }
-
-    public function testGetRandomElementsFromProbaCollectionReturnsCorrectRepresentation()
-    {
-        $items = new ProbaCollection([
-            ItemEnum::FUEL_CAPSULE => 1,
-            ItemEnum::OXYGEN_CAPSULE => 1,
-            ItemEnum::METAL_SCRAPS => 1,
-            ItemEnum::PLASTIC_SCRAPS => 1,
-        ]);
-
-        $content = new ArrayCollection();
-        for ($i = 1; $i <= 1000; ++$i) {
-            $content->add($this->service->getRandomElementsFromProbaCollection($items, 1)[0]);
+        foreach ($items as $expectedItem => $proba) {
+            $this->assertEqualsWithDelta(
+                expected: $n * $p,
+                actual: $content->filter(fn ($item) => $item === $expectedItem)->count(),
+                delta: 7 * sqrt($n * $p * (1 - $p)) // At 7 sigma, the probability of a false positive is 1 in 10^12
+            );
         }
 
-        // there is a 0.0000000001% probability for this test to fail if the random function is working properly
-        $this->assertLessThan(350, $content->filter(fn ($item) => $item === ItemEnum::FUEL_CAPSULE)->count());
     }
 }

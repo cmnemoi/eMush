@@ -19,6 +19,7 @@ class PlantStrategy extends AbstractChargeStrategy
 
     public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
+        /** @var ChargeStatus $status */
         $status = $this->statusService->updateCharge($status, 1, $reasons, $time);
 
         // if the plant reached the number of cycles required to mature, remove the status

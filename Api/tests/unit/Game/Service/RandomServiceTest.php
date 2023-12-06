@@ -248,7 +248,7 @@ class RandomServiceTest extends TestCase
             $content->add($this->service->getSingleRandomElementFromProbaCollection($items));
         }
         
-        // there is a 0.0000000001% probability for this test to fail
+        // there is a 0.0000000001% probability for this test to fail if the random function is working properly
         $this->assertLessThan(350, $content->filter(fn ($item) => $item === ItemEnum::FUEL_CAPSULE)->count());
     }
 
@@ -266,7 +266,7 @@ class RandomServiceTest extends TestCase
             $content->add($this->service->getRandomElementsFromProbaCollection($items, 1)[0]);
         }
         
-        // there is a 0.0000000001% probability for this test to fail
+        // there is a 0.0000000001% probability for this test to fail if the random function is working properly
         $this->assertLessThan(350, $content->filter(fn ($item) => $item === ItemEnum::FUEL_CAPSULE)->count());
     }
     

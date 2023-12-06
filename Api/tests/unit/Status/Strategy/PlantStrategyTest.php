@@ -42,7 +42,27 @@ class PlantStrategyTest extends TestCase
         $status = $this->createStatus();
         $time = new \DateTime();
 
-        $this->statusService->shouldReceive('updateCharge')->with($status, 1, [EventEnum::NEW_CYCLE], $time)->once();
+        $this->statusService->shouldReceive('updateCharge')
+            ->with($status, 1, [EventEnum::NEW_CYCLE], $time)
+            ->andReturn($status)
+            ->once()
+        ;
+
+        $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
+    }
+
+    public function testMaturity()
+    {
+        $status = $this->createStatus();
+        $status->setCharge(10);
+        $time = new \DateTime();
+
+        $this->statusService->shouldReceive('updateCharge')
+            ->with($status, 1, [EventEnum::NEW_CYCLE], $time)
+            ->andReturn($status)
+            ->once()
+        ;
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
     }
@@ -57,6 +77,7 @@ class PlantStrategyTest extends TestCase
         ;
         $status = new ChargeStatus(new Player(), $statusConfig);
         $status->getVariableByName($status->getName())->setValue(0);
+        $status->getVariableByName($status->getName())->setMaxValue(10);
 
         return $status;
     }

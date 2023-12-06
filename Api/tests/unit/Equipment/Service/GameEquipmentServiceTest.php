@@ -14,11 +14,14 @@ use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
+use Mush\Game\Entity\GameVariable;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -28,15 +31,11 @@ use PHPUnit\Framework\TestCase;
 class GameEquipmentServiceTest extends TestCase
 {
     private Mockery\Mock|EventServiceInterface $eventService;
-
     private EntityManagerInterface|Mockery\Mock $entityManager;
-
     private GameEquipmentRepository|Mockery\Mock $repository;
-
     private RandomServiceInterface|Mockery\Mock $randomService;
-
     private EquipmentServiceInterface|Mockery\Mock $equipmentService;
-
+    private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     private GameEquipmentService $service;
@@ -52,6 +51,7 @@ class GameEquipmentServiceTest extends TestCase
         $this->equipmentService = \Mockery::mock(EquipmentServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->equipmentEffectService = \Mockery::mock(EquipmentEffectServiceInterface::class);
 
         $this->service = new GameEquipmentService(
             $this->entityManager,
@@ -60,6 +60,7 @@ class GameEquipmentServiceTest extends TestCase
             $this->randomService,
             $this->eventService,
             $this->statusService,
+            $this->equipmentEffectService,
         );
     }
 
@@ -161,8 +162,23 @@ class GameEquipmentServiceTest extends TestCase
             ->shouldReceive('flush')
             ->once()
         ;
+        $this->equipmentEffectService
+            ->shouldReceive('getPlantEffect')
+            ->with($plantMechanic, $daedalus)
+            ->andReturn($plantEffect)
+            ->once()
+        ;
 
-        $this->statusService->shouldReceive('createStatusFromName')->once();
+        $status = \Mockery::mock(ChargeStatus::class);
+        $this->statusService
+            ->shouldReceive('createStatusFromName')
+            ->andReturn($status)
+            ->once()
+        ;
+        $chargeVariable = \Mockery::mock(GameVariable::class);
+        $status->shouldReceive('getVariableByName')->andReturn($chargeVariable);
+        $chargeVariable->shouldReceive('setMaxValue')->with(8);
+        $this->statusService->shouldReceive('persist')->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
         $gameItem = $this->service->createGameEquipment(

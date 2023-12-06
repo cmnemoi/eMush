@@ -67,6 +67,7 @@ class PlantNewDayCest
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->buildName(GameConfigEnum::TEST)
+            ->setMaxCharge(10)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
@@ -234,6 +235,7 @@ class PlantNewDayCest
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->buildName(GameConfigEnum::TEST)
+            ->setMaxCharge(10)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
@@ -757,6 +759,7 @@ class PlantNewDayCest
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->buildName(GameConfigEnum::TEST)
+            ->setMaxCharge(10)
         ;
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
@@ -906,12 +909,6 @@ class PlantNewDayCest
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
         $I->assertCount(2, $room->getEquipments());
         $I->assertFalse($plant->hasStatus(EquipmentStatusEnum::PLANT_YOUNG));
-        $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'log' => PlantLogEnum::PLANT_MATURITY,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),
             'daedalusInfo' => $daedalusInfo,

@@ -25,6 +25,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -37,6 +38,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
+    private EquipmentEffectServiceInterface $equipmentEffectService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -45,6 +47,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
         StatusServiceInterface $statusService,
+        EquipmentEffectServiceInterface $equipmentEffectService
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
@@ -52,6 +55,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->randomService = $randomService;
         $this->eventService = $eventService;
         $this->statusService = $statusService;
+        $this->equipmentEffectService = $equipmentEffectService;
     }
 
     public function persist(GameEquipment $equipment): GameEquipment
@@ -274,12 +278,18 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             throw new \LogicException('Parameter is not a plant');
         }
 
-        $this->statusService->createStatusFromName(
+        $plantEffect = $this->equipmentEffectService->getPlantEffect($plant, $daedalus);
+
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromName(
             EquipmentStatusEnum::PLANT_YOUNG,
             $gameEquipment,
             [EquipmentEvent::EQUIPMENT_CREATED],
             new \DateTime()
         );
+
+        $status->getVariableByName(EquipmentStatusEnum::PLANT_YOUNG)->setMaxValue($plantEffect->getMaturationTime());
+        $this->statusService->persist($status);
 
         return $gameEquipment;
     }

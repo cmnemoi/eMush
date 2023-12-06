@@ -241,5 +241,6 @@ class TransplantActionCest
         $status = $tree->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
         $I->assertInstanceOf(ChargeStatus::class, $status);
         $I->assertEquals(0, $status->getCharge());
+        $I->assertEquals(15, $status->getVariableByName($status->getName())->getMaxValue());
     }
 }

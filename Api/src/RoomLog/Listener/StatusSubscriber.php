@@ -68,6 +68,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         $statusName = $event->getStatusName();
         $logMap = StatusEventLogEnum::STATUS_EVENT_LOGS[StatusEvent::STATUS_REMOVED];
+
         if (isset($logMap[$statusName])) {
             $logKey = $logMap[$statusName];
         } else {

@@ -235,9 +235,9 @@ class RandomServiceTest extends TestCase
     }
 
     public function testGetSingleRandomElementFromProbaCollectionReturnsCorrectRepresentation()
-    {   
+    {
         $n = 100000;
-        $p = 1/4;
+        $p = 1 / 4;
 
         $items = new ProbaCollection([
             ItemEnum::FUEL_CAPSULE => 1,
@@ -258,6 +258,5 @@ class RandomServiceTest extends TestCase
                 delta: 7 * sqrt($n * $p * (1 - $p)) // At 7 sigma, the probability of a false positive is 1 in 10^12
             );
         }
-
     }
 }

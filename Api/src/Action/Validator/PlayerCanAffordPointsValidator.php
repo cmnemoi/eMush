@@ -3,6 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -27,8 +28,14 @@ class PlayerCanAffordPointsValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, PlayerCanAffordPoints::class);
         }
 
-        if (!$this->actionService->playerCanAffordPoints($value->getPlayer(), $value->getAction(), $value->getTarget())) {
-            $this->context->buildViolation($constraint->message)
+        $player = $value->getPlayer();
+        $message = $constraint->message;
+        if (!$this->actionService->playerCanAffordPoints($player, $value->getAction(), $value->getTarget())) {
+            if ($player->isMush()) {
+                $message = ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT_MUSH;
+            }
+
+            $this->context->buildViolation($message)
                 ->addViolation();
         }
     }

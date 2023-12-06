@@ -14,6 +14,13 @@
                         **Mangez** ou **attendez quelques cycles**.</target>
       </segment>
     </unit>
+    <unit id="insufficient_action_point_mush">
+      <segment id="description" state="final">
+        <source>insufficient_action_point_mush.description</source>
+        <target>Vous n'avez pas assez de :pa: (Point d'Action) pour réaliser cette action.
+          **Attendez quelques cycles**.</target>
+      </segment>
+    </unit>
     <unit id="no_shelving_unit">
       <segment id="description" state="final">
         <source>no_shelving_unit.description</source>

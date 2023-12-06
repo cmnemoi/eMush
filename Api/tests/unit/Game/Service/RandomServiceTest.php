@@ -254,7 +254,7 @@ class RandomServiceTest extends TestCase
             $content->add($this->service->getSingleRandomElementFromProbaCollection($items));
         }
 
-        // then each item is drawn approximately 25 000 times given a 7 sigma margin of error. 
+        // then each item is drawn approximately 25 000 times given a 7 sigma margin of error.
         // The probability of a false positive is then 1 in 10^12
         foreach ($items as $expectedItem => $proba) {
             $this->assertEqualsWithDelta(

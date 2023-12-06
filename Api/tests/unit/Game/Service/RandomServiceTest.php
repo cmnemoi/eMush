@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Exploration\Repository\PlanetSectorRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -232,4 +233,41 @@ class RandomServiceTest extends TestCase
             $draw
         );
     }
+
+    public function testGetSingleRandomElementFromProbaCollectionReturnsCorrectRepresentation()
+    {
+        $items = new ProbaCollection([
+            ItemEnum::FUEL_CAPSULE => 1,
+            ItemEnum::OXYGEN_CAPSULE => 1,
+            ItemEnum::METAL_SCRAPS => 1,
+            ItemEnum::PLASTIC_SCRAPS => 1,
+        ]);
+
+        $content = new ArrayCollection();
+        for ($i = 1; $i <= 1000; ++$i) {
+            $content->add($this->service->getSingleRandomElementFromProbaCollection($items));
+        }
+        
+        // there is a 0.000000000001 probability for this test to fail
+        $this->assertLessThan(350, $content->filter(fn ($item) => $item === ItemEnum::FUEL_CAPSULE)->count());
+    }
+
+    public function testGetRandomElementsFromProbaCollectionReturnsCorrectRepresentation()
+    {
+        $items = new ProbaCollection([
+            ItemEnum::FUEL_CAPSULE => 1,
+            ItemEnum::OXYGEN_CAPSULE => 1,
+            ItemEnum::METAL_SCRAPS => 1,
+            ItemEnum::PLASTIC_SCRAPS => 1,
+        ]);
+
+        $content = new ArrayCollection();
+        for ($i = 1; $i <= 1000; ++$i) {
+            $content->add($this->service->getRandomElementsFromProbaCollection($items, 1)[0]);
+        }
+        
+        // there is a 0.000000000001 probability for this test to fail
+        $this->assertLessThan(350, $content->filter(fn ($item) => $item === ItemEnum::FUEL_CAPSULE)->count());
+    }
+    
 }

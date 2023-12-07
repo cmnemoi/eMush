@@ -3,6 +3,7 @@
 namespace Mush\Hunter\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,7 +21,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => 'onNewCycle',
+            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onNewCycle', EventPriorityEnum::HUNTERS],
         ];
     }
 

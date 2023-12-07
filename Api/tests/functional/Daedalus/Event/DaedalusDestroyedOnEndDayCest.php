@@ -106,7 +106,9 @@ class DaedalusDestroyedOnEndDayCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $player->setPlayerVariables($characterConfig);
+
+        $I->haveInRepository($player);
 
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);

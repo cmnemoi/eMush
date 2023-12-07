@@ -130,7 +130,6 @@ class DaedalusCycleChangeCest
         ;
         $I->haveInRepository($characterConfig);
 
-        /* @var Player $this->player */
         $this->player = $I->have(
             Player::class, [
                 'daedalus' => $this->daedalus,

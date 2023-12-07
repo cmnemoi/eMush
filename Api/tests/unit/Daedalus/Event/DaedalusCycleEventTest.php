@@ -95,6 +95,6 @@ class DaedalusCycleEventTest extends TestCase
             ->once()
         ;
 
-        $this->daedalusCycleSubscriber->triggerEvents($event);
+        $this->daedalusCycleSubscriber->dispatchNewCycleIncidents($event);
     }
 }

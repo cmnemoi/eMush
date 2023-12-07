@@ -11,9 +11,10 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
-use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -21,6 +22,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
@@ -28,6 +30,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -46,18 +49,10 @@ class CycleEventCest extends AbstractFunctionalTest
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
     {
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-                ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
-            ])
+            ->setDiseases([])
             ->buildName(GameConfigENum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
@@ -76,7 +71,6 @@ class CycleEventCest extends AbstractFunctionalTest
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
             'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
             'hunterConfigs' => new ArrayCollection($hunterConfigs),
         ]);
@@ -162,6 +156,46 @@ class CycleEventCest extends AbstractFunctionalTest
 
         $I->assertEquals(0, $daedalus->getOxygen());
         $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
+    }
+
+    public function testOxygenBreakOnCycleChange(FunctionalTester $I)
+    {
+        // let's increase the duration of the ship to increase the number of incidents
+        $this->daedalus
+            ->setOxygen(10)
+            ->setDay(100)
+        ;
+
+        $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->setMaxValue(200)->setValue(200);
+        $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->setMaxValue(200)->setValue(200);
+
+        $tankConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::OXYGEN_TANK]);
+
+        $tankEquipment = $tankConfig->createGameEquipment($this->player->getPlace());
+        $I->haveInRepository($tankEquipment);
+
+        $event = new EquipmentEvent(
+            $tankEquipment,
+            true,
+            VisibilityEnum::PUBLIC,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_CREATED);
+
+        $I->assertCount(1, $this->daedalus->getModifiers());
+
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // we cannot be sure that the tank is broken, but chances are really high so overall the test works
+        // base oxygen loss is -3 with one operational tank it should be -2
+        $I->assertEquals(8, $this->daedalus->getOxygen());
+        $I->assertCount(2, $this->daedalus->getPlayers()->getPlayerAlive());
     }
 
     public function testCycleSubscriberDoNotAssignTitleToDeadPlayer(FunctionalTester $I): void

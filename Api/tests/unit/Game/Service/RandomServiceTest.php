@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Exploration\Repository\PlanetSectorRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -231,5 +232,36 @@ class RandomServiceTest extends TestCase
             $equipment,
             $draw
         );
+    }
+
+    public function testGetSingleRandomElementFromProbaCollectionReturnsCorrectRepresentation()
+    {
+        // given an equiprobable collection of 4 items
+        $items = new ProbaCollection([
+            ItemEnum::FUEL_CAPSULE => 1,
+            ItemEnum::OXYGEN_CAPSULE => 1,
+            ItemEnum::METAL_SCRAPS => 1,
+            ItemEnum::PLASTIC_SCRAPS => 1,
+        ]);
+
+        // when we draw 100 000 times one item
+        $n = 100000;
+        $p = 1 / 4;
+        $sigma = sqrt($n * $p * (1 - $p));
+
+        $content = new ArrayCollection();
+        for ($i = 1; $i <= $n; ++$i) {
+            $content->add($this->service->getSingleRandomElementFromProbaCollection($items));
+        }
+
+        // then each item is drawn approximately 25 000 times given a 7 sigma margin of error.
+        // The probability of a false positive is then 1 in 10^12
+        foreach ($items as $expectedItem => $proba) {
+            $this->assertEqualsWithDelta(
+                expected: 25000,
+                actual: $content->filter(fn ($item) => $item === $expectedItem)->count(),
+                delta: 7 * $sigma
+            );
+        }
     }
 }

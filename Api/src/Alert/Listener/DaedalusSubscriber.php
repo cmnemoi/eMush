@@ -31,9 +31,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $alerts = $this->alertService->findByDaedalus($daedalus);
 
         foreach ($alerts as $alert) {
-            if ($alert->getName() === AlertEnum::FIRES) {
-                continue;
-            }
             $this->alertService->delete($alert);
         }
     }

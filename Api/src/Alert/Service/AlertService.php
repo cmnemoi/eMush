@@ -75,14 +75,14 @@ class AlertService implements AlertServiceInterface
         }
     }
 
-    public function findAlertElementByEquipment(GameEquipment $equipment): ?AlertElement
+    public function findAlertElementByEquipmentAndAlert(GameEquipment $equipment, Alert $alert): ?AlertElement
     {
-        return $this->alertElementRepository->findOneBy(['equipment' => $equipment]);
+        return $this->alertElementRepository->findOneBy(['equipment' => $equipment, 'alert' => $alert]);
     }
 
-    public function findAlertElementByPlace(Place $place): ?AlertElement
+    public function findAlertElementByPlaceAndAlert(Place $place, Alert $alert): ?AlertElement
     {
-        return $this->alertElementRepository->findOneBy(['place' => $place]);
+        return $this->alertElementRepository->findOneBy(['place' => $place, 'alert' => $alert]);
     }
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ?Alert
@@ -194,7 +194,7 @@ class AlertService implements AlertServiceInterface
             $brokenAlert = $this->getAlert($daedalus, AlertEnum::BROKEN_EQUIPMENTS);
         }
 
-        $alertElement = $this->findAlertElementByEquipment($equipment);
+        $alertElement = $this->findAlertElementByEquipmentAndAlert($equipment, $brokenAlert);
 
         // do not create alert element if this equipment is already reported
         if ($alertElement !== null) {
@@ -265,7 +265,7 @@ class AlertService implements AlertServiceInterface
 
         $fireAlert = $this->getAlert($daedalus, AlertEnum::FIRES);
 
-        $alertElement = $this->findAlertElementByPlace($place);
+        $alertElement = $this->findAlertElementByPlaceAndAlert($place, $fireAlert);
 
         // do not create alert element if this place is already reported
         if ($alertElement !== null) {
@@ -446,9 +446,6 @@ class AlertService implements AlertServiceInterface
     {
         $alertElement = new AlertElement();
         $alertElement->setPlace($place);
-
-        $this->persistAlertElement($alertElement);
-
         $alert->addAlertElement($alertElement);
 
         $this->persist($alert);

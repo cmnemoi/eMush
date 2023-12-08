@@ -3170,7 +3170,7 @@ class EquipmentConfigData
                 'lie_down',
                 'repair_percent_25',
                 'sabotage_percent_25',
-                'dismantle_percent_25_cost_3',
+                'disassemble_percent_25_cost_3',
                 'report_equipment',
             ],
             'mechanics' => [],

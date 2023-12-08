@@ -130,12 +130,12 @@ class DoTheThing extends AbstractAction
     protected function checkResult(): ActionResult
     {
         $actIsTooPassionate = $this->randomService->isSuccessful(self::TOO_PASSIONATE_ACT_RATE);
-        $actIsDoneOfOnTheSofa = $this->target instanceof GameEquipment && $this->target->getName() === EquipmentEnum::SWEDISH_SOFA;
+        $sofaInRoom = $this->player->getPlace()->getEquipmentByName(EquipmentEnum::SWEDISH_SOFA);
 
-        if ($actIsTooPassionate && $actIsDoneOfOnTheSofa) {
+        if ($actIsTooPassionate && $sofaInRoom) {
             $this->statusService->createStatusFromName(
                 statusName: EquipmentStatusEnum::BROKEN,
-                holder: $this->target,
+                holder: $sofaInRoom,
                 tags: $this->action->getActionTags(),
                 time: new \DateTime(),
                 visibility: VisibilityEnum::PUBLIC,

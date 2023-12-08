@@ -88,7 +88,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
         switch ($playerEvent->getVariableName()) {
             case PlayerVariableEnum::HEALTH_POINT:
-                $this->handleHealthPointModifier($player, $playerEvent, $playerEvent->getTime());
+                $this->handleHealthPointModifier($player, $playerEvent);
 
                 return;
 

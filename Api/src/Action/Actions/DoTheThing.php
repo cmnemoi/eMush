@@ -122,6 +122,15 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
         ]));
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::ROOM,
+            'equipments' => EquipmentEnum::getBeds(),
+            'contains' => true,
+            'checkIfOperational' => true,
+            'all' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
+        ]));
     }
 
     protected function checkResult(): ActionResult

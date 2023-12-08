@@ -744,7 +744,7 @@ class DoTheThingCest extends AbstractFunctionalTest
         $I->assertNull($this->doTheThingAction->cannotExecuteReason());
     }
 
-    public function testDoTheThingNotExecutableIfSofaIsBroken(FunctionalTester $I): void
+    public function testDoTheThingNotVisibleIfSofaIsBroken(FunctionalTester $I): void
     {
         // given there is chun and kuan ti in the laboratory
         $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -778,10 +778,7 @@ class DoTheThingCest extends AbstractFunctionalTest
             target: $kuanTi,
         );
 
-        // then the action is not executable
-        $I->assertEquals(
-            expected: ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
-            actual: $this->doTheThingAction->cannotExecuteReason(),
-        );
+        // then the action is not visible
+        $I->assertFalse($this->doTheThingAction->isVisible());
     }
 }

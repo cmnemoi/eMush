@@ -5,12 +5,13 @@ namespace Mush\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class EmptyBedInRoomValidator extends ConstraintValidator
+class EmptyOperationalBedInRoomValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
@@ -18,17 +19,18 @@ class EmptyBedInRoomValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, AbstractAction::class);
         }
 
-        if (!$constraint instanceof EmptyBedInRoom) {
-            throw new UnexpectedTypeException($constraint, EmptyBedInRoom::class);
+        if (!$constraint instanceof EmptyOperationalBedInRoom) {
+            throw new UnexpectedTypeException($constraint, EmptyOperationalBedInRoom::class);
         }
 
         $player = $value->getPlayer();
 
         $bedsInRoom = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => in_array($gameEquipment->getName(), EquipmentEnum::getBeds()));
+        $bedIsNotOccupied = fn (GameEquipment $gameEquipment) => !$gameEquipment->hasTargetingStatus(PlayerStatusEnum::LYING_DOWN);
+        $bedIsNotBroken = fn (GameEquipment $gameEquipment) => !$gameEquipment->hasStatus(EquipmentStatusEnum::BROKEN);
 
-        if ($bedsInRoom->filter(fn (GameEquipment $gameEquipment) => !$gameEquipment->hasTargetingStatus(PlayerStatusEnum::LYING_DOWN))->isEmpty()) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
+        if ($bedsInRoom->filter($bedIsNotOccupied)->filter($bedIsNotBroken)->isEmpty()) {
+            $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 }

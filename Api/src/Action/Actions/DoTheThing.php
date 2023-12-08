@@ -8,7 +8,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\EmptyBedInRoom;
+use Mush\Action\Validator\EmptyOperationalBedInRoom;
 use Mush\Action\Validator\FlirtedAlready;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
@@ -19,7 +19,6 @@ use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\CharacterEnum;
@@ -84,7 +83,7 @@ class DoTheThing extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new IsSameGender(['groups' => ['visibility']]));
-        $metadata->addConstraint(new EmptyBedInRoom(['groups' => ['visibility']]));
+        $metadata->addConstraint(new EmptyOperationalBedInRoom(['groups' => ['visibility']]));
         $metadata->addConstraint(new FlirtedAlready([
             'groups' => ['execute'],
             'expectedValue' => true,
@@ -125,15 +124,6 @@ class DoTheThing extends AbstractAction
             'number' => 2,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
-        ]));
-        $metadata->addConstraint(new HasEquipment([
-            'reach' => ReachEnum::ROOM,
-            'equipments' => EquipmentEnum::getBeds(),
-            'contains' => true,
-            'checkIfOperational' => true,
-            'all' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
     }
 

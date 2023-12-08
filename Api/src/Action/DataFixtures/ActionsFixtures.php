@@ -700,6 +700,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setOutputQuantity(2)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
         ;
 
         $manager->persist($doTheThingAction);

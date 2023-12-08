@@ -66,7 +66,7 @@ class LogEnum
             SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             SymptomEnum::BREAKOUTS => VisibilityEnum::PUBLIC,
             SymptomEnum::CAT_ALLERGY => VisibilityEnum::PUBLIC,
-            SymptomEnum::DIRTINESS => VisibilityEnum::PRIVATE,
+            SymptomEnum::DIRTINESS => VisibilityEnum::HIDDEN,
             SymptomEnum::DROOLING => VisibilityEnum::PUBLIC,
             SymptomEnum::FEAR_OF_CATS => VisibilityEnum::PUBLIC,
             SymptomEnum::FOAMING_MOUTH => VisibilityEnum::PUBLIC,

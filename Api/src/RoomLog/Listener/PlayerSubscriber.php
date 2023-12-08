@@ -39,7 +39,11 @@ class PlayerSubscriber implements EventSubscriberInterface
     }
 
     public function onDeathPlayer(PlayerEvent $event): void
-    {
+    {   
+        if (!$event->getPlayer()->isAlive()) {
+            return;
+        }
+        
         $this->createEventLog(LogEnum::DEATH, $event);
     }
 

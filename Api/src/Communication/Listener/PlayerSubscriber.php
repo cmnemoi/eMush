@@ -41,6 +41,10 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+        if (!$player->isAlive()) {
+            return;
+        }
+
         $time = $event->getTime();
 
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);

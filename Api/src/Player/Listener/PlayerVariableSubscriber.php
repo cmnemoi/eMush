@@ -99,9 +99,9 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleHealthPointModifier(Player $player, PlayerVariableEvent $event, \DateTime $time): void
+    private function handleHealthPointModifier(Player $player, PlayerVariableEvent $event): void
     {
-        if ($player->getHealthPoint() <= 0) {
+        if ($player->isAlive() && $player->getHealthPoint() <= 0) {
             $deathReason = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
             if ($deathReason === null) {

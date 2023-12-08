@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -18,6 +19,7 @@ use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\CharacterEnum;
@@ -31,6 +33,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -40,6 +43,7 @@ class DoTheThing extends AbstractAction
 {
     public const PREGNANCY_RATE = 8;
     public const STD_TRANSMISSION_RATE = 5;
+    public const TOO_PASSIONATE_ACT_RATE = 5;
 
     protected string $name = ActionEnum::DO_THE_THING;
 
@@ -135,6 +139,21 @@ class DoTheThing extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
+        $actIsTooPassionate = $this->randomService->isSuccessful(self::TOO_PASSIONATE_ACT_RATE);
+        $actIsDoneOfOnTheSofa = $this->target instanceof GameEquipment && $this->target->getName() === EquipmentEnum::SWEDISH_SOFA;
+
+        if ($actIsTooPassionate && $actIsDoneOfOnTheSofa) {
+            $this->statusService->createStatusFromName(
+                statusName: EquipmentStatusEnum::BROKEN,
+                holder: $this->target,
+                tags: $this->action->getActionTags(),
+                time: new \DateTime(),
+                visibility: VisibilityEnum::PUBLIC,
+            );
+
+            return new Fail();
+        }
+
         return new Success();
     }
 

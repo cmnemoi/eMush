@@ -19,9 +19,9 @@ class StatusEventLogEnum
             PlayerStatusEnum::PREGNANT => self::BECOME_PREGNANT,
             EquipmentStatusEnum::BROKEN => self::EQUIPMENT_BROKEN,
             PlayerStatusEnum::STUCK_IN_THE_SHIP => self::STUCK_IN_THE_SHIP,
-            ],
+        ],
         StatusEvent::STATUS_REMOVED => [
             EquipmentStatusEnum::PLANT_YOUNG => PlantLogEnum::PLANT_MATURITY,
-            ],
-        ];
+        ],
+    ];
 }

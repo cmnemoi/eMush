@@ -3,6 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Equipment\Entity\Door;
 use Mush\Place\Enum\RoomEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -21,17 +22,19 @@ final class CanGoToIcarusBayValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, CanGoToIcarusBay::class);
         }
 
+        /** @var Door $door */
+        $door = $value->getTarget();
         $player = $value->getPlayer();
         $icarusBay = $player->getDaedalus()->getPlaceByName(RoomEnum::ICARUS_BAY);
         if (!$icarusBay) {
             throw new \Exception('Daedalus should have a place named Icarus bay');
         }
 
-        $numberOfPlayersInIcarusBay = $icarusBay->getPlayers()->getPlayerAlive()->count();
+        $icarusBayIsFull = $icarusBay->getPlayers()->count() >= self::MAX_NUMBER_OF_PLAYERS_IN_ICARUS_BAY;
+        $playerWantsToGoToIcarusBay = $door->getRooms()->contains($icarusBay) && $player->getPlace() !== $icarusBay;
 
-        if ($numberOfPlayersInIcarusBay >= self::MAX_NUMBER_OF_PLAYERS_IN_ICARUS_BAY && $player->getPlace() !== $icarusBay) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
+        if ($icarusBayIsFull && $playerWantsToGoToIcarusBay) {
+            $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 }

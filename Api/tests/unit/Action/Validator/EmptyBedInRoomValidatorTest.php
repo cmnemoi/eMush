@@ -47,7 +47,7 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $player->setPlace($room);
 
         $gameEquipment = new GameItem($room);
-        $gameEquipment->setName(EquipmentEnum::MEDLAB_BED);
+        $gameEquipment->setName(EquipmentEnum::BED);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action

@@ -54,18 +54,17 @@ class TakeoffToPlanet extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus([
+            'status' => DaedalusStatusEnum::IN_ORBIT,
+            'target' => HasStatus::DAEDALUS,
+            'contain' => true,
+            'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new HasStatus([
             'status' => DaedalusStatusEnum::TRAVELING,
             'target' => HasStatus::DAEDALUS,
             'contain' => false,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
-        ]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => DaedalusStatusEnum::IN_ORBIT,
-            'target' => HasStatus::DAEDALUS,
-            'contain' => true,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::EXPLORE_NOT_IN_ORBIT,
         ]));
         $metadata->addConstraint(new AllPlanetSectorsVisited([
             'groups' => ['execute'],

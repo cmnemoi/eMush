@@ -96,7 +96,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
     }
 
-    public function testTakeoffToPlanetNotExecutableIfDaedalusIsNotInOrbit(FunctionalTester $I): void
+    public function testTakeoffToPlanetNotVisibleIfDaedalusIsNotInOrbit(FunctionalTester $I): void
     {
         // given Daedalus is not in orbit
         $this->statusService->removeStatus(
@@ -109,11 +109,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
 
-        // then the action is not executable
-        $I->assertEquals(
-            expected: ActionImpossibleCauseEnum::EXPLORE_NOT_IN_ORBIT,
-            actual: $this->takeoffToPlanetAction->cannotExecuteReason(),
-        );
+        // then the action is visible
+        $I->assertFalse($this->takeoffToPlanetAction->isVisible());
     }
 
     public function testTakeoffToPlanetNotExectableIfDaedalusIsTraveling(FunctionalTester $I): void

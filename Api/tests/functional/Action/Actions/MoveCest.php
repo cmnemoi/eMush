@@ -97,4 +97,36 @@ final class MoveCest extends AbstractFunctionalTest
             actual: $jinsu->getPlace()->getName(),
         );
     }
+
+    public function testMoveActionExecutableInOtherRoomsIfTooMuchPeopleInIcarusBay(FunctionalTester $I): void
+    {
+        // given 4 players are in Icarus Bay
+        /** @var Player $player */
+        foreach ($this->players as $player) {
+            $player->changePlace($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
+        }
+
+        // given there is Front Corridor place
+        $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+
+        // given there is a door for exiting laboratory to front corridor
+        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
+        $door = new Door($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $door
+            ->setName('door_default')
+            ->setEquipment($doorConfig)
+            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR))
+        ;
+        $I->haveInRepository($door);
+
+        // when derek tries to move to the front corridor
+        $this->moveAction->loadParameters($this->moveConfig, $this->derek, $door);
+        $this->moveAction->execute();
+
+        // then derek is in the front corridor
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR)->getName(),
+            actual: $this->derek->getPlace()->getName(),
+        );
+    }
 }

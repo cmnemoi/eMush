@@ -73,6 +73,39 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
     }
 
+    public function testBrokenSofaRemovesLaidDownStatus(FunctionalTester $I): void
+    {
+        // given there is a sofa in lab
+        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $sofaConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SWEDISH_SOFA]);
+        $sofa = new GameEquipment($laboratory);
+        $sofa
+            ->setName(EquipmentEnum::SWEDISH_SOFA)
+            ->setEquipment($sofaConfig)
+        ;
+        $I->haveInRepository($sofa);
+
+        // given player is laid down on sofa
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+            target: $sofa
+        );
+
+        // when sofa is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $sofa,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // then player is not laid down on sofa anymore
+        $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::LYING_DOWN));
+    }
+
     public function testDispatchEquipmentBroken(FunctionalTester $I)
     {
         $statusConfig = new StatusConfig();

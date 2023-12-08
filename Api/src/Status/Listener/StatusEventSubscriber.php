@@ -46,6 +46,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
             $this->createNoGravityStatus($statusHolder, $event->getTags(), $event->getTime());
             $this->ejectFocusedPlayers($statusHolder, $event->getTags(), $event->getTime());
+            $this->makeLaidDownPlayersGetUp($statusHolder, $event->getTags(), $event->getTime());
         }
     }
 
@@ -102,6 +103,27 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                 if ($player->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget()?->getName() === $statusHolder->getName()) {
                     $this->statusService->removeStatus(
                         PlayerStatusEnum::FOCUSED,
+                        $player,
+                        $tags,
+                        $time
+                    );
+                }
+            }
+        }
+    }
+
+    private function makeLaidDownPlayersGetUp(
+        StatusHolderInterface $statusHolder,
+        array $tags,
+        \DateTime $time
+    ): void {
+        if ($statusHolder instanceof GameEquipment
+            && $statusHolder->getEquipment()->hasAction(ActionEnum::LIE_DOWN)
+        ) {
+            foreach ($statusHolder->getPlace()->getPlayers()->getPlayerAlive() as $player) {
+                if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)?->getTarget()?->getName() === $statusHolder->getName()) {
+                    $this->statusService->removeStatus(
+                        PlayerStatusEnum::LYING_DOWN,
                         $player,
                         $tags,
                         $time

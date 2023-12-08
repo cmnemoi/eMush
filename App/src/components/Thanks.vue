@@ -216,7 +216,7 @@ footer {
         padding: 0;
     }
 
-    a, button {
+    :deep(a), button {
         color: $green;
 
         text-decoration: none;

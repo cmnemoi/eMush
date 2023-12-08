@@ -743,6 +743,26 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($tabulatrix);
 
+        $sofaActions = [
+            $examineAction,
+            $lieDownAction,
+            $repair25,
+            $sabotage25,
+            $dismantle25,
+            $reportAction,
+        ];
+        $swedishSofa = new EquipmentConfig();
+        $swedishSofa
+            ->setEquipmentName(EquipmentEnum::SWEDISH_SOFA)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
+            ->setActions($sofaActions)
+            ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($swedishSofa);
+
         $gameConfig
             ->addEquipmentConfig($icarus)
             ->addEquipmentConfig($door)
@@ -780,6 +800,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($fuelTank)
             ->addEquipmentConfig($oxygenTank)
             ->addEquipmentConfig($tabulatrix)
+            ->addEquipmentConfig($swedishSofa)
         ;
         $manager->persist($gameConfig);
 

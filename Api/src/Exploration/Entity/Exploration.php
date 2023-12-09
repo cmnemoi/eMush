@@ -57,6 +57,9 @@ class Exploration
         $this->explorators = new ArrayCollection();
 
         $this->closedExploration = new ClosedExploration($this);
+
+        $daedalus = $this->planet->getDaedalus();
+        $daedalus->setExploration($this);
     }
 
     public function getId(): int

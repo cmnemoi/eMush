@@ -83,6 +83,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $closedExploration = $exploration->getClosedExploration();
         $explorators = $exploration->getExplorators();
         $planet = $exploration->getPlanet();
+        $daedalus = $planet->getDaedalus();
 
         $explorationEvent = new ExplorationEvent(
             exploration: $exploration,
@@ -95,6 +96,7 @@ final class ExplorationService implements ExplorationServiceInterface
             $explorator->setExploration(null);
         }
         $planet->setExploration(null);
+        $daedalus->setExploration(null);
 
         $closedExploration->finishExploration();
 

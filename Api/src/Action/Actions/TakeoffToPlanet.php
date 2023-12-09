@@ -10,8 +10,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AllPlanetSectorsVisited;
+use Mush\Action\Validator\ExplorationAlreadyOngoing;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
@@ -67,10 +67,13 @@ class TakeoffToPlanet extends AbstractAction
             'message' => ActionImpossibleCauseEnum::DAEDALUS_TRAVELING,
         ]));
         $metadata->addConstraint(new AllPlanetSectorsVisited([
-            'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::EXPLORE_NOTHING_LEFT,
+            'groups' => ['execute'],
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
+        $metadata->addConstraint(new ExplorationAlreadyOngoing([
+            'message' => ActionImpossibleCauseEnum::EXPLORATION_ALREADY_ONGOING,
+            'groups' => ['execute'],
+        ]));
     }
 
     protected function checkResult(): ActionResult

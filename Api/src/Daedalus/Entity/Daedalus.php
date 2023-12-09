@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Game\Entity\Collection\GameVariableCollection;
@@ -84,6 +86,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => SpaceOrientationEnum::NORTH])]
     private string $orientation = SpaceOrientationEnum::NORTH;
+
+    #[ORM\OneToOne(targetEntity: Exploration::class)]
+    private ?Exploration $exploration = null;
 
     public function __construct()
     {
@@ -512,6 +517,23 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
             orientation: $this->orientation,
             distance: $this->getCombustionChamberFuel(),
         );
+    }
+    
+    public function getExploration(): ?Exploration
+    {
+        return $this->exploration;
+    }
+
+    public function setExploration(?Exploration $exploration): static
+    {
+        $this->exploration = $exploration;
+
+        return $this;
+    }
+
+    public function getInOrbitPlanet(): ?Planet
+    {
+        return $this->exploration?->getPlanet();
     }
 
     public function getClassName(): string

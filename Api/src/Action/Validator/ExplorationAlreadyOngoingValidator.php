@@ -18,7 +18,7 @@ final class ExplorationAlreadyOngoingValidator extends ConstraintValidator
         if (!$constraint instanceof ExplorationAlreadyOngoing) {
             throw new UnexpectedTypeException($constraint, ExplorationAlreadyOngoing::class);
         }
-        
+
         $onGoingExploration = $value->getPlayer()->getDaedalus()->getExploration();
 
         if ($onGoingExploration !== null) {

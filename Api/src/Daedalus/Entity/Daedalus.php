@@ -518,7 +518,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
             distance: $this->getCombustionChamberFuel(),
         );
     }
-    
+
     public function getExploration(): ?Exploration
     {
         return $this->exploration;

@@ -101,6 +101,7 @@ class ActionImpossibleCauseEnum
     public const LATERAL_REACTOR_BROKEN = 'lateral_reactor_broken';
     public const DAEDALUS_IN_ORBIT = 'daedalus_in_orbit';
     public const CANNOT_GO_TO_THIS_ROOM = 'cannot_go_to_this_room';
+    public const EXPLORATION_ALREADY_ONGOING = 'exploration_already_ongoing';
 
     public const UPDATE_TALKIE_REQUIRE_NERON = 'update_talkie_require_neron';
     public const UPDATE_TALKIE_REQUIRE_TRACKER = 'update_talkie_require_tracker';

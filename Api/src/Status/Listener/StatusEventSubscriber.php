@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -126,7 +127,8 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                         PlayerStatusEnum::LYING_DOWN,
                         $player,
                         $tags,
-                        $time
+                        $time,
+                        VisibilityEnum::PUBLIC,
                     );
                 }
             }

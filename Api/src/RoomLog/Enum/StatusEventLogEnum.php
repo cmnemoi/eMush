@@ -12,6 +12,7 @@ class StatusEventLogEnum
     public const BECOME_PREGNANT = 'become_pregnant';
     public const EQUIPMENT_BROKEN = 'equipment_broken';
     public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
+    public const GET_UP_BED_BROKEN = 'get_up_bed_broken';
 
     public const STATUS_EVENT_LOGS = [
         StatusEvent::STATUS_APPLIED => [
@@ -22,6 +23,7 @@ class StatusEventLogEnum
         ],
         StatusEvent::STATUS_REMOVED => [
             EquipmentStatusEnum::PLANT_YOUNG => PlantLogEnum::PLANT_MATURITY,
+            PlayerStatusEnum::LYING_DOWN => self::GET_UP_BED_BROKEN,
         ],
     ];
 }

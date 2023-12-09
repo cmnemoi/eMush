@@ -30,7 +30,7 @@ final class CanGoToIcarusBayValidator extends ConstraintValidator
             throw new \Exception('Daedalus should have a place named Icarus bay');
         }
 
-        $icarusBayIsFull = $icarusBay->getPlayers()->count() >= self::MAX_NUMBER_OF_PLAYERS_IN_ICARUS_BAY;
+        $icarusBayIsFull = $icarusBay->getNumberOfPlayersAlive() >= self::MAX_NUMBER_OF_PLAYERS_IN_ICARUS_BAY;
         $playerWantsToGoToIcarusBay = $door->getRooms()->contains($icarusBay) && $player->getPlace() !== $icarusBay;
 
         if ($icarusBayIsFull && $playerWantsToGoToIcarusBay) {

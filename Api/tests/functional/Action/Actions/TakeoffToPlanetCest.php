@@ -23,6 +23,7 @@ use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -146,6 +147,50 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // then the action is not executable
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::EXPLORE_NOTHING_LEFT,
+            actual: $this->takeoffToPlanetAction->cannotExecuteReason(),
+        );
+    }
+
+    public function testTakeoffToPlanetNotExectableIfAnExplorationIsOnGoing(FunctionalTester $I): void
+    {
+        // given players have spacesuit in their inventory to explore oxygen-free planets
+        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
+        $spacesuit = new GameItem($this->player1);
+        $spacesuit
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spacesuitConfig)
+        ;
+        $I->haveInRepository($spacesuit);
+        $spacesuit2 = new GameItem($this->player2);
+        $spacesuit2
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spacesuitConfig)
+        ;
+        $I->haveInRepository($spacesuit2);
+
+        // given players are exploring the planet
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // given a new player is in a patrol ship
+        $patrolShipAlphaTamarinPlace = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]);
+        $patrolShip = new GameEquipment($patrolShipAlphaTamarinPlace);
+        $patrolShip
+            ->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setEquipment($patrolShipConfig)
+        ;
+        $I->haveInRepository($patrolShip);
+
+        $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+        $newPlayer->changePlace($patrolShipAlphaTamarinPlace);
+
+        // when this new player tries to takeoff to planet
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $newPlayer, $patrolShip);
+
+        // then the action is not executable
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::EXPLORATION_ALREADY_ONGOING,
             actual: $this->takeoffToPlanetAction->cannotExecuteReason(),
         );
     }

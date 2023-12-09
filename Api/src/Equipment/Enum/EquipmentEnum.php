@@ -64,7 +64,6 @@ class EquipmentEnum
     {
         return [
             self::BED,
-            self::MEDLAB_BED,
             self::SWEDISH_SOFA,
         ];
     }

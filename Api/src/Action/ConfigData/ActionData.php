@@ -887,7 +887,7 @@ class ActionData
             'types' => [],
             'target' => null,
             'scope' => 'other_player',
-            'visibilities' => ['success' => 'public', 'fail' => 'private'],
+            'visibilities' => ['success' => 'public', 'fail' => 'public'],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

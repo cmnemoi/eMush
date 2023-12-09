@@ -3,8 +3,8 @@
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Validator\EmptyBedInRoom;
-use Mush\Action\Validator\EmptyBedInRoomValidator;
+use Mush\Action\Validator\EmptyOperationalBedInRoom;
+use Mush\Action\Validator\EmptyOperationalBedInRoomValidator;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -17,18 +17,18 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class EmptyBedInRoomValidatorTest extends TestCase
+class EmptyOperationalBedInRoomValidatorTest extends TestCase
 {
-    private EmptyBedInRoomValidator $validator;
-    private EmptyBedInRoom $constraint;
+    private EmptyOperationalBedInRoomValidator $validator;
+    private EmptyOperationalBedInRoom $constraint;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->validator = new EmptyBedInRoomValidator();
-        $this->constraint = new EmptyBedInRoom();
+        $this->validator = new EmptyOperationalBedInRoomValidator();
+        $this->constraint = new EmptyOperationalBedInRoom();
     }
 
     /**
@@ -47,7 +47,7 @@ class EmptyBedInRoomValidatorTest extends TestCase
         $player->setPlace($room);
 
         $gameEquipment = new GameItem($room);
-        $gameEquipment->setName(EquipmentEnum::MEDLAB_BED);
+        $gameEquipment->setName(EquipmentEnum::BED);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action

@@ -3,11 +3,12 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\EmptyBedInRoom;
+use Mush\Action\Validator\EmptyOperationalBedInRoom;
 use Mush\Action\Validator\FlirtedAlready;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
@@ -31,6 +32,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -40,6 +42,7 @@ class DoTheThing extends AbstractAction
 {
     public const PREGNANCY_RATE = 8;
     public const STD_TRANSMISSION_RATE = 5;
+    public const TOO_PASSIONATE_ACT_RATE = 5;
 
     protected string $name = ActionEnum::DO_THE_THING;
 
@@ -80,7 +83,7 @@ class DoTheThing extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new IsSameGender(['groups' => ['visibility']]));
-        $metadata->addConstraint(new EmptyBedInRoom(['groups' => ['visibility']]));
+        $metadata->addConstraint(new EmptyOperationalBedInRoom(['groups' => ['visibility']]));
         $metadata->addConstraint(new FlirtedAlready([
             'groups' => ['execute'],
             'expectedValue' => true,
@@ -126,6 +129,21 @@ class DoTheThing extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
+        $actIsTooPassionate = $this->randomService->isSuccessful(self::TOO_PASSIONATE_ACT_RATE);
+        $sofaInRoom = $this->player->getPlace()->getEquipmentByName(EquipmentEnum::SWEDISH_SOFA);
+
+        if ($actIsTooPassionate && $sofaInRoom) {
+            $this->statusService->createStatusFromName(
+                statusName: EquipmentStatusEnum::BROKEN,
+                holder: $sofaInRoom,
+                tags: $this->action->getActionTags(),
+                time: new \DateTime(),
+                visibility: VisibilityEnum::PUBLIC,
+            );
+
+            return new Fail();
+        }
+
         return new Success();
     }
 

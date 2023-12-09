@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -46,6 +47,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         if ($event->getStatusName() === EquipmentStatusEnum::BROKEN) {
             $this->createNoGravityStatus($statusHolder, $event->getTags(), $event->getTime());
             $this->ejectFocusedPlayers($statusHolder, $event->getTags(), $event->getTime());
+            $this->makeLaidDownPlayersGetUp($statusHolder, $event->getTags(), $event->getTime());
         }
     }
 
@@ -105,6 +107,28 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                         $player,
                         $tags,
                         $time
+                    );
+                }
+            }
+        }
+    }
+
+    private function makeLaidDownPlayersGetUp(
+        StatusHolderInterface $statusHolder,
+        array $tags,
+        \DateTime $time
+    ): void {
+        if ($statusHolder instanceof GameEquipment
+            && $statusHolder->getEquipment()->hasAction(ActionEnum::LIE_DOWN)
+        ) {
+            foreach ($statusHolder->getPlace()->getPlayers()->getPlayerAlive() as $player) {
+                if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)?->getTarget()?->getName() === $statusHolder->getName()) {
+                    $this->statusService->removeStatus(
+                        PlayerStatusEnum::LYING_DOWN,
+                        $player,
+                        $tags,
+                        $time,
+                        VisibilityEnum::PUBLIC,
                     );
                 }
             }

@@ -19,6 +19,7 @@ class ActionLogEnum
     public const COOK_SUCCESS = 'cook_success';
     public const DISPENSE_SUCCESS = 'dispense_success';
     public const DO_THE_THING_SUCCESS = 'do_the_thing_success';
+    public const DO_THE_THING_BREAKS_SOFA = 'do_the_thing_breaks_sofa';
     public const DROP = 'drop';
     public const EXPRESS_COOK_SUCCESS = 'express_cook_success';
     public const EXTINGUISH_SUCCESS = 'extinguish_success';
@@ -280,6 +281,7 @@ class ActionLogEnum
 
         ActionEnum::DO_THE_THING => [
             ActionOutputEnum::SUCCESS => self::DO_THE_THING_SUCCESS,
+            ActionOutputEnum::FAIL => self::DO_THE_THING_BREAKS_SOFA,
         ],
 
         ActionEnum::CHECK_SPORE_LEVEL => [

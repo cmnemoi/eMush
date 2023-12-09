@@ -26,6 +26,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -36,19 +37,24 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class DoTheThingCest
+class DoTheThingCest extends AbstractFunctionalTest
 {
+    private Action $doTheThingConfig;
     private DoTheThing $doTheThingAction;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+        $this->doTheThingConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::DO_THE_THING]);
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
@@ -736,5 +742,43 @@ class DoTheThingCest
 
         $I->assertTrue($this->doTheThingAction->isVisible());
         $I->assertNull($this->doTheThingAction->cannotExecuteReason());
+    }
+
+    public function testDoTheThingNotVisibleIfSofaIsBroken(FunctionalTester $I): void
+    {
+        // given there is chun and kuan ti in the laboratory
+        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $chun = $this->player1;
+        $kuanTi = $this->player2;
+
+        // given kuan ti has flirted with chun
+        $kuanTi->setFlirts(new ArrayCollection([$chun]));
+
+        // given there is a sofa in the room
+        $sofaConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SWEDISH_SOFA]);
+        $sofa = new GameEquipment($laboratory);
+        $sofa
+            ->setName(EquipmentEnum::SWEDISH_SOFA)
+            ->setEquipment($sofaConfig)
+        ;
+        $I->haveInRepository($sofa);
+
+        // given the sofa is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $sofa,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when chun tries to do the thing with kuan ti
+        $this->doTheThingAction->loadParameters(
+            action: $this->doTheThingConfig,
+            player: $chun,
+            target: $kuanTi,
+        );
+
+        // then the action is not visible
+        $I->assertFalse($this->doTheThingAction->isVisible());
     }
 }

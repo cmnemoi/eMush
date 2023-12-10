@@ -660,5 +660,17 @@
         }</target>
       </segment>
     </unit>
+    <unit id="help_disabled">
+      <segment id="help_disabled" state="translated">
+        <source>help_disabled</source>
+        <target>**{character}** aide **{target_character}** à sortir de la pièce, c'est beau la fraternité.</target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="final">
+        <source>consume_mush</source>
+        <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

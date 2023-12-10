@@ -1061,7 +1061,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_-1movementPoint_on_move_if_player_in_room_not_alone',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::DISABLED_MOVE_MODIFIER,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
@@ -1233,7 +1233,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_prevent_change.variable_if_reason_consume',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::MUSH_CONSUME,
             'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,

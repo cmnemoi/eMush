@@ -30,7 +30,6 @@ export default {
             title: this.$t('title'),
             meta: [
                 { name: 'description', content: this.$t('metaSeo.description') },
-                { name: 'keywords', content: this.$t('metaSeo.keywords') },
                 { name: 'og:title', content: this.$t('metaSeo.og:title') },
                 { name: 'og:description', content: this.$t('metaSeo.og:description') },
                 { name: 'og:url', content: this.baseUrl },

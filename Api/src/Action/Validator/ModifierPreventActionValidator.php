@@ -28,15 +28,13 @@ class ModifierPreventActionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ModifierPreventAction::class);
         }
 
-        $actionParameters = $value->getParameters();
         $actionTarget = $value->getTarget();
 
         $preActionEvent = new ActionEvent($value->getAction(), $value->getPlayer(), $actionTarget);
         $canTriggerAction = $this->eventService->eventCancelReason($preActionEvent, ActionEvent::PRE_ACTION);
 
         if ($canTriggerAction !== null) {
-            $this->context->buildViolation($canTriggerAction)
-                ->addViolation();
+            $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 }

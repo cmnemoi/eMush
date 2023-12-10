@@ -526,7 +526,7 @@
     <unit id="renovate_lack_ressources">
       <segment id="description" state="final">
         <source>renovate_lack_ressources.description</source>
-        <target>Remettre à neuf un Patrouilleur nécessite un *Débris Métallique*</target>
+        <target>Remettre à neuf un Patrouilleur nécessite un *Débris Métallique*.</target>
       </segment>
     </unit>
     <unit id="surgery_not_lying_down">

@@ -157,7 +157,7 @@
       <segment id="hit_fail" state="final">
         <source>hit_fail</source>
         <target>{version, select,
-    1 {**{character}* tried to hit **{target_character}**, alas their feeble attempt missed and hit the wall... Ouch...}
+    1 {**{character}** tried to hit **{target_character}**, alas their feeble attempt missed and hit the wall... Ouch...}
     2 {**{character}** misses their hit on **{target_character}**.}
     other {**{character}** misses their hit on **{target_character}**.}
 }</target>

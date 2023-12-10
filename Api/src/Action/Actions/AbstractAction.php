@@ -5,6 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Error;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
@@ -62,7 +63,7 @@ abstract class AbstractAction
         $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlayerCanAffordPoints(['groups' => ['execute']]));
-        $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute']]));
+        $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
     }
 
     public function isVisible(): bool

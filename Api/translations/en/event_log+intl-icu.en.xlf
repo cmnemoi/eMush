@@ -606,9 +606,9 @@
       </segment>
     </unit>
     <unit id="get_up_bed_broken">
-      <segment id="get_up_bed_broken" state="translated">
+      <segment id="get_up_bed_broken" state="final">
         <source>get_up_bed_broken</source>
-        <target>This **{target_equipment}**  seems even more uncomfortable than usual; how is this possible ?! **{character}** does a few spins before finally getting up.</target>
+        <target>This **{target_equipment}** seems even more uncomfortable than usual; how is this possible ?! **{character}** does a few spins before finally getting up.</target>
       </segment>
     </unit>
   </file>

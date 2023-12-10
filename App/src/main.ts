@@ -10,6 +10,7 @@ import { messages, defaultLocale } from '@/i18n';
 import { mixin } from './mixin/mixin';
 import { plugin as VueTippy } from 'vue-tippy';
 import UUID from "vue3-uuid";
+import { VueHeadMixin, createHead } from '@unhead/vue';
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_API_URL!);
@@ -46,13 +47,18 @@ const vueTippyProps = {
     }
 };
 
-createApp(App)
-    .use(store)
+const app = createApp(App);
+const head = createHead();
+app.mixin(VueHeadMixin);
+
+app.use(store)
     .use(router)
     .use(i18n)
     .mixin(mixin)
     .use(VueTippy, vueTippyProps)
     .use(UUID)
+    .use(head)
     .mount('#app');
+
 
 

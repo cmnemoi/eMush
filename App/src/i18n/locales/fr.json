@@ -603,5 +603,10 @@
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
 		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !"
+	},
+	"metaSeo": {
+		"description": "eMush est une reprise de Mush : jouez dans la peau d'un des derniers espoirs de l'Humanité. À vos côtés, 15 autres membres d'équipage, et un parasite, le Mush ! Trahisons, exploits et explorations !",
+		"og:title": "eMush - Jeu multijoueur de coopération : trahisons, explorations et fuite dans l'espace !",
+		"og:description": "eMush est une reprise de Mush : jouez dans la peau d'un des derniers espoirs de l'Humanité. À vos côtés, 15 autres membres d'équipage, et un parasite, le Mush ! Trahisons, exploits et explorations !"
 	}
 }

@@ -603,5 +603,10 @@
 		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
 		"title": "ERROR",
 		"badGateway": "The proxy has received an invalid response. This error is most likely due to server synchronization: try again later!"
+	},
+	"metaSeo": {
+		"description": "eMush is a remake of Mush: play as one of Mankind's last hopes. Alongside you, 15 other crew members, and a parasite, the Mush! Betrayals, exploits and exploration!",
+		"og:title": "eMush - Cooperative multiplayer game: betrayal, exploration and escape into space!",
+		"og:description": "eMush is a remake of Mush: play as one of Mankind's last hopes. Alongside you, 15 other crew members, and a parasite, the Mush! Betrayals, exploits and exploration!"
 	}
 }

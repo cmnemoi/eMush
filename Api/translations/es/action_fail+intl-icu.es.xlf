@@ -13,6 +13,12 @@
         <target>No tienes suficientes :pa: (Puntos de Acción) para realizar esta acción. **Come** o **espera algunos ciclos**.</target>
       </segment>
     </unit>
+    <unit id="insufficient_action_point_mush">
+      <segment id="description" state="translated">
+        <source>insufficient_action_point_mush.description</source>
+        <target>No tienes suficientes :pa: (Puntos de Acción) para realizar esta acción. **Espera algunos ciclos**.</target>
+      </segment>
+    </unit>
     <unit id="no_shelving_unit">
       <segment id="description" state="translated">
         <source>no_shelving_unit.description</source>
@@ -581,6 +587,12 @@
       <segment state="initial">
         <source>cannot_go_to_this_room.description</source>
         <target>cannot_go_to_this_room.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_ongoing">
+      <segment state="initial">
+        <source>exploration_already_ongoing.description</source>
+        <target>exploration_already_ongoing.description</target>
       </segment>
     </unit>
   </file>

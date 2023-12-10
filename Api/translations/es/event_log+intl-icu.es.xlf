@@ -517,5 +517,11 @@
         <target>liquid_map_helped</target>
       </segment>
     </unit>
+    <unit id="get_up_bed_broken">
+      <segment id="get_up_bed_broken" state="initial">
+        <source>get_up_bed_broken</source>
+        <target>get_up_bed_broken</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

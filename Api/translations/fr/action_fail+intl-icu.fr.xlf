@@ -15,7 +15,7 @@
       </segment>
     </unit>
     <unit id="insufficient_action_point_mush">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>insufficient_action_point_mush.description</source>
         <target>Vous n'avez pas assez de :pa: (Point d'Action) pour réaliser cette action.
           **Attendez quelques cycles**.</target>
@@ -635,6 +635,12 @@
       <segment state="translated">
         <source>cannot_go_to_this_room.description</source>
         <target>Vous ne pouvez pas aller dans cette pièce.</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_ongoing">
+      <segment state="translated">
+        <source>exploration_already_ongoing.description</source>
+        <target>Une expédition est déjà sur le terrain.</target>
       </segment>
     </unit>
   </file>

@@ -13,6 +13,12 @@
         <target>You have insufficient :pa: (Action Points) to do this. **Eat** or **wait a few cycles**.</target>
       </segment>
     </unit>
+    <unit id="insufficient_action_point_mush">
+      <segment id="description" state="translated">
+        <source>insufficient_action_point_mush.description</source>
+        <target>You have insufficient :pa: (Action Points) to do this. **Wait a few cycles**.</target>
+      </segment>
+    </unit>
     <unit id="no_shelving_unit">
       <segment id="description" state="final">
         <source>no_shelving_unit.description</source>
@@ -581,6 +587,12 @@
       <segment state="translated">
         <source>cannot_go_to_this_room.description</source>
         <target>You cannot go to this room.</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_ongoing">
+      <segment state="translated">
+        <source>exploration_already_ongoing.description</source>
+        <target>An expedition is already in the field.</target>
       </segment>
     </unit>
   </file>

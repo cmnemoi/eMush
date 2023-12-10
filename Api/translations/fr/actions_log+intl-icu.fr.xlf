@@ -120,7 +120,7 @@
       </segment>
     </unit>
     <unit id="do_the_thing_breaks_sofa">
-      <segment id="do_the_thing_breaks_sofa" state="final">
+      <segment id="do_the_thing_breaks_sofa" state="translated">
         <source>do_the_thing_breaks_sofa</source>
         <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... Quelques minutes plus tard, ils rallument. Ils ont un air satisfait. *Le sofa ne peut pas en dire autant...*</target>
       </segment>

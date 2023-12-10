@@ -67,6 +67,12 @@
         <target>do_the_thing_success</target>
       </segment>
     </unit>
+    <unit id="do_the_thing_breaks_sofa">
+      <segment id="do_the_thing_breaks_sofa" state="initial">
+        <source>do_the_thing_breaks_sofa</source>
+        <target>do_the_thing_breaks_sofa</target>
+      </segment>
+    </unit>
     <unit id="drop">
       <segment id="drop" state="initial">
         <source>drop</source>

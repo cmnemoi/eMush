@@ -91,6 +91,12 @@
         <target>**{character}** and **{target_character}** killed the lights and then the strange noises started... A few minutes later, the lights went back on. They seemed in great spirits afterwards.</target>
       </segment>
     </unit>
+    <unit id="do_the_thing_breaks_sofa">
+      <segment id="do_the_thing_breaks_sofa" state="translated">
+        <source>do_the_thing_breaks_sofa</source>
+        <target>**{character}** and **{target_character}** killed the lights and then the strange noises started... A few minutes later, the lights went back on. They seemed in great spirits afterwards. *The sofa can't say the same...*.</target>
+      </segment>
+    </unit>
     <unit id="drop">
       <segment id="drop" state="final">
         <source>drop</source>

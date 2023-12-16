@@ -21,8 +21,7 @@ class ModifierSubscriber implements EventSubscriberInterface
     public function __construct(
         RoomLogServiceInterface $roomLogService,
         RandomServiceInterface $randomService
-    )
-    {
+    ) {
         $this->roomLogService = $roomLogService;
         $this->randomService = $randomService;
     }
@@ -71,7 +70,7 @@ class ModifierSubscriber implements EventSubscriberInterface
             $otherPlayers = $player->getPlace()->getPlayers()->filter(
                 fn (Player $otherPlayer) => ($player->getLogName() !== $otherPlayer->getLogName())
             );
-            if ($otherPlayers->count() <1) {
+            if ($otherPlayers->count() < 1) {
                 throw new \LogicException('there should be another player in the room for this modifier to trigger');
             }
 

@@ -2,10 +2,16 @@
 
 namespace Mush\Modifier\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\LogParameterInterface;
 
 class ModifierEvent extends AbstractGameEvent
 {
@@ -44,5 +50,35 @@ class ModifierEvent extends AbstractGameEvent
     public function getModifiers(): ModifierCollection
     {
         return new ModifierCollection([]);
+    }
+
+    public function getLogParameters(): array
+    {
+        $modifierHolder = $this->modifier->getModifierHolder();
+        $logParameters = [];
+
+        if ($author = $this->getAuthor()) {
+            $logParameters = array_merge($logParameters, [$author->getLogKey() => $author->getLogName()]);
+        }
+
+        switch (true) {
+            case $modifierHolder instanceof Player:
+                $place = $modifierHolder->getPlace();
+                $logParameters[$place->getLogKey()] = $place->getLogName();
+                $logParameters['target_'.$modifierHolder->getLogKey()] = $modifierHolder->getLogName();
+                break;
+            case $modifierHolder instanceof Place:
+                $logParameters[$modifierHolder->getLogKey()] =  $modifierHolder->getLogName();
+                break;
+            case $modifierHolder instanceof GameEquipment:
+                $place = $modifierHolder->getPlace();
+                $logParameters[$place->getLogKey()] = $place->getLogName();
+                $logParameters['target_'.$modifierHolder->getLogKey()] = $modifierHolder->getLogName();
+                break;
+            default:
+                return $logParameters;
+        }
+
+        return $logParameters;
     }
 }

@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -15,10 +16,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ModifierSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
+    private RandomServiceInterface $randomService;
 
-    public function __construct(RoomLogServiceInterface $roomLogService)
+    public function __construct(
+        RoomLogServiceInterface $roomLogService,
+        RandomServiceInterface $randomService
+    )
     {
         $this->roomLogService = $roomLogService;
+        $this->randomService = $randomService;
     }
 
     public static function getSubscribedEvents(): array
@@ -42,41 +48,35 @@ class ModifierSubscriber implements EventSubscriberInterface
         $modifier = $event->getModifier();
         $holder = $modifier->getModifierHolder();
         $player = null;
-
-        $parameters = [];
-        if ($author = $event->getAuthor()) {
-            $parameters = array_merge($parameters, ['target_' . $author->getLogKey() => $author->getLogName()]);
-        }
+        $logParameters = $event->getLogParameters();
 
         switch (true) {
             case $holder instanceof Player:
                 $player = $holder;
                 $place = $player->getPlace();
-                $parameters = array_merge(
-                    $parameters,
-                    [
-                        $place->getLogKey() => $place->getLogName(),
-                        $player->getLogKey() => $player->getLogName(),
-                    ]
-                );
                 break;
             case $holder instanceof Place:
                 $place = $holder;
-                $parameters = array_merge($parameters, [$place->getLogKey() => $place->getLogName()]);
                 break;
             case $holder instanceof GameEquipment:
                 $place = $holder->getPlace();
-                $parameters = array_merge(
-                    $parameters,
-                    [
-                        $place->getLogKey() => $place->getLogName(),
-                        $holder->getLogKey() => $holder->getLogName(),
-                    ]
-                );
                 break;
             case $holder instanceof Daedalus:
             default:
                 return;
+        }
+
+        // Log for disabled require to get another player in the room
+        if ($logKey === LogEnum::HELP_DISABLED && $player instanceof Player) {
+            $otherPlayers = $player->getPlace()->getPlayers()->filter(
+                fn (Player $otherPlayer) => ($player->getLogName() !== $otherPlayer->getLogName())
+            );
+            if ($otherPlayers->count() <1) {
+                throw new \LogicException('there should be another player in the room for this modifier to trigger');
+            }
+
+            $helper = $this->randomService->getRandomPlayer($otherPlayers);
+            $logParameters[$helper->getLogKey()] = $helper->getLogName();
         }
 
         $this->roomLogService->createLog(
@@ -85,7 +85,7 @@ class ModifierSubscriber implements EventSubscriberInterface
             $logVisibility,
             'event_log',
             $player,
-            $parameters,
+            $logParameters,
             $event->getTime()
         );
     }

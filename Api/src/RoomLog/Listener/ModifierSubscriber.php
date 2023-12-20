@@ -67,7 +67,7 @@ class ModifierSubscriber implements EventSubscriberInterface
 
         // Log for disabled require to get another player in the room
         if ($logKey === LogEnum::HELP_DISABLED && $player instanceof Player) {
-            $otherPlayers = $player->getPlace()->getPlayers()->filter(
+            $otherPlayers = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(
                 fn (Player $otherPlayer) => ($player->getLogName() !== $otherPlayer->getLogName())
             );
             if ($otherPlayers->count() < 1) {

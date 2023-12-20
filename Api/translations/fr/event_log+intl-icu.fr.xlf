@@ -647,7 +647,7 @@
     <unit id="liquid_map_helped">
       <segment id="liquid_map_helped" state="translated">
         <source>liquid_map_helped</source>
-        <target>La carte liquide a bien aidé **{target_character}**.</target>
+        <target>La carte liquide a bien aidé **{character}**.</target>
       </segment>
     </unit>
     <unit id="get_up_bed_broken">

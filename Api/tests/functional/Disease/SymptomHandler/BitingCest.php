@@ -38,5 +38,42 @@ final class BitingCest extends AbstractFunctionalTest
 
         // then no exception is thrown
         $I->expect('no exception is thrown');
+
+        // then no biting log is created
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            'log' => SymptomEnum::BITING,
+        ]);
+    }
+
+    public function testBitingCorrectlyPrintsBittenPlayerName(FunctionalTester $I)
+    {
+        // given I have two players in laboratory
+        $I->assertEquals(2, $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getNumberOfPlayersAlive());
+
+        // when I apply biting symptom to player1
+        $this->bitingSymptom->applyEffects(
+            player: $this->player1,
+            priority: ModifierPriorityEnum::getPriorityAsInteger(ModifierPriorityEnum::PREVENT_EVENT),
+            tags: ['test'],
+            time: new \DateTime()
+        );
+
+        // then I see a correctly parametered biting log
+        /** @var RoomLog $bitingLog */
+        $bitingLog = $I->grabEntityFromRepository(RoomLog::class, [
+            'place' => $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
+            'log' => SymptomEnum::BITING,
+        ]);
+
+        $bitingLogParameters = $bitingLog->getParameters();
+        $I->assertEquals(
+            expected: $this->player2->getLogName(),
+            actual: $bitingLogParameters['target_character'],
+        );
+        $I->assertEquals(
+            expected: $this->player1->getLogName(),
+            actual: $bitingLogParameters['character'],
+        );
     }
 }

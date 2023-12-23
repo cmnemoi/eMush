@@ -30,6 +30,11 @@ class Biting extends AbstractSymptomHandler
         array $tags,
         \DateTime $time
     ): void {
+        // if there is only one player alive, there is no player to bite : we do nothing.
+        if ($player->getPlace()->getNumberOfPlayersAlive() <= 1) {
+            return;
+        }
+
         $victims = $player->getPlace()->getPlayers()->getPlayerAlive();
         $victims->removeElement($player);
 

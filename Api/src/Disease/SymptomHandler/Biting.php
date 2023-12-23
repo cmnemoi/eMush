@@ -3,25 +3,32 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Disease\Enum\SymptomEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Biting extends AbstractSymptomHandler
 {
     protected string $name = SymptomEnum::BITING;
-    private RandomServiceInterface $randomService;
+
     private EventServiceInterface $eventService;
+    private RandomServiceInterface $randomService;
+    private RoomLogServiceInterface $roomLogService;
+
 
     public function __construct(
+        EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
-        EventServiceInterface $eventService
+        RoomLogServiceInterface $roomLogService
     ) {
-        $this->randomService = $randomService;
         $this->eventService = $eventService;
+        $this->randomService = $randomService;
+        $this->roomLogService = $roomLogService;
     }
 
     public function applyEffects(
@@ -48,5 +55,19 @@ class Biting extends AbstractSymptomHandler
             $time
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        // we need to hardcode logging here because we don't have access to the player bitten outside of this class
+        $this->roomLogService->createLog(
+            logKey: SymptomEnum::BITING,
+            place: $player->getPlace(),
+            visibility: VisibilityEnum::PUBLIC,
+            type: 'event_log',
+            player: $player,
+            parameters: [
+                $player->getLogKey() => $player->getLogName(),
+                'target_'. $playerToBite->getLogKey() => $playerToBite->getLogName(),
+            ],
+            dateTime: $time
+        );
     }
 }

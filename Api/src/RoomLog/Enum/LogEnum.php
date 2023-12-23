@@ -63,7 +63,7 @@ class LogEnum
             ModifierNameEnum::DISABLED_MOVE_MODIFIER => VisibilityEnum::PUBLIC,
             ModifierNameEnum::APRON_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::GLOVES_MODIFIER => VisibilityEnum::PRIVATE,
-            SymptomEnum::BITING => VisibilityEnum::PUBLIC,
+            SymptomEnum::BITING => VisibilityEnum::HIDDEN,
             SymptomEnum::BREAKOUTS => VisibilityEnum::PUBLIC,
             SymptomEnum::CAT_ALLERGY => VisibilityEnum::PUBLIC,
             SymptomEnum::DIRTINESS => VisibilityEnum::HIDDEN,

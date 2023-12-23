@@ -15,7 +15,7 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
     /**
      * Function which returns the hunters to normalize.
      * We don't normalize all attacking hunters, because there would be too many of them displayed on the screen.
-     * This function caps the number of hunters (currently 17) and guarantees that there will at least 1 hunter of each type normalized.
+     * This function caps the number of hunters (currently 17) and guarantees that there will be at least 1 hunter of each type normalized.
      */
     public function getHuntersToNormalize(Daedalus $daedalus): HunterCollection
     {
@@ -32,8 +32,10 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
         foreach ($this->getAdvancedHuntersToNormalize($daedalus) as $hunter) {
             $huntersToNormalize->add($hunter);
         }
+
         // then we fill the rest with simple hunters
-        foreach ($this->getSimpleHuntersToNormalize($daedalus) as $hunter) {
+        $numberOfSimpleHuntersToNormalize = self::NUMBER_OF_HUNTERS_TO_NORMALIZE - $huntersToNormalize->count();
+        foreach ($this->getSimpleHuntersToNormalize($daedalus, $numberOfSimpleHuntersToNormalize) as $hunter) {
             $huntersToNormalize->add($hunter);
         }
 
@@ -57,18 +59,16 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
         return $advancedHuntersToNormalize;
     }
 
-    private function getSimpleHuntersToNormalize(Daedalus $daedalus): HunterCollection
+    private function getSimpleHuntersToNormalize(Daedalus $daedalus, int $number): HunterCollection
     {
-        $numberOfHuntersToNormalize = self::NUMBER_OF_HUNTERS_TO_NORMALIZE - $this->getAdvancedHuntersToNormalize($daedalus)->count();
-
         $simpleHunters = $daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER);
         $simpleHuntersToNormalize = new HunterCollection();
 
-        for ($i = 0; $i < $numberOfHuntersToNormalize; ++$i) {
+        for ($i = 0; $i < $number; ++$i) {
             if ($simpleHunters[$i] === null) {
                 break;
             }
-            
+
             $simpleHuntersToNormalize->add($simpleHunters[$i]);
         }
 

@@ -10,7 +10,7 @@
                     <span v-if="error.request.method">method: {{ error.request.method.toUpperCase() }}</span>
                     <span v-if="error.request.url">url: {{ error.request.url }}</span>
                     <span class="details" v-if="error.request.params">params: <strong>{{ error.request.params }}</strong></span>
-                    <span class="details" v-if="error.response.details">details: <strong>{{ getTranslatedErrorDetails() }}</strong></span>
+                    <span class="details" v-if="getTranslatedErrorDetails()">details: <strong>{{ getTranslatedErrorDetails() }}</strong></span>
                     <span class="details" v-if="error.response.class">class: <strong>{{ error.response.class }}</strong></span>
                 </div>
                 <p v-html="$t('errors.consultCommunity')"></p>
@@ -43,9 +43,14 @@ export default defineComponent ({
             'clearError'
         ]),
         getTranslatedErrorDetails(): string {
-            if (parseInt(this.errorStatus) === 502) {
+            // If the error is a 502, it's probably due to server synchronization
+            // but we don't have any details about it. Then, hardcode the error message.
+            if (!this.error.response.details && parseInt(this.errorStatus) === 502) {
                 return this.$t('errors.badGateway');
             }
+
+            // Else, try to translate the error message. If there is no translation key associated, 
+            // return the raw error message.
             const translatedDetails = this.$t(['errors', this.error.response.details].join('.'));
             if (translatedDetails === ['errors', this.error.response.details].join('.')) {
                 return this.error.response.details;

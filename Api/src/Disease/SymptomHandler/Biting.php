@@ -13,7 +13,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Biting extends AbstractSymptomHandler
-{   
+{
     private const BITING_DAMAGE = 1;
     protected string $name = SymptomEnum::BITING;
 

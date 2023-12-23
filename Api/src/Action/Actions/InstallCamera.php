@@ -56,7 +56,7 @@ class InstallCamera extends AbstractAction
                 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
             ]),
         ]);
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room']));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool

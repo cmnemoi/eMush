@@ -17,7 +17,7 @@
             </div>
             <div class="analysis">
                 <ul>
-                    <li v-for="sector in planet.sectors" :key="sector.name">
+                    <li v-for="sector in planet.sectors" :key="sector.id">
                         <Tippy tag="img" :src="getSectorImage(sector)" :alt="sector.name">
                             <template #content>
                                 <h1 v-html="formatText(sector.name)" />

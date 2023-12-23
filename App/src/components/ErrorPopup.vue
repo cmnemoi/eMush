@@ -42,11 +42,16 @@ export default defineComponent ({
         ...mapActions('error', [
             'clearError'
         ]),
-        getTranslatedErrorDetails(): string {
+        getTranslatedErrorDetails(): string | null {
             // If the error is a 502, it's probably due to server synchronization
-            // but we don't have any details about it. Then, hardcode the error message.
-            if (!this.error.response.details && parseInt(this.errorStatus) === 502) {
+            // but we don't have much details about it. Then, hardcode the error message.
+            if (parseInt(this.errorStatus) === 502) {
                 return this.$t('errors.badGateway');
+            }
+
+            // If there is no details, return null.
+            if (!this.error.response.details) {
+                return null;
             }
 
             // Else, try to translate the error message. If there is no translation key associated, 
@@ -54,9 +59,9 @@ export default defineComponent ({
             const translatedDetails = this.$t(['errors', this.error.response.details].join('.'));
             if (translatedDetails === ['errors', this.error.response.details].join('.')) {
                 return this.error.response.details;
+            } else {
+                return translatedDetails;
             }
-
-            return translatedDetails;
         },
         getTranslatedErrorStatus(): string {
             const translatedStatus = this.$t(['errors.status', this.errorStatus].join('.'));

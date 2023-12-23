@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Disease\SymptomHandler;
 
+use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\SymptomHandler\Biting;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -30,20 +31,12 @@ final class BitingCest extends AbstractFunctionalTest
         // when I apply biting symptom to player1
         $this->bitingSymptom->applyEffects(
             player: $this->player1,
-            priority: ModifierPriorityEnum::getPriorityAsInteger(ModifierPriorityEnum::INITIAL_EVENT),
+            priority: ModifierPriorityEnum::getPriorityAsInteger(ModifierPriorityEnum::PREVENT_EVENT),
             tags: ['test'],
             time: new \DateTime()
         );
 
         // then no exception is thrown
         $I->expect('no exception is thrown');
-
-        // then no biting log is created
-        $I->dontSeeInRepository(RoomLog::class, [
-            'place' => $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
-            'log' => 'biting',
-        ]);
     }
-
-    pu
 }

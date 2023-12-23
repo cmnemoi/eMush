@@ -26,6 +26,11 @@ class HunterCollection extends ArrayCollection
         return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
     }
 
+    public function getOneHunterByType(string $type): ?Hunter
+    {
+        return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() === $type))->first() ?: null;
+    }
+
     public function getAttackingHunters(): self
     {
         return $this->filter(fn (Hunter $hunter) => (!$hunter->isInPool()));

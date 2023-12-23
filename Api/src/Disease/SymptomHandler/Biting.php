@@ -13,13 +13,13 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 
 class Biting extends AbstractSymptomHandler
-{
+{   
+    private const BITING_DAMAGE = 1;
     protected string $name = SymptomEnum::BITING;
 
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
-
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -42,7 +42,7 @@ class Biting extends AbstractSymptomHandler
         }
 
         $playerToBite = $this->getRandomPlayerInRoom($player);
-        
+
         $this->removeHealthPointToBittenPlayer($playerToBite, $time);
 
         // we need to hardcode logging here because we don't have access to the player bitten outside of this class
@@ -59,7 +59,7 @@ class Biting extends AbstractSymptomHandler
             player: $player,
             parameters: [
                 $player->getLogKey() => $player->getLogName(),
-                'target_'. $playerToBite->getLogKey() => $playerToBite->getLogName(),
+                'target_' . $playerToBite->getLogKey() => $playerToBite->getLogName(),
             ],
             dateTime: $time
         );
@@ -78,7 +78,7 @@ class Biting extends AbstractSymptomHandler
         $playerModifierEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::HEALTH_POINT,
-            -1,
+            -self::BITING_DAMAGE,
             [$this->name],
             $time
         );

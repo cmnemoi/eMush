@@ -37,26 +37,20 @@ class Biting extends AbstractSymptomHandler
         array $tags,
         \DateTime $time
     ): void {
-        // if there is only one player alive, there is no player to bite : we do nothing.
-        if ($player->getPlace()->getNumberOfPlayersAlive() <= 1) {
+        if ($this->playerIsAloneInRoom($player)) {
             return;
         }
 
-        $victims = $player->getPlace()->getPlayers()->getPlayerAlive();
-        $victims->removeElement($player);
-
-        $playerToBite = $this->randomService->getRandomPlayer($victims);
-
-        $playerModifierEvent = new PlayerVariableEvent(
-            $playerToBite,
-            PlayerVariableEnum::HEALTH_POINT,
-            -1,
-            [$this->name],
-            $time
-        );
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $playerToBite = $this->getRandomPlayerInRoom($player);
+        
+        $this->removeHealthPointToBittenPlayer($playerToBite, $time);
 
         // we need to hardcode logging here because we don't have access to the player bitten outside of this class
+        $this->createBitingLog($player, $playerToBite, $time);
+    }
+
+    private function createBitingLog(Player $player, Player $playerToBite, \DateTime $time): void
+    {
         $this->roomLogService->createLog(
             logKey: SymptomEnum::BITING,
             place: $player->getPlace(),
@@ -69,5 +63,30 @@ class Biting extends AbstractSymptomHandler
             ],
             dateTime: $time
         );
+    }
+
+    private function getRandomPlayerInRoom(Player $player): Player
+    {
+        $victims = $player->getPlace()->getPlayers()->getPlayerAlive();
+        $victims->removeElement($player);
+
+        return $this->randomService->getRandomPlayer($victims);
+    }
+
+    private function removeHealthPointToBittenPlayer(Player $player, \DateTime $time): void
+    {
+        $playerModifierEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::HEALTH_POINT,
+            -1,
+            [$this->name],
+            $time
+        );
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function playerIsAloneInRoom(Player $player): bool
+    {
+        return $player->getPlace()->getNumberOfPlayersAlive() === 1;
     }
 }

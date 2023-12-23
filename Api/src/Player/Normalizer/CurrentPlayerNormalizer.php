@@ -16,6 +16,7 @@ use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -38,6 +39,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private TerminalNormalizer $terminalNormalizer;
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
+    private HunterNormalizerHelperInterface $hunterNormalizerHelper;
 
     public function __construct(
         GameEquipmentServiceInterface $equipmentService,
@@ -47,7 +49,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
         TerminalNormalizer $terminalNormalizer,
         TranslationServiceInterface $translationService,
-        GearToolServiceInterface $gearToolService
+        GearToolServiceInterface $gearToolService,
+        HunterNormalizerHelperInterface $hunterNormalizerHelper
     ) {
         $this->gameEquipmentService = $equipmentService;
         $this->playerService = $playerService;
@@ -57,6 +60,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->terminalNormalizer = $terminalNormalizer;
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
+        $this->hunterNormalizerHelper = $hunterNormalizerHelper;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -235,8 +239,9 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $patrolShips = $this->getPatrolShipsInBattle($daedalus);
         $turrets = $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
 
+        $huntersToNormalize = $this->hunterNormalizerHelper->getHuntersToNormalize($daedalus);
         $normalizedHunters = [];
-        foreach ($daedalus->getAttackingHunters() as $hunter) {
+        foreach ($huntersToNormalize as $hunter) {
             $normalizedHunters[] = $this->normalizer->normalize($hunter, $format, $context);
         }
 

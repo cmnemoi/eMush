@@ -10,7 +10,7 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 final class EquipmentConfigDataCest extends AbstractFunctionalTest
-{   
+{
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)

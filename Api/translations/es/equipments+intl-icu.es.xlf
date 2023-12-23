@@ -398,9 +398,9 @@ Lo mejor para atravesar las paredes.</target>
         <source>emergency_reactor.gender</source>
         <target>Male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>emergency_reactor.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>emergency_reactor.examine</source>

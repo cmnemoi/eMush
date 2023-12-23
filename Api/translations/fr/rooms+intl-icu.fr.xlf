@@ -294,7 +294,7 @@
     <unit id="patrol_ship_bravo_planton">
       <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
-        <target>Patrouilleur Planton</target>
+        <target>Patrouilleur Platon</target>
       </segment>
       <segment id="loc_prep" state="final">
         <source>patrol_ship_bravo_planton.loc_prep</source>

@@ -384,7 +384,7 @@
       </segment>
       <segment id="first_letter" state="final">
         <source>emergency_reactor.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="final">
         <source>emergency_reactor.examine</source>
@@ -816,7 +816,7 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
     <unit id="patrol_ship_beta_planton">
       <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
-        <target>Patrouilleur Planton</target>
+        <target>Patrouilleur Platon</target>
       </segment>
       <segment id="short_name" state="final">
         <source>patrol_ship_bravo_planton.short_name</source>
@@ -836,7 +836,7 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
       </segment>
       <segment id="examine" state="final">
         <source>patrol_ship_bravo_planton.examine</source>
-        <target>Patrouilleur Planton
+        <target>Patrouilleur Platon
         //
         Charges de l'appareil : {charges}.
         //

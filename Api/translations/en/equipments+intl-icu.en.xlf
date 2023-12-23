@@ -398,9 +398,9 @@ Too cool! An authentic replica of the DYN-X666 machine which caused 63 deaths at
         <source>emergency_reactor.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="final">
         <source>emergency_reactor.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>emergency_reactor.examine</source>
@@ -842,7 +842,7 @@ It's no longer all shiny and new, but it does the job.</target>
     <unit id="patrol_ship_beta_planton">
       <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
-        <target>Patrol Ship Planton</target>
+        <target>Patrol Ship Platon</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>patrol_ship_bravo_planton.short_name</source>
@@ -862,7 +862,7 @@ It's no longer all shiny and new, but it does the job.</target>
       </segment>
       <segment id="examine" state="final">
         <source>patrol_ship_bravo_planton.examine</source>
-        <target>Patrol Ship Planton
+        <target>Patrol Ship Platon
         //
         Patrol Ship charges remaining : {charges}. 
         //

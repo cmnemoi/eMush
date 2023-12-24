@@ -55,9 +55,11 @@
                 />
             </div>
             <div v-if="! loading && target" class="interactions">
-                <div v-if="selectedItem" class="item-name">
-                    {{ selectedItem.name }}
-                    <Statuses :statuses="selectedItem.statuses" type="item" />
+                <div v-if="selectedItem" class="item">
+                    <div class="item-name">
+                        {{ selectedItem.name }}
+                        <Statuses :statuses="selectedItem.statuses" type="item" />
+                    </div>
                     <ActionButton
                         v-for="(action, key) in target.actions"
                         :key="key"
@@ -303,7 +305,7 @@ export default defineComponent ({
 .interactions {
     margin-top: 12px;
 
-    .item-name {
+    .item {
         margin: 0 0 4px 0;
         letter-spacing: 0.03em;
         font-variant: small-caps;
@@ -311,6 +313,12 @@ export default defineComponent ({
         &::v-deep(.status) {
             vertical-align: middle;
             margin-left: 2px;
+        }
+
+        .item-name {
+            flex-direction: row;
+            flex-wrap: wrap;
+            display: flex;
         }
     }
 }

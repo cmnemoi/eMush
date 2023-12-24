@@ -22,4 +22,14 @@ class HunterEnum
             self::TRAX,
         ]);
     }
+
+    public static function getAdvancedHunters(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ASTEROID,
+            self::DICE,
+            self::SPIDER,
+            self::TRAX,
+        ]);
+    }
 }

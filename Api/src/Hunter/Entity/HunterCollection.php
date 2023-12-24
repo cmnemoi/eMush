@@ -3,6 +3,7 @@
 namespace Mush\Hunter\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 /**
@@ -26,6 +27,17 @@ class HunterCollection extends ArrayCollection
         return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
     }
 
+    public function getAllHuntersSortedBy(string $criteriaName, bool $descending = false): self
+    {
+        $sortingMode = $descending ? Criteria::DESC : Criteria::ASC;
+        $criteria = Criteria::create()->orderBy([$criteriaName => $sortingMode]);
+
+        /** @var HunterCollection $result */
+        $result = $this->matching($criteria);
+
+        return $result;
+    }
+
     public function getAttackingHunters(): self
     {
         return $this->filter(fn (Hunter $hunter) => (!$hunter->isInPool()));
@@ -34,6 +46,11 @@ class HunterCollection extends ArrayCollection
     public function getHunterPool(): self
     {
         return $this->filter(fn (Hunter $hunter) => $hunter->isInPool());
+    }
+
+    public function getOneHunterByType(string $type): ?Hunter
+    {
+        return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() === $type))->first() ?: null;
     }
 
     /**

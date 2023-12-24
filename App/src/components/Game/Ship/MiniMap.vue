@@ -675,6 +675,14 @@
                     </g>
                     <g id="Front-Alpha-Turret1" serif:id="Front Alpha Turret">
                         <g id="Turret-Command5" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'front_alpha_turret' , 'turret_command')}">
+                            <rect
+                                class="floor"
+                                serif:id="floor"
+                                x="16"
+                                y="24"
+                                width="6"
+                                height="6"
+                            />
                             <path class="wall" serif:id="wall" d="M15,30l0,-7l7,-0" />
                         </g>
                     </g>
@@ -908,7 +916,6 @@ export default defineComponent ({
             const myCoord = RoomsEnum[this.myPosition?.key];
             this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
             this.me.top = myCoord.A.y + Math.round(Math.random() * (myCoord.C.y - 6 - myCoord.B.y));
-            console.log(this.me);
         },
         displayOther(): void
         {

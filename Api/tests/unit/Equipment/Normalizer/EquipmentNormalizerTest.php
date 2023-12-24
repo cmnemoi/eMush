@@ -13,6 +13,9 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -23,6 +26,7 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
 class EquipmentNormalizerTest extends TestCase
@@ -200,11 +204,11 @@ class EquipmentNormalizerTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $resultEquipment = new ItemConfig();
-        $resultEquipment->setEquipmentName(ItemEnum::NATAMY_RIFLE);
+        $itemConfig = new ItemConfig();
+        $itemConfig->setEquipmentName(ItemEnum::NATAMY_RIFLE);
         $blueprint = new Blueprint();
         $blueprint
-            ->setCraftedEquipmentName($resultEquipment->getEquipmentName())
+            ->setCraftedEquipmentName($itemConfig->getEquipmentName())
             ->setIngredients([ItemEnum::BLASTER => 1, ItemEnum::ECHOLOCATOR => 2])
         ;
 
@@ -264,6 +268,142 @@ class EquipmentNormalizerTest extends TestCase
             'key' => 'blueprint',
             'name' => 'translated name',
             'description' => 'translated description//ingredient 1//ingredient 2',
+            'statuses' => [],
+            'actions' => [],
+            'effects' => [],
+        ];
+
+        $this->assertIsArray($data);
+        $this->assertEquals($expected, $data);
+    }
+
+    public function testPlantNormalizer(): void
+    {
+        $gameConfig = new GameConfig();
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+
+        $place = new Place();
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $bananaTreeConfig = new ItemConfig();
+        $bananaTreeConfig->setEquipmentName(GamePlantEnum::BANANA_TREE);
+        $plantMechanic = new Plant();
+        $plantMechanic->setFruitName(GameFruitEnum::BANANA);
+        $plantMechanic->setMaturationTime([36 => 1]);
+        $plantMechanic->setOxygen([1 => 1]);
+        $bananaTreeConfig->setMechanics(new ArrayCollection([$plantMechanic]));
+
+        $bananaTree = \Mockery::mock(GameItem::class);
+        $bananaTree->shouldReceive('getId')->andReturn(1);
+        $bananaTree->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
+        $bananaTree->shouldReceive('getHolder')->andReturn($place);
+        $bananaTree->shouldReceive('getMechanics')->andReturn(new ArrayCollection([$plantMechanic]));
+        $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(false);
+        $bananaTree->makePartial();
+
+        $bananaTree->setEquipment($bananaTreeConfig);
+        $bananaTree->setName(GamePlantEnum::BANANA_TREE);
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('banana_tree.name', ['age' => ''], 'items', LanguageEnum::FRENCH)
+            ->andReturn('Bananier')
+            ->once()
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('banana_tree.description', [], 'items', LanguageEnum::FRENCH)
+            ->andReturn('Un bananier')
+            ->once()
+        ;
+
+        $this->gearToolService
+            ->shouldReceive('getActionsTools')
+            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
+            ->andReturn(new ArrayCollection([]))
+            ->once()
+        ;
+
+        $data = $this->normalizer->normalize($bananaTree, null, ['currentPlayer' => $player]);
+
+        $expected = [
+            'id' => 1,
+            'key' => GamePlantEnum::BANANA_TREE,
+            'name' => 'Bananier',
+            'description' => 'Un bananier',
+            'statuses' => [],
+            'actions' => [],
+            'effects' => [],
+        ];
+
+        $this->assertIsArray($data);
+        $this->assertEquals($expected, $data);
+    }
+
+    public function testYoungPlantNormalizer(): void
+    {
+        $gameConfig = new GameConfig();
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $daedalus = new Daedalus();
+        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+
+        $place = new Place();
+        $player = new Player();
+        $player->setDaedalus($daedalus);
+
+        $bananaTreeConfig = new ItemConfig();
+        $bananaTreeConfig->setEquipmentName(GamePlantEnum::BANANA_TREE);
+        $plantMechanic = new Plant();
+        $plantMechanic->setFruitName(GameFruitEnum::BANANA);
+        $plantMechanic->setMaturationTime([36 => 1]);
+        $plantMechanic->setOxygen([1 => 1]);
+        $bananaTreeConfig->setMechanics(new ArrayCollection([$plantMechanic]));
+
+        $bananaTree = \Mockery::mock(GameItem::class);
+        $bananaTree->shouldReceive('getId')->andReturn(1);
+        $bananaTree->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
+        $bananaTree->shouldReceive('getHolder')->andReturn($place);
+        $bananaTree->shouldReceive('getMechanics')->andReturn(new ArrayCollection([$plantMechanic]));
+        $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(true);
+        $bananaTree->makePartial();
+
+        $bananaTree->setEquipment($bananaTreeConfig);
+        $bananaTree->setName(GamePlantEnum::BANANA_TREE);
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('banana_tree.name', ['age' => 'young'], 'items', LanguageEnum::FRENCH)
+            ->andReturn('Jeune Bananier')
+            ->once()
+        ;
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('banana_tree.description', [], 'items', LanguageEnum::FRENCH)
+            ->andReturn('Un bananier')
+            ->once()
+        ;
+
+        $this->gearToolService
+            ->shouldReceive('getActionsTools')
+            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
+            ->andReturn(new ArrayCollection([]))
+            ->once()
+        ;
+
+        $data = $this->normalizer->normalize($bananaTree, null, ['currentPlayer' => $player]);
+
+        $expected = [
+            'id' => 1,
+            'key' => GamePlantEnum::BANANA_TREE,
+            'name' => 'Jeune Bananier',
+            'description' => 'Un bananier',
             'statuses' => [],
             'actions' => [],
             'effects' => [],

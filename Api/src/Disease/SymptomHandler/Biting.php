@@ -3,7 +3,6 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -43,26 +42,7 @@ class Biting extends AbstractSymptomHandler
 
         $playerToBite = $this->getRandomPlayerInRoom($player);
 
-        $this->removeHealthPointToBittenPlayer($playerToBite, $time);
-
-        // we need to hardcode logging here because we don't have access to the player bitten outside of this class
-        $this->createBitingLog($player, $playerToBite, $time);
-    }
-
-    private function createBitingLog(Player $player, Player $playerToBite, \DateTime $time): void
-    {
-        $this->roomLogService->createLog(
-            logKey: SymptomEnum::BITING,
-            place: $player->getPlace(),
-            visibility: VisibilityEnum::PUBLIC,
-            type: 'event_log',
-            player: $player,
-            parameters: [
-                $player->getLogKey() => $player->getLogName(),
-                'target_' . $playerToBite->getLogKey() => $playerToBite->getLogName(),
-            ],
-            dateTime: $time
-        );
+        $this->removeHealthPointToBittenPlayer($player, $playerToBite, $time);
     }
 
     private function getRandomPlayerInRoom(Player $player): Player
@@ -73,15 +53,16 @@ class Biting extends AbstractSymptomHandler
         return $this->randomService->getRandomPlayer($victims);
     }
 
-    private function removeHealthPointToBittenPlayer(Player $player, \DateTime $time): void
+    private function removeHealthPointToBittenPlayer(Player $bitingPlayer, Player $bitPlayer, \DateTime $time): void
     {
         $playerModifierEvent = new PlayerVariableEvent(
-            $player,
+            $bitPlayer,
             PlayerVariableEnum::HEALTH_POINT,
             -self::BITING_DAMAGE,
             [$this->name],
             $time
         );
+        $playerModifierEvent->setAuthor($bitingPlayer);
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 

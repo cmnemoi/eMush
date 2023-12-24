@@ -32,39 +32,38 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
 
         $huntersToNormalize = new HunterCollection();
 
-        // we need one advanced hunter of each type
-        foreach ($this->getAdvancedHuntersToNormalize($attackingHunters) as $hunter) {
+        // we need at least one hunter of each type
+        foreach ($this->getOneHunterByType($attackingHunters) as $hunter) {
             $huntersToNormalize->add($hunter);
         }
 
-        // then we fill the rest with simple hunters
-        $numberOfSimpleHuntersToNormalize = self::NUMBER_OF_HUNTERS_TO_NORMALIZE - $huntersToNormalize->count();
-        foreach ($this->getSimpleHuntersToNormalize($attackingHunters, $numberOfSimpleHuntersToNormalize) as $hunter) {
-            $huntersToNormalize->add($hunter);
+        // then we fill the rest with arbitrary hunters
+        foreach ($attackingHunters as $hunter) {
+            if (!$huntersToNormalize->contains($hunter)) {
+                $huntersToNormalize->add($hunter);
+            }
+
+            if ($huntersToNormalize->count() === self::NUMBER_OF_HUNTERS_TO_NORMALIZE) {
+                break;
+            }
         }
 
         return $huntersToNormalize;
     }
 
-    private function getAdvancedHuntersToNormalize(HunterCollection $hunters): HunterCollection
+    private function getOneHunterByType(HunterCollection $hunters): HunterCollection
     {
-        $advancedHunters = $hunters->getAllHuntersExcept(HunterEnum::HUNTER);
-        $advancedHuntersToNormalize = new HunterCollection();
+        $huntersToNormalize = new HunterCollection();
 
-        foreach (HunterEnum::getAdvancedHunters() as $hunterName) {
-            $advancedHunter = $advancedHunters->getOneHunterByType($hunterName);
+        foreach (HunterEnum::getAll() as $hunterName) {
+            $advancedHunter = $hunters->getOneHunterByType($hunterName);
             if (!$advancedHunter) {
                 continue;
             }
 
-            $advancedHuntersToNormalize->add($advancedHunter);
+            $huntersToNormalize->add($advancedHunter);
         }
 
-        return $advancedHuntersToNormalize;
-    }
-
-    private function getSimpleHuntersToNormalize(HunterCollection $hunters, int $number): HunterCollection
-    {
-        return new HunterCollection($hunters->getAllHuntersByType(HunterEnum::HUNTER)->slice(0, $number));
+        return $huntersToNormalize;
     }
 }

@@ -317,8 +317,6 @@ export default defineComponent ({
 
         .item-name {
             flex-direction: row;
-            flex-wrap: wrap;
-            display: flex;
         }
     }
 }

@@ -469,15 +469,6 @@
                                 height="4"
                             />
                             <path class="wall" serif:id="wall" d="M111.983,41l4,0" />
-                            <rect
-                                class="floor"
-                                serif:id="floor"
-                                x="112"
-                                y="50"
-                                width="4"
-                                height="4"
-                            />
-                            <path class="wall" serif:id="wall" d="M116,55l-4,0" />
                         </g>
                         <g id="NERON-Core" serif:id="NERON Core" :class="{visible : isBroken('equipment', 'nexus' , 'neron_core')}">
                             <path class="floor" serif:id="floor" d="M106,44l0,8l4,0l0,-8l-4,-0Z" />
@@ -671,6 +662,9 @@
                                 height="6"
                             />
                             <path class="wall" serif:id="wall" d="M6,42l0,-7l10,-0" />
+                        </g>
+                        <g id="Tabulatrix" serif:id="Tabulatrix" :class="{visible : isBroken('equipment', 'bridge' , 'tabulatrix')}">
+                            <path class="wall" serif:id="wall" d="M27,38.5l0,4" />
                         </g>
                         <g id="Front-BravoTurret" serif:id="Front BravoTurret">
                             <g id="Turret-Command4" serif:id="Turret Command">

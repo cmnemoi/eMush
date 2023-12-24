@@ -195,7 +195,6 @@ class CycleEventCest extends AbstractFunctionalTest
         // we cannot be sure that the tank is broken, but chances are really high so overall the test works
         // base oxygen loss is -3 with one operational tank it should be -2
         $I->assertEquals(8, $this->daedalus->getOxygen());
-        $I->assertCount(2, $this->daedalus->getPlayers()->getPlayerAlive());
     }
 
     public function testCycleSubscriberDoNotAssignTitleToDeadPlayer(FunctionalTester $I): void

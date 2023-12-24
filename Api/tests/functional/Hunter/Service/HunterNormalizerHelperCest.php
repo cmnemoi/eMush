@@ -133,6 +133,40 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
         $I->assertTrue($hunters->getAllHuntersByType(HunterEnum::HUNTER)->contains($lowHealthHunter));
     }
 
+    public function testGetHuntersToNormalizeReturnsDistinctHunters(FunctionalTester $I): void
+    {
+        // given I have 2 asteroids attacking
+        for ($i = 0; $i < 2; ++$i) {
+            $hunter = $this->createHunterFromName($this->daedalus, HunterEnum::ASTEROID);
+            $I->haveInRepository($hunter);
+        }
+
+        // given I have 18 simple hunters are attacking
+        for ($i = 0; $i < 18; ++$i) {
+            $hunter = $this->createHunterFromName($this->daedalus, HunterEnum::HUNTER);
+            $I->haveInRepository($hunter);
+        }
+
+        // given I have 5 trax attacking
+        for ($i = 0; $i < 5; ++$i) {
+            $hunter = $this->createHunterFromName($this->daedalus, HunterEnum::TRAX);
+            $I->haveInRepository($hunter);
+        }
+
+        // when I call getHuntersToNormalize
+        $hunters = $this->hunterNormalizerHelper->getHuntersToNormalize($this->daedalus);
+
+        // then all hunters are distinct
+        foreach ($hunters as $hunter) {
+            $I->assertEquals(1, $hunters->filter(fn (Hunter $h) => $h === $hunter)->count());
+        }
+
+        // then I get at least one hunter of each type
+        $I->assertGreaterThanOrEqual(1, $hunters->getAllHuntersByType(HunterEnum::ASTEROID)->count());
+        $I->assertGreaterThanOrEqual(1, $hunters->getAllHuntersByType(HunterEnum::TRAX)->count());
+        $I->assertGreaterThanOrEqual(1, $hunters->getAllHuntersByType(HunterEnum::HUNTER)->count());
+    }
+
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
     {
         /** @var HunterConfig $hunterConfig */

@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Disease\SymptomHandler;
 
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\SymptomHandler\Biting;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -64,6 +65,7 @@ final class BitingCest extends AbstractFunctionalTest
         $bitingLog = $I->grabEntityFromRepository(RoomLog::class, [
             'place' => $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
             'log' => SymptomEnum::BITING,
+            'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
         $bitingLogParameters = $bitingLog->getParameters();

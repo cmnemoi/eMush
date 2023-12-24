@@ -72,7 +72,6 @@ class RejuvenateAlpha extends AbstractAction
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-
     }
 
     private function dispatchSetToMaxEvent(string $variable): void

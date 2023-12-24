@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Enum\EndCauseEnum;
@@ -65,6 +66,7 @@ class PlayerModifierLogEnum
             ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,
             ModifierNameEnum::LYING_DOWN_MODIFIER => self::LYING_DOWN,
             ModifierNameEnum::FITFUL_SLEEP => self::FITFUL_SLEEP,
+            SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
         ],
@@ -76,6 +78,7 @@ class PlayerModifierLogEnum
             ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
             ModifierNameEnum::LYING_DOWN_MODIFIER => VisibilityEnum::HIDDEN,
             ModifierNameEnum::FITFUL_SLEEP => VisibilityEnum::PRIVATE,
+            SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,
         ],

@@ -27,4 +27,9 @@ class ModifierPriorityEnum
         self::INITIAL_EVENT => 0,
         self::AFTER_INITIAL_EVENT => 1,
     ];
+
+    public static function getPriorityAsInteger(string $priority): int
+    {
+        return self::PRIORITY_MAP[$priority];
+    }
 }

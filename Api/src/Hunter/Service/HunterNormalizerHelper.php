@@ -7,6 +7,7 @@ namespace Mush\Hunter\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Enum\HunterVariableEnum;
 
 class HunterNormalizerHelper implements HunterNormalizerHelperInterface
 {
@@ -15,11 +16,14 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
     /**
      * Function which returns the hunters to normalize.
      * We don't normalize all attacking hunters, because there would be too many of them displayed on the screen.
-     * This function caps the number of hunters (currently 17) and guarantees that there will be at least 1 hunter of each type normalized.
+     * This function :
+     * - caps the number of hunters to normalize to 17
+     * - ensures that there is at least one hunter of each type
+     * - prioritizes hunters with low health.
      */
     public function getHuntersToNormalize(Daedalus $daedalus): HunterCollection
     {
-        $attackingHunters = $daedalus->getAttackingHunters();
+        $attackingHunters = $daedalus->getAttackingHunters()->getAllHuntersSortedBy(HunterVariableEnum::HEALTH);
 
         // we want to normalize only 17 hunters. If there are less than 17 hunters, no treatment is needed
         if ($attackingHunters->count() <= self::NUMBER_OF_HUNTERS_TO_NORMALIZE) {
@@ -29,22 +33,22 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
         $huntersToNormalize = new HunterCollection();
 
         // we need one advanced hunter of each type
-        foreach ($this->getAdvancedHuntersToNormalize($daedalus) as $hunter) {
+        foreach ($this->getAdvancedHuntersToNormalize($attackingHunters) as $hunter) {
             $huntersToNormalize->add($hunter);
         }
 
         // then we fill the rest with simple hunters
         $numberOfSimpleHuntersToNormalize = self::NUMBER_OF_HUNTERS_TO_NORMALIZE - $huntersToNormalize->count();
-        foreach ($this->getSimpleHuntersToNormalize($daedalus, $numberOfSimpleHuntersToNormalize) as $hunter) {
+        foreach ($this->getSimpleHuntersToNormalize($attackingHunters, $numberOfSimpleHuntersToNormalize) as $hunter) {
             $huntersToNormalize->add($hunter);
         }
 
         return $huntersToNormalize;
     }
 
-    private function getAdvancedHuntersToNormalize(Daedalus $daedalus): HunterCollection
+    private function getAdvancedHuntersToNormalize(HunterCollection $hunters): HunterCollection
     {
-        $advancedHunters = $daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::HUNTER);
+        $advancedHunters = $hunters->getAllHuntersExcept(HunterEnum::HUNTER);
         $advancedHuntersToNormalize = new HunterCollection();
 
         foreach (HunterEnum::getAdvancedHunters() as $hunterName) {
@@ -59,19 +63,8 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
         return $advancedHuntersToNormalize;
     }
 
-    private function getSimpleHuntersToNormalize(Daedalus $daedalus, int $number): HunterCollection
+    private function getSimpleHuntersToNormalize(HunterCollection $hunters, int $number): HunterCollection
     {
-        $simpleHunters = $daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER);
-        $simpleHuntersToNormalize = new HunterCollection();
-
-        for ($i = 0; $i < $number; ++$i) {
-            if ($simpleHunters[$i] === null) {
-                break;
-            }
-
-            $simpleHuntersToNormalize->add($simpleHunters[$i]);
-        }
-
-        return $simpleHuntersToNormalize;
+        return new HunterCollection($hunters->getAllHuntersByType(HunterEnum::HUNTER)->slice(0, $number));
     }
 }

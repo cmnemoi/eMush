@@ -2662,7 +2662,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="banana_tree">
       <segment id="name" state="final">
         <source>banana_tree.name</source>
-        <target>Bananier</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Bananier</target>
       </segment>
       <segment id="short_name" state="final">
         <source>banana_tree.short_name</source>
@@ -2688,7 +2691,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="creepist">
       <segment id="name" state="final">
         <source>creepist.name</source>
-        <target>Lianiste</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Lianiste</target>
       </segment>
       <segment id="short_name" state="final">
         <source>creepist.short_name</source>
@@ -2714,7 +2720,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="cactax">
       <segment id="name" state="final">
         <source>cactax.name</source>
-        <target>Cactuor</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Cactuor</target>
       </segment>
       <segment id="short_name" state="final">
         <source>cactax.short_name</source>
@@ -2740,7 +2749,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="bifflon">
       <segment id="name" state="final">
         <source>bifflon.name</source>
-        <target>Bifalon</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Bifalon</target>
       </segment>
       <segment id="short_name" state="final">
         <source>bifflon.short_name</source>
@@ -2766,7 +2778,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="pulminagro">
       <segment id="name" state="final">
         <source>pulminagro.name</source>
-        <target>Poulmino</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Poulmino</target>
       </segment>
       <segment id="short_name" state="final">
         <source>pulminagro.short_name</source>
@@ -2792,7 +2807,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="precatus">
       <segment id="name" state="final">
         <source>precatus.name</source>
-        <target>Precatus</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Precatus</target>
       </segment>
       <segment id="short_name" state="final">
         <source>precatus.short_name</source>
@@ -2818,7 +2836,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="buttalien">
       <segment id="name" state="final">
         <source>buttalien.name</source>
-        <target>Buitalien</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Buitalien</target>
       </segment>
       <segment id="short_name" state="final">
         <source>buttalien.short_name</source>
@@ -2844,7 +2865,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="platacia">
       <segment id="name" state="final">
         <source>platacia.name</source>
-        <target>Platacia</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Platacia</target>
       </segment>
       <segment id="short_name" state="final">
         <source>platacia.short_name</source>
@@ -2870,7 +2894,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="tubiliscus">
       <segment id="name" state="final">
         <source>tubiliscus.name</source>
-        <target>Tubiliscus</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Tubiliscus</target>
       </segment>
       <segment id="short_name" state="final">
         <source>tubiliscus.short_name</source>
@@ -2896,7 +2923,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="graapshoot">
       <segment id="name" state="final">
         <source>graapshoot.name</source>
-        <target>Peuplimoune</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Peuplimoune</target>
       </segment>
       <segment id="short_name" state="final">
         <source>graapshoot.short_name</source>
@@ -2922,7 +2952,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="peniraft">
       <segment id="name" state="final">
         <source>peniraft.name</source>
-        <target>Pénicule</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Pénicule</target>
       </segment>
       <segment id="short_name" state="final">
         <source>peniraft.short_name</source>
@@ -2948,7 +2981,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="fiboniccus">
       <segment id="name" state="final">
         <source>fiboniccus.name</source>
-        <target>Fiboniccus</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Fiboniccus</target>
       </segment>
       <segment id="short_name" state="final">
         <source>fiboniccus.short_name</source>
@@ -2974,7 +3010,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="mycopia">
       <segment id="name" state="final">
         <source>mycopia.name</source>
-        <target>Mycopia</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Mycopia</target>
       </segment>
       <segment id="short_name" state="final">
         <source>mycopia.short_name</source>
@@ -3000,7 +3039,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="asperagunk">
       <segment id="name" state="final">
         <source>asperagunk.name</source>
-        <target>Asperginulk</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Asperginulk</target>
       </segment>
       <segment id="short_name" state="final">
         <source>asperagunk.short_name</source>
@@ -3052,7 +3094,10 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
     <unit id="bumpjunkin">
       <segment id="name" state="final">
         <source>bumpjunkin.name</source>
-        <target>Cucurbitatrouille</target>
+        <target>{age, select,
+       young {Jeune }
+       other {}
+}Cucurbitatrouille</target>
       </segment>
       <segment id="short_name" state="final">
         <source>bumpjunkin.short_name</source>

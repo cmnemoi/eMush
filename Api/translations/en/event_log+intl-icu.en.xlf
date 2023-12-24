@@ -600,15 +600,27 @@
       </segment>
     </unit>
     <unit id="liquid_map_helped">
-      <segment id="liquid_map_helped" state="translated">
+      <segment id="liquid_map_helped" state="final">
         <source>liquid_map_helped</source>
-        <target>The liquid map was a great help to **{target_character}**.</target>
+        <target>The liquid map was a great help to **{character}**.</target>
       </segment>
     </unit>
     <unit id="get_up_bed_broken">
       <segment id="get_up_bed_broken" state="final">
         <source>get_up_bed_broken</source>
         <target>This **{target_equipment}** seems even more uncomfortable than usual; how is this possible ?! **{character}** does a few spins before finally getting up.</target>
+      </segment>
+    </unit>
+    <unit id="help_disabled">
+      <segment id="help_disabled" state="final">
+        <source>help_disabled</source>
+        <target>**{character}** helped *{target_character}** to get out of the room, brotherly help is a beautiful thing. </target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="translated">
+        <source>consume_mush</source>
+        <target>You eat this pathetic morsel to pull the wool over their eyes, but it doesn't give you any energy...</target>
       </segment>
     </unit>
   </file>

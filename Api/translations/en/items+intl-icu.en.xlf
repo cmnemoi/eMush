@@ -2685,7 +2685,10 @@ The final word in solidarity in times of famine. Delivered without hot soup and 
     <unit id="banana_tree">
       <segment id="name" state="translated">
         <source>banana_tree.name</source>
-        <target>Banana Tree</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Banana Tree</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>banana_tree.short_name</source>
@@ -2712,7 +2715,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Banan
     <unit id="creepist">
       <segment id="name" state="translated">
         <source>creepist.name</source>
-        <target>Creepist</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Creepist</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>creepist.short_name</source>
@@ -2737,9 +2743,12 @@ If you take care of this plant it will repay you with Oxygen and delicious Creep
       </segment>
     </unit>
     <unit id="cactax">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>cactax.name</source>
-        <target>Cactax</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Cactax</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>cactax.short_name</source>
@@ -2766,7 +2775,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Metzi
     <unit id="bifflon">
       <segment id="name" state="translated">
         <source>bifflon.name</source>
-        <target>Bifflon</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Bifflon</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>bifflon.short_name</source>
@@ -2786,13 +2798,16 @@ If you take care of this plant it will repay you with Oxygen and delicious Metzi
       </segment>
       <segment id="examine" state="translated">
         <source>bifflon.examine</source>
-        <target>nan</target>
+        <target>A true curiosity of nature, the Bifflon is a talking tree...that spends his time reciting Keats...which makes his company depressing.</target>
       </segment>
     </unit>
     <unit id="pulminagro">
       <segment id="name" state="translated">
         <source>pulminagro.name</source>
-        <target>Pulminagro</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Pulminagro</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>pulminagro.short_name</source>
@@ -2818,7 +2833,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Metzi
     <unit id="precatus">
       <segment id="name" state="translated">
         <source>precatus.name</source>
-        <target>Precatus</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Precatus</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>precatus.short_name</source>
@@ -2845,7 +2863,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Preca
     <unit id="buttalien">
       <segment id="name" state="translated">
         <source>buttalien.name</source>
-        <target>Buttalien</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Buttalien</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>buttalien.short_name</source>
@@ -2872,7 +2893,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Botti
     <unit id="platacia">
       <segment id="name" state="translated">
         <source>platacia.name</source>
-        <target>Platacia</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Platacia</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>platacia.short_name</source>
@@ -2898,7 +2922,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Botti
     <unit id="tubiliscus">
       <segment id="name" state="translated">
         <source>tubiliscus.name</source>
-        <target>Tubiliscus</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Tubiliscus</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>tubiliscus.short_name</source>
@@ -2925,7 +2952,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Anemo
     <unit id="graapshoot">
       <segment id="name" state="translated">
         <source>graapshoot.name</source>
-        <target>Graapshoot</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Graapshoot</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>graapshoot.short_name</source>
@@ -2952,7 +2982,10 @@ A place to put a plant in the hydroponic garden.</target>
     <unit id="peniraft">
       <segment id="name" state="translated">
         <source>peniraft.name</source>
-        <target>Peniraft</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Peniraft</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>peniraft.short_name</source>
@@ -2978,7 +3011,10 @@ A place to put a plant in the hydroponic garden.</target>
     <unit id="fiboniccus">
       <segment id="name" state="translated">
         <source>fiboniccus.name</source>
-        <target>Fiboniccus</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Fiboniccus</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>fiboniccus.short_name</source>
@@ -3002,9 +3038,12 @@ A place to put a plant in the hydroponic garden.</target>
       </segment>
     </unit>
     <unit id="mycopia">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mycopia.name</source>
-        <target>Mycopia</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Mycopia</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>mycopia.short_name</source>
@@ -3031,7 +3070,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Caleb
     <unit id="asperagunk">
       <segment id="name" state="translated">
         <source>asperagunk.name</source>
-        <target>Asperagunk</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Asperagunk</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>asperagunk.short_name</source>
@@ -3083,7 +3125,10 @@ If you take care of this plant it will repay you with Oxygen and delicious Caleb
     <unit id="bumpjunkin">
       <segment id="name" state="translated">
         <source>bumpjunkin.name</source>
-        <target>Bumpjunkin</target>
+        <target>{age, select,
+       young {Young }
+       other {}
+}Bumpjunkin</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>bumpjunkin.short_name</source>

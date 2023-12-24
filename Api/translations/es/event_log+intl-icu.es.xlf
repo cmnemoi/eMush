@@ -523,5 +523,17 @@
         <target>get_up_bed_broken</target>
       </segment>
     </unit>
+    <unit id="help_disabled">
+      <segment id="help_disabled" state="initial">
+        <source>help_disabled</source>
+        <target>help_disabled</target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="initial">
+        <source>consume_mush</source>
+        <target>consume_mush</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -19,7 +19,6 @@ const ROOM_LOGS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log");
 const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log/channel");
 
 const CommunicationService = {
-
     loadChannels: async(): Promise<Channel[]> => {
         const channels = [];
 
@@ -30,7 +29,10 @@ const CommunicationService = {
 
         const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
         if (channelsData.data) {
-            channelsData.data.forEach((data: any) => {
+            // If there is only one channel available, the API returns an object instead of an array.
+            // We need to handle this case to avoid not being able to load the channels.
+            const dataArray = Array.isArray(channelsData.data) ? channelsData.data : Object.values(channelsData.data);
+            dataArray.forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }

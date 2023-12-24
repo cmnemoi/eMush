@@ -122,6 +122,25 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
         $I->assertCount(2, $hunters->getAllHuntersByType(HunterEnum::DICE));
     }
 
+    public function testGetHuntersToNormalizePrioritizesLowHealthHunters(FunctionalTester $I): void
+    {
+        // given I have 18 simple hunters are attacking
+        for ($i = 0; $i < 18; ++$i) {
+            $hunter = $this->createHunterFromName($this->daedalus, HunterEnum::HUNTER);
+            $I->haveInRepository($hunter);
+        }
+
+        // given I have the last one has 1 health
+        $lowHealthHunter = $this->daedalus->getAttackingHunters()->last();
+        $lowHealthHunter->setHealth(1);
+
+        // when I call getHuntersToNormalize
+        $hunters = $this->hunterNormalizerHelper->getHuntersToNormalize($this->daedalus);
+
+        // then lowHealthHunter is in the list
+        $I->assertTrue($hunters->getAllHuntersByType(HunterEnum::HUNTER)->contains($lowHealthHunter));
+    }
+
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
     {
         /** @var HunterConfig $hunterConfig */

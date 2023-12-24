@@ -73,7 +73,6 @@ class RejuvenateAlpha extends AbstractAction
             new \DateTime(),
         );
 
-        throw new HttpException(502, 'Rejuvenated');
     }
 
     private function dispatchSetToMaxEvent(string $variable): void

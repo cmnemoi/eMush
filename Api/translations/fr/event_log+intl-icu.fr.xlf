@@ -647,7 +647,7 @@
     <unit id="liquid_map_helped">
       <segment id="liquid_map_helped" state="translated">
         <source>liquid_map_helped</source>
-        <target>La carte liquide a bien aidé **{target_character}**.</target>
+        <target>La carte liquide a bien aidé **{character}**.</target>
       </segment>
     </unit>
     <unit id="get_up_bed_broken">
@@ -658,6 +658,18 @@
         consonant {Ce **{target_equipment}** semble encore plus inconfortable que d'habitude ; comment est-ce possible ?! **{character}** se retourne à plusieurs reprises avant de se lever.}
         other {Ce **{target_equipment}** semble encore plus inconfortable que d'habitude ; comment est-ce possible ?! **{character}** se retourne à plusieurs reprises avant de se lever.}
         }</target>
+      </segment>
+    </unit>
+    <unit id="help_disabled">
+      <segment id="help_disabled" state="translated">
+        <source>help_disabled</source>
+        <target>**{character}** aide **{target_character}** à sortir de la pièce, c'est beau la fraternité.</target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="final">
+        <source>consume_mush</source>
+        <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
       </segment>
     </unit>
   </file>

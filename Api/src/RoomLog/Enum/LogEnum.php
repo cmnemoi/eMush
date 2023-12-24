@@ -59,7 +59,7 @@ class LogEnum
 
     public const MODIFIER_LOG_ENUM = [
         self::VISIBILITY => [
-            ModifierNameEnum::MUSH_SATIETY_CONSUME => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::MUSH_CONSUME => VisibilityEnum::PRIVATE,
             ModifierNameEnum::DISABLED_MOVE_MODIFIER => VisibilityEnum::PUBLIC,
             ModifierNameEnum::APRON_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::GLOVES_MODIFIER => VisibilityEnum::PRIVATE,
@@ -75,7 +75,7 @@ class LogEnum
             ModifierNameEnum::LIQUID_MAP_MODIFIER => VisibilityEnum::PUBLIC,
         ],
         self::VALUE => [
-            ModifierNameEnum::MUSH_SATIETY_CONSUME => self::CONSUME_MUSH,
+            ModifierNameEnum::MUSH_CONSUME => self::CONSUME_MUSH,
             ModifierNameEnum::DISABLED_MOVE_MODIFIER => self::HELP_DISABLED,
             ModifierNameEnum::APRON_MODIFIER => self::SOIL_PREVENTED,
             ModifierNameEnum::GLOVES_MODIFIER => self::CLUMSINESS_PREVENTED,

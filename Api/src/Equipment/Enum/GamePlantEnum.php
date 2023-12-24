@@ -9,7 +9,7 @@ class GamePlantEnum
     public const CACTAX = 'cactax';
     public const BIFFLON = 'bifflon';
     public const PULMMINAGRO = 'pulminagro';
-    public const PRECATUS = 'recatus';
+    public const PRECATUS = 'precatus';
     public const BUTTALIEN = 'buttalien';
     public const PLATACIA = 'platacia';
     public const TUBILISCUS = 'tubiliscus';

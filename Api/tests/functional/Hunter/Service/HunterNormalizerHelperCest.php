@@ -39,7 +39,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
 
     public function testGetHuntersToNormalizeWithEighteenHunterReturnSeventeenHunters(FunctionalTester $I): void
     {
-        // given 17 simple hunters are attacking
+        // given 18 simple hunters are attacking
         for ($i = 0; $i < 18; ++$i) {
             $hunter = $this->createHunterFromName($this->daedalus, HunterEnum::HUNTER);
             $I->haveInRepository($hunter);
@@ -84,8 +84,6 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
             $hunter = $this->createHunterFromName($this->daedalus, HunterEnum::HUNTER);
             $I->haveInRepository($hunter);
         }
-
-        $I->assertCount(5, $this->daedalus->getAttackingHunters());
 
         // given two type of each advanced hunter is attacking
         foreach (HunterEnum::getAdvancedHunters() as $advancedHunterName) {
@@ -165,6 +163,9 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
         $I->assertGreaterThanOrEqual(1, $hunters->getAllHuntersByType(HunterEnum::ASTEROID)->count());
         $I->assertGreaterThanOrEqual(1, $hunters->getAllHuntersByType(HunterEnum::TRAX)->count());
         $I->assertGreaterThanOrEqual(1, $hunters->getAllHuntersByType(HunterEnum::HUNTER)->count());
+
+        // then I get 17 hunters
+        $I->assertCount(17, $hunters);
     }
 
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter

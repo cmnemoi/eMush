@@ -469,15 +469,6 @@
                                 height="4"
                             />
                             <path class="wall" serif:id="wall" d="M111.983,41l4,0" />
-                            <rect
-                                class="floor"
-                                serif:id="floor"
-                                x="112"
-                                y="50"
-                                width="4"
-                                height="4"
-                            />
-                            <path class="wall" serif:id="wall" d="M116,55l-4,0" />
                         </g>
                         <g id="NERON-Core" serif:id="NERON Core" :class="{visible : isBroken('equipment', 'nexus' , 'neron_core')}">
                             <path class="floor" serif:id="floor" d="M106,44l0,8l4,0l0,-8l-4,-0Z" />
@@ -672,6 +663,9 @@
                             />
                             <path class="wall" serif:id="wall" d="M6,42l0,-7l10,-0" />
                         </g>
+                        <g id="Tabulatrix" serif:id="Tabulatrix" :class="{visible : isBroken('equipment', 'bridge' , 'tabulatrix')}">
+                            <path class="wall" serif:id="wall" d="M27,38.5l0,4" />
+                        </g>
                         <g id="Front-BravoTurret" serif:id="Front BravoTurret">
                             <g id="Turret-Command4" serif:id="Turret Command">
                                 <path class="floor" serif:id="floor" d="M16,66l-0,6l6,0l-0,-6l-6,0Z" />
@@ -681,14 +675,6 @@
                     </g>
                     <g id="Front-Alpha-Turret1" serif:id="Front Alpha Turret">
                         <g id="Turret-Command5" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'front_alpha_turret' , 'turret_command')}">
-                            <rect
-                                class="floor"
-                                serif:id="floor"
-                                x="16"
-                                y="24"
-                                width="6"
-                                height="6"
-                            />
                             <path class="wall" serif:id="wall" d="M15,30l0,-7l7,-0" />
                         </g>
                     </g>
@@ -922,6 +908,7 @@ export default defineComponent ({
             const myCoord = RoomsEnum[this.myPosition?.key];
             this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
             this.me.top = myCoord.A.y + Math.round(Math.random() * (myCoord.C.y - 6 - myCoord.B.y));
+            console.log(this.me);
         },
         displayOther(): void
         {

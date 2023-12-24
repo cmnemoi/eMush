@@ -117,9 +117,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             $nameParameters['item'] = $resultEquipmentName;
         }
         if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT) instanceof Plant) {
-            if ($equipment->hasStatus(EquipmentStatusEnum::PLANT_YOUNG)) {
-                $nameParameters['age'] = 'young';
-            }
+            $nameParameters['age'] = $equipment->hasStatus(EquipmentStatusEnum::PLANT_YOUNG) ? 'young' : '';
         }
         if (($book = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {
             $nameParameters['skill'] = $book->getSkill();

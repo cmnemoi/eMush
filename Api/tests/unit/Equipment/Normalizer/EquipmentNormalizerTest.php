@@ -295,12 +295,14 @@ class EquipmentNormalizerTest extends TestCase
         $plantMechanic->setFruitName(GameFruitEnum::BANANA);
         $plantMechanic->setMaturationTime([36 => 1]);
         $plantMechanic->setOxygen([1 => 1]);
+        $bananaTreeConfig->setMechanics(new ArrayCollection([$plantMechanic]));
 
         $bananaTree = \Mockery::mock(GameItem::class);
         $bananaTree->shouldReceive('getId')->andReturn(1);
         $bananaTree->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $bananaTree->shouldReceive('getHolder')->andReturn($place);
         $bananaTree->shouldReceive('getMechanics')->andReturn(new ArrayCollection([$plantMechanic]));
+        $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(false);
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -308,7 +310,7 @@ class EquipmentNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('banana_tree.name', [], 'items', LanguageEnum::FRENCH)
+            ->with('banana_tree.name', ['age' => ''], 'items', LanguageEnum::FRENCH)
             ->andReturn('Bananier')
             ->once()
         ;

@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -22,6 +23,7 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -59,8 +61,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        $key = $object->getName();
-        $nameParameters = [];
+        $key = $this->getNameKey($object);
 
         if ($object instanceof Door) {
             $context['door'] = $object;
@@ -81,16 +82,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             }
         }
 
-        if (($blueprint = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
-            $key = ItemEnum::BLUEPRINT;
-            $resultEquipmentName = $blueprint->getCraftedEquipmentName();
-            $nameParameters['item'] = $resultEquipmentName;
-        }
-
-        if (($book = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {
-            $key = ItemEnum::APPRENTON;
-            $nameParameters['skill'] = $book->getSkill();
-        }
+        $nameParameters = $this->getNameParameters($object);
 
         $definition = $this->getDefinition($object, $key, $type, $language);
 
@@ -103,6 +95,37 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'actions' => $this->getActions($object, $currentPlayer, $format, $context),
             'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus()),
         ];
+    }
+
+    private function getNameKey(GameEquipment $equipment): string
+    {
+        if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT) instanceof Blueprint) {
+            return ItemEnum::BLUEPRINT;
+        }
+        if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) instanceof Book) {
+            return ItemEnum::APPRENTON;
+        }
+
+        return $equipment->getName();
+    }
+
+    private function getNameParameters(GameEquipment $equipment): array
+    {
+        $nameParameters = [];
+        if (($blueprint = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
+            $resultEquipmentName = $blueprint->getCraftedEquipmentName();
+            $nameParameters['item'] = $resultEquipmentName;
+        }
+        if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT) instanceof Plant) {
+            if ($equipment->hasStatus(EquipmentStatusEnum::PLANT_YOUNG)) {
+                $nameParameters['age'] = 'young';
+            }
+        }
+        if (($book = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {
+            $nameParameters['skill'] = $book->getSkill();
+        }
+
+        return $nameParameters;
     }
 
     private function getActions(GameEquipment $gameEquipment, Player $currentPlayer, ?string $format, array $context): array

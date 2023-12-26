@@ -1,3 +1,5 @@
+import { Player } from "./Player";
+
 export class SpaceBattleTurret {
     private turretOrders: Map<string, integer> = new Map<string, integer>([
         ['rear_bravo_turret', 1],
@@ -45,5 +47,18 @@ export class SpaceBattleTurret {
         }
 
         return this;
+    }
+
+    public isEmpty(): boolean {
+        return this.occupiers.length === 0;
+    }
+
+    public isOccupied(): boolean {
+        return this.occupiers.length > 0;
+    }
+
+    public isOccupiedByPlayer(player: Player | undefined): boolean {
+        if (!player) return false;
+        return this.occupiers.includes(player.character.key.toString());
     }
 }

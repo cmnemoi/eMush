@@ -94,7 +94,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     }
 
     public function testUnpoolHuntersSpawnMaxAsteroidPerWave(FunctionalTester $I)
-    {
+    {   
         // given only asteroids can spawn
         $this->daedalus->getGameConfig()->setHunterConfigs(
             $this->daedalus->getGameConfig()->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)

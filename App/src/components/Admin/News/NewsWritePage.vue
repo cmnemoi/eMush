@@ -30,7 +30,7 @@
         </table>
         <div class="flex-row wrap">
             <div class="checkbox-container">
-                <input
+                <Input
                     type="checkbox"
                     id="news_is_pinned"
                     v-model="news.isPinned"
@@ -38,7 +38,7 @@
                 <label for="news_is_pinned">{{ $t('admin.newsWrite.isPinned') }}</label>
             </div>
             <div>
-                <input
+                <Input
                     type="date"
                     v-model="news.publicationDate"
                 />

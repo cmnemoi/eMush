@@ -37,8 +37,8 @@ const actions: ActionTree<any, any> = {
         }
 
         await dispatch("communication/loadRoomLogs", null, { root: true });
-        await dispatch("player/reloadPlayer", null, { root: true });
         await dispatch("communication/loadChannels", null, { root: true });
+        await dispatch("player/reloadPlayer", null, { root: true });
     }
 };
 

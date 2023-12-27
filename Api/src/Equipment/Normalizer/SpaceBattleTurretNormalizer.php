@@ -51,7 +51,7 @@ final class SpaceBattleTurretNormalizer implements NormalizerInterface
                 language: $turret->getDaedalus()->getLanguage()
             ),
             'charges' => $turret->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $turretCharges->getCharge(),
-            'occupiers' => !$turretOccupiers->isEmpty() ? $turretOccupiers->map(fn (Player $player) => $player->getName())->toArray() : null,
+            'occupiers' => !$turretOccupiers->isEmpty() ? $turretOccupiers->map(fn (Player $player) => $player->getName())->toArray() : [],
             'isBroken' => $turret->hasStatus(EquipmentStatusEnum::BROKEN),
         ];
     }

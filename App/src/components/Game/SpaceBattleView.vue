@@ -3,7 +3,7 @@
         <div :class="['turret', { 'green': isPlayerInRoom(turret.key) }]" v-for="(turret, key) in player?.spaceBattle?.turrets" :key="key">
             <div class="operator">
                 <img
-                    v-if="!turretIsEmpty(turret)"
+                    v-if="turret.isOccupied()"
                     class="player-body"
                     :src="getPlayerCharacterBodyByName(getTurretOccupier(turret))"
                     :alt="getTurretOccupier(turret)">
@@ -95,7 +95,6 @@ import { SpaceBattleTurret } from '@/entities/SpaceBattleTurret';
 import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from "vuex";
 import { Item } from "@/entities/Item";
-import { Equipment } from "@/entities/Equipment";
 
 export default defineComponent({
     name: 'SpaceBattleView',
@@ -124,13 +123,10 @@ export default defineComponent({
             return characterEnum[playerKey].body;
         },
         getTurretOccupier(turret: SpaceBattleTurret) : string | undefined {
-            if (turret.occupiers.length === 0) return;
+            if (turret.isEmpty()) return;
 
             // if turret occupiers contains the player watching the battle, always display them
-            const playerKey = this.player?.character?.key?.toString();
-            if (playerKey && turret.occupiers.includes(playerKey)) {
-                return playerKey;
-            }
+            if (turret.isOccupiedByPlayer(this.player)) return this.player?.character.key;
 
             // else, pick a random occupier to display
             const randomIndex = Math.floor(Math.random() * turret.occupiers.length);
@@ -153,10 +149,6 @@ export default defineComponent({
             if (roomKey === undefined) return false;
             return this.player?.room?.key === roomKey;
         },
-        turretIsEmpty(turret: SpaceBattleTurret) : boolean {
-            if (turret.occupiers === null) return true;
-            return turret?.occupiers?.length === 0;
-        }
     }
 });
 

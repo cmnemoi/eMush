@@ -68,7 +68,7 @@
             class="hunter"
             :class="[{ 'highlight': isHunterSelected(hunter) }, { 'hit': isHit(hunter) }, { 'kill': isKilled(hunter) }]"
             @mousedown.stop="toggleHunterSelection(hunter)"
-            @animationend="finishAnimation()"
+            @animationend="resetHunterState()"
             v-for="(hunter, key) in player?.spaceBattle?.hunters"
             :key="key">
             <div class="ship-img-container">
@@ -105,9 +105,9 @@ export default defineComponent({
     },
     computed: {
         ...mapGetters({
-            isHunterBeenKilled: 'action/isHunterBeenKilled',
             getSpaceShip: 'room/getSpaceShip',
             isHunterBeenHit: 'action/isHunterBeenHit',
+            isHunterBeenKilled: 'action/isHunterBeenKilled',
             selectedTarget: 'room/selectedTarget',
         }),
         getSelectedTarget(): Item | Hunter | null
@@ -119,15 +119,16 @@ export default defineComponent({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
-            'reloadPlayer': 'player/reloadPlayer',
             'selectTarget': 'room/selectTarget'
         }),
         ...mapMutations({
             'setIsHunterBeenHit': 'action/setIsHunterBeenHit',
             'setIsHunterBeenKilled': 'action/setIsHunterBeenKilled'
         }),
-        isHunterSelected: function(hunter: Hunter): boolean {
-            return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget === hunter;
+        async executeTargetAction(target: Hunter | null, action: Action): Promise<void> {
+            if (action.canExecute) {
+                await this.executeAction({ target: target, action: action });
+            }
         },
         getPlayerCharacterBodyByName(playerKey: string) : string {
             return characterEnum[playerKey].body;
@@ -145,6 +146,27 @@ export default defineComponent({
         getHunterImage(hunter: Hunter) : string {
             return hunterEnum[hunter.key].image;
         },
+        isHit(hunter: Hunter) : boolean {
+            return this.isHunterBeenHit && this.getSelectedTarget === hunter;
+        },
+        isKilled(hunter: Hunter) : boolean {
+            return this.isHunterBeenHit && this.getSelectedTarget === hunter && this.isHunterBeenKilled;
+        },
+        isHunterSelected: function(hunter: Hunter): boolean {
+            return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget === hunter;
+        },
+        isPlayerInRoom(roomKey: string | undefined) : boolean {
+            if (roomKey === undefined) return false;
+            return this.player?.room?.key === roomKey;
+        },
+        resetHunterState() {
+            // we need to reset the state to avoid the animation to be triggered again before next hit
+            // we do it after 1s to let the animation finish
+            setTimeout(() => {
+                this.setIsHunterBeenHit(false);
+                this.setIsHunterBeenKilled(false);
+            }, 1000);
+        },
         selectHunter(hunter: Hunter | null): void {
             this.selectTarget({ target: hunter });
         },
@@ -154,27 +176,6 @@ export default defineComponent({
             } else {
                 this.selectTarget({ target: hunter });
             }
-        },
-        isPlayerInRoom(roomKey: string | undefined) : boolean {
-            if (roomKey === undefined) return false;
-            return this.player?.room?.key === roomKey;
-        },
-        async executeTargetAction(target: Hunter | null, action: Action): Promise<void> {
-            if (action.canExecute) {
-                await this.executeAction({ target: target, action: action });
-            }
-        },
-        isHit(hunter: Hunter) : boolean {
-            return this.isHunterBeenHit && this.getSelectedTarget === hunter;
-        },
-        isKilled(hunter: Hunter) : boolean {
-            return this.isHunterBeenHit && this.getSelectedTarget === hunter && this.isHunterBeenKilled;
-        },
-        finishAnimation() {
-            setTimeout(() => {
-                this.setIsHunterBeenHit(false);
-                this.setIsHunterBeenKilled(false);
-            }, 1000);
         },
     }
 });

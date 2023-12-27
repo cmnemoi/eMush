@@ -75,6 +75,7 @@ class ShootHunter extends AttemptAction
     protected function applyEffect(ActionResult $result): void
     {
         if (!$result instanceof Success) {
+            $result->addDetail('hunterIsAlive', true);
             return;
         }
 

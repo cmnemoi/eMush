@@ -18,3 +18,9 @@ Mush\MetaGame\Entity\News:
       groups: [ 'news_read', 'news_write' ]
     spanishContent:
       groups: [ 'news_read', 'news_write' ]
+    isPinned:
+      groups: [ 'news_read', 'news_write' ]
+    publicationDate:
+      groups: [ 'news_read', 'news_write' ]
+    isPublished:
+      groups: [ 'news_read' ]

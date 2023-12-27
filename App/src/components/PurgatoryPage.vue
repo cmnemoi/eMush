@@ -86,7 +86,7 @@ export default defineComponent ({
     name: 'Purgatory',
     head() {
         return {
-            title: this.$t('deathPage.title'),
+            title: this.$t('deathpage.title'),
         };
     },
     components: { CommsPanel, HistoryLogs },

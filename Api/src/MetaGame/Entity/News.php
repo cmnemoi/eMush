@@ -34,6 +34,12 @@ class News
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $spanishContent = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $isPinned = false;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $publicationDate = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -97,5 +103,30 @@ class News
     public function setSpanishContent(?string $spanishContent): void
     {
         $this->spanishContent = $spanishContent;
+    }
+
+    public function isPinned(): bool
+    {
+        return $this->isPinned;
+    }
+
+    public function setIsPinned(bool $isPinned): void
+    {
+        $this->isPinned = $isPinned;
+    }
+
+    public function getPublicationDate(): \DateTime|null
+    {
+        return $this->publicationDate;
+    }
+
+    public function setPublicationDate(\DateTime $publicationDate): void
+    {
+        $this->publicationDate = $publicationDate;
+    }
+
+    public function getIsPublished(): bool
+    {
+        return $this->publicationDate < new \DateTime();
     }
 }

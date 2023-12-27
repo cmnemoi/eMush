@@ -2,6 +2,7 @@ import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import store from "@/store";
 import { News } from "@/entities/News";
+import qs from "qs";
 
 // @ts-ignore
 const NEWS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "news");
@@ -61,6 +62,24 @@ const NewsService = {
 
         return news;
         
+    },
+    getLastPinnedNews: async (): Promise<News[]> => {
+        let news: News[] = [];
+        store.dispatch('gameConfig/setLoading', { loading: true });
+
+        const params = {
+            isPublished: true,
+            isPinned: true,
+            order: { publicationDate: 'DESC' },
+        };
+
+        await ApiService.get(NEWS_ENDPOINT, { params }).then((response) => {
+            news = response.data['hydra:member'].map((newsData: Record<string, any>) => {
+                return (new News()).load(newsData);
+            });
+        }).finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
+
+        return news;
     },
 };
 export default NewsService;

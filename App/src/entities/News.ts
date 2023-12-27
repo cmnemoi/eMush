@@ -7,6 +7,9 @@ export class News {
     public frenchContent: string|null;
     public englishContent: string|null;
     public spanishContent: string|null;
+    public publicationDate: Date|null;
+    public isPinned: boolean;
+    public isPublished: boolean;
     public updatedAt: Date|null;
     public hidden: boolean|null;
 
@@ -19,6 +22,9 @@ export class News {
         this.frenchContent = null;
         this.englishContent = null;
         this.spanishContent = null;
+        this.publicationDate = null;
+        this.isPinned = false;
+        this.isPublished = false;
         this.updatedAt = null;
         this.hidden = true;
     }
@@ -33,6 +39,9 @@ export class News {
             this.englishContent = object.englishContent;
             this.spanishContent = object.spanishContent;
             this.updatedAt = new Date(object.updatedAt);
+            this.publicationDate = new Date(object.publicationDate);
+            this.isPinned = object.isPinned;
+            this.isPublished = object.isPublished;
         }
 
         return this;
@@ -45,7 +54,10 @@ export class News {
             'spanishTitle': this.spanishTitle,
             'frenchContent': this.frenchContent,
             'englishContent': this.englishContent,
-            'spanishContent': this.spanishContent
+            'spanishContent': this.spanishContent,
+            'publicationDate': this.publicationDate,
+            'isPinned': this.isPinned,
+            'isPublished': this.isPublished
         };
 
         return data;

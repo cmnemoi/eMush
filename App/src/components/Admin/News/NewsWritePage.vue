@@ -28,6 +28,23 @@
                 </tr>
             </tbody>
         </table>
+        <div class="flex-row wrap">
+            <div class="checkbox-container">
+                <input
+                    type="checkbox"
+                    id="news_is_pinned"
+                    v-model="news.isPinned"
+                />
+                <label for="news_is_pinned">{{ $t('admin.newsWrite.isPinned') }}</label>
+            </div>
+            <div>
+                <Input
+                    type="date"
+                    v-model="news.publicationDate"
+                />
+                <label for="news_is_pinned">{{ $t('admin.newsWrite.publicationDate') }}</label>
+            </div>
+        </div>
         <button
             class="action-button"
             :disabled="!news.frenchTitle || !news.frenchContent"
@@ -53,7 +70,7 @@ interface NewsData {
 export default defineComponent({
     name: "NewsWritePage",
     components: {
-        Input
+        Input,
     },
     data() : NewsData {
         return {

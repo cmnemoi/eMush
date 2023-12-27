@@ -150,7 +150,7 @@ export default defineComponent({
             return this.isHunterBeenHit && this.getSelectedTarget === hunter;
         },
         isKilled(hunter: Hunter) : boolean {
-            return this.isHunterBeenHit && this.getSelectedTarget === hunter && this.isHunterBeenKilled;
+            return this.isHunterBeenKilled && this.getSelectedTarget === hunter;
         },
         isHunterSelected: function(hunter: Hunter): boolean {
             return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget === hunter;

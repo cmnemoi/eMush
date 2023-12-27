@@ -38,7 +38,10 @@
                 <label for="news_is_pinned">{{ $t('admin.newsWrite.isPinned') }}</label>
             </div>
             <div>
-                <datepicker v-model="news.publicationDate" uid="demo"></datepicker>
+                <input
+                    type="date"
+                    v-model="news.publicationDate"
+                />
                 <label for="news_is_pinned">{{ $t('admin.newsWrite.publicationDate') }}</label>
             </div>
         </div>
@@ -58,8 +61,6 @@ import Input from "@/components/Utils/Input.vue";
 import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
 import { handleErrors } from "@/utils/apiValidationErrors";
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
 
 interface NewsData {
     news: News | null,
@@ -70,7 +71,6 @@ export default defineComponent({
     name: "NewsWritePage",
     components: {
         Input,
-        datepicker: VueDatePicker,
     },
     data() : NewsData {
         return {

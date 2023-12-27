@@ -88,8 +88,8 @@ class ShootHunter extends AttemptAction
         /** @var Hunter $hunter */
         $hunter = $this->selectHunterToShoot();
 
-        $shotDoesntKillHunter = $damage < $hunter->getHealth();
-        if ($shotDoesntKillHunter) {
+        $shotDoesNotKillHunter = $damage < $hunter->getHealth();
+        if ($shotDoesNotKillHunter) {
             $this->logShootHunterSuccess($hunter);
         }
 
@@ -102,6 +102,8 @@ class ShootHunter extends AttemptAction
         );
         $hunterVariableEvent->setAuthor($this->player);
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        $result->addDetail('hunterIsAlive', $shotDoesNotKillHunter);
     }
 
     // @TODO: hack to recover shooting equipment. This has to be improved in a bigger weapon rework (and all items which "target" something)

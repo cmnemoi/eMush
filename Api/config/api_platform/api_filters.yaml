@@ -8,6 +8,15 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    date.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { updatedAt: ~, createdAt:  ~ }
+            $orderParameterName: order
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
     default.search_filter:
         parent: 'api_platform.doctrine.orm.search_filter'
         arguments: [ { name: 'ipartial' } ]
@@ -44,6 +53,29 @@ services:
         parent: 'api_platform.doctrine.orm.search_filter'
         arguments: [ { playerInfo.user.userId: 'exact' } ]
         tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    news.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { isPinned: ~, publicationDate: ~ }
+            $orderParameterName: order
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    newsPinned.search_filter:
+        parent: 'api_platform.doctrine.orm.boolean_filter'
+        arguments: [ { news.isPinned: ~ } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    newsPublished.search_filter:
+        parent: 'api_platform.doctrine.orm.boolean_filter'
+        arguments: [ { news.isPublished: ~ } ]
+        tags: [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false
         public: false

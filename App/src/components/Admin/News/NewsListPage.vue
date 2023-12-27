@@ -57,6 +57,11 @@ export default defineComponent({
                     sortable: true
                 },
                 {
+                    key: 'publicationDate',
+                    name: 'admin.newsList.publicationDate',
+                    sortable: true
+                },
+                {
                     key: 'updatedAt',
                     name: 'admin.newsList.updatedAt',
                     sortable: true

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@unhead/vue": "^1.8.4",
+    "@vuepic/vue-datepicker": "^7.4.0",
     "axios": "^1.6.0",
     "core-js": "^3.33.2",
     "date-fns": "^2.30.0",

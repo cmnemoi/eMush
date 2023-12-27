@@ -35,3 +35,8 @@ Mush\MetaGame\Entity\News:
       - Type: string
       - Length:
           min: 3
+    isPinned:
+      - Type: boolean
+    publicationDate:
+      - Type: Date
+

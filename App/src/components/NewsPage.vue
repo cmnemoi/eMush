@@ -63,6 +63,7 @@ export default defineComponent ({
                 params: {},
                 paramsSerializer: qs.stringify
             };
+
             if (this.pagination.currentPage) {
                 params.params['page'] = this.pagination.currentPage;
             }
@@ -72,7 +73,9 @@ export default defineComponent ({
             if (this.numberOfNews) {
                 params.params['itemsPerPage'] = this.numberOfNews;
             }
-            qs.stringify(params.params['order'] = { 'id': 'DESC' });
+            params.params['isPublished'] = true;
+            qs.stringify(params.params['order'] = { ['publicationDate']: 'DESC' });
+
             await ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'), params)
                 .then((result) => {
                     this.news = new Array<News>();

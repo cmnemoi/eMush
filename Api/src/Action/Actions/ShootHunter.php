@@ -76,6 +76,7 @@ class ShootHunter extends AttemptAction
     {
         if (!$result instanceof Success) {
             $result->addDetail('hunterIsAlive', true);
+
             return;
         }
 

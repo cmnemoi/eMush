@@ -575,6 +575,7 @@
 		}
 	},
 	"newsPage": {
+		"publishedAt": "Publié le ",
 		"updatedAt": "Mis à jour le "
 	},
 	"homePage": {

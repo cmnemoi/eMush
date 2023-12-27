@@ -3,7 +3,7 @@
         <div class="title" v-if="localeIsFrench()" @click="$emit('click')">
             <img class="news-cover" src="@/assets/images/emush-cover.png">
             <h2>{{ news.frenchTitle }}</h2>
-            <p><img class="flag" src="@/assets/images/lang_fr.png" alt="🇫🇷"> {{ $t('newsPage.publicationDate') }} {{ formatDate(news.publicationDate) }}</p>
+            <p><img class="flag" src="@/assets/images/lang_fr.png" alt="🇫🇷"> {{ $t('newsPage.publishedAt') }} {{ formatDate(news.publicationDate) }}</p>
         </div>
         <div class="content" v-if="localeIsFrench()">
             <p v-html="formatNewsContent(news.frenchContent)" />
@@ -11,7 +11,7 @@
         <div class="title" v-if="localeIsEnglish()" @click="$emit('click')">
             <img class="news-cover" src="@/assets/images/emush-cover.png">
             <h2>{{ news.englishTitle }}</h2>
-            <p><img class="flag" src="@/assets/images/lang_en.png" alt="🇬🇧"> {{ $t('newsPage.publicationDate') }} {{ formatDate(news.publicationDate) }}</p>
+            <p><img class="flag" src="@/assets/images/lang_en.png" alt="🇬🇧"> {{ $t('newsPage.publishedAt') }} {{ formatDate(news.publicationDate) }}</p>
         </div>
         <div class="content" v-if="localeIsEnglish()">
             <p v-html="formatNewsContent(news.englishContent)" />

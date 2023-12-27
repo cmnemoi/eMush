@@ -2,6 +2,7 @@ import ActionService from "@/services/action.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import store from "@/store/index";
 import { Hunter } from "@/entities/Hunter";
+import { ActionEnum } from "@/enums/action.enum";
 
 const state = {
     isHunterBeenHit: false,
@@ -29,7 +30,8 @@ const actions: ActionTree<any, any> = {
         
         const response = await ActionService.executeTargetAction(target, action, params);
 
-        if (target instanceof Hunter) {
+        // Special handle to enable hunter hit animation if a hunter is hit by the relevant action
+        if (target instanceof Hunter && action.key === ActionEnum.SHOOT_HUNTER) {
             commit("setIsHunterBeenHit", response.data.actionResult === "success");
             commit("setIsHunterBeenKilled", !response.data.actionDetails.hunterIsAlive);
         }

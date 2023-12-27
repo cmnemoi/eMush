@@ -74,7 +74,7 @@ export default defineComponent ({
         },
         isItemSelected: function(item: Item): boolean {
             return this.selectedItem instanceof Item && this.selectedItem.id === item.id;
-        }
+        },
     }
 });
 </script>

@@ -1,7 +1,11 @@
 <template>
     <div class="char-panel">
         <div class="char-sheet">
-            <img class="avatar" :src="characterPortrait" alt="avatar">
+            <img class="avatar"
+                 :src="characterPortrait"
+                 alt="avatar"
+                 @mousedown.stop="toggleItemSelection(null)"
+            >
 
             <ul class="statuses">
                 <Statuses :statuses="player.statuses" type="player" />

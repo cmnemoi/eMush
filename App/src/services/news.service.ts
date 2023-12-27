@@ -67,11 +67,11 @@ const NewsService = {
         let news: News[] = [];
         store.dispatch('gameConfig/setLoading', { loading: true });
 
-        let params = {
+        const params = {
             isPublished: true,
             isPinned: true,
             order: { publicationDate: 'DESC' },
-        }
+        };
 
         await ApiService.get(NEWS_ENDPOINT, { params }).then((response) => {
             news = response.data['hydra:member'].map((newsData: Record<string, any>) => {

@@ -510,7 +510,8 @@
 		"newsList": {
 			"create": "Write a news",
 			"newsTitle": "Title",
-			"updatedAt": "Last update"
+			"updatedAt": "Last update",
+			"publicationDate": "Published on"
 		},
 		"newsWrite": {
 			"frenchTitle": "French title",
@@ -518,7 +519,9 @@
 			"englishContent": "English content",
 			"englishTitle": "English title",
 			"spanishTitle": "Spanish title",
-			"spanishContent": "Spanish content"
+			"spanishContent": "Spanish content",
+			"publicationDate": "Publication date",
+			"isPinned": "Pin the news"
 		},
 		"hunterConfig": {
 			"name": "Full Name",

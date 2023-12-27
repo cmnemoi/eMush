@@ -31,7 +31,13 @@ const actions: ActionTree<any, any> = {
         const response = await ActionService.executeTargetAction(target, action, params);
 
         // Special handle to enable hunter hit animation if a hunter is hit by the relevant action
-        if (target instanceof Hunter && action.key === ActionEnum.SHOOT_HUNTER) {
+        // TODO: move this to an ActionTargetInterface handleTargetAction method to avoid
+        // to avoid if/else hell here in the future (or something like that idk)
+        if (
+            target instanceof Hunter && 
+            action.key === ActionEnum.SHOOT_HUNTER &&
+            action.key === ActionEnum.SHOOT_HUNTER_PATROL_SHIP
+        ) {
             commit("setIsHunterBeenHit", response.data.actionResult === "success");
             commit("setIsHunterBeenKilled", !response.data.actionDetails.hunterIsAlive);
         }

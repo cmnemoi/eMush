@@ -118,7 +118,10 @@ class ActionController extends AbstractGameController
         if ($result instanceof Error) {
             $view = $this->view($result->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         } else {
-            $view = $this->view($result->getName(), Response::HTTP_OK);
+            $view = $this->view([
+                'actionResult' => $result->getName(),
+                'actionDetails' => $result->getDetails(),
+            ]);
         }
 
         $context = new Context();

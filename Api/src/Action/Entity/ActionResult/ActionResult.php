@@ -13,6 +13,7 @@ abstract class ActionResult
     private ?int $quantity = null;
     private string $visibility = VisibilityEnum::HIDDEN;
     private ?string $content = null;
+    private array $details = [];
 
     public function setEquipment(GameEquipment $equipment): self
     {
@@ -65,5 +66,17 @@ abstract class ActionResult
     public function getContent(): ?string
     {
         return $this->content;
+    }
+
+    public function getDetails(): array
+    {
+        return $this->details;
+    }
+
+    public function addDetail(string $key, $value): self
+    {
+        $this->details[$key] = $value;
+
+        return $this;
     }
 }

@@ -66,8 +66,9 @@
         <Tippy
             tag="div"
             class="hunter"
-            :class="isHunterSelected(hunter) ? 'highlight' : ''"
+            :class="[{ 'highlight': isHunterSelected(hunter) }, { 'hit': isHit(hunter) }, { 'kill': isKilled(hunter) }]"
             @mousedown.stop="toggleHunterSelection(hunter)"
+            @animationend="finishAnimation()"
             v-for="(hunter, key) in player?.spaceBattle?.hunters"
             :key="key">
             <div class="ship-img-container">
@@ -93,8 +94,9 @@ import { Player } from '@/entities/Player';
 import { Hunter } from '@/entities/Hunter';
 import { SpaceBattleTurret } from '@/entities/SpaceBattleTurret';
 import { defineComponent } from 'vue';
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { Item } from "@/entities/Item";
+import { Action } from "@/entities/Action";
 
 export default defineComponent({
     name: 'SpaceBattleView',
@@ -102,10 +104,12 @@ export default defineComponent({
         player: Player,
     },
     computed: {
-        ...mapGetters('room', [
-            'selectedTarget',
-            'getSpaceShip'
-        ]),
+        ...mapGetters({
+            isHunterBeenKilled: 'action/isHunterBeenKilled',
+            getSpaceShip: 'room/getSpaceShip',
+            isHunterBeenHit: 'action/isHunterBeenHit',
+            selectedTarget: 'room/selectedTarget',
+        }),
         getSelectedTarget(): Item | Hunter | null
         {
             if (this.selectedTarget instanceof Hunter) { return this.selectedTarget;}
@@ -114,10 +118,16 @@ export default defineComponent({
     },
     methods: {
         ...mapActions({
+            'executeAction': 'action/executeAction',
+            'reloadPlayer': 'player/reloadPlayer',
             'selectTarget': 'room/selectTarget'
         }),
+        ...mapMutations({
+            'setIsHunterBeenHit': 'action/setIsHunterBeenHit',
+            'setIsHunterBeenKilled': 'action/setIsHunterBeenKilled'
+        }),
         isHunterSelected: function(hunter: Hunter): boolean {
-            return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget.id === hunter.id;
+            return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget === hunter;
         },
         getPlayerCharacterBodyByName(playerKey: string) : string {
             return characterEnum[playerKey].body;
@@ -148,6 +158,23 @@ export default defineComponent({
         isPlayerInRoom(roomKey: string | undefined) : boolean {
             if (roomKey === undefined) return false;
             return this.player?.room?.key === roomKey;
+        },
+        async executeTargetAction(target: Hunter | null, action: Action): Promise<void> {
+            if (action.canExecute) {
+                await this.executeAction({ target: target, action: action });
+            }
+        },
+        isHit(hunter: Hunter) : boolean {
+            return this.isHunterBeenHit && this.getSelectedTarget === hunter;
+        },
+        isKilled(hunter: Hunter) : boolean {
+            return this.isHunterBeenHit && this.getSelectedTarget === hunter && this.isHunterBeenKilled;
+        },
+        finishAnimation() {
+            setTimeout(() => {
+                this.setIsHunterBeenHit(false);
+                this.setIsHunterBeenKilled(false);
+            }, 1000);
         },
     }
 });

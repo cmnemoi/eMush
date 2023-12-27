@@ -164,12 +164,11 @@ export default defineComponent ({
             }, this.timerDelay);
         },
         async getMostRecentNews() {
-            const allNews = await NewsService.getAllNews().then((news: News[]) => {
+            const allNews = await NewsService.getLastPinnedNews().then((news: News[]) => {
                 return news;
             });
             
-            const news = allNews[allNews.length - 1];
-            return news;
+            return allNews[allNews.length - 1];
         },
         displayNews(news: News) {
             news.hidden = false;

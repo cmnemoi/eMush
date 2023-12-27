@@ -35,8 +35,8 @@ const actions: ActionTree<any, any> = {
         // to avoid if/else hell here in the future (or something like that idk)
         if (
             target instanceof Hunter && 
-            action.key === ActionEnum.SHOOT_HUNTER &&
-            action.key === ActionEnum.SHOOT_HUNTER_PATROL_SHIP
+            (action.key === ActionEnum.SHOOT_HUNTER ||
+            action.key === ActionEnum.SHOOT_HUNTER_PATROL_SHIP)
         ) {
             commit("setIsHunterBeenHit", response.data.actionResult === "success");
             commit("setIsHunterBeenKilled", !response.data.actionDetails.hunterIsAlive);

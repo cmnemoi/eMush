@@ -59,7 +59,7 @@ import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import '@vuepic/vue-datepicker/dist/main.css';
 
 interface NewsData {
     news: News | null,

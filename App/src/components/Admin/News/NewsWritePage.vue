@@ -38,7 +38,7 @@
                 <label for="news_is_pinned">{{ $t('admin.newsWrite.isPinned') }}</label>
             </div>
             <div>
-                <input
+                <Input
                     type="date"
                     v-model="news.publicationDate"
                 />

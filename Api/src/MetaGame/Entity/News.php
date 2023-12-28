@@ -34,7 +34,7 @@ class News
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $spanishContent = null;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isPinned = false;
 
     #[ORM\Column(type: 'datetime', nullable: true)]

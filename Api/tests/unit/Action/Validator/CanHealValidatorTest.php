@@ -41,7 +41,7 @@ class CanHealValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    // should succeed
+    // should be valid
     public function testInMedlabPlayerLowHealth()
     {
         $medlab = new Place();
@@ -69,11 +69,12 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // valid
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
     }
 
-    // should succeed
+    // should be valid
     public function testInMedlabPlayerWithDisease()
     {
         $medlab = new Place();
@@ -114,11 +115,12 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // valid
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
     }
 
-    // should fail
+    // should be not valid
     public function testInMedlabHealthyPlayer()
     {
         $medlab = new Place();
@@ -146,6 +148,7 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // not valid
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
     }
@@ -180,11 +183,12 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // valid
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
     }
 
-    // should succeed
+    // should be not valid
     public function testMedikitSelfHeal()
     {
         $constraint = new CanHeal();
@@ -218,6 +222,7 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // not valid
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $constraint);
     }
@@ -265,6 +270,7 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // not valid
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
     }
@@ -299,6 +305,7 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // not valid
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
     }
@@ -331,6 +338,7 @@ class CanHealValidatorTest extends TestCase
             ])
         ;
 
+        // not valid
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'visibility');
     }

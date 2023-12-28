@@ -3,6 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -54,6 +55,13 @@ class Heal extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
+        /** @var Player $target */
+        $target = $this->target;
+        // if the player is full life (because he only needs to cure a disease) return a fail so no log is displayed
+        if ($target->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->isMax()) {
+            return new Fail();
+        }
+
         $healedQuantity = $this->getOutputQuantity();
         $success = new Success();
 

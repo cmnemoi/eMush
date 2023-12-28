@@ -5,7 +5,7 @@ namespace Mush\Disease\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -26,7 +26,7 @@ class DiseaseConfig implements LogParameterInterface
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $type = TypeEnum::DISEASE;
+    private string $type = MedicalConditionTypeEnum::DISEASE;
 
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;

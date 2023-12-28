@@ -9,7 +9,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\DisorderEnum;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -75,7 +75,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     ): ?PlayerDisease {
         $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
-        if ($player->isMush() && $diseaseConfig->getType() !== TypeEnum::INJURY) {
+        if ($player->isMush() && $diseaseConfig->getType() !== MedicalConditionTypeEnum::INJURY) {
             return null;
         }
 
@@ -164,7 +164,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
     {
-        if ($playerDisease->getPlayer()->isMush() && $playerDisease->getDiseaseConfig()->getType() === TypeEnum::DISEASE) {
+        if ($playerDisease->getPlayer()->isMush() && $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE) {
             $visibility = ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) ? VisibilityEnum::HIDDEN : VisibilityEnum::PRIVATE;
 
             $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::MUSH_CURE], $time, $visibility);
@@ -225,7 +225,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     {
         $spontaneousHealingDisorders = [DisorderEnum::VERTIGO, DisorderEnum::SPLEEN];
 
-        return $playerDisease->getDiseaseConfig()->getType() === TypeEnum::DISEASE
+        return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
         || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders);
     }
 }

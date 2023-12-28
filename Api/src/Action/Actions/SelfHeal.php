@@ -7,8 +7,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Action\Validator\AreMedicalSuppliesOnReach;
-use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\CanHeal;
 use Mush\Action\Validator\PlaceType;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -38,13 +37,7 @@ class SelfHeal extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new GameVariableLevel([
-            'target' => GameVariableLevel::PLAYER,
-            'checkMode' => GameVariableLevel::IS_MAX,
-            'variableName' => PlayerVariableEnum::HEALTH_POINT,
-            'groups' => ['visibility'],
-        ]));
-        $metadata->addConstraint(new AreMedicalSuppliesOnReach([
+        $metadata->addConstraint(new CanHeal([
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));

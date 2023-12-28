@@ -6,7 +6,7 @@ use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use PHPUnit\Framework\TestCase;
 
 class PlayerDiseaseCollectTest extends TestCase
@@ -37,9 +37,9 @@ class PlayerDiseaseCollectTest extends TestCase
     public function testByDiseaseType()
     {
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setType(TypeEnum::DISEASE);
+        $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
         $disorderConfig = new DiseaseConfig();
-        $disorderConfig->setType(TypeEnum::DISORDER);
+        $disorderConfig->setType(MedicalConditionTypeEnum::DISORDER);
         $otherConfig = new DiseaseConfig();
         $otherConfig->setType('other');
 
@@ -56,11 +56,11 @@ class PlayerDiseaseCollectTest extends TestCase
 
         $this->assertEmpty($diseaseCollection->getByDiseaseType('something'));
 
-        $this->assertCount(1, $diseaseCollection->getByDiseaseType(TypeEnum::DISEASE));
-        $this->assertContains($diseaseType, $diseaseCollection->getByDiseaseType(TypeEnum::DISEASE));
+        $this->assertCount(1, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISEASE));
+        $this->assertContains($diseaseType, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISEASE));
 
-        $this->assertCount(1, $diseaseCollection->getByDiseaseType(TypeEnum::DISORDER));
-        $this->assertContains($disorderType, $diseaseCollection->getByDiseaseType(TypeEnum::DISORDER));
+        $this->assertCount(1, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISORDER));
+        $this->assertContains($disorderType, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISORDER));
 
         $this->assertCount(1, $diseaseCollection->getByDiseaseType('other'));
         $this->assertContains($otherType, $diseaseCollection->getByDiseaseType('other'));

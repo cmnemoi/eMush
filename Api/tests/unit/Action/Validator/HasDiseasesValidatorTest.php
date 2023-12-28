@@ -7,7 +7,7 @@ use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasDiseasesValidator;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
@@ -68,7 +68,7 @@ class HasDiseasesValidatorTest extends TestCase
         $player->setPlace($room);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setType(TypeEnum::DISEASE);
+        $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
 
@@ -98,7 +98,7 @@ class HasDiseasesValidatorTest extends TestCase
         $player->setPlace($room);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setType(TypeEnum::DISEASE);
+        $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($playerDisease);
@@ -141,7 +141,7 @@ class HasDiseasesValidatorTest extends TestCase
     {
         $this->constraint->isEmpty = true;
         $this->constraint->target = HasDiseases::PLAYER;
-        $this->constraint->type = TypeEnum::INJURY;
+        $this->constraint->type = MedicalConditionTypeEnum::INJURY;
 
         $room = new Place();
 
@@ -149,7 +149,7 @@ class HasDiseasesValidatorTest extends TestCase
         $player->setPlace($room);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setType(TypeEnum::DISEASE);
+        $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($playerDisease);
@@ -169,7 +169,7 @@ class HasDiseasesValidatorTest extends TestCase
     {
         $this->constraint->isEmpty = true;
         $this->constraint->target = HasDiseases::PLAYER;
-        $this->constraint->type = TypeEnum::DISEASE;
+        $this->constraint->type = MedicalConditionTypeEnum::DISEASE;
 
         $room = new Place();
 
@@ -177,7 +177,7 @@ class HasDiseasesValidatorTest extends TestCase
         $player->setPlace($room);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setType(TypeEnum::DISEASE);
+        $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($playerDisease);
@@ -208,7 +208,7 @@ class HasDiseasesValidatorTest extends TestCase
         $targetPlayer->setPlace($room);
 
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setType(TypeEnum::DISEASE);
+        $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease = new PlayerDisease();
         $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
 

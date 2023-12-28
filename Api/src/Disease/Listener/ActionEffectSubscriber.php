@@ -3,7 +3,7 @@
 namespace Mush\Disease\Listener;
 
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -67,7 +67,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $diseaseToHeal = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::DISEASE)->first();
+        $diseaseToHeal = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->first();
 
         if (!$diseaseToHeal) {
             return;
@@ -104,7 +104,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $injuryToHeal = $this->randomService->getRandomDisease($targetPlayer->getMedicalConditions()->getByDiseaseType(TypeEnum::INJURY));
+        $injuryToHeal = $this->randomService->getRandomDisease($targetPlayer->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::INJURY));
 
         $this->playerDiseaseService->removePlayerDisease(
             $injuryToHeal,
@@ -126,8 +126,8 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $diseases = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::DISEASE);
-        $injuries = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(TypeEnum::INJURY);
+        $diseases = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE);
+        $injuries = $player->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(MedicalConditionTypeEnum::INJURY);
         $diseasesAndInjuries = array_merge($diseases->toArray(), $injuries->toArray());
 
         foreach ($diseasesAndInjuries as $disease) {

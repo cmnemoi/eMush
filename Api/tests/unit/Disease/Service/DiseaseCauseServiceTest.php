@@ -12,7 +12,7 @@ use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -279,7 +279,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $cure = new ConsumableDiseaseAttribute();
         $cure
-            ->setType(TypeEnum::CURE)
+            ->setType(MedicalConditionTypeEnum::CURE)
             ->setDisease($diseaseName)
         ;
 

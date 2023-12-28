@@ -4,7 +4,7 @@ namespace Mush\Disease\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable_attribute')]
@@ -19,7 +19,7 @@ class ConsumableDiseaseAttribute
     private string $disease;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $type = TypeEnum::DISEASE;
+    private string $type = MedicalConditionTypeEnum::DISEASE;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $rate = 100;

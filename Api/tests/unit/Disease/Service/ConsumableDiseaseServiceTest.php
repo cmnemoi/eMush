@@ -10,7 +10,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseService;
@@ -490,7 +490,7 @@ class ConsumableDiseaseServiceTest extends TestCase
         /** @var ConsumableDiseaseAttribute $cure */
         $cure = $consumableDisease->getCures()->first();
         $this->assertEquals('Disease 1', $cure->getDisease());
-        $this->assertEquals(TypeEnum::CURE, $cure->getType());
+        $this->assertEquals(MedicalConditionTypeEnum::CURE, $cure->getType());
         $this->assertEquals(0, $cure->getDelayMin());
         $this->assertEquals(0, $cure->getDelayLength());
     }

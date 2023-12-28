@@ -66,7 +66,7 @@
         <Tippy
             tag="div"
             class="hunter"
-            :class="[{ 'highlight': isHunterSelected(hunter) }, { 'hit': isHit(hunter) }, { 'kill': isKilled(hunter) }]"
+            :class="[{ 'highlight': isSelected(hunter) }, { 'hit': isHit(hunter) }, { 'kill': isKilled(hunter) }]"
             @mousedown.stop="toggleHunterSelection(hunter)"
             @animationend="resetHunterState()"
             v-for="(hunter, key) in player?.spaceBattle?.hunters"
@@ -120,6 +120,7 @@ export default defineComponent({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
+            'reloadPlayer': 'player/reloadPlayer',
             'selectTarget': 'room/selectTarget'
         }),
         ...mapMutations({
@@ -153,12 +154,12 @@ export default defineComponent({
         isKilled(hunter: Hunter) : boolean {
             return this.isHunterBeenKilled && hunter.id === this.targetedHunterId;
         },
-        isHunterSelected: function(hunter: Hunter): boolean {
-            return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget === hunter;
-        },
         isPlayerInRoom(roomKey: string | undefined) : boolean {
             if (roomKey === undefined) return false;
             return this.player?.room?.key === roomKey;
+        },
+        isSelected: function(hunter: Hunter): boolean {
+            return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget === hunter;
         },
         resetHunterState() {
             // we need to reset the state to avoid the animation to be triggered again before next hit
@@ -166,6 +167,7 @@ export default defineComponent({
             setTimeout(() => {
                 this.setIsHunterBeenHit(false);
                 this.setIsHunterBeenKilled(false);
+                this.reloadPlayer();
             }, 1000);
         },
         selectHunter(hunter: Hunter | null): void {

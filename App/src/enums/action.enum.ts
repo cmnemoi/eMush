@@ -11,3 +11,9 @@ export enum ActionEnum {
     TURN_DAEDALUS_RIGHT = "turn_daedalus_right",
     WRITE = "write",
 };
+
+export enum ShootHunterActionsEnum {
+    SHOOT_HUNTER = "shoot_hunter",
+    SHOOT_HUNTER_PATROL_SHIP = "shoot_hunter_patrol_ship",
+};
+

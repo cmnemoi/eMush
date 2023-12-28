@@ -1,15 +1,19 @@
 import ActionService from "@/services/action.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import store from "@/store/index";
-import { Hunter } from "@/entities/Hunter";
-import { ActionEnum } from "@/enums/action.enum";
+import { ShootHunterActionsEnum } from "@/enums/action.enum";
 
 const state = {
+    targetedHunterId: undefined,
     isHunterBeenHit: false,
-    isHunterBeenKilled: false,
+    isHunterBeenKilled: false
 };
 
+
 const getters: GetterTree<any, any> = {
+    targetedHunterId: (state: any): integer | undefined => {
+        return state.targetedHunterId;
+    },
     isHunterBeenHit: (state: any): boolean => {
         return state.isHunterBeenHit;
     },
@@ -31,15 +35,10 @@ const actions: ActionTree<any, any> = {
         const response = await ActionService.executeTargetAction(target, action, params);
 
         // Special handle to enable hunter hit animation if a hunter is hit by the relevant action
-        // TODO: move this to an ActionTargetInterface handleTargetAction method to avoid
-        // to avoid if/else hell here in the future (or something like that idk)
-        if (
-            target instanceof Hunter && 
-            (action.key === ActionEnum.SHOOT_HUNTER ||
-            action.key === ActionEnum.SHOOT_HUNTER_PATROL_SHIP)
-        ) {
+        if (Object.values(ShootHunterActionsEnum).includes(action.key)) {
             commit("setIsHunterBeenHit", response.data.actionResult === "success");
             commit("setIsHunterBeenKilled", !response.data.actionDetails.hunterIsAlive);
+            commit("setTargetedHunterId", response.data.actionDetails.targetedHunterId);
         }
 
         await dispatch("communication/loadRoomLogs", null, { root: true });
@@ -49,6 +48,9 @@ const actions: ActionTree<any, any> = {
 };
 
 const mutations: MutationTree<any> = {
+    setTargetedHunterId(state: any, targetedHunterId: integer): void {
+        state.targetedHunterId = targetedHunterId;
+    },
     setIsHunterBeenHit(state: any, isHunterBeenHit: boolean): void {
         state.isHunterBeenHit = isHunterBeenHit;
     },

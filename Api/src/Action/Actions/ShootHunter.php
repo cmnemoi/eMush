@@ -90,6 +90,8 @@ class ShootHunter extends AttemptAction
         /** @var Hunter $hunter */
         $hunter = $this->selectHunterToShoot();
 
+        $result->addDetail('targetedHunterId', $hunter->getId());
+
         $shotDoesNotKillHunter = $damage < $hunter->getHealth();
         if ($shotDoesNotKillHunter) {
             $this->logShootHunterSuccess($hunter);

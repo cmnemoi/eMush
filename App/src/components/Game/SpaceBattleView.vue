@@ -109,6 +109,7 @@ export default defineComponent({
             isHunterBeenHit: 'action/isHunterBeenHit',
             isHunterBeenKilled: 'action/isHunterBeenKilled',
             selectedTarget: 'room/selectedTarget',
+            targetedHunterId: 'action/targetedHunterId',
         }),
         getSelectedTarget(): Item | Hunter | null
         {
@@ -147,10 +148,10 @@ export default defineComponent({
             return hunterEnum[hunter.key].image;
         },
         isHit(hunter: Hunter) : boolean {
-            return this.isHunterBeenHit && this.getSelectedTarget === hunter;
+            return this.isHunterBeenHit && hunter.id === this.targetedHunterId;
         },
         isKilled(hunter: Hunter) : boolean {
-            return this.isHunterBeenKilled && this.getSelectedTarget === hunter;
+            return this.isHunterBeenKilled && hunter.id === this.targetedHunterId;
         },
         isHunterSelected: function(hunter: Hunter): boolean {
             return this.getSelectedTarget instanceof Hunter && this.getSelectedTarget === hunter;

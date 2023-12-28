@@ -140,6 +140,7 @@
             "@drop-database",
             "php bin/console mush:migrate --dev"
         ],
+        "revert": "php bin/console doctrine:migrations:migrate prev -n",
         "test": [
             "vendor/bin/codecept run"
         ],

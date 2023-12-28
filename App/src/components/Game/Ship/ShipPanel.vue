@@ -87,11 +87,6 @@ export default defineComponent ({
         selectHunter(target: Hunter) {
             this.selectTarget({ target: target });
         },
-        async executeTargetAction(target: Hunter | null, action: Action): Promise<void> {
-            if (action.canExecute) {
-                await this.executeAction({ target, action });
-            }
-        }
     }
 });
 </script>

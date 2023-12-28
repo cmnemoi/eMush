@@ -23,12 +23,15 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
      */
     public function getHuntersToNormalize(Daedalus $daedalus): HunterCollection
     {
-        $attackingHunters = $daedalus->getAttackingHunters()->getAllHuntersSortedBy(HunterVariableEnum::HEALTH);
+        $attackingHunters = $daedalus->getAttackingHunters();
 
         // we want to normalize only 17 hunters. If there are less than 17 hunters, no treatment is needed
         if ($attackingHunters->count() <= self::NUMBER_OF_HUNTERS_TO_NORMALIZE) {
             return $attackingHunters;
         }
+
+        // we want to prioritze the hunters with the lowest health for normalization
+        $attackingHunters = $attackingHunters->getAllHuntersSortedBy(HunterVariableEnum::HEALTH);
 
         $huntersToNormalize = new HunterCollection();
 
@@ -48,7 +51,8 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
             }
         }
 
-        return $huntersToNormalize;
+        // sort back by id to avoid having the hunter changing position on the screen after a hit
+        return $huntersToNormalize->getAllHuntersSortedBy('id');
     }
 
     private function getOneHunterByType(HunterCollection $hunters): HunterCollection

@@ -75,6 +75,8 @@ class ShootHunter extends AttemptAction
     protected function applyEffect(ActionResult $result): void
     {
         if (!$result instanceof Success) {
+            $result->addDetail('hunterIsAlive', true);
+
             return;
         }
 
@@ -88,10 +90,14 @@ class ShootHunter extends AttemptAction
         /** @var Hunter $hunter */
         $hunter = $this->selectHunterToShoot();
 
-        $shotDoesntKillHunter = $damage < $hunter->getHealth();
-        if ($shotDoesntKillHunter) {
+        $shotDoesNotKillHunter = $damage < $hunter->getHealth();
+        if ($shotDoesNotKillHunter) {
             $this->logShootHunterSuccess($hunter);
         }
+
+        // Add some extra info to enable hunter hit/death animations in front-end
+        $result->addDetail('hunterIsAlive', $shotDoesNotKillHunter);
+        $result->addDetail('targetedHunterId', $hunter->getId());
 
         $hunterVariableEvent = new HunterVariableEvent(
             $hunter,

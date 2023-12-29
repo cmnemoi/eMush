@@ -33,16 +33,20 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
         /** @var Player $player */
         $player = $object;
         $daedalus = $player->getDaedalus();
+        $place = $player->getPlace()->getName();
+        $language = $daedalus->getLanguage();
+
+        $context['currentPlayer'] = $player;
 
         return [
             'id' => $player->getId(),
             'user' => $this->normalizer->normalize($player->getUser(), $format, $context),
-            'character' => $this->normalizePlayerCharacter($player, $daedalus->getLanguage()),
+            'character' => $this->normalizePlayerCharacter($player, $language),
             'playerVariables' => $this->normalizePlayerVariables($player),
             'isMush' => $player->isMush(),
-            // @TODO
-            // 'statuses' => $this->normalizePlayerStatuses($player, $daedalus->getLanguage()),
-            // 'diseases' => $this->normalizePlayerDiseases($player, $daedalus->getLanguage()),
+            'statuses' => $this->normalizePlayerStatuses($player, $format, $context),
+            'diseases' => $this->normalizePlayerDiseases($player, $format, $context),
+            'currentRoom' => $this->translationService->translate($place . '.name', [], 'rooms', $language),
             // add anything relevant...
         ];
     }
@@ -69,5 +73,32 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
             'satiety' => $player->getSatiety(),
             'spores' => $player->getSpores(),
         ];
+    }
+
+    private function normalizePlayerStatuses(Player $player, string $format = null, array $context = []): array
+    {
+        $statuses = [];
+        foreach ($player->getStatuses() as $status) {
+            $normedStatus = $this->normalizer->normalize($status, $format, $context);
+            if (is_array($normedStatus) && count($normedStatus) > 0) {
+                $statuses[] = $normedStatus;
+            }
+        }
+
+        return $statuses;
+    }
+
+    private function normalizePlayerDiseases(Player $player, string $format = null, array $context = []): array
+    {
+        $diseases = [];
+
+        foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
+            $normedDisease = $this->normalizer->normalize($disease, $format, $context);
+            if (is_array($normedDisease) && count($normedDisease) > 0) {
+                $diseases[] = $normedDisease;
+            }
+        }
+
+        return $diseases;
     }
 }

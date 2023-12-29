@@ -6,12 +6,14 @@ export class PlayerInfo {
     public user: User|null;
     public gameStatus: string|null;
     public characterConfig: CharacterConfig|null;
+    public daedalusId: number|null;
 
     constructor() {
         this.id = null;
         this.user = null;
         this.gameStatus = null;
         this.characterConfig = null;
+        this.daedalusId = null;
     }
 
     load(object : any): PlayerInfo {
@@ -24,6 +26,7 @@ export class PlayerInfo {
             if (typeof object.characterConfig !== "undefined") {
                 this.characterConfig = (new CharacterConfig()).load(object.characterConfig);
             }
+            this.daedalusId = object.daedalusId;
         }
         return this;
     }

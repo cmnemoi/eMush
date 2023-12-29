@@ -76,6 +76,23 @@ export default defineComponent({
                     sortable: true
                 },
                 {
+                    key: 'daedalusId',
+                    name: 'Daedalus ID',
+                    sortable: true
+                },
+                {
+                    key: 'characterConfig',
+                    subkey: 'characterName',
+                    name: 'Character',
+                    sortable: true
+                },
+                {
+                    key: 'user',
+                    subkey: 'username',
+                    name: 'Username',
+                    sortable: true
+                },
+                {
                     key: 'actions',
                     name: 'Actions',
                     sortable: false,

@@ -374,7 +374,7 @@ class AdminController extends AbstractFOSRestController
         ], Response::HTTP_CREATED);
     }
 
-     /**
+    /**
      * Return a player data adapted for admin view.
      *
      * @OA\Parameter(
@@ -445,7 +445,6 @@ class AdminController extends AbstractFOSRestController
 
         return $view;
     }
-
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool
     {

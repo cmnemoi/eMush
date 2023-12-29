@@ -15,7 +15,7 @@ class RoomLogCollection extends ArrayCollection
     {
         $playerName = $player->getName();
 
-        return $this->filter(function(RoomLog $roomLog) use($playerName) {
+        return $this->filter(function (RoomLog $roomLog) use ($playerName) {
             $logParameters = $roomLog->getParameters();
 
             return (array_key_exists('character', $logParameters) && ($logParameters['character'] === $playerName)) || (array_key_exists('target_character', $logParameters) && ($logParameters['target_character'] === $playerName));

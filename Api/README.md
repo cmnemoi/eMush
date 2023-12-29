@@ -1,11 +1,11 @@
-# Architecture 
+# Architecture
 
 ## Directory Tree:
-    |-- bin/                      
-    |-- config/       
-    |-- migrations/          
-    |-- public/           
-    |-- src/            
+    |-- bin/
+    |-- config/
+    |-- migrations/
+    |-- public/
+    |-- src/
         |-- Action/
         |-- Alert/
         |-- Communication/
@@ -31,7 +31,7 @@
         |-- Modifier/
         |-- Place/
         |-- Player/
-        |-- RoomLog/       
+        |-- RoomLog/
         |-- Status/
         |-- User/
 
@@ -48,17 +48,20 @@ bin/console
 ```
 ### config/
 core config files, you will find every dependencies configuration, the routes definition, database configuration, etc...
+
+We use ApiPlatform to generate most routes, and the configuration for these can be found in this directory.
+
 ### migrations/
 doctrine migrations, basically all the sql request to set-up and update the database
 documentation: https://symfony.com/doc/master/bundles/DoctrineMigrationsBundle/index.html
 ### public/
-entry point of Symfony, that are the public files and asset that apache can access to  
+entry point of Symfony, that are the public files and asset that apache can access to
 It is very unlikely that you need to modify something there
 ### src/
 In previous versions of Symfony that would have been bundles
 Each folder manage a part, the Game folder is for all the services/entities that are shared across each
 module/folder.
-Daedalus folder manage the Daedalus, Player folder manage the Player (etc...)  
+Daedalus folder manage the Daedalus, Player folder manage the Player (etc...)
 #### config
 Config for the module/folder
 #### Controller
@@ -96,15 +99,15 @@ Let's take the example of a new player is created:
   1. The client send a POST request to /players
   2. The **validator** (in src/Player/Validator) verify that there is a daedalus and a character in the request
 They also verify that the character and daedalus exist, the daedalus is not already full, etc...
-  If everything is fine then:  
+  If everything is fine then:
   3. The **controller** (in src/Player/Controller) receive the request, it might check that the user is authorized to access this daedalus, then it will call
 a **service** (in src/Player/Service) to create the Player with the argument passed in the request.
   4. The **Service** will perform the creation of the Player, call another **Service** to get the Game and Player configs, and the Random service to perform random stuff
 It might also trigger some **events**, like a new Player is created, this event might trigger the **Event** Daedalus is complete, etc...
-This **event** will also use the **service** to create a new room log for player awaken  
+This **event** will also use the **service** to create a new room log for player awaken
 To finish that, once the **entity** player created, the service will use the **Repository** to save this Player in the database annd returning this Player entity
   5. Once the **service** has finished performing the creating of the character, ot returns an entity **Player**, then the **Controller** will return this Player as response to the request
-  6. While creating the Response the **Normalizer** will normalize the Player **entity** into an array, and won't return the satiety for instance as it is an hidden property 
+  6. While creating the Response the **Normalizer** will normalize the Player **entity** into an array, and won't return the satiety for instance as it is an hidden property
   7. Then the client should have his response
 
 ### Actions vs Events
@@ -118,9 +121,9 @@ Obvious example:
 - Event:
     - The cycle change
     - A player die
-    
- For instance a player can make the action 'hit' on another player, this will trigger the event 'player die'.  
- Less obvious example:   
+
+ For instance a player can make the action 'hit' on another player, this will trigger the event 'player die'.
+ Less obvious example:
     A player make the action eat, that trigger the event 'become Dirty'
 
 ## Module documentation
@@ -172,14 +175,14 @@ Ensure you have the following configuration
 ![alt text](./docs/xdebug_phpstorm_server.png)
 
 #### Command line:
-Prefix your command line with: `XDEBUG_CONFIG="idekey=PHPSTORM"`  
+Prefix your command line with: `XDEBUG_CONFIG="idekey=PHPSTORM"`
 example: `XDEBUG_CONFIG="idekey=PHPSTORM" vendor/bin/codecept run`
 
 #### Request
-Add in the query parameter `XDEBUG_SESSION_START=PHPSTORM`  
+Add in the query parameter `XDEBUG_SESSION_START=PHPSTORM`
 Example: http://localhost:8080/api/v1/player/1/action?XDEBUG_SESSION_START=PHPSTORM
 
-Troobleshoting: 
+Troobleshoting:
 
 #### Ubuntu timeout
 Context: running the command on docker ubuntu 20 and getting this error:

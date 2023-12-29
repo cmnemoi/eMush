@@ -243,7 +243,6 @@ class RoomLogService implements RoomLogServiceInterface
         return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
     }
 
-
     public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection
     {
         return new RoomLogCollection($this->repository->getAllRoomLogsByDaedalus($daedalus));

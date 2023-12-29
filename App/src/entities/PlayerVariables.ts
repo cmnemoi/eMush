@@ -7,7 +7,7 @@ export class PlayerVariables {
     public spores!: integer;
 
     public load(object: any): PlayerVariables {
-        if (object !== undefined && object !== null) {
+        if (object) {
             this.healthPoint = object.healthPoint;
             this.moralPoint = object.moralPoint;
             this.actionPoint = object.actionPoint;

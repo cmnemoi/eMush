@@ -5,7 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
@@ -97,9 +97,9 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         $player = $event->getTargetPlayer();
         $diseaseConfig = $event->getDiseaseConfig();
         $key = match ($diseaseConfig->getType()) {
-            TypeEnum::DISEASE => LogEnum::DISEASE_APPEAR,
-            TypeEnum::DISORDER => LogEnum::DISORDER_APPEAR,
-            TypeEnum::INJURY => LogEnum::INJURY_APPEAR,
+            MedicalConditionTypeEnum::DISEASE => LogEnum::DISEASE_APPEAR,
+            MedicalConditionTypeEnum::DISORDER => LogEnum::DISORDER_APPEAR,
+            MedicalConditionTypeEnum::INJURY => LogEnum::INJURY_APPEAR,
             default => $diseaseConfig->getType()
         };
 

@@ -15,7 +15,7 @@ use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -82,7 +82,7 @@ class SelfSurgery extends AbstractAction
             'groups' => ['execute'],
             'target' => HasDiseases::PLAYER,
             'isEmpty' => false,
-            'type' => TypeEnum::INJURY,
+            'type' => MedicalConditionTypeEnum::INJURY,
             'message' => ActionImpossibleCauseEnum::HEAL_NO_INJURY,
         ]));
     }

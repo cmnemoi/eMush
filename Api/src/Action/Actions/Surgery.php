@@ -13,10 +13,10 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\AreMedicalSuppliesOnReach;
+use Mush\Action\Validator\CanHeal;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -73,14 +73,14 @@ class Surgery extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::SURGERY_NOT_LYING_DOWN,
         ]));
-        $metadata->addConstraint(new AreMedicalSuppliesOnReach([
+        $metadata->addConstraint(new CanHeal([
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasDiseases([
             'groups' => ['visibility'],
             'target' => HasDiseases::PARAMETER,
             'isEmpty' => false,
-            'type' => TypeEnum::INJURY,
+            'type' => MedicalConditionTypeEnum::INJURY,
         ]));
     }
 

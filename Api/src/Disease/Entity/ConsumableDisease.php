@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable')]
@@ -62,12 +62,12 @@ class ConsumableDisease
 
     public function getDiseases(): Collection
     {
-        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::DISEASE);
+        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === MedicalConditionTypeEnum::DISEASE);
     }
 
     public function getCures(): Collection
     {
-        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === TypeEnum::CURE);
+        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === MedicalConditionTypeEnum::CURE);
     }
 
     public function setDiseasesAttribute(Collection $diseaseAttributes): self

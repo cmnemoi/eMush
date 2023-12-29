@@ -2,7 +2,7 @@
 
 namespace Mush\Disease\Enum;
 
-class TypeEnum
+class MedicalConditionTypeEnum
 {
     public const DISEASE = 'disease';
     public const DISORDER = 'disorder';

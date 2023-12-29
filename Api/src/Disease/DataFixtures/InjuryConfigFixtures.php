@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\InjuryEnum;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -92,7 +92,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $burns50OfBody = new DiseaseConfig();
         $burns50OfBody
             ->setDiseaseName(InjuryEnum::BURNS_50_OF_BODY)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $increaseCycleDiseaseChances10,
@@ -104,7 +104,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $burns90OfBody = new DiseaseConfig();
         $burns90OfBody
             ->setDiseaseName(InjuryEnum::BURNS_90_OF_BODY)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $increaseCycleDiseaseChances10,
                 $septicemiaOnCycleChange,
@@ -119,7 +119,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $burstNose = new DiseaseConfig();
         $burstNose
             ->setDiseaseName(InjuryEnum::BURST_NOSE)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax2MoralPoint,
             ])
@@ -131,7 +131,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $criticalHaemorrhage = new DiseaseConfig();
         $criticalHaemorrhage
             ->setDiseaseName(InjuryEnum::CRITICAL_HAEMORRHAGE)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $cycle2HealthLost,
                 $reduceMax2HealthPoint,
@@ -143,7 +143,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $haemorrhage = new DiseaseConfig();
         $haemorrhage
             ->setDiseaseName(InjuryEnum::HAEMORRHAGE)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $cycle1HealthLost,
                 $reduceMax1HealthPoint,
@@ -155,7 +155,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $minorHaemorrhage = new DiseaseConfig();
         $minorHaemorrhage
             ->setDiseaseName(InjuryEnum::MINOR_HAEMORRHAGE)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $cycle1HealthLost,
             ])
@@ -167,7 +167,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $damagedEars = new DiseaseConfig();
         $damagedEars
             ->setDiseaseName(InjuryEnum::DAMAGED_EARS)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([$deafListen, $deafSpeak])
 
             ->buildName(GameConfigEnum::DEFAULT)
@@ -177,7 +177,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $destroyedEars = new DiseaseConfig();
         $destroyedEars
             ->setDiseaseName(InjuryEnum::DESTROYED_EARS)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax1MoralPoint,
                 $deafListen,
@@ -191,7 +191,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $headTrauma = new DiseaseConfig();
         $headTrauma
             ->setDiseaseName(InjuryEnum::HEAD_TRAUMA)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax3MoralPoint,
                 $septicemiaOnCycleChange,
@@ -205,7 +205,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $openAirBrain = new DiseaseConfig();
         $openAirBrain
             ->setDiseaseName(InjuryEnum::OPEN_AIR_BRAIN)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax2MoralPoint,
                 $septicemiaOnCycleChange,
@@ -220,7 +220,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $implantedBullet = new DiseaseConfig();
         $implantedBullet
             ->setDiseaseName(InjuryEnum::IMPLANTED_BULLET)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,
             ])
@@ -231,7 +231,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $innerEarDamaged = new DiseaseConfig();
         $innerEarDamaged
             ->setDiseaseName(InjuryEnum::INNER_EAR_DAMAGED)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $moveIncreaseMovement,
@@ -244,7 +244,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $tornTongue = new DiseaseConfig();
         $tornTongue
             ->setDiseaseName(InjuryEnum::TORN_TONGUE)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $mute,
             ])
@@ -256,7 +256,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $brokenFoot = new DiseaseConfig();
         $brokenFoot
             ->setDiseaseName(InjuryEnum::BROKEN_FOOT)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $moveIncreaseMovement,
             ])
@@ -267,7 +267,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $mashedFoot = new DiseaseConfig();
         $mashedFoot
             ->setDiseaseName(InjuryEnum::MASHED_FOOT)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $moveIncreaseMovement,
                 $reduceMax3MovementPoint,
@@ -280,7 +280,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $brokenLeg = new DiseaseConfig();
         $brokenLeg
             ->setDiseaseName(InjuryEnum::BROKEN_LEG)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax5MovementPoint,
                 $moveIncreaseMovement,
@@ -292,7 +292,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $mashedLegs = new DiseaseConfig();
         $mashedLegs
             ->setDiseaseName(InjuryEnum::MASHED_LEGS)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax12MovementPoint,
                 $cantMove,
@@ -306,7 +306,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $disfunctionalLiver = new DiseaseConfig();
         $disfunctionalLiver
             ->setDiseaseName(InjuryEnum::DYSFUNCTIONAL_LIVER)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $consume2ActionLoss,
@@ -321,7 +321,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $puncturedLung = new DiseaseConfig();
         $puncturedLung
             ->setDiseaseName(InjuryEnum::PUNCTURED_LUNG)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $cycle2HealthLost,
                 $notMoveAction2Increase,
@@ -334,7 +334,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $brokenRibs = new DiseaseConfig();
         $brokenRibs
             ->setDiseaseName(InjuryEnum::BROKEN_RIBS)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $shootAction20PercentAccuracyLost,
             ])
@@ -346,7 +346,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $brokenFinger = new DiseaseConfig();
         $brokenFinger
             ->setDiseaseName(InjuryEnum::BROKEN_FINGER)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,
             ])
@@ -357,7 +357,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $missingFinger = new DiseaseConfig();
         $missingFinger
             ->setDiseaseName(InjuryEnum::MISSING_FINGER)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,
             ])
@@ -369,7 +369,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $burntHand = new DiseaseConfig();
         $burntHand
             ->setDiseaseName(InjuryEnum::BURNT_HAND)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $reduceMax1HealthPoint,
@@ -381,7 +381,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $mashedHand = new DiseaseConfig();
         $mashedHand
             ->setDiseaseName(InjuryEnum::MASHED_HAND)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction2Increase,
                 $shootAction40PercentAccuracyLost,
@@ -394,7 +394,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $burntArms = new DiseaseConfig();
         $burntArms
             ->setDiseaseName(InjuryEnum::BURNT_ARMS)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction2Increase,
                 $increaseCycleDiseaseChances10,
@@ -407,7 +407,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $bustedArmJoint = new DiseaseConfig();
         $bustedArmJoint
             ->setDiseaseName(InjuryEnum::BUSTED_ARM_JOINT)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction2Increase,
                 $shootAction40PercentAccuracyLost,
@@ -420,7 +420,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $mashedArms = new DiseaseConfig();
         $mashedArms
             ->setDiseaseName(InjuryEnum::MASHED_ARMS)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $notMoveAction3Increase,
                 $shootAction40PercentAccuracyLost,
@@ -439,7 +439,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $bruisedShoulder = new DiseaseConfig();
         $bruisedShoulder
             ->setDiseaseName(InjuryEnum::BRUISED_SHOULDER)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax1HealthPoint,
                 $shootAction10PercentAccuracyLost,
@@ -451,7 +451,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $brokenShoulder = new DiseaseConfig();
         $brokenShoulder
             ->setDiseaseName(InjuryEnum::BROKEN_SHOULDER)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $reduceMax1HealthPoint,
                 $shootAction20PercentAccuracyLost,
@@ -465,7 +465,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
         $bustedShoulder = new DiseaseConfig();
         $bustedShoulder
             ->setDiseaseName(InjuryEnum::BUSTED_SHOULDER)
-            ->setType(TypeEnum::INJURY)
+            ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([
                 $shootAction40PercentAccuracyLost,
                 $notMoveAction2Increase,

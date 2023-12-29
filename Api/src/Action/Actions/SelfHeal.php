@@ -3,12 +3,12 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Event\ApplyEffectEvent;
-use Mush\Action\Validator\AreMedicalSuppliesOnReach;
-use Mush\Action\Validator\GameVariableLevel;
+use Mush\Action\Validator\CanHeal;
 use Mush\Action\Validator\PlaceType;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -38,20 +38,25 @@ class SelfHeal extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new GameVariableLevel([
-            'target' => GameVariableLevel::PLAYER,
-            'checkMode' => GameVariableLevel::IS_MAX,
-            'variableName' => PlayerVariableEnum::HEALTH_POINT,
+        $metadata->addConstraint(new CanHeal([
             'groups' => ['visibility'],
+            'target' => CanHeal::PLAYER,
         ]));
-        $metadata->addConstraint(new AreMedicalSuppliesOnReach([
-            'groups' => ['visibility'],
+        $metadata->addConstraint(new PlaceType([
+            'groups' => ['execute'],
+            'type' => 'planet',
+            'allowIfTypeMatches' => false,
+            'message' => ActionImpossibleCauseEnum::ON_PLANET,
         ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     protected function checkResult(): ActionResult
     {
+        // if the player is full life (because he only needs to cure a disease) return a fail so no log is displayed
+        if ($this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->isMax()) {
+            return new Fail();
+        }
+
         $healedQuantity = $this->getOutputQuantity();
         $success = new Success();
 

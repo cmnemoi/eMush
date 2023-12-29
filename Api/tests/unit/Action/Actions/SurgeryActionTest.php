@@ -13,7 +13,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\EventModifierServiceInterface;
@@ -67,12 +67,12 @@ class SurgeryActionTest extends AbstractActionTest
         new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $diseaseConfig1 = new DiseaseConfig();
-        $diseaseConfig1->setType(TypeEnum::DISEASE);
+        $diseaseConfig1->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease1 = new PlayerDisease();
         $playerDisease1->setDiseaseConfig($diseaseConfig1)->setPlayer($targetPlayer);
 
         $diseaseConfig2 = new DiseaseConfig();
-        $diseaseConfig2->setType(TypeEnum::INJURY);
+        $diseaseConfig2->setType(MedicalConditionTypeEnum::INJURY);
         $playerDisease2 = new PlayerDisease();
         $playerDisease2->setDiseaseConfig($diseaseConfig2)->setPlayer($targetPlayer);
 
@@ -131,12 +131,12 @@ class SurgeryActionTest extends AbstractActionTest
         new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $diseaseConfig1 = new DiseaseConfig();
-        $diseaseConfig1->setType(TypeEnum::DISEASE);
+        $diseaseConfig1->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease1 = new PlayerDisease();
         $playerDisease1->setDiseaseConfig($diseaseConfig1);
 
         $diseaseConfig2 = new DiseaseConfig();
-        $diseaseConfig2->setType(TypeEnum::INJURY);
+        $diseaseConfig2->setType(MedicalConditionTypeEnum::INJURY);
         $playerDisease2 = new PlayerDisease();
         $playerDisease2->setDiseaseConfig($diseaseConfig2);
 
@@ -196,12 +196,12 @@ class SurgeryActionTest extends AbstractActionTest
         new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
         $diseaseConfig1 = new DiseaseConfig();
-        $diseaseConfig1->setType(TypeEnum::DISEASE);
+        $diseaseConfig1->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease1 = new PlayerDisease();
         $playerDisease1->setDiseaseConfig($diseaseConfig1);
 
         $diseaseConfig2 = new DiseaseConfig();
-        $diseaseConfig2->setType(TypeEnum::INJURY);
+        $diseaseConfig2->setType(MedicalConditionTypeEnum::INJURY);
         $playerDisease2 = new PlayerDisease();
         $playerDisease2->setDiseaseConfig($diseaseConfig2);
 

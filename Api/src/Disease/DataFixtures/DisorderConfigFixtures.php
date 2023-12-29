@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -74,7 +74,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $agoraphobia = new DiseaseConfig();
         $agoraphobia
             ->setDiseaseName(DisorderEnum::AGORAPHOBIA)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $fourPeopleOneActionIncrease,
                 $fourPeopleOneMovementIncrease,
@@ -87,7 +87,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $ailurophobia = new DiseaseConfig();
         $ailurophobia
             ->setDiseaseName(DisorderEnum::AILUROPHOBIA)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $catInRoomMove2MovementIncrease,
                 $catInRoomNotMove2ActionIncrease,
@@ -100,7 +100,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $chronicMigraine = new DiseaseConfig();
         $chronicMigraine
             ->setDiseaseName(DisorderEnum::CHRONIC_MIGRAINE)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $reduceMax2MoralPoint,
                 $cycle1ActionLostRand16,
@@ -113,7 +113,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $chronicVertigo = new DiseaseConfig();
         $chronicVertigo
             ->setDiseaseName(DisorderEnum::CHRONIC_VERTIGO)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $noPilotingActions,
             ])
@@ -124,7 +124,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $coprolalia = new DiseaseConfig();
         $coprolalia
             ->setDiseaseName(DisorderEnum::COPROLALIA)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $reduceMax4MoralPoint,
                 $coprolaliaSymptom,
@@ -136,7 +136,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $crabism = new DiseaseConfig();
         $crabism
             ->setDiseaseName(DisorderEnum::CRABISM)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $reduceMax4MoralPoint,
                 $cycle1ActionLostRand16WithScreaming,
@@ -150,7 +150,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $depression = new DiseaseConfig();
         $depression
             ->setDiseaseName(DisorderEnum::DEPRESSION)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $reduceMax2MoralPoint,
                 $reduceMax2ActionPoint,
@@ -162,7 +162,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $paranoia = new DiseaseConfig();
         $paranoia
             ->setDiseaseName(DisorderEnum::PARANOIA)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $reduceMax3MoralPoint,
                 $paranoiaSymptom,
@@ -175,7 +175,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $psychoticEpisode = new DiseaseConfig();
         $psychoticEpisode
             ->setDiseaseName(DisorderEnum::PSYCHOTIC_EPISODE)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $biting,
                 $psychoticAttacks,
@@ -187,7 +187,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $spleen = new DiseaseConfig();
         $spleen
             ->setDiseaseName(DisorderEnum::SPLEEN)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $cycle1MoralLostRand70,
             ])
@@ -198,7 +198,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $vertigo = new DiseaseConfig();
         $vertigo
             ->setDiseaseName(DisorderEnum::VERTIGO)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $noPilotingActions,
             ])
@@ -209,7 +209,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $weaponPhobia = new DiseaseConfig();
         $weaponPhobia
             ->setDiseaseName(DisorderEnum::WEAPON_PHOBIA)
-            ->setType(TypeEnum::DISORDER)
+            ->setType(MedicalConditionTypeEnum::DISORDER)
             ->setModifierConfigs([
                 $noAttackActions,
                 $noShootActions,

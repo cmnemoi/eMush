@@ -13,7 +13,13 @@ class HasStatusValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
-        $this->isTheRightValidator($value, $constraint);
+        if (!$value instanceof AbstractAction) {
+            throw new UnexpectedTypeException($value, AbstractAction::class);
+        }
+
+        if (!$constraint instanceof HasStatus) {
+            throw new UnexpectedTypeException($constraint, HasStatus::class);
+        }
 
         // @TODO remove this when rejuvenate is removed for testers
         if ($constraint->bypassIfUserIsAdmin && $value->getPlayer()->getUser()->isAdmin()) {
@@ -22,21 +28,10 @@ class HasStatusValidator extends ConstraintValidator
 
         $target = $this->getTarget($value, $constraint);
 
-        if ($constraint->ownerSide && $target->hasStatus($constraint->status) !== $constraint->contain) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
-        }
-        if (!$constraint->ownerSide && $target->hasTargetingStatus($constraint->status) !== $constraint->contain) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
-        }
-        if ($constraint->statusTargetName !== null && $target->getStatusByName($constraint->status)?->getTarget()?->getName() !== $constraint->statusTargetName) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
-        }
+        $this->checkValidator($constraint, $target);
     }
 
-    private function getTarget($value, Constraint $constraint): StatusHolderInterface
+    private function getTarget(AbstractAction $value, HasStatus $constraint): StatusHolderInterface
     {
         $target = match ($constraint->target) {
             HasStatus::PARAMETER => $value->getTarget(),
@@ -53,14 +48,19 @@ class HasStatusValidator extends ConstraintValidator
         return $target;
     }
 
-    private function isTheRightValidator($value, Constraint $constraint)
+    private function checkValidator(HasStatus $constraint, StatusHolderInterface $target): void
     {
-        if (!$value instanceof AbstractAction) {
-            throw new UnexpectedTypeException($value, AbstractAction::class);
+        if ($constraint->ownerSide && $target->hasStatus($constraint->status) !== $constraint->contain) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
         }
-
-        if (!$constraint instanceof HasStatus) {
-            throw new UnexpectedTypeException($constraint, HasStatus::class);
+        if (!$constraint->ownerSide && $target->hasTargetingStatus($constraint->status) !== $constraint->contain) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
+        }
+        if ($constraint->statusTargetName !== null && $target->getStatusByName($constraint->status)?->getTarget()?->getName() !== $constraint->statusTargetName) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
         }
     }
 }

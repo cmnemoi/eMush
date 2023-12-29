@@ -7,7 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
-use Mush\Disease\Enum\TypeEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Repository\ConsumableDiseaseRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\RandomServiceInterface;
@@ -105,11 +105,11 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             $diseasesNumber = $effectsNumber - $curesNumber;
 
             if ($curesNumber > 0 && $curesNumberPossible > 0) {
-                $this->createMedicinalEffectFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, TypeEnum::CURE, $curesNumber);
+                $this->createMedicinalEffectFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, MedicalConditionTypeEnum::CURE, $curesNumber);
             }
 
             if ($diseasesNumber > 0 && $diseasesNumberPossible > 0) {
-                $this->createMedicinalEffectFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, TypeEnum::DISEASE, $diseasesNumber);
+                $this->createMedicinalEffectFromConfigForConsumableDisease($consumableDisease, $consumableDiseaseConfig, MedicalConditionTypeEnum::DISEASE, $diseasesNumber);
             }
         }
 
@@ -138,7 +138,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         string $type,
         int $number
     ): ConsumableDisease {
-        $names = $type === TypeEnum::DISEASE ? $consumableDiseaseConfig->getDiseasesName() : $consumableDiseaseConfig->getCuresName();
+        $names = $type === MedicalConditionTypeEnum::DISEASE ? $consumableDiseaseConfig->getDiseasesName() : $consumableDiseaseConfig->getCuresName();
         $diseasesNames = $this->randomService->getRandomElementsFromProbaCollection(new ProbaCollection($names), $number);
 
         foreach ($diseasesNames as $diseaseName) {
@@ -154,7 +154,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
     {
         $ConsumableDiseaseAttribute = new ConsumableDiseaseAttribute();
 
-        $rates = $type === TypeEnum::DISEASE ? $config->getDiseasesChances() : $config->getCuresChances();
+        $rates = $type === MedicalConditionTypeEnum::DISEASE ? $config->getDiseasesChances() : $config->getCuresChances();
 
         $ConsumableDiseaseAttribute
             ->setDisease($diseaseName)
@@ -162,7 +162,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             ->setRate((int) $this->randomService->getSingleRandomElementFromProbaCollection($rates))
         ;
 
-        if ($type === TypeEnum::DISEASE) {
+        if ($type === MedicalConditionTypeEnum::DISEASE) {
             $delay = (int) $this->randomService->getSingleRandomElementFromProbaCollection($config->getDiseasesDelayMin());
 
             if ($delay > 0) {

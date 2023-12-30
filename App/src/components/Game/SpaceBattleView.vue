@@ -79,7 +79,7 @@
                 <img class="armor-img" :src="require('@/assets/images/shield.png')" alt="armor">
             </div>
             <template #content>
-                <h1 v-html="formatContent(hunter.name)" /><br />
+                <h1 v-html="formatContent(hunter.name)" />
                 <p v-html="formatContent(hunter.description)" />
             </template>
         </Tippy>

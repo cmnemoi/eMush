@@ -188,8 +188,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int
     {
         if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
-            $panicCrisisRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
-            $numberOfPanicCrisis = min($panicCrisisRate, $playerCount);
+            $numberOfPanicCrisis = min($this->getNumberOfIncident($daedalus), $playerCount);
 
             if ($numberOfPanicCrisis > 0) {
                 $humans = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
@@ -214,8 +213,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
     {
         if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
-            $metalPlateRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
-            $numberOfMetalPlates = min($metalPlateRate, $playerCount);
+            $numberOfMetalPlates = min($this->getNumberOfIncident($daedalus), $playerCount);
 
             if ($numberOfMetalPlates > 0) {
                 $players = $daedalus->getPlayers()->getPlayerAlive();

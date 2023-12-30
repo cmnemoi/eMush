@@ -44,7 +44,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             throw new \RuntimeException("There is no place with name {$exploration->getStartPlaceName()} in this Daedalus");
         }
 
-        $explorators = $exploration->getExplorators();
+        $explorators = $exploration->getExplorators()->getPlayerAlive();
         foreach ($explorators as $explorator) {
             $this->playerService->changePlace($explorator, $returnPlace);
         }

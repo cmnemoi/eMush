@@ -77,6 +77,14 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     public function onExplorationFinished(ExplorationEvent $event): void
     {
         $this->removeStuckInTheShipStatusToExplorators($event);
+
+        $explorator = $event->getExploration()->getExplorators()->getPlayerAlive()->first();
+
+        // All explorators are dead, no exploration fuel or oxygen is gained
+        if (!$explorator) {
+            return;
+        }
+
         $this->addLootedOxygenToDaedalus($event);
         $this->addLootedFuelToDaedalus($event);
     }

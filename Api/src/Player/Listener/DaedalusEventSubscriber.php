@@ -22,14 +22,15 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
+            // Handle event before exploration is deleted
+            DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', 5],
         ];
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
     {
         $playersToKill = $event->getDaedalus()->getPlayers()->getPlayerAlive()->filter(
-            fn (Player $player) => $player->isInSpaceBattle()
+            fn (Player $player) => $player->isInSpaceBattle() || $player->isExploring()
         );
 
         foreach ($playersToKill as $player) {

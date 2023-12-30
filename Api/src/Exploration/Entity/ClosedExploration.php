@@ -106,6 +106,7 @@ class ClosedExploration
 
     public function finishExploration(): void
     {
+        $this->exploration = null;
         $this->isExplorationFinished = true;
     }
 }

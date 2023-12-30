@@ -187,12 +187,12 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int
     {
-        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
-            $numberOfPanicCrisis = min($this->getNumberOfIncident($daedalus), $playerCount);
+        $humanPlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
+        if ($humanPlayers->count() > 0) {
+            $numberOfPanicCrisis = min($this->getNumberOfIncident($daedalus), $humanPlayers->count());
 
             if ($numberOfPanicCrisis > 0) {
-                $humans = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
-                $humansCrisis = $this->randomService->getRandomElements($humans->toArray(), $numberOfPanicCrisis);
+                $humansCrisis = $this->randomService->getRandomElements($humanPlayers->toArray(), $numberOfPanicCrisis);
 
                 foreach ($humansCrisis as $player) {
                     $playerEvent = new PlayerEvent(

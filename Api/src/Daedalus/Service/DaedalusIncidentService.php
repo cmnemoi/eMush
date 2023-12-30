@@ -23,7 +23,7 @@ use Psr\Log\LoggerInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
-    private const ALPHA_MULTIPLIER = 5;
+    private const ALPHA_MULTIPLIER = 3.5;
 
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;

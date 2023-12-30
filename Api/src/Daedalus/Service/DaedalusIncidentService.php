@@ -23,7 +23,7 @@ use Psr\Log\LoggerInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
-    private const ALPHA_MULTIPLIER = 3.5;
+    private const ALPHA_MULTIPLIER = 4;
 
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
@@ -265,7 +265,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
      * Get the number of incidents that will happen during the cycle.
      * Incident number follows approximately a Poisson distribution P(lambda)
      * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
-     * During this alpha phase, the number of incidents is multiplied by a constant (currently 5).
+     * During this alpha phase, the number of incidents is multiplied by a constant (currently 4).
      */
     private function getNumberOfIncident(Daedalus $daedalus): int
     {

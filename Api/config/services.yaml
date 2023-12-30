@@ -39,3 +39,8 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    Mush\MetaGame\Service\JwtDecorator:
+        decorates: 'api_platform.openapi.factory'
+        arguments: [ '@Mush\MetaGame\Service\JwtDecorator.inner' ]
+        autoconfigure: false

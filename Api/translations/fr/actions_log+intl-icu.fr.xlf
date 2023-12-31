@@ -22,7 +22,7 @@
     <unit id="phagocyte_success">
       <segment id="phagocyte_success" state="final">
         <source>phagocyte_success</source>
-        <target>:mush: **{character}** a absorbé un spore pour se revigorer.</target>
+        <target>:mush: Vous avez absorbé un spore pour vous revigorer.</target>
       </segment>
     </unit>
     <unit id="consume_success">

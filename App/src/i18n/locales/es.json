@@ -510,7 +510,8 @@
 		"newsList": {
 			"create": "admin.newsList.create",
 			"newsTitle": "admin.newsList.newsTitle",
-			"updatedAt": "admin.newsList.updatedAt"
+			"updatedAt": "admin.newsList.updatedAt",
+			"publicationDate": "Publié le"
 		},
 		"newsWrite": {
 			"frenchTitle": "admin.newsWrite.frenchTitle",
@@ -518,7 +519,9 @@
 			"englishContent": "admin.newsWrite.englishContent",
 			"englishTitle": "admin.newsWrite.englishTitle",
 			"spanishTitle": "admin.newsWrite.spanishTitle",
-			"spanishContent": "admin.newsWrite.spanishContent"
+			"spanishContent": "admin.newsWrite.spanishContent",
+			"publicationDate": "Date de publication",
+			"isPinned": "Mettre en avant"
 		},
 		"hunterConfig": {
 			"name": "Nom complet",
@@ -572,6 +575,7 @@
 		}
 	},
 	"newsPage": {
+		"publishedAt": "Publié le ",
 		"updatedAt": "newsPage.updatedAt"
 	},
 	"homePage": {

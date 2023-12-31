@@ -20,13 +20,9 @@
       </segment>
     </unit>
     <unit id="phagocyte_success">
-      <segment id="phagocyte_success" state="translated">
+      <segment id="phagocyte_success" state="final">
         <source>phagocyte_success</source>
-        <target>{character_gender, select,
-                    male {:mush: **{character}** has absorbed a spore to reinvigorate himself.}
-                    female {:mush: **{character}** has absorbed a spore to reinvigorate herself.}
-                    other {:mush: **{character}** has absorbed a spore to reinvigorate themselves.}
-                }</target>
+        <target>:mush: You have absorbed a spore to reinvigorate yourself.</target>
       </segment>
     </unit>
     <unit id="consume_success">

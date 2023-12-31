@@ -14,11 +14,11 @@
     <unit id="coffee">
       <segment id="coffee" state="final">
         <source>coffee.name</source>
-        <target>Café</target>
+        <target>Café !</target>
       </segment>
       <segment id="description" state="final">
         <source>coffee.description</source>
-        <target>Café</target>
+        <target>Un bon café et ça repart !</target>
       </segment>
     </unit>
     <unit id="dispense">

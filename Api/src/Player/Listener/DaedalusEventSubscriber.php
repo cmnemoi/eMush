@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Player\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
@@ -23,7 +24,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         return [
             // Handle event before exploration is deleted
-            DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', 5],
+            DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', EventPriorityEnum::HIGH],
         ];
     }
 

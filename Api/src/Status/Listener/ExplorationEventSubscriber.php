@@ -78,13 +78,6 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     {
         $this->removeStuckInTheShipStatusToExplorators($event);
 
-        $explorator = $event->getExploration()->getExplorators()->getPlayerAlive()->first();
-
-        // All explorators are dead, no exploration fuel or oxygen is gained
-        if (!$explorator) {
-            return;
-        }
-
         $this->addLootedOxygenToDaedalus($event);
         $this->addLootedFuelToDaedalus($event);
     }
@@ -113,14 +106,19 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $daedalusModifierEvent = new DaedalusVariableEvent(
-            $daedalus,
-            DaedalusVariableEnum::OXYGEN,
-            $oxygenStatus->getCharge(),
-            $event->getTags(),
-            $event->getTime(),
-        );
-        $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $explorator = $event->getExploration()->getExplorators()->getPlayerAlive()->first();
+
+        // Only give oxygen if some explorators are still alive at end of exploration
+        if ($explorator) {
+            $daedalusModifierEvent = new DaedalusVariableEvent(
+                $daedalus,
+                DaedalusVariableEnum::OXYGEN,
+                $oxygenStatus->getCharge(),
+                $event->getTags(),
+                $event->getTime(),
+            );
+            $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
 
         $this->statusService->removeStatus(
             statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
@@ -139,14 +137,19 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $daedalusModifierEvent = new DaedalusVariableEvent(
-            $daedalus,
-            DaedalusVariableEnum::FUEL,
-            $fuelStatus->getCharge(),
-            $event->getTags(),
-            $event->getTime(),
-        );
-        $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $explorator = $event->getExploration()->getExplorators()->getPlayerAlive()->first();
+
+        // Only give oxygen if some explorators are still alive at end of exploration
+        if ($explorator) {
+            $daedalusModifierEvent = new DaedalusVariableEvent(
+                $daedalus,
+                DaedalusVariableEnum::FUEL,
+                $fuelStatus->getCharge(),
+                $event->getTags(),
+                $event->getTime(),
+            );
+            $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
 
         $this->statusService->removeStatus(
             statusName: DaedalusStatusEnum::EXPLORATION_FUEL,

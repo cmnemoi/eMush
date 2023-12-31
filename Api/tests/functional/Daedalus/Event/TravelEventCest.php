@@ -20,7 +20,9 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
@@ -105,6 +107,63 @@ final class TravelEventCest extends AbstractFunctionalTest
 
     public function testTravelWhenExploringFinishesExplorationAndKillsExplorators(FunctionalTester $I): void
     {
+        // given an exploration is ongoing
+        $this->createExploration($I);
+
+        // when travel is launched
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::LEAVE_ORBIT],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        // then exploration is deleted
+        $I->assertNull($this->daedalus->getExploration());
+
+        // then explorator is dead
+        $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
+    }
+
+    public function testTravelWhenExploringDoesNotAddLootedOxygenToDaedalus(FunctionalTester $I): void
+    {
+        // given daedalus has 10 oxygen
+        $this->daedalus->setOxygen(10);
+
+        // given an exploration is ongoing
+        $this->createExploration($I);
+
+        // given there is an oxygen sector with an oxygen event
+        $oxygenSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
+
+        /** @var PlanetSectorEventConfig $oxygenEventConfig */
+        $oxygenEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::OXYGEN . '_8_16_24']);
+
+        // when oxygen event is dispatched
+        $oxygenEvent = new PlanetSectorEvent(
+            planetSector: $oxygenSector,
+            config: $oxygenEventConfig,
+        );
+        $this->eventService->callEvent($oxygenEvent, $oxygenEventConfig->getEventName());
+
+        // when travel is launched
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::LEAVE_ORBIT],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        // no oxygen is added
+        $I->assertEquals(10, $this->daedalus->getOxygen());
+
+        // exploration oxygen status does not exist anymore
+        $daedalusOxygenStatus = $this->daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_OXYGEN);
+        $I->assertNull($daedalusOxygenStatus);
+    }
+
+    private function createExploration(FunctionalTester $I)
+    {
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
 
@@ -167,16 +226,5 @@ final class TravelEventCest extends AbstractFunctionalTest
             numberOfSectorsToVisit: 2,
             reasons: ['test'],
         );
-
-        // when travel is launched
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [ActionEnum::LEAVE_ORBIT],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
-
-        $I->assertNull($this->daedalus->getExploration());
-        $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
     }
 }

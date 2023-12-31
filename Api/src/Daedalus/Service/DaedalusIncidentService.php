@@ -211,7 +211,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     }
 
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
-    {   
+    {
         $alivePlayers = $daedalus->getPlayers()->getPlayerAlive();
         if ($alivePlayers->count() > 0) {
             $numberOfMetalPlates = min($this->getNumberOfIncident($daedalus), $alivePlayers->count());
@@ -236,7 +236,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     }
 
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int
-    {   
+    {
         $humanAlivePlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
         if ($humanAlivePlayers->count() > 0) {
             $numberOfDiseasedPlayers = min($this->getNumberOfIncident($daedalus), $humanAlivePlayers->count());

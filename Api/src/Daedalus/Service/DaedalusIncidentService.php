@@ -23,7 +23,7 @@ use Psr\Log\LoggerInterface;
 
 class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
-    private const ALPHA_MULTIPLIER = 5;
+    private const ALPHA_MULTIPLIER = 4;
 
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
@@ -187,13 +187,12 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int
     {
-        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
-            $panicCrisisRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
-            $numberOfPanicCrisis = min($panicCrisisRate, $playerCount);
+        $humanPlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
+        if ($humanPlayers->count() > 0) {
+            $numberOfPanicCrisis = min($this->getNumberOfIncident($daedalus), $humanPlayers->count());
 
             if ($numberOfPanicCrisis > 0) {
-                $humans = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
-                $humansCrisis = $this->randomService->getRandomElements($humans->toArray(), $numberOfPanicCrisis);
+                $humansCrisis = $this->randomService->getRandomElements($humanPlayers->toArray(), $numberOfPanicCrisis);
 
                 foreach ($humansCrisis as $player) {
                     $playerEvent = new PlayerEvent(
@@ -213,13 +212,12 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
     {
-        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
-            $metalPlateRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
-            $numberOfMetalPlates = min($metalPlateRate, $playerCount);
+        $alivePlayers = $daedalus->getPlayers()->getPlayerAlive();
+        if ($alivePlayers->count() > 0) {
+            $numberOfMetalPlates = min($this->getNumberOfIncident($daedalus), $alivePlayers->count());
 
             if ($numberOfMetalPlates > 0) {
-                $players = $daedalus->getPlayers()->getPlayerAlive();
-                $metalPlatesPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfMetalPlates);
+                $metalPlatesPlayer = $this->randomService->getRandomElements($alivePlayers->toArray(), $numberOfMetalPlates);
 
                 foreach ($metalPlatesPlayer as $player) {
                     $playerEvent = new PlayerEvent(
@@ -239,13 +237,12 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int
     {
-        if (($playerCount = $daedalus->getPlayers()->getPlayerAlive()->count()) > 0) {
-            $crewDiseaseRate = intval($this->getNumberOfIncident($daedalus) / $playerCount);
-            $numberOfDiseasedPlayers = min($crewDiseaseRate, $playerCount);
+        $humanAlivePlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
+        if ($humanAlivePlayers->count() > 0) {
+            $numberOfDiseasedPlayers = min($this->getNumberOfIncident($daedalus), $humanAlivePlayers->count());
 
-            if ($crewDiseaseRate > 0) {
-                $players = $daedalus->getPlayers()->getPlayerAlive();
-                $diseasedPlayer = $this->randomService->getRandomElements($players->toArray(), $numberOfDiseasedPlayers);
+            if ($numberOfDiseasedPlayers > 0) {
+                $diseasedPlayer = $this->randomService->getRandomElements($humanAlivePlayers->toArray(), $numberOfDiseasedPlayers);
 
                 foreach ($diseasedPlayer as $player) {
                     $playerEvent = new PlayerEvent(
@@ -267,7 +264,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
      * Get the number of incidents that will happen during the cycle.
      * Incident number follows approximately a Poisson distribution P(lambda)
      * where lambda = 3.3*10^(-3) * day^1.7 is the average number of incidents per cycle.
-     * During this alpha phase, the number of incidents is multiplied by a constant (currently 5).
+     * During this alpha phase, the number of incidents is multiplied by a constant (currently 4).
      */
     private function getNumberOfIncident(Daedalus $daedalus): int
     {

@@ -153,15 +153,13 @@ release:
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab
   variables:
-    GIT_AUTHOR_NAME: AI-NERON
-    GIT_AUTHOR_EMAIL: $NERON_EMAIL
-    GIT_COMMITTER_NAME: AI-NERON
-    GIT_COMMITTER_EMAIL: $NERON_EMAIL
-    GITLAB_TOKEN: $semantic_release_token
+    GL_TOKEN: $semantic_release_token
     version: '${version}'
   artifacts:
     expire_in: 1 week
     paths:
       - CHANGELOG.md
   script:
-    - semantic-release --branches master -t $version -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/gitlab
+    - semantic-release --branches master -t $version -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/gitlab 
+  only:
+    - master

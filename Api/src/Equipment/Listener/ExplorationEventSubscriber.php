@@ -58,21 +58,20 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     public function onExplorationFinished(ExplorationEvent $event): void
     {
         $exploration = $event->getExploration();
-        /** @var Player $explorator */
-        $explorator = $exploration->getExplorators()->getPlayerAlive()->first();
+        $daedalus = $exploration->getDaedalus();
 
         // All explorators are dead, no exploration craft return!
         // @TODO : Magnetic return project should prevent this for the Icarus
-        if (!$explorator) {
+        if (!$exploration->isAnyExploratorAlive()) {
             return;
         }
 
-        $explorationShip = $explorator->getPlace()->getEquipmentByName($exploration->getShipUsedName());
+        $explorationShip = $daedalus->getPlanetPlace()->getEquipmentByName($exploration->getShipUsedName());
         if (!$explorationShip) {
             throw new \RuntimeException('There should be an exploration ship in the planet place');
         }
 
-        $returnPlace = $exploration->getDaedalus()->getPlaceByName($exploration->getStartPlaceName());
+        $returnPlace = $daedalus->getPlaceByName($exploration->getStartPlaceName());
         if (!$returnPlace) {
             throw new \RuntimeException("There should be a {$exploration->getStartPlaceName()} place in Daedalus");
         }

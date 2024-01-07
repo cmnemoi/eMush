@@ -186,4 +186,9 @@ class Exploration
     {
         return $this->closedExploration->isExplorationFinished();
     }
+
+    public function isAnyExploratorAlive(): bool
+    {
+        return $this->getExplorators()->getPlayerAlive()->count() > 0;
+    }
 }

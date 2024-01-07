@@ -22,10 +22,14 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -120,6 +124,23 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // then explorator is dead
         $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
+
+        // then the death log exists on the planet and is public
+        /** @var RoomLog $deathLog */
+        $deathLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getName(),
+                'log' => LogEnum::DEATH,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        // then the death log character name is the explorator name
+        $I->assertEquals($this->player->getLogName(), $deathLog->getParameters()['target_character']);
+
+        // then the death log end cause is abandoned
+        $I->assertEquals(EndCauseEnum::ABANDONED, $deathLog->getParameters()['end_cause']);
     }
 
     public function testTravelWhenExploringDoesNotAddLootedOxygenToDaedalus(FunctionalTester $I): void

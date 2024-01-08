@@ -308,9 +308,9 @@
         <target>**{character}** a progressé sur les soins de la maladie de **{target_character}** mais il faudra continuer le traitement.</target>
       </segment>
     </unit>
-    <unit id="disease_curred_drug">
+    <unit id="disease_cured_drug">
       <segment state="final">
-        <source>disease_curred_drug</source>
+        <source>disease_cured_drug</source>
         <target>{character_gender, select,
                     male {**{character}** est soulagé. Il a réussi à se guérir de sa maladie ({disease}).}
                     female {**{character}** est soulagée. Elle a réussi à se guérir de sa maladie ({disease}).}

@@ -273,12 +273,12 @@
         <target>**{character}** has made progress in curing **{target_character}** of their disease, but the treatment must continue.</target>
       </segment>
     </unit>
-    <unit id="disease_curred_drug">
+    <unit id="disease_cured_drug">
       <segment state="translated">
-        <source>disease_curred_drug</source>
+        <source>disease_cured_drug</source>
         <target>{character_gender, select,
-                    male {**{character}** is relieved. He has managed to cure himself of his disease ({disease}).}.
-                    female {**{character}** is relieved. She has managed to cure herself of her illness ({disease}).}.
+                    male {**{target_character}** is relieved. He has managed to cure himself of his disease ({disease}).}
+                    female {**{target_character}** is relieved. She has managed to cure herself of her illness ({disease}).}
                     other {invalid gender input}
                 }</target>
       </segment>

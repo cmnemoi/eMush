@@ -48,6 +48,7 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
             'diseases' => $this->normalizePlayerDiseases($player, $format, $context),
             'currentRoom' => $this->translationService->translate($place . '.name', [], 'rooms', $language),
             // add anything relevant...
+            // 'skills' => [],
         ];
     }
 
@@ -59,7 +60,6 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
             'key' => $character,
             'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
             'description' => $this->translationService->translate($character . '.description', [], 'characters', $language),
-            'skills' => $player->getPlayerInfo()->getCharacterConfig()->getSkills(),
         ];
     }
 

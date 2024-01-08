@@ -794,7 +794,7 @@ Augmente les chances de réparation de 50%</target>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="final">
-        <source>antigrav_scooter..first_letter</source>
+        <source>antigrav_scooter.first_letter</source>
         <target>consonant</target>
       </segment>
       <segment id="description" state="final">

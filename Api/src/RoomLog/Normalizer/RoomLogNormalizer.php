@@ -53,7 +53,7 @@ class RoomLogNormalizer implements NormalizerInterface
             ];
 
             if ($adminView) {
-                $log['parameters'][] = $roomLog->getParameters();
+                $log['parameters'] = $roomLog->getParameters();
             }
 
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = $log;

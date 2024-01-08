@@ -24,6 +24,9 @@ class RoomLogNormalizerTest extends TestCase
     /** @var TranslationService|Mockery\Mock */
     private TranslationService $translationService;
 
+    private RoomLogCollection $roomLogCollection;
+    private Player $player;
+
     /**
      * @before
      */
@@ -32,18 +35,7 @@ class RoomLogNormalizerTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationService::class);
 
         $this->normalizer = new RoomLogNormalizer($this->translationService);
-    }
 
-    /**
-     * @after
-     */
-    public function after()
-    {
-        \Mockery::close();
-    }
-
-    public function testNormalizeRoomLogCollection()
-    {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
@@ -53,8 +45,8 @@ class RoomLogNormalizerTest extends TestCase
 
         $place = new Place();
 
-        $player = new Player();
-        $player->setPlace($place)->setDaedalus($daedalus);
+        $this->player = new Player();
+        $this->player->setPlace($place)->setDaedalus($daedalus);
 
         $date = new \DateTime();
 
@@ -80,6 +72,19 @@ class RoomLogNormalizerTest extends TestCase
             ->setType('log')
         ;
 
+        $this->roomLogCollection = new RoomLogCollection([$roomLog1, $roomLog2]);
+    }
+
+    /**
+     * @after
+     */
+    public function after()
+    {
+        \Mockery::close();
+    }
+
+    public function testNormalizeRoomLogCollection()
+    {
         $this->translationService
             ->shouldReceive('translate')
             ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
@@ -99,13 +104,42 @@ class RoomLogNormalizerTest extends TestCase
             ->twice()
         ;
 
-        $logCollection = new RoomLogCollection([$roomLog1, $roomLog2]);
-
-        $normalizeLogs = $this->normalizer->normalize($logCollection, null, ['currentPlayer' => $player]);
+        $normalizeLogs = $this->normalizer->normalize($this->roomLogCollection, null, ['currentPlayer' => $this->player]);
 
         $expectedLogs = [1 => [
             3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date']],
             4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date']],
+        ]];
+
+        $this->assertEquals($expectedLogs, $normalizeLogs);
+    }
+
+    public function testNormalizeRoomLogCollectionForAdmin()
+    {
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
+            ->andReturn('translated log 1')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('logKey2', ['player' => 'andie'], 'log', LanguageEnum::FRENCH)
+            ->andReturn('translated log 2')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('translated date')
+            ->twice()
+        ;
+
+        $normalizeLogs = $this->normalizer->normalize($this->roomLogCollection, null, ['currentPlayer' => $this->player, 'groups' => ['admin_view']]);
+
+        $expectedLogs = [1 => [
+            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'parameters' => []]],
+            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'parameters' => ['player' => 'andie']]],
         ]];
 
         $this->assertEquals($expectedLogs, $normalizeLogs);

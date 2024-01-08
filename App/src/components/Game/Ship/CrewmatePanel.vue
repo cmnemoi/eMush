@@ -24,7 +24,7 @@
                             </Tippy>
                         </div>
                         <div class="statuses">
-                            <Statuses :statuses="getSelectedPlayer.statuses" type="player" />
+                            <Statuses :statuses="getSelectedPlayer?.getPublicStatuses()" type="player" />
                         </div>
                     </div>
                 </div>

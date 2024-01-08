@@ -36,6 +36,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionEnum::SELF_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
         ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
         ActionEnum::CONSUME => LogEnum::DISEASE_TREATED_DRUG,
+        ActionEnum::CONSUME_DRUG => LogEnum::DISEASE_TREATED_DRUG,
     ];
 
     public function __construct(

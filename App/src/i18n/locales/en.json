@@ -21,7 +21,7 @@
 		"contributors": "Thanks to our contributors:",
 		"alpha-testers": "and all alpha testers :)",
 		"emush": "eMush",
-		"eternaltwin": "eMush is a non-commercial website operated by volunteers. It belongs to the <a href=https://eternaltwin.org/>Eternaltwin</a> project, whose purpose is to archive Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>.",
+		"eternaltwin": "eMush is a non-commercial website operated by volunteers. It belongs to the <a href=https://eternaltwin.org/>Eternaltwin</a> project, whose purpose is to preserve Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>.",
 		"legal": "Legal notice"
 	},
 	"util": {
@@ -511,7 +511,7 @@
 			"create": "Write a news",
 			"newsTitle": "Title",
 			"updatedAt": "Last update",
-			"publicationDate": "Published on"
+			"publicationDate": "Published at"
 		},
 		"newsWrite": {
 			"frenchTitle": "French title",
@@ -575,7 +575,7 @@
 		}
 	},
 	"newsPage": {
-		"publishedAt": "Publié le ",
+		"publishedAt": "Published at ",
 		"updatedAt": "Updated at "
 	},
 	"homePage": {

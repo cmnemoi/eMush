@@ -13,7 +13,7 @@ final class SpaceCoordinates
     private int $distance;
 
     public static function getAll(): ArrayCollection
-    {   
+    {
         // those coordinates have been randomly shuffled
         // to create an illusion of direction randomness in the eye of the player
         // in fact, the direction of a planet is always selected in the same order
@@ -50,7 +50,7 @@ final class SpaceCoordinates
             new self(SpaceOrientationEnum::SOUTH, 3),
             new self(SpaceOrientationEnum::SOUTH, 8),
             new self(SpaceOrientationEnum::SOUTH, 5),
-            new self(SpaceOrientationEnum::EAST, 2)
+            new self(SpaceOrientationEnum::EAST, 2),
         ]);
     }
 

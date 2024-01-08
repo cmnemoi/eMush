@@ -106,6 +106,15 @@ class ClosedExploration
 
     public function finishExploration(): void
     {
+        if (!$this->exploration) {
+            throw new \LogicException('Exploration should not be null to be finished');
+        }
+
+        foreach ($this->exploration->getExplorators() as $explorator) {
+            $explorator->setExploration(null);
+        }
+        $this->exploration->getPlanet()->setExploration(null);
+        $this->exploration->getDaedalus()->setExploration(null);
         $this->exploration = null;
         $this->isExplorationFinished = true;
     }

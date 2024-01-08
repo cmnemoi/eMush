@@ -87,21 +87,6 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $this->deleteExplorationFuelStatus($event);
     }
 
-    private function removeStuckInTheShipStatusToExplorators(ExplorationEvent $event): void
-    {
-        $exploratorsWithoutSpaceSuit = $event->getExploration()->getExploratorsWithoutSpacesuit();
-
-        /** @var Player $explorator */
-        foreach ($exploratorsWithoutSpaceSuit as $explorator) {
-            $this->statusService->removeStatus(
-                statusName: PlayerStatusEnum::STUCK_IN_THE_SHIP,
-                holder: $explorator,
-                tags: $event->getTags(),
-                time: $event->getTime(),
-            );
-        }
-    }
-
     private function addLootedOxygenToDaedalus(ExplorationEvent $event): void
     {
         $daedalus = $event->getExploration()->getDaedalus();
@@ -158,5 +143,20 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             tags: $event->getTags(),
             time: $event->getTime(),
         );
+    }
+
+    private function removeStuckInTheShipStatusToExplorators(ExplorationEvent $event): void
+    {
+        $exploratorsWithoutSpaceSuit = $event->getExploration()->getExploratorsWithoutSpacesuit();
+
+        /** @var Player $explorator */
+        foreach ($exploratorsWithoutSpaceSuit as $explorator) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::STUCK_IN_THE_SHIP,
+                holder: $explorator,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
     }
 }

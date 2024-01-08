@@ -6,7 +6,6 @@ namespace Mush\Exploration\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Entity\Planet;
-use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -38,7 +37,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $exploration = $daedalus->getExploration();
 
         // If daedalus leaves while exploration is ongoing, all explorators will die
-        if (!$exploration->isFinished()) {
+        if ($exploration) {
             $this->explorationService->closeExploration($exploration, $event->getTags());
         }
 

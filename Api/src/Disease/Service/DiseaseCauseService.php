@@ -67,7 +67,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
                 if (($disease = $player->getMedicalConditionByName($cure->getDisease())) !== null
                     && $this->randomService->isSuccessful($cure->getRate())
                 ) {
-                    $this->playerDiseaseService->removePlayerDisease($disease, [DiseaseStatusEnum::DRUG_HEALED], new \DateTime(), VisibilityEnum::PRIVATE);
+                    $this->playerDiseaseService->removePlayerDisease($disease, [DiseaseStatusEnum::DRUG_HEALED], new \DateTime(), VisibilityEnum::PUBLIC);
                 }
             }
         }

@@ -6,17 +6,21 @@ namespace Mush\Exploration\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
     private PlanetServiceInterface $planetService;
+    private ExplorationServiceInterface $explorationService;
 
     public function __construct(
-        PlanetServiceInterface $planetService
+        PlanetServiceInterface $planetService,
+        ExplorationServiceInterface $explorationService
     ) {
         $this->planetService = $planetService;
+        $this->explorationService = $explorationService;
     }
 
     public static function getSubscribedEvents()
@@ -29,6 +33,13 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onTravelLaunched(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+
+        $exploration = $daedalus->getExploration();
+
+        // If daedalus leaves while exploration is ongoing, all explorators will die
+        if ($exploration) {
+            $this->explorationService->closeExploration($exploration, $event->getTags());
+        }
 
         $planetsToDelete = $this->planetService->findAllByDaedalus($daedalus)->filter(
             fn (Planet $planet) => !$planet->getCoordinates()->equals($daedalus->getDestination())

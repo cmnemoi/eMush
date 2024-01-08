@@ -17,8 +17,11 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -27,6 +30,7 @@ use Mush\Tests\FunctionalTester;
 
 final class ExplorationServiceCest extends AbstractFunctionalTest
 {
+    private EventServiceInterface $eventService;
     private ExplorationServiceInterface $explorationService;
     private StatusServiceInterface $statusService;
 
@@ -36,6 +40,7 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -279,5 +284,64 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
 
         // then fuel is added to Daedalus
         $I->assertEquals(8, $this->daedalus->getFuel());
+    }
+
+    public function testCloseExplorationDoesNotAddOxygenNorFuelToDaedalusIfAllExploratorsAreDead(FunctionalTester $I): void
+    {
+        // given Daedalus has 0 units of oxygen
+        $this->daedalus->setOxygen(0);
+
+        // given Daedalus has 0 units of fuel
+        $this->daedalus->setFuel(0);
+
+        // given an exploration is created
+        $exploration = $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->player1, $this->player2]),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: $this->planet->getSize(),
+            reasons: ['test'],
+        );
+
+        // given exploration has found 8 units of oxygen
+        /** @var ChargeStatus $oxygenStatus */
+        $oxygenStatus = $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->updateCharge(
+            chargeStatus: $oxygenStatus,
+            delta: 8,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given exploration has found 8 units of fuel
+        /** @var ChargeStatus $fuelStatus */
+        $fuelStatus = $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::EXPLORATION_FUEL,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->updateCharge(
+            chargeStatus: $fuelStatus,
+            delta: 8,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given all explorators are dead
+        foreach ($exploration->getExplorators() as $explorator) {
+            $deathEvent = new PlayerEvent($explorator, ['test', EndCauseEnum::INJURY], new \DateTime());
+            $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+        }
+
+        // when exploration is finished
+        $this->explorationService->closeExploration($exploration, ['test']);
+
+        // then oxygen is not added to Daedalus
+        $I->assertEquals(0, $this->daedalus->getOxygen());
     }
 }

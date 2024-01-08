@@ -77,23 +77,14 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     public function onExplorationFinished(ExplorationEvent $event): void
     {
         $this->removeStuckInTheShipStatusToExplorators($event);
-        $this->addLootedOxygenToDaedalus($event);
-        $this->addLootedFuelToDaedalus($event);
-    }
 
-    private function removeStuckInTheShipStatusToExplorators(ExplorationEvent $event): void
-    {
-        $exploratorsWithoutSpaceSuit = $event->getExploration()->getExploratorsWithoutSpacesuit();
-
-        /** @var Player $explorator */
-        foreach ($exploratorsWithoutSpaceSuit as $explorator) {
-            $this->statusService->removeStatus(
-                statusName: PlayerStatusEnum::STUCK_IN_THE_SHIP,
-                holder: $explorator,
-                tags: $event->getTags(),
-                time: $event->getTime(),
-            );
+        if ($event->getExploration()->isAnyExploratorAlive()) {
+            $this->addLootedOxygenToDaedalus($event);
+            $this->addLootedFuelToDaedalus($event);
         }
+
+        $this->deleteExplorationOxygenStatus($event);
+        $this->deleteExplorationFuelStatus($event);
     }
 
     private function addLootedOxygenToDaedalus(ExplorationEvent $event): void
@@ -113,13 +104,6 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             $event->getTime(),
         );
         $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-
-        $this->statusService->removeStatus(
-            statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
-            holder: $daedalus,
-            tags: $event->getTags(),
-            time: $event->getTime(),
-        );
     }
 
     private function addLootedFuelToDaedalus(ExplorationEvent $event): void
@@ -139,12 +123,40 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             $event->getTime(),
         );
         $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
 
+    private function deleteExplorationOxygenStatus(ExplorationEvent $event): void
+    {
         $this->statusService->removeStatus(
-            statusName: DaedalusStatusEnum::EXPLORATION_FUEL,
-            holder: $daedalus,
+            statusName: DaedalusStatusEnum::EXPLORATION_OXYGEN,
+            holder: $event->getExploration()->getDaedalus(),
             tags: $event->getTags(),
             time: $event->getTime(),
         );
+    }
+
+    private function deleteExplorationFuelStatus(ExplorationEvent $event): void
+    {
+        $this->statusService->removeStatus(
+            statusName: DaedalusStatusEnum::EXPLORATION_FUEL,
+            holder: $event->getExploration()->getDaedalus(),
+            tags: $event->getTags(),
+            time: $event->getTime(),
+        );
+    }
+
+    private function removeStuckInTheShipStatusToExplorators(ExplorationEvent $event): void
+    {
+        $exploratorsWithoutSpaceSuit = $event->getExploration()->getExploratorsWithoutSpacesuit();
+
+        /** @var Player $explorator */
+        foreach ($exploratorsWithoutSpaceSuit as $explorator) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::STUCK_IN_THE_SHIP,
+                holder: $explorator,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
     }
 }

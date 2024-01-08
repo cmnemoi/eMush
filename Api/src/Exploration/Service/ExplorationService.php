@@ -81,9 +81,6 @@ final class ExplorationService implements ExplorationServiceInterface
     public function closeExploration(Exploration $exploration, array $reasons): void
     {
         $closedExploration = $exploration->getClosedExploration();
-        $explorators = $exploration->getExplorators();
-        $planet = $exploration->getPlanet();
-        $daedalus = $planet->getDaedalus();
 
         $explorationEvent = new ExplorationEvent(
             exploration: $exploration,
@@ -91,12 +88,6 @@ final class ExplorationService implements ExplorationServiceInterface
             time: new \DateTime(),
         );
         $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_FINISHED);
-
-        foreach ($explorators as $explorator) {
-            $explorator->setExploration(null);
-        }
-        $planet->setExploration(null);
-        $daedalus->setExploration(null);
 
         $closedExploration->finishExploration();
 

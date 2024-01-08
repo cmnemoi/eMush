@@ -42,6 +42,7 @@ class StatusNormalizer implements NormalizerInterface
                 'key' => $statusName,
                 'name' => $this->translationService->translate($statusName . '.name', [], 'status', $language),
                 'description' => $this->translationService->translate("{$statusName}.description", [], 'status', $language),
+                'isPrivate' => $status->getVisibility() === VisibilityEnum::PRIVATE,
             ];
 
             if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {

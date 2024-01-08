@@ -4,6 +4,7 @@ export class Status {
     public name : string|null;
     public charge : number|null;
     public description : string|null;
+    public isPrivate : boolean|null;
     public target : { "key" : string, "id" : number } | null;
     public diseaseType : string | null;
 
@@ -12,6 +13,7 @@ export class Status {
         this.name = null;
         this.charge = null;
         this.description = null;
+        this.isPrivate = null;
         this.target = null;
         this.diseaseType = null;
     }
@@ -23,6 +25,7 @@ export class Status {
             this.name = object.name;
             this.charge = object.charge;
             this.description = object.description;
+            this.isPrivate = object.isPrivate;
             this.target = object.target;
 
             if (object.hasOwnProperty('type')) {

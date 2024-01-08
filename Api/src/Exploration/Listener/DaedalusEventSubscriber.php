@@ -38,8 +38,8 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $exploration = $daedalus->getExploration();
 
         // If daedalus leaves while exploration is ongoing, all explorators will die
-        if ($exploration) {
-            $this->explorationService->closeExploration($exploration, [ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD]);
+        if (!$exploration->isFinished()) {
+            $this->explorationService->closeExploration($exploration, $event->getTags());
         }
 
         $planetsToDelete = $this->planetService->findAllByDaedalus($daedalus)->filter(

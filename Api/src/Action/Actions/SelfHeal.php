@@ -67,19 +67,17 @@ class SelfHeal extends AbstractAction
     {
         $quantity = $result->getQuantity();
 
-        if ($quantity === null) {
-            throw new \LogicException('no healing quantity');
+        if ($quantity) {
+            $playerModifierEvent = new PlayerVariableEvent(
+                $this->player,
+                PlayerVariableEnum::HEALTH_POINT,
+                $quantity,
+                $this->getAction()->getActionTags(),
+                new \DateTime(),
+            );
+            $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-
-        $playerModifierEvent = new PlayerVariableEvent(
-            $this->player,
-            PlayerVariableEnum::HEALTH_POINT,
-            $quantity,
-            $this->getAction()->getActionTags(),
-            new \DateTime(),
-        );
-        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,

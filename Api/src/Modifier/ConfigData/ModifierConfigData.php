@@ -10,6 +10,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Event\MessageEvent;
 use Mush\Disease\Enum\SymptomEnum;
+use Mush\Disease\Event\DiseaseEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
@@ -20,7 +21,6 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -96,7 +96,7 @@ class ModifierConfigData
             'modifierName' => null,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
@@ -110,7 +110,7 @@ class ModifierConfigData
             'modifierName' => null,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
@@ -122,7 +122,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-4healthPoint_on_new_cycle',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -136,7 +136,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1movementPoint_on_new_cycle',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -150,7 +150,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1satiety_on_new_cycle',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -164,7 +164,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_10',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -180,7 +180,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_10',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -196,7 +196,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -212,7 +212,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -228,7 +228,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -244,7 +244,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_30',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -260,7 +260,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-2actionPoint_on_new_cycle_if_random_40',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -276,7 +276,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1movementPoint_on_new_cycle_if_random_50',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -292,7 +292,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1healthPoint_on_new_cycle_if_random_50',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -370,7 +370,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_+1satiety_on_new_cycle',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => false,
@@ -420,7 +420,7 @@ class ModifierConfigData
         [
             'name' => 'fitful_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
             'modifierName' => 'fitful_sleep',
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -740,7 +740,7 @@ class ModifierConfigData
         [
             'name' => 'screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16',
             'modifierName' => 'screaming',
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -756,7 +756,7 @@ class ModifierConfigData
         [
             'name' => 'wall_head_bang_for_player_set_-1healthPoint_on_new_cycle_if_random_16',
             'modifierName' => 'wall_head_bang',
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -772,7 +772,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_set_-1moralPoint_on_new_cycle_if_random_70',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -788,7 +788,7 @@ class ModifierConfigData
         [
             'name' => 'run_in_circles_for_player_set_-2movementPoint_on_new_cycle_if_random_16',
             'modifierName' => 'run_in_circles',
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -1120,7 +1120,7 @@ class ModifierConfigData
         [
             'name' => 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',
             'modifierName' => 'antisocial_modifier',
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -1136,7 +1136,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_-1moralPoint_on_new_cycle',
             'modifierName' => null,
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -1167,7 +1167,7 @@ class ModifierConfigData
         [
             'name' => 'starving_for_player_-1healthPoint_on_new_cycle',
             'modifierName' => 'starving',
-            'targetEvent' => 'player.new.cycle',
+            'targetEvent' => 'disease.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -1401,7 +1401,7 @@ class ModifierConfigData
         [
             'name' => 'septicemia_cycle_change',
             'modifierName' => SymptomEnum::SEPTICEMIA,
-            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'targetEvent' => DiseaseEvent::DISEASE_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
             'applyOnTarget' => true,
@@ -1472,7 +1472,7 @@ class ModifierConfigData
         [
             'name' => 'biting_on_cycle',
             'modifierName' => SymptomEnum::BITING,
-            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'targetEvent' => DiseaseEvent::DISEASE_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
             'applyOnTarget' => true,
@@ -1562,7 +1562,7 @@ class ModifierConfigData
         [
             'name' => 'cycle_dirtiness',
             'modifierName' => SymptomEnum::DIRTINESS,
-            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'targetEvent' => DiseaseEvent::DISEASE_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
             'applyOnTarget' => true,
@@ -1574,7 +1574,7 @@ class ModifierConfigData
         [
             'name' => 'cycle_dirtiness_random_40',
             'modifierName' => SymptomEnum::DIRTINESS,
-            'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,
+            'targetEvent' => DiseaseEvent::DISEASE_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,
             'applyOnTarget' => true,

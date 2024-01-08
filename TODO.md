@@ -1,0 +1,2 @@
+- corriger la normalisation des modifiers de maladie
+- faire la même chose pour les status

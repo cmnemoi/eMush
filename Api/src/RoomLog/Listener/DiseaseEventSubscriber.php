@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -27,6 +28,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         LogEnum::SELF_SURGERY_CRITICAL_SUCCESS => LogEnum::SELF_SURGERY_CRITICAL_SUCCESS,
         LogEnum::SELF_SURGERY_SUCCESS => LogEnum::SELF_SURGERY_SUCCESS,
         DiseaseCauseEnum::OVERRODE => LogEnum::DISEASE_OVERRIDDEN,
+        DiseaseStatusEnum::DRUG_HEALED => LogEnum::DISEASE_CURED_DRUG,
     ];
 
     private const TREAT_LOG_MAP = [
@@ -34,6 +36,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionEnum::SELF_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
         ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
         ActionEnum::CONSUME => LogEnum::DISEASE_TREATED_DRUG,
+        ActionEnum::CONSUME_DRUG => LogEnum::DISEASE_TREATED_DRUG,
     ];
 
     public function __construct(
@@ -54,8 +57,6 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     public function onDiseaseCure(DiseaseEvent $event): void
     {
         $player = $event->getTargetPlayer();
-
-        $reasons = $event->getTags();
 
         $key = $event->mapLog(self::CURE_LOG_MAP);
         if ($key === null) {

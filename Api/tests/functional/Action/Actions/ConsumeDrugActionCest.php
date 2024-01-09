@@ -13,34 +13,56 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DisorderEnum;
+use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ConsumeDrugActionCest
+class ConsumeDrugActionCest extends AbstractFunctionalTest
 {
+    private Action $consumeConfig;
     private ConsumeDrug $consumeAction;
+
     private EventServiceInterface $eventService;
+
+    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+        $this->consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME_DRUG]);
         $this->consumeAction = $I->grabService(ConsumeDrug::class);
+
         $this->eventService = $I->grabService(EventServiceInterface::class);
+
+        $this->consumableDiseaseService = $I->grabService(ConsumableDiseaseServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
     public function testConsumeDrug(FunctionalTester $I)
@@ -181,5 +203,66 @@ class ConsumeDrugActionCest
         $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem2);
 
         $I->assertNull($this->consumeAction->cannotExecuteReason());
+    }
+
+    public function testConsumeDrugDisplaysTheRightLogsWhileHealingDisorder(FunctionalTester $I): void
+    {
+        // given a player with a depression
+        /** @var PlayerDisease $depression */
+        $depression = $this->playerDiseaseService->createDiseaseFromName(
+            DisorderEnum::DEPRESSION,
+            $this->player,
+            [],
+        );
+
+        // given player has a special drug which heals depression
+        $drug = $this->gameEquipmentService->createGameEquipmentFromName(
+            'prozac_test',
+            $this->player,
+            [],
+            new \DateTime(),
+        );
+
+        // given the depression has 0 disease points so it will be healed by the drug
+        $depression->setDiseasePoint(0);
+
+        // when player consumes one drug
+        $this->consumeAction->loadParameters($this->consumeConfig, $this->player, $drug);
+        $this->consumeAction->execute();
+
+        // then the depression should still be there
+        $I->assertNull($this->player->getMedicalConditionByName(DisorderEnum::DEPRESSION));
+
+        // then I should not see the private healing log reserved to spontaneous healing
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => LogEnum::DISEASE_CURED,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ],
+        );
+
+        // then I should see a public log saying that the player has been healed
+        /** @var RoomLog $healingLog */
+        $healingLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getName(),
+                'log' => LogEnum::DISEASE_CURED_DRUG,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ],
+        );
+
+        // then the healing log should have the right parameters
+        $I->assertEquals(
+            expected: [
+                'target_character' => $this->player->getLogName(),
+                'character_gender' => 'female', // player is Chun
+                'disease' => $depression->getDiseaseConfig()->getLogName(),
+            ],
+            actual: $healingLog->getParameters(),
+        );
     }
 }

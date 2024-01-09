@@ -1173,7 +1173,7 @@
     <unit id="takeoff_to_planet_patrol_ship_success">
       <segment id="takeoff_to_planet_patrol_ship_success" state="final">
         <source>takeoff_to_planet_patrol_ship_success</source>
-        <target>**{character}** a fait atterir {target_equipment} sur la planète. Quel courage ! (ou quelle inconscience...)</target>
+        <target>**{character}** a fait atterrir {target_equipment} sur la planète. Quel courage ! (ou quelle inconscience...)</target>
       </segment>
     </unit>
   </file>

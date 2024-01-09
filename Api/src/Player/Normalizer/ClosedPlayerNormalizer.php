@@ -5,7 +5,6 @@ namespace Mush\Player\Normalizer;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
-use Mush\Player\Service\ClosedPlayerServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -89,9 +88,11 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
     {
         $daedalus = $player->getClosedDaedalus();
 
-        $playerStartCycle = $this->cycleService->getInDayCycleFromDate($player->getCreatedAt(), $daedalus);
+        /** @var \DateTime $startDate */
+        $startDate = $daedalus->getCreatedAt();
+        $startCycle = $this->cycleService->getInDayCycleFromDate($startDate, $daedalus);
         $numberOfCycles = $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
 
-        return $player->getDaysSurvived() * $numberOfCycles + $player->getCycleDeath() - $playerStartCycle;
+        return $player->getDaysSurvived() * $numberOfCycles + $player->getCycleDeath() - $startCycle;
     }
 }

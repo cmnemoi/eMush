@@ -15,7 +15,6 @@
                 {{ $t('userShips.linkToTheEnd') }}
             </template>
             <template #row-actions="slotProps">
-
                 <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.closedDaedalusId } }"> <img :src="require('@/assets/images/right.png')" id="arrow" />  {{  $t('userShips.goToTheEnd') }}</router-link>
             </template>
         </Datatable>
@@ -46,8 +45,8 @@ export default defineComponent({
                     image: 'characterBody'
                 },
                 {
-                    key: 'daysSurvived',
-                    name: 'userShips.day',
+                    key: 'dayDeath',
+                    name: 'userShips.daysSurvived',
                     sortable: true
                 },
                 {
@@ -75,7 +74,7 @@ export default defineComponent({
             },
             rowData: [],
             filter: '',
-            sortField: 'dayDeath',
+            sortField: 'id',
             sortDirection: 'DESC',
             loading: false,
             pageSizeOptions: [
@@ -114,12 +113,10 @@ export default defineComponent({
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_players'), params)
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {
-                        closedPlayer.endCause = 'userShips.endCause.' + closedPlayer.endCause; // translation key
-                        closedPlayer.daysSurvived = closedPlayer.dayDeath - 1;
-                        closedPlayer.cyclesSurvived = (closedPlayer.dayDeath - 1) * 8 + closedPlayer.cycleDeath - closedPlayer.startCycle;
+                        closedPlayer.endCause = closedPlayer.endCause?.name;
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
-                        closedPlayer.closedDaedalusId = closedPlayer.closedDaedalus.split('/').pop();
+                        closedPlayer.dayDeath = closedPlayer.daysSurvived; // hack to use API Platform filters...
                     }
                     return result.data;
                 })
@@ -162,6 +159,11 @@ export default defineComponent({
         },
         getCharacterBodyFromKey(characterKey: string) {
             return characterEnum[characterKey].body;
+        },
+        resetOrder() {
+            this.sortField = 'id';
+            this.sortDirection = 'DESC';
+            this.loadData();
         }
     },
     beforeMount() {

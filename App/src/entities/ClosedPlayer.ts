@@ -2,16 +2,18 @@ export class ClosedPlayer {
     public iri: string|null;
     public id: number|null;
     public message: string|null;
-    public endCause: string|null;
+    public endCause: {key: string, name: string, shortName: string, description: string}|null;
     public dayDeath: integer|null;
-    public startCycle: integer|null;
     public cycleDeath: integer|null;
-    public cyclesSurvived: integer|null;
     public likes: integer;
     public isMush: boolean|null;
     public characterKey: string|null;
-    public username: string|null;
     public userId: string|null;
+    public username: string|null;
+    public closedDaedalusId: integer|null;
+    public daysSurvived: integer|null;
+    public cyclesSurvived: integer|null;
+    public rank: integer|null;
 
     constructor() {
         this.iri = null;
@@ -19,14 +21,17 @@ export class ClosedPlayer {
         this.message = null;
         this.endCause = null;
         this.dayDeath = null;
-        this.startCycle = null;
         this.cycleDeath = null;
-        this.cyclesSurvived = null;
         this.likes = 0;
         this.isMush = null;
         this.characterKey = null;
-        this.username = null;
         this.userId = null;
+        this.username = null;
+        this.closedDaedalusId = null;
+        this.daysSurvived = null;
+        this.cyclesSurvived = null;
+        this.rank = null;
+
     }
     load(object :any): ClosedPlayer {
         if (typeof object !== "undefined") {
@@ -35,18 +40,17 @@ export class ClosedPlayer {
             this.message = object.message;
             this.endCause = object.endCause;
             this.dayDeath = object.dayDeath;
-            this.startCycle = object.startCycle;
             this.cycleDeath = object.cycleDeath;
             this.likes = object.likes ?? 0;
             this.isMush = object.isMush;
             this.characterKey = object.characterKey;
-            this.username = object.username;
             this.userId = object.userId;
+            this.username = object.username;
+            this.closedDaedalusId = object.closedDaedalusId;
+            this.daysSurvived = object.daysSurvived;
+            this.cyclesSurvived = object.cyclesSurvived;
+            this.rank = object.rank;
         }
-        if (this.dayDeath && this.cycleDeath && this.startCycle){
-            this.cyclesSurvived = (this.dayDeath - 1) * 8 + this.cycleDeath - this.startCycle;
-        }
-
         return this;
     }
     jsonEncode(): object {
@@ -56,13 +60,15 @@ export class ClosedPlayer {
             'endCause': this.endCause,
             'dayDeath': this.dayDeath,
             'cycleDeath': this.cycleDeath,
-            'startCycle': this.startCycle,
-            'cyclesSurvived': this.cyclesSurvived,
             'likes': this.likes,
             'isMush': this.isMush,
             'characterKey': this.characterKey,
+            'userId': this.userId,
             'username': this.username,
-            'userId': this.userId
+            'closedDaedalusId': this.closedDaedalusId,
+            'daysSurvived': this.daysSurvived,
+            'cyclesSurvived': this.cyclesSurvived,
+            'rank': this.rank,
         };
 
         return data;

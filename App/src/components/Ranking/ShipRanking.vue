@@ -54,12 +54,12 @@ export default defineComponent({
                 },
                 {
                     key: 'daysSurvived',
-                    name: 'ranking.day',
-                    sortable: true
+                    name: 'ranking.daysSurvived',
+                    sortable: false
                 },
                 {
                     key: 'cyclesSurvived',
-                    name: 'ranking.cycle',
+                    name: 'ranking.cyclesSurvived',
                     sortable: false
                 },
                 {
@@ -108,11 +108,6 @@ export default defineComponent({
             }
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_daedaluses'), params)
                 .then((result) => {
-                    for (const closedDaedalus of result.data['hydra:member']) {
-                        closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);
-                        closedDaedalus.daysSurvived = closedDaedalus.endDay - 1;
-                        closedDaedalus.cyclesSurvived = (closedDaedalus.endDay - 1) * 8 + closedDaedalus.endCycle - closedDaedalus.startCycle;
-                    }
                     return result.data;
                 })
                 .then((remoteRowData: any) => {

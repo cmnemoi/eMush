@@ -1078,7 +1078,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::TAKEOFF_TO_PLANET)
             ->setActionName(ActionEnum::TAKEOFF_TO_PLANET)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
             ->setOutputQuantity(4) // max number of explorators allowed
         ;
@@ -1089,7 +1089,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP)
             ->setActionName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
             ->setOutputQuantity(1) // max number of explorators allowed
         ;

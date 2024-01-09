@@ -27,6 +27,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -299,7 +300,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
     }
 
-    public function testTakeOffToPlanetTSuccessTriggersLandingEvent(FunctionalTester $I): void
+    public function testTakeOffToPlanetSuccessTriggersLandingEvent(FunctionalTester $I): void
     {
         // given players have spacesuit in their inventory to explore oxygen-free planets
         $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
@@ -391,5 +392,47 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
             ]
         );
         $I->assertFalse($this->player1->hasStatus(PlayerStatusEnum::STUCK_IN_THE_SHIP));
+    }
+
+    public function testTakeoffToPlanetSuccessCreatesAPublicLog(FunctionalTester $I): void
+    {
+        // given players have spacesuit in their inventory to explore oxygen-free planets
+        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
+        $spacesuit = new GameItem($this->player1);
+        $spacesuit
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spacesuitConfig)
+        ;
+        $I->haveInRepository($spacesuit);
+        $spacesuit2 = new GameItem($this->player2);
+        $spacesuit2
+            ->setName(GearItemEnum::SPACESUIT)
+            ->setEquipment($spacesuitConfig)
+        ;
+        $I->haveInRepository($spacesuit2);
+
+        // when player tries to takeoff to planet
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // then a public log should be created in Icarus Bay
+        /** @var RoomLog $log */
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => 'icarus_bay',
+                'log' => ActionLogEnum::TAKEOFF_TO_PLANET_SUCCESS,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        // then the log should contain the right parameters
+        $I->assertEquals(
+            expected: [
+                'character' => $this->player->getLogName(),
+                'target_equipment' => $this->icarus->getLogName(),
+            ],
+            actual: $log->getParameters(),
+        );
     }
 }

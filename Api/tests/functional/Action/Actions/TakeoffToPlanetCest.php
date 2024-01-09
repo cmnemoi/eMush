@@ -434,6 +434,5 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
             ],
             actual: $log->getParameters(),
         );
-        
     }
 }

@@ -8,7 +8,7 @@ use Mush\Exploration\Entity\Exploration;
 
 interface CycleServiceInterface
 {
-    public function handleCycleChange(\DateTime $dateTime, Daedalus $daedalus): int;
+    public function handleDaedalusAndExplorationCycleChanges(\DateTime $dateTime, Daedalus $daedalus): array;
 
     public function getInDayCycleFromDate(\DateTime $date, ClosedDaedalus|Daedalus $daedalus): int;
 

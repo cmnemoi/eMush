@@ -85,7 +85,7 @@ final class CycleServiceCest extends AbstractFunctionalTest
         $newDateTime = clone $exploration->getCreatedAt();
         $newDateTime->modify("+{$explorationStepDurationInMinutes} minutes");
 
-        $this->cycleService->handleCycleChange(
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(
             dateTime: $newDateTime,
             daedalus: $this->daedalus,
         );

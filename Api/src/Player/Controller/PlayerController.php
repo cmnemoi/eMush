@@ -339,8 +339,7 @@ class PlayerController extends AbstractGameController
             return $this->view(['message' => 'Daedalus is changing cycle'], Response::HTTP_CONFLICT);
         }
         $this->cycleService->handleCycleChange(new \DateTime(), $player->getDaedalus());
-        $numberOfCycles = $this->cycleService->handleExplorationCycleChange(new \DateTime(), $player->getExploration());
 
-        return $this->view(['message' => "Exploration cycle change triggered successfully ({$numberOfCycles} cycles elapsed)"], Response::HTTP_OK);
+        return $this->view(['message' => "Exploration cycle change triggered successfully."], Response::HTTP_OK);
     }
 }

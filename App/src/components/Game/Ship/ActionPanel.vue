@@ -18,11 +18,6 @@ import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
 import { Hunter } from "@/entities/Hunter";
 
-interface AlertsState {
-    loading: boolean,
-    selectedTarget: Equipment | Player | Hunter
-}
-
 interface ActionWithTarget {
     action: Action,
     target: Equipment | Player | Hunter

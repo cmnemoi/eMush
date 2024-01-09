@@ -185,4 +185,10 @@ export class Player {
             return status.key === key;
         }).length > 0;
     }
+
+    public getPublicStatuses(): Array<Status> {
+        return this.statuses.filter((status: Status) => {
+            return !status.isPrivate;
+        });
+    }
 }

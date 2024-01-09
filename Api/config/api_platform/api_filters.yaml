@@ -79,3 +79,21 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    closedDaedalus.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { endDay: DESC, endCycle: DESC }
+            $orderParameterName: order
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    closedPlayer.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { dayDeath: DESC, cycleDeath: DESC }
+            $orderParameterName: order
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

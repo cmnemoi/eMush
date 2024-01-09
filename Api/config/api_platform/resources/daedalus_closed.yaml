@@ -8,7 +8,7 @@ Mush\Daedalus\Entity\ClosedDaedalus:
   collectionOperations:
     get:
       security: 'is_granted("ROLE_USER")'
-      filters: [ 'default.search_filter', 'default.order_filter']
+      filters: [ 'default.search_filter', 'default.order_filter', 'closedDaedalus.order_filter' ]
   itemOperations:
     get:
       security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)'

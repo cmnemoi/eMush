@@ -101,7 +101,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
             return $this->view(['error' => 'cannot create new channels'], 422);
@@ -150,7 +150,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
             $canCreate = [
@@ -193,7 +193,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $channels = $this->channelService->getPlayerChannels($player);
         $context = new Context();
@@ -231,7 +231,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
@@ -299,7 +299,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         if (!($invitedPlayer = $this->playerService->findById($invited))) {
             return $this->view(['error' => 'player not found'], 404);
@@ -358,7 +358,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         return $this->view(
             $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo->getPlayer()),
@@ -397,7 +397,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $this->channelService->exitChannel($player, $channel);
 
@@ -454,7 +454,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $messageCreate->setChannel($channel);
 
@@ -537,7 +537,7 @@ class ChannelController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         /** @var User $user */
         $user = $this->getUser();

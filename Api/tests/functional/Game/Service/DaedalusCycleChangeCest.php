@@ -147,7 +147,7 @@ class DaedalusCycleChangeCest
 
     public function testChangeManyCyclesSubscriber(FunctionalTester $I)
     {
-        $this->cycleService->handleCycleChange($this->currentTime, $this->daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges($this->currentTime, $this->daedalus);
 
         $I->assertEquals($this->daedalus->getDaedalusInfo()->getGameStatus(), GameStatusEnum::CURRENT);
         $I->assertEquals($this->player->getPlayerInfo()->getGameStatus(), GameStatusEnum::CURRENT);
@@ -165,7 +165,7 @@ class DaedalusCycleChangeCest
 
         $I->assertFalse($this->daedalus->isCycleChange());
         for ($i = 0; $i < 10; ++$i) {
-            $this->cycleService->handleCycleChange($now, $this->daedalus);
+            $this->cycleService->handleDaedalusAndExplorationCycleChanges($now, $this->daedalus);
         }
 
         $I->assertFalse($this->daedalus->isCycleChange());

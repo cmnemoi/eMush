@@ -156,7 +156,7 @@ class PlayerController extends AbstractGameController
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $daedalus);
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
             return $this->view(["Can't create player : Daedalus is already finished"], Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -300,9 +300,15 @@ class PlayerController extends AbstractGameController
         }
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
 
-        $this->cycleService->handleCycleChange(new \DateTime(), $player->getDaedalus());
+        $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
 
-        return $this->view(['message' => 'Cycle change triggered successfully'], Response::HTTP_OK);
+        if ($result->noCycleElapsed()) {
+            return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_NOT_MODIFIED);
+        } elseif ($result->hasDaedalusCycleElapsed()) {
+            return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
+        } elseif ($result->hasExplorationCycleElapsed()) {
+            return $this->view(['message' => 'Daedalus cycle changes triggered successfully (' . $result->daedalusCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
+        }
     }
 
     /**
@@ -338,9 +344,12 @@ class PlayerController extends AbstractGameController
         if ($player->getDaedalus()->isCycleChange()) {
             return $this->view(['message' => 'Daedalus is changing cycle'], Response::HTTP_CONFLICT);
         }
-        $this->cycleService->handleCycleChange(new \DateTime(), $player->getDaedalus());
-        $numberOfCycles = $this->cycleService->handleExplorationCycleChange(new \DateTime(), $player->getExploration());
+        $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
 
-        return $this->view(['message' => "Exploration cycle change triggered successfully ({$numberOfCycles} cycles elapsed)"], Response::HTTP_OK);
+        if ($result->noCycleElapsed()) {
+            return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_NOT_MODIFIED);
+        } else {
+            return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
+        }
     }
 }

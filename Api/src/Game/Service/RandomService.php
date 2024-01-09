@@ -172,7 +172,7 @@ class RandomService implements RandomServiceInterface
         return $result;
     }
 
-    public function getRandomElement(array $array): ?mixed
+    public function getRandomElement(array $array): mixed
     {
         $draw = $this->getRandomElements($array, 1);
         $element = current($draw);

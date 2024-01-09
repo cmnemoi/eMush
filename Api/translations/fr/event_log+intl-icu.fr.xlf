@@ -312,8 +312,8 @@
       <segment state="final">
         <source>disease_cured_drug</source>
         <target>{character_gender, select,
-                    male {**{character}** est soulagé. Il a réussi à se guérir de sa maladie ({disease}).}
-                    female {**{character}** est soulagée. Elle a réussi à se guérir de sa maladie ({disease}).}
+                    male {**{target_character}** est soulagé. Il a réussi à se guérir de sa maladie ({disease}).}
+                    female {**{target_character}** est soulagée. Elle a réussi à se guérir de sa maladie ({disease}).}
                     other {invalid gender input}
                 }</target>
       </segment>

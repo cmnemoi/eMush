@@ -178,7 +178,7 @@ class RandomService implements RandomServiceInterface
         $element = current($draw);
 
         if (!$element) {
-            throw new \Exception('getRandomElement: array is empty');
+            return null;
         }
 
         return $element;

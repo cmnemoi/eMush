@@ -133,9 +133,10 @@ final class PlanetService implements PlanetServiceInterface
         $drawnCoordinates = null;
         while (!$drawnCoordinates) {
             $chosenDistance = $this->randomService->rollTwiceAndAverage($minDistance, $maxDistance);
-            $drawnCoordinates = $availableCoordinates->filter(
+            $coordinatesAtDistance = $availableCoordinates->filter(
                 fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() === $chosenDistance
-            )->first();
+            )->toArray();
+            $drawnCoordinates = $this->randomService->getRandomElement($coordinatesAtDistance);
         }
 
         return $drawnCoordinates;

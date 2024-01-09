@@ -2,11 +2,10 @@
 
 namespace Mush\Player\Normalizer;
 
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
-use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\ClosedPlayerServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -18,20 +17,14 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
     private const ALREADY_CALLED = 'CLOSED_PLAYER_NORMALIZER_ALREADY_CALLED';
 
     private CycleServiceInterface $cycleService;
-    private PlayerServiceInterface $playerService;
     private TranslationServiceInterface $translationService;
-    private GearToolServiceInterface $gearToolService;
 
     public function __construct(
         CycleServiceInterface $cycleService,
-        PlayerServiceInterface $playerService,
         TranslationServiceInterface $translationService,
-        GearToolServiceInterface $gearToolService
     ) {
         $this->cycleService = $cycleService;
-        $this->playerService = $playerService;
         $this->translationService = $translationService;
-        $this->gearToolService = $gearToolService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -59,16 +52,46 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
             throw new \Exception('ClosedPlayerNormalizer: data is not an array');
         }
 
-        /** @var \DateTime $startDate */
-        $startDate = $closedPlayer->getCreatedAt();
-
         if ($daedalus->isDaedalusFinished()) {
-            $data['characterKey'] = $closedPlayer->getPlayerInfo()->getCharacterConfig()->getCharacterName();
-            $data['startCycle'] = $this->cycleService->getInDayCycleFromDate($startDate, $daedalus);
-            $data['userId'] = $closedPlayer->getPlayerInfo()->getUser()->getUserId();
-            $data['username'] = $closedPlayer->getPlayerInfo()->getUser()->getUsername();
+            $data['endCause'] = $this->getTranslatedEndCause($closedPlayer->getEndCause(), $daedalus->getDaedalusInfo()->getLanguage());
+            $data['cyclesSurvived'] = $this->getPlayerCyclesSurvived($closedPlayer);
         }
 
         return $data;
+    }
+
+    private function getTranslatedEndCause(string $endCause, string $language): array
+    {
+        return [
+            'key' => $endCause,
+            'name' => $this->translationService->translate(
+                key: $endCause . '.name',
+                parameters: [],
+                domain: 'end_cause',
+                language: $language
+            ),
+            'shortName' => $this->translationService->translate(
+                key: $endCause . '.short_name',
+                parameters: [],
+                domain: 'end_cause',
+                language: $language
+            ),
+            'description' => $this->translationService->translate(
+                key: $endCause . '.description',
+                parameters: [],
+                domain: 'end_cause',
+                language: $language
+            ),
+        ];
+    }
+
+    private function getPlayerCyclesSurvived(ClosedPlayer $player): int
+    {
+        $daedalus = $player->getClosedDaedalus();
+
+        $playerStartCycle = $this->cycleService->getInDayCycleFromDate($player->getCreatedAt(), $daedalus);
+        $numberOfCycles = $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
+
+        return $player->getDaysSurvived() * $numberOfCycles + $player->getCycleDeath() - $playerStartCycle;
     }
 }

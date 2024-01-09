@@ -157,4 +157,29 @@ class ClosedPlayer
     {
         return $this->playerInfo->isAlive();
     }
+
+    public function getCharacterKey(): string
+    {
+        return $this->playerInfo->getCharacterConfig()->getCharacterName();
+    }
+
+    public function getUserId(): string
+    {
+        return $this->playerInfo->getUser()->getUserId();
+    }
+
+    public function getUsername(): string
+    {
+        return $this->playerInfo->getUser()->getUsername();
+    }
+
+    public function getClosedDaedalusId(): int
+    {
+        return $this->daedalus->getId();
+    }
+
+    public function getDaysSurvived(): int
+    {
+        return $this->dayDeath - 1;
+    }
 }

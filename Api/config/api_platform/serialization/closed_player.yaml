@@ -16,3 +16,15 @@ Mush\Player\Entity\ClosedPlayer:
       groups: [ 'closed_player_read' ]
     closedDaedalus:
       groups: [ 'closed_player_read' ]
+    characterKey:
+      groups: [ 'closed_player_read' ]
+    userId:
+      groups: [ 'closed_player_read' ]
+    username:
+      groups: [ 'closed_player_read' ]
+    closedDaedalusId:
+      groups: [ 'closed_player_read' ]
+    daysSurvived:
+      groups: [ 'closed_player_read' ]
+    cyclesSurvived:
+      groups: [ 'closed_player_read' ]

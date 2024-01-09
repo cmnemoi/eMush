@@ -119,4 +119,9 @@ class ClosedDaedalus
 
         return $this;
     }
+
+    public function getDaysSurvived(): int
+    {
+        return $this->endDay - 1;
+    }
 }

@@ -81,7 +81,10 @@ class CycleService implements CycleServiceInterface
             }
         }
 
-        $this->handleExplorationCycleChange($dateTime, $daedalus->getExploration());
+        $exploration = $daedalus->getExploration();
+        if ($exploration) {
+            $this->handleExplorationCycleChange($dateTime, $exploration);
+        }
 
         return $cycleElapsed;
     }

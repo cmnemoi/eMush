@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Game\Service;
 
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
@@ -38,11 +37,11 @@ final class CycleServiceCest extends AbstractFunctionalTest
     }
 
     public function testHandleCycleChangeTriggerNewExplorationStep(FunctionalTester $I)
-    {   
+    {
         // given Daedalus in in game so cycle changes can happen
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($this->daedalus);
-        
+
         // given there is a planet
         $this->planetService->createPlanet($this->player);
 

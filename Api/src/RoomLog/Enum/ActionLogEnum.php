@@ -119,6 +119,8 @@ class ActionLogEnum
     public const SCAN_FAIL = 'scan_fail';
     public const ANALYZE_PLANET_SUCCESS = 'analyze_planet_success';
     public const DELETE_PLANET_SUCCESS = 'delete_planet_success';
+    public const TAKEOFF_TO_PLANET_SUCCESS = 'takeoff_to_planet_success';
+    public const TAKEOFF_TO_PLANET_PATROL_SHIP_SUCCESS = 'takeoff_to_planet_patrol_ship_success';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -418,6 +420,12 @@ class ActionLogEnum
             ActionOutputEnum::FAIL => self::ADVANCE_DAEDALUS_FAIL,
             ActionOutputEnum::ARACK_PREVENTS_TRAVEL => self::ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL,
             ActionOutputEnum::NO_FUEL => self::ADVANCE_DAEDALUS_NO_FUEL,
+        ],
+        ActionEnum::TAKEOFF_TO_PLANET => [
+            ActionOutputEnum::SUCCESS => self::TAKEOFF_TO_PLANET_SUCCESS,
+        ],
+        ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP => [
+            ActionOutputEnum::SUCCESS => self::TAKEOFF_TO_PLANET_PATROL_SHIP_SUCCESS,
         ],
     ];
 }

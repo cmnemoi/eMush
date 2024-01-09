@@ -89,7 +89,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         $daedalus = $player->getClosedDaedalus();
 
         /** @var \DateTime $startDate */
-        $startDate = $daedalus->getCreatedAt();
+        $startDate = $player->getCreatedAt();
         $startCycle = $this->cycleService->getInDayCycleFromDate($startDate, $daedalus);
         $numberOfCycles = $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
 

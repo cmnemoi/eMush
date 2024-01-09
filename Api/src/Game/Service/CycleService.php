@@ -13,6 +13,33 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Psr\Log\LoggerInterface;
 
+class CycleChangeResult
+{
+    public int $daedalusCyclesElapsed;
+    public int $explorationCyclesElapsed;
+
+    public function __construct(int $daedalusCyclesElapsed, int $explorationCyclesElapsed)
+    {
+        $this->daedalusCyclesElapsed = $daedalusCyclesElapsed;
+        $this->explorationCyclesElapsed = $explorationCyclesElapsed;
+    }
+
+    public function noCycleElapsed(): bool
+    {
+        return $this->daedalusCyclesElapsed === 0 && $this->explorationCyclesElapsed === 0;
+    }
+
+    public function hasDaedalusCycleElapsed(): bool
+    {
+        return $this->daedalusCyclesElapsed > 0;
+    }
+
+    public function hasExplorationCycleElapsed(): bool
+    {
+        return $this->explorationCyclesElapsed > 0;
+    }
+}
+
 class CycleService implements CycleServiceInterface
 {
     private EntityManagerInterface $entityManager;
@@ -29,7 +56,7 @@ class CycleService implements CycleServiceInterface
         $this->logger = $logger;
     }
 
-    public function handleDaedalusAndExplorationCycleChanges(\DateTime $dateTime, Daedalus $daedalus): array
+    public function handleDaedalusAndExplorationCycleChanges(\DateTime $dateTime, Daedalus $daedalus): CycleChangeResult
     {
         $daedalusCyclesElapsed = $this->handleDaedalusCycleChange($dateTime, $daedalus);
         $exploration = $daedalus->getExploration();
@@ -39,10 +66,7 @@ class CycleService implements CycleServiceInterface
             $explorationCyclesElapsed = 0;
         }
 
-        return [
-            'daedalusCyclesElapsed' => $daedalusCyclesElapsed,
-            'explorationCyclesElapsed' => $explorationCyclesElapsed,
-        ];
+        return new CycleChangeResult($daedalusCyclesElapsed, $explorationCyclesElapsed);
     }
 
     private function handleDaedalusCycleChange(\DateTime $dateTime, Daedalus $daedalus): int
@@ -100,7 +124,7 @@ class CycleService implements CycleServiceInterface
         return $cycleElapsed;
     }
 
-    public function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
+    private function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
     {
         $closedExploration = $exploration->getClosedExploration();
         if ($this->isDaedalusOrExplorationFinished($closedExploration)) {

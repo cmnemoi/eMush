@@ -301,15 +301,13 @@ class PlayerController extends AbstractGameController
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
 
         $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
-        $daedalusCyclesElapsed = $result['daedalusCyclesElapsed'];
-        $explorationCyclesElapsed = $result['explorationCyclesElapsed'];
 
-        if ($daedalusCyclesElapsed === 0 && $explorationCyclesElapsed === 0) {
+        if ($result->noCycleElapsed()) {
             return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_NOT_MODIFIED);
-        } elseif ($daedalusCyclesElapsed === 0) {
-            return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
-        } elseif ($explorationCyclesElapsed === 0) {
-            return $this->view(['message' => 'Daedalus cycle changes triggered successfully (' . $daedalusCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
+        } elseif ($result->hasDaedalusCycleElapsed()) {
+            return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
+        } elseif ($result->hasExplorationCycleElapsed()) {
+            return $this->view(['message' => 'Daedalus cycle changes triggered successfully (' . $result->daedalusCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         }
     }
 
@@ -347,12 +345,11 @@ class PlayerController extends AbstractGameController
             return $this->view(['message' => 'Daedalus is changing cycle'], Response::HTTP_CONFLICT);
         }
         $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
-        $explorationCyclesElapsed = $result['explorationCyclesElapsed'];
 
-        if ($explorationCyclesElapsed === 0) {
+        if ($result->noCycleElapsed()) {
             return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_NOT_MODIFIED);
         } else {
-            return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
+            return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         }
     }
 }

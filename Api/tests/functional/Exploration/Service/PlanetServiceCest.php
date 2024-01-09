@@ -39,4 +39,32 @@ final class PlanetServiceCest extends AbstractFunctionalTest
         // and planet has sectors
         $I->assertNotEmpty($planet->getSectors());
     }
+
+    public function testCreatePlanetReturnsPlanetWithDistancesInTheExpectedRange(FunctionalTester $I): void
+    {
+        // given player can discover 32 planets
+        $this->player->getPlayerInfo()->getCharacterConfig()->setMaxDiscoverablePlanets(32);
+
+        // when player discovers 32 planets
+        $planets = [];
+        for ($i = 0; $i < 32; ++$i) {
+            $planets[] = $this->planetService->createPlanet($this->player);
+        }
+
+        // then the 24 first planets should have a distance between 2 and 7
+        for ($i = 0; $i < 24; ++$i) {
+            $I->assertGreaterThanOrEqual(2, $planets[$i]->getDistance());
+            $I->assertLessThanOrEqual(7, $planets[$i]->getDistance());
+        }
+
+        // then the 4 next planets should have a distance of 8
+        for ($i = 24; $i < 28; ++$i) {
+            $I->assertEquals(8, $planets[$i]->getDistance());
+        }
+
+        // then the 4 next planets should have a distance of 9
+        for ($i = 28; $i < 32; ++$i) {
+            $I->assertEquals(9, $planets[$i]->getDistance());
+        }
+    }
 }

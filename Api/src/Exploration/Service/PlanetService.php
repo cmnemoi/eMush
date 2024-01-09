@@ -48,10 +48,7 @@ final class PlanetService implements PlanetServiceInterface
             ->setSize($this->getPlanetSize($daedalus))
         ;
 
-        $availableCoordinates = $this->getAvailaibleCoordinatesForPlanet($planet);
-        $drawnCoordinates = $this->randomService->getRandomElement($availableCoordinates);
-
-        $planet->setCoordinates($drawnCoordinates);
+        $planet->setCoordinates($this->getCoordinatesForPlanet($planet));
 
         $planet = $this->generatePlanetSectors($planet);
 
@@ -106,9 +103,50 @@ final class PlanetService implements PlanetServiceInterface
         $this->entityManager->flush();
     }
 
-    private function getAvailaibleCoordinatesForPlanet(Planet $planet): array
+    /**
+     * Function to get coordinates for a planet. The rules are as follows:
+     * 1) Generate all planets within a distance between 2 and 7. To get the distance, roll 2 dices [2-7] and take the average of the two rolls
+     * 2) If no planet is available, generate planets with a distance of 8
+     * 3) If no planet is available, generate planets with a distance of 9
+     */
+    private function getCoordinatesForPlanet(Planet $planet): SpaceCoordinates
     {
-        $availableCoordinates = SpaceCoordinates::getAll();
+        // Find available coordinates for a planet. First, we try to find coordinates with a distance between 2 and 7
+        // Then planets of distance 8, then planets of distance 9
+        $availableCoordinates = new ArrayCollection();
+        $maxDistance = 7;
+        for ($maxDistance; $maxDistance <= 9; ++$maxDistance) {
+            // we don't want two planets to have the same coordinates, so we have to check if the coordinates are available
+            // under the max distance given
+            $availableCoordinates = $this->getAvailaibleCoordinatesForPlanetUnderDistance($planet, $maxDistance);
+            if (!$availableCoordinates->isEmpty()) {
+                break;
+            }
+        }
+
+        // Determine the range for the double roll. If the max distance is 7, the range is 2-7.
+        // Otherwise, the range is a unique value (8 or 9)
+        $minDistance = $maxDistance <= 7 ? 2 : $maxDistance;
+
+        // Draw the planet distance with a subtlety : if no coordinates for the drawn distance are available,
+        // roll again until a valid distance is drawn
+        $drawnCoordinates = null;
+        while (!$drawnCoordinates) {
+            $chosenDistance = $this->randomService->rollTwiceAndAverage($minDistance, $maxDistance);
+            $coordinatesAtDistance = $availableCoordinates->filter(
+                fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() === $chosenDistance
+            )->toArray();
+            $drawnCoordinates = $this->randomService->getRandomElement($coordinatesAtDistance);
+        }
+
+        return $drawnCoordinates;
+    }
+
+    private function getAvailaibleCoordinatesForPlanetUnderDistance(Planet $planet, int $distance): ArrayCollection
+    {
+        $availableCoordinates = SpaceCoordinates::getAll()->filter(
+            fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() <= $distance
+        );
 
         $existingPlanets = $this->planetRepository->findAllByDaedalus($planet->getDaedalus());
         foreach ($existingPlanets as $existingPlanet) {
@@ -119,7 +157,7 @@ final class PlanetService implements PlanetServiceInterface
             }
         }
 
-        return $availableCoordinates->toArray();
+        return $availableCoordinates;
     }
 
     private function getPlanetName(): PlanetName

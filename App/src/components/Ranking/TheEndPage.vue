@@ -35,7 +35,7 @@
                     </p>
                     <p class="death-cause">
                         <img src="@/assets/images/dead.png" alt="Dead">
-                        {{ $t("theEnd.endCause." + goldNovaPlayer.endCause) }}
+                        {{ $t("theEnd.endCause." + goldNovaPlayer.endCause?.key) }}
                     </p>
                     <p class="nova">
                         <img src="@/assets/images/nova/first.png" alt="First"> {{ $t('theEnd.goldSuperNova') }}
@@ -85,7 +85,7 @@
                         </p>
                         <p class="death-cause">
                             <img src="@/assets/images/dead.png" alt="Dead">
-                            {{ $t('theEnd.endCause.' + player.endCause) }}
+                            {{ $t('theEnd.endCause.' + player.endCause?.key) }}
                         </p>
                         <p class="nova" v-if="key === 0">
                             <img src="@/assets/images/nova/second.png" alt="Second"> {{ $t('theEnd.silverSuperNova') }}
@@ -147,7 +147,7 @@
                         </p>
                         <p class="death-cause">
                             <img src="@/assets/images/dead.png" alt="Dead">
-                            {{ $t('theEnd.endCause.' + player.endCause) }}
+                            {{ $t('theEnd.endCause.' + player.endCause?.key) }}
                         </p>
                         <p class="nova">
                             <img src="@/assets/images/nova/sixth.png" alt="sixth"> {{ $t('theEnd.normalSuperNova') }}

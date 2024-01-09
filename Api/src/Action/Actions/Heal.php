@@ -74,18 +74,17 @@ class Heal extends AbstractAction
         $target = $this->target;
         $quantity = $result->getQuantity();
 
-        if ($quantity === null) {
-            throw new \LogicException('no healing quantity');
+        if ($quantity) {
+            $playerModifierEvent = new PlayerVariableEvent(
+                $target,
+                PlayerVariableEnum::HEALTH_POINT,
+                $quantity,
+                $this->getAction()->getActionTags(),
+                new \DateTime(),
+            );
+            $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-
-        $playerModifierEvent = new PlayerVariableEvent(
-            $target,
-            PlayerVariableEnum::HEALTH_POINT,
-            $quantity,
-            $this->getAction()->getActionTags(),
-            new \DateTime(),
-        );
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $healEvent = new ApplyEffectEvent(
             $this->player,

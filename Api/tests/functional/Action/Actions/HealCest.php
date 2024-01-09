@@ -9,6 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -16,7 +18,6 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -24,17 +25,25 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class HealCest
+class HealCest extends AbstractFunctionalTest
 {
+    private Action $healConfig;
     private Heal $healAction;
+
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+        $this->healConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::HEAL]);
         $this->healAction = $I->grabService(Heal::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
+
+        $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
     public function testHeal(FunctionalTester $I)
@@ -186,5 +195,39 @@ class HealCest
         $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
 
         $I->assertFalse($this->healAction->isVisible());
+    }
+
+    public function testHealAtFullLifePrintsCorrectLog(FunctionalTester $I): void
+    {
+        // given players are in medlab
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        $this->players->map(function (Player $player) use ($medlab) {
+            $player->changePlace($medlab);
+        });
+
+        // given player 2 has a flu
+        $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::FLU,
+            player: $this->player2,
+            reasons: []
+        );
+
+        // when player 1 heals player 2
+        $this->healAction->loadParameters($this->healConfig, $this->player1, $this->player2);
+        $this->healAction->execute();
+
+        // then I don't see a log about health gained
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => $medlab->getName(),
+            'log' => ActionLogEnum::HEAL_SUCCESS,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        // then I see a log about disease being cured
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $medlab->getName(),
+            'log' => LogEnum::DISEASE_CURED_PLAYER,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
     }
 }

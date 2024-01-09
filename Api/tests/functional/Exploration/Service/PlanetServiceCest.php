@@ -59,14 +59,12 @@ final class PlanetServiceCest extends AbstractFunctionalTest
 
         // then the 4 next planets should have a distance of 8
         for ($i = 24; $i < 28; ++$i) {
-            $I->assertGreaterThanOrEqual(8, $planets[$i]->getDistance());
-            $I->assertLessThanOrEqual(8, $planets[$i]->getDistance());
+            $I->assertEquals(8, $planets[$i]->getDistance());
         }
 
         // then the 4 next planets should have a distance of 9
         for ($i = 28; $i < 32; ++$i) {
-            $I->assertGreaterThanOrEqual(9, $planets[$i]->getDistance());
-            $I->assertLessThanOrEqual(9, $planets[$i]->getDistance());
+            $I->assertEquals(9, $planets[$i]->getDistance());
         }
     }
 }

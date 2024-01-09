@@ -41,14 +41,7 @@
 		"playerRankingSubMenu": "Joueurs",
 		"shipRankingSubMenu": "Daedalus",
 		"linkToTheEnd": "Daedalus",
-		"goToTheEnd": "Palmarès",
-		"endCause": {
-			"sol_return": "Daedalus rentré sur Sol",
-			"eden": "Daedalus s'est installé sur Eden",
-			"daedalus_destroyed": "Daedalus détruit",
-			"killed_by_neron": "Equipage assassiné par NERON",
-			"super_nova": "Super Nova"
-		}
+		"goToTheEnd": "Palmarès"
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",

@@ -7,7 +7,6 @@ namespace Mush\Tests\functional\Game\Service;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;

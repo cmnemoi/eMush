@@ -13,33 +13,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Psr\Log\LoggerInterface;
 
-class CycleChangeResult
-{
-    public int $daedalusCyclesElapsed;
-    public int $explorationCyclesElapsed;
-
-    public function __construct(int $daedalusCyclesElapsed, int $explorationCyclesElapsed)
-    {
-        $this->daedalusCyclesElapsed = $daedalusCyclesElapsed;
-        $this->explorationCyclesElapsed = $explorationCyclesElapsed;
-    }
-
-    public function noCycleElapsed(): bool
-    {
-        return $this->daedalusCyclesElapsed === 0 && $this->explorationCyclesElapsed === 0;
-    }
-
-    public function hasDaedalusCycleElapsed(): bool
-    {
-        return $this->daedalusCyclesElapsed > 0;
-    }
-
-    public function hasExplorationCycleElapsed(): bool
-    {
-        return $this->explorationCyclesElapsed > 0;
-    }
-}
-
 class CycleService implements CycleServiceInterface
 {
     private EntityManagerInterface $entityManager;
@@ -287,5 +260,32 @@ class CycleService implements CycleServiceInterface
         $daedalusInfo = $exploration->getDaedalusInfo();
 
         return $daedalusInfo->isDaedalusFinished() || $exploration->isExplorationFinished();
+    }
+}
+
+class CycleChangeResult
+{
+    public int $daedalusCyclesElapsed;
+    public int $explorationCyclesElapsed;
+
+    public function __construct(int $daedalusCyclesElapsed, int $explorationCyclesElapsed)
+    {
+        $this->daedalusCyclesElapsed = $daedalusCyclesElapsed;
+        $this->explorationCyclesElapsed = $explorationCyclesElapsed;
+    }
+
+    public function noCycleElapsed(): bool
+    {
+        return $this->daedalusCyclesElapsed === 0 && $this->explorationCyclesElapsed === 0;
+    }
+
+    public function hasDaedalusCycleElapsed(): bool
+    {
+        return $this->daedalusCyclesElapsed > 0;
+    }
+
+    public function hasExplorationCycleElapsed(): bool
+    {
+        return $this->explorationCyclesElapsed > 0;
     }
 }

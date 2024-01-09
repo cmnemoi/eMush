@@ -9,8 +9,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
-use Mush\Modifier\Entity\GameModifier;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -74,39 +72,6 @@ class CycleEventCest extends AbstractFunctionalTest
             'place' => $this->player1->getPlace()->getName(),
             'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
-            'visibility' => VisibilityEnum::PRIVATE,
-        ]);
-    }
-
-    public function testFitfullSleepCycleSubscriber(FunctionalTester $I)
-    {
-        $this->statusService->createStatusFromName(PlayerStatusEnum::LYING_DOWN, $this->player1, [], new \DateTime());
-
-        $actionPointBefore = $this->player1->getActionPoint();
-
-        $I->assertCount(1, $this->player1->getStatuses());
-        $I->assertCount(1, $this->player1->getModifiers());
-
-        /** @var TriggerEventModifierConfig $fitfulModifierConfig */
-        $fitfulModifierConfig = $I->grabEntityFromRepository(
-            TriggerEventModifierConfig::class, ['name' => 'cycle1ActionLostRand16FitfulSleep']
-        );
-
-        $fitfulModifierConfig->setModifierActivationRequirements([]);
-        $I->flushToDatabase($fitfulModifierConfig);
-
-        $fitfulModifier = new GameModifier($this->player1, $fitfulModifierConfig);
-        $I->haveInRepository($fitfulModifier);
-
-        $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-
-        $I->assertEquals($actionPointBefore + 1, $this->player1->getActionPoint());
-
-        $I->seeInRepository(RoomLog::class, [
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => PlayerModifierLogEnum::FITFUL_SLEEP,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }

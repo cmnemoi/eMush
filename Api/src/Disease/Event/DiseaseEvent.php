@@ -18,6 +18,7 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
     public const APPEAR_DISEASE = 'disease.appear';
     public const TREAT_DISEASE = 'disease.treat';
     public const CURE_DISEASE = 'disease.cure';
+    public const DISEASE_NEW_CYCLE = 'disease.new.cycle';
 
     private PlayerDisease $playerDisease;
     private string $visibility = VisibilityEnum::PUBLIC;

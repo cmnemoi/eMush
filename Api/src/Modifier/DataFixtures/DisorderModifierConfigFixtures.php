@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Disease\Event\DiseaseEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -21,7 +22,6 @@ use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 
 class DisorderModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -93,7 +93,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle1ActionLostRand16WithScreaming = new TriggerEventModifierConfig('screaming_for_player_set_-1actionPoint_on_new_cycle_if_random_16_test');
         $cycle1ActionLostRand16WithScreaming
             ->setTriggeredEvent($eventConfig)
-            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::SCREAMING)
@@ -106,7 +106,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle1HealthLostRand16WithWallHeadBang = new TriggerEventModifierConfig('wall_head_bang_for_player_set_-1healthPoint_on_new_cycle_if_random_16_test');
         $cycle1HealthLostRand16WithWallHeadBang
             ->setTriggeredEvent($eventConfig)
-            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
@@ -119,7 +119,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle1MoralLostRand70 = new TriggerEventModifierConfig('modifier_for_player_set_-1moralPoint_on_new_cycle_if_random_70_test');
         $cycle1MoralLostRand70
             ->setTriggeredEvent($eventConfig)
-            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement70)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -131,7 +131,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $cycle2MovementLostRand16WithRunInCircles = new TriggerEventModifierConfig('run_in_circles_for_player_set_-2movementPoint_on_new_cycle_if_random_16_test');
         $cycle2MovementLostRand16WithRunInCircles
             ->setTriggeredEvent($eventConfig)
-            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)

@@ -217,7 +217,7 @@ class ConsumeDrugActionCest extends AbstractFunctionalTest
 
         // given player has a special drug which heals depression
         $drug = $this->gameEquipmentService->createGameEquipmentFromName(
-            'prozac_evian',
+            'prozac_test',
             $this->player,
             [],
             new \DateTime(),

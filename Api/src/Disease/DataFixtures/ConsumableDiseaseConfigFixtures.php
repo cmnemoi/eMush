@@ -143,7 +143,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         // special drug for tests
         $drugDiseaseConfig = new ConsumableDiseaseConfig();
         $drugDiseaseConfig
-            ->setCauseName('prozac_evian')
+            ->setCauseName('prozac_test')
             ->setCuresName([DisorderEnum::DEPRESSION => 1])
             ->setCuresChances([100 => 1])
             ->setEffectNumber([1 => 1])

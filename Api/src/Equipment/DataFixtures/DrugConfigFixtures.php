@@ -61,9 +61,9 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($gameConfig);
 
         // special drug for tests
-        $prozacEvian = new ItemConfig();
-        $prozacEvian
-            ->setEquipmentName('prozac_evian')
+        $prozacTest = new ItemConfig();
+        $prozacTest
+            ->setEquipmentName('prozac_test')
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
@@ -71,8 +71,8 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActions($actions)
             ->buildName(GameConfigEnum::TEST)
         ;
-        $manager->persist($prozacEvian);
-        $gameConfig->addEquipmentConfig($prozacEvian);
+        $manager->persist($prozacTest);
+        $gameConfig->addEquipmentConfig($prozacTest);
 
         $manager->flush();
     }

@@ -38,7 +38,7 @@ final class CycleServiceCest extends AbstractFunctionalTest
 
     public function testHandleCycleChangeTriggerNewExplorationStep(FunctionalTester $I)
     {
-        // given Daedalus in in game so cycle changes can happen
+        // given Daedalus is in game so cycle changes can happen
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($this->daedalus);
 

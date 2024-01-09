@@ -76,7 +76,7 @@ class Heal extends AbstractAction
 
         if ($quantity) {
             $playerModifierEvent = new PlayerVariableEvent(
-                $this->player,
+                $target,
                 PlayerVariableEnum::HEALTH_POINT,
                 $quantity,
                 $this->getAction()->getActionTags(),

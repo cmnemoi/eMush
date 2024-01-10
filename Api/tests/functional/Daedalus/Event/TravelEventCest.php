@@ -83,7 +83,14 @@ final class TravelEventCest extends AbstractFunctionalTest
 
     public function testTravelFinishedEventCreatesANeronAnnouncement(FunctionalTester $I): void
     {
-        // when travel is finished
+        // when travel is launched and finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
             tags: [],
@@ -96,20 +103,6 @@ final class TravelEventCest extends AbstractFunctionalTest
             'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
             'message' => NeronMessageEnum::TRAVEL_ARRIVAL,
         ]);
-    }
-
-    public function testTravelFinishedSpawnsNewHunters(FunctionalTester $I): void
-    {
-        // when travel is finished
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
-
-        // then new hunters are spawn
-        $I->assertNotEmpty($this->daedalus->getAttackingHunters());
     }
 
     public function testTravelWhenExploringFinishesExplorationAndKillsExplorators(FunctionalTester $I): void
@@ -291,6 +284,35 @@ final class TravelEventCest extends AbstractFunctionalTest
             expected: $daedalusHullBeforeTravel,
             actual: $this->daedalus->getHull()
         );
+    }
+
+    public function testTravelFinishedSpawnsHalfOfTheHuntersOfPreviousWave(FunctionalTester $I): void
+    {
+        // given 10 hunters are spawn
+        $this->daedalus->setHunterPoints(100);
+        $hunterPoolEvent = new HunterPoolEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        // when travel is launched and finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // then 5 hunters are spawn
+        $I->assertCount(5, $this->daedalus->getAttackingHunters());
     }
 
     private function createExploration(FunctionalTester $I)

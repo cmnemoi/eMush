@@ -2,6 +2,7 @@
 
 namespace Mush\Alert\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
@@ -97,6 +98,13 @@ class AlertNormalizer implements NormalizerInterface
 
     private function handleAlertReport(Alert $alert, string $language): array
     {
+        if (
+            $alert->getName() === AlertEnum::BROKEN_EQUIPMENTS
+            || $alert->getName() === AlertEnum::BROKEN_DOORS
+        ) {
+            return $this->handleBrokenEquipmentsAlertsReports($alert, $language);
+        }
+
         $reports = [];
 
         /** @var AlertElement $element */
@@ -135,5 +143,67 @@ class AlertNormalizer implements NormalizerInterface
         }
 
         return $reports;
+    }
+
+    /**
+     * Special treatment for broken doors and equipment alert elements.
+     * This will allow to display it like this :
+     * - Chun has reported 3 broken doors on the bridge
+     * - Derek has reported 1 broken equipment in the laboratory.
+     *
+     * @psalm-suppress PossiblyNullReference
+     */
+    private function handleBrokenEquipmentsAlertsReports(Alert $alert, string $language): array
+    {
+        $reportedAlertElements = $alert->getAlertElements()->filter(
+            fn (AlertElement $element) => $element->getPlayerInfo() !== null && $element->getPlace() !== null
+        );
+
+        $playerPlaceCount = [];
+        /** @var AlertElement $element */
+        foreach ($reportedAlertElements as $element) {
+            $reporterName = $element->getPlayerInfo()->getName();
+            $placeName = $element->getPlace()->getName();
+            if (!isset($playerPlaceCount[$reporterName][$placeName])) {
+                $playerPlaceCount[$reporterName][$placeName] = 0;
+            }
+            ++$playerPlaceCount[$reporterName][$placeName];
+        }
+
+        /** @var ArrayCollection<int, string> $normalizedReports */
+        $normalizedReports = new ArrayCollection();
+
+        /** @var AlertElement $element */
+        foreach ($reportedAlertElements as $element) {
+            $reporterName = $element->getPlayerInfo()->getName();
+            $placeName = $element->getPlace()->getName();
+
+            $locPrep = $this->translationService->translate(
+                "{$placeName}.loc_prep",
+                [],
+                'rooms',
+                $language
+            );
+
+            $normalizedReport = $this->translationService->translate(
+                "{$alert->getName()}.report",
+                [
+                    'character' => $reporterName,
+                    'place' => $placeName,
+                    'loc_prep' => $locPrep,
+                    'quantity' => $playerPlaceCount[$reporterName][$placeName],
+                ],
+                'alerts',
+                $language
+            );
+
+            if ($normalizedReports->contains($normalizedReport)) {
+                continue;
+            }
+
+            $normalizedReports->add($normalizedReport);
+        }
+
+        return $normalizedReports->toArray();
     }
 }

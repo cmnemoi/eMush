@@ -49,14 +49,14 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const DID_THE_THING_STATUS = 'did_the_thing_status';
     public const DID_BORING_SPEECH_STATUS = 'did_boring_speech_status';
     public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
-    public const ASTEROID_CHARGE = 'asteroid_charge';
-    public const TRUCE_CYCLES = 'truce_cycles';
+    public const ASTEROID_TRUCE_CYCLES = 'asteroid_truce_cycles';
     public const HAS_REJUVENATED = 'has_rejuvenated';
     public const PATROL_SHIP_ARMOR = 'patrol_ship_armor';
     public const PASIPHAE_ARMOR = 'pasiphae_armor';
     public const TRAVELING_STATUS = 'traveling_status';
     public const EXPLORATION_OXYGEN_STATUS = 'exploration_oxygen_status';
     public const EXPLORATION_FUEL_STATUS = 'exploration_fuel_status';
+    public const HUNTER_TRUCE_CYCLES = 'hunter_truce_cycles';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -327,9 +327,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($updatingTrackie);
 
-        $asteroidCharge = new ChargeStatusConfig();
-        $asteroidCharge
-            ->setStatusName(HunterStatusEnum::TRUCE_CYCLES)
+        $asteroidTruceCycles = new ChargeStatusConfig();
+        $asteroidTruceCycles
+            ->setStatusName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setStartCharge(6)
@@ -338,7 +338,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT, HunterEnum::ASTEROID)
         ;
-        $manager->persist($asteroidCharge);
+        $manager->persist($asteroidTruceCycles);
 
         $rejuvenationCharge = new ChargeStatusConfig();
         $rejuvenationCharge
@@ -430,6 +430,19 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($explorationFuelStatus);
 
+        $hunterTruceCycles = new ChargeStatusConfig();
+        $hunterTruceCycles
+            ->setStatusName(HunterStatusEnum::TRUCE_CYCLES)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(2)
+            ->setMaxCharge(2)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($hunterTruceCycles);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -453,13 +466,14 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($did_boring_speech)
             ->addStatusConfig($updatingTrackie)
             ->addStatusConfig($already_washed_in_the_sink)
-            ->addStatusConfig($asteroidCharge)
+            ->addStatusConfig($asteroidTruceCycles)
             ->addStatusConfig($rejuvenationCharge)
             ->addStatusConfig($patrolShipArmor)
             ->addStatusConfig($pasiphaeArmor)
             ->addStatusConfig($traveling)
             ->addStatusConfig($explorationOxygenStatus)
             ->addStatusConfig($explorationFuelStatus)
+            ->addStatusConfig($hunterTruceCycles)
         ;
         $manager->persist($gameConfig);
 
@@ -486,14 +500,14 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DID_BORING_SPEECH_STATUS, $did_boring_speech);
         $this->addReference(self::UPDATING_TRACKIE_STATUS, $updatingTrackie);
         $this->addReference(self::ALREADY_WASHED_IN_THE_SINK, $already_washed_in_the_sink);
-        $this->addReference(self::ASTEROID_CHARGE, $asteroidCharge);
+        $this->addReference(self::ASTEROID_TRUCE_CYCLES, $asteroidTruceCycles);
         $this->addReference(self::PATROL_SHIP_ARMOR, $patrolShipArmor);
         $this->addReference(self::PASIPHAE_ARMOR, $pasiphaeArmor);
-        $this->addReference(self::TRUCE_CYCLES, $asteroidCharge);
         $this->addReference(self::HAS_REJUVENATED, $rejuvenationCharge);
         $this->addReference(self::TRAVELING_STATUS, $traveling);
         $this->addReference(self::EXPLORATION_OXYGEN_STATUS, $explorationOxygenStatus);
         $this->addReference(self::EXPLORATION_FUEL_STATUS, $explorationFuelStatus);
+        $this->addReference(self::HUNTER_TRUCE_CYCLES, $hunterTruceCycles);
     }
 
     public function getDependencies(): array

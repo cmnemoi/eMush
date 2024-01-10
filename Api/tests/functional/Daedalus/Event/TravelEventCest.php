@@ -24,6 +24,9 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterTarget;
+use Mush\Hunter\Event\HunterCycleEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -178,6 +181,57 @@ final class TravelEventCest extends AbstractFunctionalTest
         // exploration oxygen status does not exist anymore
         $daedalusOxygenStatus = $this->daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_OXYGEN);
         $I->assertNull($daedalusOxygenStatus);
+    }
+
+    public function testHuntersAfterATravelShootRightAway(FunctionalTester $I): void
+    {
+        // given some hunters are spawn
+        $hunterPoolEvent = new HunterPoolEvent(
+            $this->daedalus,
+            [],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        // given those hunters are aiming at the daedalus
+        $this->daedalus->getAttackingHunters()->map(fn (Hunter $hunter) => $hunter->setTarget(new HunterTarget($hunter)));
+
+        // given they have a 100% chance to hit
+        $this->daedalus->getAttackingHunters()
+                        ->map(fn (Hunter $hunter) => $hunter->setHitChance(100))
+                        ->map(fn (Hunter $hunter) => $I->haveInRepository($hunter))
+        ;
+
+        // given I have enough points to spawn them after travel
+        $this->daedalus->setHunterPoints(40);
+
+        $daedalusHullBeforeTravel = $this->daedalus->getHull();
+
+        // given I launch a travel
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        // given travel finishes
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // when a cycle passes
+        $hunterEvent = new HunterCycleEvent($this->daedalus, [], new \DateTime());
+        $this->eventService->callEvent($hunterEvent, HunterCycleEvent::HUNTER_NEW_CYCLE);
+
+        // then hunters should have shot, so daedalus should have lost hull
+        $I->assertLessThan(
+            expected: $daedalusHullBeforeTravel,
+            actual: $this->daedalus->getHull()
+        );
     }
 
     private function createExploration(FunctionalTester $I)

@@ -42,7 +42,6 @@ import { Player } from "@/entities/Player";
 import { mapActions, mapState, mapGetters } from "vuex";
 import PhaserShip from "@/components/Game/Ship/PhaserShip.vue";
 import { defineComponent } from "vue";
-import { Action } from "@/entities/Action";
 import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
 import { player } from "@/store/player.module";
 import { Hunter } from "@/entities/Hunter";

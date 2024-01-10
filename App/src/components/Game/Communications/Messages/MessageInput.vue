@@ -3,7 +3,7 @@
         <textarea
             v-model="text"
             class="text-input"
-            :placeholder="typedMessage != '' ? typedMessage : $t('Mon message ici !')"
+            :placeholder="typedMessage != '' ? typedMessage : $t('game.communications.myMessageHere')"
             @keydown.enter.exact.prevent="sendNewMessage"
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"

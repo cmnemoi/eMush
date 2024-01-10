@@ -568,7 +568,8 @@
 			"cycle": "Cycle",
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
-			"newCycle": "Nouveau cycle"
+			"newCycle": "Nouveau cycle",
+			"myMessageHere": "Mon message ici !",
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

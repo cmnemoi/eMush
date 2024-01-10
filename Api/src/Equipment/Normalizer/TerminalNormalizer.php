@@ -111,8 +111,8 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             }
         }
 
-        $normalizedActions = $this->getNormalizedActionsSortedBy('actionPointCost', $normalizedActions);
         $normalizedActions = $this->getNormalizedActionsSortedBy('name', $normalizedActions);
+        $normalizedActions = $this->getNormalizedActionsSortedBy('actionPointCost', $normalizedActions);
 
         return $normalizedActions;
     }

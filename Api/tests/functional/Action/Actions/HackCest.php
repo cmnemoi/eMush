@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -168,6 +169,21 @@ final class HackCest extends AbstractFunctionalTest
             expected: ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
             actual: $this->hackAction->cannotExecuteReason()
         );
+    }
+
+    public function testHackNotVisibleByCommander(FunctionalTester $I): void
+    {
+        $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
+        $this->givenAHackerKitInPlayerInventory($I);
+
+        // given player is commander
+        $this->player->setTitles([TitleEnum::COMMANDER]);
+
+        // when loading the hack action
+        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+
+        // then action is not visible
+        $I->assertFalse($this->hackAction->isVisible());
     }
 
     private function givenACommandTerminalOnTheBridge(FunctionalTester $I): GameEquipment

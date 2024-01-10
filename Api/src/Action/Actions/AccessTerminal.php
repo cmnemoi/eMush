@@ -9,13 +9,11 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasNeededTitleForTerminal;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\HasTitle;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -26,12 +24,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AccessTerminal extends AbstractAction
 {
-    public static array $titleNeededByTerminal = [
-        EquipmentEnum::COMMAND_TERMINAL => TitleEnum::COMMANDER,
-        EquipmentEnum::COMMUNICATION_CENTER => TitleEnum::COM_MANAGER,
-        EquipmentEnum::BIOS_TERMINAL => TitleEnum::NERON_MANAGER,
-    ];
-
     protected string $name = ActionEnum::ACCESS_TERMINAL;
 
     protected StatusServiceInterface $statusService;
@@ -71,7 +63,11 @@ final class AccessTerminal extends AbstractAction
             'contain' => false,
             'groups' => ['visibility'],
         ]));
-        self::addTerminalTitleConstraints($metadata);
+        $metadata->addConstraint(new HasNeededTitleForTerminal([
+            'allowAccess' => true,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
+        ]));
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -86,12 +82,5 @@ final class AccessTerminal extends AbstractAction
             time: new \DateTime(),
             target: $terminal,
         );
-    }
-
-    private static function addTerminalTitleConstraints(ClassMetadata $metadata): void
-    {
-        foreach (self::$titleNeededByTerminal as $terminal => $title) {
-            $metadata->addConstraint(new HasTitle(['title' => $title, 'terminal' => $terminal, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED]));
-        }
     }
 }

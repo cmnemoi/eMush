@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -29,6 +30,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -200,24 +202,22 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getActions(Player $player, ?string $format, array $context): array
     {
         $contextualActions = $this->getContextActions($player);
+        $selfActions = $player->getSelfActions();
+
+        $actionsToNormalize = array_merge($contextualActions->toArray(), $selfActions->toArray());
 
         $actions = [];
 
         /** @var Action $action */
-        foreach ($player->getSelfActions() as $action) {
+        foreach ($actionsToNormalize as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
             if (is_array($normedAction) && count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }
 
-        /** @var Action $action */
-        foreach ($contextualActions as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
+        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
+        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
         return $actions;
     }

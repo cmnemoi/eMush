@@ -5,6 +5,7 @@ namespace Mush\Equipment\Normalizer;
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
@@ -30,6 +31,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
     private TranslationServiceInterface $translationService;
@@ -131,26 +133,22 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $actions = [];
 
         $contextActions = $this->getContextActions($gameEquipment, $currentPlayer);
-
-        /** @var Action $action */
-        foreach ($contextActions as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        $actionsObject = $gameEquipment->getEquipment()->getActions()
+        $currentScopeActions = $gameEquipment->getEquipment()->getActions()
             ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT)
         ;
 
+        $actionsToNormalize = array_merge($contextActions->toArray(), $currentScopeActions->toArray());
+
         /** @var Action $action */
-        foreach ($actionsObject as $action) {
+        foreach ($actionsToNormalize as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
             if (is_array($normedAction) && count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }
+
+        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
+        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
         return $actions;
     }

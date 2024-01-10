@@ -48,6 +48,9 @@ export default defineComponent ({
                 }
             }
 
+            // we need to sort back the actions by point cost and name (yes, this is ugly)
+            this.sortActionsByPointCostAndName(actionsWithTarget);
+
             return actionsWithTarget;
         },
         ...mapGetters('player', [
@@ -69,6 +72,24 @@ export default defineComponent ({
                     await this.executeAction({ target: actionWithTarget.target, action: actionWithTarget.action });
                 }
             }
+        },
+        sortActionsByPointCostAndName(actionsWithTarget: ActionWithTarget[]): ActionWithTarget[] {
+            return actionsWithTarget.sort((action1: ActionWithTarget, action2: ActionWithTarget) => {
+                const a = action1.action;
+                const b = action2.action;
+
+                if (a.actionPointCost === null || b.actionPointCost === null) {
+                    throw new Error('Action point cost is null');
+                }
+                if (a.name === null || b.name === null) {
+                    throw new Error('Action name is null');
+                }
+
+                if (a.actionPointCost === b.actionPointCost) {
+                    return a.name.localeCompare(b.name);
+                }
+                return a.actionPointCost - b.actionPointCost;
+            });
         }
     }
 });

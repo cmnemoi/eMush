@@ -30,6 +30,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusService;
 use Psr\Log\LoggerInterface;
@@ -143,15 +144,19 @@ class HunterService implements HunterServiceInterface
 
     public function unpoolHunters(Daedalus $daedalus, array $tags, \DateTime $time): void
     {
-        $hunterPointsToSpend = $daedalus->getHunterPoints();
         if (in_array(DaedalusEvent::TRAVEL_FINISHED, $tags)) {
-            $hunterPointsToSpend /= 2;
+            $this->unpoolHuntersForCatchingWave($daedalus);
+        } else {
+            $this->unpoolHuntersForRandomWave($daedalus, $time);
         }
+    }
 
+    private function unpoolHuntersForRandomWave(Daedalus $daedalus, \DateTime $time): void
+    {
         $hunterTypes = HunterEnum::getAll();
         $wave = new HunterCollection();
 
-        while ($hunterPointsToSpend >= $this->getMinCost($daedalus, $hunterTypes)) {
+        while ($daedalus->getHunterPoints() >= $this->getMinCost($daedalus, $hunterTypes)) {
             $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, $hunterTypes);
 
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -175,13 +180,33 @@ class HunterService implements HunterServiceInterface
             }
 
             $wave->add($hunter);
-
-            $pointsToRemove = $hunter->getHunterConfig()->getDrawCost();
-            $hunterPointsToSpend -= $pointsToRemove;
-            $daedalus->removeHunterPoints($pointsToRemove);
+            $daedalus->removeHunterPoints($hunter->getHunterConfig()->getDrawCost());
         }
 
         $wave->map(fn ($hunter) => $this->createHunterStatuses($hunter, $time));
+        $this->persist($wave->toArray());
+        $this->persist([$daedalus]);
+    }
+
+    private function unpoolHuntersForCatchingWave(Daedalus $daedalus): void
+    {
+        /** @var ?ChargeStatus $followingHuntersStatus */
+        $followingHuntersStatus = $daedalus->getStatusByName(DaedalusStatusEnum::FOLLOWING_HUNTERS);
+        if (!$followingHuntersStatus) {
+            throw new \LogicException('Daedalus should have a following hunters status');
+        }
+
+        $wave = new HunterCollection();
+        for ($i = 0; $i < $followingHuntersStatus->getCharge(); ++$i) {
+            $hunter = $this->drawHunterFromPoolByName($daedalus, HunterEnum::HUNTER);
+            if (!$hunter) {
+                $hunter = $this->createHunterFromName($daedalus, HunterEnum::HUNTER);
+            }
+
+            $wave->add($hunter);
+            $daedalus->removeHunterPoints($hunter->getHunterConfig()->getDrawCost());
+        }
+
         $this->persist($wave->toArray());
         $this->persist([$daedalus]);
     }

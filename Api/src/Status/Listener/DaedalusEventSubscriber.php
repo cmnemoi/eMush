@@ -8,7 +8,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -36,31 +38,45 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
+        $this->createDaedalusStatusFromName(DaedalusStatusEnum::TRAVELING, $event);
+
+        if ($this->planetService->findOneByDaedalusDestination($daedalus) !== null) {
+            $this->createDaedalusStatusFromName(DaedalusStatusEnum::IN_ORBIT, $event);
+        }
+        if ($event->hasTag(ActionEnum::LEAVE_ORBIT)) {
+            $this->removeInOrbitStatus($event);
+        }
+
+        // after a travel, hunter will be put in pool so they should not attack right away by default
+        // we will remove this status for the wave which catches the Daedalus but it needs to stay for hunters in the pool
+        /** @var Hunter $hunter */
+        foreach ($daedalus->getAttackingHunters() as $hunter) {
+            $this->statusService->createStatusFromName(
+                statusName: HunterStatusEnum::TRUCE_CYCLES,
+                holder: $hunter,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
+    }
+
+    private function createDaedalusStatusFromName(string $name, DaedalusEvent $event): void
+    {
         $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::TRAVELING,
-            holder: $daedalus,
+            statusName: $name,
+            holder: $event->getDaedalus(),
+            tags: $event->getTags(),
+            time: $event->getTime(),
+        );
+    }
+
+    private function removeInOrbitStatus(DaedalusEvent $event): void
+    {
+        $this->statusService->removeStatus(
+            statusName: DaedalusStatusEnum::IN_ORBIT,
+            holder: $event->getDaedalus(),
             tags: $event->getTags(),
             time: new \DateTime(),
         );
-
-        // if going to a planet, create in_orbit status
-        if ($this->planetService->findOneByDaedalusDestination($daedalus) !== null) {
-            $this->statusService->createStatusFromName(
-                statusName: DaedalusStatusEnum::IN_ORBIT,
-                holder: $daedalus,
-                tags: $event->getTags(),
-                time: new \DateTime(),
-            );
-        }
-
-        // if leaving a planet, remove in_orbit status
-        if (in_array(ActionEnum::LEAVE_ORBIT, $event->getTags())) {
-            $this->statusService->removeStatus(
-                statusName: DaedalusStatusEnum::IN_ORBIT,
-                holder: $daedalus,
-                tags: $event->getTags(),
-                time: new \DateTime(),
-            );
-        }
     }
 }

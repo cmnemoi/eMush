@@ -34,7 +34,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         $difficultyConfig = $this->getReference(DifficultyConfigFixtures::DEFAULT_DIFFICULTY_CONFIG);
 
         /** @var StatusConfig $asteroidCharge */
-        $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_CHARGE);
+        $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_TRUCE_CYCLES);
         $asteroidDamageRange = $this->buildUniformDamageRange(0, 0);
         $asteroid = new HunterConfig();
         $asteroid

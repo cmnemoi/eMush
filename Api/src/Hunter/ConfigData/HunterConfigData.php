@@ -16,7 +16,7 @@ class HunterConfigData
             'name' => HunterEnum::ASTEROID . '_default',
             'hunterName' => HunterEnum::ASTEROID,
             'initialHealth' => 20,
-            'initialStatuses' => [HunterStatusEnum::TRUCE_CYCLES . '_asteroid_default'],
+            'initialStatuses' => [HunterStatusEnum::ASTEROID_TRUCE_CYCLES . '_default'],
             'damageRange' => [
                 0 => 1,
             ],

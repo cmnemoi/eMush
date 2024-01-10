@@ -45,9 +45,9 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $hunter = $object;
         $context['hunter'] = $hunter;
 
-        /** @var ChargeStatus $hunterTruceCyclesStatus */
-        $hunterTruceCyclesStatus = $hunter->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
-        $hunterTruceCycles = $hunterTruceCyclesStatus?->getCharge();  // only asteroids have truce cycles
+        /** @var ChargeStatus $asteroidTruceCyclesStatus */
+        $asteroidTruceCyclesStatus = $hunter->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
+        $asteroidTruceCycles = $asteroidTruceCyclesStatus?->getCharge();
 
         $hunterHealth = $hunter->getHealth();
         $hunterKey = $hunter->getName();
@@ -64,14 +64,14 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             'description' => $this->translationService->translate(
                 key: $hunterKey . '.description',
                 parameters: [
-                    'charges' => $hunterTruceCycles ?? 0,
+                    'charges' => $asteroidTruceCycles ?? 0,
                     'health' => $hunterHealth,
                 ],
                 domain: 'hunter',
                 language: $hunter->getDaedalus()->getLanguage()
             ),
             'health' => $hunterHealth,
-            'charges' => $hunterTruceCycles,
+            'charges' => $asteroidTruceCycles,
             'actions' => $this->getActions($currentPlayer, $format, $context),
         ];
     }

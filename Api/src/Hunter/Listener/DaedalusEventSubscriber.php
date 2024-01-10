@@ -43,12 +43,10 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
-            $hunter->getTarget()?->reset();
             $hunter->resetTarget();
         }
         /** @var Hunter $hunter */
         foreach ($pooledHunters as $hunter) {
-            $hunter->getTarget()?->reset();
             $hunter->resetTarget();
         }
 

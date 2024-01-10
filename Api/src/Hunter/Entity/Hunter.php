@@ -254,7 +254,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
 
     public function canShoot(): bool
     {
-        return !$this->hasStatus(HunterStatusEnum::TRUCE_CYCLES);
+        return !$this->hasStatus(HunterStatusEnum::TRUCE_CYCLES) && !$this->hasStatus(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
     }
 
     public function hasSelectedATarget(): bool
@@ -264,6 +264,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
 
     public function resetTarget(): static
     {
+        $this->target?->reset();
         $this->target = null;
 
         return $this;

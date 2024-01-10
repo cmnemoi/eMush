@@ -667,7 +667,7 @@
                             <path class="wall" serif:id="wall" d="M27,38.5l0,4" />
                         </g>
                         <g id="Front-BravoTurret" serif:id="Front BravoTurret">
-                            <g id="Turret-Command4" serif:id="Turret Command">
+                            <g id="Turret-Command4" serif:id="Turret Command" :class="{visible : isBroken('equipment', 'front_bravo_turret' , 'turret_command')}">
                                 <path class="floor" serif:id="floor" d="M16,66l-0,6l6,0l-0,-6l-6,0Z" />
                                 <path class="wall" serif:id="wall" d="M22,73l-7,0l-0,-7" />
                             </g>

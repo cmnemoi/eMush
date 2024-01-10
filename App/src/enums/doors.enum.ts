@@ -78,7 +78,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'hydroponic_garden'
     },
     {
-        name: 'front_storage_centre_alpha_turret',
+        name: 'front_storage_central_alpha_turret',
         svg: 'M68.5,22.99l3,-0',
         room1: 'front_storage',
         room2: 'centre_alpha_turret'

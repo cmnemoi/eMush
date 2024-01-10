@@ -985,5 +985,18 @@ class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'following_hunters_default',
+            'statusName' => 'following_hunters',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => null,
+            'startCharge' => 0,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+        ],
     ];
 }

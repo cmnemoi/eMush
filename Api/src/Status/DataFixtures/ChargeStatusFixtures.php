@@ -57,6 +57,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const EXPLORATION_OXYGEN_STATUS = 'exploration_oxygen_status';
     public const EXPLORATION_FUEL_STATUS = 'exploration_fuel_status';
     public const HUNTER_TRUCE_CYCLES = 'hunter_truce_cycles';
+    public const FOLLOWING_HUNTERS_STATUS = 'following_hunters_status';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -443,6 +444,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($hunterTruceCycles);
 
+        $followingHuntersStatus = new ChargeStatusConfig();
+        $followingHuntersStatus
+            ->setStatusName(DaedalusStatusEnum::FOLLOWING_HUNTERS)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(0)
+            ->setMaxCharge(null)
+            ->setAutoRemove(false)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($followingHuntersStatus);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -474,6 +487,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($explorationOxygenStatus)
             ->addStatusConfig($explorationFuelStatus)
             ->addStatusConfig($hunterTruceCycles)
+            ->addStatusConfig($followingHuntersStatus)
         ;
         $manager->persist($gameConfig);
 
@@ -508,6 +522,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::EXPLORATION_OXYGEN_STATUS, $explorationOxygenStatus);
         $this->addReference(self::EXPLORATION_FUEL_STATUS, $explorationFuelStatus);
         $this->addReference(self::HUNTER_TRUCE_CYCLES, $hunterTruceCycles);
+        $this->addReference(self::FOLLOWING_HUNTERS_STATUS, $followingHuntersStatus);
     }
 
     public function getDependencies(): array

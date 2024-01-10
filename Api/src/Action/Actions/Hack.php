@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\HasNeededTitleForTerminal;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
@@ -61,6 +62,10 @@ final class Hack extends AttemptAction
             'reach' => ReachEnum::INVENTORY,
             'equipments' => [ToolItemEnum::HACKER_KIT],
             'checkIfOperational' => true,
+            'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new HasNeededTitleForTerminal([
+            'allowAccess' => false,
             'groups' => ['visibility'],
         ]));
     }

@@ -11,6 +11,7 @@ use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -51,13 +52,13 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         // after a travel, hunter should not attack right away
         $this->createTruceStatusForHunters($event);
-        
+
         $this->updateNumberOfCatchingUpHunters($event);
     }
 
-    private function createDaedalusStatusFromName(string $name, DaedalusEvent $event): void
+    private function createDaedalusStatusFromName(string $name, DaedalusEvent $event): Status
     {
-        $this->statusService->createStatusFromName(
+        return $this->statusService->createStatusFromName(
             statusName: $name,
             holder: $event->getDaedalus(),
             tags: $event->getTags(),
@@ -93,7 +94,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         $this->statusService->updateCharge(
             chargeStatus: $followingHuntersStatus,
-            delta: intval($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2),
+            delta: intval(ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2)),
             tags: $event->getTags(),
             time: new \DateTime(),
         );

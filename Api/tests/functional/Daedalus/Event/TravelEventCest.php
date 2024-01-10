@@ -193,9 +193,6 @@ final class TravelEventCest extends AbstractFunctionalTest
         // given it does 1 damage per hit
         $hunter->getHunterConfig()->setDamageRange([1 => 1]);
 
-        // given I have enough points to spawn it after travel
-        $this->daedalus->setHunterPoints(20);
-
         $daedalusHullBeforeTravel = $this->daedalus->getHull();
 
         // given I launch a travel
@@ -245,9 +242,6 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // given it has a 100% chance to hit
         $trax->setHitChance(100);
-
-        // given I have enough points to spawn it after travel
-        $this->daedalus->setHunterPoints(25);
 
         // given trax are the only hunters which can spawn after travel
         $this->daedalus->getGameConfig()->setHunterConfigs(

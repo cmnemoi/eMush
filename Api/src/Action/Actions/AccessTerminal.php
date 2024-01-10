@@ -64,8 +64,9 @@ final class AccessTerminal extends AbstractAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new HasNeededTitleForTerminal([
-            'allowAccess' => false,
-            'groups' => ['visibility'],
+            'allowAccess' => true,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
         ]));
     }
 

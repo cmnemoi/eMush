@@ -1,6 +1,7 @@
 <template>
     <div v-if="player">
         <div v-if="['in_game'].includes(player.gameStatus)" class="box-container">
+            <ExpeditionPopUp />
             <InvitationPrivateChannelMenu />
             <div class="top-banner">
                 <BannerPanel :player="player" :daedalus="player.daedalus" />
@@ -30,6 +31,7 @@ import ProjectsPanel from "@/components/Game/ProjectsPanel.vue";
 import { mapActions, mapState } from "vuex";
 import Purgatory from "@/components/PurgatoryPage.vue";
 import InvitationPrivateChannelMenu from "@/components/Game/Communications/InvitationPrivateChannelMenu.vue";
+import ExpeditionPopUp from "@/components/Game/ExpeditionPopUp.vue";
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import TerminalPanel from "@/components/Game/Terminals/TerminalPanel.vue";
@@ -40,6 +42,7 @@ export default defineComponent ({
     name: 'GameContent',
     components: {
         InvitationPrivateChannelMenu,
+        ExpeditionPopUp,
         Purgatory,
         BannerPanel,
         CharPanel,

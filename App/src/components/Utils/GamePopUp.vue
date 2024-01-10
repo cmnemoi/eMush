@@ -75,5 +75,16 @@ export default defineComponent ({
 
         &:hover, &:focus, &:active { background-color: #17448E; }
     }
+
+    &.expedition {
+        width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+
+        h1.header::before {
+            content:  url("@/assets/images/planet.png");
+            padding-right: 0.25em;
+        }
+    }
 }
 </style>

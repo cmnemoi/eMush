@@ -40,7 +40,7 @@
       </segment>
       <segment id="report" state="final">
         <source>broken_equipments.report</source>
-        <target>**{character}** a reporté un équipement endommagé {loc_prep} **{place}**.</target>
+        <target>**{character}** a reporté {quantity, plural, one {**#** équipement endommagé} other {**#** équipements endommagés}} {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="no_gravity">

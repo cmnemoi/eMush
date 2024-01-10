@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Hunter\Normalizer;
 
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -17,6 +18,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
     private GearToolServiceInterface $gearToolService;
@@ -90,6 +92,9 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
                 $actions[] = $normedAction;
             }
         }
+
+        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
+        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
         return $actions;
     }

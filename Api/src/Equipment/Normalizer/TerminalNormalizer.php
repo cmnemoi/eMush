@@ -7,6 +7,7 @@ namespace Mush\Equipment\Normalizer;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -22,6 +23,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -108,6 +110,9 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 $normalizedActions[] = $normedAction;
             }
         }
+
+        $normalizedActions = $this->getNormalizedActionsSortedBy('actionPointCost', $normalizedActions);
+        $normalizedActions = $this->getNormalizedActionsSortedBy('name', $normalizedActions);
 
         return $normalizedActions;
     }

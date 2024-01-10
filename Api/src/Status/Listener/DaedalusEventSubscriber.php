@@ -9,6 +9,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -50,7 +51,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         // after a travel, hunter will be put in pool so they should not attack right away by default
         // we will remove this status for the wave which catches the Daedalus but it needs to stay for hunters in the pool
         /** @var Hunter $hunter */
-        foreach ($daedalus->getAttackingHunters() as $hunter) {
+        foreach ($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER) as $hunter) {
             $this->statusService->createStatusFromName(
                 statusName: HunterStatusEnum::TRUCE_CYCLES,
                 holder: $hunter,

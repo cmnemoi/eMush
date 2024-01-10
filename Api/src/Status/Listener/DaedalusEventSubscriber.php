@@ -48,8 +48,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             $this->removeInOrbitStatus($event);
         }
 
-        // after a travel, hunter will be put in pool so they should not attack right away by default
-        // we will remove this status for the wave which catches the Daedalus but it needs to stay for hunters in the pool
+        // after a travel, hunter should not attack right away
         /** @var Hunter $hunter */
         foreach ($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER) as $hunter) {
             $this->statusService->createStatusFromName(

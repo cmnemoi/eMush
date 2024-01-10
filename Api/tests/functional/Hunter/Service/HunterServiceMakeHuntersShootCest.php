@@ -262,7 +262,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
                             ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
-        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
+        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
         $asteroid->removeStatus($truceStatus);
 
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
@@ -283,7 +283,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
                             ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
-        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
+        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
         $asteroid->removeStatus($truceStatus);
         $asteroid->setHealth(1);
         $I->haveInRepository($asteroid);
@@ -324,7 +324,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
                             ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
-        $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::TRUCE_CYCLES));
+        $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES));
 
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 

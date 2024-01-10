@@ -1,15 +1,15 @@
 <template>
     <section :class="'log ' + roomLog.visibility">
-        <p class="text-log" v-html="formatLog(roomLog.message)" />
-        <span class="timestamp">{{ roomLog.date }}</span>
+        <p class="text-log">
+            <span v-html="formatLog(roomLog.message)"></span>
+            <span class="timestamp">{{ roomLog?.date }}</span>
+        </p>
     </section>
 </template>
 
 <script lang="ts">
 import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { fr } from 'date-fns/locale';
 import { defineComponent } from "vue";
 
 export default defineComponent ({

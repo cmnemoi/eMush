@@ -93,7 +93,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         $this->statusService->updateCharge(
             chargeStatus: $followingHuntersStatus,
-            delta: intval($daedalus->getAttackingHunters()->count() / 2),
+            delta: intval($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2),
             tags: $event->getTags(),
             time: new \DateTime(),
         );

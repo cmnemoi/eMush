@@ -297,6 +297,11 @@ final class TravelEventCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
+        // given 4 trax are spawn
+        for ($i = 0; $i < 4; ++$i) {
+            $this->createHunterFromName($I, $this->daedalus, HunterEnum::TRAX);
+        }
+
         // when travel is launched and finished
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
@@ -312,7 +317,10 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
 
         // then 5 hunters are spawn
-        $I->assertCount(5, $this->daedalus->getAttackingHunters());
+        $I->assertCount(5, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+
+        // then 4 trax are still there
+        $I->assertCount(4, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX));
     }
 
     private function createExploration(FunctionalTester $I)

@@ -210,6 +210,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(ModifierNameEnum::MUSH_CONSUME)
         ;
         $manager->persist($mushConsumeSatietyModifier);
 

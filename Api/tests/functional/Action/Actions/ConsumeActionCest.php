@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -23,19 +24,33 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ConsumeActionCest
+class ConsumeActionCest extends AbstractFunctionalTest
 {
+    private Action $consumeConfig;
     private Consume $consumeAction;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
+        $this->consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME]);
         $this->consumeAction = $I->grabService(Consume::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testConsume(FunctionalTester $I)
@@ -344,5 +359,41 @@ class ConsumeActionCest
         $I->assertCount(2, $player->getStatuses());
 
         $I->assertEquals(0, $room->getEquipments()->count());
+    }
+
+    public function testMushConsumePrintsASpecificLog(FunctionalTester $I): void
+    {
+        // given I have a Mush player
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given I have a standard ration in player inventory
+        $ration = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::STANDARD_RATION,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when player consumes the ration
+        $this->consumeAction->loadParameters(
+            action: $this->consumeConfig,
+            player: $this->player,
+            target: $ration,
+        );
+        $this->consumeAction->execute();
+
+        // then I should see a specific log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'log' => LogEnum::CONSUME_MUSH,
+            ]
+        );
     }
 }

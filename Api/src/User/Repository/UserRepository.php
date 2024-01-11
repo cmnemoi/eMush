@@ -56,11 +56,10 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     {
         $qb = $this->createQueryBuilder('user');
 
-        $qb
-            ->select('closed_player')
+        $qb = $qb->select('closed_player')
             ->innerJoin(PlayerInfo::class, 'player_info', 'WITH', 'player_info.user = user.id')
-            ->innerJoin(ClosedPlayer::class, 'closed_player', 'WITH', 'closed_player.playerInfo = player_info.id')
-            ->where($qb->expr()->eq('user.id', ':user_id'))
+            ->innerJoin(ClosedPlayer::class, 'closed_player', 'WITH', 'closed_player.id = player_info.closedPlayer')
+            ->where('user.id = :user_id')
             ->setParameter('user_id', $user->getId())
         ;
 

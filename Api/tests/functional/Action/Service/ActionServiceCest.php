@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Event\ActionVariableEvent;
@@ -79,7 +80,7 @@ class ActionServiceCest
             ->setActionCost(6)
         ;
 
-        $this->actionService->applyCostToPlayer($player, $action, null);
+        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
         $I->assertEquals(4, $player->getActionPoint());
 
@@ -131,7 +132,7 @@ class ActionServiceCest
             ->setActionCost(0)
         ;
 
-        $this->actionService->applyCostToPlayer($player, $action, null);
+        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
         $I->assertEquals(10, $player->getActionPoint());
     }
@@ -184,7 +185,7 @@ class ActionServiceCest
         $action->setActionName('some name');
         $action->setMovementCost(1);
 
-        $this->actionService->applyCostToPlayer($player, $action, null);
+        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(1, $player->getMovementPoint());
@@ -255,7 +256,7 @@ class ActionServiceCest
         $action->setActionName('some name');
         $action->setMovementCost(1);
 
-        $this->actionService->applyCostToPlayer($player, $action, null);
+        $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
         $I->assertEquals(9, $player->getActionPoint());
         $I->assertEquals(0, $player->getMovementPoint());

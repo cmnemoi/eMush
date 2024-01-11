@@ -204,7 +204,7 @@ const mutations: MutationTree<any> = {
 
     setTypedMessage(state: any, message: string): void {
         state.typedMessage = message;
-    }
+    },
 
     clearChannels(): void {
         state.currentChannel = new Channel();

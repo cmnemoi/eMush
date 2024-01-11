@@ -72,7 +72,7 @@ export default defineComponent ({
             return translatedStatus;
         },
         isError() {
-            return this.error !== null && this.errorStatus !== 'Request aborted';
+            return this.error !== null && parseInt(this.error.status) >= 400;
         },
         isGamePage() {
             return this.$route.name === 'GamePage';

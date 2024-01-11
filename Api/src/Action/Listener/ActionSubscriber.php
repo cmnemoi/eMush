@@ -6,7 +6,7 @@ namespace Mush\Action\Listener;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
@@ -132,7 +132,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $changingRoomPatrolshipActions = ActionEnum::getChangingRoomPatrolshipActions()->toArray();
         if ($event->hasAnyTag($changingRoomPatrolshipActions)
-            && $event->getActionResult() instanceof Fail
+            && !$event->getActionResult() instanceof CriticalSuccess
         ) {
             $this->handlePatrolshipManoeuvreDamage($event);
         }

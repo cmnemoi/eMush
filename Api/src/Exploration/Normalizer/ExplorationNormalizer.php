@@ -51,7 +51,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
             'cycleLength' => $exploration->getCycleLength(),
             'planet' => $this->normalizer->normalize($exploration->getPlanet(), $format, $context),
             'explorators' => $this->normalizeExplorators($exploration->getExplorators()),
-            'logs' => $this->normalizer->normalize($exploration->getClosedExploration()->getLogs(), $format, $context),
+            'logs' => $this->normalizeExplorationLogs($exploration),
             'estimated_duration' => $this->translationService->translate(
                 'estimated_duration',
                 [
@@ -98,5 +98,16 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         }
 
         return $normalizedExplorators;
+    }
+
+    private function normalizeExplorationLogs(Exploration $exploration): array
+    {
+        $normalizedLogs = [];
+
+        foreach ($exploration->getClosedExploration()->getLogs()->getLogsSortedBy('createdAt', descending: true) as $log) {
+            $normalizedLogs[] = $this->normalizer->normalize($log);
+        }
+
+        return $normalizedLogs;
     }
 }

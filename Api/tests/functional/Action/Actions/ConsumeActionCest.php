@@ -35,7 +35,7 @@ use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class ConsumeActionCest extends AbstractFunctionalTest
-{   
+{
     private Action $consumeConfig;
     private Consume $consumeAction;
 
@@ -43,7 +43,7 @@ class ConsumeActionCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
-    {   
+    {
         parent::_before($I);
 
         $this->consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME]);

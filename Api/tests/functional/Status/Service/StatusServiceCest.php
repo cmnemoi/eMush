@@ -104,6 +104,13 @@ final class StatusServiceCest extends AbstractFunctionalTest
 
         // then player is not laid down on sofa anymore
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::LYING_DOWN));
+
+        // then I see a public log about it
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $laboratory->getName(),
+            'log' => StatusEventLogEnum::GET_UP_BED_BROKEN,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)

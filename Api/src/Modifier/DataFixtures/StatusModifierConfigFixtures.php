@@ -22,7 +22,6 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -216,16 +215,15 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $mushConsumeModifier = new EventModifierConfig('mushConsumeModifier');
         $mushConsumeModifier
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([
                 ActionEnum::CONSUME => ModifierRequirementEnum::ALL_TAGS,
-                // PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ANY_TAGS,
-                // PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
-                // PlayerVariableEnum::MOVEMENT_POINT => ModifierRequirementEnum::ANY_TAGS,
-                // PlayerVariableEnum::ACTION_POINT => ModifierRequirementEnum::ALL_TAGS,
+                PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ANY_TAGS,
+                PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
+                PlayerVariableEnum::MOVEMENT_POINT => ModifierRequirementEnum::ANY_TAGS,
+                PlayerVariableEnum::ACTION_POINT => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;

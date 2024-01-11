@@ -30,13 +30,13 @@ class Consume extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        // $metadata->addConstraint(new HasStatus([
-        //     'status' => PlayerStatusEnum::FULL_STOMACH,
-        //     'contain' => false,
-        //     'target' => HasStatus::PLAYER,
-        //     'groups' => ['execute'],
-        //     'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
-        // ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::FULL_STOMACH,
+            'contain' => false,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::CONSUME_FULL_BELLY,
+        ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 

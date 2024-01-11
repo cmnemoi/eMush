@@ -3,8 +3,10 @@
 namespace Mush\Exploration\Voter;
 
 use Mush\Exploration\Entity\ClosedExploration;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
+use Mush\User\Service\UserServiceInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -15,11 +17,14 @@ class ClosedExplorationVoter extends Voter
     public const IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED = 'IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED';
 
     private PlayerServiceInterface $playerService;
+    private UserServiceInterface $userService;
 
     public function __construct(
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        UserServiceInterface $userService
     ) {
         $this->playerService = $playerService;
+        $this->userService = $userService;
     }
 
     protected function supports(string $attribute, $subject): bool
@@ -49,6 +54,7 @@ class ClosedExplorationVoter extends Voter
         /** @var User $user */
         $user = $token->getUser();
         $userPlayer = $this->playerService->findUserCurrentGame($user);
+        $userClosedPlayers = $this->userService->findUserClosedPlayers($user);
 
         switch ($attribute) {
             case self::DAEDALUS_IS_FINISHED:
@@ -56,7 +62,9 @@ class ClosedExplorationVoter extends Voter
             case self::IS_AN_EXPLORATOR:
                 return $closedExploration->getClosedExplorators()->contains($userPlayer?->getPlayerInfo()->getClosedPlayer());
             case self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED:
-                return $closedExploration->isExplorationFinished() && $userPlayer?->getDaedalus()->getDaedalusInfo() === $closedExploration->getDaedalusInfo();
+                return $closedExploration->isExplorationFinished() && $userClosedPlayers->exists(
+                    fn ($key, ClosedPlayer $closedPlayer) => $closedPlayer->getClosedDaedalus()->getDaedalusInfo() === $closedExploration->getDaedalusInfo()
+                );
         }
 
         throw new \LogicException('This code should not be reached!');

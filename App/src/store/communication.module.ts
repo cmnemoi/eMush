@@ -12,7 +12,8 @@ const state =  {
     channels: [],
     loadingChannels: false,
     loadingByChannelId: {},
-    messagesByChannelId: {}
+    messagesByChannelId: {},
+    typedMessage: '',
 };
 
 const getters: GetterTree<any, any> = {
@@ -36,6 +37,9 @@ const getters: GetterTree<any, any> = {
     },
     channels(state) {
         return state.channels;
+    },
+    typedMessage(state) {
+        return state.typedMessage;
     }
 };
 
@@ -153,6 +157,10 @@ const actions: ActionTree<any, any> = {
     },
     async loadRoomLogs({ getters, dispatch }) {
         await dispatch('loadMessages', { channel: getters.roomChannel });
+    },
+
+    updateTypedMessage({ commit }, message) {
+        commit('setTypedMessage', message);
     }
 };
 
@@ -192,6 +200,10 @@ const mutations: MutationTree<any> = {
     setChannelMessages(state: any, { channel, messages }): void {
         if (!channel) return;
         state.messagesByChannelId[channel.id] = messages;
+    },
+
+    setTypedMessage(state: any, message: string): void {
+        state.typedMessage = message;
     },
 
     clearChannels(): void {

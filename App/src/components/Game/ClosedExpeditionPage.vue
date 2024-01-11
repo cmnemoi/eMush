@@ -20,7 +20,7 @@
                 </ul>
             </section>
             <section class="logs">
-                <div v-for="(log, i) in closedExploration.logs" :key=i class="event">
+                <div v-for="(log, i) in closedExploration.logs.toReversed()" :key=i class="event">
                     <img :src="getSectorImageByKey(log.planetSectorKey)">
                     <div>
                         <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>

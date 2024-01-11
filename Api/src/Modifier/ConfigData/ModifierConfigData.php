@@ -1214,7 +1214,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::MUSH_CONSUME,
             'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
@@ -1233,7 +1233,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_prevent_change.variable_if_reason_consume',
-            'modifierName' => ModifierNameEnum::MUSH_CONSUME,
+            'modifierName' => null,
             'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,

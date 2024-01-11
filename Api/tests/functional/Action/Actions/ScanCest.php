@@ -134,7 +134,7 @@ final class ScanCest extends AbstractFunctionalTest
         );
     }
 
-    public function testScanRevealsPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
+    public function testScanSuccessRevealsPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
     {
         // given magellan's liquid map is on the bridge
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -155,6 +155,35 @@ final class ScanCest extends AbstractFunctionalTest
 
         // then there should be a specific public log to tell that the map worked
         $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::BRIDGE,
+                'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+                'log' => LogEnum::LIQUID_MAP_HELPED,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
+    public function testScanFailDoesNotRevealPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
+    {
+        // given magellan's liquid map is on the bridge
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::MAGELLAN_LIQUID_MAP,
+            equipmentHolder: $this->bridge,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given success rate of the action is 0%, so it will fail
+        $this->scanActionConfig->setSuccessRate(0);
+
+        // when player scans
+        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->execute();
+
+        // then I should not see a public log to tell that the map worked
+        $I->dontSeeInRepository(
             entity: RoomLog::class,
             params: [
                 'place' => RoomEnum::BRIDGE,

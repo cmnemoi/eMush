@@ -3,6 +3,7 @@
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
@@ -25,7 +26,7 @@ class ActionService implements ActionServiceInterface
         $this->actionRepository = $actionRepository;
     }
 
-    public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $actionTarget): Player
+    public function applyCostToPlayer(Player $player, Action $action, ?LogParameterInterface $actionTarget, ActionResult $actionResult): Player
     {
         // Action point
         $actionPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, PlayerVariableEnum::ACTION_POINT);
@@ -49,7 +50,7 @@ class ActionService implements ActionServiceInterface
         $this->eventService->callEvent($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
 
         // we need to call a last event to properly apply modifier logs
-        $actionPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, ActionVariableEnum::OUTPUT_QUANTITY);
+        $actionPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, ActionVariableEnum::OUTPUT_QUANTITY, $actionResult);
         $this->eventService->callEvent($actionPointCostEvent, ActionVariableEvent::GET_OUTPUT_QUANTITY);
 
         return $player;
@@ -111,15 +112,21 @@ class ActionService implements ActionServiceInterface
         Player $player,
         Action $action,
         ?LogParameterInterface $actionTarget,
-        string $variable
+        string $variable,
+        ActionResult $result = null
     ): ActionVariableEvent {
-        return new ActionVariableEvent(
+        $event = new ActionVariableEvent(
             $action,
             $variable,
             $action->getGameVariables()->getValueByName($variable),
             $player,
             $actionTarget
         );
+        if ($result) {
+            $event->addTag($result->getName());
+        }
+
+        return $event;
     }
 
     public function getActionModifiedActionVariable(

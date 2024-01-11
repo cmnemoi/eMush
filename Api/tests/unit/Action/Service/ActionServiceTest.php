@@ -4,6 +4,7 @@ namespace Mush\Tests\unit\Action\Service;
 
 use Mockery;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
@@ -121,7 +122,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $result = $this->service->applyCostToPlayer($player, $action, null);
+        $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
 
         $this->assertEquals($player, $result);
     }
@@ -248,7 +249,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $result = $this->service->applyCostToPlayer($player, $action, null);
+        $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
 
         $this->assertEquals($player, $result);
     }
@@ -375,7 +376,7 @@ class ActionServiceTest extends TestCase
             ->once()
         ;
 
-        $result = $this->service->applyCostToPlayer($player, $action, null);
+        $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
 
         $this->assertEquals($player, $result);
     }

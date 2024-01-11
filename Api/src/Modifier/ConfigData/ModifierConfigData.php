@@ -1737,7 +1737,8 @@ class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN => ModifierRequirementEnum::ALL_TAGS,
+                ActionOutputEnum::SUCCESS => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
         [

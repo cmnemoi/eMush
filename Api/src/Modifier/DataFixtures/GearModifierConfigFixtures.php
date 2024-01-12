@@ -291,8 +291,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([
-                ActionEnum::SCAN => ModifierRequirementEnum::ALL_TAGS,
-                ActionOutputEnum::SUCCESS => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
             ->setModifierName(ModifierNameEnum::LIQUID_MAP_MODIFIER)
@@ -308,7 +308,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([
+                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+            ])
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
             ->setModifierActivationRequirements([$random50])
         ;

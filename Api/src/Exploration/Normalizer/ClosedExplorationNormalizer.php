@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -42,6 +44,21 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
 
         /** @var array $normalizedClosedExploration */
         $normalizedClosedExploration = $this->normalizer->normalize($closedExploration, $format, $context);
+
+        /** @var ArrayCollection<int, array> $closedExplorators */
+        $closedExplorators = new ArrayCollection();
+
+        /** @var ClosedPlayer $closedExplorator */
+        foreach ($closedExploration->getClosedExplorators() as $closedExplorator) {
+            $closedExplorators->add([
+                'id' => $closedExplorator->getId(),
+                'logName' => $closedExplorator->getLogName(),
+                'isAlive' => $closedExplorator->isAlive(),
+            ]);
+        }
+
+        $normalizedClosedExploration['closedExplorators'] = $closedExplorators->toArray();
+
         $normalizedClosedExploration['planetName'] = $this->translationService->translate(
             key: 'planet_name',
             parameters: $closedExploration->getPlanetName(),

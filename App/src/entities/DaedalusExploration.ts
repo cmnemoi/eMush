@@ -1,7 +1,7 @@
 export class DaedalusExploration {
     public planet!: string; 
     public explorators!: string;
-    public estimatedDuration!: integer;
+    public estimatedDuration!: string;
 
     public load(object: any): DaedalusExploration {
         if (typeof object !== "undefined") {

@@ -2,7 +2,7 @@
     <GamePopUp title="Exploration en cours" class="expedition" v-if="exploration">
         <span v-html="formatText(exploration.planet)" />
         <span v-html="formatText(exploration.explorators)" />
-        <span v-html="formatText(exploration.estimatedDuration.toString())" />
+        <span v-html="formatText(exploration.estimatedDuration)" />
     </GamePopUp>
 </template>
 

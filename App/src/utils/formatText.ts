@@ -83,7 +83,11 @@ export const helpers = {
 
 };
 
-export function formatText(text: string): string {
+export function formatText(text: string|null): string {
+    if (text === null) {
+        return "";
+    }
+    
     let formattedText = sanitizeHtml(text, {
         allowedTags: [ 'strong', 'em', 'a', 'br' ],
         allowedAttributes: {

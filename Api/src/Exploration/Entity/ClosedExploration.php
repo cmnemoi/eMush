@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Player\Entity\ClosedPlayer;
 
 #[ORM\Entity]
 class ClosedExploration
@@ -29,14 +30,14 @@ class ClosedExploration
     #[ORM\Column(type: 'array', nullable: false)]
     private array $planetName = [];
 
-    #[ORM\Column(type: 'array', nullable: false)]
-    private array $exploratorNames = [];
-
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $exploredSectorKeys = [];
 
     #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'closedExploration')]
     private Collection $logs;
+
+    #[ORM\ManyToMany(targetEntity: ClosedPlayer::class, inversedBy: 'closedExplorations')]
+    private Collection $closedExplorators;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isExplorationFinished = false;
@@ -69,16 +70,6 @@ class ClosedExploration
         return $this->planetName;
     }
 
-    public function getExploratorNames(): array
-    {
-        return $this->exploratorNames;
-    }
-
-    public function setExploratorNames(array $exploratorNames): void
-    {
-        $this->exploratorNames = $exploratorNames;
-    }
-
     public function getExploredSectorKeys(): array
     {
         return $this->exploredSectorKeys;
@@ -97,6 +88,20 @@ class ClosedExploration
     public function addLog(ExplorationLog $log): void
     {
         $this->logs->add($log);
+    }
+
+    public function getClosedExplorators(): Collection
+    {
+        return new ArrayCollection($this->closedExplorators->toArray());
+    }
+
+    public function setClosedExplorators(Collection|array $closedExplorators): void
+    {
+        if (is_array($closedExplorators)) {
+            $closedExplorators = new ArrayCollection($closedExplorators);
+        }
+
+        $this->closedExplorators = $closedExplorators;
     }
 
     public function isExplorationFinished(): bool

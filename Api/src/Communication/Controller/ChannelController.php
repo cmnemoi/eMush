@@ -503,16 +503,22 @@ class ChannelController extends AbstractGameController
 
     public function checkMessagePermission(Player $currentPlayer, Channel $channel): void
     {
-        if (
-            !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
-            || (!$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer)
-                && !$this->channelService->canPlayerCommunicate($currentPlayer))
-        ) {
-            throw new AccessDeniedException('Player cannot speak in this channel');
+        $cannotPostInPrivateChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
+        || !$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer);
+
+        $cannotPostInPublicChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
+        || !$this->channelService->canPlayerCommunicate($currentPlayer);
+
+        if (!$channel->isPublic() && $cannotPostInPrivateChannel) {
+            throw new AccessDeniedException('You cannot speak in this channel!');
+        }
+
+        if ($channel->isPublic() && $cannotPostInPublicChannel) {
+            throw new AccessDeniedException('You cannot speak in this channel!');
         }
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
-            throw new AccessDeniedException('player is not from this daedalus');
+            throw new AccessDeniedException('You are not from this Daedalus!');
         }
     }
 

@@ -2,6 +2,7 @@ import { QuantityPoint } from "@/entities/QuantityPoint";
 import { TimerCycle } from "@/entities/TimerCycle";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { Planet } from "@/entities/Planet";
+import { DaedalusExploration } from "./DaedalusExploration";
 
 export class Daedalus {
     public id: number|null;
@@ -21,7 +22,7 @@ export class Daedalus {
     public inOrbitPlanet: Planet|null;
     public isDaedalusTravelling: boolean;
     public attackingHunters: number;
-    public exploration: {planet: string, explorators: string[], estimatedDuration: integer}|null;
+    public exploration: DaedalusExploration|null;
 
     constructor() {
         this.id = null;

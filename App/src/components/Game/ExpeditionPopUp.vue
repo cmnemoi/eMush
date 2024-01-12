@@ -2,7 +2,7 @@
     <GamePopUp title="Exploration en cours" class="expedition" v-if="exploration">
         <span v-html="formatText(exploration.planet)" />
         <span v-html="formatText(exploration.explorators)" />
-        <span v-html="formatText(exploration.estimatedDuration)" />
+        <span v-html="formatText(exploration.estimatedDuration.toString())" />
     </GamePopUp>
 </template>
 
@@ -10,14 +10,15 @@
 import GamePopUp from "@/components/Utils/GamePopUp.vue";
 import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
+import { DaedalusExploration } from "@/entities/DaedalusExploration";
 
 export default defineComponent ({
     name: "ExpeditionPopUp",
     components: { GamePopUp },
     props: {
         exploration: {
-            type: Object,
-            required: false
+            type: DaedalusExploration,
+            required: true
         },
     },
     methods: {

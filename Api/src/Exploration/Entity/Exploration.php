@@ -109,6 +109,11 @@ class Exploration
         );
     }
 
+    public function getAliveExplorators(): PlayerCollection
+    {
+        return $this->getExplorators()->filter(fn (Player $explorator) => $explorator->isAlive());
+    }
+
     public function addExplorator(Player $explorator): void
     {
         $explorator->setExploration($this);

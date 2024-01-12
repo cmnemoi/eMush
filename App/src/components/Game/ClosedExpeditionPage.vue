@@ -55,7 +55,7 @@ import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { mapState } from "vuex";
 import { formatText } from "@/utils/formatText";
-import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import { ClosedExplorator } from "@/entities/ClosedExplorator";
 
 export default defineComponent ({
     name: "ClosedExpeditionPanel",
@@ -95,7 +95,7 @@ export default defineComponent ({
 
             return closedExploration;
         },
-        getExploratorBody(explorator: ClosedPlayer): string {
+        getExploratorBody(explorator: ClosedExplorator): string {
             console.log(explorator.jsonEncode());
             return characterEnum[explorator.logName].body;
         },

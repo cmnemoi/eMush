@@ -96,7 +96,6 @@ export default defineComponent ({
             return closedExploration;
         },
         getExploratorBody(explorator: ClosedExplorator): string {
-            console.log(explorator.jsonEncode());
             return characterEnum[explorator.logName].body;
         },
         getSectorImageByKey(key: string): string {

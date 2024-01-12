@@ -291,7 +291,7 @@ class DaedalusNormalizerTest extends TestCase
                 'planet' => 'Planète : translated planet name',
                 'explorators' => 'Équipe : Roland',
                 'estimatedDuration' => 'Retour estimé : 90 minutes',
-            ]
+            ],
         ];
 
         $this->assertIsArray($data);

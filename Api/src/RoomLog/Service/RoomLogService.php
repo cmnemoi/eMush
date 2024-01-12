@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -240,6 +241,11 @@ class RoomLogService implements RoomLogServiceInterface
     public function getRoomLog(Player $player): RoomLogCollection
     {
         return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
+    }
+
+    public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection
+    {
+        return new RoomLogCollection($this->repository->getAllRoomLogsByDaedalus($daedalus));
     }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array

@@ -42,6 +42,7 @@
                     @click="closePlayer(slotProps.id)">
                     {{ $t("admin.playerList.closePlayer") }}
                 </button>
+                <router-link :to="{ name: 'AdminViewPlayerDetail', params: {'playerId': slotProps.id} }">Voir les détails du joueur</router-link>
             </template>
 
         </Datatable>
@@ -72,6 +73,23 @@ export default defineComponent({
                 {
                     key: 'gameStatus',
                     name: 'gameStatus',
+                    sortable: true
+                },
+                {
+                    key: 'daedalusId',
+                    name: 'Daedalus ID',
+                    sortable: true
+                },
+                {
+                    key: 'characterConfig',
+                    subkey: 'characterName',
+                    name: 'Character',
+                    sortable: true
+                },
+                {
+                    key: 'user',
+                    subkey: 'username',
+                    name: 'Username',
                     sortable: true
                 },
                 {

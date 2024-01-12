@@ -1,12 +1,12 @@
 Mush\User\Entity\User:
   attributes:                          # optional
     id:
-      groups: [ 'user_read' ]
+      groups: [ 'player_info_read', 'user_read' ]
     userId:
-      groups: [ 'user_read' ]
+      groups: [ 'player_info_read', 'user_read' ]
     username:
-      groups: [ 'user_read' ]
+      groups: [ 'player_info_read', 'user_read' ]
     currentGame:
       groups: [ 'user_read' ]
     roles:
-      groups: [ 'user_read', 'user_write' ]
+      groups: [ 'player_info_read', 'user_read', 'user_write' ]

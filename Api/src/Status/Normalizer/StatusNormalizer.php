@@ -34,10 +34,7 @@ class StatusNormalizer implements NormalizerInterface
         $currentPlayer = $context['currentPlayer'];
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if ($this->isVisibilityPublic($status)
-            || $this->isVisibilityPrivateForUser($status, $currentPlayer)
-            || ($status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush())
-        ) {
+        if ($this->isStatusVisibleForPlayer($status, $currentPlayer, $context)) {
             $normedStatus = [
                 'key' => $statusName,
                 'name' => $this->translationService->translate($statusName . '.name', [], 'status', $language),
@@ -57,6 +54,17 @@ class StatusNormalizer implements NormalizerInterface
         }
 
         return [];
+    }
+
+    private function isStatusVisibleForPlayer(Status $status, Player $currentPlayer, array $context): bool
+    {
+        $isAdmin = isset($context['groups']) && in_array('admin_view', $context['groups'], true);
+        $isVisibleMush = $status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush();
+
+        return $isAdmin
+        || $isVisibleMush
+        || $this->isVisibilityPublic($status)
+        || $this->isVisibilityPrivateForUser($status, $currentPlayer);
     }
 
     private function isVisibilityPublic(Status $status): bool

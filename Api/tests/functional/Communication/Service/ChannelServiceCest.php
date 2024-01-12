@@ -12,10 +12,10 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 final class ChannelServiceCest extends AbstractFunctionalTest
-{   
+{
     private ChannelServiceInterface $channelService;
     private EventServiceInterface $eventService;
-    
+
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
@@ -39,7 +39,7 @@ final class ChannelServiceCest extends AbstractFunctionalTest
 
         // when I check if player can whisper in mush channel
         $canWhisper = $this->channelService->canPlayerWhisperInChannel(
-            channel: $this->channelService->getMushChannel($this->daedalus->getDaedalusInfo()), 
+            channel: $this->channelService->getMushChannel($this->daedalus->getDaedalusInfo()),
             player: $this->player2
         );
 

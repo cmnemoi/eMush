@@ -4,7 +4,7 @@
             {{ title }}
         </h1>
         <slot />
-        <button class="modal-close" @click="$emit('exit', $event)">
+        <button v-if="hasCancelListener" class="modal-close" @click="$emit('exit', $event)">
             <img src="@/assets/images/comms/close.png" alt="close">
         </button>
     </div>
@@ -18,6 +18,11 @@ export default defineComponent ({
     name: "GamePopUp",
     props: {
         title: String
+    },
+    computed:{
+        hasCancelListener() : boolean {
+            return (this.$attrs && this.$attrs.onExit) as boolean;
+        }
     }
 });
 </script>
@@ -77,9 +82,14 @@ export default defineComponent ({
     }
 
     &.expedition {
-        width: 360px;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: calc($breakpoint-desktop-l / 3);
+        margin: 0.6em auto -2em;
+        z-index: 2;
+
+        @media only screen and (min-width: $breakpoint-desktop-l) {
+            width: calc($breakpoint-desktop-l / 3);
+            transform: translateX(100%);
+        }
 
         h1.header::before {
             content:  url("@/assets/images/planet.png");

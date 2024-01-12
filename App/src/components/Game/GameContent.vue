@@ -1,7 +1,7 @@
 <template>
     <div v-if="player">
+        <ExpeditionPopUp />
         <div v-if="['in_game'].includes(player.gameStatus)" class="box-container">
-            <ExpeditionPopUp />
             <InvitationPrivateChannelMenu />
             <div class="top-banner">
                 <BannerPanel :player="player" :daedalus="player.daedalus" />

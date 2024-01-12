@@ -238,7 +238,7 @@ export default defineComponent ({
 
 .homepage-container {
     align-items: center;
-    max-width: 1080px;
+    max-width: $breakpoint-desktop-l;
     margin: 0 auto;
 
     & > section {

@@ -126,7 +126,7 @@ export default defineComponent ({
 
 .purgatory-container {
     flex-flow: row wrap;
-    max-width: 1080px;
+    max-width: $breakpoint-desktop-l;
     width: 100%;
     margin: 36px auto;
     padding: 12px 12px 42px 12px;

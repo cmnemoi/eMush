@@ -144,6 +144,9 @@ final class ScanCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
+        // given success rate of the action is 100%, so it will succeed
+        $this->scanActionConfig->setSuccessRate(100);
+
         // when player scans
         $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
         $this->scanAction->execute();

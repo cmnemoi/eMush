@@ -8,6 +8,7 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\PlayerService;
 
 class PlayerModifierLogEnum
 {
@@ -33,6 +34,7 @@ class PlayerModifierLogEnum
     public const RUN_IN_CIRCLES = 'run_in_circles';
     public const FITFUL_SLEEP = 'fitful_sleep';
     public const LYING_DOWN = 'lying_down';
+    public const DAILY_MORALE_LOSS = 'daily_morale_loss';
 
     public const GAIN = 'gain';
     public const LOSS = 'loss';
@@ -69,6 +71,7 @@ class PlayerModifierLogEnum
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
+            PlayerService::BASE_PLAYER_DAY_CHANGE => self::DAILY_MORALE_LOSS,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
@@ -81,6 +84,7 @@ class PlayerModifierLogEnum
             SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,
+            PlayerService::BASE_PLAYER_DAY_CHANGE => VisibilityEnum::PRIVATE,
         ],
     ];
 }

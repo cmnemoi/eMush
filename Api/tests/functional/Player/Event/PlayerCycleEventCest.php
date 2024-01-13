@@ -177,8 +177,8 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             ]
         );
 
-        // then I see a log explaining the cause of the morale loss
-        $I->seeInRepository(
+        // then I see a unique log explaining the cause of the morale loss
+        $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
                 'place' => $this->player->getPlace()->getName(),

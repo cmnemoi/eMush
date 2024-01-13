@@ -183,7 +183,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             params: [
                 'place' => $this->player->getPlace()->getName(),
                 'playerInfo' => $this->player->getPlayerInfo(),
-                'log' => LogEnum::DAILY_MORALE_LOSS,
+                'log' => PlayerModifierLogEnum::DAILY_MORALE_LOSS,
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
         );

@@ -12,7 +12,6 @@ use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\RoomLog\Listener\PlayerSubscriber;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -145,7 +144,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
     }
 
     public function testNewDayTriggersDailyMoraleLoss(FunctionalTester $I): void
-    {   
+    {
         // given player has 14 morale points
         $this->player->setMoralPoint(14);
 
@@ -163,7 +162,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
 
         // then the player has the expected morale points
         $I->assertEquals(
-            expected: 14 - PlayerService::DAY_MORAL_CHANGE,
+            expected: $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + PlayerService::DAY_MORAL_CHANGE,
             actual: $this->player->getMoralPoint()
         );
 
@@ -173,9 +172,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             params: [
                 'place' => $this->player->getPlace()->getName(),
                 'log' => PlayerModifierLogEnum::LOSS_MORAL_POINT,
-                'parameters' => [
-                    'quantity' => PlayerService::DAY_MORAL_CHANGE,
-                ],
+                'playerInfo' => $this->player->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
         );
@@ -185,6 +182,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             entity: RoomLog::class,
             params: [
                 'place' => $this->player->getPlace()->getName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
                 'log' => LogEnum::DAILY_MORALE_LOSS,
                 'visibility' => VisibilityEnum::PRIVATE,
             ]

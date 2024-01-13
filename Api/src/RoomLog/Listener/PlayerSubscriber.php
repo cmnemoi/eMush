@@ -2,8 +2,10 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -30,6 +32,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', 10],
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
+            VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', EventPriorityEnum::LOWEST],
         ];
     }
 

@@ -6,7 +6,7 @@
 
 tasks:
   - before: make gitpod-install
-    init: make docker-start
+    init: make gitpod-start
 
 ports:
     - name: eMush

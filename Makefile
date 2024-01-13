@@ -77,7 +77,7 @@ setup-JWT-certificates:
 start-mush-database:
 	docker start mush_database
 
-gitpod-install: setup-env-variables build install-api install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
+gitpod-install: setup-env-variables gitpod-build install-api install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
 
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build

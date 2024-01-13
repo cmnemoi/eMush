@@ -71,7 +71,7 @@ class PlayerModifierLogEnum
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
-            PlayerService::BASE_PLAYER_DAY_CHANGE => self::DAILY_MORALE_LOSS,
+            PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
@@ -84,7 +84,7 @@ class PlayerModifierLogEnum
             SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,
-            PlayerService::BASE_PLAYER_DAY_CHANGE => VisibilityEnum::PRIVATE,
+            PlayerService::DAY_MORAL_CHANGE => VisibilityEnum::PRIVATE,
         ],
     ];
 }

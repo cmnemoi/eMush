@@ -33,7 +33,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         $daedalus = $player->getDaedalus();
         $place = $event->getPlace();
 
-        $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, new \DateTime());
+        $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, $event->getTime(), $event->getTags());
 
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_FIRE,
@@ -54,7 +54,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             throw new \LogicException('equipment should not be null');
         }
 
-        $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, new \DateTime());
+        $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, $event->getTime(), $event->getTags());
 
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_EQUIPMENT,

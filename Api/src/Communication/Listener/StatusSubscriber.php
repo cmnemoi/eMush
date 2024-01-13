@@ -57,7 +57,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 }
                 // @TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange)
                 if ($equipmentBrokenByCycleChange) {
-                    $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $event->getTime());
+                    $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $time, $event->getTags());
                 }
 
                 // check if player needs to be expelled from private channels
@@ -71,7 +71,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
             case StatusEnum::FIRE:
                 $daedalus = $event->getDaedalus();
-                $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime());
+                $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime(), $event->getTags());
 
                 return;
         }

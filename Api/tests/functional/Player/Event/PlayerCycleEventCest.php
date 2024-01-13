@@ -8,8 +8,11 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\RoomLog\Listener\PlayerSubscriber;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -139,5 +142,52 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             'day' => $startDay,
             'cycle' => $startCycle + 1,
         ]);
+    }
+
+    public function testNewDayTriggersDailyMoraleLoss(FunctionalTester $I): void
+    {   
+        // given player has 14 morale points
+        $this->player->setMoralPoint(14);
+
+        // given the daedalus is D1C8 so next cycle is a new day
+        $this->daedalus->setDay(1);
+        $this->daedalus->setCycle(8);
+
+        // when the new cycle event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then the player has the expected morale points
+        $I->assertEquals(
+            expected: 14 - PlayerService::DAY_MORAL_CHANGE,
+            actual: $this->player->getMoralPoint()
+        );
+
+        // then I see a room log with the daily morale loss
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getName(),
+                'log' => PlayerModifierLogEnum::LOSS_MORAL_POINT,
+                'parameters' => [
+                    'quantity' => PlayerService::DAY_MORAL_CHANGE,
+                ],
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+
+        // then I see a log explaining the cause of the morale loss
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getName(),
+                'log' => LogEnum::DAILY_MORALE_LOSS,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
     }
 }

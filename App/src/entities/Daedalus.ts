@@ -2,6 +2,7 @@ import { QuantityPoint } from "@/entities/QuantityPoint";
 import { TimerCycle } from "@/entities/TimerCycle";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { Planet } from "@/entities/Planet";
+import { DaedalusExploration } from "./DaedalusExploration";
 
 export class Daedalus {
     public id: number|null;
@@ -21,6 +22,7 @@ export class Daedalus {
     public inOrbitPlanet: Planet|null;
     public isDaedalusTravelling: boolean;
     public attackingHunters: number;
+    public exploration: DaedalusExploration|null;
 
     constructor() {
         this.id = null;
@@ -40,6 +42,7 @@ export class Daedalus {
         this.inOrbitPlanet = null;
         this.isDaedalusTravelling = false;
         this.attackingHunters = 0;
+        this.exploration = null;
     }
     load(object :any): Daedalus {
         if (typeof object !== "undefined") {
@@ -75,6 +78,7 @@ export class Daedalus {
             }
             this.isDaedalusTravelling = object.isDaedalusTravelling;
             this.attackingHunters = object.attackingHunters;
+            this.exploration = object.onGoingExploration;
         }
         return this;
     }

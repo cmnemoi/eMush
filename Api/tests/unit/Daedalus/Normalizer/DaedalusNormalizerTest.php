@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
+use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -15,6 +16,8 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\HunterCollection;
+use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
 class DaedalusNormalizerTest extends TestCase
@@ -56,6 +59,7 @@ class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('getId')->andReturn(2);
         $daedalus->shouldReceive('hasStatus')->andReturn(false)->once();
         $daedalus->shouldReceive('getAttackingHunters')->andReturn(new HunterCollection());
+        $daedalus->shouldReceive('getLanguage')->andReturn(LanguageEnum::FRENCH);
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
@@ -85,6 +89,19 @@ class DaedalusNormalizerTest extends TestCase
             ->setDay(4)
             ->setDaedalusVariables($daedalusConfig)
         ;
+
+        $explorator = $this->createStub(Player::class);
+        $explorator->method('getLogName')->willReturn('roland');
+        $explorator->method('hasStatus')->willReturn(false);
+        $explorator->method('getDaedalus')->willReturn($daedalus);
+
+        $exploration = $this->createStub(Exploration::class);
+        $exploration->method('getAliveExplorators')->willReturn(new PlayerCollection([$explorator]));
+        $exploration->method('getCycle')->willReturn(1);
+        $exploration->method('getCycleLength')->willReturn(10);
+        $exploration->method('getNumberOfSectionsToVisit')->willReturn(9);
+
+        $daedalus->setExploration($exploration);
 
         $this->translationService
             ->shouldReceive('translate')
@@ -188,6 +205,37 @@ class DaedalusNormalizerTest extends TestCase
             ->andReturn('translated two')
             ->once()
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('planet_name', [], 'planet', 'fr')
+            ->andReturn('translated planet name')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('exploration_pop_up.planet', ['planetName' => 'translated planet name'], 'misc', 'fr')
+            ->andReturn('Planète : translated planet name')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('exploration_pop_up.explorators', ['explorators' => 'Roland'], 'misc', 'fr')
+            ->andReturn('Équipe : Roland')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('exploration_pop_up.estimated_duration', ['estimatedDuration' => 90], 'misc', 'fr')
+            ->andReturn('Retour estimé : 90 minutes')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('roland.name', [], 'characters', 'fr')
+            ->andReturn('Roland')
+            ->once()
+        ;
+
         $this->planetService
             ->shouldReceive('findPlanetInDaedalusOrbit')
             ->with($daedalus)
@@ -239,6 +287,11 @@ class DaedalusNormalizerTest extends TestCase
             'inOrbitPlanet' => null,
             'isDaedalusTravelling' => false,
             'attackingHunters' => 0,
+            'onGoingExploration' => [
+                'planet' => 'Planète : translated planet name',
+                'explorators' => 'Équipe : Roland',
+                'estimatedDuration' => 'Retour estimé : 90 minutes',
+            ],
         ];
 
         $this->assertIsArray($data);

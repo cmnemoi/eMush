@@ -20,7 +20,7 @@ export default defineComponent ({
     flex-direction: row;
     margin: 1.8em auto -1px auto;
     padding: 0 20px;
-    max-width: 1080px;
+    max-width: $breakpoint-desktop-l;
     width: 100%;
 
     a {

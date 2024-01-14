@@ -13,11 +13,11 @@ interface NeronMessageServiceInterface
 
     public function createPlayerDeathMessage(Player $player, string $cause, \DateTime $time): void;
 
-    public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time): void;
+    public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time, array $eventTags = []): void;
 
-    public function createNewFireMessage(Daedalus $daedalus, \DateTime $time): void;
+    public function createNewFireMessage(Daedalus $daedalus, \DateTime $time, array $eventTags = []): void;
 
-    public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message;
+    public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time, array $eventTags = []): Message;
 
     public function createTitleAttributionMessage(Player $player, string $title, \DateTime $time): void;
 }

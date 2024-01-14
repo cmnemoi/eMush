@@ -89,9 +89,9 @@ class NeronMessageService implements NeronMessageServiceInterface
         return $message;
     }
 
-    public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time): Message
+    public function getMessageNeronCycleFailures(Daedalus $daedalus, \DateTime $time, array $eventTags = []): Message
     {
-        $message = $this->messageRepository->findNeronCycleReport($daedalus);
+        $message = $this->messageRepository->findNeronCycleReport($daedalus, $eventTags);
         if (!$message) {
             $message = $this->createNeronMessage(NeronMessageEnum::CYCLE_FAILURES, $daedalus, [], $time);
         }
@@ -129,7 +129,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         $this->createNeronMessage($message, $player->getDaedalus(), $parameters, $time);
     }
 
-    public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time): void
+    public function createBrokenEquipmentMessage(GameEquipment $equipment, string $visibility, \DateTime $time, array $eventTags = []): void
     {
         $equipmentName = $equipment->getName();
 
@@ -147,7 +147,7 @@ class NeronMessageService implements NeronMessageServiceInterface
                 break;
         }
 
-        $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
+        $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time, $eventTags);
 
         if ($equipment instanceof GameItem) {
             $this->createNeronMessage($message, $daedalus, ['target_item' => $equipmentName], $time, $parentMessage);
@@ -156,9 +156,9 @@ class NeronMessageService implements NeronMessageServiceInterface
         }
     }
 
-    public function createNewFireMessage(Daedalus $daedalus, \DateTime $time): void
+    public function createNewFireMessage(Daedalus $daedalus, \DateTime $time, array $eventTags = []): void
     {
-        $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time);
+        $parentMessage = $this->getMessageNeronCycleFailures($daedalus, $time, $eventTags);
 
         $this->createNeronMessage(NeronMessageEnum::NEW_FIRE, $daedalus, ['quantity' => 1], $time, $parentMessage);
     }

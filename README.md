@@ -29,8 +29,6 @@ If you don't want to go through the installation process, you can try using the 
 
 This will create a new workspace in the cloud with all the dependencies installed and the project ready to run with your prefered IDE. You need a Gitpod account to use this feature.
 
-For optimal experience, you will probably need to change the port of eMush front-end to match the one attributed by Gitpod. See [Changing front port](#changing-front-port) for more information.
-
 ### Installing with Docker
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

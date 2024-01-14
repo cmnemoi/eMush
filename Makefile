@@ -77,7 +77,7 @@ setup-JWT-certificates:
 start-mush-database:
 	docker start mush_database
 
-gitpod-install: setup-env-variables gitpod-build install-api install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
+gitpod-install: gitpod-setup-env-variables gitpod-build install-api install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
 
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build
@@ -85,6 +85,11 @@ gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root eternal_twin chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-start
+
+gitpod-setup-env-variables:
+	cp ./Api/.env.dist ./Api/.env
+	cp ./App/.env.gitpod ./App/.env
+	cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
 
 gitpod-start: docker-stop
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up -d --no-recreate --remove-orphans

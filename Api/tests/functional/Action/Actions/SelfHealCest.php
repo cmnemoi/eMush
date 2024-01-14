@@ -30,14 +30,14 @@ use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class SelfHealCest extends AbstractFunctionalTest
-{   
+{
     private Action $selfHealConfig;
     private SelfHeal $selfHealAction;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     public function _before(FunctionalTester $I)
-    {   
+    {
         parent::_before($I);
         $this->selfHealConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SELF_HEAL]);
         $this->selfHealAction = $I->grabService(SelfHeal::class);

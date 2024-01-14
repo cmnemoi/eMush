@@ -8,9 +8,10 @@
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"
             @keyup="updateTypedMessage(text)"
-            @click="restoreTypedMessage()"
+            @keyup.enter.exact.prevent="clearTypedMessage"
+            @click="restoreTypedMessage"
         />
-        <a class="submit-button" @click="sendNewMessage">
+        <a class="submit-button" @click="sendNewMessage" @click.stop="clearTypedMessage">
             <img src="@/assets/images/comms/submit.gif" alt="submit">
         </a>
     </form>
@@ -59,6 +60,10 @@ export default defineComponent ({
             'sendMessage',
             'updateTypedMessage'
         ]),
+        clearTypedMessage(): void {
+            this.updateTypedMessage('');
+            this.text = '';
+        },
         restoreTypedMessage(): void {
             this.text = this.typedMessage;
         }

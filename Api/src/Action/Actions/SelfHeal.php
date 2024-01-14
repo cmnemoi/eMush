@@ -82,7 +82,7 @@ class SelfHeal extends AbstractAction
         $healEvent = new ApplyEffectEvent(
             $this->player,
             $this->player,
-            VisibilityEnum::PRIVATE,
+            VisibilityEnum::PUBLIC,
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );

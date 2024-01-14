@@ -165,9 +165,9 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
     {
         if ($playerDisease->getPlayer()->isMush() && $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE) {
-            $visibility = ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) ? VisibilityEnum::HIDDEN : VisibilityEnum::PRIVATE;
+            $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::MUSH_CURE], $time, VisibilityEnum::HIDDEN);
 
-            $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::MUSH_CURE], $time, $visibility);
+            return;
         }
 
         if ($this->diseaseHealsAtCycleChange($playerDisease)) {
@@ -211,10 +211,10 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
     }
 
-    public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time): void
+    public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time, string $visibility): void
     {
         if ($playerDisease->getResistancePoint() === 0) {
-            $this->removePlayerDisease($playerDisease, $reasons, $time, VisibilityEnum::PRIVATE, $author);
+            $this->removePlayerDisease($playerDisease, $reasons, $time, $visibility, $author);
         } else {
             $event = new DiseaseEvent(
                 $playerDisease,
@@ -222,6 +222,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 $time
             );
             $event->setAuthor($author);
+            $event->setVisibility($visibility);
             $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
 
             $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);

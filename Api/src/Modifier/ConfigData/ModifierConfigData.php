@@ -1779,8 +1779,8 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_pilot_specialist_point',
-            'modifierName' => null,
+            'name' => 'modifier_shooter_specialist_point',
+            'modifierName' => ModifierNameEnum::SHOOTER_SPECIALIST_POINT,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
@@ -1793,7 +1793,8 @@ class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

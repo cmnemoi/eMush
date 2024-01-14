@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
@@ -60,8 +61,14 @@ final class Land extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        // a succesfull landing still create damage to the hull, only critical success avoid any damage
-        $isSuccessCritical = $this->randomService->isSuccessful($this->getAction()->getCriticalRate());
+        // a successful landing still create damage to the hull, only critical success avoid any damage
+        $criticalSuccessRate = $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->target,
+            ActionVariableEnum::PERCENTAGE_CRITICAL
+        );
+        $isSuccessCritical = $this->randomService->isSuccessful($criticalSuccessRate);
 
         return $isSuccessCritical ? new CriticalSuccess() : new Success();
     }

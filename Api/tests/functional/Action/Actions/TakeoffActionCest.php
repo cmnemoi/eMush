@@ -6,7 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Takeoff;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -49,7 +49,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testTakeoffSuccess(FunctionalTester $I)
+    public function testTakeoffCriticalSuccess(FunctionalTester $I)
     {
         $this->action->setCriticalRate(100);
         $I->haveInRepository($this->action);
@@ -81,7 +81,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
 
-        $I->assertInstanceOf(Success::class, $result);
+        $I->assertInstanceOf(CriticalSuccess::class, $result);
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::LABORATORY,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
@@ -112,7 +112,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->takeoffAction->isVisible());
     }
 
-    public function testTakeoffFail(FunctionalTester $I): void
+    public function testTakeoffSuccess(FunctionalTester $I): void
     {
         $this->action->setCriticalRate(0);
         $I->haveInRepository($this->action);
@@ -152,7 +152,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             $pasiphaeArmor->getCharge()
         );
 
-        $I->assertInstanceOf(Fail::class, $result);
+        $I->assertInstanceOf(Success::class, $result);
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::LABORATORY,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),

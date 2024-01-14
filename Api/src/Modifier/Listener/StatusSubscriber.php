@@ -12,6 +12,8 @@ use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Modifier\Service\ModifierListenerService\EquipmentModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -54,11 +56,21 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
             }
 
+            $charge = null;
+            if (
+                $statusConfig instanceof ChargeStatusConfig
+                && in_array($modifierConfig->getModifierName(), $statusConfig->getDischargeStrategies())
+            ) {
+                /** @var ChargeStatus $charge */
+                $charge = $event->getStatus();
+            }
+
             $this->modifierCreationService->createModifier(
                 $modifierConfig,
                 $modifierHolder,
                 $event->getTags(),
                 $event->getTime(),
+                $charge
             );
         }
 

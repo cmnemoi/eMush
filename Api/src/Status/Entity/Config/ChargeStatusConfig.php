@@ -21,8 +21,8 @@ class ChargeStatusConfig extends StatusConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $startCharge = 0;
 
-    #[ORM\Column(type: 'array', nullable: true)]
-    private ?array $dischargeStrategies = [ChargeStrategyTypeEnum::NONE];
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $dischargeStrategies = [ChargeStrategyTypeEnum::NONE];
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $autoRemove = false;
@@ -105,14 +105,14 @@ class ChargeStatusConfig extends StatusConfig
     /**
      * @return static
      */
-    public function setDischargeStrategies(?array $dischargeStrategies): self
+    public function setDischargeStrategies(array $dischargeStrategies): self
     {
         $this->dischargeStrategies = $dischargeStrategies;
 
         return $this;
     }
 
-    public function getDischargeStrategies(): ?array
+    public function getDischargeStrategies(): array
     {
         return $this->dischargeStrategies;
     }

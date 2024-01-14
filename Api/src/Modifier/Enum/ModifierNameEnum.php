@@ -18,4 +18,5 @@ class ModifierNameEnum
     public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const ANTIGRAV_SCOOTER_CONVERSION_MODIFIER = 'antigrav_scooter_conversion_modifier';
     public const LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
+    public const SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
 }

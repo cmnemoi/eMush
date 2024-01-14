@@ -1543,7 +1543,10 @@ class ActionData
             'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
-            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
+            'visibilities' => [
+                ActionOutputEnum::CRITICAL_SUCCESS => VisibilityEnum::HIDDEN,
+                ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN,
+            ],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
@@ -1826,7 +1829,10 @@ class ActionData
             'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
-            'visibilities' => ['success' => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
+            'visibilities' => [
+                ActionOutputEnum::CRITICAL_SUCCESS => VisibilityEnum::PUBLIC,
+                ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN,
+            ],
             'actionPoint' => ['value' => 4, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

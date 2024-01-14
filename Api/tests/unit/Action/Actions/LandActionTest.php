@@ -4,7 +4,7 @@ namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
 use Mush\Action\Actions\Land;
-use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -85,12 +85,14 @@ class LandActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $patroller);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->randomService->shouldReceive('randomPercent')->andReturn(100);
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(100);
+        $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(false);
         $this->eventService->shouldReceive('callEvent')->times(1);
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
+        $this->assertInstanceOf(Success::class, $result);
+        $this->assertNotInstanceOf(CriticalSuccess::class, $result);
         $this->assertEquals($player->getPlace(), $roomEnd);
     }
 
@@ -130,12 +132,13 @@ class LandActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $patroller);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->randomService->shouldReceive('randomPercent')->andReturn(0);
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(100);
+        $this->randomService->shouldReceive('isSuccessful')->with(100)->andReturn(true);
         $this->eventService->shouldReceive('callEvent')->times(1);
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        $this->assertInstanceOf(CriticalSuccess::class, $result);
         $this->assertEquals($player->getPlace(), $roomEnd);
     }
 }

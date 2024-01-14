@@ -1549,5 +1549,25 @@
         <target>Cette pièce est en flammes !</target>
       </segment>
     </unit>
+    <unit id="poc_pilot_skill">
+      <segment id="name" state="translated">
+        <source>poc_shooter_skill.name</source>
+        <target>Pilote</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>poc_pilot_skill.description</source>
+        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.</target>
+      </segment>
+    </unit>
+    <unit id="poc_shooter_skill">
+      <segment id="name" state="translated">
+        <source>poc_shooter_skill.name</source>
+        <target>Tireur</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>poc_shooter_skill.description</source>
+        <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

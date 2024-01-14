@@ -847,7 +847,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(2)
             ->setSuccessRate(100)
             ->setCriticalRate(20)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
         ;
         $manager->persist($takeoff);
 
@@ -867,8 +867,8 @@ class ActionsFixtures extends Fixture
             ->setActionCost(2)
             ->setSuccessRate(100)
             ->setCriticalRate(20)
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::HIDDEN)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
         ;
         $manager->persist($land);
 

@@ -41,4 +41,6 @@ class PlayerStatusEnum
     public const TALKIE_SCREWED = 'talkie_screwed';
     public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
     public const HAS_REJUVENATED = 'has_rejuvenated';
+    public const POC_PILOT_SKILL = 'poc_pilot_skill';
+    public const POC_SHOOTER_SKILL = 'poc_shooter_skill';
 }

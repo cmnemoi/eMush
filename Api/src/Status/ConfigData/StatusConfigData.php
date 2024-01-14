@@ -985,5 +985,25 @@ class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
+            'statusName' => PlayerStatusEnum::POC_SHOOTER_SKILL,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_INCREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
+            'autoRemove' => true,
+            'modifierConfigs' => ['modifier_shooter_specialist_point'],
+        ],
+        [
+            'name' => PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
+            'statusName' => PlayerStatusEnum::POC_PILOT_SKILL,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'status_config',
+            'modifierConfigs' => ['modifier_pilot_no_critical_fail_piloting'],
+        ],
     ];
 }

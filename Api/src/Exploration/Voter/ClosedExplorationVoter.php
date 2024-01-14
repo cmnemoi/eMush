@@ -47,12 +47,12 @@ class ClosedExplorationVoter extends Voter
         /** @var ClosedExploration $closedExploration */
         $closedExploration = $subject;
 
-        if (!$token->getUser()) {
+        /** @var User $user */
+        $user = $token->getUser();
+        if (!$user instanceof User) {
             return false;
         }
 
-        /** @var User $user */
-        $user = $token->getUser();
         $userPlayer = $this->playerService->findUserCurrentGame($user);
         $userClosedPlayers = $this->userService->findUserClosedPlayers($user);
 
@@ -60,11 +60,12 @@ class ClosedExplorationVoter extends Voter
             case self::DAEDALUS_IS_FINISHED:
                 return $closedExploration->getDaedalusInfo()->isDaedalusFinished();
             case self::IS_AN_EXPLORATOR:
-                return $closedExploration->getClosedExplorators()->contains($userPlayer?->getPlayerInfo()->getClosedPlayer());
-            case self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED:
-                return $closedExploration->isExplorationFinished() && $userClosedPlayers->exists(
-                    fn ($key, ClosedPlayer $closedPlayer) => $closedPlayer->getClosedDaedalus()->getDaedalusInfo() === $closedExploration->getDaedalusInfo()
+                return $closedExploration->getClosedExplorators()->exists(
+                    fn ($key, ClosedPlayer $closedPlayer) => $userClosedPlayers->contains($closedPlayer)
                 );
+            case self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED:
+                return $userPlayer?->getDaedalus() === $closedExploration->getDaedalusInfo()->getDaedalus()
+                    && $closedExploration->isExplorationFinished();
         }
 
         throw new \LogicException('This code should not be reached!');

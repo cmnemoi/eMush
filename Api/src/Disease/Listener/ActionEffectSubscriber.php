@@ -73,7 +73,7 @@ class ActionEffectSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->playerDiseaseService->healDisease($event->getAuthor(), $diseaseToHeal, $event->getTags(), $event->getTime());
+        $this->playerDiseaseService->healDisease($event->getAuthor(), $diseaseToHeal, $event->getTags(), $event->getTime(), $event->getVisibility());
     }
 
     /**

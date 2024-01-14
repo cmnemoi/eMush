@@ -211,10 +211,10 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
     }
 
-    public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time): void
+    public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time, string $visibility): void
     {
         if ($playerDisease->getResistancePoint() === 0) {
-            $this->removePlayerDisease($playerDisease, $reasons, $time, VisibilityEnum::PRIVATE, $author);
+            $this->removePlayerDisease($playerDisease, $reasons, $time, $visibility, $author);
         } else {
             $event = new DiseaseEvent(
                 $playerDisease,
@@ -222,6 +222,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                 $time
             );
             $event->setAuthor($author);
+            $event->setVisibility($visibility);
             $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
 
             $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);

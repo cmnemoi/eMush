@@ -9,6 +9,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -22,16 +24,25 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class SelfHealCest
-{
+class SelfHealCest extends AbstractFunctionalTest
+{   
+    private Action $selfHealConfig;
     private SelfHeal $selfHealAction;
 
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
+
     public function _before(FunctionalTester $I)
-    {
+    {   
+        parent::_before($I);
+        $this->selfHealConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SELF_HEAL]);
         $this->selfHealAction = $I->grabService(SelfHeal::class);
+
+        $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
     public function testSelfHeal(FunctionalTester $I)
@@ -96,6 +107,38 @@ class SelfHealCest
             'playerInfo' => $healerPlayer->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::SELF_HEAL,
             'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+    }
+
+    public function testHealAtFullLifePrintsCorrectLog(FunctionalTester $I): void
+    {
+        // given players are in medlab
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        $this->player->changePlace($medlab);
+
+        // given player has a flu
+        $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::FLU,
+            player: $this->player,
+            reasons: []
+        );
+
+        // when player 1 heals player 2
+        $this->selfHealAction->loadParameters($this->selfHealConfig, $this->player);
+        $this->selfHealAction->execute();
+
+        // then I don't see a log about health gained
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => $medlab->getName(),
+            'log' => ActionLogEnum::SELF_HEAL,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        // then I see a log about disease being cured
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $medlab->getName(),
+            'log' => LogEnum::DISEASE_CURED_PLAYER,
+            'visibility' => VisibilityEnum::PUBLIC,
         ]);
     }
 }

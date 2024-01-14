@@ -60,4 +60,31 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
             ]
         );
     }
+
+    public function testSpontaneousDiseaseHealShouldPrintAPrivateLog(FunctionalTester $I): void
+    {
+        // given player has a disease
+        $disease = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::COLD,
+            player: $this->player,
+            reasons: [],
+        );
+
+        // given the disease has 0 disease points, so it should heal spontaneously at cycle change
+        $disease->setDiseasePoint(0);
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->handleNewCycle($disease, new \DateTime());
+
+        // then I should see a private room log reporting the disease healing
+        $I->grabEntityFromRepository(
+            RoomLog::class,
+            [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => LogEnum::DISEASE_CURED,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+    }
 }

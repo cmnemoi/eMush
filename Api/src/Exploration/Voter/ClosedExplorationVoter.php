@@ -54,7 +54,7 @@ class ClosedExplorationVoter extends Voter
             case self::DAEDALUS_IS_FINISHED:
                 return $closedExploration->getDaedalusInfo()->isDaedalusFinished();
             case self::IS_AN_EXPLORATOR:
-                return in_array($userPlayer?->getName(), $closedExploration->getExploratorNames());
+                return $closedExploration->getClosedExplorators()->contains($userPlayer?->getPlayerInfo()->getClosedPlayer());
             case self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED:
                 return $closedExploration->isExplorationFinished() && $userPlayer?->getDaedalus()->getDaedalusInfo() === $closedExploration->getDaedalusInfo();
         }

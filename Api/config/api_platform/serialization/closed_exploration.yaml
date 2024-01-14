@@ -6,7 +6,7 @@ Mush\Exploration\Entity\ClosedExploration:
       groups: [ 'closed_exploration_read' ]
     updatedAt:
       groups: [ 'closed_exploration_read' ]
-    exploratorNames:
+    closedExplorators:
       groups: [ 'closed_exploration_read' ]
     planetName:
       groups: [ 'closed_exploration_read' ]

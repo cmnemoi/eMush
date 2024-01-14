@@ -147,4 +147,14 @@ class ClosedPlayer
     {
         return $this->isMush;
     }
+
+    public function getLogName(): string
+    {
+        return $this->getPlayerInfo()->getCharacterConfig()->getCharacterName();
+    }
+
+    public function isAlive(): bool
+    {
+        return $this->playerInfo->isAlive();
+    }
 }

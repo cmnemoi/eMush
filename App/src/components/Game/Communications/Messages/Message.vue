@@ -148,8 +148,8 @@ export default defineComponent ({
     background: white;
     word-break: break-word;
 
-    &::v-deep(em) {
-        color: $red; // Makes italic text red
+    &::v-deep(em), &::v-deep(a) {
+        color: $red; // Make italics and links red
     }
 
     &.unread { // unread messages styling

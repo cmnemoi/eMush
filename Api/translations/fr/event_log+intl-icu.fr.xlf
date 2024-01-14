@@ -672,5 +672,11 @@
         <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
       </segment>
     </unit>
+    <unit id="daily_morale_loss">
+      <segment id="daily_morale_loss" state="translated">
+        <source>daily_morale_loss</source>
+        <target>Un jour de plus à lutter... Votre moral baisse...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

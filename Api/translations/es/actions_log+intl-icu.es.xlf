@@ -673,5 +673,17 @@
         <target>delete_planet_success</target>
       </segment>
     </unit>
+    <unit id="takeoff_to_planet_success">
+      <segment id="takeoff_to_planet_success" state="initial">
+        <source>takeoff_to_planet_success</source>
+        <target>takeoff_to_planet_success</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_to_planet_patrol_ship_success">
+      <segment id="takeoff_to_planet_patrol_ship_success" state="initial">
+        <source>takeoff_to_planet_patrol_ship_success</source>
+        <target>takeoff_to_planet_patrol_ship_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

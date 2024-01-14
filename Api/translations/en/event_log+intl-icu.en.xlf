@@ -274,7 +274,7 @@
       </segment>
     </unit>
     <unit id="disease_cured_drug">
-      <segment state="translated">
+      <segment state="final">
         <source>disease_cured_drug</source>
         <target>{character_gender, select,
                     male {**{target_character}** is relieved. He has managed to cure himself of his disease ({disease}).}
@@ -621,6 +621,12 @@
       <segment id="consume_mush" state="translated">
         <source>consume_mush</source>
         <target>You eat this pathetic morsel to pull the wool over their eyes, but it doesn't give you any energy...</target>
+      </segment>
+    </unit>
+    <unit id="daily_morale_loss">
+      <segment id="daily_morale_loss" state="final">
+        <source>daily_morale_loss</source>
+        <target>You made it through another day... Your morale is slowly diminishing.</target>
       </segment>
     </unit>
   </file>

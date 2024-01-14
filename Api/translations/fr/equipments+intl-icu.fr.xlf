@@ -346,7 +346,7 @@
       </segment>
       <segment id="short_name" state="final">
         <source>dynarcade.short_name</source>
-        <target>Dynacarde</target>
+        <target>Dynarcade</target>
       </segment>
       <segment id="plural_name" state="final">
         <source>dynarcade.plural_name</source>

@@ -81,5 +81,19 @@
         <target>estimated_duration</target>
       </segment>
     </unit>
+    <unit id="exploration_pop_up">
+      <segment id="planet" state="initial">
+        <source>exploration_pop_up.planet</source>
+        <target>exploration_pop_up.planet</target>
+      </segment>
+      <segment id="explorators" state="initial">
+        <source>exploration_pop_up.explorators</source>
+        <target>exploration_pop_up.explorators</target>
+      </segment>
+      <segment id="estimated_duration" state="initial">
+        <source>exploration_pop_up.estimated_duration</source>
+        <target>exploration_pop_up.estimated_duration</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

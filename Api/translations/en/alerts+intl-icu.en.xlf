@@ -38,9 +38,9 @@
         <source>broken_equipments.description</source>
         <target>Contact a technician or get to work!</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="final">
         <source>broken_equipments.report</source>
-        <target>**{character}** has reported a broken piece of equipment {loc_prep} **{place}**.</target>
+        <target>**{character}** has reported {quantity, plural, one {**#** broken piece} other {**#** broken pieces}} of equipment {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="no_gravity">

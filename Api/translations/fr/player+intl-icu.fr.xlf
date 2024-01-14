@@ -68,7 +68,7 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
       <segment id="com_manager.desc" state="final">
         <source>com_manager.desc</source>
-        <target>Le Responsable de Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
+        <target>Le Responsable des Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
       </segment>
     </unit>
   </file>

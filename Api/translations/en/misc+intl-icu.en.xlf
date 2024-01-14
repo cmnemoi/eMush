@@ -81,5 +81,19 @@
         <target>Estimated return in {duration} min.</target>
       </segment>
     </unit>
+    <unit id="exploration_pop_up">
+      <segment id="planet" state="final">
+        <source>exploration_pop_up.planet</source>
+        <target>**Planet:** {planetName}</target>
+      </segment>
+      <segment id="explorators" state="final">
+        <source>exploration_pop_up.explorators</source>
+        <target>**Team:** {explorators}</target>
+      </segment>
+      <segment id="estimated_duration" state="final">
+        <source>exploration_pop_up.estimated_duration</source>
+        <target>**Estimated return:** {estimatedDuration} minutes</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

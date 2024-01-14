@@ -7,9 +7,9 @@
         <target>Max {emote} **-{quantity}**.</target>
       </segment>
     </unit>
-    <unit id="change.variable.decrease_on_player.new.cycle">
-      <segment id="description" state="translated">
-        <source>change.variable.decrease_on_player.new.cycle.description</source>
+    <unit id="change.variable.decrease_on_disease.new.cycle">
+      <segment id="description" state="final">
+        <source>change.variable.decrease_on_disease.new.cycle.description</source>
         <target>{chance, select,
                     100 {Each cycle, lose **{quantity}** {emote}.}
                     other {Each cycle, **{chance}%** chance to lose **{quantity}** {emote}.}
@@ -46,9 +46,9 @@
         <target>Accuracy **-{quantity}%**.</target>
       </segment>
     </unit>
-    <unit id="biting_on_player.new.cycle">
-      <segment id="description" state="translated">
-        <source>biting_on_player.new.cycle.description</source>
+    <unit id="biting_on_disease.new.cycle">
+      <segment id="description" state="final">
+        <source>biting_on_disease.new.cycle.description</source>
         <target>Gives the symptom **Biting**.</target>
       </segment>
     </unit>
@@ -85,9 +85,9 @@
         <target>Gives the symptom **Cat Allergy**.</target>
       </segment>
     </unit>
-    <unit id="dirtiness_on_player.new.cycle">
-      <segment id="description" state="translated">
-        <source>dirtiness_on_player.new.cycle.description</source>
+    <unit id="dirtiness_on_disease.new.cycle">
+      <segment id="description" state="final">
+        <source>dirtiness_on_disease.new.cycle.description</source>
         <target>{chance, select,
                     100 {Every cycle, makes you dirty.}
                     other {Every cycle, a **{chance}%** chance, makes you dirty.}
@@ -181,9 +181,9 @@
         <target>Your messages are sometimes modified.</target>
       </segment>
     </unit>
-    <unit id="change.variable.increase_on_player.new.cycle">
-      <segment state="translated">
-        <source>change.variable.increase_on_player.new.cycle.description</source>
+    <unit id="change.variable.increase_on_disease.new.cycle">
+      <segment state="final">
+        <source>change.variable.increase_on_disease.new.cycle.description</source>
         <target>{chance, select,
                     100 {Every cycle, gain **{quantity}** {emote}.}
                     other {Every cycle, a **{chance}%** chance, gain **{quantity}** {emote}.}

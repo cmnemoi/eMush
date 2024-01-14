@@ -673,7 +673,7 @@
       </segment>
     </unit>
     <unit id="daily_morale_loss">
-      <segment id="daily_morale_loss" state="translated">
+      <segment id="daily_morale_loss" state="final">
         <source>daily_morale_loss</source>
         <target>Un jour de plus à lutter... Votre moral baisse...</target>
       </segment>

@@ -900,5 +900,17 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>You have removed a planet from your workspace.</target>
       </segment>
     </unit>
+    <unit id="takeoff_to_planet_success">
+      <segment id="takeoff_to_planet_success" state="final">
+        <source>takeoff_to_planet_success</source>
+        <target>**{character}** has launched {target_equipment} to the planet.</target>
+      </segment>
+    </unit>
+    <unit id="takeoff_to_planet_patrol_ship_success">
+      <segment id="takeoff_to_planet_patrol_ship_success" state="final">
+        <source>takeoff_to_planet_patrol_ship_success</source>
+        <target>**{character}** landed {target_equipment} on the planet.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

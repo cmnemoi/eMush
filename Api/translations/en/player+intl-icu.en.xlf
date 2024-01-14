@@ -55,19 +55,19 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
       </segment>
       <segment id="neron_manager.name" state="translated">
         <source>neron_manager.name</source>
-        <target>NERON Administrator</target>
+        <target>NERON Admin</target>
       </segment>
       <segment id="neron_manager.desc" state="translated">
         <source>neron_manager.desc</source>
         <target>The NERON Administrator can access NERON's BIOS. They also have privileged access to the daily operations systems.</target>
       </segment>
-      <segment id="com_manager.name" state="translated">
+      <segment id="com_manager.name" state="final">
         <source>com_manager.name</source>
-        <target>Communications Officer</target>
+        <target>Comms Officer</target>
       </segment>
       <segment id="com_manager.desc" state="translated">
         <source>com_manager.desc</source>
-        <target>The Communications officer can start to contact others once contact with Sol has been re-established.</target>
+        <target>The Communications Officer can start to contact others once contact with Sol has been re-established.</target>
       </segment>
     </unit>
   </file>

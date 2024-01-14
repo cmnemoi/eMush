@@ -15,6 +15,7 @@ use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
@@ -304,7 +305,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->playerDiseaseService->healDisease($player, $diseasePlayer, ['reason'], new \DateTime());
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, ['reason'], new \DateTime(), VisibilityEnum::PUBLIC);
     }
 
     public function testTreatDisease()
@@ -324,7 +325,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->playerDiseaseService->healDisease($player, $diseasePlayer, ['reason'], new \DateTime());
+        $this->playerDiseaseService->healDisease($player, $diseasePlayer, ['reason'], new \DateTime(), VisibilityEnum::PUBLIC);
 
         $this->assertEquals(0, $diseasePlayer->getResistancePoint());
     }

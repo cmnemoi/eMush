@@ -112,7 +112,7 @@ class SelfHealCest extends AbstractFunctionalTest
 
     public function testHealAtFullLifePrintsCorrectLog(FunctionalTester $I): void
     {
-        // given players are in medlab
+        // given player is in medlab
         $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
         $this->player->changePlace($medlab);
 
@@ -123,7 +123,7 @@ class SelfHealCest extends AbstractFunctionalTest
             reasons: []
         );
 
-        // when player 1 heals player 2
+        // when player heals themselves
         $this->selfHealAction->loadParameters($this->selfHealConfig, $this->player);
         $this->selfHealAction->execute();
 

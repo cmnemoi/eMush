@@ -1739,6 +1739,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1758,6 +1759,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => ['random_50'],
             'tagConstraints' => [
                 ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

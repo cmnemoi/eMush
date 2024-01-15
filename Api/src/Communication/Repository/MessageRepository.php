@@ -8,6 +8,7 @@ use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\EventEnum;
 
 /**
  * @template-extends ServiceEntityRepository<Message>
@@ -19,16 +20,24 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    public function findNeronCycleReport(Daedalus $daedalus): ?Message
+    public function findNeronCycleReport(Daedalus $daedalus, array $eventTags): ?Message
     {
         $queryBuilder = $this->createQueryBuilder('message');
+
+        // @HACK : add some tolerance to the cycle start to avoid taking the previous cycle report
+        if (in_array(EventEnum::NEW_CYCLE, $eventTags, true)) {
+            $cycleStartedAt = clone $daedalus->getCycleStartedAt();
+            $cycleStartedAt->modify('+10 seconds');
+        } else {
+            $cycleStartedAt = $daedalus->getCycleStartedAt();
+        }
 
         $queryBuilder
             ->where($queryBuilder->expr()->eq('message.neron', ':neron'))
             ->andWhere($queryBuilder->expr()->gte('message.createdAt', ':cycleStart'))
             ->andWhere($queryBuilder->expr()->eq('message.message', ':failureMessage'))
             ->setParameter('neron', $daedalus->getDaedalusInfo()->getNeron()->getId())
-            ->setParameter('cycleStart', $daedalus->getCycleStartedAt())
+            ->setParameter('cycleStart', $cycleStartedAt)
             ->setParameter('failureMessage', NeronMessageEnum::CYCLE_FAILURES)
         ;
 

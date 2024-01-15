@@ -35,7 +35,7 @@ class StatusNormalizer implements NormalizerInterface
         $currentPlayer = $context['currentPlayer'];
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if ($this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())) {
+        if ($this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)) {
             $normedStatus = [
                 'key' => $statusName,
                 'name' => $this->translationService->translate($statusName . '.name', [], 'status', $language),
@@ -45,7 +45,7 @@ class StatusNormalizer implements NormalizerInterface
 
             if (
                 $status instanceof ChargeStatus
-                && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())
+                && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)
             ) {
                 $normedStatus['charge'] = $status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $status->getCharge();
             }
@@ -65,12 +65,15 @@ class StatusNormalizer implements NormalizerInterface
         Player $currentPlayer,
         ?StatusHolderInterface $statusOwner,
         ?StatusHolderInterface $statusTarget,
+        array $context,
     ): bool {
-        if ($visibility === VisibilityEnum::PUBLIC) {
-            return true;
-        }
+        $isAdmin = isset($context['groups']) && in_array('admin_view', $context['groups'], true);
 
-        if ($visibility === VisibilityEnum::MUSH && $currentPlayer->isMush()) {
+        if (
+            $isAdmin
+            || $visibility === VisibilityEnum::PUBLIC
+            || $visibility === VisibilityEnum::MUSH && $currentPlayer->isMush()
+        ) {
             return true;
         }
 

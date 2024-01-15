@@ -41,27 +41,18 @@ docker-watch:
 fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:fill-daedalus
 
-gitpod-install: gitpod-setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
-
-gitpod-setup-env-variables:
-	sudo cp ./Api/.env.dist ./Api/.env
-	sudo cp ./App/.env.dist ./App/.env
-	sudo cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
-
 install: setup-env-variables build install-api start-mush-database install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/"
 
 install-api:
-	docker start mush_php mush_database eternal_twin &&\
 	docker compose -f docker/docker-compose.yml run -u dev mush_php composer install &&\
 	docker compose -f docker/docker-compose.yml run -u dev mush_php ./reset.sh --init
 
-install-eternal-twin: start-mush-database
+install-eternal-twin:
 	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn install
 	docker compose -f docker/docker-compose.yml run -u node eternal_twin yarn etwin db create
 
 install-front:
-	docker start mush_front &&\
 	docker compose -f docker/docker-compose.yml run -u node mush_front yarn install &&\
 	docker compose -f docker/docker-compose.yml run -u node mush_front ./reset.sh
 
@@ -85,3 +76,26 @@ setup-JWT-certificates:
 
 start-mush-database:
 	docker start mush_database
+
+gitpod-install: gitpod-setup-env-variables gitpod-build install-api install-front install-eternal-twin setup-JWT-certificates create-crew fill-daedalus
+
+gitpod-build:
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_front chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root eternal_twin chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_php chown -R dev:dev /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-start
+
+gitpod-setup-env-variables:
+	cp ./Api/.env.dist ./Api/.env
+	cp ./App/.env.gitpod ./App/.env
+	cp ./EternalTwin/etwin.toml.example ./EternalTwin/etwin.toml
+
+gitpod-start: docker-stop
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up -d --no-recreate --remove-orphans
+
+gitpod-stop:
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml stop
+
+gitpod-watch:
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-recreate --remove-orphans

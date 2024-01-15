@@ -27,7 +27,7 @@ If you don't want to go through the installation process, you can try using the 
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/eternaltwin/mush/mush)
 
-This will create a new workspace in the cloud with all the dependencies installed and the project ready to run. You will need  a Gitpod account to use this feature.
+This will create a new workspace in the cloud with all the dependencies installed and the project ready to run with your prefered IDE. You need a Gitpod account to use this feature.
 
 ### Installing with Docker
 
@@ -209,6 +209,8 @@ in docker/docker-compose.dev.yml
 Change line 55: `- "80:8080"` by `- "new_port:8080"` where new_port is the desired port
 Change the `App/.env`
 `VUE_APP_URL=http://localhost` by `VUE_APP_URL=http://localhost:new_port`
+Run `make docker-start` (`make gitpod-start` on Gitpod) so that the changes are taken into account
+
 #### Changing back port:
 - in docker/docker-compose.dev.yml:
 Change line 8: `- "8080:80"` by `- "new_port:80"` where new_port is the desired port

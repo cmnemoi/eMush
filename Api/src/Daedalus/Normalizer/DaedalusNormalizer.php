@@ -4,12 +4,14 @@ namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -109,6 +111,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 'inOrbitPlanet' => $planet,
                 'isDaedalusTravelling' => $daedalus->hasStatus(DaedalusStatusEnum::TRAVELING),
                 'attackingHunters' => $attackingHunters,
+                'onGoingExploration' => $this->normalizeOnGoingExploration($daedalus, $context),
             ];
     }
 
@@ -132,5 +135,70 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 $language
             ),
         ];
+    }
+
+    private function normalizeOnGoingExploration(Daedalus $daedalus, array $context): ?array
+    {
+        $exploration = $daedalus->getExploration();
+        if ($exploration === null) {
+            return null;
+        }
+
+        $normalizedPlanet = $this->translationService->translate(
+            'exploration_pop_up.planet',
+            [
+                'planetName' => $this->translationService->translate(
+                    key: 'planet_name',
+                    parameters: $exploration->getPlanet()->getName()->toArray(),
+                    domain: 'planet',
+                    language: $daedalus->getLanguage()
+                ),
+            ],
+            'misc',
+            $daedalus->getLanguage()
+        );
+        $normalizedExplorators = $this->translationService->translate(
+            'exploration_pop_up.explorators',
+            [
+                'explorators' => $this->getTranslatedExploratorNames($exploration),
+            ],
+            'misc',
+            $daedalus->getLanguage()
+        );
+        $normalizedEstimatedDuration = $this->translationService->translate(
+            'exploration_pop_up.estimated_duration',
+            [
+                'estimatedDuration' => $exploration->getCycleLength() * ($exploration->getNumberOfSectionsToVisit() + 1 - $exploration->getCycle()),
+            ],
+            'misc',
+            $daedalus->getLanguage()
+        );
+
+        return [
+            'planet' => $normalizedPlanet,
+            'explorators' => $normalizedExplorators,
+            'estimatedDuration' => $normalizedEstimatedDuration,
+        ];
+    }
+
+    private function getTranslatedExploratorNames(Exploration $exploration): string
+    {
+        /** @var array<int, string> $exploratorNames */
+        $exploratorNames = $exploration->getAliveExplorators()
+                                        ->filter(fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
+                                        ->map(fn (Player $player) => $this->translateExploratorName($player))
+                                        ->toArray();
+
+        return join(', ', $exploratorNames);
+    }
+
+    private function translateExploratorName(Player $player): string
+    {
+        return $this->translationService->translate(
+            key: $player->getLogName() . '.name',
+            parameters: [],
+            domain: 'characters',
+            language: $player->getDaedalus()->getLanguage(),
+        );
     }
 }

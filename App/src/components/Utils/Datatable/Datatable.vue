@@ -23,7 +23,7 @@
                             :src="row[field.image]"
                             v-if="row[field.image]"
                             :alt="row[field.name]"
-                            id="row-image"/> {{ $t(String(row[field.key]))  }}</span>
+                            id="row-image"/> {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key]))  }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -47,6 +47,7 @@ import Spinner from "@/components/Utils/Spinner.vue";
 
 export interface Header {
     key: string,
+    subkey: string | null,
     name: string | null,
     sortable: boolean | null,
     image: any | null,

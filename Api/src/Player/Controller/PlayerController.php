@@ -303,7 +303,7 @@ class PlayerController extends AbstractGameController
         $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
 
         if ($result->noCycleElapsed()) {
-            return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_NOT_MODIFIED);
+            return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_OK);
         } elseif ($result->hasDaedalusCycleElapsed()) {
             return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         } elseif ($result->hasExplorationCycleElapsed()) {
@@ -347,7 +347,7 @@ class PlayerController extends AbstractGameController
         $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
 
         if ($result->noCycleElapsed()) {
-            return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_NOT_MODIFIED);
+            return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_OK);
         } else {
             return $this->view(['message' => 'Exploration cycle changes triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         }

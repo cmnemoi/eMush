@@ -6,13 +6,17 @@ namespace Mush\Tests\functional\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
@@ -32,12 +36,15 @@ use Mush\Tests\FunctionalTester;
 
 final class StatusServiceCest extends AbstractFunctionalTest
 {
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -111,6 +118,78 @@ final class StatusServiceCest extends AbstractFunctionalTest
             'log' => StatusEventLogEnum::GET_UP_BED_BROKEN,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function testBrokenEquipmentByNewCycleAreAnnouncedInDistinctThreads(FunctionalTester $I): void
+    {
+        $daedalusTime = $this->daedalus->getCycleStartedAt();
+
+        // given I have a mycoscan in laboratory
+        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: ['test'],
+            time: $daedalusTime,
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // given it is broken by cycle change
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+            tags: [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
+            time: $daedalusTime,
+        );
+
+        // given a cycle change passes
+        $oneCycleLater = clone $daedalusTime;
+        $oneCycleLater->add(new \DateInterval('PT' . $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
+        $this->daedalus->setCycleStartedAt($oneCycleLater);
+
+        // given I have a research lab in laboratory
+        $researchLab = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::RESEARCH_LABORATORY,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: ['test'],
+            time: $oneCycleLater,
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // when it is broken by another cycle change
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $researchLab,
+            tags: [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
+            time: $oneCycleLater,
+        );
+
+        // then I should see two distinct NERON threads
+        $threads = $I->grabEntitiesFromRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::CYCLE_FAILURES,
+            ]
+        );
+        $I->assertCount(2, $threads);
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::CYCLE_FAILURES,
+                'createdAt' => $daedalusTime,
+            ]
+        );
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::CYCLE_FAILURES,
+                'createdAt' => $oneCycleLater,
+            ]
+        );
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)

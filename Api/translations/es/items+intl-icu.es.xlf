@@ -763,8 +763,8 @@
         <target>antigrav_scooter.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
-        <source>antigrav_scooter..first_letter</source>
-        <target>antigrav_scooter..first_letter</target>
+        <source>antigrav_scooter.first_letter</source>
+        <target>antigrav_scooter.first_letter</target>
       </segment>
       <segment id="description" state="initial">
         <source>antigrav_scooter.description</source>

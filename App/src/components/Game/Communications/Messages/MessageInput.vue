@@ -3,19 +3,22 @@
         <textarea
             v-model="text"
             class="text-input"
-            placeholder="Mon message ici!"
+            :placeholder="typedMessage != '' ? typedMessage : $t('game.communications.myMessageHere')"
             @keydown.enter.exact.prevent="sendNewMessage"
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"
+            @keyup="updateTypedMessage(text)"
+            @keyup.enter.exact.prevent="clearTypedMessage"
+            @click="restoreTypedMessage"
         />
-        <a class="submit-button" @click="sendNewMessage">
+        <a class="submit-button" @click="sendNewMessage" @click.stop="clearTypedMessage">
             <img src="@/assets/images/comms/submit.gif" alt="submit">
         </a>
     </form>
 </template>
 
 <script lang="ts">
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
@@ -34,11 +37,16 @@ export default defineComponent ({
     },
     data(): any {
         return {
-            text: ""
+            text: this.typedMessage,
         };
     },
+    computed: {
+        ...mapGetters('communication', [
+            'typedMessage'
+        ])
+    },
     methods: {
-        sendNewMessage (): void {
+        sendNewMessage(): void {
             if (this.text.length > 0) {
                 this.text = this.text.replace(/\n/g, "//"); // Replace line breaks with "//" so they are actually interpreted as line breaks
                 this.sendMessage({ text: this.text, parent: this.parent, channel: this.channel });
@@ -49,8 +57,16 @@ export default defineComponent ({
             this.text += "\n";
         },
         ...mapActions('communication', [
-            'sendMessage'
-        ])
+            'sendMessage',
+            'updateTypedMessage'
+        ]),
+        clearTypedMessage(): void {
+            this.updateTypedMessage('');
+            this.text = '';
+        },
+        restoreTypedMessage(): void {
+            this.text = this.typedMessage;
+        }
     }
 });
 </script>

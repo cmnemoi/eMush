@@ -8,3 +8,5 @@ Mush\Player\Entity\PlayerInfo:
       groups: [ 'player_info_read' ]
     characterConfig:
       groups: [ 'player_info_read' ]
+    daedalusId:
+      groups: [ 'player_info_read' ]

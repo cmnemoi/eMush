@@ -102,4 +102,13 @@ class PlayerInfo
     {
         return $this->closedPlayer;
     }
+
+    public function getDaedalusId(): int
+    {
+        if ($this->player) {
+            return $this->player->getDaedalus()->getId();
+        }
+
+        return $this->closedPlayer->getClosedDaedalus()->getId();
+    }
 }

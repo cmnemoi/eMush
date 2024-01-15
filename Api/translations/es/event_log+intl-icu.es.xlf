@@ -241,10 +241,10 @@
         <target>disease_healed_player</target>
       </segment>
     </unit>
-    <unit id="disease_curred_drug">
+    <unit id="disease_cured_drug">
       <segment state="initial">
-        <source>disease_curred_drug</source>
-        <target>disease_curred_drug</target>
+        <source>disease_cured_drug</source>
+        <target>disease_cured_drug</target>
       </segment>
     </unit>
     <unit id="disease_treated_drug">
@@ -533,6 +533,12 @@
       <segment id="consume_mush" state="initial">
         <source>consume_mush</source>
         <target>consume_mush</target>
+      </segment>
+    </unit>
+    <unit id="daily_morale_loss">
+      <segment id="daily_morale_loss" state="initial">
+        <source>daily_morale_loss</source>
+        <target>daily_morale_loss</target>
       </segment>
     </unit>
   </file>

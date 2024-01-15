@@ -1,6 +1,9 @@
 import ApiService from "@/services/api.service";
+import { RoomLog } from "@/entities/RoomLog";
+import { PlayerInfo } from "@/entities/PlayerInfo";
 import urlJoin from "url-join";
 import store from "@/store";
+import { AxiosResponse } from "axios";
 
 // @ts-ignore
 const ADMIN_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "admin");
@@ -40,7 +43,11 @@ const AdminService = {
     },
     getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
+
         const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);
+        response.data['hydra:member'] = response.data['hydra:member'].map((playerInfoData: Record<string, any>) => {
+            return (new PlayerInfo()).load(playerInfoData);
+        });
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
@@ -59,6 +66,39 @@ const AdminService = {
 
         return response;
     },
+    getAdminViewPlayer: async(playerId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.get(ADMIN_ENDPOINT + '/view-player/' + playerId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    getPlayerLogs: async(playerId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(ADMIN_ENDPOINT + '/player-logs/' + playerId);
+
+        const logs: Record<string, unknown>[] = [];
+        if (response.data) {
+            const days = response.data;
+            Object.keys(days).map((day) => {
+                Object.keys(days[day]).map((cycle) => {
+                    const roomLogs: RoomLog[] = [];
+                    days[day][cycle].forEach((value: any) => {
+                        const roomLog = (new RoomLog()).load(value);
+                        roomLogs.push(roomLog);
+                    });
+                    logs.push({
+                        "day": day,
+                        "cycle": cycle,
+                        roomLogs
+                    });
+                });
+            });
+        }
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return { "data": logs };
+    },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(QUARANTINE_PLAYER_ENDPOINT + '/' + playerId);
@@ -76,7 +116,7 @@ const AdminService = {
     sendNeronAnnouncementToAllDaedalusesByLanguage: async(announcement: string, language: string): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(
-            ADMIN_ENDPOINT + '/neron-announcement', 
+            ADMIN_ENDPOINT + '/neron-announcement',
             { announcement: announcement, language: language }
         );
 

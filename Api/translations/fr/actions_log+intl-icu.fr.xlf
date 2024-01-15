@@ -1167,13 +1167,13 @@
     <unit id="takeoff_to_planet_success">
       <segment id="takeoff_to_planet_success" state="final">
         <source>takeoff_to_planet_success</source>
-        <target>**{character}** a fait décoller {target_equipment} vers la planète. Bonne chance à l'équipe d'exploration !</target>
+        <target>**{character}** a fait décoller {target_equipment} vers la planète.</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship_success">
       <segment id="takeoff_to_planet_patrol_ship_success" state="final">
         <source>takeoff_to_planet_patrol_ship_success</source>
-        <target>**{character}** a fait atterrir {target_equipment} sur la planète. Quel courage ! (ou quelle inconscience...)</target>
+        <target>**{character}** a fait atterrir {target_equipment} sur la planète.</target>
       </segment>
     </unit>
   </file>

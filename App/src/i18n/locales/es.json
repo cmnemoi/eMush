@@ -21,7 +21,7 @@
 		"contributors": "Merci à nos contributeurs :",
 		"alpha-testers": "Tous les alpha testeurs :)",
 		"emush": "eMush",
-		"eternaltwin": "eMush es un sitio web no comercial operado por aficionados. Pertenece al proyecto <a href=https://eternaltwin.org/>Eternaltwin</a> cuyo objetivo es archivar los juegos de Motion Twin. Esto significa que queremos asegurarnos de que permanezcan disponibles incluso si el sitio web oficial cierra. <strong>No estamos relacionados con Motion Twin</strong>.",
+		"eternaltwin": "eMush es un sitio web no comercial operado por aficionados. Pertenece al proyecto <a href=https://eternaltwin.org/>Eternaltwin</a> cuyo objetivo es archivar los juegos de Motion Twin. Esto significa que queremos asegurarnos de que permanezcan disponibles incluso si el sitio web oficial cierra. <strong>No estamos relacionados con Motion Twin</strong>.\n",
 		"legal": "Mentions légales"
 	},
 	"util": {
@@ -568,7 +568,8 @@
 			"cycle": "Cycle",
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
-			"newCycle": "Nouveau cycle"
+			"newCycle": "Nouveau cycle",
+			"myMessageHere": "Mon message ici !"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

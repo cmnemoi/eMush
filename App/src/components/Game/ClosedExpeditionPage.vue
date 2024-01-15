@@ -8,8 +8,11 @@
                     <img class="planet-img" src="@/assets/images/astro/planet_unknown.png">
                     <ul class="crew">
                         <li v-for="(explorator, i) in closedExploration.explorators" :key="i">
-                            <img :src="getExploratorBodyByKey(explorator)" :alt="explorator">
-                            <p><img src="@/assets/images/dead.png"></p>
+                            <img :src="getExploratorBody(explorator)" :alt="explorator">
+                            <p>
+                                <img class="explorator-status" src="@/assets/images/in_game.png" v-if="explorator.isAlive">
+                                <img class="explorator-status" src="@/assets/images/dead.png" v-else>
+                            </p>
                         </li>
                     </ul>
                 </div>
@@ -20,7 +23,7 @@
                 </ul>
             </section>
             <section class="logs">
-                <div v-for="(log, i) in closedExploration.logs" :key=i class="event">
+                <div v-for="(log, i) in closedExploration.logs.toReversed()" :key=i class="event">
                     <img :src="getSectorImageByKey(log.planetSectorKey)">
                     <div>
                         <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>
@@ -52,6 +55,7 @@ import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { mapState } from "vuex";
 import { formatText } from "@/utils/formatText";
+import { ClosedExplorator } from "@/entities/ClosedExplorator";
 
 export default defineComponent ({
     name: "ClosedExpeditionPanel",
@@ -91,8 +95,8 @@ export default defineComponent ({
 
             return closedExploration;
         },
-        getExploratorBodyByKey(key: string): string {
-            return characterEnum[key].body;
+        getExploratorBody(explorator: ClosedExplorator): string {
+            return characterEnum[explorator.logName].body;
         },
         getSectorImageByKey(key: string): string {
             return require(`@/assets/images/astro/${key}.png`);
@@ -182,6 +186,10 @@ export default defineComponent ({
         box-shadow: 0 0 4px 1px inset rgb(28, 29, 56);
 
         @include corner-bezel(5px);
+    }
+
+    .explorator-status {
+        margin-bottom: 1px;
     }
 }
 

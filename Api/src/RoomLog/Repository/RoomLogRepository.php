@@ -4,6 +4,7 @@ namespace Mush\RoomLog\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -52,6 +53,21 @@ class RoomLogRepository extends ServiceEntityRepository
             ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT])
             ->setParameter('player', $playerInfo)
             ->setParameter('date', $yesterday)
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getAllRoomLogsByDaedalus(Daedalus $daedalus): array
+    {
+        $queryBuilder = $this->createQueryBuilder('roomLog');
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->andX(
+                $queryBuilder->expr()->eq('roomLog.daedalusInfo', ':daedalusInfo'),
+            ))
+            ->addOrderBy('roomLog.id', 'desc')
+            ->setParameter('daedalusInfo', $daedalus)
         ;
 
         return $queryBuilder->getQuery()->getResult();

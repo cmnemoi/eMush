@@ -1,11 +1,11 @@
 Mush\Player\Entity\Config\CharacterConfig:
   attributes:
     id:
-      groups: [ 'character_config_read' ]
+      groups: [ 'character_config_read', 'player_info_read' ]
     name:
-      groups: [ 'character_config_read', 'character_config_write' ]
+      groups: [ 'character_config_read', 'character_config_write', 'player_info_read' ]
     characterName:
-      groups: [ 'character_config_read', 'character_config_write' ]
+      groups: [ 'character_config_read', 'character_config_write', 'player_info_read' ]
     initStatuses:
       groups: [ 'character_config_read', 'character_config_write' ]
     actions:

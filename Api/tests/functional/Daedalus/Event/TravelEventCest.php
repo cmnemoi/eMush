@@ -83,7 +83,14 @@ final class TravelEventCest extends AbstractFunctionalTest
 
     public function testTravelFinishedEventCreatesANeronAnnouncement(FunctionalTester $I): void
     {
-        // when travel is finished
+        // when travel is launched and finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
             tags: [],
@@ -96,20 +103,6 @@ final class TravelEventCest extends AbstractFunctionalTest
             'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
             'message' => NeronMessageEnum::TRAVEL_ARRIVAL,
         ]);
-    }
-
-    public function testTravelFinishedSpawnsNewHunters(FunctionalTester $I): void
-    {
-        // when travel is finished
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
-
-        // then new hunters are spawn
-        $I->assertNotEmpty($this->daedalus->getAttackingHunters());
     }
 
     public function testTravelWhenExploringFinishesExplorationAndKillsExplorators(FunctionalTester $I): void
@@ -200,9 +193,6 @@ final class TravelEventCest extends AbstractFunctionalTest
         // given it does 1 damage per hit
         $hunter->getHunterConfig()->setDamageRange([1 => 1]);
 
-        // given I have enough points to spawn it after travel
-        $this->daedalus->setHunterPoints(20);
-
         $daedalusHullBeforeTravel = $this->daedalus->getHull();
 
         // given I launch a travel
@@ -253,9 +243,6 @@ final class TravelEventCest extends AbstractFunctionalTest
         // given it has a 100% chance to hit
         $trax->setHitChance(100);
 
-        // given I have enough points to spawn it after travel
-        $this->daedalus->setHunterPoints(25);
-
         // given trax are the only hunters which can spawn after travel
         $this->daedalus->getGameConfig()->setHunterConfigs(
             $this->daedalus->getGameConfig()->getHunterConfigs()->filter(fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::TRAX)
@@ -291,6 +278,43 @@ final class TravelEventCest extends AbstractFunctionalTest
             expected: $daedalusHullBeforeTravel,
             actual: $this->daedalus->getHull()
         );
+    }
+
+    public function testTravelFinishedSpawnsHalfOfTheHuntersOfPreviousWave(FunctionalTester $I): void
+    {
+        // given 10 hunters are spawn
+        $this->daedalus->setHunterPoints(100);
+        $hunterPoolEvent = new HunterPoolEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
+
+        // given 4 trax are spawn
+        for ($i = 0; $i < 4; ++$i) {
+            $this->createHunterFromName($I, $this->daedalus, HunterEnum::TRAX);
+        }
+
+        // when travel is launched and finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // then 5 hunters are spawn
+        $I->assertCount(5, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+
+        // then 4 trax are still there
+        $I->assertCount(4, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX));
     }
 
     private function createExploration(FunctionalTester $I)

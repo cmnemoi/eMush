@@ -21,6 +21,7 @@ import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
 import NewsPage from "@/components/NewsPage.vue";
 import PlayerListPage from "@/components/Admin/Player/PlayerListPage.vue";
 import NeronAnnouncementPage from "@/components/Admin/Daedalus/NeronAnnouncementPage.vue";
+import AdminViewPlayerDetailPage from "@/components/Admin/Player/AdminViewPlayerDetailPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -156,6 +157,11 @@ const routes = [
                 name: "AdminPlayerList",
                 path: 'player-list',
                 component: PlayerListPage
+            },
+            {
+                name: "AdminViewPlayerDetail",
+                path: 'player-view-detail/:playerId',
+                component: AdminViewPlayerDetailPage
             }
         ]
     },

@@ -487,7 +487,9 @@ class ChannelController extends AbstractGameController
 
         $this->denyIfPlayerNotInGame($currentPlayer);
 
-        $this->checkMessagePermission($currentPlayer, $channel);
+        if (!$this->playerCanPostMessage($currentPlayer, $channel)) {
+            return $this->view(['error' => 'You cannot post a message in this channel!'], Response::HTTP_FORBIDDEN);
+        }
 
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         $messages = $this->messageService->getChannelMessages($currentPlayer, $channel);
@@ -501,19 +503,27 @@ class ChannelController extends AbstractGameController
         return $view;
     }
 
-    public function checkMessagePermission(Player $currentPlayer, Channel $channel): void
+    public function playerCanPostMessage(Player $currentPlayer, Channel $channel): bool
     {
-        if (
-            !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
-            || (!$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer)
-                && !$this->channelService->canPlayerCommunicate($currentPlayer))
-        ) {
-            throw new AccessDeniedException('Player cannot speak in this channel');
+        $cannotPostInPrivateChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
+        || !$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer);
+
+        $cannotPostInPublicChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
+        || !$this->channelService->canPlayerCommunicate($currentPlayer);
+
+        if (!$channel->isPublic() && $cannotPostInPrivateChannel) {
+            return false;
+        }
+
+        if ($channel->isPublic() && $cannotPostInPublicChannel) {
+            return false;
         }
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
-            throw new AccessDeniedException('player is not from this daedalus');
+            return false;
         }
+
+        return true;
     }
 
     /**

@@ -76,6 +76,11 @@ class ClosedPlayer
         return $this;
     }
 
+    public function getDaedalusLanguage(): string
+    {
+        return $this->getClosedDaedalus()->getLanguage();
+    }
+
     public function getMessage(): ?string
     {
         return $this->message;

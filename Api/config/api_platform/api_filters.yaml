@@ -49,13 +49,6 @@ services:
         autowire: false
         autoconfigure: false
         public: false
-    closedPlayer.search_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { playerInfo.user.userId: 'exact' } ]
-        tags:  [ 'api_platform.filter' ]
-        autowire: false
-        autoconfigure: false
-        public: false
     news.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
@@ -88,11 +81,32 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    languageClosedDaedalus.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { daedalusInfo.localizationConfig.language: 'exact' } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
     closedPlayer.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
             $properties: { dayDeath: DESC, cycleDeath: DESC }
             $orderParameterName: order
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    languageClosedPlayer.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { closedDaedalus.daedalusInfo.language: 'exact' } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    userClosedPlayer.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { playerInfo.user.userId: 'exact' } ]
         tags: [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

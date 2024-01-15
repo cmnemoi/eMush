@@ -41,7 +41,11 @@
 		"playerRankingSubMenu": "Joueurs",
 		"shipRankingSubMenu": "Daedalus",
 		"linkToTheEnd": "Daedalus",
-		"goToTheEnd": "Palmarès"
+		"goToTheEnd": "Palmarès",
+		"languages": "Langue du Daedalus",
+		"all": "Tous les vaisseaux",
+		"french": "Vaisseaux français",
+		"english": "Vaisseaux anglais"
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",
@@ -50,7 +54,7 @@
 		"goldSuperNova": "Prix Super Nova d'Or",
 		"silverSuperNova": "Prix Super Nova d'Excellence",
 		"bronzeSuperNova": "Prix Super Nova d'Honneur",
-		"discoveredSuperNova": "Prix Super Nova Révelée",
+		"discoveredSuperNova": "Prix Super Nova Révélée",
 		"specialSuperNova": "Prix Nova Spécial",
 		"normalSuperNova": "Prix Nova",
 		"numberOfHuntersKilled": "Hunters abattus",

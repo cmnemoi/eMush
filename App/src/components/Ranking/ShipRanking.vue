@@ -11,6 +11,17 @@
                 </option>
             </select>
         </div>-->
+        <label>{{ $t('ranking.languages') }}
+            <select v-model="language" @change="updateFilter">
+                <option
+                    v-for="option in languagesOption"
+                    :value=option.value
+                    :key=option.key
+                >
+                    {{ $t(option.key) }}
+                </option>
+            </select>
+        </label>
         <Datatable
             :headers='fields'
             :uri="uri"
@@ -46,6 +57,12 @@ export default defineComponent({
     },
     data() {
         return {
+            languagesOption: [
+                { key: 'ranking.all', value: '' },
+                { key: 'ranking.french', value: 'fr' },
+                { key: 'ranking.english', value: 'en' },
+            ],
+            language: '',
             fields: [
                 {
                     key: 'endCause',
@@ -103,9 +120,14 @@ export default defineComponent({
             if (this.pagination.pageSize) {
                 params.params['itemsPerPage'] = this.pagination.pageSize;
             }
+            if (this.language) {
+                params.params['daedalusInfo.localizationConfig.language'] = this.language;
+            }
+
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
+
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_daedaluses'), params)
                 .then((result) => {
                     return result.data;

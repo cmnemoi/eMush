@@ -77,6 +77,11 @@ class ClosedDaedalus
         return $this;
     }
 
+    public function getLanguage(): string
+    {
+        return $this->daedalusInfo->getLanguage();
+    }
+
     public function getEndCycle(): int
     {
         return $this->endCycle;

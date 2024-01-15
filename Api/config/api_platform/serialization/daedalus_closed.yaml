@@ -16,3 +16,5 @@ Mush\Daedalus\Entity\ClosedDaedalus:
       groups: [ 'closed_daedalus_read' ]
     cyclesSurvived:
       groups: [ 'closed_daedalus_read' ]
+    language:
+      groups: [ 'closed_daedalus_read' ]

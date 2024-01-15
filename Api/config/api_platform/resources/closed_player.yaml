@@ -8,7 +8,12 @@ Mush\Player\Entity\ClosedPlayer:
   collectionOperations:
     get:
       security: 'is_granted("ROLE_USER")'
-      filters: [ 'default.search_filter', 'default.order_filter', 'closedPlayer.search_filter', 'closedPlayer.order_filter' ]
+      filters: [
+        'default.search_filter',
+        'default.order_filter',
+        'userClosedPlayer.search_filter',
+        'closedPlayer.order_filter'
+      ]
   itemOperations:
     get:
       security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)'

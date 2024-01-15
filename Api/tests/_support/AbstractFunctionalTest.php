@@ -134,16 +134,6 @@ class AbstractFunctionalTest
         ;
         $I->haveInRepository($space);
 
-        /** @var PlaceConfig $spaceConfig */
-        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
-        $space = new Place();
-        $space
-            ->setName(RoomEnum::SPACE)
-            ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
-        $I->haveInRepository($space);
-
         /** @var PlaceConfig $planetConfig */
         $planetConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PLANET]);
         $planet = new Place();

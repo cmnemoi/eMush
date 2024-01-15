@@ -1763,7 +1763,7 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_pilot_no_critical_fail_piloting',
+            'name' => 'modifier_pilot_always_critical_success_piloting',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,

@@ -242,7 +242,7 @@ class StatusConfigData
         [
             'name' => 'burdened_default',
             'statusName' => 'burdened',
-            'visibility' => 'public',
+            'visibility' => 'private',
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',

@@ -11,6 +11,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -21,6 +22,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private RoomLogRepository $roomLogRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -29,6 +31,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->roomLogRepository = $I->grabService(RoomLogRepository::class);
     }
 
     public function testDispatchCycleChange(FunctionalTester $I)
@@ -160,8 +163,21 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then the player has the expected morale points
+        $expectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + PlayerService::DAY_MORAL_CHANGE;
+
+        // player might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
+        $panicCrisis = $this->roomLogRepository->findOneBy([
+            'place' => $this->player->getPlace()->getName(),
+            'playerInfo' => $this->player->getPlayerInfo(),
+            'log' => PlayerModifierLogEnum::PANIC_CRISIS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+        if ($panicCrisis) {
+            $expectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
+        }
+
         $I->assertEquals(
-            expected: $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + PlayerService::DAY_MORAL_CHANGE,
+            expected: $expectedMoralPoint,
             actual: $this->player->getMoralPoint()
         );
 
@@ -186,5 +202,10 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
         );
+    }
+
+    private function getPanicCrisisPlayerDamage(): int
+    {
+        return array_keys($this->daedalus->getGameConfig()->getDifficultyConfig()->getPanicCrisisPlayerDamage()->toArray())[0];
     }
 }

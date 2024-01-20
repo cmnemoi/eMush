@@ -1,5 +1,5 @@
 <template>
-    <ul class="inventory">
+    <ul class="inventory" @wheel="ScrollIcons($event)">
         <li
             v-for="(item) in items"
             :key="item.id"
@@ -75,6 +75,10 @@ export default defineComponent ({
         isItemSelected: function(item: Item): boolean {
             return this.selectedItem instanceof Item && this.selectedItem.id === item.id;
         },
+        ScrollIcons(event: any) {
+            event.preventDefault();
+            event.currentTarget.scrollLeft += event.deltaY * 0.28;
+        }
     }
 });
 </script>
@@ -83,6 +87,15 @@ export default defineComponent ({
 .inventory {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+    overflow-x: auto;
+
+    @extend %game-scrollbar;
+    --scrollbarBG: rgba(0, 0, 0, 0.4);
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
 
     .slot {
         @include inventory-slot();

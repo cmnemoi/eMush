@@ -63,22 +63,18 @@ export default defineComponent ({
     },
     mounted() {
         document.getElementById('container')?.addEventListener('mousedown', function btnMousedown (ev: any) {
-            console.log("down"),
             ev.stopPropagation();
         });
 
         document.getElementById('container')?.addEventListener('mouseup', function btnMouseup (ev: any) {
-            console.log("up"),
             ev.stopPropagation();
         });
     },
     unmounted() {
         document.getElementById('container')?.removeEventListener('mousedown', function btnMousedown (ev: any) {
-            console.log("stopdown"),
             ev.stopPropagation();
         });
         document.getElementById('container')?.removeEventListener('mouseup', function btnMouseup (ev: any) {
-            console.log("stopup"),
             ev.stopPropagation();
         });
     },
@@ -117,14 +113,5 @@ export default defineComponent ({
 
 .inventory {
     margin: 0 12px;
-    overflow: hidden;
-    overflow-x: scroll;
-
-    @extend %game-scrollbar;
-    --scrollbarBG: rgba(0, 0, 0, 0.4);
-    scrollbar-width: thin;
-    &::-webkit-scrollbar {
-        height: 8px;
-    }
 }
 </style>

@@ -76,10 +76,15 @@ abstract class AbstractAction
     public function cannotExecuteReason(): ?string
     {
         $validator = $this->validator;
-        $violations = $validator->validate($this, null, 'execute');
+        $visibilityViolations = $validator->validate($this, null, 'visibility');
+        $executeViolations = $validator->validate($this, null, 'execute');
 
         /** @var ConstraintViolationInterface $violation */
-        foreach ($violations as $violation) {
+        foreach ($visibilityViolations as $violation) {
+            return (string) $violation->getMessage();
+        }
+        /** @var ConstraintViolationInterface $violation */
+        foreach ($executeViolations as $violation) {
             return (string) $violation->getMessage();
         }
 
@@ -92,10 +97,8 @@ abstract class AbstractAction
 
     public function execute(): ActionResult
     {
-        if (!$this->isVisible()
-            || $this->cannotExecuteReason() !== null
-        ) {
-            return new Error('Cannot execute action');
+        if ($reason = $this->cannotExecuteReason()) {
+            return new Error($reason);
         }
 
         $preActionEvent = new ActionEvent($this->action, $this->player, $this->target);

@@ -418,8 +418,6 @@ class HunterService implements HunterServiceInterface
             throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship armor status");
         }
 
-        /** @var ?Player|false $patrolShipPilot */
-
         // temporary reset the target in case patrolShip is destroyed
         /** @var HunterTarget $patrolShipTarget */
         $patrolShipTarget = $hunter->getTarget();

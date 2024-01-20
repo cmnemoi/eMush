@@ -148,6 +148,16 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
             expected: $this->pasiphaeArmorStatusConfig->getStartCharge(),
             actual: $this->pasiphaeArmorStatus->getCharge()
         );
+
+        // then I see a public room log stating the patrol ship armor is damaged
+        $I->seeInRepository(
+            entity: RoomLog::class, 
+            params: [
+                'place' => $this->pasiphae->getPlace()->getLogName(),
+                'log' => LogEnum::PATROL_DAMAGE,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 
     public function testMakeHuntersShootPlayer(FunctionalTester $I)

@@ -1,5 +1,5 @@
 <template>
-    <div class="inventory-container">
+    <div class="inventory-container" id="container">
         <Inventory
             class="inventory"
             :items="items"
@@ -60,7 +60,28 @@ export default defineComponent ({
         selectItem(target: Item | null): void {
             this.selectTarget({ target: target });
         }
-    }
+    },
+    mounted() {
+        document.getElementById('container')?.addEventListener('mousedown', function btnMousedown (ev: any) {
+            console.log("down"),
+            ev.stopPropagation();
+        });
+
+        document.getElementById('container')?.addEventListener('mouseup', function btnMouseup (ev: any) {
+            console.log("up"),
+            ev.stopPropagation();
+        });
+    },
+    unmounted() {
+        document.getElementById('container')?.removeEventListener('mousedown', function btnMousedown (ev: any) {
+            console.log("stopdown"),
+            ev.stopPropagation();
+        });
+        document.getElementById('container')?.removeEventListener('mouseup', function btnMouseup (ev: any) {
+            console.log("stopup"),
+            ev.stopPropagation();
+        });
+    },
 });
 </script>
 
@@ -71,7 +92,6 @@ export default defineComponent ({
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding-right: 16px; // for textual scrollbar
 
     .name-container {
         background: #09092d;
@@ -96,6 +116,7 @@ export default defineComponent ({
 }
 
 .inventory {
+    margin: 0 12px;
     overflow: hidden;
     overflow-x: scroll;
 

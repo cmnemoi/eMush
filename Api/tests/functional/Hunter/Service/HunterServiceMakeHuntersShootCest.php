@@ -15,6 +15,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterTarget;
@@ -23,6 +24,9 @@ use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterService;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -164,6 +168,27 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->assertLessThan(
             expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player2->getHealthPoint(),
+        );
+
+        // then I see a private health loss room log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params : [
+                'place' => $this->player2->getPlace()->getLogName(),
+                'playerInfo' => $this->player2->getPlayerInfo(),
+                'log' => PlayerModifierLogEnum::LOSS_HEALTH_POINT,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+
+        // then I see a public log explaining that player has been attacked by a hunter
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params : [
+                'place' => $this->player2->getPlace()->getLogName(),
+                'log' => LogEnum::ATTACKED_BY_HUNTER,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
         );
     }
 

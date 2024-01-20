@@ -104,7 +104,7 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function createEventLog(string $logKey, StatusEvent $event, ?string $visibility = null): void
+    private function createEventLog(string $logKey, StatusEvent $event, string $visibility = null): void
     {
         $player = $event->getStatusHolder();
         $place = $event->getPlace();

@@ -22,7 +22,6 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
-use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;

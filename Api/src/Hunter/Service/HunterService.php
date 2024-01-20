@@ -403,7 +403,7 @@ class HunterService implements HunterServiceInterface
             daedalus: $daedalus,
             variableName: DaedalusVariableEnum::HULL,
             quantity: -$damage,
-            tags: [AbstractHunterEvent::HUNTER_SHOT],
+            tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 
@@ -428,7 +428,7 @@ class HunterService implements HunterServiceInterface
         $chargeStatus = $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
-            tags: [AbstractHunterEvent::HUNTER_SHOT],
+            tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 
@@ -448,7 +448,7 @@ class HunterService implements HunterServiceInterface
             player: $player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: -$damage,
-            tags: [AbstractHunterEvent::HUNTER_SHOT],
+            tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 

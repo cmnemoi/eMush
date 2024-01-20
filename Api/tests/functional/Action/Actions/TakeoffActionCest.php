@@ -165,7 +165,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => LogEnum::PATROL_DAMAGE,
-            'visibility' => VisibilityEnum::PRIVATE,
+            'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->assertNotEquals(
             $this->player1->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getInitHull(),

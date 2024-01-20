@@ -20,8 +20,15 @@ const getters = {
 };
 
 const mutations: MutationTree<any> = {
-    setError(state:any, error: any): void {
+    setError(state: any, error: any): void {
         const isHydraError = error.response?.data['@type'] === 'hydra:Error';
+        
+        let errorDetails = '';
+        if (isHydraError) {
+            errorDetails = error.response?.data['hydra:description'];
+        } else {
+            errorDetails = error.response?.data?.error ?? error.response?.data?.detail;
+        }
 
         state.error = {
             message: error.message,
@@ -33,7 +40,7 @@ const mutations: MutationTree<any> = {
                 method: error.config?.method
             },
             response: {
-                details: isHydraError ? error.response?.data['hydra:description'] : error.response?.data?.detail,
+                details: errorDetails,
                 class: error.response?.data?.class
             }
         };

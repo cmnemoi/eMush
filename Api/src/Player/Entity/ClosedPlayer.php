@@ -182,9 +182,4 @@ class ClosedPlayer
     {
         return $this->daedalus->getId();
     }
-
-    public function getDaysSurvived(): int
-    {
-        return $this->dayDeath - 1;
-    }
 }

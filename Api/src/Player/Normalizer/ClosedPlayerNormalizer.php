@@ -53,7 +53,9 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         if ($daedalus->isDaedalusFinished()) {
             $data['endCause'] = $this->getTranslatedEndCause($closedPlayer->getEndCause(), $daedalus->getDaedalusInfo()->getLanguage());
-            $data['cyclesSurvived'] = $this->getPlayerCyclesSurvived($closedPlayer);
+            $numberOfCycles = $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
+            $data['cyclesSurvived'] = $this->getPlayerCyclesSurvived($closedPlayer, $numberOfCycles);
+            $data['daysSurvived'] = intval($data['cyclesSurvived'] / $numberOfCycles);
         }
 
         return $data;
@@ -84,15 +86,14 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         ];
     }
 
-    private function getPlayerCyclesSurvived(ClosedPlayer $player): int
+    private function getPlayerCyclesSurvived(ClosedPlayer $player, int $numberOfCycles): int
     {
         $daedalus = $player->getClosedDaedalus();
 
         /** @var \DateTime $startDate */
         $startDate = $player->getCreatedAt();
         $startCycle = $this->cycleService->getInDayCycleFromDate($startDate, $daedalus);
-        $numberOfCycles = $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
 
-        return $player->getDaysSurvived() * $numberOfCycles + $player->getCycleDeath() - $startCycle;
+        return $player->getDayDeath() * $numberOfCycles + $player->getCycleDeath() - $startCycle;
     }
 }

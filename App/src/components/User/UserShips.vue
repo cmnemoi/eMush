@@ -88,9 +88,13 @@ export default defineComponent({
     methods: {
         loadData() {
             this.loading = true;
-            // @ts-ignore
+            if (typeof this.$route.params.userId !== 'string') {
+                throw new Error('userId is undefined');
+            }
             UserService.loadUser(this.$route.params.userId).then((user) => {
-                // @ts-ignore
+                if (!user.username) {
+                    throw new Error('User should have a username');
+                }
                 this.username = user.username;
             });
             const params: any = {

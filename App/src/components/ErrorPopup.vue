@@ -10,7 +10,7 @@
                     <span v-if="error.request.method">{{ $t('errors.details.method') }} {{ error.request.method.toUpperCase() }}</span>
                     <span v-if="error.request.url">{{ $t('errors.details.url') }} {{ error.request.url }}</span>
                     <span class="details" v-if="error.request.params">{{ $t('errors.details.params') }} <strong>{{ error.request.params }}</strong></span>
-                    <span class="details" v-if="getTranslatedErrorDetails()">{{ $t('errors.details.message') }} <strong>{{ getTranslatedErrorDetails() }}</strong></span>
+                    <span class="details" v-if="getTranslatedErrorDetails()">{{ $t('errors.details.details') }} <strong>{{ getTranslatedErrorDetails() }}</strong></span>
                     <span class="details" v-if="error.response.class">{{ $t('errors.details.class') }} <strong>{{ error.response.class }}</strong></span>
                 </div>
                 <p v-html="$t('errors.consultCommunity')"></p>

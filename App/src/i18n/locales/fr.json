@@ -597,7 +597,7 @@
 	"errors": {
 		"details": {
 			"class": "Classe :",
-			"message": "Message :",
+			"details": "Détails :",
 			"method": "Méthode :",
 			"params": "Paramètres :",
 			"url": "URL :"

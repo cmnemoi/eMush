@@ -2,6 +2,7 @@
 
 namespace Mush\User\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\User\Entity\User;
 use Mush\User\Repository\UserRepository;
@@ -61,5 +62,10 @@ class UserService implements UserServiceInterface
     public function findUserDaedaluses(User $user): array
     {
         return $this->repository->findUserDaedaluses($user);
+    }
+
+    public function findUserClosedPlayers(User $user): ArrayCollection
+    {
+        return new ArrayCollection($this->repository->findUserClosedPlayers($user));
     }
 }

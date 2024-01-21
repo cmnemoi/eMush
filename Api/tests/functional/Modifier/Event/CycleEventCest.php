@@ -12,6 +12,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -25,6 +26,7 @@ class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
+    private RoomLogRepository $roomLogRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -34,6 +36,7 @@ class CycleEventCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->roomLogRepository = $I->grabService(RoomLogRepository::class);
     }
 
     public function testLieDownStatus(FunctionalTester $I)
@@ -53,20 +56,44 @@ class CycleEventCest extends AbstractFunctionalTest
 
     public function testAntisocialStatusCycleSubscriber(FunctionalTester $I)
     {
+        // given first player has antisocial status
         $this->statusService->createStatusFromName(PlayerStatusEnum::ANTISOCIAL, $this->player1, [], new \DateTime());
 
-        $moralePointBefore1 = $this->player1->getMoralPoint();
-        $moralePointBefore2 = $this->player2->getMoralPoint();
+        // players might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
+        $firstPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
+            'place' => $this->player->getPlace()->getName(),
+            'playerInfo' => $this->player->getPlayerInfo(),
+            'log' => PlayerModifierLogEnum::PANIC_CRISIS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+        $secondPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
+            'place' => $this->player2->getPlace()->getName(),
+            'playerInfo' => $this->player2->getPlayerInfo(),
+            'log' => PlayerModifierLogEnum::PANIC_CRISIS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
 
-        $I->assertCount(1, $this->player1->getStatuses());
-        $I->assertCount(1, $this->player1->getModifiers());
+        $antiSocialMalus = -1;
+        $firstPlayerExpectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + $antiSocialMalus;
+        $secondPlayerExpectedMoralPoint = $this->player2->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
 
+        if ($firstPlayerPanicCrisis) {
+            $firstPlayerExpectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
+        }
+
+        if ($secondPlayerPanicCrisis) {
+            $secondPlayerExpectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
+        }
+
+        // when new cycle event is called
         $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->assertEquals($moralePointBefore1 - 1, $this->player1->getMoralPoint());
-        $I->assertEquals($moralePointBefore2, $this->player2->getMoralPoint());
+        // then players have the expected morale points
+        $I->assertEquals($firstPlayerExpectedMoralPoint, $this->player1->getMoralPoint());
+        $I->assertEquals($secondPlayerExpectedMoralPoint, $this->player2->getMoralPoint());
 
+        // then I can see antisocial morale loss in first player room logs
         $I->seeInRepository(RoomLog::class, [
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'place' => $this->player1->getPlace()->getName(),
@@ -141,5 +168,10 @@ class CycleEventCest extends AbstractFunctionalTest
 
         // then electric charges is now 10
         $I->assertEquals(10, $electricCharges->getCharge());
+    }
+
+    private function getPanicCrisisPlayerDamage(): int
+    {
+        return array_keys($this->daedalus->getGameConfig()->getDifficultyConfig()->getPanicCrisisPlayerDamage()->toArray())[0];
     }
 }

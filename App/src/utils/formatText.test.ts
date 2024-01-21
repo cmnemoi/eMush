@@ -64,6 +64,20 @@ describe('formatText', () => {
 
             expect(result).to.equal(`Vous avez faim <img/>`);
         });
+        it('should replace // with <br>', () => {
+            const text = `Raluca a pris un Débris métallique.//Raluca a pris un Débris métallique.`;
+
+            const result = formatText(text);
+
+            expect(result).to.equal(`Raluca a pris un Débris métallique.<br>Raluca a pris un Débris métallique.`);
+        });
+        it('should not replace https:://emush.eternaltwin.org/ with <br>', () => {
+            const text = `https://emush.eternaltwin.org/`;
+
+            const result = formatText(text);
+
+            expect(result).to.equal(`https://emush.eternaltwin.org/`);
+        });
     });
 
     describe("Complex tests", () => {

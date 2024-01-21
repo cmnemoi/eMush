@@ -110,4 +110,26 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
         $remainingPlanets = $this->planetService->findAllByDaedalus($this->daedalus);
         $I->assertNotContains($planet, $remainingPlanets);
     }
+
+    public function testLeaveOrbitDeletesEdgeCaseInOrbitPlanet(FunctionalTester $I): void
+    {
+        // given in orbit planet
+        $planet = $this->planetService->createPlanet($this->player);
+
+        // given this planet coordinates matches current daedalus coordinates
+        $this->daedalus->setCombustionChamberFuel($planet->getDistance());
+        $this->daedalus->setOrientation($planet->getOrientation());
+
+        // when player leaves orbit
+        $this->moveDaedalusAction->loadParameters(
+            action: $this->moveDaedalusActionConfig,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then planet is deleted
+        $remainingPlanets = $this->planetService->findAllByDaedalus($this->daedalus);
+        $I->assertNotContains($planet, $remainingPlanets);
+    }
 }

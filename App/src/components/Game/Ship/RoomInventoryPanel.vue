@@ -1,5 +1,5 @@
 <template>
-    <div class="inventory-container" id="container">
+    <div class="inventory-container">
         <Inventory
             class="inventory"
             :items="items"
@@ -60,24 +60,7 @@ export default defineComponent ({
         selectItem(target: Item | null): void {
             this.selectTarget({ target: target });
         }
-    },
-    mounted() {
-        document.getElementById('container')?.addEventListener('mousedown', function btnMousedown (ev: any) {
-            ev.stopPropagation();
-        });
-
-        document.getElementById('container')?.addEventListener('mouseup', function btnMouseup (ev: any) {
-            ev.stopPropagation();
-        });
-    },
-    unmounted() {
-        document.getElementById('container')?.removeEventListener('mousedown', function btnMousedown (ev: any) {
-            ev.stopPropagation();
-        });
-        document.getElementById('container')?.removeEventListener('mouseup', function btnMouseup (ev: any) {
-            ev.stopPropagation();
-        });
-    },
+    }
 });
 </script>
 

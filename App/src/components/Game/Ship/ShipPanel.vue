@@ -16,12 +16,18 @@
                 v-if="isMinimapOpen"
                 :my-position="room"
                 :minimap="player.daedalus.minimap"
+                @mousedown.stop
             />
-            <RoomInventoryPanel v-if="isInventoryOpen" :items="room.items" />
+            <RoomInventoryPanel
+                v-if="isInventoryOpen"
+                :items="room.items"
+                @mousedown.stop
+            />
             <component
                 :is="targetPanel"
                 v-else-if="isActionPanelOpen"
                 :target="selectedTarget"
+                @mousedown.stop
             />
         </div>
         <p v-else class="loading">

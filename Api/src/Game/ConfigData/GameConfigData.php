@@ -411,6 +411,7 @@ class GameConfigData
                 'in_orbit_default',
                 'exploration_oxygen_default',
                 'exploration_fuel_default',
+                'following_hunters_default'
             ],
             'triumphConfigs' => [
                 'alien_science',

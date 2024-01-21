@@ -43,6 +43,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
     public const MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';
     public const MUSH_CONSUME_MODIFIER = 'mush_consume_modifier';
+    public const MUSH_MORALE_MODIFIER = 'mush_morale_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -230,6 +231,22 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($mushConsumeModifier);
 
+        $mushMoraleModifier = new VariableEventModifierConfig('mushMoraleModifier');
+        $mushMoraleModifier
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
+            ->setDelta(0)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setApplyOnTarget(true)
+            ->setTagConstraints([
+                PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
+                VariableEventInterface::LOSS => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $manager->persist($mushMoraleModifier);
+        
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -246,6 +263,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::MUSH_SHOWER_MODIFIER, $mushShowerModifier);
         $this->addReference(self::MUSH_CONSUME_MODIFIER, $mushConsumeModifier);
         $this->addReference(self::MUSH_CONSUME_SATIETY_MODIFIER, $mushConsumeSatietyModifier);
+        $this->addReference(self::MUSH_MORALE_MODIFIER, $mushMoraleModifier);
     }
 
     public function getDependencies(): array

@@ -1016,7 +1016,7 @@ class StatusConfigData
             'statusName' => PlayerStatusEnum::POC_PILOT_SKILL,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'status_config',
-            'modifierConfigs' => ['modifier_pilot_always_critical_success_piloting'],
+            'modifierConfigs' => ['modifier_pilot_always_critical_success_piloting', 'modifier_pilot_increased_shoot_hunter_chances'],
         ],
     ];
 }

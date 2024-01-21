@@ -411,6 +411,8 @@ class GameConfigData
                 'in_orbit_default',
                 'exploration_oxygen_default',
                 'exploration_fuel_default',
+                PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
+                PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
             ],
             'triumphConfigs' => [
                 'alien_science',

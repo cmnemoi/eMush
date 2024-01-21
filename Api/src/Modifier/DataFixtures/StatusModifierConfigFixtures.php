@@ -44,6 +44,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';
     public const MUSH_CONSUME_MODIFIER = 'mush_consume_modifier';
 
+    public const SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
+
     public function load(ObjectManager $manager): void
     {
         $frozenModifier = new VariableEventModifierConfig('frozenIncreaseConsumeCost1Action');
@@ -230,6 +232,23 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($mushConsumeModifier);
 
+        $shooterSpecialist = new VariableEventModifierConfig('modifier_shooter_specialist_point');
+        $shooterSpecialist
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(0)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setApplyOnTarget(false)
+            ->setTagConstraints([
+                ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(ModifierNameEnum::SHOOTER_SPECIALIST_POINT)
+        ;
+        $manager->persist($shooterSpecialist);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -246,6 +265,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::MUSH_SHOWER_MODIFIER, $mushShowerModifier);
         $this->addReference(self::MUSH_CONSUME_MODIFIER, $mushConsumeModifier);
         $this->addReference(self::MUSH_CONSUME_SATIETY_MODIFIER, $mushConsumeSatietyModifier);
+
+        $this->addReference(self::SHOOTER_SPECIALIST_POINT, $shooterSpecialist);
     }
 
     public function getDependencies(): array

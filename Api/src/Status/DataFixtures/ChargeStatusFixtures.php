@@ -61,6 +61,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
+    public const SHOOTER_SKILL_POC = 'shooter_skill_poc';
+
     public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
@@ -456,6 +458,23 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($followingHuntersStatus);
 
+        /** @var VariableEventModifierConfig $shooterSpecialistPointModifier */
+        $shooterSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::SHOOTER_SPECIALIST_POINT);
+        $shooterSkillPoc = new ChargeStatusConfig();
+        $shooterSkillPoc
+            ->setStatusName(PlayerStatusEnum::POC_SHOOTER_SKILL)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PRIVATE)
+            ->setStartCharge(2)
+            ->setMaxCharge(4)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
+            ->setDischargeStrategies([ModifierNameEnum::SHOOTER_SPECIALIST_POINT])
+            ->setAutoRemove(false)
+            ->setModifierConfigs([$shooterSpecialistPointModifier])
+            ->buildName(GameConfigEnum::ALPHA)
+        ;
+        $manager->persist($shooterSkillPoc);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -488,6 +507,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($explorationFuelStatus)
             ->addStatusConfig($hunterTruceCycles)
             ->addStatusConfig($followingHuntersStatus)
+            ->addStatusConfig($shooterSkillPoc)
         ;
         $manager->persist($gameConfig);
 

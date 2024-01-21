@@ -59,23 +59,27 @@ class CycleEventCest extends AbstractFunctionalTest
         // given first player has antisocial status
         $this->statusService->createStatusFromName(PlayerStatusEnum::ANTISOCIAL, $this->player1, [], new \DateTime());
 
+        $antiSocialMalus = -1;
+        $firstPlayerExpectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + $antiSocialMalus;
+        $secondPlayerExpectedMoralPoint = $this->player2->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
+
+        // when new cycle event is called
+        $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
         // players might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
         $firstPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
-            'place' => $this->player->getPlace()->getName(),
+            'place' => $this->player->getPlace()->getLogName(),
             'playerInfo' => $this->player->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::PANIC_CRISIS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
         $secondPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
-            'place' => $this->player2->getPlace()->getName(),
+            'place' => $this->player2->getPlace()->getLogName(),
             'playerInfo' => $this->player2->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::PANIC_CRISIS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
-
-        $antiSocialMalus = -1;
-        $firstPlayerExpectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + $antiSocialMalus;
-        $secondPlayerExpectedMoralPoint = $this->player2->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
 
         if ($firstPlayerPanicCrisis) {
             $firstPlayerExpectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
@@ -84,10 +88,6 @@ class CycleEventCest extends AbstractFunctionalTest
         if ($secondPlayerPanicCrisis) {
             $secondPlayerExpectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
         }
-
-        // when new cycle event is called
-        $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then players have the expected morale points
         $I->assertEquals($firstPlayerExpectedMoralPoint, $this->player1->getMoralPoint());

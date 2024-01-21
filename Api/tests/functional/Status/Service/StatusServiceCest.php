@@ -24,6 +24,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Place\Enum\RoomEventEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -161,6 +162,68 @@ final class StatusServiceCest extends AbstractFunctionalTest
             holder: $researchLab,
             tags: [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
             time: $oneCycleLater,
+        );
+
+        // then I should see two distinct NERON threads
+        $threads = $I->grabEntitiesFromRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::CYCLE_FAILURES,
+            ]
+        );
+        $I->assertCount(2, $threads);
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::CYCLE_FAILURES,
+                'createdAt' => $daedalusTime,
+            ]
+        );
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
+                'message' => NeronMessageEnum::CYCLE_FAILURES,
+                'createdAt' => $oneCycleLater,
+            ]
+        );
+    }
+
+    public function testPropagatingFireAtNewCycleIsAnnouncedInADistinctThread(FunctionalTester $I): void
+    {
+        $daedalusTime = $this->daedalus->getCycleStartedAt();
+
+        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+
+        // given I have the front corridor
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+
+        // given I have a fire in laboratory
+        $this->statusService->createStatusFromName(
+            StatusEnum::FIRE,
+            $laboratory,
+            [EventEnum::NEW_CYCLE, StatusEnum::FIRE],
+            $daedalusTime,
+        );
+
+        // given fire propagation rate is 0%
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setPropagatingFireRate(0);
+
+        // given a cycle change passes
+        $oneCycleLater = clone $daedalusTime;
+        $oneCycleLater->add(new \DateInterval('PT' . $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
+        $this->daedalus->setCycleStartedAt($oneCycleLater);
+
+        // when the fire propagates
+        $this->statusService->createStatusFromName(
+            StatusEnum::FIRE,
+            $frontCorridor,
+            [RoomEventEnum::PROPAGATING_FIRE],
+            $oneCycleLater,
         );
 
         // then I should see two distinct NERON threads

@@ -1,8 +1,8 @@
 <template>
     <div class="banner">
         <div class="logo">
-            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
-            <router-link v-else :to="{ name: 'HomePage' }"><img src="@/assets/images/logo_new.png" alt=""></router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }" @click="reloadData"><img src="@/assets/images/logo_new.png" alt="eMush logo"></router-link>
+            <router-link v-else :to="{ name: 'HomePage' }"><img src="@/assets/images/logo_new.png" alt="eMush logo"></router-link>
         </div>
         <div class="mainmenu">
             <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>
@@ -19,7 +19,7 @@
 <script lang="ts">
 import Login from "@/components/Login.vue";
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 
 export default defineComponent ({
@@ -33,11 +33,28 @@ export default defineComponent ({
         };
     },
     computed: {
-        ...mapGetters('auth', [
-            'loggedIn',
-            'isAdmin',
-            'userId'
-        ])
+        ...mapGetters({
+            loggedIn: 'auth/loggedIn',
+            isAdmin: 'auth/isAdmin',
+            userId: 'auth/userId',
+            player: 'player/player'
+        }),
+        route() {
+            return this.$route.name;
+        }
+    },
+    methods: {
+        ...mapActions({
+            loadChannels: 'communication/loadChannels',
+            loadRoomLogs: 'communication/loadRoomLogs',
+            reloadPlayer: 'player/reloadPlayer'
+        }),
+        reloadData() {
+            if (this.route !== 'GamePage' || this.player === null) return;
+            this.reloadPlayer();
+            this.loadChannels();
+            this.loadRoomLogs();
+        }
     }
 });
 </script>

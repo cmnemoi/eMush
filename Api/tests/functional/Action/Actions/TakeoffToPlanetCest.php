@@ -9,6 +9,7 @@ use Mush\Action\Actions\TakeoffToPlanet;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -25,6 +26,7 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -40,6 +42,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 {
     private Action $takeoffToPlanetConfig;
     private TakeoffToPlanet $takeoffToPlanetAction;
+
+    private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
     private GameEquipment $icarus;
@@ -51,6 +55,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         $this->takeoffToPlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKEOFF_TO_PLANET]);
         $this->takeoffToPlanetAction = $I->grabService(TakeoffToPlanet::class);
+
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is Icarus Bay on this Daedalus
@@ -70,32 +76,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($this->icarus);
 
-        // given a planet without oxygen has been found
-        $planetName = new PlanetName();
-        $planetName->setFirstSyllable(1);
-        $planetName->setFourthSyllable(1);
-        $I->haveInRepository($planetName);
-
-        $this->planet = new Planet($this->player);
-        $this->planet
-            ->setName($planetName)
-            ->setSize(1)
-        ;
-        $I->haveInRepository($this->planet);
-
-        $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
-        $sector = new PlanetSector($desertSectorConfig, $this->planet);
-        $I->haveInRepository($sector);
-
-        $this->planet->setSectors(new ArrayCollection([$sector]));
-
-        // given the Daedalus is in orbit around the planet
-        $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::IN_ORBIT,
-            holder: $this->daedalus,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->createPlanetForTest($I);
     }
 
     public function testTakeoffToPlanetNotVisibleIfDaedalusIsNotInOrbit(FunctionalTester $I): void
@@ -433,6 +414,101 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
                 'target_equipment' => $this->icarus->getLogName(),
             ],
             actual: $log->getParameters(),
+        );
+    }
+
+    public function testISeePreviousExplorationLogsOnTheSamePlanet(FunctionalTester $I): void
+    {
+        // given players launch a first exploration without spacesuit
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // given this prints some logs in planet place
+        /** @var array<int, RoomLog> $logs */
+        $logs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::PLANET,
+                'log' => PlayerStatusEnum::STUCK_IN_THE_SHIP,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        // when players launch a second exploration without spacesuit
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // then the previous logs are still visible
+        foreach ($logs as $log) {
+            $I->assertTrue($log->getVisibility() === VisibilityEnum::PUBLIC);
+        }
+    }
+
+    public function testIDontSeePreviousExplorationLogsOnANewPlanet(FunctionalTester $I): void
+    {
+        // given players launch a first exploration without spacesuit
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // given this prints some logs in planet place
+        /** @var array<int, RoomLog> $logs */
+        $logs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => RoomEnum::PLANET,
+                'log' => PlayerStatusEnum::STUCK_IN_THE_SHIP,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        // given players leave orbit
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::LEAVE_ORBIT],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        // given there is a new planet to explore
+        $this->createPlanetForTest($I);
+
+        // when players launch a second exploration without spacesuit
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->player1, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // then the previous logs are not visible
+        foreach ($logs as $log) {
+            $I->assertTrue($log->getVisibility() !== VisibilityEnum::PUBLIC);
+        }
+    }
+
+    private function createPlanetForTest(FunctionalTester $I): void
+    {
+        // given a planet without oxygen has been found
+        $planetName = new PlanetName();
+        $planetName->setFirstSyllable(1);
+        $planetName->setFourthSyllable(1);
+        $I->haveInRepository($planetName);
+
+        $this->planet = new Planet($this->player);
+        $this->planet
+            ->setName($planetName)
+            ->setSize(1)
+        ;
+        $I->haveInRepository($this->planet);
+
+        $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
+        $sector = new PlanetSector($desertSectorConfig, $this->planet);
+        $I->haveInRepository($sector);
+
+        $this->planet->setSectors(new ArrayCollection([$sector]));
+
+        // given the Daedalus is in orbit around the planet
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::IN_ORBIT,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
         );
     }
 }

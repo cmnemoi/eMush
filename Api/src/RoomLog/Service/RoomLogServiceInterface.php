@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Service;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
@@ -34,4 +35,6 @@ interface RoomLogServiceInterface
     public function findById(int $id): ?RoomLog;
 
     public function getRoomLog(Player $player): RoomLogCollection;
+
+    public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection;
 }

@@ -124,14 +124,14 @@ final class TravelEventCest extends AbstractFunctionalTest
         // then explorator is dead
         $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
 
-        // then the death log exists on the planet and is public
+        // then the death log exists on the planet (but is hidden)
         /** @var RoomLog $deathLog */
         $deathLog = $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
                 'place' => $this->daedalus->getPlanetPlace()->getName(),
                 'log' => LogEnum::DEATH,
-                'visibility' => VisibilityEnum::PUBLIC,
+                'visibility' => VisibilityEnum::HIDDEN,
             ]
         );
 

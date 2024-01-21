@@ -248,6 +248,11 @@ class RoomLogService implements RoomLogServiceInterface
         return new RoomLogCollection($this->repository->getAllRoomLogsByDaedalus($daedalus));
     }
 
+    public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection
+    {
+        return new RoomLogCollection($this->repository->findAllByDaedalusAndPlace($daedalus, $place));
+    }
+
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
         /** @var ChargeStatus|null $electricCharges * */

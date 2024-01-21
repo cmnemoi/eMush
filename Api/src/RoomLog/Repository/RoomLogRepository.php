@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
@@ -68,6 +69,22 @@ class RoomLogRepository extends ServiceEntityRepository
             ))
             ->addOrderBy('roomLog.id', 'desc')
             ->setParameter('daedalusInfo', $daedalus)
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): array
+    {
+        $queryBuilder = $this->createQueryBuilder('roomLog');
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->andX(
+                $queryBuilder->expr()->eq('roomLog.daedalusInfo', ':daedalusInfo'),
+                $queryBuilder->expr()->eq('roomLog.place', ':place')
+            ))
+            ->setParameter('daedalusInfo', $daedalus->getDaedalusInfo())
+            ->setParameter('place', $place->getName())
         ;
 
         return $queryBuilder->getQuery()->getResult();

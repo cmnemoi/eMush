@@ -22,6 +22,7 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -219,6 +220,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $mushConsumeModifier
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setApplyOnTarget(true)
             ->setTagConstraints([
                 ActionEnum::CONSUME => ModifierRequirementEnum::ALL_TAGS,

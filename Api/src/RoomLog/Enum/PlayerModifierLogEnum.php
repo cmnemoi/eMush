@@ -4,6 +4,7 @@ namespace Mush\RoomLog\Enum;
 
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -72,6 +73,7 @@ class PlayerModifierLogEnum
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
+            HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
@@ -85,6 +87,7 @@ class PlayerModifierLogEnum
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,
             PlayerService::DAY_MORAL_CHANGE => VisibilityEnum::PRIVATE,
+            HunterEvent::HUNTER_SHOT => VisibilityEnum::PUBLIC,
         ],
     ];
 }

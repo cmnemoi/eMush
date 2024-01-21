@@ -11,6 +11,7 @@ class HunterEvent extends AbstractGameEvent implements LoggableEventInterface
 {
     public const ASTEROID_DESTRUCTION = 'asteroid.destruction';
     public const HUNTER_DEATH = 'hunter.death';
+    public const HUNTER_SHOT = 'hunter.shot';
 
     protected Hunter $hunter;
     protected string $visibility;

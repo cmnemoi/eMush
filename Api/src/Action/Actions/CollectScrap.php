@@ -159,7 +159,7 @@ final class CollectScrap extends AbstractAction
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DAMAGE,
             place: $patrolShipPlace,
-            visibility: VisibilityEnum::PRIVATE,
+            visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $this->player,
             parameters: ['quantity' => $damage],

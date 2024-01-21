@@ -22,7 +22,6 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
-use Mush\Hunter\Event\AbstractHunterEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
@@ -403,7 +402,7 @@ class HunterService implements HunterServiceInterface
             daedalus: $daedalus,
             variableName: DaedalusVariableEnum::HULL,
             quantity: -$damage,
-            tags: [AbstractHunterEvent::HUNTER_SHOT],
+            tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 
@@ -418,8 +417,6 @@ class HunterService implements HunterServiceInterface
             throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship armor status");
         }
 
-        /** @var ?Player|false $patrolShipPilot */
-
         // temporary reset the target in case patrolShip is destroyed
         /** @var HunterTarget $patrolShipTarget */
         $patrolShipTarget = $hunter->getTarget();
@@ -428,7 +425,7 @@ class HunterService implements HunterServiceInterface
         $chargeStatus = $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
-            tags: [AbstractHunterEvent::HUNTER_SHOT],
+            tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 
@@ -448,7 +445,7 @@ class HunterService implements HunterServiceInterface
             player: $player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: -$damage,
-            tags: [AbstractHunterEvent::HUNTER_SHOT],
+            tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 

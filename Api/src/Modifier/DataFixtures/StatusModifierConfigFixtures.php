@@ -241,7 +241,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(true)
             ->setTagConstraints([
                 PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
-                VariableEventInterface::LOSS => ModifierRequirementEnum::ANY_TAGS,
+                VariableEventInterface::LOSS => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;

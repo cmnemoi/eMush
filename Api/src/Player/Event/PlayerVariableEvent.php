@@ -24,6 +24,7 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
 
         parent::__construct($player, $tags, $time);
         $this->setQuantity($quantity);
+        $this->addTag($variableName);
     }
 
     public function getRoundedQuantity(): int

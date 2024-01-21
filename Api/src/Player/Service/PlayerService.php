@@ -353,7 +353,6 @@ class PlayerService implements PlayerServiceInterface
             $date
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-        
 
         return $this->persist($player);
     }

@@ -9,6 +9,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\EventEnum;
+use Mush\Place\Enum\RoomEventEnum;
 
 /**
  * @template-extends ServiceEntityRepository<Message>
@@ -25,7 +26,10 @@ class MessageRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('message');
 
         // @HACK : add some tolerance to the cycle start to avoid taking the previous cycle report
-        if (in_array(EventEnum::NEW_CYCLE, $eventTags, true)) {
+        $cycleChange = in_array(EventEnum::NEW_CYCLE, $eventTags, true);
+        $propagatingFire = in_array(RoomEventEnum::PROPAGATING_FIRE, $eventTags, true);
+
+        if ($cycleChange || $propagatingFire) {
             $cycleStartedAt = clone $daedalus->getCycleStartedAt();
             $cycleStartedAt->modify('+10 seconds');
         } else {

@@ -605,4 +605,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this;
     }
+
+    public function hasAnOngoingExploration(): bool
+    {
+        return $this->exploration !== null;
+    }
 }

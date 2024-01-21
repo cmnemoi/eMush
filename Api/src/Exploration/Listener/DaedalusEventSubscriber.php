@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
@@ -33,17 +35,29 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onTravelLaunched(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-
+        /** @var Exploration $exploration */
         $exploration = $daedalus->getExploration();
 
-        // If daedalus leaves while exploration is ongoing, all explorators will die
-        if ($exploration) {
+        if ($daedalus->hasAnOngoingExploration()) {
             $this->explorationService->closeExploration($exploration, $event->getTags());
         }
 
-        $planetsToDelete = $this->planetService->findAllByDaedalus($daedalus)->filter(
-            fn (Planet $planet) => !$planet->getCoordinates()->equals($daedalus->getDestination())
-        );
+        $this->deletePlanets($event);
+    }
+
+    private function deletePlanets(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        // delete all planets by default
+        $planetsToDelete = $this->planetService->findAllByDaedalus($daedalus);
+
+        // If daedalus is not leaving orbit, do not delete the planet where the Daedalus wants to go
+        if (!$event->hasTag(ActionEnum::LEAVE_ORBIT)) {
+            $planetsToDelete = $planetsToDelete->filter(
+                fn (Planet $planet) => !$planet->getCoordinates()->equals($daedalus->getDestination())
+            );
+        }
 
         $this->planetService->delete($planetsToDelete->toArray());
     }

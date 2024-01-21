@@ -10,6 +10,7 @@ use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
@@ -28,8 +29,20 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
+            DaedalusEvent::FINISH_DAEDALUS => ['onFinishDaedalus', EventPriorityEnum::LOW],
             DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
         ];
+    }
+
+    public function onFinishDaedalus(DaedalusEvent $event): void
+    {
+        $exploration = $event->getDaedalus()->getExploration();
+        if ($exploration === null) {
+            return;
+        }
+
+        $event->addTag(DaedalusEvent::FINISH_DAEDALUS);
+        $this->explorationService->closeExploration($exploration, $event->getTags());
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void

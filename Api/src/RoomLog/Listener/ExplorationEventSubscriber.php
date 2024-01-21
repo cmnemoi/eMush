@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -40,6 +41,14 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             throw new \Exception('Exploration should have at least one explorator');
         }
 
+        $explorationUrl = '/expPerma/' . $exploration->getClosedExploration()->getId();
+        $here = $this->translateService->translate(
+            key: 'here',
+            parameters: [],
+            domain: 'misc',
+            language: $exploration->getDaedalus()->getLanguage()
+        );
+
         if ($event->hasTag(ExplorationEvent::ALL_EXPLORATORS_STUCKED)) {
             foreach ($explorators as $explorator) {
                 $this->roomLogService->createLog(
@@ -50,14 +59,20 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     player: $explorator,
                 );
             }
+        } elseif ($event->hasAnyTag([ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD, DaedalusEvent::FINISH_DAEDALUS])) {
+            foreach ($explorators as $explorator) {
+                $this->roomLogService->createLog(
+                    logKey: LogEnum::ALL_EXPLORATORS_DEAD,
+                    place: $explorator->getPlace(),
+                    visibility: VisibilityEnum::PRIVATE,
+                    type: 'event_log',
+                    player: $explorator,
+                    parameters: [
+                        'exploration_link' => "<a href='$explorationUrl'>" . strtoupper($here) . '</a>',
+                    ]
+                );
+            }
         } else {
-            $explorationUrl = '/expPerma/' . $exploration->getClosedExploration()->getId();
-            $here = $this->translateService->translate(
-                key: 'here',
-                parameters: [],
-                domain: 'misc',
-                language: $exploration->getDaedalus()->getLanguage()
-            );
             foreach ($explorators as $explorator) {
                 $this->roomLogService->createLog(
                     logKey: LogEnum::EXPLORATION_FINISHED,

@@ -345,16 +345,14 @@ class PlayerService implements PlayerServiceInterface
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        if (!$player->isMush()) {
-            $playerModifierEvent = new PlayerVariableEvent(
-                $player,
-                PlayerVariableEnum::MORAL_POINT,
-                self::DAY_MORAL_CHANGE,
-                [EventEnum::NEW_DAY, self::BASE_PLAYER_DAY_CHANGE, self::DAY_MORAL_CHANGE],
-                $date
-            );
-            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-        }
+        $playerModifierEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::MORAL_POINT,
+            self::DAY_MORAL_CHANGE,
+            [EventEnum::NEW_DAY, self::BASE_PLAYER_DAY_CHANGE, self::DAY_MORAL_CHANGE],
+            $date
+        );
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         return $this->persist($player);
     }

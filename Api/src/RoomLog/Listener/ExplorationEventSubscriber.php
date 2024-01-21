@@ -59,7 +59,12 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     player: $explorator,
                 );
             }
-        } elseif ($event->hasAnyTag([ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD, DaedalusEvent::FINISH_DAEDALUS])) {
+        } elseif (
+            $event->hasAnyTag([
+                ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD,
+                DaedalusEvent::FINISH_DAEDALUS,
+            ])
+        ) {
             foreach ($explorators as $explorator) {
                 $this->roomLogService->createLog(
                     logKey: LogEnum::ALL_EXPLORATORS_DEAD,

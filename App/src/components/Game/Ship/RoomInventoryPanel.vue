@@ -71,7 +71,6 @@ export default defineComponent ({
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding-right: 16px; // for textual scrollbar
 
     .name-container {
         background: #09092d;
@@ -96,14 +95,6 @@ export default defineComponent ({
 }
 
 .inventory {
-    overflow: hidden;
-    overflow-x: scroll;
-
-    @extend %game-scrollbar;
-    --scrollbarBG: rgba(0, 0, 0, 0.4);
-    scrollbar-width: thin;
-    &::-webkit-scrollbar {
-        height: 8px;
-    }
+    margin: 0 12px;
 }
 </style>

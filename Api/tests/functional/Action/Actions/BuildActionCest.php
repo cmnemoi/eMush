@@ -6,26 +6,41 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Build;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class BuildActionCest
+class BuildActionCest extends AbstractFunctionalTest
 {
+    private Action $buildConfig;
     private Build $buildAction;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+        $this->buildConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::BUILD]);
         $this->buildAction = $I->grabService(Build::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function testCanReach(FunctionalTester $I)
@@ -73,6 +88,49 @@ class BuildActionCest
         ]));
 
         $I->assertTrue($this->buildAction->isVisible());
+    }
+
+    public function testBuildSuccess(FunctionalTester $I): void
+    {
+        // given I have a blueprint in room
+        $thermosensorBlueprint = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::THERMOSENSOR . '_blueprint',
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given I have some ingredients to build it
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::PLASTIC_SCRAPS,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when I build the blueprint
+        $this->buildAction->loadParameters($this->buildConfig, $this->player, $thermosensorBlueprint);
+        $this->buildAction->execute();
+
+        // then I have the thermosensor in my inventory
+        $this->player->getEquipmentByName(ItemEnum::THERMOSENSOR);
+
+        // then I see a private room log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => ActionLogEnum::BUILD_SUCCESS,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
     }
 
     private function createPlayer(Daedalus $daedalus, Place $room): Player
@@ -125,6 +183,7 @@ class BuildActionCest
 
         $blueprint = new Blueprint();
         $blueprint
+            ->setName('blueprint')
             ->setIngredients($ingredients)
             ->setCraftedEquipmentName($product->getEquipmentName())
             ->addAction($buildAction)

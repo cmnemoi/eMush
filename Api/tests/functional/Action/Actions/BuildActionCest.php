@@ -123,7 +123,7 @@ class BuildActionCest extends AbstractFunctionalTest
         // when player wants to build the sofa
         $this->buildAction->loadParameters($this->buildConfig, $this->player, $swedishSofaBlueprint);
 
-        // then the action should be not executable
+        // then the action is not executable
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::NOT_A_ROOM,
             actual: $this->buildAction->cannotExecuteReason()

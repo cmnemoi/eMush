@@ -9,6 +9,7 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -269,6 +270,27 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($blueprintSniperHelmetMechanic);
         $manager->persist($blueprintSniperHelmet);
 
+        $blueprintSwedishSofaMechanic = new Blueprint();
+        $blueprintSwedishSofaMechanic
+            ->setCraftedEquipmentName(EquipmentEnum::SWEDISH_SOFA)
+            ->setIngredients([ItemEnum::THICK_TUBE => 1, ItemEnum::METAL_SCRAPS => 1])
+            ->addAction($buildAction)
+            ->buildName(EquipmentEnum::SWEDISH_SOFA . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT)
+        ;
+
+        $blueprintSwedishSofa = new ItemConfig();
+        $blueprintSwedishSofa
+            ->setEquipmentName(EquipmentEnum::SWEDISH_SOFA . '_' . ItemEnum::BLUEPRINT)
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setMechanics([$blueprintSwedishSofaMechanic])
+            ->setActions($actions)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($blueprintSwedishSofaMechanic);
+        $manager->persist($blueprintSwedishSofa);
+
         $gameConfig
             ->addEquipmentConfig($blueprintEcholocator)
             ->addEquipmentConfig($blueprintWhiteFlag)
@@ -281,6 +303,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($blueprintExtinguisher)
             ->addEquipmentConfig($blueprintOscilloscope)
             ->addEquipmentConfig($blueprintSniperHelmet)
+            ->addEquipmentConfig($blueprintSwedishSofa)
         ;
         $manager->persist($gameConfig);
 

@@ -29,7 +29,7 @@ final class ClosedPlayerExtension implements QueryCollectionExtensionInterface, 
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder->leftJoin($rootAlias . '.daedalus', 'closed_daedalus');
+        $queryBuilder->leftJoin($rootAlias . '.closedDaedalus', 'closed_daedalus');
         $queryBuilder->leftJoin('closed_daedalus.daedalusInfo', 'daedalus_info');
         $queryBuilder->andWhere($queryBuilder->expr()->in('daedalus_info.gameStatus', ':gameStatus'));
         $queryBuilder->setParameter('gameStatus', [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED]);

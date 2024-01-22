@@ -1,4 +1,15 @@
 <template>
+    <label>{{ $t('ranking.languages') }}
+        <select v-model="language" @change="updateFilter">
+            <option
+                v-for="option in languagesOption"
+                :value=option.value
+                :key=option.key
+            >
+                {{ $t(option.key) }}
+            </option>
+        </select>
+    </label>
     <div class="ship_userShips_container">
         <h2>{{ username }}</h2>
         <Datatable
@@ -37,6 +48,12 @@ export default defineComponent({
     },
     data() {
         return {
+            languagesOption: [
+                { key: 'ranking.all', value: '' },
+                { key: 'ranking.french', value: 'fr' },
+                { key: 'ranking.english', value: 'en' },
+            ],
+            language: '',
             fields: [
                 {
                     key: 'character',
@@ -113,7 +130,12 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
+            if (this.language) {
+                params.params['closedDaedalus.daedalusInfo.localizationConfig.language'] = this.language;
+            }
+
             params.params['playerInfo.user.userId'] = this.$route.params.userId;
+
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_players'), params)
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {

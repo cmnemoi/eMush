@@ -28,5 +28,5 @@ Mush\Player\Entity\ClosedPlayer:
       groups: [ 'closed_player_read' ]
     cyclesSurvived:
       groups: [ 'closed_player_read' ]
-    daedalusLanguage:
+    language:
       groups: [ 'closed_player_read' ]

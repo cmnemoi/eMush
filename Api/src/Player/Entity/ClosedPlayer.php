@@ -22,7 +22,7 @@ class ClosedPlayer
     private PlayerInfo $playerInfo;
 
     #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
-    private ClosedDaedalus $daedalus;
+    private ClosedDaedalus $closedDaedalus;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $message = null;
@@ -66,17 +66,17 @@ class ClosedPlayer
 
     public function getClosedDaedalus(): ClosedDaedalus
     {
-        return $this->daedalus;
+        return $this->closedDaedalus;
     }
 
     public function setClosedDaedalus(ClosedDaedalus $closedDaedalus): self
     {
-        $this->daedalus = $closedDaedalus;
+        $this->closedDaedalus = $closedDaedalus;
 
         return $this;
     }
 
-    public function getDaedalusLanguage(): string
+    public function getLanguage(): string
     {
         return $this->getClosedDaedalus()->getLanguage();
     }
@@ -180,6 +180,6 @@ class ClosedPlayer
 
     public function getClosedDaedalusId(): int
     {
-        return $this->daedalus->getId();
+        return $this->closedDaedalus->getId();
     }
 }

@@ -14,6 +14,7 @@ export class ClosedPlayer {
     public daysSurvived: integer|null;
     public cyclesSurvived: integer|null;
     public rank: integer|null;
+    public language: string|null;
 
     constructor() {
         this.iri = null;
@@ -31,7 +32,7 @@ export class ClosedPlayer {
         this.daysSurvived = null;
         this.cyclesSurvived = null;
         this.rank = null;
-
+        this.language = null;
     }
     load(object :any): ClosedPlayer {
         if (typeof object !== "undefined") {
@@ -50,6 +51,7 @@ export class ClosedPlayer {
             this.daysSurvived = object.daysSurvived;
             this.cyclesSurvived = object.cyclesSurvived;
             this.rank = object.rank;
+            this.language = object.language;
         }
         return this;
     }
@@ -69,6 +71,7 @@ export class ClosedPlayer {
             'daysSurvived': this.daysSurvived,
             'cyclesSurvived': this.cyclesSurvived,
             'rank': this.rank,
+            'language': this.language,
         };
 
         return data;

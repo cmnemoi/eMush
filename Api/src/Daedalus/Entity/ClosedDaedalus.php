@@ -24,7 +24,7 @@ class ClosedDaedalus
     #[ORM\OneToOne(inversedBy: 'closedDaedalus', targetEntity: DaedalusInfo::class)]
     private DaedalusInfo $daedalusInfo;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ClosedPlayer::class)]
+    #[ORM\OneToMany(mappedBy: 'closedDaedalus', targetEntity: ClosedPlayer::class)]
     private Collection $players;
 
     #[ORM\Column(type: 'string', nullable: false)]

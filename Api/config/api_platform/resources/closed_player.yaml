@@ -11,8 +11,8 @@ Mush\Player\Entity\ClosedPlayer:
       filters: [
         'default.search_filter',
         'default.order_filter',
-        'userClosedPlayer.search_filter',
-        'closedPlayer.order_filter'
+        'closedPlayer.order_filter',
+        'closedPlayer.search_filter',
       ]
   itemOperations:
     get:

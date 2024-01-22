@@ -97,16 +97,9 @@ services:
         autowire: false
         autoconfigure: false
         public: false
-    languageClosedPlayer.search_filter:
+    closedPlayer.search_filter:
         parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { closedDaedalus.daedalusInfo.language: 'exact' } ]
-        tags: [ 'api_platform.filter' ]
-        autowire: false
-        autoconfigure: false
-        public: false
-    userClosedPlayer.search_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { playerInfo.user.userId: 'exact' } ]
+        arguments: [ { playerInfo.user.userId: 'exact',  closedDaedalus.daedalusInfo.localizationConfig.language: 'exact' } ]
         tags: [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

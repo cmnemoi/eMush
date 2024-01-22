@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Land;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -65,7 +66,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->landAction = $I->grabService(Land::class);
     }
 
-    public function testLandSuccess(FunctionalTester $I)
+    public function testLandCriticalSuccess(FunctionalTester $I)
     {
         $this->action->setCriticalRate(100);
         $I->haveInRepository($this->action);
@@ -81,7 +82,7 @@ final class LandActionCest extends AbstractFunctionalTest
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost()
         );
 
-        $I->assertInstanceOf(Success::class, $result);
+        $I->assertInstanceOf(CriticalSuccess::class, $result);
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
@@ -137,7 +138,7 @@ final class LandActionCest extends AbstractFunctionalTest
             $this->pasiphaeArmor->getCharge()
         );
 
-        $I->assertInstanceOf(Fail::class, $result);
+        $I->assertInstanceOf(Success::class, $result);
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),

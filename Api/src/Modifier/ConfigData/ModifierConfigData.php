@@ -19,6 +19,7 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
+use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -1759,6 +1760,62 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_pilot_always_critical_success_piloting',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 100,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_CRITICAL,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_PILOT => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_pilot_increased_shoot_hunter_chances',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 2,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SHOOT_HUNTER_PATROL_SHIP => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_shooter_specialist_point',
+            'modifierName' => ModifierNameEnum::SHOOTER_SPECIALIST_POINT,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

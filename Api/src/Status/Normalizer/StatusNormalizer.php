@@ -7,6 +7,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -34,7 +35,7 @@ class StatusNormalizer implements NormalizerInterface
         $currentPlayer = $context['currentPlayer'];
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if ($this->isStatusVisibleForPlayer($status, $currentPlayer, $context)) {
+        if ($this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)) {
             $normedStatus = [
                 'key' => $statusName,
                 'name' => $this->translationService->translate($statusName . '.name', [], 'status', $language),
@@ -42,7 +43,10 @@ class StatusNormalizer implements NormalizerInterface
                 'isPrivate' => $status->getVisibility() === VisibilityEnum::PRIVATE,
             ];
 
-            if ($status instanceof ChargeStatus && $status->getChargeVisibility() !== VisibilityEnum::HIDDEN) {
+            if (
+                $status instanceof ChargeStatus
+                && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)
+            ) {
                 $normedStatus['charge'] = $status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $status->getCharge();
             }
 
@@ -56,32 +60,27 @@ class StatusNormalizer implements NormalizerInterface
         return [];
     }
 
-    private function isStatusVisibleForPlayer(Status $status, Player $currentPlayer, array $context): bool
-    {
+    private function isVisible(
+        string $visibility,
+        Player $currentPlayer,
+        ?StatusHolderInterface $statusOwner,
+        ?StatusHolderInterface $statusTarget,
+        array $context,
+    ): bool {
         $isAdmin = isset($context['groups']) && in_array('admin_view', $context['groups'], true);
-        $isVisibleMush = $status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush();
 
-        return $isAdmin
-        || $isVisibleMush
-        || $this->isVisibilityPublic($status)
-        || $this->isVisibilityPrivateForUser($status, $currentPlayer);
-    }
+        if (
+            $isAdmin
+            || $visibility === VisibilityEnum::PUBLIC
+            || $visibility === VisibilityEnum::MUSH && $currentPlayer->isMush()
+        ) {
+            return true;
+        }
 
-    private function isVisibilityPublic(Status $status): bool
-    {
-        $visibility = $status->getVisibility();
-
-        return $visibility === VisibilityEnum::PUBLIC;
-    }
-
-    private function isVisibilityPrivateForUser(Status $status, Player $currentPlayer): bool
-    {
-        $visibility = $status->getVisibility();
-
-        if (($owner = $status->getOwner()) instanceof Player) {
-            $player = $owner;
-        } elseif (($target = $status->getTarget()) instanceof Player) {
-            $player = $target;
+        if ($statusOwner instanceof Player) {
+            $player = $statusOwner;
+        } elseif ($statusTarget instanceof Player) {
+            $player = $statusTarget;
         } else {
             return false;
         }

@@ -364,12 +364,12 @@ class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::ACCESS_TERMINAL_SUCCESS,
         ],
         ActionEnum::TAKEOFF => [
-            ActionOutputEnum::SUCCESS => self::TAKEOFF_SUCCESS,
-            ActionOutputEnum::FAIL => self::TAKEOFF_NO_PILOT,
+            ActionOutputEnum::CRITICAL_SUCCESS => self::TAKEOFF_SUCCESS,
+            ActionOutputEnum::SUCCESS => self::TAKEOFF_NO_PILOT,
         ],
         ActionEnum::LAND => [
-            ActionOutputEnum::SUCCESS => self::LAND_SUCCESS,
-            ActionOutputEnum::FAIL => self::LAND_NO_PILOT,
+            ActionOutputEnum::CRITICAL_SUCCESS => self::LAND_SUCCESS,
+            ActionOutputEnum::SUCCESS => self::LAND_NO_PILOT,
         ],
         ActionEnum::SHOOT_HUNTER_PATROL_SHIP => [
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,

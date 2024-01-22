@@ -16,7 +16,9 @@ export enum StatusPlayerNameEnum {
     PREGNANT = "pregnant",
     GAGGED = "gagged",
     FOCUSED = "focused",
-    STUCK_IN_THE_SHIP = "stuck_in_the_ship"
+    STUCK_IN_THE_SHIP = "stuck_in_the_ship",
+    POC_SHOOTER_SKILL = "poc_shooter_skill",
+    POC_PILOT_SKILL = "poc_pilot_skill",
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -73,5 +75,11 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.STUCK_IN_THE_SHIP]: {
         'icon': require('@/assets/images/status/stuck_in_ship.png')
+    },
+    [StatusPlayerNameEnum.POC_PILOT_SKILL]: {
+        'icon': require('@/assets/images/skills/human/pilot.png')
+    },
+    [StatusPlayerNameEnum.POC_SHOOTER_SKILL]: {
+        'icon': require('@/assets/images/skills/human/gunman.png')
     }
 };

@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
@@ -60,11 +61,16 @@ final class Takeoff extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        // Testing failed takeoff
-        // TODO: always returns Success if player has the Pilot skill
-        $isSuccess = $this->randomService->randomPercent() < $this->getAction()->getCriticalRate();
+        // a successful landing still create damage to the hull, only critical success avoid any damage
+        $criticalSuccessRate = $this->actionService->getActionModifiedActionVariable(
+            $this->player,
+            $this->action,
+            $this->target,
+            ActionVariableEnum::PERCENTAGE_CRITICAL
+        );
+        $isSuccessCritical = $this->randomService->isSuccessful($criticalSuccessRate);
 
-        return $isSuccess ? new Success() : new Fail();
+        return $isSuccessCritical ? new CriticalSuccess() : new Success();
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void

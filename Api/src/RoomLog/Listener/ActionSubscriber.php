@@ -3,7 +3,7 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Success;
+use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -94,7 +94,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
 
         $this->roomLogService->createLog(
-            $event->getActionResult() instanceof Success ? ActionLogEnum::LAND_SUCCESS : ActionLogEnum::LAND_NO_PILOT,
+            $event->getActionResult() instanceof CriticalSuccess ? ActionLogEnum::LAND_SUCCESS : ActionLogEnum::LAND_NO_PILOT,
             $player->getPlace(),
             VisibilityEnum::PUBLIC,
             'actions_log',

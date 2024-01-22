@@ -265,7 +265,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo(),
             'log' => LogEnum::PATROL_DAMAGE,
-            'visibility' => VisibilityEnum::PRIVATE,
+            'visibility' => VisibilityEnum::PUBLIC,
         ]);
     }
 

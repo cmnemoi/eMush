@@ -207,7 +207,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             logKey: LogEnum::PATROL_DAMAGE,
             place: $event->getAuthor()->getPlace(),
-            visibility: VisibilityEnum::PRIVATE,
+            visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $event->getAuthor(),
             parameters: ['quantity' => $damage],

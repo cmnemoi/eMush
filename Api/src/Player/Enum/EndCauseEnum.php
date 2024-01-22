@@ -3,7 +3,7 @@
 namespace Mush\Player\Enum;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Hunter\Event\AbstractHunterEvent;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\StatusEnum;
@@ -97,7 +97,7 @@ class EndCauseEnum
         ActionEnum::COLLECT_SCRAP => self::SPACE_BATTLE,
         ActionEnum::LAND => self::PATROL_SHIP_EXPLOSION,
         ActionEnum::TAKEOFF => self::PATROL_SHIP_EXPLOSION,
-        AbstractHunterEvent::HUNTER_SHOT => self::SPACE_BATTLE,
+        HunterEvent::HUNTER_SHOT => self::SPACE_BATTLE,
         ActionEnum::ADVANCE_DAEDALUS => self::ABANDONED,
         ActionEnum::LEAVE_ORBIT => self::ABANDONED,
     ];

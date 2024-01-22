@@ -2,6 +2,7 @@
 
 namespace Mush\User\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\User\Entity\User;
 
 interface UserServiceInterface
@@ -17,4 +18,6 @@ interface UserServiceInterface
     public function findUserByNonceCode(string $nonceCode): ?User;
 
     public function findUserDaedaluses(User $user): array;
+
+    public function findUserClosedPlayers(User $user): ArrayCollection;
 }

@@ -3,10 +3,13 @@
 namespace Mush\RoomLog\Listener;
 
 use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\ChargeStatusEvent;
 use Mush\Status\Event\StatusEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -29,6 +32,7 @@ class StatusSubscriber implements EventSubscriberInterface
         return [
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
+            VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
         ];
     }
 
@@ -78,7 +82,29 @@ class StatusSubscriber implements EventSubscriberInterface
         $this->createEventLog($logKey, $event);
     }
 
-    private function createEventLog(string $logKey, StatusEvent $event): void
+    public function onChangeVariable(VariableEventInterface $event): void
+    {
+        if (!$event instanceof ChargeStatusEvent) {
+            return;
+        }
+
+        $delta = $event->getRoundedQuantity();
+        if ($delta === 0) {
+            return;
+        }
+
+        // add special logs
+        $specialLogMap = StatusEventLogEnum::STATUS_EVENT_LOGS[ChargeStatusEvent::STATUS_CHARGE_UPDATED];
+        $specialLogKey = $event->mapLog($specialLogMap[StatusEventLogEnum::VALUE]);
+
+        if ($specialLogKey !== null) {
+            $logVisibility = $event->mapLog($specialLogMap[StatusEventLogEnum::VISIBILITY]);
+
+            $this->createEventLog($specialLogKey, $event, $logVisibility ?: VisibilityEnum::HIDDEN);
+        }
+    }
+
+    private function createEventLog(string $logKey, StatusEvent $event, string $visibility = null): void
     {
         $player = $event->getStatusHolder();
         $place = $event->getPlace();
@@ -94,7 +120,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             $logKey,
             $place,
-            $event->getVisibility(),
+            $visibility ?: $event->getVisibility(),
             'event_log',
             $player,
             $event->getLogParameters(),

@@ -220,7 +220,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $burdened = new StatusConfig();
         $burdened
             ->setStatusName(PlayerStatusEnum::BURDENED)
-            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setVisibility(VisibilityEnum::PRIVATE)
             ->setModifierConfigs([$burdenedModifier])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

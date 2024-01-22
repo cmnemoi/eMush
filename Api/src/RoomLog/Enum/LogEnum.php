@@ -53,6 +53,7 @@ class LogEnum
     public const LIQUID_MAP_HELPED = 'liquid_map_helped';
     public const EXPLORATION_FINISHED = 'exploration_finished';
     public const ALL_EXPLORATORS_STUCKED = 'all_explorators_stucked';
+    public const ALL_EXPLORATORS_DEAD = 'all_explorators_dead';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

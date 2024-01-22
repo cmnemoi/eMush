@@ -17,6 +17,7 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -288,6 +289,9 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
 
     public function testCloseExplorationDoesNotAddOxygenNorFuelToDaedalusIfAllExploratorsAreDead(FunctionalTester $I): void
     {
+        // given an extra player so Daedalus is not finished when all explorators are dead
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
         // given Daedalus has 0 units of oxygen
         $this->daedalus->setOxygen(0);
 

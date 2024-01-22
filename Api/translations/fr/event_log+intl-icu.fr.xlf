@@ -678,5 +678,11 @@
         <target>Un jour de plus à lutter... Votre moral baisse...</target>
       </segment>
     </unit>
+    <unit id="all_explorators_dead">
+      <segment id="all_explorators_dead" state="final">
+        <source>all_explorators_dead</source>
+        <target>L'exploration est revenue plus tôt que prévu : tous les explorateurs sont morts ! Vous pouvez retrouver son déroulement {exploration_link}.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -297,13 +297,8 @@ export default defineComponent ({
     }
 }
 
-.inventory ul {
-    display: flex;
-    flex-direction: row;
-
-    li {
-        @include inventory-slot();
-    }
+div.inventory {
+    margin: 0 -1px;
 }
 
 .interactions {

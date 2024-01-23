@@ -68,6 +68,8 @@ Adding the class ".flashing" to the element will will animate its border to incr
             lighten(desaturate($color, 25), 15.49) 96%
         );
 
+    @media screen and (max-width: $breakpoint-desktop-m) { font-size: calc($font-size * 0.85); }
+
     &:hover,
     &:focus {
         background: $hover-color;

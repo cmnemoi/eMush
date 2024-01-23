@@ -58,6 +58,7 @@ export default defineComponent ({
         overflow: auto;
         padding: 7px;
         color: $deepBlue;
+        resize: x;
     }
 
     /* SCROLLBAR STYLING */

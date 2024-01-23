@@ -13,7 +13,7 @@
             />
         </ul>
         <Tippy tag="div" class="cycle-time">
-            <img src="@/assets/images/comms/calendar.png"><span>{{ calendar?.dayName }} {{ calendar.day }} - {{ calendar?.cycleName }} {{ calendar.cycle }}</span>
+            <img src="@/assets/images/comms/calendar.png"><span>{{ calendar?.dayName }} {{ calendar.day }} - <br />{{ calendar?.cycleName }} {{ calendar.cycle }}</span><span class="mobile">{{ calendar.day }}-{{ calendar.cycle }}</span>
             <template #content>
                 <h1 v-html="formatContent(calendar.name)" />
                 <p v-html="formatContent(calendar.description)" />
@@ -188,6 +188,15 @@ export default defineComponent ({
     font-variant: small-caps;
 
     img { margin-right: 3px; }
+
+    span.mobile, br { display: none; }
+
+    @media screen and (max-width: $breakpoint-desktop-l) { br { display: initial; } }
+
+    @media screen and (max-width: $breakpoint-desktop-m) {
+        span:not(.mobile) { display: none; }
+        span.mobile {display: initial; }
+    }
 }
 
 </style>

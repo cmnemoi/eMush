@@ -993,6 +993,8 @@ interface Doors {
     transform-origin: bottom left;
     transition: transform 0.5s;
 
+    @media screen and (max-width: $breakpoint-desktop-l) { transform: scale(0.4); }
+
     &:hover, &:focus, &:focus-within, &:active {
         transform: scale(1);
         transition: transform 0.4s 0.2s;

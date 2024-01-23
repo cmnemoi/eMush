@@ -14,17 +14,15 @@
 
             <div class="health-points">
                 <div class="life">
-                    <Tippy tag="div">
-                        <ol>
-                            <li class="quantityLife">
-                                <ul>
-                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
-                                </ul>
-                            </li>
-                            <li class="iconLife">
-                                <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
-                            </li>
-                        </ol>
+                    <Tippy tag="ol">
+                        <li class="quantityLife">
+                            <ul>
+                                <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
+                            </ul>
+                        </li>
+                        <li class="iconLife">
+                            <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
+                        </li>
                         <template #content>
                             <h1 v-html="formatContent(player.healthPoint.name)" />
                             <p v-html="formatContent(player.healthPoint.description)" />
@@ -32,17 +30,15 @@
                     </Tippy>
                 </div>
                 <div class="morale">
-                    <Tippy tag="div">
-                        <ol>
-                            <li class="quantityMorale">
-                                <ul>
-                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
-                                </ul>
-                            </li>
-                            <li class="iconMorale">
-                                <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
-                            </li>
-                        </ol>
+                    <Tippy tag="ol">
+                        <li class="quantityMorale">
+                            <ul>
+                                <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
+                            </ul>
+                        </li>
+                        <li class="iconMorale">
+                            <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
+                        </li>
                         <template #content>
                             <h1 v-html="formatContent(player.moralPoint.name)" />
                             <p v-html="formatContent(player.moralPoint.description)" />
@@ -208,14 +204,15 @@ export default defineComponent ({
     flex-direction: row;
 
     .char-sheet {
-        width: 176px;
+        max-width: 176px;
         min-height: 459px;
         padding: 5px;
         border-top-left-radius: 4px;
         background: rgba(54, 76, 148, 0.35);
 
         .avatar {
-            width: 166px;
+            width: 100%;
+            max-width: 166px;
             height: auto;
         }
 
@@ -233,7 +230,9 @@ export default defineComponent ({
 
 .health-points {
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
+    row-gap: 0.6em;
     margin: -.75em 0 .25em;
 
     .life,
@@ -246,6 +245,8 @@ export default defineComponent ({
         ol {
             align-items: center;
             flex-direction: column-reverse;
+
+            @media screen and (max-width: $breakpoint-desktop-l) { flex-direction: row-reverse; }
 
             li:first-child { z-index: 1; }
         }
@@ -280,6 +281,8 @@ export default defineComponent ({
             padding: .1em .2em;
             border-radius: 2px;
 
+            @media screen and (max-width: $breakpoint-desktop-m) { display: none; }
+
             li {
                 width: 4px;
                 height: 5px;
@@ -298,7 +301,15 @@ export default defineComponent ({
 }
 
 div.inventory {
+    overflow: visible;
     margin: 0 -1px;
+
+    @media screen and (max-width: $breakpoint-desktop-l) {
+        width: 110px;
+        margin: 0 auto;
+    }
+
+    @media screen and (max-width: $breakpoint-desktop-m) { width: 82px; }
 }
 
 .interactions {

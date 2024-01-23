@@ -64,6 +64,9 @@ export default defineComponent ({
 .mainmenu {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 0.5em;
 
     span {
         margin: 0 1.4em;

@@ -808,7 +808,7 @@ class ModifierConfigData
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => true,
+            'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,

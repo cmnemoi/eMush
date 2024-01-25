@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\ClosedPlayer;
@@ -38,6 +39,9 @@ class ClosedDaedalus
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $numberOfHuntersKilled = 0;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTime $finishedAt = null;
 
     public function getId(): int
     {
@@ -125,8 +129,15 @@ class ClosedDaedalus
         return $this;
     }
 
-    public function getDaysSurvived(): int
+    public function getFinishedAt(): ?\DateTime
     {
-        return $this->endDay - 1;
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(\DateTime $finishedAt): static
+    {
+        $this->finishedAt = $finishedAt;
+
+        return $this;
     }
 }

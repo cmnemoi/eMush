@@ -56,12 +56,21 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                 domain: 'end_cause'
             );
 
-            /** @var \DateTime $startDate */
-            $startDate = $daedalus->getCreatedAt();
-            $startCycle = $this->cycleService->getInDayCycleFromDate($startDate, $daedalus);
-            $numberOfCycles = $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
+            $createdAt = $daedalus->getCreatedAt();
+            if ($createdAt === null) {
+                throw new \Exception('ClosedDaedalus createdAt attribute should not be null');
+            }
+            $finishedAt = $daedalus->getFinishedAt();
+            if ($finishedAt === null) {
+                throw new \Exception('ClosedDaedalus finishedAt attribute should not be null');
+            }
 
-            $data['cyclesSurvived'] = $daedalus->getDaysSurvived() * $numberOfCycles + $daedalus->getEndCycle() - $startCycle;
+            $data['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
+                start: $createdAt,
+                end: $finishedAt,
+                daedalusInfo: $daedalus->getDaedalusInfo()
+            );
+            $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
         }
 
         return $data;

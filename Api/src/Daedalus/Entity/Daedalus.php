@@ -452,6 +452,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function setFinishedAt(\DateTime $finishedAt): static
     {
         $this->finishedAt = $finishedAt;
+        $this->daedalusInfo->getClosedDaedalus()->setFinishedAt($finishedAt);
 
         return $this;
     }

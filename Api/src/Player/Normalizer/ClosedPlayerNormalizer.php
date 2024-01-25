@@ -53,9 +53,22 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         if ($daedalus->isDaedalusFinished()) {
             $data['endCause'] = $this->getTranslatedEndCause($closedPlayer->getEndCause(), $daedalus->getDaedalusInfo()->getLanguage());
-            $numberOfCycles = $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
-            $data['cyclesSurvived'] = $this->getPlayerCyclesSurvived($closedPlayer, $numberOfCycles);
-            $data['daysSurvived'] = intval($data['cyclesSurvived'] / $numberOfCycles);
+
+            $createdAt = $closedPlayer->getCreatedAt();
+            if ($createdAt === null) {
+                throw new \Exception('ClosedPlayer createdAt should not be null');
+            }
+            $finishedAt = $closedPlayer->getFinishedAt();
+            if ($finishedAt === null) {
+                throw new \Exception('ClosedPlayer finishedAt should not be null');
+            }
+
+            $data['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
+                start: $createdAt,
+                end: $finishedAt,
+                daedalusInfo: $closedPlayer->getClosedDaedalus()->getDaedalusInfo()
+            );
+            $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
         }
 
         return $data;
@@ -84,16 +97,5 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
                 language: $language
             ),
         ];
-    }
-
-    private function getPlayerCyclesSurvived(ClosedPlayer $player, int $numberOfCycles): int
-    {
-        $daedalus = $player->getClosedDaedalus();
-
-        /** @var \DateTime $startDate */
-        $startDate = $player->getCreatedAt();
-        $startCycle = $this->cycleService->getInDayCycleFromDate($startDate, $daedalus);
-
-        return $player->getDayDeath() * $numberOfCycles + $player->getCycleDeath() - $startCycle;
     }
 }

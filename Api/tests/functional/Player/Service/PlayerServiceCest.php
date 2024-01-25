@@ -164,7 +164,8 @@ class PlayerServiceCest extends AbstractFunctionalTest
     {
         /** @var Player $player */
         $player = $this->player;
-        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, new \DateTime());
+        $deathTime = new \DateTime();
+        $deadPlayer = $this->playerService->playerDeath($player, EndCauseEnum::INJURY, $deathTime);
 
         $otherPlayer = $this->player2;
 
@@ -177,6 +178,7 @@ class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertEquals($otherClosedPlayer->getMessage(), null);
         $I->assertEquals($closedPlayer->getLikes(), 0);
         $I->assertEquals($otherClosedPlayer->getLikes(), 1);
+        $I->assertEquals($closedPlayer->getFinishedAt(), $deathTime);
     }
 
     public function testEndPlayerCannotLikeThemself(FunctionalTester $I)

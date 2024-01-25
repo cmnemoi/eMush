@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\ClosedDaedalus;
@@ -41,6 +42,9 @@ class ClosedPlayer
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isMush = false;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTime $finishedAt = null;
 
     public function getId(): ?int
     {
@@ -151,6 +155,18 @@ class ClosedPlayer
     public function getIsMush(): bool
     {
         return $this->isMush;
+    }
+
+    public function getFinishedAt(): ?\DateTime
+    {
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(\DateTime $finishedAt): static
+    {
+        $this->finishedAt = $finishedAt;
+
+        return $this;
     }
 
     public function getLogName(): string

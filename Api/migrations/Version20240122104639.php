@@ -30,7 +30,6 @@ final class Version20240122104639 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE closed_player DROP CONSTRAINT FK_F154A5CCBBC83F78');
         $this->addSql('DROP INDEX IDX_F154A5CCBBC83F78');
         $this->addSql('ALTER TABLE closed_player RENAME COLUMN closed_daedalus_id TO daedalus_id');

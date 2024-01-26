@@ -7,10 +7,12 @@ namespace Mush\Tests\Functional\Action\Actions;
 use Mush\Action\Actions\ChangeNeronCpuPriority;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -53,11 +55,33 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
     {
         // given player is not focused on the bios terminal
 
-        // when I try to change neron cpu priority
-        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal);
+        // when I try to change neron cpu priority to astronavigation
+        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal, ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
         $this->changeNeronCpuPriorityAction->execute();
 
         // then the action should not be visible
         $I->assertFalse($this->changeNeronCpuPriorityAction->isVisible());
+    }
+
+    public function testChangeNeronCpuPriorityShouldSetPriorityToExpectedValue(FunctionalTester $I): void
+    {
+        // given player is focused on the bios terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->biosTerminal,
+        );
+
+        // when I try to change neron cpu priority to astronavigation
+        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal, ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
+        $this->changeNeronCpuPriorityAction->execute();
+
+        // then NERON CPU priority should be set to astronavigation
+        $I->assertEquals(
+            expected: NeronCpuPriorityEnum::ASTRONAVIGATION, 
+            actual: $this->daedalus->getDaedalusInfo()->getNeron()->getCpuPriority()
+        );
     }
 }

@@ -36,12 +36,16 @@
 	},
 	"ranking": {
 		"ship_end_cause": "End cause",
-		"day": "Survived days",
-		"cycle": "Survived cycles",
+		"daysSurvived": "Days survived",
+		"cyclesSurvived": "Cycles survived",
 		"playerRankingSubMenu": "Players",
 		"shipRankingSubMenu": "Daedalus",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Honours List",
+		"languages": "Daedalus language",
+		"all": "All ships",
+		"french": "French ships",
+		"english": "English ships",
 		"endCause": {
 			"sol_return": "Daedalus returned to Sol",
 			"eden": "Daedalus has settled on Eden",
@@ -105,7 +109,7 @@
 	"userShips": {
 		"pageTitle": "'s file",
 		"character": "Character",
-		"day": "Survived days",
+		"daysSurvived": "Days survived",
 		"cyclesSurvived": "Survived cycles",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Honours List",

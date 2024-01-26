@@ -36,8 +36,8 @@
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",
-		"day": "Jours survécus",
-		"cycle": "Cycles survécus",
+		"daysSurvived": "Jours survécus",
+		"cyclesSurvived": "Cycles survécus",
 		"playerRankingSubMenu": "Joueurs",
 		"shipRankingSubMenu": "Daedalus",
 		"linkToTheEnd": "Daedalus",
@@ -109,7 +109,7 @@
 	"userShips": {
 		"pageTitle": "Fiche de ",
 		"character": "Personnage",
-		"day": "Jours survécus",
+		"daysSurvived": "Jours survécus",
 		"cyclesSurvived": "Cycles survécus",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Palmarès",

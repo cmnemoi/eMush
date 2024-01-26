@@ -52,8 +52,6 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         }
 
         if ($daedalus->isDaedalusFinished()) {
-            $data['endCause'] = $this->getTranslatedEndCause($closedPlayer->getEndCause(), $daedalus->getDaedalusInfo()->getLanguage());
-
             $createdAt = $closedPlayer->getCreatedAt();
             if ($createdAt === null) {
                 throw new \Exception('ClosedPlayer createdAt should not be null');
@@ -72,30 +70,5 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         }
 
         return $data;
-    }
-
-    private function getTranslatedEndCause(string $endCause, string $language): array
-    {
-        return [
-            'key' => $endCause,
-            'name' => $this->translationService->translate(
-                key: $endCause . '.name',
-                parameters: [],
-                domain: 'end_cause',
-                language: $language
-            ),
-            'shortName' => $this->translationService->translate(
-                key: $endCause . '.short_name',
-                parameters: [],
-                domain: 'end_cause',
-                language: $language
-            ),
-            'description' => $this->translationService->translate(
-                key: $endCause . '.description',
-                parameters: [],
-                domain: 'end_cause',
-                language: $language
-            ),
-        ];
     }
 }

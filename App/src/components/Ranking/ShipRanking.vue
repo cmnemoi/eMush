@@ -1,16 +1,5 @@
 <template>
     <div class="ship_ranking_container box-container">
-        <!--        <div class="ship_ranking_options">
-            <select v-model="pagination.pageSize" @change="updateFilter">
-                <option
-                    v-for="option in pageSizeOptions"
-                    :value="option.value"
-                    :key=option.value
-                >
-                    {{ option.text }}
-                </option>
-            </select>
-        </div>-->
         <label>{{ $t('ranking.languages') }}
             <select v-model="language" @change="updateFilter">
                 <option
@@ -130,6 +119,9 @@ export default defineComponent({
 
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_daedaluses'), params)
                 .then((result) => {
+                    for (const closedDaedalus of result.data['hydra:member']) {
+                        closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);
+                    }
                     return result.data;
                 })
                 .then((remoteRowData: any) => {

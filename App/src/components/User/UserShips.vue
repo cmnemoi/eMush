@@ -139,7 +139,7 @@ export default defineComponent({
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_players'), params)
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {
-                        closedPlayer.endCause = closedPlayer.endCause?.name;
+                        closedPlayer.endCause = this.$t('userShips.endCause.' + closedPlayer.endCause);
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
                         closedPlayer.dayDeath = closedPlayer.daysSurvived; // hack to use API Platform filters...

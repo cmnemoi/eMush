@@ -50,12 +50,6 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         if ($daedalus->isDaedalusFinished()) {
-            $data['endCause'] = $this->translationService->translate(
-                key: $daedalus->getEndCause() . '.name',
-                parameters: [],
-                domain: 'end_cause'
-            );
-
             $createdAt = $daedalus->getCreatedAt();
             if ($createdAt === null) {
                 throw new \Exception('ClosedDaedalus createdAt attribute should not be null');

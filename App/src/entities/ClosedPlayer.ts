@@ -2,7 +2,7 @@ export class ClosedPlayer {
     public iri: string|null;
     public id: number|null;
     public message: string|null;
-    public endCause: {key: string, name: string, shortName: string, description: string}|null;
+    public endCause: string|null;
     public dayDeath: integer|null;
     public cycleDeath: integer|null;
     public likes: integer;

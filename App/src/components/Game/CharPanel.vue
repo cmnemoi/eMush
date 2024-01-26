@@ -120,7 +120,7 @@
                     </template>
                 </Tippy>
                 <ul class="specials">
-                    <Tippy tag="li" v-if="player.shootPoint">
+                    <Tippy tag="li" v-if="player.shootPoint && player.shootPoint.quantity > 0">
                         <img src="@/assets/images/pa_shoot.png">x{{ player.shootPoint.quantity }}
                         <template #content>
                             <h1 v-html="formatContent(player.shootPoint.name)" />

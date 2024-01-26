@@ -40,12 +40,16 @@ export default defineComponent ({
 
 .tab-content {
     min-width: 100%;
+    max-height: 115%;
 
     .chatbox-container {
+        resize: vertical;
+        overflow: scroll;
         display: flex;
         position: relative;
         z-index: 2;
         height: 436px;
+        min-height: 436px;
         margin-top: -1px;
         color: $deepBlue;
         line-height: initial;

@@ -492,6 +492,9 @@ class ChannelController extends AbstractGameController
         if (!$this->playerCanPostMessage($currentPlayer, $channel)) {
             return $this->view(['error' => 'You cannot post a message in this channel!'], Response::HTTP_FORBIDDEN);
         }
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
+            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        }
 
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         $messages = $this->messageService->getChannelMessages($currentPlayer, $channel);
@@ -506,12 +509,12 @@ class ChannelController extends AbstractGameController
     }
 
     public function playerCanPostMessage(Player $currentPlayer, Channel $channel): bool
-    {   
+    {
         // all Mush players can post in mush channel, whatever the conditions
         if ($channel->getScope() === ChannelScopeEnum::MUSH && $currentPlayer->hasStatus(PlayerStatusEnum::MUSH)) {
             return true;
         }
-        
+
         $cannotPostInPrivateChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
         || !$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer);
 
@@ -523,10 +526,6 @@ class ChannelController extends AbstractGameController
         }
 
         if ($channel->isPublic() && $cannotPostInPublicChannel) {
-            return false;
-        }
-
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
             return false;
         }
 

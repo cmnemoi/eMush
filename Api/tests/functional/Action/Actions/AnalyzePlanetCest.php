@@ -8,6 +8,7 @@ use Mush\Action\Actions\AnalyzePlanet;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -168,5 +169,21 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
         // then an expected amount of planet sections are revealed
         $I->assertEquals($this->analyzePlanetConfig->getOutputQuantity(), $this->planet->getRevealedSectors()->count());
+    }
+
+    public function testAnalyzePlanetSuccessRevealsMoreSectionsWhenNeronCpuPriorityIsSetToAstronavigation(FunctionalTester $I): void
+    {
+        // given no sections of the planet are revealed
+        $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
+
+        // given NERON CPU priority is set to astronavigation
+        $this->daedalus->getDaedalusInfo()->getNeron()->setCpuPriority(NeronCpuPriorityEnum::ASTRONAVIGATION);
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->execute();
+
+        // then an expected amount of planet sections are revealed
+        $I->assertEquals(2, $this->planet->getRevealedSectors()->count());
     }
 }

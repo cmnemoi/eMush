@@ -1752,7 +1752,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null], // number of sections revealed
+            'outputQuantity' => ['value' => 1, 'min_value' => 0, 'max_value' => null], // number of sections revealed
         ],
         [
             'name' => ActionEnum::TURN_DAEDALUS_LEFT,

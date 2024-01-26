@@ -1,0 +1,22 @@
+<?php
+
+namespace Mush\Status\ChargeStrategies;
+
+use Mush\Game\Enum\EventEnum;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
+
+final class SpecialistPointsIncrement extends AbstractChargeStrategy
+{
+    protected string $name = ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT;
+
+    public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
+    {
+        // Only applied on cycle 1
+        if (!in_array(EventEnum::NEW_DAY, $reasons)) {
+            return $status;
+        }
+
+        return $this->statusService->updateCharge($status, intval($status->getThreshold() / 2), $reasons, $time);
+    }
+}

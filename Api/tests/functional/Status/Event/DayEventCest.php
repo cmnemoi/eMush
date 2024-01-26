@@ -17,6 +17,7 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
 use Mush\Status\Service\StatusServiceInterface;
@@ -140,5 +141,23 @@ class DayEventCest
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
         $I->assertEquals(5, $status->getCharge());
+
+        // Specialist point increment
+        /** @var ChargeStatusConfig $statusConfig */
+        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::POC_SHOOTER_SKILL]);
+        /** @var ChargeStatus $status */
+        $status = $this->statusService->createStatusFromConfig(
+            $statusConfig,
+            $player,
+            [],
+            new \DateTime()
+        );
+        $statusChargeBeforeCycleChange = $status->getCharge();
+
+        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
+
+        $this->cycleSubscriber->onNewCycle($dayEvent);
+
+        $I->assertEquals($statusChargeBeforeCycleChange + intval($status->getThreshold() / 2), $status->getCharge());
     }
 }

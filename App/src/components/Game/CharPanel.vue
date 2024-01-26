@@ -88,13 +88,14 @@
                         tag="li"
                         v-for="(skill) in player.skills"
                         :key="skill.id"
-                        class="skill">
-                    <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
-                    <template #content>
-                        <h1 v-html="formatText(skill.name)" />
-                        <p v-html="formatText(skill.description)" />
-                    </template>
-                </Tippy>
+                        class="skill"
+                    >
+                        <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
+                        <template #content>
+                            <h1 v-html="formatText(skill.name)" />
+                            <p v-html="formatText(skill.description)" />
+                        </template>
+                    </Tippy>
                 </ul>
             </div>
 
@@ -213,7 +214,7 @@ export default defineComponent ({
     data() {
         return {
             StatusPlayerNameEnum
-        } 
+        }; 
     }
 });
 </script>

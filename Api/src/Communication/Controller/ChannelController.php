@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
@@ -22,6 +23,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -504,7 +506,12 @@ class ChannelController extends AbstractGameController
     }
 
     public function playerCanPostMessage(Player $currentPlayer, Channel $channel): bool
-    {
+    {   
+        // all Mush players can post in mush channel, whatever the conditions
+        if ($channel->getScope() === ChannelScopeEnum::MUSH && $currentPlayer->hasStatus(PlayerStatusEnum::MUSH)) {
+            return true;
+        }
+        
         $cannotPostInPrivateChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
         || !$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer);
 

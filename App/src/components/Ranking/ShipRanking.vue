@@ -1,16 +1,16 @@
 <template>
     <div class="ship_ranking_container box-container">
-        <!--        <div class="ship_ranking_options">
-            <select v-model="pagination.pageSize" @change="updateFilter">
+        <label>{{ $t('ranking.languages') }}
+            <select v-model="language" @change="updateFilter">
                 <option
-                    v-for="option in pageSizeOptions"
-                    :value="option.value"
-                    :key=option.value
+                    v-for="option in languagesOption"
+                    :value=option.value
+                    :key=option.key
                 >
-                    {{ option.text }}
+                    {{ $t(option.key) }}
                 </option>
             </select>
-        </div>-->
+        </label>
         <Datatable
             :headers='fields'
             :uri="uri"
@@ -46,6 +46,12 @@ export default defineComponent({
     },
     data() {
         return {
+            languagesOption: [
+                { key: 'ranking.all', value: '' },
+                { key: 'ranking.french', value: 'fr' },
+                { key: 'ranking.english', value: 'en' },
+            ],
+            language: '',
             fields: [
                 {
                     key: 'endCause',
@@ -54,12 +60,12 @@ export default defineComponent({
                 },
                 {
                     key: 'daysSurvived',
-                    name: 'ranking.day',
-                    sortable: true
+                    name: 'ranking.daysSurvived',
+                    sortable: false
                 },
                 {
                     key: 'cyclesSurvived',
-                    name: 'ranking.cycle',
+                    name: 'ranking.cyclesSurvived',
                     sortable: false
                 },
                 {
@@ -103,15 +109,18 @@ export default defineComponent({
             if (this.pagination.pageSize) {
                 params.params['itemsPerPage'] = this.pagination.pageSize;
             }
+            if (this.language) {
+                params.params['daedalusInfo.localizationConfig.language'] = this.language;
+            }
+
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
+
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_daedaluses'), params)
                 .then((result) => {
                     for (const closedDaedalus of result.data['hydra:member']) {
                         closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);
-                        closedDaedalus.daysSurvived = closedDaedalus.endDay - 1;
-                        closedDaedalus.cyclesSurvived = (closedDaedalus.endDay - 1) * 8 + closedDaedalus.endCycle - closedDaedalus.startCycle;
                     }
                     return result.data;
                 })

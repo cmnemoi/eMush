@@ -69,7 +69,7 @@ class HunterCycleSubscriber implements EventSubscriberInterface
         $nbCyclesElapsed = $this->cycleService->getNumberOfCycleElapsed(
             $cycleStartedAt,
             $currentTime,
-            $daedalus
+            $daedalus->getDaedalusInfo(),
         );
         $truceCycles = $daedalus->getGameConfig()->getDifficultyConfig()->getStartingHuntersNumberOfTruceCycles();
 

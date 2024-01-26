@@ -5,6 +5,7 @@ namespace Mush\Game\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
@@ -58,7 +59,7 @@ class CycleService implements CycleServiceInterface
             $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
         }
 
-        $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalus);
+        $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
         if ($cycleElapsed > 0 && !$daedalus->isCycleChange()) {
             $daedalus->setIsCycleChange(true);
@@ -207,9 +208,8 @@ class CycleService implements CycleServiceInterface
         return $firstDayDate->add(new \DateInterval('PT' . $minutesBetweenDayStartAndDaedalusFirstCycle . 'M'));
     }
 
-    public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, Daedalus $daedalus): int
+    public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, DaedalusInfo $daedalusInfo): int
     {
-        $daedalusInfo = $daedalus->getDaedalusInfo();
         $localizationConfig = $daedalusInfo->getLocalizationConfig();
         $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
         $start = clone $start;

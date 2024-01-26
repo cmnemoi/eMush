@@ -1,4 +1,15 @@
 <template>
+    <label>{{ $t('ranking.languages') }}
+        <select v-model="language" @change="updateFilter">
+            <option
+                v-for="option in languagesOption"
+                :value=option.value
+                :key=option.key
+            >
+                {{ $t(option.key) }}
+            </option>
+        </select>
+    </label>
     <div class="ship_userShips_container">
         <h2>{{ username }}</h2>
         <Datatable
@@ -15,7 +26,6 @@
                 {{ $t('userShips.linkToTheEnd') }}
             </template>
             <template #row-actions="slotProps">
-
                 <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.closedDaedalusId } }"> <img :src="require('@/assets/images/right.png')" id="arrow" />  {{  $t('userShips.goToTheEnd') }}</router-link>
             </template>
         </Datatable>
@@ -38,6 +48,12 @@ export default defineComponent({
     },
     data() {
         return {
+            languagesOption: [
+                { key: 'ranking.all', value: '' },
+                { key: 'ranking.french', value: 'fr' },
+                { key: 'ranking.english', value: 'en' },
+            ],
+            language: '',
             fields: [
                 {
                     key: 'character',
@@ -46,8 +62,8 @@ export default defineComponent({
                     image: 'characterBody'
                 },
                 {
-                    key: 'daysSurvived',
-                    name: 'userShips.day',
+                    key: 'dayDeath',
+                    name: 'userShips.daysSurvived',
                     sortable: true
                 },
                 {
@@ -75,7 +91,7 @@ export default defineComponent({
             },
             rowData: [],
             filter: '',
-            sortField: 'dayDeath',
+            sortField: 'id',
             sortDirection: 'DESC',
             loading: false,
             pageSizeOptions: [
@@ -89,9 +105,13 @@ export default defineComponent({
     methods: {
         loadData() {
             this.loading = true;
-            // @ts-ignore
+            if (typeof this.$route.params.userId !== 'string') {
+                throw new Error('userId is undefined');
+            }
             UserService.loadUser(this.$route.params.userId).then((user) => {
-                // @ts-ignore
+                if (!user.username) {
+                    throw new Error('User should have a username');
+                }
                 this.username = user.username;
             });
             const params: any = {
@@ -110,16 +130,19 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
+            if (this.language) {
+                params.params['closedDaedalus.daedalusInfo.localizationConfig.language'] = this.language;
+            }
+
             params.params['playerInfo.user.userId'] = this.$route.params.userId;
+
             ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_players'), params)
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {
-                        closedPlayer.endCause = 'userShips.endCause.' + closedPlayer.endCause; // translation key
-                        closedPlayer.daysSurvived = closedPlayer.dayDeath - 1;
-                        closedPlayer.cyclesSurvived = (closedPlayer.dayDeath - 1) * 8 + closedPlayer.cycleDeath - closedPlayer.startCycle;
+                        closedPlayer.endCause = this.$t('userShips.endCause.' + closedPlayer.endCause);
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
-                        closedPlayer.closedDaedalusId = closedPlayer.closedDaedalus.split('/').pop();
+                        closedPlayer.dayDeath = closedPlayer.daysSurvived; // hack to use API Platform filters...
                     }
                     return result.data;
                 })
@@ -162,6 +185,11 @@ export default defineComponent({
         },
         getCharacterBodyFromKey(characterKey: string) {
             return characterEnum[characterKey].body;
+        },
+        resetOrder() {
+            this.sortField = 'id';
+            this.sortDirection = 'DESC';
+            this.loadData();
         }
     },
     beforeMount() {

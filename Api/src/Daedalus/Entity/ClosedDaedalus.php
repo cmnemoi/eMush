@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\ClosedPlayer;
@@ -24,7 +25,7 @@ class ClosedDaedalus
     #[ORM\OneToOne(inversedBy: 'closedDaedalus', targetEntity: DaedalusInfo::class)]
     private DaedalusInfo $daedalusInfo;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ClosedPlayer::class)]
+    #[ORM\OneToMany(mappedBy: 'closedDaedalus', targetEntity: ClosedPlayer::class)]
     private Collection $players;
 
     #[ORM\Column(type: 'string', nullable: false)]
@@ -38,6 +39,9 @@ class ClosedDaedalus
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $numberOfHuntersKilled = 0;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTime $finishedAt = null;
 
     public function getId(): int
     {
@@ -75,6 +79,11 @@ class ClosedDaedalus
         $this->daedalusInfo = $daedalusInfo;
 
         return $this;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->daedalusInfo->getLanguage();
     }
 
     public function getEndCycle(): int
@@ -116,6 +125,18 @@ class ClosedDaedalus
     public function incrementNumberOfHuntersKilled(): static
     {
         ++$this->numberOfHuntersKilled;
+
+        return $this;
+    }
+
+    public function getFinishedAt(): ?\DateTime
+    {
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(\DateTime $finishedAt): static
+    {
+        $this->finishedAt = $finishedAt;
 
         return $this;
     }

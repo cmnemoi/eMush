@@ -8,6 +8,8 @@ export class ClosedDaedalus {
     public endCycle: integer|null;
     public players: ClosedPlayer[]|null;
     public numberOfHuntersKilled: integer|null;
+    public daysSurvived: integer|null;
+    public cyclesSurvived: integer|null;
 
     constructor() {
         this.iri = null;
@@ -17,6 +19,8 @@ export class ClosedDaedalus {
         this.endCycle = null;
         this.players = [];
         this.numberOfHuntersKilled = null;
+        this.daysSurvived = null;
+        this.cyclesSurvived = null;
     }
     load(object :any): ClosedDaedalus {
         if (typeof object !== "undefined") {
@@ -26,6 +30,8 @@ export class ClosedDaedalus {
             this.endDay = object.endDay;
             this.endCycle = object.endCycle;
             this.numberOfHuntersKilled = object.numberOfHuntersKilled;
+            this.daysSurvived = object.daysSurvived;
+            this.cyclesSurvived = object.cyclesSurvived;
             if (typeof object.players !== 'undefined') {
                 const players: ClosedPlayer[] = [];
                 object.players.forEach((playerData: any) => {
@@ -46,7 +52,9 @@ export class ClosedDaedalus {
             'endDay': this.endDay,
             'endCycle': this.endCycle,
             'players': players,
-            'numberOfHuntersKilled': this.numberOfHuntersKilled
+            'numberOfHuntersKilled': this.numberOfHuntersKilled,
+            'daysSurvived': this.daysSurvived,
+            'cyclesSurvived': this.cyclesSurvived
         };
 
         return data;

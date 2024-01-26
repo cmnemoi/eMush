@@ -4,6 +4,7 @@ namespace Mush\Game\Service;
 
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Exploration\Entity\Exploration;
 
 interface CycleServiceInterface
@@ -16,7 +17,7 @@ interface CycleServiceInterface
 
     public function getDateStartNextCycle(Daedalus $daedalus): \DateTime;
 
-    public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, Daedalus $daedalus): int;
+    public function getNumberOfCycleElapsed(\DateTime $start, \DateTime $end, DaedalusInfo $daedalusInfo): int;
 
     public function getExplorationDateStartNextCycle(Exploration $exploration): \DateTime;
 }

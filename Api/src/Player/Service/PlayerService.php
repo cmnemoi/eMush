@@ -377,6 +377,7 @@ class PlayerService implements PlayerServiceInterface
             ->setEndCause($endReason)
             ->setIsMush($player->isMush())
             ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
+            ->setFinishedAt($time)
         ;
         $this->persistPlayerInfo($playerInfo);
 

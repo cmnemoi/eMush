@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\ClosedDaedalus;
@@ -22,7 +23,7 @@ class ClosedPlayer
     private PlayerInfo $playerInfo;
 
     #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
-    private ClosedDaedalus $daedalus;
+    private ClosedDaedalus $closedDaedalus;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $message = null;
@@ -41,6 +42,9 @@ class ClosedPlayer
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isMush = false;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTime $finishedAt = null;
 
     public function getId(): ?int
     {
@@ -66,14 +70,19 @@ class ClosedPlayer
 
     public function getClosedDaedalus(): ClosedDaedalus
     {
-        return $this->daedalus;
+        return $this->closedDaedalus;
     }
 
     public function setClosedDaedalus(ClosedDaedalus $closedDaedalus): self
     {
-        $this->daedalus = $closedDaedalus;
+        $this->closedDaedalus = $closedDaedalus;
 
         return $this;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->getClosedDaedalus()->getLanguage();
     }
 
     public function getMessage(): ?string
@@ -148,6 +157,18 @@ class ClosedPlayer
         return $this->isMush;
     }
 
+    public function getFinishedAt(): ?\DateTime
+    {
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(\DateTime $finishedAt): static
+    {
+        $this->finishedAt = $finishedAt;
+
+        return $this;
+    }
+
     public function getLogName(): string
     {
         return $this->getPlayerInfo()->getCharacterConfig()->getCharacterName();
@@ -156,5 +177,25 @@ class ClosedPlayer
     public function isAlive(): bool
     {
         return $this->playerInfo->isAlive();
+    }
+
+    public function getCharacterKey(): string
+    {
+        return $this->playerInfo->getCharacterConfig()->getCharacterName();
+    }
+
+    public function getUserId(): string
+    {
+        return $this->playerInfo->getUser()->getUserId();
+    }
+
+    public function getUsername(): string
+    {
+        return $this->playerInfo->getUser()->getUsername();
+    }
+
+    public function getClosedDaedalusId(): int
+    {
+        return $this->closedDaedalus->getId();
     }
 }

@@ -91,7 +91,7 @@ class ChannelController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo->getPlayer();
+        $player = $playerInfo?->getPlayer();
 
         $this->denyIfPlayerNotInGame($player);
 
@@ -140,7 +140,7 @@ class ChannelController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo->getPlayer();
+        $player = $playerInfo?->getPlayer();
 
         $this->denyIfPlayerNotInGame($player);
 
@@ -187,7 +187,7 @@ class ChannelController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo->getPlayer();
+        $player = $playerInfo?->getPlayer();
 
         $this->denyIfPlayerNotInGame($player);
 
@@ -225,7 +225,7 @@ class ChannelController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo->getPlayer();
+        $player = $playerInfo?->getPlayer();
 
         $this->denyIfPlayerNotInGame($player);
 
@@ -322,7 +322,7 @@ class ChannelController extends AbstractGameController
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
         $context = new Context();
-        $context->setAttribute('currentPlayer', $playerInfo->getPlayer());
+        $context->setAttribute('currentPlayer', $playerInfo?->getPlayer());
 
         $view = $this->view($channel, 200);
         $view->setContext($context);
@@ -351,7 +351,7 @@ class ChannelController extends AbstractGameController
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $playerInfo->getPlayer()->getDaedalus()) {
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $playerInfo?->getPlayer()->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
@@ -363,7 +363,7 @@ class ChannelController extends AbstractGameController
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         return $this->view(
-            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo->getPlayer()),
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo?->getPlayer()),
             200
         );
     }
@@ -387,7 +387,7 @@ class ChannelController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo->getPlayer();
+        $player = $playerInfo?->getPlayer();
 
         $this->denyIfPlayerNotInGame($player);
 
@@ -558,7 +558,7 @@ class ChannelController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo->getPlayer();
+        $player = $playerInfo?->getPlayer();
 
         $this->denyIfPlayerNotInGame($player);
 

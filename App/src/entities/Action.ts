@@ -2,7 +2,6 @@ export class Action {
     public iri: string|null;
     public id: number|null;
     public key: string|null;
-    public types!: Array<string>;
     public canExecute: boolean;
     public name: string|null;
     public description: string|null;

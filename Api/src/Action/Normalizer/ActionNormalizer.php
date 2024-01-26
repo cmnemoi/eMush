@@ -77,7 +77,6 @@ class ActionNormalizer implements NormalizerInterface
             $normalizedAction = [
                 'id' => $object->getId(),
                 'key' => $object->getActionName(),
-                'types' => $object->getTypes(),
                 'name' => $this->translationService->translate(
                     "{$actionName}.name",
                     $translationParameters,

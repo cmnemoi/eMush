@@ -87,7 +87,7 @@ class SpecialistPointCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromConfig($shooterStatusConfig, $this->player1, [], new \DateTime());
 
         /** @var ChargeStatus $shooterStatus */
-        $shooterStatus = $this->player1->getStatuses()->first();
+        $shooterStatus = $this->player1->getSkills()[0];
         $I->assertEquals(
             PlayerStatusEnum::POC_SHOOTER_SKILL,
             $shooterStatus->getName()
@@ -102,7 +102,7 @@ class SpecialistPointCest extends AbstractFunctionalTest
         $I->assertTrue($this->shootHunterAction->isVisible());
         $I->assertEquals(0, $this->shootHunterAction->getActionPointCost());
         /** @var ChargeStatus $shooterStatus */
-        $shooterStatus = $this->player1->getStatuses()->first();
+        $shooterStatus = $this->player1->getSkills()[0];
         $I->assertEquals(
             PlayerStatusEnum::POC_SHOOTER_SKILL,
             $shooterStatus->getName()
@@ -120,7 +120,7 @@ class SpecialistPointCest extends AbstractFunctionalTest
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint()
         );
         /** @var ChargeStatus $shooterStatus */
-        $shooterStatus = $this->player1->getStatuses()->first();
+        $shooterStatus = $this->player1->getSkills()[0];
         $I->assertEquals(
             1,
             $shooterStatus->getCharge()

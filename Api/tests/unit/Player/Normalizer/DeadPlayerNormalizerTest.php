@@ -98,7 +98,6 @@ class DeadPlayerNormalizerTest extends TestCase
         $player->method('getId')->willReturn(2);
         $player->method('getTriumph')->willReturn(33);
         $player->method('getPlayerInfo')->willReturn($playerInformation);
-        $player->method('getSkills')->willReturn([]);
         $player->method('getTargetActions')->willReturn(new ArrayCollection());
 
         $this->translationService
@@ -199,7 +198,6 @@ class DeadPlayerNormalizerTest extends TestCase
                 'value' => 'translated eleesha',
             ],
             'gameStatus' => 'finished',
-            'skills' => [],
             'triumph' => [
                 'quantity' => 33,
                 'name' => 'translated triumph',

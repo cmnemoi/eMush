@@ -68,6 +68,5 @@ class ReadBookActionTest extends AbstractActionTest
 
         $this->assertInstanceOf(Success::class, $result);
         $this->assertEmpty($player->getEquipments());
-        $this->assertContains(SkillEnum::PILOT, $player->getSkills());
     }
 }

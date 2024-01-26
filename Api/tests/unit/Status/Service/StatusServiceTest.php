@@ -82,7 +82,9 @@ class StatusServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus(new Daedalus());
         $gameEquipment = new GameItem($place);
-        $status = new Status($gameEquipment, new StatusConfig());
+        $statusConfig = new StatusConfig();
+        $statusConfig->setStatusName('status');
+        $status = new Status($gameEquipment, $statusConfig);
 
         $this->entityManager->shouldReceive('remove')->with($status)->once();
         $this->entityManager->shouldReceive('flush')->once();

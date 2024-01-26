@@ -59,7 +59,9 @@ class ExtinguishActionTest extends AbstractActionTest
     public function testExecuteFail()
     {
         $room = new Place();
-        $fire = new Status($room, new StatusConfig());
+        $statusConfig = new StatusConfig();
+        $statusConfig->setStatusName('fire');
+        $fire = new Status($room, $statusConfig);
 
         $gameItem = new GameItem($room);
         $item = new ItemConfig();

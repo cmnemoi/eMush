@@ -23,6 +23,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -111,15 +112,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'exploration' => $this->normalizer->normalize($player->getExploration(), $format, $context),
         ];
 
-        $statuses = [];
-        foreach ($player->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedStatus) && count($normedStatus) > 0) {
-                $statuses[] = $normedStatus;
-            }
-        }
-
-        $statuses = $this->normalizeMushPlayerSpores($player, $statuses);
+        $statuses = $this->normalizeMushPlayerSpores($player, $this->getNormalizedPlayerStatuses($player, $format, $context));
 
         $diseases = [];
         foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
@@ -141,7 +134,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
-            'skills' => $player->getSkills(),
+            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
             'titles' => $titles,
             'actions' => $this->getActions($object, $format, $context),
             'items' => $items,
@@ -151,6 +144,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'movementPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MOVEMENT_POINT, $language),
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
+            'shootPoint' => $this->getNormalizedShootPoints($player, $language),
         ]);
 
         return $playerData;
@@ -261,5 +255,46 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));
+    }
+
+    private function getNormalizedPlayerStatuses(Player $player, string $format = null, array $context = []): array
+    {
+        $statuses = [];
+        foreach ($player->getStatuses() as $status) {
+            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedStatus) && count($normedStatus) > 0) {
+                $statuses[] = $normedStatus;
+            }
+        }
+
+        return $statuses;
+    }
+
+    private function getNormalizedPlayerSkills(Player $player, string $format = null, array $context = []): array
+    {
+        $skills = [];
+        foreach ($player->getSkills() as $skill) {
+            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedSkill) && count($normedSkill) > 0) {
+                $skills[] = $normedSkill;
+            }
+        }
+
+        return $skills;
+    }
+
+    private function getNormalizedShootPoints(Player $player, string $language): ?array
+    {
+        /** @var ?ChargeStatus $shooterSkill */
+        $shooterSkill = $player->getSkillByName(PlayerStatusEnum::POC_SHOOTER_SKILL);
+        if ($shooterSkill === null) {
+            return null;
+        }
+
+        return [
+            'name' => $this->translationService->translate('shootPoint.name', [], 'player', $language),
+            'description' => $this->translationService->translate('shootPoint.description', [], 'player', $language),
+            'quantity' => $shooterSkill->getCharge(),
+        ];
     }
 }

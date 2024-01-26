@@ -16,6 +16,8 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
@@ -75,6 +77,7 @@ class ActionNormalizer implements NormalizerInterface
             $normalizedAction = [
                 'id' => $object->getId(),
                 'key' => $object->getActionName(),
+                'types' => $object->getTypes(),
                 'name' => $this->translationService->translate(
                     "{$actionName}.name",
                     $translationParameters,
@@ -99,7 +102,8 @@ class ActionNormalizer implements NormalizerInterface
                     $actionTarget,
                     PlayerVariableEnum::MORAL_POINT,
                 ),
-                ];
+                'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $object),
+            ];
 
             if ($actionClass instanceof AttemptAction) {
                 $normalizedAction['successRate'] = $actionClass->getSuccessRate();
@@ -211,5 +215,25 @@ class ActionNormalizer implements NormalizerInterface
         }
 
         return $translationParameters;
+    }
+
+    private function getActionShootPointCost(Player $currentPlayer, Action $action): ?int
+    {
+        if (!$this->isShootAction($action)) {
+            return null;
+        }
+
+        /** @var ?ChargeStatus $shooterSkill */
+        $shooterSkill = $currentPlayer->getSkillByName(PlayerStatusEnum::POC_SHOOTER_SKILL);
+        if ($shooterSkill?->getCharge() > 0) {
+            return 1;
+        } else {
+            return null;
+        }
+    }
+
+    private function isShootAction(Action $action): bool
+    {
+        return in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes()) || in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes());
     }
 }

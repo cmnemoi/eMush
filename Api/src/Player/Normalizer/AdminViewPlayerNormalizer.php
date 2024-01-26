@@ -46,9 +46,8 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
             'isMush' => $player->isMush(),
             'statuses' => $this->normalizePlayerStatuses($player, $format, $context),
             'diseases' => $this->normalizePlayerDiseases($player, $format, $context),
+            'skills' => $this->normalizePlayerSkills($player, $format, $context),
             'currentRoom' => $this->translationService->translate($place . '.name', [], 'rooms', $language),
-            // add anything relevant...
-            // 'skills' => [],
         ];
     }
 
@@ -100,5 +99,19 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
         }
 
         return $diseases;
+    }
+
+    private function normalizePlayerSkills(Player $player, string $format = null, array $context = []): array
+    {
+        $skills = [];
+
+        foreach ($player->getSkills() as $skill) {
+            $normedSkill = $this->normalizer->normalize($skill, $format, $context);
+            if (is_array($normedSkill) && count($normedSkill) > 0) {
+                $skills[] = $normedSkill;
+            }
+        }
+
+        return $skills;
     }
 }

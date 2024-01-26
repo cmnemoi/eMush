@@ -7,6 +7,7 @@ namespace Mush\tests\Functional\Communication\Service;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -26,7 +27,14 @@ final class ChannelServiceCest extends AbstractFunctionalTest
 
     public function testMushPlayerWhisperInMushChannelWithoutATalkie(FunctionalTester $I): void
     {
-        // given I have a Mush Player
+        // given I have two Mush players
+        $conversionEvent = new PlayerEvent(
+            player: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($conversionEvent, PlayerEvent::CONVERSION_PLAYER);
+
         $conversionEvent = new PlayerEvent(
             player: $this->player2,
             tags: [],
@@ -35,12 +43,15 @@ final class ChannelServiceCest extends AbstractFunctionalTest
         $this->eventService->callEvent($conversionEvent, PlayerEvent::CONVERSION_PLAYER);
 
         // given player has no talkie
-        $I->assertFalse($this->player2->hasEquipmentByName(ItemEnum::WALKIE_TALKIE));
+        $I->assertFalse($this->player->hasEquipmentByName(ItemEnum::WALKIE_TALKIE));
+
+        // given the players are in different rooms
+        $this->player->changePlace($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
 
         // when I check if player can whisper in mush channel
         $canWhisper = $this->channelService->canPlayerWhisperInChannel(
             channel: $this->channelService->getMushChannel($this->daedalus->getDaedalusInfo()),
-            player: $this->player2
+            player: $this->player
         );
 
         // then player should be able to whisper

@@ -213,6 +213,11 @@ class ChannelService implements ChannelServiceInterface
 
     public function canPlayerWhisperInChannel(Channel $channel, Player $player): bool
     {
+        // all Mush players can post in mush channel, whatever the conditions
+        if ($channel->getScope() === ChannelScopeEnum::MUSH && $player->hasStatus(PlayerStatusEnum::MUSH)) {
+            return true;
+        }
+
         // either all participant are in the same room
         if (!$this->isChannelOnSeveralRoom($channel, $player->getPlace())) {
             return true;

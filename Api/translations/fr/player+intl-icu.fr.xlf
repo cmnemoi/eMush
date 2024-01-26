@@ -71,5 +71,15 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Le Responsable des Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
       </segment>
     </unit>
+    <unit id="shootPoint">
+      <segment id="name" state="final">
+        <source>shootPoint.name</source>
+        <target>Points de Tir</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shootPoint.description</source>
+        <target>Les Points de Tir vous donnent des **actions gratuites** pour toutes les actions de tir en vol ou à bord.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

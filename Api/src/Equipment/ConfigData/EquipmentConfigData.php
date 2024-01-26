@@ -2661,6 +2661,7 @@ class EquipmentConfigData
                 'sabotage_percent_3',
                 'report_equipment',
                 'examine',
+                'change_neron_cpu_priority',
             ],
             'mechanics' => [],
             'initStatuses' => [],

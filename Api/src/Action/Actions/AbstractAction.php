@@ -70,10 +70,6 @@ abstract class AbstractAction
     {
         $validator = $this->validator;
 
-        foreach ($validator->validate($this, null, 'visibility') as $violation) {
-            dump($violation->getMessage());
-        }
-
         return $validator->validate($this, null, 'visibility')->count() === 0;
     }
 

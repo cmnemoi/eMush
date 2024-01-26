@@ -460,12 +460,15 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pocPilotSkill);
 
-        /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifier */
-        $astronavigationNeronCpuPriorityModifier = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER);
+        /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierPlus1Section */
+        $astronavigationNeronCpuPriorityModifierPlus1Section = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION);
+        /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierMinus1ActionPoint */
+        $astronavigationNeronCpuPriorityModifierMinus1ActionPoint = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT);
 
         /** @var array<int, VariableEventModifierConfig> $modifierConfigs */
         $modifierConfigs = [
-            $astronavigationNeronCpuPriorityModifier,
+            $astronavigationNeronCpuPriorityModifierPlus1Section,
+            $astronavigationNeronCpuPriorityModifierMinus1ActionPoint,
         ];
 
         $astronavigationNeronCpuPriority = new StatusConfig();

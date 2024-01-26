@@ -1846,5 +1846,22 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS],
         ],
+        [
+            'name' => 'modifier_for_daedalus_-1action_point_on_action_analyze_planet',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -1.0,
+            'targetVariable' => 'actionPoint',
+            'mode' => 'additive',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS],
+        ],
     ];
 }

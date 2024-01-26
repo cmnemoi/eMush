@@ -16,7 +16,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -31,7 +30,6 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 {
     private Action $analyzePlanetConfig;
     private AnalyzePlanet $analyzePlanetAction;
-    private EventServiceInterface $eventService;
     private NeronServiceInterface $neronService;
     private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
@@ -44,7 +42,6 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->analyzePlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ANALYZE_PLANET]);
         $this->analyzePlanetAction = $I->grabService(AnalyzePlanet::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -195,5 +192,28 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
         // then an expected amount of planet sections are revealed
         $I->assertEquals(2, $this->planet->getRevealedSectors()->count());
+    }
+
+    public function testAnalyzePlanetCostsOneApLessWhenNeronCpuPriorityIsSetToAstronavigation(FunctionalTester $I): void
+    {
+        // given player has 8 AP
+        $this->player->setActionPoint(8);
+
+        // given NERON CPU priority is set to astronavigation
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::ASTRONAVIGATION,
+            reasons: []
+        );
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->execute();
+
+        // then the action costs one AP less
+        $I->assertEquals(
+            expected: 7,
+            actual: $this->player->getActionPoint()
+        );
     }
 }

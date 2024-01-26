@@ -48,7 +48,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const MUSH_MORALE_MODIFIER = 'mush_morale_modifier';
 
     public const SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
-    public const ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER = 'astronavigation_neron_cpu_priority_modifier';
+    public const ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION = 'astronavigation_neron_cpu_priority_modifier_plus_1_section';
+    public const ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT = 'astronavigation_neron_cpu_priority_modifier_minus_1_action_point';
 
     public function load(ObjectManager $manager): void
     {
@@ -270,8 +271,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($mushMoraleModifier);
 
-        $astronavigationNeronCpuPriorityModifier = new VariableEventModifierConfig('astronavigationNeronCpuPriorityModifier');
-        $astronavigationNeronCpuPriorityModifier
+        $astronavigationNeronCpuPriorityModifierPlus1Section = new VariableEventModifierConfig('astronavigationNeronCpuPriorityModifierPlus1Section');
+        $astronavigationNeronCpuPriorityModifierPlus1Section
             ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
@@ -280,7 +281,19 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
         ;
-        $manager->persist($astronavigationNeronCpuPriorityModifier);
+        $manager->persist($astronavigationNeronCpuPriorityModifierPlus1Section);
+
+        $astronavigationNeronCpuPriorityModifierMinus1ActionPoint = new VariableEventModifierConfig('astronavigationNeronCpuPriorityModifierMinus1ActionPoint');
+        $astronavigationNeronCpuPriorityModifierMinus1ActionPoint
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+        ;
+        $manager->persist($astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
 
         $manager->flush();
 
@@ -301,7 +314,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::MUSH_MORALE_MODIFIER, $mushMoraleModifier);
 
         $this->addReference(self::SHOOTER_SPECIALIST_POINT, $shooterSpecialist);
-        $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER, $astronavigationNeronCpuPriorityModifier);
+        $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION, $astronavigationNeronCpuPriorityModifierPlus1Section);
+        $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT, $astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
     }
 
     public function getDependencies(): array

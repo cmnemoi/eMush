@@ -10,7 +10,6 @@ use Mush\Action\Validator\Mechanic;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -44,10 +43,6 @@ class ReadBook extends AbstractAction
     {
         /** @var GameItem $target */
         $target = $this->target;
-
-        /** @var Book $bookType */
-        $bookType = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
-        $this->player->addSkill($bookType->getSkill());
 
         $equipmentEvent = new InteractWithEquipmentEvent(
             $target,

@@ -83,16 +83,19 @@
 
         <div class="column">
             <div class="skills">
-                <!-- <ul class="taught">
-                    <li><img src="@/assets/images/skills/human/politician.png" alt="politician"></li>
-                </ul>
                 <ul class="innate">
-                    <li><img src="@/assets/images/skills/human/cook.png" alt="cook"></li>
-                    <li><img src="@/assets/images/skills/human/sturdy.png" alt="sturdy"></li>
-                    <li class="select"><button class="flashing"><img src="@/assets/images/comms/newtab.png" alt="Select your new skill"></button></li>
-                    <li class="locked"><button class="crossed"><img src="@/assets/images/comms/newtab.png" alt="Select your new skill"></button></li>
-                    <li class="genome"><button><img src="@/assets/images/comms/mush.png" alt="Access the Mush Genome"></button></li>
-                </ul> -->
+                    <Tippy
+                        tag="li"
+                        v-for="(skill) in player.skills"
+                        :key="skill.id"
+                        class="skill">
+                    <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
+                    <template #content>
+                        <h1 v-html="formatText(skill.name)" />
+                        <p v-html="formatText(skill.description)" />
+                    </template>
+                </Tippy>
+                </ul>
             </div>
 
             <div class="actions-sheet">
@@ -110,14 +113,20 @@
                             </ul>
                         </div>
                     </div>
-                    <ul class="specials">
-                        <!--          <li><img src="@/assets/images/pa_cook.png">x6</li>-->
-                    </ul>
                     <template #content>
                         <h1 v-html="formatContent(player.actionPoint.name)" />
                         <p v-html="formatContent(player.actionPoint.description)" />
                     </template>
                 </Tippy>
+                <ul class="specials">
+                    <Tippy tag="li" v-if="player.shootPoint">
+                        <img src="@/assets/images/pa_shoot.png">x{{ player.shootPoint.quantity }}
+                        <template #content>
+                            <h1 v-html="formatContent(player.shootPoint.name)" />
+                            <p v-html="formatContent(player.shootPoint.description)" />
+                        </template>
+                    </Tippy>
+                </ul>
             </div>
         </div>
     </div>
@@ -135,6 +144,9 @@ import { Equipment } from "@/entities/Equipment";
 import { Action } from "@/entities/Action";
 import { Door } from "@/entities/Door";
 import { defineComponent } from "vue";
+import { Status } from "@/entities/Status";
+import { StatusPlayerNameEnum, statusPlayerEnum } from "@/enums/status.player.enum";
+import { formatText } from "@/utils/formatText";
 
 interface CharPanelState {
     selectedItem: Item | Player | null
@@ -178,6 +190,10 @@ export default defineComponent ({
                 'empty': value > threshold
             };
         },
+        formatText,
+        skillImage(skill: Status): string {
+            return statusPlayerEnum[skill.key].icon ?? '';
+        },
         toggleItemSelection(item: Item | null): void {
             if (this.selectedItem === item) {
                 this.selectTarget({ target: null });
@@ -193,6 +209,11 @@ export default defineComponent ({
                 }
             }
         }
+    },
+    data() {
+        return {
+            StatusPlayerNameEnum
+        } 
     }
 });
 </script>
@@ -452,16 +473,20 @@ div.inventory {
             }
         }
     }
-
-    .specials li {
+    .specials {
         display: flex;
-        flex-direction: row;
-        align-items: baseline;
-        margin: 2px 0;
-        font-size: 0.75em;
-        font-weight: 700;
+        flex-direction: column;
+        
+        li {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            margin: 2px 0;
+            font-size: 0.75em;
+            font-weight: 700;
 
-        img { margin-right: -3px; }
+            img { margin-right: -3px; }
+        }
     }
 }
 

@@ -118,4 +118,12 @@ trait TargetStatusTrait
 
         return $status ?: null;
     }
+
+    /**
+     * Temporary method for PoC skills.
+     */
+    public function hasSkill(string $statusName): bool
+    {
+        return $this->getSkills()->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
+    }
 }

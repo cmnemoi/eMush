@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity]
 class Exploration
@@ -160,9 +161,9 @@ class Exploration
         return $this->cycle;
     }
 
-    public function setCycle(int $cycle): void
+    public function incrementCycle(): void
     {
-        $this->cycle = $cycle;
+        ++$this->cycle;
     }
 
     public function isChangingCycle(): bool
@@ -195,5 +196,10 @@ class Exploration
     public function isAnyExploratorAlive(): bool
     {
         return $this->getExplorators()->getPlayerAlive()->count() > 0;
+    }
+
+    public function hasAPilotAlive(): bool
+    {
+        return $this->getAliveExplorators()->filter(fn (Player $player) => $player->hasSkill(PlayerStatusEnum::POC_PILOT_SKILL))->count() > 0;
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Listener;
 
+use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
@@ -34,11 +35,33 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     public function onExplorationStarted(ExplorationEvent $event): void
     {
-        $this->explorationService->dispatchExplorationEvent($event->getExploration());
+        $exploration = $this->explorationService->dispatchLandingEvent($event->getExploration());
+
+        $exploration->incrementCycle();
+        $this->explorationService->persist([$exploration]);
+
+        $this->closeExplorationPrematurelyIfNeeded($exploration);
     }
 
     public function onExplorationNewCycle(ExplorationEvent $event): void
     {
-        $this->explorationService->dispatchExplorationEvent($event->getExploration());
+        $exploration = $this->explorationService->dispatchExplorationEvent($event->getExploration());
+
+        $exploration->incrementCycle();
+        $this->explorationService->persist([$exploration]);
+
+        $this->closeExplorationPrematurelyIfNeeded($exploration);
+    }
+
+    private function closeExplorationPrematurelyIfNeeded(Exploration $exploration): void
+    {
+        $allActiveExploratorsAreDead = $exploration->getActiveExplorators()->isEmpty();
+        $allSectorsVisited = $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1;
+
+        if ($allActiveExploratorsAreDead) {
+            $this->explorationService->closeExploration($exploration, [ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD]);
+        } elseif ($allSectorsVisited) {
+            $this->explorationService->closeExploration($exploration, [ExplorationEvent::ALL_SECTORS_VISITED]);
+        }
     }
 }

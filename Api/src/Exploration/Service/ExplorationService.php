@@ -124,16 +124,16 @@ final class ExplorationService implements ExplorationServiceInterface
             $landingSector = new PlanetSector($landingSectorConfig, $planet);
 
             $eventName = $this->drawPlanetSectorEvent($landingSector);
-            $config = $this->findPlanetSectorEventConfigByName($eventName);
-            if (!$config) {
+            $eventConfig = $this->findPlanetSectorEventConfigByName($eventName);
+            if (!$eventConfig) {
                 throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
             }
 
             $planetSectorEvent = new PlanetSectorEvent(
                 planetSector: $landingSector,
-                config: $config,
+                config: $eventConfig,
             );
-            $this->eventService->callEvent($planetSectorEvent, $eventName);
+            $this->eventService->callEvent($planetSectorEvent, $eventConfig->getEventName());
         } else {
             /** @var PlanetSector $sector */
             $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
@@ -141,20 +141,20 @@ final class ExplorationService implements ExplorationServiceInterface
             $closedExploration->addExploredSectorKey($sector->getName());
 
             $eventName = $this->drawPlanetSectorEvent($sector);
-            $config = $this->findPlanetSectorEventConfigByName($eventName);
+            $eventConfig = $this->findPlanetSectorEventConfigByName($eventName);
             // @TODO : remove this debug condition when all events are implemented
-            if ($config === null) {
-                $config = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
-                if ($config === null) {
+            if ($eventConfig === null) {
+                $eventConfig = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
+                if ($eventConfig === null) {
                     throw new \RuntimeException('Exploration event config not found for event name ' . $eventName);
                 }
             }
 
             $event = new PlanetSectorEvent(
                 planetSector: $sector,
-                config: $config,
+                config: $eventConfig,
             );
-            $this->eventService->callEvent($event, $eventName);
+            $this->eventService->callEvent($event, $eventConfig->getEventName());
         }
 
         $exploration->setCycle($exploration->getCycle() + 1);
@@ -271,7 +271,7 @@ final class ExplorationService implements ExplorationServiceInterface
 
     private function findPlanetSectorEventConfigByName(string $eventName): ?PlanetSectorEventConfig
     {
-        return $this->entityManager->getRepository(PlanetSectorEventConfig::class)->findOneByEventName($eventName);
+        return $this->entityManager->getRepository(PlanetSectorEventConfig::class)->findOneByName($eventName);
     }
 
     private function delete(array $entities): void

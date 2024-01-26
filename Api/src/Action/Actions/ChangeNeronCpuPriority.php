@@ -10,7 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -25,25 +25,26 @@ final class ChangeNeronCpuPriority extends AbstractAction
     protected string $name = ActionEnum::CHANGE_NERON_CPU_PRIORITY;
     private string $cpuPriority;
 
-    private DaedalusServiceInterface $daedalusService;
+    private NeronServiceInterface $neronService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        DaedalusServiceInterface $daedalusService
+        NeronServiceInterface $neronService
     ) {
         parent::__construct($eventService, $actionService, $validator);
-        $this->daedalusService = $daedalusService;
+        $this->neronService = $neronService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
-    {   
+    {
         if (!isset($parameters['cpuPriority'])) {
             return false;
         }
 
         $this->cpuPriority = $parameters['cpuPriority'];
+
         return $target instanceof GameEquipment;
     }
 
@@ -67,10 +68,12 @@ final class ChangeNeronCpuPriority extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $daedalus = $this->player->getDaedalus();
+        $neron = $this->player->getDaedalus()->getDaedalusInfo()->getNeron();
 
-        $daedalus->getDaedalusInfo()->getNeron()->setCpuPriority($this->cpuPriority);
-
-        $this->daedalusService->persist($daedalus);
+        $this->neronService->changeCpuPriority(
+            $neron,
+            $this->cpuPriority,
+            reasons: $this->action->getActionTags()
+        );
     }
 }

@@ -9,12 +9,14 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
+use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -29,6 +31,8 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 {
     private Action $analyzePlanetConfig;
     private AnalyzePlanet $analyzePlanetAction;
+    private EventServiceInterface $eventService;
+    private NeronServiceInterface $neronService;
     private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
     private GameEquipment $astroTerminal;
@@ -40,6 +44,8 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->analyzePlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ANALYZE_PLANET]);
         $this->analyzePlanetAction = $I->grabService(AnalyzePlanet::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
@@ -177,7 +183,11 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
 
         // given NERON CPU priority is set to astronavigation
-        $this->daedalus->getDaedalusInfo()->getNeron()->setCpuPriority(NeronCpuPriorityEnum::ASTRONAVIGATION);
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::ASTRONAVIGATION,
+            reasons: []
+        );
 
         // when player scans
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);

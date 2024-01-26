@@ -414,6 +414,7 @@ class GameConfigData
                 'following_hunters_default',
                 PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
                 PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
+                'astronavigation_neron_cpu_priority_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

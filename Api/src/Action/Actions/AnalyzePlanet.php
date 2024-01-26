@@ -13,7 +13,6 @@ use Mush\Action\Validator\AllPlanetSectorsRevealed;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
-use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Entity\Planet;
@@ -81,10 +80,6 @@ final class AnalyzePlanet extends AbstractAction
         $planet = $this->target;
 
         $numberOfSectionsToReveal = $this->getOutputQuantity();
-
-        if ($this->player->getDaedalus()->getDaedalusInfo()->getNeron()->getCpuPriority() === NeronCpuPriorityEnum::ASTRONAVIGATION) {
-            ++$numberOfSectionsToReveal;
-        }
 
         $this->planetService->revealPlanetSectors($planet, number: $numberOfSectionsToReveal);
     }

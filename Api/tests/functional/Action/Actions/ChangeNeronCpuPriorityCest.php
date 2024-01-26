@@ -80,7 +80,7 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 
         // then NERON CPU priority should be set to astronavigation
         $I->assertEquals(
-            expected: NeronCpuPriorityEnum::ASTRONAVIGATION, 
+            expected: NeronCpuPriorityEnum::ASTRONAVIGATION,
             actual: $this->daedalus->getDaedalusInfo()->getNeron()->getCpuPriority()
         );
     }

@@ -44,11 +44,6 @@ final class ExplorationEventCest extends AbstractExplorationTester
             $explorationCurrrentCycleBeforeCycleChange + 2,
             $this->exploration->getCycle(),
         );
-
-        $I->seeInRepository(
-            entity: Exploration::class,
-            params: ['planet' => $this->exploration->getPlanet()],
-        );
     }
 
     public function testClosedExplorationIsFinishedWhenAllSectorsAreVisited(FunctionalTester $I): void

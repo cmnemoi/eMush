@@ -13,12 +13,12 @@ use Mush\Action\Validator\AllPlanetSectorsRevealed;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -28,18 +28,15 @@ final class AnalyzePlanet extends AbstractAction
 {
     protected string $name = ActionEnum::ANALYZE_PLANET;
     private PlanetServiceInterface $planetService;
-    private RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlanetServiceInterface $planetService,
-        RandomServiceInterface $randomService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
         $this->planetService = $planetService;
-        $this->randomService = $randomService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -83,6 +80,12 @@ final class AnalyzePlanet extends AbstractAction
         /** @var Planet $planet */
         $planet = $this->target;
 
-        $this->planetService->revealPlanetSectors($planet, number: $this->getOutputQuantity());
+        $numberOfSectionsToReveal = $this->getOutputQuantity();
+
+        if ($this->player->getDaedalus()->getDaedalusInfo()->getNeron()->getCpuPriority() === NeronCpuPriorityEnum::ASTRONAVIGATION) {
+            ++$numberOfSectionsToReveal;
+        }
+
+        $this->planetService->revealPlanetSectors($planet, number: $numberOfSectionsToReveal);
     }
 }

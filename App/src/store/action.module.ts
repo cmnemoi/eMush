@@ -92,6 +92,7 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
 
     handleActionResponse({ axiosResponse: response, action , commit, dispatch });
 
+    dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
     await dispatch("communication/loadRoomLogs", null, { root: true });
     await dispatch("communication/loadChannels", null, { root: true });
 }

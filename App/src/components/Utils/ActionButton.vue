@@ -1,11 +1,12 @@
 <template>
-    <Tippy tag="div">
+    <Tippy tag="div" v-if=action>
         <a
             :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
             <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
             <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap"></span>
             <span v-else-if="action.actionPointCost > 0 && action.movementPointCost > 0" class="cost">{{ action.actionPointCost }}<img src="@/assets/images/pa.png" alt="ap">{{ action.movementPointCost }}<img src="@/assets/images/pm.png" alt="mp"></span>
+            <span v-if="action.shootPointCost" class="cost">{{ action.shootPointCost }}<img src="@/assets/images/pa_shoot.png" alt="pa_shoot"></span>
             <span v-if="action.canExecute">{{ action.name }}</span>
             <span v-else><s>{{ action.name }}</s></span>
             <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
@@ -20,19 +21,26 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Action } from "@/entities/Action";
+import { Player } from "@/entities/Player";
+import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 
 export default defineComponent ({
     props: {
-        action: Object,
-        cssClass: String
+        action: Action,
+        cssClass: String,
+        player: Player
     },
-    computed:
-        {
-            isDisabled(): string
-            {
-                return !this.action?.canExecute ? "disabled" : "";
-            }
-        }
+    computed:{
+        isDisabled(): string {
+            return !this.action?.canExecute ? "disabled" : "";
+        },
+    },
+    data() {
+        return {
+            StatusPlayerNameEnum
+        }; 
+    }
 });
 </script>
 

@@ -2,6 +2,7 @@ export class Action {
     public iri: string|null;
     public id: number|null;
     public key: string|null;
+    public types!: Array<string>;
     public canExecute: boolean;
     public name: string|null;
     public description: string|null;
@@ -9,6 +10,7 @@ export class Action {
     public movementPointCost: number|null;
     public successRate: number|null;
     public confirmation: string|null;
+    public shootPointCost: number|null;
 
     constructor() {
         this.iri = null;
@@ -21,6 +23,7 @@ export class Action {
         this.movementPointCost = null;
         this.successRate = null;
         this.confirmation = null;
+        this.shootPointCost = null;
     }
     load(object:any) : Action {
         if (typeof object !== "undefined") {
@@ -34,6 +37,7 @@ export class Action {
             this.movementPointCost = object.movementPointCost;
             this.successRate = object.successRate;
             this.confirmation = object.confirmation;
+            this.shootPointCost = object.shootPointCost;
         }
         return this;
     }
@@ -52,6 +56,7 @@ export class Action {
             this.movementPointCost = object.movementPointCost;
             this.successRate = object.successRate;
             this.confirmation = object.confirmation;
+            this.shootPointCost = object.shootPointCost;
         }
 
         return this;

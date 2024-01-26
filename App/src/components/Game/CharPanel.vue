@@ -1,49 +1,52 @@
 <template>
-    <div class="char-panel">
+    <div class="char-panel" :class="player.character.key">
         <div class="char-sheet">
-            <img class="avatar"
-                 :src="characterPortrait"
-                 alt="avatar"
-                 @mousedown.stop="toggleItemSelection(null)"
-            >
-
-            <ul class="statuses">
-                <Statuses :statuses="player.statuses" type="player" />
-                <Statuses :statuses="player.diseases" type="disease" />
-            </ul>
-
-            <div class="health-points">
-                <div class="life">
-                    <Tippy tag="ol">
-                        <li class="quantityLife">
-                            <ul>
-                                <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
-                            </ul>
-                        </li>
-                        <li class="iconLife">
-                            <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
-                        </li>
-                        <template #content>
-                            <h1 v-html="formatContent(player.healthPoint.name)" />
-                            <p v-html="formatContent(player.healthPoint.description)" />
-                        </template>
-                    </Tippy>
+            <div class="char-card">
+                <div class="avatar">
+                    <img :src="characterPortrait"
+                         alt="avatar"
+                         @mousedown.stop="toggleItemSelection(null)"
+                    >
                 </div>
-                <div class="morale">
-                    <Tippy tag="ol">
-                        <li class="quantityMorale">
-                            <ul>
-                                <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
-                            </ul>
-                        </li>
-                        <li class="iconMorale">
-                            <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
-                        </li>
-                        <template #content>
-                            <h1 v-html="formatContent(player.moralPoint.name)" />
-                            <p v-html="formatContent(player.moralPoint.description)" />
-                        </template>
-                    </Tippy>
+
+                <ul class="statuses">
+                    <Statuses :statuses="player.statuses" type="player" />
+                    <Statuses :statuses="player.diseases" type="disease" />
+                </ul>
+
+                <div class="health-points">
+                    <div class="life">
+                        <Tippy tag="ol">
+                            <li class="quantityLife">
+                                <ul>
+                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
+                                </ul>
+                            </li>
+                            <li class="iconLife">
+                                <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
+                            </li>
+                            <template #content>
+                                <h1 v-html="formatContent(player.healthPoint.name)" />
+                                <p v-html="formatContent(player.healthPoint.description)" />
+                            </template>
+                        </Tippy>
+                    </div>
+                    <div class="morale">
+                        <Tippy tag="ol">
+                            <li class="quantityMorale">
+                                <ul>
+                                    <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
+                                </ul>
+                            </li>
+                            <li class="iconMorale">
+                                <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
+                            </li>
+                            <template #content>
+                                <h1 v-html="formatContent(player.moralPoint.name)" />
+                                <p v-html="formatContent(player.moralPoint.description)" />
+                            </template>
+                        </Tippy>
+                    </div>
                 </div>
             </div>
             <div class="inventory">
@@ -210,7 +213,7 @@ export default defineComponent ({
         border-top-left-radius: 4px;
         background: rgba(54, 76, 148, 0.35);
 
-        .avatar {
+        .avatar img {
             width: 100%;
             max-width: 166px;
             height: auto;
@@ -461,5 +464,53 @@ div.inventory {
         img { margin-right: -3px; }
     }
 }
+
+@media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+    .char-panel .char-sheet {
+        display: block;
+        width: 100%;
+        // flex-direction: row;
+        // align-items: flex-start;
+        max-width: initial;
+        min-height: initial;
+
+        .avatar {
+        align-items: center;
+        justify-content: center;
+        width: 110px;
+        height: 70px;
+        overflow: hidden;
+
+            img { width: initial; }
+        }
+
+        .char-card { float: left; }
+
+        .health-points { margin-top: -0.3em; }
+
+
+        .inventory {
+            float: left;
+            clear: left;
+            width: 110px;
+        }
+
+        .interactions {
+            padding-left: 8%;
+            padding-right: 8%;
+            margin: auto;
+        }
+    }
+
+    @each $crewmate, $face-position-x, $face-position-y in $face-position { // adjust the image position in the crewmate avatar div
+        $translate-x : (50% - $face-position-x);
+        $translate-y : (50% - $face-position-y);
+        .#{$crewmate} .avatar img {
+            transform: translate($translate-x, $translate-y);
+        }
+    }
+
+}
+
 
 </style>

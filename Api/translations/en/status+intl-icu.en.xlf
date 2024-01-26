@@ -1212,7 +1212,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disabled.description</source>
-        <target>Terrence gets 2 :pm: less during conversions of :pa:-:pm:. However, he can freely leave a room when a crew member is present.</target>
+        <target>The disabled crewmate gets 2 :pm: less during conversions of :pa:-:pm:. However, they can freely leave a room when a crew member is present.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>disabled.examine</source>
@@ -1352,7 +1352,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>immunized.description</source>
-        <target>The immunized cannot be infected by mush. Practical when you're not sure who to trust...</target>
+        <target>The immunized cannot be infected by the Mush. Practical when you're not sure who to trust...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>immunized.examine</source>
@@ -1547,6 +1547,32 @@
       <segment state="translated">
         <source>fire.description</source>
         <target>This room is on fire !</target>
+      </segment>
+    </unit>
+    <unit id="poc_pilot_skill">
+      <segment id="name" state="translated">
+        <source>poc_pilot_skill.name</source>
+        <target>Pilot</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>poc_pilot_skill.description</source>
+        <target>An expert in manoeuvring the Icarus, Pasiphae and patrol ships. Their aerial mastery is impressive.
+//
+**Doubled chances** to hit in patrol ships.
+//
+**Never fails** landings and takeoffs.</target>
+      </segment>
+    </unit>
+    <unit id="poc_shooter_skill">
+      <segment id="name" state="translated">
+        <source>poc_shooter_skill.name</source>
+        <target>Shooter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>poc_shooter_skill.description</source>
+        <target>At ease handling all kinds of weapons.
+//
++2 :pa_shoot: per day (**Shoot** Action Points).</target>
       </segment>
     </unit>
   </file>

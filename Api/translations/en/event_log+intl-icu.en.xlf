@@ -188,9 +188,9 @@
     <unit id="plant_maturity">
       <segment state="translated">
         <source>plant_maturity</source>
-        <target>{equipment_first_letter, select,
-    vowel {An **{equipment}** has reached maturity! Finally!}
-    consonant {A **{equipment}** has reached maturity! Finally!}
+        <target>{target_equipment_first_letter, select,
+    vowel {An **{target_equipment}** has reached maturity! Finally!}
+    consonant {A **{target_equipment}** has reached maturity! Finally!}
     other {invalid equipment_first_letter input}
 }</target>
       </segment>
@@ -627,6 +627,12 @@
       <segment id="daily_morale_loss" state="final">
         <source>daily_morale_loss</source>
         <target>You made it through another day... Your morale is slowly diminishing.</target>
+      </segment>
+    </unit>
+    <unit id="all_explorators_dead">
+      <segment id="all_explorators_dead" state="translated">
+        <source>all_explorators_dead</source>
+        <target>The expedition came back sooner than expected: all the explorators are dead! You can find out how it went {exploration_link}.</target>
       </segment>
     </unit>
   </file>

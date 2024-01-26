@@ -1212,7 +1212,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disabled.description</source>
-        <target>L'Handicapé gagne 2 :pm: de moins lors des conversions :pa:-:pm:. En revanche, il peut se déplacer gratuitement tant qu'il est dans une salle contenant au moins un membre d 'équipage.</target>
+        <target>L'handicapé moteur gagne 2 :pm: de moins lors des conversions :pa:-:pm:. En revanche, il peut se déplacer gratuitement tant qu'il est dans une salle contenant au moins un membre d'équipage.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>disabled.examine</source>
@@ -1352,7 +1352,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>immunized.description</source>
-        <target>L'immunisée ne peut pas être contaminée par le Mush. Pratique quand on ne sais plus à qui faire confiance.</target>
+        <target>L'immunisée ne peut pas être contaminée par le Mush. Pratique quand on ne sait plus à qui faire confiance.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>immunized.examine</source>
@@ -1551,12 +1551,16 @@
     </unit>
     <unit id="poc_pilot_skill">
       <segment id="name" state="translated">
-        <source>poc_shooter_skill.name</source>
+        <source>poc_pilot_skill.name</source>
         <target>Pilote</target>
       </segment>
       <segment id="description" state="translated">
         <source>poc_pilot_skill.description</source>
-        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.</target>
+        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.
+//
+**Chances doublées** de toucher en Patrouilleur.
+//
+**Ne rate jamais** les atterrissages et décollages.</target>
       </segment>
     </unit>
     <unit id="poc_shooter_skill">
@@ -1566,7 +1570,9 @@
       </segment>
       <segment id="description" state="translated">
         <source>poc_shooter_skill.description</source>
-        <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.</target>
+        <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.
+//
++2 **Tirs gratuits** :pa_shoot: par jour.</target>
       </segment>
     </unit>
   </file>

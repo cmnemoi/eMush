@@ -215,9 +215,9 @@
     <unit id="plant_maturity">
       <segment state="final">
         <source>plant_maturity</source>
-        <target>{equipment_gender, select,
-                    male {Un **{equipment}** est arrivé à maturité ! Enfin !}
-                    female {Une **{equipment}** est arrivée à maturité ! Enfin !}
+        <target>{target_equipment_gender, select,
+                    male {Un **{target_equipment}** est arrivé à maturité ! Enfin !}
+                    female {Une **{target_equipment}** est arrivée à maturité ! Enfin !}
                     other {invalid gender input}
                 }</target>
       </segment>
@@ -679,9 +679,9 @@
       </segment>
     </unit>
     <unit id="all_explorators_dead">
-      <segment id="all_explorators_dead" state="final">
+      <segment id="all_explorators_dead" state="translated">
         <source>all_explorators_dead</source>
-        <target>L'exploration est revenue plus tôt que prévu : tous les explorateurs sont morts ! Vous pouvez retrouver son déroulement {exploration_link}.</target>
+        <target>L'expédition est revenue plus tôt que prévu : tous les explorateurs sont morts ! Vous pouvez retrouver son déroulement {exploration_link}.</target>
       </segment>
     </unit>
   </file>

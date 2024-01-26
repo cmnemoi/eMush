@@ -3000,11 +3000,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="final">
         <source>fiboniccus.description</source>
-        <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...</target>
+        <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu. Et pour cause, il ne poussait pas sur Terre...</target>
       </segment>
       <segment id="examine" state="final">
         <source>fiboniccus.examine</source>
-        <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu.Et pour cause, il ne poussait pas sur Terre...</target>
+        <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu. Et pour cause, il ne poussait pas sur Terre...</target>
       </segment>
     </unit>
     <unit id="mycopia">

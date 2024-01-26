@@ -2,12 +2,14 @@ import PlayerService from "@/services/player.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
+import { ConfirmPopup } from "@/entities/ConfirmPopup";
 
 
 const state =  {
     loading: false,
     player: null,
-    selectedItem: null
+    selectedItem: null,
+    confirmPopup: new ConfirmPopup()
 };
 
 const getters: GetterTree<any, any> = {
@@ -19,6 +21,9 @@ const getters: GetterTree<any, any> = {
     },
     selectedItem: (state: any): Item|null => {
         return state.selectedItem;
+    },
+    confirmPopup: (state: any): ConfirmPopup => {
+        return state.confirmPopup;
     }
 };
 
@@ -65,6 +70,18 @@ const actions: ActionTree<any, any> = {
     },
     selectTarget({ commit }, { target }) {
         commit('setSelectedItem', target);
+    },
+    async openConfirmPopup({ commit }, { message, acceptCallback, refuseCallback = () => {} }) {
+        commit('openConfirmPopup', { message, acceptCallback, refuseCallback });
+    },
+    closeConfirmPopup({ commit }) {
+        commit('closeConfirmPopup');
+    },
+    acceptConfirmPopup({ commit }) {
+        commit('acceptConfirmPopup');
+    },
+    refuseConfirmPopup({ commit }) {
+        commit('refuseConfirmPopup');
     }
 };
 
@@ -99,6 +116,27 @@ const mutations : MutationTree<any> = {
             }
             return state.selectedItem = null;
         }
+    },
+    acceptConfirmPopup(state) {
+        state.confirmPopup.isOpen = false;
+        state.confirmPopup.acceptCallback();
+
+        state.confirmPopup = new ConfirmPopup();
+    },
+    refuseConfirmPopup(state) {
+        state.confirmPopup.isOpen = false;
+        state.confirmPopup.refuseCallback();
+
+        state.confirmPopup = new ConfirmPopup();
+    },
+    openConfirmPopup(state, { message, acceptCallback, refuseCallback }) {
+        state.confirmPopup.isOpen = true;
+        state.confirmPopup.message = message;
+        state.confirmPopup.acceptCallback = acceptCallback;
+        state.confirmPopup.refuseCallback = refuseCallback;
+    },
+    closeConfirmPopup(state) {
+        state.confirmPopup = new ConfirmPopup();
     }
 };
 

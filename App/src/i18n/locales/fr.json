@@ -45,7 +45,14 @@
 		"languages": "Langue du Daedalus",
 		"all": "Tous les vaisseaux",
 		"french": "Vaisseaux français",
-		"english": "Vaisseaux anglais"
+		"english": "Vaisseaux anglais",
+		"endCause": {
+			"sol_return": "Daedalus rentré sur Sol",
+			"eden": "Daedalus s'est installé sur Eden",
+			"daedalus_destroyed": "Daedalus détruit",
+			"killed_by_neron": "Equipage assassiné par NERON",
+			"super_nova": "Super Nova"
+		}
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",

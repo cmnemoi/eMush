@@ -178,6 +178,7 @@ span.tippy-tooltip {
 .character-banner {
     display: flex;
     flex-direction: row;
+    align-self: flex-start;
 }
 
 .in-game-level {
@@ -261,6 +262,8 @@ span.tippy-tooltip {
 
 .daedalus-banner {
     align-items: center;
+    flex-wrap: wrap;
+    row-gap: 0.5em;
 
     &>div {
         margin: 0 12px;

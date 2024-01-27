@@ -90,5 +90,9 @@ export default defineComponent ({
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    row-gap: 5px;
+    column-gap: 5px;
+
+    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { flex-direction: column; }
 }
 </style>

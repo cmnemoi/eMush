@@ -61,6 +61,7 @@ export default defineComponent ({
         overflow: auto;
         padding: 7px;
         color: $deepBlue;
+        resize: x;
     }
 
     .chat-input + .chatbox { // If there is an input box, the chatbox will subtract its height

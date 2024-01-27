@@ -2661,6 +2661,8 @@ class EquipmentConfigData
                 'sabotage_percent_3',
                 'report_equipment',
                 'examine',
+                'access_terminal',
+                'exit_terminal',
                 'change_neron_cpu_priority',
             ],
             'mechanics' => [],

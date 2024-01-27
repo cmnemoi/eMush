@@ -1511,7 +1511,7 @@ class ActionData
             'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
-            'visibilities' => ['success' => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PUBLIC],
+            'visibilities' => ['critical_success' => 'public', 'success' => 'public'],
             'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

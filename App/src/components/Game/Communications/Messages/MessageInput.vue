@@ -92,7 +92,7 @@ export default defineComponent ({
         position: relative;
         flex: 1;
         resize: vertical;
-        min-height: 29px;
+        min-height: 48px;
         padding: 3px 5px;
         font-style: italic;
         opacity: 0.85;

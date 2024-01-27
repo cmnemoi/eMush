@@ -47,4 +47,8 @@ export default defineComponent ({
     font-size: 2rem;
     font-family: 'Courier New', Courier, monospace;
 }
+
+::v-deep(canvas) {
+    max-width: 100%;
+}
 </style>

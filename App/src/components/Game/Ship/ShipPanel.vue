@@ -101,12 +101,15 @@ export default defineComponent ({
 .ship-panel {
     position: relative;
     flex-direction: row;
-    width: 424px;
-    height: 460px;
+    width: 100%;
+    max-width: 424px;
+    height: fit-content;
+    max-height: 460px;
     background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
 
     .ship-panel-content {
         width: 100%;
+        height: fit-content;
         flex-direction: row;
     }
 
@@ -134,6 +137,9 @@ export default defineComponent ({
         }
 
     }
+
+    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { margin: auto; }
+
 }
 
 </style>

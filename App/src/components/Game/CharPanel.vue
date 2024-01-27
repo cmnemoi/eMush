@@ -1,21 +1,22 @@
 <template>
-    <div class="char-panel">
+    <div class="char-panel" :class="player.character.key">
         <div class="char-sheet">
-            <img class="avatar"
-                 :src="characterPortrait"
-                 alt="avatar"
-                 @mousedown.stop="toggleItemSelection(null)"
-            >
+            <div class="char-card">
+                <div class="avatar">
+                    <img :src="characterPortrait"
+                         alt="avatar"
+                         @mousedown.stop="toggleItemSelection(null)"
+                    >
+                </div>
 
-            <ul class="statuses">
-                <Statuses :statuses="player.statuses" type="player" />
-                <Statuses :statuses="player.diseases" type="disease" />
-            </ul>
+                <ul class="statuses">
+                    <Statuses :statuses="player.statuses" type="player" />
+                    <Statuses :statuses="player.diseases" type="disease" />
+                </ul>
 
-            <div class="health-points">
-                <div class="life">
-                    <Tippy tag="div">
-                        <ol>
+                <div class="health-points">
+                    <div class="life">
+                        <Tippy tag="ol">
                             <li class="quantityLife">
                                 <ul>
                                     <li v-for="n in 14" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
@@ -24,16 +25,14 @@
                             <li class="iconLife">
                                 <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
                             </li>
-                        </ol>
-                        <template #content>
-                            <h1 v-html="formatContent(player.healthPoint.name)" />
-                            <p v-html="formatContent(player.healthPoint.description)" />
-                        </template>
-                    </Tippy>
-                </div>
-                <div class="morale">
-                    <Tippy tag="div">
-                        <ol>
+                            <template #content>
+                                <h1 v-html="formatContent(player.healthPoint.name)" />
+                                <p v-html="formatContent(player.healthPoint.description)" />
+                            </template>
+                        </Tippy>
+                    </div>
+                    <div class="morale">
+                        <Tippy tag="ol">
                             <li class="quantityMorale">
                                 <ul>
                                     <li v-for="n in 14" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
@@ -42,12 +41,12 @@
                             <li class="iconMorale">
                                 <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
                             </li>
-                        </ol>
-                        <template #content>
-                            <h1 v-html="formatContent(player.moralPoint.name)" />
-                            <p v-html="formatContent(player.moralPoint.description)" />
-                        </template>
-                    </Tippy>
+                            <template #content>
+                                <h1 v-html="formatContent(player.moralPoint.name)" />
+                                <p v-html="formatContent(player.moralPoint.description)" />
+                            </template>
+                        </Tippy>
+                    </div>
                 </div>
             </div>
             <div class="inventory">
@@ -208,14 +207,15 @@ export default defineComponent ({
     flex-direction: row;
 
     .char-sheet {
-        width: 176px;
+        max-width: 176px;
         min-height: 459px;
         padding: 5px;
         border-top-left-radius: 4px;
         background: rgba(54, 76, 148, 0.35);
 
-        .avatar {
-            width: 166px;
+        .avatar img {
+            width: 100%;
+            max-width: 166px;
             height: auto;
         }
 
@@ -233,7 +233,9 @@ export default defineComponent ({
 
 .health-points {
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
+    row-gap: 0.6em;
     margin: -.75em 0 .25em;
 
     .life,
@@ -246,6 +248,8 @@ export default defineComponent ({
         ol {
             align-items: center;
             flex-direction: column-reverse;
+
+            @media screen and (max-width: $breakpoint-desktop-l) { flex-direction: row-reverse; }
 
             li:first-child { z-index: 1; }
         }
@@ -280,6 +284,8 @@ export default defineComponent ({
             padding: .1em .2em;
             border-radius: 2px;
 
+            @media screen and (max-width: $breakpoint-desktop-m) { display: none; }
+
             li {
                 width: 4px;
                 height: 5px;
@@ -298,7 +304,15 @@ export default defineComponent ({
 }
 
 div.inventory {
+    overflow: visible;
     margin: 0 -1px;
+
+    @media screen and (max-width: $breakpoint-desktop-l) {
+        width: 110px;
+        margin: 0 auto;
+    }
+
+    @media screen and (max-width: $breakpoint-desktop-m) { width: 82px; }
 }
 
 .interactions {
@@ -450,5 +464,53 @@ div.inventory {
         img { margin-right: -3px; }
     }
 }
+
+@media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+    .char-panel .char-sheet {
+        display: block;
+        width: 100%;
+        // flex-direction: row;
+        // align-items: flex-start;
+        max-width: initial;
+        min-height: initial;
+
+        .avatar {
+        align-items: center;
+        justify-content: center;
+        width: 110px;
+        height: 70px;
+        overflow: hidden;
+
+            img { width: initial; }
+        }
+
+        .char-card { float: left; }
+
+        .health-points { margin-top: -0.3em; }
+
+
+        .inventory {
+            float: left;
+            clear: left;
+            width: 110px;
+        }
+
+        .interactions {
+            padding-left: 8%;
+            padding-right: 8%;
+            margin: auto;
+        }
+    }
+
+    @each $crewmate, $face-position-x, $face-position-y in $face-position { // adjust the image position in the crewmate avatar div
+        $translate-x : (50% - $face-position-x);
+        $translate-y : (50% - $face-position-y);
+        .#{$crewmate} .avatar img {
+            transform: translate($translate-x, $translate-y);
+        }
+    }
+
+}
+
 
 </style>

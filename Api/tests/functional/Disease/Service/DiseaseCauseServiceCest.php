@@ -46,7 +46,7 @@ class DiseaseCauseServiceCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
 
@@ -56,7 +56,7 @@ class DiseaseCauseServiceCest
             ->setDiseases(
                 [DiseaseEnum::MUSH_ALLERGY => 1]
             )
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCause2);
 

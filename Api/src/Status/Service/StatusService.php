@@ -241,7 +241,7 @@ class StatusService implements StatusServiceInterface
         }
     }
 
-    public function getMostRecent(string $statusName, Collection $equipments): gameEquipment
+    public function getMostRecent(string $statusName, Collection $equipments): GameEquipment
     {
         $pickedEquipments = $equipments
             ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)

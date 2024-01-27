@@ -49,7 +49,7 @@ class PlantCycleEventCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(8)
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 
@@ -141,19 +141,19 @@ class PlantCycleEventCest
         $thirstyStatusConfig = new StatusConfig();
         $thirstyStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($thirstyStatusConfig);
         $dryStatusConfig = new StatusConfig();
         $dryStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($dryStatusConfig);
         $diseasedStatusConfig = new StatusConfig();
         $diseasedStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseasedStatusConfig);
 
@@ -216,7 +216,7 @@ class PlantCycleEventCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(8)
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($statusConfig);
 

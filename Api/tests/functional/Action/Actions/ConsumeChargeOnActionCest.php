@@ -199,7 +199,7 @@ class ConsumeChargeOnActionCest
         ;
         $gearMechanic = new Gear();
         $gearMechanic
-            ->setModifierConfigs(new arrayCollection([$modifierConfig]))
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
             ->buildName(EquipmentMechanicEnum::GEAR, GameConfigEnum::TEST)
         ;
         $gearConfig = new ItemConfig();
@@ -350,7 +350,7 @@ class ConsumeChargeOnActionCest
 
         $gearMechanic = new Gear();
         $gearMechanic
-            ->setModifierConfigs(new arrayCollection([$modifierConfig]))
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
             ->setName(EquipmentMechanicEnum::GEAR)
         ;
         $gearConfig = new ItemConfig();

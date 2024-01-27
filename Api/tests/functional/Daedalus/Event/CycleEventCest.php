@@ -53,7 +53,7 @@ class CycleEventCest extends AbstractFunctionalTest
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::TRAUMA)
             ->setDiseases([])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
 

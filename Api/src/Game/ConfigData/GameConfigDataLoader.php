@@ -127,7 +127,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $characterConfigs[] = $characterConfig;
         }
 
-        $gameConfig->setCharactersConfig(new ArrayCollection($characterConfigs));
+        $gameConfig->setCharactersConfig($characterConfigs);
     }
 
     private function setGameConfigStatusConfigs(GameConfig $gameConfig, array $gameConfigData): void

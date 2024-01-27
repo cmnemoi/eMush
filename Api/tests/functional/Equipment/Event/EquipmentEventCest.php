@@ -37,13 +37,13 @@ class EquipmentEventCest
         $heavyStatusConfig = new StatusConfig();
         $heavyStatusConfig
             ->setStatusName(EquipmentStatusEnum::HEAVY)
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($heavyStatusConfig);
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
             ->setStatusName(PlayerStatusEnum::BURDENED)
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($burdenedStatusConfig);
 

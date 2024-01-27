@@ -132,7 +132,7 @@ class RepairActionCest
         $I->refreshEntities($player);
 
         $wrenchGear = new Gear();
-        $wrenchGear->setModifierConfigs(new arrayCollection([$modifierConfig]));
+        $wrenchGear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
 
         $wrench = new ItemConfig();
         $wrench

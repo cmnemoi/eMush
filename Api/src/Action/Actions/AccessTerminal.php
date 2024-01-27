@@ -63,11 +63,11 @@ final class AccessTerminal extends AbstractAction
             'contain' => false,
             'groups' => ['visibility'],
         ]));
-        // $metadata->addConstraint(new HasNeededTitleForTerminal([
-        //     'allowAccess' => true,
-        //     'groups' => ['execute'],
-        //     'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
-        // ]));
+        $metadata->addConstraint(new HasNeededTitleForTerminal([
+            'allowAccess' => true,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
+        ]));
     }
 
     protected function applyEffect(ActionResult $result): void

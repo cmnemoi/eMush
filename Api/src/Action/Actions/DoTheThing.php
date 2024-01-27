@@ -292,7 +292,7 @@ class DoTheThing extends AbstractAction
         $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getAction()->getActionTags());
     }
 
-    private function createDiseaseBySexLog(PLayer $player, string $disease): void
+    private function createDiseaseBySexLog(Player $player, string $disease): void
     {
         $this->roomLogService->createLog(
             'disease_by_sex',

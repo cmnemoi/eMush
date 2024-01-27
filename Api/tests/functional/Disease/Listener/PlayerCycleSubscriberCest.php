@@ -77,7 +77,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -142,7 +142,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -209,7 +209,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -307,7 +307,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);
@@ -378,7 +378,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
 
         $I->haveInRepository($diseaseConfig);

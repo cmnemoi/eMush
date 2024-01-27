@@ -172,7 +172,9 @@ class CycleService implements CycleServiceInterface
         $localizationConfig = $daedalusInfo->getLocalizationConfig();
         $daedalusConfig = $gameConfig->getDaedalusConfig();
 
-        $timeZoneDate = $date->setTimezone(new \DateTimeZone($localizationConfig->getTimeZone()));
+        /** @var non-empty-string $timeZone */
+        $timeZone = $localizationConfig->getTimeZone();
+        $timeZoneDate = $date->setTimezone(new \DateTimeZone($timeZone));
         $minutes = intval($timeZoneDate->format('i'));
         $hours = intval($timeZoneDate->format('H'));
 
@@ -194,9 +196,11 @@ class CycleService implements CycleServiceInterface
 
         $firstCycleDate = $daedalus->getCreatedAt() ?? new \DateTime();
 
+        /** @var non-empty-string $timeZone */
+        $timeZone = $timeConfig->getTimeZone();
         $firstDayDate = clone $firstCycleDate;
         $firstDayDate
-            ->setTimezone(new \DateTimeZone($timeConfig->getTimeZone()))
+            ->setTimezone(new \DateTimeZone($timeZone))
             ->setTime(0, 0)
             ->setTimezone(new \DateTimeZone('UTC'))
         ;
@@ -214,8 +218,10 @@ class CycleService implements CycleServiceInterface
         $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
         $start = clone $start;
         $end = clone $end;
-        $end->setTimezone(new \DateTimeZone($localizationConfig->getTimeZone()));
-        $start->setTimezone(new \DateTimeZone($localizationConfig->getTimeZone()));
+        /** @var non-empty-string $timeZone */
+        $timeZone = $localizationConfig->getTimeZone();
+        $end->setTimezone(new \DateTimeZone($timeZone));
+        $start->setTimezone(new \DateTimeZone($timeZone));
 
         $differencesInMinutes = $this->getDateIntervalAsMinutes($start, $end);
 
@@ -237,6 +243,7 @@ class CycleService implements CycleServiceInterface
     {
         $start = clone $start;
         $end = clone $end;
+        /** @var non-empty-string $timeZone */
         $timeZone = $exploration->getDaedalus()->getDaedalusInfo()->getLocalizationConfig()->getTimeZone();
         $end->setTimezone(new \DateTimeZone($timeZone));
         $start->setTimezone(new \DateTimeZone($timeZone));

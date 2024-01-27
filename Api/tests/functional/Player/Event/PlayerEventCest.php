@@ -238,7 +238,7 @@ class PlayerEventCest
             ->setDiseases([
                 DiseaseEnum::FUNGIC_INFECTION => 1,
             ])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
 

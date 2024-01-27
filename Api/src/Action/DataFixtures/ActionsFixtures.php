@@ -687,6 +687,7 @@ class ActionsFixtures extends Fixture
         $flirtAction
             ->setName(ActionEnum::FLIRT)
             ->setActionName(ActionEnum::FLIRT)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
         ;
@@ -697,6 +698,7 @@ class ActionsFixtures extends Fixture
         $doTheThingAction
             ->setName(ActionEnum::DO_THE_THING)
             ->setActionName(ActionEnum::DO_THE_THING)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setOutputQuantity(2)
@@ -807,6 +809,7 @@ class ActionsFixtures extends Fixture
         $playArcade
             ->setName(ActionEnum::PLAY_ARCADE)
             ->setActionName(ActionEnum::PLAY_ARCADE)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
             ->setSuccessRate(33)
@@ -937,6 +940,7 @@ class ActionsFixtures extends Fixture
         $autoEject
             ->setName(ActionEnum::AUTO_EJECT)
             ->setActionName(ActionEnum::AUTO_EJECT)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::ROOM)
             ->setActionCost(1)
             ->setInjuryRate(25)
@@ -1000,6 +1004,7 @@ class ActionsFixtures extends Fixture
         $advanceDaedalus
             ->setName(ActionEnum::ADVANCE_DAEDALUS)
             ->setActionName(ActionEnum::ADVANCE_DAEDALUS)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
@@ -1055,6 +1060,7 @@ class ActionsFixtures extends Fixture
         $deletePlanet
             ->setName(ActionEnum::DELETE_PLANET)
             ->setActionName(ActionEnum::DELETE_PLANET)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setTarget(Planet::class)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
@@ -1066,6 +1072,7 @@ class ActionsFixtures extends Fixture
         $leaveOrbit
             ->setName(ActionEnum::LEAVE_ORBIT)
             ->setActionName(ActionEnum::LEAVE_ORBIT)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
@@ -1077,6 +1084,7 @@ class ActionsFixtures extends Fixture
         $takeoffToPlanet
             ->setName(ActionEnum::TAKEOFF_TO_PLANET)
             ->setActionName(ActionEnum::TAKEOFF_TO_PLANET)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
@@ -1088,6 +1096,7 @@ class ActionsFixtures extends Fixture
         $takeoffToPlanetPatrolShip
             ->setName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP)
             ->setActionName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)

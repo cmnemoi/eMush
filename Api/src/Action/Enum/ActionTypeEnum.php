@@ -15,6 +15,7 @@ class ActionTypeEnum
     public const ACTION_SPOKEN = 'action_spoken';
     public const ACTION_SUPER_DIRTY = 'action_super_dirty';
     public const ACTION_SHOOT_HUNTER = 'action_shoot_hunter';
+    public const ACTION_CONFIRM = 'action_confirm';
 
     public const ACTION_ADMIN = 'action_admin';
 

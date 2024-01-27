@@ -43,13 +43,9 @@ export default defineComponent ({
     max-height: 115%;
 
     .chatbox-container {
-        resize: vertical;
-        overflow: scroll;
         display: flex;
         position: relative;
         z-index: 2;
-        height: 436px;
-        min-height: 436px;
         margin-top: -1px;
         color: $deepBlue;
         line-height: initial;
@@ -59,14 +55,22 @@ export default defineComponent ({
     }
 
     .chatbox {
+        height: 436px;
+        min-height: 436px;
         overflow: auto;
         padding: 7px;
         color: $deepBlue;
     }
 
+    .chat-input + .chatbox { // If there is an input box, the chatbox will subtract its height
+        height: calc(436px - 59px);
+        min-height: calc(436px - 59px);
+    }
+
     /* SCROLLBAR STYLING */
     .chatbox,
     .chatbox-container {
+        resize: vertical;
         @extend %game-scrollbar;
     }
 

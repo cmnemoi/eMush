@@ -146,7 +146,7 @@ class EquipmentConfig
     {
         $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => in_array($mechanic, $equipmentMechanic->getMechanics()));
 
-        return $equipmentMechanics->count() > 0 ? $equipmentMechanics->first() : null;
+        return $equipmentMechanics->first() ?: null;
     }
 
     // this is needed for api_platform to work

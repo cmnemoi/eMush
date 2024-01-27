@@ -51,7 +51,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
         $diseaseCauseLowMorale = new DiseaseCauseConfig();
@@ -60,7 +60,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FLU => 2,
             ])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCauseLowMorale);
 
@@ -124,7 +124,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCause);
         $diseaseCauseLowMorale = new DiseaseCauseConfig();
@@ -133,7 +133,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FLU => 2,
             ])
-            ->buildName(GameConfigENum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseCauseLowMorale);
 

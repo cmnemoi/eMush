@@ -35,7 +35,7 @@ class RemoveSporeActionCest
 
     public function _before(FunctionalTester $I)
     {
-        $this->removeSpore = $I->grabService(removeSpore::class);
+        $this->removeSpore = $I->grabService(RemoveSpore::class);
     }
 
     public function testRemoveSpore(FunctionalTester $I)

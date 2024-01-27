@@ -107,9 +107,6 @@ class GameConfig
         return new CharacterConfigCollection($this->charactersConfig->toArray());
     }
 
-    /**
-     * @psalm-param ArrayCollection<int<0, max>, CharacterConfig> $charactersConfig
-     */
     public function setCharactersConfig(ArrayCollection|array $charactersConfig): static
     {
         if (is_array($charactersConfig)) {
@@ -135,6 +132,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, TriumphConfig> $triumphConfig
+     *
+     * @psalm-suppress NoValue
      */
     public function setTriumphConfig(ArrayCollection|array $triumphConfig): self
     {
@@ -161,6 +160,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, EquipmentConfig> $equipmentsConfig
+     *
+     * @psalm-suppress NoValue
      */
     public function setEquipmentsConfig(ArrayCollection|array $equipmentsConfig): static
     {
@@ -187,6 +188,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, DiseaseCauseConfig> $diseaseCauseConfig
+     *
+     * @psalm-suppress NoValue
      */
     public function setDiseaseCauseConfig(ArrayCollection|array $diseaseCauseConfig): static
     {
@@ -213,6 +216,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, DiseaseConfig> $diseaseConfig
+     *
+     * @psalm-suppress NoValue
      */
     public function setDiseaseConfig(ArrayCollection|array $diseaseConfig): static
     {
@@ -239,6 +244,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, ConsumableDiseaseConfig> $consumableDiseaseConfig
+     *
+     * @psalm-suppress NoValue
      */
     public function setConsumableDiseaseConfig(ArrayCollection|array $consumableDiseaseConfig): static
     {
@@ -284,6 +291,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, StatusConfig> $statusConfigs
+     *
+     * @psalm-suppress NoValue
      */
     public function setStatusConfigs(ArrayCollection|array $statusConfigs): static
     {
@@ -303,6 +312,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, HunterConfig> $hunterConfigs
+     *
+     * @psalm-suppress NoValue
      */
     public function setHunterConfigs(ArrayCollection|array $hunterConfigs): static
     {
@@ -329,6 +340,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int, PlanetSectorConfig> $planetSectorConfigs
+     *
+     * @psalm-suppress NoValue
      */
     public function setPlanetSectorConfigs(ArrayCollection|array $planetSectorConfigs): static
     {
@@ -355,6 +368,8 @@ class GameConfig
 
     /**
      * @psalm-param ArrayCollection<int<0, max>, TitleConfig> $titleConfigs
+     *
+     * @psalm-suppress NoValue
      */
     public function setTitleConfigs(ArrayCollection|array $titleConfigs): self
     {

@@ -57,6 +57,7 @@ export default defineComponent ({
     .chatbox {
         height: 436px;
         min-height: 436px;
+        max-height: 1080px;
         overflow: auto;
         padding: 7px;
         color: $deepBlue;

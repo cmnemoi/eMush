@@ -40,6 +40,10 @@
         <source>do_the_thing.description</source>
         <target>do_the_thing.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>do_the_thing.confirmation</source>
+        <target>do_the_thing.confirmation</target>
+      </segment>
     </unit>
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
@@ -100,6 +104,10 @@
         <source>disassemble.description</source>
         <target>Desarma un objeto para reutilizar todos o algunos de sus componentes.</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>disassemble.confirmation</source>
+        <target>disassemble.confirmation</target>
+      </segment>
     </unit>
     <unit id="drop">
       <segment id="name" state="translated">
@@ -139,6 +147,10 @@
       <segment id="description" state="initial">
         <source>flirt.description</source>
         <target>flirt.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>flirt.confirmation</source>
+        <target>flirt.confirmation</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -720,6 +732,10 @@
         <source>kill_player.description</source>
         <target>kill_player.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>kill_player.confirmation</source>
+        <target>kill_player.confirmation</target>
+      </segment>
     </unit>
     <unit id="action_aggressive">
       <segment id="name" state="initial">
@@ -759,6 +775,10 @@
       <segment id="description" state="initial">
         <source>play_arcade.description</source>
         <target>play_arcade.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>play_arcade.confirmation</source>
+        <target>play_arcade.confirmation</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
@@ -860,6 +880,10 @@
         <source>auto_eject.description</source>
         <target>auto_eject.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>auto_eject.confirmation</source>
+        <target>auto_eject.confirmation</target>
+      </segment>
     </unit>
     <unit id="insert_fuel_chamber">
       <segment id="name" state="initial">
@@ -916,6 +940,10 @@
         <source>advance_daedalus.description</source>
         <target>advance_daedalus.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>advance_daedalus.confirmation</source>
+        <target>advance_daedalus.confirmation</target>
+      </segment>
     </unit>
     <unit id="scan">
       <segment id="name" state="initial">
@@ -966,6 +994,10 @@
         <source>delete_planet.description</source>
         <target>delete_planet.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>delete_planet.confirmation</source>
+        <target>delete_planet.confirmation</target>
+      </segment>
     </unit>
     <unit id="leave_orbit">
       <segment id="name" state="initial">
@@ -975,6 +1007,10 @@
       <segment id="description" state="initial">
         <source>leave_orbit.description</source>
         <target>leave_orbit.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>leave_orbit.confirmation</source>
+        <target>leave_orbit.confirmation</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet">
@@ -986,6 +1022,10 @@
         <source>takeoff_to_planet.description</source>
         <target>takeoff_to_planet.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>takeoff_to_planet.confirmation</source>
+        <target>takeoff_to_planet.confirmation</target>
+      </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship">
       <segment id="name" state="initial">
@@ -995,6 +1035,10 @@
       <segment id="description" state="initial">
         <source>takeoff_to_planet_patrol_ship.description</source>
         <target>takeoff_to_planet_patrol_ship.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>takeoff_to_planet_patrol_ship.confirmation</source>
+        <target>takeoff_to_planet_patrol_ship.confirmation</target>
       </segment>
     </unit>
   </file>

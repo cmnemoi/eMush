@@ -909,7 +909,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="takeoff_to_planet_patrol_ship_success">
       <segment id="takeoff_to_planet_patrol_ship_success" state="final">
         <source>takeoff_to_planet_patrol_ship_success</source>
-        <target>**{character}** landed {target_equipment} on the planet.</target>
+        <target>**{character}** made {target_equipment} landing on the planet.</target>
       </segment>
     </unit>
   </file>

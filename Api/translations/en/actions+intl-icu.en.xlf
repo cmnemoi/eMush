@@ -40,6 +40,10 @@
         <source>do_the_thing.description</source>
         <target>Lets you do it.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>do_the_thing.confirmation</source>
+        <target>This action is only available once per day. Are you sure you want to continue?</target>
+      </segment>
     </unit>
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="final">
@@ -106,6 +110,10 @@
         <source>disassemble.description</source>
         <target>Allows you to dismantle an object in order to recover all or some of its components.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>disassemble.confirmation</source>
+        <target>Dismantling an item is not a trivial matter. The item cannot be reassembled. Are you really sure you want to do it anyway?</target>
+      </segment>
     </unit>
     <unit id="drop">
       <segment id="name" state="translated">
@@ -145,6 +153,10 @@
       <segment id="description" state="final">
         <source>flirt.description</source>
         <target>Allows you to flirt with someone, this will let them do the thing with you. This action is **irreversible**.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>flirt.confirmation</source>
+        <target>This action cannot be undone. Are you sure you want to continue?</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -739,6 +751,10 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         //
         **Warning**, this action will kill this player **immediately** !</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>kill_player.confirmation</source>
+        <target>This action cannot be undone. Are you sure you want to continue?</target>
+      </segment>
     </unit>
     <unit id="action_aggressive">
       <segment id="name" state="final">
@@ -778,6 +794,10 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       <segment id="description" state="final">
         <source>play_arcade.description</source>
         <target>Lets you relax a little by smashing some Space PewPewz. It's so good... however, the game's difficulty level is... monstrous!</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>play_arcade.confirmation</source>
+        <target>Because of its deadly jacks and unbearable void balls, the Dynarcade is reserved for the real ones. Continue?</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
@@ -887,6 +907,10 @@ Requires *Scrap Metal*.</target>
 //
 Or you simply need some fresh air.... or not.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>auto_eject.confirmation</source>
+        <target>Self-ejection is risky. What's more, your one-seater will be destroyed. Do you still want to do it?</target>
+      </segment>
     </unit>
     <unit id="insert_fuel_chamber">
       <segment id="name" state="translated">
@@ -943,6 +967,10 @@ Or you simply need some fresh air.... or not.</target>
         <source>advance_daedalus.description</source>
         <target>Start the engine to set the ship moving in accordance with the fuel ready.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>advance_daedalus.confirmation</source>
+        <target>This action has far-reaching consequences. Are you sure you want to continue?</target>
+      </segment>
     </unit>
     <unit id="scan">
       <segment id="name" state="translated">
@@ -993,6 +1021,10 @@ Or you simply need some fresh air.... or not.</target>
         <source>delete_planet.description</source>
         <target>Let you delete a planet scanned from your workspace.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>delete_planet.confirmation</source>
+        <target>Deleting a planet from your workspace cannot be undone. Would you like to continue?</target>
+      </segment>
     </unit>
     <unit id="leave_orbit">
       <segment id="name" state="translated">
@@ -1002,6 +1034,10 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>leave_orbit.description</source>
         <target>Start the engine to set the ship moving in accordance with the fuel ready.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>leave_orbit.confirmation</source>
+        <target>This action has far-reaching consequences. Are you sure you want to continue?</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet">
@@ -1013,6 +1049,10 @@ Or you simply need some fresh air.... or not.</target>
         <source>takeoff_to_planet.description</source>
         <target>Take off to explore a planet in the Icarus exploration craft.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>takeoff_to_planet.confirmation</source>
+        <target>Exploration requires preparation, and if the planet has no breathable atmosphere or is inhabited by hostile organisms, you should make arrangements. Are you sure you want to continue?</target>
+      </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship">
       <segment id="name" state="translated">
@@ -1022,6 +1062,10 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>takeoff_to_planet_patrol_ship.description</source>
         <target>You can land on a planet with a patrol ship… *At your own risk...*</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>takeoff_to_planet_patrol_ship.confirmation</source>
+        <target>Exploration requires preparation, and if the planet has no breathable atmosphere or is inhabited by hostile organisms, you should make arrangements. Are you sure you want to continue?</target>
       </segment>
     </unit>
   </file>

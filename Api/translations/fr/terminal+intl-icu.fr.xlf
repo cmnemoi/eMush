@@ -118,5 +118,31 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <target>Ici vous pouvez lire le rapport de l'expédition que vous avez réalisée.</target>
       </segment>
     </unit>
+    <unit id="bios_terminal">
+      <segment id="name" state="final">
+        <source>bios_terminal.name</source>
+        <target>Terminal BIOS</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>bios_terminal.tips</source>
+        <target>Vous accédez au BIOS de NERON. Seul son administrateur peut modifier la configuration.</target>
+      </segment>
+      <segment id="cpu_priority.name" state="final">
+        <source>bios_terminal.cpu_priority_name</source>
+        <target>Priorité CPU</target>
+      </segment>
+      <segment id="cpu_priority.description" state="final">
+        <source>bios_terminal.cpu_priority_description</source>
+        <target>Contrôle la répartition des tranches CPU. Soit elle accroît le nombre de GeoDonnées fourni par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu'*une fois par jour* pour ne pas entraîner une surcharge cognitive de NERON.</target>
+      </segment>
+      <segment id="cpu_priority.astronavigation" state="final">
+        <source>bios_terminal.cpu_priority_astronavigation</source>
+        <target>Astronavigation</target>
+      </segment>
+      <segment id="cpu_priority.none" state="final">
+        <source>bios_terminal.cpu_priority_none</source>
+        <target>Aucune</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

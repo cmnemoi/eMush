@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -23,7 +24,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class ChangeNeronCpuPriority extends AbstractAction
 {
     protected string $name = ActionEnum::CHANGE_NERON_CPU_PRIORITY;
-    private string $cpuPriority;
 
     private NeronServiceInterface $neronService;
 
@@ -39,12 +39,6 @@ final class ChangeNeronCpuPriority extends AbstractAction
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        if (!isset($parameters['cpuPriority'])) {
-            return false;
-        }
-
-        $this->cpuPriority = $parameters['cpuPriority'];
-
         return $target instanceof GameEquipment;
     }
 
@@ -68,11 +62,14 @@ final class ChangeNeronCpuPriority extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $params = $this->getParameters();
+        $cpuPriority = ($params && array_key_exists('cpuPriority', $params)) ? $params['cpuPriority'] : NeronCpuPriorityEnum::NONE;
+
         $neron = $this->player->getDaedalus()->getDaedalusInfo()->getNeron();
 
         $this->neronService->changeCpuPriority(
             $neron,
-            $this->cpuPriority,
+            $cpuPriority,
             reasons: $this->action->getActionTags()
         );
     }

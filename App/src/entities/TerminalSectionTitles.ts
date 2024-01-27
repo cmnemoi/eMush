@@ -4,6 +4,8 @@ export class TerminalSectionTitles {
     public generalInformations: string|null = null;
     public orientation: string|null = null;
     public distance: string|null = null;
+    public cpuPriorityName: string|null = null;
+    public cpuPriorityDescription: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -12,6 +14,8 @@ export class TerminalSectionTitles {
             this.generalInformations = object['general_informations'];
             this.orientation = object['orientation'];
             this.distance = object['distance'];
+            this.cpuPriorityName = object['cpu_priority_name'];
+            this.cpuPriorityDescription = object['cpu_priority_description'];
         }
         return this;
     }

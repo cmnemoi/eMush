@@ -9,4 +9,12 @@ final class NeronCpuPriorityEnum
 {
     public const NONE = 'none';
     public const ASTRONAVIGATION = 'astronavigation';
+
+    public static function getAll(): array
+    {
+        return [
+            self::NONE,
+            self::ASTRONAVIGATION,
+        ];
+    }
 }

@@ -89,6 +89,7 @@ export default defineComponent ({
 .game-content {
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
     row-gap: 5px;
     column-gap: 5px;
 

@@ -203,7 +203,6 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->neronService->changeCpuPriority(
             $this->daedalus->getDaedalusInfo()->getNeron(),
             NeronCpuPriorityEnum::ASTRONAVIGATION,
-            reasons: []
         );
 
         // when player scans

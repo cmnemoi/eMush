@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\NeronEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 
 final class NeronService implements NeronServiceInterface
 {
@@ -20,11 +21,12 @@ final class NeronService implements NeronServiceInterface
         $this->eventService = $eventService;
     }
 
-    public function changeCpuPriority(Neron $neron, string $cpuPriority, array $reasons): void
+    public function changeCpuPriority(Neron $neron, string $cpuPriority, array $reasons, ?Player $author): void
     {
         $neron->setCpuPriority($cpuPriority);
 
         $neronEvent = new NeronEvent($neron, $reasons, new \DateTime());
+        $neronEvent->setAuthor($author);
         $this->eventService->callEvent($neronEvent, NeronEvent::CPU_PRIORITY_CHANGED);
 
         $this->persist([$neron]);

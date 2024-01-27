@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
@@ -53,6 +54,15 @@ final class ChangeNeronCpuPriority extends AbstractAction
                 'groups' => ['visibility'],
             ])
         );
+        $metadata->addConstraint(
+            new HasStatus([
+                'status' => 'changed_cpu_priority',
+                'target' => HasStatus::PLAYER,
+                'contain' => false,
+                'groups' => ['execute'],
+                'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
+            ])
+        );
     }
 
     protected function checkResult(): ActionResult
@@ -70,7 +80,8 @@ final class ChangeNeronCpuPriority extends AbstractAction
         $this->neronService->changeCpuPriority(
             $neron,
             $cpuPriority,
-            reasons: $this->action->getActionTags()
+            reasons: $this->action->getActionTags(),
+            author: $this->player
         );
     }
 }

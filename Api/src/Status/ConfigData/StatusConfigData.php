@@ -1028,5 +1028,18 @@ class StatusConfigData
                 'modifier_for_daedalus_-1action_point_on_action_analyze_planet',
             ],
         ],
+        [
+            'name' => 'changed_cpu_priority_default',
+            'statusName' => 'changed_cpu_priority',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => 'daily_decrement',
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+        ],
     ];
 }

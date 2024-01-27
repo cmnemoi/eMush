@@ -33,5 +33,15 @@ final class NeronEventSubscriber implements EventSubscriberInterface
             tags: $event->getTags(),
             time: $event->getTime(),
         );
+
+        $author = $event->getAuthor();
+        if ($author !== null) {
+            $this->statusService->createStatusFromName(
+                statusName: 'changed_cpu_priority',
+                holder: $author,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
     }
 }

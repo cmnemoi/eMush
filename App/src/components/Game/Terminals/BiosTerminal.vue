@@ -9,15 +9,20 @@
                     <p v-html="formatText(terminal.sectionTitles?.cpuPriorityDescription)" />
                 </template>
             </Tippy>
-            <div v-for="priority in terminal.infos?.availableCpuPriorities" class="cpu-priority-container">
-                <input 
+            <div 
+                class="cpu-priority-container"                    
+                v-for="priority in terminal.infos?.availableCpuPriorities"
+                :key="priority.key"
+            >
+                <input
                     type="radio" 
                     v-model="selectedCpuPriority" 
                     :value="priority.key" 
                     :checked="selectedCpuPriority === priority.key"
+                    :disabled="!changeNeronCpuPriorityAction.canExecute"
                     @change="executeTargetAction(terminal, changeNeronCpuPriorityAction, { cpuPriority: selectedCpuPriority })"
                 >
-                <label>{{ priority.name }}</label>
+                <label :key="priority.key">{{ priority.name }}</label>
             </div>
         </section>
     </div>
@@ -27,7 +32,6 @@
 import { Terminal } from "@/entities/Terminal";
 import { defineComponent } from "vue";
 import { formatText } from "@/utils/formatText";
-import ActionButton from "@/components/Utils/ActionButton.vue";
 import { Action } from "@/entities/Action";
 import { ActionEnum } from "@/enums/action.enum";
 import { mapActions } from "vuex";
@@ -74,7 +78,6 @@ export default defineComponent ({
         if (!currentCpuPriority) throw new Error(`No currentCpuPriority found for terminal ${this.terminal?.key}`);
         this.selectedCpuPriority = currentCpuPriority;
     },
-    components: { ActionButton }
 });
 </script>
 

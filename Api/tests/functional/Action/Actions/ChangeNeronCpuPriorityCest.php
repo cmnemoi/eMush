@@ -13,9 +13,12 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -69,7 +72,7 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         $I->assertFalse($this->changeNeronCpuPriorityAction->isVisible());
     }
 
-    public function testChangeNeronCpuPriorityShouldSetPriorityToExpectedValue(FunctionalTester $I): void
+    public function testChangeNeronCpuPrioritySuccess(FunctionalTester $I): void
     {
         // given player is focused on the bios terminal
         $this->statusService->createStatusFromName(
@@ -88,6 +91,17 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: NeronCpuPriorityEnum::ASTRONAVIGATION,
             actual: $this->daedalus->getDaedalusInfo()->getNeron()->getCpuPriority()
+        );
+
+        // then I should see a private room log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => ActionLogEnum::CHANGE_NERON_CPU_PRIORITY_SUCCESS,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
         );
     }
 

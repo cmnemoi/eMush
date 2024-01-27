@@ -26,13 +26,13 @@ import { Player } from "@/entities/Player";
 export default defineComponent ({
     name: "TerminalPanel",
     components: {
-    TerminalTips,
-    TerminalExitButton,
-    AstroTerminal,
-    CommandTerminal,
-    BlockOfPostItTerminal,
-    BiosTerminal
-},
+        TerminalTips,
+        TerminalExitButton,
+        AstroTerminal,
+        CommandTerminal,
+        BlockOfPostItTerminal,
+        BiosTerminal
+    },
     props: {
         player: {
             type: Player,

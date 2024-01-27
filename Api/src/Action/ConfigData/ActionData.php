@@ -52,7 +52,7 @@ class ActionData
         [
             'name' => 'kill_player',
             'action_name' => 'kill_player',
-            'types' => [ActionTypeEnum::ACTION_ADMIN],
+            'types' => [ActionTypeEnum::ACTION_ADMIN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'other_player',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -868,7 +868,7 @@ class ActionData
         [
             'name' => 'flirt',
             'action_name' => 'flirt',
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'other_player',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -884,7 +884,7 @@ class ActionData
         [
             'name' => 'do_the_thing',
             'action_name' => 'do_the_thing',
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'other_player',
             'visibilities' => ['success' => 'public', 'fail' => 'public'],
@@ -1124,7 +1124,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_12_cost_3',
             'action_name' => 'disassemble',
-            'types' => ['action_technician'],
+            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'current',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1140,7 +1140,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_25_cost_3',
             'action_name' => 'disassemble',
-            'types' => ['action_technician'],
+            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'current',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1156,7 +1156,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_50_cost_3',
             'action_name' => 'disassemble',
-            'types' => ['action_technician'],
+            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'current',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1172,7 +1172,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_6_cost_4',
             'action_name' => 'disassemble',
-            'types' => ['action_technician'],
+            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'current',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1188,7 +1188,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_12_cost_4',
             'action_name' => 'disassemble',
-            'types' => ['action_technician'],
+            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'current',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1204,7 +1204,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_25_cost_4',
             'action_name' => 'disassemble',
-            'types' => ['action_technician'],
+            'types' => ['action_technician', ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => 'current',
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1428,7 +1428,7 @@ class ActionData
         [
             'name' => ActionEnum::PLAY_ARCADE,
             'action_name' => ActionEnum::PLAY_ARCADE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::PRIVATE],
@@ -1607,7 +1607,7 @@ class ActionData
         [
             'name' => ActionEnum::AUTO_EJECT,
             'action_name' => ActionEnum::AUTO_EJECT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => GameEquipment::class,
             'scope' => ActionScopeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => 'hidden'],
@@ -1704,7 +1704,7 @@ class ActionData
         [
             'name' => ActionEnum::ADVANCE_DAEDALUS,
             'action_name' => ActionEnum::ADVANCE_DAEDALUS,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => ActionScopeEnum::TERMINAL,
             'visibilities' => [
@@ -1789,7 +1789,7 @@ class ActionData
         [
             'name' => ActionEnum::DELETE_PLANET,
             'action_name' => ActionEnum::DELETE_PLANET,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => Planet::class,
             'scope' => ActionScopeEnum::TERMINAL,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -1805,7 +1805,7 @@ class ActionData
         [
             'name' => ActionEnum::LEAVE_ORBIT,
             'action_name' => ActionEnum::LEAVE_ORBIT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => ActionScopeEnum::TERMINAL,
             'visibilities' => [
@@ -1826,7 +1826,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF_TO_PLANET,
             'action_name' => ActionEnum::TAKEOFF_TO_PLANET,
-            'types' => [ActionTypeEnum::ACTION_PILOT],
+            'types' => [ActionTypeEnum::ACTION_PILOT, ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => [
@@ -1845,7 +1845,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP,
             'action_name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP,
-            'types' => [ActionTypeEnum::ACTION_PILOT],
+            'types' => [ActionTypeEnum::ACTION_PILOT, ActionTypeEnum::ACTION_CONFIRM],
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

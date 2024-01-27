@@ -40,6 +40,15 @@
         <source>do_the_thing.description</source>
         <target>Permet de le faire.</target>
       </segment>
+      <segment id="confirmation" state="final">
+        <source>do_the_thing.confirmation</source>
+        <target>{character_gender, select,
+                male {Vous ne pouvez le faire qu'une fois par jour. Êtes-vous sûr de vouloir continuer ?}
+                female {Vous ne pouvez le faire qu'une fois par jour. Êtes-vous sûre de vouloir continuer ?}
+                other {invalid character_gender input}
+                }
+        </target>
+      </segment>
     </unit>
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="final">
@@ -100,6 +109,14 @@
         <source>disassemble.description</source>
         <target>Permet de désassembler un objet pour récupérer tout ou partie des composants.</target>
       </segment>
+      <segment id="confirmation" state="final">
+        <source>disassemble.confirmation</source>
+        <target>{character_gender, select,
+                male {Le démontage d'un objet n'est pas anodin. L'objet ne pourra pas être remonté. Êtes-vous vraiment sûr de vouloir quand même le faire ?}
+                female {Le démontage d'un objet n'est pas anodin. L'objet ne pourra pas être remonté. Êtes-vous vraiment sûre de vouloir quand même le faire ?}
+                other {invalid character_gender input}
+                }</target>
+      </segment>
     </unit>
     <unit id="drop">
       <segment id="name" state="final">
@@ -139,6 +156,14 @@
       <segment id="description" state="final">
         <source>flirt.description</source>
         <target>Permet de fleureuter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
+      </segment>
+      <segment id="confirmation" state="final">
+        <source>flirt.confirmation</source>
+        <target>{character_gender, select,
+                male {Cette action est irrémédiable. Êtes-vous sûr de vouloir continuer ?}
+                female {Cette action est irrémédiable. Êtes-vous sûre de vouloir continuer ?}
+                other {invalid character_gender input}
+                }</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -733,6 +758,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         //
         **Attention**, cette action tuera ce joueur **sur le champ** !</target>
       </segment>
+      <segment id="confirmation" state="final">
+        <source>kill_player.confirmation</source>
+        <target>Cette action est irrémédiable. Souhaitez-vous continuer ?</target>
+      </segment>
     </unit>
     <unit id="action_aggressive">
       <segment id="name" state="final">
@@ -772,6 +801,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="final">
         <source>play_arcade.description</source>
         <target>Permet de se défouler un peu en tabassant des Spaces PewPewz. C'est si bon... par contre la difficulté est... mortelle !</target>
+      </segment>
+      <segment id="confirmation" state="final">
+        <source>play_arcade.confirmation</source>
+        <target>En raison de ses verrins mortels et de ses void balls insupportables, la Dynarcade est réservée aux vrais de vrais. Continuer ?</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
@@ -881,6 +914,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         //
         Ou bien, vous avez simplement envie de prendre l'air... ou pas.</target>
       </segment>
+      <segment id="confirmation" state="final">
+        <source>auto_eject.confirmation</source>
+        <target>L'auto-éjection comporte des risques. De plus, votre monoplace sera détruit. Voulez-vous quand même le faire?</target>
+      </segment>
     </unit>
     <unit id="insert_fuel_chamber">
       <segment id="name" state="final">
@@ -937,6 +974,14 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>advance_daedalus.description</source>
         <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
       </segment>
+      <segment id="confirmation" state="final">
+        <source>advance_daedalus.confirmation</source>
+        <target>{character_gender, select,
+                male {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
+                female {Cette action est lourde de conséquences. Êtes-vous sûre de vouloir continuer ?}
+                other {invalid character_gender input}
+                }</target>
+      </segment>
     </unit>
     <unit id="scan">
       <segment id="name" state="final">
@@ -987,6 +1032,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>delete_planet.description</source>
         <target>Permet d'effacer une planète scannée de votre espace de travail.</target>
       </segment>
+      <segment id="confirmation" state="final">
+        <source>delete_planet.confirmation</source>
+        <target>Effacer une planète de votre espace de travail est irréversible. Voulez-vous continuer ?</target>
+      </segment>
     </unit>
     <unit id="leave_orbit">
       <segment id="name" state="final">
@@ -996,6 +1045,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="final">
         <source>leave_orbit.description</source>
         <target>Lance l'allumage des moteurs pour un déplacement lié à la quantité de carburant prêt.</target>
+      </segment>
+      <segment id="confirmation" state="final">
+        <source>leave_orbit.confirmation</source>
+        <target>{character_gender, select,
+                male {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
+                female {Cette action est lourde de conséquences. Êtes-vous sûre de vouloir continuer ?}
+                other {invalid character_gender input}
+                }
+        </target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet">
@@ -1007,6 +1065,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>takeoff_to_planet.description</source>
         <target>Décoller avec le vaisseau d'exploration Icarus pour aller sur une planète.</target>
       </segment>
+      <segment id="confirmation" state="final">
+        <source>takeoff_to_planet.confirmation</source>
+        <target>{character_gender, select,
+                male {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûr de vouloir continuer ?}
+                female {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûre de vouloir continuer ?}
+                other {invalid character_gender input}
+                }
+        </target>
+      </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship">
       <segment id="name" state="final">
@@ -1016,6 +1083,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="final">
         <source>takeoff_to_planet_patrol_ship.description</source>
         <target>Vous pouvez atterir sur une planète avec un patrouilleur... *À vos risques et périls...*</target>
+      </segment>
+      <segment id="confirmation" state="final">
+        <source>takeoff_to_planet_patrol_ship.confirmation</source>
+        <target>{character_gender, select,
+                male {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûr de vouloir continuer ?}
+                female {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûre de vouloir continuer ?}
+                other {invalid character_gender input}
+                }
+          </target>
       </segment>
     </unit>
   </file>

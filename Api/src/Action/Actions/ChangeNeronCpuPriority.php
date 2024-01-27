@@ -56,7 +56,7 @@ final class ChangeNeronCpuPriority extends AbstractAction
         );
         $metadata->addConstraint(
             new HasStatus([
-                'status' => 'changed_cpu_priority',
+                'status' => PlayerStatusEnum::CHANGED_CPU_PRIORITY,
                 'target' => HasStatus::PLAYER,
                 'contain' => false,
                 'groups' => ['execute'],

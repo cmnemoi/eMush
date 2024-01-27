@@ -6,6 +6,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Daedalus\Event\NeronEvent;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -37,7 +38,7 @@ final class NeronEventSubscriber implements EventSubscriberInterface
         $author = $event->getAuthor();
         if ($author !== null) {
             $this->statusService->createStatusFromName(
-                statusName: 'changed_cpu_priority',
+                statusName: PlayerStatusEnum::CHANGED_CPU_PRIORITY,
                 holder: $author,
                 tags: $event->getTags(),
                 time: $event->getTime(),

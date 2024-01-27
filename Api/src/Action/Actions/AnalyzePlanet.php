@@ -79,8 +79,6 @@ final class AnalyzePlanet extends AbstractAction
         /** @var Planet $planet */
         $planet = $this->target;
 
-        $numberOfSectionsToReveal = $this->getOutputQuantity();
-
-        $this->planetService->revealPlanetSectors($planet, number: $numberOfSectionsToReveal);
+        $this->planetService->revealPlanetSectors($planet, number: $this->getOutputQuantity());
     }
 }

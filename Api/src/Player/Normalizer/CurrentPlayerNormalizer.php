@@ -283,6 +283,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $skills;
     }
 
+    /** @TODO: generalize this for all specialist points. Move to a SkillNormalizer */
     private function getNormalizedShootPoints(Player $player, string $language): ?array
     {
         /** @var ?ChargeStatus $shooterSkill */

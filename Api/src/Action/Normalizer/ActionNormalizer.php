@@ -216,6 +216,7 @@ class ActionNormalizer implements NormalizerInterface
         return $translationParameters;
     }
 
+    /** @TODO: generalize this for all specialist points. */
     private function getActionShootPointCost(Player $currentPlayer, Action $action): ?int
     {
         if (!$this->isShootAction($action)) {

@@ -121,4 +121,8 @@
         background-color: var(--thumbBG);
         border-radius: var(--border-radius);
     }
+
+    &::-webkit-scrollbar-corner {
+        background-color: var(--thumbBG);
+    }
 }

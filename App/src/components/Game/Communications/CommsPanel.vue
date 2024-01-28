@@ -155,7 +155,7 @@ export default defineComponent ({
     position: relative;
     display: block;
     width: 404px;
-    height: 460px;
+    min-height: 460px;
 
     .tabs {
         float: left;

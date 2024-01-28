@@ -3,6 +3,12 @@ import { Explorator } from "@/entities/Explorator";
 import { ExplorationLogs } from "@/entities/ExplorationLogs";
 import { TimerCycle } from "./TimerCycle";
 
+type ExplorationUiElements = {
+    tips: string;
+    recoltedInfos: string;
+    newStep: string;
+};
+
 export class Exploration {
     public id!: number;
     public createdAt!: Date;
@@ -12,7 +18,7 @@ export class Exploration {
     public logs!: ExplorationLogs[];
     public estimatedDuration!: number;
     public timer!: TimerCycle;
-    public tips!: string;
+    public uiElements!: ExplorationUiElements;
 
     public load(object: any): Exploration {
         if (object) {
@@ -24,7 +30,7 @@ export class Exploration {
             this.logs = object.logs;
             this.estimatedDuration = object.estimated_duration;
             this.timer = (new TimerCycle()).load(object.timer);
-            this.tips = object.tips;
+            this.uiElements = object.uiElements;
         }
 
         return this;

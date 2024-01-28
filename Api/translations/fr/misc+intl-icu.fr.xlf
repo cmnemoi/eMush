@@ -82,6 +82,10 @@
       </segment>
     </unit>
     <unit id="exploration_pop_up">
+    <segment id="planet" state="final">
+        <source>exploration_pop_up.title</source>
+        <target>Exploration en cours</target>
+      </segment>
       <segment id="planet" state="final">
         <source>exploration_pop_up.planet</source>
         <target>**Planète :** {planetName}</target>

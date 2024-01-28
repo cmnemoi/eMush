@@ -70,12 +70,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
                 ),
                 'timerCycle' => $this->cycleService->getExplorationDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
             ],
-            'tips' => $this->translationService->translate(
-                'exploration.tips',
-                ['quantity' => $exploration->getCycleLength()],
-                'terminal',
-                $exploration->getDaedalus()->getLanguage(),
-            ),
+            'uiElements' => $this->getNormalizedUiElements($exploration),
         ];
     }
 
@@ -109,5 +104,30 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         }
 
         return $normalizedLogs;
+    }
+
+    private function getNormalizedUiElements(Exploration $exploration): array
+    {
+        $normalizedUiElements = [];
+        $normalizedUiElements['tips'] = $this->translationService->translate(
+            'exploration.tips',
+            ['quantity' => $exploration->getCycleLength()],
+            'terminal',
+            $exploration->getDaedalus()->getLanguage(),
+        );
+        $normalizedUiElements['recoltedInfos'] = $this->translationService->translate(
+            'exploration.recolted_infos',
+            [],
+            'terminal',
+            $exploration->getDaedalus()->getLanguage()
+        );
+        $normalizedUiElements['newStep'] = $this->translationService->translate(
+            'exploration.new_step',
+            [],
+            'terminal',
+            $exploration->getDaedalus()->getLanguage()
+        );
+
+        return $normalizedUiElements;
     }
 }

@@ -231,6 +231,12 @@ class DaedalusNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
+            ->with('exploration_pop_up.title', [], 'misc', 'fr')
+            ->andReturn('Expédition en cours')
+            ->once()
+        ;
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('roland.name', [], 'characters', 'fr')
             ->andReturn('Roland')
             ->once()
@@ -291,6 +297,7 @@ class DaedalusNormalizerTest extends TestCase
                 'planet' => 'Planète : translated planet name',
                 'explorators' => 'Équipe : Roland',
                 'estimatedDuration' => 'Retour estimé : 90 minutes',
+                'title' => 'Expédition en cours',
             ],
         ];
 

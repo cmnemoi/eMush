@@ -111,7 +111,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 'inOrbitPlanet' => $planet,
                 'isDaedalusTravelling' => $daedalus->hasStatus(DaedalusStatusEnum::TRAVELING),
                 'attackingHunters' => $attackingHunters,
-                'onGoingExploration' => $this->normalizeOnGoingExploration($daedalus, $context),
+                'onGoingExploration' => $this->normalizeOnGoingExploration($daedalus),
             ];
     }
 
@@ -137,7 +137,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         ];
     }
 
-    private function normalizeOnGoingExploration(Daedalus $daedalus, array $context): ?array
+    private function normalizeOnGoingExploration(Daedalus $daedalus): ?array
     {
         $exploration = $daedalus->getExploration();
         if ($exploration === null) {
@@ -175,6 +175,12 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         );
 
         return [
+            'title' => $this->translationService->translate(
+                'exploration_pop_up.title',
+                [],
+                'misc',
+                $daedalus->getLanguage()
+            ),
             'planet' => $normalizedPlanet,
             'explorators' => $normalizedExplorators,
             'estimatedDuration' => $normalizedEstimatedDuration,

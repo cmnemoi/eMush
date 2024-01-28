@@ -32,11 +32,19 @@
             <p class="presentation">
                 {{ getSelectedPlayer.character.description  }}
             </p>
-            <!-- <div class="skills">
-                <div class="skill" v-for="skill in target.character.skills">
-                    <img class="skill-image" :src="skillImage(skill)" :alt="skill">
-                </div>
-            </div> -->
+            <div class="skills">
+                <Tippy
+                    tag="div"
+                    v-for="(skill) in target.skills"
+                    :key="skill.id"
+                    class="skill">
+                    <img class="skill-image" :src="skillImage(skill)" :alt="skill.name">
+                    <template #content>
+                        <h1 v-html="formatText(skill.name)" />
+                        <p v-html="formatText(skill.description)" />
+                    </template>
+                </Tippy>
+            </div>
         </div>
         <div class="interactions">
             <ActionButton
@@ -58,6 +66,9 @@ import { characterEnum } from '@/enums/character';
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { Action } from "@/entities/Action";
+import { Status } from "@/entities/Status";
+import { statusPlayerEnum } from "@/enums/status.player.enum";
+import { formatText } from "@/utils/formatText";
 
 
 export default defineComponent ({
@@ -110,9 +121,10 @@ export default defineComponent ({
                 }
             }
         },
-        skillImage(skill: string): string {
-            return require(`@/assets/images/skills/human/${skill}.png`) ? require(`@/assets/images/skills/human/${skill}.png`) : require('@/assets/images/items/todo.jpg');
-        }
+        formatText,
+        skillImage(skill: Status): string {
+            return statusPlayerEnum[skill.key].icon ?? '';
+        },
     }
 });
 </script>

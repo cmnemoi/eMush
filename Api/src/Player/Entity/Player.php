@@ -356,11 +356,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function getSkills(): array
-    {
-        return $this->skills;
-    }
-
     public function setSkills(array $skills): static
     {
         $this->skills = $skills;

@@ -62,6 +62,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const WATCHED_PUBLIC_BROADCAST_STATUS = 'watched_public_broadcast_status';
     public const TALKIE_SCREWED_STATUS = 'talkie_screwed_status';
     public const IN_ORBIT_STATUS = 'in_orbit_status';
+    public const POC_PILOT_SKILL_STATUS = 'poc_pilot_skill_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -450,6 +451,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($inOrbit);
 
+        $pocPilotSkill = new StatusConfig();
+        $pocPilotSkill
+            ->setStatusName(PlayerStatusEnum::POC_PILOT_SKILL)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($pocPilotSkill);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -494,6 +503,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($watched_public_broadcast)
             ->addStatusConfig($screwedTalkie)
             ->addStatusConfig($inOrbit)
+            ->addStatusConfig($pocPilotSkill)
         ;
         $manager->persist($gameConfig);
 
@@ -539,6 +549,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::WATCHED_PUBLIC_BROADCAST_STATUS, $watched_public_broadcast);
         $this->addReference(self::TALKIE_SCREWED_STATUS, $screwedTalkie);
         $this->addReference(self::IN_ORBIT_STATUS, $inOrbit);
+        $this->addReference(self::POC_PILOT_SKILL_STATUS, $pocPilotSkill);
 
         $manager->flush();
     }

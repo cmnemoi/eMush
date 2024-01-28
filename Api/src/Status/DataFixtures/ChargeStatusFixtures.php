@@ -470,7 +470,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeVisibility(VisibilityEnum::PRIVATE)
             ->setStartCharge(2)
             ->setMaxCharge(4)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT)
             ->setDischargeStrategies([ModifierNameEnum::SHOOTER_SPECIALIST_POINT])
             ->setAutoRemove(false)
             ->setModifierConfigs([$shooterSpecialistPointModifier])
@@ -546,6 +546,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::EXPLORATION_FUEL_STATUS, $explorationFuelStatus);
         $this->addReference(self::HUNTER_TRUCE_CYCLES, $hunterTruceCycles);
         $this->addReference(self::FOLLOWING_HUNTERS_STATUS, $followingHuntersStatus);
+        $this->addReference(self::SHOOTER_SKILL_POC, $shooterSkillPoc);
     }
 
     public function getDependencies(): array

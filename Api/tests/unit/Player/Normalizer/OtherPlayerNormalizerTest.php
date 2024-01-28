@@ -58,7 +58,7 @@ class OtherPlayerNormalizerTest extends TestCase
         $player->method('getName')->willReturn(CharacterEnum::ELEESHA);
         $player->method('getId')->willReturn(2);
         $player->method('getStatuses')->willReturn(new ArrayCollection());
-        $player->method('getSkills')->willReturn([]);
+        $player->method('getSkills')->willReturn(new ArrayCollection());
         $player->method('getTargetActions')->willReturn(new ArrayCollection());
         $player->method('getDaedalus')->willReturn($daedalus);
 
@@ -85,7 +85,6 @@ class OtherPlayerNormalizerTest extends TestCase
                 'key' => CharacterEnum::ELEESHA,
                 'value' => 'translated eleesha',
                 'description' => 'translated eleesha description',
-                'skills' => [],
             ],
             'skills' => [],
             'statuses' => [],

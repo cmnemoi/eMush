@@ -78,7 +78,6 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
                     ),
                 ],
             ],
-            'skills' => $player->getSkills(),
             'gameStatus' => $playerInfo->getGameStatus(),
             'endCause' => $this->normalizeEndReason($endCause, $language),
         ];

@@ -12,6 +12,7 @@ namespace Mush\Status\Enum;
  * GROWING_PLANT: charge increase by 1 every cycle
  * DAILY_RESET: on cycle 1 the charge is set to the max amount
  * PATROL_SHIP_CHARGE_INCREMENT: patrol ship charge increase by 1 every cycle if below the maximum charge and patrol ship is not in battle
+ * SPECIALIST_POINTS_INCREMENT: charge increase by floor(maxCharge / 2) at each cycle if below the maximum charge
  * NONE: charge do not change with cycle or days
  */
 class ChargeStrategyTypeEnum
@@ -25,4 +26,5 @@ class ChargeStrategyTypeEnum
     public const NONE = 'none';
     public const NO_DISCHARGE = 'no_discharge';
     public const PATROL_SHIP_CHARGE_INCREMENT = 'patrol_ship_charge_increment';
+    public const SPECIALIST_POINTS_INCREMENT = 'specialist_points_increment';
 }

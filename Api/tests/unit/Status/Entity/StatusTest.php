@@ -20,6 +20,7 @@ class StatusTest extends TestCase
         $player = new Player();
 
         $statusConfig = new StatusConfig();
+        $statusConfig->setStatusName('status');
         $status = new Status($player, $statusConfig);
 
         $this->assertEquals($player, $status->getOwner());
@@ -40,6 +41,7 @@ class StatusTest extends TestCase
         $equipment = new GameEquipment(new Place());
 
         $statusConfig = new StatusConfig();
+        $statusConfig->setStatusName('status');
         $status = new Status($equipment, $statusConfig);
         $player = new Player();
 

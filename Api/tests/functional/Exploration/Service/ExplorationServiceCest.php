@@ -16,6 +16,7 @@ use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -25,6 +26,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -347,5 +349,39 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
 
         // then oxygen is not added to Daedalus
         $I->assertEquals(0, $this->daedalus->getOxygen());
+    }
+
+    public function testDispatchLandingEventAlwaysReturnsNothingToReportIfAPilotIsInTheExplorationTeam(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->player1]),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: $this->planet->getSize(),
+            reasons: ['test'],
+        );
+
+        // given the player is a pilot
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            holder: $this->player1,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when dispatchEvent is called
+        $events = [];
+        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $exploration = $this->explorationService->dispatchLandingEvent($exploration);
+            $events[] = $exploration->getClosedExploration()->getLogs()->last()->getEventName();
+        }
+
+        // then the first event is always landing nothing to report
+        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $I->assertEquals(
+                expected: PlanetSectorEvent::NOTHING_TO_REPORT,
+                actual: $events[$i],
+            );
+        }
     }
 }

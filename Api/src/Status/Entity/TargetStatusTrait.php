@@ -8,10 +8,20 @@ trait TargetStatusTrait
 {
     public function getStatuses(): Collection
     {
-        return $this->statuses
+        $statuses = $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
             ->map(fn (StatusTarget $statusTarget) => $statusTarget->getOwner())
         ;
+
+        // temporary filter to exclude PoC skills
+        /** @var Status $status */
+        foreach ($statuses as $status) {
+            if (str_contains($status->getName(), 'skill')) {
+                $statuses->removeElement($status);
+            }
+        }
+
+        return $statuses;
     }
 
     public function getTargetingStatuses(): Collection
@@ -76,5 +86,44 @@ trait TargetStatusTrait
         }
 
         return $this;
+    }
+
+    /**
+     * Temporary method for PoC skills.
+     */
+    public function getSkills(): Collection
+    {
+        $statuses = $this->statuses
+            ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
+            ->map(fn (StatusTarget $statusTarget) => $statusTarget->getOwner())
+        ;
+
+        // temporary filter to get only PoC skills
+        /** @var Status $status */
+        foreach ($statuses as $status) {
+            if (!str_contains($status->getName(), 'skill')) {
+                $statuses->removeElement($status);
+            }
+        }
+
+        return $statuses;
+    }
+
+    /**
+     * Temporary method for PoC skills.
+     */
+    public function getSkillByName(string $name): ?Status
+    {
+        $status = $this->getSkills()->filter(fn (Status $status) => ($status->getName() === $name))->first();
+
+        return $status ?: null;
+    }
+
+    /**
+     * Temporary method for PoC skills.
+     */
+    public function hasSkill(string $statusName): bool
+    {
+        return $this->getSkills()->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 }

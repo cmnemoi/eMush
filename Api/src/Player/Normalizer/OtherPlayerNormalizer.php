@@ -62,8 +62,8 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
                     'characters',
                     $player->getDaedalus()->getLanguage()
                 ),
-                'skills' => $player->getPlayerInfo()->getCharacterConfig()->getSkills(),
             ],
+            'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
         ];
 
         if (isset($context['currentPlayer'])) {
@@ -99,7 +99,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
             }
 
             $playerData['statuses'] = $statuses;
-            $playerData['skills'] = $player->getSkills();
+            $playerData['skills'] = $this->getNormalizedPlayerSkills($player, $format, $context);
             $playerData['titles'] = $titles;
             $playerData['actions'] = $this->getActions($player, $format, $context);
         }
@@ -135,5 +135,18 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         $scope = [ActionScopeEnum::OTHER_PLAYER];
 
         return $this->gearToolService->getActionsTools($currentPlayer, $scope);
+    }
+
+    private function getNormalizedPlayerSkills(Player $player, string $format = null, array $context = []): array
+    {
+        $skills = [];
+        foreach ($player->getSkills() as $skill) {
+            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['player' => $player]));
+            if (is_array($normedSkill) && count($normedSkill) > 0) {
+                $skills[] = $normedSkill;
+            }
+        }
+
+        return $skills;
     }
 }

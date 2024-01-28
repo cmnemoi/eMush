@@ -30,6 +30,8 @@ export class Player {
     public terminal: Terminal|null;
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
+    public skills: Array<Status>;
+    public shootPoint: QuantityPoint|null;
 
     public constructor() {
         this.gameStatus = null;
@@ -49,6 +51,8 @@ export class Player {
         this.terminal = null;
         this.titles = [];
         this.exploration = null;
+        this.skills = [];
+        this.shootPoint = null;
     }
 
     public load(object: any): Player {
@@ -60,7 +64,6 @@ export class Player {
             this.character.key = object.character['key'];
             this.character.name = object.character['value'];
             this.character.description = object.character['description'];
-            this.character.skills = object.character['skills'];
 
             this.gameStatus = object.gameStatus;
             if (typeof object.actionPoint !== 'undefined') {
@@ -122,6 +125,15 @@ export class Player {
             }
             if (object.exploration) {
                 this.exploration = (new Exploration()).load(object.exploration);
+            }
+            if (object.skills) {
+                object.skills.forEach((skillObject: any) => {
+                    const skill = (new Status()).load(skillObject);
+                    this.skills.push(skill);
+                });
+            }
+            if (object.shootPoint) {
+                this.shootPoint = (new QuantityPoint()).load(object.shootPoint);
             }
         }
 
@@ -190,5 +202,26 @@ export class Player {
         return this.statuses.filter((status: Status) => {
             return !status.isPrivate;
         });
+    }
+
+    public getSkillByKey(key: string): Status|null {
+        const skill = this.skills.filter((skill: Status) => {
+            return skill.key === key;
+        });
+
+        if (skill.length === 0) {
+            return null;
+        }
+
+        return skill[0];
+    }
+
+    public getSkillPointsByKey(key: string): number | null {
+        const skill = this.getSkillByKey(key);
+        if (!skill) {
+            return null;
+        }
+
+        return skill.charge;
     }
 }

@@ -5,7 +5,6 @@ export class Character {
     public name!: string;
     public abstract!: string;
     public description: string|null;
-    public skills!: Array<string>;
 
     constructor() {
         this.description = null;
@@ -17,7 +16,6 @@ export class Character {
             this.name = object.value;
             this.abstract = object.abstract;
             this.description = object.description;
-            this.skills = object.skills;
         }
 
         return this;
@@ -32,7 +30,6 @@ export class Character {
             this.name = object.value;
             this.abstract = object.abstract;
             this.description = object.description;
-            this.skills = object.skills;
         }
 
         return this;

@@ -41,6 +41,8 @@ export const helpers = {
             return `<img src="${require("@/assets/images/pa_cook.png")}" alt="pa_cook">`;
         case "hunter":
             return `<img src="${require("@/assets/images/alerts/hunter.png")}" alt="hunter">`;
+        case "pa_shoot":
+            return `<img src="${require("@/assets/images/pa_shoot.png")}" alt="pa_shoot">`;
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }
@@ -113,6 +115,7 @@ export function formatText(text: string|null): string {
     formattedText = formattedText.replaceAll(/:mush:/g, helpers.computeImageHtml("mush"));
     formattedText = formattedText.replaceAll(/:pa_cook:/g, helpers.computeImageHtml("pa_cook"));
     formattedText = formattedText.replaceAll(/:hunter:/g, helpers.computeImageHtml("hunter"));
+    formattedText = formattedText.replaceAll(/:pa_shoot:/g, helpers.computeImageHtml("pa_shoot"));
     Object.values(CharacterEnum).forEach((character: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${character}:`, 'g'), helpers.computeCharacterImageHtmlByKey(character));
     });

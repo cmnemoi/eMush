@@ -99,18 +99,15 @@ export default class PlayableCharacterObject extends CharacterObject {
             return this.currentMove;
         }
 
-        const displacementThreshold = 4;
 
-        const distance = Math.sqrt(
-            Math.pow(this.isoPath[this.currentMove].cartX - this.x, 2) +
-            Math.pow(this.isoPath[this.currentMove].cartY - this.getFeetCartCoords().y, 2)
-        );
+        const currentIsoPath = this.isoPath[this.currentMove];
 
 
-        if (Math.abs(distance) > displacementThreshold){
+        if (!this.isIsoPathSectionFinished(currentIsoPath)){
             return this.currentMove;
         } else if (this.currentMove < this.isoPath.length - 1) {
             this.setDepth(this.isoPath[this.currentMove+1].depth);
+            this.setPositionFromFeet(new CartesianCoordinates(currentIsoPath.cartX ,currentIsoPath.cartY));
             return this.currentMove = this.currentMove +1;
         } else {
             (<Phaser.Physics.Arcade.Body >this.body).stop();
@@ -132,13 +129,33 @@ export default class PlayableCharacterObject extends CharacterObject {
         }
     }
 
+    isIsoPathSectionFinished(currentIsoPath: { direction: string, cartX: number, cartY: number, depth: number }): boolean
+    {
+        const currentIsoTarget = new CartesianCoordinates(currentIsoPath.cartX, currentIsoPath.cartY).toIsometricCoordinates();
+        const currentIsoPosition = this.getFeetCartCoords().toIsometricCoordinates();
+
+        switch (currentIsoPath.direction) {
+        case 'none':
+            return true;
+        case 'north':
+            return currentIsoTarget.y - currentIsoPosition.y >= 0;
+        case 'south':
+            return currentIsoTarget.y - currentIsoPosition.y <= 0;
+        case 'east':
+            return currentIsoTarget.x - currentIsoPosition.x <= 0;
+        case 'west':
+            return currentIsoTarget.x - currentIsoPosition.x >= 0;
+        }
+        return true;
+    }
+
 
     // this function apply the computed path
     // moving the sprite and playing the animation
     movement(): void
     {
         //Would it be possible to use variables instead of Array? :)
-        const cartSpeed = { x: 50, y: 25 };
+        const cartSpeed = 74;
 
         if (this.currentMove !== -1) {
             this.updateCurrentMove();
@@ -154,9 +171,9 @@ export default class PlayableCharacterObject extends CharacterObject {
         if (currentMove.direction === 'west') {
             this.flipX = false;
             // @ts-ignore
-            this.body.setVelocityX(-cartSpeed.x);
+            this.body.setVelocityX(-cartSpeed);
             // @ts-ignore
-            this.body.setVelocityY(-cartSpeed.y);
+            this.body.setVelocityY(-cartSpeed/2);
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }
@@ -165,9 +182,9 @@ export default class PlayableCharacterObject extends CharacterObject {
         } else if (currentMove.direction === 'east') { //move to the E
             this.flipX = false;
             // @ts-ignore
-            this.body.setVelocityX(cartSpeed.x);
+            this.body.setVelocityX(cartSpeed);
             // @ts-ignore
-            this.body.setVelocityY(cartSpeed.y);
+            this.body.setVelocityY(cartSpeed/2);
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
@@ -176,9 +193,9 @@ export default class PlayableCharacterObject extends CharacterObject {
         } else if (currentMove.direction === 'south') {//move to the S
             this.flipX = true;
             // @ts-ignore
-            this.body.setVelocityX(-cartSpeed.x);
+            this.body.setVelocityX(-cartSpeed);
             // @ts-ignore
-            this.body.setVelocityY(cartSpeed.y);
+            this.body.setVelocityY(cartSpeed/2);
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
@@ -187,9 +204,9 @@ export default class PlayableCharacterObject extends CharacterObject {
         } else if (currentMove.direction === 'north') {//move to the N
             this.flipX = true;
             // @ts-ignore
-            this.body.setVelocityX(cartSpeed.x);
+            this.body.setVelocityX(cartSpeed);
             // @ts-ignore
-            this.body.setVelocityY(-cartSpeed.y);
+            this.body.setVelocityY(-cartSpeed/2);
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }

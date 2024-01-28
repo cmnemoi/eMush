@@ -67,11 +67,11 @@ export default class MushTiledObject {
             return new DecorationObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, name, isFlipped, collides, isAnimationYoyo);
         case 'door':
             if (equipmentEntity instanceof Door) {
-                return new DoorObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity);
+                return new DoorObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity, group);
             } else {break;}
         case 'door_ground':
             if (equipmentEntity instanceof Door) {
-                return new DoorGroundObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity);
+                return new DoorGroundObject(scene, cart_coords, this.getIsometricGeom(), tileset, frame, isFlipped, equipmentEntity, group);
             } else {break;}
         case 'interact':
             return new InteractObject(

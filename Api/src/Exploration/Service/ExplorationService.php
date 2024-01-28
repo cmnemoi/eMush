@@ -267,7 +267,7 @@ final class ExplorationService implements ExplorationServiceInterface
     {
         $planetSector = $this->entityManager->getRepository(PlanetSectorConfig::class)->findOneBySectorName($sectorName);
         if ($planetSector === null) {
-            throw new \RuntimeException('PlanetSectorConfig not found for sector name ' . $sectorName);
+            throw new \RuntimeException('PlanetSectorConfig not found for sector ' . $sectorName);
         }
 
         return $planetSector;

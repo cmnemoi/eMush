@@ -16,14 +16,20 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterface
 {
     public const ACCIDENT = 'accident';
+    public const ACCIDENT_3_5 = 'accident_3_5';
     public const AGAIN = 'again';
     public const ARTEFACT = 'artefact';
     public const BACK = 'back';
     public const DISASTER = 'disaster';
+    public const DISASTER_3_5 = 'disaster_3_5';
     public const DISEASE = 'disease';
     public const FIGHT = 'fight';
     public const FIND_LOST = 'find_lost';
     public const FUEL = 'fuel';
+    public const FUEL_3 = 'fuel_3';
+    public const FUEL_4 = 'fuel_4';
+    public const FUEL_5 = 'fuel_5';
+    public const FUEL_6 = 'fuel_6';
     public const HARVEST = 'harvest';
     public const ITEM_LOST = 'item_lost';
     public const KILL_ALL = 'kill_all';
@@ -33,9 +39,13 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const PLAYER_LOST = 'player_lost';
     public const NOTHING_TO_REPORT = 'nothing_to_report';
     public const OXYGEN = 'oxygen';
+    public const OXYGEN_8 = 'oxygen_8';
+    public const OXYGEN_16 = 'oxygen_16';
+    public const OXYGEN_24 = 'oxygen_24';
     public const PROVISION = 'provision';
     public const STARMAP = 'starmap';
     public const TIRED = 'tired';
+    public const TIRED_2 = 'tired_2';
 
     private PlayerCollection $explorators;
     private Place $place;

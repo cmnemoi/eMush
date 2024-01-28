@@ -1006,7 +1006,7 @@ class StatusConfigData
             'chargeVisibility' => VisibilityEnum::PRIVATE,
             'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
             'maxCharge' => 4,
-            'startCharge' => 2,
+            'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
             'autoRemove' => true,
             'modifierConfigs' => ['modifier_shooter_specialist_point'],

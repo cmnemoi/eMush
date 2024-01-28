@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
@@ -12,7 +12,6 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
-use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -21,12 +20,10 @@ use Mush\Status\Service\StatusServiceInterface;
 
 abstract class AbstractExplorationTester extends AbstractFunctionalTest
 {
-    protected ExplorationServiceInterface $explorationService;
-    protected Exploration $exploration;
-    protected Planet $planet;
-
+    private ExplorationServiceInterface $explorationService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private GameEquipment $icarus;
 
     public function _before(FunctionalTester $I): void
     {
@@ -43,45 +40,40 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
         $this->player->changePlace($icarusBay);
 
         // given there is the Icarus ship in Icarus Bay
-        /** @var EquipmentConfig $icarusConfig */
-        $icarus = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->icarus = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::ICARUS,
             equipmentHolder: $icarusBay,
             reasons: [],
             time: new \DateTime(),
         );
+    }
 
-        // given a planet with oxygen is found
+    protected function createPlanet(array $sectors, FunctionalTester $functionalTester): Planet
+    {
         $planetName = new PlanetName();
         $planetName->setFirstSyllable(1);
         $planetName->setFourthSyllable(1);
-        $I->haveInRepository($planetName);
+        $functionalTester->haveInRepository($planetName);
 
-        $this->planet = new Planet($this->player);
-        $this->planet
+        $planet = new Planet($this->player);
+        $planet
             ->setName($planetName)
-            ->setSize(4)
+            ->setSize(count($sectors))
         ;
-        $I->haveInRepository($this->planet);
+        $functionalTester->haveInRepository($planet);
 
-        $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
-        $desertSector = new PlanetSector($desertSectorConfig, $this->planet);
-        $I->haveInRepository($desertSector);
+        foreach ($sectors as $sector) {
+            /** @var PlanetSectorConfig $sectorConfig */
+            $sectorConfig = $functionalTester->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => $sector . '_default']);
+            $sector = new PlanetSector($sectorConfig, $planet);
+            $functionalTester->haveInRepository($sector);
+        }
 
-        $sismicSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::SISMIC_ACTIVITY . '_default']);
-        $sismicSector = new PlanetSector($sismicSectorConfig, $this->planet);
-        $I->haveInRepository($sismicSector);
+        return $planet;
+    }
 
-        $oxygenSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::OXYGEN . '_default']);
-        $oxygenSector = new PlanetSector($oxygenSectorConfig, $this->planet);
-        $I->haveInRepository($oxygenSector);
-
-        $hydroCarbonSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::HYDROCARBON . '_default']);
-        $hydroCarbonSector = new PlanetSector($hydroCarbonSectorConfig, $this->planet);
-        $I->haveInRepository($hydroCarbonSector);
-
-        $this->planet->setSectors(new ArrayCollection([$desertSector, $sismicSector, $oxygenSector, $hydroCarbonSector]));
-
+    protected function createExploration(Planet $planet): Exploration
+    {
         // given the Daedalus is in orbit around the planet
         $this->statusService->createStatusFromName(
             statusName: DaedalusStatusEnum::IN_ORBIT,
@@ -91,10 +83,10 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
         );
 
         // given there is an exploration with an explorator
-        $this->exploration = $this->explorationService->createExploration(
+        return $this->explorationService->createExploration(
             players: new PlayerCollection([$this->player]),
-            explorationShip: $icarus,
-            numberOfSectorsToVisit: $this->planet->getSize(),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: $planet->getSize(),
             reasons: ['test'],
         );
     }

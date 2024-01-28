@@ -224,17 +224,14 @@ class ChannelService implements ChannelServiceInterface
         }
 
         // or at least one member of the conversation in each room can communicate
-        /** @var ChannelPlayer $channelParticipant */
-        foreach ($channel->getParticipants() as $channelParticipant) {
-            /** @var Player $participant */
-            $participant = $channelParticipant->getParticipant()->getPlayer();
+        $otherParticipants = $channel->getParticipants()
+            ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
+            ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)
+        ;
 
-            if (!($participant instanceof Player)) {
-                return false;
-            } elseif ($participant !== $player
-                && $this->canPlayerCommunicate($participant)
-                || $this->canPlayerWhisper($player, $participant)
-            ) {
+        /** @var Player $participant */
+        foreach ($otherParticipants as $participant) {
+            if ($this->canPlayerCommunicate($participant) || $this->canPlayerWhisper($player, $participant)) {
                 return true;
             }
         }
@@ -327,7 +324,12 @@ class ChannelService implements ChannelServiceInterface
 
     private function canPlayerSeePrivateChannel(Player $player, Channel $channel): bool
     {
+        $playerIsAloneInTheirChannel = $channel->getParticipants()->count() === 1
+            && $channel->getParticipants()->first()->getParticipant()->getPlayer() === $player;
+
         if ($this->canPlayerCommunicate($player)) {
+            return true;
+        } elseif ($playerIsAloneInTheirChannel) {
             return true;
         } else {
             $otherParticipants = $channel->getParticipants()

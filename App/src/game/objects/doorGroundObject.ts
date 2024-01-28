@@ -36,10 +36,10 @@ export default class DoorGroundObject extends InteractObject {
         }
 
 
-        this.on('pointerdown', () => {this.onDoorClicked();}, this);
-
         this.canMove();
         this.updateDoor(door);
+
+        this.on('pointerdown', () => { this.onDoorClicked(); }, this);
     }
 
     updateDoor(door: DoorEntity | null = null) {
@@ -95,16 +95,57 @@ export default class DoorGroundObject extends InteractObject {
 
     onDoorClicked(): void
     {
-        if(!this.door.isBroken && this.canMove()) {
-            //if player click on the door
+         // if player click on the door AND the door is closed
+        if(
+            this.isClosed()  &&
+            !this.door.isBroken
+        )
+        {
+            if (this.animName !== null) {
+                this.anims.play(this.animName);
+            }
+            store.dispatch('room/selectTarget', { target: null });
+
+            // if player click on the door AND the door is open AND player can move
+        } else if (!this.door.isBroken && this.getMoveAction().canExecute) {
             const moveAction = this.getMoveAction();
             store.dispatch('action/executeAction', { target: this.door, action: moveAction });
             store.dispatch('room/selectTarget', { target: null });
             store.dispatch('room/closeInventory');
+
+            // If the door is broken propose the repair action
         } else {
-            //If the door is broken propose the repair action
+            const door = this.door;
             store.dispatch('room/selectTarget', { target: this.door });
         }
+    }
+
+    onClickedOut() {
+        super.onClickedOut();
+        if (this.isOpen()) {
+            this.anims.stopAfterRepeat();
+        }
+    }
+
+    isOpen(): boolean
+    {
+        return this.anims.isPlaying;
+    }
+
+    isClosed(): boolean
+    {
+        return !this.anims.isPlaying;
+    }
+
+    applyTexture(
+        tileset: Phaser.Tilemaps.Tileset,
+        name: string,
+        isFlipped: { x: boolean, y: boolean },
+        isAnimationYoyo: boolean
+    ) {
+        super.applyTexture(tileset, name, isFlipped, isAnimationYoyo);
+
+        this.anims.stop();
     }
 
     setHoveringOutline(): void

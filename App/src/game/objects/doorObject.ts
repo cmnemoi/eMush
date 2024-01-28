@@ -35,9 +35,6 @@ export default class DoorObject extends InteractObject {
         this.closeFrames = this.anims.generateFrameNames('door_object', { start: this.tiledFrame + 10, end: this.tiledFrame + 23 });
         this.closeFrames[this.closeFrames.length + 1] = this.openFrames[0];
 
-        // doors are always on the bottom (just in front of the back_wall layer)
-        this.setDepth(0);
-
         this.createAnimations();
     }
 
@@ -64,7 +61,6 @@ export default class DoorObject extends InteractObject {
             frameRate: 10,
             repeat: 0
         });
-
     }
 
     applyTexture(
@@ -89,30 +85,43 @@ export default class DoorObject extends InteractObject {
         const objectY = pointer.worldY - (this.y - this.height/2);
 
         if (this.input && this.input.hitArea.contains(objectX, objectY)){
+            // if player click on the door AND the door is closed
             if(
                 String(this.frame.name) === String(this.tiledFrame)  &&
                 !this.door.isBroken
             )
             {
-                //if player click on the door AND the door is closed
                 this.anims.play('door_open');
                 store.dispatch('room/selectTarget', { target: null });
+
+            // if player click on the door AND the door is open AND player can move
             } else if (!this.door.isBroken && this.getMoveAction().canExecute) {
-                //if player click on the door AND the door is open AND player can move
                 const moveAction = this.getMoveAction();
                 store.dispatch('action/executeAction', { target: this.door, action: moveAction });
                 store.dispatch('room/selectTarget', { target: null });
                 store.dispatch('room/closeInventory');
+
+            // If the door is broken propose the repair action
             } else {
-                //If the door is broken propose the repair action
                 const door = this.door;
                 store.dispatch('room/selectTarget', { target: this.door });
             }
-        } else if (String(this.frame.name) ===  String(this.tiledFrame + 10))
-        {
-            //if player click outside the door AND the door is open
-            this.anims.play('door_close');
         }
+    }
+
+    onClickedOut() {
+        super.onClickedOut();
+        if (this.isOpen()) { this.anims.play('door_close'); }
+    }
+
+    isOpen(): boolean
+    {
+        return String(this.frame.name) ===  String(this.tiledFrame + 10);
+    }
+
+    isClosed(): boolean
+    {
+        return String(this.frame.name) ===  String(this.tiledFrame);
     }
 
     handleBroken(): void

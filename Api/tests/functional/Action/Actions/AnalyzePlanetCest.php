@@ -215,4 +215,32 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
             actual: $this->player->getActionPoint()
         );
     }
+
+    public function testAnalyzePlanetCostsBaseAmountAfterMultipleCpuChanges(FunctionalTester $I): void
+    {
+        // given player has 8 AP
+        $this->player->setActionPoint(8);
+
+        // given NERON CPU priority is set to astronavigation
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::ASTRONAVIGATION,
+        );
+
+        // given it is switched back to default
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::NONE,
+        );
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->execute();
+
+        // then the action costs base amount
+        $I->assertEquals(
+            expected: 8 - $this->analyzePlanetConfig->getActionCost(),
+            actual: $this->player->getActionPoint()
+        );
+    }
 }

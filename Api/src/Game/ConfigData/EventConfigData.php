@@ -221,7 +221,7 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
-            'name' => PlanetSectorEvent::ACCIDENT . '_3_5',
+            'name' => PlanetSectorEvent::ACCIDENT_3_5,
             'eventName' => PlanetSectorEvent::ACCIDENT,
             'outputQuantityTable' => [
                 3 => 1,
@@ -231,7 +231,7 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
-            'name' => PlanetSectorEvent::DISASTER . '_3_5',
+            'name' => PlanetSectorEvent::DISASTER_3_5,
             'eventName' => PlanetSectorEvent::DISASTER,
             'outputQuantityTable' => [
                 3 => 1,
@@ -246,7 +246,7 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
-            'name' => PlanetSectorEvent::TIRED . '_2',
+            'name' => PlanetSectorEvent::TIRED_2,
             'eventName' => PlanetSectorEvent::TIRED,
             'outputQuantityTable' => [
                 2 => 1,
@@ -254,22 +254,57 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
-            'name' => PlanetSectorEvent::OXYGEN . '_8_16_24',
+            'name' => PlanetSectorEvent::OXYGEN_8,
             'eventName' => PlanetSectorEvent::OXYGEN,
             'outputQuantityTable' => [
-                24 => 4,
-                16 => 3,
-                8 => 2,
+                8 => 1,
             ],
         ],
         [
             'type' => 'planet_sector_event_config',
-            'name' => PlanetSectorEvent::FUEL . '_3_6',
+            'name' => PlanetSectorEvent::OXYGEN_16,
+            'eventName' => PlanetSectorEvent::OXYGEN,
+            'outputQuantityTable' => [
+                16 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::OXYGEN_24,
+            'eventName' => PlanetSectorEvent::OXYGEN,
+            'outputQuantityTable' => [
+                24 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL_3,
             'eventName' => PlanetSectorEvent::FUEL,
             'outputQuantityTable' => [
-                3 => 4,
-                4 => 3,
-                5 => 2,
+                3 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL_4,
+            'eventName' => PlanetSectorEvent::FUEL,
+            'outputQuantityTable' => [
+                4 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL_5,
+            'eventName' => PlanetSectorEvent::FUEL,
+            'outputQuantityTable' => [
+                5 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL_6,
+            'eventName' => PlanetSectorEvent::FUEL,
+            'outputQuantityTable' => [
                 6 => 1,
             ],
         ],

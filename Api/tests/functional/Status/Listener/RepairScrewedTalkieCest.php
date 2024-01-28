@@ -79,7 +79,7 @@ class RepairScrewedTalkieCest
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
@@ -87,7 +87,7 @@ class RepairScrewedTalkieCest
         $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig);
         $I->haveInRepository($playerInfo2);
         $player2->setPlayerInfo($playerInfo2);
-        $I->refreshEntities($player2);
+        $I->haveInRepository($player2);
 
         $action = new Action();
         $action
@@ -96,6 +96,7 @@ class RepairScrewedTalkieCest
             ->setScope(ActionScopeEnum::CURRENT)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->buildName(GameConfigEnum::TEST)
+            ->setSuccessRate(101)
         ;
         $I->haveInRepository($action);
 
@@ -111,7 +112,7 @@ class RepairScrewedTalkieCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
+            ->setName(ItemEnum::WALKIE_TALKIE)
             ->setOwner($player2)
         ;
         $I->haveInRepository($gameEquipment);
@@ -132,13 +133,13 @@ class RepairScrewedTalkieCest
 
         $screwedStatus = new Status($player, $screwedStatusConfig);
         $screwedStatus->setTarget($player2);
-        $I->haveInRepository($player2);
+        $I->haveInRepository($screwedStatus);
 
         $this->repairAction->loadParameters($action, $player2, $gameEquipment);
 
         $this->repairAction->execute();
 
-        $I->assertFalse($player2->hasStatus(PlayerStatusEnum::TALKIE_SCREWED));
+        $I->assertFalse($player->hasStatus(PlayerStatusEnum::TALKIE_SCREWED));
         $I->assertFalse($gameEquipment->hasStatus(EquipmentStatusEnum::BROKEN));
     }
 }

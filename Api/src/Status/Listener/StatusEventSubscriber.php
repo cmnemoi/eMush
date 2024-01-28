@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -65,7 +66,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                 $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
                 break;
             case EquipmentStatusEnum::BROKEN:
-                $this->repairScrewedTalkie($statusHolder, $event->getTags(), $event->getTime());
+                $this->repairScrewedTalkie($event->getStatus(), $event->getTags(), $event->getTime());
                 $this->handleRepairGravity($statusHolder, $event->getTags(), $event->getTime());
                 break;
             default:
@@ -136,18 +137,27 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     }
 
     private function repairScrewedTalkie(
-        StatusHolderInterface $holder,
+        Status $brokenStatus,
         array $tags,
         \DateTime $time
     ): void {
-        // If so, remove the screwed talkie status from the owner of the talkie and the pirate
-        if ($holder instanceof GameItem
-            && in_array($holder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE])
+        $brokenStatusHolder = $brokenStatus->getOwner();
+        // If so, remove the screwed talkie status from the pirate
+        if ($brokenStatusHolder instanceof GameItem
+            && in_array($brokenStatusHolder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE])
         ) {
-            /** @var Player $piratedPlayer */
-            $piratedPlayer = $holder->getOwner();
-
-            $this->statusService->removeStatus(PlayerStatusEnum::TALKIE_SCREWED, $piratedPlayer, $tags, $time);
+            /** @var Player $player */
+            foreach ($brokenStatusHolder->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
+                $talkieScrewedStatus = $player->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
+                if ($talkieScrewedStatus && $talkieScrewedStatus->getTarget() === $brokenStatusHolder->getOwner()) {
+                    $this->statusService->removeStatus(
+                        PlayerStatusEnum::TALKIE_SCREWED,
+                        $player,
+                        $tags,
+                        $time
+                    );
+                }
+            }
         }
     }
 

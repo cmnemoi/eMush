@@ -1121,7 +1121,7 @@ class ModifierConfigData
         [
             'name' => 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',
             'modifierName' => 'antisocial_modifier',
-            'targetEvent' => 'disease.new.cycle',
+            'targetEvent' => 'player.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -1137,7 +1137,7 @@ class ModifierConfigData
         [
             'name' => 'modifier_for_player_-1moralPoint_on_new_cycle',
             'modifierName' => null,
-            'targetEvent' => 'disease.new.cycle',
+            'targetEvent' => 'player.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -1168,7 +1168,7 @@ class ModifierConfigData
         [
             'name' => 'starving_for_player_-1healthPoint_on_new_cycle',
             'modifierName' => 'starving',
-            'targetEvent' => 'disease.new.cycle',
+            'targetEvent' => 'player.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,

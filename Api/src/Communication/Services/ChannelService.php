@@ -267,7 +267,7 @@ class ChannelService implements ChannelServiceInterface
 
             if (
                 !$this->canPlayerCommunicate($participant)
-                && !$this->canPlayerWhisperInChannel($channel, $participant)
+                && !$this->canPlayerSeePrivateChannel($participant, $channel)
                 && !$pirateAccess
             ) {
                 $this->exitChannel($participant, $channel, $time, $reason);
@@ -323,6 +323,28 @@ class ChannelService implements ChannelServiceInterface
         }
 
         return null;
+    }
+
+    private function canPlayerSeePrivateChannel(Player $player, Channel $channel): bool
+    {
+        if ($this->canPlayerCommunicate($player)) {
+            return true;
+        } else {
+            /** @var ArrayCollecion<int, Player> $participants */
+            $otherParticipants = $channel->getParticipants()
+                ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
+                ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)
+            ;
+            
+            /** @var Player $participant */
+            foreach ($otherParticipants as $participant) {
+                if ($this->canPlayerWhisper($player, $participant)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private function isChannelWhisperOnly(Channel $channel): bool

@@ -233,7 +233,7 @@ class ChannelService implements ChannelServiceInterface
                 return false;
             } elseif ($participant !== $player
                 && $this->canPlayerCommunicate($participant)
-                && $this->canPlayerWhisper($player, $participant)
+                || $this->canPlayerWhisper($player, $participant)
             ) {
                 return true;
             }

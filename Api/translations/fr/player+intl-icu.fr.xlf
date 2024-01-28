@@ -72,11 +72,11 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
     </unit>
     <unit id="shootPoint">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shootPoint.name</source>
         <target>Points de Tir</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shootPoint.description</source>
         <target>Les Points de Tir vous donnent des **actions gratuites** pour toutes les actions de tir en vol ou à bord.</target>
       </segment>

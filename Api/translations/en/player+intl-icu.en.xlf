@@ -70,5 +70,15 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
         <target>The Communications Officer can start to contact others once contact with Sol has been re-established.</target>
       </segment>
     </unit>
+    <unit id="shootPoint">
+      <segment id="name" state="translated">
+        <source>shootPoint.name</source>
+        <target>Shooting Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shootPoint.description</source>
+        <target>Shooting Points give you *free actions* for use in all shooting activities, either in-flight or onboard.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

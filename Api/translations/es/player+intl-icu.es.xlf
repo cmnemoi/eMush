@@ -69,5 +69,15 @@ Actualmente tienes {quantityaction}  :pa: y {quantitymovement} :pm:</target>
         <target>com_manager.desc</target>
       </segment>
     </unit>
+    <unit id="shootPoint">
+      <segment id="name" state="initial">
+        <source>shootPoint.name</source>
+        <target>shootPoint.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shootPoint.description</source>
+        <target>shootPoint.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

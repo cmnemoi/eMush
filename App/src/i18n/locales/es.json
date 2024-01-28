@@ -1,5 +1,5 @@
 {
-	"title": "Mush - Juego social online de estrategia y supervivencia en el espacio.",
+	"title": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
 	"alpha": {
 		"homepage": "<em>eMush</em> no está abierto al público en este momento ya que el juego no está completamente terminado y está lleno de <em class='red'>Mush</em><em>!!!</em><br><br>Si estás interesado en el juego, no dudes en unirte a nosotros en <a href='https://discord.gg/ERc3svy'>Discord</a> y a los <a href='https://eternal-twin.net/forum'>foros de Eternal-Twin</a>. Toda la información está disponible en <a href='https://eternal-twin.net'>Eternal-Twin</a>.<br><br>Acerca del alfa de eMush, las naves privadas se lanzan regularmente con la ayuda de voluntarios en <a href='https://discord.gg/ERc3svy'>Discord</a>. Para ser parte de una nave alfa, tendrás que registrarte en <a href='https://eternal-twin.net'>Eternal-Twin</a> y unirte a la lista de voluntarios de <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si no estás preseleccionado para una nave alfa, ¡no te preocupes!</em> La lista de selección rota para cada barco para ofrecer a todos una oportunidad.",
 		"valide": "Valider",
@@ -614,8 +614,8 @@
 		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !"
 	},
 	"metaSeo": {
-		"description": "eMush est une reprise de Mush : jouez dans la peau d'un des derniers espoirs de l'Humanité. À vos côtés, 15 autres membres d'équipage, et un parasite, le Mush ! Trahisons, exploits et explorations !",
-		"og:title": "eMush - Jeu multijoueur de coopération : trahisons, explorations et fuite dans l'espace !",
-		"og:description": "eMush est une reprise de Mush : jouez dans la peau d'un des derniers espoirs de l'Humanité. À vos côtés, 15 autres membres d'équipage, et un parasite, le Mush ! Trahisons, exploits et explorations !"
+		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",
+		"og:title": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
+		"og:description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !"
 	}
 }

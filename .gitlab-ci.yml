@@ -148,7 +148,7 @@ front-test:
     
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:
-  <<: *node_template
+  image: node:20
   stage: release
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab

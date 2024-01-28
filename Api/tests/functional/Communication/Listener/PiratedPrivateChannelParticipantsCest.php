@@ -695,7 +695,7 @@ class PiratedPrivateChannelParticipantsCest
         $this->moveAction->execute();
         $I->assertCount(2, $privateChannel->getParticipants());
 
-        // player join player
+        // player join player2
         $this->moveAction->loadParameters($dropActionEntity, $player, $door);
         $this->moveAction->execute();
         $I->assertCount(2, $privateChannel->getParticipants());

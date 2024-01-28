@@ -141,7 +141,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {
-            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['player' => $player]));
+            $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['currentPlayer' => $player]));
             if (is_array($normedSkill) && count($normedSkill) > 0) {
                 $skills[] = $normedSkill;
             }

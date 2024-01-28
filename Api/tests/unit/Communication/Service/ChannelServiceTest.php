@@ -294,23 +294,27 @@ class ChannelServiceTest extends TestCase
     {
         $channel = new Channel();
         $place = new Place();
+        $place->setName('place');
+        $place2 = new Place();
+        $place2->setName('place2');
+        $place3 = new Place();
+        $place3->setName('place3');
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
 
         $player2 = new Player();
         $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
-        $player2->setPlace(new Place());
+        $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
 
         $player3 = new Player();
-        $player3Info = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player3->setPlace(new Place());
+        $player3Info = new PlayerInfo($player3, new User(), new CharacterConfig());
+        $player3->setPlace($place3);
         $channelPlayer3 = new ChannelPlayer();
         $channelPlayer3->setChannel($channel)->setParticipant($player3Info);
 

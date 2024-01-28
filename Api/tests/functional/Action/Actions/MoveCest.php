@@ -7,8 +7,11 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -20,6 +23,8 @@ final class MoveCest extends AbstractFunctionalTest
     private Action $moveConfig;
     private Move $moveAction;
     private Player $derek;
+
+    private ChannelServiceInterface $channelService;
 
     public function _before(FunctionalTester $I)
     {
@@ -37,6 +42,8 @@ final class MoveCest extends AbstractFunctionalTest
 
         $this->moveConfig = $I->grabEntityFromRepository(Action::class, ['name' => 'move']);
         $this->moveAction = $I->grabService(Move::class);
+
+        $this->channelService = $I->grabService(ChannelServiceInterface::class);
     }
 
     public function testMoveActionNotExecutableIfIcarusBayHasTooMuchPeopleInside(FunctionalTester $I): void
@@ -128,5 +135,33 @@ final class MoveCest extends AbstractFunctionalTest
             expected: $this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR)->getName(),
             actual: $this->derek->getPlace()->getName(),
         );
+    }
+
+    public function testMoveToEmptyRoomExpulsesPlayerFromPrivateChannelIfTheyDoNotHaveATalkie(FunctionalTester $I): void
+    {
+        // given a private channel between player1 and player2
+        $channel = $this->channelService->createPrivateChannel($this->player);
+        $this->channelService->addPlayer($this->player2->getPlayerInfo(), $channel);
+
+        // given player1 has no talkie
+        $I->assertFalse($this->player->hasEquipmentByName(ItemEnum::WALKIE_TALKIE));
+
+        // given there is a door for exiting laboratory to front corridor
+        $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
+        $door = new Door($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $door
+            ->setName('door_default')
+            ->setEquipment($doorConfig)
+            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR))
+        ;
+        $I->haveInRepository($door);
+
+        // when player1 moves to the front corridor
+        $this->moveAction->loadParameters($this->moveConfig, $this->player, $door);
+        $this->moveAction->execute();
+
+        // then player1 should not be in the private channel anymore
+        $I->assertFalse($channel->getParticipants()->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())->contains($this->player));
     }
 }

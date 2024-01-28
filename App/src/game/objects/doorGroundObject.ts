@@ -122,7 +122,7 @@ export default class DoorGroundObject extends InteractObject {
     {
         if (this.group !== null) {
             this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
-                if (object instanceof DoorGroundObject) {
+                if (object instanceof DoorGroundObject && object !== this) {
                     object.activateDoor();
                 }
             });

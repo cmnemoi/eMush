@@ -64,17 +64,9 @@ export default class DoorObject extends DoorGroundObject {
         this.setInteractive(this.setInteractBox(), Phaser.Geom.Polygon.Contains);
     }
 
-    onClickedOut() {
-        super.onClickedOut();
-        if (this.isOpen()) {
-            this.activateDoor();
-            this.activateOtherPartOfDoor();
-        }
-    }
-
     isOpen(): boolean
     {
-        return String(this.frame.name) ===  String(this.tiledFrame + 10);
+        return String(this.frame.name) !==  String(this.tiledFrame);
     }
 
     activateDoor(): void
@@ -82,7 +74,12 @@ export default class DoorObject extends DoorGroundObject {
         if (!this.isOpen()) {
             this.anims.play('door_open');
         } else {
-            this.anims.play('door_close');
+            const currentFrame = this.anims.currentFrame;
+            let startFrame = 0;
+            if (currentFrame!== null) {
+                startFrame = 11 - currentFrame.index;
+            }
+            this.anims.play({ key: 'door_close', startFrame: startFrame });
         }
     }
 

@@ -75,7 +75,7 @@ export default class InteractObject extends DecorationObject {
             this.removeOutline();
             if (this.group !== null) {
                 this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
-                    if (object instanceof InteractObject) {
+                    if (object instanceof InteractObject && object !== this) {
                         object.removeOutline();
                     }
                 });
@@ -88,7 +88,7 @@ export default class InteractObject extends DecorationObject {
         this.removeOutline();
         if (this.group !== null) {
             this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
-                if (object instanceof InteractObject) {
+                if (object instanceof InteractObject && object !== this) {
                     object.removeOutline();
                 }
             });

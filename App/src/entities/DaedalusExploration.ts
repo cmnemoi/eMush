@@ -1,10 +1,12 @@
 export class DaedalusExploration {
+    public title!: string;
     public planet!: string; 
     public explorators!: string;
     public estimatedDuration!: string;
 
     public load(object: any): DaedalusExploration {
-        if (typeof object !== "undefined") {
+        if (object) {
+            this.title = object.title;
             this.planet = object.planet;
             this.explorators = object.explorators;
             this.estimatedDuration = object.estimatedDuration;

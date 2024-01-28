@@ -1,6 +1,6 @@
 <template>
     <div class="panel" v-if="exploration">
-        <TerminalTips :content="exploration.tips" />
+        <TerminalTips :content="exploration.uiElements.tips" />
         <section class="planet">
             <h3>{{ exploration.planet.name }}</h3>
             <span class="estimate">{{ exploration.estimatedDuration }}</span>
@@ -14,7 +14,7 @@
                     </li>
                 </ul>
             </div>
-            <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> Infos recoltées...</span>
+            <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> {{ exploration.uiElements.recoltedInfos }}</span>
             <ul class="analysis" v-if="show">
                 <Tippy tag="li"
                        v-for="(sector, i) in exploration.planet.sectors"
@@ -43,7 +43,7 @@
                         <span class="cycle-time-left">{{ slotProps.sec }}s</span>
                     </div>
                     <div v-else>
-                        <button class="new-cycle-button flashing" @click="triggerCycleChange(player)">{{ $t('game.exploration.newStep') }}</button>
+                        <button class="new-cycle-button flashing" @click="triggerCycleChange(player)">{{ exploration.uiElements.newStep }}</button>
                     </div>
                 </template>
             </CountdownTimer>

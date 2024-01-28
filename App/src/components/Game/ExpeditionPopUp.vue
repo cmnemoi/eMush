@@ -1,5 +1,5 @@
 <template>
-    <GamePopUp title="Exploration en cours" class="expedition" v-if="exploration">
+    <GamePopUp :title="formatText(exploration.title)" class="expedition" v-if="exploration">
         <span v-html="formatText(exploration.planet)" />
         <span v-html="formatText(exploration.explorators)" />
         <span v-html="formatText(exploration.estimatedDuration)" />

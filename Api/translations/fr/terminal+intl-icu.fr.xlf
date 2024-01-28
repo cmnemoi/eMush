@@ -103,11 +103,11 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         other {L'exploration se déroule automatiquement. Toutes les # minutes, une nouvelle étape se déroule. Une fois parti, impossible de faire demi-tour.}
         }</target>
       </segment>
-      <segment id="recolted_infos" state="final">
+      <segment id="recolted_infos" state="translated">
         <source>exploration.recolted_infos</source>
         <target>Infos récoltées...</target>
       </segment>
-      <segment id="new_step" state="final">
+      <segment id="new_step" state="translated">
         <source>exploration.new_step</source>
         <target>Nouvelle étape</target>
       </segment>

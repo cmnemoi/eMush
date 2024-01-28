@@ -82,15 +82,19 @@
       </segment>
     </unit>
     <unit id="exploration_pop_up">
-      <segment id="planet" state="final">
+      <segment id="planet" state="translated">
+        <source>exploration_pop_up.title</source>
+        <target>Exploration ongoing</target>
+      </segment>
+      <segment id="planet" state="translated">
         <source>exploration_pop_up.planet</source>
         <target>**Planet:** {planetName}</target>
       </segment>
-      <segment id="explorators" state="final">
+      <segment id="explorators" state="translated">
         <source>exploration_pop_up.explorators</source>
         <target>**Team:** {explorators}</target>
       </segment>
-      <segment id="estimated_duration" state="final">
+      <segment id="estimated_duration" state="translated">
         <source>exploration_pop_up.estimated_duration</source>
         <target>**Estimated return:** {estimatedDuration} minutes</target>
       </segment>

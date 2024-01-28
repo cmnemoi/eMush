@@ -103,6 +103,14 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         other {Exploration takes place automatically. Every # minutes, a new step takes place. Once you've left, there is no turning back.}
         }</target>
       </segment>
+      <segment id="recolted_infos" state="translated">
+        <source>exploration.recolted_infos</source>
+        <target>Recolted infos...</target>
+      </segment>
+      <segment id="new_step" state="translated">
+        <source>exploration.new_step</source>
+        <target>New step</target>
+      </segment>
     </unit>
     <unit id="closed_exploration">
       <segment id="tips" state="translated">

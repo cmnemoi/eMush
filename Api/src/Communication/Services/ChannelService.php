@@ -330,12 +330,11 @@ class ChannelService implements ChannelServiceInterface
         if ($this->canPlayerCommunicate($player)) {
             return true;
         } else {
-            /** @var ArrayCollecion<int, Player> $participants */
             $otherParticipants = $channel->getParticipants()
                 ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
                 ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)
             ;
-            
+
             /** @var Player $participant */
             foreach ($otherParticipants as $participant) {
                 if ($this->canPlayerWhisper($player, $participant)) {

@@ -135,16 +135,16 @@ export default class PlayableCharacterObject extends CharacterObject {
         const currentIsoPosition = this.getFeetCartCoords().toIsometricCoordinates();
 
         switch (currentIsoPath.direction) {
-            case 'none':
-                return true;
-            case 'north':
-                return currentIsoTarget.y - currentIsoPosition.y >= 0;
-            case 'south':
-                return currentIsoTarget.y - currentIsoPosition.y <= 0;
-            case 'east':
-                return currentIsoTarget.x - currentIsoPosition.x <= 0;
-            case 'west':
-                return currentIsoTarget.x - currentIsoPosition.x >= 0;
+        case 'none':
+            return true;
+        case 'north':
+            return currentIsoTarget.y - currentIsoPosition.y >= 0;
+        case 'south':
+            return currentIsoTarget.y - currentIsoPosition.y <= 0;
+        case 'east':
+            return currentIsoTarget.x - currentIsoPosition.x <= 0;
+        case 'west':
+            return currentIsoTarget.x - currentIsoPosition.x >= 0;
         }
         return true;
     }

@@ -55,6 +55,11 @@
                          "value":2
                         }, 
                         {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":32
@@ -86,6 +91,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":3
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isoSizeX",

@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
+import { CartesianCoordinates } from "@/game/types";
 import { Door as DoorEntity } from "@/entities/Door";
 import store from "@/store";
 import { Action } from "@/entities/Action";
@@ -10,7 +10,7 @@ import IsometricGeom from "@/game/scenes/isometricGeom";
 
 export default class DoorGroundObject extends InteractObject {
     public door: DoorEntity;
-    private particles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
+    protected particles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
 
     constructor(
         scene: DaedalusScene,
@@ -19,24 +19,15 @@ export default class DoorGroundObject extends InteractObject {
         tileset: Phaser.Tilemaps.Tileset,
         firstFrame: number,
         isFlipped: { x: boolean, y: boolean},
-        door: DoorEntity
+        door: DoorEntity,
+        group: Phaser.GameObjects.Group | null = null,
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, isFlipped, true, false);
+        super(scene, cart_coords, iso_geom, tileset, firstFrame, door.key, isFlipped, true, false, group);
 
         this.door = door;
 
-
         this.handleBroken();
-
-        if (firstFrame === 5 || firstFrame === 15){
-            this.setDepth(0);
-        } else {
-            this.setDepth(this.y + this.width/2);
-        }
-
-
-        this.canMove();
         this.updateDoor(door);
 
         this.on('pointerdown', () => { this.onDoorClicked(); }, this);
@@ -95,15 +86,14 @@ export default class DoorGroundObject extends InteractObject {
 
     onDoorClicked(): void
     {
-         // if player click on the door AND the door is closed
+        // if player click on the door AND the door is closed
         if(
-            this.isClosed()  &&
+            !this.isOpen()  &&
             !this.door.isBroken
         )
         {
-            if (this.animName !== null) {
-                this.anims.play(this.animName);
-            }
+            this.activateDoor();
+            this.activateOtherPartOfDoor();
             store.dispatch('room/selectTarget', { target: null });
 
             // if player click on the door AND the door is open AND player can move
@@ -122,8 +112,20 @@ export default class DoorGroundObject extends InteractObject {
 
     onClickedOut() {
         super.onClickedOut();
-        if (this.isOpen()) {
-            this.anims.stopAfterRepeat();
+
+        this.activateDoor();
+        // also activate doors in the same group
+        this.activateOtherPartOfDoor();
+    }
+
+    activateOtherPartOfDoor(): void
+    {
+        if (this.group !== null) {
+            this.group.getChildren().forEach((object: Phaser.GameObjects.GameObject) => {
+                if (object instanceof DoorGroundObject) {
+                    object.activateDoor();
+                }
+            });
         }
     }
 
@@ -132,9 +134,15 @@ export default class DoorGroundObject extends InteractObject {
         return this.anims.isPlaying;
     }
 
-    isClosed(): boolean
+    activateDoor(): void
     {
-        return !this.anims.isPlaying;
+        if (!this.isOpen()) {
+            if (this.animName !== null) {
+                this.anims.play(this.animName);
+            }
+        } else {
+            this.anims.stopAfterRepeat();
+        }
     }
 
     applyTexture(

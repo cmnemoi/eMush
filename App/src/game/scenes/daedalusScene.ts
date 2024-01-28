@@ -1164,9 +1164,6 @@ export default class DaedalusScene extends Phaser.Scene
                 gameObject.onSelected();
                 this.selectedGameObject = gameObject;
             }
-            if (gameObject instanceof DoorObject) {
-                gameObject.onDoorClicked(pointer);
-            }
 
 
             // screen sliding

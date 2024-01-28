@@ -117,6 +117,11 @@
                          "value":8
                         }, 
                         {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":32
@@ -148,6 +153,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":9
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isoSizeX",
@@ -183,6 +193,11 @@
                          "value":6
                         }, 
                         {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":32
@@ -214,6 +229,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":5
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isoSizeX",
@@ -249,6 +269,11 @@
                          "value":2
                         }, 
                         {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":32
@@ -280,6 +305,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":3
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isoSizeX",
@@ -315,6 +345,11 @@
                          "value":2
                         }, 
                         {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":32
@@ -346,6 +381,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":3
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isoSizeX",

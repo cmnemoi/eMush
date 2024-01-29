@@ -685,7 +685,7 @@
       </segment>
     </unit>
     <unit id="gain_shoot_point">
-      <segment state="final">
+      <segment state="translated">
         <source>gain_shoot_point</source>
         <target>Vous avez gagné {quantity} :pa_shoot:.</target>
       </segment>

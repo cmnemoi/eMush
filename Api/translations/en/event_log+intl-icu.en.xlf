@@ -635,5 +635,11 @@
         <target>The expedition came back sooner than expected: all the explorators are dead! You can find out how it went {exploration_link}.</target>
       </segment>
     </unit>
+    <unit id="gain_shoot_point">
+      <segment state="translated">
+        <source>gain_shoot_point</source>
+        <target>You have earned {quantity} :pa_shoot:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

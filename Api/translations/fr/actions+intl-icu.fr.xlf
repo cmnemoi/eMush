@@ -449,7 +449,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="final">
         <source>self_heal.description</source>
-        <target>Vous rend des Points de Vie ( :hp: ) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
+        <target>Vous rend des Points de Vie (:hp:) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
       </segment>
     </unit>
     <unit id="ultraheal">

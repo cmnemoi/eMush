@@ -547,5 +547,11 @@
         <target>all_explorators_dead</target>
       </segment>
     </unit>
+    <unit id="gain_shoot_point">
+      <segment state="initial">
+        <source>gain_shoot_point</source>
+        <target>gain_shoot_point</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>healthPoint.description</source>
-        <target>Esta es tu *Barra de Vida* (:pv:). Si queda vacía, morirás.</target>
+        <target>Esta es tu *Barra de Vida* (:hp:). Si queda vacía, morirás.</target>
       </segment>
     </unit>
     <unit id="moralPoint">

@@ -443,7 +443,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="final">
         <source>self_heal.description</source>
-        <target>Restore your Health Points (:pv:). If you are ill, this action removes an illness point from one of your illnesses.</target>
+        <target>Restore your Health Points (:hp:). If you are ill, this action removes an illness point from one of your illnesses.</target>
       </segment>
     </unit>
     <unit id="ultraheal">

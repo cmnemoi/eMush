@@ -98,8 +98,8 @@ export function formatText(text: string|null): string {
     });
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replaceAll(/\*(.[^*]*)\*/g, '<em>$1</em>');
-    formattedText = formattedText.replace(/(?<!:)\/\//g, '<br>');
-    formattedText = formattedText.replaceAll(/:pa:/g, helpers.computeImageHtml("pa"));
+    formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
+    formattedText = formattedText.replaceAll(/:pa:/g, helpers.computeImageHtml("pa"));  
     formattedText = formattedText.replaceAll(/:pm:/g, helpers.computeImageHtml("pm"));
     formattedText = formattedText.replaceAll(/:pmo:/g, helpers.computeImageHtml("pmo"));
     formattedText = formattedText.replaceAll(/:hp:/g, helpers.computeImageHtml("hp"));

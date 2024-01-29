@@ -16,9 +16,13 @@ class StatusEventLogEnum
     public const EQUIPMENT_BROKEN = 'equipment_broken';
     public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
     public const GET_UP_BED_BROKEN = 'get_up_bed_broken';
+    public const GAIN_SHOOT_POINT = 'gain_shoot_point';
 
     public const VALUE = 'value';
     public const VISIBILITY = 'visibility';
+
+    public const GAIN = 'gain';
+    public const LOSS = 'loss';
 
     public const STATUS_EVENT_LOGS = [
         StatusEvent::STATUS_APPLIED => [
@@ -39,5 +43,12 @@ class StatusEventLogEnum
                 HunterEvent::HUNTER_SHOT => VisibilityEnum::PUBLIC,
             ],
         ],
+    ];
+
+    public const CHARGE_STATUS_UPDATED_LOGS = [
+        self::GAIN => [
+            PlayerStatusEnum::POC_SHOOTER_SKILL => self::GAIN_SHOOT_POINT,
+        ],
+        self::LOSS => [],
     ];
 }

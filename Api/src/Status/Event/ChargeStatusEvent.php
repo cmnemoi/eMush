@@ -21,6 +21,7 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
     ) {
         parent::__construct($status, $holder, $tags, $time);
         $this->setQuantity($quantity);
+        $this->setVisibility($status->getChargeVisibility());
     }
 
     public function getStatus(): ChargeStatus
@@ -74,5 +75,13 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
     public function getVariableName(): string
     {
         return $this->getStatusName();
+    }
+
+    public function getLogParameters(): array
+    {
+        $parameters = parent::getLogParameters();
+        $parameters['quantity'] = $this->getQuantity();
+
+        return $parameters;
     }
 }

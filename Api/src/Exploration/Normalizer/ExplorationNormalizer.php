@@ -9,6 +9,7 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -88,7 +89,9 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
                     language: $explorator->getDaedalus()->getLanguage(),
                 ),
                 'healthPoints' => $explorator->getHealthPoint(),
-                'isAlive' => $explorator->isAlive(),
+                'isDead' => !$explorator->isAlive(),
+                'isLost' => $explorator->hasStatus(PlayerStatusEnum::LOST),
+                'isStuck' => $explorator->hasStatus(PlayerStatusEnum::STUCK_IN_THE_SHIP),
             ];
         }
 

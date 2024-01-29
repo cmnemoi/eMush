@@ -7,10 +7,20 @@
             <div class="card">
                 <img class="planet-img" src="@/assets/images/astro/planet_unknown.png">
                 <ul class="crew">
-                    <li v-for="(explorator, i) in exploration.explorators" :key="i">
+                    <li v-for="(explorator, i) in exploration.explorators" :key="explorator.key">
                         <img :src="explorator.getExploratorBody()" :alt="explorator.name">
-                        <p v-if="explorator.isAlive"><img src="@/assets/images/lp.png"> {{ explorator.healthPoints }}</p>
-                        <p v-else><img src="@/assets/images/dead.png"></p>
+                        <p v-if="explorator.isDead">
+                            <img src="@/assets/images/dead.png">
+                        </p>
+                        <p v-else-if="explorator.isLost">
+                            <img src="@/assets/images/status/lost_on_planet.png">
+                        </p>
+                        <p v-else-if="explorator.isStuck">
+                            <img src="@/assets/images/status/stuck_in_ship.png">
+                        </p>
+                        <p v-else>
+                            <img src="@/assets/images/lp.png"> {{ explorator.healthPoints }}
+                        </p>
                     </li>
                 </ul>
             </div>

@@ -4,14 +4,18 @@ export class Explorator {
     public key!: string;
     public name!: string;
     public healthPoints!: number;
-    public isAlive!: boolean;
+    public isDead!: boolean;
+    public isLost!: boolean;
+    public isStuck!: boolean;
 
     public load(object: any): Explorator {
         if (object) {
             this.key = object.key;
             this.name = object.name;
             this.healthPoints = object.healthPoints;
-            this.isAlive = object.isAlive;
+            this.isDead = object.isDead;
+            this.isLost = object.isLost;
+            this.isStuck = object.isStuck;
         }
 
         return this;

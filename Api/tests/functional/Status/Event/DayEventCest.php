@@ -11,7 +11,9 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -22,6 +24,7 @@ use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
+use Mush\User\Entity\User;
 
 class DayEventCest
 {
@@ -40,7 +43,8 @@ class DayEventCest
         // Day Increment
         $daedalus = new Daedalus();
         $time = new \DateTime();
-        $player = $I->have(Player::class);
+        $characterConfig = $I->have(CharacterConfig::class);
+        $user = $I->have(User::class);
 
         $daedalus->setCycle(1);
 
@@ -61,6 +65,8 @@ class DayEventCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
@@ -82,7 +88,7 @@ class DayEventCest
             new \DateTime()
         );
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
+        $dayEvent = new StatusCycleEvent($status, $player, [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -109,7 +115,7 @@ class DayEventCest
             new \DateTime()
         );
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
+        $dayEvent = new StatusCycleEvent($status, $player, [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
@@ -136,7 +142,7 @@ class DayEventCest
             new \DateTime()
         );
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
+        $dayEvent = new StatusCycleEvent($status, $player, [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 

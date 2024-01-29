@@ -94,6 +94,10 @@
         <source>nothing_to_report.cristal_field_description</source>
         <target>nothing_to_report.cristal_field_description</target>
       </segment>
+      <segment id="mountain_description" state="initial">
+        <source>nothing_to_report.mountain_description</source>
+        <target>nothing_to_report.mountain_description</target>
+      </segment>
     </unit>
     <unit id="tired">
       <segment id="name" state="initial">

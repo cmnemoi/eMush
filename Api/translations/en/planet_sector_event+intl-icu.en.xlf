@@ -94,6 +94,10 @@
         <source>nothing_to_report.cristal_field_description</source>
         <target>A loud scream. A moment of panic. Then nothing...</target>
       </segment>
+      <segment id="mountain_description" state="translated">
+        <source>nothing_to_report.mountain_description</source>
+        <target>A loud scream. A moment of panic. Then nothing...</target>
+      </segment>
     </unit>
     <unit id="tired">
       <segment id="name" state="translated">

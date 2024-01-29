@@ -98,7 +98,7 @@
         <source>nothing_to_report.cristal_field_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="mountain_description" state="final">
+      <segment id="mountain_description" state="translated">
         <source>nothing_to_report.mountain_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>

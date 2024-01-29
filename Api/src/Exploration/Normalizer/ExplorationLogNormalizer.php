@@ -54,13 +54,13 @@ final class ExplorationLogNormalizer implements NormalizerInterface
                 language: $closedExploration->getDaedalusInfo()->getLanguage(),
             ),
             'eventDescription' => $this->translationService->translate(
-                key: $explorationLog->getEventName() . '.description',
+                key: $explorationLog->getEventName() . '.' . $planetSectorKey . '_description',
                 parameters: $logParameters,
                 domain: 'planet_sector_event',
                 language: $closedExploration->getDaedalusInfo()->getLanguage(),
             ),
             'eventOutcome' => $this->translationService->translate(
-                key: $explorationLog->getEventName() . '.' . $planetSectorKey . '_description',
+                key: $explorationLog->getEventName() . '.description',
                 parameters: $logParameters,
                 domain: 'planet_sector_event',
                 language: $closedExploration->getDaedalusInfo()->getLanguage(),

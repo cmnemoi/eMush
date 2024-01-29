@@ -7,7 +7,7 @@
             <div class="card">
                 <img class="planet-img" src="@/assets/images/astro/planet_unknown.png">
                 <ul class="crew">
-                    <li v-for="(explorator, i) in exploration.explorators" :key="explorator.key">
+                    <li v-for="(explorator,) in exploration.explorators" :key="explorator.key">
                         <img :src="explorator.getExploratorBody()" :alt="explorator.name">
                         <p v-if="explorator.isDead">
                             <img src="@/assets/images/dead.png">

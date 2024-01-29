@@ -152,12 +152,12 @@ class DayEventCest
             [],
             new \DateTime()
         );
-        $statusChargeBeforeCycleChange = $status->getCharge();
+        $I->assertEquals(2, $status->getCharge());
 
-        $dayEvent = new StatusCycleEvent($status, new Player(), [EventEnum::NEW_DAY], $time);
+        $dayEvent = new StatusCycleEvent($status, $player, [EventEnum::NEW_DAY], $time);
 
         $this->cycleSubscriber->onNewCycle($dayEvent);
 
-        $I->assertEquals($statusChargeBeforeCycleChange + intval($status->getThreshold() / 2), $status->getCharge());
+        $I->assertEquals(4, $status->getCharge());
     }
 }

@@ -12,7 +12,9 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -291,6 +293,52 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
+        );
+    }
+
+    public function testShooterGetsShootPointsAtDayChange(FunctionalTester $I): void
+    {
+        // given I have a Shooter player
+        /** @var ChargeStatus $shooterSkill * */
+        $shooterSkill = $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::POC_SHOOTER_SKILL,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given the player has 1 shoot points
+        $this->statusService->updateCharge($shooterSkill, -1, tags: [], time: new \DateTime());
+        $I->assertEquals(expected: $shooterSkill->getCharge(), actual: 1);
+
+        // when a new day event is triggered
+        $event = new PlayerCycleEvent(
+            $this->player,
+            [EventEnum::NEW_CYCLE, EventEnum::NEW_DAY],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then player should have 3 shoot points
+        $I->assertEquals(expected: 3, actual: $shooterSkill->getCharge());
+
+        // then I should see a private log informing for the gain
+        /** @var RoomLog $roomlog * */
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => StatusEventLogEnum::GAIN_SHOOT_POINT,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+
+        // then the log should print the right quantity
+        $logParameters = $roomLog->getParameters();
+        $I->assertEquals(
+            expected: 2,
+            actual: $logParameters['quantity'],
         );
     }
 

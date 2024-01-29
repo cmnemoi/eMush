@@ -684,5 +684,11 @@
         <target>L'expédition est revenue plus tôt que prévu : tous les explorateurs sont morts ! Vous pouvez retrouver son déroulement {exploration_link}.</target>
       </segment>
     </unit>
+    <unit id="gain_shoot_point">
+      <segment state="final">
+        <source>gain_shoot_point</source>
+        <target>Vous avez gagné {quantity} :pa_shoot:.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

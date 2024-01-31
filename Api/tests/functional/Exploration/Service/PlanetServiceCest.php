@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Service;
 
+use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -66,5 +68,29 @@ final class PlanetServiceCest extends AbstractFunctionalTest
         for ($i = 28; $i < 32; ++$i) {
             $I->assertEquals(9, $planets[$i]->getDistance());
         }
+    }
+
+    public function testCreatePlanetCorrectlyCapsNumberOfSectorPerPlanet(FunctionalTester $I): void
+    {
+        // given only oxygen sector may be created
+        $availableSectorConfigs = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
+            fn (PlanetSectorConfig $planetSectorConfig) => PlanetSectorEnum::OXYGEN === $planetSectorConfig->getSectorName()
+        );
+        $this->daedalus->getGameConfig()->setPlanetSectorConfigs($availableSectorConfigs);
+
+        // given oxygen sector can only appear twice per planet
+        $oxygenSectorConfig = $availableSectorConfigs->first();
+        $oxygenSectorConfig->setMaxPerPlanet(2);
+
+        // given Daedalus is Day 10 so we can theorecally have huge planets
+        $this->daedalus->setDay(10);
+
+        // when player discovers a planet
+        $planet = $this->planetService->createPlanet($this->player);
+
+        // then planet has only two sectors
+        $I->assertCount(2, $planet->getSectors());
+        // and those sectors are oxygen
+        $I->assertEquals(PlanetSectorEnum::OXYGEN, $planet->getSectors()->first()->getName());
     }
 }

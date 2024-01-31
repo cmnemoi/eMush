@@ -204,11 +204,11 @@ final class PlanetService implements PlanetServiceInterface
         $sectors = new ArrayCollection();
 
         // We need to clone the sector configs collection because we will remove some from it
-        // during the generation process annd we don't want to persist this
+        // during the generation process and we don't want to persist this
         $storedSectorConfigs = $planet->getDaedalus()->getGameConfig()->getPlanetSectorConfigs();
         $inMemorySectorConfigs = clone $storedSectorConfigs;
 
-        $total = $this->getTotalSectorConfigsWeight($inMemorySectorConfigs);
+        $total = $this->getSectorConfigsTotalWeight($inMemorySectorConfigs);
 
         // Generate a sector for each available slot on the planet
         for ($i = 0; $i < $planet->getSize(); ++$i) {
@@ -251,7 +251,7 @@ final class PlanetService implements PlanetServiceInterface
         return $planet;
     }
 
-    private function getTotalSectorConfigsWeight(Collection $sectorConfigs): int
+    private function getSectorConfigsTotalWeight(Collection $sectorConfigs): int
     {
         $total = 0;
         foreach ($sectorConfigs as $sectorConfig) {

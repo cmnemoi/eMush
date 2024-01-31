@@ -187,12 +187,12 @@ final class PlanetService implements PlanetServiceInterface
 
     private function getPlanetSize(Daedalus $dadalus): int
     {
-        $size = 2 + $this->randomService->random(0, 6) * 2;
+        $size = 2 + $this->randomService->random(0, 5) * 2;
 
         if ($dadalus->isInHardMode()) {
-            $size = 4 + $this->randomService->random(0, 7) * 2;
+            $size = 4 + $this->randomService->random(0, 6) * 2;
         } elseif ($dadalus->isInVeryHardMode()) {
-            $size = 6 + $this->randomService->random(0, 8) * 2;
+            $size = 6 + $this->randomService->random(0, 7) * 2;
         }
 
         return $size;
@@ -209,7 +209,7 @@ final class PlanetService implements PlanetServiceInterface
 
         // Generate a sector for each available slot on the planet
         for ($i = 0; $i < $planet->getSize(); ++$i) {
-            $random = $this->randomService->random(0, $total);
+            $random = $this->randomService->random(0, $total - 1);
             $sum = 0;
 
             // Iterate over all possible sectors

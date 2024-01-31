@@ -1,41 +1,39 @@
 <template>
-    <div>
-        <div
-            v-if="isRoot && !isSystemMessage"
-            :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
-            @click="$emit('click')"
-        >
-            <div class="character-body">
-                <img :src="characterPortrait">
-            </div>
-            <p class="text">
-                <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
-            </p>
-            <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
-            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+    <div
+        v-if="isRoot && !isSystemMessage"
+        :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
+        @click="$emit('click')"
+    >
+        <div class="character-body">
+            <img :src="characterPortrait">
         </div>
-        <div
-            v-if="isRoot && isSystemMessage"
-            class="log"
-            @click="$emit('click')"
-        >
-            <p class="text">
-                <span v-html="formatMessage(message.message)" />
-            </p>
-            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
-        </div>
-        <div
-            v-else-if="!isRoot"
-            :class="isHidden ? 'message child-message hidden' : 'message child-message'"
-            @click="$emit('click')"
-        >
-            <p class="text">
-                <img class="character-head" :src="characterPortrait">
-                <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
-            </p>
-            <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
-            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
-        </div>
+        <p class="text">
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+        </p>
+        <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
+        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+    </div>
+    <div
+        v-if="isRoot && isSystemMessage"
+        class="log"
+        @click="$emit('click')"
+    >
+        <p class="text">
+            <span v-html="formatMessage(message.message)" />
+        </p>
+        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+    </div>
+    <div
+        v-else-if="!isRoot"
+        :class="isHidden ? 'message child-message hidden' : 'message child-message'"
+        @click="$emit('click')"
+    >
+        <p class="text">
+            <img class="character-head" :src="characterPortrait">
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+        </p>
+        <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
+        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
 </template>
 
@@ -221,18 +219,24 @@ export default defineComponent ({
 
     /* MESSAGES LINKTREE */
 
-    &::before {
-        --border-radius: 5px;
+    --border-radius: 5px;
 
+    &::before, &::after {
         content: "";
+        pointer-events: none;
         position: absolute;
-        top: calc(0px - var(--border-radius));
+        bottom: calc(-4px - var(--border-radius));
         left: -36px;
         width: calc(28px + var(--border-radius));
-        height: calc(26px + var(--border-radius));
-        border-left: 1px solid #aad4e5;
-        border-bottom: 1px solid #aad4e5;
+        border: 1px solid #aad4e5;
+        border-right-width: 0;
         border-radius: var(--border-radius);
+    }
+
+    &::before {
+        top: calc(0px - var(--border-radius));
+        height: calc(26px + var(--border-radius));
+        border-top-width: 0;
         clip-path:
             polygon(
                     0 var(--border-radius),
@@ -242,18 +246,10 @@ export default defineComponent ({
             );
     }
 
-    &:not(:last-of-type)::after {
-        --border-radius: 5px;
-
-        content: "";
-        position: absolute;
+    /*&:not(:last-of-type)::after {*/
+    &::after {
         top: 25px;
-        left: -36px;
-        width: calc(28px + var(--border-radius));
-        bottom: calc(-4px - var(--border-radius));
-        border-left: 1px solid #aad4e5;
-        border-top: 1px solid #aad4e5;
-        border-radius: var(--border-radius);
+        border-bottom-width: 0;
         clip-path:
             polygon(
                     0 0,
@@ -262,6 +258,8 @@ export default defineComponent ({
                     0 calc(100% - var(--border-radius))
             );
     }
+
+    &:last-of-type::after { content: none; }
 }
 
 .hidden {

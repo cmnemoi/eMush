@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Planet;
@@ -13,7 +14,6 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Repository\PlanetRepository;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -232,8 +232,8 @@ final class PlanetService implements PlanetServiceInterface
                     if ($sectorConfig->getMaxPerPlanet() === 0) {
                         $inMemorySectorConfigs->removeElement($sectorConfig);
 
-                        // Subtract the weight of this sector configuration from the total weight of all the sector since it can no longer be generated
-                        $total -= $sectorConfig->getWeightAtPlanetGeneration();
+                        // Subtract the weight of this sector configuration from the running sum
+                        $sum -= $sectorConfig->getWeightAtPlanetGeneration();
                     }
 
                     // Break out of the loop since we've generated a sector for this slot on the planet

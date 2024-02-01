@@ -234,9 +234,22 @@ class DoTheThing extends AbstractAction
 
     private function addPregnantStatus(Player $player, Player $target): void
     {
-        $characterName = $player->getPlayerInfo()->getCharacterConfig()->getCharacterName();
+        $playerName = $player->getPlayerInfo()->getCharacterConfig()->getCharacterName();
+        $targetName = $target->getPlayerInfo()->getCharacterConfig()->getCharacterName();
+
+        // Won't make male characters pregnant
+        if (CharacterEnum::isMale($playerName) && CharacterEnum::isMale($targetName)) {
+            return;
+        }
+
+        // won't make female characters pregnant between themselves
+        if (!CharacterEnum::isMale($playerName) && !CharacterEnum::isMale($targetName)) {
+            return;
+        }
+
         /** @var StatusHolderInterface $femalePlayer */
-        $femalePlayer = CharacterEnum::isMale($characterName) ? $target : $player;
+        $femalePlayer = CharacterEnum::isMale($playerName) ? $target : $player;
+
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
             $femalePlayer,

@@ -141,7 +141,6 @@ class PlantCycleEventCest
 
         // then the log is correcly parametrized
         $logParameters = $roomLog->getParameters();
-        dump($logParameters);
         $I->assertEquals($logParameters['equipment'], GamePlantEnum::BANANA_TREE);
 
         // then... actually, what is this assertion for ?

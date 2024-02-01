@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Entity\GameConfig;
@@ -83,7 +84,7 @@ class PlantCycleEventCest
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setFruitName($fruitConfig->getEquipmentName())
-            ->setName('plant_test')
+            ->setName(GamePlantEnum::BANANA_TREE)
         ;
         $I->haveInRepository($plantMechanic);
 
@@ -96,7 +97,7 @@ class PlantCycleEventCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('plant name')
+            ->setName(GamePlantEnum::BANANA_TREE)
         ;
 
         $I->haveInRepository($gameEquipment);
@@ -126,14 +127,25 @@ class PlantCycleEventCest
 
         $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
 
-        $I->assertCount(0, $room->getStatuses());
+        // then plant is not young anymore
         $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $I->seeInRepository(RoomLog::class, [
+
+        // then I see a public maturation log
+        /** @var RoomLog $roomLog */
+        $roomLog = $I->grabEntityFromRepository(RoomLog::class, [
             'place' => $room->getName(),
             'daedalusInfo' => $daedalusInfo,
             'log' => PlantLogEnum::PLANT_MATURITY,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+
+        // then the log is correcly parametrized
+        $logParameters = $roomLog->getParameters();
+        dump($logParameters);
+        $I->assertEquals($logParameters['equipment'], GamePlantEnum::BANANA_TREE);
+
+        // then... actually, what is this assertion for ?
+        $I->assertCount(0, $room->getStatuses());
     }
 
     public function testPlantChangeDay(FunctionalTester $I)

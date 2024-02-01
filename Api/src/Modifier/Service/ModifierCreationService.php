@@ -7,7 +7,6 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
-use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Status\Entity\ChargeStatus;
@@ -76,15 +75,15 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         array $tags,
         \DateTime $time,
     ): void {
-        if ($modifierConfig instanceof EventModifierConfig) {
-            $this->deleteGameEventModifier($modifierConfig, $holder);
-        } elseif ($modifierConfig instanceof DirectModifierConfig && $modifierConfig->getRevertOnRemove()) {
+        $this->deleteGameEventModifier($modifierConfig, $holder);
+
+        if ($modifierConfig instanceof DirectModifierConfig && $modifierConfig->getRevertOnRemove()) {
             $this->createDirectModifier($modifierConfig, $holder, $tags, $time, true);
         }
     }
 
     private function deleteGameEventModifier(
-        EventModifierConfig $modifierConfig,
+        AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
     ): void {
         $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
@@ -94,7 +93,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         }
     }
 
-    private function createDirectModifier(
+    public function createDirectModifier(
         DirectModifierConfig $modifierConfig,
         ModifierHolderInterface $modifierRange,
         array $tags,

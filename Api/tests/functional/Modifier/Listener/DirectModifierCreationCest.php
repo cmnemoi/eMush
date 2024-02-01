@@ -113,7 +113,7 @@ class DirectModifierCreationCest
 
         $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
 
-        $I->assertCount(0, $player->getModifiers());
+        $I->assertCount(1, $player->getModifiers());
         $variable = $player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
         $I->assertEquals($initMaxPoint - 4, $variable->getValue());
@@ -295,7 +295,7 @@ class DirectModifierCreationCest
         $I->assertEquals(0, $variable->getMinValue());
     }
 
-    public function testCreateDirectModifierAndEVentModifier(FunctionalTester $I): void
+    public function testCreateDirectModifierAndEventModifier(FunctionalTester $I): void
     {
         $eventConfig = new VariableEventConfig();
         $eventConfig
@@ -379,7 +379,7 @@ class DirectModifierCreationCest
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
         $I->assertEquals($initMaxPoint - 4, $variable->getValue());
         $I->assertEquals(0, $variable->getMinValue());
-        $I->assertCount(1, $player->getModifiers());
+        $I->assertCount(2, $player->getModifiers());
 
         $variable = $healer->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint, $variable->getMaxValue());

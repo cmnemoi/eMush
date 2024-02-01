@@ -5,6 +5,7 @@ namespace Mush\Modifier\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 
@@ -46,6 +47,13 @@ class ModifierCollection extends ArrayCollection
             && $modifierConfig->doModifierApplies($event)
             && (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
         ));
+    }
+
+    public function getDirectModifiers(): self
+    {
+        return $this->filter(fn (GameModifier $modifier) => (
+            $modifier->getModifierConfig()) instanceof DirectModifierConfig
+        );
     }
 
     public function getTargetModifiers(bool $condition): self

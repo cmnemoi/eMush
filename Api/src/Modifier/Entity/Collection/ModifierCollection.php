@@ -5,6 +5,7 @@ namespace Mush\Modifier\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 
 /**
@@ -41,13 +42,17 @@ class ModifierCollection extends ArrayCollection
     public function getEventModifiers(AbstractGameEvent $event): self
     {
         return $this->filter(fn (GameModifier $modifier) => (
-            $modifier->getModifierConfig()->doModifierApplies($event)
+            ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
+            && $modifierConfig->doModifierApplies($event)
             && (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
         ));
     }
 
     public function getTargetModifiers(bool $condition): self
     {
-        return $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig()->getApplyOnTarget() === $condition);
+        return $this->filter(fn (GameModifier $modifier) => (
+            ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
+            && $modifierConfig->getApplyOnTarget() === $condition
+        ));
     }
 }

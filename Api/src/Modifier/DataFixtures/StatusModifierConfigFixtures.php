@@ -222,7 +222,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $mushConsumeModifier
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setApplyOnTarget(true)
             ->setTagConstraints([
                 ActionEnum::CONSUME => ModifierRequirementEnum::ALL_TAGS,
@@ -231,6 +230,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 PlayerVariableEnum::MOVEMENT_POINT => ModifierRequirementEnum::ANY_TAGS,
                 PlayerVariableEnum::ACTION_POINT => ModifierRequirementEnum::ANY_TAGS,
             ])
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($mushConsumeModifier);

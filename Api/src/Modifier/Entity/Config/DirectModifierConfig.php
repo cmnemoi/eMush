@@ -4,6 +4,7 @@ namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 
 /**
  * Class storing the various information needed to apply a directModifier.
@@ -21,6 +22,13 @@ class DirectModifierConfig extends AbstractModifierConfig
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $revertOnRemove = false;
+
+    public function __construct($name)
+    {
+        $this->modifierStrategy = ModifierStrategyEnum::DIRECT_MODIFIER;
+
+        parent::__construct($name);
+    }
 
     public function getTriggeredEvent(): AbstractEventConfig
     {

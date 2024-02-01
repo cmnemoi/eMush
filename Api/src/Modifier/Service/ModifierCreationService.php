@@ -49,15 +49,15 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         \DateTime $time,
         ChargeStatus $chargeStatus = null
     ): void {
-        if ($modifierConfig instanceof EventModifierConfig) {
-            $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
-        } elseif ($modifierConfig instanceof DirectModifierConfig) {
+        $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
+
+        if ($modifierConfig instanceof DirectModifierConfig) {
             $this->createDirectModifier($modifierConfig, $holder, $tags, $time, false);
         }
     }
 
     private function createGameEventModifier(
-        EventModifierConfig $modifierConfig,
+        AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
         ChargeStatus $chargeStatus = null
     ): void {

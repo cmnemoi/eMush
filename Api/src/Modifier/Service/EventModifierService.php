@@ -7,6 +7,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
@@ -44,14 +45,16 @@ class EventModifierService implements EventModifierServiceInterface
         $modifiers = $modifiers->sortModifiers();
 
         foreach ($modifiers as $modifier) {
+            $modifierConfig = $modifier->getModifierConfig();
             // Check if the modifier applies
             if (
-                $modifier->getModifierConfig()->doModifierApplies($initialEvent)
+                $modifierConfig instanceof EventModifierConfig
+                && $modifierConfig->doModifierApplies($initialEvent)
                 && $this->modifierRequirementService->checkModifier($modifier)
             ) {
                 $handler = $this->modifierHandlerService->getModifierHandler($modifier);
                 if ($handler === null) {
-                    throw new \LogicException("This modifierStrategy ({$modifier->getModifierConfig()->getModifierStrategy()}) is not handled");
+                    throw new \LogicException("This modifierStrategy ({$modifierConfig->getModifierStrategy()}) is not handled");
                 }
                 $events = $handler->handleEventModifier($modifier, $events, $initialEvent->getEventName(), $initialEvent->getTags(), $initialEvent->getTime());
 
@@ -61,7 +64,7 @@ class EventModifierService implements EventModifierServiceInterface
                 if ($initialEvent === null) {
                     return $events;
                 }
-                $initialEvent->addTag($modifier->getModifierConfig()->getModifierName() ?: $modifier->getModifierConfig()->getName());
+                $initialEvent->addTag($modifierConfig->getModifierName() ?: $modifierConfig->getName());
 
                 $events->updateInitialEvent($initialEvent);
             }

@@ -27,9 +27,6 @@ class EventModifierConfig extends AbstractModifierConfig
     protected string $targetEvent;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    protected string $modifierStrategy;
-
-    #[ORM\Column(type: 'string', nullable: false)]
     protected string $priority = ModifierPriorityEnum::BEFORE_INITIAL_EVENT;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
@@ -46,18 +43,6 @@ class EventModifierConfig extends AbstractModifierConfig
     public function setTargetEvent(string $targetEvent): self
     {
         $this->targetEvent = $targetEvent;
-
-        return $this;
-    }
-
-    public function getModifierStrategy(): string
-    {
-        return $this->modifierStrategy;
-    }
-
-    public function setModifierStrategy(string $modifierStrategy): self
-    {
-        $this->modifierStrategy = $modifierStrategy;
 
         return $this;
     }

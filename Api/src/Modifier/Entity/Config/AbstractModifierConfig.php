@@ -37,6 +37,9 @@ abstract class AbstractModifierConfig
     protected ?string $modifierName = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    protected string $modifierStrategy;
+
+    #[ORM\Column(type: 'string', nullable: false)]
     protected string $modifierRange;
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
@@ -75,6 +78,18 @@ abstract class AbstractModifierConfig
     public function getModifierName(): ?string
     {
         return $this->modifierName;
+    }
+
+    public function getModifierStrategy(): string
+    {
+        return $this->modifierStrategy;
+    }
+
+    public function setModifierStrategy(string $modifierStrategy): self
+    {
+        $this->modifierStrategy = $modifierStrategy;
+
+        return $this;
     }
 
     public function getModifierRange(): string

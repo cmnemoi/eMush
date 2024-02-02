@@ -139,9 +139,7 @@ export default defineComponent ({
 
     .timestamp {
         text-align: end;
-        z-index: 2;
-        right: 5px;
-        bottom: 5px;
+        padding-top: 0.2em;
         font-size: 0.85em;
         letter-spacing: 0.03em;
         font-style: italic;

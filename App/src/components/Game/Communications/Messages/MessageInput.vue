@@ -2,12 +2,12 @@
     <form class="chat-input">
         <textarea
             v-model="text"
-            class="text-input"
+            ref="input"
             :placeholder="typedMessage != '' ? typedMessage : $t('game.communications.myMessageHere')"
             @keydown.enter.exact.prevent="sendNewMessage"
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"
-            @keyup="updateTypedMessage(text)"
+            @keyup="updateTypedMessage(text); resize()"
             @keyup.enter.exact.prevent="clearTypedMessage"
             @click="restoreTypedMessage"
         />
@@ -66,7 +66,12 @@ export default defineComponent ({
         },
         restoreTypedMessage(): void {
             this.text = this.typedMessage;
-        }
+        },
+        resize() {
+            const element = this.$refs.input;
+            element.style.height = "auto";
+            element.style.height = element.scrollHeight + 2 + "px";
+        },
     }
 });
 </script>
@@ -88,23 +93,23 @@ export default defineComponent ({
         margin-left: 4px;
     }
 
-    .text-input {
+    textarea {
         position: relative;
         flex: 1;
         resize: vertical;
+        overflow-y: scroll;
         min-height: 48px;
+        max-height: 348px;
         padding: 3px 5px;
         font-style: italic;
         opacity: 0.85;
         box-shadow: 0 1px 0 white;
         border: 1px solid #aad4e5;
         border-radius: 3px;
+        @extend %game-scrollbar;
 
         &:active,
         &:focus {
-            min-height: 48px;
-
-            /* max-height: 80%; */
             font-style: initial;
             opacity: 1;
         }

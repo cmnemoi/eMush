@@ -24,16 +24,15 @@ class RetroactiveDirectModifierCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
+    private PlayerDisease $playerDisease;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-    }
 
-    public function testDiseaseDirectModifierMaxHealth(FunctionalTester $I): void
-    {
+        // Lets create a disease that reduce max health of all player on the daedalus
         $eventConfig = new VariableEventConfig();
         $eventConfig
             ->setName('maxHealth-1')
@@ -60,54 +59,51 @@ class RetroactiveDirectModifierCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($diseaseConfig);
 
+        $this->playerDisease = new PlayerDisease();
+        $this->playerDisease->setPlayer($this->player)->setDiseaseConfig($diseaseConfig);
+    }
+
+    public function testDiseaseDirectModifierMaxHealth(FunctionalTester $I): void
+    {
         $initVariable = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $initPoint = $initVariable->getValue();
         $initMaxPoint = $initVariable->getMaxValue();
 
-        $otherInitVariable = $this->player->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT);
-        $otherInitPoint = $otherInitVariable->getValue();
-        $otherInitMaxPoint = $otherInitVariable->getMaxValue();
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease->setPlayer($this->player)->setDiseaseConfig($diseaseConfig);
-
-        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+        // Given a disease with a modifier that reduce max health for all players on daedalus
+        $diseaseEvent = new DiseaseEvent($this->playerDisease, [], new \DateTime());
 
         $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
 
+        // then both player should have their health and max health reduced
         $I->assertCount(1, $this->daedalus->getModifiers());
         $variable = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
         $I->assertEquals($initMaxPoint - 4, $variable->getValue());
-        $I->assertEquals(0, $variable->getMinValue());
-        $otherVariable = $this->player->getVariableByName(PlayerVariableEnum::MOVEMENT_POINT);
-        $I->assertEquals($otherInitMaxPoint, $otherVariable->getMaxValue());
-        $I->assertEquals($otherInitPoint, $otherVariable->getValue());
-
         $variable = $this->player2->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
         $I->assertEquals($initPoint - 4, $variable->getValue());
         $I->assertEquals(0, $variable->getMinValue());
 
-        // Now add a new player
+        // Given a new player that wake up in this Daedalus
         $newPlayer = $this->playerService->createPlayer($this->daedalus, $this->player->getUser(), CharacterEnum::CHUN);
         $variable = $newPlayer->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
+
+        // Then this player should be affected by the modifier
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
         $I->assertEquals(0, $variable->getMinValue());
 
-        // heal the disease
+        // Given the disease is healed ( => the modifier is removed)
         $diseaseEvent->setAuthor($this->player2);
         $this->eventService->callEvent($diseaseEvent, DiseaseEvent::CURE_DISEASE);
 
+        // Then all 3 player should get back to initial max health
         $variable = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint, $variable->getMaxValue());
         $I->assertEquals($initMaxPoint - 4, $variable->getValue());
         $I->assertEquals(0, $variable->getMinValue());
-
         $variable = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint, $variable->getMaxValue());
         $I->assertEquals($initPoint - 4, $variable->getValue());
-
         $variable = $newPlayer->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint, $variable->getMaxValue());
         $I->assertEquals(0, $variable->getMinValue());

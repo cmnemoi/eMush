@@ -7,7 +7,6 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
@@ -48,8 +47,7 @@ class EventModifierService implements EventModifierServiceInterface
             $modifierConfig = $modifier->getModifierConfig();
             // Check if the modifier applies
             if (
-                $modifierConfig instanceof EventModifierConfig
-                && $modifierConfig->doModifierApplies($initialEvent)
+                $modifierConfig->doModifierApplies($initialEvent)
                 && $this->modifierRequirementService->checkModifier($modifier)
             ) {
                 $handler = $this->modifierHandlerService->getModifierHandler($modifier);

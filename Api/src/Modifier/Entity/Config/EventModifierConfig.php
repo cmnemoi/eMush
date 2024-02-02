@@ -101,6 +101,11 @@ class EventModifierConfig extends AbstractModifierConfig
             return false;
         }
 
+        return $this->checkTagConstraint($event);
+    }
+
+    private function checkTagConstraint(AbstractGameEvent $event): bool
+    {
         $anyConstraint = null;
 
         foreach ($this->tagConstraints as $tag => $constraint) {

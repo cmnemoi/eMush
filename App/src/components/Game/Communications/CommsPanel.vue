@@ -143,8 +143,10 @@ export default defineComponent ({
         right: 5px;
         bottom: 5px;
         font-size: 0.85em;
+        letter-spacing: 0.03em;
         font-style: italic;
-        opacity: 0.5;
+        font-variant: initial;
+        opacity: 0.65;
         float: right;
     }
 }

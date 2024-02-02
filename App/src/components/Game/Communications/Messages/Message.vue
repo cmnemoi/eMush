@@ -9,9 +9,9 @@
         </div>
         <p class="text">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            <span class="timestamp">{{ message.date }}</span>
         </p>
         <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
-        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
     <div
         v-if="isRoot && isSystemMessage"
@@ -20,8 +20,8 @@
     >
         <p class="text">
             <span v-html="formatMessage(message.message)" />
+            <span class="timestamp">{{ message.date }}</span>
         </p>
-        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
     <div
         v-else-if="!isRoot"
@@ -31,9 +31,9 @@
         <p class="text">
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            <span class="timestamp">{{ message.date }}</span>
         </p>
         <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
-        <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
 </template>
 

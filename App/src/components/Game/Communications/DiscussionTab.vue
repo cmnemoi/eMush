@@ -1,7 +1,11 @@
 <template>
     <TabContainer id="discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <section v-for="(message, id) in messages" :key="id" class="unit">
-            <Message :message="message" :is-root="true" @click="replyTo(message)" />
+            <Message
+                :message="message"
+                :is-root="true"
+                :is-replyable="true"
+                @click="replyTo(message)" />
             <button class="toggle-children" @click="message.toggleChildren()">
                 {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
             </button>
@@ -9,6 +13,7 @@
                 v-for="(child, id) in message.children"
                 :key="id"
                 :message="child"
+                :is-replyable="true"
                 @click="replyTo(message)"
             />
             <MessageInput v-show="messageToReply === message" :channel="channel" :parent="message" />

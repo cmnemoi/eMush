@@ -10,7 +10,7 @@
         <p class="text">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
+        <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
         <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
     <div
@@ -32,7 +32,7 @@
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
         </p>
-        <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
+        <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
         <span class="timestamp" style="position: absolute">{{ message.date }}</span>
     </div>
 </template>
@@ -58,6 +58,10 @@ export default defineComponent ({
             required: true
         },
         isRoot: {
+            type: Boolean,
+            default: false
+        },
+        isReplyable: {
             type: Boolean,
             default: false
         }
@@ -300,14 +304,17 @@ export default defineComponent ({
 }
 
 .actions { //buttons styling
+    $delay-hide: 0.15s;
+
     position: absolute;
     visibility: hidden;
     opacity: 0;
     z-index: 5;
     right: 3px;
     bottom: -2px;
-    height: 14px;
-    transition: visibility 0s 0.15s, opacity 0.15s 0s, bottom 0.15s 0s;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: visibility 0s $delay-hide, opacity $delay-hide 0s, bottom $delay-hide 0s;
 }
 
 .message:hover,
@@ -315,10 +322,12 @@ export default defineComponent ({
 .message:focus-within,
 .message:active {
     .actions {
+        $delay-show: 0.3s;
+        
         visibility: visible;
         opacity: 1;
         bottom: 7px;
-        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, bottom 0.15s 0.5s;
+        transition: visibility 0s $delay-show, opacity 0.15s $delay-show, bottom 0.15s $delay-show;
     }
 }
 

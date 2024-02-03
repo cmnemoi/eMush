@@ -89,8 +89,6 @@ export default defineComponent ({
         @include corner-bezel(4.5px, 4.5px, 0);
     }
 
-
-
     &.checked,
     &.active,
     &:hover,
@@ -98,9 +96,14 @@ export default defineComponent ({
         &::after {
             background: rgba(194, 243, 252, 1);
         }
+
+        &.pirated::after{ // Background of the tab icons
+            background: rgba(255, 66, 89, 1);
+        }
     }
+
     &.pirated::after{ // Background of the tab icons
-        background: rgba(255, 66, 89, 1);
+        background: rgba(252, 154, 166, 1);
     }
 
     .new-messages-number {

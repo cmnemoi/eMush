@@ -113,7 +113,7 @@ class DirectModifierCreationCest
 
         $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
 
-        $I->assertCount(0, $player->getModifiers());
+        $I->assertCount(1, $player->getModifiers());
         $variable = $player->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
         $I->assertEquals($initMaxPoint - 4, $variable->getValue());
@@ -295,7 +295,78 @@ class DirectModifierCreationCest
         $I->assertEquals(0, $variable->getMinValue());
     }
 
-    public function testCreateDirectModifierAndEVentModifier(FunctionalTester $I): void
+    public function testDirectModifierNoRevert(FunctionalTester $I): void
+    {
+        $eventConfig = new VariableEventConfig();
+        $eventConfig
+            ->setName('maxHealth-1')
+            ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
+            ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
+            ->setVariableHolderClass(ModifierHolderClassEnum::PLAYER)
+            ->setQuantity(-4)
+        ;
+
+        $modifierConfig = new DirectModifierConfig('directModifier');
+        $modifierConfig
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setTriggeredEvent($eventConfig)
+            ->setRevertOnRemove(false)
+        ;
+        $I->haveInRepository($eventConfig);
+        $I->haveInRepository($modifierConfig);
+
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->buildName(GameConfigEnum::TEST)
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
+        ;
+        $I->haveInRepository($diseaseConfig);
+
+        /** @var GameConfig $gameConfig */
+        $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->have(CharacterConfig::class);
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $player->setPlayerVariables($characterConfig);
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var Player $healer */
+        $healer = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+        $healer->setPlayerVariables($characterConfig);
+        $healerInfo = new PlayerInfo($healer, $user, $characterConfig);
+        $I->haveInRepository($healerInfo);
+        $healer->setPlayerInfo($healerInfo);
+        $I->refreshEntities($healer);
+
+        $playerDisease = new PlayerDisease();
+        $playerDisease->setPlayer($player)->setDiseaseConfig($diseaseConfig);
+
+        $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
+
+        $this->eventService->callEvent($diseaseEvent, DiseaseEvent::APPEAR_DISEASE);
+
+        $I->assertCount(0, $player->getModifiers());
+    }
+
+    public function testCreateDirectModifierAndEventModifier(FunctionalTester $I): void
     {
         $eventConfig = new VariableEventConfig();
         $eventConfig
@@ -379,7 +450,7 @@ class DirectModifierCreationCest
         $I->assertEquals($initMaxPoint - 4, $variable->getMaxValue());
         $I->assertEquals($initMaxPoint - 4, $variable->getValue());
         $I->assertEquals(0, $variable->getMinValue());
-        $I->assertCount(1, $player->getModifiers());
+        $I->assertCount(2, $player->getModifiers());
 
         $variable = $healer->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertEquals($initMaxPoint, $variable->getMaxValue());

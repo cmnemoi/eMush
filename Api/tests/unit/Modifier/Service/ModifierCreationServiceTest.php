@@ -195,6 +195,7 @@ class ModifierCreationServiceTest extends TestCase
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
+            ->setRevertOnRemove(true)
         ;
         $time = new \DateTime();
         $tags = [];
@@ -212,6 +213,11 @@ class ModifierCreationServiceTest extends TestCase
             ->once();
 
         $this->eventService->shouldReceive('callEvent')->twice();
+        $this->entityManager
+            ->shouldReceive('persist')
+            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
+            ->once();
+        $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $daedalus, $tags, $time, null);
     }

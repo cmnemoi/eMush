@@ -3,6 +3,7 @@
 namespace Mush\Modifier\Service;
 
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Status\Entity\ChargeStatus;
@@ -26,5 +27,13 @@ interface ModifierCreationServiceInterface
         ModifierHolderInterface $holder,
         array $tags,
         \DateTime $time,
+    ): void;
+
+    public function createDirectModifier(
+        DirectModifierConfig $modifierConfig,
+        ModifierHolderInterface $modifierRange,
+        array $tags,
+        \DateTime $time,
+        bool $reverse
     ): void;
 }

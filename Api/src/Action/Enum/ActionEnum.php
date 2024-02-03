@@ -97,6 +97,7 @@ class ActionEnum
     public const COLLECT_SCRAP = 'collect_scrap';
     public const TAKEOFF_TO_PLANET = 'takeoff_to_planet';
     public const TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff_to_planet_patrol_ship';
+    public const INSERT_JAR_OF_ALIEN_OIL = 'insert_jar_of_alien_oil';
 
     // Permanent Player Actions
     public const UNGAG = 'ungag';

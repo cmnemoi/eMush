@@ -1858,5 +1858,21 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 1, 'min_value' => 1, 'max_value' => null], // max number of explorators allowed
         ],
+        [
+            'name' => 'insert_jar_of_alien_oil',
+            'action_name' => 'insert_jar_of_alien_oil',
+            'types' => [],
+            'target' => 'Mush\\Equipment\\Entity\\GameItem',
+            'scope' => 'room',
+            'visibilities' => ['success' => 'public', 'fail' => 'private'],
+            'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 5, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 }

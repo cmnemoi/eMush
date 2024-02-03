@@ -109,6 +109,7 @@ class ActionsFixtures extends Fixture
     public const LEAVE_ORBIT = 'leave.orbit';
     public const TAKEOFF_TO_PLANET = 'takeoff.to.planet';
     public const TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff.to.planet.patrol_ship';
+    public const INSERT_JAR_OF_ALIEN_OIL = 'insert.jar.of.alien.oil';
 
     public function load(ObjectManager $manager): void
     {
@@ -1105,6 +1106,18 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($takeoffToPlanetPatrolShip);
 
+        $insertJarOfAlienOil = new Action();
+        $insertJarOfAlienOil
+            ->setName(ActionEnum::INSERT_JAR_OF_ALIEN_OIL)
+            ->setActionName(ActionEnum::INSERT_JAR_OF_ALIEN_OIL)
+            ->setScope(ActionScopeEnum::ROOM)
+            ->setTarget(GameItem::class)
+            ->setDirtyRate(15)
+            ->setInjuryRate(1)
+            ->setOutputQuantity(5)
+        ;
+        $manager->persist($insertJarOfAlienOil);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1198,5 +1211,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::LEAVE_ORBIT, $leaveOrbit);
         $this->addReference(self::TAKEOFF_TO_PLANET, $takeoffToPlanet);
         $this->addReference(self::TAKEOFF_TO_PLANET_PATROL_SHIP, $takeoffToPlanetPatrolShip);
+        $this->addReference(self::INSERT_JAR_OF_ALIEN_OIL, $insertJarOfAlienOil);
     }
 }

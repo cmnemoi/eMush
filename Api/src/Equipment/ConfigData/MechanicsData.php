@@ -2643,6 +2643,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'insert_fuel',
+                'insert_jar_of_alien_oil',
             ],
             'modifierConfigs' => [],
         ],

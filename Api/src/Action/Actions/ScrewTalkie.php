@@ -67,19 +67,21 @@ class ScrewTalkie extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => PlayerStatusEnum::TALKIE_SCREWED,
-            'target' => HasStatus::PLAYER,
-            'contain' => false,
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::SCREWED_TALKIE_ALREADY_PIRATED,
-        ]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
             'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE],
             'contains' => true,
             'all' => false,
             'target' => HasEquipment::PARAMETER,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::SCREWED_TALKIE_NO_TALKIE,
+        ]));
+        $metadata->addConstraint(new HasEquipment([
+            'reach' => ReachEnum::INVENTORY,
+            'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE],
+            'contains' => true,
+            'all' => false,
+            'target' => HasEquipment::PLAYER,
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::SCREWED_TALKIE_NO_TALKIE,
         ]));

@@ -100,7 +100,7 @@ export default defineComponent ({
         }
     }
     &.pirated::after{ // Background of the tab icons
-        background: red;
+        background: rgba(255, 66, 89, 1);
     }
 
     .new-messages-number {

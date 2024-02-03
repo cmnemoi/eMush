@@ -497,7 +497,7 @@ class ActionsFixtures extends Fixture
             ->setTarget(GameItem::class)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setOutputQuantity(1)
+            ->setOutputQuantity(1) // amount of fuel inserted
         ;
 
         $manager->persist($fuelInjectAction);
@@ -521,7 +521,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setInjuryRate(1)
-            ->setOutputQuantity(1)
+            ->setOutputQuantity(1) // amount of fuel inserted
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
         ;
 
@@ -1117,7 +1117,7 @@ class ActionsFixtures extends Fixture
             ->setTarget(GameItem::class)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setOutputQuantity(5)
+            ->setOutputQuantity(5) // amount of fuel inserted
         ;
         $manager->persist($insertJarOfAlienOil);
 

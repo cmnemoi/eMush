@@ -80,6 +80,7 @@ class InsertFuelCest
         $action
             ->setActionName(ActionEnum::INSERT_FUEL)
             ->setScope(ActionScopeEnum::ROOM)
+            ->setOutputQuantity(1)
             ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);

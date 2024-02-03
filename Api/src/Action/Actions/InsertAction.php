@@ -45,7 +45,7 @@ abstract class InsertAction extends AbstractAction
         $daedalusEvent = new DaedalusVariableEvent(
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
-            1,
+            $this->getOutputQuantity(),
             $this->getAction()->getActionTags(),
             $time
         );

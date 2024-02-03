@@ -91,6 +91,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         return [
             'id' => $object->getId(),
             'key' => $key,
+            'updatedAt' => $object->getUpdatedAt(),
             'name' => $this->translationService->translate($key . '.name', $nameParameters, $type, $language),
             'description' => $definition,
             'statuses' => $statuses,

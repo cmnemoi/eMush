@@ -210,6 +210,9 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             }
         }
 
+        // Sort items in a stack fashion in shelves : last in, first out
+        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+
         return $piles;
     }
 
@@ -225,6 +228,9 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
                 $piles[] = $this->normalizer->normalize($item, $format, $context);
             }
         }
+
+        // Sort items in a stack fashion in shelves : last in, first out
+        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
 
         return $piles;
     }
@@ -249,6 +255,9 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             }
             $piles[] = $normalizedItem;
         }
+
+        // Sort items in a stack fashion in shelves : last in, first out
+        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
 
         return $piles;
     }

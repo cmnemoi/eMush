@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Planet;
@@ -13,7 +14,6 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Repository\PlanetRepository;
-use Mush\Game\Entity\GameConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -187,12 +187,12 @@ final class PlanetService implements PlanetServiceInterface
 
     private function getPlanetSize(Daedalus $dadalus): int
     {
-        $size = 2 + $this->randomService->random(0, 6) * 2;
+        $size = 2 + $this->randomService->random(0, 5) * 2;
 
         if ($dadalus->isInHardMode()) {
-            $size = 4 + $this->randomService->random(0, 7) * 2;
+            $size = 4 + $this->randomService->random(0, 6) * 2;
         } elseif ($dadalus->isInVeryHardMode()) {
-            $size = 6 + $this->randomService->random(0, 8) * 2;
+            $size = 6 + $this->randomService->random(0, 7) * 2;
         }
 
         return $size;
@@ -203,21 +203,21 @@ final class PlanetService implements PlanetServiceInterface
         /** @var ArrayCollection<int, PlanetSector> $sectors */
         $sectors = new ArrayCollection();
 
-        $gameConfig = $planet->getDaedalus()->getGameConfig();
-        $allSectorConfigs = $gameConfig->getPlanetSectorConfigs();
-        $total = $this->getGameConfigTotalWeightAtPlanetGeneration($gameConfig);
+        // We need to clone the sector configs collection because we will remove some from it
+        // during the generation process and we don't want to persist this
+        $storedSectorConfigs = $planet->getDaedalus()->getGameConfig()->getPlanetSectorConfigs();
+        $inMemorySectorConfigs = clone $storedSectorConfigs;
+
+        $total = $this->getSectorConfigsTotalWeight($inMemorySectorConfigs);
 
         // Generate a sector for each available slot on the planet
         for ($i = 0; $i < $planet->getSize(); ++$i) {
-            $random = $this->randomService->random(0, $total);
+            $random = $this->randomService->random(0, $total - 1);
             $sum = 0;
 
             // Iterate over all possible sectors
             /** @var PlanetSectorConfig $sectorConfig */
-            foreach ($allSectorConfigs as $sectorConfig) {
-                // Get the maximum number of times this sector can appear on a planet
-                $maxPerPlanet = $sectorConfig->getMaxPerPlanet();
-
+            foreach ($inMemorySectorConfigs as $sectorConfig) {
                 // Add the weight of this sector to the running sum
                 $sum += $sectorConfig->getWeightAtPlanetGeneration();
 
@@ -226,14 +226,14 @@ final class PlanetService implements PlanetServiceInterface
                     $sectors->add(new PlanetSector($sectorConfig, $planet));
 
                     // Decrement the maximum number of times this sector can appear on a planet
-                    --$maxPerPlanet;
+                    $sectorConfig->setMaxPerPlanet($sectorConfig->getMaxPerPlanet() - 1);
 
                     // If the maximum number of times this sector can appear on a planet has been reached, remove it from the list of available sectors
-                    if ($maxPerPlanet === 0) {
-                        $allSectorConfigs->removeElement($sectorConfig);
+                    if ($sectorConfig->getMaxPerPlanet() === 0) {
+                        $inMemorySectorConfigs->removeElement($sectorConfig);
 
-                        // Subtract the weight of this sector configuration from the total weight of all the sector since it can no longer be generated
-                        $total -= $sectorConfig->getWeightAtPlanetGeneration();
+                        // Subtract the weight of this sector configuration from the running sum
+                        $sum -= $sectorConfig->getWeightAtPlanetGeneration();
                     }
 
                     // Break out of the loop since we've generated a sector for this slot on the planet
@@ -242,15 +242,19 @@ final class PlanetService implements PlanetServiceInterface
             }
         }
 
+        // PHP is very bad at cloning objects so the original sector configs have been modified.
+        // We need to refresh them from database to get the original values back
+        $storedSectorConfigs->map(fn (PlanetSectorConfig $sectorConfig) => $this->entityManager->refresh($sectorConfig));
+
         $planet->setSectors($sectors);
 
         return $planet;
     }
 
-    private function getGameConfigTotalWeightAtPlanetGeneration(GameConfig $gameConfig): int
+    private function getSectorConfigsTotalWeight(Collection $sectorConfigs): int
     {
         $total = 0;
-        foreach ($gameConfig->getPlanetSectorConfigs() as $sectorConfig) {
+        foreach ($sectorConfigs as $sectorConfig) {
             $total += $sectorConfig->getWeightAtPlanetGeneration();
         }
 

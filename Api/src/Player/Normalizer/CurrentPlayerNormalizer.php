@@ -84,6 +84,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $language = $daedalus->getLanguage();
 
+        /** @var array<string, mixed> $items */
         $items = [];
         /** @var GameItem $item */
         foreach ($player->getEquipments() as $item) {

@@ -48,10 +48,15 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         \DateTime $time,
         ChargeStatus $chargeStatus = null
     ): void {
-        $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
-
         if ($modifierConfig instanceof DirectModifierConfig) {
             $this->createDirectModifier($modifierConfig, $holder, $tags, $time, false);
+
+            // if the direct modifier is reverted on remove we create a gameModifier to keep a trace of its presence
+            if ($modifierConfig->getRevertOnRemove()) {
+                $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
+            }
+        } else {
+            $this->createGameEventModifier($modifierConfig, $holder, $chargeStatus);
         }
     }
 
@@ -75,10 +80,11 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         array $tags,
         \DateTime $time,
     ): void {
-        $this->deleteGameEventModifier($modifierConfig, $holder);
-
-        if ($modifierConfig instanceof DirectModifierConfig && $modifierConfig->getRevertOnRemove()) {
+        if (!$modifierConfig instanceof DirectModifierConfig) {
+            $this->deleteGameEventModifier($modifierConfig, $holder);
+        } elseif ($modifierConfig->getRevertOnRemove()) {
             $this->createDirectModifier($modifierConfig, $holder, $tags, $time, true);
+            $this->deleteGameEventModifier($modifierConfig, $holder);
         }
     }
 

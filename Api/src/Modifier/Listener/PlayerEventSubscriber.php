@@ -62,6 +62,7 @@ class PlayerEventSubscriber implements EventSubscriberInterface
         foreach ($directModifiers as $modifier) {
             /** @var DirectModifierConfig $modifierConfig */
             $modifierConfig = $modifier->getModifierConfig();
+
             $this->modifierCreationService->createDirectModifier(
                 $modifierConfig,
                 $player,

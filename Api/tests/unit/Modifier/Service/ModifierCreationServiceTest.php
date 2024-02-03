@@ -195,6 +195,7 @@ class ModifierCreationServiceTest extends TestCase
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
+            ->setRevertOnRemove(true)
         ;
         $time = new \DateTime();
         $tags = [];

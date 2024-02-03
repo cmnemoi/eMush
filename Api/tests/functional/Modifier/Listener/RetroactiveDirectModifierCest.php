@@ -32,7 +32,7 @@ class RetroactiveDirectModifierCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
 
-        // Lets create a disease that reduce max health of all player on the daedalus
+        // Let's create a disease that reduce max health of all player on the daedalus
         $eventConfig = new VariableEventConfig();
         $eventConfig
             ->setName('maxHealth-1')

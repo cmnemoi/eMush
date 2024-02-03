@@ -588,10 +588,10 @@ class ActionData
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 1, 'min_value' => 0, 'max_value' => 100],
-            'percentageDirtiness' => ['value' => 10, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'retrieve_fuel',
@@ -623,7 +623,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => 'retrieve_oxygen',
@@ -1634,7 +1634,7 @@ class ActionData
             'percentageDirtiness' => ['value' => 15, 'min_value' => 0, 'max_value' => 100],
             'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'outputQuantity' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
         ],
         [
             'name' => ActionEnum::RETRIEVE_FUEL_CHAMBER,

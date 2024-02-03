@@ -47,7 +47,7 @@ final class InsertFuelChamber extends InsertAction
     {
         // Send the new amount of fuel in the combustion chamber for it to be used in the success log
         $result = new Success();
-        $result->setQuantity($this->player->getDaedalus()->getCombustionChamberFuel() + 1);
+        $result->setQuantity($this->player->getDaedalus()->getCombustionChamberFuel() + $this->getOutputQuantity());
 
         return $result;
     }

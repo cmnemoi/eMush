@@ -197,7 +197,7 @@ class PlaceNormalizerTest extends TestCase
             'statuses' => [],
             'doors' => [],
             'players' => [],
-            'items' => [['number' => 2]],
+            'items' => [['number' => 2, 'updatedAt' => null]],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
         ];

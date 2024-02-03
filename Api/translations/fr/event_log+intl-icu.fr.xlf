@@ -215,10 +215,10 @@
     <unit id="plant_maturity">
       <segment state="final">
         <source>plant_maturity</source>
-        <target>{target_equipment_gender, select,
-                    male {Un **{target_equipment}** est arrivé à maturité ! Enfin !}
-                    female {Une **{target_equipment}** est arrivée à maturité ! Enfin !}
-                    other {invalid gender input}
+        <target>{equipment_gender, select,
+                    male {Un **{equipment}** est arrivé à maturité ! Enfin !}
+                    female {Une **{equipment}** est arrivée à maturité ! Enfin !}
+                    other {Un **{equipment}** est arrivé à maturité ! Enfin !}
                 }</target>
       </segment>
     </unit>

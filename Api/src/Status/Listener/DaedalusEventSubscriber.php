@@ -111,7 +111,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             chargeStatus: $followingHuntersStatus,
             delta: $numberOfCatchingUpHunters,
             tags: $event->getTags(),
-            time: new \DateTime(),
+            time: $event->getTime()
         );
     }
 
@@ -121,7 +121,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             statusName: DaedalusStatusEnum::IN_ORBIT,
             holder: $event->getDaedalus(),
             tags: $event->getTags(),
-            time: new \DateTime(),
+            time: $event->getTime()
         );
     }
 
@@ -137,7 +137,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             chargeStatus: $followingHuntersStatus,
             delta: -$followingHuntersStatus->getCharge(),
             tags: $event->getTags(),
-            time: new \DateTime(),
+            time: $event->getTime()
         );
     }
 }

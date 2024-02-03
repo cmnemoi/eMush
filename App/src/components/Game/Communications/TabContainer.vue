@@ -1,6 +1,6 @@
 <template>
     <div class="tab-content">
-        <div class="chatbox-container">
+        <div class="chatbox-container" :class="{ 'pirated': isChannelPirated() }">
             <MessageInput v-if="newMessageAllowed && ! loadingChannels" :channel="channel" />
             <div class="chatbox">
                 <slot />
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { mapGetters, mapState } from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 import { Channel } from "@/entities/Channel";
 import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";
 import { defineComponent } from "vue";
@@ -32,6 +32,13 @@ export default defineComponent ({
         ...mapState('communication', [
             'loadingChannels'
         ])
+    },
+    methods: {
+        isChannelPirated(): string
+        {
+            console.log((this.channel?.piratedPlayer != null) ? 'pirated' : '');
+            return (this.channel?.piratedPlayer != null) ? 'pirated' : '';
+        },
     }
 });
 </script>
@@ -52,6 +59,10 @@ export default defineComponent ({
         background: rgba(194, 243, 252, 1);
 
         @include corner-bezel(0, 6.5px, 0);
+
+        &.pirated {
+            border: 2px solid rgba(255, 66, 89, 1);
+        }
     }
 
     .chatbox {

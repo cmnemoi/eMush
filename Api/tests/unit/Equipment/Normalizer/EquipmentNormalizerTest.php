@@ -86,6 +86,8 @@ class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
+        $time = new \DateTime();
+        $equipment->shouldReceive('getUpdatedAt')->andReturn($time);
         $equipment->makePartial();
 
         $equipment
@@ -119,6 +121,7 @@ class EquipmentNormalizerTest extends TestCase
         $expected = [
             'id' => 2,
             'key' => 'equipment',
+            'updatedAt' => $time,
             'name' => 'translated name',
             'description' => 'translated description',
             'statuses' => [],
@@ -148,6 +151,8 @@ class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
+        $time = new \DateTime();
+        $equipment->shouldReceive('getUpdatedAt')->andReturn($time);
         $equipment->makePartial();
 
         $equipment
@@ -181,6 +186,7 @@ class EquipmentNormalizerTest extends TestCase
         $expected = [
             'id' => 2,
             'key' => 'equipment',
+            'updatedAt' => $time,
             'name' => 'translated name',
             'description' => 'translated description',
             'statuses' => [],
@@ -219,6 +225,8 @@ class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getId')->andReturn(2);
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
+        $time = new \DateTime();
+        $equipment->shouldReceive('getUpdatedAt')->andReturn($time);
         $equipment->makePartial();
 
         $equipment
@@ -266,6 +274,7 @@ class EquipmentNormalizerTest extends TestCase
         $expected = [
             'id' => 2,
             'key' => 'blueprint',
+            'updatedAt' => $time,
             'name' => 'translated name',
             'description' => 'translated description //ingredient 1 //ingredient 2',
             'statuses' => [],
@@ -303,6 +312,8 @@ class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('getHolder')->andReturn($place);
         $bananaTree->shouldReceive('getMechanics')->andReturn(new ArrayCollection([$plantMechanic]));
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(false);
+        $time = new \DateTime();
+        $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -334,6 +345,7 @@ class EquipmentNormalizerTest extends TestCase
         $expected = [
             'id' => 1,
             'key' => GamePlantEnum::BANANA_TREE,
+            'updatedAt' => $time,
             'name' => 'Bananier',
             'description' => 'Un bananier',
             'statuses' => [],
@@ -371,6 +383,8 @@ class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('getHolder')->andReturn($place);
         $bananaTree->shouldReceive('getMechanics')->andReturn(new ArrayCollection([$plantMechanic]));
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(true);
+        $time = new \DateTime();
+        $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -402,6 +416,7 @@ class EquipmentNormalizerTest extends TestCase
         $expected = [
             'id' => 1,
             'key' => GamePlantEnum::BANANA_TREE,
+            'updatedAt' => $time,
             'name' => 'Jeune Bananier',
             'description' => 'Un bananier',
             'statuses' => [],

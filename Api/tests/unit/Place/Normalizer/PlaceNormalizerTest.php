@@ -141,7 +141,7 @@ class PlaceNormalizerTest extends TestCase
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $normalizer = \Mockery::mock(NormalizerInterface::class);
-        $normalizer->shouldReceive('normalize')->andReturn([]);
+        $normalizer->shouldReceive('normalize')->andReturn(['updatedAt' => null])->twice();
 
         $this->normalizer->setNormalizer($normalizer);
 
@@ -154,7 +154,7 @@ class PlaceNormalizerTest extends TestCase
             'statuses' => [],
             'doors' => [],
             'players' => [],
-            'items' => [[], []],
+            'items' => [['updatedAt' => null], ['updatedAt' => null]],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
         ];
@@ -230,7 +230,7 @@ class PlaceNormalizerTest extends TestCase
         $room->method('getEquipments')->willReturn(new ArrayCollection([$gameItem1, $gameItem2, $gameItem3]));
 
         $normalizer = \Mockery::mock(NormalizerInterface::class);
-        $normalizer->shouldReceive('normalize')->andReturn([])->twice();
+        $normalizer->shouldReceive('normalize')->andReturn(['updatedAt' => null])->twice();
 
         $player = new Player();
 
@@ -245,7 +245,7 @@ class PlaceNormalizerTest extends TestCase
             'statuses' => [],
             'doors' => [],
             'players' => [],
-            'items' => [['number' => 2], []],
+            'items' => [['number' => 2, 'updatedAt' => null], ['updatedAt' => null]],
             'equipments' => [],
             'type' => PlaceTypeEnum::ROOM,
         ];

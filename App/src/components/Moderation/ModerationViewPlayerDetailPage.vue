@@ -1,14 +1,20 @@
 <template>
     <div v-if="player">
         <div class="flex-row">
-            <Tippy tag="button" class="action-button" @click="quarantinePlayer(player)" v-if="player.isAlive">
+            <Tippy tag="button"
+                   class="action-button"
+                   @click="quarantinePlayer(player)"
+                   v-if="player.isAlive">
                 {{ $t("moderation.quarantine") }}
                 <template #content>
                     <h1>{{ $t("moderation.quarantine") }}</h1>
                     <p>{{ $t("moderation.quarantineDescription") }}</p>
                 </template>
             </Tippy>
-            <Tippy tag="button" class="action-button" @click="quarantineAndBanPlayer(player)" v-if="player.isAlive">
+            <Tippy tag="button"
+                   class="action-button"
+                   @click="quarantineAndBanPlayer(player)"
+                   v-if="player.isAlive">
                 {{ $t("moderation.quarantineAndBan") }}
                 <template #content>
                     <h1>{{ $t("moderation.quarantineAndBan") }}</h1>

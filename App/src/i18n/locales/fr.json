@@ -639,6 +639,10 @@
 		"title": "Signaler un comportement inapproprié"
 	},
 	"moderation": {
+		"ban": "Bannir",
+		"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
+		"unban": "Débannir",
+		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
 		"quarantineAndBan": "Mettre en quarantaine et bannir",
 		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
 		"quarantine": "Mettre en quarantaine",

@@ -10,3 +10,5 @@ Mush\User\Entity\User:
       groups: [ 'user_read' ]
     roles:
       groups: [ 'player_info_read', 'user_read', 'user_write' ]
+    isBanned:
+      groups: [ 'user_read' ]

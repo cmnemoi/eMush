@@ -36,8 +36,24 @@
             <template #header-actions>
                 Actions
             </template>
-            <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminUserDetail', params: { userId : slotProps.userId } }">{{ $t('admin.edit') }}</router-link>
+            <template #row-actions="user">
+                <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
+                <div v-if="isModerator">
+                    <Tippy tag="button" class="action-button" v-if="!user.isBanned" @click="banUser(user)">
+                        {{ $t('moderation.ban') }}
+                        <template #content>
+                            <h1>{{ $t('moderation.ban') }}</h1>
+                            <p>{{ $t('moderation.banDescription') }}</p>
+                        </template>
+                    </Tippy>
+                    <Tippy tag="button" class="action-button" v-else @click="unbanUser(user)">
+                        {{ $t('moderation.unban') }}
+                        <template #content>
+                            <h1>{{ $t('moderation.unban') }}</h1>
+                            <p>{{ $t('moderation.unbanDescription') }}</p>
+                        </template>
+                    </Tippy>
+                </div>
             </template>
         </Datatable>
     </div>
@@ -49,11 +65,19 @@ import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
+import { mapGetters } from "vuex";
+import ModerationService from "@/services/moderation.service";
 
 export default defineComponent({
     name: "UserListPage",
     components: {
         Datatable
+    },
+    computed: {
+        ...mapGetters({
+            isAdmin: 'auth/isAdmin',
+            isModerator: 'auth/isModerator',
+        }),
     },
     data() {
         return {
@@ -99,6 +123,24 @@ export default defineComponent({
         };
     },
     methods: {
+        banUser(user: any) {
+           ModerationService.banUser(user.id)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        unbanUser(user: any) {
+            ModerationService.unbanUser(user.id)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
         loadData() {
             this.loading = true;
             const params: any = {

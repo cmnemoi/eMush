@@ -187,6 +187,11 @@ const routes = [
                 component: ModerationPlayerListPage,
             },
             {
+                name: "ModerationUserList",
+                path: 'user',
+                component: UserListPage
+            },
+            {
                 name: "ModerationViewPlayerDetail",
                 path: 'player-view-detail/:playerId',
                 component: ModerationViewPlayerDetailPage

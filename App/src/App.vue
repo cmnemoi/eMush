@@ -14,7 +14,7 @@
 <script>
 
 import Banner from "@/components/Banner";
-import ErrorPopup from "@/components/ErrorPopup";
+import ErrorPopup from "@/components/ErrorPopupTesting";
 import ConfirmPopup from "@/components/ConfirmPopup";
 import Spinner from "@/components/Utils/Spinner";
 import { mapGetters, mapActions } from "vuex";

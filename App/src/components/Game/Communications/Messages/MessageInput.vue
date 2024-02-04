@@ -10,9 +10,13 @@
             @keyup="updateTypedMessage(text); resize()"
             @keyup.enter.exact.prevent="clearTypedMessage"
         />
-        <a class="submit-button" @click="sendNewMessage" @click.stop="clearTypedMessage">
+        <button
+            class="submit-button"
+            :disabled="typedMessage.length <= 0"
+            @click="sendNewMessage"
+            @click.stop="clearTypedMessage">
             <img src="@/assets/images/comms/submit.gif" alt="submit">
-        </a>
+        </button>
     </form>
 </template>
 

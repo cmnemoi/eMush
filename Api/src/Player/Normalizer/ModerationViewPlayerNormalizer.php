@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class AdminViewPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterface
+final class ModerationViewPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -23,9 +23,10 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
 
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Player && $data->isAlive()
-               && isset($context['groups']) // only admins can recover this data
-               && in_array('admin_view', $context['groups'], true);
+        return $data instanceof Player
+               && $data->isAlive()
+               && isset($context['groups']) // only moderators can recover this data
+               && in_array('moderation_view', $context['groups'], true);
     }
 
     public function normalize(mixed $object, string $format = null, array $context = [])
@@ -40,7 +41,7 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
 
         return [
             'id' => $player->getId(),
-            'user' => $this->normalizer->normalize($player->getUser(), $format, $context),
+            'user' => $this->normalizePlayerUser($player),
             'character' => $this->normalizePlayerCharacter($player, $language),
             'playerVariables' => $this->normalizePlayerVariables($player),
             'isMush' => $player->isMush(),
@@ -48,6 +49,16 @@ final class AdminViewPlayerNormalizer implements NormalizerInterface, Normalizer
             'diseases' => $this->normalizePlayerDiseases($player, $format, $context),
             'skills' => $this->normalizePlayerSkills($player, $format, $context),
             'currentRoom' => $this->translationService->translate($place . '.name', [], 'rooms', $language),
+        ];
+    }
+
+    private function normalizePlayerUser(Player $player): array
+    {
+        return [
+            'id' => $player->getUser()->getId(),
+            'userId' => $player->getUser()->getUserId(),
+            'username' => $player->getUser()->getUsername(),
+            'isBanned' => $player->getUser()->isBanned(),
         ];
     }
 

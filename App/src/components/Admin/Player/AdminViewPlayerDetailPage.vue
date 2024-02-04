@@ -19,12 +19,12 @@
 
 <script lang="ts">
 import Log from "@/components/Game/Communications/Messages/Log.vue";
-import { AdminViewPlayer } from "@/entities/AdminViewPlayer";
+import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { defineComponent } from "vue";
-import AdminService from "@/services/admin.service";
+import ModerationService from "@/services/moderation.service";
 
 interface AdminViewPlayerData {
-    player: AdminViewPlayer | null,
+    player: ModerationViewPlayer | null,
     playerLogs: any,
     errors: any,
 }
@@ -42,14 +42,14 @@ export default defineComponent({
         };
     },
     beforeMount() {
-        AdminService.getAdminViewPlayer(Number(this.$route.params.playerId))
+        ModerationService.getModerationViewPlayer(Number(this.$route.params.playerId))
             .then((response) => {
-                this.player = new AdminViewPlayer().load(response.data);
+                this.player = new ModerationViewPlayer().load(response.data);
             })
             .catch((error) => {
                 this.errors = error.response.data.errors;
             });
-        AdminService.getPlayerLogs(Number(this.$route.params.playerId))
+        ModerationService.getPlayerLogs(Number(this.$route.params.playerId))
             .then((response) => {
                 this.playerLogs = response.data;
             })

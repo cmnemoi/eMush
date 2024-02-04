@@ -1,7 +1,7 @@
 <template>
     <div class="player_list_container">
         <div class="player_filter_options">
-            <label>{{$t("admin.show")}}
+            <label>{{ $t("admin.show") }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
                         v-for="option in pageSizeOptions"
@@ -12,7 +12,6 @@
                     </option>
                 </select>
             </label>
-            <button class="action-button" @click="closeAllPlayers">{{ $t('admin.playerList.closeAllPlayers') }}</button>
         </div>
         <Datatable
             :headers='fields'
@@ -35,14 +34,7 @@
                     @click="quarantinePlayer(slotProps.id)">
                     {{ $t("admin.playerList.quarantine") }}
                 </button>
-                <button
-                    v-if="slotProps.gameStatus === 'finished'"
-                    class="action-button"
-                    type="button"
-                    @click="closePlayer(slotProps.id)">
-                    {{ $t("admin.playerList.closePlayer") }}
-                </button>
-                <router-link :to="{ name: 'AdminViewPlayerDetail', params: {'playerId': slotProps.id} }">Voir les détails du joueur</router-link>
+                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': slotProps.id} }">Voir les détails du joueur</router-link>
             </template>
         </Datatable>
     </div>
@@ -58,7 +50,7 @@ import { fr } from "date-fns/locale";
 import ModerationService from "@/services/moderation.service";
 
 export default defineComponent({
-    name: "PlayerListPage",
+    name: "ModerationPlayerListPage",
     components: {
         Datatable
     },

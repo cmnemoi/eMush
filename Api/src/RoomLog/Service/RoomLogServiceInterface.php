@@ -37,4 +37,6 @@ interface RoomLogServiceInterface
     public function getRoomLog(Player $player): RoomLogCollection;
 
     public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection;
+
+    public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection;
 }

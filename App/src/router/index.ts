@@ -22,6 +22,10 @@ import NewsPage from "@/components/NewsPage.vue";
 import PlayerListPage from "@/components/Admin/Player/PlayerListPage.vue";
 import NeronAnnouncementPage from "@/components/Admin/Daedalus/NeronAnnouncementPage.vue";
 import AdminViewPlayerDetailPage from "@/components/Admin/Player/AdminViewPlayerDetailPage.vue";
+import ModerationPlayerListPage from "@/components/Moderation/ModerationPlayerListPage.vue";
+import ModerationViewPlayerDetailPage from "@/components/Moderation/ModerationViewPlayerDetailPage.vue";
+import ModerationPage from "@/components/Moderation/ModerationPage.vue";
+import ModerationHomePage from "@/components/Moderation/ModerationHomePage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 
 const routes = [
@@ -99,7 +103,7 @@ const routes = [
         name: "Admin",
         component: AdminPage,
         redirect: { name: 'AdminHomePage' },
-        meta: { authorize: [UserRole.ADMIN] },
+        meta: { authorize: [UserRole.ADMIN]  },
         children: [
             {
                 name: "AdminHomePage",
@@ -162,6 +166,30 @@ const routes = [
                 name: "AdminViewPlayerDetail",
                 path: 'player-view-detail/:playerId',
                 component: AdminViewPlayerDetailPage
+            }
+        ]
+    },
+    {
+        path: "/moderation",
+        name: "Moderation",
+        component: ModerationPage,
+        redirect: { name: 'ModerationHomePage' },
+        meta: { authorize: [UserRole.MODERATOR]  },
+        children: [
+            {
+                name: "ModerationHomePage",
+                path: '',
+                component: ModerationHomePage
+            },
+            {
+                name: "ModerationPlayerList",
+                path: 'player-list',
+                component: ModerationPlayerListPage,
+            },
+            {
+                name: "ModerationViewPlayerDetail",
+                path: 'player-view-detail/:playerId',
+                component: ModerationViewPlayerDetailPage
             }
         ]
     },

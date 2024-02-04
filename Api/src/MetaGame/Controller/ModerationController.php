@@ -57,6 +57,10 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        if ($user->isBanned()) {
+            return $this->view(['error' => 'User is already banned'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $this->moderationService->banUser($user);
 
         return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);
@@ -157,6 +161,10 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        if (!$player->isAlive()) {
+            return $this->view(['error' => 'Player is already dead'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $this->moderationService->quarantinePlayer($player);
 
         return $this->view(['detail' => 'Player quarantined successfully'], Response::HTTP_OK);
@@ -184,6 +192,10 @@ final class ModerationController extends AbstractFOSRestController
     public function unbanUser(User $user): View
     {
         $this->denyAccessIfNotModerator();
+
+        if (!$user->isBanned()) {
+            return $this->view(['error' => 'User is not banned'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $this->moderationService->unbanUser($user);
 

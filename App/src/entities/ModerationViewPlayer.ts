@@ -18,6 +18,7 @@ export class ModerationViewPlayer {
     public statuses: Array<Status>;
     public diseases: Array<Status>;
     public currentRoom: string|null;
+    public isAlive!: boolean;
 
     public constructor() {
         this.statuses = [];
@@ -35,6 +36,7 @@ export class ModerationViewPlayer {
             this.currentRoom = object.currentRoom;
             this.statuses = object.statuses?.map((statusObject: any) => { return (new Status()).load(statusObject); });
             this.diseases = object.diseases?.map((statusObject: any) => { return (new Status()).load(statusObject); });
+            this.isAlive = object.isAlive;
         }
         return this;
     }

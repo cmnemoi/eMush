@@ -48,7 +48,7 @@ final class ModerationViewPlayerNormalizer implements NormalizerInterface, Norma
             'statuses' => $this->normalizePlayerStatuses($player, $format, $context),
             'diseases' => $this->normalizePlayerDiseases($player, $format, $context),
             'skills' => $this->normalizePlayerSkills($player, $format, $context),
-            'currentRoom' => $this->translationService->translate($place . '.name', [], 'rooms', $language),
+            'isAlive' => $player->isAlive(),
         ];
     }
 

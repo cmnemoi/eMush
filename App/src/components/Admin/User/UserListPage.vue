@@ -39,14 +39,20 @@
             <template #row-actions="user">
                 <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
                 <div v-if="isModerator">
-                    <Tippy tag="button" class="action-button" v-if="!user.isBanned" @click="banUser(user)">
+                    <Tippy tag="button"
+                           class="action-button"
+                           v-if="!user.isBanned"
+                           @click="banUser(user)">
                         {{ $t('moderation.ban') }}
                         <template #content>
                             <h1>{{ $t('moderation.ban') }}</h1>
                             <p>{{ $t('moderation.banDescription') }}</p>
                         </template>
                     </Tippy>
-                    <Tippy tag="button" class="action-button" v-else @click="unbanUser(user)">
+                    <Tippy tag="button"
+                           class="action-button"
+                           v-else
+                           @click="unbanUser(user)">
                         {{ $t('moderation.unban') }}
                         <template #content>
                             <h1>{{ $t('moderation.unban') }}</h1>
@@ -124,7 +130,7 @@ export default defineComponent({
     },
     methods: {
         banUser(user: any) {
-           ModerationService.banUser(user.id)
+            ModerationService.banUser(user.id)
                 .then(() => {
                     this.loadData();
                 })

@@ -646,6 +646,6 @@
 		"quarantineAndBan": "Mettre en quarantaine et bannir",
 		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
 		"quarantine": "Mettre en quarantaine",
-		"quarantineDescription": "Mettre ce joueur en quarantaine, qui quittera la partie."
+		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie."
 	}
 }

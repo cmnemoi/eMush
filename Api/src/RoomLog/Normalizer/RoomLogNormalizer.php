@@ -54,6 +54,12 @@ class RoomLogNormalizer implements NormalizerInterface
 
             if ($moderationView) {
                 $log['parameters'] = $roomLog->getParameters();
+                $log['place'] = $this->translationService->translate(
+                    $roomLog->getPlace() . '.name',
+                    [],
+                    'rooms',
+                    $language
+                );
             }
 
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = $log;

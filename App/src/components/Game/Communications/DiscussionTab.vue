@@ -16,7 +16,7 @@
                 :is-replyable="true"
                 @click="replyTo(message)"
             />
-            <MessageInput v-show="messageToReply === message" :channel="channel" :parent="message" />
+            <MessageInput v-if="messageToReply === message" :channel="channel" :parent="message" />
         </section>
     </TabContainer>
 </template>

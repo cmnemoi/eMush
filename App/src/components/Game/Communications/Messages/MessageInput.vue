@@ -3,13 +3,12 @@
         <textarea
             v-model="text"
             ref="input"
-            :placeholder="typedMessage != '' ? typedMessage : $t('game.communications.myMessageHere')"
+            :placeholder="$t('game.communications.myMessageHere')"
             @keydown.enter.exact.prevent="sendNewMessage"
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"
             @keyup="updateTypedMessage(text); resize()"
             @keyup.enter.exact.prevent="clearTypedMessage"
-            @click="restoreTypedMessage"
         />
         <a class="submit-button" @click="sendNewMessage" @click.stop="clearTypedMessage">
             <img src="@/assets/images/comms/submit.gif" alt="submit">
@@ -64,14 +63,14 @@ export default defineComponent ({
             this.updateTypedMessage('');
             this.text = '';
         },
-        restoreTypedMessage(): void {
-            this.text = this.typedMessage;
-        },
         resize() {
             const element = this.$refs.input;
             element.style.height = "auto";
             element.style.height = element.scrollHeight + 2 + "px";
-        },
+        }
+    },
+    mounted() {
+        this.text = this.typedMessage;
     }
 });
 </script>

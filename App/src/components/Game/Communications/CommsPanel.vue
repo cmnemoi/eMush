@@ -97,7 +97,8 @@ export default defineComponent ({
         isChannelSelected(channel: Channel): boolean
         {
             return (this.currentChannel.scope === channel.scope &&
-                this.currentChannel.id === channel.id);
+                this.currentChannel.id === channel.id) &&
+                this.currentChannel.piratedPlayer === channel.piratedPlayer;
         }
     }
 });

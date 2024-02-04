@@ -727,6 +727,7 @@ class ChannelServiceTest extends TestCase
         $this->assertCount(1, $result);
     }
 
+    // pirate do not have access to private channel where all participant are in the same room
     public function testGetPiratedChannelsWithWhisperOnly()
     {
         $channel = new Channel();

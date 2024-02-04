@@ -34,7 +34,9 @@
 		"ranking": "Classements",
 		"user": "Mon Compte",
 		"news": "News",
-		"forum": "Forum"
+		"forum": "Forum",
+		"admin": "Admin",
+		"moderation": "Modération"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",

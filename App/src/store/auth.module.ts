@@ -47,6 +47,10 @@ const getters = {
 
     isAdmin: (state: AuthState): boolean => {
         return state.userInfo ? state.userInfo.isAdmin() : false;
+    },
+
+    isModerator: (state: AuthState): boolean => {
+        return state.userInfo ? state.userInfo.isModerator() : false;
     }
 };
 

@@ -27,13 +27,6 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <button
-                    v-if="slotProps.gameStatus != 'finished' && slotProps.gameStatus != 'closed'"
-                    class="action-button"
-                    type="button"
-                    @click="quarantinePlayer(slotProps.id)">
-                    {{ $t("admin.playerList.quarantine") }}
-                </button>
                 <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': slotProps.id} }">Voir les détails du joueur</router-link>
             </template>
         </Datatable>

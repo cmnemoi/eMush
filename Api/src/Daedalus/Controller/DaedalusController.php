@@ -90,7 +90,7 @@ class DaedalusController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!$user->isBanned()) {
+        if ($user->isBanned()) {
             throw new AccessDeniedException('You have been banned!');
         }
 

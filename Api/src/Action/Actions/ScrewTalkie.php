@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * additionally, pirate player have access to the channels of the pirated player
  * Targeted player still have access to the private channels where he can whisper
  * Targeted player still have access to the public channel if he has other means to talk (comms center, brainsync)
- * Pirate player do not have access to channels where the target player don't use his talkie (i.e. if he shares the same room that all other participant)
+ * Pirate player do not have access to channels where the target player don't use his talkie (i.e. if he shares the same room with all other participant)
  * Effect last until the talkie is repaired
  *
  * Effect differs from original game

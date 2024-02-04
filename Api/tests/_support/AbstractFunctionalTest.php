@@ -21,6 +21,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -184,6 +187,18 @@ class AbstractFunctionalTest
         $player->setPlace($daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $player->setPlayerVariables($characterConfig);
 
+        $I->haveInRepository($player);
+
+        return $player;
+    }
+
+    protected function convertPlayerToMush(FunctionalTester $I, Player $player): Player
+    {
+        $mushConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]);
+
+        $status = new Status($player, $mushConfig);
+
+        $I->haveInRepository($status);
         $I->haveInRepository($player);
 
         return $player;

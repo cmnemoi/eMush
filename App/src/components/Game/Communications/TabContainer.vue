@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import {mapActions, mapGetters, mapState} from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { Channel } from "@/entities/Channel";
 import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";
 import { defineComponent } from "vue";

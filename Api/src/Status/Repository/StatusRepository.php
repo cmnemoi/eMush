@@ -78,7 +78,7 @@ class StatusRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->eq('status_target.place', ':status_target'),
                 $queryBuilder->expr()->eq('status_target.gameEquipment', ':status_target')
             ))
-            ->andWhere($queryBuilder->expr()->eq('status_config.name', ':name'))
+            ->andWhere($queryBuilder->expr()->eq('status_config.statusName', ':name'))
             ->setParameter(':status_target', $target)
             ->setParameter(':name', $name)
         ;

@@ -15,15 +15,14 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -194,12 +193,14 @@ class AbstractFunctionalTest
 
     protected function convertPlayerToMush(FunctionalTester $I, Player $player): Player
     {
-        $mushConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]);
+        $eventService = $I->grabService(EventServiceInterface::class);
 
-        $status = new Status($player, $mushConfig);
-
-        $I->haveInRepository($status);
-        $I->haveInRepository($player);
+        $conversionEvent = new PlayerEvent(
+            player: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $eventService->callEvent($conversionEvent, PlayerEvent::CONVERSION_PLAYER);
 
         return $player;
     }

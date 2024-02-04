@@ -36,7 +36,6 @@ export default defineComponent ({
     methods: {
         isChannelPirated(): string
         {
-            console.log((this.channel?.piratedPlayer != null) ? 'pirated' : '');
             return (this.channel?.piratedPlayer != null) ? 'pirated' : '';
         },
     }

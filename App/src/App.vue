@@ -16,7 +16,7 @@
 <script lang="ts">
 
 import Banner from "@/components/Banner.vue";
-import ErrorPopup from "@/components/ErrorPopup.vue";
+import ErrorPopup from "@/components/ErrorPopupTesting.vue";
 import ConfirmPopup from "@/components/ConfirmPopup.vue";
 import ReportPopup from "@/components/ReportPopup.vue";
 import Spinner from "@/components/Utils/Spinner.vue";

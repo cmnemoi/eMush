@@ -243,10 +243,21 @@ final class TravelEventCest extends AbstractFunctionalTest
         // given it has a 100% chance to hit
         $trax->setHitChance(100);
 
-        // given trax are the only hunters which can spawn after travel
+        // given trax and hunter are the only hunters which can spawn
         $this->daedalus->getGameConfig()->setHunterConfigs(
-            $this->daedalus->getGameConfig()->getHunterConfigs()->filter(fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::TRAX)
+            $this->daedalus
+                ->getGameConfig()
+                ->getHunterConfigs()
+                ->filter(
+                    fn (
+                        HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::TRAX
+                        || $hunterConfig->getHunterName() === HunterEnum::HUNTER
+                )
         );
+
+        // given hunter has no chance to spawn
+        $hunterConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER);
+        $hunterConfig->setSpawnDifficulty(20000);
 
         // given daedalus is day 5 so trax can spawn
         $this->daedalus->setDay(5);
@@ -303,6 +314,7 @@ final class TravelEventCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
             tags: [],
@@ -315,6 +327,78 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // then 4 trax are still there
         $I->assertCount(4, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX));
+
+        // when another travel is launched and finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // then 3 hunters are spawn
+        $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+
+        // then 4 trax are still there
+        $I->assertCount(4, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX));
+    }
+
+    public function testTravelFinishedSpawnsAHalfPowerWaveIfThereWereNoHunterToFleeFrom(FunctionalTester $I): void
+    {
+        // given daedalus has enough points to spawn 11 hunters
+        $this->daedalus->setHunterPoints(110);
+
+        // when travel is launched and finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // then 6 hunters are spawn
+        $I->assertCount(6, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+    }
+
+    public function testTravelFinishedSpawnsOneHunterIfThereWasNoHunterToFleeFromAndNoEnoughPower(FunctionalTester $I): void
+    {
+        // given there are no attacking hunters
+        $I->assertEquals(0, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count());
+
+        // given daedalus has no points to spawn hunters
+        $this->daedalus->setHunterPoints(0);
+
+        // when travel is launched and finished
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
+        // then 1 hunter is spawn
+        $I->assertCount(1, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
     private function createExploration(FunctionalTester $I)

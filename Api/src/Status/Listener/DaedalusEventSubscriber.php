@@ -34,6 +34,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         return [
             DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', EventPriorityEnum::HIGH],
+            DaedalusEvent::TRAVEL_FINISHED => ['onTravelFinished', EventPriorityEnum::LOW],
         ];
     }
 
@@ -54,6 +55,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $this->createTruceStatusForHunters($event);
 
         $this->updateNumberOfCatchingUpHunters($event);
+    }
+
+    public function onTravelFinished(DaedalusEvent $event): void
+    {
+        $this->resetNumberOfCatchingUpHunters($event);
     }
 
     private function createDaedalusStatusFromName(string $name, DaedalusEvent $event): Status
@@ -92,11 +98,20 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             $followingHuntersStatus = $this->createDaedalusStatusFromName(DaedalusStatusEnum::FOLLOWING_HUNTERS, $event);
         }
 
+        // by default, spawn half of the attacking hunters after travel
+        // if there are no attacking hunters, spawn a wave with half of the hunter points the daedalus has
+        // if there are not enough hunter points, spawn at least one hunter
+        $numberOfCatchingUpHunters = intval(ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2));
+        if ($numberOfCatchingUpHunters <= 0) {
+            $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
+            $numberOfCatchingUpHunters = intval(ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
+        }
+
         $this->statusService->updateCharge(
             chargeStatus: $followingHuntersStatus,
-            delta: intval(ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2)),
+            delta: $numberOfCatchingUpHunters,
             tags: $event->getTags(),
-            time: new \DateTime(),
+            time: $event->getTime()
         );
     }
 
@@ -106,7 +121,23 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             statusName: DaedalusStatusEnum::IN_ORBIT,
             holder: $event->getDaedalus(),
             tags: $event->getTags(),
-            time: new \DateTime(),
+            time: $event->getTime()
+        );
+    }
+
+    private function resetNumberOfCatchingUpHunters(DaedalusEvent $event): void
+    {
+        /** @var ?ChargeStatus $followingHuntersStatus */
+        $followingHuntersStatus = $event->getDaedalus()->getStatusByName(DaedalusStatusEnum::FOLLOWING_HUNTERS);
+        if (!$followingHuntersStatus) {
+            throw new \RuntimeException('Following hunters status not found');
+        }
+
+        $this->statusService->updateCharge(
+            chargeStatus: $followingHuntersStatus,
+            delta: -$followingHuntersStatus->getCharge(),
+            tags: $event->getTags(),
+            time: $event->getTime()
         );
     }
 }

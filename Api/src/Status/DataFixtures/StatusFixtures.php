@@ -63,6 +63,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const TALKIE_SCREWED_STATUS = 'talkie_screwed_status';
     public const IN_ORBIT_STATUS = 'in_orbit_status';
     public const POC_PILOT_SKILL_STATUS = 'poc_pilot_skill_status';
+    public const ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS = 'astronavigation_neron_cpu_priority_status';
 
     public function load(ObjectManager $manager): void
     {
@@ -459,6 +460,26 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pocPilotSkill);
 
+        /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierPlus1Section */
+        $astronavigationNeronCpuPriorityModifierPlus1Section = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION);
+        /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierMinus1ActionPoint */
+        $astronavigationNeronCpuPriorityModifierMinus1ActionPoint = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT);
+
+        /** @var array<int, VariableEventModifierConfig> $modifierConfigs */
+        $modifierConfigs = [
+            $astronavigationNeronCpuPriorityModifierPlus1Section,
+            $astronavigationNeronCpuPriorityModifierMinus1ActionPoint,
+        ];
+
+        $astronavigationNeronCpuPriority = new StatusConfig();
+        $astronavigationNeronCpuPriority
+            ->setStatusName(DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY)
+            ->setModifierConfigs($modifierConfigs)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($astronavigationNeronCpuPriority);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -504,6 +525,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($screwedTalkie)
             ->addStatusConfig($inOrbit)
             ->addStatusConfig($pocPilotSkill)
+            ->addStatusConfig($astronavigationNeronCpuPriority)
         ;
         $manager->persist($gameConfig);
 
@@ -550,6 +572,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::TALKIE_SCREWED_STATUS, $screwedTalkie);
         $this->addReference(self::IN_ORBIT_STATUS, $inOrbit);
         $this->addReference(self::POC_PILOT_SKILL_STATUS, $pocPilotSkill);
+        $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS, $astronavigationNeronCpuPriority);
 
         $manager->flush();
     }

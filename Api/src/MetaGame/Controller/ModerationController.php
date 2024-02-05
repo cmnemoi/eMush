@@ -204,11 +204,11 @@ final class ModerationController extends AbstractFOSRestController
 
     private function denyAccessIfNotModerator(): void
     {
-        $admin = $this->getUser();
-        if (!$admin instanceof User) {
+        $moderator = $this->getUser();
+        if (!$moderator instanceof User) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
         }
-        if (!$admin->isModerator()) {
+        if (!$moderator->isModerator()) {
             throw new HttpException(Response::HTTP_FORBIDDEN, 'Only moderators can use this endpoint!');
         }
     }

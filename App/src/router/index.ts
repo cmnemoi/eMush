@@ -160,12 +160,12 @@ const routes = [
             {
                 name: "AdminPlayerList",
                 path: 'player-list',
-                component: PlayerListPage
+                component: ModerationPlayerListPage
             },
             {
                 name: "AdminViewPlayerDetail",
                 path: 'player-view-detail/:playerId',
-                component: AdminViewPlayerDetailPage
+                component: ModerationViewPlayerDetailPage
             }
         ]
     },

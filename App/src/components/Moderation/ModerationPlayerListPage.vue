@@ -2,14 +2,15 @@
     <div class="player_list_container">
         <div class="player_filter_options">
             <label>{{ $t('moderation.alivePlayersFilter') }}
-                <input
-                    type="checkbox"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    v-model="alivePlayersFilter"
-                    @change="updateFilter"
-                >
+                <select v-model="playerStatusFilter" @change="updateFilter">
+                    <option
+                        v-for="option in playerStatusFilterOption"
+                        :value=option.value
+                        :key=option.key
+                    >
+                        {{ $t(option.key) }}
+                    </option>
+                </select>
             </label>
             <label>{{ $t('moderation.mushPlayersFilter') }}
                 <input
@@ -71,7 +72,7 @@
             <template #row-actions="player">
                 <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
                 <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
-                <button class="action-button" @click="closePlayer(player.id)" v-if="player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
+                <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
             </template>
         </Datatable>
     </div>
@@ -100,6 +101,12 @@ export default defineComponent({
     },
     data() {
         return {
+            playerStatusFilterOption: [
+                { key: 'moderation.playerList.gameStatuses.in_game', value: 'in_game' },
+                { key: 'moderation.playerList.gameStatuses.finished', value: 'finished' },
+                { key: 'moderation.playerList.gameStatuses.closed', value: 'closed' },
+                { key: 'moderation.playerList.gameStatuses.all', value: '' },
+            ],
             fields: [
                 {
                     key: 'id',
@@ -140,11 +147,11 @@ export default defineComponent({
             sortField: '',
             sortDirection: 'DESC',
             loading: false,
-            alivePlayersFilter: true,
             characterFilter: '',
             daedalusIdFilter: '',
             mushPlayersFilter: false,
             usernameFilter: '',
+            playerStatusFilter: 'in_game',
             pageSizeOptions: [
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
@@ -172,25 +179,27 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            if (this.alivePlayersFilter) {
-                params.params['closedPlayer.playerInfo.gameStatus'] = 'in_game';
-            }
             if (this.characterFilter) {
                 params.params['characterConfig.characterName'] = this.characterFilter;
             }
             if (this.daedalusIdFilter) {
-                if (this.alivePlayersFilter) {
+                if (this.playerStatusFilter === 'in_game') {
                     params.params['player.daedalus.id'] = this.daedalusIdFilter;
                 } else {
                     params.params['closedPlayer.closedDaedalus.id'] = this.daedalusIdFilter;
                 }
             }
+            if (this.mushPlayersFilter) {
+                params.params['closedPlayer.isMush'] = this.mushPlayersFilter;
+            }
+            if (this.playerStatusFilter) {
+                params.params['closedPlayer.playerInfo.gameStatus'] = this.playerStatusFilter;
+            }
+            
             if (this.usernameFilter) {
                 params.params['user.username'] = this.usernameFilter;
             }
             
-            params.params['closedPlayer.isMush'] = this.mushPlayersFilter;
-
             ModerationService.getPlayerInfoList(params)
                 .then((result) => {
                     for (const playerInfo of result.data['hydra:member']) {
@@ -288,9 +297,6 @@ export default defineComponent({
     padding: 10px;
 
     label {
-        // display: flex;
-        // // flex-direction: column;
-        // justify-content: space-between;
         padding: 0 10px;
     }
 }

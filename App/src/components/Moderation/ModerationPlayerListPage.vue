@@ -151,7 +151,11 @@ export default defineComponent({
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
             if (this.daedalusIdFilter) {
-                params.params['closedPlayer.closedDaedalus.id'] = this.daedalusIdFilter;
+                if (this.alivePlayersFilter) {
+                    params.params['player.daedalus.id'] = this.daedalusIdFilter;
+                } else {
+                    params.params['closedPlayer.closedDaedalus.id'] = this.daedalusIdFilter;
+                }
             }
             if (this.usernameFilter) {
                 params.params['user.username'] = this.usernameFilter;

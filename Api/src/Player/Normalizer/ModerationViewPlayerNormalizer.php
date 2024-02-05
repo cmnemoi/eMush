@@ -24,7 +24,6 @@ final class ModerationViewPlayerNormalizer implements NormalizerInterface, Norma
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
         return $data instanceof Player
-               && $data->isAlive()
                && isset($context['groups']) // only moderators can recover this data
                && in_array('moderation_view', $context['groups'], true);
     }
@@ -34,7 +33,6 @@ final class ModerationViewPlayerNormalizer implements NormalizerInterface, Norma
         /** @var Player $player */
         $player = $object;
         $daedalus = $player->getDaedalus();
-        $place = $player->getPlace()->getName();
         $language = $daedalus->getLanguage();
 
         $context['currentPlayer'] = $player;

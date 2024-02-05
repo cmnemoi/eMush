@@ -643,6 +643,8 @@
 			"players": "Joueurs",
 			"users": "Utilisateurs"
 		},
+		"alivePlayersFilter": "Afficher uniquement les joueurs vivants",
+		"mushPlayersFilter": "Afficher uniquement les joueurs Mush",
 		"ban": "Bannir",
 		"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
 		"unban": "Débannir",
@@ -650,6 +652,8 @@
 		"quarantineAndBan": "Mettre en quarantaine et bannir",
 		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
 		"quarantine": "Mettre en quarantaine",
-		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie."
+		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
+		"searchByUsername": "Rechercher par le pseudonyme d'un utilisateur :",
+		"searchByDaedalusId": "Rechercher par l'ID d'un Daedalus :"
 	}
 }

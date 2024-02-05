@@ -1,17 +1,7 @@
 <template>
     <div class="player_list_container">
         <div class="player_filter_options">
-            <label>{{ $t('moderation.display only mush players') }}
-                <input
-                    type="checkbox"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    v-model="mushPlayersFilter"
-                    @change="updateFilter"
-                >
-            </label>
-            <label>{{ $t('moderation.display only alive players') }}
+            <label>{{ $t('moderation.alivePlayersFilter') }}
                 <input
                     type="checkbox"
                     class=""
@@ -21,7 +11,17 @@
                     @change="updateFilter"
                 >
             </label>
-            <label>{{ $t('admin.search')  }} by username:
+            <label>{{ $t('moderation.mushPlayersFilter') }}
+                <input
+                    type="checkbox"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    v-model="mushPlayersFilter"
+                    @change="updateFilter"
+                >
+            </label>
+            <label>{{ $t('moderation.searchByUsername')  }}
                 <input
                     v-model="usernameFilter"
                     type="search"
@@ -31,7 +31,7 @@
                     @change="updateFilter"
                 >
             </label>
-            <label>{{ $t('admin.search') }} by Daedalus ID:
+            <label>{{ $t('moderation.searchByDaedalusId') }}
                 <input
                     v-model="daedalusIdFilter"
                     type="search"
@@ -249,6 +249,13 @@ export default defineComponent({
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+
+    label {
+        // display: flex;
+        // // flex-direction: column;
+        // justify-content: space-between;
+        padding: 0 10px;
+    }
 }
 
 button {

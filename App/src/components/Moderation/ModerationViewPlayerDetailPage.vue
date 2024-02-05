@@ -21,6 +21,16 @@
                     <p>{{ $t("moderation.quarantineAndBanDescription") }}</p>
                 </template>
             </Tippy>
+            <Tippy tag="button"
+                   class="action-button"
+                   @click="banPlayer(player)"
+                   v-if="!player.isAlive">
+                {{ $t("moderation.ban") }}
+                <template #content>
+                    <h1>{{ $t("moderation.ban") }}</h1>
+                    <p>{{ $t("moderation.banDescription") }}</p>
+                </template>
+            </Tippy>
         </div>
         {{ player.jsonEncode() }}
         <p>Logs:</p>
@@ -65,6 +75,15 @@ export default defineComponent({
         };
     },
     methods: {
+        banPlayer(player: ModerationViewPlayer) {
+            ModerationService.banUser(player.user.id)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                });
+        },
         quarantinePlayer(player: ModerationViewPlayer) {
             ModerationService.quarantinePlayer(Number(this.$route.params.playerId))
                 .then(() => {

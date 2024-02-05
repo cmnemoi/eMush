@@ -41,6 +41,7 @@
                     @change="updateFilter"
                 >
             </label>
+            <button @click="closeAllPlayers" v-if="isAdmin">{{ $t("admin.playerList.closeAllPlayers") }}</button>
         </div>
         <Datatable
             :headers='fields'
@@ -56,9 +57,10 @@
             <template #header-actions>
                 Actions
             </template>
-            <template #row-actions="slotProps">
-                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': slotProps.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
-                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': slotProps.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+            <template #row-actions="player">
+                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
+                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+                <button class="action-button" @click="closePlayer(player.id)" v-if="player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
             </template>
         </Datatable>
     </div>
@@ -72,11 +74,17 @@ import AdminService from "@/services/admin.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import ModerationService from "@/services/moderation.service";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
     name: "ModerationPlayerListPage",
     components: {
         Datatable
+    },
+    computed: {
+        ...mapGetters({
+            isAdmin: 'auth/isAdmin'
+        })
     },
     data() {
         return {

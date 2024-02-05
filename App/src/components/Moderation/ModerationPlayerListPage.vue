@@ -1,16 +1,45 @@
 <template>
     <div class="player_list_container">
         <div class="player_filter_options">
-            <label>{{ $t("admin.show") }}
-                <select v-model="pagination.pageSize" @change="updateFilter">
-                    <option
-                        v-for="option in pageSizeOptions"
-                        :value="option.value"
-                        :key=option.value
-                    >
-                        {{ option.text }}
-                    </option>
-                </select>
+            <label>{{ $t('moderation.display only mush players') }}
+                <input
+                    type="checkbox"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    v-model="mushPlayersFilter"
+                    @change="updateFilter"
+                >
+            </label>
+            <label>{{ $t('moderation.display only alive players') }}
+                <input
+                    type="checkbox"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    v-model="alivePlayersFilter"
+                    @change="updateFilter"
+                >
+            </label>
+            <label>{{ $t('admin.search')  }} by username:
+                <input
+                    v-model="usernameFilter"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    @change="updateFilter"
+                >
+            </label>
+            <label>{{ $t('admin.search') }} by Daedalus ID:
+                <input
+                    v-model="daedalusIdFilter"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    @change="updateFilter"
+                >
             </label>
         </div>
         <Datatable
@@ -19,7 +48,8 @@
             :loading="loading"
             :row-data="rowData"
             :pagination="pagination"
-            :filter="filter"
+            :daedalusIdFilter="daedalusIdFilter"
+            :usernameFilter="usernameFilter"
             @paginationClick="paginationClick"
             @sortTable="sortTable"
         >
@@ -89,7 +119,10 @@ export default defineComponent({
             sortField: '',
             sortDirection: 'DESC',
             loading: false,
-            filter: '',
+            alivePlayersFilter: true,
+            daedalusIdFilter: '',
+            mushPlayersFilter: false,
+            usernameFilter: '',
             pageSizeOptions: [
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
@@ -117,9 +150,17 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            if (this.filter) {
-                params.params['name'] = this.filter;
+            if (this.daedalusIdFilter) {
+                params.params['closedPlayer.closedDaedalus.id'] = this.daedalusIdFilter;
             }
+            if (this.usernameFilter) {
+                params.params['user.username'] = this.usernameFilter;
+            }
+            if (this.alivePlayersFilter) {
+                params.params['closedPlayer.playerInfo.gameStatus'] = 'in_game';
+            } 
+            params.params['closedPlayer.isMush'] = this.mushPlayersFilter;
+
             ModerationService.getPlayerInfoList(params)
                 .then((result) => {
                     return result.data;

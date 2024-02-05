@@ -8,6 +8,8 @@ use Mush\Action\Actions\AnalyzePlanet;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
+use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -28,6 +30,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 {
     private Action $analyzePlanetConfig;
     private AnalyzePlanet $analyzePlanetAction;
+    private NeronServiceInterface $neronService;
     private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
     private GameEquipment $astroTerminal;
@@ -39,6 +42,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->analyzePlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ANALYZE_PLANET]);
         $this->analyzePlanetAction = $I->grabService(AnalyzePlanet::class);
+        $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
@@ -168,5 +172,75 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
         // then an expected amount of planet sections are revealed
         $I->assertEquals($this->analyzePlanetConfig->getOutputQuantity(), $this->planet->getRevealedSectors()->count());
+    }
+
+    public function testAnalyzePlanetSuccessRevealsMoreSectionsWhenNeronCpuPriorityIsSetToAstronavigation(FunctionalTester $I): void
+    {
+        // given no sections of the planet are revealed
+        $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
+
+        // given NERON CPU priority is set to astronavigation
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::ASTRONAVIGATION,
+            reasons: []
+        );
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->execute();
+
+        // then an expected amount of planet sections are revealed
+        $I->assertEquals(2, $this->planet->getRevealedSectors()->count());
+    }
+
+    public function testAnalyzePlanetCostsOneApLessWhenNeronCpuPriorityIsSetToAstronavigation(FunctionalTester $I): void
+    {
+        // given player has 8 AP
+        $this->player->setActionPoint(8);
+
+        // given NERON CPU priority is set to astronavigation
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::ASTRONAVIGATION,
+        );
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->execute();
+
+        // then the action costs one AP less
+        $I->assertEquals(
+            expected: 7,
+            actual: $this->player->getActionPoint()
+        );
+    }
+
+    public function testAnalyzePlanetCostsBaseAmountAfterMultipleCpuChanges(FunctionalTester $I): void
+    {
+        // given player has 8 AP
+        $this->player->setActionPoint(8);
+
+        // given NERON CPU priority is set to astronavigation
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::ASTRONAVIGATION,
+        );
+
+        // given it is switched back to default
+        $this->neronService->changeCpuPriority(
+            $this->daedalus->getDaedalusInfo()->getNeron(),
+            NeronCpuPriorityEnum::NONE,
+        );
+
+        // when player scans
+        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->execute();
+
+        // then the action costs base amount
+        $I->assertEquals(
+            expected: 8 - $this->analyzePlanetConfig->getActionCost(),
+            actual: $this->player->getActionPoint()
+        );
     }
 }

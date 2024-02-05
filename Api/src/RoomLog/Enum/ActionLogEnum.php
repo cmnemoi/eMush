@@ -121,6 +121,7 @@ class ActionLogEnum
     public const DELETE_PLANET_SUCCESS = 'delete_planet_success';
     public const TAKEOFF_TO_PLANET_SUCCESS = 'takeoff_to_planet_success';
     public const TAKEOFF_TO_PLANET_PATROL_SHIP_SUCCESS = 'takeoff_to_planet_patrol_ship_success';
+    public const CHANGE_NERON_CPU_PRIORITY_SUCCESS = 'change_neron_cpu_priority_success';
 
     public const DEFAULT_FAIL = 'default_fail';
 
@@ -426,6 +427,9 @@ class ActionLogEnum
         ],
         ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP => [
             ActionOutputEnum::SUCCESS => self::TAKEOFF_TO_PLANET_PATROL_SHIP_SUCCESS,
+        ],
+        ActionEnum::CHANGE_NERON_CPU_PRIORITY => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_CPU_PRIORITY_SUCCESS,
         ],
     ];
 }

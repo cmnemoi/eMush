@@ -161,13 +161,15 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($calculator);
 
+        /** @var Action $changeNeronCpuPriorityAction */
+        $changeNeronCpuPriorityAction = $this->getReference(ActionsFixtures::CHANGE_NERON_CPU_PRIORITY);
         $biosTerminal = new EquipmentConfig();
         $biosTerminal
             ->setEquipmentName(EquipmentEnum::BIOS_TERMINAL)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair3, $sabotage3, $reportAction, $examineAction])
+            ->setActions([$repair3, $sabotage3, $reportAction, $examineAction, $changeNeronCpuPriorityAction])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($biosTerminal);

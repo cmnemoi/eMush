@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 
 #[ORM\Entity]
 class Neron
@@ -17,6 +18,9 @@ class Neron
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isInhibited = true;
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => NeronCpuPriorityEnum::NONE])]
+    private string $cpuPriority = NeronCpuPriorityEnum::NONE;
 
     public function getId(): ?int
     {
@@ -45,5 +49,17 @@ class Neron
     public function isInhibited(): bool
     {
         return $this->isInhibited;
+    }
+
+    public function setCpuPriority(string $cpuPriority): self
+    {
+        $this->cpuPriority = $cpuPriority;
+
+        return $this;
+    }
+
+    public function getCpuPriority(): string
+    {
+        return $this->cpuPriority;
     }
 }

@@ -8,6 +8,8 @@ export class TerminalInfos {
     public planets: Planet[]|null;
     public maxDiscoverablePlanets: number|null;
     public inOrbit: string|null;
+    public availableCpuPriorities: {key: string, name: string}[]|null;
+    public currentCpuPriority: string|null;
 
     constructor() {
         this.difficulty = null;
@@ -16,6 +18,8 @@ export class TerminalInfos {
         this.planets = null;
         this.maxDiscoverablePlanets = null;
         this.inOrbit = null;
+        this.availableCpuPriorities = null;
+        this.currentCpuPriority = null;
     }
 
     public load(object: any): TerminalInfos {
@@ -26,6 +30,8 @@ export class TerminalInfos {
             this.planets = object.planets?.map((planet: any) => new Planet().load(planet));
             this.maxDiscoverablePlanets = object.maxDiscoverablePlanets;
             this.inOrbit = object.inOrbit;
+            this.availableCpuPriorities = object.availableCpuPriorities;
+            this.currentCpuPriority = object.currentCpuPriority;
         }
         return this;
     }

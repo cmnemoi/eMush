@@ -165,6 +165,7 @@ class ActionEnum
     public const DELETE_PLANET = 'delete_planet';
     public const LEAVE_ORBIT = 'leave_orbit';
     public const WRITE = 'write';
+    public const CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
 
     public static function getPermanentItemActions(): array
     {

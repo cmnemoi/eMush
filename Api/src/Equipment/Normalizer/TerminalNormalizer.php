@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -89,8 +90,9 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($format, $context);
         $commandTerminalInfos = $this->normalizeCommandTerminalInfos($terminal);
+        $biosTerminalInfos = $this->normalizeBiosTerminalInfos($context);
 
-        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos);
+        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos);
 
         return $normalizedTerminal;
     }
@@ -216,5 +218,39 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
                 language: $daedalus->getLanguage()
             ) : null,
         ];
+    }
+
+    private function normalizeBiosTerminalInfos(array $context): array
+    {
+        /** @var GameEquipment $terminal */
+        $terminal = $context['terminal'];
+
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::BIOS_TERMINAL) {
+            return [];
+        }
+
+        return [
+            'availableCpuPriorities' => $this->getTranslatedAvailableCpuPriorities($terminal),
+            'currentCpuPriority' => $terminal->getDaedalus()->getDaedalusInfo()->getNeron()->getCpuPriority(),
+        ];
+    }
+
+    private function getTranslatedAvailableCpuPriorities(GameEquipment $terminal): array
+    {
+        $availableCpuPriorities = [];
+        foreach (NeronCpuPriorityEnum::getAll() as $cpuPriority) {
+            $availableCpuPriorities[] = [
+                'key' => $cpuPriority,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.cpu_priority_' . $cpuPriority,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $availableCpuPriorities;
     }
 }

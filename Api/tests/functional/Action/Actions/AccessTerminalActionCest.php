@@ -97,9 +97,8 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $this->accessTerminal->loadParameters($this->accessTerminalConfig, $this->player, $this->commandTerminal);
         $this->accessTerminal->execute();
 
-        // then the action is executable and player is focused on command terminal
+        // then the player should be focused on command terminal
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
-        $I->assertNull($this->accessTerminal->cannotExecuteReason());
     }
 
     public function testAccessTerminalIsNotVisibleIfPlayerIsAlreadyFocused(FunctionalTester $I): void

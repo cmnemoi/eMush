@@ -31,6 +31,16 @@
                     @change="updateFilter"
                 >
             </label>
+            <label>{{ $t('moderation.searchByCharacter')  }}
+                <input
+                    v-model="characterFilter"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    @change="updateFilter"
+                >
+            </label>
             <label>{{ $t('moderation.searchByDaedalusId') }}
                 <input
                     v-model="daedalusIdFilter"
@@ -49,6 +59,7 @@
             :loading="loading"
             :row-data="rowData"
             :pagination="pagination"
+            :characterFilter="characterFilter"
             :daedalusIdFilter="daedalusIdFilter"
             :usernameFilter="usernameFilter"
             @paginationClick="paginationClick"
@@ -75,6 +86,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import ModerationService from "@/services/moderation.service";
 import { mapGetters } from "vuex";
+import { characterEnum } from "@/enums/character";
 
 export default defineComponent({
     name: "ModerationPlayerListPage",
@@ -102,9 +114,9 @@ export default defineComponent({
                     name: 'moderation.playerList.daedalusId',
                 },
                 {
-                    key: 'characterConfig',
-                    subkey: 'characterName',
+                    key: 'characterName',
                     name: 'moderation.playerList.characterName',
+                    image: 'characterBody'
                 },
                 {
                     key: 'user',
@@ -129,6 +141,7 @@ export default defineComponent({
             sortDirection: 'DESC',
             loading: false,
             alivePlayersFilter: true,
+            characterFilter: '',
             daedalusIdFilter: '',
             mushPlayersFilter: false,
             usernameFilter: '',
@@ -159,6 +172,12 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
+            if (this.alivePlayersFilter) {
+                params.params['closedPlayer.playerInfo.gameStatus'] = 'in_game';
+            }
+            if (this.characterFilter) {
+                params.params['characterConfig.characterName'] = this.characterFilter;
+            }
             if (this.daedalusIdFilter) {
                 if (this.alivePlayersFilter) {
                     params.params['player.daedalus.id'] = this.daedalusIdFilter;
@@ -169,15 +188,15 @@ export default defineComponent({
             if (this.usernameFilter) {
                 params.params['user.username'] = this.usernameFilter;
             }
-            if (this.alivePlayersFilter) {
-                params.params['closedPlayer.playerInfo.gameStatus'] = 'in_game';
-            } 
+            
             params.params['closedPlayer.isMush'] = this.mushPlayersFilter;
 
             ModerationService.getPlayerInfoList(params)
                 .then((result) => {
                     for (const playerInfo of result.data['hydra:member']) {
                         playerInfo.gameStatus = this.$t('moderation.playerList.gameStatuses.' + playerInfo.gameStatus);
+                        playerInfo.characterBody = this.getCharacterBodyFromKey(playerInfo.characterConfig.characterName);
+                        playerInfo.characterName = this.getCharacterNameFromKey(playerInfo.characterConfig.characterName);
                     }
                     return result.data;
                 })
@@ -187,6 +206,12 @@ export default defineComponent({
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
                 });
+        },
+        getCharacterNameFromKey(characterKey: string) {
+            return characterEnum[characterKey].name;
+        },
+        getCharacterBodyFromKey(characterKey: string) {
+            return characterEnum[characterKey].body;
         },
         paginationClick(page: number) {
             this.pagination.currentPage = page;

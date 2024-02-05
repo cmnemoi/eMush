@@ -106,7 +106,12 @@ services:
         public: false
     moderationPlayerInfo.search_filter:
         parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { user.username: 'ipartial' , closedPlayer.closedDaedalus.id: 'exact', closedPlayer.playerInfo.gameStatus: 'exact', player.daedalus.id: 'exact' } ]
+        arguments: [{ user.username: 'ipartial', 
+                      closedPlayer.closedDaedalus.id: 'exact', 
+                      closedPlayer.playerInfo.gameStatus: 'exact', 
+                      player.daedalus.id: 'exact',
+                      characterConfig.characterName: 'ipartial',
+                    }]
         tags: [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

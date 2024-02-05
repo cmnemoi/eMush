@@ -57,7 +57,8 @@
                 Actions
             </template>
             <template #row-actions="slotProps">
-                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': slotProps.id} }">Voir les détails du joueur</router-link>
+                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': slotProps.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
+                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': slotProps.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
             </template>
         </Datatable>
     </div>
@@ -82,25 +83,25 @@ export default defineComponent({
             fields: [
                 {
                     key: 'id',
-                    name: 'id',
+                    name: 'moderation.playerList.id',
                 },
                 {
                     key: 'gameStatus',
-                    name: 'gameStatus',
+                    name: 'moderation.playerList.gameStatus',
                 },
                 {
                     key: 'daedalusId',
-                    name: 'Daedalus ID',
+                    name: 'moderation.playerList.daedalusId',
                 },
                 {
                     key: 'characterConfig',
                     subkey: 'characterName',
-                    name: 'Character',
+                    name: 'moderation.playerList.characterName',
                 },
                 {
                     key: 'user',
                     subkey: 'username',
-                    name: 'Username',
+                    name: 'moderation.playerList.user',
                 },
                 {
                     key: 'actions',
@@ -167,6 +168,9 @@ export default defineComponent({
 
             ModerationService.getPlayerInfoList(params)
                 .then((result) => {
+                    for (const playerInfo of result.data['hydra:member']) {
+                        playerInfo.gameStatus = this.$t('moderation.playerList.gameStatuses.' + playerInfo.gameStatus);
+                    }
                     return result.data;
                 })
                 .then((remoteRowData: any) => {

@@ -12,7 +12,7 @@
                     </option>
                 </select>
             </label>
-            <label>{{ $t('admin.search') }}:
+            <label>{{ $t('moderation.searchByUsername') }}
                 <input
                     v-model="filter"
                     type="search"
@@ -39,6 +39,7 @@
             <template #row-actions="user">
                 <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
                 <div v-if="isModerator">
+                    <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
                     <Tippy tag="button"
                            class="action-button"
                            v-if="!user.isBanned"
@@ -90,18 +91,15 @@ export default defineComponent({
             fields: [
                 {
                     key: 'username',
-                    name: 'username',
-                    sortable: true
+                    name: 'moderation.playerList.user',
                 },
                 {
                     key: 'userId',
-                    name: 'userId',
-                    sortable: true
+                    name: 'moderation.userList.userId',
                 },
                 {
                     key: 'roles',
-                    name: 'roles',
-                    sortable: false
+                    name: 'moderation.userList.roles',
                 },
                 {
                     key: 'actions',

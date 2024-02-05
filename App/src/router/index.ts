@@ -165,7 +165,15 @@ const routes = [
             {
                 name: "AdminViewPlayerDetail",
                 path: 'player-view-detail/:playerId',
-                component: ModerationViewPlayerDetailPage
+                component: ModerationViewPlayerDetailPage,
+                children: [
+                    {
+                        name: "ModerationViewPlayerUserPage",
+                        path: '/user/:userId',
+                        component: UserPage,
+                        redirect: { name: 'UserPage' }
+                    }
+                ]
             }
         ]
     },
@@ -189,12 +197,28 @@ const routes = [
             {
                 name: "ModerationUserList",
                 path: 'user',
-                component: UserListPage
+                component: UserListPage,
+                children: [
+                    {
+                        name: "ModerationUserListUserPage",
+                        path: '/user/:userId',
+                        component: UserPage,
+                        redirect: { name: 'UserPage' }
+                    }
+                ]
             },
             {
                 name: "ModerationViewPlayerDetail",
                 path: 'player-view-detail/:playerId',
-                component: ModerationViewPlayerDetailPage
+                component: ModerationViewPlayerDetailPage,
+                children: [
+                    {
+                        name: "ModerationViewPlayerUserPage",
+                        path: '/user/:userId',
+                        component: UserPage,
+                        redirect: { name: 'UserPage' }
+                    }
+                ]
             }
         ]
     },

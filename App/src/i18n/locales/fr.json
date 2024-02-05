@@ -643,17 +643,35 @@
 			"players": "Joueurs",
 			"users": "Utilisateurs"
 		},
+		"playerList": {
+			"gameStatuses": {
+				"in_game": "En jeu",
+				"finished": "Mort non validée",
+				"closed": "Mort validée"
+			},
+			"id": "Identifiant du joueur",
+			"gameStatus": "Status du joueur",
+			"daedalusId": "Identifiant du Daedalus",
+			"characterName": "Personnage incarné",
+			"user": "Utilisateur"
+		},
+		"userList": {
+			"userId": "Identifiant de l'utilisateur",
+			"roles": "Rôles"
+		},
 		"alivePlayersFilter": "Afficher uniquement les joueurs vivants",
 		"mushPlayersFilter": "Afficher uniquement les joueurs Mush",
 		"ban": "Bannir",
 		"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
+		"goToPlayerDetails": "Voir les détails du joueur",
+		"goToUserProfile": "Voir le profil de l'utilisateur",
 		"unban": "Débannir",
 		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
 		"quarantineAndBan": "Mettre en quarantaine et bannir",
 		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
 		"quarantine": "Mettre en quarantaine",
 		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
-		"searchByUsername": "Rechercher par le pseudonyme d'un utilisateur :",
-		"searchByDaedalusId": "Rechercher par l'ID d'un Daedalus :"
+		"searchByUsername": "Rechercher un utilisateur :",
+		"searchByDaedalusId": "Rechercher un Daedalus par ID :"
 	}
 }

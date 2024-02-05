@@ -65,12 +65,12 @@ class StatusNormalizer implements NormalizerInterface
         Player $currentPlayer,
         ?StatusHolderInterface $statusOwner,
         ?StatusHolderInterface $statusTarget,
-        array $context,
+        array $context
     ): bool {
-        $isAdmin = isset($context['groups']) && in_array('admin_view', $context['groups'], true);
+        $isModerator = isset($context['groups']) && in_array('moderation_view', $context['groups'], true);
 
         if (
-            $isAdmin
+            $isModerator
             || $visibility === VisibilityEnum::PUBLIC
             || $visibility === VisibilityEnum::MUSH && $currentPlayer->isMush()
         ) {

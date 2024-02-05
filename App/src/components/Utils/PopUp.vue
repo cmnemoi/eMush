@@ -2,7 +2,7 @@
     <div v-if="isOpen" id="login-modal" class="modal-background">
         <div class="modal-box">
             <button class="modal-close" @click="close">
-                Close
+                {{ $t('game.popUp.close') }}
             </button>
             <slot />
         </div>

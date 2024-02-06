@@ -22,7 +22,8 @@
 		"alpha-testers": "et tous les alpha testeurs :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush est un site web non-commercial géré par des bénévoles. Il fait partie du projet <a href=https://eternaltwin.org/>Eternaltwin</a> dont le but est de préserver les jeux de Motion Twin, c'est-à-dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
-		"legal": "Mentions légales"
+		"legal": "Mentions légales",
+		"report": "Signaler un comportement inapproprié"
 	},
 	"util": {
 		"prev": "Page précédente",
@@ -628,5 +629,10 @@
 		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",
 		"og:title": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
 		"og:description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !"
+	},
+	"reportPopup": {
+		"message": "Vous pouvez signaler un comportement inapproprié sur le <a href='https://discord.gg/Jb8Nwjck6r'>serveur Discord d'Eternaltwin</a>.//// Lors de votre arrivée sur le serveur, demandez à ouvrir un ticket pour signaler un comportement inapproprié sur eMush.// Vous serez alors mis en contact avec nos modérateurs. N'oubliez pas de leur fournir les informations suivantes :////- Votre pseudonyme eMush (vous êtes **{username}**)// - Votre identifiant de vaisseau (vous êtes actuellement dans le vaisseau **numéro {daedalusId}**)// - Le personnage à signaler// - La raison de votre signalement",
+		"ok": "J'ai compris",
+		"title": "Signaler un comportement inapproprié"
 	}
 }

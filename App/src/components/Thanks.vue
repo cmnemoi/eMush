@@ -112,7 +112,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="boring-stuff">
+                <div class="serious-stuff">
                     <a href="https://eternal-twin.net/legal" target="_blank">{{
                         $t('footer.legal')
                     }}</a>
@@ -327,12 +327,6 @@ footer {
 }
 
 .contributors ul { white-space: nowrap; }
-
-.boring-stuff {
-    flex-direction: row;
-
-    a { margin-right: 0.2em; }
-}
 
 @media only screen and (min-width: 768px) { //desktop breakpoint
 

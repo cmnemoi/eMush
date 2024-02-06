@@ -11,7 +11,7 @@
             </div>
         </div>
     </Toast>
-    <Toast :is-open="true" title="This is a warning !" type="warning">
+    <Toast :is-open="false" title="This is a warning !" type="warning">
         <div class="message">
             <div>
                 <p>{{ $t('errors.reportToDevs') }}</p>
@@ -22,6 +22,13 @@
         </div>
     </Toast>
     <Toast :is-open="false" title="This is an information !" type="info">
+        <div class="message">
+            <div>
+                <p>Hey, how are you ?</p>
+            </div>
+        </div>
+    </Toast>
+    <Toast :is-open="true" title="This is a success !" type="success">
         <div class="message">
             <div>
                 <p>Hey, how are you ?</p>

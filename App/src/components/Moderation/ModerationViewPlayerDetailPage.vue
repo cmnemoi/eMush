@@ -31,6 +31,9 @@
                     <p>{{ $t("moderation.banDescription") }}</p>
                 </template>
             </Tippy>
+            <button class="action-button router-button">
+                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+            </button>
         </div>
         {{ player.jsonEncode() }}
         <p>Logs:</p>
@@ -147,5 +150,10 @@ export default defineComponent({
         @extend %game-scrollbar;
         overflow: auto;
     }
+}
+
+.router-button a {
+    text-decoration: none;
+    color: white;
 }
 </style>

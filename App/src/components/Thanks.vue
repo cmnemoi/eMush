@@ -116,6 +116,7 @@
                     <a href="https://eternal-twin.net/legal" target="_blank">{{
                         $t('footer.legal')
                     }}</a>
+                    <a href="#" v-if="player" @click="openReportPopup">{{ $t('footer.report')}}</a>
                 </div>
             </div>
             <div class="box small contributors">
@@ -136,11 +137,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Contributor, crowdin, team } from '@/enums/footer';
+import { crowdin, team } from '@/enums/footer';
 import { version } from '../../package.json';
+import { mapActions } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
     name: 'Thanks',
+    computed: {
+        ...mapGetters({
+            player: 'player/player',
+        })
+    },
     data() {
         return {
             crowdin: crowdin,
@@ -156,6 +164,9 @@ export default defineComponent({
         this.startScrolling();
     },
     methods: {
+        ...mapActions('popup', [
+            'openReportPopup',
+        ]),
         getRoleImage(role: string) {
             if (role === 'developer') {
                 return require('@/assets/images/project_roles/developerPicto.png');
@@ -316,6 +327,12 @@ footer {
 }
 
 .contributors ul { white-space: nowrap; }
+
+.boring-stuff {
+    flex-direction: row;
+
+    a { margin-right: 0.2em; }
+}
 
 @media only screen and (min-width: 768px) { //desktop breakpoint
 

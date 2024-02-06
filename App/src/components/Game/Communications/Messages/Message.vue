@@ -11,7 +11,12 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
+        <ActionButtons 
+            v-if="isPlayerAlive && isReplyable" 
+            class="actions" 
+            :actions="['reply', 'report']"
+            @report="openReportPopup()"
+        />
     </div>
     <div
         v-if="isRoot && isSystemMessage"
@@ -33,7 +38,12 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
+        <ActionButtons 
+            v-if="isPlayerAlive && isReplyable" 
+            class="actions" 
+            :actions="['reply', 'report']"
+            @report="openReportPopup()"
+        />
     </div>
 </template>
 
@@ -42,7 +52,7 @@ import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
@@ -68,7 +78,8 @@ export default defineComponent ({
     },
     emits: {
         // No validation
-        click: null
+        click: null,
+        report: null
     },
     computed: {
         ...mapGetters('player', [
@@ -95,6 +106,9 @@ export default defineComponent ({
         }
     },
     methods: {
+        ...mapActions('popup', [
+            'openReportPopup'
+        ]),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },

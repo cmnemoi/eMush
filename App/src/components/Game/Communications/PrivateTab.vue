@@ -5,6 +5,7 @@
             :actions="['refresh', 'invite', 'report', 'leave']"
             @leave="leavePrivateChannel(channel)"
             @invite="getInvitablePlayersToPrivateChannel(channel)"
+            @report="openReportPopup()"
         />
         <ul class="participants">
             <li v-for="(participant, key) in channel.participants" :key="key">
@@ -59,6 +60,9 @@ export default defineComponent ({
             'leavePrivateChannel',
             'loadMessages',
             'getInvitablePlayersToPrivateChannel'
+        ]),
+        ...mapActions('popup', [
+            'openReportPopup'
         ])
     }
 });

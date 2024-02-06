@@ -21,7 +21,6 @@ final class Version20240204155543 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE abstract_modifier_config ALTER modifier_strategy SET DEFAULT \'\'');
-        $this->addSql('ALTER TABLE abstract_modifier_config ALTER modifier_strategy SET NOT NULL');
         $this->addSql('ALTER TABLE users ADD banned BOOLEAN DEFAULT false NOT NULL');
     }
 
@@ -30,6 +29,5 @@ final class Version20240204155543 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE users DROP banned');
         $this->addSql('ALTER TABLE abstract_modifier_config ALTER modifier_strategy DROP DEFAULT');
-        $this->addSql('ALTER TABLE abstract_modifier_config ALTER modifier_strategy DROP NOT NULL');
     }
 }

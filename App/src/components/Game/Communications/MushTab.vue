@@ -137,9 +137,9 @@ export default defineComponent ({
         padding: 5px 0;
     }
 
-    &::v-deep(.chat-input .submit) { //change the submit button color
-        $color: #ff3867;
-        $hover-color: #fa6480;
+    &::v-deep(.chat-input .submit-button) { //change the submit button color
+        $color: #7152d9;
+        $hover-color: #9469fa;
 
         background: $color;
         background:

@@ -23,8 +23,9 @@ import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
     name: 'App',
     head() {
         return {
@@ -67,7 +68,7 @@ export default {
     beforeMount() {
         this.loadGameMaintenanceStatus();
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

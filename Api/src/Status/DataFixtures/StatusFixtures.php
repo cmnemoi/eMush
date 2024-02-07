@@ -314,10 +314,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($hyperactive);
 
+        /** @var VariableEventModifierConfig $immunizedModifierSet0SporesOnChangeVariable */
+        $immunizedModifierSet0SporesOnChangeVariable = $this->getReference(StatusModifierConfigFixtures::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE);
+
         $immunized = new StatusConfig();
         $immunized
             ->setStatusName(PlayerStatusEnum::IMMUNIZED)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$immunizedModifierSet0SporesOnChangeVariable])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($immunized);

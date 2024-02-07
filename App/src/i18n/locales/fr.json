@@ -626,7 +626,7 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r'>Discord d'Eternaltwin</a>."
+		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank'>Discord d'Eternaltwin</a>."
 	},
 	"metaSeo": {
 		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",

@@ -27,13 +27,16 @@
 	},
 	"util": {
 		"prev": "Previous page",
-		"next": "Next page"
+		"next": "Next page",
+		"goBack": "Back"
 	},
 	"banner": {
 		"ranking": "Rankings",
 		"user": "My account",
 		"news": "News",
-		"forum": "Forum"
+		"forum": "Forum",
+		"admin": "Admin",
+		"moderation": "Moderation"
 	},
 	"ranking": {
 		"ship_end_cause": "End cause",
@@ -67,7 +70,6 @@
 		"normalSuperNova": "Prize Nova",
 		"numberOfHuntersKilled": "Hunters defeated",
 		"amountOfMushPlayers": "Number of Mushs",
-		"goBack": "Back",
 		"endCause": {
 			"sol_return": "The Daedalus returned to Sol!",
 			"eden": "The Daedalus has settled on Eden!",
@@ -623,7 +625,8 @@
 		"player cannot reach parameter": "You cannot reach the target of the action (is it still in the room?).",
 		"problem": "There was a problem processing your request.",
 		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
-		"title": "ERROR"
+		"title": "ERROR",
+		"You have been banned!": "As a result of your actions, you have been banned by a moderator.\nIf you think this is a mistake, please open a ticket on the <a href='https://discord.gg/Jb8Nwjck6r', target='_blank'>Eternaltwin Discord</a>."
 	},
 	"metaSeo": {
 		"description": "eMush is a remake of Mush, the award-winning survival and investigation game from Motion Twin (Twinoid). Dive into a thrilling space opera that blends survival, social deduction and role-playing in a unique multiplayer experience!",
@@ -631,8 +634,46 @@
 		"og:description": "eMush is a remake of Mush, the award-winning survival and investigation game from Motion Twin (Twinoid). Dive into a thrilling space opera that blends survival, social deduction and role-playing in a unique multiplayer experience!"
 	},
 	"reportPopup": {
-		"message": "You can report inappropriate behavior on the <a href= https://discord.gg/Jb8Nwjck6r' target='_blank'>Eternaltwin Discord server</a>.//// When you arrive at the server, ask to open a ticket to report inappropriate behavior on eMush.// You will then be put in contact with our moderators. Don't forget to provide them with the following information:////- Your eMush username (you are **{username}**)// - Your ship ID (you are in the ship **number {daedalusId}**)// - The character to report// - The reason for your report",
+		"message": "Vous pouvez signaler un comportement inapproprié sur le <a href='https://discord.gg/Jb8Nwjck6r' target='_blank'>serveur Discord d'Eternaltwin</a>.//// Lors de votre arrivée sur le serveur, demandez à ouvrir un ticket pour signaler un comportement inapproprié sur eMush.// Vous serez alors mis en contact avec nos modérateurs. N'oubliez pas de leur fournir les informations suivantes :////- Votre nom d'utilisateur eMush (vous êtes **{username}**)// - Votre identifiant de vaisseau (vous êtes dans le vaisseau **numéro {daedalusId}**)// - Le personnage à signaler// - La raison de votre signalement",
 		"ok": "I understand",
 		"title": "Reporting inappropriate behavior"
+	},
+	"moderation": {
+		"banner": {
+			"players": "Players",
+			"users": "Users"
+		},
+		"playerList": {
+			"gameStatuses": {
+				"all": "Without distinction",
+				"in_game": "In game",
+				"finished": "Non-validated death",
+				"closed": "Validated death"
+			},
+			"id": "Player's identifier",
+			"gameStatus": "Player's status",
+			"daedalusId": "Daedalus identifier",
+			"characterName": "Played character",
+			"user": "User"
+		},
+		"userList": {
+			"userId": "User identifier",
+			"roles": "Roles"
+		},
+		"alivePlayersFilter": "Player's status:",
+		"mushPlayersFilter": "Display only Mush players",
+		"ban": "Ban",
+		"banDescription": "Ban this user from joining ships (you can unban them at any time).",
+		"goToPlayerDetails": "See player details",
+		"goToUserProfile": "View user profile",
+		"unban": "Unban",
+		"unbanDescription": "Unban this user so that they can rejoin a ship again.",
+		"quarantineAndBan": "Quarantine and ban",
+		"quarantineAndBanDescription": "Quarantine and ban this player. They will leave the game and won't be able to join others.",
+		"quarantine": "Quarantine",
+		"quarantineDescription": "Quarantine this player, who will leave the game.",
+		"searchByCharacter": "Search for a character :",
+		"searchByDaedalusId": "Search for a Daedalus by ID :",
+		"searchByUsername": "Search for a user :"
 	}
 }

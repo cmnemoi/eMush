@@ -8,7 +8,8 @@
             <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'MePage' }">{{ $t("banner.user") }}</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
-            <router-link v-if="isAdmin" :to="{ name: 'Admin' }">Admin</router-link>
+            <router-link v-if="isAdmin" :to="{ name: 'Admin' }"> {{ $t('banner.admin') }}</router-link>
+            <router-link v-if="isModerator && !isAdmin" :to="{ name: 'Moderation' }">{{ $t("banner.moderation") }}</router-link>
             <router-link :to="{ name: 'NewsPage' }">{{ $t("banner.news") }}</router-link>
             <a v-if="loggedIn" :href="forumLink">{{ $t("banner.forum") }}</a>
             <Login />
@@ -36,6 +37,7 @@ export default defineComponent ({
         ...mapGetters({
             loggedIn: 'auth/loggedIn',
             isAdmin: 'auth/isAdmin',
+            isModerator: 'auth/isModerator',
             userId: 'auth/userId',
             player: 'player/player'
         }),

@@ -4,7 +4,6 @@ namespace Mush\MetaGame\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -374,78 +373,6 @@ class AdminController extends AbstractFOSRestController
         ], Response::HTTP_CREATED);
     }
 
-    /**
-     * Return a player data adapted for admin view.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The player id",
-     *
-     *       @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/view-player/{id}")
-     *
-     * @Rest\View()
-     */
-    public function getAdminViewPlayer(Player $player): View
-    {
-        $this->denyAccessIfNotAdmin();
-
-        $context = new Context();
-        $context->setAttribute('groups', ['admin_view']);
-
-        $view = $this->view($player, Response::HTTP_OK);
-        $view->setContext($context);
-
-        return $view;
-    }
-
-    /**
-     * Get all player logs.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/player-logs/{id}")
-     *
-     * @Rest\View()
-     */
-    public function getPlayerLogs(Player $player): View
-    {
-        $this->denyAccessIfNotAdmin();
-
-        $daedalus = $player->getDaedalus();
-
-        $logs = $this->roomLogService->getDaedalusRoomLogs($daedalus);
-        $playerLogs = $logs->getLogsRelatedToPlayer($player);
-
-        $context = new Context();
-        $context
-            ->setAttribute('currentPlayer', $player)
-        ;
-        $context->setAttribute('groups', ['admin_view']);
-
-        $view = $this->view($playerLogs, Response::HTTP_OK);
-        $view->setContext($context);
-
-        return $view;
-    }
-
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool
     {
         if ($element1->getEquipment() && $element2->getEquipment()) {
@@ -486,7 +413,7 @@ class AdminController extends AbstractFOSRestController
             throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Request author user not found');
         }
         if (!$admin->isAdmin()) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Only admins can use this endpoint!');
+            throw new HttpException(Response::HTTP_FORBIDDEN, 'Only admins can use this endpoint!');
         }
     }
 }

@@ -1,16 +1,12 @@
 import ApiService from "@/services/api.service";
-import { RoomLog } from "@/entities/RoomLog";
 import { PlayerInfo } from "@/entities/PlayerInfo";
 import urlJoin from "url-join";
 import store from "@/store";
-import { AxiosResponse } from "axios";
 
 // @ts-ignore
 const ADMIN_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "admin");
 // @ts-ignore
 const PLAYER_INFO_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player_infos");
-// @ts-ignore
-const QUARANTINE_PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player/quarantine");
 
 const AdminService = {
     addNewRoomsToDaedalus: async(daedalusId: integer): Promise<any> => {
@@ -41,17 +37,6 @@ const AdminService = {
 
         return response;
     },
-    getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-
-        const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);
-        response.data['hydra:member'] = response.data['hydra:member'].map((playerInfoData: Record<string, any>) => {
-            return (new PlayerInfo()).load(playerInfoData);
-        });
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return response;
-    },
     getMaintenanceStatus: async(): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.get(ADMIN_ENDPOINT + '/maintenance');
@@ -62,46 +47,6 @@ const AdminService = {
     putGameInMaintenance: async(): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(ADMIN_ENDPOINT + '/maintenance');
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return response;
-    },
-    getAdminViewPlayer: async(playerId: number): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.get(ADMIN_ENDPOINT + '/view-player/' + playerId);
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return response;
-    },
-    getPlayerLogs: async(playerId: number): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.post(ADMIN_ENDPOINT + '/player-logs/' + playerId);
-
-        const logs: Record<string, unknown>[] = [];
-        if (response.data) {
-            const days = response.data;
-            Object.keys(days).map((day) => {
-                Object.keys(days[day]).map((cycle) => {
-                    const roomLogs: RoomLog[] = [];
-                    days[day][cycle].forEach((value: any) => {
-                        const roomLog = (new RoomLog()).load(value);
-                        roomLogs.push(roomLog);
-                    });
-                    logs.push({
-                        "day": day,
-                        "cycle": cycle,
-                        roomLogs
-                    });
-                });
-            });
-        }
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return { "data": logs };
-    },
-    quarantinePlayer: async(playerId: number): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.post(QUARANTINE_PLAYER_ENDPOINT + '/' + playerId);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

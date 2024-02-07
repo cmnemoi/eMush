@@ -37,6 +37,9 @@ class User implements UserInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $roles = [RoleEnum::USER];
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $banned = false;
+
     public function getId(): int
     {
         return $this->id;
@@ -143,5 +146,30 @@ class User implements UserInterface
     public function getUserIdentifier(): string
     {
         return $this->userId;
+    }
+
+    public function isBanned(): bool
+    {
+        return $this->banned;
+    }
+
+    public function ban(): self
+    {
+        $this->banned = true;
+
+        return $this;
+    }
+
+    public function unban(): self
+    {
+        $this->banned = false;
+
+        return $this;
+    }
+
+    // getter for API Platform
+    public function getBanned(): bool
+    {
+        return $this->banned;
     }
 }

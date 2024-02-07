@@ -42,4 +42,7 @@ export class User {
     isAdmin(): boolean {
         return is_granted(UserRole.ADMIN, this);
     }
+    isModerator(): boolean {
+        return is_granted(UserRole.MODERATOR, this);
+    }
 }

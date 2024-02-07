@@ -631,7 +631,7 @@
 		"og:description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !"
 	},
 	"reportPopup": {
-		"message": "Vous pouvez signaler un comportement inapproprié sur le <a href='https://discord.gg/Jb8Nwjck6r'>serveur Discord d'Eternaltwin</a>.//// Lors de votre arrivée sur le serveur, demandez à ouvrir un ticket pour signaler un comportement inapproprié sur eMush.// Vous serez alors mis en contact avec nos modérateurs. N'oubliez pas de leur fournir les informations suivantes :////- Votre pseudonyme eMush (vous êtes **{username}**)// - Votre identifiant de vaisseau (vous êtes actuellement dans le vaisseau **numéro {daedalusId}**)// - Le personnage à signaler// - La raison de votre signalement",
+		"message": "Vous pouvez signaler un comportement inapproprié sur le <a href='https://discord.gg/Jb8Nwjck6r' target="_blank">serveur Discord d'Eternaltwin</a>.//// Lors de votre arrivée sur le serveur, demandez à ouvrir un ticket pour signaler un comportement inapproprié sur eMush.// Vous serez alors mis en contact avec nos modérateurs. N'oubliez pas de leur fournir les informations suivantes :////- Votre pseudonyme eMush (vous êtes **{username}**)// - Votre identifiant de vaisseau (vous êtes actuellement dans le vaisseau **numéro {daedalusId}**)// - Le personnage à signaler// - La raison de votre signalement",
 		"ok": "J'ai compris",
 		"title": "Signaler un comportement inapproprié"
 	}

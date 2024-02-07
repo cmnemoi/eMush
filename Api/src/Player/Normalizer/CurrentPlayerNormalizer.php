@@ -84,11 +84,17 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $language = $daedalus->getLanguage();
 
+        /** @var array<string, mixed> $items */
         $items = [];
         /** @var GameItem $item */
         foreach ($player->getEquipments() as $item) {
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
+
+        // Sort items in a stack fashion in player's inventory : last in, first out
+        usort($items, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+        // remove updatedAt from the items because it's not needed in the response
+        $items = array_map(fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $items);
 
         $character = $player->getName();
 

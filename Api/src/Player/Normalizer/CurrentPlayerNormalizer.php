@@ -93,6 +93,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         // Sort items in a stack fashion in player's inventory : last in, first out
         usort($items, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+        // remove updatedAt from the items because it's not needed in the response
+        $items = array_map(fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $items);
 
         $character = $player->getName();
 

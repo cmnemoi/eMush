@@ -84,6 +84,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $format,
             $context
         );
+        // remove updatedAt from the normalized equipments because it's not needed in the response
+        $normalizedEquipments = array_map(fn (array $equipment) => array_diff_key($equipment, ['updatedAt' => null]), $normalizedEquipments);
 
         $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
 
@@ -213,7 +215,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         // Sort items in a stack fashion in shelves : last in, first out
         usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
 
-        return $piles;
+        // remove updatedAt from the normalized items because it's not needed in the response
+        return array_map(fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $piles);
     }
 
     private function handleNonStackableItem(

@@ -685,5 +685,11 @@
         <target>takeoff_to_planet_patrol_ship_success</target>
       </segment>
     </unit>
+    <unit id="change_neron_cpu_priority_success">
+      <segment id="change_neron_cpu_priority_success" state="initial">
+        <source>change_neron_cpu_priority_success</source>
+        <target>change_neron_cpu_priority_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -22,7 +22,8 @@
 		"alpha-testers": "and all alpha testers :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush is a non-commercial website operated by volunteers. It belongs to the <a href=https://eternaltwin.org/>Eternaltwin</a> project, whose purpose is to preserve Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>.",
-		"legal": "Legal notice"
+		"legal": "Legal notice",
+		"report": "Reporting inappropriate behavior"
 	},
 	"util": {
 		"prev": "Previous page",
@@ -577,6 +578,9 @@
 		},
 		"exploration": {
 			"newStep": "New step"
+		},
+		"popUp": {
+			"close": "Close"
 		}
 	},
 	"newsPage": {
@@ -592,6 +596,13 @@
 		"seeAllNews": "Read all news"
 	},
 	"errors": {
+		"details": {
+			"class": "Class:",
+			"details": "Details:",
+			"method": "Method:",
+			"params": "Parameters:",
+			"url": "URL :"
+		},
 		"status": {
 			"401": "401 Unauthorized",
 			"403": "403 Forbidden",
@@ -602,20 +613,26 @@
 			"502": "502 Bad Gateway",
 			"503": "503 Service unavailable"
 		},
+		"badGateway": "The proxy has received an invalid response. This error is most likely due to server synchronization: try again later!",
 		"cannotAccessExploration": "You're not allowed to see this expedition. It's a private ship, aren't you ashamed?",
 		"consultCommunity": "If the problem persists, please check with the community on <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> or the <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
 		"Daedalus changing cycle": "Daedalus is changing cycle.",
 		"gameInMaintenance": "The game is under maintenance, please come back later!",
 		"neronMessage": "<strong>NERON</strong>: A thousand apologies. My designer programmed me with love, but nobody's perfect. An error occurred while trying to load the requested page... If the site is unavailable, please try again in a few minutes. ",
 		"Not Found": "The requested resource has not been found.",
+		"player cannot reach parameter": "You cannot reach the target of the action (is it still in the room?).",
 		"problem": "There was a problem processing your request.",
 		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
-		"title": "ERROR",
-		"badGateway": "The proxy has received an invalid response. This error is most likely due to server synchronization: try again later!"
+		"title": "ERROR"
 	},
 	"metaSeo": {
 		"description": "eMush is a remake of Mush, the award-winning survival and investigation game from Motion Twin (Twinoid). Dive into a thrilling space opera that blends survival, social deduction and role-playing in a unique multiplayer experience!",
 		"og:title": "eMush - Cooperative multiplayer game: betrayal and survival in space!",
 		"og:description": "eMush is a remake of Mush, the award-winning survival and investigation game from Motion Twin (Twinoid). Dive into a thrilling space opera that blends survival, social deduction and role-playing in a unique multiplayer experience!"
+	},
+	"reportPopup": {
+		"message": "You can report inappropriate behavior on the <a href= https://discord.gg/Jb8Nwjck6r' target='_blank'>Eternaltwin Discord server</a>.//// When you arrive at the server, ask to open a ticket to report inappropriate behavior on eMush.// You will then be put in contact with our moderators. Don't forget to provide them with the following information:////- Your eMush username (you are **{username}**)// - Your ship ID (you are in the ship **number {daedalusId}**)// - The character to report// - The reason for your report",
+		"ok": "I understand",
+		"title": "Reporting inappropriate behavior"
 	}
 }

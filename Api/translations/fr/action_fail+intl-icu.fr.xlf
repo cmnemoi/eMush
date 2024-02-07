@@ -586,9 +586,9 @@
       </segment>
     </unit>
     <unit id="screwed_talkie_no_talkie_self">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>screwed_talkie_no_talkie_self.description</source>
-        <target>Munissez vous de votre talkie pour réaliser cette action.</target>
+        <target>Munissez-vous de votre talkie pour réaliser cette action.</target>
       </segment>
     </unit>
     <unit id="update_talkie_require_neron">

@@ -3,6 +3,7 @@
         <p class="text-log">
             <span v-html="formatLog(roomLog.message)"></span>
             <span class="timestamp">{{ roomLog?.date }}</span>
+            <span v-if="roomLog?.place"> - {{ roomLog.place }}</span>
         </p>
     </section>
 </template>

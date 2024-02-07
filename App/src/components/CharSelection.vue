@@ -15,7 +15,7 @@
                     />
                 </ol>
             </div>
-            <span v-if="error" class="error">{{ $t(['errors', error].join('.')) }}</span>
+            <span v-if="error" class="error" v-html="$t(['errors', error].join('.'))"></span>
         </form>
         <div class="char-selection" v-if="!error">
             <section
@@ -215,6 +215,9 @@ h1 {
         font-style: italic;
     }
 
+    :deep(a) {
+        color: $green;
+    }
 }
 
 .char-selection {

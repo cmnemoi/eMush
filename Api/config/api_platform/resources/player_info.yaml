@@ -8,18 +8,12 @@ Mush\Player\Entity\PlayerInfo:
       groups: [ 'player_info_read' ]
   collectionOperations:
     get:
-      filters: [ 'default.search_filter', 'default.order_filter' ]
+      filters: [ 
+        'default.order_filter' , 
+        'moderationPlayerInfo.search_filter' , 
+        'moderationPlayerInfo.boolean_filter',
+      ]
       security: 'is_granted("ROLE_MODERATOR")'
   itemOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'
-  properties:
-    characterConfig:
-        subresource:
-          resourceClass: 'Mush\Player\Entity\Config\CharacterConfig'
-          collection: false
-    user:
-      subresource:
-        resourceClass: 'Mush\User\Entity\User'
-        collection: false
-    

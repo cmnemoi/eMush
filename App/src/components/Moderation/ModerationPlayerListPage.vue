@@ -1,18 +1,58 @@
 <template>
     <div class="player_list_container">
         <div class="player_filter_options">
-            <label>{{$t("admin.show")}}
-                <select v-model="pagination.pageSize" @change="updateFilter">
+            <label>{{ $t('moderation.alivePlayersFilter') }}
+                <select v-model="playerStatusFilter" @change="updateFilter">
                     <option
-                        v-for="option in pageSizeOptions"
-                        :value="option.value"
-                        :key=option.value
+                        v-for="option in playerStatusFilterOption"
+                        :value=option.value
+                        :key=option.key
                     >
-                        {{ option.text }}
+                        {{ $t(option.key) }}
                     </option>
                 </select>
             </label>
-            <button class="action-button" @click="closeAllPlayers">{{ $t('admin.playerList.closeAllPlayers') }}</button>
+            <label>{{ $t('moderation.mushPlayersFilter') }}
+                <input
+                    type="checkbox"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    v-model="mushPlayersFilter"
+                    @change="updateFilter"
+                >
+            </label>
+            <label>{{ $t('moderation.searchByUsername')  }}
+                <input
+                    v-model="usernameFilter"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    @change="updateFilter"
+                >
+            </label>
+            <label>{{ $t('moderation.searchByCharacter')  }}
+                <input
+                    v-model="characterFilter"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    @change="updateFilter"
+                >
+            </label>
+            <label>{{ $t('moderation.searchByDaedalusId') }}
+                <input
+                    v-model="daedalusIdFilter"
+                    type="search"
+                    class=""
+                    placeholder=""
+                    aria-controls="example"
+                    @change="updateFilter"
+                >
+            </label>
+            <button @click="closeAllPlayers" v-if="isAdmin">{{ $t("admin.playerList.closeAllPlayers") }}</button>
         </div>
         <Datatable
             :headers='fields'
@@ -20,31 +60,20 @@
             :loading="loading"
             :row-data="rowData"
             :pagination="pagination"
-            :filter="filter"
+            :characterFilter="characterFilter"
+            :daedalusIdFilter="daedalusIdFilter"
+            :usernameFilter="usernameFilter"
             @paginationClick="paginationClick"
             @sortTable="sortTable"
         >
             <template #header-actions>
                 Actions
             </template>
-            <template #row-actions="slotProps">
-                <button
-                    v-if="slotProps.gameStatus != 'finished' && slotProps.gameStatus != 'closed'"
-                    class="action-button"
-                    type="button"
-                    @click="quarantinePlayer(slotProps.id)">
-                    {{ $t("admin.playerList.quarantine") }}
-                </button>
-                <button
-                    v-if="slotProps.gameStatus === 'finished'"
-                    class="action-button"
-                    type="button"
-                    @click="closePlayer(slotProps.id)">
-                    {{ $t("admin.playerList.closePlayer") }}
-                </button>
-                <router-link :to="{ name: 'AdminViewPlayerDetail', params: {'playerId': slotProps.id} }">Voir les détails du joueur</router-link>
+            <template #row-actions="player">
+                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
+                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+                <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
             </template>
-
         </Datatable>
     </div>
 </template>
@@ -56,41 +85,51 @@ import qs from "qs";
 import AdminService from "@/services/admin.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import ModerationService from "@/services/moderation.service";
+import { mapGetters } from "vuex";
+import { characterEnum } from "@/enums/character";
+import { daedalus } from "@/store/daedalus.module";
 
 export default defineComponent({
-    name: "PlayerListPage",
+    name: "ModerationPlayerListPage",
     components: {
         Datatable
     },
+    computed: {
+        ...mapGetters({
+            isAdmin: 'auth/isAdmin'
+        })
+    },
     data() {
         return {
+            playerStatusFilterOption: [
+                { key: 'moderation.playerList.gameStatuses.in_game', value: 'in_game' },
+                { key: 'moderation.playerList.gameStatuses.finished', value: 'finished' },
+                { key: 'moderation.playerList.gameStatuses.closed', value: 'closed' },
+                { key: 'moderation.playerList.gameStatuses.all', value: '' },
+            ],
             fields: [
                 {
                     key: 'id',
-                    name: 'id',
-                    sortable: true
+                    name: 'moderation.playerList.id',
                 },
                 {
                     key: 'gameStatus',
-                    name: 'gameStatus',
-                    sortable: true
+                    name: 'moderation.playerList.gameStatus',
                 },
                 {
                     key: 'daedalusId',
-                    name: 'Daedalus ID',
-                    sortable: true
+                    name: 'moderation.playerList.daedalusId',
                 },
                 {
-                    key: 'characterConfig',
-                    subkey: 'characterName',
-                    name: 'Character',
-                    sortable: true
+                    key: 'characterName',
+                    name: 'moderation.playerList.characterName',
+                    image: 'characterBody'
                 },
                 {
                     key: 'user',
                     subkey: 'username',
-                    name: 'Username',
-                    sortable: true
+                    name: 'moderation.playerList.user',
                 },
                 {
                     key: 'actions',
@@ -109,7 +148,11 @@ export default defineComponent({
             sortField: '',
             sortDirection: 'DESC',
             loading: false,
-            filter: '',
+            characterFilter: '',
+            daedalusIdFilter: '',
+            mushPlayersFilter: false,
+            usernameFilter: '',
+            playerStatusFilter: 'in_game',
             pageSizeOptions: [
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
@@ -137,11 +180,33 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            if (this.filter) {
-                params.params['name'] = this.filter;
+            if (this.characterFilter) {
+                params.params['characterConfig.characterName'] = this.characterFilter;
             }
-            AdminService.getPlayerInfoList(params)
+            if (this.playerStatusFilter) {
+                params.params['closedPlayer.playerInfo.gameStatus'] = this.playerStatusFilter;
+            }
+            if (this.daedalusIdFilter) {
+                if (['in_game'].includes(params.params['closedPlayer.playerInfo.gameStatus'])) {
+                    params.params['player.daedalus.id'] = this.daedalusIdFilter;
+                } else {
+                    params.params['closedPlayer.closedDaedalus.id'] = this.daedalusIdFilter;
+                }
+            }
+            if (this.mushPlayersFilter) {
+                params.params['closedPlayer.isMush'] = this.mushPlayersFilter;
+            }
+            if (this.usernameFilter) {
+                params.params['user.username'] = this.usernameFilter;
+            }
+            
+            ModerationService.getPlayerInfoList(params)
                 .then((result) => {
+                    for (const playerInfo of result.data['hydra:member']) {
+                        playerInfo.gameStatus = this.$t('moderation.playerList.gameStatuses.' + playerInfo.gameStatus);
+                        playerInfo.characterBody = this.getCharacterBodyFromKey(playerInfo.characterConfig.characterName);
+                        playerInfo.characterName = this.getCharacterNameFromKey(playerInfo.characterConfig.characterName);
+                    }
                     return result.data;
                 })
                 .then((remoteRowData: any) => {
@@ -150,6 +215,12 @@ export default defineComponent({
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
                 });
+        },
+        getCharacterNameFromKey(characterKey: string) {
+            return characterEnum[characterKey].name;
+        },
+        getCharacterBodyFromKey(characterKey: string) {
+            return characterEnum[characterKey].body;
         },
         paginationClick(page: number) {
             this.pagination.currentPage = page;
@@ -174,7 +245,7 @@ export default defineComponent({
                 });
         },
         quarantinePlayer(playerId: number) {
-            AdminService.quarantinePlayer(playerId)
+            ModerationService.quarantinePlayer(playerId)
                 .then((result) => {
                     this.loadData();
                     return result.data;
@@ -224,6 +295,10 @@ export default defineComponent({
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+
+    label {
+        padding: 0 10px;
+    }
 }
 
 button {

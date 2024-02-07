@@ -15,8 +15,6 @@ use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Dto\PlayerEndRequest;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
@@ -243,35 +241,6 @@ class PlayerController extends AbstractGameController
         $this->playerService->endPlayer($player, $message, $likedPlayers);
 
         return $this->view(null, 200);
-    }
-
-    /**
-     * Quarantine a player.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Tag(name="Player")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/quarantine/{id}")
-     *
-     * @Rest\View()
-     */
-    public function quarantinePlayer(Player $player): View
-    {
-        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_QUARANTINE, $player);
-
-        $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
-        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
-
-        return $this->view(['message' => 'Player quarantined successfully'], Response::HTTP_OK);
     }
 
     /**

@@ -37,8 +37,8 @@ abstract class AbstractModifierConfig
     #[ORM\Column(type: 'string', nullable: true)]
     protected ?string $modifierName = null;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    protected string $modifierStrategy;
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    protected string $modifierStrategy = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $modifierRange;

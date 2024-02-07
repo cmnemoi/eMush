@@ -277,7 +277,7 @@
             </div> -->
         </div>
         <router-link class="back" :to="{}">
-            <span @click="$router.go(-1)">{{ $t('theEnd.goBack') }}</span>
+            <span @click="$router.go(-1)">{{ $t('util.goBack') }}</span>
         </router-link>
     </div>
 </template>

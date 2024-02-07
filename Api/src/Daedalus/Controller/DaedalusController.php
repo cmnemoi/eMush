@@ -87,6 +87,13 @@ class DaedalusController extends AbstractGameController
             return $maintenanceView;
         }
 
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isBanned()) {
+            throw new AccessDeniedException('You have been banned!');
+        }
+
         $language = $request->get('language', '');
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $this->getUser());
 

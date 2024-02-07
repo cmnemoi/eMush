@@ -84,8 +84,6 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $format,
             $context
         );
-        // remove updatedAt from the normalized equipments because it's not needed in the response
-        $normalizedEquipments = array_map(fn (array $equipment) => array_diff_key($equipment, ['updatedAt' => null]), $normalizedEquipments);
 
         $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
 

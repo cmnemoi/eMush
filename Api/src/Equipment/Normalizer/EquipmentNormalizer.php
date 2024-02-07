@@ -88,16 +88,21 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $definition = $this->getDefinition($object, $key, $type, $language);
 
-        return [
+        $normalizedEquipment = [
             'id' => $object->getId(),
             'key' => $key,
-            'updatedAt' => $object->getUpdatedAt(),
             'name' => $this->translationService->translate($key . '.name', $nameParameters, $type, $language),
             'description' => $definition,
             'statuses' => $statuses,
             'actions' => $this->getActions($object, $currentPlayer, $format, $context),
             'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus()),
         ];
+
+        if ($object instanceof GameItem) {
+            $normalizedEquipment['updatedAt'] = $object->getUpdatedAt();
+        }
+
+        return $normalizedEquipment;
     }
 
     private function getNameKey(GameEquipment $equipment): string

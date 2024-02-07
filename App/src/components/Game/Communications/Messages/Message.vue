@@ -11,12 +11,14 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <ActionButtons 
-            v-if="isPlayerAlive && isReplyable" 
-            class="actions" 
-            :actions="['reply', 'report']"
-            @report="openReportPopup()"
-        />
+        <div class="actions">
+            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive" 
+                :actions="['report']"
+                @report="openReportPopup()"
+            />
+        </div>
     </div>
     <div
         v-if="isRoot && isSystemMessage"
@@ -38,12 +40,14 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <ActionButtons 
-            v-if="isPlayerAlive && isReplyable" 
-            class="actions" 
-            :actions="['reply', 'report']"
-            @report="openReportPopup()"
-        />
+        <div class="actions">
+            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive" 
+                :actions="['report']"
+                @report="openReportPopup()"
+            />
+        </div>
     </div>
 </template>
 
@@ -138,6 +142,9 @@ export default defineComponent ({
     position: relative;
     align-items: flex-start;
     flex-direction: row;
+
+    .actions { flex-direction: row; }
+
 }
 
 .character-body {
@@ -326,8 +333,7 @@ export default defineComponent ({
     z-index: 5;
     right: 3px;
     bottom: -2px;
-    padding-top: 0;
-    padding-bottom: 0;
+    height: 18px;
     transition: visibility 0s $delay-hide, opacity $delay-hide 0s, bottom $delay-hide 0s;
 }
 

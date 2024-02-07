@@ -1,14 +1,12 @@
 <template>
-    <div class="actions">
-        <button
-            v-for="(actionType, key) in actions"
-            :key="key"
-            @click="$emit(actionType)"
-        >
-            <img :src="action(actionType).icon">
-            {{ action(actionType).wording }}
-        </button>
-    </div>
+    <button
+        v-for="(actionType, key) in actions"
+        :key="key"
+        @click="$emit(actionType)"
+    >
+        <img :src="action(actionType).icon">
+        {{ action(actionType).wording }}
+    </button>
 </template>
 
 <script lang="ts">
@@ -41,22 +39,16 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-.actions {
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: stretch;
+button {
+    cursor: pointer;
 
-    button {
-        cursor: pointer;
+    @include button-style(0.83em, 400, initial);
 
-        @include button-style(0.83em, 400, initial);
+    height: 100%;
+    margin-left: 3px;
 
-        height: 100%;
-        margin-left: 3px;
-
-        img {
-            padding: 0 0.2em 0 0;
-        }
+    img {
+        padding: 0 0.2em 0 0;
     }
 }
 

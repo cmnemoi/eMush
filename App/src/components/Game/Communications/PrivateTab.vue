@@ -1,12 +1,14 @@
 <template>
     <TabContainer id="private-discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
-        <ActionButtons
-            class="action-buttons"
-            :actions="['refresh', 'invite', 'report', 'leave']"
-            @leave="leavePrivateChannel(channel)"
-            @invite="getInvitablePlayersToPrivateChannel(channel)"
-            @report="openReportPopup()"
-        />
+        <div class="actions">
+            <ActionButtons
+                class="action-buttons"
+                :actions="['refresh', 'invite', 'report', 'leave']"
+                @leave="leavePrivateChannel(channel)"
+                @invite="getInvitablePlayersToPrivateChannel(channel)"
+                @report="openReportPopup()"
+            />
+        </div>
         <ul class="participants">
             <li v-for="(participant, key) in channel.participants" :key="key">
                 <img :src="characterBody(participant.character.key)">
@@ -80,6 +82,12 @@ export default defineComponent ({
         margin: 8px 0;
 
         li { width: 28px; }
+    }
+
+    .actions {
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: stretch;
     }
 }
 

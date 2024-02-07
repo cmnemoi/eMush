@@ -11,7 +11,14 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
+        <div class="actions">
+            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive" 
+                :actions="['report']"
+                @report="openReportPopup()"
+            />
+        </div>
     </div>
     <div
         v-if="isRoot && isSystemMessage"
@@ -33,7 +40,14 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <ActionButtons v-if="isPlayerAlive && isReplyable" class="actions" :actions="['reply']" />
+        <div class="actions">
+            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive" 
+                :actions="['report']"
+                @report="openReportPopup()"
+            />
+        </div>
     </div>
 </template>
 
@@ -42,7 +56,7 @@ import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
@@ -68,7 +82,8 @@ export default defineComponent ({
     },
     emits: {
         // No validation
-        click: null
+        click: null,
+        report: null
     },
     computed: {
         ...mapGetters('player', [
@@ -95,6 +110,9 @@ export default defineComponent ({
         }
     },
     methods: {
+        ...mapActions('popup', [
+            'openReportPopup'
+        ]),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
@@ -124,6 +142,9 @@ export default defineComponent ({
     position: relative;
     align-items: flex-start;
     flex-direction: row;
+
+    .actions { flex-direction: row; }
+
 }
 
 .character-body {
@@ -312,8 +333,7 @@ export default defineComponent ({
     z-index: 5;
     right: 3px;
     bottom: -2px;
-    padding-top: 0;
-    padding-bottom: 0;
+    height: 18px;
     transition: visibility 0s $delay-hide, opacity $delay-hide 0s, bottom $delay-hide 0s;
 }
 

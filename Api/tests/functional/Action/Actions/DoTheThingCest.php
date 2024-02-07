@@ -9,7 +9,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -18,6 +20,7 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -49,6 +52,8 @@ class DoTheThingCest extends AbstractFunctionalTest
 {
     private Action $doTheThingConfig;
     private DoTheThing $doTheThingAction;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
@@ -56,6 +61,8 @@ class DoTheThingCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->doTheThingConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::DO_THE_THING]);
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -780,5 +787,60 @@ class DoTheThingCest extends AbstractFunctionalTest
 
         // then the action is not visible
         $I->assertFalse($this->doTheThingAction->isVisible());
+    }
+
+    public function testImmunizedPlayerIsNotInfectedWhileDoingItWithAMushPlayer(FunctionalTester $I): void
+    {
+        // given I have an immunized player
+        $immunizedPlayer = $this->player1;
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::IMMUNIZED,
+            holder: $immunizedPlayer,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given I have a mush player
+        $mushPlayer = $this->player2;
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $mushPlayer,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given this Mush player has a spore to transmit
+        $mushPlayer->setSpores(1);
+
+        // given there is a sofa in the room
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA,
+            equipmentHolder: $immunizedPlayer->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given players have flirted with each other
+        $immunizedPlayer->setFlirts(new ArrayCollection([$mushPlayer]));
+        $mushPlayer->setFlirts(new ArrayCollection([$immunizedPlayer]));
+
+        // when the immunized player does the thing with the mush player
+        $this->doTheThingAction->loadParameters(
+            action: $this->doTheThingConfig,
+            player: $immunizedPlayer,
+            target: $mushPlayer,
+        );
+        $this->doTheThingAction->execute();
+
+        // then the immunized player is not infected
+        $I->assertEquals(0, $immunizedPlayer->getSpores());
+
+        // then I should not see a message in Mush channel about the immunized player being infected
+        $I->dontSeeInRepository(
+            entity: Message::class,
+            params: [
+                'message' => MushMessageEnum::INFECT_STD,
+            ],
+        );
     }
 }

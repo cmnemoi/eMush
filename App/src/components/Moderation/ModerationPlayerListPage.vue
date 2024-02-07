@@ -88,6 +88,7 @@ import { fr } from "date-fns/locale";
 import ModerationService from "@/services/moderation.service";
 import { mapGetters } from "vuex";
 import { characterEnum } from "@/enums/character";
+import { daedalus } from "@/store/daedalus.module";
 
 export default defineComponent({
     name: "ModerationPlayerListPage",
@@ -182,8 +183,11 @@ export default defineComponent({
             if (this.characterFilter) {
                 params.params['characterConfig.characterName'] = this.characterFilter;
             }
+            if (this.playerStatusFilter) {
+                params.params['closedPlayer.playerInfo.gameStatus'] = this.playerStatusFilter;
+            }
             if (this.daedalusIdFilter) {
-                if (this.playerStatusFilter === 'in_game') {
+                if (['in_game'].includes(params.params['closedPlayer.playerInfo.gameStatus'])) {
                     params.params['player.daedalus.id'] = this.daedalusIdFilter;
                 } else {
                     params.params['closedPlayer.closedDaedalus.id'] = this.daedalusIdFilter;
@@ -192,10 +196,6 @@ export default defineComponent({
             if (this.mushPlayersFilter) {
                 params.params['closedPlayer.isMush'] = this.mushPlayersFilter;
             }
-            if (this.playerStatusFilter) {
-                params.params['closedPlayer.playerInfo.gameStatus'] = this.playerStatusFilter;
-            }
-            
             if (this.usernameFilter) {
                 params.params['user.username'] = this.usernameFilter;
             }

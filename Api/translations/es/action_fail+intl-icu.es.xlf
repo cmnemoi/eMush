@@ -541,6 +541,12 @@
         <target>Es una pena, tu compañero de equipo no tiene su walkie-talkie con él.</target>
       </segment>
     </unit>
+    <unit id="screwed_talkie_no_talkie_self">
+      <segment id="description" state="initial">
+        <source>screwed_talkie_no_talkie_self.description</source>
+        <target>screwed_talkie_no_talkie_self.description</target>
+      </segment>
+    </unit>
     <unit id="update_talkie_require_neron">
       <segment id="description" state="translated">
         <source>update_talkie_require_neron.description</source>

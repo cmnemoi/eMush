@@ -541,6 +541,12 @@
         <target>It's a shame that this crew member has no walkie-talkie on them.</target>
       </segment>
     </unit>
+    <unit id="screwed_talkie_no_talkie_self">
+      <segment id="description" state="translated">
+        <source>screwed_talkie_no_talkie_self.description</source>
+        <target>You need your walkie-talkie to perform this action.</target>
+      </segment>
+    </unit>
     <unit id="update_talkie_require_neron">
       <segment id="description" state="translated">
         <source>update_talkie_require_neron.description</source>

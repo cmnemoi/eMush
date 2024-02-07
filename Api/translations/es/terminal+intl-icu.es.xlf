@@ -109,5 +109,31 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <target>closed_exploration.tips</target>
       </segment>
     </unit>
+    <unit id="bios_terminal">
+      <segment id="name" state="initial">
+        <source>bios_terminal.name</source>
+        <target>bios_terminal.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>bios_terminal.tips</source>
+        <target>bios_terminal.tips</target>
+      </segment>
+      <segment id="cpu_priority.name" state="initial">
+        <source>bios_terminal.cpu_priority_name</source>
+        <target>bios_terminal.cpu_priority_name</target>
+      </segment>
+      <segment id="cpu_priority.description" state="initial">
+        <source>bios_terminal.cpu_priority_description</source>
+        <target>bios_terminal.cpu_priority_description</target>
+      </segment>
+      <segment id="cpu_priority.astronavigation" state="initial">
+        <source>bios_terminal.cpu_priority_astronavigation</source>
+        <target>bios_terminal.cpu_priority_astronavigation</target>
+      </segment>
+      <segment id="cpu_priority.none" state="initial">
+        <source>bios_terminal.cpu_priority_none</source>
+        <target>bios_terminal.cpu_priority_none</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

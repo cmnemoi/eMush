@@ -188,10 +188,10 @@
     <unit id="plant_maturity">
       <segment state="translated">
         <source>plant_maturity</source>
-        <target>{target_equipment_first_letter, select,
-    vowel {An **{target_equipment}** has reached maturity! Finally!}
-    consonant {A **{target_equipment}** has reached maturity! Finally!}
-    other {invalid equipment_first_letter input}
+        <target>{equipment_first_letter, select,
+    vowel {An **{equipment}** has reached maturity! Finally!}
+    consonant {A **{equipment}** has reached maturity! Finally!}
+    other {A **{equipment}** has reached maturity! Finally!}
 }</target>
       </segment>
     </unit>

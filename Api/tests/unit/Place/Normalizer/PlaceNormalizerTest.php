@@ -141,7 +141,7 @@ class PlaceNormalizerTest extends TestCase
         $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
 
         $normalizer = \Mockery::mock(NormalizerInterface::class);
-        $normalizer->shouldReceive('normalize')->andReturn([]);
+        $normalizer->shouldReceive('normalize')->andReturn(['updatedAt' => null])->twice();
 
         $this->normalizer->setNormalizer($normalizer);
 
@@ -230,7 +230,7 @@ class PlaceNormalizerTest extends TestCase
         $room->method('getEquipments')->willReturn(new ArrayCollection([$gameItem1, $gameItem2, $gameItem3]));
 
         $normalizer = \Mockery::mock(NormalizerInterface::class);
-        $normalizer->shouldReceive('normalize')->andReturn([])->twice();
+        $normalizer->shouldReceive('normalize')->andReturn(['updatedAt' => null])->twice();
 
         $player = new Player();
 

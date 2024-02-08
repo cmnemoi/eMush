@@ -400,7 +400,7 @@ class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => ['modifier_for_player_set_0spore_on_change.variable'],
         ],
         [
             'name' => 'inactive_default',

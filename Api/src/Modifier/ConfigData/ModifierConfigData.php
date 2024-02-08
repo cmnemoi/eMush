@@ -826,10 +826,12 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
-            'name' => 'modifier_for_player_+1movementPoint_on_actions_if_player_in_room_four_people',
+            'name' => 'modifier_for_player_+1movementPoint_on_move_action_if_player_in_room_four_people',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -847,6 +849,7 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [

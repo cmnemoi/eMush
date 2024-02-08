@@ -98,7 +98,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus()),
         ];
 
-        if ($object instanceof GameItem) {
+        if (EquipmentEnum::equipmentToNormalizeAsItems()->contains($object->getName()) || $object instanceof GameItem) {
             $normalizedEquipment['updatedAt'] = $object->getUpdatedAt();
         }
 

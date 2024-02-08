@@ -1844,5 +1844,22 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS],
         ],
+        [
+            'name' => 'modifier_for_player_set_0spore_on_change.variable',
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 0.0,
+            'targetVariable' => 'spore',
+            'mode' => 'set_value',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 }

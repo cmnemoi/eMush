@@ -21,10 +21,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
+    public const TRAUMA_PROBABILTY = 33;
+
     private const INFECTION_DISEASE_RATE = 2;
     private const INFECTION_DISEASES_INCUBATING_DELAY = 2;
     private const INFECTION_DISEASES_INCUBATING_LENGTH = 2;
-    private const TRAUMA_PROBABILTY = 33;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private DiseaseCauseServiceInterface $diseaseCauseService;

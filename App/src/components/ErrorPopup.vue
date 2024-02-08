@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { mapState, mapActions } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import PopUp from "@/components/Utils/PopUp.vue";
 import { defineComponent } from "vue";
 
@@ -29,6 +29,9 @@ export default defineComponent ({
         PopUp
     },
     computed: {
+        ...mapGetters('player', [
+            'player'
+        ]),
         ...mapState('error', [
             'error'
         ]),
@@ -47,9 +50,11 @@ export default defineComponent ({
         }),
         clearErrorAndReloadData() {
             this.clearError();
-            this.reloadPlayer();
-            this.loadChannels();
-            this.loadRoomLogs();
+            if (this.player.gameStatus === 'in_game') {
+                this.reloadPlayer();
+                this.loadChannels();
+                this.loadRoomLogs();
+            }
         },
         getTranslatedErrorDetails(): string | null {
             // If the error is a 502, it's probably due to server synchronization

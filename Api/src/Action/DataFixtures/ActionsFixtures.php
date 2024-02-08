@@ -935,7 +935,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
         ;
         $convertActionToMovement->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $manager->persist($convertActionToMovement);
 
         $autoEject = new Action();

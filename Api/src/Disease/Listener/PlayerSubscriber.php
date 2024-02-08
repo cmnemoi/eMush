@@ -11,6 +11,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -91,8 +92,9 @@ class PlayerSubscriber implements EventSubscriberInterface
             }
         );
 
+        /** @var Player $player */
         foreach ($playersInRoom as $player) {
-            if ($this->randomService->isSuccessful(self::TRAUMA_PROBABILTY)) {
+            if ($this->randomService->isSuccessful(self::TRAUMA_PROBABILTY) && !$player->isMush()) {
                 $characterGender = CharacterEnum::isMale($player->getName()) ? 'male' : 'female';
                 $this->roomLogService->createLog(
                     LogEnum::TRAUMA_DISEASE,

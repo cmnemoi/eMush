@@ -11,6 +11,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -20,10 +21,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
+    public const TRAUMA_PROBABILTY = 33;
+
     private const INFECTION_DISEASE_RATE = 2;
     private const INFECTION_DISEASES_INCUBATING_DELAY = 2;
     private const INFECTION_DISEASES_INCUBATING_LENGTH = 2;
-    private const TRAUMA_PROBABILTY = 33;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private DiseaseCauseServiceInterface $diseaseCauseService;
@@ -91,8 +93,9 @@ class PlayerSubscriber implements EventSubscriberInterface
             }
         );
 
+        /** @var Player $player */
         foreach ($playersInRoom as $player) {
-            if ($this->randomService->isSuccessful(self::TRAUMA_PROBABILTY)) {
+            if ($this->randomService->isSuccessful(self::TRAUMA_PROBABILTY) && !$player->isMush()) {
                 $characterGender = CharacterEnum::isMale($player->getName()) ? 'male' : 'female';
                 $this->roomLogService->createLog(
                     LogEnum::TRAUMA_DISEASE,

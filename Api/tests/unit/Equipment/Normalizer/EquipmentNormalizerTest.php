@@ -387,7 +387,7 @@ class EquipmentNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with('banana_tree.name', ['age' => 'young'], 'items', LanguageEnum::FRENCH)
-            ->andReturn('Jeune Bananier')
+            ->andReturn('Jeune Bananier')
             ->once()
         ;
 

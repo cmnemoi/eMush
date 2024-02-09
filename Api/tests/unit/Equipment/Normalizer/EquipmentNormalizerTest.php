@@ -411,7 +411,7 @@ class EquipmentNormalizerTest extends TestCase
             'id' => 1,
             'key' => GamePlantEnum::BANANA_TREE,
             'updatedAt' => $time,
-            'name' => 'Jeune Bananier',
+            'name' => 'Jeune Bananier',
             'description' => 'Un bananier',
             'statuses' => [],
             'actions' => [],

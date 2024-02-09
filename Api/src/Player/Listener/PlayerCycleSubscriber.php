@@ -27,10 +27,10 @@ class PlayerCycleSubscriber implements EventSubscriberInterface
     {
         $player = $event->getPlayer();
 
-        $this->playerService->handleNewCycle($player, $event->getTime());
-
         if ($event->hasTag(EventEnum::NEW_DAY)) {
             $this->playerService->handleNewDay($player, $event->getTime());
         }
+
+        $this->playerService->handleNewCycle($player, $event->getTime());
     }
 }

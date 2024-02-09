@@ -1,0 +1,16 @@
+Mush\Communication\Entity\Message:
+  shortName: 'Message'
+  description: 'eMush Messages'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'message_read' ]
+    denormalization_context:
+      groups: [ 'message_write' ]
+  collectionOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'
+      filters: [ 'message.search_filter', 'date.order_filter' ]
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'

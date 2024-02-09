@@ -3,9 +3,11 @@ import { RoomLog } from "@/entities/RoomLog";
 import urlJoin from "url-join";
 import store from "@/store";
 import { PlayerInfo } from "@/entities/PlayerInfo";
+import { Message } from "@/entities/Message";
 
 const API_URL = process.env.VUE_APP_API_URL as string;
 
+const MESSAGES_ENDPOINT = urlJoin(API_URL, "messages");
 const MODERATION_ENDPOINT = urlJoin(API_URL, "moderation");
 const PLAYER_INFO_ENDPOINT = urlJoin(API_URL, "player_infos");
 
@@ -60,6 +62,19 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return { "data": logs };
+    },
+    getPlayerMessages: async(playerId: number, channel: string): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        let messages: Message[] = [];
+        const response = await ApiService.get(`${MESSAGES_ENDPOINT}?author.id=${playerId}&channel.scope=${channel}`);
+        if (response.data['hydra:member']) {
+            messages = response.data['hydra:member'].map((messageData: any) => {
+                return (new Message()).load(messageData);
+            });
+        }
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return { "data": messages };
     },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });

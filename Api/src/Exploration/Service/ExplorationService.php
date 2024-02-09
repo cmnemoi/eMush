@@ -130,6 +130,7 @@ final class ExplorationService implements ExplorationServiceInterface
                 planetSector: $landingSector,
                 config: $eventConfig,
             );
+            $planetSectorEvent->addTag('always_successful_thanks_to_pilot');
             $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::NOTHING_TO_REPORT);
         } else {
             $eventKey = $this->drawPlanetSectorEvent($landingSector);

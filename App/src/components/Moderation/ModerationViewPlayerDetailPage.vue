@@ -266,11 +266,11 @@ export default defineComponent({
 
 
     /* Duplicated styles from TabContainer component */
-    ::v-deep(.unit) {
+    :deep(.unit) {
         padding: 5px 0;
     }
 
-    ::v-deep(.banner) {
+    :deep(.banner) {
         flex-direction: row;
         align-items: center;
         justify-content: center;
@@ -294,7 +294,7 @@ export default defineComponent({
         img { vertical-align: middle; }
     }
 
-    ::v-deep(.timestamp) {
+    :deep(.timestamp) {
         text-align: end;
         padding-top: 0.2em;
         font-size: 0.85em;

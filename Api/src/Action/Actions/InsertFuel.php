@@ -4,7 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\GameVariableLevel;
-use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -20,11 +20,8 @@ class InsertFuel extends InsertAction
     {
         $metadata->addConstraints([
             new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
-            new HasEquipment([
-                'reach' => ReachEnum::INVENTORY,
-                'equipments' => [ItemEnum::FUEL_CAPSULE, ToolItemEnum::JAR_OF_ALIEN_OIL],
-                'all' => false,
-                'target' => HasEquipment::PLAYER,
+            new ParameterName([
+                'names' => [ToolItemEnum::JAR_OF_ALIEN_OIL, ItemEnum::FUEL_CAPSULE],
                 'groups' => ['visibility'],
             ]),
             new GameVariableLevel([

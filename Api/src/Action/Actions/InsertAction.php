@@ -4,7 +4,6 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
-use Mush\Action\Validator\Fuel;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -31,6 +30,8 @@ abstract class InsertAction extends AbstractAction
         $toInsert = $this->getTarget();
         $time = new \DateTime();
 
+        $addedFuel = $this->getOutputQuantity();
+
         // Delete the fuel
         $equipmentEvent = new InteractWithEquipmentEvent(
             $toInsert,
@@ -45,7 +46,7 @@ abstract class InsertAction extends AbstractAction
         $daedalusEvent = new DaedalusVariableEvent(
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
-            $this->getOutputQuantity(),
+            $addedFuel,
             $this->getAction()->getActionTags(),
             $time
         );

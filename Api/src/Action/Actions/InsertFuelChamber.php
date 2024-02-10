@@ -10,11 +10,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasEquipment;
-use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -32,7 +30,6 @@ final class InsertFuelChamber extends InsertAction
                 'checkIfOperational' => true,
                 'groups' => ['visibility'],
             ]),
-            new ParameterName(['name' => ItemEnum::FUEL_CAPSULE, 'groups' => ['visibility']]),
             new GameVariableLevel([
                 'target' => GameVariableLevel::DAEDALUS,
                 'checkMode' => GameVariableLevel::IS_MAX,

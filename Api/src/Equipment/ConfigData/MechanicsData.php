@@ -2643,7 +2643,6 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'insert_fuel',
-                'insert_jar_of_alien_oil',
             ],
             'modifierConfigs' => [],
         ],
@@ -3610,6 +3609,14 @@ class MechanicsData
             'modifierConfigs' => [
                 'modifier_for_place_+1sector_revealed_on_action_scan_planet',
                 'modifier_for_place_+1sector_revealed_on_action_scan_planet_random_50',
+            ],
+        ],
+        [
+            'name' => 'gear_modifier_for_alien_oil_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_alien_oil_+4_fuel',
             ],
         ],
     ];

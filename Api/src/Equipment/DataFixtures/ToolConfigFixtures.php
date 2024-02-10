@@ -9,6 +9,7 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -17,6 +18,8 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -311,14 +314,26 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $ultraHealAction */
         $ultraHealAction = $this->getReference(ActionsFixtures::HEAL_ULTRA);
 
+        $alienModifierGear = new Gear();
+        /** @var AbstractModifierConfig $alienOilModifier */
+        $alienOilModifier = $this->getReference(GearModifierConfigFixtures::ALIEN_OIL_INCREASE_FUEL_INJECTED);
+        $alienModifierGear
+            ->setModifierConfigs([$alienOilModifier])
+            ->setName('alien_oil_gear_default')
+        ;
+        $manager->persist($alienModifierGear);
+
+        /** @var Action $insertFuelChamber */
+        $insertFuelChamber = $this->getReference(ActionsFixtures::INSERT_FUEL_CHAMBER);
         $jarOfAlienOil = new ItemConfig();
         $jarOfAlienOil
             ->setEquipmentName(ToolItemEnum::JAR_OF_ALIEN_OIL)
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions([$takeAction, $dropAction, $hideAction, $examineAction, $ultraHealAction])
+            ->setActions([$takeAction, $dropAction, $hideAction, $examineAction, $ultraHealAction, $insertFuelChamber])
             ->setInitStatuses([$alienArtifactStatus])
+            ->setMechanics([$alienModifierGear])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($jarOfAlienOil);

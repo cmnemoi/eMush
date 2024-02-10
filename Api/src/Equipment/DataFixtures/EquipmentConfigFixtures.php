@@ -684,10 +684,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($surgicalPlot);
         $manager->persist($surgicalPlotMechanic);
 
-        /** @var Action $insertJarOfAlienOilAction */
-        $insertJarOfAlienOilAction = $this->getReference(ActionsFixtures::INSERT_JAR_OF_ALIEN_OIL);
-
-        $fuelTankMechanic = $this->createTool([$fuelInjectAction, $insertJarOfAlienOilAction], EquipmentEnum::FUEL_TANK);
+        $fuelTankMechanic = $this->createTool([$fuelInjectAction], EquipmentEnum::FUEL_TANK);
         $fuelTank = new EquipmentConfig();
         $fuelTank
             ->setEquipmentName(EquipmentEnum::FUEL_TANK)

@@ -1884,8 +1884,9 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'ultraheal',
+                'insert_fuel_chamber',
             ],
-            'mechanics' => [],
+            'mechanics' => ['gear_modifier_for_alien_oil_default'],
             'initStatuses' => [
                 'alien_artefact_default',
             ],

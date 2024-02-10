@@ -51,6 +51,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const PLANET_SCANNER_MODIFIER = 'planet_scanner_modifier';
     public const LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
     public const LIQUID_MAP_MODIFIER_RANDOM_50 = 'liquid_map_modifier_random_50';
+    public const ALIEN_OIL_INCREASE_FUEL_INJECTED = 'alien_oil_increase_fuel_injected';
 
     public function load(ObjectManager $manager): void
     {
@@ -317,6 +318,22 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($liquidMapRandom50Modifier);
 
+        $alienOilIncreaseFuelInjected = new VariableEventModifierConfig('alien_oil_increase_fuel_injected');
+        $alienOilIncreaseFuelInjected
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(4)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setApplyOnTarget(true)
+            ->setTagConstraints([
+                ActionEnum::INSERT_FUEL_CHAMBER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSERT_FUEL => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT)
+        ;
+        $manager->persist($alienOilIncreaseFuelInjected);
+
         $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
@@ -338,6 +355,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::PLANET_SCANNER_MODIFIER, $planetScannerModifier);
         $this->addReference(self::LIQUID_MAP_MODIFIER, $liquidMapModifier);
         $this->addReference(self::LIQUID_MAP_MODIFIER_RANDOM_50, $liquidMapRandom50Modifier);
+        $this->addReference(self::ALIEN_OIL_INCREASE_FUEL_INJECTED, $alienOilIncreaseFuelInjected);
     }
 
     public function getDependencies(): array

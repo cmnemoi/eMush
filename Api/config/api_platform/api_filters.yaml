@@ -123,12 +123,12 @@ services:
         autowire: false
         autoconfigure: false
         public: false
-    message.search_filter:
+    channel.search_filter:
         parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [{ message: 'ipartial', 
-                      author.id: 'exact', 
-                      channel.scope: 'ipartial', 
-                      parent.message: 'ipartial',
+        arguments: [{ scope: 'exact',
+                      daedalusInfo.id: 'exact',
+                      participants.participant.id: 'exact',
+                      message.message: 'ipartial',
                     }]
         tags: [ 'api_platform.filter' ]
         autowire: false

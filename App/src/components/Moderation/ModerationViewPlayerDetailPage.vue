@@ -37,7 +37,7 @@
         </div>
         {{ player.jsonEncode() }}
         <div class="logs-container">
-            <h2>Logs:</h2>
+            <h2>{{ $t('moderation.logs') }}</h2>
             <div class="logs" v-if="playerLogs">
                 <section v-for="(cycleRoomLog, id) in playerLogs.slice().reverse()" :key="id" class="unit">
                     <div class="banner cycle-banner">
@@ -48,11 +48,12 @@
                     </div>
                 </section>
             </div>
-            <span v-else>No logs to display.</span>
+            <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
-        <div class="messages-container">
-            <h2>Messages:</h2>
-            <section v-for="(message, id) in playerPublicMessages" :key="id" class="unit">
+        <button class="action-button" @click="loadPublicChannelMessages(player)">{{ $t("moderation.loadPublicChannel") }}</button>
+        <div class="messages-container" v-if="publicChannelMessages.length > 0">
+            <h2> {{ $t('moderation.generalChannel') }}</h2>
+            <section v-for="(message, id) in publicChannelMessages" :key="id" >
                 <Message
                     :message="message"
                     :is-root="true"
@@ -69,6 +70,28 @@
                 />
             </section>
         </div>
+        <button class="action-button" @click="loadMushChannelMessages(player)" >{{ $t("moderation.loadMushChannel") }}</button>
+        <div class="messages-container" v-if="mushChannelMessages.length > 0">
+            <h2>{{ $t('moderation.mushChannel') }}</h2>
+            <section v-for="(message, id) in mushChannelMessages" :key="id">
+                <Message
+                    :message="message"
+                    :is-root="true"
+                    :is-replyable="false"
+                />
+            </section>
+        </div>
+        <button class="action-button" @click="loadPrivateChannelsMessages(player)">{{ $t("moderation.loadPrivateChannels") }}</button>
+        <div v-for="(channel, id) in privateChannels" :key="id" class="messages-container">
+            <h2>{{ $t('moderation.privateChannel') }} {{ channel.id }} :</h2>
+            <section v-for="(message, id) in channel.messages" :key="id">
+                <Message
+                    :message="message"
+                    :is-root="true"
+                    :is-replyable="false"
+                />
+            </section>
+        </div>
     </div>
     <button class="action-button" @click="goBack">{{ $t("util.goBack") }}</button>
 </template>
@@ -79,11 +102,21 @@ import Message from "@/components/Game/Communications/Messages/Message.vue";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
+import CommunicationService from "@/services/communication.service";
+import { Message as MessageEntity } from "@/entities/Message"; 
+import { Channel } from "@/entities/Channel";
+
+interface PrivateChannel {
+    id: number,
+    messages: MessageEntity[],
+}
 
 interface ModerationViewPlayerData {
+    mushChannelMessages: MessageEntity[],
+    publicChannelMessages: MessageEntity[],
     player: ModerationViewPlayer | null,
     playerLogs: any,
-    playerPublicMessages: any,
+    privateChannels: PrivateChannel[],
     errors: any,
 }
 
@@ -95,9 +128,11 @@ export default defineComponent({
     },
     data() : ModerationViewPlayerData {
         return {
+            mushChannelMessages: [],
+            publicChannelMessages: [],
             player: null,
             playerLogs: null,
-            playerPublicMessages: null,
+            privateChannels: [],
             errors: {}
         };
     },
@@ -110,6 +145,58 @@ export default defineComponent({
                 .catch((error) => {
                     this.errors = error.response.data.errors;
                 });
+        },
+        async loadMushChannelMessages(player: ModerationViewPlayer) {
+            this.mushChannelMessages = [];
+            const mushChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "mush").then((channel: Channel) => {
+                return channel;
+            }).catch((error) => {
+                this.errors = error.response.data.errors;
+            });
+
+            if (mushChannel) {
+                await CommunicationService.loadChannelMessages(mushChannel)
+                    .then((response) => {
+                        this.mushChannelMessages = response;
+                    })
+                    .catch((error) => {
+                        this.errors = error.response.data.errors;
+                    });
+            }
+        },
+        async loadPrivateChannelsMessages(player: ModerationViewPlayer) {
+            this.privateChannels = [];
+            await ModerationService.getPlayerPrivateChannels(player).then((channels: Channel[]) => {
+                channels.forEach((channel) => {
+                    CommunicationService.loadChannelMessages(channel)
+                        .then((response) => {
+                            this.privateChannels.push({ id: channel.id, messages: response });
+                        })
+                        .catch((error) => {
+                            this.errors = error.response.data.errors;
+                        });
+                });
+            }).catch((error) => {
+                this.errors = error.response.data.errors;
+            });
+        },
+        async loadPublicChannelMessages(player: ModerationViewPlayer) {
+            this.publicChannelMessages = [];
+            const publicChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "public").then((channel: Channel) => {
+                return channel;
+            }).catch((error) => {
+                this.errors = error.response.data.errors;
+            });
+
+            if (publicChannel) {
+                await CommunicationService.loadChannelMessages(publicChannel)
+                    .then((response) => {
+                        this.publicChannelMessages = response;
+                    })
+                    .catch((error) => {
+                        this.errors = error.response.data.errors;
+                    });
+            }
         },
         quarantinePlayer(player: ModerationViewPlayer) {
             ModerationService.quarantinePlayer(player.id)
@@ -149,13 +236,6 @@ export default defineComponent({
             await ModerationService.getPlayerLogs(Number(this.$route.params.playerId))
                 .then((response) => {
                     this.playerLogs = response.data;
-                })
-                .catch((error) => {
-                    this.errors = error.response.data.errors;
-                });
-            await ModerationService.getPlayerMessages(Number(this.$route.params.playerId), 'public')
-                .then((response) => {
-                    this.playerPublicMessages = response.data;
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;

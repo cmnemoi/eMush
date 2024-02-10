@@ -4,12 +4,17 @@ import urlJoin from "url-join";
 import store from "@/store";
 import { PlayerInfo } from "@/entities/PlayerInfo";
 import { Message } from "@/entities/Message";
+import { Channel } from "@/entities/Channel";
+import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 
 const API_URL = process.env.VUE_APP_API_URL as string;
 
+const CHANNEL_ENDPOINT = urlJoin(API_URL, "channels");
 const MESSAGES_ENDPOINT = urlJoin(API_URL, "messages");
 const MODERATION_ENDPOINT = urlJoin(API_URL, "moderation");
 const PLAYER_INFO_ENDPOINT = urlJoin(API_URL, "player_infos");
+
+type ChannelScope = "public" | "mush" | "private";
 
 const ModerationService = {
     banUser: async(userId: integer): Promise<any> => {
@@ -25,6 +30,29 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
+    },
+    getPlayerDaedalusChannelByScope: async(player: ModerationViewPlayer, scope: ChannelScope): Promise<Channel> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?daedalusInfo.id=${player.daedalusId}&scope=${scope}`).then((response) => {
+            return response.data['hydra:member'].map((channelData: any) => {
+                return (new Channel()).load(channelData);
+            });
+        });
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return channels[0];
+    },
+    getPlayerPrivateChannels: async(player: ModerationViewPlayer): Promise<Channel[]> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?participants.participant.id=${player.id}&scope=private`).then((response) => {
+            return response.data['hydra:member'].map((channelData: any) => {
+                return (new Channel()).load(channelData);
+            });
+        });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return channels;
     },
     getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });

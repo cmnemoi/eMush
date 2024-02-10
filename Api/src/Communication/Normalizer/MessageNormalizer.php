@@ -4,6 +4,7 @@ namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Message;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -34,7 +35,7 @@ class MessageNormalizer implements NormalizerInterface
             $currentPlayer = $context['currentPlayer'];
             $language = $currentPlayer->getDaedalus()->getLanguage();
         } else {
-            $language = 'fr';
+            $language = LanguageEnum::FRENCH;
         }
 
         /** @var Message $children */

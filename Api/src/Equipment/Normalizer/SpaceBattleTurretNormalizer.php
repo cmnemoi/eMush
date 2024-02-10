@@ -50,7 +50,7 @@ final class SpaceBattleTurretNormalizer implements NormalizerInterface
                 domain: 'room',
                 language: $turret->getDaedalus()->getLanguage()
             ),
-            'charges' => $turret->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $turretCharges->getCharge(),
+            'charges' => $turretCharges->getCharge(),
             'occupiers' => !$turretOccupiers->isEmpty() ? $turretOccupiers->map(fn (Player $player) => $player->getName())->toArray() : [],
             'isBroken' => $turret->hasStatus(EquipmentStatusEnum::BROKEN),
         ];

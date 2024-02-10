@@ -47,7 +47,7 @@ class StatusNormalizer implements NormalizerInterface
                 $status instanceof ChargeStatus
                 && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)
             ) {
-                $normedStatus['charge'] = $status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $status->getCharge();
+                $normedStatus['charge'] = $status->getCharge();
             }
 
             if (($target = $status->getTarget()) !== null) {

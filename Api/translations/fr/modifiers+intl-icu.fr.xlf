@@ -191,15 +191,15 @@
       </segment>
     </unit>
     <unit id="apply.cost_increase_move_if_player_in_room_four_people">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>apply.cost_increase_move_if_player_in_room_four_people.description</source>
-        <target>S'il y a **4** personnes dans la pièce, chaque déplacement coûte **{quantity}** :pm: de plus.</target>
+        <target>S'il y a au moins **4** personnes dans la pièce, chaque déplacement coûte **{quantity}** :pm: de plus.</target>
       </segment>
     </unit>
     <unit id="apply.cost_increase_if_player_in_room_four_people">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>apply.cost_increase_if_player_in_room_four_people.description</source>
-        <target>S'il y a **4** personnes dans la pièce, chaque action coûte **{quantity}** {emote} de plus.</target>
+        <target>S'il y a au moins **4** personnes dans la pièce, chaque action coûte **{quantity}** {emote} de plus.</target>
       </segment>
     </unit>
   </file>

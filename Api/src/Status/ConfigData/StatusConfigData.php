@@ -400,7 +400,7 @@ class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => ['modifier_for_player_set_0spore_on_change.variable'],
         ],
         [
             'name' => 'inactive_default',
@@ -1017,6 +1017,29 @@ class StatusConfigData
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'status_config',
             'modifierConfigs' => ['modifier_pilot_always_critical_success_piloting', 'modifier_pilot_increased_shoot_hunter_chances'],
+        ],
+        [
+            'name' => 'astronavigation_neron_cpu_priority_default',
+            'statusName' => 'astronavigation_neron_cpu_priority',
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
+                'modifier_for_daedalus_-1action_point_on_action_analyze_planet',
+            ],
+        ],
+        [
+            'name' => 'changed_cpu_priority_default',
+            'statusName' => 'changed_cpu_priority',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => 'daily_decrement',
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
         ],
     ];
 }

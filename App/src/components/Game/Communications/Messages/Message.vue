@@ -1,40 +1,52 @@
 <template>
-    <div>
-        <div
-            v-if="isRoot && !isSystemMessage"
-            :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
-            @click="$emit('click')"
-        >
-            <div class="character-body">
-                <img :src="characterPortrait">
-            </div>
-            <p class="text">
-                <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
-            </p>
-            <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
-            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+    <div
+        v-if="isRoot && !isSystemMessage"
+        :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
+        @click="$emit('click')"
+    >
+        <div class="character-body">
+            <img :src="characterPortrait">
         </div>
-        <div
-            v-if="isRoot && isSystemMessage"
-            class="log"
-            @click="$emit('click')"
-        >
-            <p class="text">
-                <span v-html="formatMessage(message.message)" />
-            </p>
-            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+        <p class="text">
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            <span class="timestamp">{{ message.date }}</span>
+        </p>
+        <div class="actions">
+            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive" 
+                :actions="['report']"
+                @report="openReportPopup()"
+            />
         </div>
-        <div
-            v-else-if="!isRoot"
-            :class="isHidden ? 'message child-message hidden' : 'message child-message'"
-            @click="$emit('click')"
-        >
-            <p class="text">
-                <img class="character-head" :src="characterPortrait">
-                <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
-            </p>
-            <ActionButtons v-if="isPlayerAlive" class="actions" :actions="['reply']" />
-            <span class="timestamp" style="position: absolute">{{ message.date }}</span>
+    </div>
+    <div
+        v-if="isRoot && isSystemMessage"
+        class="log"
+        @click="$emit('click')"
+    >
+        <p class="text">
+            <span v-html="formatMessage(message.message)" />
+            <span class="timestamp">{{ message.date }}</span>
+        </p>
+    </div>
+    <div
+        v-else-if="!isRoot"
+        :class="isHidden ? 'message child-message hidden' : 'message child-message'"
+        @click="$emit('click')"
+    >
+        <p class="text">
+            <img class="character-head" :src="characterPortrait">
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            <span class="timestamp">{{ message.date }}</span>
+        </p>
+        <div class="actions">
+            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive" 
+                :actions="['report']"
+                @report="openReportPopup()"
+            />
         </div>
     </div>
 </template>
@@ -44,7 +56,7 @@ import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
@@ -62,11 +74,16 @@ export default defineComponent ({
         isRoot: {
             type: Boolean,
             default: false
+        },
+        isReplyable: {
+            type: Boolean,
+            default: false
         }
     },
     emits: {
         // No validation
-        click: null
+        click: null,
+        report: null
     },
     computed: {
         ...mapGetters('player', [
@@ -93,6 +110,9 @@ export default defineComponent ({
         }
     },
     methods: {
+        ...mapActions('popup', [
+            'openReportPopup'
+        ]),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
@@ -122,6 +142,9 @@ export default defineComponent ({
     position: relative;
     align-items: flex-start;
     flex-direction: row;
+
+    .actions { flex-direction: row; }
+
 }
 
 .character-body {
@@ -221,18 +244,24 @@ export default defineComponent ({
 
     /* MESSAGES LINKTREE */
 
-    &::before {
-        --border-radius: 5px;
+    --border-radius: 5px;
 
+    &::before, &::after {
         content: "";
+        pointer-events: none;
         position: absolute;
-        top: calc(0px - var(--border-radius));
+        bottom: calc(-4px - var(--border-radius));
         left: -36px;
         width: calc(28px + var(--border-radius));
-        height: calc(26px + var(--border-radius));
-        border-left: 1px solid #aad4e5;
-        border-bottom: 1px solid #aad4e5;
+        border: 1px solid #aad4e5;
+        border-right-width: 0;
         border-radius: var(--border-radius);
+    }
+
+    &::before {
+        top: calc(0px - var(--border-radius));
+        height: calc(26px + var(--border-radius));
+        border-top-width: 0;
         clip-path:
             polygon(
                     0 var(--border-radius),
@@ -242,18 +271,10 @@ export default defineComponent ({
             );
     }
 
-    &:not(:last-of-type)::after {
-        --border-radius: 5px;
-
-        content: "";
-        position: absolute;
+    /*&:not(:last-of-type)::after {*/
+    &::after {
         top: 25px;
-        left: -36px;
-        width: calc(28px + var(--border-radius));
-        bottom: calc(-4px - var(--border-radius));
-        border-left: 1px solid #aad4e5;
-        border-top: 1px solid #aad4e5;
-        border-radius: var(--border-radius);
+        border-bottom-width: 0;
         clip-path:
             polygon(
                     0 0,
@@ -262,6 +283,8 @@ export default defineComponent ({
                     0 calc(100% - var(--border-radius))
             );
     }
+
+    &:last-of-type::after { content: none; }
 }
 
 .hidden {
@@ -302,14 +325,16 @@ export default defineComponent ({
 }
 
 .actions { //buttons styling
+    $delay-hide: 0.15s;
+
     position: absolute;
     visibility: hidden;
     opacity: 0;
     z-index: 5;
     right: 3px;
     bottom: -2px;
-    height: 14px;
-    transition: visibility 0s 0.15s, opacity 0.15s 0s, bottom 0.15s 0s;
+    height: 18px;
+    transition: visibility 0s $delay-hide, opacity $delay-hide 0s, bottom $delay-hide 0s;
 }
 
 .message:hover,
@@ -317,10 +342,12 @@ export default defineComponent ({
 .message:focus-within,
 .message:active {
     .actions {
+        $delay-show: 0.3s;
+        
         visibility: visible;
         opacity: 1;
         bottom: 7px;
-        transition: visibility 0s 0.5s, opacity 0.15s 0.5s, bottom 0.15s 0.5s;
+        transition: visibility 0s $delay-show, opacity 0.15s $delay-show, bottom 0.15s $delay-show;
     }
 }
 

@@ -3,6 +3,7 @@
 namespace Mush\Modifier\ModifierHandler;
 
 use Mush\Game\Entity\Collection\EventChain;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Event\ModifierEvent;
 
@@ -29,7 +30,10 @@ abstract class AbstractModifierHandler
         array $tags,
         \DateTime $time
     ): EventChain {
-        $priority = $modifier->getModifierConfig()->getPriorityAsInteger();
+        /** @var EventModifierConfig $modifierConfig */
+        $modifierConfig = $modifier->getModifierConfig();
+
+        $priority = $modifierConfig->getPriorityAsInteger();
 
         // no event in the chain should have a priority of 0 (restricted to the initialEvent)
         if ($priority === 0) {

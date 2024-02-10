@@ -22,17 +22,21 @@
 		"alpha-testers": "et tous les alpha testeurs :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush est un site web non-commercial géré par des bénévoles. Il fait partie du projet <a href=https://eternaltwin.org/>Eternaltwin</a> dont le but est de préserver les jeux de Motion Twin, c'est-à-dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
-		"legal": "Mentions légales"
+		"legal": "Mentions légales",
+		"report": "Signaler un comportement inapproprié"
 	},
 	"util": {
 		"prev": "Page précédente",
-		"next": "Page suivante"
+		"next": "Page suivante",
+		"goBack": "Retour"
 	},
 	"banner": {
 		"ranking": "Classements",
 		"user": "Mon Compte",
 		"news": "News",
-		"forum": "Forum"
+		"forum": "Forum",
+		"admin": "Admin",
+		"moderation": "Modération"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",
@@ -66,7 +70,6 @@
 		"normalSuperNova": "Prix Nova",
 		"numberOfHuntersKilled": "Hunters abattus",
 		"amountOfMushPlayers": "Nombre de Mushs",
-		"goBack": "Retour",
 		"endCause": {
 			"sol_return": "Le Daedalus est rentré sur Sol !",
 			"eden": "Le Daedalus s'est installé sur Eden !",
@@ -577,6 +580,9 @@
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"
+		},
+		"popUp": {
+			"close": "Fermer"
 		}
 	},
 	"newsPage": {
@@ -592,6 +598,13 @@
 		"seeAllNews": "Voir toutes les news"
 	},
 	"errors": {
+		"details": {
+			"class": "Classe :",
+			"details": "Détails :",
+			"method": "Méthode :",
+			"params": "Paramètres :",
+			"url": "URL :"
+		},
 		"status": {
 			"401": "401 Non autorisé",
 			"403": "403 Interdit",
@@ -602,20 +615,65 @@
 			"502": "502 Bad Gateway",
 			"503": "503 Service indisponible"
 		},
+		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !",
 		"cannotAccessExploration": "Vous ne pouvez pas accéder à cette expédition. C'est privé un vaisseau, vous n'avez pas honte ?",
 		"consultCommunity": "En cas d'erreurs répétées, consultez la communauté sur <a href='https://discord.gg/Jb8Nwjck6r'>Discord</a> ou le <a href='https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1'>forum</a>.",
 		"Daedalus changing cycle": "Le Daedalus est en train de changer de cycle.",
 		"gameInMaintenance": "Le jeu est en maintenance, merci de revenir plus tard !",
 		"neronMessage": "<strong>NERON</strong> : Toutes mes excuses. Mon concepteur m'a programmé avec amour mais je ne suis pas parfait. Une <strong>erreur s'est produite</strong> lors de l'accès à la page demandée... Si le site est indisponible, merci de revenir dans quelques minutes.",
 		"Not Found": "La ressource demandée n'a pas été trouvée.",
+		"player cannot reach parameter": "Vous ne pouvez pas atteindre la cible de l'action (est-elle toujours dans la pièce ?).",
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !"
+		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank'>Discord d'Eternaltwin</a>."
 	},
 	"metaSeo": {
 		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",
 		"og:title": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
 		"og:description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !"
+	},
+	"reportPopup": {
+		"message": "Vous pouvez signaler un comportement inapproprié sur le <a href='https://discord.gg/Jb8Nwjck6r' target='_blank'>serveur Discord d'Eternaltwin</a>.//// Lors de votre arrivée sur le serveur, demandez à ouvrir un ticket pour signaler un comportement inapproprié sur eMush.// Vous serez alors mis en contact avec nos modérateurs. N'oubliez pas de leur fournir les informations suivantes :////- Votre nom d'utilisateur eMush (vous êtes **{username}**)// - Votre identifiant de vaisseau (vous êtes dans le vaisseau **numéro {daedalusId}**)// - Le personnage à signaler// - La raison de votre signalement",
+		"ok": "J'ai compris",
+		"title": "Signaler un comportement inapproprié"
+	},
+	"moderation": {
+		"banner": {
+			"players": "Joueurs",
+			"users": "Utilisateurs"
+		},
+		"playerList": {
+			"gameStatuses": {
+				"all": "Sans distinction",
+				"in_game": "En jeu",
+				"finished": "Mort non validée",
+				"closed": "Mort validée"
+			},
+			"id": "Identifiant du joueur",
+			"gameStatus": "Status du joueur",
+			"daedalusId": "Identifiant du Daedalus",
+			"characterName": "Personnage incarné",
+			"user": "Utilisateur"
+		},
+		"userList": {
+			"userId": "Identifiant de l'utilisateur",
+			"roles": "Rôles"
+		},
+		"alivePlayersFilter": "Status du joueur :",
+		"mushPlayersFilter": "Afficher uniquement les joueurs Mush",
+		"ban": "Bannir",
+		"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
+		"goToPlayerDetails": "Voir les détails du joueur",
+		"goToUserProfile": "Voir le profil de l'utilisateur",
+		"unban": "Débannir",
+		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
+		"quarantineAndBan": "Mettre en quarantaine et bannir",
+		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
+		"quarantine": "Mettre en quarantaine",
+		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
+		"searchByCharacter": "Rechercher un personnage :",
+		"searchByDaedalusId": "Rechercher un Daedalus par ID :",
+		"searchByUsername": "Rechercher un utilisateur :"
 	}
 }

@@ -109,6 +109,7 @@ class ActionsFixtures extends Fixture
     public const LEAVE_ORBIT = 'leave.orbit';
     public const TAKEOFF_TO_PLANET = 'takeoff.to.planet';
     public const TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff.to.planet.patrol_ship';
+    public const CHANGE_NERON_CPU_PRIORITY = 'change.neron.cpu.priority';
 
     public function load(ObjectManager $manager): void
     {
@@ -1108,6 +1109,16 @@ class ActionsFixtures extends Fixture
         ;
         $manager->persist($takeoffToPlanetPatrolShip);
 
+        $changeNeronCpuPriority = new Action();
+        $changeNeronCpuPriority
+            ->setName(ActionEnum::CHANGE_NERON_CPU_PRIORITY)
+            ->setActionName(ActionEnum::CHANGE_NERON_CPU_PRIORITY)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+        ;
+        $manager->persist($changeNeronCpuPriority);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1201,5 +1212,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::LEAVE_ORBIT, $leaveOrbit);
         $this->addReference(self::TAKEOFF_TO_PLANET, $takeoffToPlanet);
         $this->addReference(self::TAKEOFF_TO_PLANET_PATROL_SHIP, $takeoffToPlanetPatrolShip);
+        $this->addReference(self::CHANGE_NERON_CPU_PRIORITY, $changeNeronCpuPriority);
     }
 }

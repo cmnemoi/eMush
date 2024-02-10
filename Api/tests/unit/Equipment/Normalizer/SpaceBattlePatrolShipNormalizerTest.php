@@ -259,7 +259,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'key' => EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
             'name' => 'Patrouilleur Wallis',
             'armor' => 10,
-            'charges' => 0,
+            'charges' => 10,
             'pilot' => CharacterEnum::CHUN,
             'isBroken' => true,
         ];

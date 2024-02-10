@@ -1,5 +1,5 @@
 <template>
-    <PopUp :is-open="isError() && isGamePage()" @close="clearError">
+    <PopUp :is-open="isError() && isGamePage()" @close="clearErrorAndReloadData">
         <h1 class="title">{{ getTranslatedErrorStatus() }}</h1>
         <div class="message">
             <img class="neron-img" src="@/assets/images/neron_eye.gif" alt="Neron">
@@ -7,11 +7,11 @@
                 <p v-if="isWorkingServerError()">{{ $t('errors.reportToDevs') }}</p>
                 <p v-else>{{ $t('errors.problem') }}</p>
                 <div class="code">
-                    <span v-if="error.request.method">method: {{ error.request.method.toUpperCase() }}</span>
-                    <span v-if="error.request.url">url: {{ error.request.url }}</span>
-                    <span class="details" v-if="error.request.params">params: <strong>{{ error.request.params }}</strong></span>
-                    <span class="details" v-if="getTranslatedErrorDetails()">details: <strong>{{ getTranslatedErrorDetails() }}</strong></span>
-                    <span class="details" v-if="error.response.class">class: <strong>{{ error.response.class }}</strong></span>
+                    <span v-if="error.request.method">{{ $t('errors.details.method') }} {{ error.request.method.toUpperCase() }}</span>
+                    <span v-if="error.request.url">{{ $t('errors.details.url') }} {{ error.request.url }}</span>
+                    <span class="details" v-if="error.request.params">{{ $t('errors.details.params') }} <strong>{{ error.request.params }}</strong></span>
+                    <span class="details" v-if="getTranslatedErrorDetails()">{{ $t('errors.details.details') }} <strong>{{ getTranslatedErrorDetails() }}</strong></span>
+                    <span class="details" v-if="error.response.class">{{ $t('errors.details.class') }} <strong>{{ error.response.class }}</strong></span>
                 </div>
                 <p v-html="$t('errors.consultCommunity')"></p>
             </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { mapState, mapActions } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import PopUp from "@/components/Utils/PopUp.vue";
 import { defineComponent } from "vue";
 
@@ -29,6 +29,9 @@ export default defineComponent ({
         PopUp
     },
     computed: {
+        ...mapGetters('player', [
+            'player'
+        ]),
         ...mapState('error', [
             'error'
         ]),
@@ -39,9 +42,20 @@ export default defineComponent ({
         }
     },
     methods: {
-        ...mapActions('error', [
-            'clearError'
-        ]),
+        ...mapActions({
+            clearError: 'error/clearError',
+            loadChannels: 'communication/loadChannels',
+            loadRoomLogs: 'communication/loadRoomLogs',
+            reloadPlayer: 'player/reloadPlayer'
+        }),
+        clearErrorAndReloadData() {
+            this.clearError();
+            if (this.player.gameStatus === 'in_game') {
+                this.reloadPlayer();
+                this.loadChannels();
+                this.loadRoomLogs();
+            }
+        },
         getTranslatedErrorDetails(): string | null {
             // If the error is a 502, it's probably due to server synchronization
             // but we don't have much details about it. Then, hardcode the error message.

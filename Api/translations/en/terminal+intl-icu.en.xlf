@@ -118,5 +118,31 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <target>Here you can read the report on your expedition.</target>
       </segment>
     </unit>
+    <unit id="bios_terminal">
+      <segment id="name" state="translated">
+        <source>bios_terminal.name</source>
+        <target>BIOS Terminal</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>bios_terminal.tips</source>
+        <target>You are accessing NERON's BIOS. Only the administrator can modify the configuration.</target>
+      </segment>
+      <segment id="cpu_priority.name" state="translated">
+        <source>bios_terminal.cpu_priority_name</source>
+        <target>CPU Priority</target>
+      </segment>
+      <segment id="cpu_priority.description" state="translated">
+        <source>bios_terminal.cpu_priority_description</source>
+        <target>Controls the allocation of CPU timeslots. This either increases the amount of GeoData provided by planetary analysis, or puts the CPU in CBA Mode (lazy) when it doesn't do much at all. This attribute can only be changed **once per day and per person** to ensure no cognitive overload is sustained by NERON.</target>
+      </segment>
+      <segment id="cpu_priority.astronavigation" state="translated">
+        <source>bios_terminal.cpu_priority_astronavigation</source>
+        <target>Astronavigation</target>
+      </segment>
+      <segment id="cpu_priority.none" state="translated">
+        <source>bios_terminal.cpu_priority_none</source>
+        <target>None</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

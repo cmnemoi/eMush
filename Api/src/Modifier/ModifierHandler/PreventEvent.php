@@ -3,6 +3,7 @@
 namespace Mush\Modifier\ModifierHandler;
 
 use Mush\Game\Entity\Collection\EventChain;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 
@@ -17,7 +18,10 @@ class PreventEvent extends AbstractModifierHandler
         array $tags,
         \DateTime $time
     ): EventChain {
-        $events = $events->stopEvents($modifier->getModifierConfig()->getPriorityAsInteger());
+        /** @var EventModifierConfig $modifierConfig */
+        $modifierConfig = $modifier->getModifierConfig();
+
+        $events = $events->stopEvents($modifierConfig->getPriorityAsInteger());
 
         return $this->addModifierEvent($events, $modifier, $tags, $time);
     }

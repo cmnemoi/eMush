@@ -59,6 +59,7 @@ class RoomLogNormalizerTest extends TestCase
             ->setDay(1)
             ->setCycle(3)
             ->setType('log')
+            ->setPlace('place')
         ;
 
         $roomLog2 = new RoomLog();
@@ -70,6 +71,7 @@ class RoomLogNormalizerTest extends TestCase
             ->setDay(1)
             ->setCycle(4)
             ->setType('log')
+            ->setPlace('place')
         ;
 
         $this->roomLogCollection = new RoomLogCollection([$roomLog1, $roomLog2]);
@@ -114,7 +116,7 @@ class RoomLogNormalizerTest extends TestCase
         $this->assertEquals($expectedLogs, $normalizeLogs);
     }
 
-    public function testNormalizeRoomLogCollectionForAdmin()
+    public function testNormalizeRoomLogCollectionForModerator()
     {
         $this->translationService
             ->shouldReceive('translate')
@@ -134,12 +136,18 @@ class RoomLogNormalizerTest extends TestCase
             ->andReturn('translated date')
             ->twice()
         ;
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('place.name', [], 'rooms', LanguageEnum::FRENCH)
+            ->andReturn('translated place')
+            ->twice()
+        ;
 
-        $normalizeLogs = $this->normalizer->normalize($this->roomLogCollection, null, ['currentPlayer' => $this->player, 'groups' => ['admin_view']]);
+        $normalizeLogs = $this->normalizer->normalize($this->roomLogCollection, null, ['currentPlayer' => $this->player, 'groups' => ['moderation_view']]);
 
         $expectedLogs = [1 => [
-            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'parameters' => []]],
-            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'parameters' => ['player' => 'andie']]],
+            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'parameters' => [], 'place' => 'translated place']],
+            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'parameters' => ['player' => 'andie'], 'place' => 'translated place']],
         ]];
 
         $this->assertEquals($expectedLogs, $normalizeLogs);

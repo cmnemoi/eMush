@@ -6,6 +6,7 @@ namespace Mush\Status\Enum;
 
 final class DaedalusStatusEnum
 {
+    public const ASTRONAVIGATION_NERON_CPU_PRIORITY = 'astronavigation_neron_cpu_priority';
     public const EXPLORATION_FUEL = 'exploration_fuel';
     public const EXPLORATION_OXYGEN = 'exploration_oxygen';
     public const FOLLOWING_HUNTERS = 'following_hunters';

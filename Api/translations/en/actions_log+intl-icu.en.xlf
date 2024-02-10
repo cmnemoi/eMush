@@ -912,5 +912,11 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>**{character}** made {target_equipment} landing on the planet.</target>
       </segment>
     </unit>
+    <unit id="change_neron_cpu_priority_success">
+      <segment id="change_neron_cpu_priority_success" state="translated">
+        <source>change_neron_cpu_priority_success</source>
+        <target>You have changed one of NERON's parameters.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

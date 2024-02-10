@@ -261,8 +261,8 @@ class RoomLogService implements RoomLogServiceInterface
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         return [
-            'charges' => $electricCharges && !$patrolShip->hasStatus(EquipmentStatusEnum::BROKEN) ? $electricCharges->getCharge() : 0,
-            'armor' => $patrolShipArmor ? $patrolShipArmor->getCharge() : 0,
+            'charges' => $electricCharges?->getCharge(),
+            'armor' => $patrolShipArmor?->getCharge(),
         ];
     }
 }

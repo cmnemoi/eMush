@@ -1,17 +1,24 @@
 import { Character } from "./Character";
 import { PlayerVariables } from "./PlayerVariables";
 import { Status } from "@/entities/Status";
-import { User } from "./User";
 
-export class AdminViewPlayer {
+interface ShortUser {
+    id: number;
+    userId: string;
+    username: string;
+    isBanned: boolean;
+}
+
+export class ModerationViewPlayer {
     public id!: number;
-    public user!: User;
+    public user!: ShortUser;
     public character!: Character;
     public playerVariables!: PlayerVariables;
     public isMush!: boolean;
     public statuses: Array<Status>;
     public diseases: Array<Status>;
     public currentRoom: string|null;
+    public isAlive!: boolean;
 
     public constructor() {
         this.statuses = [];
@@ -19,35 +26,26 @@ export class AdminViewPlayer {
         this.currentRoom = null;
     }
 
-    public load(object: any): AdminViewPlayer {
-        if (object !== undefined && object !== null) {
+    public load(object: any): ModerationViewPlayer {
+        if (object) {
             this.id = object.id;
-            this.user = new User().load(object.user);
+            this.user = object.user;
             this.character = new Character().load(object.character);
             this.playerVariables = new PlayerVariables().load(object.playerVariables);
             this.isMush = object.isMush;
             this.currentRoom = object.currentRoom;
-            if (object.statuses) {
-                object.statuses.forEach((statusObject: any) => {
-                    const status = (new Status()).load(statusObject);
-                    this.statuses.push(status);
-                });
-            }
-            if (object.diseases) {
-                object.diseases.forEach((statusObject:any) => {
-                    const status = (new Status()).load(statusObject);
-                    this.diseases.push(status);
-                });
-            }
+            this.statuses = object.statuses?.map((statusObject: any) => { return (new Status()).load(statusObject); });
+            this.diseases = object.diseases?.map((statusObject: any) => { return (new Status()).load(statusObject); });
+            this.isAlive = object.isAlive;
         }
         return this;
     }
 
     public jsonEncode(): string {
-        return JSON.stringify(this);
+        return JSON.stringify(this, null, 4);
     }
 
-    public decode(jsonString: string): AdminViewPlayer {
+    public decode(jsonString: string): ModerationViewPlayer {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

@@ -6,24 +6,26 @@
         <router-view v-else/>
         <ErrorPopup />
         <ConfirmPopup />
+        <ReportPopup />
         <Thanks />
         <LocaleChange />
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
-import Banner from "@/components/Banner";
-import ErrorPopup from "@/components/ErrorPopup";
-import ConfirmPopup from "@/components/ConfirmPopup";
-import Spinner from "@/components/Utils/Spinner";
+import Banner from "@/components/Banner.vue";
+import ErrorPopup from "@/components/ErrorPopup.vue";
+import ConfirmPopup from "@/components/ConfirmPopup.vue";
+import ReportPopup from "@/components/ReportPopup.vue";
+import Spinner from "@/components/Utils/Spinner.vue";
 import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
-import { useHead } from '@unhead/vue';
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
     name: 'App',
     head() {
         return {
@@ -41,6 +43,7 @@ export default {
         Banner,
         ErrorPopup,
         ConfirmPopup,
+        ReportPopup,
         LocaleChange,
         Thanks,
         MaintenancePage
@@ -54,7 +57,7 @@ export default {
             userIsAdmin: 'auth/isAdmin'
         }),
         baseUrl() {
-            return process.env.VUE_APP_URL;
+            return process.env.VUE_APP_URL as string;
         }
     },
     methods: {
@@ -65,7 +68,7 @@ export default {
     beforeMount() {
         this.loadGameMaintenanceStatus();
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

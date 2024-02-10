@@ -18,7 +18,6 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -28,18 +27,15 @@ final class AnalyzePlanet extends AbstractAction
 {
     protected string $name = ActionEnum::ANALYZE_PLANET;
     private PlanetServiceInterface $planetService;
-    private RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         PlanetServiceInterface $planetService,
-        RandomServiceInterface $randomService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
         $this->planetService = $planetService;
-        $this->randomService = $randomService;
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool

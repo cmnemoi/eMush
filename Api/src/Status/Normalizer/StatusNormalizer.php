@@ -8,7 +8,6 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class StatusNormalizer implements NormalizerInterface
@@ -47,7 +46,7 @@ class StatusNormalizer implements NormalizerInterface
                 $status instanceof ChargeStatus
                 && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget(), $context)
             ) {
-                $normedStatus['charge'] = $status->getOwner()->hasStatus(EquipmentStatusEnum::BROKEN) ? 0 : $status->getCharge();
+                $normedStatus['charge'] = $status->getCharge();
             }
 
             if (($target = $status->getTarget()) !== null) {
@@ -65,12 +64,12 @@ class StatusNormalizer implements NormalizerInterface
         Player $currentPlayer,
         ?StatusHolderInterface $statusOwner,
         ?StatusHolderInterface $statusTarget,
-        array $context,
+        array $context
     ): bool {
-        $isAdmin = isset($context['groups']) && in_array('admin_view', $context['groups'], true);
+        $isModerator = isset($context['groups']) && in_array('moderation_view', $context['groups'], true);
 
         if (
-            $isAdmin
+            $isModerator
             || $visibility === VisibilityEnum::PUBLIC
             || $visibility === VisibilityEnum::MUSH && $currentPlayer->isMush()
         ) {

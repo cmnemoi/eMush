@@ -1176,5 +1176,11 @@
         <target>**{character}** a fait atterrir {target_equipment} sur la planète.</target>
       </segment>
     </unit>
+    <unit id="change_neron_cpu_priority_success">
+      <segment id="change_neron_cpu_priority_success" state="translated">
+        <source>change_neron_cpu_priority_success</source>
+        <target>Vous avez modifié un des paramètres de NERON.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

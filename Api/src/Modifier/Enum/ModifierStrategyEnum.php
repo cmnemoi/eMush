@@ -11,4 +11,6 @@ class ModifierStrategyEnum
     public const PREVENT_EVENT = 'prevent_event';
 
     public const SYMPTOM_MODIFIER = 'symptom_modifier';
+
+    public const DIRECT_MODIFIER = 'direct_modifier';
 }

@@ -5,6 +5,7 @@ namespace Mush\Modifier\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Event\AbstractGameEvent;
 
 /**
  * Class storing the various information needed to create and apply Modifiers.
@@ -35,6 +36,9 @@ abstract class AbstractModifierConfig
 
     #[ORM\Column(type: 'string', nullable: true)]
     protected ?string $modifierName = null;
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    protected string $modifierStrategy = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $modifierRange;
@@ -75,6 +79,18 @@ abstract class AbstractModifierConfig
     public function getModifierName(): ?string
     {
         return $this->modifierName;
+    }
+
+    public function getModifierStrategy(): string
+    {
+        return $this->modifierStrategy;
+    }
+
+    public function setModifierStrategy(string $modifierStrategy): self
+    {
+        $this->modifierStrategy = $modifierStrategy;
+
+        return $this;
     }
 
     public function getModifierRange(): string
@@ -130,5 +146,10 @@ abstract class AbstractModifierConfig
         }
 
         return $parameters;
+    }
+
+    public function doModifierApplies(AbstractGameEvent $event): bool
+    {
+        return false;
     }
 }

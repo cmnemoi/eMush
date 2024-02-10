@@ -58,6 +58,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const EXPLORATION_FUEL_STATUS = 'exploration_fuel_status';
     public const HUNTER_TRUCE_CYCLES = 'hunter_truce_cycles';
     public const FOLLOWING_HUNTERS_STATUS = 'following_hunters_status';
+    public const CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
 
@@ -478,6 +479,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($shooterSkillPoc);
 
+        $changedCpuPriority = new ChargeStatusConfig();
+        $changedCpuPriority
+            ->setStatusName('changed_cpu_priority')
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($changedCpuPriority);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -511,6 +524,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hunterTruceCycles)
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($shooterSkillPoc)
+            ->addStatusConfig($changedCpuPriority)
         ;
         $manager->persist($gameConfig);
 

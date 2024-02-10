@@ -95,6 +95,7 @@ class ActionImpossibleCauseEnum
     public const GAGGED_PREVENT_SPOKEN_ACTION = 'gagged_prevent_spoken_action';
     public const SCREWED_TALKIE_ALREADY_PIRATED = 'screwed_talkie_already_pirated';
     public const SCREWED_TALKIE_NO_TALKIE = 'screwed_talkie_no_talkie';
+    public const SCREWED_TALKIE_NO_TALKIE_SELF = 'screwed_talkie_no_talkie_self';
     public const ALREADY_WASHED_IN_SINK_TODAY = 'already_washed_in_sink_today';
     public const DAEDALUS_ALREADY_FULL_HULL = 'daedalus_already_full_hull';
     public const COMBUSTION_CHAMBER_FULL = 'combustion_chamber_full';

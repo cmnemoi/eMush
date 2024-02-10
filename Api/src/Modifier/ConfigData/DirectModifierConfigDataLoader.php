@@ -29,6 +29,7 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
                 ->setRevertOnRemove($modifierConfigData['revertOnRemove'])
                 ->setModifierName($modifierConfigData['modifierName'])
                 ->setModifierRange($modifierConfigData['modifierRange'])
+                ->setModifierStrategy($modifierConfigData['strategy'])
             ;
 
             $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);

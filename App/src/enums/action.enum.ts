@@ -1,6 +1,7 @@
 export enum ActionEnum {
     ADVANCE_DAEDALUS = "advance_daedalus",
     ANALYZE_PLANET = "analyze_planet",
+    CHANGE_NERON_CPU_PRIORITY = "change_neron_cpu_priority",
     DELETE_PLANET = "delete_planet",
     EXIT_TERMINAL = "exit_terminal",
     LEAVE_ORBIT = "leave_orbit",

@@ -4,6 +4,7 @@ namespace Mush\Modifier\ModifierHandler;
 
 use Mush\Disease\Event\SymptomEvent;
 use Mush\Game\Entity\Collection\EventChain;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Player\Entity\Player;
@@ -21,6 +22,8 @@ class SymptomModifierHandler extends AbstractModifierHandler
     ): EventChain {
         $modifierName = $modifier->getModifierConfig()->getModifierName();
         $initialEvent = $events->getInitialEvent();
+        /** @var EventModifierConfig $modifierConfig */
+        $modifierConfig = $modifier->getModifierConfig();
 
         // if the initial event do not exist anymore
         if ($initialEvent === null) {
@@ -42,7 +45,7 @@ class SymptomModifierHandler extends AbstractModifierHandler
             $time
         );
         $symptomEvent
-            ->setPriority($modifier->getModifierConfig()->getPriorityAsInteger())
+            ->setPriority($modifierConfig->getPriorityAsInteger())
             ->setEventName(SymptomEvent::TRIGGER_SYMPTOM)
         ;
 

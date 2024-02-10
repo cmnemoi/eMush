@@ -117,10 +117,11 @@ class ConsumeDrugActionCest extends AbstractFunctionalTest
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
@@ -189,6 +190,11 @@ class ConsumeDrugActionCest extends AbstractFunctionalTest
 
         $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem2);
         $I->assertNotNull($this->consumeAction->cannotExecuteReason());
+
+        // prevent player to die at cycle change
+        $player->setHealthPoint(1000);
+        $player->setMoralPoint(1000);
+        $daedalus->setOxygen(1000);
 
         // new Cycle
         $event = new DaedalusCycleEvent(

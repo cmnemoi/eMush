@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
-use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
@@ -21,8 +21,8 @@ class GameModifier
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: EventModifierConfig::class)]
-    private EventModifierConfig $modifierConfig;
+    #[ORM\ManyToOne(targetEntity: AbstractModifierConfig::class)]
+    private AbstractModifierConfig $modifierConfig;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $player = null;
@@ -42,7 +42,7 @@ class GameModifier
     #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
     private ?ChargeStatus $charge = null;
 
-    public function __construct(ModifierHolderInterface $holder, EventModifierConfig $modifierConfig)
+    public function __construct(ModifierHolderInterface $holder, AbstractModifierConfig $modifierConfig)
     {
         $this->modifierConfig = $modifierConfig;
 
@@ -68,7 +68,7 @@ class GameModifier
         return $this->id;
     }
 
-    public function getModifierConfig(): EventModifierConfig
+    public function getModifierConfig(): AbstractModifierConfig
     {
         return $this->modifierConfig;
     }

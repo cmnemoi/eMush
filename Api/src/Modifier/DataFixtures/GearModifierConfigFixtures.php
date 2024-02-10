@@ -58,13 +58,13 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $apronModifier = new EventModifierConfig(ModifierNameEnum::APRON_MODIFIER);
 
         $apronModifier
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setTargetEvent(StatusEvent::STATUS_APPLIED)
             ->setTagConstraints([
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
                 ActionTypeEnum::ACTION_SUPER_DIRTY => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
@@ -100,11 +100,11 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
 
         $glovesModifier = new EventModifierConfig('preventClumsinessModifier');
         $glovesModifier
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([EndCauseEnum::CLUMSINESS => ModifierRequirementEnum::ALL_TAGS])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::GLOVES_MODIFIER)
         ;

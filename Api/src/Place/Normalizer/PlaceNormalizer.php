@@ -210,7 +210,11 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             }
         }
 
-        return $piles;
+        // Sort items in a stack fashion in shelves : last in, first out
+        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+
+        // remove updatedAt from the normalized items because it's not needed in the response
+        return array_map(fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $piles);
     }
 
     private function handleNonStackableItem(
@@ -226,6 +230,9 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             }
         }
 
+        // Sort items in a stack fashion in shelves : last in, first out
+        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+
         return $piles;
     }
 
@@ -238,10 +245,17 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     ): array {
         $statusesPiles = $this->groupByStatus($itemGroup, $currentPlayer);
 
+        $oldestItemUpdatedDate = new \DateTime();
         foreach ($statusesPiles as $pileName => $statusesPile) {
             $item = current($statusesPile);
+
+            // The updated time of the pile is when the oldest item was updated
+            // so the pile always stays at the same place in the shelf until the last item of it is picked up
+            $oldestItemUpdatedDate = $item->getUpdatedAt() < $oldestItemUpdatedDate ? $item->getUpdatedAt() : $oldestItemUpdatedDate;
+
             /** @var array $normalizedItem */
             $normalizedItem = $this->normalizer->normalize($item, $format, $context);
+            $normalizedItem['updatedAt'] = $oldestItemUpdatedDate;
 
             $countItem = count($statusesPile);
             if ($countItem > 1) {

@@ -113,9 +113,11 @@ export default class DoorGroundObject extends InteractObject {
     onClickedOut() {
         super.onClickedOut();
 
-        this.activateDoor();
-        // also activate doors in the same group
-        this.activateOtherPartOfDoor();
+        if (!this.door.isBroken) {
+            this.activateDoor();
+            // also activate doors in the same group
+            this.activateOtherPartOfDoor();
+        }
     }
 
     activateOtherPartOfDoor(): void

@@ -56,6 +56,7 @@ export default defineComponent ({
     flex-direction: column;
     width: 424px;
     height: 460px;
+    margin-bottom: 2em;
     color: $deepBlue;
     background: $brightCyan;
 

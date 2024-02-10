@@ -134,7 +134,6 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         // given Daedalus has 0 fuel
         $this->player->getDaedalus()->setFuel(0);
 
-        // given there is a fuel tank in the room
         $this->givenACombustionChamberInEngineRoom($I);
 
         // given player has a jar of alien oil in inventory

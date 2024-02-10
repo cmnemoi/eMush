@@ -260,7 +260,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
     }
 
     public function testBrokenEquipmentByNewCycleIsAnnouncedInADistinctThreadAfterAReport(FunctionalTester $I): void
-    {   
+    {
         $daedalusTime = $this->daedalus->getCycleStartedAt();
 
         // given I have a mycoscan in laboratory

@@ -14,6 +14,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -125,6 +127,36 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
             expected: ActionImpossibleCauseEnum::COMBUSTION_CHAMBER_FULL,
             actual: $this->insertFuelChamberAction->cannotExecuteReason()
         );
+    }
+
+    public function testInsertJarOfAlienOilSuccess(FunctionalTester $I): void
+    {
+        // given Daedalus has 0 fuel
+        $this->player->getDaedalus()->setFuel(0);
+
+        $this->givenACombustionChamberInEngineRoom($I);
+
+        // given player has a jar of alien oil in inventory
+        /** @var GameEquipmentServiceInterface $gameEquipmentService */
+        $gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $jarOfAlienOil = $gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ToolItemEnum::JAR_OF_ALIEN_OIL,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when player inserts jar of alien oil in fuel tank
+        $this->insertFuelChamberAction->loadParameters($this->insertFuelChamberActionConfig, $this->player, $jarOfAlienOil);
+        $I->assertTrue($this->insertFuelChamberAction->isVisible());
+
+        $this->insertFuelChamberAction->execute();
+
+        // then jar of alien oil is removed from player's inventory
+        $I->assertFalse($this->player->hasEquipmentByName(ToolItemEnum::JAR_OF_ALIEN_OIL));
+
+        // then Daedalus combustionChamberFuel is increased by 1
+        $I->assertEquals(5, $this->daedalus->getCombustionChamberFuel());
     }
 
     private function givenACombustionChamberInEngineRoom(FunctionalTester $I): GameEquipment

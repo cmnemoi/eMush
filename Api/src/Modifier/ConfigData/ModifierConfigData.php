@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
@@ -1860,6 +1861,26 @@ class ModifierConfigData
             'mode' => 'set_value',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+        ],
+        [
+            'name' => 'modifier_for_alien_oil_+4_fuel',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::EQUIPMENT,
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 4.0,
+            'targetVariable' => 'outputQuantity',
+            'mode' => 'additive',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::INSERT_FUEL => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSERT_FUEL_CHAMBER => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
     ];
 }

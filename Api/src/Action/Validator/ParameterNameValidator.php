@@ -25,7 +25,7 @@ class ParameterNameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
         }
 
-        if ($actionTarget->getEquipment()->getEquipmentName() !== $constraint->name) {
+        if (!in_array($actionTarget->getEquipment()->getEquipmentName(), $constraint->names)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

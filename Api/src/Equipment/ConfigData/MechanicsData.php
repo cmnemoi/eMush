@@ -3611,5 +3611,13 @@ class MechanicsData
                 'modifier_for_place_+1sector_revealed_on_action_scan_planet_random_50',
             ],
         ],
+        [
+            'name' => 'gear_modifier_for_alien_oil_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_alien_oil_+4_fuel',
+            ],
+        ],
     ];
 }

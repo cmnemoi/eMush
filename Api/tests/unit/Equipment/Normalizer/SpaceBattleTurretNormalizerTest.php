@@ -183,7 +183,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             'id' => 1,
             'key' => RoomEnum::REAR_ALPHA_TURRET,
             'name' => 'Tourelle Alpha Arrière',
-            'charges' => 0,
+            'charges' => 4,
             'occupiers' => [CharacterEnum::CHUN, CharacterEnum::ANDIE],
             'isBroken' => true,
         ];

@@ -273,11 +273,12 @@ final class StatusServiceCest extends AbstractFunctionalTest
         );
 
         // given player is Mush so they can sabotage
+        $reportTime = new \DateTime();
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
             holder: $this->player,
             tags: [],
-            time: new \DateTime(),
+            time: $reportTime,
         );
 
         // given it is sabotaged by a player
@@ -337,7 +338,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
             params: [
                 'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
                 'message' => NeronMessageEnum::CYCLE_FAILURES,
-                'createdAt' => $daedalusTime,
+                'createdAt' => $reportTime,
             ]
         );
 

@@ -959,7 +959,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setOutputQuantity(1)
+            ->setOutputQuantity(1) // amount of oxygen inserted
         ;
         $manager->persist($insertFuelChamber);
 

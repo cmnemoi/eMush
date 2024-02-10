@@ -20,6 +20,7 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 
@@ -146,8 +147,13 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTagConstraints([
+                ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::NONE_TAGS,
+            ])
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
         ;
         $manager->persist($fourPeopleOneActionIncrease);
 
@@ -158,8 +164,10 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
         ;
         $fourPeopleOneMovementIncrease->buildName();
         $manager->persist($fourPeopleOneMovementIncrease);

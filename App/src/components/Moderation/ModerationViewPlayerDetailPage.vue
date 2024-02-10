@@ -36,9 +36,9 @@
             </button>
         </div>
         {{ player.jsonEncode() }}
-        <p>Logs:</p>
-        <div class="logs-container" v-if="playerLogs">
-            <div class="logs">
+        <div class="logs-container">
+            <h2>Logs:</h2>
+            <div class="logs" v-if="playerLogs">
                 <section v-for="(cycleRoomLog, id) in playerLogs.slice().reverse()" :key="id" class="unit">
                     <div class="banner cycle-banner">
                         <span>{{ $t('game.communications.day') }} {{ cycleRoomLog.day }} {{ $t('game.communications.cycle') }}  {{cycleRoomLog.cycle }}</span>
@@ -48,24 +48,27 @@
                     </div>
                 </section>
             </div>
+            <span v-else>No logs to display.</span>
         </div>
-        <p>Messages:</p>
-        <section v-for="(message, id) in playerPublicMessages" :key="id" class="unit">
-            <Message
-                :message="message"
-                :is-root="true"
-                :is-replyable="false"
-            />
-            <button class="toggle-children" @click="message.toggleChildren()">
-                {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
-            </button>
-            <Message
-                v-for="(child, id) in message.children"
-                :key="id"
-                :message="child"
-                :is-replyable="false"
-            />
-        </section>
+        <div class="messages-container">
+            <h2>Messages:</h2>
+            <section v-for="(message, id) in playerPublicMessages" :key="id" class="unit">
+                <Message
+                    :message="message"
+                    :is-root="true"
+                    :is-replyable="false"
+                />
+                <button class="toggle-children" @click="message.toggleChildren()">
+                    {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
+                </button>
+                <Message
+                    v-for="(child, id) in message.children"
+                    :key="id"
+                    :message="child"
+                    :is-replyable="false"
+                />
+            </section>
+        </div>
     </div>
     <button class="action-button" @click="goBack">{{ $t("util.goBack") }}</button>
 </template>
@@ -166,14 +169,60 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.logs-container {
-    display: flex;
+.logs-container, .messages-container {
     position: relative;
+    // min-height: 436px;
     height: 436px;
+    overflow: auto;
+    resize: vertical;
+    margin: 1em 0;
+    padding: 1.2em;
+    background: rgba(194, 243, 252, 1);
+    color: $deepBlue;
 
-    .logs {
-        @extend %game-scrollbar;
-        overflow: auto;
+    @extend %game-scrollbar;
+
+    h2 { margin-top: 0; }
+
+
+    /* Duplicated styles from TabContainer component */
+    ::v-deep(.unit) {
+        padding: 5px 0;
+    }
+
+    ::v-deep(.banner) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: 24px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        background: $lightCyan;
+
+        span {
+            flex: 1;
+            text-align: center;
+            font-size: .92em;
+        }
+
+        .expand {
+            align-self: center;
+            padding: 2px;
+        }
+
+        img { vertical-align: middle; }
+    }
+
+    ::v-deep(.timestamp) {
+        text-align: end;
+        padding-top: 0.2em;
+        font-size: 0.85em;
+        letter-spacing: 0.03em;
+        font-style: italic;
+        font-variant: initial;
+        opacity: 0.65;
+        float: right;
     }
 }
 

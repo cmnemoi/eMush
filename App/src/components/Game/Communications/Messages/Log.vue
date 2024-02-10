@@ -2,8 +2,8 @@
     <section :class="'log ' + roomLog.visibility">
         <p class="text-log">
             <span v-html="formatLog(roomLog.message)"></span>
+            <span class="room" v-if="roomLog?.place"> - {{ roomLog.place }}</span>
             <span class="timestamp">{{ roomLog?.date }}</span>
-            <span v-if="roomLog?.place"> - {{ roomLog.place }}</span>
         </p>
     </section>
 </template>
@@ -115,5 +115,7 @@ export default defineComponent ({
     margin: 0;
     font-size: 0.92em;
 }
+
+.room { font-variant: small-caps; }
 
 </style>

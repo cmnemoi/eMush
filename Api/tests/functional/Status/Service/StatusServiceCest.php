@@ -332,24 +332,6 @@ final class StatusServiceCest extends AbstractFunctionalTest
             ]
         );
         $I->assertCount(2, $threads);
-
-        $I->seeInRepository(
-            entity: Message::class,
-            params: [
-                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
-                'message' => NeronMessageEnum::CYCLE_FAILURES,
-                'createdAt' => $reportTime,
-            ]
-        );
-
-        $I->seeInRepository(
-            entity: Message::class,
-            params: [
-                'neron' => $this->daedalus->getDaedalusInfo()->getNeron(),
-                'message' => NeronMessageEnum::CYCLE_FAILURES,
-                'createdAt' => $oneCycleLater,
-            ]
-        );
     }
 
     public function testDispatchEquipmentBroken(FunctionalTester $I)

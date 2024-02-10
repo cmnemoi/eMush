@@ -68,7 +68,7 @@ final class DiseaseNormalizerCest extends AbstractFunctionalTest
                 'key' => DisorderEnum::AGORAPHOBIA,
                 'name' => 'Agoraphobie',
                 'type' => MedicalConditionTypeEnum::DISORDER,
-                'description' => 'Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l\'espace, ça va pas le faire.//S\'il y a **4** personnes dans la pièce, chaque action coûte **1** :pa: de plus.//S\'il y a **4** personnes dans la pièce, chaque déplacement coûte **1** :pm: de plus.//Impossible de **piloter**.',
+                'description' => 'Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l\'espace, ça va pas le faire.//S\'il y a au moins **4** personnes dans la pièce, chaque action coûte **1** :pa: de plus.//S\'il y a au moins **4** personnes dans la pièce, chaque déplacement coûte **1** :pm: de plus.//Impossible de **piloter**.',
             ],
             $normalizedDisease
         );

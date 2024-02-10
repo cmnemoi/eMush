@@ -37,7 +37,7 @@ class ParameterNameValidatorTest extends TestCase
 
     public function testValid()
     {
-        $this->constraint->name = GameFruitEnum::ANEMOLE;
+        $this->constraint->names = [GameFruitEnum::ANEMOLE];
 
         $itemConfig = new ItemConfig();
         $itemConfig->setEquipmentName(GameFruitEnum::ANEMOLE);
@@ -60,7 +60,7 @@ class ParameterNameValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $this->constraint->name = GameFruitEnum::PLOSHMINA;
+        $this->constraint->names = [GameFruitEnum::PLOSHMINA];
 
         $itemConfig = new ItemConfig();
         $itemConfig->setEquipmentName(GameFruitEnum::ANEMOLE);

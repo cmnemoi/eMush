@@ -11,10 +11,8 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\InventoryFull;
-use Mush\Action\Validator\ParameterName;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -28,7 +26,6 @@ final class RetrieveFuelChamber extends RetrieveAction
     {
         $metadata->addConstraints([
             new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
-            new ParameterName(['name' => EquipmentEnum::COMBUSTION_CHAMBER, 'groups' => ['visibility']]),
             new GameVariableLevel([
                 'target' => GameVariableLevel::DAEDALUS,
                 'checkMode' => GameVariableLevel::IS_MIN,

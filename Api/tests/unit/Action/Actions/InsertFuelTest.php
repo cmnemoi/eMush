@@ -67,6 +67,7 @@ class InsertFuelTest extends AbstractActionTest
         $gameTank->setEquipment($tank)->setName(EquipmentEnum::FUEL_TANK);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(1);
         $this->eventService->shouldReceive('callEvent')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 

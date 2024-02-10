@@ -29,10 +29,16 @@ class ChannelNormalizer implements NormalizerInterface
 
     public function normalize($object, string $format = null, array $context = []): array
     {
-        /** @var Player $currentPlayer */
-        $currentPlayer = $context['currentPlayer'];
-
-        $language = $currentPlayer->getDaedalus()->getLanguage();
+        // @HACK: If we normalize messages with API Platform, we don't have a current player in the context
+        // so doing this ugly if else.
+        // @TODO: Find a way to use API Platform normalization_context to handle this
+        if (!key_exists('currentPlayer', $context)) {
+            return $this->normalizeForModerators($object);
+        } else {
+            /** @var Player $currentPlayer */
+            $currentPlayer = $context['currentPlayer'];
+            $language = $currentPlayer->getDaedalus()->getLanguage();
+        }
 
         if (key_exists('piratedPlayer', $context)) {
             /** @var Player $piratedPlayer */
@@ -68,6 +74,34 @@ class ChannelNormalizer implements NormalizerInterface
             'createdAt' => $object->getCreatedAt()->format(\DateTimeInterface::ATOM),
             'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $object),
             'piratedPlayer' => $piratedPlayerId,
+        ];
+    }
+
+    private function normalizeForModerators(Channel $channel): array
+    {
+        $language = 'fr';
+        $participants = [];
+        /** @var ChannelPlayer $participant */
+        foreach ($channel->getParticipants() as $participant) {
+            /** @var \DateTime $joinDate */
+            $joinDate = $participant->getCreatedAt();
+            $player = $participant->getParticipant();
+            $character = $player->getName();
+            $participants[] = [
+                'id' => $player->getId(),
+                'character' => [
+                    'key' => $character,
+                    'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
+                ],
+                'joinedAt' => $joinDate->format(\DateTimeInterface::ATOM),
+            ];
+        }
+
+        return [
+            'id' => $channel->getId(),
+            'scope' => $channel->getScope(),
+            'name' => $this->translationService->translate($channel->getScope() . '.name', [], 'chat', $language),
+            'participants' => $participants,
         ];
     }
 }

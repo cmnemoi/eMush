@@ -57,7 +57,7 @@ class ChannelVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($channel, $playerInfo);
+                return $user->isModerator() || $this->canView($channel, $playerInfo);
         }
 
         throw new \LogicException('This code should not be reached!');

@@ -25,14 +25,14 @@ class MessageRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('message');
 
-        // @HACK : add some tolerance to the cycle start to avoid taking the previous cycle report
-        // yes, this is an embarassing and not mastered way to do this, but this seems to work
+        // @HACK : add a big tolerance to the cycle start to avoid taking the previous cycle report
+        // Yes, this is an embarassing and not mastered way to do this, but I am a bad programmer doing my best
         $cycleChange = in_array(EventEnum::NEW_CYCLE, $eventTags, true);
         $propagatingFire = in_array(RoomEventEnum::PROPAGATING_FIRE, $eventTags, true);
 
         if ($cycleChange || $propagatingFire) {
             $cycleStartedAt = clone $daedalus->getCycleStartedAt();
-            $offset = intval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() * 0.6 * 60); 
+            $offset = intval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() * 60 - 1); 
             $cycleStartedAt->modify("+$offset seconds");
         } else {
             $cycleStartedAt = $daedalus->getCycleStartedAt();

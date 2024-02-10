@@ -125,8 +125,7 @@ class ChannelService implements ChannelServiceInterface
             /** @var Player $invitablePlayer */
             $invitablePlayer = $invitablePlayerInfo->getPlayer();
             if ($this->canPlayerCommunicate($player)) {
-                if ($this->canPlayerCommunicate($invitablePlayer)
-                || $this->canPlayerWhisperInChannel($channel, $invitablePlayer)) {
+                if ($this->canPlayerSeePrivateChannel($invitablePlayer, $channel)) {
                     $availablePlayers->add($invitablePlayer);
                 }
             } elseif ($this->canPlayerWhisper($player, $invitablePlayer)) {
@@ -332,6 +331,7 @@ class ChannelService implements ChannelServiceInterface
         } elseif ($playerIsAloneInTheirChannel) {
             return true;
         } else {
+            // can whisper with at least one channel participant
             $otherParticipants = $channel->getParticipants()
                 ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
                 ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)

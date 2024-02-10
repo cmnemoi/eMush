@@ -292,7 +292,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($preventAttackActions);
 
-        $preventPiloting = new EventModifierConfig('prevent_piloting');
+        $preventPiloting = new EventModifierConfig('prevent_piloting_actions');
         $preventPiloting
             ->setTargetEvent(ActionEvent::PRE_ACTION)
             ->setApplyOnTarget(false)

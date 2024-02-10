@@ -161,6 +161,11 @@ class VariableEventModifierConfig extends EventModifierConfig
             }
         }
 
+        /** @var ModifierActivationRequirement $requirement */
+        foreach ($this->modifierActivationRequirements as $requirement) {
+            $key .= '_if_' . $requirement->getName();
+        }
+
         return $key;
     }
 

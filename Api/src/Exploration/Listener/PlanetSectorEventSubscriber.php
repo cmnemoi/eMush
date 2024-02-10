@@ -6,16 +6,20 @@ namespace Mush\Exploration\Listener;
 
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlanetSectorEventSubscriber implements EventSubscriberInterface
 {
     private ExplorationServiceInterface $explorationService;
+    private TranslationServiceInterface $translationService;
 
     public function __construct(
         ExplorationServiceInterface $explorationService,
+        TranslationServiceInterface $translationService
     ) {
         $this->explorationService = $explorationService;
+        $this->translationService = $translationService;
     }
 
     public static function getSubscribedEvents()
@@ -44,7 +48,10 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
 
     public function onNothingToReport(PlanetSectorEvent $event): void
     {
-        $this->explorationService->createExplorationLog($event);
+        $logParameters = [];
+        $logParameters['always_successful_thanks_to_skill'] = $this->getAlwaysSuccessfulThanksToSkillLogParameter($event);
+
+        $this->explorationService->createExplorationLog($event, $logParameters);
     }
 
     public function onTired(PlanetSectorEvent $event): void
@@ -52,5 +59,29 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
         $logParameters = $this->explorationService->removeHealthToAllExplorators($event);
 
         $this->explorationService->createExplorationLog($event, $logParameters);
+    }
+
+    private function getAlwaysSuccessfulThanksToSkillLogParameter(PlanetSectorEvent $event): ?string
+    {
+        $language = $event->getExploration()->getDaedalus()->getLanguage();
+        if ($event->hasTag('always_successful_thanks_to_pilot')) {
+            $skill = $this->translationService->translate(
+                key: 'pilot.name',
+                parameters: [],
+                domain: 'skill',
+                language: $language,
+            );
+
+            $alwaysSuccessfulThanksToSkill = $this->translationService->translate(
+                key: 'always_successful_thanks_to_skill',
+                parameters: ['skill' => $skill],
+                domain: 'planet_sector_event',
+                language: $language,
+            );
+
+            return '//' . $alwaysSuccessfulThanksToSkill;
+        }
+
+        return null;
     }
 }

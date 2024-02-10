@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="final">
         <source>nothing_to_report.description</source>
-        <target>La zone est explorée, rien à signaler.</target>
+        <target>La zone est explorée, rien à signaler.{always_successful_thanks_to_skill}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>nothing_to_report.landing_description</source>
@@ -249,6 +249,12 @@
         6 {L'expédition trouve un petit lac d'heptanol violacé ! Avec tout ça le Daedalus n'est pas prêt de tomber en panne !}
         other {Vous récupérez {quantity} unités de fuel.}
         }</target>
+      </segment>
+    </unit>
+    <unit id="always_successful_thanks_to_skill">
+      <segment id="description" state="translated">
+        <source>always_successful_thanks_to_skill</source>
+        <target>Toujours réussi car l'expédition possède la compétence : {skill}.</target>
       </segment>
     </unit>
   </file>

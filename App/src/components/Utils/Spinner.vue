@@ -31,7 +31,7 @@ export default defineComponent ({
 <style  lang="scss" scoped>
 
 .spinner_overlay { //dark background
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;

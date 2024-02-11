@@ -362,6 +362,22 @@ h1 {
     background: $brightCyan;
 }
 
+@media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+
+    .char-sheet .avatar {
+        margin-top: 2em;
+        margin-right: -1em;
+        width: 110px;
+    }
+
+    .epitaph-form #epitaph { font-size: 1.25em; }
+
+    .validate {
+        font-size: 1em;
+        margin-bottom: 2.5em;
+    }
+}
+
 </style>
 
 

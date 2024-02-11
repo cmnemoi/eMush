@@ -342,6 +342,33 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
         );
     }
 
+    public function testPlayerDiesTheCycleTheyGetAtZeroMoralePoints(FunctionalTester $I): void
+    {
+        // given player has 1 morale points
+        $this->player->setMoralPoint(1);
+
+        // given the daedalus is D1C8 so next cycle is a new day
+        $this->daedalus->setDay(1);
+        $this->daedalus->setCycle(8);
+
+        // when the new cycle event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then the player should have 0 morale points
+        $I->assertEquals(
+            expected: 0,
+            actual: $this->player->getMoralPoint()
+        );
+
+        // then the player should be dead
+        $I->assertFalse($this->player->isAlive());
+    }
+
     private function getPanicCrisisPlayerDamage(): int
     {
         return array_keys($this->daedalus->getGameConfig()->getDifficultyConfig()->getPanicCrisisPlayerDamage()->toArray())[0];

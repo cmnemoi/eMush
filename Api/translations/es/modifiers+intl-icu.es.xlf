@@ -175,5 +175,17 @@
         <target>change.variable.increase_on_disease.new.cycle.description</target>
       </segment>
     </unit>
+    <unit id="apply.cost_increase_move_if_player_in_room_four_people">
+      <segment id="description" state="initial">
+        <source>apply.cost_increase_move_if_player_in_room_four_people.description</source>
+        <target>apply.cost_increase_move_if_player_in_room_four_people.description</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_if_player_in_room_four_people">
+      <segment id="description" state="initial">
+        <source>apply.cost_increase_if_player_in_room_four_people.description</source>
+        <target>apply.cost_increase_if_player_in_room_four_people.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

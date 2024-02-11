@@ -109,6 +109,8 @@ abstract class AbstractAction
 
         $result->setVisibility($this->action->getVisibility($result->getName()));
 
+        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->target, $result);
+
         $resultActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $resultActionEvent->setActionResult($result);
         $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
@@ -118,8 +120,6 @@ abstract class AbstractAction
         $postActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $postActionEvent->setActionResult($result);
         $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
-
-        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->target, $result);
 
         return $result;
     }

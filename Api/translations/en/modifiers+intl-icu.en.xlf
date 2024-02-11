@@ -70,13 +70,13 @@
     <unit id="prevent_move_on_pre.action">
       <segment id="description" state="translated">
         <source>prevent_move_on_pre.action.description</source>
-        <target>Impossible to move.</target>
+        <target>Impossible to **move**.</target>
       </segment>
     </unit>
     <unit id="prevent_pick_heavy_item_on_pre.action">
       <segment id="description" state="translated">
         <source>prevent_pick_heavy_item_on_pre.action.description</source>
-        <target>Impossible to carry heavy items.</target>
+        <target>Impossible to **carry heavy items**.</target>
       </segment>
     </unit>
     <unit id="cat_allergy_on_post.action">
@@ -139,7 +139,7 @@
     <unit id="prevent_piloting_actions_on_pre.action">
       <segment id="description" state="translated">
         <source>prevent_piloting_actions_on_pre.action.description</source>
-        <target>Impossible to pilot.</target>
+        <target>Impossible to **pilot**.</target>
       </segment>
     </unit>
     <unit id="prevent_shoot_actions_on_pre.action">
@@ -188,6 +188,18 @@
                     100 {Every cycle, gain **{quantity}** {emote}.}
                     other {Every cycle, a **{chance}%** chance, gain **{quantity}** {emote}.}
                 }</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_move_if_player_in_room_four_people">
+      <segment id="description" state="translated">
+        <source>apply.cost_increase_move_if_player_in_room_four_people.description</source>
+        <target>If there are at least **4** people in the room, each move costs **{quantity}** :pm: more.</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_if_player_in_room_four_people">
+      <segment id="description" state="translated">
+        <source>apply.cost_increase_if_player_in_room_four_people.description</source>
+        <target>If there are at least **4** people in the room, each action costs **{quantity}** {emote} more.</target>
       </segment>
     </unit>
   </file>

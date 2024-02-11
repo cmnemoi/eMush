@@ -6,9 +6,9 @@
         <source>nothing_to_report.name</source>
         <target>Nothing to report</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>nothing_to_report.description</source>
-        <target>The zone has been explored, nothing to report.</target>
+        <target>The zone has been explored, nothing to report.{always_successful_thanks_to_skill}</target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>nothing_to_report.landing_description</source>
@@ -241,6 +241,12 @@
         6 {The expedition has found a bluish-purple lake of heptanol! With all that, the Daedalus is unlikely to break down!}
         other {You have earned {quantity} units of Fuel.}
         }</target>
+      </segment>
+    </unit>
+    <unit id="always_successful_thanks_to_skill">
+      <segment id="description" state="translated">
+        <source>always_successful_thanks_to_skill</source>
+        <target>Always succeeds because the expedition team has the skill: {skill}.</target>
       </segment>
     </unit>
   </file>

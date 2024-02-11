@@ -150,7 +150,7 @@ class ActionServiceCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
 
         /** @var Daedalus $daedalus */
@@ -188,7 +188,7 @@ class ActionServiceCest
         $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
         $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(1, $player->getMovementPoint());
+        $I->assertEquals(2, $player->getMovementPoint());
     }
 
     public function testApplyCostToPlayerWithMovementPointConversionAndModifier(FunctionalTester $I)
@@ -204,7 +204,7 @@ class ActionServiceCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
 
         /** @var Daedalus $daedalus */
@@ -259,6 +259,6 @@ class ActionServiceCest
         $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
         $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(0, $player->getMovementPoint());
+        $I->assertEquals(1, $player->getMovementPoint());
     }
 }

@@ -59,10 +59,10 @@
             </div>
             <div v-if="! loading && target" class="interactions">
                 <div v-if="selectedItem" class="item">
-                    <div class="item-name">
+                    <span class="item-name">
                         {{ selectedItem.name }}
                         <Statuses :statuses="selectedItem.statuses" type="item" />
-                    </div>
+                    </span>
                     <ActionButton
                         v-for="(action, key) in target.actions"
                         :key="key"
@@ -348,10 +348,6 @@ div.inventory {
         &::v-deep(.status) {
             vertical-align: middle;
             margin-left: 2px;
-        }
-
-        .item-name {
-            flex-direction: row;
         }
     }
 }

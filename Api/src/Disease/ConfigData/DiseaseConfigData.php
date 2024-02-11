@@ -843,7 +843,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'modifier_for_player_+1actionPoint_on_actions_if_player_in_room_four_people',
-                'modifier_for_player_+1movementPoint_on_actions_if_player_in_room_four_people',
+                'modifier_for_player_+1movementPoint_on_move_action_if_player_in_room_four_people',
                 'prevent_piloting_actions',
             ],
         ],

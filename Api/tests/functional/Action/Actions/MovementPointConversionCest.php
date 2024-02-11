@@ -67,7 +67,7 @@ class MovementPointConversionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -112,7 +112,7 @@ class MovementPointConversionCest
         $this->moveAction->execute();
 
         $I->assertEquals($player->getActionPoint(), 1);
-        $I->assertEquals($player->getMovementPoint(), 1);
+        $I->assertEquals($player->getMovementPoint(), 2);
     }
 
     public function testConversionWithIncreasedMovementCost(FunctionalTester $I)
@@ -149,7 +149,7 @@ class MovementPointConversionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -196,7 +196,7 @@ class MovementPointConversionCest
         $this->moveAction->execute();
 
         $I->assertEquals($player->getActionPoint(), 9);
-        $I->assertEquals($player->getMovementPoint(), 1);
+        $I->assertEquals($player->getMovementPoint(), 2);
     }
 
     public function testSeveralConversionRequired(FunctionalTester $I)
@@ -233,7 +233,7 @@ class MovementPointConversionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -278,7 +278,7 @@ class MovementPointConversionCest
         $this->moveAction->execute();
 
         $I->assertEquals($player->getActionPoint(), 8);
-        $I->assertEquals($player->getMovementPoint(), 0);
+        $I->assertEquals($player->getMovementPoint(), 2);
     }
 
     public function testConversionImpossible(FunctionalTester $I)
@@ -315,7 +315,7 @@ class MovementPointConversionCest
             ->buildName(GameConfigEnum::TEST)
         ;
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
 
         /** @var EquipmentConfig $doorConfig */

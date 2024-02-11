@@ -1,6 +1,6 @@
 <template>
     <Tippy
-        tag="ul"
+        tag="span"
         v-for="(status, key) in statuses"
         :key="key"
         class="status">

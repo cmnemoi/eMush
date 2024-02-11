@@ -229,5 +229,11 @@
         <target>fuel.hydrocarbon_description</target>
       </segment>
     </unit>
+    <unit id="always_successful_thanks_to_skill">
+      <segment id="description" state="initial">
+        <source>always_successful_thanks_to_skill</source>
+        <target>always_successful_thanks_to_skill</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

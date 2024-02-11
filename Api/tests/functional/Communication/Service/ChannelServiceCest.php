@@ -7,8 +7,10 @@ namespace Mush\tests\Functional\Communication\Service;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -108,5 +110,40 @@ final class ChannelServiceCest extends AbstractFunctionalTest
 
         // then player should be able to post a message
         $I->assertTrue($canPostMessage);
+    }
+
+    public function testPlayerWithoutMeansOfCommunicationCannotBeInvitedIfAloneInTheRoom(FunctionalTester $I): void
+    {
+        // given our three protagonists
+        $chun = $this->player;
+        $kuanTi = $this->player2;
+        $raluca = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::RALUCA);
+        $this->players->add($raluca);
+
+        // given all players except Raluca have a talkie
+        foreach ([$chun, $kuanTi] as $player) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::WALKIE_TALKIE,
+                equipmentHolder: $player,
+                reasons: [],
+                time: new \DateTime()
+            );
+        }
+
+        // given chun creates a private channel
+        $channel = $this->channelService->createPrivateChannel($chun);
+
+        // given kuan Ti is invited to the channel
+        $channel = $this->channelService->invitePlayer($kuanTi, $channel);
+
+        // given raluca is in another room than chun and kuan Ti
+        $raluca->changePlace($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
+
+        // when I check the players Chun can invite to the channel
+        $invitablePlayers = $this->channelService->getInvitablePlayersToPrivateChannel($channel, $chun);
+        $invitablePlayers = $invitablePlayers->map(fn (Player $player) => $player->getLogName());
+
+        // then raluca should not be in the list
+        $I->assertNotContains($raluca->getLogName(), $invitablePlayers);
     }
 }

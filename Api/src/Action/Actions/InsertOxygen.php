@@ -18,7 +18,7 @@ class InsertOxygen extends InsertAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new ParameterName(['name' => ItemEnum::OXYGEN_CAPSULE, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new ParameterName(['names' => [ItemEnum::OXYGEN_CAPSULE], 'groups' => ['visibility']]));
         $metadata->addConstraint(new GameVariableLevel([
             'variableName' => DaedalusVariableEnum::OXYGEN,
             'target' => GameVariableLevel::DAEDALUS,

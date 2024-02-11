@@ -10,8 +10,11 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -58,13 +61,32 @@ class InsertFuelCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
+        // when player inserts fuel capsule in fuel tank
         $this->insertFuelAction->loadParameters($this->actionConfig, $this->player, $gameCapsule);
-
         $this->insertFuelAction->execute();
 
+        // then Daedalus has 1 more fuel
         $I->assertEquals($initFuel + 1, $this->daedalus->getFuel());
+        
+        // then fuel capsule is removed from player's inventory
         $I->assertEmpty($this->player->getEquipments());
-        $I->assertCount(1, $this->player->getPlace()->getEquipments());
+
+        // then a public log should specify that the player inserted the jar of alien oil in the fuel tank
+        /** @var RoomLog $roomLog */
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => ActionLogEnum::INSERT_FUEL,
+            ]
+        );
+        dump($roomLog->getParameters());
+
+        $I->assertEquals(
+            expected: ItemEnum::FUEL_CAPSULE,
+            actual: $roomLog->getParameters()['target_item']
+        );
     }
 
     public function testInsertFuelBrokenTank(FunctionalTester $I)
@@ -127,5 +149,21 @@ class InsertFuelCest extends AbstractFunctionalTest
 
         // then daedalus has 5 more fuel
         $I->assertEquals(5, $this->player->getDaedalus()->getFuel());
+
+        // then a public log should specify that the player inserted the jar of alien oil in the fuel tank
+        /** @var RoomLog $roomLog */
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => ActionLogEnum::INSERT_FUEL,
+            ]
+        );
+
+        $I->assertEquals(
+            expected: ToolItemEnum::JAR_OF_ALIEN_OIL,
+            actual: $roomLog->getParameters()['target_item']
+        );
     }
 }

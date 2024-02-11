@@ -618,7 +618,10 @@
     <unit id="insert_fuel">
       <segment id="insert_fuel" state="final">
         <source>insert_fuel</source>
-        <target>**{character}** a inséré une *Capsule de Fuel* dans le *Réservoir*.</target>
+        <target>{target_equipment_gender, select,
+        male {**{character}** a inséré un *{target_equipment}* dans le *Réservoir*.}
+        female {**{character}** a inséré une *{target_equipment}* dans le *Réservoir*.}
+        other {**{character}** a inséré un *{target_equipment}* dans le *Réservoir*.}}</target>
       </segment>
     </unit>
     <unit id="sabotage_success">

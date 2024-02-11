@@ -39,6 +39,7 @@ final class ModerationViewPlayerNormalizer implements NormalizerInterface, Norma
 
         return [
             'id' => $player->getId(),
+            'daedalusId' => $daedalus->getId(),
             'user' => $this->normalizePlayerUser($player),
             'character' => $this->normalizePlayerCharacter($player, $language),
             'playerVariables' => $this->normalizePlayerVariables($player),

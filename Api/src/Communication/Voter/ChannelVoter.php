@@ -57,7 +57,8 @@ class ChannelVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($channel, $playerInfo);
+                // @TODO : in the future, do not allow moderators to see channels of their own games
+                return $user->isModerator() || $this->canView($channel, $playerInfo);
         }
 
         throw new \LogicException('This code should not be reached!');

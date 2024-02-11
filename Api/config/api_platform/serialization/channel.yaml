@@ -1,0 +1,14 @@
+Mush\Communication\Entity\Channel:
+  attributes:
+    id:
+      groups: [ 'channel_read' ]
+    createdAt:
+      groups: [ 'channel_read' ]
+    scope:
+      groups: [ 'channel_read' ]
+    daedalusInfo:
+      groups: [ 'channel_read' ]
+    participants:
+      groups: [ 'channel_read' ]
+    messages:
+      groups: [ 'channel_read' ]

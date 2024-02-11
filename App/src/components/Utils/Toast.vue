@@ -1,10 +1,12 @@
 <template>
     <template v-if="isOpen">
-        <div class="modal-toast" :class="type">
-            <img v-if="type == 'warning'" src="@/assets/images/att.png" alt="warning" />
-            <img v-else-if="type == 'error'" src="@/assets/images/neron_eye.gif" alt="error" />
-            <img v-else-if="type == 'success'" src="@/assets/images/att.png" alt="warning" />
-            <img v-else src="@/assets/images/info.png" alt="info" />
+        <div class="toast" :class="type">
+            <div class="icon">
+                <img v-if="type == 'warning'" src="@/assets/images/att.png" alt="warning" />
+                <img v-else-if="type == 'error'" src="@/assets/images/neron_eye.gif" alt="error" />
+                <img v-else-if="type == 'success'" src="@/assets/images/ready.png" alt="warning" />
+                <img v-else src="@/assets/images/info.png" alt="info" />
+            </div>
             <div class="content">
                 <h1 v-if="title">
                     {{ title }}
@@ -14,8 +16,6 @@
                 </button>
                 <slot />
             </div>
-        </div>
-        <div v-if="type == 'error'" class="modal-background">
         </div>
     </template>
 </template>
@@ -41,57 +41,75 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-.modal-background {
-    position: fixed;
-    background: transparentize(#09092d, 0.5);
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 998;
-    transition: all 0.3s;
-}
 
-.modal-toast {
-    position: fixed;
-    z-index: 999;
-    bottom: 24px;
-    width: 95%;
+$info-color: #3965fb;
+$success-color: #16b64b;
+$warning-color: #e7b719;
+$error-color: #e72719;
+.toast {
+
+    position: relative;
+    width: 100%;
     max-width: 520px;
-    left: 50%;
-    transform: translatex(-50%);
     flex-direction: row;
-    align-items: center;
-    column-gap: 1.2em;
-    padding: 0.9em 1.4em;
     background-color: rgba(35, 37, 100, .9);
-    box-shadow:
-        inset 0 0 12px 3px #3965fb,
-        inset 0 0 0 2px #3965fb,
-        0 0 22px 8px transparentize(#09092d, 0.4);
+    border: 2px solid $info-color;
+    border-radius: 5px;
+    box-shadow: 0 0 22px 8px transparentize(#09092d, 0.2);
 
-        &::after { // angle blue triangles decoration
-        content: "";
-        position: absolute;
-        z-index: -1;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: 3px;
-        border: 5px solid transparent;
-        border-image: url('~@/assets/images/ToolTip-corners.gif') 50% round;
-    };
+    animation: appear 0.8s ease-out 1;
+    animation-fill-mode: both;
 
-    .content { display: block; }
+    ::v-deep(p) { margin: 0.4em 0 0; }
+    ::v-deep(a) { color: $green; }
+
+    .icon {
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: transparentize($info-color, 0.4); 
+        width: 3.6em;
+
+        img { max-width: 36px; }
+    }
+
+    &.success {
+        border-color: $success-color;
+
+        .icon { background: transparentize($success-color, 0.4); }
+    }
+
+    &.warning {
+        border-color: $warning-color;
+
+        .icon { background: transparentize($warning-color, 0.4); }
+    }
+
+    &.error {
+        border-color: $error-color;
+        .icon { background: transparentize($error-color, 0.4); }
+    }
+
+    .content {
+        display: block;
+        width: 100%;
+        margin: 0.5em 1.2em 0.8em;
+    }
+
+    @for $i from 1 through 12 {
+        &:nth-child(#{$i}) { animation-delay: $i*400ms ; }
+    }
+
+    @media screen and (max-width: $breakpoint-desktop-m) { box-shadow: 0 0 14px 4px transparentize(#09092d, 0.2); }
 }
 
 h1 {
-    font-size: 1.3em;
-    letter-spacing: 0.05em;
+    font-size: 1.2em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     text-align: left;
-    margin: 0.3em 0;
+    width: calc(100% - 2.6em);
+    margin: 0.4em 0 0;
 }
 
 .modal-close {
@@ -109,5 +127,16 @@ h1 {
     transition: all 0.15s;
 
     &:hover, &:focus, &:active { color: white; }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-6em);
+}
+  to {
+    opacity: 1;
+    transform: translateY(0);
+}
 }
 </style>

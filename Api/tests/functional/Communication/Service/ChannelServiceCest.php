@@ -137,7 +137,7 @@ final class ChannelServiceCest extends AbstractFunctionalTest
         $channel = $this->channelService->invitePlayer($kuanTi, $channel);
 
         // given raluca is in another room than chun and kuan Ti
-        $this->player2->changePlace($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
+        $raluca->changePlace($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
 
         // when I check the players Chun can invite to the channel
         $invitablePlayers = $this->channelService->getInvitablePlayersToPrivateChannel($channel, $chun);

@@ -71,23 +71,11 @@ const CommunicationService = {
         case ChannelType.PRIVATE:
         case ChannelType.PUBLIC:
         case ChannelType.MUSH:
-            return loadChannelMessages();
+            return CommunicationService.loadChannelMessages(channel);
         case ChannelType.ROOM_LOG:
             return loadRoomLogs();
         default:
             return [];
-        }
-
-        async function loadChannelMessages(): Promise<Message[]> {
-            const messagesData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/message');
-
-            const messages: Message[] = [];
-            if (messagesData.data) {
-                messagesData.data.forEach((data: any) => {
-                    messages.push((new Message()).load(data));
-                });
-            }
-            return messages;
         }
 
         async function loadRoomLogs(): Promise<Record<string, unknown>[]> {
@@ -113,6 +101,18 @@ const CommunicationService = {
             }
             return logs;
         }
+    },
+
+    loadChannelMessages: async (channel: Channel): Promise<Message[]> => {
+        const messagesData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/message');
+
+        const messages: Message[] = [];
+        if (messagesData.data) {
+            messagesData.data.forEach((data: any) => {
+                messages.push((new Message()).load(data));
+            });
+        }
+        return messages;
     },
 
     loadInvitablePlayers: async (channel: Channel): Promise<Player[]> => {

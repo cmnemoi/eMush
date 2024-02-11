@@ -106,6 +106,9 @@ export default defineComponent ({
             return this.message.isHidden;
         },
         isPlayerAlive: function(): boolean {
+            if (!this.player) {
+                return false;
+            }
             return !['finished'].includes(this.player.gameStatus);
         }
     },

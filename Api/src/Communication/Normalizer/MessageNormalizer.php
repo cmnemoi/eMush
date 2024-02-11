@@ -4,6 +4,7 @@ namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Message;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -26,9 +27,16 @@ class MessageNormalizer implements NormalizerInterface
     {
         $child = [];
 
-        /** @var Player $currentPlayer */
-        $currentPlayer = $context['currentPlayer'];
-        $language = $currentPlayer->getDaedalus()->getLanguage();
+        // @HACK: If we normalize messages with API Platform, we don't have a current player in the context
+        // so doing this ugly if else.
+        // @TODO: Find a way to use API Platform normalization_context to handle this
+        if (array_key_exists('currentPlayer', $context)) {
+            /** @var Player $currentPlayer */
+            $currentPlayer = $context['currentPlayer'];
+            $language = $currentPlayer->getDaedalus()->getLanguage();
+        } else {
+            $language = LanguageEnum::FRENCH;
+        }
 
         /** @var Message $children */
         foreach ($object->getChild() as $children) {

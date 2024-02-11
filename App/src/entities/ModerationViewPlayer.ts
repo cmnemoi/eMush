@@ -11,6 +11,7 @@ interface ShortUser {
 
 export class ModerationViewPlayer {
     public id!: number;
+    public daedalusId: number|null;
     public user!: ShortUser;
     public character!: Character;
     public playerVariables!: PlayerVariables;
@@ -21,6 +22,7 @@ export class ModerationViewPlayer {
     public isAlive!: boolean;
 
     public constructor() {
+        this.daedalusId = null;
         this.statuses = [];
         this.diseases = [];
         this.currentRoom = null;
@@ -29,6 +31,7 @@ export class ModerationViewPlayer {
     public load(object: any): ModerationViewPlayer {
         if (object) {
             this.id = object.id;
+            this.daedalusId = object.daedalusId;
             this.user = object.user;
             this.character = new Character().load(object.character);
             this.playerVariables = new PlayerVariables().load(object.playerVariables);

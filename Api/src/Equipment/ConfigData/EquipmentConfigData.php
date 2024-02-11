@@ -2665,6 +2665,7 @@ class EquipmentConfigData
                 'access_terminal',
                 'exit_terminal',
                 'change_neron_cpu_priority',
+                'hack',
             ],
             'mechanics' => [],
             'initStatuses' => [],

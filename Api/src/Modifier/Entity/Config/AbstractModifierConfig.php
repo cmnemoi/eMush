@@ -38,7 +38,7 @@ abstract class AbstractModifierConfig
     protected ?string $modifierName = null;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
-    protected string $modifierStrategy = '';
+    protected ?string $modifierStrategy = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $modifierRange;
@@ -81,7 +81,7 @@ abstract class AbstractModifierConfig
         return $this->modifierName;
     }
 
-    public function getModifierStrategy(): string
+    public function getModifierStrategy(): ?string
     {
         return $this->modifierStrategy;
     }

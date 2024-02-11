@@ -21,7 +21,7 @@ interface MessageServiceInterface
         \DateTime $dateTime,
     ): Message;
 
-    public function getChannelMessages(Player $player, Channel $channel): Collection;
+    public function getChannelMessages(?Player $player, Channel $channel): Collection;
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool;
 }

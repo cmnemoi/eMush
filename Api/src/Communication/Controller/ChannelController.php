@@ -555,21 +555,22 @@ class ChannelController extends AbstractGameController
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
+        // @TODO: move this to a Voter
         /** @var User $user */
         $user = $this->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo?->getPlayer();
 
-        $this->denyIfPlayerNotInGame($player);
-
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+        if (!$user->isModerator() && $channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
         $messages = $this->messageService->getChannelMessages($player, $channel);
 
         $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
+        if ($player) {
+            $context->setAttribute('currentPlayer', $player);
+        }
 
         $view = $this->view($messages, 200);
         $view->setContext($context);

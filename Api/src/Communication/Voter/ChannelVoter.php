@@ -46,11 +46,6 @@ class ChannelVoter extends Voter
         $user = $token->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
-        // User must be logged in and have a current game
-        if ($playerInfo === null) {
-            return false;
-        }
-
         // you know $subject is a Post object, thanks to `supports()`
         /** @var Channel $channel */
         $channel = $subject;
@@ -58,7 +53,7 @@ class ChannelVoter extends Voter
         switch ($attribute) {
             case self::VIEW:
                 // @TODO : in the future, do not allow moderators to see channels of their own games
-                return $user->isModerator() || $this->canView($channel, $playerInfo);
+                return $user->isModerator() || $playerInfo && $this->canView($channel, $playerInfo);
         }
 
         throw new \LogicException('This code should not be reached!');

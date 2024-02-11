@@ -50,7 +50,9 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                'poc_pilot_skill_alpha',
+            ],
         ],
         [
             'name' => 'chao',
@@ -833,6 +835,7 @@ class CharacterConfigData
             'initStatuses' => [
                 'disabled_default',
                 PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
+                'poc_shooter_skill_alpha',
             ],
         ],
     ];

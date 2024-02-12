@@ -1,16 +1,16 @@
-Mush\Communication\Entity\Channel:
-  shortName: 'Channel'
-  description: 'eMush Channels'
+Mush\Communication\Entity\Message:
+  shortName: 'Message'
+  description: 'eMush Messages'
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'channel_read', 'moderation_read' ]
+      groups: [ 'message_read', 'moderation_read' ]
     denormalization_context:
-      groups: [ 'channel_write' ]
+      groups: [ 'message_write' ]
   collectionOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'
-      filters: [ 'channel.search_filter', 'date.order_filter' ]
+      filters: [ 'message.search_filter', 'date.order_filter' ]
   itemOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'

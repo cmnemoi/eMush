@@ -48,6 +48,7 @@ final class ModerationViewPlayerNormalizer implements NormalizerInterface, Norma
             'diseases' => $this->normalizePlayerDiseases($player, $format, $context),
             'skills' => $this->normalizePlayerSkills($player, $format, $context),
             'isAlive' => $player->isAlive(),
+            'cycleStartedAt' => $player->getDaedalus()->getCycleStartedAt()?->format('Y-m-d H:i:s'),
         ];
     }
 

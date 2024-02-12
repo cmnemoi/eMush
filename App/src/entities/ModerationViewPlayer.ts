@@ -20,12 +20,14 @@ export class ModerationViewPlayer {
     public diseases: Array<Status>;
     public currentRoom: string|null;
     public isAlive!: boolean;
+    public cycleStartedAt: Date|null;
 
     public constructor() {
         this.daedalusId = null;
         this.statuses = [];
         this.diseases = [];
         this.currentRoom = null;
+        this.cycleStartedAt = null;
     }
 
     public load(object: any): ModerationViewPlayer {
@@ -40,6 +42,7 @@ export class ModerationViewPlayer {
             this.statuses = object.statuses?.map((statusObject: any) => { return (new Status()).load(statusObject); });
             this.diseases = object.diseases?.map((statusObject: any) => { return (new Status()).load(statusObject); });
             this.isAlive = object.isAlive;
+            this.cycleStartedAt = object.cycleStartedAt ? new Date(object.cycleStartedAt) : null;
         }
         return this;
     }

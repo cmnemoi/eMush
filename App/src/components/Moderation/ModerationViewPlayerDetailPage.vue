@@ -50,7 +50,36 @@
             </div>
             <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
-        <button class="action-button" @click="loadPublicChannelMessages(player)">{{ $t("moderation.loadPublicChannel") }}</button>
+        <div class="flex-row">
+            <label>{{ $t('moderation.startDate') }}
+                <input
+                    type="search"
+                    v-model="startDateFilter"
+                    @keyup.enter="loadPublicChannelMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.endDate') }}
+                <input
+                    type="search"
+                    v-model="endDateFilter"
+                    @keyup.enter="loadPublicChannelMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.messageAuthor :') }}
+                <input
+                    type="search"
+                    v-model="authorFilter"
+                    @change="loadPublicChannelMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.contenu du message :') }}
+                <input
+                    type="search"
+                    v-model="messageFilter"
+                    @change="loadPublicChannelMessages(player)"
+                >
+            </label>
+        </div>
         <div class="messages-container" v-if="publicChannelMessages.length > 0">
             <h2> {{ $t('moderation.generalChannel') }}</h2>
             <section v-for="(message, id) in publicChannelMessages" :key="id" >
@@ -102,7 +131,6 @@ import Message from "@/components/Game/Communications/Messages/Message.vue";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
-import CommunicationService from "@/services/communication.service";
 import { Message as MessageEntity } from "@/entities/Message"; 
 import { Channel } from "@/entities/Channel";
 
@@ -112,11 +140,15 @@ interface PrivateChannel {
 }
 
 interface ModerationViewPlayerData {
+    authorFilter: string,
     mushChannelMessages: MessageEntity[],
+    messageFilter: string,
     publicChannelMessages: MessageEntity[],
     player: ModerationViewPlayer | null,
     playerLogs: any,
     privateChannels: PrivateChannel[],
+    startDateFilter: string,
+    endDateFilter: string,
     errors: any,
 }
 
@@ -128,7 +160,11 @@ export default defineComponent({
     },
     data() : ModerationViewPlayerData {
         return {
+            authorFilter: "",
+            startDateFilter: "",
+            endDateFilter: new Date().toISOString(),
             mushChannelMessages: [],
+            messageFilter: "",
             publicChannelMessages: [],
             player: null,
             playerLogs: null,
@@ -155,7 +191,7 @@ export default defineComponent({
             });
 
             if (mushChannel) {
-                await ModerationService.getChannelMessages(mushChannel)
+                await ModerationService.getChannelMessages(mushChannel, this.startDateFilter, this.endDateFilter)
                     .then((response) => {
                         this.mushChannelMessages = response;
                     })
@@ -168,7 +204,7 @@ export default defineComponent({
             this.privateChannels = [];
             await ModerationService.getPlayerPrivateChannels(player).then((channels: Channel[]) => {
                 channels.forEach((channel) => {
-                    ModerationService.getChannelMessages(channel)
+                    ModerationService.getChannelMessages(channel, this.startDateFilter, this.endDateFilter)
                         .then((response) => {
                             this.privateChannels.push({ id: channel.id, messages: response });
                         })
@@ -185,16 +221,16 @@ export default defineComponent({
             const publicChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "public").then((channel: Channel) => {
                 return channel;
             }).catch((error) => {
-                this.errors = error.response.data.errors;
+                console.error(error);
             });
 
             if (publicChannel) {
-                await ModerationService.getChannelMessages(publicChannel)
+                await ModerationService.getChannelMessages(publicChannel, this.startDateFilter, this.endDateFilter, this.messageFilter, this.authorFilter)
                     .then((response) => {
                         this.publicChannelMessages = response;
                     })
                     .catch((error) => {
-                        this.errors = error.response.data.errors;
+                        console.error(error);
                     });
             }
         },
@@ -229,6 +265,10 @@ export default defineComponent({
             await ModerationService.getModerationViewPlayer(Number(this.$route.params.playerId))
                 .then((response) => {
                     this.player = new ModerationViewPlayer().load(response.data);
+                    this.authorFilter = this.player?.character?.name || "";
+                    if (this.player?.cycleStartedAt) {
+                        this.startDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
+                    }
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
@@ -240,7 +280,14 @@ export default defineComponent({
                 .catch((error) => {
                     this.errors = error.response.data.errors;
                 });
+            if (this.player) {
+                await this.loadPublicChannelMessages(this.player);
+            }
         },
+        getDateMinusOneDay(date: Date) {
+            date.setHours(date.getHours() - 24);
+            return date;
+        }
     },
     beforeMount() {
         this.loadData();

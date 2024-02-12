@@ -24,9 +24,11 @@ const ModerationService = {
 
         return response;
     },
-    getChannelMessages: async(channel: Channel): Promise<Message[]> => {
+    getChannelMessages: async(channel: Channel,startDate: string, endDate: string, message?: string, author?: string): Promise<Message[]> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?channel.id=${channel.id}`).then((response) => {
+        const queryParameters = `channel.id=${channel.id}` + (startDate ? `&createdAt[after]=${startDate}` : '') + (endDate ? `&createdAt[before]=${endDate}` : '') + (message ? `&message=${message}` : '') + (author ? `&author.characterConfig.characterName=${author}` : '');
+
+        const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?${queryParameters}`).then((response) => {
             return response.data['hydra:member'].map((messageData: object) => {
                 return (new Message()).load(messageData);
             });

@@ -54,7 +54,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Atterrissage',
                 'eventName' => 'Rien à signaler',
                 'eventDescription' => 'L\'atterrissage se passe parfaitement bien, rien à signaler !',
-                'eventOutcome' => 'La zone est explorée, rien à signaler.//Toujours réussi car l\'expédition possède la compétence : Pilote.',
+                'eventOutcome' => 'La zone est explorée, rien à signaler.////Toujours réussi car l\'expédition possède la compétence : Pilote.',
             ],
             actual: $normalizedExplorationLog,
         );

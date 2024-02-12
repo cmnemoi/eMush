@@ -35,11 +35,11 @@
                 <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
             </button>
         </div>
-        {{ player.jsonEncode() }}
+        <span>{{ player.character.name }} - joué par {{ player.user.username }}  - {{ player.isMush ? 'Mush' : 'Humain' }} - {{ player.isAlive ? 'Vivant' : 'Mort' }} - {{ player.user.isBanned ? 'Banni' : 'Non banni' }}</span>
         <div class="logs-container">
             <h2>{{ $t('moderation.logs') }}</h2>
             <div class="logs" v-if="playerLogs">
-                <section v-for="(cycleRoomLog, id) in playerLogs.slice().reverse()" :key="id" class="unit">
+                <section v-for="(cycleRoomLog, id) in playerLogs.slice().reverse()" :key="id">
                     <div class="banner cycle-banner">
                         <span>{{ $t('game.communications.day') }} {{ cycleRoomLog.day }} {{ $t('game.communications.cycle') }}  {{cycleRoomLog.cycle }}</span>
                     </div>
@@ -51,75 +51,142 @@
             <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
         <div class="flex-row">
-            <label>{{ $t('moderation.startDate') }}
+            <label>{{ $t('moderation.filters.startDate') }} :
                 <input
                     type="search"
-                    v-model="startDateFilter"
+                    v-model="generalChannelStartDateFilter"
                     @keyup.enter="loadPublicChannelMessages(player)"
                 >
             </label>
-            <label>{{ $t('moderation.endDate') }}
+            <label>{{ $t('moderation.filters.endDate') }} :
                 <input
                     type="search"
-                    v-model="endDateFilter"
+                    v-model="generalChannelEndDateFilter"
                     @keyup.enter="loadPublicChannelMessages(player)"
                 >
             </label>
-            <label>{{ $t('moderation.messageAuthor :') }}
+            <label>{{ $t('moderation.filters.messageAuthor :') }}
                 <input
                     type="search"
-                    v-model="authorFilter"
+                    v-model="generalChannelAuthorFilter"
                     @change="loadPublicChannelMessages(player)"
                 >
             </label>
-            <label>{{ $t('moderation.contenu du message :') }}
+            <label>{{ $t('moderation.filters.messageContent') }} :
                 <input
                     type="search"
-                    v-model="messageFilter"
+                    v-model="generalChannelMessageFilter"
                     @change="loadPublicChannelMessages(player)"
                 >
             </label>
         </div>
-        <div class="messages-container" v-if="publicChannelMessages.length > 0">
+        <div class="messages-container">
             <h2> {{ $t('moderation.generalChannel') }}</h2>
-            <section v-for="(message, id) in publicChannelMessages" :key="id" >
-                <Message
-                    :message="message"
-                    :is-root="true"
-                    :is-replyable="false"
-                />
-                <button class="toggle-children" @click="message.toggleChildren()">
-                    {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
-                </button>
-                <Message
-                    v-for="(child, id) in message.children"
-                    :key="id"
-                    :message="child"
-                    :is-replyable="false"
-                />
-            </section>
+            <div v-if="publicChannelMessages.length > 0">
+                <section v-for="(message, id) in publicChannelMessages" :key="id" >
+                    <Message
+                        :message="message"
+                        :is-root="true"
+                        :is-replyable="false"
+                    />
+                    <button class="toggle-children" @click="message.toggleChildren()">
+                        {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
+                    </button>
+                    <Message
+                        v-for="(child, id) in message.children"
+                        :key="id"
+                        :message="child"
+                        :is-replyable="false"
+                    />
+                </section>
+            </div>
+            <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
-        <button class="action-button" @click="loadMushChannelMessages(player)" >{{ $t("moderation.loadMushChannel") }}</button>
-        <div class="messages-container" v-if="mushChannelMessages.length > 0">
+        <div class="flex-row">
+            <label>{{ $t('moderation.filters.startDate') }} :
+                <input
+                    type="search"
+                    v-model="mushChannelStartDateFilter"
+                    @keyup.enter="loadMushChannelMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.filters.endDate') }} :
+                <input
+                    type="search"
+                    v-model="mushChannelEndDateFilter"
+                    @keyup.enter="loadMushChannelMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.filters.messageAuthor') }} :
+                <input
+                    type="search"
+                    v-model="mushChannelAuthorFilter"
+                    @change="loadMushChannelMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.filters.messageContent') }} :
+                <input
+                    type="search"
+                    v-model="mushChannelMessageFilter"
+                    @change="loadMushChannelMessages(player)"
+                >
+            </label>
+        </div>
+        <div class="messages-container">
             <h2>{{ $t('moderation.mushChannel') }}</h2>
-            <section v-for="(message, id) in mushChannelMessages" :key="id">
-                <Message
-                    :message="message"
-                    :is-root="true"
-                    :is-replyable="false"
-                />
-            </section>
+            <div v-if="mushChannelMessages.length > 0">
+                <section v-for="(message, id) in mushChannelMessages" :key="id">
+                    <Message
+                        :message="message"
+                        :is-root="true"
+                        :is-replyable="false"
+                    />
+                </section>
+            </div>
+            <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
-        <button class="action-button" @click="loadPrivateChannelsMessages(player)">{{ $t("moderation.loadPrivateChannels") }}</button>
+        <div class="flex-row" v-if="privateChannels.length > 0">
+            <label>{{ $t('moderation.filters.startDate') }} :
+                <input
+                    type="search"
+                    v-model="privateChannelStartDateFilter"
+                    @keyup.enter="loadPrivateChannelsMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.filters.endDate') }} :
+                <input
+                    type="search"
+                    v-model="privateChannelEndDateFilter"
+                    @keyup.enter="loadPrivateChannelsMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.filters.messageAuthor') }} :
+                <input
+                    type="search"
+                    v-model="privateChannelAuthorFilter"
+                    @change="loadPrivateChannelsMessages(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.filters.messageContent') }} :
+                <input
+                    type="search"
+                    v-model="privateChannelMessageFilter"
+                    @change="loadPrivateChannelsMessages(player)"
+                >
+            </label>
+        </div>
         <div v-for="(channel, id) in privateChannels" :key="id" class="messages-container">
             <h2>{{ $t('moderation.privateChannel') }} {{ channel.id }} :</h2>
-            <section v-for="(message, id) in channel.messages" :key="id">
-                <Message
-                    :message="message"
-                    :is-root="true"
-                    :is-replyable="false"
-                />
-            </section>
+            <div v-if="channel.messages.length > 0">
+                <section v-for="(message, id) in channel.messages" :key="id">
+                    <Message
+                        :message="message"
+                        :is-root="true"
+                        :is-replyable="false"
+                    />
+                </section>
+            </div>
+            <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
     </div>
     <button class="action-button" @click="goBack">{{ $t("util.goBack") }}</button>
@@ -140,15 +207,23 @@ interface PrivateChannel {
 }
 
 interface ModerationViewPlayerData {
-    authorFilter: string,
+    generalChannelAuthorFilter: string,
+    generalChannelMessageFilter: string,
+    generalChannelStartDateFilter: string,
+    generalChannelEndDateFilter: string,
+    mushChannelAuthorFilter: string,
+    mushChannelMessageFilter: string,
+    mushChannelStartDateFilter: string,
+    mushChannelEndDateFilter: string,
+    privateChannelAuthorFilter: string,
+    privateChannelMessageFilter: string,
+    privateChannelStartDateFilter: string,
+    privateChannelEndDateFilter: string,
     mushChannelMessages: MessageEntity[],
-    messageFilter: string,
     publicChannelMessages: MessageEntity[],
     player: ModerationViewPlayer | null,
     playerLogs: any,
     privateChannels: PrivateChannel[],
-    startDateFilter: string,
-    endDateFilter: string,
     errors: any,
 }
 
@@ -160,11 +235,19 @@ export default defineComponent({
     },
     data() : ModerationViewPlayerData {
         return {
-            authorFilter: "",
-            startDateFilter: "",
-            endDateFilter: new Date().toISOString(),
+            generalChannelAuthorFilter: "",
+            generalChannelMessageFilter: "",
+            generalChannelStartDateFilter: "",
+            generalChannelEndDateFilter: new Date().toISOString(),
+            mushChannelAuthorFilter: "",
+            mushChannelMessageFilter: "",
+            mushChannelStartDateFilter: "",
+            mushChannelEndDateFilter: new Date().toISOString(),
+            privateChannelAuthorFilter: "",
+            privateChannelMessageFilter: "",
+            privateChannelStartDateFilter: "",
+            privateChannelEndDateFilter: new Date().toISOString(),
             mushChannelMessages: [],
-            messageFilter: "",
             publicChannelMessages: [],
             player: null,
             playerLogs: null,
@@ -179,7 +262,7 @@ export default defineComponent({
                     this.loadData();
                 })
                 .catch((error) => {
-                    this.errors = error.response.data.errors;
+                    console.error(error);
                 });
         },
         async loadMushChannelMessages(player: ModerationViewPlayer) {
@@ -187,16 +270,16 @@ export default defineComponent({
             const mushChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "mush").then((channel: Channel) => {
                 return channel;
             }).catch((error) => {
-                this.errors = error.response.data.errors;
+                console.error(error);
             });
 
             if (mushChannel) {
-                await ModerationService.getChannelMessages(mushChannel, this.startDateFilter, this.endDateFilter)
+                await ModerationService.getChannelMessages(mushChannel, this.mushChannelStartDateFilter, this.mushChannelEndDateFilter, this.mushChannelMessageFilter, this.mushChannelAuthorFilter)
                     .then((response) => {
                         this.mushChannelMessages = response;
                     })
                     .catch((error) => {
-                        this.errors = error.response.data.errors;
+                        console.error(error);
                     });
             }
         },
@@ -204,16 +287,16 @@ export default defineComponent({
             this.privateChannels = [];
             await ModerationService.getPlayerPrivateChannels(player).then((channels: Channel[]) => {
                 channels.forEach((channel) => {
-                    ModerationService.getChannelMessages(channel, this.startDateFilter, this.endDateFilter)
+                    ModerationService.getChannelMessages(channel, this.privateChannelStartDateFilter, this.privateChannelEndDateFilter, this.privateChannelMessageFilter, this.privateChannelAuthorFilter)
                         .then((response) => {
                             this.privateChannels.push({ id: channel.id, messages: response });
                         })
                         .catch((error) => {
-                            this.errors = error.response.data.errors;
+                            console.error(error);
                         });
                 });
             }).catch((error) => {
-                this.errors = error.response.data.errors;
+                console.error(error);
             });
         },
         async loadPublicChannelMessages(player: ModerationViewPlayer) {
@@ -225,7 +308,7 @@ export default defineComponent({
             });
 
             if (publicChannel) {
-                await ModerationService.getChannelMessages(publicChannel, this.startDateFilter, this.endDateFilter, this.messageFilter, this.authorFilter)
+                await ModerationService.getChannelMessages(publicChannel, this.generalChannelStartDateFilter, this.generalChannelEndDateFilter, this.generalChannelMessageFilter, this.generalChannelAuthorFilter)
                     .then((response) => {
                         this.publicChannelMessages = response;
                     })
@@ -240,7 +323,7 @@ export default defineComponent({
                     this.loadData();
                 })
                 .catch((error) => {
-                    this.errors = error.response.data.errors;
+                    console.error(error);
                 });
         },
         quarantineAndBanPlayer(player: ModerationViewPlayer) {
@@ -251,11 +334,11 @@ export default defineComponent({
                             this.loadData();
                         })
                         .catch((error) => {
-                            this.errors = error.response.data.errors;
+                            console.error(error);
                         });
                 })
                 .catch((error) => {
-                    this.errors = error.response.data.errors;
+                    console.error(error);
                 });
         },
         goBack() {
@@ -265,29 +348,41 @@ export default defineComponent({
             await ModerationService.getModerationViewPlayer(Number(this.$route.params.playerId))
                 .then((response) => {
                     this.player = new ModerationViewPlayer().load(response.data);
-                    this.authorFilter = this.player?.character?.name || "";
-                    if (this.player?.cycleStartedAt) {
-                        this.startDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
-                    }
+                    this.setupAuthorFilters();
+                    this.setupStartDateFilters();
                 })
                 .catch((error) => {
-                    this.errors = error.response.data.errors;
+                    console.error(error);
                 });
             await ModerationService.getPlayerLogs(Number(this.$route.params.playerId))
                 .then((response) => {
                     this.playerLogs = response.data;
                 })
                 .catch((error) => {
-                    this.errors = error.response.data.errors;
+                    console.error(error);
                 });
             if (this.player) {
                 await this.loadPublicChannelMessages(this.player);
+                await this.loadMushChannelMessages(this.player);
+                await this.loadPrivateChannelsMessages(this.player);
             }
         },
         getDateMinusOneDay(date: Date) {
             date.setHours(date.getHours() - 24);
             return date;
-        }
+        },
+        setupAuthorFilters() {
+            this.generalChannelAuthorFilter = this.player?.character?.name || "";
+            this.mushChannelAuthorFilter = this.player?.character?.name || "";
+            this.privateChannelAuthorFilter = this.player?.character?.name || "";
+        },
+        setupStartDateFilters() {
+            if (this.player?.cycleStartedAt) {
+                this.mushChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
+                this.generalChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
+                this.privateChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
+            }
+        },
     },
     beforeMount() {
         this.loadData();

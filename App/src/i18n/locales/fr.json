@@ -643,6 +643,12 @@
 			"players": "Joueurs",
 			"users": "Utilisateurs"
 		},
+		"filters": {
+			"endDate": "Date de fin",
+			"messageAuthor": "Auteur du message",
+			"messageContent": "Contenu du message",
+			"startDate": "Date de début"
+		},
 		"playerList": {
 			"gameStatuses": {
 				"all": "Sans distinction",
@@ -672,6 +678,7 @@
 		"loadPublicChannel": "Charger le canal public",
 		"logs": "Logs",
 		"mushChannel": "Canal Mush",
+		"nothingToDisplay": "Rien à afficher.",
 		"privateChannel": "Canal privé",
 		"unban": "Débannir",
 		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",

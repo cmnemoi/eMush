@@ -100,45 +100,6 @@ final class ModerationController extends AbstractFOSRestController
     }
 
     /**
-     * Get all player logs.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/player-logs/{id}")
-     *
-     * @Rest\View()
-     */
-    public function getPlayerLogs(Player $player): View
-    {
-        $this->denyAccessIfNotModerator();
-
-        $daedalus = $player->getDaedalus();
-
-        $logs = $this->roomLogService->getDaedalusRoomLogs($daedalus);
-        $playerLogs = $logs->getLogsRelatedToPlayer($player);
-
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
-        $context->setAttribute('user', $this->getUser());
-        $context->setAttribute('groups', ['moderation_view']);
-
-        $view = $this->view($playerLogs, Response::HTTP_OK);
-        $view->setContext($context);
-
-        return $view;
-    }
-
-    /**
      * Quarantine a player.
      *
      * @OA\Parameter(

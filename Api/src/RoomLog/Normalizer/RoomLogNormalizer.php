@@ -19,26 +19,17 @@ class RoomLogNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof RoomLogCollection;
+        return $data instanceof RoomLogCollection && !in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
     public function normalize($object, string $format = null, array $context = []): array
     {
         /** @var RoomLogCollection $roomLogCollection */
-        $roomLogCollection = $object;
-
+        $logCollection = $object;
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
-
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        $moderationView = isset($context['groups']) && in_array('moderation_view', $context['groups'], true);
-
-        return $this->normalizeLogs($roomLogCollection, $language, $moderationView);
-    }
-
-    public function normalizeLogs(RoomLogCollection $logCollection, string $language, bool $moderationView): array
-    {
         $logs = [];
         foreach ($logCollection as $roomLog) {
             $log = [
@@ -51,16 +42,6 @@ class RoomLogNormalizer implements NormalizerInterface
                 'visibility' => $roomLog->getVisibility(),
                 'date' => $this->getLogDate($roomLog->getDate(), $language),
             ];
-
-            if ($moderationView) {
-                $log['parameters'] = $roomLog->getParameters();
-                $log['place'] = $this->translationService->translate(
-                    $roomLog->getPlace() . '.name',
-                    [],
-                    'rooms',
-                    $language
-                );
-            }
 
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = $log;
         }

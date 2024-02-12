@@ -644,10 +644,25 @@
 			"users": "Utilisateurs"
 		},
 		"filters": {
+			"cycle": "Cycle",
+			"day": "Jour",
 			"endDate": "Date de fin",
+			"logContent": "Log",
+			"logContentDescription": "Nom du log à chercher. Pour le moment, vous devez rentrer le code du log avant traduction (par exemple pour les coups à mains nues \"hit\"). Dans le futur, des filtres pré-sélectionnés (actions agressives, actions mush...) seront disponibles.",
 			"messageAuthor": "Auteur du message",
 			"messageContent": "Contenu du message",
+			"room": "Pièce",
+			"roomDescription": "Pièce du log à chercher. Pour le moment, vous devez rentrer la pièce en anglais.",
 			"startDate": "Date de début"
+		},
+		"player": {
+			"playedBy": "Joué par",
+			"mush": "Mush",
+			"human": "Humain",
+			"banned": "Banni",
+			"notBanned": "Non banni",
+			"alive": "Vivant",
+			"dead": "Mort"
 		},
 		"playerList": {
 			"gameStatuses": {
@@ -686,6 +701,8 @@
 		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
 		"quarantine": "Mettre en quarantaine",
 		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
+		"reloadData": "Recharger les données",
+		"reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
 		"searchByCharacter": "Rechercher un personnage :",
 		"searchByDaedalusId": "Rechercher un Daedalus par ID :",
 		"searchByUsername": "Rechercher un utilisateur :"

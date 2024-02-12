@@ -1,0 +1,16 @@
+Mush\RoomLog\Entity\RoomLog:
+  shortName: 'RoomLog'
+  description: 'eMush RoomLogs'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'room_log_read', 'moderation_read' ]
+    denormalization_context:
+      groups: [ 'room_log_write' ]
+  collectionOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'
+      filters: [ 'room_log.search_filter', 'date.order_filter', 'default.date_filter' ]
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR") and is_granted("CAN_SEE_HIDDEN", object)'

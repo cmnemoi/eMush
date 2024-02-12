@@ -34,8 +34,54 @@
             <button class="action-button router-button">
                 <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
             </button>
+            <Tippy tag="button" class="action-button" @click="loadData()">
+                {{ $t('moderation.reloadData') }}
+
+                <template #content>
+                    <h1>{{ $t("moderation.reloadData") }}</h1>
+                    <p>{{ $t("moderation.reloadDataDescription") }}</p>
+                </template>
+            </Tippy>
         </div>
-        <span>{{ player.character.name }} - joué par {{ player.user.username }}  - {{ player.isMush ? 'Mush' : 'Humain' }} - {{ player.isAlive ? 'Vivant' : 'Mort' }} - {{ player.user.isBanned ? 'Banni' : 'Non banni' }}</span>
+        <span>{{ player.character.name }} - {{ $t('moderation.player.playedBy') }} {{ player.user.username }}  - {{ player.isMush ? $t('moderation.player.mush') : $t('moderation.player.human') }} - {{ player.isAlive ? $t('moderation.player.alive') : $t('moderation.player.dead') }} - {{ player.user.isBanned ? $t('moderation.player.banned') : $t('moderation.player.notBanned') }}</span>
+        <div class="flex-row">
+            <label>{{ $t('moderation.filters.day') }} :
+                <input
+                    type="search"
+                    v-model="logsDay"
+                    @change="loadLogs(player)"
+                >
+            </label>
+            <label>{{ $t('moderation.filters.cycle') }} :
+                <input
+                    type="search"
+                    v-model="logsCycle"
+                    @change="loadLogs(player)"
+                >
+            </label>
+            <Tippy tag="label">{{ $t('moderation.filters.logContent') }} :
+                <input
+                    type="search"
+                    v-model="logsContent"
+                    @change="loadLogs(player)"
+                >
+                <template #content>
+                    <h1>{{ $t("moderation.filters.logContent") }}</h1>
+                    <p>{{ $t("moderation.filters.logContentDescription") }}</p>
+                </template>
+            </Tippy>
+            <Tippy tag="label">{{ $t('moderation.filters.room') }} :
+                <input
+                    type="search"
+                    v-model="logsRoom"
+                    @change="loadLogs(player)"
+                >
+                <template #content>
+                    <h1>{{ $t("moderation.filters.room") }}</h1>
+                    <p>{{ $t("moderation.filters.roomDescription") }}</p>
+                </template>
+            </Tippy>
+        </div>
         <div class="logs-container">
             <h2>{{ $t('moderation.logs') }}</h2>
             <div class="logs" v-if="playerLogs">
@@ -55,17 +101,17 @@
                 <input
                     type="search"
                     v-model="generalChannelStartDateFilter"
-                    @keyup.enter="loadPublicChannelMessages(player)"
+                    @change="loadPublicChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.endDate') }} :
                 <input
                     type="search"
                     v-model="generalChannelEndDateFilter"
-                    @keyup.enter="loadPublicChannelMessages(player)"
+                    @change="loadPublicChannelMessages(player)"
                 >
             </label>
-            <label>{{ $t('moderation.filters.messageAuthor :') }}
+            <label>{{ $t('moderation.filters.messageAuthor') }} :
                 <input
                     type="search"
                     v-model="generalChannelAuthorFilter"
@@ -107,14 +153,14 @@
                 <input
                     type="search"
                     v-model="mushChannelStartDateFilter"
-                    @keyup.enter="loadMushChannelMessages(player)"
+                    @change="loadMushChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.endDate') }} :
                 <input
                     type="search"
                     v-model="mushChannelEndDateFilter"
-                    @keyup.enter="loadMushChannelMessages(player)"
+                    @change="loadMushChannelMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageAuthor') }} :
@@ -150,14 +196,14 @@
                 <input
                     type="search"
                     v-model="privateChannelStartDateFilter"
-                    @keyup.enter="loadPrivateChannelsMessages(player)"
+                    @change="loadPrivateChannelsMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.endDate') }} :
                 <input
                     type="search"
                     v-model="privateChannelEndDateFilter"
-                    @keyup.enter="loadPrivateChannelsMessages(player)"
+                    @change="loadPrivateChannelsMessages(player)"
                 >
             </label>
             <label>{{ $t('moderation.filters.messageAuthor') }} :
@@ -207,6 +253,10 @@ interface PrivateChannel {
 }
 
 interface ModerationViewPlayerData {
+    logsContent: string,
+    logsDay: integer | null,
+    logsCycle: integer | null,
+    logsRoom: string,
     generalChannelAuthorFilter: string,
     generalChannelMessageFilter: string,
     generalChannelStartDateFilter: string,
@@ -235,6 +285,10 @@ export default defineComponent({
     },
     data() : ModerationViewPlayerData {
         return {
+            logsContent: "",
+            logsDay: null,
+            logsCycle: null,
+            logsRoom: "",
             generalChannelAuthorFilter: "",
             generalChannelMessageFilter: "",
             generalChannelStartDateFilter: "",
@@ -260,6 +314,21 @@ export default defineComponent({
             ModerationService.banUser(player.user.id)
                 .then(() => {
                     this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        async loadLogs(player: ModerationViewPlayer) {
+            if (this.logsDay === null) {
+                this.logsDay = player.daedalusDay;
+            }
+            if (this.logsCycle === null) {
+                this.logsCycle = player.daedalusCycle;
+            }
+            await ModerationService.getPlayerLogs(player.id, this.logsDay, this.logsCycle, this.logsContent, this.logsRoom)
+                .then((response) => {
+                    this.playerLogs = response.data;
                 })
                 .catch((error) => {
                     console.error(error);
@@ -354,14 +423,8 @@ export default defineComponent({
                 .catch((error) => {
                     console.error(error);
                 });
-            await ModerationService.getPlayerLogs(Number(this.$route.params.playerId))
-                .then((response) => {
-                    this.playerLogs = response.data;
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
             if (this.player) {
+                await this.loadLogs(this.player);
                 await this.loadPublicChannelMessages(this.player);
                 await this.loadMushChannelMessages(this.player);
                 await this.loadPrivateChannelsMessages(this.player);

@@ -152,3 +152,16 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    room_log.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [{ log: 'ipartial',
+                      playerInfo.id: 'exact',
+                      day: 'exact',
+                      cycle: 'exact',
+                      visibility: 'exact',
+                      place: 'ipartial',
+                    }]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

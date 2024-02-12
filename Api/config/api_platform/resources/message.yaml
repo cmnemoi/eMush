@@ -10,7 +10,7 @@ Mush\Communication\Entity\Message:
   collectionOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'
-      filters: [ 'message.search_filter', 'date.order_filter' ]
+      filters: [ 'message.search_filter', 'date.order_filter', 'default.date_filter' ]
   itemOperations:
     get:
       security: 'is_granted("ROLE_MODERATOR")'

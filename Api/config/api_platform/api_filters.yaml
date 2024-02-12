@@ -24,6 +24,13 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    default.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { updatedAt: ~, createdAt: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
     user.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
@@ -129,6 +136,17 @@ services:
                       daedalusInfo.id: 'exact',
                       participants.participant.id: 'exact',
                       message.message: 'ipartial',
+                    }]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    message.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [{ message: 'ipartial', 
+                      channel.id: 'exact',
+                      author.characterConfig.characterName: 'ipartial',
+                      parent.id: 'exact',
                     }]
         tags: [ 'api_platform.filter' ]
         autowire: false

@@ -60,9 +60,9 @@
             <div v-for="(log, i) in exploration.logs" :key=i class="event">
                 <img :src="getSectorImage(log.planetSectorKey)">
                 <div>
-                    <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>
-                    <p class="flavor">{{ log.eventDescription }}</p>
-                    <p class="details">{{ log.eventOutcome }}</p>
+                    <h3 v-html="formatText(`${log.planetSectorName} - ${log.eventName}`)"/>
+                    <p class="flavor" v-html="formatText(log.eventDescription)"/>
+                    <p class="details" v-html="formatText(log.eventOutcome)"/>
                 </div>
             </div>
         </section>
@@ -77,7 +77,6 @@ import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
 import { Exploration } from "@/entities/Exploration";
 import { Player } from "@/entities/Player";
 import PlayerService from "@/services/player.service";
-
 
 export default defineComponent ({
     name: "ExpeditionPanel",
@@ -104,11 +103,7 @@ export default defineComponent ({
         getSectorImage(sectorKey: string): string {
             return require(`@/assets/images/astro/${sectorKey}.png`);
         },
-        formatText(text: string | null): string {
-            if (!text)
-                return '';
-            return formatText(text);
-        },
+        formatText,
         isCycleChangeAvailable(exploration: Exploration) {
             if (!exploration.timer.timerCycle) {
                 return false;

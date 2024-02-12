@@ -79,7 +79,7 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
                 language: $language,
             );
 
-            return '//' . $alwaysSuccessfulThanksToSkill;
+            return '////' . $alwaysSuccessfulThanksToSkill;
         }
 
         return null;

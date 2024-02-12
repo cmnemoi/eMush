@@ -26,9 +26,9 @@
                 <div v-for="(log, i) in closedExploration.logs.toReversed()" :key=i class="event">
                     <img :src="getSectorImageByKey(log.planetSectorKey)">
                     <div>
-                        <h3>{{ log.planetSectorName }} - {{ log.eventName }}</h3>
-                        <p class="flavor">{{ log.eventDescription }}</p>
-                        <p class="details">{{ log.eventOutcome }}</p>
+                        <h3 v-html="formatText(`${log.planetSectorName} - ${log.eventName}`)"/>
+                        <p class="flavor" v-html="formatText(log.eventDescription)"/>
+                        <p class="details" v-html="formatText(log.eventOutcome)"/>
                     </div>
                 </div>
             </section>
@@ -101,9 +101,7 @@ export default defineComponent ({
         getSectorImageByKey(key: string): string {
             return require(`@/assets/images/astro/${key}.png`);
         },
-        formatText(text: string | null): string {
-            return text ? formatText(text) : '';
-        }
+        formatText
     },
     beforeMount() {
         const id = Number(this.$route.params.id);

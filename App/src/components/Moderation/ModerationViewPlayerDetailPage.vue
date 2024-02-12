@@ -155,7 +155,7 @@ export default defineComponent({
             });
 
             if (mushChannel) {
-                await CommunicationService.loadChannelMessages(mushChannel)
+                await ModerationService.getChannelMessages(mushChannel)
                     .then((response) => {
                         this.mushChannelMessages = response;
                     })
@@ -168,7 +168,7 @@ export default defineComponent({
             this.privateChannels = [];
             await ModerationService.getPlayerPrivateChannels(player).then((channels: Channel[]) => {
                 channels.forEach((channel) => {
-                    CommunicationService.loadChannelMessages(channel)
+                    ModerationService.getChannelMessages(channel)
                         .then((response) => {
                             this.privateChannels.push({ id: channel.id, messages: response });
                         })
@@ -189,7 +189,7 @@ export default defineComponent({
             });
 
             if (publicChannel) {
-                await CommunicationService.loadChannelMessages(publicChannel)
+                await ModerationService.getChannelMessages(publicChannel)
                     .then((response) => {
                         this.publicChannelMessages = response;
                     })

@@ -24,6 +24,17 @@ const ModerationService = {
 
         return response;
     },
+    getChannelMessages: async(channel: Channel): Promise<Message[]> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?channel.id=${channel.id}`).then((response) => {
+            return response.data['hydra:member'].map((messageData: object) => {
+                return (new Message()).load(messageData);
+            });
+        });
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return messages;
+    },
     getModerationViewPlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.get(MODERATION_ENDPOINT + '/view-player/' + playerId);
@@ -90,19 +101,6 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return { "data": logs };
-    },
-    getPlayerMessages: async(playerId: number, channel: string): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        let messages: Message[] = [];
-        const response = await ApiService.get(`${MESSAGES_ENDPOINT}?author.id=${playerId}&channel.scope=${channel}`);
-        if (response.data['hydra:member']) {
-            messages = response.data['hydra:member'].map((messageData: any) => {
-                return (new Message()).load(messageData);
-            });
-        }
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return { "data": messages };
     },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });

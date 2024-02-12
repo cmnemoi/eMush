@@ -54,8 +54,10 @@ export default defineComponent ({
 .terminal {
     position: relative;
     flex-direction: column;
-    width: 424px;
+    width: 100%;
+    max-width: 424px;
     height: 460px;
+    margin-bottom: 2em;
     color: $deepBlue;
     background: $brightCyan;
 

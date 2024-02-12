@@ -488,39 +488,43 @@ div.inventory {
 }
 
 @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
-    .char-panel .char-sheet {
-        display: block;
+    .char-panel {
         width: 100%;
-        // flex-direction: row;
-        // align-items: flex-start;
-        max-width: initial;
-        min-height: initial;
 
-        .avatar {
-        align-items: center;
-        justify-content: center;
-        width: 110px;
-        height: 70px;
-        overflow: hidden;
+        .char-sheet {
+            display: block;
+            width: 100%;
+            // flex-direction: row;
+            // align-items: flex-start;
+            max-width: initial;
+            min-height: initial;
 
-            img { width: initial; }
-        }
-
-        .char-card { float: left; }
-
-        .health-points { margin-top: -0.3em; }
-
-
-        .inventory {
-            float: left;
-            clear: left;
+            .avatar {
+            align-items: center;
+            justify-content: center;
             width: 110px;
-        }
+            height: 70px;
+            overflow: hidden;
 
-        .interactions {
-            padding-left: 8%;
-            padding-right: 8%;
-            margin: auto;
+                img { width: initial; }
+            }
+
+            .char-card { float: left; }
+
+            .health-points { margin-top: -0.3em; }
+
+
+            .inventory {
+                float: left;
+                clear: left;
+                width: 110px;
+            }
+
+            .interactions {
+                padding-left: 8%;
+                padding-right: 8%;
+                margin: auto;
+            }
         }
     }
 

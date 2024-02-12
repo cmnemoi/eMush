@@ -176,7 +176,7 @@ export default defineComponent ({
         }
     }
 
-    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { width: initial; }
+    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { width: 100%; }
 }
 
 /* TIMER STYLING */

@@ -7,7 +7,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class ModerationMessageNormalizer implements NormalizerInterface
+class ModerationMessageNormalizer implements NormalizerInterface
 {
     private TranslationServiceInterface $translationService;
 
@@ -44,16 +44,16 @@ final class ModerationMessageNormalizer implements NormalizerInterface
 
         $translationParameters = $message->getTranslationParameters();
         if ($message->getAuthor()) {
-            $messageContent = $message->getMessage();
+            $translatedMessage = $message->getMessage();
         } elseif ($message->getNeron()) {
-            $messageContent = $this->translationService->translate(
+            $translatedMessage = $this->translationService->translate(
                 $message->getMessage(),
                 $translationParameters,
                 'neron',
                 $language
             );
         } else {
-            $messageContent = $this->translationService->translate(
+            $translatedMessage = $this->translationService->translate(
                 $message->getMessage(),
                 $translationParameters,
                 'event_log',
@@ -72,7 +72,7 @@ final class ModerationMessageNormalizer implements NormalizerInterface
                     $language
                 ),
             ],
-            'message' => $messageContent,
+            'message' => $translatedMessage != $message->getMessage() ? $translatedMessage . " ({$message->getMessage()})" : $translatedMessage,
             'date' => $message->getCreatedAt()?->format('d/m/Y H:i'),
             'child' => $messageChildren,
         ];

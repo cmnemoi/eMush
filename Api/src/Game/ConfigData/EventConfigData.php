@@ -278,6 +278,14 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL_2,
+            'eventName' => PlanetSectorEvent::FUEL,
+            'outputQuantityTable' => [
+                2 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_3,
             'eventName' => PlanetSectorEvent::FUEL,
             'outputQuantityTable' => [

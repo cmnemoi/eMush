@@ -162,7 +162,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
-        
+
         $lootedArtefact = $this->translationService->translate(
             key: $explorationLog->getParameters()['target_equipment'],
             parameters: [],

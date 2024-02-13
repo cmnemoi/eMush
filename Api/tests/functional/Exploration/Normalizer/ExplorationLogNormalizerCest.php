@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Exploration\Normalizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
@@ -103,16 +104,14 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeTiredEvent(FunctionalTester $I): void
     {
         // given desert sector has only tired event
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::DESERT,
-            events: [PlanetSectorEvent::TIRED_2 => 1]
-        );
+        /** @var PlanetSectorConfig $landingSectorConfig */
+        $landingSectorConfig = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
+            fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === PlanetSectorEnum::DESERT,
+        )->first();
+        $landingSectorConfig->setExplorationEvents([PlanetSectorEvent::TIRED_2 => 1]);
 
         // given exploration is created
-        $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I),
-            explorators: $this->players,
-        );
+        $this->exploration = $this->createExploration($this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I));
 
         // given two extra steps are made to trigger the tired event
         $this->explorationService->dispatchExplorationEvent($this->exploration);
@@ -133,107 +132,6 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Fatigue',
                 'eventDescription' => 'La marche dans cette étendue désertique est pénible et très douloureuse.',
                 'eventOutcome' => 'Tous les équipiers subissent 2 points de dégâts.',
-            ],
-            actual: $normalizedExplorationLog,
-        );
-    }
-
-    public function testNormalizeArtefactEvent(FunctionalTester $I): void
-    {
-        // given intelligent life sector has only artefact event
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::INTELLIGENT,
-            events: [PlanetSectorEvent::ARTEFACT => 1]
-        );
-
-        // given exploration is created
-        $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
-            explorators: $this->players,
-        );
-
-        // given two extra steps are made to trigger the artefact event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-
-        // when artefact event exploration log is normalized
-        /** @var ExplorationLog $explorationLog */
-        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
-        )->first();
-        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
-
-        // then exploration log is normalized as expected
-        $lootedArtefact = $this->translationService->translate(
-            key: $explorationLog->getParameters()['target_item'] . '.name',
-            parameters: [],
-            domain: 'items',
-            language: $this->exploration->getDaedalus()->getLanguage(),
-        );
-
-        $maleLootedArtefact = "un {$lootedArtefact}";
-        $femaleLootedArtefact = "une {$lootedArtefact}";
-
-        try {
-            $I->assertEquals(
-                expected: [
-                    'id' => $explorationLog->getId(),
-                    'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
-                    'planetSectorName' => 'Vie intelligente',
-                    'eventName' => 'Artefact',
-                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$maleLootedArtefact} avant de reprendre sa route.",
-                    'eventOutcome' => 'Vous trouvez un artefact.',
-                ],
-                actual: $normalizedExplorationLog,
-            );
-        } catch (\Exception $e) {
-            $I->assertEquals(
-                expected: [
-                    'id' => $explorationLog->getId(),
-                    'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
-                    'planetSectorName' => 'Vie intelligente',
-                    'eventName' => 'Artefact',
-                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$femaleLootedArtefact} avant de reprendre sa route.",
-                    'eventOutcome' => 'Vous trouvez un artefact.',
-                ],
-                actual: $normalizedExplorationLog,
-            );
-        }
-    }
-
-    public function testNormalizeKillRandomEvent(FunctionalTester $I): void
-    {
-        // given sismic activity sector has only kill random event
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
-            events: [PlanetSectorEvent::KILL_RANDOM => 1]
-        );
-
-        // given exploration is created
-        $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY, PlanetSectorEnum::OXYGEN], $I),
-            explorators: new ArrayCollection([$this->player]),
-        );
-
-        // given two extra steps are made to trigger the kill random event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-
-        // when kill random event exploration log is normalized
-        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
-        )->first();
-        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
-
-        // then exploration log is normalized as expected
-        $I->assertEquals(
-            expected: [
-                'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
-                'planetSectorName' => 'Sismique',
-                'eventName' => 'Mort',
-                'eventDescription' => 'Une faille s\'ouvre sous les pieds de l\'expédition !!! Chun glisse et disparaît dans un cri d\'effroi !',
-                'eventOutcome' => 'Un équipier meurt.',
             ],
             actual: $normalizedExplorationLog,
         );

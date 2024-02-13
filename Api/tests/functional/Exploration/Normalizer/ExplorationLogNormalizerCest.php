@@ -163,7 +163,6 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
-
         // then exploration log is normalized as expected
         $lootedArtefact = $this->translationService->translate(
             key: $explorationLog->getParameters()['target_item'] . '.name',
@@ -174,7 +173,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         $maleLootedArtefact = "un {$lootedArtefact}";
         $femaleLootedArtefact = "une {$lootedArtefact}";
-        
+
         try {
             $I->assertEquals(
                 expected: [

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Exploration\Normalizer;
 
 use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
@@ -26,6 +27,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         parent::_before($I);
 
         $this->explorationLogNormalizer = $I->grabService(ExplorationLogNormalizer::class);
+
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -85,6 +87,42 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Rien à signaler',
                 'eventDescription' => 'L\'atterrissage se passe parfaitement bien, rien à signaler !',
                 'eventOutcome' => 'La zone est explorée, rien à signaler.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeTiredEvent(FunctionalTester $I): void
+    {
+        // given desert sector has only tired event
+        /** @var PlanetSectorConfig $landingSectorConfig */
+        $landingSectorConfig = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
+            fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === PlanetSectorEnum::DESERT,
+        )->first();
+        $landingSectorConfig->setExplorationEvents([PlanetSectorEvent::TIRED_2 => 1]);
+
+        // given exploration is created
+        $this->exploration = $this->createExploration($this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I));
+
+        // given two extra steps are made to trigger the tired event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when tired event exploration log is normalized
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::DESERT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::DESERT,
+                'planetSectorName' => 'Désert',
+                'eventName' => 'Fatigue',
+                'eventDescription' => 'La marche dans cette étendue désertique est pénible et très douloureuse.',
+                'eventOutcome' => 'Tous les équipiers subissent 2 points de dégâts.',
             ],
             actual: $normalizedExplorationLog,
         );

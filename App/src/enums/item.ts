@@ -4,8 +4,6 @@ const METAL_SCRAP = "metal_scraps";
 const ANTIGRAV_SCOOTER = "antigrav_scooter";
 const MEDIKIT = "medikit";
 const OSCILLOSCOPE = 'oscilloscope';
-const ROLLING_BOULDER = 'rolling_boulder';
-const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
 const ECHOLOCATOR = 'echolocator';
 
 const BACTA = 'bacta';
@@ -82,18 +80,25 @@ const THICK_TUBE = "thick_tube";
 const OXYGEN_CAPSULE = "oxygen_capsule";
 const FUEL_CAPSULE = "fuel_capsule";
 const SPACE_CAPSULE = "space_capsule";
-const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
 const BANDAGE = "bandage";
 const SPORE_SUCKER = "spore_sucker";
-const ALIEN_HOLOGRAPHIC_TV = "alien_holographic_tv";
 const ORGANIC_WASTE = "organic_waste";
 const SPACESUIT = "spacesuit";
-const MAGELLAN_LIQUID_MAP = "magellan_liquid_map";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
 const WALKIE_TALKIE = "walkie_talkie";
 
+// artefacts
+const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
+const ALIEN_HOLOGRAPHIC_TV = "alien_holographic_tv";
+const INVERTEBRATE_SHELL = "invertebrate_shell";
+const JAR_OF_ALIEN_OIL = "jar_of_alien_oil";
+const MAGELLAN_LIQUID_MAP = "magellan_liquid_map";
+const PRINTED_CIRCUIT_JELLY = "printed_circuit_jelly";
+const ROLLING_BOULDER = 'rolling_boulder';
+const STARMAP_FRAGMENT = "starmap_fragment";
+const WATER_STICK = "water_stick";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -368,5 +373,17 @@ export const itemEnum: {[index: string]: any} = {
     },
     [MAGELLAN_LIQUID_MAP]: {
         'image': require('@/assets/images/items/magellan_liquid_map.jpg')
+    },
+    [STARMAP_FRAGMENT]: {
+        'image': require('@/assets/images/items/super_map.jpg')
+    },
+    [WATER_STICK]: {
+        'image': require('@/assets/images/items/water_stick.jpg')
+    },
+    [INVERTEBRATE_SHELL]: {
+        'image': require('@/assets/images/items/insectoid_shell.jpg')
+    },
+    [PRINTED_CIRCUIT_JELLY]: {
+        'image': require('@/assets/images/items/computer_jelly.jpg')
     },
 };

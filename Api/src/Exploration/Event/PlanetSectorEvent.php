@@ -81,11 +81,6 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         return $this->config->getEventName();
     }
 
-    public function getName(): string
-    {
-        return $this->config->getEventName();
-    }
-
     public function getPlanetSector(): PlanetSector
     {
         return $this->planetSector;

@@ -40,7 +40,6 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
         }
 
         $lootedQuantity = (int) $this->randomService->getSingleRandomElementFromProbaCollection($table);
-        $logParameters = ['quantity' => $lootedQuantity];
 
         /** @var ChargeStatus $lootStatus */
         $lootStatus = $this->statusService->createStatusFromName(
@@ -56,6 +55,8 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
             tags: $event->getTags(),
             time: $event->getTime(),
         );
+
+        $logParameters = ['quantity' => $lootedQuantity];
 
         return $this->createExplorationLog($event, $logParameters);
     }

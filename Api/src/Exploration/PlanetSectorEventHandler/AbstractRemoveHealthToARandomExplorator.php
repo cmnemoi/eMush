@@ -34,10 +34,10 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        $logParameters = array_merge([
+        $logParameters = [
             $exploratorToInjure->getLogKey() => $exploratorToInjure->getLogName(),
             'quantity' => $healthLost,
-        ], $event->getLogParameters());
+        ];
 
         return $this->createExplorationLog($event, $logParameters);
     }

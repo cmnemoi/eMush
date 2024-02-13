@@ -251,6 +251,40 @@
         }</target>
       </segment>
     </unit>
+    <unit id="artefact">
+      <segment id="name" state="final">
+        <source>artefact.name</source>
+        <target>Artefact</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>artefact.description</source>
+        <target>Vous trouvez un artefact.</target>
+      </segment>
+      <segment id="intelligent_description" state="final">
+        <source>artefact.intelligent_description</source>
+        <target>{target_equipment_gender, select,
+        male {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
+        female {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre une {target_equipment} avant de reprendre sa route.}
+        other {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
+        }</target>
+      </segment>
+      <segment id="cave_description" state="final">
+        <source>artefact.cave_description</source>
+        <target>Au fond de la grotte, vous trouvez dans un petit coffret un objet bien étrange...</target>
+      </segment>
+      <segment id="mankarog_description" state="final">
+        <source>artefact.mankarog_description</source>
+        <target>Vous avez découvert la tanière d'un Mankarog. En fouillant dans son garde-manger aussi grand qu'un immeuble de 8 étages, vous mettez la main sur un artefact alien !</target>
+      </segment>
+      <segment id="ruins_description" state="final">
+        <source>artefact.ruins_description</source>
+        <target>Au sein de la ruine du plus grand bâtiment de la cité vous trouvez un artefact alien intact !</target>
+      </segment>
+      <segment id="wreck_description" state="final">
+        <source>artefact.wreck_description</source>
+        <target>L'épave contient un artefact alien étrange... Bonne pioche !</target>
+      </segment>
+    </unit>
     <unit id="always_successful_thanks_to_skill">
       <segment id="description" state="translated">
         <source>always_successful_thanks_to_skill</source>

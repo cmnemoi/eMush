@@ -30,7 +30,7 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
         $planetSectorEventHandler = $this->planetSectorEventHandlerService->getPlanetSectorEventHandler($event->getName());
 
         if ($planetSectorEventHandler === null) {
-            throw new \RuntimeException("PlanetSectorEventHandler not found for event: {$event->getName()}");
+            return;
         }
 
         $planetSectorEventHandler->handle($event);

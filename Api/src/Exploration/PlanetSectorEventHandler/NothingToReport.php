@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -30,12 +29,12 @@ final class NothingToReport extends AbstractPlanetSectorEventHandler
         return PlanetSectorEvent::NOTHING_TO_REPORT;
     }
 
-    public function handle(PlanetSectorEvent $event): ExplorationLog
+    public function handle(PlanetSectorEvent $event): void
     {
         $logParameters = [];
         $logParameters['always_successful_thanks_to_skill'] = $this->getAlwaysSuccessfulThanksToSkillLogParameter($event);
 
-        return $this->createExplorationLog($event, $logParameters);
+        $this->createExplorationLog($event, $logParameters);
     }
 
     private function getAlwaysSuccessfulThanksToSkillLogParameter(PlanetSectorEvent $event): ?string

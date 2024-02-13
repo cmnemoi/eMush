@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
-use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -13,7 +12,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 
 abstract class AbstractRemoveHealthToAllExplorators extends AbstractPlanetSectorEventHandler
 {
-    public function handle(PlanetSectorEvent $event): ExplorationLog
+    public function handle(PlanetSectorEvent $event): void
     {
         $exploration = $event->getExploration();
 
@@ -34,8 +33,8 @@ abstract class AbstractRemoveHealthToAllExplorators extends AbstractPlanetSector
             $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
 
-        $logParameters = ['quantity' => $healthLost];
+        $logParameters = array_merge(['quantity' => $healthLost], $event->getLogParameters());
 
-        return $this->createExplorationLog($event, $logParameters);
+        $this->createExplorationLog($event, $logParameters);
     }
 }

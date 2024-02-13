@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -32,7 +31,7 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
         $this->statusService = $statusService;
     }
 
-    public function handle(PlanetSectorEvent $event): ExplorationLog
+    public function handle(PlanetSectorEvent $event): void
     {
         $table = $event->getOutputQuantityTable();
         if (!$table) {
@@ -40,6 +39,7 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
         }
 
         $lootedQuantity = (int) $this->randomService->getSingleRandomElementFromProbaCollection($table);
+        $logParameters = ['quantity' => $lootedQuantity];
 
         /** @var ChargeStatus $lootStatus */
         $lootStatus = $this->statusService->createStatusFromName(
@@ -56,8 +56,6 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
             time: $event->getTime(),
         );
 
-        $logParameters = ['quantity' => $lootedQuantity];
-
-        return $this->createExplorationLog($event, $logParameters);
+        $this->createExplorationLog($event, $logParameters);
     }
 }

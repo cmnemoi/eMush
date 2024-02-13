@@ -162,6 +162,8 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
+
+        // then exploration log is normalized as expected
         $lootedArtefact = $this->translationService->translate(
             key: $explorationLog->getParameters()['target_item'] . '.name',
             parameters: [],
@@ -169,10 +171,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             language: $this->exploration->getDaedalus()->getLanguage(),
         );
 
-        $maleExpectedEventDescription = "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {$lootedArtefact} avant de reprendre sa route.";
-        $femaleExpectedEventDescription = "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre une {$lootedArtefact} avant de reprendre sa route.";
-
-        // then exploration log is normalized as expected
+        $maleLootedArtefact = "un {$lootedArtefact}";
+        $femaleLootedArtefact = "une {$lootedArtefact}";
+        
         try {
             $I->assertEquals(
                 expected: [
@@ -180,7 +181,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                     'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
                     'planetSectorName' => 'Vie intelligente',
                     'eventName' => 'Artefact',
-                    'eventDescription' => $maleExpectedEventDescription,
+                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$maleLootedArtefact} avant de reprendre sa route.",
                     'eventOutcome' => 'Vous trouvez un artefact.',
                 ],
                 actual: $normalizedExplorationLog,
@@ -192,7 +193,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                     'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
                     'planetSectorName' => 'Vie intelligente',
                     'eventName' => 'Artefact',
-                    'eventDescription' => $femaleExpectedEventDescription,
+                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$femaleLootedArtefact} avant de reprendre sa route.",
                     'eventOutcome' => 'Vous trouvez un artefact.',
                 ],
                 actual: $normalizedExplorationLog,

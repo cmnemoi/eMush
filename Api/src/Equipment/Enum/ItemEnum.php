@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class ItemEnum
 {
     public const BABEL_MODULE = 'babel_module';
@@ -41,4 +43,19 @@ class ItemEnum
     public const POST_IT = 'post_it';
     public const HYDROPOT = 'hydropot';
     public const SCHRODINGER = 'schrodinger';
+
+    public static function getArtefacts(): ArrayCollection
+    {
+        return new ArrayCollection([
+            GearItemEnum::ALIEN_BOTTLE_OPENER,
+            GearItemEnum::ROLLING_BOULDER,
+            ToolItemEnum::ALIEN_HOLOGRAPHIC_TV,
+            GearItemEnum::INVERTEBRATE_SHELL,
+            GearItemEnum::MAGELLAN_LIQUID_MAP,
+            GearItemEnum::PRINTED_CIRCUIT_JELLY,
+            self::STARMAP_FRAGMENT,
+            self::WATER_STICK,
+            ToolItemEnum::JAR_OF_ALIEN_OIL,
+        ]);
+    }
 }

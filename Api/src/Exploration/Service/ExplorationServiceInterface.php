@@ -6,8 +6,6 @@ namespace Mush\Exploration\Service;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Exploration\Entity\Exploration;
-use Mush\Exploration\Entity\ExplorationLog;
-use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Player\Entity\Collection\PlayerCollection;
 
 interface ExplorationServiceInterface
@@ -19,18 +17,6 @@ interface ExplorationServiceInterface
     public function dispatchLandingEvent(Exploration $exploration): Exploration;
 
     public function dispatchExplorationEvent(Exploration $exploration): Exploration;
-
-    public function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog;
-
-    /**
-     * @return array Array of log parameters to be used for the exploration log
-     */
-    public function removeHealthToARandomExplorator(PlanetSectorEvent $event): array;
-
-    /**
-     * @return array Array of log parameters to be used for the exploration log
-     */
-    public function removeHealthToAllExplorators(PlanetSectorEvent $event): array;
 
     public function persist(array $entities): void;
 }

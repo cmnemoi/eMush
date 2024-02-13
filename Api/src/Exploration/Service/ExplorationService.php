@@ -7,21 +7,16 @@ namespace Mush\Exploration\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Exploration\Entity\Exploration;
-use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
-use Mush\Game\Entity\Collection\ProbaCollection;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 
 final class ExplorationService implements ExplorationServiceInterface
 {
@@ -97,22 +92,6 @@ final class ExplorationService implements ExplorationServiceInterface
         }
     }
 
-    public function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog
-    {
-        $closedExploration = $event->getExploration()->getClosedExploration();
-
-        $explorationLog = new ExplorationLog($closedExploration);
-        $explorationLog->setPlanetSectorName($event->getPlanetSector()->getName());
-        $explorationLog->setEventName($event->getEventName());
-        $explorationLog->setParameters(array_merge($event->getLogParameters(), $parameters));
-
-        $closedExploration->addLog($explorationLog);
-
-        $this->persist([$explorationLog]);
-
-        return $explorationLog;
-    }
-
     public function dispatchLandingEvent(Exploration $exploration): Exploration
     {
         $planet = $exploration->getPlanet();
@@ -131,7 +110,7 @@ final class ExplorationService implements ExplorationServiceInterface
                 config: $eventConfig,
             );
             $planetSectorEvent->addTag('always_successful_thanks_to_pilot');
-            $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::NOTHING_TO_REPORT);
+            $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
         } else {
             $eventKey = $this->drawPlanetSectorEvent($landingSector);
             $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
@@ -143,7 +122,7 @@ final class ExplorationService implements ExplorationServiceInterface
                 planetSector: $landingSector,
                 config: $eventConfig,
             );
-            $this->eventService->callEvent($planetSectorEvent, $eventConfig->getEventName());
+            $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
         }
 
         return $exploration;
@@ -173,62 +152,9 @@ final class ExplorationService implements ExplorationServiceInterface
             planetSector: $sector,
             config: $eventConfig,
         );
-        $this->eventService->callEvent($event, $eventConfig->getEventName());
+        $this->eventService->callEvent($event, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         return $exploration;
-    }
-
-    public function removeHealthToAllExplorators(PlanetSectorEvent $event): array
-    {
-        $exploration = $event->getExploration();
-
-        // also remove health to explorators stucked in the ship for landing events
-        $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
-            $exploration->getExplorators() :
-            $exploration->getActiveExplorators();
-
-        $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
-        foreach ($explorators as $explorator) {
-            $playerVariableEvent = new PlayerVariableEvent(
-                player: $explorator,
-                variableName: PlayerVariableEnum::HEALTH_POINT,
-                quantity: -$healthLost,
-                tags: $event->getTags(),
-                time: new \DateTime()
-            );
-            $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-        }
-
-        return array_merge([
-            'quantity' => $healthLost,
-        ], $event->getLogParameters());
-    }
-
-    public function removeHealthToARandomExplorator(PlanetSectorEvent $event): array
-    {
-        $exploration = $event->getExploration();
-
-        // also remove health to explorators stucked in the ship for landing events
-        $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
-            $exploration->getExplorators() :
-            $exploration->getActiveExplorators();
-
-        $exploratorToInjure = $this->randomService->getRandomPlayer($explorators);
-        $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
-
-        $playerVariableEvent = new PlayerVariableEvent(
-            player: $exploratorToInjure,
-            variableName: PlayerVariableEnum::HEALTH_POINT,
-            quantity: -$healthLost,
-            tags: $event->getTags(),
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-
-        return array_merge([
-            $exploratorToInjure->getLogKey() => $exploratorToInjure->getLogName(),
-            'quantity' => $healthLost,
-        ], $event->getLogParameters());
     }
 
     public function persist(array $entities): void
@@ -238,20 +164,6 @@ final class ExplorationService implements ExplorationServiceInterface
         }
 
         $this->entityManager->flush();
-    }
-
-    private function drawEventOutputQuantity(?ProbaCollection $outputQuantityTable): int
-    {
-        if ($outputQuantityTable === null) {
-            throw new \RuntimeException('You need an output quantity table to draw an event output quantity');
-        }
-
-        $quantity = $this->randomService->getSingleRandomElementFromProbaCollection($outputQuantityTable);
-        if (!is_int($quantity)) {
-            throw new \RuntimeException('Quantity should be an int');
-        }
-
-        return $quantity;
     }
 
     private function drawPlanetSectorEvent(PlanetSector $sector): string

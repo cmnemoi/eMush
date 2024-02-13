@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
@@ -35,6 +37,7 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private ExplorationServiceInterface $explorationService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     private GameEquipment $icarus;
@@ -45,6 +48,7 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is Icarus Bay on this Daedalus
@@ -175,8 +179,18 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
         $I->assertEquals($explorationStartPlace, $this->player2->getPlace());
     }
 
-    public function testCloseExplorationMoveIcarusToStartPlace(FunctionalTester $I): void
+    public function testCloseExplorationMoveEquipmentFromPlanetToStartPlace(FunctionalTester $I): void
     {
+        // given there are some scrap metal on the planet
+        for ($i = 0; $i < 5; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::METAL_SCRAPS,
+                equipmentHolder: $this->daedalus->getPlanetPlace(),
+                reasons: ['test'],
+                time: new \DateTime(),
+            );
+        }
+
         // given an exploration is created
         $exploration = $this->explorationService->createExploration(
             players: new PlayerCollection([$this->player1, $this->player2]),
@@ -195,7 +209,10 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
         );
 
         // then icarus is moved to the start place
-        $I->assertEquals($explorationStartPlace, $this->icarus->getPlace());
+        $I->assertTrue($explorationStartPlace->hasEquipmentByName(EquipmentEnum::ICARUS));
+
+        // then the scrap metal is moved to the start place too
+        $I->assertTrue($explorationStartPlace->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
     }
 
     public function testDispatchExplorationEventDispatchesExplorationEvent(FunctionalTester $I): void

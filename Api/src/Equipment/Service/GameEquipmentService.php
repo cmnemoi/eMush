@@ -94,11 +94,12 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EquipmentHolderInterface $equipmentHolder,
         array $reasons,
         \DateTime $time,
-        string $visibility = VisibilityEnum::HIDDEN
+        string $visibility = VisibilityEnum::HIDDEN,
+        Player $author = null
     ): GameEquipment {
         $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
-        return $this->createGameEquipment($config, $equipmentHolder, $reasons, $time, $visibility);
+        return $this->createGameEquipment($config, $equipmentHolder, $reasons, $time, $visibility, $author);
     }
 
     public function createGameEquipment(
@@ -106,7 +107,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         EquipmentHolderInterface $holder,
         array $reasons,
         \DateTime $time,
-        string $visibility = VisibilityEnum::HIDDEN
+        string $visibility = VisibilityEnum::HIDDEN,
+        Player $author = null
     ): GameEquipment {
         $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reasons);
 
@@ -117,6 +119,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $reasons,
             $time
         );
+        $event->setAuthor($author);
         $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_CREATED);
 
         return $equipment;

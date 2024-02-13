@@ -73,6 +73,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         $this->explorators = $this->exploration->getExplorators();
         $this->place = $this->exploration->getDaedalus()->getPlanetPlace();
         $this->visibility = $visibility;
+        $this->addTag($this->config->getEventName());
     }
 
     public function getName(): string

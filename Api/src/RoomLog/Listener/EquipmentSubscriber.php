@@ -5,8 +5,8 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -27,6 +27,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::BUILD => ActionLogEnum::BUILD_SUCCESS,
         ActionEnum::TRANSPLANT => ActionLogEnum::TRANSPLANT_SUCCESS,
         ActionEnum::OPEN => ActionLogEnum::OPEN_SUCCESS,
+        PlanetSectorEvent::ARTEFACT => LogEnum::FOUND_ITEM_IN_EXPLORATION,
     ];
 
     private const DESTRUCTION_LOG_MAP = [
@@ -107,7 +108,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
         /* @var Player|null $player */
-        if ($event instanceof InteractWithEquipmentEvent) {
+        if ($event->getAuthor() instanceof Player) {
             $player = $event->getAuthor();
         } elseif ($event->isCreated()) {
             $holder = $event->getGameEquipment()->getHolder();
@@ -120,6 +121,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $player = null;
         }
 
+        $parameters = $event->getLogParameters();
+        if ($player && !isset($parameters[$player->getLogKey()])) {
+            $parameters[$player->getLogKey()] = $player->getLogName();
+        }
+
         /** @var Place $logPlace */
         $logPlace = $event instanceof MoveEquipmentEvent ? $event->getNewHolder() : $event->getPlace();
         $this->roomLogService->createLog(
@@ -128,8 +134,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $visibility,
             'event_log',
             $player,
-            $event->getLogParameters(),
-            $event->getTime()
+            $parameters,
+            $event->getTime(),
         );
     }
 }

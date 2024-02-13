@@ -40,12 +40,15 @@ final class Artefact extends AbstractPlanetSectorEventHandler
 
         $artefactToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($artefactsTable);
 
+        $finder = $this->randomService->getRandomElement($event->getExploration()->getExplorators()->toArray());
+
         $artefact = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: $artefactToCreate,
             equipmentHolder: $event->getExploration()->getDaedalus()->getPlanetPlace(),
             reasons: $event->getTags(),
             time: $event->getTime(),
             visibility: VisibilityEnum::PUBLIC,
+            author: $finder
         );
 
         $logParameters = [

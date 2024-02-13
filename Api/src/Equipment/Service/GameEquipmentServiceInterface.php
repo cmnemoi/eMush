@@ -25,7 +25,8 @@ interface GameEquipmentServiceInterface
         EquipmentHolderInterface $equipmentHolder,
         array $reasons,
         \DateTime $time,
-        string $visibility = VisibilityEnum::PRIVATE
+        string $visibility = VisibilityEnum::PRIVATE,
+        Player $author = null
     ): GameEquipment;
 
     public function createGameEquipment(
@@ -33,7 +34,8 @@ interface GameEquipmentServiceInterface
         EquipmentHolderInterface $holder,
         array $reasons,
         \DateTime $time,
-        string $visibility = VisibilityEnum::HIDDEN
+        string $visibility = VisibilityEnum::HIDDEN,
+        Player $author = null
     ): GameEquipment;
 
     public function transformGameEquipmentToEquipmentWithName(

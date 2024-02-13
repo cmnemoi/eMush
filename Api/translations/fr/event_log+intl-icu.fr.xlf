@@ -690,5 +690,15 @@
         <target>Vous avez gagné {quantity} :pa_shoot:.</target>
       </segment>
     </unit>
+    <unit id="found_item_in_exploration">
+      <segment state="translated">
+        <source>found_item_in_exploration</source>
+        <target>{target_equipment_gender, select,
+          male {**{character}** a obtenu un **{target_equipment}**.}
+          female {**{character}** a récupéré une **{target_equipment}**.}
+          other {**{character}** a obtenu un **{target_equipment}**.}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

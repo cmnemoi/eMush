@@ -61,7 +61,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $player1HealthBeforeEvent = $this->player->getHealthPoint();
 
         // when accident event is dispatched
-        $this->explorationService->dispatchExplorationEvent($exploration);
+        $accidentEvent = new PlanetSectorEvent(
+            planetSector: $sismicSector,
+            config: $accidentEventConfig,
+        );
+        $this->eventService->callEvent($accidentEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then one of the explorators health is decreased
         if ($this->player->getHealthPoint() === $player1HealthBeforeEvent) {
@@ -90,6 +94,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             planet: $this->createPlanet([PlanetSectorEnum::LANDING], $I),
             explorators: $this->players
         );
+        $this->eventService->callEvent($disasterEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then players health is decreased
         foreach ($this->players as $player) {
@@ -118,7 +123,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $player2HealthBeforeEvent = $this->player2->getHealthPoint();
 
         // when tired event is dispatched
-        $this->explorationService->dispatchExplorationEvent($exploration);
+        $tiredEvent = new PlanetSectorEvent(
+            planetSector: $desertSector,
+            config: $tiredEventConfig,
+        );
+        $this->eventService->callEvent($tiredEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then players health is decreased
         $I->assertEquals(
@@ -146,7 +155,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         // when oxygen event is dispatched
-        $this->explorationService->dispatchExplorationEvent($exploration);
+        $oxygenEvent = new PlanetSectorEvent(
+            planetSector: $oxygenSector,
+            config: $oxygenEventConfig,
+        );
+        $this->eventService->callEvent($oxygenEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then daedalus has an oxygen status
         /** @var ChargeStatus $daedalusOxygenStatus */
@@ -169,7 +182,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         // when fuel event is dispatched
-        $this->explorationService->dispatchExplorationEvent($exploration);
+        $fuelEvent = new PlanetSectorEvent(
+            planetSector: $fuelSector,
+            config: $fuelEventConfig,
+        );
+        $this->eventService->callEvent($fuelEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then daedalus has an fuel status
         /** @var ChargeStatus $daedalusFuelStatus */

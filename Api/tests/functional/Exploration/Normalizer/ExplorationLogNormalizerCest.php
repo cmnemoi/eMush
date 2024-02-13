@@ -163,7 +163,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
         $lootedArtefact = $this->translationService->translate(
-            key: $explorationLog->getParameters()['target_equipment'],
+            key: $explorationLog->getParameters()['target_item'] . '.name',
             parameters: [],
             domain: 'items',
             language: $this->exploration->getDaedalus()->getLanguage(),

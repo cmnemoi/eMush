@@ -92,8 +92,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::FUEL_2 => 4,
                 PlanetSectorEvent::ACCIDENT_3_5 => 3,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
+                PlanetSectorEvent::ARTEFACT => 1,
             ],
         ],
         [
@@ -128,6 +129,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::ARTEFACT => 2,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
@@ -151,6 +153,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 6,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
+                PlanetSectorEvent::ARTEFACT => 1,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
@@ -251,6 +254,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::ARTEFACT => 4,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 3,
                 PlanetSectorEvent::ACCIDENT_3_5 => 1,
             ],
@@ -263,6 +267,8 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::ARTEFACT => 4,
+                PlanetSectorEvent::FUEL_3 => 3,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 2,
             ],
         ],

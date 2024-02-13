@@ -332,15 +332,5 @@ class EventConfigData
                 'water_stick' => 1,
             ],
         ],
-        [
-            'type' => 'planet_sector_event_config',
-            'name' => 'kill_random',
-            'eventName' => 'kill_random',
-        ],
-        [
-            'type' => 'planet_sector_event_config',
-            'name' => 'kill_all',
-            'eventName' => 'kill_all',
-        ],
     ];
 }

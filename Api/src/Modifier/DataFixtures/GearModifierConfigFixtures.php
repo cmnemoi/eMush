@@ -294,6 +294,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTagConstraints([
                 ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::LIQUID_MAP_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
             ->setModifierName(ModifierNameEnum::LIQUID_MAP_MODIFIER)
@@ -312,8 +313,10 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTagConstraints([
                 ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::LIQUID_MAP_MODIFIER . '_random_50' => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
+            ->setModifierName(ModifierNameEnum::LIQUID_MAP_MODIFIER . '_random_50')
             ->setModifierActivationRequirements([$random50])
         ;
         $manager->persist($liquidMapRandom50Modifier);

@@ -196,4 +196,29 @@ final class ScanCest extends AbstractFunctionalTest
             ]
         );
     }
+
+    public function testScanSuccessRevealsPlanetSectorsWithMultipleMagellanMapInTheRoom(FunctionalTester $I): void
+    {
+        // given two magellan's liquid maps are on the bridge
+        for ($i = 0; $i < 2; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: GearItemEnum::MAGELLAN_LIQUID_MAP,
+                equipmentHolder: $this->bridge,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given success rate of the action is 100%, so it will succeed
+        $this->scanActionConfig->setSuccessRate(100);
+
+        // when player scans
+        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->execute();
+
+        // then the scanned planet should have 1 sector revealed
+        /** @var Planet $planet */
+        $planet = $I->grabEntityFromRepository(Planet::class);
+        $I->assertCount(1, $planet->getRevealedSectors());
+    }
 }

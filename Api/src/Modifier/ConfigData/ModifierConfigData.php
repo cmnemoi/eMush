@@ -1736,11 +1736,12 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::LIQUID_MAP_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
             'name' => 'modifier_for_place_+1sector_revealed_on_action_scan_planet_random_50',
-            'modifierName' => null,
+            'modifierName' => ModifierNameEnum::LIQUID_MAP_MODIFIER . '_random_50',
             'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
@@ -1756,6 +1757,7 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::LIQUID_MAP_MODIFIER . '_random_50' => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

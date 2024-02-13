@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Mush\Tests\Exploration\Event;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Tests\AbstractExplorationTester;
@@ -173,7 +177,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // given exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
-            explorators: $this->players
+            explorators: new ArrayCollection([$this->player])
         );
 
         // given only artefact event can happen in intelligent sector
@@ -188,10 +192,28 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then one artefact is created in the planet place
         $planetPlaceEquipments = $this->daedalus
             ->getPlanetPlace()
-            ?->getEquipments()
+            ->getEquipments()
             ->map(fn (GameEquipment $gameEquipment) => $gameEquipment->getLogName())
             ->toArray()
         ;
         $I->assertNotEmpty(array_intersect($planetPlaceEquipments, ItemEnum::getArtefacts()->toArray()));
+
+        // then I should see a public log in planet place to tell an explorator has found an artefact
+        /** @var RoomLog $roomLog */
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+            ]
+        );
+
+        // then the log should be properly parameterized
+        $player = $roomLog->getParameters()['character'];
+        $I->assertEquals($this->player->getLogName(), $player);
+
+        $artefact = $roomLog->getParameters()['target_item'];
+        $I->assertTrue(in_array($artefact, $planetPlaceEquipments));
     }
 }

@@ -29,7 +29,7 @@ abstract class AbstractPlanetSectorEventHandler
 
     abstract public function getName(): string;
 
-    abstract public function handle(PlanetSectorEvent $event): void;
+    abstract public function handle(PlanetSectorEvent $event): ExplorationLog;
 
     protected function createExplorationLog(PlanetSectorEvent $event, array $parameters): ExplorationLog
     {

@@ -367,8 +367,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":16,
-                 "x":84,
-                 "y":86
+                 "x":65,
+                 "y":69
                 }, 
                 {
                  "gid":274,
@@ -550,7 +550,7 @@
  "nextobjectid":16,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"git",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {

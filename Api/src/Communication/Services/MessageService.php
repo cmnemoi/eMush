@@ -94,12 +94,6 @@ class MessageService implements MessageServiceInterface
 
     public function getChannelMessages(?Player $player, Channel $channel): Collection
     {
-        // @HACK: if there is no player, this means it's a moderator who wants to see all messages
-        // @TODO: fiabilize and move this to ModerationService
-        if ($player === null) {
-            return new ArrayCollection($this->messageRepository->findByChannel($channel));
-        }
-
         $ageLimit = null;
         if ($channel->getScope() === ChannelScopeEnum::MUSH) {
             $ageLimit = new \DateInterval('PT24H');

@@ -31,7 +31,7 @@ abstract class AbstractPlanetSectorEventHandler
 
     abstract public function handle(PlanetSectorEvent $event): ExplorationLog;
 
-    protected function createExplorationLog(PlanetSectorEvent $event, array $parameters): ExplorationLog
+    protected function createExplorationLog(PlanetSectorEvent $event, array $parameters = []): ExplorationLog
     {
         $closedExploration = $event->getExploration()->getClosedExploration();
 

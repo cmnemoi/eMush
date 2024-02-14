@@ -304,23 +304,9 @@
         <source>kill_random.sismic_activity_description</source>
         <target>Une faille s'ouvre sous les pieds de l'expédition !!! {character} glisse et disparaît dans un cri d'effroi !</target>
       </segment>
-      <segment id="mankarog_description" state="final">
-        <source>kill_random.mankarog_description</source>
+      <segment id="sismic_activity_description" state="final">
+        <source>kill_random.sismic_activity_description</source>
         <target>Alors que vous escaladez une petite colline vous découvrez trop tard qu'il s'agit d'une fesse de Mankarog... Celui-ci approche lentement son énorme main pour se gratter, et écrase {character} par mégarde.</target>
-      </segment>
-    </unit>
-    <unit id="kill_all">
-      <segment id="name" state="final">
-        <source>kill_all.name</source>
-        <target>Mort du groupe</target>
-      </segment>
-      <segment id="description" state="final">
-        <source>kill_all.description</source>
-        <target>Tous les équipiers meurent.</target>
-      </segment>
-      <segment id="volcanic_activity_description" state="final">
-        <source>kill_all.volcanic_activity_description</source>
-        <target>Alors que la montagne la plus proche de l'expédition se met à cracher un jet de lave à plus de 500m de hauteur, le sol s'effondre sous leurs pieds et les engloutit dans un déluge de flammes.</target>
       </segment>
     </unit>
   </file>

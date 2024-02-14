@@ -4,7 +4,7 @@ Mush\Communication\Entity\Channel:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'channel_read' ]
+      groups: [ 'channel_read', 'moderation_read' ]
     denormalization_context:
       groups: [ 'channel_write' ]
   collectionOperations:

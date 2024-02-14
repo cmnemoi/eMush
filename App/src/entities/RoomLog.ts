@@ -4,12 +4,16 @@ export class RoomLog {
     public visibility : string|null;
     public date : string|null;
     public place: string|null;
+    public day: integer|null;
+    public cycle: integer|null;
 
     constructor() {
         this.message = null;
         this.visibility = null;
         this.date = null;
         this.place = null;
+        this.day = null;
+        this.cycle = null;
     }
     load(object: any): RoomLog {
         if (typeof object !== "undefined") {
@@ -17,6 +21,8 @@ export class RoomLog {
             this.visibility = object.visibility;
             this.date = object.date;
             this.place = object.place;
+            this.day = object.day;
+            this.cycle = object.cycle;
         }
         return this;
     }
@@ -30,6 +36,8 @@ export class RoomLog {
             this.visibility = object.visibility;
             this.date = object.date;
             this.place = object.place;
+            this.day = object.day;
+            this.cycle = object.cycle;
         }
 
         return this;

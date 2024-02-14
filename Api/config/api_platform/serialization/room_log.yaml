@@ -1,0 +1,4 @@
+Mush\RoomLog\Entity\RoomLog:
+  attributes:
+    id:
+      groups: [ 'room_log_read', 'moderation_read' ]

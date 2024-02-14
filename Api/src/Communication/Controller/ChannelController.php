@@ -561,16 +561,14 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo?->getPlayer();
 
-        if (!$user->isModerator() && $channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
         $messages = $this->messageService->getChannelMessages($player, $channel);
 
         $context = new Context();
-        if ($player) {
-            $context->setAttribute('currentPlayer', $player);
-        }
+        $context->setAttribute('currentPlayer', $player);
 
         $view = $this->view($messages, 200);
         $view->setContext($context);

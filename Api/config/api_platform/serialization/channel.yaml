@@ -1,14 +1,14 @@
 Mush\Communication\Entity\Channel:
   attributes:
     id:
-      groups: [ 'channel_read' ]
+      groups: [ 'channel_read', 'moderation_read'  ]
     createdAt:
-      groups: [ 'channel_read' ]
+      groups: [ 'channel_read', 'moderation_read'  ]
     scope:
-      groups: [ 'channel_read' ]
+      groups: [ 'channel_read', 'moderation_read'  ]
     daedalusInfo:
-      groups: [ 'channel_read' ]
+      groups: [ 'channel_read', 'moderation_read'  ]
     participants:
-      groups: [ 'channel_read' ]
+      groups: [ 'channel_read', 'moderation_read'  ]
     messages:
-      groups: [ 'channel_read' ]
+      groups: [ 'channel_read', 'moderation_read'  ]

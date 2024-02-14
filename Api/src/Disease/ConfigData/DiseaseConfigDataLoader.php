@@ -14,8 +14,6 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
     private DiseaseConfigRepository $diseaseConfigRepository;
     private ModifierConfigRepository $modifierConfigRepository;
 
-    // @TODO : remove SymptomConfig logic when it will be definitely deprecated
-
     public function __construct(
         EntityManagerInterface $entityManager,
         DiseaseConfigRepository $diseaseConfigRepository,

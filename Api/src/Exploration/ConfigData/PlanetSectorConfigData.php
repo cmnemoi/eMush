@@ -153,6 +153,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 6,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
+                PlanetSectorEvent::KILL_RANDOM => 4,
                 PlanetSectorEvent::ARTEFACT => 1,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
@@ -233,6 +234,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 4,
                 PlanetSectorEvent::ACCIDENT_3_5 => 2,
+                PlanetSectorEvent::KILL_RANDOM => 1,
             ],
         ],
         [

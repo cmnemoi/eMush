@@ -304,8 +304,8 @@
         <source>kill_random.sismic_activity_description</source>
         <target>Une faille s'ouvre sous les pieds de l'expédition !!! {character} glisse et disparaît dans un cri d'effroi !</target>
       </segment>
-      <segment id="sismic_activity_description" state="final">
-        <source>kill_random.sismic_activity_description</source>
+      <segment id="mankarog_description" state="final">
+        <source>kill_random.mankarog_description</source>
         <target>Alors que vous escaladez une petite colline vous découvrez trop tard qu'il s'agit d'une fesse de Mankarog... Celui-ci approche lentement son énorme main pour se gratter, et écrase {character} par mégarde.</target>
       </segment>
     </unit>

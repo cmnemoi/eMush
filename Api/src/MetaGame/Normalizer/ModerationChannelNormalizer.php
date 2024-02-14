@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\Communication\Normalizer;
+namespace Mush\MetaGame\Normalizer;
 
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mush\RoomLog\Normalizer;
+namespace Mush\MetaGame\Normalizer;
 
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;

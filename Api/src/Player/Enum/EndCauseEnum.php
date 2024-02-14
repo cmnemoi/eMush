@@ -3,6 +3,7 @@
 namespace Mush\Player\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -100,6 +101,7 @@ class EndCauseEnum
         HunterEvent::HUNTER_SHOT => self::SPACE_BATTLE,
         ActionEnum::ADVANCE_DAEDALUS => self::ABANDONED,
         ActionEnum::LEAVE_ORBIT => self::ABANDONED,
+        PlanetSectorEvent::KILL_RANDOM => self::EXPLORATION,
     ];
 
     public static function getAll(): array

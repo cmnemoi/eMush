@@ -12,6 +12,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -215,5 +216,45 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         $artefact = $roomLog->getParameters()['target_item'];
         $I->assertTrue(in_array($artefact, $planetPlaceEquipments));
+    }
+
+    public function testKillRandomEventKillsOneExplorator(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: $this->players
+        );
+
+        // given only kill random event can happen in sismic sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::KILL_RANDOM => 1]
+        );
+
+        // when kill random event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then one of the explorators is dead
+        if ($this->player->isAlive()) {
+            $I->assertFalse($this->player2->isAlive());
+            $deadPlayer = $this->player2;
+        } else {
+            $I->assertFalse($this->player->isAlive());
+            $deadPlayer = $this->player;
+        }
+
+        // then I see a public death log with the "exploration" cause
+        $deathLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $deathLogParameters = $deathLog->getParameters();
+        $I->assertEquals($deadPlayer->getLogName(), $deathLogParameters['target_character']);
+        $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
     }
 }

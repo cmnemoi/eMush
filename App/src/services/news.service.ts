@@ -70,7 +70,7 @@ const NewsService = {
         const params = {
             isPublished: true,
             isPinned: true,
-            order: { publicationDate: 'DESC' },
+            order: { publicationDate: 'ASC' },
         };
 
         await ApiService.get(NEWS_ENDPOINT, { params }).then((response) => {

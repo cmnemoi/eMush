@@ -17,3 +17,7 @@ services:
   Mush\Exploration\Normalizer\ClosedExplorationNormalizer:
     tags:
       - { name: 'serializer.normalizer', priority: 64 }
+
+  Mush\Exploration\PlanetSectorEventHandler\:
+    resource: '../PlanetSectorEventHandler/'
+    tags: [ 'mush.exploration.planet_sector_event_handler' ]

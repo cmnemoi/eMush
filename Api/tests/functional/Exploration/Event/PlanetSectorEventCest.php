@@ -118,7 +118,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
             planetSector: $sismicSector,
             config: $accidentEventConfig,
         );
-        $this->eventService->callEvent($accidentEvent, $accidentEventConfig->getEventName());
+        $this->eventService->callEvent($accidentEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then one of the explorators health is decreased
         if ($this->player->getHealthPoint() === $this->player->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint()) {
@@ -148,7 +148,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
             planetSector: $landingSector,
             config: $disasterEventConfig,
         );
-        $this->eventService->callEvent($disasterEvent, $disasterEventConfig->getEventName());
+        $this->eventService->callEvent($disasterEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then player health is decreased
         foreach ([$this->player, $this->player2] as $player) {
@@ -172,7 +172,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
             planetSector: $desertSector,
             config: $tiredEventConfig,
         );
-        $this->eventService->callEvent($tiredEvent, $tiredEventConfig->getEventName());
+        $this->eventService->callEvent($tiredEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then player health is decreased
         foreach ([$this->player, $this->player2] as $player) {
@@ -196,7 +196,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
             planetSector: $oxygenSector,
             config: $oxygenEventConfig,
         );
-        $this->eventService->callEvent($oxygenEvent, $oxygenEventConfig->getEventName());
+        $this->eventService->callEvent($oxygenEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then daedalus has an oxygen status
         /** @var ChargeStatus $daedalusOxygenStatus */
@@ -218,7 +218,7 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
             planetSector: $fuelSector,
             config: $fuelEventConfig,
         );
-        $this->eventService->callEvent($fuelEvent, $fuelEventConfig->getEventName());
+        $this->eventService->callEvent($fuelEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         // then daedalus has an fuel status
         /** @var ChargeStatus $daedalusFuelStatus */

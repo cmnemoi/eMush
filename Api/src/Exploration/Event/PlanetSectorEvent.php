@@ -46,6 +46,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const STARMAP = 'starmap';
     public const TIRED = 'tired';
     public const TIRED_2 = 'tired_2';
+    public const PLANET_SECTOR_EVENT = 'planet_sector_event';
 
     private PlayerCollection $explorators;
     private Place $place;
@@ -71,6 +72,11 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         $this->explorators = $this->exploration->getExplorators();
         $this->place = $this->exploration->getDaedalus()->getPlanetPlace();
         $this->visibility = $visibility;
+    }
+
+    public function getName(): string
+    {
+        return $this->config->getEventName();
     }
 
     public function getPlanetSector(): PlanetSector

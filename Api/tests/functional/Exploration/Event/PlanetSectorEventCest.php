@@ -365,4 +365,122 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then Derek is alive, because he is stuck in the ship (no spacesuit)
         $I->assertTrue($derek->isAlive());
     }
+
+    public function testFightEventRemovesHealthToAllExplorators(FunctionalTester $I): void
+    {
+        // given some extra explorators
+        $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->players->add($derek);
+        $this->players->add($janice);
+
+        // given Janice has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $janice,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given Janice is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given only fight event can happen in volcanoes sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            events: ['fight_1' => 1]
+        );
+
+        $playersHealthBeforeEvent = [];
+        foreach ($this->players as $player) {
+            $playersHealthBeforeEvent[$player->getLogName()] = $player->getHealthPoint();
+        }
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then player1 and player2 have their health decreased
+        foreach ([$this->player, $this->player2] as $player) {
+            $I->assertLessThan(
+                expected: $playersHealthBeforeEvent[$player->getLogName()],
+                actual: $player->getHealthPoint(),
+            );
+        }
+
+        // then Janice still has the same health, as she is lost
+        $I->assertEquals(
+            expected: $playersHealthBeforeEvent[$janice->getLogName()],
+            actual: $janice->getHealthPoint(),
+        );
+
+        // then Derek still has the same health, as he is stuck in the ship (no spacesuit)
+        $I->assertEquals(
+            expected: $playersHealthBeforeEvent[$derek->getLogName()],
+            actual: $derek->getHealthPoint(),
+        );
+    }
+
+    public function testFightEventDoesNotRemoveHealthToExploratorsIfTheyHaveStrength(FunctionalTester $I): void
+    {
+        // given some extra explorators
+        $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->players->add($derek);
+        $this->players->add($janice);
+
+        // given Janice has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $janice,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given Janice is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given only fight event can happen in volcanoes sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            events: ['fight_1' => 1]
+        );
+
+        $playersHealthBeforeEvent = [];
+        foreach ($this->players as $player) {
+            $playersHealthBeforeEvent[$player->getLogName()] = $player->getHealthPoint();
+        }
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then all players have the same health as before the event
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: $playersHealthBeforeEvent[$player->getLogName()],
+                actual: $player->getHealthPoint(),
+            );
+        }
+    }
 }

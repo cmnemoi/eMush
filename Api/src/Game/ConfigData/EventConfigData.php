@@ -342,5 +342,13 @@ class EventConfigData
             'name' => 'kill_all',
             'eventName' => 'kill_all',
         ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'fight_12',
+            'eventName' => 'fight',
+            'outputQuantityTable' => [
+                12 => 1,
+            ],
+        ],
     ];
 }

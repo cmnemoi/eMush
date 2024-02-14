@@ -24,6 +24,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const DISASTER_3_5 = 'disaster_3_5';
     public const DISEASE = 'disease';
     public const FIGHT = 'fight';
+    public const FIGHT_12 = 'fight_12';
     public const FIND_LOST = 'find_lost';
     public const FUEL = 'fuel';
     public const FUEL_2 = 'fuel_2';

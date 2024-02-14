@@ -396,10 +396,10 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             time: new \DateTime(),
         );
 
-        // given only fight event can happen in volcanoes sector
+        // given only fight event can happen in intelligent sector
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
-            events: ['fight_1' => 1]
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_12' => 1]
         );
 
         $playersHealthBeforeEvent = [];
@@ -431,7 +431,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
     }
 
-    public function testFightEventDoesNotRemoveHealthToExploratorsIfTheyHaveStrength(FunctionalTester $I): void
+    public function testFightEventDoesNotRemoveHealthToExploratorsIfTheyHaveEnoughStrength(FunctionalTester $I): void
     {
         // given some extra explorators
         $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
@@ -461,9 +461,9 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             time: new \DateTime(),
         );
 
-        // given only fight event can happen in volcanoes sector
+        // given only fight event can happen in intelligent sector
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            sectorName: PlanetSectorEnum::INTELLIGENT,
             events: ['fight_1' => 1]
         );
 
@@ -475,7 +475,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // when fight is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then all players have the same health as before the event
+        // then all players have the same health as before the event becausse they killed the monster
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: $playersHealthBeforeEvent[$player->getLogName()],

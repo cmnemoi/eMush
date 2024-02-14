@@ -290,4 +290,28 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then it's player1 who dies
         $I->assertFalse($this->player->isAlive());
     }
+
+    public function testKillRandomEventDoesNotKillStuckInShipExplorators(FunctionalTester $I): void
+    {   
+        // given player2 does not have a spacesuit so they will be stuck in the ship
+        $this->gameEquipmentService->delete($this->player2->getEquipmentByName(GearItemEnum::SPACESUIT));
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: $this->players
+        );
+
+        // given only kill random event can happen in sismic sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::KILL_RANDOM => 1]
+        );
+
+        // when kill random event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then it's player1 who dies
+        $I->assertFalse($this->player->isAlive());
+    }
 }

@@ -292,7 +292,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     }
 
     public function testKillRandomEventDoesNotKillStuckInShipExplorators(FunctionalTester $I): void
-    {   
+    {
         // given player2 does not have a spacesuit so they will be stuck in the ship
         $this->gameEquipmentService->delete($this->player2->getEquipmentByName(GearItemEnum::SPACESUIT));
 

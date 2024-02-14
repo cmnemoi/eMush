@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Exploration\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -198,5 +199,43 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 actual: $normalizedExplorationLog,
             );
         }
+    }
+
+    public function testNormalizeKillRandomEvent(FunctionalTester $I): void
+    {
+        // given sismic activity sector has only kill random event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::KILL_RANDOM => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY, PlanetSectorEnum::OXYGEN], $I),
+            explorators: new ArrayCollection([$this->player]),
+        );
+
+        // given two extra steps are made to trigger the kill random event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when kill random event exploration log is normalized
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorName' => 'Sismique',
+                'eventName' => 'Mort',
+                'eventDescription' => 'Une faille s\'ouvre sous les pieds de l\'expédition !!! Chun glisse et disparaît dans un cri d\'effroi !',
+                'eventOutcome' => 'Un équipier meurt.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
     }
 }

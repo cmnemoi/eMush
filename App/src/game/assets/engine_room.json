@@ -1601,7 +1601,7 @@
  "nextobjectid":35,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"git",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -1798,31 +1798,31 @@
                          "tileid":0
                         }, 
                         {
-                         "duration":400,
+                         "duration":1000,
                          "tileid":1
                         }, 
                         {
-                         "duration":400,
+                         "duration":1000,
                          "tileid":2
                         }, 
                         {
-                         "duration":400,
+                         "duration":1000,
                          "tileid":3
                         }, 
                         {
-                         "duration":400,
+                         "duration":1000,
                          "tileid":4
                         }, 
                         {
-                         "duration":400,
+                         "duration":1000,
                          "tileid":5
                         }, 
                         {
-                         "duration":400,
+                         "duration":1000,
                          "tileid":6
                         }, 
                         {
-                         "duration":400,
+                         "duration":1000,
                          "tileid":7
                         }],
                  "id":0
@@ -1888,31 +1888,31 @@
                 {
                  "animation":[
                         {
-                         "duration":500,
+                         "duration":1000,
                          "tileid":0
                         }, 
                         {
-                         "duration":500,
+                         "duration":1000,
                          "tileid":2
                         }, 
                         {
-                         "duration":500,
+                         "duration":1000,
                          "tileid":3
                         }, 
                         {
-                         "duration":500,
+                         "duration":1000,
                          "tileid":4
                         }, 
                         {
-                         "duration":500,
+                         "duration":1000,
                          "tileid":5
                         }, 
                         {
-                         "duration":500,
+                         "duration":1000,
                          "tileid":6
                         }, 
                         {
-                         "duration":500,
+                         "duration":1000,
                          "tileid":7
                         }],
                  "id":0

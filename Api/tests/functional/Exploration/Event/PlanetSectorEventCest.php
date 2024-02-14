@@ -5,123 +5,61 @@ declare(strict_types=1);
 namespace Mush\Tests\Exploration\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Exploration\Entity\Planet;
-use Mush\Exploration\Entity\PlanetName;
-use Mush\Exploration\Entity\PlanetSector;
-use Mush\Exploration\Entity\PlanetSectorConfig;
-use Mush\Exploration\Entity\PlanetSectorEventConfig;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
-use Mush\Exploration\Service\ExplorationServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
-final class PlanetSectorEventCest extends AbstractFunctionalTest
+final class PlanetSectorEventCest extends AbstractExplorationTester
 {
-    private EventServiceInterface $eventService;
-    private ExplorationServiceInterface $explorationService;
-    private StatusServiceInterface $statusService;
-
-    private GameEquipment $icarus;
-    private Planet $planet;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
-        // given there is Icarus Bay on this Daedalus
-        $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
-
-        // given player is in Icarus Bay
-        $this->player->changePlace($icarusBay);
-        $this->player2->changePlace($icarusBay);
-
-        // given there is the Icarus ship in Icarus Bay
-        /** @var EquipmentConfig $icarusConfig */
-        $icarusConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::ICARUS]);
-        $this->icarus = new GameEquipment($icarusBay);
-        $this->icarus
-            ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig)
-        ;
-        $I->haveInRepository($this->icarus);
-
-        // given a planet with oxygen is found
-        $planetName = new PlanetName();
-        $planetName->setFirstSyllable(1);
-        $planetName->setFourthSyllable(1);
-        $I->haveInRepository($planetName);
-
-        $this->planet = new Planet($this->player);
-        $this->planet
-            ->setName($planetName)
-            ->setSize(3)
-        ;
-        $I->haveInRepository($this->planet);
-
-        $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
-        $desertSector = new PlanetSector($desertSectorConfig, $this->planet);
-        $I->haveInRepository($desertSector);
-
-        $sismicSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::SISMIC_ACTIVITY . '_default']);
-        $sismicSector = new PlanetSector($sismicSectorConfig, $this->planet);
-        $I->haveInRepository($sismicSector);
-
-        $oxygenSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::OXYGEN . '_default']);
-        $oxygenSector = new PlanetSector($oxygenSectorConfig, $this->planet);
-        $I->haveInRepository($oxygenSector);
-
-        $hydroCarbonSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::HYDROCARBON . '_default']);
-        $hydroCarbonSector = new PlanetSector($hydroCarbonSectorConfig, $this->planet);
-        $I->haveInRepository($hydroCarbonSector);
-
-        $this->planet->setSectors(new ArrayCollection([$desertSector, $sismicSector, $oxygenSector, $hydroCarbonSector]));
-
-        // given the Daedalus is in orbit around the planet
-        $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::IN_ORBIT,
-            holder: $this->daedalus,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // given there is an exploration with an explorator
-        $this->explorationService->createExploration(
-            players: new PlayerCollection([$this->player, $this->player2]),
-            explorationShip: $this->icarus,
-            numberOfSectorsToVisit: 2,
-            reasons: ['test'],
-        );
+        // given explorators have a spacesuit
+        foreach ($this->players as $player) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: GearItemEnum::SPACESUIT,
+                equipmentHolder: $player,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
     }
 
     public function testAccidentHurtsExplorator(FunctionalTester $I): void
     {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: $this->players
+        );
+
         // given there is a sismic sector on the planet with accident event
-        $sismicSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::SISMIC_ACTIVITY)->first();
-        /** @var PlanetSectorEventConfig $accidentEventConfig */
-        $accidentEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ACCIDENT . '_3_5']);
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
+        );
+
+        $player1HealthBeforeEvent = $this->player->getHealthPoint();
 
         // when accident event is dispatched
-        $accidentEvent = new PlanetSectorEvent(
-            planetSector: $sismicSector,
-            config: $accidentEventConfig,
-        );
-        $this->eventService->callEvent($accidentEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
+        $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then one of the explorators health is decreased
-        if ($this->player->getHealthPoint() === $this->player->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint()) {
+        if ($this->player->getHealthPoint() === $player1HealthBeforeEvent) {
             $I->assertLessThan(
                 expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
                 actual: $this->player2->getHealthPoint(),
@@ -136,22 +74,20 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
 
     public function testDisasterHurtsAllExplorators(FunctionalTester $I): void
     {
-        // given there is a landing sector on the planet with disaster event
-        $landingSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::LANDING . '_default']);
-        $landingSector = new PlanetSector($landingSectorConfig, $this->planet);
-
-        /** @var PlanetSectorEventConfig $disasterEventConfig */
-        $disasterEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::DISASTER . '_3_5']);
-
-        // when disaster event is dispatched
-        $disasterEvent = new PlanetSectorEvent(
-            planetSector: $landingSector,
-            config: $disasterEventConfig,
+        // given only disaster event can happen in landing sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LANDING,
+            events: [PlanetSectorEvent::DISASTER_3_5 => 1]
         );
-        $this->eventService->callEvent($disasterEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
-        // then player health is decreased
-        foreach ([$this->player, $this->player2] as $player) {
+        // when an exploration is created, the disaster event is dispatched
+        $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::LANDING], $I),
+            explorators: $this->players
+        );
+
+        // then players health is decreased
+        foreach ($this->players as $player) {
             $I->assertLessThan(
                 expected: $player->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
                 actual: $player->getHealthPoint(),
@@ -161,69 +97,123 @@ final class PlanetSectorEventCest extends AbstractFunctionalTest
 
     public function testTiredHurtsAllExplorators(FunctionalTester $I): void
     {
-        // given there is a desert sector on the planet with tired event
-        $desertSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::DESERT], $I),
+            explorators: $this->players
+        );
 
-        /** @var PlanetSectorEventConfig $tiredEventConfig */
-        $tiredEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::TIRED . '_2']);
+        // given there is a desert sector on the planet with tired event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::DESERT,
+            events: [PlanetSectorEvent::TIRED_2 => 1]
+        );
+
+        $player1HealthBeforeEvent = $this->player->getHealthPoint();
+        $player2HealthBeforeEvent = $this->player2->getHealthPoint();
 
         // when tired event is dispatched
-        $tiredEvent = new PlanetSectorEvent(
-            planetSector: $desertSector,
-            config: $tiredEventConfig,
-        );
-        $this->eventService->callEvent($tiredEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
+        $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then player health is decreased
-        foreach ([$this->player, $this->player2] as $player) {
-            $I->assertLessThan(
-                expected: $player->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
-                actual: $player->getHealthPoint(),
-            );
-        }
+        // then players health is decreased
+        $I->assertEquals(
+            expected: $player1HealthBeforeEvent - 2,
+            actual: $this->player->getHealthPoint(),
+        );
+        $I->assertEquals(
+            expected: $player2HealthBeforeEvent - 2,
+            actual: $this->player2->getHealthPoint(),
+        );
     }
 
     public function testOxygenEventCreatesOxygenStatus(FunctionalTester $I): void
     {
-        // given there is an oxygen sector with an oxygen event
-        $oxygenSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players
+        );
 
-        /** @var PlanetSectorEventConfig $oxygenEventConfig */
-        $oxygenEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::OXYGEN . '_8_16_24']);
+        // given there is only oxygen event in oxygen sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::OXYGEN,
+            events: [PlanetSectorEvent::OXYGEN_24 => 1]
+        );
 
         // when oxygen event is dispatched
-        $oxygenEvent = new PlanetSectorEvent(
-            planetSector: $oxygenSector,
-            config: $oxygenEventConfig,
-        );
-        $this->eventService->callEvent($oxygenEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
+        $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then daedalus has an oxygen status
         /** @var ChargeStatus $daedalusOxygenStatus */
         $daedalusOxygenStatus = $this->daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_OXYGEN);
-        $I->assertInstanceOf(ChargeStatus::class, $daedalusOxygenStatus);
-        $I->assertNotEquals(0, $daedalusOxygenStatus->getCharge());
+        $I->assertEquals(24, $daedalusOxygenStatus?->getCharge());
     }
 
     public function testFuelEventCreatesFuelStatus(FunctionalTester $I): void
     {
-        // given there is an fuel sector with an fuel event
-        $fuelSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::HYDROCARBON)->first();
+        // given there is only fuel event in fuel sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::HYDROCARBON,
+            events: [PlanetSectorEvent::FUEL_6 => 1]
+        );
 
-        /** @var PlanetSectorEventConfig $fuelEventConfig */
-        $fuelEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::FUEL . '_3_6']);
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::HYDROCARBON], $I),
+            explorators: $this->players
+        );
 
         // when fuel event is dispatched
-        $fuelEvent = new PlanetSectorEvent(
-            planetSector: $fuelSector,
-            config: $fuelEventConfig,
-        );
-        $this->eventService->callEvent($fuelEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
+        $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then daedalus has an fuel status
         /** @var ChargeStatus $daedalusFuelStatus */
         $daedalusFuelStatus = $this->daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_FUEL);
-        $I->assertInstanceOf(ChargeStatus::class, $daedalusFuelStatus);
-        $I->assertNotEquals(0, $daedalusFuelStatus->getCharge());
+        $I->assertEquals(6, $daedalusFuelStatus?->getCharge());
+    }
+
+    public function testArtefactEventCreatesAnArtefactInPlanetPlace(FunctionalTester $I): void
+    {
+        // given exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new ArrayCollection([$this->player])
+        );
+
+        // given only artefact event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ARTEFACT => 1]
+        );
+
+        // when artefact event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then one artefact is created in the planet place
+        $planetPlaceEquipments = $this->daedalus
+            ->getPlanetPlace()
+            ->getEquipments()
+            ->map(fn (GameEquipment $gameEquipment) => $gameEquipment->getLogName())
+            ->toArray()
+        ;
+        $I->assertNotEmpty(array_intersect($planetPlaceEquipments, ItemEnum::getArtefacts()->toArray()));
+
+        // then I should see a public log in planet place to tell an explorator has found an artefact
+        /** @var RoomLog $roomLog */
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+            ]
+        );
+
+        // then the log should be properly parameterized
+        $player = $roomLog->getParameters()['character'];
+        $I->assertEquals($this->player->getLogName(), $player);
+
+        $artefact = $roomLog->getParameters()['target_item'];
+        $I->assertTrue(in_array($artefact, $planetPlaceEquipments));
     }
 }

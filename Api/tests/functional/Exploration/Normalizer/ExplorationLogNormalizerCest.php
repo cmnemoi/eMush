@@ -6,10 +6,10 @@ namespace Mush\tests\functional\Exploration\Normalizer;
 
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
-use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -21,6 +21,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     private Exploration $exploration;
     private StatusServiceInterface $statusService;
+    private TranslationServiceInterface $translationService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -29,6 +30,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $this->explorationLogNormalizer = $I->grabService(ExplorationLogNormalizer::class);
 
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->translationService = $I->grabService(TranslationServiceInterface::class);
     }
 
     public function testNormalizeLandingNothingToReportEventWithPilot(FunctionalTester $I): void
@@ -42,7 +44,10 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
 
         // given exploration is created
-        $this->exploration = $this->createExploration($this->createPlanet([PlanetSectorEnum::OXYGEN], $I));
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
 
         // when landing nothing to report event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->first();
@@ -65,14 +70,16 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeLandingNothingToReportEventWithoutAPilot(FunctionalTester $I): void
     {
         // given landing sector has only nothing to report event
-        /** @var PlanetSectorConfig $landingSectorConfig */
-        $landingSectorConfig = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
-            fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === PlanetSectorEnum::LANDING,
-        )->first();
-        $landingSectorConfig->setExplorationEvents([PlanetSectorEvent::NOTHING_TO_REPORT => 1]);
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LANDING,
+            events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1]
+        );
 
         // given exploration is created
-        $this->exploration = $this->createExploration($this->createPlanet([PlanetSectorEnum::OXYGEN], $I));
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
 
         // when landing nothing to report event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->first();
@@ -95,14 +102,16 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeTiredEvent(FunctionalTester $I): void
     {
         // given desert sector has only tired event
-        /** @var PlanetSectorConfig $landingSectorConfig */
-        $landingSectorConfig = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
-            fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === PlanetSectorEnum::DESERT,
-        )->first();
-        $landingSectorConfig->setExplorationEvents([PlanetSectorEvent::TIRED_2 => 1]);
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::DESERT,
+            events: [PlanetSectorEvent::TIRED_2 => 1]
+        );
 
         // given exploration is created
-        $this->exploration = $this->createExploration($this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I));
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
 
         // given two extra steps are made to trigger the tired event
         $this->explorationService->dispatchExplorationEvent($this->exploration);
@@ -126,5 +135,68 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             ],
             actual: $normalizedExplorationLog,
         );
+    }
+
+    public function testNormalizeArtefactEvent(FunctionalTester $I): void
+    {
+        // given intelligent life sector has only artefact event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ARTEFACT => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+
+        // given two extra steps are made to trigger the artefact event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when artefact event exploration log is normalized
+        /** @var ExplorationLog $explorationLog */
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $lootedArtefact = $this->translationService->translate(
+            key: $explorationLog->getParameters()['target_item'] . '.name',
+            parameters: [],
+            domain: 'items',
+            language: $this->exploration->getDaedalus()->getLanguage(),
+        );
+
+        $maleLootedArtefact = "un {$lootedArtefact}";
+        $femaleLootedArtefact = "une {$lootedArtefact}";
+
+        try {
+            $I->assertEquals(
+                expected: [
+                    'id' => $explorationLog->getId(),
+                    'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                    'planetSectorName' => 'Vie intelligente',
+                    'eventName' => 'Artefact',
+                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$maleLootedArtefact} avant de reprendre sa route.",
+                    'eventOutcome' => 'Vous trouvez un artefact.',
+                ],
+                actual: $normalizedExplorationLog,
+            );
+        } catch (\Exception $e) {
+            $I->assertEquals(
+                expected: [
+                    'id' => $explorationLog->getId(),
+                    'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                    'planetSectorName' => 'Vie intelligente',
+                    'eventName' => 'Artefact',
+                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$femaleLootedArtefact} avant de reprendre sa route.",
+                    'eventOutcome' => 'Vous trouvez un artefact.',
+                ],
+                actual: $normalizedExplorationLog,
+            );
+        }
     }
 }

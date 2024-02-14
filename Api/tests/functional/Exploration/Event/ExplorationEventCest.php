@@ -38,7 +38,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
         );
 
         // given I have an exploration on this planet
-        $exploration = $this->createExploration($planet);
+        $exploration = $this->createExploration($planet, $this->players);
 
         $explorationCurrrentCycleBeforeCycleChange = $exploration->getCycle();
 
@@ -72,7 +72,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
         );
 
         // given I have an exploration on this planet
-        $exploration = $this->createExploration($planet);
+        $exploration = $this->createExploration($planet, $this->players);
 
         $closedExploration = $exploration->getClosedExploration();
 
@@ -123,7 +123,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
         );
 
         // given I have an exploration on this planet
-        $exploration = $this->createExploration($planet);
+        $exploration = $this->createExploration($planet, $this->players);
 
         $closedExploration = $exploration->getClosedExploration();
         // given all explorators are dead

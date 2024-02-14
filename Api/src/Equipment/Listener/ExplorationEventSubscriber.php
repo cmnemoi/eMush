@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
@@ -60,15 +61,10 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration = $event->getExploration();
         $daedalus = $exploration->getDaedalus();
 
-        // All explorators are dead, no exploration craft return!
+        // All explorators are dead, all equipment stay on the planet!
         // @TODO : Magnetic return project should prevent this for the Icarus
         if (!$exploration->isAnyExploratorAlive()) {
             return;
-        }
-
-        $explorationShip = $daedalus->getPlanetPlace()->getEquipmentByName($exploration->getShipUsedName());
-        if (!$explorationShip) {
-            throw new \RuntimeException('There should be an exploration ship in the planet place');
         }
 
         $returnPlace = $daedalus->getPlaceByName($exploration->getStartPlaceName());
@@ -76,14 +72,17 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             throw new \RuntimeException("There should be a {$exploration->getStartPlaceName()} place in Daedalus");
         }
 
-        $equipmentEvent = new MoveEquipmentEvent(
-            equipment: $explorationShip,
-            newHolder: $returnPlace,
-            author: null,
-            visibility: VisibilityEnum::HIDDEN,
-            tags: $event->getTags(),
-            time: $event->getTime(),
-        );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        /** @var GameEquipment $equipment */
+        foreach ($daedalus->getPlanetPlace()->getEquipments() as $equipment) {
+            $equipmentEvent = new MoveEquipmentEvent(
+                equipment: $equipment,
+                newHolder: $returnPlace,
+                author: null,
+                visibility: VisibilityEnum::HIDDEN,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+        }
     }
 }

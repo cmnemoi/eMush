@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -73,7 +74,7 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
         return $planet;
     }
 
-    protected function createExploration(Planet $planet): Exploration
+    protected function createExploration(Planet $planet, ArrayCollection $explorators): Exploration
     {
         // given the Daedalus is in orbit around the planet
         $this->statusService->createStatusFromName(
@@ -85,10 +86,21 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
 
         // given there is an exploration with an explorator
         return $this->explorationService->createExploration(
-            players: new PlayerCollection([$this->player]),
+            players: new PlayerCollection($explorators->toArray()),
             explorationShip: $this->icarus,
             numberOfSectorsToVisit: $planet->getSize(),
             reasons: ['test'],
         );
+    }
+
+    protected function setupPlanetSectorEvents(string $sectorName, array $events): PlanetSectorConfig
+    {
+        /** @var PlanetSectorConfig $sectorConfig */
+        $sectorConfig = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
+            fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName,
+        )->first();
+        $sectorConfig->setExplorationEvents($events);
+
+        return $sectorConfig;
     }
 }

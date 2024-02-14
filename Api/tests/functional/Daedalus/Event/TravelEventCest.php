@@ -154,7 +154,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $oxygenSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
 
         /** @var PlanetSectorEventConfig $oxygenEventConfig */
-        $oxygenEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::OXYGEN . '_8_16_24']);
+        $oxygenEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::OXYGEN . '_8']);
 
         // when oxygen event is dispatched
         $oxygenEvent = new PlanetSectorEvent(

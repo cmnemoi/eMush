@@ -278,6 +278,14 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL_2,
+            'eventName' => PlanetSectorEvent::FUEL,
+            'outputQuantityTable' => [
+                2 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_3,
             'eventName' => PlanetSectorEvent::FUEL,
             'outputQuantityTable' => [
@@ -306,6 +314,22 @@ class EventConfigData
             'eventName' => PlanetSectorEvent::FUEL,
             'outputQuantityTable' => [
                 6 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'artefact',
+            'eventName' => 'artefact',
+            'outputQuantityTable' => [
+                'alien_bottle_opener' => 1,
+                'alien_holographic_tv' => 1,
+                'invertebrate_shell' => 1,
+                'jar_of_alien_oil' => 1,
+                'magellan_liquid_map' => 1,
+                'printed_circuit_jelly' => 1,
+                'rolling_boulder' => 1,
+                'starmap_fragment' => 1,
+                'water_stick' => 1,
             ],
         ],
     ];

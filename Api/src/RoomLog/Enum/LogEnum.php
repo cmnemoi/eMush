@@ -54,6 +54,7 @@ class LogEnum
     public const EXPLORATION_FINISHED = 'exploration_finished';
     public const ALL_EXPLORATORS_STUCKED = 'all_explorators_stucked';
     public const ALL_EXPLORATORS_DEAD = 'all_explorators_dead';
+    public const FOUND_ITEM_IN_EXPLORATION = 'found_item_in_exploration';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

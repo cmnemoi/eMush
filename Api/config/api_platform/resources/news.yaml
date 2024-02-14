@@ -9,7 +9,7 @@ Mush\MetaGame\Entity\News:
       groups: [ 'news_write' ]
   collectionOperations:
     get:
-      filters: [ 'default.search_filter', 'default.order_filter', 'newsPinned.search_filter', 'newsPublished.search_filter', 'news.order_filter', 'date.order_filter' ]
+      filters: [ 'default.search_filter', 'default.order_filter', 'news.search_filter', 'news.order_filter', 'date.order_filter' ]
       security: ~
     post:
       security: 'is_granted("ROLE_MODERATOR")'

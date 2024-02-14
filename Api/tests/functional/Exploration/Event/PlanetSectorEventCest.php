@@ -17,17 +17,21 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
 final class PlanetSectorEventCest extends AbstractExplorationTester
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given explorators have a spacesuit
         foreach ($this->players as $player) {
@@ -256,5 +260,34 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $deathLogParameters = $deathLog->getParameters();
         $I->assertEquals($deadPlayer->getLogName(), $deathLogParameters['target_character']);
         $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
+    }
+
+    public function testKillRandomEventDoesNotKillLostExplorator(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: $this->players
+        );
+
+        // given only kill random event can happen in sismic sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::KILL_RANDOM => 1]
+        );
+
+        // given one player2 is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->player2,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when kill random event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then it's player1 who dies
+        $I->assertFalse($this->player->isAlive());
     }
 }

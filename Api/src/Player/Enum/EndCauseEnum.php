@@ -102,6 +102,7 @@ class EndCauseEnum
         ActionEnum::ADVANCE_DAEDALUS => self::ABANDONED,
         ActionEnum::LEAVE_ORBIT => self::ABANDONED,
         PlanetSectorEvent::KILL_RANDOM => self::EXPLORATION,
+        PlanetSectorEvent::KILL_ALL => self::EXPLORATION,
     ];
 
     public static function getAll(): array

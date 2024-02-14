@@ -238,4 +238,45 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeKillAllEvent(FunctionalTester $I): void
+    {
+        // given volcanic activity sector has only kill all event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            events: [PlanetSectorEvent::KILL_ALL => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::VOLCANIC_ACTIVITY, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the kill all event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        if (!$closedExploration->isExplorationFinished()) {
+            $this->explorationService->dispatchExplorationEvent($this->exploration);
+        }
+
+        // when kill all event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::VOLCANIC_ACTIVITY,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::VOLCANIC_ACTIVITY,
+                'planetSectorName' => 'Volcan',
+                'eventName' => 'Mort du groupe',
+                'eventDescription' => 'Alors que la montagne la plus proche de l\'expédition se met à cracher un jet de lave à plus de 500m de hauteur, le sol s\'effondre sous leurs pieds et les engloutit dans un déluge de flammes.',
+                'eventOutcome' => 'Tous les équipiers meurent.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

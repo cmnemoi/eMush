@@ -11,6 +11,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -313,5 +314,55 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then it's player1 who dies
         $I->assertFalse($this->player->isAlive());
+    }
+
+    public function testKillAllEventKillsAllExplorators(FunctionalTester $I): void
+    {
+        // given some extra explorators
+        $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->players->add($derek);
+        $this->players->add($janice);
+
+        // given Janice has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $janice,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::VOLCANIC_ACTIVITY], $I),
+            explorators: $this->players
+        );
+
+        // given Janice is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given only kill all event can happen in volcanoes sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            events: [PlanetSectorEvent::KILL_ALL => 1]
+        );
+
+        // when kill all event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then player 1 and player 2 are dead
+        $I->assertFalse($this->player->isAlive());
+        $I->assertFalse($this->player2->isAlive());
+
+        // then Janice is alive, because she is lost
+        $I->assertTrue($janice->isAlive());
+
+        // then Derek is alive, because he is stuck in the ship (no spacesuit)
+        $I->assertTrue($derek->isAlive());
     }
 }

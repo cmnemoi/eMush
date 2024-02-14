@@ -246,6 +246,7 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 6,
+                PlanetSectorEvent::KILL_ALL => 1,
             ],
         ],
         [

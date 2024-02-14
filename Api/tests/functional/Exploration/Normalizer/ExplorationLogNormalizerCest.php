@@ -241,7 +241,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeKillAllEvent(FunctionalTester $I): void
     {
-        // given sismic activity sector has only kill all event
+        // given volcanic activity sector has only kill all event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
             events: [PlanetSectorEvent::KILL_ALL => 1]

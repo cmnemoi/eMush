@@ -313,7 +313,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Vie intelligente',
                 'eventName' => 'Combat',
                 'eventDescription' => 'Un être étrange s\'approche de vous et lance de grand cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.',
-                'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 12////Force Equipe : 2////L\'équipe subit 10 points de dégâts.',
+                'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 12////Force Équipe : 2////L\'équipe subit 10 points de dégâts.',
             ],
             actual: $normalizedExplorationLog,
         );

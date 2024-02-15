@@ -38,7 +38,7 @@ class PlaceConfigData
             'placeName' => 'alpha_bay_2',
             'type' => 'room',
             'doors' => ['alpha_bay_alpha_bay_2', 'engine_room_bay_alpha_2', 'rear_corridor_bay_alpha_2', 'rear_alpha_turret_bay_alpha_2'],
-            'items' => ['oscilloscope_blueprint', 'metal_scraps', 'metal_scraps', 'metal_scraps', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule', 'space_capsule'],
+            'items' => ['oscilloscope_blueprint'],
             'equipments' => ['patrol_ship_alpha_2_wallis', 'pasiphae', 'dynarcade', 'jukebox'],
         ],
         [
@@ -54,7 +54,7 @@ class PlaceConfigData
             'placeName' => 'medlab',
             'type' => 'room',
             'doors' => ['medlab_central_bravo_turret', 'medlab_laboratory', 'front_corridor_medlab'],
-            'items' => ['bandage', 'bandage', 'bandage', 'jar_of_alien_oil', 'spore_sucker'],
+            'items' => ['bandage', 'bandage'],
             'equipments' => ['surgery_plot', 'narcotic_distiller', 'bed'],
         ],
         [
@@ -62,7 +62,7 @@ class PlaceConfigData
             'placeName' => 'laboratory',
             'type' => 'room',
             'doors' => ['front_corridor_laboratory', 'medlab_laboratory'],
-            'items' => ['sniper_helmet_blueprint', 'echolocator_blueprint', 'alien_bottle_opener', 'rolling_boulder', 'metal_scraps', 'plastic_scraps', 'banana', 'creepnut', 'bottine', 'fragilane', 'filandra', 'alien_holographic_tv'],
+            'items' => ['sniper_helmet_blueprint', 'alien_bottle_opener', 'creepnut', 'bottine', 'fragilane', 'filandra'],
             'equipments' => ['gravity_simulator', 'research_laboratory', 'cryo_module', 'mycoscan'],
         ],
         [
@@ -166,7 +166,11 @@ class PlaceConfigData
             'placeName' => 'icarus_bay',
             'type' => 'room',
             'doors' => ['rear_corridor_bay_icarus', 'rear_bravo_turret_bay_icarus', 'engine_room_bay_icarus'],
-            'items' => [],
+            'items' => [
+                'rocket_launcher_blueprint',
+                'lizaro_jungle_blueprint',
+                'old_faithful_blueprint',
+            ],
             'equipments' => ['icarus'],
         ],
         [

@@ -17,7 +17,7 @@ final class Artefact extends AbstractLootItemsEventHandler
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         // Artefact event creates only one item
-        $artefact = $this->createRandomGameItemsFromEvent($event)->first();
+        $artefact = $this->createRandomItemsFromEvent($event)->first();
 
         // for Intelligent Life sector Artefact event, we need to log the name of the artefact in the expedition report
         $logParameters = [

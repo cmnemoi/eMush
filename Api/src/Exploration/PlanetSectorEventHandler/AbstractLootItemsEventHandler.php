@@ -27,19 +27,19 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function createRandomGameItemsFromEvent(PlanetSectorEvent $event): ArrayCollection
+    protected function createRandomItemsFromEvent(PlanetSectorEvent $event): ArrayCollection
     {
         $numberOfItemsToCreate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
 
-        $createdGameItems = [];
+        $createdItems = [];
         for ($i = 0; $i < $numberOfItemsToCreate; ++$i) {
-            $artefactToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
-            $finder = $this->randomService->getRandomElement($event->getExploration()->getExplorators()->toArray());
+            $itemToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
+            $finder = $this->randomService->getRandomElement($event->getExploration()->getNotLostExplorators()->toArray());
 
             $tags = $event->getTags();
             $tags[] = LogEnum::FOUND_ITEM_IN_EXPLORATION;
-            $createdGameItems[] = $this->gameEquipmentService->createGameEquipmentFromName(
-                equipmentName: $artefactToCreate,
+            $createdItems[] = $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: $itemToCreate,
                 equipmentHolder: $event->getExploration()->getDaedalus()->getPlanetPlace(),
                 reasons: $tags,
                 time: $event->getTime(),
@@ -48,6 +48,6 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
             );
         }
 
-        return new ArrayCollection($createdGameItems);
+        return new ArrayCollection($createdItems);
     }
 }

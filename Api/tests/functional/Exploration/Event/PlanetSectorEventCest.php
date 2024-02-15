@@ -500,5 +500,8 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertCount(4, $roomLogs);
         $roomLogParameters = $roomLogs[0]->getParameters();
         $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
+
+        // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
+        $I->assertTrue(in_array($roomLogParameters['character'], [$this->player->getLogName(), $this->player2->getLogName()]));
     }
 }

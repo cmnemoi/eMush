@@ -303,7 +303,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                     'items',
                     $language
                 );
-                $description = "$description //$ingredientTranslation";
+                $description = "$description//$ingredientTranslation";
             }
         }
 

@@ -62,9 +62,7 @@ const PLASTENITE_ARMOR = "plastenite_armor";
 const CAMERA_ITEM = "camera_item";
 const EXTINGUISHER = "extinguisher";
 const DUCT_TAPE = "duct_tape";
-const BLASTER = "blaster";
 const HACKER_KIT = "hacker_kit";
-const GRENADE = "grenade";
 const QUADRIMETRIC_COMPASS = "quadrimetric_compass";
 const ADJUSTABLE_WRENCH = "adjustable_wrench";
 const APRON = "stainproof_apron";
@@ -72,7 +70,6 @@ const BLOCK_POST_IT = "block_of_post_it";
 const POST_IT = "post_it";
 const ROPE = "rope";
 const DRILL = "drill";
-const KNIFE = "knife";
 const GLOVES = "protective_gloves";
 const SOAP = "soap";
 const TABULATRIX = "tabulatrix";
@@ -99,6 +96,15 @@ const PRINTED_CIRCUIT_JELLY = "printed_circuit_jelly";
 const ROLLING_BOULDER = 'rolling_boulder';
 const STARMAP_FRAGMENT = "starmap_fragment";
 const WATER_STICK = "water_stick";
+
+// weapons
+const BLASTER = "blaster";
+const GRENADE = "grenade";
+const KNIFE = "knife";
+const LIZARO_JUNGLE = "lizaro_jungle";
+const NATAMY_RIFLE = "natamy_rifle";
+const OLD_FAITHFUL = "old_faithful";
+const ROCKET_LAUNCHER = "rocket_launcher";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -385,5 +391,17 @@ export const itemEnum: {[index: string]: any} = {
     },
     [PRINTED_CIRCUIT_JELLY]: {
         'image': require('@/assets/images/items/computer_jelly.jpg')
+    },
+    [OLD_FAITHFUL]: {
+        'image': require('@/assets/images/items/machine_gun.jpg')
+    },
+    [ROCKET_LAUNCHER]: {
+        'image': require('@/assets/images/items/missile_launcher.jpg')
+    },
+    [LIZARO_JUNGLE]: {
+        'image': require('@/assets/images/items/sniper_riffle.jpg')
+    },
+    [NATAMY_RIFLE]: {
+        'image': require('@/assets/images/items/natamy_riffle.jpg')
     },
 };

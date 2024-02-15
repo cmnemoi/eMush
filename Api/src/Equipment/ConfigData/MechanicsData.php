@@ -2362,9 +2362,7 @@ class MechanicsData
             'criticalSuccessRate' => 5.0,
             'criticalFailRate' => 1.0,
             'oneShotRate' => 1.0,
-            'actions' => [
-                'shoot',
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
@@ -2393,9 +2391,7 @@ class MechanicsData
             'criticalSuccessRate' => 25.0,
             'criticalFailRate' => 20.0,
             'oneShotRate' => 2.0,
-            'actions' => [
-                'attack',
-            ],
+            'actions' => ['attack'],
             'modifierConfigs' => [],
         ],
         [
@@ -2424,9 +2420,7 @@ class MechanicsData
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,
             'oneShotRate' => 0.0,
-            'actions' => [
-                'attack',
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
@@ -2455,9 +2449,7 @@ class MechanicsData
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,
             'oneShotRate' => 0.0,
-            'actions' => [
-                'attack',
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
@@ -2486,9 +2478,7 @@ class MechanicsData
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,
             'oneShotRate' => 0.0,
-            'actions' => [
-                'attack',
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
@@ -2517,9 +2507,7 @@ class MechanicsData
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,
             'oneShotRate' => 0.0,
-            'actions' => [
-                'attack',
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
@@ -2548,9 +2536,7 @@ class MechanicsData
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,
             'oneShotRate' => 0.0,
-            'actions' => [
-                'attack',
-            ],
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [

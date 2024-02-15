@@ -278,6 +278,14 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
+            'name' => PlanetSectorEvent::FUEL_1,
+            'eventName' => PlanetSectorEvent::FUEL,
+            'outputQuantityTable' => [
+                1 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_2,
             'eventName' => PlanetSectorEvent::FUEL,
             'outputQuantityTable' => [
@@ -344,10 +352,63 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
+            'name' => 'fight_8',
+            'eventName' => 'fight',
+            'outputQuantityTable' => [
+                8 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'fight_10',
+            'eventName' => 'fight',
+            'outputQuantityTable' => [
+                10 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
             'name' => 'fight_12',
             'eventName' => 'fight',
             'outputQuantityTable' => [
                 12 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'fight_15',
+            'eventName' => 'fight',
+            'outputQuantityTable' => [
+                15 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'fight_18',
+            'eventName' => 'fight',
+            'outputQuantityTable' => [
+                18 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'fight_32',
+            'eventName' => 'fight',
+            'outputQuantityTable' => [
+                32 => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'fight_8_10_12_15_18_32',
+            'eventName' => 'fight',
+            'outputQuantityTable' => [
+                8 => 1,
+                10 => 1,
+                12 => 1,
+                15 => 1,
+                18 => 1,
+                32 => 1,
             ],
         ],
     ];

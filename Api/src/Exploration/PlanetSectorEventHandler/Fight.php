@@ -30,7 +30,9 @@ final class Fight extends AbstractPlanetSectorEventHandler
         $expeditionStrength = $this->getExpeditionStrength($event);
         $damage = max(0, $creatureStrength - $expeditionStrength);
 
-        $this->removeGrenadesFromFighters($event, $creatureStrength);
+        if ($this->getExpeditionStrength($event, includeGrenades: false) < $creatureStrength) {
+            $this->removeGrenadesFromFighters($event, $creatureStrength);
+        }
 
         $logParameters = [
             'creature_strength' => $creatureStrength,
@@ -54,7 +56,6 @@ final class Fight extends AbstractPlanetSectorEventHandler
         $expeditionStrength = $fighters->count();
 
         // then, add bonus from their weapons
-        // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
         /** @var Player $fighter */
         foreach ($fighters as $fighter) {
             /** @var ArrayCollection<int, GameItem> $fighterWeapons */
@@ -64,6 +65,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 ->filter(fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades)
             ;
 
+            // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
             foreach ($fighterWeapons as $weapon) {
                 /** @var ?Weapon $weaponMechanic */
                 $weaponMechanic = $weapon->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
@@ -80,6 +82,27 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
 
         return $expeditionStrength;
+    }
+
+    private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $creatureStrength): void
+    {
+        $fighters = $event->getExploration()->getNotLostExplorators();
+        foreach ($fighters as $fighter) {
+            $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
+
+            // We are removing grenades from the fighter until we have enough points to kill the creature
+            // or until we run out of grenades
+            while ($creatureStrength > 0 && $fighterGrenades->count() > 0) {
+                $grenade = $fighterGrenades->first();
+
+                $creatureStrength -= $grenade->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)->getExpeditionBonus();
+
+                $fighterGrenades->removeElement($grenade);
+                $this->entityManager->remove($grenade);
+            }
+        }
+
+        $this->entityManager->flush();
     }
 
     private function inflictDamageToExplorators(PlanetSectorEvent $event, int $damage): void
@@ -117,32 +140,5 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
             $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-    }
-
-    private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $creatureStrength): void
-    {
-        // If we have enough strength to kill the creature without using grenades, we don't need to remove any
-        $expeditionStrength = $this->getExpeditionStrength($event, includeGrenades: false);
-        if ($expeditionStrength >= $creatureStrength) {
-            return;
-        }
-
-        $fighters = $event->getExploration()->getNotLostExplorators();
-        foreach ($fighters as $fighter) {
-            $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
-
-            // We are removing grenades from the fighter until we have enough points to kill the creature
-            // or until we run out of grenades
-            while ($creatureStrength > 0 && $fighterGrenades->count() > 0) {
-                $grenade = $fighterGrenades->first();
-
-                $creatureStrength -= $grenade->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)->getExpeditionBonus();
-
-                $fighterGrenades->removeElement($grenade);
-                $this->entityManager->remove($grenade);
-            }
-        }
-
-        $this->entityManager->flush();
     }
 }

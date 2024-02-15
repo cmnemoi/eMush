@@ -71,4 +71,15 @@ class ItemEnum
             self::OLD_FAITHFUL,
         ]);
     }
+
+    public static function getGuns(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::BLASTER,
+            self::NATAMY_RIFLE,
+            self::ROCKET_LAUNCHER,
+            self::LIZARO_JUNGLE,
+            self::OLD_FAITHFUL,
+        ]);
+    }
 }

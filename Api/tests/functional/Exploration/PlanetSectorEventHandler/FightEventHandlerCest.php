@@ -13,6 +13,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\PlanetSectorEventHandler\Fight;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -70,12 +71,73 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventExpeditionStrengthIsImprovedByWeapons(FunctionalTester $I): void
     {
-        // given all explorators have a blaster
-        foreach ($this->players as $player) {
+        // given Chun and Kuan-Ti have a blaster
+        foreach ([$this->chun, $this->kuanTi] as $player) {
             $this->gameEquipmentService->createGameEquipmentFromName(
                 equipmentName: ItemEnum::BLASTER,
                 equipmentHolder: $player,
                 reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given Kuan-Ti's blaster is unloaded
+        $this->kuanTi->getEquipmentByName(ItemEnum::BLASTER)->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(0);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given fight planet sector event
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $explorationLog = $this->fightEventHandler->handle($event);
+
+        // then the expedition strength should be 3 :
+        // 2 points from Chun : 1 (base) + 1 (loaded blaster)
+        // 1 points from Kuan-Ti : 1 (base) + 0 (unloaded blaster)
+        // 0 points from Derek and Janice as they are lost or stuck in the ship
+        $I->assertEquals(3, $explorationLog->getParameters()['expedition_strength']);
+    }
+
+    public function testFightEventExpeditionStrengthIsImprovedByShooterSkill(FunctionalTester $I): void
+    {
+        // given Chun and Kuan-Ti have a blaster
+        foreach ([$this->chun, $this->kuanTi] as $player) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::BLASTER,
+                equipmentHolder: $player,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given Chun has an extra blaster
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::BLASTER,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Kuan-Ti's blaster is unloaded
+        $this->kuanTi->getEquipmentByName(ItemEnum::BLASTER)->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(0);
+
+        // given Chun and kuan-ti have the shooter skill
+        foreach ([$this->chun, $this->kuanTi] as $player) {
+            $this->statusService->createStatusFromName(
+                statusName: PlayerStatusEnum::POC_SHOOTER_SKILL,
+                holder: $player,
+                tags: [],
                 time: new \DateTime(),
             );
         }
@@ -98,8 +160,10 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // when the event is handled by the fight event handler
         $explorationLog = $this->fightEventHandler->handle($event);
 
-        // then the expedition strength should be 4 : 2 explorators + 2 blasters (one for Chun and one for Kuan-Ti)
-        // Janice and Derek don't count as they are lost or stuck in the ship
-        $I->assertEquals(4, $explorationLog->getParameters()['expedition_strength']);
+        // then the expedition strength should be 4 :
+        // 4 points from Chun : 1 (base) + 2 (2 blasters) + 1 (shooter skill with a loaded gun)
+        // 1 points from Kuan-Ti : 1 (base) + 0 (unloaded blaster) + 0 (shooter skill but unloaded gun)
+        // 0 points from Derek and Janice as they are lost or stuck in the ship
+        $I->assertEquals(5, $explorationLog->getParameters()['expedition_strength']);
     }
 }

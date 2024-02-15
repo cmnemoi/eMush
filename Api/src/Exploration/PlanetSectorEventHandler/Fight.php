@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -16,6 +15,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 final class Fight extends AbstractPlanetSectorEventHandler
 {
@@ -64,15 +64,24 @@ final class Fight extends AbstractPlanetSectorEventHandler
         // then, add bonus from their weapons
         /** @var Player $fighter */
         foreach ($fighters as $fighter) {
-            /** @var ArrayCollection<int, Weapon> $fighterWeapons */
-            $fighterWeapons = $fighter
-                ->getEquipments()
+            /** @var ArrayCollection<int, GameItem> $fighterWeapons */
+            $fighterWeapons = $fighter->getEquipments()
                 ->filter(fn (GameItem $item) => ItemEnum::getWeapons()->contains($item->getName()))
-                ->map(fn (GameItem $item) => $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON))
-                ->filter(fn (?EquipmentMechanic $weapon) => $weapon != null);
+                ->filter(fn (GameItem $item) => $item->isOperational())
+            ;
 
             foreach ($fighterWeapons as $weapon) {
-                $expeditionStrength += $weapon->getExpeditionBonus();
+                /** @var ?Weapon $weaponMechanic */
+                $weaponMechanic = $weapon->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
+                $expeditionStrength += $weaponMechanic?->getExpeditionBonus() ?? 0;
+            }
+            
+            // If fighter is also a Shooter, add 1 to the expedition strength if they have a loaded gun
+            if (
+                $fighter->hasSkill(PlayerStatusEnum::POC_SHOOTER_SKILL)
+                && $fighterWeapons->filter(fn (GameItem $weapon) => ItemEnum::getGuns()->contains($weapon->getName()))->count() > 0
+            ) {
+                ++$expeditionStrength;
             }
         }
 

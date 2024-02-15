@@ -282,7 +282,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeFightEvent(FunctionalTester $I): void
     {
-        // given intelligent life has only kill all event
+        // given intelligent life has only fight event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [PlanetSectorEvent::FIGHT_12 => 1]
@@ -321,7 +321,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeFightEventWithExpeditionStrengthSuperiorToCreatureStrength(FunctionalTester $I): void
     {
-        // given intelligent life has only kill all event
+        // given intelligent life has only fight event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: ['fight_1' => 1]

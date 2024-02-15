@@ -961,14 +961,11 @@ Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute faço
       </segment>
       <segment id="description" state="final">
         <source>plastenite_armor.description</source>
-        <target>Cette armure est conseillée pour partir en expédition.
-Absorbe 1 point de dégats de combat.</target>
+        <target>Cette armure est conseillée pour partir en expédition.//Absorbe 1 point de dégats de combat.</target>
       </segment>
       <segment id="examine" state="final">
         <source>plastenite_armor.examine</source>
-        <target>Cette armure est conseillée pour partir en expédition.
-Absorbe 1 point de dégats de combat.
-L'armure de plastenite est faite en latex bio-sensibilisé et en matière ultra souple, ce qui la rend légère et agréable à porter, presque invisible. Certains la trouvent un peu efféminée en la comparant à des collants moulants. Gageons que le moulage du poitrail n'aide pas. En réalité, mieux vaut être ridicule que mort.</target>
+        <target>Cette armure est conseillée pour partir en expédition.//Absorbe 1 point de dégats de combat.//L'armure de plastenite est faite en latex bio-sensibilisé et en matière ultra souple, ce qui la rend légère et agréable à porter, presque invisible. Certains la trouvent un peu efféminée en la comparant à des collants moulants. Gageons que le moulage du poitrail n'aide pas. En réalité, mieux vaut être ridicule que mort.</target>
       </segment>
     </unit>
     <unit id="protective_gloves">
@@ -1646,6 +1643,10 @@ Répugnant... Vous devriez le brûler.</target>
         <source>plastic_scraps.short_name</source>
         <target>Débris plastique</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>plastic_scraps.plural_name</source>
+        <target>Débris plastique</target>
+      </segment>
       <segment id="genre" state="final">
         <source>plastic_scraps.gender</source>
         <target>male</target>
@@ -1671,6 +1672,10 @@ Avec quelques outils et de la patience, c'est fou ce à quoi l'on peut arriver.<
       </segment>
       <segment id="short_name" state="final">
         <source>metal_scraps.short_name</source>
+        <target>Débris métallique</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>metal_scraps.plural_name</source>
         <target>Débris métallique</target>
       </segment>
       <segment id="genre" state="final">
@@ -2287,14 +2292,11 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="description" state="final">
         <source>knife.description</source>
-        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.
-Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="final">
         <source>knife.examine</source>
-        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.
-Expédition : + 1 à la force de votre équipe en cas de combat.
-20 cm de bonheur pour psychopathe.</target>
+        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.//Expédition : + 1 à la force de votre équipe en cas de combat.//20 cm de bonheur pour psychopathe.</target>
       </segment>
     </unit>
     <unit id="blaster">
@@ -2320,14 +2322,11 @@ Expédition : + 1 à la force de votre équipe en cas de combat.
       </segment>
       <segment id="description" state="final">
         <source>blaster.description</source>
-        <target>L'arme de base des forces de sécurité.
-Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+        <target>L'arme de base des forces de sécurité.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="final">
         <source>blaster.examine</source>
-        <target>L'arme de base des forces de sécurité.
-Expédition : + 1 à la force de votre équipe en cas de combat.
-Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Permet de se défendre, sans effort et en toute élégance, de tout danger.</target>
+        <target>L'arme de base des forces de sécurité.//Expédition : + 1 à la force de votre équipe en cas de combat.//Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Permet de se défendre, sans effort et en toute élégance, de tout danger.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">
@@ -2353,14 +2352,11 @@ Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Pe
       </segment>
       <segment id="description" state="final">
         <source>natamy_rifle.description</source>
-        <target>Le fusil Natamy est un fusil d'assaut anti-Mush
-Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="final">
         <source>natamy_rifle.examine</source>
-        <target>Le fusil Natamy est un fusil d'assaut anti-Mush
-Expédition : + 1 à la force de votre équipe en cas de combat.
-Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbonate de sodium et à la retro-patuline ont des propriétés anti-fongiques.</target>
+        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : + 1 à la force de votre équipe en cas de combat.//Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbonate de sodium et à la retro-patuline ont des propriétés anti-fongiques.</target>
       </segment>
     </unit>
     <unit id="grenade">
@@ -2386,14 +2382,11 @@ Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbo
       </segment>
       <segment id="description" state="final">
         <source>grenade.description</source>
-        <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.
-Expédition : +3 à la force de votre équipe en cas de combat.</target>
+        <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.//Expédition : +3 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="final">
         <source>grenade.examine</source>
-        <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.
-Expédition : +3 à la force de votre équipe en cas de combat.
-Dessus est écrit: "Explosez votre potentiel".</target>
+        <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.//Expédition : +3 à la force de votre équipe en cas de combat.//Dessus est écrit: "Explosez votre potentiel".</target>
       </segment>
     </unit>
     <unit id="rocket_launcher">
@@ -2419,14 +2412,11 @@ Dessus est écrit: "Explosez votre potentiel".</target>
       </segment>
       <segment id="description" state="final">
         <source>rocket_launcher.description</source>
-        <target>Arme très sophistiquée pour personnes qui le sont moins.
-Expédition : + 3 à la force de votre équipe en cas de combat.</target>
+        <target>Arme très sophistiquée pour personnes qui le sont moins.//Expédition : + 3 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="final">
         <source>rocket_launcher.examine</source>
-        <target>Arme très sophistiquée pour personnes qui le sont moins.
-Expédition : + 3 à la force de votre équipe en cas de combat.
-Le Lance-Roquette fait partie de l'arsenal classique des corps expéditionnaires en milieux hostile. Sa technologie n'a pas changé depuis des centaines d'années. Il fait l’objet d'un culte un peu particulier, presque fétichiste de la part de celui qui le porte...</target>
+        <target>Arme très sophistiquée pour personnes qui le sont moins.//Expédition : + 3 à la force de votre équipe en cas de combat.//Le Lance-Roquette fait partie de l'arsenal classique des corps expéditionnaires en milieu hostile. Sa technologie n'a pas changé depuis des centaines d'années. Il fait l’objet d'un culte un peu particulier, presque fétichiste de la part de celui qui le porte...</target>
       </segment>
     </unit>
     <unit id="survival_kit">
@@ -3448,7 +3438,7 @@ Impérissable
         <source>blueprint_ingredient.description</source>
         <target>{quantity, plural,
                         one {1 x {equipment}}
-                        other {# x {equipment_plural}}
+                        other {# x {equipment}}
                     }</target>
       </segment>
     </unit>

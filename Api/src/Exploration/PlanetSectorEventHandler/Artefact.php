@@ -33,21 +33,27 @@ final class Artefact extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $artefactToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
+        $numberOfArtefactsToCreate = $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
 
-        $finder = $this->randomService->getRandomElement($event->getExploration()->getExplorators()->toArray());
+        $artefacts = [];
+        for ($i = 0; $i < $numberOfArtefactsToCreate; ++$i) {
+            $artefactToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
+            $finder = $this->randomService->getRandomElement($event->getExploration()->getExplorators()->toArray());
 
-        $artefact = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: $artefactToCreate,
-            equipmentHolder: $event->getExploration()->getDaedalus()->getPlanetPlace(),
-            reasons: $event->getTags(),
-            time: $event->getTime(),
-            visibility: VisibilityEnum::PUBLIC,
-            author: $finder
-        );
+            $artefacts[] = $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: $artefactToCreate,
+                equipmentHolder: $event->getExploration()->getDaedalus()->getPlanetPlace(),
+                reasons: $event->getTags(),
+                time: $event->getTime(),
+                visibility: VisibilityEnum::PUBLIC,
+                author: $finder
+            );
+        }
 
+
+        // for Intelligent Life Artefact event, we need to log the name of the artefact in the report
         $logParameters = [
-            'target_' . $artefact->getLogKey() => $artefact->getLogName(),
+            'target_' . $artefacts[0]->getLogKey() => $artefacts[0]->getLogName(),
         ];
 
         return $this->createExplorationLog($event, $logParameters);

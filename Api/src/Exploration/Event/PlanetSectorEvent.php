@@ -104,6 +104,11 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         return $this->config->getOutputTable();
     }
 
+    public function getOutputQuantity(): ProbaCollection
+    {
+        return $this->config->getOutputQuantity();
+    }
+
     public function getExplorators(): PlayerCollection
     {
         return $this->explorators;

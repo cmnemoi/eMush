@@ -6,7 +6,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
-use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -27,7 +26,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::BUILD => ActionLogEnum::BUILD_SUCCESS,
         ActionEnum::TRANSPLANT => ActionLogEnum::TRANSPLANT_SUCCESS,
         ActionEnum::OPEN => ActionLogEnum::OPEN_SUCCESS,
-        PlanetSectorEvent::ARTEFACT => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+        LogEnum::FOUND_ITEM_IN_EXPLORATION => LogEnum::FOUND_ITEM_IN_EXPLORATION,
     ];
 
     private const DESTRUCTION_LOG_MAP = [

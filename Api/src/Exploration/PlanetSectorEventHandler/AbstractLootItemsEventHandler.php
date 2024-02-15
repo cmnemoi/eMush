@@ -11,6 +11,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\RoomLog\Enum\LogEnum;
 
 abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHandler
 {
@@ -35,10 +36,12 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
             $artefactToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
             $finder = $this->randomService->getRandomElement($event->getExploration()->getExplorators()->toArray());
 
+            $tags = $event->getTags();
+            $tags[] = LogEnum::FOUND_ITEM_IN_EXPLORATION;
             $createdGameItems[] = $this->gameEquipmentService->createGameEquipmentFromName(
                 equipmentName: $artefactToCreate,
                 equipmentHolder: $event->getExploration()->getDaedalus()->getPlanetPlace(),
-                reasons: $event->getTags(),
+                reasons: $tags,
                 time: $event->getTime(),
                 visibility: VisibilityEnum::PUBLIC,
                 author: $finder

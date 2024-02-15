@@ -6,6 +6,7 @@ namespace Mush\Tests\Exploration\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -443,5 +444,61 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 actual: $player->getHealthPoint(),
             );
         }
+    }
+
+    public function testProvisionEvent(FunctionalTester $I): void
+    {
+        // given some extra explorators
+        $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->players->add($derek);
+        $this->players->add($janice);
+
+        // given Janice has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $janice,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Janice is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUMINANT], $I),
+            explorators: $this->players
+        );
+
+        // given only provision event can happen in ruminant sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUMINANT,
+            events: [PlanetSectorEvent::PROVISION_4 => 1]
+        );
+
+        // when provision event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see 4 alien steaks in planet place
+        $I->assertCount(4, $this->daedalus->getPlanetPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
+
+        // then I should see 4 public logs in planet place to tell an explorator has found an alien steak
+        $roomLogs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+            ]
+        );
+        $I->assertCount(4, $roomLogs);
+        $roomLogParameters = $roomLogs[0]->getParameters();
+        $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
     }
 }

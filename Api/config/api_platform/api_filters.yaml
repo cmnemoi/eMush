@@ -59,22 +59,15 @@ services:
     news.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
-            $properties: { isPinned: ~, publicationDate: ~ }
+            $properties: { publicationDate: ~ }
             $orderParameterName: order
         tags: [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false
         public: false
-    newsPinned.search_filter:
+    news.search_filter:
         parent: 'api_platform.doctrine.orm.boolean_filter'
-        arguments: [ { news.isPinned: ~ } ]
-        tags: [ 'api_platform.filter' ]
-        autowire: false
-        autoconfigure: false
-        public: false
-    newsPublished.search_filter:
-        parent: 'api_platform.doctrine.orm.boolean_filter'
-        arguments: [ { news.isPublished: ~ } ]
+        arguments: [ { news.isPinned: ~, news.isPublished: ~ } ]
         tags: [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false

@@ -67,11 +67,17 @@ const NewsService = {
         let news: News[] = [];
         store.dispatch('gameConfig/setLoading', { loading: true });
 
-        const params = {
-            isPublished: true,
-            isPinned: true,
-            order: { publicationDate: 'DESC' },
+        const params: any = {
+            header: {
+                'accept': 'application/ld+json'
+            },
+            params: { },
+            paramsSerializer: qs.stringify
         };
+
+        params.params['news.isPinned'] = true;
+        params.params['news.isPublished'] = true;
+        qs.stringify(params.params['order'] = { ['news.publicationDate']: 'ASC' });
 
         await ApiService.get(NEWS_ENDPOINT, { params }).then((response) => {
             news = response.data['hydra:member'].map((newsData: Record<string, any>) => {

@@ -99,9 +99,9 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         return $this->config;
     }
 
-    public function getOutputQuantityTable(): ?ProbaCollection
+    public function getOutputTable(): ProbaCollection
     {
-        return $this->config->getOutputQuantityTable();
+        return $this->config->getOutputTable();
     }
 
     public function getExplorators(): PlayerCollection
@@ -125,15 +125,15 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
             'equipment' => $this->exploration->getShipUsedName(),
         ];
 
-        $minQuantity = $this->config->getOutputQuantityTable()?->minElement();
-        $maxQuantity = $this->config->getOutputQuantityTable()?->maxElement();
+        if ($this->config->getOutputQuantity()->isEmpty()) {
+            return $logParameters;
+        }
 
-        if ($minQuantity) {
-            $logParameters['min_quantity'] = $minQuantity;
-        }
-        if ($maxQuantity) {
-            $logParameters['max_quantity'] = $maxQuantity;
-        }
+        $minQuantity = $this->config->getOutputTable()->minElement();
+        $maxQuantity = $this->config->getOutputTable()->maxElement();
+
+        $logParameters['min_quantity'] = $minQuantity;
+        $logParameters['max_quantity'] = $maxQuantity;
 
         return $logParameters;
     }

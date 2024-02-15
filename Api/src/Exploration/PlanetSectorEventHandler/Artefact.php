@@ -33,12 +33,7 @@ final class Artefact extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $artefactsTable = $event->getOutputQuantityTable();
-        if (!$artefactsTable) {
-            throw new \RuntimeException('Artefact event must have an output quantity table');
-        }
-
-        $artefactToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($artefactsTable);
+        $artefactToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
 
         $finder = $this->randomService->getRandomElement($event->getExploration()->getExplorators()->toArray());
 

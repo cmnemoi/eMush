@@ -35,10 +35,8 @@ class PlanetSectorEventConfigDataLoader extends ConfigDataLoader
 
             $planetSectorEventConfig->setName($planetSectorEventConfigData['name']);
             $planetSectorEventConfig->setEventName($planetSectorEventConfigData['eventName']);
-
-            if (array_key_exists('outputQuantityTable', $planetSectorEventConfigData)) {
-                $planetSectorEventConfig->setOutputQuantityTable($planetSectorEventConfigData['outputQuantityTable']);
-            }
+            $planetSectorEventConfig->setOutputTable($planetSectorEventConfigData['outputTable']);
+            $planetSectorEventConfig->setOutputQuantity($planetSectorEventConfigData['outputQuantity']);
 
             $this->entityManager->persist($planetSectorEventConfig);
         }

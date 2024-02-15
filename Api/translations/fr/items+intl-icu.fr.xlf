@@ -3227,6 +3227,10 @@ Impérissable
         <source>alien_steak.short_name</source>
         <target>Steak alien</target>
       </segment>
+      <segment id="plural_name" state="final">
+        <source>alien_steak.plural_name</source>
+        <target>Steaks aliens</target>
+      </segment>
       <segment id="genre" state="final">
         <source>alien_steak.gender</source>
         <target>male</target>

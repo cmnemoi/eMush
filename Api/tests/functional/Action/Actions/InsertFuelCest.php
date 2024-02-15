@@ -81,7 +81,6 @@ class InsertFuelCest extends AbstractFunctionalTest
                 'log' => ActionLogEnum::INSERT_FUEL,
             ]
         );
-        dump($roomLog->getParameters());
 
         $I->assertEquals(
             expected: ItemEnum::FUEL_CAPSULE,

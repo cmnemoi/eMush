@@ -66,6 +66,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
         $expeditionStrength = $fighters->count();
 
         // then, add bonus from their weapons
+        // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
         /** @var Player $fighter */
         foreach ($fighters as $fighter) {
             /** @var ArrayCollection<int, GameItem> $fighterWeapons */
@@ -96,6 +97,9 @@ final class Fight extends AbstractPlanetSectorEventHandler
     {
         foreach ($fighters as $fighter) {
             $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
+
+            // We are removing grenades from the fighter until we have enough points to kill the creature
+            // or until we run out of grenades
             while ($creatureStrength > 0 && $fighterGrenades->count() > 0) {
                 $grenade = $fighterGrenades->first();
 

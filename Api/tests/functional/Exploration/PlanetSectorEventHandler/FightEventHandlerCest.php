@@ -227,7 +227,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // when the event is handled by the fight event handler
         $explorationLog = $this->fightEventHandler->handle($event);
 
-        // then the expedition strength should be 17 :
+        // then the expedition strength should be 18 :
         // 7 points from Chun : 1 (base) + 2 * 3 (2 grenades)
         // 7 points from Kuan-Ti : 1 (base) + 2 * 3 (2 grenades)
         // 4 points from Raluca : 1 (base) + 3 (grenade)

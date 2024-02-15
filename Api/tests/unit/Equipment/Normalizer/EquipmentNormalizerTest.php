@@ -270,7 +270,7 @@ class EquipmentNormalizerTest extends TestCase
             'id' => 2,
             'key' => 'blueprint',
             'name' => 'translated name',
-            'description' => 'translated description //ingredient 1 //ingredient 2',
+            'description' => 'translated description//ingredient 1//ingredient 2',
             'statuses' => [],
             'actions' => [],
             'effects' => [],

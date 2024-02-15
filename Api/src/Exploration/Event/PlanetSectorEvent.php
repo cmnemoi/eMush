@@ -131,7 +131,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
             'equipment' => $this->exploration->getShipUsedName(),
         ];
 
-        if ($this->config->getOutputQuantity()->isEmpty()) {
+        if ($this->config->getOutputTable()->isEmpty()) {
             return $logParameters;
         }
 

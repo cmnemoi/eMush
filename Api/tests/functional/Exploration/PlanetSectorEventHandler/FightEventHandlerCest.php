@@ -12,7 +12,11 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\PlanetSectorEventHandler\Fight;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -90,7 +94,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
-        // given fight planet sector event
+        // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
         $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
@@ -148,7 +152,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
-        // given fight planet sector event
+        // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
         $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
@@ -215,7 +219,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
-        // given fight planet sector event
+        // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
         $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
@@ -229,7 +233,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         // then the expedition strength should be 18 :
         // 7 points from Chun : 1 (base) + 2 * 3 (2 grenades)
-        // 7 points from Kuan-Ti : 1 (base) + 2 * 3 (2 grenades)
+        // 7 points from Kuan-Ti : 1 (base) + 2 * 3 (2 grenades) - here we have enough points to kill the creature (14 >= 12)
         // 4 points from Raluca : 1 (base) + 3 (1 grenade)
         // 0 points from Derek and Janice as they are lost or stuck in the ship
         $I->assertEquals(18, $explorationLog->getParameters()['expedition_strength']);
@@ -242,5 +246,52 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         // then Raluca still has a grenade, because it was not needed
         $I->assertTrue($raluca->hasEquipmentByName(ItemEnum::GRENADE));
+    }
+
+    public function testFightEventInflictsTheRightAmountOfDamage(FunctionalTester $I): void
+    {
+        // given Chun is a pilot to avoid damage at landing
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has 14 health points
+        $this->chun->setHealthPoint(14);
+
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should lose 12 - 1 = 11 health points
+        $I->assertEquals(14 - 11, $this->chun->getHealthPoint());
+
+        // then I should have a private room log with the right amount of damage
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => PlayerModifierLogEnum::LOSS_HEALTH_POINT,
+            ]
+        );
+        $I->assertEquals(11, $log->getParameters()['quantity']);
     }
 }

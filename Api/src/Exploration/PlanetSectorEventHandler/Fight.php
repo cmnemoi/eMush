@@ -44,17 +44,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
             return $this->createExplorationLog($event, $logParameters);
         }
 
-        for ($i = 0; $i < $creatureStrength; ++$i) {
-            $explorator = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostExplorators());
-            $playerEvent = new PlayerVariableEvent(
-                player: $explorator,
-                variableName: PlayerVariableEnum::HEALTH_POINT,
-                quantity: -1,
-                tags: $event->getTags(),
-                time: $event->getTime()
-            );
-            $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
-        }
+        $this->inflictDamageToExplorators($event, $damage);
 
         return $this->createExplorationLog($event, $logParameters);
     }
@@ -67,7 +57,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
         // then, add bonus from their weapons
         // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
-        /** @var Player $fighter */
+        /* @var Player $exploratorId)fighter */
         foreach ($fighters as $fighter) {
             /** @var ArrayCollection<int, GameItem> $fighterWeapons */
             $fighterWeapons = $fighter->getEquipments()
@@ -91,6 +81,43 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
 
         return $expeditionStrength;
+    }
+
+    private function inflictDamageToExplorators(PlanetSectorEvent $event, int $damage): void
+    {
+        $fighters = $event->getExploration()->getNotLostExplorators();
+        $damages = [];
+
+        // Randomly select a fighter to take the hit for each point of damage
+        for ($i = 0; $i < $damage; ++$i) {
+            $explorator = $this->randomService->getRandomPlayer($fighters);
+            $fighterName = $explorator->getLogName();
+
+            if (!isset($damages[$fighterName])) {
+                $damages[$fighterName] = 0;
+            }
+
+            ++$damages[$fighterName];
+        }
+
+        // Apply the damages for each fighter in a single event to avoid spamming the logs
+        foreach ($damages as $fighterName => $damage) {
+            $fighter = $fighters->getPlayerByName($fighterName);
+
+            if (!$fighter) {
+                throw new \RuntimeException('Fighter not found');
+            }
+
+            $playerEvent = new PlayerVariableEvent(
+                $fighter,
+                PlayerVariableEnum::HEALTH_POINT,
+                -$damage,
+                $event->getTags(),
+                $event->getTime()
+            );
+
+            $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
     }
 
     private function removeGrenadesFromFighters(PlayerCollection $fighters, int $creatureStrength): void

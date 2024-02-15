@@ -80,7 +80,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 $expeditionStrength += $weaponMechanic?->getExpeditionBonus() ?? 0;
             }
 
-            // If fighter is also a Shooter, add 1 to the expedition strength if they have a loaded gun
+            // If fighter is also a Shooter, add 1 point to the expedition strength if they have a loaded gun
             if (
                 $fighter->hasSkill(PlayerStatusEnum::POC_SHOOTER_SKILL)
                 && $fighterWeapons->filter(fn (GameItem $weapon) => ItemEnum::getGuns()->contains($weapon->getName()))->count() > 0
@@ -95,9 +95,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
     private function removeGrenadesFromFighters(PlayerCollection $fighters, int $creatureStrength): void
     {
         foreach ($fighters as $fighter) {
-            $fighterGrenades = $fighter->getEquipments()
-                ->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE)
-            ;
+            $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
             while ($creatureStrength > 0 && $fighterGrenades->count() > 0) {
                 $grenade = $fighterGrenades->first();
 

@@ -376,7 +376,27 @@
       </segment>
       <segment id="ruminant_description" state="final">
         <source>provision.ruminant_description</source>
-        <target>Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.</target>
+        <target>{quantity, select,
+        2 {Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l'un d'entre eux.}
+        4 {Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.}
+        other {Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.}
+        }</target>
+      </segment>
+      <segment id="ocean_description" state="final">
+        <source>provision.ocean_description</source>
+        <target>En utilisant une ligne rudimentaire, vous arrivez à prendre un Empilodon. Belle pêche.</target>
+      </segment>
+      <segment id="predator_description" state="final">
+        <source>provision.predator_description</source>
+        <target>Vous tombez sur un Écorcheur. La créature est immobile, elle semble endormie. Vous en profitez pour lui régler rapidement son compte, à vous les rations de viande !</target>
+      </segment>
+      <segment id="intelligent_description" state="final">
+        <source>provision.intelligent_description</source>
+        <target>Alors que l'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.</target>
+      </segment>
+      <segment id="insect_description" state="final">
+        <source>provision.insect_description</source>
+        <target>{character} remarque de gros papillons de nuit à l'abdomen bien gonflé et juteux... Mmmmh !</target>
       </segment>
     </unit>
   </file>

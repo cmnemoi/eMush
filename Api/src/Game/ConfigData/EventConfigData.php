@@ -370,6 +370,33 @@ class EventConfigData
         ],
         [
             'type' => 'planet_sector_event_config',
+            'name' => 'provision_1',
+            'eventName' => 'provision',
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
+                'alien_steak' => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'provision_2',
+            'eventName' => 'provision',
+            'outputQuantity' => [2 => 1],
+            'outputTable' => [
+                'alien_steak' => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'provision_3',
+            'eventName' => 'provision',
+            'outputQuantity' => [3 => 1],
+            'outputTable' => [
+                'alien_steak' => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
             'name' => 'provision_4',
             'eventName' => 'provision',
             'outputQuantity' => [4 => 1],

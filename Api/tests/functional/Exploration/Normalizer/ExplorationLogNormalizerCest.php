@@ -358,7 +358,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
-    public function testNormalizeProvisionEvent(FunctionalTester $I): void
+    public function testNormalizeProvisionEventFourSteaks(FunctionalTester $I): void
     {
         // given ruminant sector has only provision event
         $this->setupPlanetSectorEvents(
@@ -392,6 +392,45 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Provision',
                 'eventDescription' => 'Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.',
                 'eventOutcome' => 'Vous gagnez 4 Steaks aliens.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeProvisionEventTwoSteaks(FunctionalTester $I): void
+    {
+        // given ruminant sector has only provision event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUMINANT,
+            events: [PlanetSectorEvent::PROVISION_2 => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUMINANT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the kill all event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when kill all event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::RUMINANT,
+                'planetSectorName' => 'Ruminants',
+                'eventName' => 'Provision',
+                'eventDescription' => 'Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l\'un d\'entre eux.',
+                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.',
             ],
             actual: $normalizedExplorationLog,
         );

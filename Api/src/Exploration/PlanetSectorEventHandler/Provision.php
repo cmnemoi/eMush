@@ -17,10 +17,12 @@ final class Provision extends AbstractLootItemsEventHandler
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         $food = $this->createRandomGameItemsFromEvent($event);
+        $finder = $this->randomService->getRandomElement($event->getExploration()->getNotLostExplorators()->toArray());
 
         $logParameters = [
             'quantity' => $food->count(),
             $food->first()->getLogKey() => $food->first()->getLogName(),
+            $finder->getLogKey() => $finder->getLogName(),
         ];
 
         return $this->createExplorationLog($event, $logParameters);

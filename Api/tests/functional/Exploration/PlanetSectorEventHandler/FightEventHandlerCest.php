@@ -248,6 +248,57 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertTrue($raluca->hasEquipmentByName(ItemEnum::GRENADE));
     }
 
+    public function testFightEventNotUsingGrenadesIfWeHaveEnoughPointsToKillWithoutThem(FunctionalTester $I): void
+    {
+        // given Chun is a pilot to avoid damage at landing
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has 14 health points
+        $this->chun->setHealthPoint(14);
+
+        // given Chun has a knife
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::KNIFE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has a grenade
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::GRENADE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given the team fights again a creature of strength 1
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_2']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun has her grenade because it was not needed
+        $I->assertTrue($this->chun->hasEquipmentByName(ItemEnum::GRENADE));
+    }
+
     public function testFightEventInflictsTheRightAmountOfDamage(FunctionalTester $I): void
     {
         // given Chun is a pilot to avoid damage at landing

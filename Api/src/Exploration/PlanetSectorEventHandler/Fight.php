@@ -12,7 +12,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -29,11 +28,10 @@ final class Fight extends AbstractPlanetSectorEventHandler
     {
         $creatureStrength = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
         $expeditionStrength = $this->getExpeditionStrength($event);
-
-        $fighters = $event->getExploration()->getNotLostExplorators();
-        $this->removeGrenadesFromFighters($fighters, $creatureStrength);
-
         $damage = max(0, $creatureStrength - $expeditionStrength);
+
+        $this->removeGrenadesFromFighters($event, $creatureStrength);
+
         $logParameters = [
             'creature_strength' => $creatureStrength,
             'expedition_strength' => $expeditionStrength,
@@ -49,7 +47,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
         return $this->createExplorationLog($event, $logParameters);
     }
 
-    private function getExpeditionStrength(PlanetSectorEvent $event): int
+    private function getExpeditionStrength(PlanetSectorEvent $event, bool $includeGrenades = true): int
     {
         // base strength is the number of explorators present during the fight
         $fighters = $event->getExploration()->getNotLostExplorators();
@@ -57,12 +55,13 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
         // then, add bonus from their weapons
         // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
-        /* @var Player $exploratorId)fighter */
+        /** @var Player $fighter */
         foreach ($fighters as $fighter) {
             /** @var ArrayCollection<int, GameItem> $fighterWeapons */
             $fighterWeapons = $fighter->getEquipments()
                 ->filter(fn (GameItem $item) => ItemEnum::getWeapons()->contains($item->getName()))
                 ->filter(fn (GameItem $item) => $item->isOperational())
+                ->filter(fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades)
             ;
 
             foreach ($fighterWeapons as $weapon) {
@@ -120,8 +119,15 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
     }
 
-    private function removeGrenadesFromFighters(PlayerCollection $fighters, int $creatureStrength): void
+    private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $creatureStrength): void
     {
+        // If we have enough strength to kill the creature without using grenades, we don't need to remove any
+        $expeditionStrength = $this->getExpeditionStrength($event, includeGrenades: false);
+        if ($expeditionStrength >= $creatureStrength) {
+            return;
+        }
+
+        $fighters = $event->getExploration()->getNotLostExplorators();
         foreach ($fighters as $fighter) {
             $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
 

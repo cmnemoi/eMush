@@ -12,6 +12,7 @@ use Mush\Communication\Event\MessageEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -474,7 +475,8 @@ class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                EndCauseEnum::INJURY => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::HIT => ModifierRequirementEnum::ANY_TAGS,
+                PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],

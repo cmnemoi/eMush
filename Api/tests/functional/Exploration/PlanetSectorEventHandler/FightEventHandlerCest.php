@@ -294,4 +294,59 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
         $I->assertEquals(11, $log->getParameters()['quantity']);
     }
+
+    public function testFightEventInflictsTheRightAmountOfDamageWithPlasteniteArmor(FunctionalTester $I): void
+    {
+        // given Chun is a pilot to avoid damage at landing
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has 14 health points
+        $this->chun->setHealthPoint(14);
+
+        // given Chun has a plastenite armor
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::PLASTENITE_ARMOR,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should lose 12 - 1 (expedition strength) - 1 (plastenite armor) = 10 health points
+        $I->assertEquals(14 - 10, $this->chun->getHealthPoint());
+
+        // then I should have a private room log with the right amount of damage
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => PlayerModifierLogEnum::LOSS_HEALTH_POINT,
+            ]
+        );
+        $I->assertEquals(10, $log->getParameters()['quantity']);
+    }
 }

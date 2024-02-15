@@ -230,7 +230,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // then the expedition strength should be 18 :
         // 7 points from Chun : 1 (base) + 2 * 3 (2 grenades)
         // 7 points from Kuan-Ti : 1 (base) + 2 * 3 (2 grenades)
-        // 4 points from Raluca : 1 (base) + 3 (grenade)
+        // 4 points from Raluca : 1 (base) + 3 (1 grenade)
         // 0 points from Derek and Janice as they are lost or stuck in the ship
         $I->assertEquals(18, $explorationLog->getParameters()['expedition_strength']);
 

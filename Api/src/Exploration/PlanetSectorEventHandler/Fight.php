@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Equipment\Entity\EquipmentMechanic;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
@@ -19,12 +26,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $creatureStrengthTable = $event->getOutputQuantityTable();
-        if (!$creatureStrengthTable) {
-            throw new \RuntimeException('Fight event must have an output quantity table');
-        }
-
-        $creatureStrength = (int) $this->randomService->getSingleRandomElementFromProbaCollection($creatureStrengthTable);
+        $creatureStrength = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
         $expeditionStrength = $this->getExpeditionStrength($event);
         $damage = max(0, $creatureStrength - $expeditionStrength);
 
@@ -55,8 +57,25 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     private function getExpeditionStrength(PlanetSectorEvent $event): int
     {
-        $Strength = $event->getExploration()->getExplorators()->count();
+        // base strength is the number of explorators present during the fight
+        $fighters = $event->getExploration()->getNotLostExplorators();
+        $expeditionStrength = $fighters->count();
 
-        return $Strength;
+        // then, add bonus from their weapons
+        /** @var Player $fighter */
+        foreach ($fighters as $fighter) {
+            /** @var ArrayCollection<int, Weapon> $fighterWeapons */
+            $fighterWeapons = $fighter
+                ->getEquipments()
+                ->filter(fn (GameItem $item) => ItemEnum::getWeapons()->contains($item->getName()))
+                ->map(fn (GameItem $item) => $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON))
+                ->filter(fn (?EquipmentMechanic $weapon) => $weapon != null);
+
+            foreach ($fighterWeapons as $weapon) {
+                $expeditionStrength += $weapon->getExpeditionBonus();
+            }
+        }
+
+        return $expeditionStrength;
     }
 }

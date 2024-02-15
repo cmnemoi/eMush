@@ -58,4 +58,17 @@ class ItemEnum
             ToolItemEnum::JAR_OF_ALIEN_OIL,
         ]);
     }
+
+    public static function getWeapons(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::KNIFE,
+            self::BLASTER,
+            self::NATAMY_RIFLE,
+            self::GRENADE,
+            self::ROCKET_LAUNCHER,
+            self::LIZARO_JUNGLE,
+            self::OLD_FAITHFUL,
+        ]);
+    }
 }

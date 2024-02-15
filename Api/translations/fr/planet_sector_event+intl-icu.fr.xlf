@@ -330,7 +330,7 @@
       </segment>
       <segment id="description" state="final">
         <source>fight.description</source>
-        <target>Vous affrontez une créature.////Force Créature : {creature_strength}////Force Equipe : {expedition_strength}////{damage, select, 0 {Créature décède} other {L'équipe subit {damage} points de dégâts.}}</target>
+        <target>Vous affrontez une créature.////Force Créature : {creature_strength}////Force Équipe : {expedition_strength}////{damage, select, 0 {Créature décède} other {L'équipe subit {damage} points de dégâts.}}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>fight.intelligent_description</source>

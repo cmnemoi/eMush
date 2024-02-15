@@ -166,4 +166,81 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // 0 points from Derek and Janice as they are lost or stuck in the ship
         $I->assertEquals(5, $explorationLog->getParameters()['expedition_strength']);
     }
+
+    public function testFightEventUsesGrenades(FunctionalTester $I): void
+    {
+        // given Chun has two grenades
+        for ($i = 0; $i < 2; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::GRENADE,
+                equipmentHolder: $this->chun,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given Kuan-Ti has two grenades
+        for ($i = 0; $i < 2; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::GRENADE,
+                equipmentHolder: $this->kuanTi,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given an extra explorator : Raluca
+        $raluca = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::RALUCA);
+        $this->players->add($raluca);
+
+        // given Raluca has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $raluca,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Raluca has a grenade
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::GRENADE,
+            equipmentHolder: $raluca,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given fight planet sector event
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $explorationLog = $this->fightEventHandler->handle($event);
+
+        // then the expedition strength should be 17 :
+        // 7 points from Chun : 1 (base) + 2 * 3 (2 grenades)
+        // 7 points from Kuan-Ti : 1 (base) + 2 * 3 (2 grenades)
+        // 4 points from Raluca : 1 (base) + 3 (grenade)
+        // 0 points from Derek and Janice as they are lost or stuck in the ship
+        $I->assertEquals(18, $explorationLog->getParameters()['expedition_strength']);
+
+        // then Chun does not have grenades anymore
+        $I->assertFalse($this->chun->hasEquipmentByName(ItemEnum::GRENADE));
+
+        // then Kuan-Ti does not have grenades anymore
+        $I->assertFalse($this->kuanTi->hasEquipmentByName(ItemEnum::GRENADE));
+
+        // then Raluca still has a grenade, because it was not needed
+        $I->assertTrue($raluca->hasEquipmentByName(ItemEnum::GRENADE));
+    }
 }

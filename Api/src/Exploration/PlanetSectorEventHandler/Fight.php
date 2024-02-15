@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -28,8 +29,11 @@ final class Fight extends AbstractPlanetSectorEventHandler
     {
         $creatureStrength = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
         $expeditionStrength = $this->getExpeditionStrength($event);
-        $damage = max(0, $creatureStrength - $expeditionStrength);
 
+        $fighters = $event->getExploration()->getNotLostExplorators();
+        $this->removeGrenadesFromFighters($fighters, $creatureStrength);
+
+        $damage = max(0, $creatureStrength - $expeditionStrength);
         $logParameters = [
             'creature_strength' => $creatureStrength,
             'expedition_strength' => $expeditionStrength,
@@ -75,7 +79,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 $weaponMechanic = $weapon->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
                 $expeditionStrength += $weaponMechanic?->getExpeditionBonus() ?? 0;
             }
-            
+
             // If fighter is also a Shooter, add 1 to the expedition strength if they have a loaded gun
             if (
                 $fighter->hasSkill(PlayerStatusEnum::POC_SHOOTER_SKILL)
@@ -86,5 +90,24 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
 
         return $expeditionStrength;
+    }
+
+    private function removeGrenadesFromFighters(PlayerCollection $fighters, int $creatureStrength): void
+    {
+        foreach ($fighters as $fighter) {
+            $fighterGrenades = $fighter->getEquipments()
+                ->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE)
+            ;
+            while ($creatureStrength > 0 && $fighterGrenades->count() > 0) {
+                $grenade = $fighterGrenades->first();
+
+                $creatureStrength -= $grenade->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)->getExpeditionBonus();
+
+                $fighterGrenades->removeElement($grenade);
+                $this->entityManager->remove($grenade);
+            }
+        }
+
+        $this->entityManager->flush();
     }
 }

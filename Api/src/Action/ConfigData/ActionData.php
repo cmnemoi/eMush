@@ -1830,7 +1830,7 @@ class ActionData
             'target' => null,
             'scope' => ActionScopeEnum::CURRENT,
             'visibilities' => [
-                ActionOutputEnum::SUCCESS => VisibilityEnum::PUBLIC ,
+                ActionOutputEnum::SUCCESS => VisibilityEnum::PUBLIC,
             ],
             'actionPoint' => ['value' => 4, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

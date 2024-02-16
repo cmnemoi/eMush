@@ -435,4 +435,43 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeDiseaseEvent(FunctionalTester $I): void
+    {
+        // given forest sector has only disease event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FOREST,
+            events: [PlanetSectorEvent::DISEASE => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FOREST, PlanetSectorEnum::OXYGEN], $I),
+            explorators: new ArrayCollection([$this->player]),
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the disease event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        
+        // when disease event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::DISEASE,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::FOREST,
+                'planetSectorName' => 'Forêt',
+                'eventName' => 'Maladie',
+                'eventDescription' => "Une liane gluante frôle la joue de Chun.",
+                'eventOutcome' => 'Un équipier tombe malade.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

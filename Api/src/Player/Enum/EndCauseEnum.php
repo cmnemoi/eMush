@@ -101,9 +101,8 @@ class EndCauseEnum
         HunterEvent::HUNTER_SHOT => self::SPACE_BATTLE,
         ActionEnum::ADVANCE_DAEDALUS => self::ABANDONED,
         ActionEnum::LEAVE_ORBIT => self::ABANDONED,
-        PlanetSectorEvent::KILL_RANDOM => self::EXPLORATION,
-        PlanetSectorEvent::KILL_ALL => self::EXPLORATION,
         PlanetSectorEvent::FIGHT => self::EXPLORATION_COMBAT,
+        PlanetSectorEvent::PLANET_SECTOR_EVENT => self::EXPLORATION,
     ];
 
     public static function getAll(): array

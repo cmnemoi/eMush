@@ -647,4 +647,48 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then the disease log should be properly parameterized
         $I->assertEquals($caughtDisease->getDiseaseConfig()->getDiseaseName(), $diseaseLog->getParameters()['disease']);
     }
+
+    public function testDiseaseEventDoesNotCreateDiseaseForMushPlayer(FunctionalTester $I): void
+    {
+        // given KT is a mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player2,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created with KT only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FOREST], $I),
+            explorators: new ArrayCollection([$this->player2])
+        );
+
+        // given only disease event can happen in forest sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FOREST,
+            events: [PlanetSectorEvent::DISEASE => 1]
+        );
+
+        // when disease event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then the player is not diseased
+        $I->assertEmpty($this->player->getMedicalConditions());
+
+        // then I still see a private room log for the player telling they caught a disease
+        $diseaseLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'playerInfo' => $this->player2->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::DISEASE_BY_ALIEN_TRAVEL,
+            ]
+        );
+
+        // then the disease log should be properly parameterized
+        $I->assertEquals('true', $diseaseLog->getParameters()['is_player_mush']);
+        $I->assertArrayHasKey('disease', $diseaseLog->getParameters());
+    }
 }

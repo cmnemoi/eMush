@@ -42,7 +42,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
         $explorationShip = $explorator->getPlace()->getEquipmentByName($exploration->getShipUsedName());
         if (!$explorationShip) {
-            throw new \RuntimeException("There should be a {$exploration->getShipUsedName()} ship in the planet place");
+            throw new \RuntimeException("There should be a {$exploration->getShipUsedName()} ship in explorator's place");
         }
 
         $equipmentEvent = new MoveEquipmentEvent(

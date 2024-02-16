@@ -443,4 +443,82 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
         $I->assertEquals(EndCauseEnum::EXPLORATION_COMBAT, $log->getParameters()['end_cause']);
     }
+
+    public function testFightEventPlayerDeathCauseIsMankarogInMankarogSector(FunctionalTester $I): void
+    {
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::MANKAROG], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given Chun has 1 health point so she will die from the fight
+        $this->chun->setHealthPoint(1);
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $mankarogPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::MANKAROG)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $mankarogPlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should be dead
+        $I->assertFalse($this->chun->isAlive());
+
+        // then I should have a public room log with the right death cause
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
+    }
+
+    public function testFightEventPlayerDeathCauseIsMankarogIfFightingACreatureWithManlkarogStrenght(FunctionalTester $I): void
+    {
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::WRECK], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given Chun has 1 health point so she will die from the fight
+        $this->chun->setHealthPoint(1);
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_' . Fight::MANKAROG_STRENGTH]);
+        $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::WRECK)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $wreckPlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should be dead
+        $I->assertFalse($this->chun->isAlive());
+
+        // then I should have a public room log with the right death cause
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
+    }
 }

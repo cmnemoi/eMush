@@ -10,15 +10,19 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 final class Fight extends AbstractPlanetSectorEventHandler
 {
+    public const MANKAROG_STRENGTH = 32;
+
     public function getName(): string
     {
         return PlanetSectorEvent::FIGHT;
@@ -43,6 +47,14 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
         if ($damage === 0) {
             return $this->createExplorationLog($event, $logParameters);
+        }
+
+        // if we are fighting a Mankarog, add an event tag to shame the dead players with a special death cause
+        if (
+            $event->getPlanetSector()->getName() === PlanetSectorEnum::MANKAROG
+            || $creatureStrength >= self::MANKAROG_STRENGTH
+        ) {
+            $event->addTag(EndCauseEnum::MANKAROG);
         }
 
         $this->inflictDamageToExplorators($event, $damage);

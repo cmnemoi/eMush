@@ -30,8 +30,9 @@ final class Fight extends AbstractPlanetSectorEventHandler
         $expeditionStrength = $this->getExpeditionStrength($event);
         $damage = max(0, $creatureStrength - $expeditionStrength);
 
-        if ($this->getExpeditionStrength($event, includeGrenades: false) < $creatureStrength) {
-            $this->removeGrenadesFromFighters($event, $creatureStrength);
+        $damageWithoutGrenades = $creatureStrength - $this->getExpeditionStrength($event, includeGrenades: false);
+        if ($damageWithoutGrenades > 0) {
+            $this->removeGrenadesFromFighters($event, $damageWithoutGrenades);
         }
 
         $logParameters = [
@@ -84,18 +85,18 @@ final class Fight extends AbstractPlanetSectorEventHandler
         return $expeditionStrength;
     }
 
-    private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $creatureStrength): void
+    private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $damageWithoutGrenades): void
     {
         $fighters = $event->getExploration()->getNotLostExplorators();
         foreach ($fighters as $fighter) {
             $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
 
-            // We are removing grenades from the fighter until we have enough points to kill the creature
+            // We are removing grenades from the fighter until we have enough damage to kill the creature
             // or until we run out of grenades
-            while ($creatureStrength > 0 && $fighterGrenades->count() > 0) {
+            while ($damageWithoutGrenades > 0 && $fighterGrenades->count() > 0) {
                 $grenade = $fighterGrenades->first();
 
-                $creatureStrength -= $grenade->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)->getExpeditionBonus();
+                $damageWithoutGrenades -= $grenade->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)->getExpeditionBonus();
 
                 $fighterGrenades->removeElement($grenade);
                 $this->entityManager->remove($grenade);

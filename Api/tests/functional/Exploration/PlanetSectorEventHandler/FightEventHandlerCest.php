@@ -232,19 +232,21 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $explorationLog = $this->fightEventHandler->handle($event);
 
         // then the expedition strength should be 18 :
-        // 7 points from Chun : 1 (base) + 2 * 3 (2 grenades)
-        // 7 points from Kuan-Ti : 1 (base) + 2 * 3 (2 grenades) - here we have enough points to kill the creature (14 >= 12)
-        // 4 points from Raluca : 1 (base) + 3 (1 grenade)
-        // 0 points from Derek and Janice as they are lost or stuck in the ship
+        // 3 base points from Chun, Kuan-Ti, and Raluca (0 from Derek and Janice as they are lost or stuck in the ship)
+        // + 3 points from Chun's first grenade (6)
+        // + 3 points from Chun's second grenade (9)
+        // + 3 points from Kuan-Ti's first grenade (12) - here we have enough points to kill the creature
+        // + 3 points from Kuan-Ti's second grenade (15)
+        // + 3 points from Raluca's grenade (18)
         $I->assertEquals(18, $explorationLog->getParameters()['expedition_strength']);
 
         // then Chun does not have grenades anymore
         $I->assertFalse($this->chun->hasEquipmentByName(ItemEnum::GRENADE));
 
-        // then Kuan-Ti does not have grenades anymore
-        $I->assertFalse($this->kuanTi->hasEquipmentByName(ItemEnum::GRENADE));
+        // then Kuan-Ti should have one grenade left
+        $I->assertCount(1, $this->kuanTi->getEquipments()->filter(fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
 
-        // then Raluca still has a grenade, because it was not needed
+        // then Raluca should still have her grenade
         $I->assertTrue($raluca->hasEquipmentByName(ItemEnum::GRENADE));
     }
 

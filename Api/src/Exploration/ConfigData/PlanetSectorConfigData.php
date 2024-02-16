@@ -33,6 +33,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::DISEASE => 3,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
@@ -57,6 +58,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::DISEASE => 4,
                 PlanetSectorEvent::TIRED_2 => 2,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
@@ -148,6 +150,7 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
+                PlanetSectorEvent::DISEASE => 3,
                 PlanetSectorEvent::PROVISION_1 => 2,
                 PlanetSectorEvent::FIGHT_10 => 1,
             ],

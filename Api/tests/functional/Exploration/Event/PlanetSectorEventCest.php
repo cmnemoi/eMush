@@ -116,6 +116,50 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
     }
 
+    public function testAccidentKillsPlayerWithTheRightDeathCause(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: $this->players
+        );
+
+        // given there is a sismic sector on the planet with accident event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
+        );
+
+        // given player1 and player2 have 1 health point
+        $this->player->setHealthPoint(1);
+        $this->player2->setHealthPoint(1);
+
+        // when accident event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then one of the player is dead
+        if ($this->player->isAlive()) {
+            $deadPlayer = $this->player2;
+            $I->assertFalse($deadPlayer->isAlive());
+        } else {
+            $deadPlayer = $this->player;
+            $I->assertFalse($deadPlayer->isAlive());
+        }
+
+        // then I see a public death log with the "exploration" cause
+        $deathLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $deathLogParameters = $deathLog->getParameters();
+        $I->assertEquals($deadPlayer->getLogName(), $deathLogParameters['target_character']);
+        $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
+    }
+
     public function testDisasterHurtsAllExplorators(FunctionalTester $I): void
     {
         // given only disaster event can happen in landing sector
@@ -137,6 +181,40 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 actual: $player->getHealthPoint(),
             );
         }
+    }
+
+    public function testDisasterKillsPlayerWithTheRightDeathCause(FunctionalTester $I): void
+    {
+        // given only disaster event can happen in landing sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LANDING,
+            events: [PlanetSectorEvent::DISASTER_3_5 => 1]
+        );
+
+        // given player1 has 1 health point
+        $this->player->setHealthPoint(1);
+
+        // when an exploration is created, the disaster event is dispatched
+        $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::LANDING], $I),
+            explorators: $this->players
+        );
+
+        // then player1 is dead
+        $I->assertFalse($this->player->isAlive());
+
+        // then I see 1 public death log with the "exploration" cause
+        $deathLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $deathLogParameters = $deathLog->getParameters();
+        $I->assertEquals($this->player->getLogName(), $deathLogParameters['target_character']);
+        $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
     }
 
     public function testTiredHurtsAllExplorators(FunctionalTester $I): void
@@ -182,6 +260,46 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             expected: $derekHealthBeforeEvent,
             actual: $this->derek->getHealthPoint(),
         );
+    }
+
+    public function testTiredKillsPlayerWithTheRightDeathCause(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::DESERT], $I),
+            explorators: $this->players
+        );
+
+        // given there is a desert sector on the planet with tired event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::DESERT,
+            events: [PlanetSectorEvent::TIRED_2 => 1]
+        );
+
+        // given player1 and player2 have 2 health point
+        $this->player->setHealthPoint(2);
+        $this->player2->setHealthPoint(2);
+
+        // when tired event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then players are dead
+
+        // then I see two public death logs with the "exploration" cause
+        $deathLogs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $I->assertCount(2, $deathLogs);
+
+        foreach ($deathLogs as $deathLog) {
+            $deathLogParameters = $deathLog->getParameters();
+            $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
+        }
     }
 
     public function testOxygenEventCreatesOxygenStatus(FunctionalTester $I): void

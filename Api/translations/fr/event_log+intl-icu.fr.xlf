@@ -709,6 +709,15 @@
         }</target>
       </segment>
     </unit>
+    <unit id="disease_by_alien_travel">
+      <segment state="final">
+        <source>disease_by_alien_travel</source>
+        <target>{is_player_mush, select,
+          true {:ill: Vous avez attrapé une maladie pendant votre voyage ({disease}). Du moins, c'est ce que vous pourrez leur faire croire...}
+          other {:ill: Vous avez attrapé une maladie pendant votre voyage ({disease}).}
+        }</target>
+      </segment>
+    </unit>
     <unit id="invertebrate_shell_explosion">
       <segment state="final">
         <source>invertebrate_shell_explosion</source>

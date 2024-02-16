@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Mush\Tests\Exploration\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -30,6 +34,7 @@ use Mush\Tests\FunctionalTester;
 final class PlanetSectorEventCest extends AbstractExplorationTester
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
 
     private Player $chun;
@@ -41,6 +46,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given our explorators are Chun, Kuan-Ti, Derek, and Janice
@@ -646,6 +652,46 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then the disease log should be properly parameterized
         $I->assertEquals($caughtDisease->getDiseaseConfig()->getDiseaseName(), $diseaseLog->getParameters()['disease']);
+    }
+
+    public function testDiseaseEventDoesNotCreateTheSameDiseasePlayerAlreadyHas(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FOREST], $I),
+            explorators: $this->players
+        );
+
+        // given only disease event can happen in forest sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FOREST,
+            events: [PlanetSectorEvent::DISEASE => 1]
+        );
+
+        // given player1 has a migraine
+        $disease = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::MIGRAINE,
+            player: $this->player,
+            reasons: [],
+        );
+
+        // given only migraine disease can happen in forest sector
+        /** @var DiseaseCauseConfig $explorationDiseaseCauseConfig */
+        $explorationDiseaseCauseConfig = $this->daedalus
+            ->getGameConfig()
+            ->getDiseaseCauseConfig()
+            ->filter(
+                fn (DiseaseCauseConfig $diseaseCauseConfig) => $diseaseCauseConfig->getCauseName() === DiseaseCauseEnum::EXPLORATION
+            )
+            ->first()
+        ;
+        $explorationDiseaseCauseConfig->setDiseases([DiseaseEnum::MIGRAINE => 1]);
+
+        // when disease event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then player1 still has the same disease
+        $I->assertEquals($disease, $this->player->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->first());
     }
 
     public function testDiseaseEventDoesNotCreateDiseaseForMushPlayer(FunctionalTester $I): void

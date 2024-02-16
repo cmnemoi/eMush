@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\Tests\Exploration\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -599,5 +601,50 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
         $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
+    }
+
+    public function testDiseaseEventCreatesADiseaseForOneExplorator(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FOREST], $I),
+            explorators: $this->players
+        );
+
+        // given only disease event can happen in forest sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FOREST,
+            events: [PlanetSectorEvent::DISEASE => 1]
+        );
+
+        // when disease event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then one of the explorators has a disease
+        if ($this->player->getMedicalConditions()->isEmpty()) {
+            $diseasedPlayer = $this->player2;
+            /** @var PlayerDisease $caughtDisease */
+            $caughtDisease = $this->player2->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->first() ?: null;
+            $I->assertNotNull($caughtDisease);
+        } else {
+            $diseasedPlayer = $this->player;
+            /** @var PlayerDisease $caughtDisease */
+            $caughtDisease = $this->player->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->first() ?: null;
+            $I->assertNotNull($caughtDisease);
+        }
+
+        // then I should see a private room log for diseased player telling they caught a disease
+        $diseaseLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'playerInfo' => $diseasedPlayer->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::DISEASE_BY_ALIEN_TRAVEL,
+            ]
+        );
+
+        // then the disease log should be properly parameterized
+        $I->assertEquals($caughtDisease->getDiseaseConfig()->getDiseaseName(), $diseaseLog->getParameters()['disease']);
     }
 }

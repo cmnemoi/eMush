@@ -454,7 +454,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // given two extra steps are made to trigger the disease event
         $this->explorationService->dispatchExplorationEvent($this->exploration);
         $this->explorationService->dispatchExplorationEvent($this->exploration);
-        
+
         // when disease event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
             fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::DISEASE,
@@ -468,7 +468,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorKey' => PlanetSectorEnum::FOREST,
                 'planetSectorName' => 'Forêt',
                 'eventName' => 'Maladie',
-                'eventDescription' => "Une liane gluante frôle la joue de Chun.",
+                'eventDescription' => 'Une liane gluante frôle la joue de Chun.',
                 'eventOutcome' => 'Un équipier tombe malade.',
             ],
             actual: $normalizedExplorationLog,

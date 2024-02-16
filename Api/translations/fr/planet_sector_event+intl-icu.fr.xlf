@@ -418,7 +418,7 @@
       </segment>
       <segment id="insect_description" state="final">
         <source>disease.insect_description</source>
-        <target>Soudain {charactger} se met à hurler, une grosse araignée fluorescente s'enfuit de sa combinaison, apparemment elle lui a mordu le téton !</target>
+        <target>Soudain {character} se met à hurler, une grosse araignée fluorescente s'enfuit de sa combinaison, apparemment elle lui a mordu le téton !</target>
       </segment>
     </unit>
   </file>

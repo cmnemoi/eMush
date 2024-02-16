@@ -692,6 +692,20 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then player1 still has the same disease
         $I->assertEquals($disease, $this->player->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->first());
+
+        // then I still see a private room log for the player telling they caught a disease
+        $diseaseLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'playerInfo' => $this->player2->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::DISEASE_BY_ALIEN_TRAVEL,
+            ]
+        );
+
+        // then the disease log should be properly parameterized
+        $I->assertArrayHasKey('disease', $diseaseLog->getParameters());
     }
 
     public function testDiseaseEventDoesNotCreateDiseaseForMushPlayer(FunctionalTester $I): void

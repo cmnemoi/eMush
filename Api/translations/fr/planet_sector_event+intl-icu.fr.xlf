@@ -428,10 +428,6 @@
         other {Plusieurs arbustes touffus attirent votre attention, dans l'un d'entre eux se trouve de curieux fruits…}
         }</target>
       </segment>
-      <segment id="insect_description" state="final">
-        <source>harvest.insect_description</source>
-        <target>{character} remarque de gros papillons de nuit à l'abdomen bien gonflé et juteux... Mmmmh !</target>
-      </segment>
     </unit>
     <unit id="disease">
       <segment id="name" state="final">

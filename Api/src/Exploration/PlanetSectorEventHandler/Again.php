@@ -15,11 +15,11 @@ final class Again extends AbstractPlanetSectorEventHandler
     }
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
-    {   
+    {
         $planetSector = $event->getPlanetSector();
         $planetSector->unvisit();
+
         $this->entityManager->persist($planetSector);
-        $this->entityManager->flush();
 
         return $this->createExplorationLog($event);
     }

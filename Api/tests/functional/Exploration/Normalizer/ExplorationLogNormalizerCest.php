@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Exploration\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
@@ -729,7 +728,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [PlanetSectorEvent::ITEM_LOST => 1]
         );
-        
+
         // given exploration is created
         $this->exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),

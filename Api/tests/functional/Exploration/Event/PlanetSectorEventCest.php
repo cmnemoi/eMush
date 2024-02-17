@@ -600,4 +600,26 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
         $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
     }
+
+    public function testAgainEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::DESERT], $I),
+            explorators: $this->players
+        );
+        $desertPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
+
+        // given only again event can happen in desert sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::DESERT,
+            events: [PlanetSectorEvent::AGAIN => 1]
+        );
+
+        // when again event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then desert planet sector should be unvisited
+        $I->assertFalse($desertPlanetSector->isVisited());
+    }
 }

@@ -659,7 +659,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // given an exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::FOREST], $I),
-            explorators: $this->players
+            explorators: new ArrayCollection([$this->player])
         );
 
         // given only disease event can happen in forest sector
@@ -698,7 +698,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             entity: RoomLog::class,
             params: [
                 'place' => $this->daedalus->getPlanetPlace()->getLogName(),
-                'playerInfo' => $this->player2->getPlayerInfo(),
+                'playerInfo' => $this->player->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
                 'log' => LogEnum::DISEASE_BY_ALIEN_TRAVEL,
             ]

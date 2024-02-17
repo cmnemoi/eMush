@@ -53,7 +53,7 @@ final class Disease extends AbstractPlanetSectorEventHandler
             type: 'event_log',
             player: $diseasedPlayer,
             parameters: [
-                'disease' => $disease->getDiseaseConfig()->getDiseaseName(),
+                'disease' => $disease->getName(),
                 'is_player_mush' => $diseasedPlayer->isMush() ? 'true' : 'false',
             ],
             dateTime: $event->getTime(),

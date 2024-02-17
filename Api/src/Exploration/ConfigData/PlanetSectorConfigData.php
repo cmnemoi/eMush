@@ -34,6 +34,7 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::DISEASE => 3,
+                PlanetSectorEvent::HARVEST_2 => 4,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
@@ -48,6 +49,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::FUEL_1 => 3,
                 PlanetSectorEvent::TIRED_2 => 2,
+                PlanetSectorEvent::HARVEST_1 => 1,
             ],
         ],
         [
@@ -59,6 +61,7 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::DISEASE => 4,
+                PlanetSectorEvent::HARVEST_2 => 3,
                 PlanetSectorEvent::TIRED_2 => 2,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
@@ -219,6 +222,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::TIRED_2 => 4,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 3,
+                PlanetSectorEvent::HARVEST_2 => 2,
                 PlanetSectorEvent::ACCIDENT_3_5 => 1,
             ],
         ],
@@ -295,6 +299,8 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::HARVEST_3 => 4,
+                PlanetSectorEvent::HARVEST_1 => 3,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 3,
             ],
         ],

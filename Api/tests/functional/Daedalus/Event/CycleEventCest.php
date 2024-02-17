@@ -49,13 +49,7 @@ class CycleEventCest extends AbstractFunctionalTest
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
     {
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->setDiseases([])
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($diseaseCause);
+        $diseaseCause = $I->grabEntityFromRepository(DiseaseCauseConfig::class, ['causeName' => DiseaseCauseEnum::TRAUMA]);
 
         $fireStatusConfig = new ChargeStatusConfig();
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);

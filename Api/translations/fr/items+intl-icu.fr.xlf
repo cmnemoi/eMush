@@ -1983,14 +1983,13 @@ On aurait pu s'en servir en cuisine, mais le chef n'en voulait pas...</target>
       </segment>
       <segment id="description" state="final">
         <source>invertebrate_shell.description</source>
-        <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !
-+100% aux dégats de la tourelles où il est placé. Si détruit provoque un incendie dans la pièce.</target>
+        <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !//+100% aux dégats de la tourelle où il est placé. Si détruit, provoque une explosion dans la pièce.</target>
       </segment>
       <segment id="examine" state="final">
         <source>invertebrate_shell.examine</source>
         <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !
 //
-+100% aux dégâts de la tourelle dans laquelle il est placé. Si détruit, provoque un incendie dans la pièce.
++100% aux dégâts de la tourelle dans laquelle il est placé. Si détruit, provoque une explosion dans la pièce.
 //
 Il n'a pas l'air tout à fait mort.</target>
       </segment>

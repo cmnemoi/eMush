@@ -2,9 +2,12 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -61,6 +64,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
         $this->statusService->removeAllStatuses($equipment, $event->getTags(), $event->getTime());
+
+        if ($equipment->getName() === GearItemEnum::INVERTEBRATE_SHELL) {
+            $this->breakPlaceEquipment($equipment->getPlace());
+        }
     }
 
     public function onNewEquipmentInInventory(EquipmentEvent $event): void
@@ -98,6 +105,23 @@ class EquipmentSubscriber implements EventSubscriberInterface
             })->count() >= 1
         ) {
             $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $player, $reasons, $time);
+        }
+    }
+
+    private function breakPlaceEquipment(Place $place): void
+    {
+        $breakablePlaceEquipment = $place->getEquipments()->filter(function (GameEquipment $equipment) {
+            return $equipment->getEquipment()->isBreakable();
+        });
+
+        /** @var GameEquipment $equipment */
+        foreach ($breakablePlaceEquipment as $equipment) {
+            $this->statusService->createStatusFromName(
+                EquipmentStatusEnum::BROKEN,
+                $equipment,
+                [],
+                new \DateTime()
+            );
         }
     }
 }

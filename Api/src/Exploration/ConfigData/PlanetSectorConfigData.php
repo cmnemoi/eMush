@@ -47,7 +47,6 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::FUEL_1 => 3,
                 PlanetSectorEvent::TIRED_2 => 2,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -111,7 +110,6 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::PROVISION_2 => 3,
                 PlanetSectorEvent::ACCIDENT_3_5 => 2,
                 PlanetSectorEvent::FIGHT_8 => 1,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -139,7 +137,6 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::FIGHT_12 => 4,
                 PlanetSectorEvent::PROVISION_2 => 3,
                 PlanetSectorEvent::ARTEFACT => 2,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -153,7 +150,6 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::PROVISION_1 => 2,
                 PlanetSectorEvent::FIGHT_10 => 1,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -167,7 +163,6 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::KILL_RANDOM => 4,
                 PlanetSectorEvent::FIGHT_32 => 3,
                 PlanetSectorEvent::ARTEFACT => 1,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [

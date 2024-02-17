@@ -1543,7 +1543,7 @@ class MechanicsData
             'moralPoints' => [1 => 1],
             'actionPoints' => [3 => 1],
             'movementPoints' => [0 => 0],
-            'healthPoints' => [1 => 0],
+            'healthPoints' => [1 => 1],
             'satiety' => null,
             'extraEffects' => [],
             'isPerishable' => true,

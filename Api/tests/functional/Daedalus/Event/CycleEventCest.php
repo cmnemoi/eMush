@@ -2,16 +2,12 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Disease\Entity\Config\DiseaseCauseConfig;
-use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -21,10 +17,10 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -49,31 +45,14 @@ class CycleEventCest extends AbstractFunctionalTest
 
     public function testOxygenCycleSubscriber(FunctionalTester $I)
     {
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->setDiseases([])
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($diseaseCause);
-
         $fireStatusConfig = new ChargeStatusConfig();
         $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fireStatusConfig);
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
-        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-            'localizationConfig' => $localizationConfig,
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
-            'hunterConfigs' => new ArrayCollection($hunterConfigs),
-        ]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
         $neron = new Neron();
         $neron->setIsInhibited(true);
@@ -81,7 +60,7 @@ class CycleEventCest extends AbstractFunctionalTest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setDaedalusVariables($gameConfig->getDaedalusConfig());
         $daedalus->setOxygen(1);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo

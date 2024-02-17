@@ -9,6 +9,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -24,10 +25,14 @@ final class ItemLost extends AbstractPlanetSectorEventHandler
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         $availableItemsToDestroy = $this->getAvailableItemsToDestroy($event->getExploration()->getNotLostExplorators());
+        if (empty($availableItemsToDestroy)) {
+            $this->dispatchNothingToReportEvent($event);
+
+            return new ExplorationLog($event->getExploration()->getClosedExploration());
+        }
 
         /** @var GameItem $itemToDestroy */
         $itemToDestroy = $this->randomService->getRandomElement($availableItemsToDestroy);
-
         /** @var Player $itemOwner */
         $itemOwner = $itemToDestroy->getHolder();
 
@@ -41,8 +46,8 @@ final class ItemLost extends AbstractPlanetSectorEventHandler
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         $logParameters = [
-            'item' => $itemToDestroy->getLogName(),
-            'character' => $itemOwner->getLogName(),
+            $itemToDestroy->getLogKey() => $itemToDestroy->getLogName(),
+            $itemOwner->getLogKey() => $itemOwner->getLogName(),
         ];
 
         return $this->createExplorationLog($event, $logParameters);
@@ -62,5 +67,21 @@ final class ItemLost extends AbstractPlanetSectorEventHandler
         }
 
         return $availableItems;
+    }
+
+    private function dispatchNothingToReportEvent(PlanetSectorEvent $event): void
+    {
+        $config = new PlanetSectorEventConfig();
+        $config->setName(PlanetSectorEvent::NOTHING_TO_REPORT);
+        $config->setEventName(PlanetSectorEvent::NOTHING_TO_REPORT);
+
+        $nothingToReportEvent = new PlanetSectorEvent(
+            $event->getPlanetSector(),
+            $config,
+            $event->getTags(),
+            $event->getTime(),
+            $event->getVisibility()
+        );
+        $this->eventService->callEvent($nothingToReportEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
     }
 }

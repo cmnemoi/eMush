@@ -873,7 +873,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::ITEM_LOST => 1]
         );
 
-        // when provision event is dispatched
+        // when item lost event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then Chun does not have the iTrackie anymore
@@ -897,5 +897,82 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $explorationLog = $exploration->getClosedExploration()->getLogs()->last();
         $I->assertEquals($this->chun->getLogName(), $explorationLog->getParameters()['character']);
         $I->assertEquals(ItemEnum::ITRACKIE, $explorationLog->getParameters()['item']);
+    }
+
+    public function testItemLostEventDoesNotDestroySpacesuit(FunctionalTester $I): void
+    {
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only item lost event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ITEM_LOST => 1]
+        );
+
+        // when item lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Chun still has the spacesuit
+        $I->assertTrue($this->chun->hasEquipmentByName(GearItemEnum::SPACESUIT));
+
+        // then I should not see any public log in planet place to tell an explorator has lost an item
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::LOST_ITEM_IN_EXPLORATION,
+            ]
+        );
+
+        // then the exploration log should be nothing to report one
+        /** @var ExplorationLog $explorationLog */
+        $explorationLog = $exploration->getClosedExploration()->getLogs()->last();
+        $I->assertEquals(PlanetSectorEvent::NOTHING_TO_REPORT, $explorationLog->getEventName());
+    }
+
+    public function testItemLostEventWithNoItemsToDestroy(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only item lost event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ITEM_LOST => 1]
+        );
+
+        // when item lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should not see any public log in planet place to tell an explorator has lost an item
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::LOST_ITEM_IN_EXPLORATION,
+            ]
+        );
+
+        // then the exploration log should be nothing to report one
+        /** @var ExplorationLog $explorationLog */
+        $explorationLog = $exploration->getClosedExploration()->getLogs()->last();
+        $I->assertEquals(PlanetSectorEvent::NOTHING_TO_REPORT, $explorationLog->getEventName());
     }
 }

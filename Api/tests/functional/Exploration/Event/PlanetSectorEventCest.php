@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
@@ -848,5 +849,53 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then desert planet sector should be unvisited
         $I->assertFalse($desertPlanetSector->isVisited());
+    }
+
+    public function testItemLostEvent(FunctionalTester $I): void
+    {
+        // given Chun has an iTrackie
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::ITRACKIE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only item lost event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ITEM_LOST => 1]
+        );
+
+        // when provision event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Chun does not have the iTrackie anymore
+        $I->assertFalse($this->chun->hasEquipmentByName(ItemEnum::ITRACKIE));
+
+        // then I should see 1 public log in planet place to tell an explorator has lost an item
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::LOST_ITEM_IN_EXPLORATION,
+            ]
+        );
+
+        $I->assertEquals($this->chun->getLogName(), $roomLog->getParameters()['character']);
+        $I->assertEquals(ItemEnum::ITRACKIE, $roomLog->getParameters()['target_item']);
+
+        // then the exploration log should be properly parameterized
+        /** @var ExplorationLog $explorationLog */
+        $explorationLog = $exploration->getClosedExploration()->getLogs()->last();
+        $I->assertEquals($this->chun->getLogName(), $explorationLog->getParameters()['character']);
+        $I->assertEquals(ItemEnum::ITRACKIE, $explorationLog->getParameters()['item']);
     }
 }

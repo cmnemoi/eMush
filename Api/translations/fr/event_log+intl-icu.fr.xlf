@@ -727,5 +727,15 @@
         <target>La **Cartouche invertébrée** explose dans une gerbe de flammes qui met hors service tous les équipements de la pièce !</target>
       </segment>
     </unit>
+    <unit id="lost_item_in_exploration">
+      <segment state="translated">
+        <source>lost_item_in_exploration</source>
+        <target>{target_equipment_gender, select,
+          male {**{character}** a perdu un **{target_equipment}**.}
+          female {**{character}** a perdu une **{target_equipment}**.}
+          other {**{character}** a perdu un **{target_equipment}**.}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

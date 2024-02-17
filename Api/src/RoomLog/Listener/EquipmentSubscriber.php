@@ -7,6 +7,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -35,6 +36,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         EventEnum::FIRE => LogEnum::EQUIPMENT_DESTROYED,
         PlantLogEnum::PLANT_DEATH => PlantLogEnum::PLANT_DEATH,
         EndCauseEnum::ASPHYXIA => LogEnum::OXY_LOW_USE_CAPSULE,
+        PlanetSectorEvent::ITEM_LOST => LogEnum::LOST_ITEM_IN_EXPLORATION,
     ];
 
     private const MOVE_EQUIPMENT_LOG_MAP = [

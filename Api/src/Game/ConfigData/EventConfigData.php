@@ -288,7 +288,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_1,
             'eventName' => PlanetSectorEvent::FUEL,
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 1 => 1,
             ],
         ],
@@ -408,7 +409,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_8',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 8 => 1,
             ],
         ],
@@ -416,7 +418,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_10',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 10 => 1,
             ],
         ],
@@ -424,7 +427,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_12',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 12 => 1,
             ],
         ],
@@ -432,7 +436,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_15',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 15 => 1,
             ],
         ],
@@ -440,7 +445,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_18',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 18 => 1,
             ],
         ],
@@ -448,7 +454,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_32',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 32 => 1,
             ],
         ],
@@ -456,7 +463,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_8_10_12_15_18_32',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 8 => 1,
                 10 => 1,
                 12 => 1,

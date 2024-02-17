@@ -74,14 +74,16 @@ class EventConfigFixtures extends Fixture
         $eventConfig = new PlanetSectorEventConfig();
         $eventConfig->setEventName('fight');
         $eventConfig->setName('fight_1');
-        $eventConfig->setOutputQuantityTable([1 => 1]);
+        $eventConfig->setOutputQuantity([]);
+        $eventConfig->setOutputTable([1 => 1]);
         $this->addReference($eventConfig->getName(), $eventConfig);
         $manager->persist($eventConfig);
 
         $eventConfig = new PlanetSectorEventConfig();
         $eventConfig->setEventName('fight');
         $eventConfig->setName('fight_2');
-        $eventConfig->setOutputQuantityTable([2 => 1]);
+        $eventConfig->setOutputQuantity([]);
+        $eventConfig->setOutputTable([2 => 1]);
         $this->addReference($eventConfig->getName(), $eventConfig);
         $manager->persist($eventConfig);
 

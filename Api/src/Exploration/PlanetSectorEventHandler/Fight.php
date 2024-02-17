@@ -54,7 +54,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $creatureStrength = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
+        $creatureStrength = $this->drawEventOutputQuantity($event->getOutputTable());
         $expeditionStrength = $this->getExpeditionStrength($event);
         $damage = max(0, $creatureStrength - $expeditionStrength);
 

@@ -247,5 +247,18 @@ class DiseaseCauseConfigData
                         'head_trauma' => 1,
                         'burns_50_of_body' => 1, ],
         ],
+        [
+            'name' => 'alien_fight_default',
+            'causeName' => 'alien_fight',
+            'diseases' => [
+                'flu' => 1,
+                'syphilis' => 1,
+                'black_bite' => 1,
+                'rejuvenation' => 1,
+                'ailurophobia' => 1,
+                'space_rabies' => 1,
+                'sepsis' => 1,
+            ],
+        ],
     ];
 }

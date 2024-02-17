@@ -358,6 +358,24 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
         ;
         $manager->persist($diseaseCauseCriticalSuccessBlaster);
 
+        $alienFight = new DiseaseCauseConfig();
+        $alienFight
+            ->setCauseName(DiseaseCauseEnum::ALIEN_FIGHT)
+            ->setDiseases(
+                [
+                    DiseaseEnum::FLU => 1,
+                    DiseaseEnum::SYPHILIS => 1,
+                    DiseaseEnum::BLACK_BITE => 1,
+                    DiseaseEnum::REJUVENATION => 1,
+                    DisorderEnum::AILUROPHOBIA => 1,
+                    DiseaseEnum::SPACE_RABIES => 1,
+                    DiseaseEnum::SEPSIS => 1,
+                ]
+            )
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($alienFight);
+
         $gameConfig
             ->addDiseaseCauseConfig($diseaseCauseAlienFruit)
             ->addDiseaseCauseConfig($diseaseCausePerishedFood)
@@ -374,6 +392,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->addDiseaseCauseConfig($diseaseCauseCriticalSuccessKnife)
             ->addDiseaseCauseConfig($diseaseCauseCriticalFailBlaster)
             ->addDiseaseCauseConfig($diseaseCauseCriticalSuccessBlaster)
+            ->addDiseaseCauseConfig($alienFight)
         ;
 
         $manager->persist($gameConfig);

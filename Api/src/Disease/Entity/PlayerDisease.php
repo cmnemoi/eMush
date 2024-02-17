@@ -98,4 +98,9 @@ class PlayerDisease
 
         return $this;
     }
+
+    public function getName(): string
+    {
+        return $this->diseaseConfig->getDiseaseName();
+    }
 }

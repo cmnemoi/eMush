@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -12,16 +15,37 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 final class Fight extends AbstractPlanetSectorEventHandler
 {
+    public const DISEASE_CHANCE = 5;
     public const MANKAROG_STRENGTH = 32;
+
+    private DiseaseCauseServiceInterface $diseaseCauseService;
+    private RoomLogServiceInterface $roomLogService;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventServiceInterface $eventService,
+        RandomServiceInterface $randomService,
+        DiseaseCauseServiceInterface $diseaseCauseService,
+        RoomLogServiceInterface $roomLogService
+    ) {
+        parent::__construct($entityManager, $eventService, $randomService);
+        $this->diseaseCauseService = $diseaseCauseService;
+        $this->roomLogService = $roomLogService;
+    }
 
     public function getName(): string
     {
@@ -58,6 +82,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
         }
 
         $this->inflictDamageToExplorators($event, $damage);
+        $this->giveDiseaseToExplorators($event);
 
         return $this->createExplorationLog($event, $logParameters);
     }
@@ -126,7 +151,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
         // Randomly select a fighter to take the hit for each point of damage
         for ($i = 0; $i < $damage; ++$i) {
             $explorator = $this->randomService->getRandomPlayer($fighters);
-            $fighterName = $explorator->getLogName();
+            $fighterName = $explorator->getName();
 
             if (!isset($damages[$fighterName])) {
                 $damages[$fighterName] = 0;
@@ -152,6 +177,29 @@ final class Fight extends AbstractPlanetSectorEventHandler
             );
 
             $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
+    }
+
+    private function giveDiseaseToExplorators(PlanetSectorEvent $event): void
+    {
+        $fighters = $event->getExploration()->getNotLostExplorators();
+        /** @var Player $explorator */
+        foreach ($fighters as $explorator) {
+            if ($this->randomService->isSuccessful(self::DISEASE_CHANCE)) {
+                $disease = $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::ALIEN_FIGHT, $explorator);
+                $this->roomLogService->createLog(
+                    LogEnum::DISEASE_BY_ALIEN_FIGHT,
+                    $explorator->getPlace(),
+                    VisibilityEnum::PRIVATE,
+                    'event_log',
+                    $explorator,
+                    [
+                        'disease' => $disease->getName(),
+                        'is_player_mush' => $explorator->isMush() ? 'true' : 'false',
+                    ],
+                    $event->getTime()
+                );
+            }
         }
     }
 }

@@ -483,7 +483,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
     }
 
-    public function testFightEventPlayerDeathCauseIsMankarogIfFightingACreatureWithManlkarogStrenght(FunctionalTester $I): void
+    public function testFightEventPlayerDeathCauseIsMankarogIfFightingACreatureWithMankarogStrength(FunctionalTester $I): void
     {
         // given an exploration is created with Chun only
         $exploration = $this->createExploration(

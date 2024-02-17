@@ -975,4 +975,26 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $explorationLog = $exploration->getClosedExploration()->getLogs()->last();
         $I->assertEquals(PlanetSectorEvent::NOTHING_TO_REPORT, $explorationLog->getEventName());
     }
+
+    public function testBackEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::VOLCANIC_ACTIVITY], $I),
+            explorators: $this->players
+        );
+        $closedExploration = $exploration->getClosedExploration();
+
+        // given only back event can happen in volcanoes sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            events: [PlanetSectorEvent::BACK => 1]
+        );
+
+        // when back event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then the exploration should be finished
+        $I->assertTrue($closedExploration->isExplorationFinished());
+    }
 }

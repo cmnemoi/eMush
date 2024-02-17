@@ -759,4 +759,45 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeBackEvent(FunctionalTester $I): void
+    {
+        // given sismic activity sector has only back event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::BACK => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the back event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        if (!$closedExploration->isExplorationFinished()) {
+            $this->explorationService->dispatchExplorationEvent($this->exploration);
+        }
+
+        // when back event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::BACK
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorName' => 'Sismique',
+                'eventName' => 'Retour',
+                'eventDescription' => 'Une violente secousse paralyse l\'expédition… Puis de nouveau le silence… Mieux vaut revenir au Daedalus vite fait !',
+                'eventOutcome' => 'Vous abandonnez l\'expédition en cours.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

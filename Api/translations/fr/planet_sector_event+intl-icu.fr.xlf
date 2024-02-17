@@ -525,5 +525,27 @@
         other {Le vent souffle si fort que {character} laisse échapper un {equipment} ! On est pas près de le retrouver…}}</target>
       </segment>
     </unit>
+    <unit id="back">
+      <segment id="name" state="final">
+        <source>back.name</source>
+        <target>Retour</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>back.description</source>
+        <target>Vous abandonnez l'expédition en cours.</target>
+      </segment>
+      <segment id="sismic_activity_description" state="final">
+        <source>back.sismic_activity_description</source>
+        <target>Une violente secousse paralyse l'expédition… Puis de nouveau le silence… Mieux vaut revenir au Daedalus vite fait !</target>
+      </segment>
+      <segment id="volcanic_activity_description" state="final">
+        <source>back.volcanic_activity_description</source>
+        <target>Après un grondement sourd, un volcan non loin d'ici commence à rejeter une épaisse fumée noire, vous rejoignez le Daedalus à toute vitesse !</target>
+      </segment>
+      <segment id="mankarog_description" state="final">
+        <source>back.mankarog_description</source>
+        <target>L'expédition observe à l'horizon un Mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

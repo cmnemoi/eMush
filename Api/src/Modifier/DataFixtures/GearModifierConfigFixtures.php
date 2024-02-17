@@ -16,6 +16,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -53,6 +54,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
     public const LIQUID_MAP_MODIFIER_RANDOM_50 = 'liquid_map_modifier_random_50';
     public const ALIEN_OIL_INCREASE_FUEL_INJECTED = 'alien_oil_increase_fuel_injected';
+    public const INVERTEBRATE_SHELL_DOUBLES_DAMAGE = 'invertebrate_shell_doubles_damage';
 
     public function load(ObjectManager $manager): void
     {
@@ -339,6 +341,22 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($alienOilIncreaseFuelInjected);
 
+        $invertebrateShellDoublesDamage = new VariableEventModifierConfig('invertebrate_shell_doubles_damage');
+        $invertebrateShellDoublesDamage
+            ->setTargetVariable(HunterVariableEnum::HEALTH)
+            ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setApplyOnTarget(false)
+            ->setTagConstraints([
+                ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLACE)
+        ;
+        $manager->persist($invertebrateShellDoublesDamage);
+
         $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
@@ -361,6 +379,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::LIQUID_MAP_MODIFIER, $liquidMapModifier);
         $this->addReference(self::LIQUID_MAP_MODIFIER_RANDOM_50, $liquidMapRandom50Modifier);
         $this->addReference(self::ALIEN_OIL_INCREASE_FUEL_INJECTED, $alienOilIncreaseFuelInjected);
+        $this->addReference(self::INVERTEBRATE_SHELL_DOUBLES_DAMAGE, $invertebrateShellDoublesDamage);
     }
 
     public function getDependencies(): array

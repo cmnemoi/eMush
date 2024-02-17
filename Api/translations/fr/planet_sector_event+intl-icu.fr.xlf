@@ -323,5 +323,47 @@
         <target>Alors que la montagne la plus proche de l'expédition se met à cracher un jet de lave à plus de 500m de hauteur, le sol s'effondre sous leurs pieds et les engloutit dans un déluge de flammes.</target>
       </segment>
     </unit>
+    <unit id="fight">
+      <segment id="name" state="final">
+        <source>fight.name</source>
+        <target>Combat</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>fight.description</source>
+        <target>Vous affrontez une créature.////Force Créature : {creature_strength}////Force Équipe : {expedition_strength}////{damage, select, 0 {Créature décède} other {L'équipe subit {damage} points de dégâts.}}</target>
+      </segment>
+      <segment id="intelligent_description" state="final">
+        <source>fight.intelligent_description</source>
+        <target>Un être étrange s'approche de vous et lance de grand cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.</target>
+      </segment>
+      <segment id="ruminant_description" state="final">
+        <source>fight.ruminant_description</source>
+        <target>Alors que vous tentiez d'approcher discrètement d'un Chab Chab, vous êtes rapidement encerclés par ses congénères… Il va falloir lutter pour votre survie !</target>
+      </segment>
+      <segment id="predator_description" state="final">
+        <source>fight.predator_description</source>
+        <target>Vous vous sentez épiés. Un Écorcheur hostile et affamé vous guête... Votre équipe commence à fuir mais la créature se jette sur vous !</target>
+      </segment>
+      <segment id="insect_description" state="final">
+        <source>fight.insect_description</source>
+        <target>Alors que vous marchez au pied d'une crevasse vous observez avec horreur un Carapanse en émerger... Il va falloir vous défendre !</target>
+      </segment>
+      <segment id="mankarog_description" state="final">
+        <source>fight.mankarog_description</source>
+        <target>Une ombre gigantesque se dresse tout à coup au-dessus de l'expédition... Et ce n'est pas un nuage...</target>
+      </segment>
+      <segment id="ruins_description" state="final">
+        <source>fight.ruins_description</source>
+        <target>Alors que vous fouillez la cité en ruine, vous ne prenez pas garde à la horde de Zombies aliens qui entoure votre position... C'est une attaque surprise !</target>
+      </segment>
+      <segment id="wreck_description" state="final">
+        <source>fight.wreck_description</source>
+        <target>Apparemment le conducteur de l'appareil est toujours en vie ! Et manifestement, il n'a pas l'air de vous considérer comme son sauveur...</target>
+      </segment>
+      <segment id="cristalite_description" state="final">
+        <source>fight.cristalite_description</source>
+        <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un Torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

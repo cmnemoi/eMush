@@ -72,15 +72,19 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         array $reasons,
         int $delayMin = null,
         int $delayLength = null
-    ): ?PlayerDisease {
+    ): PlayerDisease {
         $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
         if ($player->isMush() && $diseaseConfig->getType() !== MedicalConditionTypeEnum::INJURY) {
-            return null;
+            $dummyDisease = new PlayerDisease();
+            $dummyDisease->setPlayer($player);
+            $dummyDisease->setDiseaseConfig($diseaseConfig);
+
+            return $dummyDisease;
         }
 
-        if ($player->getMedicalConditionByName($diseaseName) !== null) {
-            return null;
+        if (($disease = $player->getMedicalConditionByName($diseaseName)) !== null) {
+            return $disease;
         }
 
         $time = new \DateTime();

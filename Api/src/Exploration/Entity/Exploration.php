@@ -100,13 +100,11 @@ class Exploration
     public function getActiveExplorators(): PlayerCollection
     {
         if ($this->planet->hasSectorByName(PlanetSectorEnum::OXYGEN)) {
-            return $this->getExplorators()->filter(
-                fn (Player $explorator) => $explorator->isAlive()
-            );
+            return $this->getAliveExplorators();
         }
 
-        return $this->getExplorators()->filter(
-            fn (Player $explorator) => $explorator->isAlive() && $explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
+        return $this->getAliveExplorators()->filter(
+            fn (Player $explorator) => $explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
         );
     }
 

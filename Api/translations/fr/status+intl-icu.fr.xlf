@@ -1572,7 +1572,9 @@
         <source>poc_shooter_skill.description</source>
         <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.
 //
-+2 **Tirs gratuits** :pa_shoot: par jour.</target>
++2 **Tirs gratuits** :pa_shoot: par jour.
+//
+Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.</target>
       </segment>
     </unit>
   </file>

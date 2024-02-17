@@ -700,5 +700,14 @@
         }</target>
       </segment>
     </unit>
+    <unit id="disease_by_alien_fight">
+      <segment state="final">
+        <source>disease_by_alien_fight</source>
+        <target>{is_player_mush, select,
+          true {:ill: Votre agresseur vous a transmis une maladie ({disease}). Du moins, c'est ce que vous pourrez leur faire croire...}
+          other {:ill: Votre agresseur vous a transmis une maladie ({disease}).}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

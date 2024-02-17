@@ -241,7 +241,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeKillAllEvent(FunctionalTester $I): void
     {
-        // given volcanic activity sector has only kill all event
+        // given sismic activity sector has only kill all event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::VOLCANIC_ACTIVITY,
             events: [PlanetSectorEvent::KILL_ALL => 1]
@@ -275,6 +275,84 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Mort du groupe',
                 'eventDescription' => 'Alors que la montagne la plus proche de l\'expédition se met à cracher un jet de lave à plus de 500m de hauteur, le sol s\'effondre sous leurs pieds et les engloutit dans un déluge de flammes.',
                 'eventOutcome' => 'Tous les équipiers meurent.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeFightEvent(FunctionalTester $I): void
+    {
+        // given intelligent life has only fight event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::FIGHT_12 => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the fight event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when fight exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIGHT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Combat',
+                'eventDescription' => 'Un être étrange s\'approche de vous et lance de grand cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.',
+                'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 12////Force Équipe : 2////L\'équipe subit 10 points de dégâts.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeFightEventWithExpeditionStrengthSuperiorToCreatureStrength(FunctionalTester $I): void
+    {
+        // given intelligent life has only fight event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_1' => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the fight event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when fight exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIGHT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Combat',
+                'eventDescription' => 'Un être étrange s\'approche de vous et lance de grand cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.',
+                'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 1////Force Équipe : 2////Créature décède',
             ],
             actual: $normalizedExplorationLog,
         );

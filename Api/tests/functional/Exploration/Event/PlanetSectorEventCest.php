@@ -13,6 +13,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -28,14 +29,27 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
+    private Player $chun;
+    private Player $kuanTi;
+    private Player $derek;
+    private Player $janice;
+
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        // given explorators have a spacesuit
-        foreach ($this->players as $player) {
+        // given our explorators are Chun, Kuan-Ti, Derek, and Janice
+        $this->chun = $this->player;
+        $this->kuanTi = $this->player2;
+        $this->derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+        $this->janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+        $this->players->add($this->derek);
+        $this->players->add($this->janice);
+
+        // given Chun, Kuan-Ti, and Janice have a spacesuit
+        foreach ([$this->chun, $this->kuanTi, $this->janice] as $player) {
             $this->gameEquipmentService->createGameEquipmentFromName(
                 equipmentName: GearItemEnum::SPACESUIT,
                 equipmentHolder: $player,
@@ -43,6 +57,14 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 time: new \DateTime(),
             );
         }
+
+        // given Janice is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     public function testAccidentHurtsExplorator(FunctionalTester $I): void
@@ -59,23 +81,38 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
         );
 
-        $player1HealthBeforeEvent = $this->player->getHealthPoint();
+        $chunHealthBeforeEvent = $this->chun->getHealthPoint();
+        $kuanTiHealthBeforeEvent = $this->kuanTi->getHealthPoint();
+        $janiceHealthBeforeEvent = $this->janice->getHealthPoint();
+        $derekHealthBeforeEvent = $this->derek->getHealthPoint();
 
         // when accident event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then one of the explorators health is decreased
-        if ($this->player->getHealthPoint() === $player1HealthBeforeEvent) {
+        // then Chun or Kuan-Ti health is decreased
+        if ($this->chun->getHealthPoint() === $chunHealthBeforeEvent) {
             $I->assertLessThan(
-                expected: $this->player2->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
-                actual: $this->player2->getHealthPoint(),
+                expected: $kuanTiHealthBeforeEvent,
+                actual: $this->kuanTi->getHealthPoint(),
             );
         } else {
             $I->assertLessThan(
-                expected: $this->player->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
-                actual: $this->player->getHealthPoint(),
+                expected: $chunHealthBeforeEvent,
+                actual: $this->chun->getHealthPoint(),
             );
         }
+
+        // then Janice still has the same health, as she is lost
+        $I->assertEquals(
+            expected: $janiceHealthBeforeEvent,
+            actual: $this->janice->getHealthPoint(),
+        );
+
+        // then Derek still has the same health, as he is stuck in the ship (no spacesuit)
+        $I->assertEquals(
+            expected: $derekHealthBeforeEvent,
+            actual: $this->derek->getHealthPoint(),
+        );
     }
 
     public function testDisasterHurtsAllExplorators(FunctionalTester $I): void
@@ -92,7 +129,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
-        // then players health is decreased
+        // then all explorators health is decreased, even if lost or stuck in the ship
         foreach ($this->players as $player) {
             $I->assertLessThan(
                 expected: $player->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
@@ -115,20 +152,34 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::TIRED_2 => 1]
         );
 
-        $player1HealthBeforeEvent = $this->player->getHealthPoint();
-        $player2HealthBeforeEvent = $this->player2->getHealthPoint();
+        $chunHealthBeforeEvent = $this->chun->getHealthPoint();
+        $kuanTiHealthBeforeEvent = $this->kuanTi->getHealthPoint();
+        $janiceHealthBeforeEvent = $this->janice->getHealthPoint();
+        $derekHealthBeforeEvent = $this->derek->getHealthPoint();
 
         // when tired event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then players health is decreased
+        // then Chun and Kuan-Ti health is decreased
         $I->assertEquals(
-            expected: $player1HealthBeforeEvent - 2,
+            expected: $chunHealthBeforeEvent - 2,
             actual: $this->player->getHealthPoint(),
         );
         $I->assertEquals(
-            expected: $player2HealthBeforeEvent - 2,
+            expected: $kuanTiHealthBeforeEvent - 2,
             actual: $this->player2->getHealthPoint(),
+        );
+
+        // then Janice still has the same health, as she is lost
+        $I->assertEquals(
+            expected: $janiceHealthBeforeEvent,
+            actual: $this->janice->getHealthPoint(),
+        );
+
+        // then Derek still has the same health, as he is stuck in the ship (no spacesuit)
+        $I->assertEquals(
+            expected: $derekHealthBeforeEvent,
+            actual: $this->derek->getHealthPoint(),
         );
     }
 
@@ -240,13 +291,19 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // when kill random event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then one of the explorators is dead
-        if ($this->player->isAlive()) {
-            $I->assertFalse($this->player2->isAlive());
-            $deadPlayer = $this->player2;
+        // then Janice is alive, because she is lost
+        $I->assertTrue($this->janice->isAlive());
+
+        // then Derek is alive, because he is stuck in the ship (no spacesuit)
+        $I->assertTrue($this->derek->isAlive());
+
+        // then Chun or Kuan-Ti is dead
+        if ($this->chun->isAlive()) {
+            $I->assertFalse($this->kuanTi->isAlive());
+            $deadPlayer = $this->kuanTi;
         } else {
-            $I->assertFalse($this->player->isAlive());
-            $deadPlayer = $this->player;
+            $I->assertFalse($this->chun->isAlive());
+            $deadPlayer = $this->chun;
         }
 
         // then I see a public death log with the "exploration" cause
@@ -263,87 +320,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
     }
 
-    public function testKillRandomEventDoesNotKillLostExplorator(FunctionalTester $I): void
-    {
-        // given an exploration is created
-        $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
-            explorators: $this->players
-        );
-
-        // given only kill random event can happen in sismic sector
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
-            events: [PlanetSectorEvent::KILL_RANDOM => 1]
-        );
-
-        // given one player2 is lost
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LOST,
-            holder: $this->player2,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // when kill random event is dispatched
-        $this->explorationService->dispatchExplorationEvent($exploration);
-
-        // then it's player1 who dies
-        $I->assertFalse($this->player->isAlive());
-    }
-
-    public function testKillRandomEventDoesNotKillStuckInShipExplorators(FunctionalTester $I): void
-    {
-        // given player2 does not have a spacesuit so they will be stuck in the ship
-        $this->gameEquipmentService->delete($this->player2->getEquipmentByName(GearItemEnum::SPACESUIT));
-
-        // given an exploration is created
-        $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
-            explorators: $this->players
-        );
-
-        // given only kill random event can happen in sismic sector
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
-            events: [PlanetSectorEvent::KILL_RANDOM => 1]
-        );
-
-        // when kill random event is dispatched
-        $this->explorationService->dispatchExplorationEvent($exploration);
-
-        // then it's player1 who dies
-        $I->assertFalse($this->player->isAlive());
-    }
-
     public function testKillAllEventKillsAllExplorators(FunctionalTester $I): void
     {
-        // given some extra explorators
-        $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
-        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
-        $this->players->add($derek);
-        $this->players->add($janice);
-
-        // given Janice has a spacesuit
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::SPACESUIT,
-            equipmentHolder: $janice,
-            reasons: [],
-            time: new \DateTime(),
-        );
-
         // given an exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::VOLCANIC_ACTIVITY], $I),
             explorators: $this->players
-        );
-
-        // given Janice is lost
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LOST,
-            holder: $janice,
-            tags: [],
-            time: new \DateTime(),
         );
 
         // given only kill all event can happen in volcanoes sector
@@ -355,14 +337,111 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // when kill all event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then player 1 and player 2 are dead
-        $I->assertFalse($this->player->isAlive());
-        $I->assertFalse($this->player2->isAlive());
+        // then Chun and Kuan-Ti are dead
+        $I->assertFalse($this->chun->isAlive());
+        $I->assertFalse($this->kuanTi->isAlive());
+
+        // then I see two public death logs with the "exploration" cause
+        $deathLogs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $I->assertCount(2, $deathLogs);
+        foreach ($deathLogs as $deathLog) {
+            $deathLogParameters = $deathLog->getParameters();
+            $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
+        }
 
         // then Janice is alive, because she is lost
-        $I->assertTrue($janice->isAlive());
+        $I->assertTrue($this->janice->isAlive());
 
         // then Derek is alive, because he is stuck in the ship (no spacesuit)
-        $I->assertTrue($derek->isAlive());
+        $I->assertTrue($this->derek->isAlive());
+    }
+
+    public function testFightEventRemovesHealthToAllExplorators(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given Janice is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given only fight event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_12' => 1]
+        );
+
+        $playersHealthBeforeEvent = [];
+        foreach ($this->players as $player) {
+            $playersHealthBeforeEvent[$player->getLogName()] = $player->getHealthPoint();
+        }
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then player1 and player2 have their health decreased
+        foreach ([$this->player, $this->player2] as $player) {
+            $I->assertLessThan(
+                expected: $playersHealthBeforeEvent[$player->getLogName()],
+                actual: $player->getHealthPoint(),
+            );
+        }
+
+        // then Janice still has the same health, as she is lost
+        $I->assertEquals(
+            expected: $playersHealthBeforeEvent[$this->janice->getLogName()],
+            actual: $this->janice->getHealthPoint(),
+        );
+
+        // then Derek still has the same health, as he is stuck in the ship (no spacesuit)
+        $I->assertEquals(
+            expected: $playersHealthBeforeEvent[$this->derek->getLogName()],
+            actual: $this->derek->getHealthPoint(),
+        );
+    }
+
+    public function testFightEventDoesNotRemoveHealthToExploratorsIfTheyHaveEnoughStrength(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only fight event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_1' => 1]
+        );
+
+        $playersHealthBeforeEvent = [];
+        foreach ($this->players as $player) {
+            $playersHealthBeforeEvent[$player->getLogName()] = $player->getHealthPoint();
+        }
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then all players have the same health as before the event because they killed the monster
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: $playersHealthBeforeEvent[$player->getLogName()],
+                actual: $player->getHealthPoint(),
+            );
+        }
     }
 }

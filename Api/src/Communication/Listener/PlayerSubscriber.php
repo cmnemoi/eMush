@@ -60,7 +60,7 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onInfectionPlayer(PlayerEvent $event): void
     {
-        // Logging only mush traps in Mush channel if the player is mush
+        // If the player is Mush, we want to log only mush traps in Mush channel
         if ($event->getPlayer()->isMush() && !$event->hasTag(PlanetSectorEvent::MUSH_TRAP)) {
             return;
         }

@@ -47,13 +47,13 @@ abstract class AbstractPlanetSectorEventHandler
         return $explorationLog;
     }
 
-    protected function drawEventOutputQuantity(?ProbaCollection $outputQuantityTable): int
+    protected function drawEventOutputQuantity(?ProbaCollection $outputTable): int
     {
-        if ($outputQuantityTable === null) {
+        if ($outputTable === null) {
             throw new \RuntimeException('You need an output quantity table to draw an event output quantity');
         }
 
-        $quantity = $this->randomService->getSingleRandomElementFromProbaCollection($outputQuantityTable);
+        $quantity = $this->randomService->getSingleRandomElementFromProbaCollection($outputTable);
         if (!is_int($quantity)) {
             throw new \RuntimeException('Quantity should be an int');
         }

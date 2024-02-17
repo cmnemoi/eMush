@@ -47,7 +47,6 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::FUEL_1 => 3,
                 PlanetSectorEvent::TIRED_2 => 2,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -82,7 +81,8 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                PlanetSectorEvent::NOTHING_TO_REPORT => 6,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 7,
+                PlanetSectorEvent::PROVISION_3 => 2,
             ],
         ],
         [
@@ -106,9 +106,10 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
+                PlanetSectorEvent::PROVISION_4 => 4,
+                PlanetSectorEvent::PROVISION_2 => 3,
                 PlanetSectorEvent::ACCIDENT_3_5 => 2,
                 PlanetSectorEvent::FIGHT_8 => 1,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -122,6 +123,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::FIGHT_12 => 4,
                 PlanetSectorEvent::ACCIDENT_3_5 => 3,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 2,
+                PlanetSectorEvent::PROVISION_3 => 1,
             ],
         ],
         [
@@ -133,8 +135,8 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::FIGHT_12 => 4,
+                PlanetSectorEvent::PROVISION_2 => 3,
                 PlanetSectorEvent::ARTEFACT => 2,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -146,8 +148,8 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
+                PlanetSectorEvent::PROVISION_1 => 2,
                 PlanetSectorEvent::FIGHT_10 => 1,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [
@@ -161,7 +163,6 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::KILL_RANDOM => 4,
                 PlanetSectorEvent::FIGHT_32 => 3,
                 PlanetSectorEvent::ARTEFACT => 1,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],
         [

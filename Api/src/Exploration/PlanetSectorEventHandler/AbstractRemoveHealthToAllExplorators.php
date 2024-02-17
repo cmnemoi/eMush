@@ -22,7 +22,7 @@ abstract class AbstractRemoveHealthToAllExplorators extends AbstractPlanetSector
             $exploration->getAliveExplorators() :
             $exploration->getNotLostExplorators();
 
-        $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
+        $healthLost = $this->drawEventOutputQuantity($event->getOutputTable());
         foreach ($explorators as $explorator) {
             $playerVariableEvent = new PlayerVariableEvent(
                 player: $explorator,

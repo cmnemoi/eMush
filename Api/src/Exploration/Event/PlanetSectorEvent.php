@@ -52,6 +52,10 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const OXYGEN_16 = 'oxygen_16';
     public const OXYGEN_24 = 'oxygen_24';
     public const PROVISION = 'provision';
+    public const PROVISION_1 = 'provision_1';
+    public const PROVISION_2 = 'provision_2';
+    public const PROVISION_3 = 'provision_3';
+    public const PROVISION_4 = 'provision_4';
     public const STARMAP = 'starmap';
     public const TIRED = 'tired';
     public const TIRED_2 = 'tired_2';
@@ -99,9 +103,14 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         return $this->config;
     }
 
-    public function getOutputQuantityTable(): ?ProbaCollection
+    public function getOutputTable(): ProbaCollection
     {
-        return $this->config->getOutputQuantityTable();
+        return $this->config->getOutputTable();
+    }
+
+    public function getOutputQuantity(): ProbaCollection
+    {
+        return $this->config->getOutputQuantity();
     }
 
     public function getExplorators(): PlayerCollection
@@ -125,15 +134,15 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
             'equipment' => $this->exploration->getShipUsedName(),
         ];
 
-        $minQuantity = $this->config->getOutputQuantityTable()?->minElement();
-        $maxQuantity = $this->config->getOutputQuantityTable()?->maxElement();
+        if ($this->config->getOutputTable()->isEmpty()) {
+            return $logParameters;
+        }
 
-        if ($minQuantity) {
-            $logParameters['min_quantity'] = $minQuantity;
-        }
-        if ($maxQuantity) {
-            $logParameters['max_quantity'] = $maxQuantity;
-        }
+        $minQuantity = $this->config->getOutputTable()->minElement();
+        $maxQuantity = $this->config->getOutputTable()->maxElement();
+
+        $logParameters['min_quantity'] = $minQuantity;
+        $logParameters['max_quantity'] = $maxQuantity;
 
         return $logParameters;
     }

@@ -11,25 +11,40 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 #[ORM\Entity]
 class PlanetSectorEventConfig extends AbstractEventConfig
 {
-    #[ORM\Column(type: 'array', nullable: true)]
-    private ?array $outputQuantityTable = null;
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $outputQuantity = [];
 
-    public function getOutputQuantityTable(): ?ProbaCollection
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $outputTable = [];
+
+    public function getOutputQuantity(): ProbaCollection
     {
-        if ($this->outputQuantityTable === null) {
-            return null;
-        }
-
-        return new ProbaCollection($this->outputQuantityTable);
+        return new ProbaCollection($this->outputQuantity);
     }
 
-    public function setOutputQuantityTable(ProbaCollection|array $outputQuantityTable): self
+    public function setOutputQuantity(ProbaCollection|array $outputQuantity): self
     {
-        if ($outputQuantityTable instanceof ProbaCollection) {
-            $outputQuantityTable = $outputQuantityTable->toArray();
+        if ($outputQuantity instanceof ProbaCollection) {
+            $outputQuantity = $outputQuantity->toArray();
         }
 
-        $this->outputQuantityTable = $outputQuantityTable;
+        $this->outputQuantity = $outputQuantity;
+
+        return $this;
+    }
+
+    public function getOutputTable(): ProbaCollection
+    {
+        return new ProbaCollection($this->outputTable);
+    }
+
+    public function setOutputTable(ProbaCollection|array $outputTable): self
+    {
+        if ($outputTable instanceof ProbaCollection) {
+            $outputTable = $outputTable->toArray();
+        }
+
+        $this->outputTable = $outputTable;
 
         return $this;
     }

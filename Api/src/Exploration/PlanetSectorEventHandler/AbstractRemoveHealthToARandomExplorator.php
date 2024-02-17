@@ -23,7 +23,7 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
             $exploration->getNotLostExplorators();
 
         $exploratorToInjure = $this->randomService->getRandomPlayer($explorators);
-        $healthLost = $this->drawEventOutputQuantity($event->getOutputQuantityTable());
+        $healthLost = $this->drawEventOutputQuantity($event->getOutputTable());
 
         $playerVariableEvent = new PlayerVariableEvent(
             player: $exploratorToInjure,

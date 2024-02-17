@@ -47,38 +47,43 @@ class EventConfigFixtures extends Fixture
                         ->setQuantity($rawEventConfig['quantity'])
                         ->setTargetVariable($rawEventConfig['targetVariable'])
                         ->setVariableHolderClass($rawEventConfig['variableHolderClass'])
-                        ->setEventName($rawEventConfig['eventName'])
-                        ->setName($rawEventConfig['name'])
                     ;
                     break;
                 case 'planet_sector_event_config':
                     $eventConfig = new PlanetSectorEventConfig();
-                    if (isset($rawEventConfig['outputQuantityTable'])) {
-                        $eventConfig->setOutputQuantityTable($rawEventConfig['outputQuantityTable']);
-                    }
                     $eventConfig
-                        ->setEventName($rawEventConfig['eventName'])
-                        ->setName($rawEventConfig['name'])
+                        ->setOutputTable($rawEventConfig['outputTable'])
+                        ->setOutputQuantity($rawEventConfig['outputQuantity'])
                     ;
+
                     break;
                 default:
                     throw new \Exception('Unknown event config type');
             }
+
+            $eventConfig
+                ->setEventName($rawEventConfig['eventName'])
+                ->setName($rawEventConfig['name'])
+            ;
+
             $this->addReference($eventConfig->getName(), $eventConfig);
+
             $manager->persist($eventConfig);
         }
 
         $eventConfig = new PlanetSectorEventConfig();
         $eventConfig->setEventName('fight');
         $eventConfig->setName('fight_1');
-        $eventConfig->setOutputQuantityTable([1 => 1]);
+        $eventConfig->setOutputQuantity([]);
+        $eventConfig->setOutputTable([1 => 1]);
         $this->addReference($eventConfig->getName(), $eventConfig);
         $manager->persist($eventConfig);
 
         $eventConfig = new PlanetSectorEventConfig();
         $eventConfig->setEventName('fight');
         $eventConfig->setName('fight_2');
-        $eventConfig->setOutputQuantityTable([2 => 1]);
+        $eventConfig->setOutputQuantity([]);
+        $eventConfig->setOutputTable([2 => 1]);
         $this->addReference($eventConfig->getName(), $eventConfig);
         $manager->persist($eventConfig);
 

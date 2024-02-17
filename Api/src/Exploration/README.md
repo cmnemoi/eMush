@@ -37,7 +37,7 @@ To add the events associated with the sector, go to [EventConfigData](../Game/Co
 
 ## Event
 - [ExplorationEvent](./Event/ExplorationEvent.php) are dispatched to handle general exploration events. The more important are exploration started, finished and new cycle.
-- [PlanetSectorEvent](./Event/PlanetSectorEvent.php) are dispatched when explorators visit a `PlanetSector`. Each sector has a specific pool of events. Examples : fighting a creature, losing HP from an accident or finding an artifact. Each event has a name and a `outputQuantityTable`. The `outputQuantityTable` will be used to compute the output of the event (e.g. the amount of HP lost when the player has an accident).
+- [PlanetSectorEvent](./Event/PlanetSectorEvent.php) are dispatched when explorators visit a `PlanetSector`. Each sector has a specific pool of events. Examples : fighting a creature, losing HP from an accident or finding an artifact. Each event has a name and a `outputTable`. The `outputTable` will be used to compute the output of the event (e.g. the amount of HP lost when the player has an accident).
 
 ## Service
 - [PlanetService](./Service/PlanetService.php) contains the logic to generate a new planet and its sectors, and to delete a planet.

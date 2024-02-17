@@ -223,7 +223,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::ACCIDENT_3_5,
             'eventName' => PlanetSectorEvent::ACCIDENT,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 3 => 1,
                 4 => 1,
                 5 => 1,
@@ -233,7 +234,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::DISASTER_3_5,
             'eventName' => PlanetSectorEvent::DISASTER,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 3 => 1,
                 4 => 1,
                 5 => 1,
@@ -243,12 +245,15 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::NOTHING_TO_REPORT,
             'eventName' => PlanetSectorEvent::NOTHING_TO_REPORT,
+            'outputQuantity' => [0 => 1],
+            'outputTable' => [0 => 1],
         ],
         [
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::TIRED_2,
             'eventName' => PlanetSectorEvent::TIRED,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 2 => 1,
             ],
         ],
@@ -256,7 +261,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::OXYGEN_8,
             'eventName' => PlanetSectorEvent::OXYGEN,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 8 => 1,
             ],
         ],
@@ -264,7 +270,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::OXYGEN_16,
             'eventName' => PlanetSectorEvent::OXYGEN,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 16 => 1,
             ],
         ],
@@ -272,7 +279,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::OXYGEN_24,
             'eventName' => PlanetSectorEvent::OXYGEN,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 24 => 1,
             ],
         ],
@@ -280,7 +288,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_1,
             'eventName' => PlanetSectorEvent::FUEL,
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 1 => 1,
             ],
         ],
@@ -288,7 +297,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_2,
             'eventName' => PlanetSectorEvent::FUEL,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 2 => 1,
             ],
         ],
@@ -296,7 +306,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_3,
             'eventName' => PlanetSectorEvent::FUEL,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 3 => 1,
             ],
         ],
@@ -304,7 +315,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_4,
             'eventName' => PlanetSectorEvent::FUEL,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 4 => 1,
             ],
         ],
@@ -312,7 +324,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_5,
             'eventName' => PlanetSectorEvent::FUEL,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 5 => 1,
             ],
         ],
@@ -320,7 +333,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::FUEL_6,
             'eventName' => PlanetSectorEvent::FUEL,
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 6 => 1,
             ],
         ],
@@ -328,7 +342,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'artefact',
             'eventName' => 'artefact',
-            'outputQuantityTable' => [
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
                 'alien_bottle_opener' => 1,
                 'alien_holographic_tv' => 1,
                 'invertebrate_shell' => 1,
@@ -344,17 +359,58 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'kill_random',
             'eventName' => 'kill_random',
+            'outputQuantity' => [],
+            'outputTable' => [],
         ],
         [
             'type' => 'planet_sector_event_config',
             'name' => 'kill_all',
             'eventName' => 'kill_all',
+            'outputQuantity' => [],
+            'outputTable' => [],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'provision_1',
+            'eventName' => 'provision',
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
+                'alien_steak' => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'provision_2',
+            'eventName' => 'provision',
+            'outputQuantity' => [2 => 1],
+            'outputTable' => [
+                'alien_steak' => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'provision_3',
+            'eventName' => 'provision',
+            'outputQuantity' => [3 => 1],
+            'outputTable' => [
+                'alien_steak' => 1,
+            ],
+        ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'provision_4',
+            'eventName' => 'provision',
+            'outputQuantity' => [4 => 1],
+            'outputTable' => [
+                'alien_steak' => 1,
+            ],
         ],
         [
             'type' => 'planet_sector_event_config',
             'name' => 'fight_8',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 8 => 1,
             ],
         ],
@@ -362,7 +418,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_10',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 10 => 1,
             ],
         ],
@@ -370,7 +427,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_12',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 12 => 1,
             ],
         ],
@@ -378,7 +436,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_15',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 15 => 1,
             ],
         ],
@@ -386,7 +445,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_18',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 18 => 1,
             ],
         ],
@@ -394,7 +454,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_32',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 32 => 1,
             ],
         ],
@@ -402,7 +463,8 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_8_10_12_15_18_32',
             'eventName' => 'fight',
-            'outputQuantityTable' => [
+            'outputQuantity' => [],
+            'outputTable' => [
                 8 => 1,
                 10 => 1,
                 12 => 1,

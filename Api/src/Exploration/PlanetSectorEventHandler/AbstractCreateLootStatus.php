@@ -34,12 +34,7 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $table = $event->getOutputQuantityTable();
-        if (!$table) {
-            throw new \Exception('Planet sector event must have an output quantity table');
-        }
-
-        $lootedQuantity = (int) $this->randomService->getSingleRandomElementFromProbaCollection($table);
+        $lootedQuantity = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
 
         /** @var ChargeStatus $lootStatus */
         $lootStatus = $this->statusService->createStatusFromName(

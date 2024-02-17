@@ -540,5 +540,14 @@ class EventConfigData
             'outputQuantity' => [],
             'outputTable' => [],
         ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'starmap',
+            'eventName' => 'starmap',
+            'outputQuantity' => [1 => 1],
+            'outputTable' => [
+                'starmap_fragment' => 1,
+            ],
+        ],
     ];
 }

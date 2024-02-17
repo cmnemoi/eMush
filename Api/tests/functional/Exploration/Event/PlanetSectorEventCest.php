@@ -792,4 +792,39 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals('true', $diseaseLog->getParameters()['is_player_mush']);
         $I->assertArrayHasKey('disease', $diseaseLog->getParameters());
     }
+
+    public function testStarmapEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD], $I),
+            explorators: $this->players
+        );
+
+        // given only starmap event can happen in cristal field sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::CRISTAL_FIELD,
+            events: [PlanetSectorEvent::STARMAP => 1]
+        );
+
+        // when starmap event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see a starmap fragment in planet place
+        $I->assertTrue($this->daedalus->getPlanetPlace()->hasEquipmentByName(ItemEnum::STARMAP_FRAGMENT));
+
+        // then I should see 1 public logs in planet place to tell an explorator has found a starmap fragment
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+            ]
+        );
+        $roomLogParameters = $roomLog->getParameters();
+
+        // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
+        $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
+    }
 }

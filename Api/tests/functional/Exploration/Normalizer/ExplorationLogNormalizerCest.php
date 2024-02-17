@@ -552,4 +552,43 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeStarmapEvent(FunctionalTester $I): void
+    {
+        // given cristal field sector has only provision event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::CRISTAL_FIELD,
+            events: [PlanetSectorEvent::STARMAP => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the starmap event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when starmap event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::STARMAP
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::CRISTAL_FIELD,
+                'planetSectorName' => 'Cristalite',
+                'eventName' => 'Éclat de Carte',
+                'eventDescription' => 'Ce champ de cristalite est en activité. Au centre de l\'atrium principal, un éclat baignant dans des eaux métalliques fait converger des faisceaux de lumières aux couleurs inconnues. Allez hop, on l\'embarque.',
+                'eventOutcome' => 'Vous trouvez 1 éclat de carte stellaire en cristalite.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

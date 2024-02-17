@@ -451,5 +451,19 @@
         <target>Soudain {character} se met à hurler, une grosse araignée fluorescente s'enfuit de sa combinaison, apparemment elle lui a mordu le téton !</target>
       </segment>
     </unit>
+    <unit id="starmap">
+      <segment id="name" state="final">
+        <source>starmap.name</source>
+        <target>Éclat de Carte</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>starmap.description</source>
+        <target>Vous trouvez 1 éclat de carte stellaire en cristalite.</target>
+      </segment>
+      <segment id="cristal_field_description" state="final">
+        <source>starmap.cristal_field_description</source>
+        <target>Ce champ de cristalite est en activité. Au centre de l'atrium principal, un éclat baignant dans des eaux métalliques fait converger des faisceaux de lumières aux couleurs inconnues. Allez hop, on l'embarque.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

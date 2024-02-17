@@ -325,7 +325,8 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 10,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
-                PlanetSectorEvent::FIGHT_18 => 4,
+                PlanetSectorEvent::STARMAP => 3,
+                PlanetSectorEvent::FIGHT_18 => 2,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ],
         ],

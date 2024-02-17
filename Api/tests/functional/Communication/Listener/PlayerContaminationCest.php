@@ -137,7 +137,7 @@ class PlayerContaminationCest
             'message' => MushMessageEnum::INFECT_ACTION,
         ]);
 
-        $I->assertEquals($message->getTranslationParameters(), ['quantity' => 1, 'character' => 'ian', 'target_character' => 'andie']);
+        $I->assertEquals($message->getTranslationParameters(), ['quantity' => 1, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false']);
         $I->assertCount(0, $mushChannel->getParticipants());
     }
 
@@ -238,7 +238,7 @@ class PlayerContaminationCest
             'channel' => $mushChannel,
             'message' => MushMessageEnum::INFECT_ACTION,
         ]);
-        $I->assertEquals($message->getTranslationParameters(), ['quantity' => 3, 'character' => 'ian', 'target_character' => 'andie']);
+        $I->assertEquals($message->getTranslationParameters(), ['quantity' => 3, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false']);
 
         $I->assertCount(1, $mushChannel->getParticipants());
 

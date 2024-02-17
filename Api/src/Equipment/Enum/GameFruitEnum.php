@@ -19,7 +19,7 @@ class GameFruitEnum
     public const KUBINUS = 'kubinus';
     public const CALEBOOT = 'caleboot';
     public const FILANDRA = 'filandra';
-    public const JUNKIN = 'junkin';
+    public const JUMPKIN = 'jumpkin';
 
     /**
      * @return string[]
@@ -42,7 +42,7 @@ class GameFruitEnum
             self::KUBINUS,
             self::CALEBOOT,
             self::FILANDRA,
-            self::JUNKIN,
+            self::JUMPKIN,
         ];
     }
 

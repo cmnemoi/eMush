@@ -3080,32 +3080,32 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
         <target>Le Filandru est le fruit le plus pénible à manger qui soit...</target>
       </segment>
     </unit>
-    <unit id="bumpjunkin">
+    <unit id="bumpjumpkin">
       <segment id="name" state="final">
-        <source>bumpjunkin.name</source>
+        <source>bumpjumpkin.name</source>
         <target>{age, select,
        young {Jeune }
        other {}
 }Cucurbitatrouille</target>
       </segment>
       <segment id="short_name" state="final">
-        <source>bumpjunkin.short_name</source>
+        <source>bumpjumpkin.short_name</source>
         <target>Cucurbitatrouille</target>
       </segment>
       <segment id="genre" state="final">
-        <source>bumpjunkin.gender</source>
+        <source>bumpjumpkin.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="final">
-        <source>bumpjunkin.first_letter</source>
+        <source>bumpjumpkin.first_letter</source>
         <target>consonant</target>
       </segment>
       <segment id="description" state="final">
-        <source>bumpjunkin.description</source>
+        <source>bumpjumpkin.description</source>
         <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....</target>
       </segment>
       <segment id="examine" state="final">
-        <source>bumpjunkin.examine</source>
+        <source>bumpjumpkin.examine</source>
         <target>La cucurbitatrouille est une plante d'origine extra-terrestre, des rumeurs la donnent originaire d'Amérique du Sud. C'est dire....</target>
       </segment>
     </unit>

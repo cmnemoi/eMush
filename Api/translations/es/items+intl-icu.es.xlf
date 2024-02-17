@@ -2884,30 +2884,30 @@ Lo único que te hacer sentir como en casa...</target>
         <target>filandra.examine</target>
       </segment>
     </unit>
-    <unit id="bumpjunkin">
+    <unit id="bumpjumpkin">
       <segment id="name" state="initial">
-        <source>bumpjunkin.name</source>
-        <target>bumpjunkin.name</target>
+        <source>bumpjumpkin.name</source>
+        <target>bumpjumpkin.name</target>
       </segment>
       <segment id="short_name" state="initial">
-        <source>bumpjunkin.short_name</source>
-        <target>bumpjunkin.short_name</target>
+        <source>bumpjumpkin.short_name</source>
+        <target>bumpjumpkin.short_name</target>
       </segment>
       <segment id="genre" state="initial">
-        <source>bumpjunkin.gender</source>
-        <target>bumpjunkin.gender</target>
+        <source>bumpjumpkin.gender</source>
+        <target>bumpjumpkin.gender</target>
       </segment>
       <segment id="first_letter" state="initial">
-        <source>bumpjunkin.first_letter</source>
-        <target>bumpjunkin.first_letter</target>
+        <source>bumpjumpkin.first_letter</source>
+        <target>bumpjumpkin.first_letter</target>
       </segment>
       <segment id="description" state="initial">
-        <source>bumpjunkin.description</source>
-        <target>bumpjunkin.description</target>
+        <source>bumpjumpkin.description</source>
+        <target>bumpjumpkin.description</target>
       </segment>
       <segment id="examine" state="initial">
-        <source>bumpjunkin.examine</source>
-        <target>bumpjunkin.examine</target>
+        <source>bumpjumpkin.examine</source>
+        <target>bumpjumpkin.examine</target>
       </segment>
     </unit>
     <unit id="jumpkin">

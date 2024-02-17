@@ -491,7 +491,7 @@ class EventConfigData
                 'kubinus' => 1,
                 'caleboot' => 1,
                 'filandra' => 1,
-                'junkin' => 1,
+                'jumpkin' => 1,
             ],
         ],
         [
@@ -512,7 +512,7 @@ class EventConfigData
                 'kubinus' => 1,
                 'caleboot' => 1,
                 'filandra' => 1,
-                'junkin' => 1,
+                'jumpkin' => 1,
             ],
         ],
         [
@@ -533,7 +533,7 @@ class EventConfigData
                 'kubinus' => 1,
                 'caleboot' => 1,
                 'filandra' => 1,
-                'junkin' => 1,
+                'jumpkin' => 1,
             ],
         ],
         [

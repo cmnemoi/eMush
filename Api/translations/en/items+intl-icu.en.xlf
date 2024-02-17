@@ -3122,33 +3122,33 @@ If you take care of this plant it will repay you with Oxygen and delicious Caleb
         <target>The Filandra is by far the most painful fruit to eat...</target>
       </segment>
     </unit>
-    <unit id="bumpjunkin">
+    <unit id="bumpjumpkin">
       <segment id="name" state="translated">
-        <source>bumpjunkin.name</source>
+        <source>bumpjumpkin.name</source>
         <target>{age, select,
        young {Young }
        other {}
-}Bumpjunkin</target>
+}Bumpjumpkin</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>bumpjunkin.short_name</source>
-        <target>Bumpjunkin</target>
+        <source>bumpjumpkin.short_name</source>
+        <target>Bumpjumpkin</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>bumpjunkin.gender</source>
+        <source>bumpjumpkin.gender</source>
         <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
-        <source>bumpjunkin.first_letter</source>
+        <source>bumpjumpkin.first_letter</source>
         <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
-        <source>bumpjunkin.description</source>
-        <target>The Bumpjunkin is an extra-terrestrial plant, although rumours suggest it's originally from South America. It just goes to show...</target>
+        <source>bumpjumpkin.description</source>
+        <target>The Bumpjumpkin is an extra-terrestrial plant, although rumours suggest it's originally from South America. It just goes to show...</target>
       </segment>
       <segment id="examine" state="translated">
-        <source>bumpjunkin.examine</source>
-        <target>The Bumpjunkin is an extra-terrestrial plant, although rumours suggest it's originally from South America. It just goes to show...
+        <source>bumpjumpkin.examine</source>
+        <target>The Bumpjumpkin is an extra-terrestrial plant, although rumours suggest it's originally from South America. It just goes to show...
 If you take care of this plant it will repay you with Oxygen and delicious Jumpkins.</target>
       </segment>
     </unit>

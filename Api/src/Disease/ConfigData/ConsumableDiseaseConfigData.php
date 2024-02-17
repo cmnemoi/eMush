@@ -161,8 +161,8 @@ class ConsumableDiseaseConfigData
             'effectNumber' => [0 => 35, 1 => 40, 2 => 15, 3 => 9, 4 => 1],
         ],
         [
-            'name' => 'junkin_default',
-            'causeName' => 'junkin',
+            'name' => 'jumpkin_default',
+            'causeName' => 'jumpkin',
             'diseasesName' => [],
             'curesName' => [],
             'diseasesChances' => [],

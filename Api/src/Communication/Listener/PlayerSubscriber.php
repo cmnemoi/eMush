@@ -7,6 +7,7 @@ use Mush\Communication\Enum\MushMessageEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -59,8 +60,14 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onInfectionPlayer(PlayerEvent $event): void
     {
+        // Logging only mush traps in Mush channel if the player is mush
+        if ($event->getPlayer()->isMush() && !$event->hasTag(PlanetSectorEvent::MUSH_TRAP)) {
+            return;
+        }
+
         $params = $event->getLogParameters();
         $params['quantity'] = $event->getPlayer()->getSpores();
+        $params['is_player_mush'] = $event->getPlayer()->isMush() ? 'true' : 'false';
         $key = $event->mapLog(MushMessageEnum::PLAYER_INFECTION_LOGS);
         if ($key === null) {
             return;

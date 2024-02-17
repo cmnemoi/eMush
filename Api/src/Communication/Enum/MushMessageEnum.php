@@ -3,6 +3,7 @@
 namespace Mush\Communication\Enum;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Exploration\Event\PlanetSectorEvent;
 
 class MushMessageEnum
 {
@@ -18,5 +19,6 @@ class MushMessageEnum
         ActionEnum::INFECT => self::INFECT_ACTION,
         ActionEnum::DO_THE_THING => self::INFECT_STD,
         ActionEnum::TRAP_CLOSET => self::INFECT_TRAP,
+        PlanetSectorEvent::MUSH_TRAP => self::INFECT_MUSH_RAID,
     ];
 }

@@ -549,5 +549,12 @@ class EventConfigData
                 'starmap_fragment' => 1,
             ],
         ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'mush_trap',
+            'eventName' => 'mush_trap',
+            'outputQuantity' => [],
+            'outputTable' => [],
+        ],
     ];
 }

@@ -531,7 +531,10 @@
     <unit id="infect_mush_raid">
       <segment id="infect_mush_raid" state="final">
         <source>infect_mush_raid</source>
-        <target>**{character}** a été contaminé par un raid Mush en exploration. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        <target>{is_player_mush, select,
+          true {Profitant de la confusion de l'attaque dans le champ de cristalite, **{target_character}** a récupéré un spore.}
+          other {**{target_character}** a été contaminé par un raid Mush en exploration. Son niveau de contamination est maintenant de **{quantity}**.}
+        }</target>
       </segment>
     </unit>
     <unit id="infect_trapped_ration">

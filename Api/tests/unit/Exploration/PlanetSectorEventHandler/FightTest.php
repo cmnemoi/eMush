@@ -171,7 +171,7 @@ final class FightTest extends TestCase
         $planetSectorEventConfig = new PlanetSectorEventConfig();
         $planetSectorEventConfig->setName(PlanetSectorEvent::FIGHT . '_12');
         $planetSectorEventConfig->setEventName(PlanetSectorEvent::FIGHT);
-        $planetSectorEventConfig->setOutputQuantityTable([12 => 1]);
+        $planetSectorEventConfig->setOutputTable([12 => 1]);
 
         return new PlanetSectorEvent($planetSector, $planetSectorEventConfig);
     }

@@ -465,5 +465,19 @@
         <target>Ce champ de cristalite est en activité. Au centre de l'atrium principal, un éclat baignant dans des eaux métalliques fait converger des faisceaux de lumières aux couleurs inconnues. Allez hop, on l'embarque.</target>
       </segment>
     </unit>
+    <unit id="mush_trap">
+      <segment id="name" state="final">
+        <source>mush_trap.name</source>
+        <target>Piège Mush</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>mush_trap.description</source>
+        <target>Tous les équipiers risquent une infection Mush.</target>
+      </segment>
+      <segment id="cristal_field_description" state="final">
+        <source>mush_trap.cristal_field_description</source>
+        <target>Ces champs ont été visités récemment. Vous avancez mais… une odeur de moisi vous saisit à la gorge, des volutes roses vous asphyxient, c'est un piège ! Fuyez, le Mush est déjà là !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

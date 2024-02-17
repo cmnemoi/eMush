@@ -26,6 +26,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -945,5 +946,47 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then the exploration should be finished
         $I->assertTrue($closedExploration->isExplorationFinished());
+    }
+
+    public function testPlayerLostEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::COLD], $I),
+            explorators: $this->players
+        );
+
+        // given only player lost event can happen in cold sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::COLD,
+            events: [PlanetSectorEvent::PLAYER_LOST => 1]
+        );
+
+        // when player lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Chun or Kuan-Ti is lost
+        if (!$this->chun->hasStatus(PlayerStatusEnum::LOST)) {
+            $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::LOST));
+            $lostPlayer = $this->kuanTi;
+        } else {
+            $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::LOST));
+            $lostPlayer = $this->chun;
+        }
+
+        // then I should see a private log in planet place to tell an explorator is lost
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'playerInfo' => $lostPlayer->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => StatusEventLogEnum::LOST_IN_EXPLORATION,
+            ]
+        );
+
+        // then exploration log should be properly parameterized
+        $exploration = $exploration->getClosedExploration()->getLogs()->last();
+        $I->assertEquals($lostPlayer->getLogName(), $exploration->getParameters()['character']);
     }
 }

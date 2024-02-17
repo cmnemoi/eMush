@@ -737,5 +737,15 @@
         }</target>
       </segment>
     </unit>
+    <unit id="lost_in_exploration">
+      <segment state="final">
+        <source>lost_in_exploration</source>
+        <target>{character_gender, select,
+        male {Vous n'avez pas été rapatrié... Ou on vous a oublié...}
+        female {Vous n'avez pas été rapatriée... Ou on vous a oublié...}
+        other {Vous n'avez pas été rapatrié... Ou on vous a oublié...}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

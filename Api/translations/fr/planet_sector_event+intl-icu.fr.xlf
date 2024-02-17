@@ -547,5 +547,35 @@
         <target>L'expédition observe à l'horizon un Mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
       </segment>
     </unit>
+    <unit id="player_lost">
+      <segment id="name" state="final">
+        <source>player_lost.name</source>
+        <target>Perdu</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>player_lost.description</source>
+        <target>Un équipier se perd.</target>
+      </segment>
+      <segment id="cristal_field_description" state="final">
+        <source>player_lost.cristal_field_description</source>
+        <target>Ces champs sont un vrai labyrinthe… Bon y a rien à secouer ici, on bouge. Est-ce que quelqu'un a vu {character} ?</target>
+      </segment>
+      <segment id="forest_description" state="final">
+        <source>player_lost.forest_description</source>
+        <target>La forêt est si dense, qu'il est difficile de rester groupé. Au bout d'une heure de marche... {character} manque à l'appel.</target>
+      </segment>
+      <segment id="ocean_description" state="final">
+        <source>player_lost.ocean_description</source>
+        <target>{character_gender, select,
+        male {Grosse galère... {character} est tombé à l'eau. Ça va complexifier la suite des opérations...}
+        female {Grosse galère... {character} est tombée à l'eau. Ça va complexifier la suite des opérations...}
+        other {Grosse galère... {character} est tombé à l'eau. Ça va complexifier la suite des opérations...}
+        }</target>
+      </segment>
+      <segment id="cold_description" state="final">
+        <source>player_lost.cold_description</source>
+        <target>Alors que le vent se lève, la neige se met à tomber. Le ciel disparaît immédiatement sous un épais voile blanc et vous perdez rapidement la trace de {character}. Quelle poisse !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

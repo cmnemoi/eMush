@@ -448,28 +448,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     public function testProvisionEvent(FunctionalTester $I): void
     {
-        // given some extra explorators
-        $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
-        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
-        $this->players->add($derek);
-        $this->players->add($janice);
-
-        // given Janice has a spacesuit
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::SPACESUIT,
-            equipmentHolder: $janice,
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given Janice is lost
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LOST,
-            holder: $janice,
-            tags: [],
-            time: new \DateTime(),
-        );
-
         // given an exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::RUMINANT], $I),
@@ -502,6 +480,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
-        $I->assertTrue(in_array($roomLogParameters['character'], [$this->player->getLogName(), $this->player2->getLogName()]));
+        $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
     }
 }

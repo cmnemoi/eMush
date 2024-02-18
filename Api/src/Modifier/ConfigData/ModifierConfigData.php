@@ -1889,5 +1889,25 @@ class ModifierConfigData
                 ActionEnum::INSERT_FUEL_CHAMBER => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_place_x2_hunter_damage_on_change.variable',
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'place',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 2.0,
+            'targetVariable' => 'health',
+            'mode' => 'multiplicative',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 }

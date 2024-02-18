@@ -4,6 +4,7 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\EventEnum;
@@ -30,6 +31,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     ];
 
     private const DESTRUCTION_LOG_MAP = [
+        GearItemEnum::INVERTEBRATE_SHELL => LogEnum::INVERTEBRATE_SHELL_EXPLOSION,
         EventEnum::FIRE => LogEnum::EQUIPMENT_DESTROYED,
         PlantLogEnum::PLANT_DEATH => PlantLogEnum::PLANT_DEATH,
         EndCauseEnum::ASPHYXIA => LogEnum::OXY_LOW_USE_CAPSULE,

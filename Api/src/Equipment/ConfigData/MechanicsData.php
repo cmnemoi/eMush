@@ -3605,5 +3605,13 @@ class MechanicsData
                 'modifier_for_alien_oil_+4_fuel',
             ],
         ],
+        [
+            'name' => 'gear_invertebrate_shell_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_for_place_x2_hunter_damage_on_change.variable',
+            ],
+        ],
     ];
 }

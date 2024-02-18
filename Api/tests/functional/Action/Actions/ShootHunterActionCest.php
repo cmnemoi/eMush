@@ -8,7 +8,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -33,11 +36,14 @@ class ShootHunterActionCest extends AbstractFunctionalTest
     private Action $action;
     private GameEquipment $turret;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SHOOT_HUNTER . '_turret']);
         $this->action->setDirtyRate(0)->setSuccessRate(100);
@@ -240,5 +246,36 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->shootHunterAction->isVisible());
 
         $I->assertEquals(intval(40 * 1.1), $this->shootHunterAction->getSuccessRate());
+    }
+
+    public function testShootHunterWithInvertebrateShellDoublesDamage(FunctionalTester $I): void
+    {
+        // given aimed hunters has 6 health
+        /** @var Hunter $hunter */
+        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter->setHealth(6);
+
+        // given turret in the room always does 2 damage
+        /** @var Weapon $turretWeapon */
+        $turretWeapon = $this->turret->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
+        $turretWeapon->setBaseDamageRange([2 => 1]);
+
+        // given I have invertebrate shell in player's inventory
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::INVERTEBRATE_SHELL,
+            equipmentHolder: $this->player1,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when I shoot the hunter
+        $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
+        $this->shootHunterAction->execute();
+
+        // then hunter should have 2 health, because with the invertebrate shell, the damage is doubled (4)
+        $I->assertEquals(
+            expected: 2,
+            actual: $hunter->getHealth()
+        );
     }
 }

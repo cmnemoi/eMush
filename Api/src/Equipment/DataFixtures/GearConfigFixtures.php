@@ -310,6 +310,8 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($printedCircuitJelly);
 
+        $shellGear = $this->createGear([GearModifierConfigFixtures::INVERTEBRATE_SHELL_DOUBLES_DAMAGE], GearItemEnum::INVERTEBRATE_SHELL);
+
         $invertebrateShell = new ItemConfig();
         $invertebrateShell
             ->setEquipmentName(GearItemEnum::INVERTEBRATE_SHELL)
@@ -318,6 +320,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setActions($actions)
             ->setInitStatuses([$alienArtifactStatus, $heavyStatus])
+            ->setMechanics([$shellGear])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($invertebrateShell);

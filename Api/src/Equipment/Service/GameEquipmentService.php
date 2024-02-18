@@ -198,7 +198,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
                 $gameEquipment,
                 false,
                 VisibilityEnum::PUBLIC,
-                [EventEnum::FIRE],
+                [EventEnum::FIRE, $gameEquipment->getName()],
                 $date
             );
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

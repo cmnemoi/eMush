@@ -480,5 +480,12 @@ class EventConfigData
             'outputQuantity' => [],
             'outputTable' => [],
         ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'kill_lost',
+            'eventName' => 'kill_lost',
+            'outputQuantity' => [],
+            'outputTable' => [],
+        ],
     ];
 }

@@ -260,5 +260,22 @@ class DiseaseCauseConfigData
                 'sepsis' => 1,
             ],
         ],
+        [
+            'name' => 'exploration_default',
+            'causeName' => 'exploration',
+            'diseases' => [
+                'migraine' => 1,
+                'acid_reflux' => 1,
+                'flu' => 1,
+                'rubella' => 1,
+                'gastroenteritis' => 1,
+                'smallpox' => 1,
+                'syphilis' => 1,
+                'black_bite' => 1,
+                'rejuvenation' => 1,
+                'skin_inflammation' => 1,
+                'slight_nausea' => 1,
+            ],
+        ],
     ];
 }

@@ -399,5 +399,27 @@
         <target>{character} remarque de gros papillons de nuit à l'abdomen bien gonflé et juteux... Mmmmh !</target>
       </segment>
     </unit>
+    <unit id="disease">
+      <segment id="name" state="final">
+        <source>disease.name</source>
+        <target>Maladie</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>disease.description</source>
+        <target>Un équipier tombe malade.</target>
+      </segment>
+      <segment id="forest_description" state="final">
+        <source>disease.forest_description</source>
+        <target>Une liane gluante frôle la joue de {character}.</target>
+      </segment>
+      <segment id="swamp_description" state="final">
+        <source>disease.swamp_description</source>
+        <target>Après une heure de marche dans la vase, vous ne comptez plus les sangsues bizarres accrochées à vos mollets, elles ont bien dû vous pomper un demi-litre de sang.</target>
+      </segment>
+      <segment id="insect_description" state="final">
+        <source>disease.insect_description</source>
+        <target>Soudain {character} se met à hurler, une grosse araignée fluorescente s'enfuit de sa combinaison, apparemment elle lui a mordu le téton !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

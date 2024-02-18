@@ -56,6 +56,7 @@ class LogEnum
     public const ALL_EXPLORATORS_DEAD = 'all_explorators_dead';
     public const FOUND_ITEM_IN_EXPLORATION = 'found_item_in_exploration';
     public const DISEASE_BY_ALIEN_FIGHT = 'disease_by_alien_fight';
+    public const DISEASE_BY_ALIEN_TRAVEL = 'disease_by_alien_travel';
     public const INVERTEBRATE_SHELL_EXPLOSION = 'invertebrate_shell_explosion';
 
     public const VISIBILITY = 'visibility';

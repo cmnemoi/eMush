@@ -16,6 +16,7 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -37,9 +38,6 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
 
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
-
-        // given player is in Icarus Bay
-        $this->player->changePlace($icarusBay);
 
         // given there is the Icarus ship in Icarus Bay
         $this->icarus = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -83,6 +81,9 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+
+        // given all explorators are in Icarus Bay
+        $explorators->map(fn (Player $player) => $player->changePlace($this->icarus->getPlace()));
 
         // given there is an exploration with an explorator
         return $this->explorationService->createExploration(

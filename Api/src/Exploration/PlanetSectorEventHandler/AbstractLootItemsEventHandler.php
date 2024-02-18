@@ -34,7 +34,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         $createdItems = [];
         for ($i = 0; $i < $numberOfItemsToCreate; ++$i) {
             $itemToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
-            $finder = $this->randomService->getRandomElement($event->getExploration()->getNotLostExplorators()->toArray());
+            $finder = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostExplorators());
 
             $tags = $event->getTags();
             $tags[] = LogEnum::FOUND_ITEM_IN_EXPLORATION;

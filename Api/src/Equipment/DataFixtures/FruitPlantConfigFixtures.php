@@ -166,53 +166,53 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
             $gameConfig->addEquipmentConfig($alienFruit)->addEquipmentConfig($alienPlant);
         }
 
-        $junkinMechanic = new Fruit();
-        $junkinMechanic
-            ->setPlantName(GamePlantEnum::BUMPJUNKIN)
+        $jumpkinMechanic = new Fruit();
+        $jumpkinMechanic
+            ->setPlantName(GamePlantEnum::BUMPJUMPKIN)
             ->setActionPoints([3])
             ->setMovementPoints([0])
             ->setHealthPoints([1])
             ->setMoralPoints([1])
             ->setActions($fruitActions)
-            ->buildName(EquipmentMechanicEnum::FRUIT . '_' . GameFruitEnum::JUNKIN, GameConfigEnum::DEFAULT)
+            ->buildName(EquipmentMechanicEnum::FRUIT . '_' . GameFruitEnum::JUMPKIN, GameConfigEnum::DEFAULT)
         ;
 
-        $junkin = new ItemConfig();
-        $junkin
-            ->setEquipmentName(GameFruitEnum::JUNKIN)
+        $jumpkin = new ItemConfig();
+        $jumpkin
+            ->setEquipmentName(GameFruitEnum::JUMPKIN)
             ->setIsStackable(true)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics([$junkinMechanic])
+            ->setMechanics([$jumpkinMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
-        $manager->persist($junkinMechanic);
-        $manager->persist($junkin);
-        $gameConfig->addEquipmentConfig($junkin);
+        $manager->persist($jumpkinMechanic);
+        $manager->persist($jumpkin);
+        $gameConfig->addEquipmentConfig($jumpkin);
 
-        $bumpjunkinMechanic = new Plant();
-        $bumpjunkinMechanic
-            ->setFruitName($junkin->getEquipmentName())
+        $bumpjumpkinMechanic = new Plant();
+        $bumpjumpkinMechanic
+            ->setFruitName($jumpkin->getEquipmentName())
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setActions($plantActions)
-            ->buildName(EquipmentMechanicEnum::PLANT . '_' . GamePlantEnum::BUMPJUNKIN, GameConfigEnum::DEFAULT)
+            ->buildName(EquipmentMechanicEnum::PLANT . '_' . GamePlantEnum::BUMPJUMPKIN, GameConfigEnum::DEFAULT)
         ;
 
-        $bumpjunkin = new ItemConfig();
-        $bumpjunkin
-            ->setEquipmentName(GamePlantEnum::BUMPJUNKIN)
+        $bumpjumpkin = new ItemConfig();
+        $bumpjumpkin
+            ->setEquipmentName(GamePlantEnum::BUMPJUMPKIN)
             ->setIsStackable(false)
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
-            ->setMechanics([$bumpjunkinMechanic])
+            ->setMechanics([$bumpjumpkinMechanic])
             ->setActions($actions)
             ->buildName(GameConfigEnum::DEFAULT)
         ;
-        $manager->persist($bumpjunkinMechanic);
-        $manager->persist($bumpjunkin);
-        $gameConfig->addEquipmentConfig($bumpjunkin);
+        $manager->persist($bumpjumpkinMechanic);
+        $manager->persist($bumpjumpkin);
+        $gameConfig->addEquipmentConfig($bumpjumpkin);
 
         $manager->persist($gameConfig);
 

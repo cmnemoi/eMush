@@ -436,6 +436,84 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    public function testNormalizeHarvestEvent(FunctionalTester $I): void
+    {
+        // given forest sector has only harvest event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FOREST,
+            events: [PlanetSectorEvent::HARVEST_2 => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FOREST, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the harvest event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when harvest event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::FOREST,
+                'planetSectorName' => 'Forêt',
+                'eventName' => 'Récolte',
+                'eventDescription' => 'Vous trouvez 2 fruits qui ont l\'air délicieux. Mieux vaut les ramener au vaisseau et les analyser avant de les manger…',
+                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeHarvestEventInFruitTreesSector(FunctionalTester $I): void
+    {
+        // given fruit trees sector has only harvest event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FRUIT_TREES,
+            events: [PlanetSectorEvent::HARVEST_1 => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the harvest event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when harvest event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::FRUIT_TREES,
+                'planetSectorName' => 'Vergers',
+                'eventName' => 'Récolte',
+                'eventDescription' => 'Plusieurs arbustes touffus attirent votre attention, dans l\'un d\'entre eux se trouve de curieux fruits…',
+                'eventOutcome' => 'Vous gagnez 1 Fruit alien.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
     public function testNormalizeDiseaseEvent(FunctionalTester $I): void
     {
         // given forest sector has only disease event

@@ -399,6 +399,36 @@
         <target>{character} remarque de gros papillons de nuit à l'abdomen bien gonflé et juteux... Mmmmh !</target>
       </segment>
     </unit>
+    <unit id="harvest">
+      <segment id="name" state="final">
+        <source>harvest.name</source>
+        <target>Récolte</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>harvest.description</source>
+        <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.</target>
+      </segment>
+      <segment id="forest_description" state="final">
+        <source>harvest.forest_description</source>
+        <target>Vous trouvez {quantity, plural, one {# fruit} other {# fruits}} qui ont l'air délicieux. Mieux vaut les ramener au vaisseau et les analyser avant de les manger…</target>
+      </segment>
+      <segment id="swamp_description" state="final">
+        <source>harvest.swamp_description</source>
+        <target>Le marais est rempli de grosses racines sur lesquelles poussent des fruits bizarres. Vous décidez d'en ramener quelques-uns.</target>
+      </segment>
+      <segment id="mountain_description" state="final">
+        <source>harvest.mountain_description</source>
+        <target>Au sommet du pic rocheux, vous remarquez un petit arbuste avec des baies un peu bizarres. Vous décidez d'en ramener quelques-unes.</target>
+      </segment>
+      <segment id="fruit_trees_description" state="final">
+        <source>harvest.fruit_trees_description</source>
+        <target>{quantity, select, 
+        1 {Plusieurs arbustes touffus attirent votre attention, dans l'un d'entre eux se trouve de curieux fruits…}
+        3 {Vous trouvez un arbre géant similaire à un baobab. À son sommet pousse une multitude de fruits étranges que vous décidez de ramener au Daedalus.}
+        other {Plusieurs arbustes touffus attirent votre attention, dans l'un d'entre eux se trouve de curieux fruits…}
+        }</target>
+      </segment>
+    </unit>
     <unit id="disease">
       <segment id="name" state="final">
         <source>disease.name</source>

@@ -32,7 +32,7 @@ const PENICRAFT = 'peniraft';
 const KUBINUS = 'kubinus';
 const CALEBOOT = 'caleboot';
 const FILANDRA = 'filandra';
-const JUNKIN = 'junkin';
+const JUMPKIN = 'jumpkin';
 
 const CREEPNUT_TREE = "creepist";
 const BANANA_TREE = "banana_tree";
@@ -47,7 +47,7 @@ const GRAAPSHOOT = 'graapshoot';
 const FIBONICCUS = 'Fiboniccus';
 const MYCOPIA = 'mycopia';
 const ASPERAGUNK = 'asperagunk';
-const BUMPJUNKIN = 'bumpjunkin';
+const BUMPJUMPKIN = 'bumpjumpkin';
 
 const BLUEPRINT = "blueprint";
 const SNIPER_HELMET = "sniper_helmet";
@@ -283,10 +283,10 @@ export const itemEnum: {[index: string]: any} = {
     [FILANDRA]: {
         'image': require('@/assets/images/items/fruit/fruit12.jpg')
     },
-    [BUMPJUNKIN]: {
+    [BUMPJUMPKIN]: {
         'image': require('@/assets/images/items/plant/fruit_tree13.jpg')
     },
-    [JUNKIN]: {
+    [JUMPKIN]: {
         'image': require('@/assets/images/items/fruit/fruit13.jpg')
     },
 

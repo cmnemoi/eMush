@@ -38,7 +38,7 @@ class PlaceConfigData
             'placeName' => 'alpha_bay_2',
             'type' => 'room',
             'doors' => ['alpha_bay_alpha_bay_2', 'engine_room_bay_alpha_2', 'rear_corridor_bay_alpha_2', 'rear_alpha_turret_bay_alpha_2'],
-            'items' => ['oscilloscope_blueprint'],
+            'items' => ['oscilloscope_blueprint', 'sniper_helmet_blueprint'],
             'equipments' => ['patrol_ship_alpha_2_wallis', 'pasiphae', 'dynarcade', 'jukebox'],
         ],
         [
@@ -62,7 +62,7 @@ class PlaceConfigData
             'placeName' => 'laboratory',
             'type' => 'room',
             'doors' => ['front_corridor_laboratory', 'medlab_laboratory'],
-            'items' => ['sniper_helmet_blueprint', 'alien_bottle_opener', 'creepnut', 'bottine', 'fragilane', 'filandra'],
+            'items' => [],
             'equipments' => ['gravity_simulator', 'research_laboratory', 'cryo_module', 'mycoscan'],
         ],
         [

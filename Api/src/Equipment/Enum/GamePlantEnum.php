@@ -17,7 +17,7 @@ class GamePlantEnum
     public const FIBONICCUS = 'Fiboniccus';
     public const MYCOPIA = 'mycopia';
     public const ASPERAGUNK = 'asperagunk';
-    public const BUMPJUNKIN = 'bumpjunkin';
+    public const BUMPJUMPKIN = 'bumpjumpkin';
 
     /**
      * @return string[]
@@ -40,7 +40,7 @@ class GamePlantEnum
             self::FIBONICCUS,
             self::MYCOPIA,
             self::ASPERAGUNK,
-            self::BUMPJUNKIN,
+            self::BUMPJUMPKIN,
         ];
     }
 

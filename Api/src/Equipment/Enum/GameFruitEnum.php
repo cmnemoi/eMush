@@ -2,6 +2,8 @@
 
 namespace Mush\Equipment\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class GameFruitEnum
 {
     public const BANANA = 'banana';
@@ -17,7 +19,7 @@ class GameFruitEnum
     public const KUBINUS = 'kubinus';
     public const CALEBOOT = 'caleboot';
     public const FILANDRA = 'filandra';
-    public const JUNKIN = 'junkin';
+    public const JUMPKIN = 'jumpkin';
 
     /**
      * @return string[]
@@ -40,7 +42,7 @@ class GameFruitEnum
             self::KUBINUS,
             self::CALEBOOT,
             self::FILANDRA,
-            self::JUNKIN,
+            self::JUMPKIN,
         ];
     }
 
@@ -73,9 +75,9 @@ class GameFruitEnum
         ];
     }
 
-    public static function getAlienFruits(): array
+    public static function getAlienFruits(): ArrayCollection
     {
-        return [
+        return new ArrayCollection([
             self::CREEPNUT,
             self::MEZTINE,
             self::GUNTIFLOP,
@@ -88,6 +90,6 @@ class GameFruitEnum
             self::KUBINUS,
             self::CALEBOOT,
             self::FILANDRA,
-        ];
+        ]);
     }
 }

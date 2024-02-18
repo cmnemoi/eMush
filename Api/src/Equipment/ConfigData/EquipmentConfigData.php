@@ -1366,8 +1366,8 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'junkin_default',
-            'equipmentName' => 'junkin',
+            'name' => 'jumpkin_default',
+            'equipmentName' => 'jumpkin',
             'isBreakable' => false,
             'isFireDestroyable' => true,
             'isFireBreakable' => false,
@@ -1382,13 +1382,13 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'fruit_junkin_default',
+                'fruit_jumpkin_default',
             ],
             'initStatuses' => [],
         ],
         [
-            'name' => 'bumpjunkin_default',
-            'equipmentName' => 'bumpjunkin',
+            'name' => 'bumpjumpkin_default',
+            'equipmentName' => 'bumpjumpkin',
             'isBreakable' => false,
             'isFireDestroyable' => true,
             'isFireBreakable' => false,
@@ -1403,7 +1403,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'plant_bumpjunkin_default',
+                'plant_bumpjumpkin_default',
             ],
             'initStatuses' => [],
         ],

@@ -55,16 +55,16 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             ->setDisease(DiseaseEnum::JUNKBUMPKINITIS)
         ;
 
-        $junkinDiseasesConfig = new ConsumableDiseaseConfig();
-        $junkinDiseasesConfig
-            ->setCauseName(GameFruitEnum::JUNKIN)
+        $jumpkinDiseasesConfig = new ConsumableDiseaseConfig();
+        $jumpkinDiseasesConfig
+            ->setCauseName(GameFruitEnum::JUMPKIN)
             ->setAttributes(new ArrayCollection([$junkbumpkinitis]))
             ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
         ;
-        $junkbumpkinitis->setConsumableDiseaseConfig($junkinDiseasesConfig);
+        $junkbumpkinitis->setConsumableDiseaseConfig($jumpkinDiseasesConfig);
 
-        $manager->persist($junkinDiseasesConfig);
-        $gameConfig->addConsumableDiseaseConfig($junkinDiseasesConfig);
+        $manager->persist($jumpkinDiseasesConfig);
+        $gameConfig->addConsumableDiseaseConfig($jumpkinDiseasesConfig);
 
         $acidReflux = new ConsumableDiseaseAttribute();
         $acidReflux

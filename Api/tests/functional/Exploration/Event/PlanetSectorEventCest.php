@@ -12,6 +12,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -604,6 +605,46 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertCount(4, $roomLogs);
         $roomLogParameters = $roomLogs[0]->getParameters();
         $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
+
+        // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
+        $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
+    }
+
+    public function testHarvestEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
+            explorators: $this->players
+        );
+
+        // given only harvest event can happen in fruit trees sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::FRUIT_TREES,
+            events: [PlanetSectorEvent::HARVEST_3 => 1]
+        );
+
+        // when harvest event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see 3 alien fruits in planet place
+        $I->assertCount(
+            expectedCount: 3,
+            haystack: $this->daedalus->getPlanetPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => GameFruitEnum::getAlienFruits()->contains($gameEquipment->getName()))
+        );
+
+        // then I should see 3 public logs in planet place to tell an explorator has found an alien fruit
+        $roomLogs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+            ]
+        );
+        $I->assertCount(3, $roomLogs);
+        $roomLogParameters = $roomLogs[0]->getParameters();
+        $I->assertTrue(GameFruitEnum::getAlienFruits()->contains($roomLogParameters['target_item']));
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
         $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));

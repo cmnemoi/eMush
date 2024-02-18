@@ -50,6 +50,15 @@ final class StatusEventSubscriber implements EventSubscriberInterface
             $this->ejectFocusedPlayers($statusHolder, $event->getTags(), $event->getTime());
             $this->makeLaidDownPlayersGetUp($statusHolder, $event->getTags(), $event->getTime());
         }
+
+        if ($event->getStatusName() === PlayerStatusEnum::MUSH) {
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::STARVING,
+                $statusHolder,
+                $event->getTags(),
+                $event->getTime()
+            );
+        }
     }
 
     public function onStatusRemoved(StatusEvent $event): void

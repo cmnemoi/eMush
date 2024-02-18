@@ -35,7 +35,7 @@ class CycleService implements CycleServiceInterface
     }
 
     public function handleDaedalusAndExplorationCycleChanges(\DateTime $dateTime, Daedalus $daedalus): CycleChangeResult
-    {   
+    {
         $lock = $this->lockFactory->createLock('daedalus_cycle_change');
         if (!$lock->acquire()) {
             return new CycleChangeResult(0, 0);

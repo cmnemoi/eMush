@@ -13,31 +13,44 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Lock\LockFactory;
 
 class CycleService implements CycleServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
+    private LockFactory $lockFactory;
     private LoggerInterface $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
+        LockFactory $lockFactory,
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
+        $this->lockFactory = $lockFactory;
         $this->logger = $logger;
     }
 
     public function handleDaedalusAndExplorationCycleChanges(\DateTime $dateTime, Daedalus $daedalus): CycleChangeResult
-    {
-        $daedalusCyclesElapsed = $this->handleDaedalusCycleChange($dateTime, $daedalus);
-        $exploration = $daedalus->getExploration();
-        if ($exploration) {
-            $explorationCyclesElapsed = $this->handleExplorationCycleChange($dateTime, $exploration);
-        } else {
-            $explorationCyclesElapsed = 0;
+    {   
+        $lock = $this->lockFactory->createLock('daedalus_cycle_change');
+        if (!$lock->acquire()) {
+            return new CycleChangeResult(0, 0);
+        }
+
+        try {
+            $daedalusCyclesElapsed = $this->handleDaedalusCycleChange($dateTime, $daedalus);
+            $exploration = $daedalus->getExploration();
+            if ($exploration) {
+                $explorationCyclesElapsed = $this->handleExplorationCycleChange($dateTime, $exploration);
+            } else {
+                $explorationCyclesElapsed = 0;
+            }
+        } finally {
+            $lock->release();
         }
 
         return new CycleChangeResult($daedalusCyclesElapsed, $explorationCyclesElapsed);

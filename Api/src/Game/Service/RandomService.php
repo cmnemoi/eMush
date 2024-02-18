@@ -3,6 +3,7 @@
 namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
@@ -11,7 +12,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
-use Mush\Exploration\Repository\PlanetSectorRepository;
+use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Hunter\Entity\Hunter;
@@ -22,13 +24,15 @@ use Mush\Player\Entity\Player;
 
 class RandomService implements RandomServiceInterface
 {
+    private EntityManagerInterface $entityManager;
     private GameEquipmentRepository $gameEquipmentRepository;
-    private PlanetSectorRepository $planetSectorRepository;
 
-    public function __construct(GameEquipmentRepository $gameEquipmentRepository, PlanetSectorRepository $planetSectorRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        GameEquipmentRepository $gameEquipmentRepository,
+    ) {
+        $this->entityManager = $entityManager;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
-        $this->planetSectorRepository = $planetSectorRepository;
     }
 
     public function random(int $min, int $max): int
@@ -273,6 +277,12 @@ class RandomService implements RandomServiceInterface
             $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetExploration());
         }
 
+        if ($planet->getDaedalus()->isThereLostPlayers()) {
+            $lostSector = $this->getLostPlanetSector($planet);
+            $this->entityManager->persist($lostSector);
+            $probaCollection->setElementProbability($lostSector->getId(), $this->getLostPlanetSector($planet)->getWeightAtPlanetExploration());
+        }
+
         return $probaCollection;
     }
 
@@ -281,7 +291,7 @@ class RandomService implements RandomServiceInterface
         /** @var ArrayCollection<int, PlanetSector> $sectors */
         $sectors = new ArrayCollection();
         foreach ($sectorIds as $sectorId) {
-            $sector = $this->planetSectorRepository->find($sectorId);
+            $sector = $this->entityManager->find(PlanetSector::class, $sectorId);
             if (!$sector) {
                 throw new \RuntimeException("Sector $sectorId not found");
             }
@@ -289,5 +299,25 @@ class RandomService implements RandomServiceInterface
         }
 
         return $sectors;
+    }
+
+    private function getLostPlanetSector(Planet $planet): PlanetSector
+    {
+        // If the lost sector is already on the planet, return it
+        /** @var PlanetSector|false $lostSector */
+        $lostSector = $planet->getSectorByName(PlanetSectorEnum::LOST);
+        if ($lostSector) {
+            return $lostSector;
+        }
+
+        // Else, create it
+        $lostSectorConfig = $planet->getDaedalus()->getGameConfig()->getPlanetSectorConfigs()->filter(
+            fn (PlanetSectorConfig $sector) => $sector->getSectorName() === PlanetSectorEnum::LOST
+        )->first();
+        if (!$lostSectorConfig) {
+            throw new \RuntimeException('Lost sector config not found');
+        }
+
+        return new PlanetSector($lostSectorConfig, $planet);
     }
 }

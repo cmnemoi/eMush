@@ -556,5 +556,12 @@ class EventConfigData
             'outputQuantity' => [50 => 1],
             'outputTable' => [],
         ],
+        [
+            'type' => 'planet_sector_event_config',
+            'name' => 'again',
+            'eventName' => 'again',
+            'outputQuantity' => [],
+            'outputTable' => [],
+        ],
     ];
 }

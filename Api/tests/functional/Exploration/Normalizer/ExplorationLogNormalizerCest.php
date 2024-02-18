@@ -630,4 +630,43 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeAgainEvent(FunctionalTester $I): void
+    {
+        // given desert sector has only again event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::DESERT,
+            events: [PlanetSectorEvent::AGAIN => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the kill all event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when kill all event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::AGAIN
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::DESERT,
+                'planetSectorName' => 'Désert',
+                'eventName' => 'Érrance',
+                'eventDescription' => 'Cette marche dans le désert ne rime à rien, vous n\'avez aucune idée de votre position et décidez de revenir sur vos pas.',
+                'eventOutcome' => 'Échec de l\'exploration de la zone. Il reste quand même des choses à découvrir…',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

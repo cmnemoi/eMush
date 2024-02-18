@@ -479,5 +479,27 @@
         <target>Ces champs ont été visités récemment. Vous avancez mais… une odeur de moisi vous saisit à la gorge, des volutes roses vous asphyxient, c'est un piège ! Fuyez, le Mush est déjà là !</target>
       </segment>
     </unit>
+    <unit id="again">
+      <segment id="name" state="final">
+        <source>again.name</source>
+        <target>Érrance</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>again.description</source>
+        <target>Échec de l'exploration de la zone. Il reste quand même des choses à découvrir…</target>
+      </segment>
+      <segment id="desert_description" state="final">
+        <source>again.desert_description</source>
+        <target>Cette marche dans le désert ne rime à rien, vous n'avez aucune idée de votre position et décidez de revenir sur vos pas.</target>
+      </segment>
+      <segment id="forest_description" state="final">
+        <source>again.forest_description</source>
+        <target>Vous vous perdez dans les méandres de la forêt.</target>
+      </segment>
+      <segment id="cave_description" state="final">
+        <source>again.cave_description</source>
+        <target>Ce réseau de cavernes est inextricable, vous arrivez néanmoins à trouver la sortie, mais vous avez la sensation qu'il reste quelque chose là dedans…</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

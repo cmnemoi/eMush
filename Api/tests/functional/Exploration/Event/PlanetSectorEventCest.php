@@ -76,6 +76,13 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             tags: [],
             time: new \DateTime(),
         );
+
+        // given lost sector has no chance to be visited
+        $lostSectorConfig = $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: []
+        );
+        $lostSectorConfig->setWeightAtPlanetExploration(0);
     }
 
     public function testAccidentHurtsExplorator(FunctionalTester $I): void
@@ -1004,10 +1011,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         // given only find lost event can happen in lost sector
-        $this->setupPlanetSectorEvents(
+        $lostSectorConfig = $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::LOST,
             events: [PlanetSectorEvent::FIND_LOST => 1]
         );
+        $lostSectorConfig->setWeightAtPlanetExploration(1);
 
         // when find lost event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);

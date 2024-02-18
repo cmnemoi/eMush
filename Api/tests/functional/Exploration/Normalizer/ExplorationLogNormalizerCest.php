@@ -835,4 +835,68 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeFindLostEvent(FunctionalTester $I): void
+    {
+        // given Lost sector only has find lost event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [PlanetSectorEvent::FIND_LOST => 1]
+        );
+
+        // given player is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the find lost event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when find lost event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIND_LOST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $firstVersion = 'Vous avez trouvé des traces de pas humaines !!! En les suivant vous tombez sur Chun. Quelle déception…';
+        $secondVersion = 'Alors que vous vous apprétiez à quitter la zone, vous entendez des cris derrière vous. Il s\'agit de Chun qui court après vous en hurlant depuis plus d\'une heure. Ses vêtements sont tout déchirés !';
+        try {
+            $I->assertEquals(
+                expected: [
+                    'id' => $explorationLog->getId(),
+                    'planetSectorKey' => PlanetSectorEnum::LOST,
+                    'planetSectorName' => 'Perdu',
+                    'eventName' => 'Retrouvaille',
+                    'eventDescription' => $firstVersion,
+                    'eventOutcome' => 'Un équipier perdu est retrouvé !',
+                ],
+                actual: $normalizedExplorationLog,
+            );
+        } catch (\Exception $e) {
+            $I->assertEquals(
+                expected: [
+                    'id' => $explorationLog->getId(),
+                    'planetSectorKey' => PlanetSectorEnum::LOST,
+                    'planetSectorName' => 'Perdu',
+                    'eventName' => 'Retrouvaille',
+                    'eventDescription' => $secondVersion,
+                    'eventOutcome' => 'Un équipier perdu est retrouvé !',
+                ],
+                actual: $normalizedExplorationLog,
+            );
+        }
+        
+    }
 }

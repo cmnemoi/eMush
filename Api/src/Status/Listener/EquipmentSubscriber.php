@@ -7,7 +7,8 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Place\Entity\Place;
+use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -65,8 +66,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getGameEquipment();
         $this->statusService->removeAllStatuses($equipment, $event->getTags(), $event->getTime());
 
-        if ($equipment->getName() === GearItemEnum::INVERTEBRATE_SHELL) {
-            $this->breakPlaceEquipment($equipment->getPlace());
+        if ($event->hasAllTags([GearItemEnum::INVERTEBRATE_SHELL, EventEnum::FIRE])) {
+            $this->breakPlaceEquipment($event);
         }
     }
 
@@ -108,8 +109,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function breakPlaceEquipment(Place $place): void
+    private function breakPlaceEquipment(EquipmentEvent $event): void
     {
+        $place = $event->getGameEquipment()->getPlace();
+
         $breakablePlaceEquipment = $place->getEquipments()->filter(function (GameEquipment $equipment) {
             return $equipment->getEquipment()->isBreakable();
         });
@@ -117,10 +120,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
         /** @var GameEquipment $equipment */
         foreach ($breakablePlaceEquipment as $equipment) {
             $this->statusService->createStatusFromName(
-                EquipmentStatusEnum::BROKEN,
-                $equipment,
-                [],
-                new \DateTime()
+                statusName: EquipmentStatusEnum::BROKEN,
+                holder: $equipment,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+                visibility: VisibilityEnum::PUBLIC,
             );
         }
     }

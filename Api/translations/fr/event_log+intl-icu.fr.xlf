@@ -709,5 +709,11 @@
         }</target>
       </segment>
     </unit>
+    <unit id="invertebrate_shell_explosion">
+      <segment state="final">
+        <source>invertebrate_shell_explosion</source>
+        <target>La Cartouche invertébrée explose dans une gerbe de flammes qui met hors service tous les équipements de la pièce !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -7,25 +7,22 @@ namespace Mush\tests\functional\Equipment\Service;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-final class EquipmentDestroyedCest extends AbstractFunctionalTest
+final class GameEquipmentServiceCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-
-        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testInvertebrateShellBreaksAllEquipmentInRoomAfterBeingDestroyedByAFire(FunctionalTester $I): void
@@ -70,15 +67,11 @@ final class EquipmentDestroyedCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
+        // given fire has a 100% chance to destroy equipment
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentFireBreakRate(100);
+
         // when the invertebrate shell is destroyed by a fire
-        $equipmentEvent = new EquipmentEvent(
-            $invertebrateShell,
-            false,
-            VisibilityEnum::PUBLIC,
-            [EventEnum::FIRE],
-            new \DateTime(),
-        );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        $this->gameEquipmentService->handleBreakFire($invertebrateShell, new \DateTime());
 
         // then the turret should be broken
         $I->assertTrue($turret->isBroken());
@@ -91,5 +84,26 @@ final class EquipmentDestroyedCest extends AbstractFunctionalTest
 
         // then the itrackie in the player's inventory should not be broken (in player's inventory)
         $I->assertFalse($itrackieInInventory->isBroken());
+
+        // then I should see a public room log telling that the shell exploded
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::INVERTEBRATE_SHELL_EXPLOSION,
+            ]
+        );
+
+        // then I should see a public room logs telling that the turret and the scooter have been broken
+        $logs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => StatusEventLogEnum::EQUIPMENT_BROKEN,
+            ]
+        );
+        $I->assertCount(2, $logs);
     }
 }

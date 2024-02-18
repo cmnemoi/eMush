@@ -521,7 +521,7 @@
         <source>item_lost.strong_wind_description</source>
         <target>{equipment_gender, select,
         male {Le vent souffle si fort que {character} laisse échapper un {equipment} ! On est pas près de le retrouver…}
-        female {Le vent souffle si fort que {character} laisse échapper une {equipment} ! On est pas près de le retrouver…}
+        female {Le vent souffle si fort que {character} laisse échapper une {equipment} ! On est pas près de la retrouver…}
         other {Le vent souffle si fort que {character} laisse échapper un {equipment} ! On est pas près de le retrouver…}}</target>
       </segment>
     </unit>

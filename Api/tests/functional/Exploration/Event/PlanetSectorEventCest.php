@@ -990,4 +990,25 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then I should see a lost sector on the planet
         $I->assertTrue($exploration->getPlanet()->hasSectorByName(PlanetSectorEnum::LOST));
     }
+
+    public function testFindLostEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([], $I),
+            explorators: $this->players
+        );
+
+        // given only find lost event can happen in lost sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [PlanetSectorEvent::FIND_LOST => 1]
+        );
+
+        // when find lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice is not lost anymore
+        $I->assertFalse($this->janice->hasStatus(PlayerStatusEnum::LOST));
+    }
 }

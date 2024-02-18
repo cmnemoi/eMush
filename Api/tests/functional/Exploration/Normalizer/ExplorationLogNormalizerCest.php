@@ -497,6 +497,5 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 actual: $normalizedExplorationLog,
             );
         }
-        
     }
 }

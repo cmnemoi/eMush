@@ -600,4 +600,25 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
         $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
     }
+
+    public function testFindLostEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([], $I),
+            explorators: $this->players
+        );
+
+        // given only find lost event can happen in lost sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [PlanetSectorEvent::FIND_LOST => 1]
+        );
+
+        // when find lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice is not lost anymore
+        $I->assertFalse($this->janice->hasStatus(PlayerStatusEnum::LOST));
+    }
 }

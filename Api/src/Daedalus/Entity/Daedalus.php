@@ -32,6 +32,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
@@ -610,5 +611,15 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function hasAnOngoingExploration(): bool
     {
         return $this->exploration !== null;
+    }
+
+    public function getLostPlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->hasStatus(PlayerStatusEnum::LOST));
+    }
+
+    public function isThereLostPlayers(): bool
+    {
+        return !$this->getLostPlayers()->isEmpty();
     }
 }

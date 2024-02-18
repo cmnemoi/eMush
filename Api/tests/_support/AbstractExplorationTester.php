@@ -88,7 +88,7 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
         return $this->explorationService->createExploration(
             players: new PlayerCollection($explorators->toArray()),
             explorationShip: $this->icarus,
-            numberOfSectorsToVisit: $planet->getSize(),
+            numberOfSectorsToVisit: 9,
             reasons: ['test'],
         );
     }

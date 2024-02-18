@@ -27,6 +27,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -995,6 +996,9 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     public function testFindLostEvent(FunctionalTester $I): void
     {
+        // given Janice has 10 morale points
+        $this->janice->setMoralPoint(10);
+
         // given an exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([], $I),
@@ -1012,5 +1016,22 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then Janice is not lost anymore
         $I->assertFalse($this->janice->hasStatus(PlayerStatusEnum::LOST));
+
+        // then Janice should have gained 3 morale points
+        $I->assertEquals(
+            expected: 13,
+            actual: $this->janice->getMoralPoint(),
+        );
+
+        // then I should see a private log in planet place to tell that Janice has gained morale points
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'playerInfo' => $this->janice->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => PlayerModifierLogEnum::GAIN_MORAL_POINT,
+            ]
+        );
     }
 }

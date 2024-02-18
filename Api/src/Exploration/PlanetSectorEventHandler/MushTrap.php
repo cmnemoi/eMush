@@ -19,7 +19,7 @@ final class MushTrap extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $infectionRate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
+        $infectionRate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
 
         foreach ($event->getExploration()->getNotLostExplorators() as $explorator) {
             if ($this->randomService->isSuccessful($infectionRate)) {

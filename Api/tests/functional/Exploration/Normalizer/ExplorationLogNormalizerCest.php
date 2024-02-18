@@ -816,11 +816,11 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the kill all event
+        // given two extra steps are made to trigger the player lost event
         $this->explorationService->dispatchExplorationEvent($this->exploration);
         $this->explorationService->dispatchExplorationEvent($this->exploration);
 
-        // when kill all event exploration log is normalized
+        // when player lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
             fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PLAYER_LOST
         )->first();

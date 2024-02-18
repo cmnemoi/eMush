@@ -501,5 +501,29 @@
         <target>Ce réseau de cavernes est inextricable, vous arrivez néanmoins à trouver la sortie, mais vous avez la sensation qu'il reste quelque chose là dedans…</target>
       </segment>
     </unit>
+    <unit id="item_lost">
+      <segment id="name" state="final">
+        <source>item_lost.name</source>
+        <target>Objet perdu</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>item_lost.description</source>
+        <target>Un objet possédé par un des équipiers est perdu.</target>
+      </segment>
+      <segment id="intelligent_description" state="final">
+        <source>item_lost.intelligent_description</source>
+        <target>{equipment_gender, select,
+        male {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
+        female {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'une {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
+        other {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}}</target>
+      </segment>
+      <segment id="strong_wind_description" state="final">
+        <source>item_lost.strong_wind_description</source>
+        <target>{equipment_gender, select,
+        male {Le vent souffle si fort que {character} laisse échapper un {equipment} ! On est pas près de le retrouver…}
+        female {Le vent souffle si fort que {character} laisse échapper une {equipment} ! On est pas près de la retrouver…}
+        other {Le vent souffle si fort que {character} laisse échapper un {equipment} ! On est pas près de le retrouver…}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

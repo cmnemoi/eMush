@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Exploration\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -21,6 +23,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     private ExplorationLogNormalizer $explorationLogNormalizer;
 
     private Exploration $exploration;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private TranslationServiceInterface $translationService;
 
@@ -30,6 +33,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         $this->explorationLogNormalizer = $I->grabService(ExplorationLogNormalizer::class);
 
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->translationService = $I->grabService(TranslationServiceInterface::class);
     }
@@ -665,6 +669,92 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Érrance',
                 'eventDescription' => 'Cette marche dans le désert ne rime à rien, vous n\'avez aucune idée de votre position et décidez de revenir sur vos pas.',
                 'eventOutcome' => 'Échec de l\'exploration de la zone. Il reste quand même des choses à découvrir…',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeItemLostEvent(FunctionalTester $I): void
+    {
+        // given inelligent sector has only item lost event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ITEM_LOST => 1]
+        );
+
+        // given player has a iTrackie
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::ITRACKIE,
+            equipmentHolder: $this->player,
+            reasons : [],
+            time: new \DateTime(),
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the item lost event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when item lost event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::ITEM_LOST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Objet perdu',
+                'eventDescription' => 'Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d\'entre vous puis s\'empare d\'un iTrackie®© appartenant à Chun et s\'enfuit à grandes enjambées.',
+                'eventOutcome' => 'Un objet possédé par un des équipiers est perdu.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeItemLostEventWithNoItemToLose(FunctionalTester $I): void
+    {
+        // given inelligent sector has only item lost event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ITEM_LOST => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the item lost event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when intelligent sector event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected : nothing to report
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Rien à signaler',
+                'eventDescription' => 'Un grand cri résonne. Un moment de panique. Puis plus rien…',
+                'eventOutcome' => 'La zone est explorée, rien à signaler.',
             ],
             actual: $normalizedExplorationLog,
         );

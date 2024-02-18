@@ -144,6 +144,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::FIGHT_12 => 4,
                 PlanetSectorEvent::PROVISION_2 => 3,
                 PlanetSectorEvent::ARTEFACT => 2,
+                PlanetSectorEvent::ITEM_LOST => 1,
             ],
         ],
         [
@@ -238,6 +239,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 6,
                 PlanetSectorEvent::TIRED_2 => 3,
+                PlanetSectorEvent::ITEM_LOST => 1,
             ],
         ],
         [

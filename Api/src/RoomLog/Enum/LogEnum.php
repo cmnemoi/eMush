@@ -58,6 +58,7 @@ class LogEnum
     public const DISEASE_BY_ALIEN_FIGHT = 'disease_by_alien_fight';
     public const DISEASE_BY_ALIEN_TRAVEL = 'disease_by_alien_travel';
     public const INVERTEBRATE_SHELL_EXPLOSION = 'invertebrate_shell_explosion';
+    public const LOST_ITEM_IN_EXPLORATION = 'lost_item_in_exploration';
 
     public const VISIBILITY = 'visibility';
     public const VALUE = 'value';

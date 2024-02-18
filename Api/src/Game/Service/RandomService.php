@@ -280,7 +280,7 @@ class RandomService implements RandomServiceInterface
         if ($planet->getDaedalus()->isThereLostPlayers()) {
             $lostSector = $this->getLostPlanetSector($planet);
             $this->entityManager->persist($lostSector);
-            $probaCollection->setElementProbability($lostSector->getId(), $this->getLostPlanetSector($planet)->getWeightAtPlanetExploration());
+            $probaCollection->setElementProbability($lostSector->getId(), $lostSector->getWeightAtPlanetExploration());
         }
 
         return $probaCollection;

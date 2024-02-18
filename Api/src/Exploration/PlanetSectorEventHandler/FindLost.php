@@ -14,7 +14,8 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 final class FindLost extends AbstractPlanetSectorEventHandler
-{
+{   
+    private const NUMBER_OF_DESCRIPTIONS = 2;
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -48,6 +49,11 @@ final class FindLost extends AbstractPlanetSectorEventHandler
         // (we don't want players to see it in astro terminal for example)
         $this->entityManager->remove($event->getPlanetSector());
 
-        return $this->createExplorationLog($event, parameters: [$foundPlayer->getLogKey() => $foundPlayer->getLogName()]);
+        $logParameters = [
+            $foundPlayer->getLogKey() => $foundPlayer->getLogName(),
+            'version' => $this->randomService->random(1, self::NUMBER_OF_DESCRIPTIONS),
+        ];
+        
+        return $this->createExplorationLog($event, $logParameters);
     }
 }

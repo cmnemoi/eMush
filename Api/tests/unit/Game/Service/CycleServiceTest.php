@@ -14,6 +14,8 @@ use Mush\Game\Service\CycleService;
 use Mush\Game\Service\EventServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\Lock\LockInterface;
 
 class CycleServiceTest extends TestCase
 {
@@ -21,6 +23,8 @@ class CycleServiceTest extends TestCase
     private EventServiceInterface $eventService;
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+    /** @var LockFactory|Mockery\Spy */
+    private LockFactory $lockFactory;
     /** @var LoggerInterface|Mockery\Mock */
     private LoggerInterface $logger;
 
@@ -33,12 +37,20 @@ class CycleServiceTest extends TestCase
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->lockFactory = \Mockery::mock(LockFactory::class);
         $this->logger = \Mockery::mock(LoggerInterface::class);
 
         $this->entityManager->shouldReceive('persist');
         $this->entityManager->shouldReceive('flush');
 
-        $this->service = new CycleService($this->entityManager, $this->eventService, $this->logger);
+        $lockInterface = \Mockery::mock(LockInterface::class);
+        $lockInterface->shouldReceive('acquire')->andReturn(true);
+
+        $lockInterface->shouldReceive('release');
+
+        $this->lockFactory->shouldReceive('createLock')->andReturn($lockInterface);
+
+        $this->service = new CycleService($this->entityManager, $this->eventService, $this->lockFactory, $this->logger);
     }
 
     /**

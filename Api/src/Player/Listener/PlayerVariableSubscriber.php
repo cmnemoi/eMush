@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -114,7 +115,11 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
     private function handleInfection(Player $player, PlayerVariableEvent $playerEvent): void
     {
-        if ($playerEvent->getRoundedQuantity() > 0 && !$player->isMush()) {
+        if ($player->isMush() && !$playerEvent->hasTag(PlanetSectorEvent::MUSH_TRAP)) {
+            return;
+        }
+
+        if ($playerEvent->getRoundedQuantity() > 0) {
             $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
         }
 

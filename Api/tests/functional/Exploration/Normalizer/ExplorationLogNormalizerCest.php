@@ -591,4 +591,43 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeMushTrap(FunctionalTester $I): void
+    {
+        // given cristal field sector has only mush trap event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::CRISTAL_FIELD,
+            events: [PlanetSectorEvent::MUSH_TRAP => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the mush trap event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when mush trap event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::MUSH_TRAP
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::CRISTAL_FIELD,
+                'planetSectorName' => 'Cristalite',
+                'eventName' => 'Piège Mush',
+                'eventDescription' => 'Ces champs ont été visités récemment. Vous avancez mais… une odeur de moisi vous saisit à la gorge, des volutes roses vous asphyxient, c\'est un piège ! Fuyez, le Mush est déjà là !',
+                'eventOutcome' => 'Tous les équipiers risquent une infection Mush.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

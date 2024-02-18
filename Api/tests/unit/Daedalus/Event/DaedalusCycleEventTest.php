@@ -38,7 +38,6 @@ class DaedalusCycleEventTest extends TestCase
     private EventServiceInterface $eventService;
     /** @var LockFactory|Mockery\Spy */
     private LockFactory $lockFactory;
-    
 
     private DaedalusCycleSubscriber $daedalusCycleSubscriber;
 

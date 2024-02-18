@@ -902,4 +902,52 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             );
         }
     }
+
+    public function testNormalizeKillLostEvent(FunctionalTester $I): void
+    {
+        // given Lost sector only has kill lost event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [PlanetSectorEvent::KILL_LOST => 1]
+        );
+
+        // given player is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the find lost event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when kill lost event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::KILL_LOST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::LOST,
+                'planetSectorName' => 'Perdu',
+                'eventName' => 'Mort',
+                'eventDescription' => 'Vous avez trouvé Chun derrière un rocher ! Malheureusement, elle ne bouge plus du tout. D\'ailleurs, elle n\'a pas l\'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu\'elle est morte…',
+                'eventOutcome' => 'L\'équipier perdu meurt.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

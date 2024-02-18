@@ -35,7 +35,12 @@ final class FindLost extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $foundPlayer = $this->randomService->getRandomPlayer($event->getExploration()->getDaedalus()->getLostPlayers());
+        $exploration = $event->getExploration();
+        $foundPlayer = $this->randomService->getRandomPlayer($exploration->getDaedalus()->getLostPlayers());
+        if (!$exploration->getExplorators()->contains($foundPlayer)) {
+            $exploration->addExplorator($foundPlayer);
+            $this->entityManager->persist($exploration);
+        }
 
         $this->statusService->removeStatus(
             statusName: PlayerStatusEnum::LOST,

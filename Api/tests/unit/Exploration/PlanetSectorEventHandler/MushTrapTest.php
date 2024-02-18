@@ -74,9 +74,14 @@ final class MushTrapTest extends TestCase
         $planetSectorEvent = $this->getMushTrapPlanetSectorEvent($planetSector);
 
         // Given universe is in a state in which the explorator is trapped
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->once()
+            ->andReturn(50)
+        ;
+
         $this->randomService->shouldReceive('isSuccessful')
             ->once()
-            ->with(MushTrap::INFECTION_RATE)
+            ->with(50)
             ->andReturn(true)
         ;
 
@@ -130,6 +135,7 @@ final class MushTrapTest extends TestCase
         $planetSectorEventConfig = new PlanetSectorEventConfig();
         $planetSectorEventConfig->setName(PlanetSectorEvent::MUSH_TRAP);
         $planetSectorEventConfig->setEventName(PlanetSectorEvent::MUSH_TRAP);
+        $planetSectorEventConfig->setOutputQuantity([50 => 1]);
 
         return new PlanetSectorEvent($planetSector, $planetSectorEventConfig);
     }

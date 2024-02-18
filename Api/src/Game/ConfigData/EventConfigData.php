@@ -553,7 +553,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'mush_trap',
             'eventName' => 'mush_trap',
-            'outputQuantity' => [],
+            'outputQuantity' => [50 => 1],
             'outputTable' => [],
         ],
     ];

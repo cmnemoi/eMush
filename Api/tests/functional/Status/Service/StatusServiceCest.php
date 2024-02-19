@@ -334,6 +334,28 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $I->assertCount(2, $threads);
     }
 
+    public function testTurningIntoMushRemovesStarvingStatus(FunctionalTester $I): void
+    {
+        // given player is starving
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::STARVING,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when player turns into mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // then player is not starving anymore
+        $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::STARVING));
+    }
+
     public function testDispatchEquipmentBroken(FunctionalTester $I)
     {
         $statusConfig = new StatusConfig();

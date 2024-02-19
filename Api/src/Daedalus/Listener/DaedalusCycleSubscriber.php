@@ -172,8 +172,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     private function updateDaedalusCycleJob(DaedalusCycleEvent $event): void
     {
-        $tags = $event->getTags();
-
         $daedalus = $event->getDaedalus();
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
@@ -181,13 +179,11 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $daedalus->setCycle(1);
             $daedalus->setDay($daedalus->getDay() + 1);
 
-            $tags[] = EventEnum::NEW_DAY;
+            $event->addTag(EventEnum::NEW_DAY);
         } else {
             $daedalus->setCycle($daedalus->getCycle() + 1);
         }
         $this->daedalusService->persist($daedalus);
-
-        $event->setTags($tags);
     }
 
     private function resetSpores(DaedalusCycleEvent $event): void

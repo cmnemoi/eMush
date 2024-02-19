@@ -108,13 +108,19 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     public function attributeTitles(DaedalusCycleEvent $event): void
     {
-        $daedalus = $event->getDaedalus();
-        $time = $event->getTime();
-        if ($daedalus->getGameStatus() !== GameStatusEnum::CURRENT) {
-            return;
-        }
+        $lock = $this->lockFactory->createLock('daedalus_attribute_titles');
+        $lock->acquire(true);
 
-        $this->daedalusService->attributeTitles($daedalus, $time);
+        try {
+            $daedalus = $event->getDaedalus();
+            if ($daedalus->getGameStatus() !== GameStatusEnum::CURRENT) {
+                return;
+            }
+
+            $this->daedalusService->attributeTitles($daedalus, $event->getTime());
+        } finally {
+            $lock->release();
+        }
     }
 
     private function applyDaedalusEndCycleJob(DaedalusCycleEvent $event): void

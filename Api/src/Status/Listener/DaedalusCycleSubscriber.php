@@ -8,15 +8,19 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusCycleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Lock\LockFactory;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     private EventServiceInterface $eventService;
+    private LockFactory $lockFactory;
 
     public function __construct(
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        LockFactory $lockFactory
     ) {
         $this->eventService = $eventService;
+        $this->lockFactory = $lockFactory;
     }
 
     public static function getSubscribedEvents(): array
@@ -28,8 +32,19 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
     public function onNewCycle(DaedalusCycleEvent $event): void
     {
-        $daedalus = $event->getDaedalus();
+        $lock = $this->lockFactory->createLock('daedalus_cycle');
+        $lock->acquire(true);
 
+        try {
+            $this->handleStatusesNewCycle($event);
+        } finally {
+            $lock->release();
+        }
+    }
+
+    private function handleStatusesNewCycle(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
         /** @var Status $status */
         foreach ($daedalus->getStatuses() as $status) {
             $statusNewCycle = new StatusCycleEvent(

@@ -23,6 +23,8 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\Lock\LockInterface;
 
 class DaedalusCycleEventTest extends TestCase
 {
@@ -34,6 +36,8 @@ class DaedalusCycleEventTest extends TestCase
     private DifficultyServiceInterface $difficultyService;
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+    /** @var LockFactory|Mockery\Spy */
+    private LockFactory $lockFactory;
 
     private DaedalusCycleSubscriber $daedalusCycleSubscriber;
 
@@ -46,12 +50,21 @@ class DaedalusCycleEventTest extends TestCase
         $this->daedalusIncidentService = \Mockery::mock(DaedalusIncidentServiceInterface::class);
         $this->difficultyService = \Mockery::Mock(DifficultyServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
+        $this->lockFactory = \Mockery::spy(LockFactory::class);
+
+        $lockInterface = \Mockery::mock(LockInterface::class);
+        $lockInterface->shouldReceive('acquire')->andReturn(true);
+
+        $lockInterface->shouldReceive('release');
+
+        $this->lockFactory->shouldReceive('createLock')->andReturn($lockInterface);
 
         $this->daedalusCycleSubscriber = new DaedalusCycleSubscriber(
             $this->daedalusService,
             $this->daedalusIncidentService,
             $this->difficultyService,
-            $this->eventService
+            $this->eventService,
+            $this->lockFactory
         );
     }
 

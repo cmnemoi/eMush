@@ -8,14 +8,17 @@ use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Lock\LockFactory;
 
 class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     private EventServiceInterface $eventService;
+    private LockFactory $lockFactory;
 
-    public function __construct(EventServiceInterface $eventService)
+    public function __construct(EventServiceInterface $eventService, LockFactory $lockFactory)
     {
         $this->eventService = $eventService;
+        $this->lockFactory = $lockFactory;
     }
 
     public static function getSubscribedEvents(): array
@@ -26,6 +29,18 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     }
 
     public function onNewCycle(DaedalusCycleEvent $event): void
+    {
+        $lock = $this->lockFactory->createLock('daedalus_cycle');
+        $lock->acquire(true);
+
+        try {
+            $this->handleEquipmentNewCycle($event);
+        } finally {
+            $lock->release();
+        }
+    }
+
+    private function handleEquipmentNewCycle($event): void
     {
         $daedalus = $event->getDaedalus();
 

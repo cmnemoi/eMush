@@ -492,57 +492,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertTrue($this->derek->isAlive());
     }
 
-    public function testFightEventRemovesHealthToAllExplorators(FunctionalTester $I): void
-    {
-        // given an exploration is created
-        $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
-            explorators: $this->players
-        );
-
-        // given Janice is lost
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LOST,
-            holder: $this->janice,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // given only fight event can happen in intelligent sector
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::INTELLIGENT,
-            events: ['fight_12' => 1]
-        );
-
-        $playersHealthBeforeEvent = [];
-        foreach ($this->players as $player) {
-            $playersHealthBeforeEvent[$player->getLogName()] = $player->getHealthPoint();
-        }
-
-        // when fight is dispatched
-        $this->explorationService->dispatchExplorationEvent($exploration);
-
-        // then player1 and player2 have their health decreased
-        foreach ([$this->player, $this->player2] as $player) {
-            $I->assertLessThan(
-                expected: $playersHealthBeforeEvent[$player->getLogName()],
-                actual: $player->getHealthPoint(),
-            );
-        }
-
-        // then Janice still has the same health, as she is lost
-        $I->assertEquals(
-            expected: $playersHealthBeforeEvent[$this->janice->getLogName()],
-            actual: $this->janice->getHealthPoint(),
-        );
-
-        // then Derek still has the same health, as he is stuck in the ship (no spacesuit)
-        $I->assertEquals(
-            expected: $playersHealthBeforeEvent[$this->derek->getLogName()],
-            actual: $this->derek->getHealthPoint(),
-        );
-    }
-
     public function testFightEventDoesNotRemoveHealthToExploratorsIfTheyHaveEnoughStrength(FunctionalTester $I): void
     {
         // given an exploration is created

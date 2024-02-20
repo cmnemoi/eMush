@@ -34,13 +34,13 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $lock->acquire(true);
 
         try {
-            $this->onNewCycleJob($event);
+            $this->handleEquipmentNewCycle($event);
         } finally {
             $lock->release();
         }
     }
 
-    private function onNewCycleJob($event): void
+    private function handleEquipmentNewCycle($event): void
     {
         $daedalus = $event->getDaedalus();
 

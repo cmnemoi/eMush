@@ -35,16 +35,21 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $lock->acquire(true);
 
         try {
-            foreach ($event->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
-                $newPlayerCycle = new PlayerCycleEvent(
-                    $player,
-                    $event->getTags(),
-                    $event->getTime()
-                );
-                $this->eventService->callEvent($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
-            }
+            $this->handlePlayersNewCycle($event);
         } finally {
             $lock->release();
+        }
+    }
+
+    private function handlePlayersNewCycle(DaedalusCycleEvent $event): void
+    {
+        foreach ($event->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {
+            $newPlayerCycle = new PlayerCycleEvent(
+                $player,
+                $event->getTags(),
+                $event->getTime()
+            );
+            $this->eventService->callEvent($newPlayerCycle, PlayerCycleEvent::PLAYER_NEW_CYCLE);
         }
     }
 }

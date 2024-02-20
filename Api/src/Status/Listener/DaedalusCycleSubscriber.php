@@ -36,19 +36,24 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $lock->acquire(true);
 
         try {
-            $daedalus = $event->getDaedalus();
-            /** @var Status $status */
-            foreach ($daedalus->getStatuses() as $status) {
-                $statusNewCycle = new StatusCycleEvent(
-                    $status,
-                    $daedalus,
-                    $event->getTags(),
-                    $event->getTime()
-                );
-                $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
-            }
+            $this->handleStatusesNewCycle($event);
         } finally {
             $lock->release();
+        }
+    }
+
+    private function handleStatusesNewCycle(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        /** @var Status $status */
+        foreach ($daedalus->getStatuses() as $status) {
+            $statusNewCycle = new StatusCycleEvent(
+                $status,
+                $daedalus,
+                $event->getTags(),
+                $event->getTime()
+            );
+            $this->eventService->callEvent($statusNewCycle, StatusCycleEvent::STATUS_NEW_CYCLE);
         }
     }
 }

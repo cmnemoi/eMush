@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Exploration\Event;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -35,6 +36,12 @@ final class ExplorationEventCest extends AbstractExplorationTester
                 PlanetSectorEnum::SISMIC_ACTIVITY,
             ],
             functionalTester: $I,
+        );
+
+        // given only nothing to report event can happen in sismic activity sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1],
         );
 
         // given I have an exploration on this planet
@@ -69,6 +76,12 @@ final class ExplorationEventCest extends AbstractExplorationTester
                 PlanetSectorEnum::SISMIC_ACTIVITY,
             ],
             functionalTester: $I,
+        );
+
+        // given only nothing to report event can happen in sismic activity sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1],
         );
 
         // given I have an exploration on this planet

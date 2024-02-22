@@ -1152,8 +1152,8 @@ class ModifierConfigData
             'tagConstraints' => [],
         ],
         [
-            'name' => 'modifier_for_player_-1moralPoint_on_new_cycle',
-            'modifierName' => null,
+            'name' => 'lost_modifier_for_player_-2moralPoint_on_new_cycle',
+            'modifierName' => 'lost_modifier',
             'targetEvent' => 'player.new.cycle',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,

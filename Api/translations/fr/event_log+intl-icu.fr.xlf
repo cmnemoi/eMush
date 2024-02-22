@@ -737,5 +737,15 @@
         }</target>
       </segment>
     </unit>
+    <unit id="lost_on_planet">
+      <segment state="translated">
+        <source>lost_on_planet</source>
+        <target>{target_equipment_gender, select,
+          male {Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?}
+          female {Vous vous sentez seul et abandonnée... Personne ne pense donc à vous là-haut ?}
+          other {Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

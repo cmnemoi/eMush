@@ -36,6 +36,7 @@ class PlayerModifierLogEnum
     public const FITFUL_SLEEP = 'fitful_sleep';
     public const LYING_DOWN = 'lying_down';
     public const DAILY_MORALE_LOSS = 'daily_morale_loss';
+    public const LOST_ON_PLANET = 'lost_on_planet';
 
     public const GAIN = 'gain';
     public const LOSS = 'loss';
@@ -74,6 +75,7 @@ class PlayerModifierLogEnum
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
+            ModifierNameEnum::LOST_MODIFIER => self::LOST_ON_PLANET,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
@@ -88,6 +90,7 @@ class PlayerModifierLogEnum
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,
             PlayerService::DAY_MORAL_CHANGE => VisibilityEnum::PRIVATE,
             HunterEvent::HUNTER_SHOT => VisibilityEnum::PUBLIC,
+            ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
         ],
     ];
 }

@@ -28,6 +28,7 @@ class EventConfigFixtures extends Fixture
     public const HEALTH_REDUCE_4 = 'change.variable_player_-4_healthPoint';
     public const HEALTH_REDUCE_6 = 'change.variable_player_-6_healthPoint';
     public const MORAL_REDUCE_1 = 'change.variable_player_-1_moralPoint';
+    public const MORAL_REDUCE_2 = 'change.variable_player_-2_moralPoint';
     public const ACTION_INCREASE_1 = 'change.variable_player_1_actionPoint';
     public const ACTION_REDUCE_1 = 'change.variable_player_-1_actionPoint';
     public const ACTION_REDUCE_2 = 'change.variable_player_-2_actionPoint';

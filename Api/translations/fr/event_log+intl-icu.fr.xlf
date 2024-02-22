@@ -742,7 +742,7 @@
         <source>lost_on_planet</source>
         <target>{target_equipment_gender, select,
           male {Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?}
-          female {Vous vous sentez seul et abandonnée... Personne ne pense donc à vous là-haut ?}
+          female {Vous vous sentez seule et abandonnée... Personne ne pense donc à vous là-haut ?}
           other {Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?}
         }</target>
       </segment>

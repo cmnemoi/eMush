@@ -986,7 +986,10 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         // then exploration log should be properly parameterized
-        $exploration = $exploration->getClosedExploration()->getLogs()->last();
-        $I->assertEquals($lostPlayer->getLogName(), $exploration->getParameters()['character']);
+        $explorationLog = $exploration->getClosedExploration()->getLogs()->last();
+        $I->assertEquals($lostPlayer->getLogName(), $explorationLog->getParameters()['character']);
+
+        // then I should see a lost sector on the planet
+        $I->assertTrue($exploration->getPlanet()->hasSectorByName(PlanetSectorEnum::LOST));
     }
 }

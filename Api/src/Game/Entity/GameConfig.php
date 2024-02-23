@@ -11,6 +11,7 @@ use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Exploration\Entity\Collection\PlanetSectorConfigCollection;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\Entity\Collection\TitleConfigCollection;
 use Mush\Game\Entity\Collection\TriumphConfigCollection;
@@ -333,9 +334,9 @@ class GameConfig
         return $this;
     }
 
-    public function getPlanetSectorConfigs(): Collection
+    public function getPlanetSectorConfigs(): PlanetSectorConfigCollection
     {
-        return $this->planetSectorConfigs;
+        return new PlanetSectorConfigCollection($this->planetSectorConfigs->toArray());
     }
 
     /**

@@ -800,4 +800,43 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizePlayerLostEvent(FunctionalTester $I): void
+    {
+        // given cristal field sector has only player lost event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::CRISTAL_FIELD,
+            events: [PlanetSectorEvent::PLAYER_LOST => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD, PlanetSectorEnum::OXYGEN], $I),
+            explorators: new ArrayCollection([$this->player]),
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the player lost event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when player lost event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PLAYER_LOST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::CRISTAL_FIELD,
+                'planetSectorName' => 'Cristalite',
+                'eventName' => 'Perdu',
+                'eventDescription' => 'Ces champs sont un vrai labyrinthe… Bon y a rien à secouer ici, on bouge. Est-ce que quelqu\'un a vu Chun ?',
+                'eventOutcome' => 'Un équipier se perd.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

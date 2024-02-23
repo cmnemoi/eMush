@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Mush\Exploration\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Exploration\Entity\Collection\PlanetSectorConfigCollection;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
@@ -251,7 +251,7 @@ final class PlanetService implements PlanetServiceInterface
         return $planet;
     }
 
-    private function getSectorConfigsTotalWeight(Collection $sectorConfigs): int
+    private function getSectorConfigsTotalWeight(PlanetSectorConfigCollection $sectorConfigs): int
     {
         $total = 0;
         foreach ($sectorConfigs as $sectorConfig) {

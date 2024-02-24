@@ -127,11 +127,6 @@ class Planet implements LogParameterInterface
         return $this->sectors->exists(fn ($key, PlanetSector $sector) => $sector->getName() === $name);
     }
 
-    public function getSectorByName(string $name): ?PlanetSector
-    {
-        return $this->sectors->filter(fn (PlanetSector $sector) => $sector->getName() === $name)->first() ?: null;
-    }
-
     /** @return Collection<int, PlanetSector> */
     public function getRevealedSectors(): Collection
     {

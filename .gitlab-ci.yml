@@ -120,7 +120,6 @@ front-lint:
   <<: *node_template
   stage: test
   needs: 
-    - job: check
     - job: build-front
   script:
     - yarn lint --no-fix
@@ -132,7 +131,6 @@ front-test:
   <<: *node_template
   stage: test
   needs: 
-    - job: check
     - job: build-front
   script:
     - yarn test

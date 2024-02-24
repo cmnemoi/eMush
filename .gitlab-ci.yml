@@ -102,6 +102,7 @@ api-test-develop:
       optional: true
     - job: build-front
   script:
+    - echo "[PHP] memory_limit = -1" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
     - pecl install xdebug && docker-php-ext-enable xdebug
     - php --ini memory_limit=-1
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
@@ -114,8 +115,8 @@ api-test-develop:
     # make the report available in Gitlab UI. see https://docs.gitlab.com/ee/ci/unit_test_reports.html
     reports:
       junit: Api/tests/_output/report.xml
-  only:
-    - develop
+  # only:
+  #   - develop
 
 front-lint:
   <<: *node_template

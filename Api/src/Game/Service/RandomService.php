@@ -277,12 +277,6 @@ class RandomService implements RandomServiceInterface
             $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetExploration());
         }
 
-        if ($planet->getDaedalus()->isThereLostPlayers()) {
-            $lostSector = $this->getLostPlanetSector($planet);
-            $this->entityManager->persist($lostSector);
-            $probaCollection->setElementProbability($lostSector->getId(), $lostSector->getWeightAtPlanetExploration());
-        }
-
         return $probaCollection;
     }
 
@@ -299,25 +293,5 @@ class RandomService implements RandomServiceInterface
         }
 
         return $sectors;
-    }
-
-    private function getLostPlanetSector(Planet $planet): PlanetSector
-    {
-        // If the lost sector is already on the planet, return it
-        /** @var PlanetSector|false $lostSector */
-        $lostSector = $planet->getSectorByName(PlanetSectorEnum::LOST);
-        if ($lostSector) {
-            return $lostSector;
-        }
-
-        // Else, create it
-        $lostSectorConfig = $planet->getDaedalus()->getGameConfig()->getPlanetSectorConfigs()->filter(
-            fn (PlanetSectorConfig $sector) => $sector->getSectorName() === PlanetSectorEnum::LOST
-        )->first();
-        if (!$lostSectorConfig) {
-            throw new \RuntimeException('Lost sector config not found');
-        }
-
-        return new PlanetSector($lostSectorConfig, $planet);
     }
 }

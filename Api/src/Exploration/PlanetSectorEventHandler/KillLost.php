@@ -28,10 +28,6 @@ final class KillLost extends AbstractPlanetSectorEventHandler
         );
         $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
-        // Remove lost planet sector after usage because it's not a "true" sector
-        // (we don't want players to see it in astro terminal for example)
-        $this->entityManager->remove($event->getPlanetSector());
-
         $logParameters = [
             $playerToKill->getLogKey() => $playerToKill->getLogName(),
             'version' => $this->randomService->random(1, self::NUMBER_OF_DESCRIPTIONS),

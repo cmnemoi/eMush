@@ -142,9 +142,6 @@ front-test:
 release:
   image: node:latest
   stage: release
-  needs: 
-    - job: check
-    - job: api-test-develop
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab
   variables:

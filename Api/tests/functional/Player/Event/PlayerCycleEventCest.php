@@ -369,6 +369,44 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->isAlive());
     }
 
+    public function testLostStatusMakesPlayerLosesTwoMoralePointsAtCycleChange(FunctionalTester $I): void
+    {
+        // given player is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given player has 10 morale points
+        $this->player->setMoralPoint(10);
+
+        // when cycle change is triggered for status
+        $cycleEvent = new PlayerCycleEvent($this->player, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then player should have 8 morale points
+        $I->assertEquals(8, $this->player->getMoralPoint());
+
+        // then player should have a private log telling them they are lost
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getName(),
+                'log' => PlayerModifierLogEnum::LOST_ON_PLANET,
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+
+        // then the log is properly parametrized
+        $I->assertEquals(
+            expected: $this->player->getLogName(),
+            actual: $roomLog->getParameters()['target_character']
+        );
+    }
+
     private function getPanicCrisisPlayerDamage(): int
     {
         return array_keys($this->daedalus->getGameConfig()->getDifficultyConfig()->getPanicCrisisPlayerDamage()->toArray())[0];

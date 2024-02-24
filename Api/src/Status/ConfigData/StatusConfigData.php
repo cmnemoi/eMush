@@ -427,7 +427,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [
-                'modifier_for_player_-1moralPoint_on_new_cycle',
+                'lost_modifier_for_player_-2moralPoint_on_new_cycle',
             ],
         ],
         [

@@ -139,12 +139,15 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($antisocialModifier);
 
+        /** @var AbstractEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::MORAL_REDUCE_2);
         $lostModifier = new TriggerEventModifierConfig('lostModifier');
         $lostModifier
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
+            ->setModifierName(ModifierNameEnum::LOST_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
         ;
         $manager->persist($lostModifier);

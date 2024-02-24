@@ -157,6 +157,14 @@ class EventConfigData
         ],
         [
             'type' => 'variable_event_config',
+            'quantity' => -2,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_player_-2_moralPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
             'quantity' => 1,
             'targetVariable' => PlayerVariableEnum::ACTION_POINT,
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,

@@ -1039,7 +1039,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created without Janice
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::LOST], $I),
             explorators: new ArrayCollection([$this->chun, $this->kuanTi, $this->derek])
         );
 

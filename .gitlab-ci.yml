@@ -100,7 +100,7 @@ api-test-develop:
     - job: build-front
       optional: true
   script:
-    - echo "[PHP] memory_limit = -1" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
+    - echo "[PHP] memory_limit = -1" > ./php.ini
     - pecl install xdebug && docker-php-ext-enable xdebug
     - php --ini memory_limit=-1
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors

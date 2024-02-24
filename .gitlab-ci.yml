@@ -1,5 +1,4 @@
 stages:
-  - check
   - build
   - test
   - release
@@ -48,7 +47,7 @@ stages:
 
  # dummy job to check if the pipeline is valid or if there is no job to run
 check:
-  stage: check
+  stage: build
   image: alpine:latest
   script:
     - echo "Pipeline is valid"
@@ -99,6 +98,8 @@ api-test-develop:
   <<: *php_with_db_template
   stage: test
   needs: 
+    - job: check
+      optional: true
     - job: build-front
   script:
     - pecl install pcov && docker-php-ext-enable pcov
@@ -119,7 +120,10 @@ front-lint:
   <<: *node_template
   stage: test
   needs: 
+    - job: check
+      optional: true
     - job: build-front
+      optional: true
   script:
     - yarn lint --no-fix
   rules:
@@ -130,7 +134,10 @@ front-test:
   <<: *node_template
   stage: test
   needs: 
+    - job: check
+      optional: true
     - job: build-front
+      optional: true
   script:
     - yarn test
   rules:

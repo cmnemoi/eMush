@@ -12,8 +12,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
-use Mush\Exploration\Entity\PlanetSectorConfig;
-use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Hunter\Entity\Hunter;

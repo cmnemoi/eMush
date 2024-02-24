@@ -5,28 +5,31 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Exploration\Service\AddPlayerToExplorationTeamServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 final class FindLost extends AbstractPlanetSectorEventHandler
 {
     private const NUMBER_OF_DESCRIPTIONS = 2;
+
+    private AddPlayerToExplorationTeamServiceInterface $addPlayerToExplorationTeam;
     private StatusServiceInterface $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        AddPlayerToExplorationTeamServiceInterface $addPlayerToExplorationTeam,
         StatusServiceInterface $statusService
     ) {
         parent::__construct($entityManager, $eventService, $randomService);
+        $this->addPlayerToExplorationTeam = $addPlayerToExplorationTeam;
         $this->statusService = $statusService;
     }
 
@@ -40,7 +43,7 @@ final class FindLost extends AbstractPlanetSectorEventHandler
         $exploration = $event->getExploration();
         $foundPlayer = $this->randomService->getRandomPlayer($exploration->getDaedalus()->getLostPlayers());
         if (!$exploration->getExplorators()->contains($foundPlayer)) {
-            $this->addPlayerToExplorationTeam($foundPlayer, $exploration);
+            $this->addPlayerToExplorationTeam->execute($foundPlayer, $exploration);
         }
 
         $this->statusService->removeStatus(
@@ -57,11 +60,5 @@ final class FindLost extends AbstractPlanetSectorEventHandler
         ];
 
         return $this->createExplorationLog($event, $logParameters);
-    }
-
-    private function addPlayerToExplorationTeam(Player $player, Exploration $exploration): void
-    {
-        $exploration->addExplorator($player);
-        $this->entityManager->persist($exploration);
     }
 }

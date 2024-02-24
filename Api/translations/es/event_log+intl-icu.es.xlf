@@ -553,5 +553,47 @@
         <target>gain_shoot_point</target>
       </segment>
     </unit>
+    <unit id="found_item_in_exploration">
+      <segment state="initial">
+        <source>found_item_in_exploration</source>
+        <target>found_item_in_exploration</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_alien_fight">
+      <segment state="initial">
+        <source>disease_by_alien_fight</source>
+        <target>disease_by_alien_fight</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_alien_travel">
+      <segment state="initial">
+        <source>disease_by_alien_travel</source>
+        <target>disease_by_alien_travel</target>
+      </segment>
+    </unit>
+    <unit id="invertebrate_shell_explosion">
+      <segment state="initial">
+        <source>invertebrate_shell_explosion</source>
+        <target>invertebrate_shell_explosion</target>
+      </segment>
+    </unit>
+    <unit id="lost_item_in_exploration">
+      <segment state="initial">
+        <source>lost_item_in_exploration</source>
+        <target>lost_item_in_exploration</target>
+      </segment>
+    </unit>
+    <unit id="lost_in_exploration">
+      <segment state="initial">
+        <source>lost_in_exploration</source>
+        <target>lost_in_exploration</target>
+      </segment>
+    </unit>
+    <unit id="lost_on_planet">
+      <segment state="initial">
+        <source>lost_on_planet</source>
+        <target>lost_on_planet</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

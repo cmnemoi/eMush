@@ -52,7 +52,7 @@
       </segment>
       <segment id="oxygen_description" state="translated">
         <source>nothing_to_report.oxygen_description</source>
-        <target>The {equipment} oxygen pump is jammed, there's nothing coming through! </target>
+        <target>The {equipment} oxygen pump is jammed, there's nothing coming through!</target>
       </segment>
       <segment id="sismic_activity_description" state="translated">
         <source>nothing_to_report.sismic_activity_description</source>
@@ -113,7 +113,7 @@
       </segment>
       <segment id="landing_description" state="translated">
         <source>tired.landing_description</source>
-        <target>The landing is difficult, {equipment} turns and shocks violently, the crew is sick. </target>
+        <target>The landing is difficult, {equipment} turns and shocks violently, the crew is sick.</target>
       </segment>
       <segment id="cold_description" state="translated">
         <source>tired.cold_description</source>
@@ -197,11 +197,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>disaster.description</source>
-        <target>All team members have sustained {min_quantity} to {max_quantity} points of damage. </target>
+        <target>All team members have sustained {min_quantity} to {max_quantity} points of damage.</target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>disaster.landing_description</source>
-        <target>{equipment} crashed to earth on {planet}. The crew has been knocked out. </target>
+        <target>{equipment} crashed to earth on {planet}. The crew has been knocked out.</target>
       </segment>
     </unit>
     <unit id="oxygen">
@@ -211,7 +211,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>You have gained {quantity} units of O². </target>
+        <target>You have gained {quantity} units of O².</target>
       </segment>
       <segment id="oxygen_description" state="translated">
         <source>oxygen.oxygen_description</source>
@@ -243,10 +243,323 @@
         }</target>
       </segment>
     </unit>
+    <unit id="artefact">
+      <segment id="name" state="translated">
+        <source>artefact.name</source>
+        <target>Artefact</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>artefact.description</source>
+        <target>You have found an artefact. </target>
+      </segment>
+      <segment id="intelligent_description" state="translated">
+        <source>artefact.intelligent_description</source>
+        <target>{target_equipment_first_letter, select,
+        consonant {Behind a rock, you find a weakened alien. You give them a little water to help them to regain consciousness. The creature gives you an unusual {target_equipment} before setting off.}
+        vowel {Behind a rock, you find a weakened alien. You give them a little water to help them to regain consciousness. The creature gives you an unusual {target_equipment} before setting off.}
+        other {Behind a rock, you find a weakened alien. You give them a little water to help them to regain consciousness. The creature gives you an unusual {target_equipment} before setting off.}
+        }</target>
+      </segment>
+      <segment id="cave_description" state="translated">
+        <source>artefact.cave_description</source>
+        <target>In the depths of the grotto, you find a small chest containing a really unusual object...</target>
+      </segment>
+      <segment id="mankarog_description" state="translated">
+        <source>artefact.mankarog_description</source>
+        <target>You have discovered a Mankarog's lair. During the search around its larder which is about the size of an 8 storey building, you manage to find an alien artefact! </target>
+      </segment>
+      <segment id="ruins_description" state="translated">
+        <source>artefact.ruins_description</source>
+        <target>In the middle of the ruins of the largest building in the city you find an intact alien artefact!</target>
+      </segment>
+      <segment id="wreck_description" state="translated">
+        <source>artefact.wreck_description</source>
+        <target>The wreck contains a strange alien artifact... Well snatched!</target>
+      </segment>
+    </unit>
     <unit id="always_successful_thanks_to_skill">
       <segment id="description" state="translated">
         <source>always_successful_thanks_to_skill</source>
         <target>Always succeeds because the expedition team has the skill: {skill}.</target>
+      </segment>
+    </unit>
+    <unit id="kill_random">
+      <segment id="name" state="translated">
+        <source>kill_random.name</source>
+        <target>Death</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kill_random.description</source>
+        <target>A team member has died.</target>
+      </segment>
+      <segment id="sismic_activity_description" state="translated">
+        <source>kill_random.sismic_activity_description</source>
+        <target>A crack opens in the earth right below the expedition crew!!! {character} slips and disappears into the void! </target>
+      </segment>
+      <segment id="mankarog_description" state="translated">
+        <source>kill_random.mankarog_description</source>
+        <target>While climbing up a small hill, you realize that in fact it's a Mankarog's left buttock... As it swings round its massive hand to scratch it, it crushes {character} in an instant. </target>
+      </segment>
+    </unit>
+    <unit id="kill_all">
+      <segment id="name" state="translated">
+        <source>kill_all.name</source>
+        <target>Group death</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kill_all.description</source>
+        <target>All team members have died.</target>
+      </segment>
+      <segment id="volcanic_activity_description" state="translated">
+        <source>kill_all.volcanic_activity_description</source>
+        <target>As the closest mountain begins to spew a 500m jet of lava into the air, the earth gives way beneath the feet of the expedition crew and swallows them in a pit of flames.</target>
+      </segment>
+    </unit>
+    <unit id="fight">
+      <segment id="name" state="translated">
+        <source>fight.name</source>
+        <target>Fight</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fight.description</source>
+        <target>You are facing off against a creature.////Creature Strength: {creature_strength}////Team Strength: {expedition_strength}////{damage, select, 0 {Creature dies.} other {Team takes {damage} damage.}}</target>
+      </segment>
+      <segment id="intelligent_description" state="translated">
+        <source>fight.intelligent_description</source>
+        <target>A strange being approaches and shrieks piercingly enough to make your ears ache. You'll have to find a way to stop it.</target>
+      </segment>
+      <segment id="ruminant_description" state="translated">
+        <source>fight.ruminant_description</source>
+        <target>While trying to sneak up on an unsuspecting Chew Chew, you quickly find yourself surrounded by its kin... You're going to have to fight your way out of this one!</target>
+      </segment>
+      <segment id="predator_description" state="translated">
+        <source>fight.predator_description</source>
+        <target>You feel like you're being watched. A hostile, hungry Skinner is studying you... Your team starts to run, but the creature pounces on you!</target>
+      </segment>
+      <segment id="insect_description" state="translated">
+        <source>fight.insect_description</source>
+        <target>While walking along the bottom of a crevasse, you see a predatory Beetlethug emerge... You'll have to defend yourself!</target>
+      </segment>
+      <segment id="mankarog_description" state="translated">
+        <source>fight.mankarog_description</source>
+        <target>A gigantic shadow suddenly appears over the expedition crew... And it's not a cloud...</target>
+      </segment>
+      <segment id="ruins_description" state="translated">
+        <source>fight.ruins_description</source>
+        <target>A gigantic shadow suddenly appears over the expedition crew... And it's not a cloud...</target>
+      </segment>
+      <segment id="wreck_description" state="final">
+        <source>fight.wreck_description</source>
+        <target>It would appear that the pilot of the vessel is still alive! It's quite apparent that they don't consider you their saviour...</target>
+      </segment>
+      <segment id="cristalite_description" state="translated">
+        <source>fight.cristalite_description</source>
+        <target>The fields are deserted... A sinister howl deafens you... It's a savage Mindblender! There are no words to describe this creature that came from a land with no light or warmth. Man your weapons!</target>
+      </segment>
+    </unit>
+    <unit id="provision">
+      <segment id="name" state="translated">
+        <source>provision.name</source>
+        <target>Provision</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>provision.description</source>
+        <target>You have earned {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.</target>
+      </segment>
+      <segment id="ruminant_description" state="translated">
+        <source>provision.ruminant_description</source>
+        <target>{quantity, select,
+        2 {You come across a troop of small nibbling critters. In the ensuing panic, you manage to grab one of them.}
+        4 {You successfully hunt down a tasty-looking Chew Chew ... You have gained some alien meat.}
+        other {You successfully hunt down a tasty-looking Chew Chew ... You have gained some alien meat.}
+        }</target>
+      </segment>
+      <segment id="ocean_description" state="translated">
+        <source>provision.ocean_description</source>
+        <target>Using a rudimentary fishing line, you manage to catch an Empilodon. Good skills.</target>
+      </segment>
+      <segment id="predator_description" state="translated">
+        <source>provision.predator_description</source>
+        <target>You come across a deadly Skinner. The creature is immobilized, semmingly asleep. You take advantage of this to settle the score, and snag some rations of meat!</target>
+      </segment>
+      <segment id="intelligent_description" state="translated">
+        <source>provision.intelligent_description</source>
+        <target>During an otherwise peaceful expedition, you suddenly find yourself face to face with a strange being. Although effective communication was impossible, upon leaving you are given a bag containing some of the spoils of an alien big-game hunt.</target>
+      </segment>
+      <segment id="insect_description" state="translated">
+        <source>provision.insect_description</source>
+        <target>{character} noticed some huge moths nearby with huge juicy abdomens... Mmmmh!</target>
+      </segment>
+    </unit>
+    <unit id="harvest">
+      <segment id="name" state="translated">
+        <source>harvest.name</source>
+        <target>Harvest</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>harvest.description</source>
+        <target>Vous gagnez {quantity, plural, one {# Alien fruit} other {# Alien fruits}}.</target>
+      </segment>
+      <segment id="forest_description" state="translated">
+        <source>harvest.forest_description</source>
+        <target>You have found {quantity, plural, one {# fruit} other {# fruits}} which look delicious. Best to take them back to the ship and analyze them before eating them though... </target>
+      </segment>
+      <segment id="swamp_description" state="translated">
+        <source>harvest.swamp_description</source>
+        <target>The swamp is full of huge roots upon which strange fruits are growing. You decide to take some back with you.</target>
+      </segment>
+      <segment id="mountain_description" state="translated">
+        <source>harvest.mountain_description</source>
+        <target>At the top of a rocky summit, you notice a small tree with unusual berries. You decide to take some back with you.</target>
+      </segment>
+      <segment id="fruit_trees_description" state="translated">
+        <source>harvest.fruit_trees_description</source>
+        <target>{quantity, select, 
+        1 {Several bushy trees attract your attention, and in one of them you find some curious fruits...}
+        3 {You find a giant tree similar to a baobab. At the top of it, you find a multitude of strange fruits which you decide to take back to the Daedalus.}
+        other {Several bushy trees attract your attention, and in one of them you find some curious fruits...}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="disease">
+      <segment id="name" state="translated">
+        <source>disease.name</source>
+        <target>Illness</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>disease.description</source>
+        <target>A member of the team has fallen ill.</target>
+      </segment>
+      <segment id="forest_description" state="translated">
+        <source>disease.forest_description</source>
+        <target>A creeping vine brushed past {character}'s cheek.</target>
+      </segment>
+      <segment id="swamp_description" state="translated">
+        <source>disease.swamp_description</source>
+        <target>After an hour of marching in the sludge, you lose count of the strange leeches stuck to your calves, which must have pumped a good half litre of blood out by now.</target>
+      </segment>
+      <segment id="insect_description" state="translated">
+        <source>disease.insect_description</source>
+        <target>Suddenly {character} starts screaming, and a huge glowing spider shoots out of their suit. NOBODY wants spiders scuttling around their suit!</target>
+      </segment>
+    </unit>
+    <unit id="starmap">
+      <segment id="name" state="translated">
+        <source>starmap.name</source>
+        <target>Map fragment</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>starmap.description</source>
+        <target>You find 1 fragment of the Cristalite Starmap.</target>
+      </segment>
+      <segment id="cristal_field_description" state="translated">
+        <source>starmap.cristal_field_description</source>
+        <target>This cristalite field is highly active. In the centre of the main atrium, a shard floating in metallic liquid is causing light beams of unknown colours to converge. Nice, let's take it.</target>
+      </segment>
+    </unit>
+    <unit id="mush_trap">
+      <segment id="name" state="translated">
+        <source>mush_trap.name</source>
+        <target>Mush trap</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mush_trap.description</source>
+        <target>All team members risk becoming infected by the Mush.</target>
+      </segment>
+      <segment id="cristal_field_description" state="translated">
+        <source>mush_trap.cristal_field_description</source>
+        <target>This place has been visited recently. You keep going but... the smell of decay hits your nostrils, pink vapour chokes you, it's a trap! Flee! The Mush is here already!</target>
+      </segment>
+    </unit>
+    <unit id="again">
+      <segment id="name" state="translated">
+        <source>again.name</source>
+        <target>Wander</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>again.description</source>
+        <target>Zone exploration failure. There are still things to be discovered...</target>
+      </segment>
+      <segment id="desert_description" state="translated">
+        <source>again.desert_description</source>
+        <target>This walk in the desert is totally pointless, you have no idea where you are and decide to retrace your steps.</target>
+      </segment>
+      <segment id="forest_description" state="translated">
+        <source>again.forest_description</source>
+        <target>You get lost wandering in the forest.</target>
+      </segment>
+      <segment id="cave_description" state="translated">
+        <source>again.cave_description</source>
+        <target>This network of caves is seemingly never ending, somehow you manage to eventually find a way out, but you get the feeling that there's still something down there...</target>
+      </segment>
+    </unit>
+    <unit id="item_lost">
+      <segment id="name" state="translated">
+        <source>item_lost.name</source>
+        <target>Item lost</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>item_lost.description</source>
+        <target>An object belonging to one of the crew has been lost.</target>
+      </segment>
+      <segment id="intelligent_description" state="translated">
+        <source>item_lost.intelligent_description</source>
+        <target>A strange being is trying to communicate with you, inspecting you all closely before taking the {equipment} belonging to {character} and runs (sic!) off on its huge hind legs.</target>
+      </segment>
+      <segment id="strong_wind_description" state="translated">
+        <source>item_lost.strong_wind_description</source>
+        <target>{character_gender, select,
+        male {The wind is blowing so hard that {character} drops his {equipment} ! There's no way we'll see that again...}
+        female {The wind is blowing so hard that {character} drops her {equipment} ! There's no way we'll see that again...}
+        other {The wind is blowing so hard that {character} drops their {equipment} ! There's no way we'll see that again...}}</target>
+      </segment>
+    </unit>
+    <unit id="back">
+      <segment id="name" state="translated">
+        <source>back.name</source>
+        <target>Return</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>back.description</source>
+        <target>You abandon the current expedition.</target>
+      </segment>
+      <segment id="sismic_activity_description" state="translated">
+        <source>back.sismic_activity_description</source>
+        <target>A violent tremor paralyses the expedition... And then silence again... best return to the Daedalus quick smart!</target>
+      </segment>
+      <segment id="volcanic_activity_description" state="translated">
+        <source>back.volcanic_activity_description</source>
+        <target>With a muted groan, a nearby volcano starts to belch thick black smoke, you book it back to the Daedalus as fast as you can!</target>
+      </segment>
+      <segment id="mankarog_description" state="translated">
+        <source>back.mankarog_description</source>
+        <target>The expedition observes a Mankarog on the horizon passing behind a mountain... We should definitely change heading now to avoid any trouble.</target>
+      </segment>
+    </unit>
+    <unit id="player_lost">
+      <segment id="name" state="translated">
+        <source>player_lost.name</source>
+        <target>MIA</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>player_lost.description</source>
+        <target>A team member has gotten lost.</target>
+      </segment>
+      <segment id="cristal_field_description" state="translated">
+        <source>player_lost.cristal_field_description</source>
+        <target>These fields are a real maze... OK, there's nothing to see here, let's go. Has anyone seen {character} ?</target>
+      </segment>
+      <segment id="forest_description" state="translated">
+        <source>player_lost.forest_description</source>
+        <target>The forest is so dense that it is difficult to stay in a group. After an hour's walk... {character} is nowhere to be seen.</target>
+      </segment>
+      <segment id="ocean_description" state="translated">
+        <source>player_lost.ocean_description</source>
+        <target>Nightmare... {character} has fallen into the water. That makes things a shade more complicated...</target>
+      </segment>
+      <segment id="cold_description" state="translated">
+        <source>player_lost.cold_description</source>
+        <target>As the wind picks up, the snow begins to fall. The sky disappears immediately under a thick white veil and you lose sight of {character}. Typical!</target>
       </segment>
     </unit>
   </file>

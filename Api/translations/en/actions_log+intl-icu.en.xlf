@@ -387,7 +387,10 @@
     <unit id="insert_fuel">
       <segment id="insert_fuel" state="final">
         <source>insert_fuel</source>
-        <target>**{character}** has inserted a *fuel capsule* into the tank.</target>
+        <target>{target_equipment_first_letter, select,
+        consonant {**{character}** has inserted a *{target_equipment}* into the tank.}
+        vowel {**{character}** has inserted an *{target_equipment}* into the tank.}
+        other {**{character}** has inserted a *{target_equipment}* into the tank.}}</target>
       </segment>
     </unit>
     <unit id="sabotage_success">

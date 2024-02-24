@@ -1558,6 +1558,10 @@
         <source>plastic_scraps.short_name</source>
         <target>plastic_scraps.short_name</target>
       </segment>
+      <segment id="plural_name" state="initial">
+        <source>plastic_scraps.plural_name</source>
+        <target>plastic_scraps.plural_name</target>
+      </segment>
       <segment id="genre" state="initial">
         <source>plastic_scraps.gender</source>
         <target>plastic_scraps.gender</target>
@@ -1583,6 +1587,10 @@
       <segment id="short_name" state="initial">
         <source>metal_scraps.short_name</source>
         <target>metal_scraps.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>metal_scraps.plural_name</source>
+        <target>metal_scraps.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
         <source>metal_scraps.gender</source>
@@ -3022,6 +3030,10 @@ Lo único que te hacer sentir como en casa...</target>
       <segment id="short_name" state="initial">
         <source>alien_steak.short_name</source>
         <target>alien_steak.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>alien_steak.plural_name</source>
+        <target>alien_steak.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
         <source>alien_steak.gender</source>

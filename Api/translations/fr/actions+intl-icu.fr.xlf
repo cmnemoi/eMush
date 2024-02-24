@@ -150,11 +150,11 @@
     <unit id="flirt">
       <segment id="name" state="final">
         <source>flirt.name</source>
-        <target>Fleureuter</target>
+        <target>Fleureter</target>
       </segment>
       <segment id="description" state="final">
         <source>flirt.description</source>
-        <target>Permet de fleureuter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
+        <target>Permet de fleureter avec quelqu'un, cela lui permettra de le faire avec vous. Cette action est **irrémédiable**.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>flirt.confirmation</source>

@@ -229,10 +229,308 @@
         <target>fuel.hydrocarbon_description</target>
       </segment>
     </unit>
+    <unit id="artefact">
+      <segment id="name" state="initial">
+        <source>artefact.name</source>
+        <target>artefact.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>artefact.description</source>
+        <target>artefact.description</target>
+      </segment>
+      <segment id="intelligent_description" state="initial">
+        <source>artefact.intelligent_description</source>
+        <target>artefact.intelligent_description</target>
+      </segment>
+      <segment id="cave_description" state="initial">
+        <source>artefact.cave_description</source>
+        <target>artefact.cave_description</target>
+      </segment>
+      <segment id="mankarog_description" state="initial">
+        <source>artefact.mankarog_description</source>
+        <target>artefact.mankarog_description</target>
+      </segment>
+      <segment id="ruins_description" state="initial">
+        <source>artefact.ruins_description</source>
+        <target>artefact.ruins_description</target>
+      </segment>
+      <segment id="wreck_description" state="initial">
+        <source>artefact.wreck_description</source>
+        <target>artefact.wreck_description</target>
+      </segment>
+    </unit>
     <unit id="always_successful_thanks_to_skill">
       <segment id="description" state="initial">
         <source>always_successful_thanks_to_skill</source>
         <target>always_successful_thanks_to_skill</target>
+      </segment>
+    </unit>
+    <unit id="kill_random">
+      <segment id="name" state="initial">
+        <source>kill_random.name</source>
+        <target>kill_random.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kill_random.description</source>
+        <target>kill_random.description</target>
+      </segment>
+      <segment id="sismic_activity_description" state="initial">
+        <source>kill_random.sismic_activity_description</source>
+        <target>kill_random.sismic_activity_description</target>
+      </segment>
+      <segment id="mankarog_description" state="initial">
+        <source>kill_random.mankarog_description</source>
+        <target>kill_random.mankarog_description</target>
+      </segment>
+    </unit>
+    <unit id="kill_all">
+      <segment id="name" state="initial">
+        <source>kill_all.name</source>
+        <target>kill_all.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kill_all.description</source>
+        <target>kill_all.description</target>
+      </segment>
+      <segment id="volcanic_activity_description" state="initial">
+        <source>kill_all.volcanic_activity_description</source>
+        <target>kill_all.volcanic_activity_description</target>
+      </segment>
+    </unit>
+    <unit id="fight">
+      <segment id="name" state="initial">
+        <source>fight.name</source>
+        <target>fight.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>fight.description</source>
+        <target>fight.description</target>
+      </segment>
+      <segment id="intelligent_description" state="initial">
+        <source>fight.intelligent_description</source>
+        <target>fight.intelligent_description</target>
+      </segment>
+      <segment id="ruminant_description" state="initial">
+        <source>fight.ruminant_description</source>
+        <target>fight.ruminant_description</target>
+      </segment>
+      <segment id="predator_description" state="initial">
+        <source>fight.predator_description</source>
+        <target>fight.predator_description</target>
+      </segment>
+      <segment id="insect_description" state="initial">
+        <source>fight.insect_description</source>
+        <target>fight.insect_description</target>
+      </segment>
+      <segment id="mankarog_description" state="initial">
+        <source>fight.mankarog_description</source>
+        <target>fight.mankarog_description</target>
+      </segment>
+      <segment id="ruins_description" state="initial">
+        <source>fight.ruins_description</source>
+        <target>fight.ruins_description</target>
+      </segment>
+      <segment id="wreck_description" state="initial">
+        <source>fight.wreck_description</source>
+        <target>fight.wreck_description</target>
+      </segment>
+      <segment id="cristalite_description" state="initial">
+        <source>fight.cristalite_description</source>
+        <target>fight.cristalite_description</target>
+      </segment>
+    </unit>
+    <unit id="provision">
+      <segment id="name" state="initial">
+        <source>provision.name</source>
+        <target>provision.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>provision.description</source>
+        <target>provision.description</target>
+      </segment>
+      <segment id="ruminant_description" state="initial">
+        <source>provision.ruminant_description</source>
+        <target>provision.ruminant_description</target>
+      </segment>
+      <segment id="ocean_description" state="initial">
+        <source>provision.ocean_description</source>
+        <target>provision.ocean_description</target>
+      </segment>
+      <segment id="predator_description" state="initial">
+        <source>provision.predator_description</source>
+        <target>provision.predator_description</target>
+      </segment>
+      <segment id="intelligent_description" state="initial">
+        <source>provision.intelligent_description</source>
+        <target>provision.intelligent_description</target>
+      </segment>
+      <segment id="insect_description" state="initial">
+        <source>provision.insect_description</source>
+        <target>provision.insect_description</target>
+      </segment>
+    </unit>
+    <unit id="harvest">
+      <segment id="name" state="initial">
+        <source>harvest.name</source>
+        <target>harvest.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>harvest.description</source>
+        <target>harvest.description</target>
+      </segment>
+      <segment id="forest_description" state="initial">
+        <source>harvest.forest_description</source>
+        <target>harvest.forest_description</target>
+      </segment>
+      <segment id="swamp_description" state="initial">
+        <source>harvest.swamp_description</source>
+        <target>harvest.swamp_description</target>
+      </segment>
+      <segment id="mountain_description" state="initial">
+        <source>harvest.mountain_description</source>
+        <target>harvest.mountain_description</target>
+      </segment>
+      <segment id="fruit_trees_description" state="initial">
+        <source>harvest.fruit_trees_description</source>
+        <target>harvest.fruit_trees_description</target>
+      </segment>
+    </unit>
+    <unit id="disease">
+      <segment id="name" state="initial">
+        <source>disease.name</source>
+        <target>disease.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>disease.description</source>
+        <target>disease.description</target>
+      </segment>
+      <segment id="forest_description" state="initial">
+        <source>disease.forest_description</source>
+        <target>disease.forest_description</target>
+      </segment>
+      <segment id="swamp_description" state="initial">
+        <source>disease.swamp_description</source>
+        <target>disease.swamp_description</target>
+      </segment>
+      <segment id="insect_description" state="initial">
+        <source>disease.insect_description</source>
+        <target>disease.insect_description</target>
+      </segment>
+    </unit>
+    <unit id="starmap">
+      <segment id="name" state="initial">
+        <source>starmap.name</source>
+        <target>starmap.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>starmap.description</source>
+        <target>starmap.description</target>
+      </segment>
+      <segment id="cristal_field_description" state="initial">
+        <source>starmap.cristal_field_description</source>
+        <target>starmap.cristal_field_description</target>
+      </segment>
+    </unit>
+    <unit id="mush_trap">
+      <segment id="name" state="initial">
+        <source>mush_trap.name</source>
+        <target>mush_trap.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mush_trap.description</source>
+        <target>mush_trap.description</target>
+      </segment>
+      <segment id="cristal_field_description" state="initial">
+        <source>mush_trap.cristal_field_description</source>
+        <target>mush_trap.cristal_field_description</target>
+      </segment>
+    </unit>
+    <unit id="again">
+      <segment id="name" state="initial">
+        <source>again.name</source>
+        <target>again.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>again.description</source>
+        <target>again.description</target>
+      </segment>
+      <segment id="desert_description" state="initial">
+        <source>again.desert_description</source>
+        <target>again.desert_description</target>
+      </segment>
+      <segment id="forest_description" state="initial">
+        <source>again.forest_description</source>
+        <target>again.forest_description</target>
+      </segment>
+      <segment id="cave_description" state="initial">
+        <source>again.cave_description</source>
+        <target>again.cave_description</target>
+      </segment>
+    </unit>
+    <unit id="item_lost">
+      <segment id="name" state="initial">
+        <source>item_lost.name</source>
+        <target>item_lost.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>item_lost.description</source>
+        <target>item_lost.description</target>
+      </segment>
+      <segment id="intelligent_description" state="initial">
+        <source>item_lost.intelligent_description</source>
+        <target>item_lost.intelligent_description</target>
+      </segment>
+      <segment id="strong_wind_description" state="initial">
+        <source>item_lost.strong_wind_description</source>
+        <target>item_lost.strong_wind_description</target>
+      </segment>
+    </unit>
+    <unit id="back">
+      <segment id="name" state="initial">
+        <source>back.name</source>
+        <target>back.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>back.description</source>
+        <target>back.description</target>
+      </segment>
+      <segment id="sismic_activity_description" state="initial">
+        <source>back.sismic_activity_description</source>
+        <target>back.sismic_activity_description</target>
+      </segment>
+      <segment id="volcanic_activity_description" state="initial">
+        <source>back.volcanic_activity_description</source>
+        <target>back.volcanic_activity_description</target>
+      </segment>
+      <segment id="mankarog_description" state="initial">
+        <source>back.mankarog_description</source>
+        <target>back.mankarog_description</target>
+      </segment>
+    </unit>
+    <unit id="player_lost">
+      <segment id="name" state="initial">
+        <source>player_lost.name</source>
+        <target>player_lost.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>player_lost.description</source>
+        <target>player_lost.description</target>
+      </segment>
+      <segment id="cristal_field_description" state="initial">
+        <source>player_lost.cristal_field_description</source>
+        <target>player_lost.cristal_field_description</target>
+      </segment>
+      <segment id="forest_description" state="initial">
+        <source>player_lost.forest_description</source>
+        <target>player_lost.forest_description</target>
+      </segment>
+      <segment id="ocean_description" state="initial">
+        <source>player_lost.ocean_description</source>
+        <target>player_lost.ocean_description</target>
+      </segment>
+      <segment id="cold_description" state="initial">
+        <source>player_lost.cold_description</source>
+        <target>player_lost.cold_description</target>
       </segment>
     </unit>
   </file>

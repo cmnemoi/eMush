@@ -1661,8 +1661,7 @@ Répugnant... Vous devriez le brûler.</target>
       </segment>
       <segment id="examine" state="final">
         <source>plastic_scraps.examine</source>
-        <target>Encore des débris sans intérêt.
-Avec quelques outils et de la patience, c'est fou ce à quoi l'on peut arriver.</target>
+        <target>Encore des débris sans intérêt.//Avec quelques outils et de la patience, c'est fou ce à quoi l'on peut arriver.</target>
       </segment>
     </unit>
     <unit id="metal_scraps">
@@ -1692,8 +1691,7 @@ Avec quelques outils et de la patience, c'est fou ce à quoi l'on peut arriver.<
       </segment>
       <segment id="examine" state="final">
         <source>metal_scraps.examine</source>
-        <target>Des débris sans intérêt.
-Il est parfois surprenant de voir ce que certains savent faire avec quelques morceaux d'aluminium.</target>
+        <target>Des débris sans intérêt.//Il est parfois surprenant de voir ce que certains savent faire avec quelques morceaux d'aluminium.</target>
       </segment>
     </unit>
     <unit id="thick_tube">

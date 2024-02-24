@@ -643,6 +643,27 @@
 			"players": "Joueurs",
 			"users": "Utilisateurs"
 		},
+		"filters": {
+			"cycle": "Cycle",
+			"day": "Jour",
+			"endDate": "Date de fin",
+			"logContent": "Log",
+			"logContentDescription": "Nom du log à chercher. Pour le moment, vous devez rentrer le code du log (donné entre parenthèses). Dans le futur, des filtres pré-sélectionnés (actions agressives, actions mush...) seront disponibles.",
+			"messageAuthor": "Auteur du message",
+			"messageContent": "Contenu du message",
+			"room": "Pièce",
+			"roomDescription": "Pièce du log à chercher. Pour le moment, vous devez rentrer le code de la pièce (indiqué entre parenthèses).",
+			"startDate": "Date de début"
+		},
+		"player": {
+			"playedBy": "Joué par",
+			"mush": "Mush",
+			"human": "Humain",
+			"banned": "Banni",
+			"notBanned": "Non banni",
+			"alive": "Vivant",
+			"dead": "Mort"
+		},
 		"playerList": {
 			"gameStatuses": {
 				"all": "Sans distinction",
@@ -672,6 +693,7 @@
 		"loadPublicChannel": "",
 		"logs": "Logs",
 		"mushChannel": "Canal Mush",
+		"nothingToDisplay": "Rien à afficher.",
 		"privateChannel": "Canal privé",
 		"unban": "Débannir",
 		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
@@ -679,6 +701,8 @@
 		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
 		"quarantine": "Mettre en quarantaine",
 		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
+		"reloadData": "Recharger les données",
+		"reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
 		"searchByCharacter": "Rechercher un personnage :",
 		"searchByDaedalusId": "Rechercher un Daedalus par ID :",
 		"searchByUsername": "Rechercher un utilisateur :"

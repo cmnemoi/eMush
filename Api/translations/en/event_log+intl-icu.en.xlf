@@ -614,7 +614,7 @@
     <unit id="help_disabled">
       <segment id="help_disabled" state="final">
         <source>help_disabled</source>
-        <target>**{character}** helped *{target_character}** to get out of the room, brotherly help is a beautiful thing. </target>
+        <target>**{character}** helped *{target_character}** to get out of the room, brotherly help is a beautiful thing.</target>
       </segment>
     </unit>
     <unit id="consume_mush">
@@ -639,6 +639,61 @@
       <segment state="translated">
         <source>gain_shoot_point</source>
         <target>You have earned {quantity} :pa_shoot:.</target>
+      </segment>
+    </unit>
+    <unit id="found_item_in_exploration">
+      <segment state="translated">
+        <source>found_item_in_exploration</source>
+        <target>{target_equipment_first_letter, select,
+    consonant {**{character}** has found a **{target_equipment}**.}
+    vowel {**{character}** has found an **{target_equipment}**.}
+    other {**{character}** has found a **{target_equipment}**.}}</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_alien_fight">
+      <segment state="translated">
+        <source>disease_by_alien_fight</source>
+        <target>{is_player_mush, select,
+          true {:ill: Your attacker gave you a disease ({disease}). At least, that's what you can make them believe...}
+          other {:ill: Your attacker gave you a disease ({disease}).}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_alien_travel">
+      <segment state="translated">
+        <source>disease_by_alien_travel</source>
+        <target>{is_player_mush, select,
+          true {:ill: During your stay you managed to contract a disease ({disease}). At least, that's what you can make them believe...}
+          other {:ill: During your stay you managed to contract a disease ({disease}).}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="invertebrate_shell_explosion">
+      <segment state="translated">
+        <source>invertebrate_shell_explosion</source>
+        <target>The **Invertebrate Shell** explodes in a spray of flames that breaks all the equipment in the room!</target>
+      </segment>
+    </unit>
+    <unit id="lost_item_in_exploration">
+      <segment state="translated">
+        <source>lost_item_in_exploration</source>
+        <target>{target_equipment_first_letter, select,
+          male {**{character}** lost a **{target_equipment}**.}
+          female {**{character}** lost an **{target_equipment}**.}
+          other {**{character}** lost a **{target_equipment}**.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="lost_in_exploration">
+      <segment state="translated">
+        <source>lost_in_exploration</source>
+        <target>You have not been repatriated... Or you've been forgotten...</target>
+      </segment>
+    </unit>
+    <unit id="lost_on_planet">
+      <segment state="translated">
+        <source>lost_on_planet</source>
+        <target>You feel lonely and abandoned... Does no one think of you up there?</target>
       </segment>
     </unit>
   </file>

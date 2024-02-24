@@ -1656,6 +1656,10 @@ Disgusting. You should burn it.</target>
         <source>plastic_scraps.short_name</source>
         <target>Plastic Scraps</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>plastic_scraps.plural_name</source>
+        <target>Plastic scrap</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>plastic_scraps.gender</source>
         <target>male</target>
@@ -1666,12 +1670,11 @@ Disgusting. You should burn it.</target>
       </segment>
       <segment id="description" state="translated">
         <source>plastic_scraps.description</source>
-        <target>More worthless debris</target>
+        <target>More worthless debris.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>plastic_scraps.examine</source>
-        <target>More worthless debris.
-With a few tools and a little patience, it's astounding what you can do...</target>
+        <target>More worthless debris.//With a few tools and a little patience, it's astounding what you can do...</target>
       </segment>
     </unit>
     <unit id="metal_scraps">
@@ -1681,6 +1684,10 @@ With a few tools and a little patience, it's astounding what you can do...</targ
       </segment>
       <segment id="short_name" state="translated">
         <source>metal_scraps.short_name</source>
+        <target>Metal scraps</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>metal_scraps.plural_name</source>
         <target>Metal scraps</target>
       </segment>
       <segment id="genre" state="translated">
@@ -1697,9 +1704,7 @@ With a few tools and a little patience, it's astounding what you can do...</targ
       </segment>
       <segment id="examine" state="translated">
         <source>metal_scraps.examine</source>
-        <target>Worthless debris.
-//
-On occasion it can be interesting to see what some people can achieve with a few scraps of aluminum.</target>
+        <target>Worthless debris.//On occasion it can be interesting to see what some people can achieve with a few scraps of aluminium.</target>
       </segment>
     </unit>
     <unit id="thick_tube">
@@ -3269,6 +3274,10 @@ Non-perishable
         <source>alien_steak.short_name</source>
         <target>Alien Steak</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_steak.plural_name</source>
+        <target>Alien Steaks</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>alien_steak.gender</source>
         <target>male</target>
@@ -3279,11 +3288,11 @@ Non-perishable
       </segment>
       <segment id="description" state="translated">
         <source>alien_steak.description</source>
-        <target>Since arriving on the Magellan nebula, the only way we've been able to interact with alien life forms has been by eating them.</target>
+        <target>Since arriving at the Magellan nebula, the only way we've been able to interact with alien life forms has been by eating them.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>alien_steak.examine</source>
-        <target>Since arriving on the Magellan nebula, the only way we've been able to interact with alien life forms has been by eating them.</target>
+        <target>Since arriving at the Magellan nebula, the only way we've been able to interact with alien life forms has been by eating them.</target>
       </segment>
     </unit>
     <unit id="anabolic">

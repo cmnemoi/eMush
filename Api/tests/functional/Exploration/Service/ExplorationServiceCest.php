@@ -81,7 +81,9 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($this->planet);
 
+        /** @var PlanetSectorConfig $desertSectorConfig */
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
+        $desertSectorConfig->setExplorationEvents([PlanetSectorEvent::NOTHING_TO_REPORT => 1]);
         $desertSector = new PlanetSector($desertSectorConfig, $this->planet);
         $I->haveInRepository($desertSector);
 

@@ -13,7 +13,6 @@ import UUID from "vue3-uuid";
 import { VueHeadMixin, createHead } from '@unhead/vue';
 
 // Set the base URL of the API
-// Hello, World!
 ApiService.init(process.env.VUE_APP_API_URL!);
 
 // If token exists set header

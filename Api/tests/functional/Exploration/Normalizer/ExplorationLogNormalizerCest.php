@@ -854,7 +854,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::LOST, PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players,
         );
         $closedExploration = $this->exploration->getClosedExploration();

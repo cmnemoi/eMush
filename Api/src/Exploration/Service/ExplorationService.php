@@ -9,7 +9,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
-use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
@@ -57,7 +56,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $exploration = new Exploration($planet);
         $exploration->setExplorators($players);
         $exploration->getClosedExploration()->setClosedExplorators($players->map(fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer())->toArray());
-        $exploration->setNumberOfSectionsToVisit($this->getNumberOfSectorsToVisit($numberOfSectorsToVisit, $planet));
+        $exploration->setNumberOfSectionsToVisit(min($numberOfSectorsToVisit, $planet->getUnvisitedSectors()->count()));
 
         if ($exploration->getNumberOfSectionsToVisit() < 1) {
             throw new \RuntimeException('You cannot visit less than 1 sector');
@@ -187,14 +186,6 @@ final class ExplorationService implements ExplorationServiceInterface
         }
 
         $this->entityManager->flush();
-    }
-
-    private function getNumberOfSectorsToVisit(int $numberOfSectorsToVisit, Planet $planet): int
-    {
-        $lostPlayersCount = $planet->getDaedalus()->getLostPlayers()->count();
-        $unvisitedSectorsCount = $planet->getUnvisitedSectors()->count();
-
-        return min($numberOfSectorsToVisit, max($lostPlayersCount, $unvisitedSectorsCount));
     }
 
     private function drawPlanetSectorEvent(PlanetSector $sector): string

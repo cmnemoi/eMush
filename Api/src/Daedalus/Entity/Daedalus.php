@@ -617,9 +617,4 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->hasStatus(PlayerStatusEnum::LOST));
     }
-
-    public function isThereLostPlayers(): bool
-    {
-        return !$this->getLostPlayers()->isEmpty();
-    }
 }

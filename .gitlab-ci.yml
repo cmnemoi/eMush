@@ -102,7 +102,6 @@ api-test-develop:
   script:
     - echo "[PHP] memory_limit = -1" > ./php.ini
     - pecl install xdebug && docker-php-ext-enable xdebug
-    - php --ini memory_limit=-1
     - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
   coverage: '/^\s+Lines:\s+(\d+\.\d+)%/'
   artifacts:

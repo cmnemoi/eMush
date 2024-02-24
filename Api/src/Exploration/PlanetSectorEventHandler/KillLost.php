@@ -10,8 +10,6 @@ use Mush\Player\Event\PlayerEvent;
 
 final class KillLost extends AbstractPlanetSectorEventHandler
 {
-    private const NUMBER_OF_DESCRIPTIONS = 2;
-
     public function getName(): string
     {
         return PlanetSectorEvent::KILL_LOST;
@@ -28,11 +26,6 @@ final class KillLost extends AbstractPlanetSectorEventHandler
         );
         $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
-        $logParameters = [
-            $playerToKill->getLogKey() => $playerToKill->getLogName(),
-            'version' => $this->randomService->random(1, self::NUMBER_OF_DESCRIPTIONS),
-        ];
-
-        return $this->createExplorationLog($event, $logParameters);
+        return $this->createExplorationLog($event, parameters: [$playerToKill->getLogKey() => $playerToKill->getLogName()]);
     }
 }

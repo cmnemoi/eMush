@@ -57,6 +57,7 @@ build-front:
   stage: build
   needs: 
     - job: check
+      optional: true
   <<: *node_template
   script:
     - yarn build

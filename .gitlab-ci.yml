@@ -98,6 +98,7 @@ api-test-develop:
   needs: 
     - job: check
     - job: build-front
+      optional: true
   script:
     - echo "[PHP] memory_limit = -1" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
     - pecl install xdebug && docker-php-ext-enable xdebug

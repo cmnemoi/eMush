@@ -431,8 +431,9 @@ export default defineComponent({
             }
         },
         getDateMinusOneDay(date: Date) {
-            date.setHours(date.getHours() - 24);
-            return date;
+            const newDate = new Date(date);
+            newDate.setDate(newDate.getDate() - 1);
+            return newDate;
         },
         setupAuthorFilters() {
             this.generalChannelAuthorFilter = this.player?.character?.name || "";

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Disease\Event;
 
 use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -37,6 +39,9 @@ final class PlayerEventCest extends AbstractFunctionalTest
             player: $this->player,
             reasons: [],
         );
+        $disease->setDiseasePoint(10);
+
+        $initialAP = $this->player->getActionPoint();
 
         // given the fitful sleep modifier of the disease always triggers at cycle change
         // note : this modifier removes 1 AP to the player
@@ -64,6 +69,9 @@ final class PlayerEventCest extends AbstractFunctionalTest
                 'log' => PlayerModifierLogEnum::LOSS_ACTION_POINT,
             ]
         );
+
+        // Then player lost 1 AP
+        $I->assertEquals($this->player->getActionPoint(), $initialAP);
     }
 
     public function testHealedDiseaseDoesNotActOnPlayerNewCycleEvent(FunctionalTester $I): void
@@ -119,5 +127,54 @@ final class PlayerEventCest extends AbstractFunctionalTest
                 'log' => PlayerModifierLogEnum::LOSS_ACTION_POINT,
             ]
         );
+    }
+
+    public function testDiseaseDoesNotActTwiceOnPlayerNewCycleEvent(FunctionalTester $I): void
+    {
+        // given player has a disease
+        $disease = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::COLD,
+            player: $this->player,
+            reasons: [],
+        );
+        $disease->setDiseasePoint(10);
+
+        // given player has another disease
+        $disease2 = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DisorderEnum::CHRONIC_VERTIGO,
+            player: $this->player,
+            reasons: [],
+        );
+        $disease2->setDiseasePoint(10);
+
+        $initialAP = $this->player->getActionPoint();
+
+        // given the modifier of the disease always triggers at cycle change
+        // note : this modifier removes 1 AP to the player
+        /** @var TriggerEventModifierConfig $modifierConfig */
+        $modifierConfig = $disease->getDiseaseConfig()->getModifierConfigs()->first();
+        $modifierConfig->setModifierActivationRequirements([]);
+        $I->haveInRepository($modifierConfig);
+
+        // when player has a new cycle
+        $playerEvent = new PlayerEvent(
+            player: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then I should see a room log reporting the AP loss
+        $logs = $I->grabEntitiesFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'place' => $this->player->getPlace()->getLogName(),
+                'log' => PlayerModifierLogEnum::LOSS_ACTION_POINT,
+            ]
+        );
+        $I->assertCount(1, $logs);
+
+        $I->assertEquals($this->player->getActionPoint(), $initialAP);
     }
 }

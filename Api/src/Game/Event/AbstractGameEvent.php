@@ -130,7 +130,7 @@ class AbstractGameEvent extends Event
         return null;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $player = $this->author;
 
@@ -138,6 +138,6 @@ class AbstractGameEvent extends Event
             return new ModifierCollection();
         }
 
-        return $player->getAllModifiers()->getEventModifiers($this);
+        return $player->getAllModifiers()->getEventModifiers($this, $priorities);
     }
 }

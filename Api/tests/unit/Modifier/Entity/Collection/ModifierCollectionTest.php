@@ -12,6 +12,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -90,7 +91,7 @@ class ModifierCollectionTest extends TestCase
         $event = new AbstractGameEvent([], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
 
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
         $this->assertCount(1, $result);
         $this->assertNotContains($modifier1, $result);
@@ -102,7 +103,7 @@ class ModifierCollectionTest extends TestCase
         $event = new DaedalusVariableEvent(new Daedalus(), DaedalusVariableEnum::FUEL, 2, [], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
 
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT, ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE]);
 
         $this->assertCount(2, $result);
         $this->assertContains($modifier1, $result);
@@ -160,7 +161,7 @@ class ModifierCollectionTest extends TestCase
         // No Tags
         $event = new AbstractGameEvent([], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
         $this->assertCount(1, $result);
         $this->assertNotContains($modifier1, $result);
@@ -171,7 +172,7 @@ class ModifierCollectionTest extends TestCase
         // Anathen tag
         $event = new AbstractGameEvent([ActionEnum::ANATHEMA], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
         $this->assertCount(1, $result);
         $this->assertNotContains($modifier1, $result);
@@ -182,7 +183,7 @@ class ModifierCollectionTest extends TestCase
         // anathen and auto destroy
         $event = new AbstractGameEvent([ActionEnum::ANATHEMA, ActionEnum::AUTO_DESTROY], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
         $this->assertCount(2, $result);
         $this->assertContains($modifier1, $result);
@@ -193,7 +194,7 @@ class ModifierCollectionTest extends TestCase
         // Auto destroy
         $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
         $this->assertCount(2, $result);
         $this->assertNotContains($modifier1, $result);
@@ -204,7 +205,7 @@ class ModifierCollectionTest extends TestCase
         // 3 tags
         $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY, ActionEnum::ANATHEMA, ActionEnum::CEASEFIRE], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
         $this->assertCount(3, $result);
         $this->assertContains($modifier1, $result);
@@ -220,7 +221,7 @@ class ModifierCollectionTest extends TestCase
             StatusEnum::FIRE,
         ], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
-        $result = $modifierCollection->getEventModifiers($event);
+        $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
         $this->assertCount(2, $result);
         $this->assertContains($modifier1, $result);

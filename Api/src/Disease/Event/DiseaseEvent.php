@@ -79,13 +79,13 @@ class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
         return $logParameters;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
-        $modifiers = $this->getTargetPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true);
+        $modifiers = $this->getTargetPlayer()->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(true);
 
         $author = $this->author;
         if ($author !== null) {
-            $modifiers = $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
+            $modifiers = $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(false));
         }
 
         return $modifiers;

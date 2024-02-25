@@ -79,13 +79,15 @@ class ActionEvent extends AbstractGameEvent
         return $this;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
-        $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
+        $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(false);
 
         $actionTarget = $this->actionTarget;
         if ($actionTarget instanceof ModifierHolderInterface) {
-            $modifiers = $modifiers->addModifiers($actionTarget->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
+            $modifiers = $modifiers->addModifiers(
+                $actionTarget->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(true)
+            );
         }
 
         return $modifiers;

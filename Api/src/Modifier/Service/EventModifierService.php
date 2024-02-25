@@ -32,7 +32,7 @@ class EventModifierService implements EventModifierServiceInterface
     // the event are returned in their priority order
     public function applyModifiers(AbstractGameEvent $initialEvent, array $priorities): EventChain
     {
-        $modifiers = $initialEvent->getModifiers();
+        $modifiers = $initialEvent->getModifiersByPriorities($priorities);
 
         $events = new EventChain([$initialEvent]);
 
@@ -69,7 +69,6 @@ class EventModifierService implements EventModifierServiceInterface
         // Check if the modifier applies
         if (
             $modifierConfig instanceof EventModifierConfig
-            && in_array($modifierConfig->getPriority(), $priorities)
             && $modifierConfig->doModifierApplies($initialEvent)
             && $this->modifierRequirementService->checkModifier($modifier)
         ) {

@@ -114,12 +114,12 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return $parameters;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $holder = $this->holder;
 
         if ($holder instanceof ModifierHolderInterface) {
-            return $holder->getAllModifiers()->getEventModifiers($this);
+            return $holder->getAllModifiers()->getEventModifiers($this, $priorities);
         }
 
         return new ModifierCollection();

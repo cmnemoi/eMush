@@ -44,7 +44,7 @@ class ModifierEvent extends AbstractGameEvent
 
     // to avoid infinite loops in eventService
     // EventModifier are not modifiable
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         return new ModifierCollection([]);
     }

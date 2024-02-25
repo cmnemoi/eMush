@@ -40,10 +40,12 @@ class ModifierCollection extends ArrayCollection
         return $modifierConfig ?: null;
     }
 
-    public function getEventModifiers(AbstractGameEvent $event): self
+    public function getEventModifiers(AbstractGameEvent $event, array $priorities): self
     {
         return $this->filter(fn (GameModifier $modifier) => (
-            $modifier->getModifierConfig()->doModifierApplies($event)
+            ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
+            && in_array($modifierConfig->getPriority(), $priorities)
+            && $modifierConfig->doModifierApplies($event)
             && (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
         ));
     }

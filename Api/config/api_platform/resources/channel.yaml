@@ -2,7 +2,7 @@ Mush\Communication\Entity\Channel:
   shortName: 'Channel'
   description: 'eMush Channels'
   attributes:
-    pagination_items_per_page: 25
+    paginationEnabled: false
     normalization_context:
       groups: [ 'channel_read', 'moderation_read' ]
     denormalization_context:

@@ -88,7 +88,6 @@ import { fr } from "date-fns/locale";
 import ModerationService from "@/services/moderation.service";
 import { mapGetters } from "vuex";
 import { characterEnum } from "@/enums/character";
-import { daedalus } from "@/store/daedalus.module";
 
 export default defineComponent({
     name: "ModerationPlayerListPage",

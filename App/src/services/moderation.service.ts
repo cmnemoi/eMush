@@ -27,7 +27,7 @@ const ModerationService = {
     },
     getChannelMessages: async(channel: Channel,startDate: string, endDate: string, message?: string, author?: string): Promise<Message[]> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const queryParameters = `channel.id=${channel.id}` + (startDate ? `&createdAt[after]=${startDate}` : '') + (endDate ? `&createdAt[before]=${endDate}` : '') + (message ? `&message=${message}` : '') + (author ? `&author.characterConfig.characterName=${author}` : '');
+        const queryParameters = `channel.id=${channel.id}` + (startDate ? `&updatedAt[after]=${startDate}` : '') + (endDate ? `&updatedAt[before]=${endDate}` : '') + (message ? `&message=${message}` : '') + (author ? `&author.characterConfig.characterName=${author}` : '') + '&order[updatedAt]=desc';
 
         const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?${queryParameters}`).then((response) => {
             return response.data['hydra:member'].map((messageData: object) => {

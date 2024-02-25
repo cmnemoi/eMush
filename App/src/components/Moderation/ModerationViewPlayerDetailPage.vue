@@ -431,13 +431,14 @@ export default defineComponent({
             }
         },
         getDateMinusOneDay(date: Date) {
-            date.setHours(date.getHours() - 24);
-            return date;
+            const newDate = new Date(date);
+            newDate.setDate(newDate.getDate() - 1);
+            return newDate;
         },
         setupAuthorFilters() {
-            this.generalChannelAuthorFilter = this.player?.character?.name || "";
-            this.mushChannelAuthorFilter = this.player?.character?.name || "";
-            this.privateChannelAuthorFilter = this.player?.character?.name || "";
+            this.generalChannelAuthorFilter = this.player?.character?.key || "";
+            this.mushChannelAuthorFilter = this.player?.character?.key || "";
+            this.privateChannelAuthorFilter = this.player?.character?.key || "";
         },
         setupStartDateFilters() {
             if (this.player?.cycleStartedAt) {

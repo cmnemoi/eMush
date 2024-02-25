@@ -2,7 +2,7 @@ Mush\Communication\Entity\Message:
   shortName: 'Message'
   description: 'eMush Messages'
   attributes:
-    pagination_items_per_page: 25
+    paginationEnabled: false
     normalization_context:
       groups: [ 'message_read', 'moderation_read' ]
     denormalization_context:

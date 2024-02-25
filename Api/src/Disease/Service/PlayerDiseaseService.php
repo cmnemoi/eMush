@@ -204,14 +204,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             }
         } else {
             $this->persist($playerDisease);
-
-            // trigger disease modifiers with this event only if the disease is active
-            $diseaseEvent = new DiseaseEvent(
-                $playerDisease,
-                [DiseaseEvent::DISEASE_NEW_CYCLE],
-                $time
-            );
-            $this->eventService->callEvent($diseaseEvent, DiseaseEvent::DISEASE_NEW_CYCLE);
         }
     }
 

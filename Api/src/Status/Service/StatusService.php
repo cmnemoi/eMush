@@ -294,7 +294,7 @@ class StatusService implements StatusServiceInterface
             $tags,
             $time,
         );
-        $events = $this->eventService->callEvent($statusEvent, $mode);
+        $this->eventService->callEvent($statusEvent, $mode);
 
         if ($chargeStatus->isAutoRemove() && $chargeVariable->isMin()) {
             $this->removeStatus($chargeStatus->getName(), $chargeStatus->getOwner(), $tags, $time);

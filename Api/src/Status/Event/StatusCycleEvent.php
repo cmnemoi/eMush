@@ -37,12 +37,12 @@ class StatusCycleEvent extends AbstractGameEvent
         return $this->holder;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $holder = $this->getHolder();
 
         if ($holder instanceof ModifierHolderInterface) {
-            return $holder->getAllModifiers()->getEventModifiers($this);
+            return $holder->getAllModifiers()->getEventModifiers($this, $priorities);
         }
 
         return new ModifierCollection();

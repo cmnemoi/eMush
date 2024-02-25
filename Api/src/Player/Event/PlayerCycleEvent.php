@@ -34,14 +34,14 @@ class PlayerCycleEvent extends AbstractGameEvent
         return $this->player;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $author = $this->getAuthor();
 
-        $modifiers = $this->getPlayer()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true);
+        $modifiers = $this->getPlayer()->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(true);
 
         if ($author !== null) {
-            $modifiers = $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false));
+            $modifiers = $modifiers->addModifiers($author->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(false));
         }
 
         return $modifiers;

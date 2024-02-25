@@ -39,8 +39,8 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         $this->daedalus = $holder->getDaedalus();
         $this->target = $target;
 
-        $tags[] = $status->getName();
         parent::__construct($tags, $time);
+        $this->addTag($status->getName());
     }
 
     public function getStatus(): Status
@@ -114,12 +114,12 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         return $parameters;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $holder = $this->holder;
 
         if ($holder instanceof ModifierHolderInterface) {
-            return $holder->getAllModifiers()->getEventModifiers($this);
+            return $holder->getAllModifiers()->getEventModifiers($this, $priorities);
         }
 
         return new ModifierCollection();

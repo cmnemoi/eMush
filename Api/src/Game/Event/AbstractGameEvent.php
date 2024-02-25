@@ -88,7 +88,18 @@ class AbstractGameEvent extends Event
 
     public function addTag(string $tag): self
     {
-        $this->tags[] = $tag;
+        if (!$this->hasTag($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function addTags(array $tags): self
+    {
+        foreach ($tags as $tag) {
+            $this->addTag($tag);
+        }
 
         return $this;
     }
@@ -119,7 +130,7 @@ class AbstractGameEvent extends Event
         return null;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $player = $this->author;
 
@@ -127,6 +138,6 @@ class AbstractGameEvent extends Event
             return new ModifierCollection();
         }
 
-        return $player->getAllModifiers()->getEventModifiers($this);
+        return $player->getAllModifiers()->getEventModifiers($this, $priorities);
     }
 }

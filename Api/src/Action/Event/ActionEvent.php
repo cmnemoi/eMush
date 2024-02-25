@@ -30,17 +30,16 @@ class ActionEvent extends AbstractGameEvent
         $this->actionTarget = $actionTarget;
         $this->actionParameters = $actionParameters;
 
-        $tags = $action->getActionTags();
+        parent::__construct($action->getActionTags(), new \DateTime());
+
         if ($actionTarget !== null) {
-            $tags[] = $actionTarget->getLogName();
+            $this->addTag($actionTarget->getLogName());
         }
 
         $daedalus = $this->author->getDaedalus();
         if ($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY) || $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)) {
-            $tags[] = DaedalusStatusEnum::NO_GRAVITY;
+            $this->addTag(DaedalusStatusEnum::NO_GRAVITY);
         }
-
-        parent::__construct($tags, new \DateTime());
     }
 
     public function getAuthor(): Player
@@ -80,13 +79,15 @@ class ActionEvent extends AbstractGameEvent
         return $this;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
-        $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(false);
+        $modifiers = $this->getAuthor()->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(false);
 
         $actionTarget = $this->actionTarget;
         if ($actionTarget instanceof ModifierHolderInterface) {
-            $modifiers = $modifiers->addModifiers($actionTarget->getAllModifiers()->getEventModifiers($this)->getTargetModifiers(true));
+            $modifiers = $modifiers->addModifiers(
+                $actionTarget->getAllModifiers()->getEventModifiers($this, $priorities)->getTargetModifiers(true)
+            );
         }
 
         return $modifiers;

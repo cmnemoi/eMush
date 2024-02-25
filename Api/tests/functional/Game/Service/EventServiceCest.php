@@ -10,6 +10,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -41,6 +42,7 @@ class EventServiceCest extends AbstractFunctionalTest
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTriggeredEvent($variableEventConfig)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT)
         ;
 
         $I->haveInRepository($variableEventConfig);
@@ -74,6 +76,7 @@ class EventServiceCest extends AbstractFunctionalTest
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTriggeredEvent($variableEventConfig)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
         ;
 
         $triggerModifierConfig2 = new TriggerEventModifierConfig('trigger_event_modifier_test_infinite_loop_bis');

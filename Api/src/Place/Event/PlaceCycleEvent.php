@@ -27,14 +27,14 @@ class PlaceCycleEvent extends AbstractGameEvent
         return $this->place;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $player = $this->author;
 
         if ($player === null) {
-            return $this->getPlace()->getAllModifiers()->getEventModifiers($this);
+            return $this->getPlace()->getAllModifiers()->getEventModifiers($this, $priorities);
         }
 
-        return $player->getAllModifiers()->getEventModifiers($this);
+        return $player->getAllModifiers()->getEventModifiers($this, $priorities);
     }
 }

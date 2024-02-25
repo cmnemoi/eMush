@@ -31,7 +31,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
         );
     }
 
-    public function testLeaveOrbitIsNotVisibleIfDaedalusIsNotInOribit(FunctionalTester $I): void
+    public function testLeaveOrbitIsNotVisibleIfDaedalusIsNotInOrbit(FunctionalTester $I): void
     {
         // given daedalus is not in orbit
         $this->statusService->removeStatus(

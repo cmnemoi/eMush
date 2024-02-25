@@ -157,7 +157,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setApplyOnTarget(true)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints(['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS])

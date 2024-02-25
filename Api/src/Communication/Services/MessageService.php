@@ -63,7 +63,7 @@ class MessageService implements MessageServiceInterface
 
         /** @var MessageEvent $modifiedEvent */
         $modifiedEvent = $events->getInitialEvent();
-        $message = $messageEvent->getMessage();
+        $message = $modifiedEvent->getMessage();
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

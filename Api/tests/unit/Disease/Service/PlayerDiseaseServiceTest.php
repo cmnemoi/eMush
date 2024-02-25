@@ -172,7 +172,6 @@ class PlayerDiseaseServiceTest extends TestCase
         ;
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
-        $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 

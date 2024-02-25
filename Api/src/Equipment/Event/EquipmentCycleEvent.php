@@ -29,15 +29,15 @@ class EquipmentCycleEvent extends DaedalusCycleEvent
         return $this->gameEquipment;
     }
 
-    public function getModifiers(): ModifierCollection
+    public function getModifiersByPriorities(array $priorities): ModifierCollection
     {
         $equipment = $this->getGameEquipment();
 
-        $modifiers = $equipment->getAllModifiers()->getEventModifiers($this);
+        $modifiers = $equipment->getAllModifiers()->getEventModifiers($this, $priorities);
 
         $player = $this->author;
         if ($player !== null && $equipment->getHolder() !== $player) {
-            $modifiers = $modifiers->addModifiers($player->getModifiers()->getEventModifiers($this));
+            $modifiers = $modifiers->addModifiers($player->getModifiers()->getEventModifiers($this, $priorities));
         }
 
         return $modifiers;

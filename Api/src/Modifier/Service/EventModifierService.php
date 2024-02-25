@@ -7,6 +7,9 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Enum\StatusEnum;
 
@@ -27,15 +30,15 @@ class EventModifierService implements EventModifierServiceInterface
 
     // return an array with all the event to dispatch
     // the event are returned in their priority order
-    public function applyModifiers(AbstractGameEvent $initialEvent): EventChain
+    public function applyModifiers(AbstractGameEvent $initialEvent, array $priorities): EventChain
     {
-        $modifiers = $initialEvent->getModifiers();
+        $modifiers = $initialEvent->getModifiersByPriorities($priorities);
 
         $events = new EventChain([$initialEvent]);
 
         // @TODO add a new modifier strategy to handle the increase due to attempts (require a better handling of the modifier "origin")
         // if the event is an action, we need to apply the increase due to successive attempts
-        if ($initialEvent instanceof VariableEventInterface) {
+        if ($initialEvent instanceof VariableEventInterface && in_array(ModifierPriorityEnum::ATTEMPT_INCREASE, $priorities)) {
             $initialValue = $this->getInitValue($initialEvent);
             $initialEvent->setQuantity($initialValue);
         }
@@ -44,33 +47,45 @@ class EventModifierService implements EventModifierServiceInterface
         $modifiers = $modifiers->sortModifiers();
 
         foreach ($modifiers as $modifier) {
-            $modifierConfig = $modifier->getModifierConfig();
-            // Check if the modifier applies
-            if (
-                $modifierConfig->doModifierApplies($initialEvent)
-                && $this->modifierRequirementService->checkModifier($modifier)
-            ) {
-                $handler = $this->modifierHandlerService->getModifierHandler($modifier);
-                if ($handler === null) {
-                    throw new \LogicException("This modifierStrategy ({$modifierConfig->getModifierStrategy()}) is not handled");
-                }
-                $events = $handler->handleEventModifier($modifier, $events, $initialEvent->getEventName(), $initialEvent->getTags(), $initialEvent->getTime());
-
-                // Let's add the tag of this modifier to the initial event
-                $initialEvent = $events->getInitialEvent();
-                // if event chain has been cut by a preventModifier return the EventChain
-                if ($initialEvent === null) {
-                    return $events;
-                }
-                $initialEvent->addTag($modifierConfig->getModifierName() ?: $modifierConfig->getName());
-
-                $events->updateInitialEvent($initialEvent);
-            }
+            $events = $this->applyModifier($modifier, $initialEvent, $events, $priorities);
         }
 
         $initialEvent = $events->getInitialEvent();
+
         if ($initialEvent !== null) {
-            $initialEvent->setIsModified(true);
+            $events->updateInitialEvent($initialEvent);
+        }
+
+        return $events;
+    }
+
+    private function applyModifier(
+        GameModifier $modifier,
+        AbstractGameEvent $initialEvent,
+        EventChain $events,
+        array $priorities
+    ): EventChain {
+        $modifierConfig = $modifier->getModifierConfig();
+        // Check if the modifier applies
+        if (
+            $modifierConfig instanceof EventModifierConfig
+            && $modifierConfig->doModifierApplies($initialEvent)
+            && $this->modifierRequirementService->checkModifier($modifier)
+        ) {
+            $handler = $this->modifierHandlerService->getModifierHandler($modifier);
+            if ($handler === null) {
+                throw new \LogicException("This modifierStrategy ({$modifierConfig->getModifierStrategy()}) is not handled");
+            }
+            $events = $handler->handleEventModifier($modifier, $events, $initialEvent->getEventName(), $initialEvent->getTags(), $initialEvent->getTime());
+
+            // Let's add the tag of this modifier to the initial event
+            $initialEvent = $events->getInitialEvent();
+            // if event chain has been cut by a preventModifier return the EventChain
+            if ($initialEvent === null) {
+                return $events;
+            }
+            $initialEvent->addTag($modifierConfig->getModifierName() ?: $modifierConfig->getName());
+
             $events->updateInitialEvent($initialEvent);
         }
 

@@ -13,7 +13,6 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Event\MessageEvent;
 use Mush\Disease\Enum\SymptomEnum;
-use Mush\Disease\Event\DiseaseEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -28,6 +27,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -337,7 +337,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $manager->persist($dirtyRequirement);
         $septicemiaCycleChange = new EventModifierConfig('septicemia_cycle_change');
         $septicemiaCycleChange
-            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -410,7 +410,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $bitingModifier = new EventModifierConfig('biting_modifier');
         $bitingModifier
-            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -501,7 +501,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $cycleDirtiness = new EventModifierConfig('cycle_dirtiness');
         $cycleDirtiness
-            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
@@ -512,7 +512,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $cycleDirtinessRandom = new EventModifierConfig('cycle_dirtiness_random_40');
         $cycleDirtinessRandom
-            ->setTargetEvent(DiseaseEvent::DISEASE_NEW_CYCLE)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)

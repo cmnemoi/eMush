@@ -50,6 +50,8 @@ class CycleEventCest extends AbstractFunctionalTest
 
         $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
     }
 
     public function testAntisocialStatusCycleSubscriber(FunctionalTester $I)

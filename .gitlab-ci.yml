@@ -30,7 +30,6 @@ stages:
     - composer install
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
-    - bin/console doctrine:schema:drop --full-database --env=test -f
     - bin/console doctrine:schema:update -f
     - bin/console doctrine:fixtures:load -n --env=test
     - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:mush
@@ -103,8 +102,8 @@ api-test-develop:
       optional: true
     - job: build-front
   script:
-    - pecl install xdebug && docker-php-ext-enable xdebug
-    - XDEBUG_MODE=coverage php vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
+    - pecl install pcov && docker-php-ext-enable pcov
+    - php -dpcov.enabled=1 -dpcov.directory=src vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
   coverage: '/^\s+Lines:\s+(\d+\.\d+)%/'
   artifacts:
     when: always
@@ -148,7 +147,7 @@ front-test:
     
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:
-  image: node:20
+  image: node:latest
   stage: release
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab

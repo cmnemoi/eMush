@@ -678,8 +678,8 @@
       <segment state="translated">
         <source>lost_item_in_exploration</source>
         <target>{target_equipment_first_letter, select,
-          male {**{character}** lost a **{target_equipment}**.}
-          female {**{character}** lost an **{target_equipment}**.}
+          consonant {**{character}** lost a **{target_equipment}**.}
+          vowel {**{character}** lost an **{target_equipment}**.}
           other {**{character}** lost a **{target_equipment}**.}
         }</target>
       </segment>

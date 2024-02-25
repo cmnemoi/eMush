@@ -70,7 +70,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
             ]
         );
 
-        // Then player lost 1 AP
+        // the player gains 1 AP (cycle change) and lose 1 AP (disease)
         $I->assertEquals($this->player->getActionPoint(), $initialAP);
     }
 
@@ -175,6 +175,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         );
         $I->assertCount(1, $logs);
 
+        // the player gains 1 AP (cycle change) and lose 1 AP (disease)
         $I->assertEquals($this->player->getActionPoint(), $initialAP);
     }
 }

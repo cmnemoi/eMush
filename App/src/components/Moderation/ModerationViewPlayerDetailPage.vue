@@ -436,9 +436,9 @@ export default defineComponent({
             return newDate;
         },
         setupAuthorFilters() {
-            this.generalChannelAuthorFilter = this.player?.character?.name || "";
-            this.mushChannelAuthorFilter = this.player?.character?.name || "";
-            this.privateChannelAuthorFilter = this.player?.character?.name || "";
+            this.generalChannelAuthorFilter = this.player?.character?.key || "";
+            this.mushChannelAuthorFilter = this.player?.character?.key || "";
+            this.privateChannelAuthorFilter = this.player?.character?.key || "";
         },
         setupStartDateFilters() {
             if (this.player?.cycleStartedAt) {

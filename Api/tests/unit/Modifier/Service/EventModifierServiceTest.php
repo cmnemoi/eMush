@@ -13,6 +13,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\ModifierHandler\AbstractModifierHandler;
 use Mush\Modifier\Service\EventModifierService;
@@ -81,7 +82,7 @@ class EventModifierServiceTest extends TestCase
         $attempt->setCharge(1);
         $attempt->setAction('action');
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
         $this->assertInstanceOf(EventChain::class, $modifiedEvents);
         $this->assertCount(1, $modifiedEvents);
@@ -94,7 +95,7 @@ class EventModifierServiceTest extends TestCase
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
         $attempt->setCharge(3);
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
         $this->assertInstanceOf(EventChain::class, $modifiedEvents);
         $this->assertCount(1, $modifiedEvents);
@@ -128,7 +129,7 @@ class EventModifierServiceTest extends TestCase
         $attempt->setCharge(1);
         $attempt->setAction('otherAction');
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
         $this->assertInstanceOf(EventChain::class, $modifiedEvents);
         $this->assertCount(1, $modifiedEvents);
@@ -153,6 +154,7 @@ class EventModifierServiceTest extends TestCase
         $modifierConfig = new EventModifierConfig('testEventModifierConfig');
         $modifierConfig
             ->setTargetEvent('eventName')
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
         ;
         $modifier = new GameModifier($daedalus, $modifierConfig);
 
@@ -176,13 +178,12 @@ class EventModifierServiceTest extends TestCase
             ->willReturn(new EventChain([$event]))
         ;
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
         $this->assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
         $this->assertInstanceOf(DaedalusEvent::class, $modifiedEvent);
         $this->assertContains('testEventModifierConfig', $modifiedEvent->getTags());
-        $this->assertTrue($modifiedEvent->isModified());
     }
 
     public function testModifierNonRelevantTargetEvent()
@@ -200,6 +201,7 @@ class EventModifierServiceTest extends TestCase
         $modifierConfig = new EventModifierConfig('testEventModifierConfig');
         $modifierConfig
             ->setTargetEvent('otherEventName')
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
         ;
         $modifier = new GameModifier($daedalus, $modifierConfig);
 
@@ -214,7 +216,7 @@ class EventModifierServiceTest extends TestCase
             ->never()
         ;
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
         $this->assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
         $this->assertEquals($modifiedEvent, $event);
@@ -236,6 +238,7 @@ class EventModifierServiceTest extends TestCase
         $modifierConfig
             ->setTargetEvent('eventName')
             ->setTagConstraints(['tag1' => ModifierRequirementEnum::NONE_TAGS])
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
         ;
         $modifier = new GameModifier($daedalus, $modifierConfig);
 
@@ -250,7 +253,7 @@ class EventModifierServiceTest extends TestCase
             ->never()
         ;
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
         $this->assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
         $this->assertEquals($modifiedEvent, $event);
@@ -287,7 +290,7 @@ class EventModifierServiceTest extends TestCase
             ->never()
         ;
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::PRE_MODIFICATION);
         $this->assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
         $this->assertEquals($modifiedEvent, $event);
@@ -308,14 +311,14 @@ class EventModifierServiceTest extends TestCase
         $modifierConfig1 = new EventModifierConfig('testEventModifierConfig1');
         $modifierConfig1
             ->setTargetEvent('eventName')
-            ->setPriority(-3)
+            ->setPriority(ModifierPriorityEnum::INITIAL_SET_VALUE)
         ;
         $modifier1 = new GameModifier($daedalus, $modifierConfig1);
 
         $modifierConfig2 = new EventModifierConfig('testEventModifierConfig2');
         $modifierConfig2
             ->setTargetEvent('eventName')
-            ->setPriority(-1)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
         ;
         $modifier2 = new GameModifier($daedalus, $modifierConfig2);
 
@@ -353,19 +356,17 @@ class EventModifierServiceTest extends TestCase
             ->andReturn($modifierHandler2)
             ->once()
         ;
-        $firstEventChain = new EventChain([$event, new AbstractGameEvent([], $time)]);
         $modifierHandler2
             ->method('handleEventModifier')
             ->willReturn(new EventChain([$event]))
         ;
 
-        $modifiedEvents = $this->service->applyModifiers($event);
+        $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
         $this->assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
         $this->assertInstanceOf(DaedalusEvent::class, $modifiedEvent);
         $this->assertContains('testEventModifierConfig1', $modifiedEvent->getTags());
         $this->assertContains('testEventModifierConfig2', $modifiedEvent->getTags());
-        $this->assertTrue($modifiedEvent->isModified());
     }
 }

@@ -88,7 +88,18 @@ class AbstractGameEvent extends Event
 
     public function addTag(string $tag): self
     {
-        $this->tags[] = $tag;
+        if (!$this->hasTag($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function addTags(array $tags): self
+    {
+        foreach ($tags as $tag) {
+            $this->addTag($tag);
+        }
 
         return $this;
     }

@@ -24,7 +24,5 @@ interface VariableEventInterface
 
     public function setQuantity(float $quantity): self;
 
-    public function getTags(): array;
-
     public function getTime(): \DateTime;
 }

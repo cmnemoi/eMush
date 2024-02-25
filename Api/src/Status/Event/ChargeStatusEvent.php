@@ -50,7 +50,7 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
             $key = array_search(VariableEventInterface::GAIN, $this->tags);
 
             if ($key === false) {
-                $this->tags[] = VariableEventInterface::LOSS;
+                $this->addTag(VariableEventInterface::LOSS);
             } elseif (!in_array(VariableEventInterface::LOSS, $this->tags)) {
                 $this->tags[$key] = VariableEventInterface::LOSS;
             }
@@ -58,7 +58,7 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
             $key = array_search(VariableEventInterface::LOSS, $this->tags);
 
             if ($key === false) {
-                $this->tags[] = VariableEventInterface::GAIN;
+                $this->addTag(VariableEventInterface::GAIN);
             } elseif (!in_array(VariableEventInterface::GAIN, $this->tags)) {
                 $this->tags[$key] = VariableEventInterface::GAIN;
             }

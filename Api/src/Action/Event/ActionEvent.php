@@ -30,17 +30,16 @@ class ActionEvent extends AbstractGameEvent
         $this->actionTarget = $actionTarget;
         $this->actionParameters = $actionParameters;
 
-        $tags = $action->getActionTags();
+        parent::__construct($action->getActionTags(), new \DateTime());
+
         if ($actionTarget !== null) {
-            $tags[] = $actionTarget->getLogName();
+            $this->addTag($actionTarget->getLogName());
         }
 
         $daedalus = $this->author->getDaedalus();
         if ($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY) || $daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY_REPAIRED)) {
-            $tags[] = DaedalusStatusEnum::NO_GRAVITY;
+            $this->addTag(DaedalusStatusEnum::NO_GRAVITY);
         }
-
-        parent::__construct($tags, new \DateTime());
     }
 
     public function getAuthor(): Player

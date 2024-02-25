@@ -170,11 +170,11 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($reduceMax2MoralPoint);
 
-        /** @var AbstractEventConfig $eventConfig */
-        $eventConfig = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
+        /** @var AbstractEventConfig $eventConfig1HealthReduce */
+        $eventConfig1HealthReduce = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
         $cycle1HealthLost = new TriggerEventModifierConfig('cycle1HealthLoss');
         $cycle1HealthLost
-            ->setTriggeredEvent($eventConfig)
+            ->setTriggeredEvent($eventConfig1HealthReduce)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
@@ -246,7 +246,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
 
         $cycle1HealthLostRand10 = new TriggerEventModifierConfig('cycle1HealthLostRand10');
         $cycle1HealthLostRand10
-            ->setTriggeredEvent($eventConfigLose1Health)
+            ->setTriggeredEvent($eventConfig1HealthReduce)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyOnTarget(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)

@@ -7,5 +7,5 @@ use Mush\Game\Event\AbstractGameEvent;
 
 interface EventModifierServiceInterface
 {
-    public function applyModifiers(AbstractGameEvent $initialEvent): EventChain;
+    public function applyModifiers(AbstractGameEvent $initialEvent, array $priorities): EventChain;
 }

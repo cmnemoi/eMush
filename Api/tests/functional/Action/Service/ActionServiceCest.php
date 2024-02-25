@@ -19,6 +19,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
+use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
@@ -241,11 +242,11 @@ class ActionServiceCest
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
         ;
-
         $I->haveInRepository($modifierConfig);
 
         $disabledModifier = new GameModifier($player, $modifierConfig);

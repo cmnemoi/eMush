@@ -2246,14 +2246,15 @@ Who decided to bring this thing on board... It reminds you of the nonsense touri
       <segment id="description" state="translated">
         <source>old_faithful.description</source>
         <target>The machine gun in an extremely heavy weapon. Certain international laws prohibit its use against humans. When you see it, you'll know why. Some call it 'Old painless' but that depends which end you're at...
-Expedition: + 2 added to the strength of your team during combats.</target>
+//
+Expedition: +2 added to the strength of your team during combats.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>old_faithful.examine</source>
         <target>The machine gun is an extremely heavy weapon. Certain international laws prohibit its use against humans. When you see it, you'll know why. Some call it 'Old painless' but that depends which end you're at...
-
-    Expedition: + 2 added to the strength of your team during combats.
-
+//
+Expedition: + 2 added to the strength of your team during combats.
+//
 The F.R.A.K.U. automatic assault rifle, is better known as the "lead spitter". It's rate of fire, range, weight, modified payload... in short it's an impressive piece of kit. Heavy? Yeah. Dangerous? Hell yeah. It kicks ass.</target>
       </segment>
     </unit>
@@ -2278,15 +2279,18 @@ The F.R.A.K.U. automatic assault rifle, is better known as the "lead spitter". I
         <source>lizaro_jungle.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>lizaro_jungle.description</source>
-        <target>The ultimate in precision rifles
+        <target>The ultimate in precision rifles.
+//
 Expedition: +1 added to the strength of your team during combats.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lizaro_jungle.examine</source>
-        <target>The ultimate in precision rifles
+        <target>The ultimate in precision rifles.
+//
 Expedition: +1 added to the strength of your team during combats.
+//
 Since time immemorial, the solo shooter and his weapon have been a cornerstone of the armed forces. The Lizaro Jungle sniper rifle was created by rebel factions, it's fairly expensive and can be used in rain, hail or snow. Its semi-automatic loading mechanism gives it a deadly rate of fire. To be used with extreme caution.</target>
       </segment>
     </unit>
@@ -2314,13 +2318,14 @@ Since time immemorial, the solo shooter and his weapon have been a cornerstone o
       <segment id="description" state="translated">
         <source>knife.description</source>
         <target>The knife is a weapon, which although a little dated, still has plenty of fans.
+//
 Expedition: + 1 added to the strength of your team during combats.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>knife.examine</source>
-        <target>The knife is a weapon, which although a little dated, still has plenty of fans.
-Expedition: + 1 added to the strength of your team during combats.
-20 cm of psychopathic joy</target>
+        <target>The knife is a weapon, which although a little dated, still has plenty of fans.//
+Expedition: + 1 added to the strength of your team during combats.//
+20 cm of psychopathic joy.</target>
       </segment>
     </unit>
     <unit id="blaster">
@@ -2346,15 +2351,11 @@ Expedition: + 1 added to the strength of your team during combats.
       </segment>
       <segment id="description" state="translated">
         <source>blaster.description</source>
-        <target>The standard-issue sidearm of security forces
-    Expedition: + 1 added to the strength of your team during combats.</target>
+        <target>The standard-issue sidearm of security forces.//Expedition: + 1 added to the strength of your team during combats.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>blaster.examine</source>
-        <target>The standard-issue sidearm of security forces
-    Expedition: + 1 added to the strength of your team during combats.
-
-Its concentrated energy beam makes this a handy weapon. The latest model from DisHotBuzz allows you to effortlessly and elegantly defend yourself against all kinds of danger.</target>
+        <target>The standard-issue sidearm of security forces.//Expedition: + 1 added to the strength of your team during combats.//Its concentrated energy beam makes this a handy weapon. The latest model from DisHotBuzz allows you to effortlessly and elegantly defend yourself against all kinds of danger.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">
@@ -2380,7 +2381,7 @@ Its concentrated energy beam makes this a handy weapon. The latest model from Di
       </segment>
       <segment id="description" state="translated">
         <source>natamy_rifle.description</source>
-        <target>The Natamy Rifle is an anti-Mush assault rifle.
+        <target>The Natamy Rifle is an anti-Mush assault rifle.//
 Expedition: +1 added to the strength of your team in the event of combat.</target>
       </segment>
       <segment id="examine" state="translated">
@@ -2451,8 +2452,8 @@ Expedition: + 3 added to the strength of your team during combats.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>rocket_launcher.examine</source>
-        <target>Highly sophisticated weapon for those who aren't.
-Expedition: + 3 added to the strength of your team during combats.
+        <target>Highly sophisticated weapon for those who aren't.//
+Expedition: + 3 added to the strength of your team during combats.//
 The rocket launcher has long been an integral part of of the arsenal of expedition troops in hostile areas. The technology hasn't changed in hundreds of years. It has a particular cult, almost fetish-item, status amongst those who wield it...</target>
       </segment>
     </unit>

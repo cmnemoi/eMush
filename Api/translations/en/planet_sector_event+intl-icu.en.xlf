@@ -412,6 +412,10 @@
         <source>harvest.mountain_description</source>
         <target>At the top of a rocky summit, you notice a small tree with unusual berries. You decide to take some back with you.</target>
       </segment>
+      <segment id="hot_description" state="translated">
+        <source>harvest.hot_description</source>
+        <target>You discover an incredibly fertile zone where plants you have never seen before are growing. After neutralizing the ones that are trying to eat you, you can harvest the others!</target>
+      </segment>
       <segment id="fruit_trees_description" state="translated">
         <source>harvest.fruit_trees_description</source>
         <target>{quantity, select, 

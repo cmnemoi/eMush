@@ -1,4 +1,3 @@
-const COFFEE = "coffee";
 const PLASTIC_SCRAP = "plastic_scraps";
 const METAL_SCRAP = "metal_scraps";
 const ANTIGRAV_SCOOTER = "antigrav_scooter";
@@ -52,8 +51,6 @@ const BUMPJUMPKIN = 'bumpjumpkin';
 const BLUEPRINT = "blueprint";
 const SNIPER_HELMET = "sniper_helmet";
 const APPRENTON = "apprenton";
-const STANDARD_RATION = "standard_ration";
-const COOKED_RATION = "cooked_ration";
 const MAD_KUBE = "mad_kube";
 const MICROWAVE = "microwave";
 const SUPERFREEZER = "superfreezer";
@@ -79,7 +76,6 @@ const FUEL_CAPSULE = "fuel_capsule";
 const SPACE_CAPSULE = "space_capsule";
 const BANDAGE = "bandage";
 const SPORE_SUCKER = "spore_sucker";
-const ORGANIC_WASTE = "organic_waste";
 const SPACESUIT = "spacesuit";
 
 const ITRACKIE = "itrackie";
@@ -105,6 +101,14 @@ const LIZARO_JUNGLE = "lizaro_jungle";
 const NATAMY_RIFLE = "natamy_rifle";
 const OLD_FAITHFUL = "old_faithful";
 const ROCKET_LAUNCHER = "rocket_launcher";
+
+// food
+const COFFEE = "coffee";
+const STANDARD_RATION = "standard_ration";
+const COOKED_RATION = "cooked_ration";
+const ORGANIC_WASTE = "organic_waste";
+const ALIEN_STEAK = "alien_steak";
+
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -403,5 +407,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [NATAMY_RIFLE]: {
         'image': require('@/assets/images/items/natamy_riffle.jpg')
+    },
+    [ALIEN_STEAK]: {
+        'image': require('@/assets/images/items/ration_5.jpg')
     },
 };

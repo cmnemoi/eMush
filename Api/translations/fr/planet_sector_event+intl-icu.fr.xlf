@@ -428,6 +428,10 @@
         other {Plusieurs arbustes touffus attirent votre attention, dans l'un d'entre eux se trouve de curieux fruits…}
         }</target>
       </segment>
+      <segment id="hot_description" state="final">
+        <source>harvest.hot_description</source>
+        <target>Vous découvrez une zone incroyablement fertile où poussent des plantes tropicales tout à fait singulières. Après avoir neutralisé celles qui tentent de vous ingérer, vous pouvez vous occuper des autres !</target>
+      </segment>
     </unit>
     <unit id="disease">
       <segment id="name" state="final">

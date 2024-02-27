@@ -417,7 +417,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_8',
             'eventName' => 'fight',
-            'outputQuantity' => [],
+            'outputQuantity' => [5 => 1],
             'outputTable' => [
                 8 => 1,
             ],
@@ -426,7 +426,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_10',
             'eventName' => 'fight',
-            'outputQuantity' => [],
+            'outputQuantity' => [5 => 1],
             'outputTable' => [
                 10 => 1,
             ],
@@ -435,7 +435,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_12',
             'eventName' => 'fight',
-            'outputQuantity' => [],
+            'outputQuantity' => [5 => 1],
             'outputTable' => [
                 12 => 1,
             ],
@@ -444,7 +444,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_15',
             'eventName' => 'fight',
-            'outputQuantity' => [],
+            'outputQuantity' => [5 => 1],
             'outputTable' => [
                 15 => 1,
             ],
@@ -453,7 +453,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_18',
             'eventName' => 'fight',
-            'outputQuantity' => [],
+            'outputQuantity' => [5 => 1],
             'outputTable' => [
                 18 => 1,
             ],
@@ -462,7 +462,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_32',
             'eventName' => 'fight',
-            'outputQuantity' => [],
+            'outputQuantity' => [5 => 1],
             'outputTable' => [
                 32 => 1,
             ],
@@ -471,7 +471,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'fight_8_10_12_15_18_32',
             'eventName' => 'fight',
-            'outputQuantity' => [],
+            'outputQuantity' => [5 => 1],
             'outputTable' => [
                 8 => 1,
                 10 => 1,

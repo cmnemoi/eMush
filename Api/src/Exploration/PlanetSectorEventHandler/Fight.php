@@ -29,7 +29,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 final class Fight extends AbstractPlanetSectorEventHandler
 {
-    public const DISEASE_CHANCE = 5;
     public const MANKAROG_STRENGTH = 32;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
@@ -182,10 +181,12 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     private function giveDiseaseToExplorators(PlanetSectorEvent $event): void
     {
+        $diseaseChance = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
         $fighters = $event->getExploration()->getNotLostExplorators();
+
         /** @var Player $explorator */
         foreach ($fighters as $explorator) {
-            if ($this->randomService->isSuccessful(self::DISEASE_CHANCE)) {
+            if ($this->randomService->isSuccessful($diseaseChance)) {
                 $disease = $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::ALIEN_FIGHT, $explorator);
                 $this->roomLogService->createLog(
                     LogEnum::DISEASE_BY_ALIEN_FIGHT,

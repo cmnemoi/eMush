@@ -521,4 +521,42 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
         $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
     }
+
+    public function testFightEventGivesDisease(FunctionalTester $I): void
+    {
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // given the event has a 100% chance to give a disease
+        $fightEventConfig->setOutputQuantity([100 => 1]);
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should have a disease
+        $I->assertCount(1, $this->chun->getMedicalConditions());
+
+        // then I should have a private room log explaining that Chun has catched a disease because of the fight
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::DISEASE_BY_ALIEN_FIGHT,
+            ]
+        );
+    }
 }

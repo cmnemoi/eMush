@@ -40,6 +40,8 @@ use PHPUnit\Framework\TestCase;
 
 final class FightTest extends TestCase
 {
+    private const int DISEASE_CHANCE = 5;
+
     private Fight $fightEventHandler;
 
     /** @var DiseaseCauseServiceInterface|Mockery\Mock */
@@ -96,7 +98,7 @@ final class FightTest extends TestCase
         // Given universe is in a state in which the explorator gets a disease
         $this->randomService->shouldReceive('isSuccessful')
             ->once()
-            ->with(Fight::DISEASE_CHANCE)
+            ->with(self::DISEASE_CHANCE)
             ->andReturn(true);
 
         // Then the disease cause service should be called to create a disease for the explorator
@@ -171,6 +173,7 @@ final class FightTest extends TestCase
         $planetSectorEventConfig = new PlanetSectorEventConfig();
         $planetSectorEventConfig->setName(PlanetSectorEvent::FIGHT . '_12');
         $planetSectorEventConfig->setEventName(PlanetSectorEvent::FIGHT);
+        $planetSectorEventConfig->setOutputQuantity([self::DISEASE_CHANCE => 1]);
         $planetSectorEventConfig->setOutputTable([12 => 1]);
 
         return new PlanetSectorEvent($planetSector, $planetSectorEventConfig);
@@ -180,7 +183,13 @@ final class FightTest extends TestCase
     {
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->once()
-            ->andReturn(12);
+            ->andReturn(12)
+        ;
+
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
+            ->once()
+            ->andReturn(self::DISEASE_CHANCE)
+        ;
 
         $this->randomService->shouldReceive('getRandomPlayer')
             ->times(11) // one call per damage point

@@ -382,7 +382,7 @@ class AdminController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        $this->explorationService->closeExploration($exploration, reasons: []);
+        $this->explorationService->closeExploration($exploration, reasons: ["admin_action"]);
 
         return $this->view('Exploration closed successfully', Response::HTTP_OK);
     }

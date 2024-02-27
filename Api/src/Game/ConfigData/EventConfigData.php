@@ -546,7 +546,7 @@ class EventConfigData
             'type' => 'planet_sector_event_config',
             'name' => 'disease',
             'eventName' => 'disease',
-            'outputQuantity' => [],
+            'outputQuantity' => [50 => 1],
             'outputTable' => [],
         ],
         [

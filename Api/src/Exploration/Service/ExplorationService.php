@@ -101,9 +101,6 @@ final class ExplorationService implements ExplorationServiceInterface
 
         if ($exploration->hasAPilotAlive()) {
             $eventConfig = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
-            if (!$eventConfig) {
-                throw new \RuntimeException('Exploration event config not found for event ' . PlanetSectorEvent::NOTHING_TO_REPORT);
-            }
 
             $planetSectorEvent = new PlanetSectorEvent(
                 planetSector: $landingSector,
@@ -114,9 +111,6 @@ final class ExplorationService implements ExplorationServiceInterface
         } else {
             $eventKey = $this->drawPlanetSectorEvent($landingSector);
             $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
-            if (!$eventConfig) {
-                throw new \RuntimeException('Exploration event config not found for event ' . $eventKey);
-            }
 
             $planetSectorEvent = new PlanetSectorEvent(
                 planetSector: $landingSector,
@@ -140,13 +134,6 @@ final class ExplorationService implements ExplorationServiceInterface
 
         $eventKey = $this->drawPlanetSectorEvent($sector);
         $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
-        // @TODO : remove this debug condition when all events are implemented
-        if ($eventConfig === null) {
-            $eventConfig = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
-            if ($eventConfig === null) {
-                throw new \RuntimeException('Exploration event config not found for event ' . $eventKey);
-            }
-        }
 
         $event = new PlanetSectorEvent(
             planetSector: $sector,
@@ -186,9 +173,14 @@ final class ExplorationService implements ExplorationServiceInterface
         return $planetSector;
     }
 
-    private function findPlanetSectorEventConfigByName(string $eventKey): ?PlanetSectorEventConfig
+    private function findPlanetSectorEventConfigByName(string $eventKey): PlanetSectorEventConfig
     {
-        return $this->entityManager->getRepository(PlanetSectorEventConfig::class)->findOneByName($eventKey);
+        $eventConfig = $this->entityManager->getRepository(PlanetSectorEventConfig::class)->findOneByName($eventKey);
+        if (!$eventConfig) {
+            throw new \RuntimeException('PlanetSectorEventConfig not found for event ' . $eventKey);
+        }
+
+        return $eventConfig;
     }
 
     private function delete(array $entities): void

@@ -12,6 +12,8 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Place\Entity\Place;
@@ -41,6 +43,7 @@ class AdminController extends AbstractFOSRestController
     private AdminServiceInterface $adminService;
     private AlertServiceInterface $alertService;
     private DaedalusServiceInterface $daedalusService;
+    private ExplorationServiceInterface $explorationService;
     private PlaceServiceInterface $placeService;
     private PlayerServiceInterface $playerService;
     private UserServiceInterface $userService;
@@ -51,6 +54,7 @@ class AdminController extends AbstractFOSRestController
         AdminServiceInterface $adminService,
         AlertServiceInterface $alertService,
         DaedalusServiceInterface $daedalusService,
+        ExplorationServiceInterface $explorationService,
         PlaceServiceInterface $placeService,
         PlayerServiceInterface $playerService,
         UserServiceInterface $userService,
@@ -60,6 +64,7 @@ class AdminController extends AbstractFOSRestController
         $this->adminService = $adminService;
         $this->alertService = $alertService;
         $this->daedalusService = $daedalusService;
+        $this->explorationService = $explorationService;
         $this->placeService = $placeService;
         $this->playerService = $playerService;
         $this->userService = $userService;
@@ -371,6 +376,15 @@ class AdminController extends AbstractFOSRestController
             'message' => "Announcement sent successfully to {$daedaluses->count()} Daedaluses",
             'announcement' => $announcement,
         ], Response::HTTP_CREATED);
+    }
+
+    public function closeExploration(Exploration $exploration): View
+    {
+        $this->denyAccessIfNotAdmin();
+
+        $this->explorationService->closeExploration($exploration, reasons: []);
+
+        return $this->view('Exploration closed successfully', Response::HTTP_OK);
     }
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool

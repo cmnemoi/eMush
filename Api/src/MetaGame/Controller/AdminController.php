@@ -393,7 +393,7 @@ class AdminController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="close-exploration/{id}")
+     * @Rest\Patch(path="/close-exploration/{id}")
      */
     public function closeExploration(Exploration $exploration): View
     {

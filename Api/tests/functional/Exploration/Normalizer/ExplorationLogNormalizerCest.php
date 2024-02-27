@@ -809,6 +809,12 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::PLAYER_LOST => 1]
         );
 
+        // given MIA sector has only nothing to report event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1]
+        );
+
         // given exploration is created
         $this->exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD, PlanetSectorEnum::OXYGEN], $I),

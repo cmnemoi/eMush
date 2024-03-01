@@ -6,10 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Event\ChargeStatusEvent;
 
 /**
  * Class storing the various information needed to create a variableEvent.
@@ -75,32 +80,68 @@ class VariableEventConfig extends AbstractEventConfig
         return $this;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function createEvent(
         int $priority,
         array $tags,
         \DateTime $date,
-        GameVariableHolderInterface $variableHolder = null
-    ): AbstractGameEvent {
-        switch ($this->variableHolderClass) {
-            case ModifierHolderClassEnum::PLAYER:
-                if (!$variableHolder instanceof Player) {
-                    throw new \Exception('a player should be provided to create a playerVariableEvent');
-                }
-                $event = new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName)->setPriority($priority);
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        $event = match ($this->variableHolderClass) {
+            ModifierHolderClassEnum::PLAYER => $this->createPlayerVariableEvent($tags, $date, $variableHolder),
+            ModifierHolderClassEnum::DAEDALUS => $this->createDaedalusVariableEvent($tags, $date, $variableHolder),
+            Status::class => $this->createStatusVariableEvent($tags, $date, $variableHolder),
+            default => throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}"),
+        };
 
-                return $event;
-            case ModifierHolderClassEnum::DAEDALUS:
-                if (!$variableHolder instanceof Daedalus) {
-                    throw new \Exception('a daedalus should be provided to create a daedalusVariableEvent');
-                }
-                $event = new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName)->setPriority($priority);
-
-                return $event;
-            default:
-                throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}");
+        if ($event === null) {
+            return null;
         }
+
+        return $event->setEventName($this->eventName)->setPriority($priority);
+    }
+
+    private function createDaedalusVariableEvent(
+        array $tags,
+        \DateTime $date,
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        if (!$variableHolder instanceof Daedalus) {
+            throw new \Exception('a daedalus should be provided to create a daedalusVariableEvent');
+        }
+
+        return new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
+    }
+
+    private function createPlayerVariableEvent(
+        array $tags,
+        \DateTime $date,
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        if (!$variableHolder instanceof Player) {
+            throw new \Exception('a player should be provided to create a playerVariableEvent');
+        }
+
+        return new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
+    }
+
+    private function createStatusVariableEvent(
+        array $tags,
+        \DateTime $date,
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        if (!$variableHolder instanceof StatusHolderInterface) {
+            throw new \Exception('a statusHolderInterface should be provided to create a statusVariableEvent');
+        }
+
+        $status = $variableHolder->getStatusByName($this->targetVariable);
+        if ($status === null || !($status instanceof ChargeStatus)) {
+            return null;
+        }
+
+        return new ChargeStatusEvent($status, $variableHolder, $this->quantity, $tags, $date);
     }
 
     public function revertEvent(): ?AbstractEventConfig

@@ -53,6 +53,7 @@ class PlayerEventSubscriber implements EventSubscriberInterface
         }
     }
 
+    // Applies direct modifiers already present in the daedalus to the newly created player
     public function onNewPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();

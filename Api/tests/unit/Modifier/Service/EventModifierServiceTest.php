@@ -160,7 +160,7 @@ class EventModifierServiceTest extends TestCase
 
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
-            ->with($modifier)
+            ->with($modifierConfig, $daedalus)
             ->andReturn(true)
             ->once()
         ;
@@ -207,7 +207,7 @@ class EventModifierServiceTest extends TestCase
 
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
-            ->with($modifier)
+            ->with($modifierConfig, $daedalus)
             ->never()
         ;
         $this->modifierHandlerService
@@ -244,7 +244,7 @@ class EventModifierServiceTest extends TestCase
 
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
-            ->with($modifier)
+            ->with($modifierConfig, $daedalus)
             ->never()
         ;
         $this->modifierHandlerService
@@ -280,7 +280,7 @@ class EventModifierServiceTest extends TestCase
 
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
-            ->with($modifier)
+            ->with($modifierConfig, $daedalus)
             ->andReturn(false)
             ->once()
         ;
@@ -325,7 +325,7 @@ class EventModifierServiceTest extends TestCase
         // Modifier1 should be applied first
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
-            ->with($modifier1)
+            ->with($modifierConfig1, $daedalus)
             ->andReturn(true)
             ->once()
         ;
@@ -345,7 +345,7 @@ class EventModifierServiceTest extends TestCase
         // Now applies modifier2
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
-            ->with($modifier2)
+            ->with($modifierConfig2, $daedalus)
             ->andReturn(true)
             ->once()
         ;

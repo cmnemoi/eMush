@@ -6,8 +6,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
-use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
@@ -35,7 +35,7 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
                 $chargeStatus === null
                 || $chargeStatus->getCharge() > 0
             ) {
-                if ($this->checkModifier($modifier)) {
+                if ($this->checkModifier($modifier->getModifierConfig(), $holder)) {
                     $validatedModifiers->add($modifier);
                 }
             }
@@ -44,11 +44,10 @@ class ModifierRequirementService implements ModifierRequirementServiceInterface
         return $validatedModifiers;
     }
 
-    public function checkModifier(GameModifier $modifier): bool
-    {
-        $modifierConfig = $modifier->getModifierConfig();
-        $holder = $modifier->getModifierHolder();
-
+    public function checkModifier(
+        AbstractModifierConfig $modifierConfig,
+        ModifierHolderInterface $holder
+    ): bool {
         foreach ($modifierConfig->getModifierActivationRequirements() as $activationRequirement) {
             if (!$this->checkActivationRequirement($activationRequirement, $holder)) {
                 return false;

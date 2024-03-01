@@ -13,4 +13,6 @@ interface ModifierHolderInterface
     public function addModifier(GameModifier $modifier): self;
 
     public function getClassName(): string;
+
+    public function getName(): string;
 }

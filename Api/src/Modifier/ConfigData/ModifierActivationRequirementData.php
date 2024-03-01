@@ -53,13 +53,13 @@ class ModifierActivationRequirementData
         ],
         [
             'name' => 'item_status_heavy',
-            'activationRequirementName' => ModifierRequirementEnum::STATUS,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => EquipmentStatusEnum::HEAVY,
             'value' => 100,
         ],
         [
             'name' => 'player_status_dirty',
-            'activationRequirementName' => ModifierRequirementEnum::STATUS,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => PlayerStatusEnum::DIRTY,
             'value' => 100,
         ],

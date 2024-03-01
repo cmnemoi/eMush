@@ -23,8 +23,12 @@ namespace Mush\Modifier\Enum;
  *
  * STATUS: the activationRequirement is applied on the status of the modifier holder
  *
- * STATUS_NAME: the activation requirement is applied on the name of the charge status
- * STATUS_HOLDER_NAME: the activation requirement is applied on the name of the status holder
+ * HOLDER_NAME: the activation requirement is applied on the name of the holder (used mostly for equipments)
+ *
+ * The following conditions are used on EventModifiers, the tags of the event are compared with the tagConstraint of the modifier
+ * ANY_TAG: The event must have at least ONE of the following tag
+ * ALL_TAG: The event must have ALL the following tags
+ * NONE_TAG: The event must have NONE of the following tags
  */
 class ModifierRequirementEnum
 {
@@ -43,7 +47,9 @@ class ModifierRequirementEnum
 
     public const PLAYER_EQUIPMENT = 'player_equipment';
 
-    public const STATUS = 'status';
+    public const HOLDER_HAS_STATUS = 'status';
+
+    public const HOLDER_NAME = 'holder_name';
 
     public const ANY_TAGS = 'any_tags';
     public const NONE_TAGS = 'none_tags';

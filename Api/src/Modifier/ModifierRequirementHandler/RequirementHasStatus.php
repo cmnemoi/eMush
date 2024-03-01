@@ -10,7 +10,7 @@ use Mush\Status\Entity\StatusHolderInterface;
 
 abstract class RequirementHasStatus extends AbstractModifierRequirementHandler
 {
-    protected string $name = ModifierRequirementEnum::STATUS;
+    protected string $name = ModifierRequirementEnum::HOLDER_HAS_STATUS;
 
     public function checkRequirement(
         ModifierActivationRequirement $modifierRequirement,

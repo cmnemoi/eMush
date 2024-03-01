@@ -12,6 +12,7 @@ namespace Mush\Modifier\Enum;
  * ALONE: the player is alone in the room
  * NOT_ALONE: the player is not alone in the room
  * FOUR_PEOPLE: there is 4 players in the room
+ * MUSH_IN_ROOM: there is a mush in the room
  *
  * ITEM_IN_ROOM: the activationRequirement is applied if item is in the room
  *
@@ -20,7 +21,10 @@ namespace Mush\Modifier\Enum;
  *
  * PLAYER_EQUIPMENT: the activationRequirement is applied on the player equipment
  *
- * PLAYER_STATUS: the activationRequirement is applied on the player status
+ * STATUS: the activationRequirement is applied on the status of the modifier holder
+ *
+ * STATUS_NAME: the activation requirement is applied on the name of the charge status
+ * STATUS_HOLDER_NAME: the activation requirement is applied on the name of the status holder
  */
 class ModifierRequirementEnum
 {

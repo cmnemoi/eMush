@@ -19,6 +19,10 @@ services:
     resource: '../ModifierHandler/'
     tags: ['mush.modifier.modifier_handler']
 
+  Mush\Modifier\ModifierRequirementHandler\:
+    resource: '../ModifierRequirementHandler/'
+    tags: [ 'mush.modifier.modifier_requirement_handler' ]
+
   Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader:
     public: true
   Mush\Modifier\ConfigData\TriggerVariableEventModifierConfigDataLoader:

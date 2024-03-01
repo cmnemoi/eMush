@@ -30,7 +30,7 @@ class PlayerEventSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerEvent::CHANGED_PLACE => 'onChangedPlace',
-            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
+            PlayerEvent::NEW_PLAYER => 'appliesDirectModifiers',
         ];
     }
 
@@ -54,7 +54,7 @@ class PlayerEventSubscriber implements EventSubscriberInterface
     }
 
     // Applies direct modifiers already present in the daedalus to the newly created player
-    public function onNewPlayer(PlayerEvent $event): void
+    public function appliesDirectModifiers(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
 

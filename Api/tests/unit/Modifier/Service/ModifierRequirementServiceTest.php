@@ -3,9 +3,7 @@
 namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -13,6 +11,8 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Modifier\ModifierRequirementHandler\RequirementRandom;
+use Mush\Modifier\Service\ModifierRequirementHandlerServiceInterface;
 use Mush\Modifier\Service\ModifierRequirementService;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -22,10 +22,10 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ModifierConditionServiceTest extends TestCase
+class ModifierRequirementServiceTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface $randomService;
+    /** @var ModifierRequirementHandlerServiceInterface|Mockery\Mock */
+    private ModifierRequirementHandlerServiceInterface $modifierRequirementHandlerService;
 
     private ModifierRequirementService $service;
 
@@ -34,10 +34,10 @@ class ModifierConditionServiceTest extends TestCase
      */
     public function before()
     {
-        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->modifierRequirementHandlerService = \Mockery::mock(ModifierRequirementHandlerServiceInterface::class);
 
         $this->service = new ModifierRequirementService(
-            $this->randomService,
+            $this->modifierRequirementHandlerService,
         );
     }
 
@@ -49,53 +49,19 @@ class ModifierConditionServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testRandomActivationRequirementModifier()
+    public function testCheckRequirementsNotMet()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-
-        $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::RANDOM);
-        $modifierActivationRequirement->setValue(50);
-
-        // create a gear with daedalus modifier
-        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
-        $modifierConfig1
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setTargetEvent('action')
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->addModifierRequirement($modifierActivationRequirement)
-        ;
-
-        $modifier = new GameModifier($room, $modifierConfig1);
-
-        $modifierCollection = new ModifierCollection([$modifier]);
-
-        $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(true);
-        $result = $this->service->getActiveModifiers($modifierCollection, ['reason'], $room);
-        $this->assertEquals($result, $modifierCollection);
-
-        $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(false);
-        $result = $this->service->getActiveModifiers($modifierCollection, ['reason'], $room);
-        $this->assertEmpty($result);
-    }
-
-    public function testPlayerInRoomActivationRequirementModifier()
-    {
+        // Given a player in a daedalus
         $daedalus = new Daedalus();
         $room = new Place();
         $room->setDaedalus($daedalus);
         $player1 = new Player();
         $player1->setPlace($room);
+        new PlayerInfo($player1, new User(), new CharacterConfig());
 
-        $playerInfo = new PlayerInfo($player1, new User(), new CharacterConfig());
-
+        // Given this player has a modifier with a requirement
         $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
         $modifierActivationRequirement->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE);
-
-        // create a gear with daedalus modifier
         $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
@@ -105,19 +71,58 @@ class ModifierConditionServiceTest extends TestCase
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->addModifierRequirement($modifierActivationRequirement)
         ;
-
         $modifier = new GameModifier($room, $modifierConfig1);
-
         $modifierCollection = new ModifierCollection([$modifier]);
 
-        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::HIDE], $player1);
+        $requirementHandler = \Mockery::mock(RequirementRandom::class);
+
+        // then modifierRequirementHandlerService should look for the handler once
+        $this->modifierRequirementHandlerService
+            ->shouldReceive('getModifierRequirementHandler')
+            ->once()
+            ->andReturn($requirementHandler)
+        ;
+        $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(false);
+
+        $result = $this->service->getActiveModifiers($modifierCollection);
         $this->assertEmpty($result);
+    }
 
-        $player2 = new Player();
-        $player2->setPlace($room);
-        $playerInfo = new PlayerInfo($player2, new User(), new CharacterConfig());
+    public function testCheckRequirementsMet()
+    {
+        // Given a player in a daedalus
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $player1 = new Player();
+        $player1->setPlace($room);
+        new PlayerInfo($player1, new User(), new CharacterConfig());
 
-        $result = $this->service->getActiveModifiers($modifierCollection, [ActionEnum::DROP], $player1);
+        // Given this player has a modifier with a requirement
+        $modifierActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
+        $modifierActivationRequirement->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE);
+        $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
+        $modifierConfig1
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
+            ->setTargetEvent('action')
+            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->addModifierRequirement($modifierActivationRequirement)
+        ;
+        $modifier = new GameModifier($room, $modifierConfig1);
+        $modifierCollection = new ModifierCollection([$modifier]);
+
+        $requirementHandler = \Mockery::mock(RequirementRandom::class);
+
+        $this->modifierRequirementHandlerService
+            ->shouldReceive('getModifierRequirementHandler')
+            ->once()
+            ->andReturn($requirementHandler)
+        ;
+        $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(true);
+
+        $result = $this->service->getActiveModifiers($modifierCollection);
         $this->assertEquals($result, $modifierCollection);
     }
 }

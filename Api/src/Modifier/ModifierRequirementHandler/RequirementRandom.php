@@ -7,7 +7,7 @@ use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 
-abstract class RequirementRandom extends AbstractModifierRequirementHandler
+class RequirementRandom extends AbstractModifierRequirementHandler
 {
     protected string $name = ModifierRequirementEnum::RANDOM;
 

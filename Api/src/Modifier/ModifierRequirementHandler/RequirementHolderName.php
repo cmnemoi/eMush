@@ -6,7 +6,7 @@ use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 
-abstract class RequirementHolderName extends AbstractModifierRequirementHandler
+class RequirementHolderName extends AbstractModifierRequirementHandler
 {
     protected string $name = ModifierRequirementEnum::HOLDER_NAME;
 

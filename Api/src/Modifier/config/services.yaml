@@ -15,13 +15,13 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
-  Mush\Modifier\ModifierHandler\:
-    resource: '../ModifierHandler/'
-    tags: ['mush.modifier.modifier_handler']
-
   Mush\Modifier\ModifierRequirementHandler\:
     resource: '../ModifierRequirementHandler/'
     tags: [ 'mush.modifier.modifier_requirement_handler' ]
+
+  Mush\Modifier\ModifierHandler\:
+    resource: '../ModifierHandler/'
+    tags: ['mush.modifier.modifier_handler']
 
   Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader:
     public: true

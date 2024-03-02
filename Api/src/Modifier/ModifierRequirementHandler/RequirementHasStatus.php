@@ -8,7 +8,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\StatusHolderInterface;
 
-abstract class RequirementHasStatus extends AbstractModifierRequirementHandler
+class RequirementHasStatus extends AbstractModifierRequirementHandler
 {
     protected string $name = ModifierRequirementEnum::HOLDER_HAS_STATUS;
 

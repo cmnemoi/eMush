@@ -10,7 +10,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-abstract class RequirementCycle extends AbstractModifierRequirementHandler
+class RequirementCycle extends AbstractModifierRequirementHandler
 {
     protected string $name = ModifierRequirementEnum::CYCLE;
 

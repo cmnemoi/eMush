@@ -7,7 +7,7 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
 
-abstract class RequirementItemInInventory extends AbstractModifierRequirementHandler
+class RequirementItemInInventory extends AbstractModifierRequirementHandler
 {
     protected string $name = ModifierRequirementEnum::PLAYER_EQUIPMENT;
 

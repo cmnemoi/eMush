@@ -9,7 +9,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-abstract class RequirementPlayerInRoom extends AbstractModifierRequirementHandler
+class RequirementPlayerInRoom extends AbstractModifierRequirementHandler
 {
     protected string $name = ModifierRequirementEnum::PLAYER_IN_ROOM;
 

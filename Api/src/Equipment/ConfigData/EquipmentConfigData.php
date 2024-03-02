@@ -2564,6 +2564,7 @@ class EquipmentConfigData
                 'sabotage_percent_6',
                 'report_equipment',
                 'examine',
+                'hack',
             ],
             'mechanics' => [],
             'initStatuses' => [],

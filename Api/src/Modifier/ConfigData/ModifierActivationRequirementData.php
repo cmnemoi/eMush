@@ -2,6 +2,7 @@
 
 namespace Mush\Modifier\ConfigData;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -104,6 +105,12 @@ class ModifierActivationRequirementData
           'activationRequirementName' => 'player_in_room',
           'activationRequirement' => 'not_alone',
           'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_turret',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::TURRET_COMMAND,
+            'value' => 100,
         ],
     ];
 }

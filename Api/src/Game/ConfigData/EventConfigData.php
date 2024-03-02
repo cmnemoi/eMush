@@ -6,6 +6,8 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
 class EventConfigData
@@ -591,6 +593,14 @@ class EventConfigData
             'eventName' => 'player_lost',
             'outputQuantity' => [],
             'outputTable' => [],
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 2,
+            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+            'variableHolderClass' => Status::class,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => 'change.variable_turret_max_charge_+2',
         ],
     ];
 }

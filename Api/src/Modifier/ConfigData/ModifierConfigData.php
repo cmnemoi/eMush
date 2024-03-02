@@ -10,6 +10,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Communication\Event\MessageEvent;
 use Mush\Disease\Enum\SymptomEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -26,6 +27,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
@@ -1908,6 +1910,33 @@ class ModifierConfigData
                 ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOOT_RANDOM_HUNTER => ModifierRequirementEnum::ANY_TAGS,
             ],
+        ],
+        [
+            'name' => 'modifier_for_daedalus_increase_turret_max_charges',
+            'modifierName' => null,
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'modifierRange' => 'daedalus',
+            'type' => 'direct_modifier',
+            'triggeredEvent' => 'change.variable_turret_max_charge_+2',
+            'visibility' => null,
+            'modifierActivationRequirements' => ['holder_name_turret'],
+            'revertOnRemove' => true,
+        ],
+        [
+            'name' => 'modifier_for_daedalus_random50_+1_charge_turret_on_recharge',
+            'modifierName' => null,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 1.0,
+            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+            'mode' => 'additive',
+            'modifierActivationRequirements' => ['random_50'],
+            'tagConstraints' => [EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS],
         ],
     ];
 }

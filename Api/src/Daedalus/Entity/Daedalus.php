@@ -562,6 +562,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->daedalusInfo->getName();
     }
 
+    public function getDaedalus(): self
+    {
+        return $this;
+    }
+
     public function getDifficultyMode(): int
     {
         return $this->day;
@@ -600,11 +605,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function isInSpaceBattle(): true
     {
         return true;
-    }
-
-    public function getDaedalus(): Daedalus
-    {
-        return $this;
     }
 
     public function hasAnOngoingExploration(): bool

@@ -53,7 +53,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
         foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
-            if ($modifierHolder === null || !($modifierConfig instanceof EventModifierConfig)) {
+            if ($modifierHolder === null) {
                 return;
             }
 

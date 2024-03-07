@@ -141,13 +141,10 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         /** @var ModifierHolderInterface $eventTarget */
         foreach ($eventTargets as $eventTarget) {
             if ($this->modifierRequirementService->checkModifier($modifierConfig, $eventTarget)) {
-                try {
-                    $event = $eventConfig->createEvent(0, $tags, $time, $eventTarget);
+                $event = $eventConfig->createEvent(0, $tags, $time, $eventTarget);
 
-                    if ($event !== null) {
-                        $this->eventService->callEvent($event, $event->getEventName());
-                    }
-                } catch (\Exception $e) {
+                if ($event !== null) {
+                    $this->eventService->callEvent($event, $event->getEventName());
                 }
             }
         }

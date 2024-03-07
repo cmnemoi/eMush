@@ -484,6 +484,25 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($astronavigationNeronCpuPriority);
 
+        /** @var VariableEventModifierConfig $increasedMaxCharge */
+        $increasedMaxCharge = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE);
+        /** @var VariableEventModifierConfig $increasedRechargeRate */
+        $increasedRechargeRate = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE);
+
+        /** @var array<int, VariableEventModifierConfig> $modifierConfigs */
+        $defenceModifierConfigs = [
+            $increasedRechargeRate,
+            $increasedMaxCharge,
+        ];
+        $defenceCpuPriority = new StatusConfig();
+        $defenceCpuPriority
+            ->setStatusName(DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY)
+            ->setModifierConfigs($defenceModifierConfigs)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($defenceCpuPriority);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -530,6 +549,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($inOrbit)
             ->addStatusConfig($pocPilotSkill)
             ->addStatusConfig($astronavigationNeronCpuPriority)
+            ->addStatusConfig($defenceCpuPriority)
         ;
         $manager->persist($gameConfig);
 

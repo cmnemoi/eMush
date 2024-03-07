@@ -31,9 +31,7 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Event\ChargeStatusEvent;
 
 class StatusModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -311,7 +309,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $eventConfigIncreaseMaxCharge = new VariableEventConfig();
         $eventConfigIncreaseMaxCharge
             ->setTargetVariable(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setVariableHolderClass(Status::class)
+            ->setVariableHolderClass(ModifierHolderClassEnum::EQUIPMENT)
             ->setQuantity(2)
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
             ->setName('increase_turret_max_charges_event_config_test')
@@ -339,7 +337,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetVariable(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ChargeStatusEvent::STATUS_CHARGE_UPDATED)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([
                 EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,

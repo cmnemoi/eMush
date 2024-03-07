@@ -2,6 +2,7 @@
 
 namespace Mush\Modifier\Entity;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 
 interface ModifierHolderInterface
@@ -15,4 +16,6 @@ interface ModifierHolderInterface
     public function getClassName(): string;
 
     public function getName(): string;
+
+    public function getDaedalus(): Daedalus;
 }

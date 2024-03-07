@@ -9,7 +9,6 @@ use Mush\Status\Entity\StatusHolderInterface;
 
 class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
 {
-    public const STATUS_CHARGE_UPDATED = 'status.charge.updated';
     private float $quantity;
 
     public function __construct(

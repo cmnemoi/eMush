@@ -3,7 +3,7 @@
 namespace Mush\Modifier\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
@@ -16,15 +16,18 @@ class ModifierCreationService implements ModifierCreationServiceInterface
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private EventCreationServiceInterface $eventCreationService;
+    private ModifierRequirementServiceInterface $modifierRequirementService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         EventCreationServiceInterface $eventCreationService,
+        ModifierRequirementServiceInterface $modifierRequirementService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->eventCreationService = $eventCreationService;
+        $this->modifierRequirementService = $modifierRequirementService;
     }
 
     public function persist(GameModifier $modifier): GameModifier
@@ -107,11 +110,43 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         bool $reverse
     ): void {
         $triggeredEventConfig = $modifierConfig->getTriggeredEvent();
-        $events = $this->eventCreationService->createEvents($triggeredEventConfig, $modifierRange, 0, $tags, $time, $reverse);
 
-        /** @var AbstractGameEvent $event */
-        foreach ($events as $event) {
-            $this->eventService->callEvent($event, $event->getEventName());
+        if ($reverse) {
+            $triggeredEventConfig = $triggeredEventConfig->revertEvent();
+        }
+
+        if ($triggeredEventConfig instanceof VariableEventConfig) {
+            $this->appliesVariableDirectModifier(
+                $triggeredEventConfig,
+                $modifierRange,
+                $modifierConfig,
+                $tags,
+                $time,
+            );
+        }
+    }
+
+    public function appliesVariableDirectModifier(
+        VariableEventConfig $eventConfig,
+        ModifierHolderInterface $modifierRange,
+        DirectModifierConfig $modifierConfig,
+        array $tags,
+        \DateTime $time,
+    ): void {
+        $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder(
+            $eventConfig->getVariableHolderClass(),
+            $modifierRange
+        );
+
+        /** @var ModifierHolderInterface $eventTarget */
+        foreach ($eventTargets as $eventTarget) {
+            if ($this->modifierRequirementService->checkModifier($modifierConfig, $eventTarget)) {
+                $event = $eventConfig->createEvent(0, $tags, $time, $eventTarget);
+
+                if ($event !== null) {
+                    $this->eventService->callEvent($event, $event->getEventName());
+                }
+            }
         }
     }
 }

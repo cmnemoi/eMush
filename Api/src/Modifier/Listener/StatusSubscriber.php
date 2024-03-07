@@ -5,6 +5,7 @@ namespace Mush\Modifier\Listener;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -36,7 +37,7 @@ class StatusSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_APPLIED => [['onStatusApplied'], ['appliesDirectModifiers']],
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
     }
@@ -52,7 +53,7 @@ class StatusSubscriber implements EventSubscriberInterface
 
         foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
-            if ($modifierHolder === null || !($modifierConfig instanceof EventModifierConfig)) {
+            if ($modifierHolder === null) {
                 return;
             }
 
@@ -157,5 +158,34 @@ class StatusSubscriber implements EventSubscriberInterface
         }
 
         return null;
+    }
+
+    // Applies direct modifiers already present to the newly created charge status
+    public function appliesDirectModifiers(StatusEvent $event): void
+    {
+        $status = $event->getStatus();
+
+        $statusHolder = $status->getStatusTargetOwner();
+
+        if (
+            !($status instanceof ChargeStatus
+            && $statusHolder instanceof ModifierHolderInterface)
+        ) {
+            return;
+        }
+
+        $directModifiers = $statusHolder->getAllModifiers()->getDirectModifiers();
+        foreach ($directModifiers as $modifier) {
+            /** @var DirectModifierConfig $modifierConfig */
+            $modifierConfig = $modifier->getModifierConfig();
+
+            $this->modifierCreationService->createDirectModifier(
+                $modifierConfig,
+                $statusHolder,
+                $event->getTags(),
+                $event->getTime(),
+                false
+            );
+        }
     }
 }

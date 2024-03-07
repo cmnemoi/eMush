@@ -2,6 +2,7 @@
 
 namespace Mush\Modifier\ConfigData;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -53,13 +54,13 @@ class ModifierActivationRequirementData
         ],
         [
             'name' => 'item_status_heavy',
-            'activationRequirementName' => ModifierRequirementEnum::STATUS,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => EquipmentStatusEnum::HEAVY,
             'value' => 100,
         ],
         [
             'name' => 'player_status_dirty',
-            'activationRequirementName' => ModifierRequirementEnum::STATUS,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => PlayerStatusEnum::DIRTY,
             'value' => 100,
         ],
@@ -104,6 +105,12 @@ class ModifierActivationRequirementData
           'activationRequirementName' => 'player_in_room',
           'activationRequirement' => 'not_alone',
           'value' => 100,
+        ],
+        [
+            'name' => 'holder_name_turret',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
+            'activationRequirement' => EquipmentEnum::TURRET_COMMAND,
+            'value' => 100,
         ],
     ];
 }

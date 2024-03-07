@@ -321,6 +321,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $collectScrap */
         $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
 
+        /** @var ChargeStatusConfig $patrolShipChargeStatus */
+        $patrolShipChargeStatus = $this->getReference(ChargeStatusFixtures::PATROLLER_CHARGE);
+
         $icarusPatrolShip = $this->createPatrolShip(
             [$takeoffAction, $landAction, $renovateAction, $collectScrap, $takeoffToPlanetAction],
             EquipmentEnum::ICARUS,
@@ -403,6 +406,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsBreakable(true)
             ->setActions([$sabotage12, $examineAction])
             ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
+            ->setInitStatuses([$patrolShipChargeStatus])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($patrolShipMechanic);

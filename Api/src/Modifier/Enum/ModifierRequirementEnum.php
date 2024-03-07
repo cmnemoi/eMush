@@ -12,6 +12,7 @@ namespace Mush\Modifier\Enum;
  * ALONE: the player is alone in the room
  * NOT_ALONE: the player is not alone in the room
  * FOUR_PEOPLE: there is 4 players in the room
+ * MUSH_IN_ROOM: there is a mush in the room
  *
  * ITEM_IN_ROOM: the activationRequirement is applied if item is in the room
  *
@@ -20,7 +21,14 @@ namespace Mush\Modifier\Enum;
  *
  * PLAYER_EQUIPMENT: the activationRequirement is applied on the player equipment
  *
- * PLAYER_STATUS: the activationRequirement is applied on the player status
+ * STATUS: the activationRequirement is applied on the status of the modifier holder
+ *
+ * HOLDER_NAME: the activation requirement is applied on the name of the holder (used mostly for equipments)
+ *
+ * The following conditions are used on EventModifiers, the tags of the event are compared with the tagConstraint of the modifier
+ * ANY_TAG: The event must have at least ONE of the following tag
+ * ALL_TAG: The event must have ALL the following tags
+ * NONE_TAG: The event must have NONE of the following tags
  */
 class ModifierRequirementEnum
 {
@@ -39,7 +47,9 @@ class ModifierRequirementEnum
 
     public const PLAYER_EQUIPMENT = 'player_equipment';
 
-    public const STATUS = 'status';
+    public const HOLDER_HAS_STATUS = 'status';
+
+    public const HOLDER_NAME = 'holder_name';
 
     public const ANY_TAGS = 'any_tags';
     public const NONE_TAGS = 'none_tags';

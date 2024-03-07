@@ -5,11 +5,16 @@ namespace Mush\Game\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Event\ChargeStatusEvent;
 
 /**
  * Class storing the various information needed to create a variableEvent.
@@ -75,32 +80,88 @@ class VariableEventConfig extends AbstractEventConfig
         return $this;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function createEvent(
         int $priority,
         array $tags,
         \DateTime $date,
-        GameVariableHolderInterface $variableHolder = null
-    ): AbstractGameEvent {
-        switch ($this->variableHolderClass) {
-            case ModifierHolderClassEnum::PLAYER:
-                if (!$variableHolder instanceof Player) {
-                    throw new \Exception('a player should be provided to create a playerVariableEvent');
-                }
-                $event = new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName)->setPriority($priority);
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        $event = match ($this->variableHolderClass) {
+            ModifierHolderClassEnum::PLAYER => $this->createPlayerVariableEvent($tags, $date, $variableHolder),
+            ModifierHolderClassEnum::DAEDALUS => $this->createDaedalusVariableEvent($tags, $date, $variableHolder),
+            ModifierHolderClassEnum::EQUIPMENT => $this->createEquipmentVariableEVent($tags, $date, $variableHolder),
+            default => throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}"),
+        };
 
-                return $event;
-            case ModifierHolderClassEnum::DAEDALUS:
-                if (!$variableHolder instanceof Daedalus) {
-                    throw new \Exception('a daedalus should be provided to create a daedalusVariableEvent');
-                }
-                $event = new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-                $event->setEventName($this->eventName)->setPriority($priority);
+        return $event?->setEventName($this->eventName)?->setPriority($priority);
+    }
 
-                return $event;
-            default:
-                throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}");
+    private function createDaedalusVariableEvent(
+        array $tags,
+        \DateTime $date,
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        if (!$variableHolder instanceof Daedalus) {
+            throw new \Exception('a daedalus should be provided to create a daedalusVariableEvent');
         }
+
+        if ($variableHolder->hasVariable($this->targetVariable)) {
+            return new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
+        } elseif ($variableHolder->hasStatus($this->targetVariable)) {
+            return $this->createStatusVariableEvent($tags, $date, $variableHolder);
+        }
+
+        return null;
+    }
+
+    private function createPlayerVariableEvent(
+        array $tags,
+        \DateTime $date,
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        if (!$variableHolder instanceof Player) {
+            throw new \Exception('a player should be provided to create a playerVariableEvent');
+        }
+
+        if ($variableHolder->hasVariable($this->targetVariable)) {
+            return new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
+        } elseif ($variableHolder->hasStatus($this->targetVariable)) {
+            return $this->createStatusVariableEvent($tags, $date, $variableHolder);
+        }
+
+        return null;
+    }
+
+    private function createEquipmentVariableEvent(
+        array $tags,
+        \DateTime $date,
+        ModifierHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        if (!$variableHolder instanceof GameEquipment) {
+            throw new \Exception('a player should be provided to create a playerVariableEvent');
+        }
+
+        if ($variableHolder->hasStatus($this->targetVariable)) {
+            return $this->createStatusVariableEvent($tags, $date, $variableHolder);
+        }
+
+        return null;
+    }
+
+    private function createStatusVariableEvent(
+        array $tags,
+        \DateTime $date,
+        StatusHolderInterface $variableHolder
+    ): ?AbstractGameEvent {
+        $status = $variableHolder->getStatusByName($this->targetVariable);
+        if ($status === null || !($status instanceof ChargeStatus)) {
+            return null;
+        }
+
+        return new ChargeStatusEvent($status, $variableHolder, $this->quantity, $tags, $date);
     }
 
     public function revertEvent(): ?AbstractEventConfig

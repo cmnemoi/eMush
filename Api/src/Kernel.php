@@ -7,6 +7,7 @@ use Mush\Disease\DependencyInjection\SymptomHandlerPass;
 use Mush\Equipment\DependencyInjection\EquipmentCycleHandlerPass;
 use Mush\Exploration\DependencyInjection\PlanetSectorEventHandlerPass;
 use Mush\Modifier\DependencyInjection\ModifierHandlerPass;
+use Mush\Modifier\DependencyInjection\ModifierRequirementHandlerPass;
 use Mush\Status\DependencyInjection\ChargeStrategyPass;
 use Mush\Status\DependencyInjection\StatusCycleHandlerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -49,6 +50,7 @@ class Kernel extends BaseKernel
         $container->addCompilerPass(new EquipmentCycleHandlerPass());
         $container->addCompilerPass(new SymptomHandlerPass());
         $container->addCompilerPass(new ModifierHandlerPass());
+        $container->addCompilerPass(new ModifierRequirementHandlerPass());
         $container->addCompilerPass(new PlanetSectorEventHandlerPass());
     }
 }

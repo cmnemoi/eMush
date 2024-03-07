@@ -139,6 +139,10 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.cpu_priority_astronavigation</source>
         <target>Astronavigation</target>
       </segment>
+      <segment id="cpu_priority.defence" state="translated">
+         <source>bios_terminal.cpu_priority_defence</source>
+         <target>Système de défense</target>
+      </segment>
       <segment id="cpu_priority.none" state="translated">
         <source>bios_terminal.cpu_priority_none</source>
         <target>Aucune</target>

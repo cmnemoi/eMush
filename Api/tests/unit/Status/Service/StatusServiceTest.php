@@ -18,7 +18,9 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -31,6 +33,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class StatusServiceTest extends TestCase
@@ -171,6 +174,7 @@ class StatusServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus(new Daedalus());
         $gameEquipment = new GameItem($place);
+        $gameEquipment->setName('equipment');
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
@@ -194,6 +198,7 @@ class StatusServiceTest extends TestCase
         $place = new Place();
         $place->setDaedalus(new Daedalus());
         $gameEquipment = new GameItem($place);
+        $gameEquipment->setName('equipment');
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::GUARDIAN)
@@ -256,8 +261,13 @@ class StatusServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
         $player = new Player();
         $player->setDaedalus($daedalus);
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('player');
+        new PlayerInfo($player, new User(), $characterConfig);
 
         $actionResult = new Fail();
 
@@ -276,6 +286,11 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('player');
+        new PlayerInfo($player, new User(), $characterConfig);
+
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
@@ -302,6 +317,10 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('player');
+        new PlayerInfo($player, new User(), $characterConfig);
+
         $actionResult = new Fail();
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
@@ -328,6 +347,9 @@ class StatusServiceTest extends TestCase
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('player');
+        new PlayerInfo($player, new User(), $characterConfig);
 
         $actionResult = new Success();
         $attemptConfig = new ChargeStatusConfig();
@@ -350,7 +372,9 @@ class StatusServiceTest extends TestCase
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());
+
         $gameEquipment = new GameItem($place);
+        $gameEquipment->setName('equipment');
         $statusConfig = new ContentStatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::GUARDIAN)

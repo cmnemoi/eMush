@@ -94,7 +94,7 @@ class StatusSubscriber implements EventSubscriberInterface
         }
 
         // add special logs
-        $specialLogMap = StatusEventLogEnum::STATUS_EVENT_LOGS[ChargeStatusEvent::STATUS_CHARGE_UPDATED];
+        $specialLogMap = StatusEventLogEnum::STATUS_EVENT_LOGS[VariableEventInterface::CHANGE_VARIABLE];
         $specialLogKey = $event->mapLog($specialLogMap[StatusEventLogEnum::VALUE]);
 
         if ($specialLogKey !== null) {

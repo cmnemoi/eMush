@@ -3,8 +3,11 @@
 namespace Mush\Modifier\ModifierHandler;
 
 use Mush\Game\Entity\Collection\EventChain;
+use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Service\EventCreationServiceInterface;
 
@@ -38,16 +41,45 @@ class AddEvent extends AbstractModifierHandler
 
         $tags[] = $modifier->getModifierConfig()->getModifierName() ?: $modifier->getModifierConfig()->getName();
 
-        $newEvents = $this->eventCreationService->createEvents(
-            $eventConfig,
-            $modifier->getModifierHolder(),
-            $priority,
-            $tags,
-            $time
-        );
+        $newEvents = new EventChain([]);
+        if ($eventConfig instanceof VariableEventConfig) {
+            $newEvents = $this->createVariableEvents(
+                $modifier->getModifierHolder(),
+                $eventConfig,
+                $priority,
+                $tags,
+                $time
+            );
+        }
 
-        $events = $events->addEvents($newEvents);
+        if ($newEvents->count() > 0) {
+            $events = $events->addEvents($newEvents);
 
-        return $this->addModifierEvent($events, $modifier, $tags, $time);
+            return $this->addModifierEvent($events, $modifier, $tags, $time);
+        }
+
+        return $events;
+    }
+
+    private function createVariableEvents(
+        ModifierHolderInterface $modifierHolder,
+        VariableEventConfig $eventConfig,
+        int $priority,
+        array $tags,
+        \DateTime $time
+    ): EventChain {
+        $events = [];
+        if ($modifierHolder instanceof GameVariableHolderInterface) {
+            $eventTargets = $this->eventCreationService->getEventTargetsFromModifierHolder($eventConfig->getVariableHolderClass(), $modifierHolder);
+
+            foreach ($eventTargets as $target) {
+                $event = $eventConfig->createEvent($priority, $tags, $time, $target);
+                if ($event !== null) {
+                    $events[] = $event;
+                }
+            }
+        }
+
+        return new EventChain($events);
     }
 }

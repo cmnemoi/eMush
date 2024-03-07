@@ -18,6 +18,8 @@ interface GameEquipmentServiceInterface
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection;
 
+    public function findByDaedalus(Daedalus $daedalus): ArrayCollection;
+
     public function findById(int $id): ?GameEquipment;
 
     public function createGameEquipmentFromName(

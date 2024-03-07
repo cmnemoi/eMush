@@ -41,6 +41,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 
         parent::__construct($tags, $time);
         $this->addTag($status->getName());
+        $this->addTag($holder->getName());
     }
 
     public function getStatus(): Status

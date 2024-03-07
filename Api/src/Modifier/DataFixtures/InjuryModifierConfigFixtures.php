@@ -258,7 +258,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($cannotMoveModifier);
 
-        $heavyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::STATUS);
+        $heavyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $heavyRequirement
             ->setValue(10)
             ->setName('heavy_status_requirement_fixtures')
@@ -328,7 +328,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         ;
         $manager->persist($muteModifier);
 
-        $dirtyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::STATUS);
+        $dirtyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $dirtyRequirement
             ->setValue(100)
             ->setName('player_dirty_status_requirement_fixtures')

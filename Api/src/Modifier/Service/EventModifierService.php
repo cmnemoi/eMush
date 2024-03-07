@@ -47,7 +47,7 @@ class EventModifierService implements EventModifierServiceInterface
         $modifiers = $modifiers->sortModifiers();
 
         foreach ($modifiers as $modifier) {
-            $events = $this->applyModifier($modifier, $initialEvent, $events, $priorities);
+            $events = $this->applyModifier($modifier, $initialEvent, $events);
         }
 
         $initialEvent = $events->getInitialEvent();
@@ -63,14 +63,13 @@ class EventModifierService implements EventModifierServiceInterface
         GameModifier $modifier,
         AbstractGameEvent $initialEvent,
         EventChain $events,
-        array $priorities
     ): EventChain {
         $modifierConfig = $modifier->getModifierConfig();
         // Check if the modifier applies
         if (
             $modifierConfig instanceof EventModifierConfig
             && $modifierConfig->doModifierApplies($initialEvent)
-            && $this->modifierRequirementService->checkModifier($modifier)
+            && $this->modifierRequirementService->checkModifier($modifierConfig, $modifier->getModifierHolder())
         ) {
             $handler = $this->modifierHandlerService->getModifierHandler($modifier);
             if ($handler === null) {

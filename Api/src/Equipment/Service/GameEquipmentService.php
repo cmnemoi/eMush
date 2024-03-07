@@ -84,6 +84,11 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return new ArrayCollection($this->repository->findByNameAndDaedalus($name, $daedalus));
     }
 
+    public function findByDaedalus(Daedalus $daedalus): ArrayCollection
+    {
+        return new ArrayCollection($this->repository->findByDaedalus($daedalus));
+    }
+
     public function findByOwner(Player $player): ArrayCollection
     {
         return new ArrayCollection($this->repository->findBy(['owner' => $player]));

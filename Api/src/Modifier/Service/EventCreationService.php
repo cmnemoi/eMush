@@ -3,10 +3,9 @@
 namespace Mush\Modifier\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Entity\AbstractEventConfig;
-use Mush\Game\Entity\Collection\EventChain;
-use Mush\Game\Entity\VariableEventConfig;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\Place;
@@ -15,71 +14,31 @@ use Mush\Player\Entity\Player;
 
 class EventCreationService implements EventCreationServiceInterface
 {
-    public function createEvents(
-        AbstractEventConfig $eventConfig,
-        ModifierHolderInterface $modifierRange,
-        int $priority,
-        array $tags,
-        \DateTime $time,
-        bool $reverse = false
-    ): EventChain {
-        if ($reverse) {
-            $eventConfig = $eventConfig->revertEvent();
-        }
+    private GameEquipmentRepository $gameEquipmentRepository;
 
-        if ($eventConfig instanceof VariableEventConfig) {
-            return $this->createVariableEvents($eventConfig, $priority, $tags, $time, $modifierRange);
-        } else {
-            $className = $eventConfig::class;
-            throw new \Exception("This eventConfig ({$className}) class is not supported");
-        }
+    public function __construct(
+        GameEquipmentRepository $gameEquipmentRepository
+    ) {
+        $this->gameEquipmentRepository = $gameEquipmentRepository;
     }
 
-    private function createVariableEvents(
-        VariableEventConfig $eventConfig,
-        int $priority,
-        array $tags,
-        \DateTime $time,
-        ModifierHolderInterface $modifierRange,
-    ): EventChain {
-        $variableHolderClass = $eventConfig->getVariableHolderClass();
-        switch ($variableHolderClass) {
+    public function getEventTargetsFromModifierHolder(
+        string $eventTarget,
+        ModifierHolderInterface $holder,
+    ): array {
+        switch ($eventTarget) {
             case ModifierHolderClassEnum::DAEDALUS:
-                $daedalus = $this->getDaedalusFromModifierHolder($modifierRange);
+                $daedalus = $holder->getDaedalus();
 
-                return new EventChain([$eventConfig->createEvent($priority, $tags, $time, $daedalus)]);
-
+                return [$daedalus];
             case ModifierHolderClassEnum::PLAYER:
-                $players = $this->getPlayersFromModifierHolder($modifierRange);
+                return $this->getPlayersFromModifierHolder($holder)->toArray();
+            case ModifierHolderClassEnum::EQUIPMENT:
+                return $this->getEquipmentsFromModifierHolder($holder);
 
-                $events = [];
-                foreach ($players as $player) {
-                    $events[] = $eventConfig->createEvent($priority, $tags, $time, $player);
-                }
-
-                return new EventChain($events);
             default:
-                throw new \Exception("This variableHolderClass {$variableHolderClass} is not supported");
+                throw new \Exception("This variableHolderClass {$eventTarget} is not supported");
         }
-    }
-
-    private function getDaedalusFromModifierHolder(ModifierHolderInterface $modifierHolder): Daedalus
-    {
-        if ($modifierHolder instanceof Player) {
-            return $modifierHolder->getDaedalus();
-        }
-        if ($modifierHolder instanceof Place) {
-            return $modifierHolder->getDaedalus();
-        }
-        if ($modifierHolder instanceof GameEquipment) {
-            return $modifierHolder->getDaedalus();
-        }
-        if ($modifierHolder instanceof Daedalus) {
-            return $modifierHolder;
-        }
-
-        $className = $modifierHolder::class;
-        throw new \Exception("This eventConfig ({$className}) class is not supported");
     }
 
     private function getPlayersFromModifierHolder(ModifierHolderInterface $modifierHolder): PlayerCollection
@@ -100,8 +59,25 @@ class EventCreationService implements EventCreationServiceInterface
             if ($holder instanceof Player) {
                 return new PlayerCollection([$holder]);
             } else {
-                throw new \Exception("this equipment ({$modifierHolder->getName()}) do not have a player holder");
+                return new PlayerCollection([]);
             }
+        }
+
+        $className = $modifierHolder::class;
+        throw new \Exception("This eventConfig ({$className}) class is not supported");
+    }
+
+    private function getEquipmentsFromModifierHolder(ModifierHolderInterface $modifierHolder): array
+    {
+        // Covers place and player cases
+        if ($modifierHolder instanceof EquipmentHolderInterface) {
+            return $modifierHolder->getEquipments()->toArray();
+        }
+        if ($modifierHolder instanceof GameEquipment) {
+            return [$modifierHolder];
+        }
+        if ($modifierHolder instanceof Daedalus) {
+            return $this->gameEquipmentRepository->findByDaedalus($modifierHolder);
         }
 
         $className = $modifierHolder::class;

@@ -1428,7 +1428,7 @@ class ModifierConfigData
             'modifierRange' => 'player',
             'type' => 'event_modifier',
             'modifierActivationRequirements' => ['player_status_dirty'],
-            'tagConstraints' => [],
+            'tagConstraints' => [SymptomEnum::SEPTICEMIA => ModifierRequirementEnum::NONE_TAGS],
         ],
         [
             'name' => 'septicemia_post_action',
@@ -1440,7 +1440,7 @@ class ModifierConfigData
             'modifierRange' => 'player',
             'type' => 'event_modifier',
             'modifierActivationRequirements' => ['player_status_dirty'],
-            'tagConstraints' => [],
+            'tagConstraints' => [SymptomEnum::SEPTICEMIA => ModifierRequirementEnum::NONE_TAGS],
         ],
         [
             'name' => 'septicemia_on_dirty',
@@ -1454,6 +1454,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::SEPTICEMIA => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1471,6 +1472,7 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::FEAR_OF_CATS => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1487,6 +1489,7 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::PSYCHOTIC_ATTACKS => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1501,7 +1504,9 @@ class ModifierConfigData
             'modifierActivationRequirements' => [
                 'random_16',
             ],
-            'tagConstraints' => [],
+            'tagConstraints' => [
+                SymptomEnum::BITING => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'breakouts_on_move',
@@ -1515,7 +1520,9 @@ class ModifierConfigData
             'modifierActivationRequirements' => [
                 'random_16',
             ],
-            'tagConstraints' => [],
+            'tagConstraints' => [
+                SymptomEnum::BREAKOUTS => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'cat_allergy_on_take_schrodinger_random16',
@@ -1532,6 +1539,7 @@ class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
+                SymptomEnum::CAT_ALLERGY => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1549,6 +1557,7 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::SNEEZING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1563,6 +1572,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::VOMITING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1577,6 +1587,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => ['random_40'],
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::VOMITING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1589,7 +1600,9 @@ class ModifierConfigData
             'modifierRange' => 'player',
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [],
+            'tagConstraints' => [
+                SymptomEnum::DIRTINESS => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'cycle_dirtiness_random_40',
@@ -1601,7 +1614,9 @@ class ModifierConfigData
             'modifierRange' => 'player',
             'type' => 'event_modifier',
             'modifierActivationRequirements' => ['random_40'],
-            'tagConstraints' => [],
+            'tagConstraints' => [
+                SymptomEnum::DIRTINESS => ModifierRequirementEnum::NONE_TAGS,
+            ],
         ],
         [
             'name' => 'drooling_on_move',
@@ -1615,6 +1630,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => ['random_16'],
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::DROOLING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1629,6 +1645,7 @@ class ModifierConfigData
             'modifierActivationRequirements' => ['random_16'],
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::FOAMING_MOUTH => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -1646,6 +1663,7 @@ class ModifierConfigData
             ],
             'tagConstraints' => [
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::SNEEZING => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

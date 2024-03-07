@@ -18,15 +18,7 @@ class RequirementCycle extends AbstractModifierRequirementHandler
         ModifierActivationRequirement $modifierRequirement,
         ModifierHolderInterface $holder
     ): bool {
-        if ($holder instanceof Place || $holder instanceof Player) {
-            $daedalus = $holder->getDaedalus();
-        } elseif ($holder instanceof GameEquipment) {
-            $daedalus = $holder->getDaedalus();
-        } elseif ($holder instanceof Daedalus) {
-            $daedalus = $holder;
-        } else {
-            throw new \LogicException('This modifierHolder type is not handled');
-        }
+        $daedalus = $holder->getDaedalus();
 
         switch ($modifierRequirement->getActivationRequirement()) {
             case ModifierRequirementEnum::EVEN:

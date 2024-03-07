@@ -63,7 +63,7 @@ class DirectModifierWithRequirementCest extends AbstractFunctionalTest
         // When applying the modifier
         $this->modifierCreationService->createModifier($modifier, $this->player1, [], new \DateTime());
 
-        // then the amount of moral point should not have diminished (requirement not met)
+        // then the amount of moral point should have diminished (requirement is met)
         $I->assertEquals($initMoralPoint - 3, $this->player1->getMoralPoint());
     }
 }

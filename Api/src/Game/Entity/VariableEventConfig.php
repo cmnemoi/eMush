@@ -96,11 +96,7 @@ class VariableEventConfig extends AbstractEventConfig
             default => throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}"),
         };
 
-        if ($event === null) {
-            return null;
-        }
-
-        return $event->setEventName($this->eventName)->setPriority($priority);
+        return $event?->setEventName($this->eventName)?->setPriority($priority);
     }
 
     private function createDaedalusVariableEvent(

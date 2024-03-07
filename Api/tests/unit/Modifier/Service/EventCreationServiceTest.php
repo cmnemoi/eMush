@@ -4,6 +4,7 @@ namespace Mush\Tests\unit\Modifier\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\EventCreationService;
 use Mush\Place\Entity\Place;
@@ -17,12 +18,17 @@ class EventCreationServiceTest extends TestCase
 {
     private EventCreationService $service;
 
+    /** @var GameEquipmentRepository|Mockery\Mock */
+    private GameEquipmentRepository $equipmentRepository;
+
     /**
      * @before
      */
     public function before()
     {
-        $this->service = new EventCreationService();
+        $this->equipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
+
+        $this->service = new EventCreationService($this->equipmentRepository);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Mush\Tests\unit\Modifier\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Entity\VariableEventConfig;
@@ -194,6 +195,7 @@ class ModifierCreationServiceTest extends TestCase
     public function testCreateDirectModifier()
     {
         $daedalus = new Daedalus();
+        $daedalus->setDaedalusVariables(new DaedalusConfig());
 
         $eventConfig = new VariableEventConfig();
         $eventConfig
@@ -239,11 +241,12 @@ class ModifierCreationServiceTest extends TestCase
     public function testDeleteDirectModifierReverse()
     {
         $daedalus = new Daedalus();
+        $daedalus->setDaedalusVariables(new DaedalusConfig());
 
         $eventConfig = new VariableEventConfig();
         $eventConfig
             ->setEventName('eventName')
-            ->setTargetVariable('variable')
+            ->setTargetVariable(DaedalusVariableEnum::FUEL)
             ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setQuantity(1)
         ;

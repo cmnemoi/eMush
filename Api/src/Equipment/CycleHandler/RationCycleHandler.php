@@ -8,6 +8,8 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -54,11 +56,12 @@ class RationCycleHandler extends AbstractCycleHandler
 
     private function handleStatus(GameEquipment $gameRation, Ration $ration): void
     {
-        // If ration is not perishable or frozen or decomposing do nothing
+        // If ration is not perishable or frozen or decomposing or not in a room do nothing
         if (!$ration->getIsPerishable()
             || $gameRation->getStatuses()->exists(
                 fn (int $key, Status $status) => in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::FROZEN])
             )
+            || ($gameRation->getHolder() instanceof Place && $gameRation->getPlace()->getType() !== PlaceTypeEnum::ROOM)
         ) {
             return;
         }

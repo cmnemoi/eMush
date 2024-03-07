@@ -110,7 +110,7 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
             reasons: ['test'],
         );
 
-        // then an exploration iand closedExploration are created
+        // then an exploration and closedExploration are created
         $I->seeInRepository(Exploration::class, ['planet' => $this->planet]);
         $I->seeInRepository(ClosedExploration::class);
     }

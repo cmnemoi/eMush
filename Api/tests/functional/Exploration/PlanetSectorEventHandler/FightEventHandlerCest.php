@@ -530,9 +530,9 @@ final class FightEventHandlerCest extends AbstractExplorationTester
             explorators: new PlayerCollection([$this->chun])
         );
 
-        // given the team fights again a creature of strength 12
+        // given the team fights again a creature of strength 2
         /** @var PlanetSectorEventConfig $fightEventConfig */
-        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_2']);
         $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,

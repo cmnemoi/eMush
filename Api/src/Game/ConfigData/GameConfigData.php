@@ -81,8 +81,8 @@ class GameConfigData
                 'critical_success_knife_default',
                 'critical_fail_blaster_default',
                 'critical_success_blaster_default',
-                'exploration',
-                'alien_fight',
+                'exploration_default',
+                'alien_fight_default',
             ],
             'diseaseConfigs' => [
                 'food_poisoning_default',

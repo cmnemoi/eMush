@@ -378,6 +378,23 @@ class AdminController extends AbstractFOSRestController
         ], Response::HTTP_CREATED);
     }
 
+    /**
+     * Closes an exploration.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The exploration id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/close-exploration/{id}")
+     */
     public function closeExploration(Exploration $exploration): View
     {
         $this->denyAccessIfNotAdmin();

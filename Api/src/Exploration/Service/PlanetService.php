@@ -118,7 +118,7 @@ final class PlanetService implements PlanetServiceInterface
         for ($maxDistance; $maxDistance <= 9; ++$maxDistance) {
             // we don't want two planets to have the same coordinates, so we have to check if the coordinates are available
             // under the max distance given
-            $availableCoordinates = $this->getAvailaibleCoordinatesForPlanetUnderDistance($planet, $maxDistance);
+            $availableCoordinates = $this->getAvailableCoordinatesForPlanetUnderDistance($planet, $maxDistance);
             if (!$availableCoordinates->isEmpty()) {
                 break;
             }
@@ -142,7 +142,7 @@ final class PlanetService implements PlanetServiceInterface
         return $drawnCoordinates;
     }
 
-    private function getAvailaibleCoordinatesForPlanetUnderDistance(Planet $planet, int $distance): ArrayCollection
+    private function getAvailableCoordinatesForPlanetUnderDistance(Planet $planet, int $distance): ArrayCollection
     {
         $availableCoordinates = SpaceCoordinates::getAll()->filter(
             fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() <= $distance
@@ -187,15 +187,13 @@ final class PlanetService implements PlanetServiceInterface
 
     private function getPlanetSize(Daedalus $dadalus): int
     {
-        $size = 2 + $this->randomService->random(0, 5) * 2;
-
         if ($dadalus->isInHardMode()) {
-            $size = 4 + $this->randomService->random(0, 6) * 2;
+            return 4 + $this->randomService->random(0, 6) * 2;
         } elseif ($dadalus->isInVeryHardMode()) {
-            $size = 6 + $this->randomService->random(0, 7) * 2;
+            return 6 + $this->randomService->random(0, 7) * 2;
         }
 
-        return $size;
+        return 2 + $this->randomService->random(0, 5) * 2;
     }
 
     private function generatePlanetSectors(Planet $planet): Planet
@@ -207,7 +205,6 @@ final class PlanetService implements PlanetServiceInterface
         // during the generation process and we don't want to persist this
         $storedSectorConfigs = $planet->getDaedalus()->getGameConfig()->getPlanetSectorConfigs();
         $inMemorySectorConfigs = clone $storedSectorConfigs;
-
         $total = $this->getSectorConfigsTotalWeight($inMemorySectorConfigs);
 
         // Generate a sector for each available slot on the planet
@@ -232,13 +229,18 @@ final class PlanetService implements PlanetServiceInterface
                     if ($sectorConfig->getMaxPerPlanet() === 0) {
                         $inMemorySectorConfigs->removeElement($sectorConfig);
 
-                        // Subtract the weight of this sector configuration from the running sum
-                        $sum -= $sectorConfig->getWeightAtPlanetGeneration();
+                        // Subtract the weight of this sector configuration from the cumulated weight for next random draw
+                        $total -= $sectorConfig->getWeightAtPlanetGeneration();
                     }
 
                     // Break out of the loop since we've generated a sector for this slot on the planet
                     break;
                 }
+            }
+
+            // if there is no planet sector config available anymore, stop generation
+            if ($total === 0) {
+                break;
             }
         }
 

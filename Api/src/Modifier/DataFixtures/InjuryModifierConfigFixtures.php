@@ -475,6 +475,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                SymptomEnum::VOMITING => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)

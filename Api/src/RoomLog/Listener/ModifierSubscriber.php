@@ -4,7 +4,6 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Event\ModifierEvent;
 use Mush\Place\Entity\Place;
@@ -35,8 +34,15 @@ class ModifierSubscriber implements EventSubscriberInterface
 
     public function onApplyModifier(ModifierEvent $event): void
     {
-        if (($logKey = $event->mapLog(LogEnum::MODIFIER_LOG_ENUM[LogEnum::VALUE])) !== null) {
-            $logVisibility = $event->mapLog(LogEnum::MODIFIER_LOG_ENUM[LogEnum::VISIBILITY]) ?: VisibilityEnum::HIDDEN;
+        $modifierName = $event->getModifier()->getModifierConfig()->getModifierName();
+        $logMap = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VALUE];
+
+        if (
+            $modifierName !== null
+            && key_exists($modifierName, $logMap)
+        ) {
+            $logKey = $logMap[$modifierName];
+            $logVisibility = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VISIBILITY][$modifierName];
 
             $this->createEventLog($logKey, $logVisibility, $event);
         }

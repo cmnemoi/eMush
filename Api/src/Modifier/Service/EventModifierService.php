@@ -65,6 +65,7 @@ class EventModifierService implements EventModifierServiceInterface
         EventChain $events,
     ): EventChain {
         $modifierConfig = $modifier->getModifierConfig();
+
         // Check if the modifier applies
         if (
             $modifierConfig instanceof EventModifierConfig

@@ -119,6 +119,7 @@ abstract class AbstractAction
 
         $postActionEvent = new ActionEvent($this->action, $this->player, $this->target);
         $postActionEvent->setActionResult($result);
+
         $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
 
         return $result;

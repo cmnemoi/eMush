@@ -250,6 +250,18 @@
         other {Vous récupérez {quantity} unités de fuel.}
         }</target>
       </segment>
+      <segment id="cave_description" state="final">
+        <source>fuel.cave_description</source>
+        <target>Vous trouvez une veine de charbonite gélatineuse... Le réservoir du réacteur devrait pouvoir digérer ça !</target>
+      </segment>
+      <segment id="mountain_description" state="final">
+        <source>fuel.mountain_description</source>
+        <target>{character} trébuche sur des morceaux de charbonites gros comme le poing, chouette !</target>
+      </segment>
+      <segment id="wreck_description" state="final">
+        <source>fuel.wreck_description</source>
+        <target>En siphonant les réservoirs de l'appareil, vous récupérez {quantity} tonnes de fuel.</target>
+      </segment>
     </unit>
     <unit id="artefact">
       <segment id="name" state="final">
@@ -360,8 +372,8 @@
         <source>fight.wreck_description</source>
         <target>Apparemment le conducteur de l'appareil est toujours en vie ! Et manifestement, il n'a pas l'air de vous considérer comme son sauveur...</target>
       </segment>
-      <segment id="cristalite_description" state="final">
-        <source>fight.cristalite_description</source>
+      <segment id="cristal_field_description" state="final">
+        <source>fight.cristal_field_description</source>
         <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un Torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !</target>
       </segment>
     </unit>

@@ -352,8 +352,8 @@
         <source>fight.wreck_description</source>
         <target>It would appear that the pilot of the vessel is still alive! It's quite apparent that they don't consider you their saviour...</target>
       </segment>
-      <segment id="cristalite_description" state="translated">
-        <source>fight.cristalite_description</source>
+      <segment id="cristal_field_description" state="translated">
+        <source>fight.cristal_field_description</source>
         <target>The fields are deserted... A sinister howl deafens you... It's a savage Mindblender! There are no words to describe this creature that came from a land with no light or warmth. Man your weapons!</target>
       </segment>
     </unit>

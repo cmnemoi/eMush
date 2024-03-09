@@ -360,8 +360,8 @@
         <source>fight.wreck_description</source>
         <target>Apparemment le conducteur de l'appareil est toujours en vie ! Et manifestement, il n'a pas l'air de vous considérer comme son sauveur...</target>
       </segment>
-      <segment id="cristalite_description" state="final">
-        <source>fight.cristalite_description</source>
+      <segment id="cristal_field_description" state="final">
+        <source>fight.cristal_field_description</source>
         <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un Torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !</target>
       </segment>
     </unit>

@@ -334,9 +334,9 @@
         <source>fight.wreck_description</source>
         <target>fight.wreck_description</target>
       </segment>
-      <segment id="cristalite_description" state="initial">
-        <source>fight.cristalite_description</source>
-        <target>fight.cristalite_description</target>
+      <segment id="cristal_field_description" state="initial">
+        <source>fight.cristal_field_description</source>
+        <target>fight.cristal_field_description</target>
       </segment>
     </unit>
     <unit id="provision">

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Disease\Event;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -41,8 +42,6 @@ final class PlayerEventCest extends AbstractFunctionalTest
         );
         $disease->setDiseasePoint(10);
 
-        $initialAP = $this->player->getActionPoint();
-
         // given the fitful sleep modifier of the disease always triggers at cycle change
         // note : this modifier removes 1 AP to the player
         /** @var TriggerEventModifierConfig $modifierConfig */
@@ -50,7 +49,10 @@ final class PlayerEventCest extends AbstractFunctionalTest
             fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === ModifierNameEnum::FITFUL_SLEEP
         )->first();
         $modifierConfig->setModifierActivationRequirements([]);
-        $I->haveInRepository($modifierConfig);
+
+        // given player disease has only the fitful sleep modifier
+        $diseaseConfig = $disease->getDiseaseConfig();
+        $diseaseConfig->setModifierConfigs(new ArrayCollection([$modifierConfig]));
 
         // when player has a new cycle
         $playerEvent = new PlayerEvent(
@@ -70,8 +72,8 @@ final class PlayerEventCest extends AbstractFunctionalTest
             ]
         );
 
-        // the player gains 1 AP (cycle change) and lose 1 AP (disease)
-        $I->assertEquals($this->player->getActionPoint(), $initialAP);
+        // the player gains 1 AP (cycle change) and lose 1 AP (disease), so they should have the same amount of AP
+        $I->assertEquals(expected: 8, actual: $this->player->getActionPoint());
     }
 
     public function testHealedDiseaseDoesNotActOnPlayerNewCycleEvent(FunctionalTester $I): void

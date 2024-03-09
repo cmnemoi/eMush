@@ -9,6 +9,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
@@ -156,6 +157,11 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             explorators: $this->players,
         );
 
+        // given only starmap can be looted from the artefact event
+        /** @var PlanetSectorEventConfig $eventConfig */
+        $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
+        $eventConfig->setOutputTable([ItemEnum::STARMAP_FRAGMENT => 1]);
+
         // given two extra steps are made to trigger the artefact event
         $this->explorationService->dispatchExplorationEvent($this->exploration);
         $this->explorationService->dispatchExplorationEvent($this->exploration);
@@ -168,41 +174,17 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
         // then exploration log is normalized as expected
-        $lootedArtefact = $this->translationService->translate(
-            key: $explorationLog->getParameters()['target_item'] . '.name',
-            parameters: [],
-            domain: 'items',
-            language: $this->exploration->getDaedalus()->getLanguage(),
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Artefact',
+                'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un Morceau de carte stellaire avant de reprendre sa route.",
+                'eventOutcome' => 'Vous trouvez un artefact.',
+            ],
+            actual: $normalizedExplorationLog,
         );
-
-        $maleLootedArtefact = "un {$lootedArtefact}";
-        $femaleLootedArtefact = "une {$lootedArtefact}";
-
-        try {
-            $I->assertEquals(
-                expected: [
-                    'id' => $explorationLog->getId(),
-                    'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
-                    'planetSectorName' => 'Vie intelligente',
-                    'eventName' => 'Artefact',
-                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$maleLootedArtefact} avant de reprendre sa route.",
-                    'eventOutcome' => 'Vous trouvez un artefact.',
-                ],
-                actual: $normalizedExplorationLog,
-            );
-        } catch (\Exception $e) {
-            $I->assertEquals(
-                expected: [
-                    'id' => $explorationLog->getId(),
-                    'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
-                    'planetSectorName' => 'Vie intelligente',
-                    'eventName' => 'Artefact',
-                    'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre {$femaleLootedArtefact} avant de reprendre sa route.",
-                    'eventOutcome' => 'Vous trouvez un artefact.',
-                ],
-                actual: $normalizedExplorationLog,
-            );
-        }
     }
 
     public function testNormalizeKillRandomEvent(FunctionalTester $I): void

@@ -250,6 +250,18 @@
         other {Vous récupérez {quantity} unités de fuel.}
         }</target>
       </segment>
+      <segment id="cave_description" state="final">
+        <source>fuel.cave_description</source>
+        <target>Vous trouvez une veine de charbonite gélatineuse... Le réservoir du réacteur devrait pouvoir digérer ça !</target>
+      </segment>
+      <segment id="mountain_description" state="final">
+        <source>fuel.mountain_description</source>
+        <target>{character} trébuche sur des morceaux de charbonites gros comme le poing, chouette !</target>
+      </segment>
+      <segment id="wreck_description" state="final">
+        <source>fuel.wreck_description</source>
+        <target>En siphonant les réservoirs de l'appareil, vous récupérez $nb tonnes de fuel</target>
+      </segment>
     </unit>
     <unit id="artefact">
       <segment id="name" state="final">

@@ -99,7 +99,8 @@ class ActionImpossibleCauseEnum
     public const ALREADY_WASHED_IN_SINK_TODAY = 'already_washed_in_sink_today';
     public const DAEDALUS_ALREADY_FULL_HULL = 'daedalus_already_full_hull';
     public const COMBUSTION_CHAMBER_FULL = 'combustion_chamber_full';
-    public const LATERAL_REACTOR_BROKEN = 'lateral_reactor_broken';
+    public const ALPHA_REACTOR_BROKEN = 'alpha_reactor_broken';
+    public const BRAVO_REACTOR_BROKEN = 'bravo_reactor_broken';
     public const DAEDALUS_IN_ORBIT = 'daedalus_in_orbit';
     public const CANNOT_GO_TO_THIS_ROOM = 'cannot_go_to_this_room';
     public const EXPLORATION_ALREADY_ONGOING = 'exploration_already_ongoing';

@@ -21,10 +21,10 @@ final class TurnDaedalusRight extends AbstractTurnDaedalusAction
     {
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::DAEDALUS,
-            'equipments' => [EquipmentEnum::REACTOR_LATERAL_ALPHA],
+            'equipments' => [EquipmentEnum::REACTOR_LATERAL_BRAVO],
             'checkIfOperational' => true,
             'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::LATERAL_REACTOR_BROKEN,
+            'message' => ActionImpossibleCauseEnum::BRAVO_REACTOR_BROKEN,
         ]));
     }
 

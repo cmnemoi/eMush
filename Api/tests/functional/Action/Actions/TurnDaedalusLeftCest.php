@@ -22,10 +22,10 @@ final class TurnDaedalusLeftCest extends AbstractTurnDaedalusActionCest
 
     public function testTurnDaedalusActionNotExecutableIfLateralReactorIsBroken(FunctionalTester $I): void
     {
-        // given daedalus is traveling
+        // given daedalus alpha reactor is broken
         $this->statusService->createStatusFromName(
             statusName: EquipmentStatusEnum::BROKEN,
-            holder: $this->bravoLateralReactor,
+            holder: $this->alphaLateralReactor,
             tags: [],
             time: new \DateTime(),
         );
@@ -36,10 +36,9 @@ final class TurnDaedalusLeftCest extends AbstractTurnDaedalusActionCest
             player: $this->player,
             target: $this->commandTerminal
         );
-        $this->turnDaedalusAction->execute();
 
         // then the action is not executable
-        $I->assertEquals(ActionImpossibleCauseEnum::LATERAL_REACTOR_BROKEN, $this->turnDaedalusAction->cannotExecuteReason());
+        $I->assertEquals(ActionImpossibleCauseEnum::ALPHA_REACTOR_BROKEN, $this->turnDaedalusAction->cannotExecuteReason());
     }
 
     public function testTurnDaedalusActionSuccessChangesCorrectlyDaedalusOrientation(FunctionalTester $I): void

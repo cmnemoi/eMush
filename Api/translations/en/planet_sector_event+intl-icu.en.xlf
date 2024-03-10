@@ -242,6 +242,18 @@
         other {You have earned {quantity} units of Fuel.}
         }</target>
       </segment>
+      <segment id="cave_description" state="translated">
+        <source>fuel.cave_description</source>
+        <target>You find a gelatinous carbonite vine... The reactor should be able to digest that!</target>
+      </segment>
+      <segment id="mountain_description" state="translated">
+        <source>fuel.mountain_description</source>
+        <target>{character} springs off blocks of carbonite the size of your fist, cool!</target>
+      </segment>
+      <segment id="wreck_description" state="final">
+        <source>fuel.wreck_description</source>
+        <target>By siphoning the wreck's tank, you manage to recover {quantity} units of fuel.</target>
+      </segment>
     </unit>
     <unit id="artefact">
       <segment id="name" state="translated">
@@ -412,10 +424,6 @@
         <source>harvest.mountain_description</source>
         <target>At the top of a rocky summit, you notice a small tree with unusual berries. You decide to take some back with you.</target>
       </segment>
-      <segment id="hot_description" state="translated">
-        <source>harvest.hot_description</source>
-        <target>You discover an incredibly fertile zone where plants you have never seen before are growing. After neutralizing the ones that are trying to eat you, you can harvest the others!</target>
-      </segment>
       <segment id="fruit_trees_description" state="translated">
         <source>harvest.fruit_trees_description</source>
         <target>{quantity, select, 
@@ -423,6 +431,10 @@
         3 {You find a giant tree similar to a baobab. At the top of it, you find a multitude of strange fruits which you decide to take back to the Daedalus.}
         other {Several bushy trees attract your attention, and in one of them you find some curious fruits...}
         }</target>
+      </segment>
+      <segment id="hot_description" state="translated">
+        <source>harvest.hot_description</source>
+        <target>You discover an incredibly fertile zone where plants you have never seen before are growing. After neutralizing the ones that are trying to eat you, you can harvest the others!</target>
       </segment>
     </unit>
     <unit id="disease">

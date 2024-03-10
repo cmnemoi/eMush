@@ -182,7 +182,7 @@
       </segment>
     </unit>
     <unit id="change.variable.increase_on_player.new.cycle">
-      <segment state="final">
+      <segment state="translated">
         <source>change.variable.increase_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Chaque cycle, fait gagner **{quantity}** {emote}.}

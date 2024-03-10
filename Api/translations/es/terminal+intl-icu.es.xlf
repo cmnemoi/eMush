@@ -130,6 +130,10 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>bios_terminal.cpu_priority_astronavigation</source>
         <target>bios_terminal.cpu_priority_astronavigation</target>
       </segment>
+      <segment id="cpu_priority.defence" state="initial">
+        <source>bios_terminal.cpu_priority_defence</source>
+        <target>bios_terminal.cpu_priority_defence</target>
+      </segment>
       <segment id="cpu_priority.none" state="initial">
         <source>bios_terminal.cpu_priority_none</source>
         <target>bios_terminal.cpu_priority_none</target>

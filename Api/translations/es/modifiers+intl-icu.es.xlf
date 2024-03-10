@@ -7,10 +7,10 @@
         <target>max_point_decrease.description</target>
       </segment>
     </unit>
-    <unit id="change.variable.decrease_on_disease.new.cycle">
+    <unit id="change.variable.decrease_on_player.new.cycle">
       <segment id="description" state="initial">
-        <source>change.variable.decrease_on_disease.new.cycle.description</source>
-        <target>change.variable.decrease_on_disease.new.cycle.description</target>
+        <source>change.variable.decrease_on_player.new.cycle.description</source>
+        <target>change.variable.decrease_on_player.new.cycle.description</target>
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_infection.player">
@@ -43,10 +43,10 @@
         <target>roll.action.percentage_decrease_shoot.description</target>
       </segment>
     </unit>
-    <unit id="biting_on_disease.new.cycle">
+    <unit id="biting_on_player.new.cycle">
       <segment id="description" state="initial">
-        <source>biting_on_disease.new.cycle.description</source>
-        <target>biting_on_disease.new.cycle.description</target>
+        <source>biting_on_player.new.cycle.description</source>
+        <target>biting_on_player.new.cycle.description</target>
       </segment>
     </unit>
     <unit id="breakouts_on_post.action">
@@ -79,10 +79,10 @@
         <target>cat_allergy.description</target>
       </segment>
     </unit>
-    <unit id="dirtiness_on_disease.new.cycle">
+    <unit id="dirtiness_on_player.new.cycle">
       <segment id="description" state="initial">
-        <source>dirtiness_on_disease.new.cycle.description</source>
-        <target>dirtiness_on_disease.new.cycle.description</target>
+        <source>dirtiness_on_player.new.cycle.description</source>
+        <target>dirtiness_on_player.new.cycle.description</target>
       </segment>
     </unit>
     <unit id="deaf_speak_on_new_message">
@@ -169,10 +169,10 @@
         <target>paranoia_messages.description</target>
       </segment>
     </unit>
-    <unit id="change.variable.increase_on_disease.new.cycle">
+    <unit id="change.variable.increase_on_player.new.cycle">
       <segment state="initial">
-        <source>change.variable.increase_on_disease.new.cycle.description</source>
-        <target>change.variable.increase_on_disease.new.cycle.description</target>
+        <source>change.variable.increase_on_player.new.cycle.description</source>
+        <target>change.variable.increase_on_player.new.cycle.description</target>
       </segment>
     </unit>
     <unit id="apply.cost_increase_move_if_player_in_room_four_people">

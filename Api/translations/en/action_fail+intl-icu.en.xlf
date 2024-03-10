@@ -577,6 +577,18 @@
         <target>The combustion chamber is full.</target>
       </segment>
     </unit>
+    <unit id="alpha_reactor_broken">
+      <segment state="translated">
+        <source>alpha_reactor_broken.description</source>
+        <target>The *Alpha Lateral Reactor* has broken down. It has to be repaired if we're to steer this wreck in this direction.</target>
+      </segment>
+    </unit>
+    <unit id="bravo_reactor_broken">
+      <segment state="translated">
+        <source>bravo_reactor_broken.description</source>
+        <target>The *Bravo Lateral Reactor* has broken down. It has to be repaired if we're to steer this wreck in this direction.</target>
+      </segment>
+    </unit>
     <unit id="lateral_reactor_broken">
       <segment state="translated">
         <source>lateral_reactor_broken.description</source>

@@ -2943,7 +2943,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
     </unit>
     <unit id="peniraft">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>peniraft.name</source>
         <target>{age, select,
        young {Jeune }

@@ -577,6 +577,18 @@
         <target>combustion_chamber_full.description</target>
       </segment>
     </unit>
+    <unit id="alpha_reactor_broken">
+      <segment state="initial">
+        <source>alpha_reactor_broken.description</source>
+        <target>alpha_reactor_broken.description</target>
+      </segment>
+    </unit>
+    <unit id="bravo_reactor_broken">
+      <segment state="initial">
+        <source>bravo_reactor_broken.description</source>
+        <target>bravo_reactor_broken.description</target>
+      </segment>
+    </unit>
     <unit id="lateral_reactor_broken">
       <segment state="initial">
         <source>lateral_reactor_broken.description</source>

@@ -260,7 +260,7 @@
       </segment>
       <segment id="wreck_description" state="final">
         <source>fuel.wreck_description</source>
-        <target>En siphonant les réservoirs de l'appareil, vous récupérez {quantity} tonnes de fuel.</target>
+        <target>En siphonnant les réservoirs de l'appareil, vous récupérez {quantity} tonnes de fuel.</target>
       </segment>
     </unit>
     <unit id="artefact">

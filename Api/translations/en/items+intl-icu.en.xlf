@@ -2986,12 +2986,9 @@ A place to put a plant in the hydroponic garden.</target>
       </segment>
     </unit>
     <unit id="peniraft">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>peniraft.name</source>
-        <target>{age, select,
-       young {Young }
-       other {}
-}Peniraft</target>
+        <target>Peniraft</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>peniraft.short_name</source>

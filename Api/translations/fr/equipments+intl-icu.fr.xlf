@@ -520,13 +520,15 @@ Permettent de faire tourner cette bonne vieille carne.</target>
       </segment>
       <segment id="examine" state="final">
         <source>reactor_lateral_alpha.examine</source>
-        <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. Permettent de faire tourner cette bonne vieille carne.</target>
+        <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus dans le sens antihoraire.
+//
+Permet de faire tourner cette bonne vieille carne vers la gauche.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral_bravo">
       <segment id="name" state="final">
         <source>reactor_lateral_bravo.name</source>
-        <target>Réacteur Latéral</target>
+        <target>Réacteur Latéral Beta</target>
       </segment>
       <segment id="short_name" state="final">
         <source>reactor_lateral_bravo.short_name</source>
@@ -546,9 +548,9 @@ Permettent de faire tourner cette bonne vieille carne.</target>
       </segment>
       <segment id="examine" state="final">
         <source>reactor_lateral_bravo.examine</source>
-        <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus. 
+        <target>Placé dans la Salle de Moteurs, le réacteur latéral permet de faire tourner le Daedalus dans le sens horaire.
 //
-Permet de faire tourner cette bonne vieille carne.</target>
+Permet de faire tourner cette bonne vieille carne vers la droite.</target>
       </segment>
     </unit>
     <unit id="mycoscan">

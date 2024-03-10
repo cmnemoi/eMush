@@ -228,6 +228,18 @@
         <source>fuel.hydrocarbon_description</source>
         <target>fuel.hydrocarbon_description</target>
       </segment>
+      <segment id="cave_description" state="initial">
+        <source>fuel.cave_description</source>
+        <target>fuel.cave_description</target>
+      </segment>
+      <segment id="mountain_description" state="initial">
+        <source>fuel.mountain_description</source>
+        <target>fuel.mountain_description</target>
+      </segment>
+      <segment id="wreck_description" state="initial">
+        <source>fuel.wreck_description</source>
+        <target>fuel.wreck_description</target>
+      </segment>
     </unit>
     <unit id="artefact">
       <segment id="name" state="initial">
@@ -393,6 +405,10 @@
       <segment id="fruit_trees_description" state="initial">
         <source>harvest.fruit_trees_description</source>
         <target>harvest.fruit_trees_description</target>
+      </segment>
+      <segment id="hot_description" state="initial">
+        <source>harvest.hot_description</source>
+        <target>harvest.hot_description</target>
       </segment>
     </unit>
     <unit id="disease">

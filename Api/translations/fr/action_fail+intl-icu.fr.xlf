@@ -625,6 +625,18 @@
         <target>La chambre de combustion est pleine.</target>
       </segment>
     </unit>
+    <unit id="alpha_reactor_broken">
+      <segment state="final">
+        <source>alpha_reactor_broken.description</source>
+        <target>Le *Réacteur latéral alpha* est en panne. Il faut le réparer si on veut pouvoir orienter cette épave dans cette direction.</target>
+      </segment>
+    </unit>
+    <unit id="bravo_reactor_broken">
+      <segment state="final">
+        <source>bravo_reactor_broken.description</source>
+        <target>Le *Réacteur latéral beta* est en panne. Il faut le réparer si on veut pouvoir orienter cette épave dans cette direction.</target>
+      </segment>
+    </unit>
     <unit id="lateral_reactor_broken">
       <segment state="final">
         <source>lateral_reactor_broken.description</source>

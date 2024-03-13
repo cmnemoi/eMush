@@ -111,6 +111,13 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>exploration.new_step</source>
         <target>Nouvelle étape</target>
       </segment>
+      <segment id="lost" state="translated">
+        <source>exploration.lost</source>
+        <target>{character_gender, select,
+        male {Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.}
+        female {Vous êtes perdue sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.}
+        other {Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.}}</target>
+      </segment>
     </unit>
     <unit id="closed_exploration">
       <segment id="tips" state="final">

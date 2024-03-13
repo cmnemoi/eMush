@@ -7,6 +7,7 @@ type ExplorationUiElements = {
     tips: string;
     recoltedInfos: string;
     newStep: string;
+    lost: string;
 };
 
 export class Exploration {

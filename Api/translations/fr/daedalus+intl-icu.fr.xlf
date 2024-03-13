@@ -60,9 +60,7 @@ L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 
       </segment>
       <segment id="description" state="final">
         <source>currentCycle.description</source>
-        <target>Votre montre incassable affiche le temps qu'il reste avant le prochain **Cycle**. 
-//
-Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.</target>
+        <target>Votre montre incassable affiche le temps qu'il reste avant le prochain **Cycle**.//Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.</target>
       </segment>
     </unit>
     <unit id="triumph">

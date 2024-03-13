@@ -39,7 +39,7 @@
             </ul>
             <div v-if="player.hasStatusByKey('lost')" class="lost">
                 <img src="@/assets/images/att.png" alt="warning">
-                <p> Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher. </p>
+                <p>{{ exploration.uiElements.lost }}</p>
             </div>
         </section>
         <section class="logs" v-if="exploration.logs.length > 0">

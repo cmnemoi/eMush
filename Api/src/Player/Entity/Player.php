@@ -622,8 +622,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function isExploring(): bool
+    public function isExploringOrIsLostOnPlanet(): bool
     {
-        return $this->exploration !== null;
+        return $this->exploration !== null || $this->hasStatus(PlayerStatusEnum::LOST);
     }
 }

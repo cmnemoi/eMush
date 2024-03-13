@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Mush\Exploration\Normalizer;
 
 use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Entity\ExplorationLogCollection;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -41,7 +43,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         /** @var Exploration $exploration */
         $exploration = $object;
 
-        if (!$currentPlayer->isExploring()) {
+        if (!$currentPlayer->isExploringOrIsLostOnPlanet()) {
             return null;
         }
 
@@ -52,7 +54,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
             'cycleLength' => $exploration->getCycleLength(),
             'planet' => $this->normalizer->normalize($exploration->getPlanet(), $format, $context),
             'explorators' => $this->normalizeExplorators($exploration->getExplorators()),
-            'logs' => $this->normalizeExplorationLogs($exploration),
+            'logs' => $this->normalizeExplorationLogs($exploration->getClosedExploration()->getLogs()),
             'estimated_duration' => $this->translationService->translate(
                 'estimated_duration',
                 [
@@ -71,7 +73,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
                 ),
                 'timerCycle' => $this->cycleService->getExplorationDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
             ],
-            'uiElements' => $this->getNormalizedUiElements($exploration),
+            'uiElements' => $this->getNormalizedUiElements($exploration, $currentPlayer),
         ];
     }
 
@@ -98,18 +100,18 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         return $normalizedExplorators;
     }
 
-    private function normalizeExplorationLogs(Exploration $exploration): array
+    private function normalizeExplorationLogs(ExplorationLogCollection $explorationLogs): array
     {
         $normalizedLogs = [];
 
-        foreach ($exploration->getClosedExploration()->getLogs()->getLogsSortedBy('createdAt', descending: true) as $log) {
+        foreach ($explorationLogs->getLogsSortedBy('createdAt', descending: true) as $log) {
             $normalizedLogs[] = $this->normalizer->normalize($log);
         }
 
         return $normalizedLogs;
     }
 
-    private function getNormalizedUiElements(Exploration $exploration): array
+    private function getNormalizedUiElements(Exploration $exploration, Player $player): array
     {
         $normalizedUiElements = [];
         $normalizedUiElements['tips'] = $this->translationService->translate(
@@ -127,6 +129,12 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         $normalizedUiElements['newStep'] = $this->translationService->translate(
             'exploration.new_step',
             [],
+            'terminal',
+            $exploration->getDaedalus()->getLanguage()
+        );
+        $normalizedUiElements['lost'] = $this->translationService->translate(
+            'exploration.lost',
+            [$player->getLogKey() => $player->getLogName()],
             'terminal',
             $exploration->getDaedalus()->getLanguage()
         );

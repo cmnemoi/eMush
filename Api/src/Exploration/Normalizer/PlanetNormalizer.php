@@ -50,7 +50,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         // Normalize full planet only under those conditions to avoid leaking information
         // because the planet has to be normalized to be displayed in Phaser scene too
         $currentPlayerFocusedOnAstroTerminal = $currentPlayer->getFocusedTerminal()?->getName() === EquipmentEnum::ASTRO_TERMINAL;
-        $currentPlayerIsExploring = $currentPlayer->isExploring();
+        $currentPlayerIsExploring = $currentPlayer->isExploringOrIsLostOnPlanet();
         if (!$currentPlayerFocusedOnAstroTerminal && !$currentPlayerIsExploring) {
             return [
                 'id' => $planet->getId(),

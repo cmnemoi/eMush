@@ -33,6 +33,8 @@ class AbstractFunctionalTest
     protected Player $player;
     protected Player $player1;
     protected Player $player2;
+    protected Player $chun;
+    protected Player $kuanTi;
 
     public function _before(FunctionalTester $I)
     {
@@ -44,6 +46,8 @@ class AbstractFunctionalTest
         $this->player1 = $this->players->first();
         $this->player2 = $this->players->last();
         $this->player = $this->player1;
+        $this->chun = $this->player1;
+        $this->kuanTi = $this->player2;
     }
 
     protected function createDaedalus(FunctionalTester $I): Daedalus

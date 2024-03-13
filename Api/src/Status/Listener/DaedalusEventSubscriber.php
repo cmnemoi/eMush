@@ -78,12 +78,24 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         /** @var Hunter $hunter */
         foreach ($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER) as $hunter) {
-            $this->statusService->createStatusFromName(
-                statusName: HunterStatusEnum::TRUCE_CYCLES,
-                holder: $hunter,
-                tags: $event->getTags(),
-                time: $event->getTime(),
-            );
+            /** @var ?ChargeStatus $truceStatus */
+            $truceStatus = $hunter->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
+            if ($truceStatus) {
+                $this->statusService->updateCharge(
+                    chargeStatus: $truceStatus,
+                    delta: (int) $truceStatus->getThreshold(),
+                    tags: $event->getTags(),
+                    time: $event->getTime()
+                );
+                continue;
+            } else {
+                $this->statusService->createStatusFromName(
+                    statusName: HunterStatusEnum::TRUCE_CYCLES,
+                    holder: $hunter,
+                    tags: $event->getTags(),
+                    time: $event->getTime()
+                );
+            }
         }
     }
 

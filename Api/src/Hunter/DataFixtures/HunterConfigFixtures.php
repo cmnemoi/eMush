@@ -67,7 +67,6 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($asteroid);
 
-        /** @var StatusConfig $hunterCharge */
         $diceDamageRange = $this->buildUniformDamageRange(3, 6);
         $dice = new HunterConfig();
         $dice

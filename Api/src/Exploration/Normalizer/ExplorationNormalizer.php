@@ -8,7 +8,6 @@ use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLogCollection;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -48,7 +47,6 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         }
 
         return [
-            'id' => $exploration->getId(),
             'createdAt' => $exploration->getCreatedAt(),
             'updatedAt' => $exploration->getUpdatedAt(),
             'cycleLength' => $exploration->getCycleLength(),
@@ -59,20 +57,12 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
                 'estimated_duration',
                 [
                     '%duration%' => $exploration->getCycleLength() * ($exploration->getNumberOfSectionsToVisit() + 1 - $exploration->getCycle()),
+                    'isExplorationFinished' => $exploration->isFinished() ? 'true' : 'false',
                 ],
                 'misc',
                 $exploration->getDaedalus()->getLanguage(),
             ),
-            'timer' => [
-                'name' => $this->translationService->translate('currentCycle.name', [], 'daedalus', $exploration->getDaedalus()->getLanguage()),
-                'description' => $this->translationService->translate(
-                    'currentCycle.description',
-                    [],
-                    'daedalus',
-                    $exploration->getDaedalus()->getLanguage(),
-                ),
-                'timerCycle' => $this->cycleService->getExplorationDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
-            ],
+            'timer' => $this->getNormalizedTimer($exploration),
             'uiElements' => $this->getNormalizedUiElements($exploration, $currentPlayer),
         ];
     }
@@ -116,7 +106,10 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         $normalizedUiElements = [];
         $normalizedUiElements['tips'] = $this->translationService->translate(
             'exploration.tips',
-            ['quantity' => $exploration->getCycleLength()],
+            [
+                'quantity' => $exploration->getCycleLength(),
+                'isExplorationFinished' => $exploration->isFinished() ? 'true' : 'false',
+            ],
             'terminal',
             $exploration->getDaedalus()->getLanguage(),
         );
@@ -140,5 +133,24 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         );
 
         return $normalizedUiElements;
+    }
+
+    private function getNormalizedTimer(Exploration $exploration): array
+    {
+        $timerCycle = $this->cycleService->getExplorationDateStartNextCycle($exploration)->format(\DateTimeInterface::ATOM);
+        if ($exploration->isFinished()) {
+            $timerCycle = null;
+        }
+
+        return [
+            'name' => $this->translationService->translate('currentCycle.name', [], 'daedalus', $exploration->getDaedalus()->getLanguage()),
+            'description' => $this->translationService->translate(
+                'currentCycle.description',
+                [],
+                'daedalus',
+                $exploration->getDaedalus()->getLanguage(),
+            ),
+            'timerCycle' => $timerCycle,
+        ];
     }
 }

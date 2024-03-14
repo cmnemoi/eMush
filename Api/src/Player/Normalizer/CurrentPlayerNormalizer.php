@@ -19,6 +19,7 @@ use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\ClosedExplorationServiceInterface;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -49,6 +50,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private GearToolServiceInterface $gearToolService;
     private HunterNormalizerHelperInterface $hunterNormalizerHelper;
     private ClosedExplorationServiceInterface $closedExplorationService;
+    private PlanetServiceInterface $planetService;
 
     public function __construct(
         GameEquipmentServiceInterface $equipmentService,
@@ -61,6 +63,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         GearToolServiceInterface $gearToolService,
         HunterNormalizerHelperInterface $hunterNormalizerHelper,
         ClosedExplorationServiceInterface $closedExplorationService,
+        PlanetServiceInterface $planetService,
     ) {
         $this->gameEquipmentService = $equipmentService;
         $this->playerService = $playerService;
@@ -72,6 +75,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->gearToolService = $gearToolService;
         $this->hunterNormalizerHelper = $hunterNormalizerHelper;
         $this->closedExplorationService = $closedExplorationService;
+        $this->planetService = $planetService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -317,12 +321,15 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         // If player is lost but the exploration is finished, we need to normalize a dummy exploration with
         // basic information.
-        if ($player->hasStatus(PlayerStatusEnum::LOST)) {
+        // @TODO : move to ExplorationService
+        if ($player->getExploration() === null && $player->hasStatus(PlayerStatusEnum::LOST)) {
             $closedExploration = $this->closedExplorationService->getMostRecentForPlayer($player);
             /** @var Planet $planet */
-            $planet = $player->getDaedalus()->getInOrbitPlanet();
+            $planet = $this->planetService->findPlanetInDaedalusOrbit($player->getDaedalus());
 
             $dummyExploration = new Exploration($planet);
+            $dummyExploration->setCreatedAt($closedExploration->getCreatedAt());
+            $dummyExploration->setUpdatedAt($closedExploration->getUpdatedAt());
 
             /** @var array<int, Player> $explorators */
             $explorators = $closedExploration
@@ -333,6 +340,11 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             ;
 
             $dummyExploration->setExplorators(new PlayerCollection($explorators));
+            foreach ($closedExploration->getLogs() as $log) {
+                $dummyExploration->getClosedExploration()->addLog($log);
+            }
+
+            $dummyExploration->getClosedExploration()->finishExploration();
 
             return $dummyExploration;
         }

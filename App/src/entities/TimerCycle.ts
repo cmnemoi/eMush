@@ -1,4 +1,5 @@
 export class TimerCycle {
+
     public name: string|null;
     public description: string|null;
     public timerCycle: Date|null;
@@ -9,8 +10,8 @@ export class TimerCycle {
         this.description =null;
     }
     load(object :any): TimerCycle {
-        if (typeof object !== "undefined") {
-            this.timerCycle = new Date(object.timerCycle);
+        if (object) {
+            this.timerCycle = object.timerCycle ? new Date(object.timerCycle) : null;
             this.name = object.name;
             this.description = object.description;
         }

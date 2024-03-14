@@ -43,7 +43,7 @@
             </div>
         </section>
         <section class="logs" v-if="exploration.logs.length > 0">
-            <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle">
+            <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle" v-if="exploration.timer?.timerCycle">
                 <template #default="slotProps">
                     <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
                         <img src="@/assets/images/casio.png"> 
@@ -57,6 +57,12 @@
                     </div>
                 </template>
             </CountdownTimer>
+            <Tippy tag="div" class="estimate" v-else>
+                <div class="timer">
+                    <img src="@/assets/images/casio.png">
+                    <span>Finie.</span>
+                </div>
+            </Tippy>
             <div v-for="(log, i) in exploration.logs" :key=i class="event">
                 <img :src="getSectorImage(log.planetSectorKey)">
                 <div>

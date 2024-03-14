@@ -84,19 +84,7 @@ final class TravelEventCest extends AbstractFunctionalTest
     public function testTravelFinishedEventCreatesANeronAnnouncement(FunctionalTester $I): void
     {
         // when travel is launched and finished
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
-
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+        $this->launchAndFinishesTravel();
 
         // then a neron announcement is created
         $I->seeInRepository(Message::class, [
@@ -196,20 +184,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $daedalusHullBeforeTravel = $this->daedalus->getHull();
 
         // given I launch a travel
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
-
-        // given travel finishes
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+        $this->launchAndFinishesTravel();
 
         // when a cycle passes
         $hunterEvent = new HunterCycleEvent($this->daedalus, [], new \DateTime());
@@ -308,19 +283,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         }
 
         // when travel is launched and finished
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
-
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+        $this->launchAndFinishesTravel();
 
         // then 5 hunters are spawn
         $I->assertCount(5, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
@@ -356,19 +319,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->daedalus->setHunterPoints(110);
 
         // when travel is launched and finished
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
-
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+        $this->launchAndFinishesTravel();
 
         // then 6 hunters are spawn
         $I->assertCount(6, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
@@ -383,22 +334,47 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->daedalus->setHunterPoints(0);
 
         // when travel is launched and finished
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
-
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+        $this->launchAndFinishesTravel();
 
         // then 1 hunter is spawn
         $I->assertCount(1, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+    }
+
+    public function testHunterAfterMultipleTravelsDoesNotShootRightAway(FunctionalTester $I): void
+    {
+        // given a hunter is spawn
+        $hunter = $this->createHunterFromName($I, $this->daedalus, HunterEnum::HUNTER);
+
+        // given this hunter is aiming at the daedalus
+        $hunter->setTarget(new HunterTarget($hunter));
+
+        // given it has a 100% chance to hit
+        $hunter->setHitChance(100);
+
+        // given it does 1 damage per hit
+        $hunter->getHunterConfig()->setDamageRange([1 => 1]);
+
+        $daedalusHullBeforeTravel = $this->daedalus->getHull();
+
+        // given I launch a travel
+        $this->launchAndFinishesTravel();
+
+        // given a cycle passes
+        $hunterEvent = new HunterCycleEvent($this->daedalus, [], new \DateTime());
+        $this->eventService->callEvent($hunterEvent, HunterCycleEvent::HUNTER_NEW_CYCLE);
+
+        // given I launch another travel
+        $this->launchAndFinishesTravel();
+
+        // when another cycle passes
+        $hunterEvent = new HunterCycleEvent($this->daedalus, [], new \DateTime());
+        $this->eventService->callEvent($hunterEvent, HunterCycleEvent::HUNTER_NEW_CYCLE);
+
+        // then hunters should have not shot, so daedalus should have not lost hull
+        $I->assertEquals(
+            expected: $daedalusHullBeforeTravel,
+            actual: $this->daedalus->getHull()
+        );
     }
 
     private function createExploration(FunctionalTester $I)
@@ -483,5 +459,22 @@ final class TravelEventCest extends AbstractFunctionalTest
         $I->haveInRepository($daedalus);
 
         return $hunter;
+    }
+
+    private function launchAndFinishesTravel(): void
+    {
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
+
+        $daedalusEvent = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
     }
 }

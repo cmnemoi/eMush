@@ -29,18 +29,25 @@
                         :class="['message', {'hidden' : goldNovaPlayer.messageIsHidden}]"
                         v-if="goldNovaPlayer.messageIsHidden"
                     >
-                        « {{ goldNovaPlayer.message }} »
+                        <span v-html="formatEndMessage(goldNovaPlayer.message)" />
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.messageIsHidden')}}</h1>
                             <p>{{ $t('moderation.theEndPage.messageIsHiddenDescription') }}</p>
                         </template>
                     </Tippy>
-                    <span v-else>« {{ goldNovaPlayer.message }} »</span>
+                    <span v-else>« {{ formatEndMessage(goldNovaPlayer.message) }} »</span>
                     <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageIsHidden" @click="hideMessage(goldNovaPlayer)">   
                         <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                             <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
+                        </template>
+                    </Tippy>
+                    <Tippy tag="span" v-if="isModerator && (!goldNovaPlayer.messageIsEdited && !goldNovaPlayer.messageIsHidden)" @click="editMessage(goldNovaPlayer)">   
+                        <img src="@/assets/images/pa_core.png" alt="Edit message">
+                        <template #content>
+                            <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
+                            <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                         </template>
                     </Tippy>
                 </p>
@@ -123,18 +130,25 @@
                                 :class="['message', {'hidden' : player.messageIsHidden}]"
                                 v-if="player.messageIsHidden"
                             >
-                                « {{ player.message }} »
+                                <span v-html="formatEndMessage(player.message)" />
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.messageIsHidden')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.messageIsHiddenDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <span v-else>« {{ player.message }} »</span>
+                            <span v-html="formatEndMessage(player.message)" v-else />
                             <Tippy tag="span" v-if="isModerator && !player.messageIsHidden" @click="hideMessage(player)">   
                                 <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
+                                </template>
+                            </Tippy>
+                            <Tippy tag="span" v-if="isModerator && (!player.messageIsEdited && !player.messageIsHidden)" @click="editMessage(player)">   
+                                <img src="@/assets/images/pa_core.png" alt="Edit message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
                         </p>
@@ -194,18 +208,25 @@
                                 :class="['message', {'hidden' : player.messageIsHidden}]"
                                 v-if="player.messageIsHidden"
                             >
-                                « {{ player.message }} »
+                                <span v-html="formatEndMessage(player.message)" />
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.messageIsHidden')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.messageIsHiddenDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <span v-else>« {{ player.message }} »</span>
+                            <span v-html="formatEndMessage(player.message)" v-else />
                             <Tippy tag="span" v-if="isModerator && !player.messageIsHidden" @click="hideMessage(player)">   
                                 <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
+                                </template>
+                            </Tippy>
+                            <Tippy tag="span" v-if="isModerator && (!player.messageIsEdited && !player.messageIsHidden)" @click="editMessage(player)">   
+                                <img src="@/assets/images/pa_core.png" alt="Edit message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
                         </p>
@@ -348,6 +369,7 @@ import ApiService from "@/services/api.service";
 import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
 import { mapGetters } from "vuex";
+import { formatText } from "@/utils/formatText";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -408,6 +430,11 @@ export default defineComponent ({
                     }
                 });
         },
+        async editMessage(player: ClosedPlayer) {
+            if (player.id === null) return;
+            await ModerationService.editClosedPlayerEndMessage(player.id);
+            await this.loadData();
+        },
         async hideMessage(player: ClosedPlayer) {
             if (player.id === null) return;
             await ModerationService.hideClosedPlayerEndMessage(player.id);
@@ -446,6 +473,9 @@ export default defineComponent ({
                 return this.sortPlayersByCycleSurvived(this.closedDaedalus.players).slice(start - 1, end);
             }
             return null;
+        },
+        formatEndMessage(message: string) {
+            return `« ${formatText(message)} »`;
         },
         sortPlayersByCycleSurvived(players: ClosedPlayer[], descending = true) {
             return players.sort((a, b) => {

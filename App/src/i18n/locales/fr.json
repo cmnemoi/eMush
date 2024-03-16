@@ -665,6 +665,8 @@
 			"dead": "Mort"
 		},
 		"theEndPage": {
+			"editMessage": "Editer",
+			"editMessageDescription": "Remplacer ce message par un avertissement de NERON.",
 			"hideMessage": "Masquer",
 			"hideMessageDescription": "Masquer ce message de fin de partie : il ne sera visible que pour son auteur et les modérateurs.",
 			"messageIsHidden": "Masqué",

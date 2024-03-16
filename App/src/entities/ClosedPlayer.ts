@@ -16,6 +16,7 @@ export class ClosedPlayer {
     public rank: integer|null;
     public language: string|null;
     public messageIsHidden: boolean|null;
+    public messageIsEdited: boolean|null;
 
     constructor() {
         this.iri = null;
@@ -35,6 +36,7 @@ export class ClosedPlayer {
         this.rank = null;
         this.language = null;
         this.messageIsHidden = null;
+        this.messageIsEdited = null;
     }
     load(object :any): ClosedPlayer {
         if (typeof object !== "undefined") {
@@ -55,6 +57,7 @@ export class ClosedPlayer {
             this.rank = object.rank;
             this.language = object.language;
             this.messageIsHidden = object.messageIsHidden;
+            this.messageIsEdited = object.messageIsEdited;
         }
         return this;
     }
@@ -76,6 +79,7 @@ export class ClosedPlayer {
             'rank': this.rank,
             'language': this.language,
             'messageIsHidden': this.messageIsHidden,
+            'messageIsEdited': this.messageIsEdited
         };
 
         return data;

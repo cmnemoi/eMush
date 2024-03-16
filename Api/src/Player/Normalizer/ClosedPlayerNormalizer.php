@@ -75,7 +75,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
             // Do not normalize hidden end message except for their author and moderators
             if (
-                $closedPlayer->messageIsHidden() 
+                $closedPlayer->messageIsHidden()
                 && ($user !== $closedPlayer->getUser() && !$user?->isModerator())
             ) {
                 $data['message'] = null;

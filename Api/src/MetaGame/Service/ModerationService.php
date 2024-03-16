@@ -9,7 +9,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\ClosedPlayerCauseEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
 
@@ -68,7 +68,7 @@ final class ModerationService implements ModerationServiceInterface
 
     public function quarantinePlayer(Player $player): Player
     {
-        $deathEvent = new PlayerEvent($player, [ClosedPlayerCauseEnum::QUARANTINE], new \DateTime());
+        $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
         return $player;

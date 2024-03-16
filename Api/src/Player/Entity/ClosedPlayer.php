@@ -47,8 +47,11 @@ class ClosedPlayer
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $finishedAt = null;
 
-    #[ORM\Column(type: 'boolean', nullable: false)]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $messageIsHidden = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $messageIsEdited = false;
 
     public function getId(): ?int
     {
@@ -183,6 +186,19 @@ class ClosedPlayer
     public function messageIsHidden(): bool
     {
         return $this->messageIsHidden;
+    }
+
+    public function editMessage(string $newMessage): static
+    {
+        $this->setMessage($newMessage);
+        $this->messageIsEdited = true;
+
+        return $this;
+    }
+
+    public function messageIsEdited(): bool
+    {
+        return $this->messageIsEdited;
     }
 
     public function getLogName(): string

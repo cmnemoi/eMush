@@ -71,6 +71,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
             $user = $this->security->getUser();
             if ($user?->isModerator()) {
                 $data['messageIsHidden'] = $closedPlayer->messageIsHidden();
+                $data['messageIsEdited'] = $closedPlayer->messageIsEdited();
             }
 
             // Do not normalize hidden end message except for their author and moderators

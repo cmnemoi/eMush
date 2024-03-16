@@ -20,8 +20,8 @@ final class ModerationService implements ModerationServiceInterface
     private TranslationServiceInterface $translationService;
 
     public function __construct(
-        EntityManagerInterface $entityManager, 
-        EventServiceInterface $eventService, 
+        EntityManagerInterface $entityManager,
+        EventServiceInterface $eventService,
         TranslationServiceInterface $translationService
     ) {
         $this->entityManager = $entityManager;
@@ -46,7 +46,7 @@ final class ModerationService implements ModerationServiceInterface
             language: $closedPlayer->getClosedDaedalus()->getLanguage(),
         );
 
-        $closedPlayer->setMessage($message);
+        $closedPlayer->editMessage($message);
         $this->entityManager->persist($closedPlayer);
         $this->entityManager->flush();
     }

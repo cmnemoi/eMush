@@ -162,6 +162,34 @@ final class ModerationController extends AbstractFOSRestController
     }
 
     /**
+     * Edit closed player message with a NERON warning.
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The closed player id",
+     *
+     *       @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/edit-closed-player-end-message/{id}")
+     *
+     * @Rest\View()
+     */
+    public function editEndMessage(ClosedPlayer $closedPlayer): View
+    {
+        $this->denyAccessIfNotModerator();
+
+        $this->moderationService->editClosedPlayerMessage($closedPlayer);
+
+        return $this->view(['detail' => 'End message edited successfully'], Response::HTTP_OK);
+    }
+
+    /**
      * Hide closed player end message.
      *
      * @OA\Parameter(

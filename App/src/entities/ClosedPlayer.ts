@@ -17,6 +17,7 @@ export class ClosedPlayer {
     public language: string|null;
     public messageIsHidden: boolean|null;
     public messageIsEdited: boolean|null;
+    public messageHasBeenModerated: boolean = false;
 
     constructor() {
         this.iri = null;
@@ -58,6 +59,7 @@ export class ClosedPlayer {
             this.language = object.language;
             this.messageIsHidden = object.messageIsHidden;
             this.messageIsEdited = object.messageIsEdited;
+            this.messageHasBeenModerated = (this.messageIsEdited || this.messageIsHidden) ?? false;
         }
         return this;
     }

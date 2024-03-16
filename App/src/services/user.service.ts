@@ -138,6 +138,7 @@ const UserService = {
             if (response.data) {
                 user.load(response.data);
             }
+            store.dispatch('gameConfig/setLoading', { loading: false });
         }
 
         return user;

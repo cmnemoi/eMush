@@ -215,14 +215,14 @@
                                 </template>
                             </Tippy>
                             <span v-html="formatEndMessage(player.message)" v-else />
-                            <Tippy tag="span" v-if="isModerator && player.messageHasBeenModerated" @click="hideMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="hideMessage(player)">   
                                 <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="isModerator && player.messageHasBeenModerated" @click="editMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="editMessage(player)">   
                                 <img src="@/assets/images/pa_core.png" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>

@@ -8,6 +8,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\User\Entity\User;
 
 #[ORM\Entity]
 class ClosedPlayer
@@ -212,5 +213,10 @@ class ClosedPlayer
     public function getClosedDaedalusId(): int
     {
         return $this->closedDaedalus->getId();
+    }
+
+    public function getUser(): User
+    {
+        return $this->playerInfo->getUser();
     }
 }

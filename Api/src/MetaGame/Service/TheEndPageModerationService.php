@@ -9,7 +9,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 
 final class TheEndPageModerationService implements TheEndPageModerationServiceInterface
-{   
+{
     private EntityManagerInterface $entityManager;
     private TranslationServiceInterface $translationService;
 

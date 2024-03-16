@@ -9,4 +9,6 @@ use Mush\Player\Entity\ClosedPlayer;
 interface TheEndPageModerationServiceInterface
 {
     public function editEndMessage(ClosedPlayer $closedPlayer): void;
+
+    public function hideEndMessage(ClosedPlayer $closedPlayer): void;
 }

@@ -36,7 +36,7 @@
                         </template>
                     </Tippy>
                     <span v-else>« {{ formatEndMessage(goldNovaPlayer.message) }} »</span>
-                    <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageIsHidden" @click="hideMessage(goldNovaPlayer)">   
+                    <Tippy tag="span" v-if="isModerator && (!goldNovaPlayer.messageIsHidden && !goldNovaPlayer.messageIsEdited)" @click="hideMessage(goldNovaPlayer)">   
                         <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
@@ -137,7 +137,7 @@
                                 </template>
                             </Tippy>
                             <span v-html="formatEndMessage(player.message)" v-else />
-                            <Tippy tag="span" v-if="isModerator && !player.messageIsHidden" @click="hideMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && (!player.messageIsHidden && !player.messageIsEdited)" @click="hideMessage(player)">   
                                 <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
@@ -215,7 +215,7 @@
                                 </template>
                             </Tippy>
                             <span v-html="formatEndMessage(player.message)" v-else />
-                            <Tippy tag="span" v-if="isModerator && !player.messageIsHidden" @click="hideMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && (!player.messageIsHidden && !player.messageIsEdited)" @click="hideMessage(player)">   
                                 <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>

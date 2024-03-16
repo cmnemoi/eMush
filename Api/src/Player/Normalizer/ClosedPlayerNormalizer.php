@@ -44,6 +44,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         $daedalus = $closedPlayer->getClosedDaedalus();
 
         $context[self::ALREADY_CALLED] = true;
+        dump($context);
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
@@ -52,14 +53,10 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         }
 
         if ($daedalus->isDaedalusFinished()) {
+            /** @var \DateTime $createdAt */
             $createdAt = $closedPlayer->getCreatedAt();
-            if ($createdAt === null) {
-                throw new \Exception('ClosedPlayer createdAt should not be null');
-            }
+            /** @var \DateTime $finishedAt */
             $finishedAt = $closedPlayer->getFinishedAt();
-            if ($finishedAt === null) {
-                throw new \Exception('ClosedPlayer finishedAt should not be null');
-            }
 
             $data['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
                 start: $createdAt,
@@ -67,6 +64,10 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
                 daedalusInfo: $closedPlayer->getClosedDaedalus()->getDaedalusInfo()
             );
             $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+
+            if ($closedPlayer->messageIsHidden()) {
+                $data['message'] = null;
+            }
         }
 
         return $data;

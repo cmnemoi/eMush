@@ -8,6 +8,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\User\Entity\User;
 
 #[ORM\Entity]
 class ClosedPlayer
@@ -45,6 +46,12 @@ class ClosedPlayer
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $finishedAt = null;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $messageIsHidden = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $messageIsEdited = false;
 
     public function getId(): ?int
     {
@@ -169,6 +176,31 @@ class ClosedPlayer
         return $this;
     }
 
+    public function hideMessage(): static
+    {
+        $this->messageIsHidden = true;
+
+        return $this;
+    }
+
+    public function messageIsHidden(): bool
+    {
+        return $this->messageIsHidden;
+    }
+
+    public function editMessage(string $newMessage): static
+    {
+        $this->setMessage($newMessage);
+        $this->messageIsEdited = true;
+
+        return $this;
+    }
+
+    public function messageIsEdited(): bool
+    {
+        return $this->messageIsEdited;
+    }
+
     public function getLogName(): string
     {
         return $this->getPlayerInfo()->getCharacterConfig()->getCharacterName();
@@ -197,5 +229,10 @@ class ClosedPlayer
     public function getClosedDaedalusId(): int
     {
         return $this->closedDaedalus->getId();
+    }
+
+    public function getUser(): User
+    {
+        return $this->playerInfo->getUser();
     }
 }

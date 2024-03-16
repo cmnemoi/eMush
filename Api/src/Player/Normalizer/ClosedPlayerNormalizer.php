@@ -5,6 +5,8 @@ namespace Mush\Player\Normalizer;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
+use Mush\User\Entity\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -17,13 +19,16 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
+    private Security $security;
 
     public function __construct(
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
+        Security $security
     ) {
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
+        $this->security = $security;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -45,21 +50,14 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         $context[self::ALREADY_CALLED] = true;
 
+        /** @var array $data */
         $data = $this->normalizer->normalize($object, $format, $context);
 
-        if (!is_array($data)) {
-            throw new \Exception('ClosedPlayerNormalizer: data is not an array');
-        }
-
         if ($daedalus->isDaedalusFinished()) {
+            /** @var \DateTime $createdAt */
             $createdAt = $closedPlayer->getCreatedAt();
-            if ($createdAt === null) {
-                throw new \Exception('ClosedPlayer createdAt should not be null');
-            }
+            /** @var \DateTime $finishedAt */
             $finishedAt = $closedPlayer->getFinishedAt();
-            if ($finishedAt === null) {
-                throw new \Exception('ClosedPlayer finishedAt should not be null');
-            }
 
             $data['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
                 start: $createdAt,
@@ -67,6 +65,22 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
                 daedalusInfo: $closedPlayer->getClosedDaedalus()->getDaedalusInfo()
             );
             $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+
+            // Tell moderators if closed player end message is hidden
+            /** @var ?User $user */
+            $user = $this->security->getUser();
+            if ($user?->isModerator()) {
+                $data['messageIsHidden'] = $closedPlayer->messageIsHidden();
+                $data['messageIsEdited'] = $closedPlayer->messageIsEdited();
+            }
+
+            // Do not normalize hidden end message except for their author and moderators
+            if (
+                $closedPlayer->messageIsHidden()
+                && ($user !== $closedPlayer->getUser() && !$user?->isModerator())
+            ) {
+                $data['message'] = null;
+            }
         }
 
         return $data;

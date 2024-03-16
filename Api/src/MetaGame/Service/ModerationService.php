@@ -6,6 +6,8 @@ namespace Mush\MetaGame\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -15,11 +17,16 @@ final class ModerationService implements ModerationServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
+    private TranslationServiceInterface $translationService;
 
-    public function __construct(EntityManagerInterface $entityManager, EventServiceInterface $eventService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventServiceInterface $eventService,
+        TranslationServiceInterface $translationService
+    ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
+        $this->translationService = $translationService;
     }
 
     public function banUser(User $user): User
@@ -28,6 +35,27 @@ final class ModerationService implements ModerationServiceInterface
         $this->entityManager->persist($bannedUser);
 
         return $bannedUser;
+    }
+
+    public function editClosedPlayerMessage(ClosedPlayer $closedPlayer): void
+    {
+        $message = $this->translationService->translate(
+            key: 'edited_by_neron',
+            parameters: [],
+            domain: 'moderation',
+            language: $closedPlayer->getClosedDaedalus()->getLanguage(),
+        );
+
+        $closedPlayer->editMessage($message);
+        $this->entityManager->persist($closedPlayer);
+        $this->entityManager->flush();
+    }
+
+    public function hideClosedPlayerEndMessage(ClosedPlayer $closedPlayer): void
+    {
+        $closedPlayer->hideMessage();
+        $this->entityManager->persist($closedPlayer);
+        $this->entityManager->flush();
     }
 
     public function unbanUser(User $user): User

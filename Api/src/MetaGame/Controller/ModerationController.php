@@ -9,8 +9,8 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\MetaGame\Service\ModerationServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -26,12 +26,10 @@ use Symfony\Component\Routing\Annotation\Route;
 final class ModerationController extends AbstractFOSRestController
 {
     private ModerationServiceInterface $moderationService;
-    private RoomLogServiceInterface $roomLogService;
 
-    public function __construct(ModerationServiceInterface $moderationService, RoomLogServiceInterface $roomLogService)
+    public function __construct(ModerationServiceInterface $moderationService)
     {
         $this->moderationService = $moderationService;
-        $this->roomLogService = $roomLogService;
     }
 
     /**
@@ -161,6 +159,62 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->unbanUser($user);
 
         return $this->view(['detail' => 'User unbanned successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Edit closed player message with a NERON warning.
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The closed player id",
+     *
+     *       @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/edit-closed-player-end-message/{id}")
+     *
+     * @Rest\View()
+     */
+    public function editEndMessage(ClosedPlayer $closedPlayer): View
+    {
+        $this->denyAccessIfNotModerator();
+
+        $this->moderationService->editClosedPlayerMessage($closedPlayer);
+
+        return $this->view(['detail' => 'End message edited successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Hide closed player end message.
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The closed player id",
+     *
+     *       @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/hide-closed-player-end-message/{id}")
+     *
+     * @Rest\View()
+     */
+    public function hideEndMessage(ClosedPlayer $closedPlayer): View
+    {
+        $this->denyAccessIfNotModerator();
+
+        $this->moderationService->hideClosedPlayerEndMessage($closedPlayer);
+
+        return $this->view(['detail' => 'End message hidden successfully'], Response::HTTP_OK);
     }
 
     private function denyAccessIfNotModerator(): void

@@ -664,6 +664,14 @@
 			"alive": "Vivant",
 			"dead": "Mort"
 		},
+		"theEndPage": {
+			"editMessage": "Éditer",
+			"editMessageDescription": "Remplacer ce message par un avertissement de NERON.",
+			"hideMessage": "Masquer",
+			"hideMessageDescription": "Masquer ce message : il ne sera visible que pour son auteur et les modérateurs.",
+			"messageIsHidden": "Masqué",
+			"messageIsHiddenDescription": "Ce message est masqué. Il n'est visible que par son auteur et les modérateurs."
+		},
 		"playerList": {
 			"gameStatuses": {
 				"all": "Sans distinction",

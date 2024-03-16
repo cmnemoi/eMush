@@ -109,6 +109,20 @@ const ModerationService = {
 
         return { "data": logs };
     },
+    editClosedPlayerEndMessage: async(playerId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/edit-closed-player-end-message/' + playerId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    hideClosedPlayerEndMessage: async(playerId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/hide-closed-player-end-message/' + playerId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.patch(MODERATION_ENDPOINT + '/quarantine-player/' + playerId);

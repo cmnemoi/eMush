@@ -24,7 +24,32 @@
                     </div>
                 </div>
                 <p class="epitaph" v-if="goldNovaPlayer.message">
-                    « {{ goldNovaPlayer.message }} »
+                    <Tippy 
+                        tag="span" 
+                        :class="['message', {'hidden' : goldNovaPlayer.messageIsHidden && isModerator}]"
+                        v-if="goldNovaPlayer.messageIsHidden"
+                    >
+                        <span v-html="formatEndMessage(goldNovaPlayer.message)" />
+                        <template #content>
+                            <h1>{{ $t('moderation.theEndPage.messageIsHidden')}}</h1>
+                            <p>{{ $t('moderation.theEndPage.messageIsHiddenDescription') }}</p>
+                        </template>
+                    </Tippy>
+                    <span v-html="formatEndMessage(goldNovaPlayer.message)" v-else />
+                    <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="hideMessage(goldNovaPlayer)">   
+                        <img src="@/assets/images/comms/discrete.png" alt="Hide message">
+                        <template #content>
+                            <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
+                            <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
+                        </template>
+                    </Tippy>
+                    <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="editMessage(goldNovaPlayer)">   
+                        <img src="@/assets/images/pa_core.png" alt="Edit message">
+                        <template #content>
+                            <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
+                            <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
+                        </template>
+                    </Tippy>
                 </p>
                 <div class="triumph">
                     <p class="score mush" v-if="goldNovaPlayer.isMush">
@@ -100,7 +125,32 @@
                             <img src="@/assets/images/nova/fifth.png" alt="fifth"> {{ $t('theEnd.specialSuperNova') }}
                         </p>
                         <p class="epitaph" v-if="player.message">
-                            « {{ player.message }} »
+                            <Tippy 
+                                tag="span" 
+                                :class="['message', {'hidden' : player.messageIsHidden && isModerator}]"
+                                v-if="player.messageIsHidden"
+                            >
+                                <span v-html="formatEndMessage(player.message)" />
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.messageIsHidden')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.messageIsHiddenDescription') }}</p>
+                                </template>
+                            </Tippy>
+                            <span v-html="formatEndMessage(player.message)" v-else />
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="hideMessage(player)">   
+                                <img src="@/assets/images/comms/discrete.png" alt="Hide message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
+                                </template>
+                            </Tippy>
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="editMessage(player)">   
+                                <img src="@/assets/images/pa_core.png" alt="Edit message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
+                                </template>
+                            </Tippy>
                         </p>
                         <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
@@ -153,7 +203,32 @@
                             <img src="@/assets/images/nova/sixth.png" alt="sixth"> {{ $t('theEnd.normalSuperNova') }}
                         </p>
                         <p class="epitaph" v-if="player.message">
-                            « {{ player.message }} »
+                            <Tippy 
+                                tag="span" 
+                                :class="['message', {'hidden' : player.messageIsHidden && isModerator}]"
+                                v-if="player.messageIsHidden"
+                            >
+                                <span v-html="formatEndMessage(player.message)" />
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.messageIsHidden')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.messageIsHiddenDescription') }}</p>
+                                </template>
+                            </Tippy>
+                            <span v-html="formatEndMessage(player.message)" v-else />
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="hideMessage(player)">   
+                                <img src="@/assets/images/comms/discrete.png" alt="Hide message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
+                                </template>
+                            </Tippy>
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="editMessage(player)">   
+                                <img src="@/assets/images/pa_core.png" alt="Edit message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
+                                    <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
+                                </template>
+                            </Tippy>
                         </p>
                         <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
@@ -292,6 +367,9 @@ import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import ApiService from "@/services/api.service";
 import DaedalusService from "@/services/daedalus.service";
+import ModerationService from "@/services/moderation.service";
+import { mapGetters } from "vuex";
+import { formatText } from "@/utils/formatText";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -303,6 +381,11 @@ interface ClosedDaedalusState {
 
 export default defineComponent ({
     name: 'TheEnd',
+    computed: {
+        ...mapGetters({
+            isModerator: 'auth/isModerator',
+        }),
+    },
     data: function (): ClosedDaedalusState {
         return {
             closedDaedalus: null,
@@ -313,6 +396,50 @@ export default defineComponent ({
         };
     },
     methods: {
+        async loadData() {
+            const closedDaedalusId = String(this.$route.params.closedDaedalusId);
+            await DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))
+                .then((response: ClosedDaedalus | null) => {
+                    this.closedDaedalus = response;
+                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'))
+                        .then((result) => {
+                            const closedPlayers : ClosedPlayer[] = [];
+                            result.data['hydra:member'].forEach((datum: any) => {
+                                const currentClosedPlayer = (new ClosedPlayer()).load(datum);
+                                closedPlayers.push(currentClosedPlayer);
+                            });
+                            if (this.closedDaedalus instanceof ClosedDaedalus) {
+                                this.closedDaedalus.players = closedPlayers;
+                            }
+                            this.goldNovaPlayer = this.getNthPlayer(1);
+                            this.mainRolesPlayers = this.getPlayersInRange(2, 7);
+                            this.figurantPlayers = this.getPlayersInRange(8, 16);
+                        });
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.data.violations) {
+                            this.errors = handleErrors(error.response.data.violations);
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.error('Error', error.message);
+                    }
+                });
+        },
+        async editMessage(player: ClosedPlayer) {
+            if (player.id === null) return;
+            await ModerationService.editClosedPlayerEndMessage(player.id);
+            await this.loadData();
+        },
+        async hideMessage(player: ClosedPlayer) {
+            if (player.id === null) return;
+            await ModerationService.hideClosedPlayerEndMessage(player.id);
+            await this.loadData();
+        },
         getAmountOfMushPlayers() {
             if (this.closedDaedalus && this.closedDaedalus.players) {
                 return this.closedDaedalus.players.filter((player: ClosedPlayer) => player.isMush).length;
@@ -347,6 +474,9 @@ export default defineComponent ({
             }
             return null;
         },
+        formatEndMessage(message: string) {
+            return `« ${formatText(message)} »`;
+        },
         sortPlayersByCycleSurvived(players: ClosedPlayer[], descending = true) {
             return players.sort((a, b) => {
                 if (a.cyclesSurvived === null) return 1;
@@ -359,39 +489,7 @@ export default defineComponent ({
         }
     },
     beforeMount() {
-        const closedDaedalusId = String(this.$route.params.closedDaedalusId);
-        DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))
-            .then((response: ClosedDaedalus | null) => {
-                this.closedDaedalus = response;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'))
-                    .then((result) => {
-                        const closedPlayers : ClosedPlayer[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
-                            const currentClosedPlayer = (new ClosedPlayer()).load(datum);
-                            closedPlayers.push(currentClosedPlayer);
-                        });
-                        if (this.closedDaedalus instanceof ClosedDaedalus) {
-                            this.closedDaedalus.players = closedPlayers;
-                        }
-                        this.goldNovaPlayer = this.getNthPlayer(1);
-                        this.mainRolesPlayers = this.getPlayersInRange(2, 7);
-                        this.figurantPlayers = this.getPlayersInRange(8, 16);
-                    });
-            })
-            .catch((error) => {
-                if (error.response) {
-                    if (error.response.data.violations) {
-                        this.errors = handleErrors(error.response.data.violations);
-                    }
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    console.error(error.request);
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.error('Error', error.message);
-                }
-            });
-
+        this.loadData();
     }
 });
 </script>
@@ -595,6 +693,10 @@ h2 {
 
         ul li { margin: 0 0 1.2em 1em; }
     }
+}
+
+.hidden { 
+    opacity: 20%;
 }
 
 .guests, .extras {

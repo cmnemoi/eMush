@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="player.ext">
+    <unit id="healthPoint">
+      <segment id="name" state="initial">
+        <source>healthPoint.name</source>
+        <target>healthPoint.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>healthPoint.description</source>
+        <target>healthPoint.description</target>
+      </segment>
+    </unit>
+    <unit id="moralPoint">
+      <segment id="name" state="initial">
+        <source>moralPoint.name</source>
+        <target>moralPoint.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>moralPoint.description</source>
+        <target>moralPoint.description</target>
+      </segment>
+    </unit>
+    <unit id="actionPoint">
+      <segment id="name" state="initial">
+        <source>actionPoint.name</source>
+        <target>actionPoint.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>actionPoint.description</source>
+        <target>actionPoint.description</target>
+      </segment>
+    </unit>
+    <unit id="triumph">
+      <segment id="name" state="initial">
+        <source>triumph.name</source>
+        <target>triumph.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>triumph.description</source>
+        <target>triumph.description</target>
+      </segment>
+    </unit>
+    <unit id="titles">
+      <segment id="commander.name" state="initial">
+        <source>commander.name</source>
+        <target>commander.name</target>
+      </segment>
+      <segment id="commander.desc" state="initial">
+        <source>commander.desc</source>
+        <target>commander.desc</target>
+      </segment>
+      <segment id="neron_manager.name" state="initial">
+        <source>neron_manager.name</source>
+        <target>neron_manager.name</target>
+      </segment>
+      <segment id="neron_manager.desc" state="initial">
+        <source>neron_manager.desc</source>
+        <target>neron_manager.desc</target>
+      </segment>
+      <segment id="com_manager.name" state="initial">
+        <source>com_manager.name</source>
+        <target>com_manager.name</target>
+      </segment>
+      <segment id="com_manager.desc" state="initial">
+        <source>com_manager.desc</source>
+        <target>com_manager.desc</target>
+      </segment>
+    </unit>
+    <unit id="shootPoint">
+      <segment id="name" state="initial">
+        <source>shootPoint.name</source>
+        <target>shootPoint.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shootPoint.description</source>
+        <target>shootPoint.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="event_log.ext">
+    <unit id="build_success">
+      <segment id="build_success" state="initial">
+        <source>build_success</source>
+        <target>build_success</target>
+      </segment>
+    </unit>
+    <unit id="open_success">
+      <segment id="open_success" state="initial">
+        <source>open_success</source>
+        <target>open_success</target>
+      </segment>
+    </unit>
+    <unit id="transplant_success">
+      <segment id="transplant_success" state="initial">
+        <source>transplant_success</source>
+        <target>transplant_success</target>
+      </segment>
+    </unit>
+    <unit id="awaken">
+      <segment state="initial">
+        <source>awaken</source>
+        <target>awaken</target>
+      </segment>
+    </unit>
+    <unit id="gain_action_point">
+      <segment state="initial">
+        <source>gain_action_point</source>
+        <target>gain_action_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_movement_point">
+      <segment state="initial">
+        <source>gain_movement_point</source>
+        <target>gain_movement_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_health_point">
+      <segment state="initial">
+        <source>gain_health_point</source>
+        <target>gain_health_point</target>
+      </segment>
+    </unit>
+    <unit id="loss_health_point">
+      <segment state="initial">
+        <source>loss_health_point</source>
+        <target>loss_health_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_moral_point">
+      <segment state="initial">
+        <source>gain_moral_point</source>
+        <target>gain_moral_point</target>
+      </segment>
+    </unit>
+    <unit id="loss_moral_point">
+      <segment state="initial">
+        <source>loss_moral_point</source>
+        <target>loss_moral_point</target>
+      </segment>
+    </unit>
+    <unit id="loss_action_point">
+      <segment state="initial">
+        <source>loss_action_point</source>
+        <target>loss_action_point</target>
+      </segment>
+    </unit>
+    <unit id="loss_movement_point">
+      <segment state="initial">
+        <source>loss_movement_point</source>
+        <target>loss_movement_point</target>
+      </segment>
+    </unit>
+    <unit id="gain_triumph">
+      <segment state="initial">
+        <source>gain_triumph</source>
+        <target>gain_triumph</target>
+      </segment>
+    </unit>
+    <unit id="death">
+      <segment state="initial">
+        <source>death</source>
+        <target>death</target>
+      </segment>
+    </unit>
+    <unit id="object_fell">
+      <segment state="initial">
+        <source>object_fell</source>
+        <target>object_fell</target>
+      </segment>
+    </unit>
+    <unit id="oxy_low_use_capsule">
+      <segment state="initial">
+        <source>oxy_low_use_capsule</source>
+        <target>oxy_low_use_capsule</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="initial">
+        <source>soiled</source>
+        <target>soiled</target>
+      </segment>
+    </unit>
+    <unit id="soil_prevented">
+      <segment state="initial">
+        <source>soil_prevented</source>
+        <target>soil_prevented</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness">
+      <segment state="initial">
+        <source>clumsiness</source>
+        <target>clumsiness</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness_prevented">
+      <segment state="initial">
+        <source>clumsiness_prevented</source>
+        <target>clumsiness_prevented</target>
+      </segment>
+    </unit>
+    <unit id="metal_plate">
+      <segment state="initial">
+        <source>metal_plate</source>
+        <target>metal_plate</target>
+      </segment>
+    </unit>
+    <unit id="tremor_gravity">
+      <segment state="initial">
+        <source>tremor_gravity</source>
+        <target>tremor_gravity</target>
+      </segment>
+    </unit>
+    <unit id="tremor_no_gravity">
+      <segment state="initial">
+        <source>tremor_no_gravity</source>
+        <target>tremor_no_gravity</target>
+      </segment>
+    </unit>
+    <unit id="electric_arc">
+      <segment state="initial">
+        <source>electric_arc</source>
+        <target>electric_arc</target>
+      </segment>
+    </unit>
+    <unit id="equipment_broken">
+      <segment state="initial">
+        <source>equipment_broken</source>
+        <target>equipment_broken</target>
+      </segment>
+    </unit>
+    <unit id="equipment_destroyed">
+      <segment state="initial">
+        <source>equipment_destroyed</source>
+        <target>equipment_destroyed</target>
+      </segment>
+    </unit>
+    <unit id="panic_crisis">
+      <segment state="initial">
+        <source>panic_crisis</source>
+        <target>panic_crisis</target>
+      </segment>
+    </unit>
+    <unit id="plant_new_fruit">
+      <segment state="initial">
+        <source>plant_new_fruit</source>
+        <target>plant_new_fruit</target>
+      </segment>
+    </unit>
+    <unit id="plant_maturity">
+      <segment state="initial">
+        <source>plant_maturity</source>
+        <target>plant_maturity</target>
+      </segment>
+    </unit>
+    <unit id="plant_death">
+      <segment state="initial">
+        <source>plant_death</source>
+        <target>plant_death</target>
+      </segment>
+    </unit>
+    <unit id="garden_destroyed">
+      <segment state="initial">
+        <source>garden_destroyed</source>
+        <target>garden_destroyed</target>
+      </segment>
+    </unit>
+    <unit id="hunger">
+      <segment state="initial">
+        <source>hunger</source>
+        <target>hunger</target>
+      </segment>
+    </unit>
+    <unit id="force_get_up">
+      <segment state="initial">
+        <source>force_get_up</source>
+        <target>force_get_up</target>
+      </segment>
+    </unit>
+    <unit id="antisocial_morale_loss">
+      <segment state="initial">
+        <source>antisocial_morale_loss</source>
+        <target>antisocial_morale_loss</target>
+      </segment>
+    </unit>
+    <unit id="become_pregnant">
+      <segment state="initial">
+        <source>become_pregnant</source>
+        <target>become_pregnant</target>
+      </segment>
+    </unit>
+    <unit id="disease_appear">
+      <segment state="initial">
+        <source>disease_appear</source>
+        <target>disease_appear</target>
+      </segment>
+    </unit>
+    <unit id="disease_cured">
+      <segment state="initial">
+        <source>disease_cured</source>
+        <target>disease_cured</target>
+      </segment>
+    </unit>
+    <unit id="disorder_appear">
+      <segment state="initial">
+        <source>disorder_appear</source>
+        <target>disorder_appear</target>
+      </segment>
+    </unit>
+    <unit id="disease_curred_player">
+      <segment state="initial">
+        <source>disease_cured_player</source>
+        <target>disease_cured_player</target>
+      </segment>
+    </unit>
+    <unit id="disease_healed_player">
+      <segment state="initial">
+        <source>disease_healed_player</source>
+        <target>disease_healed_player</target>
+      </segment>
+    </unit>
+    <unit id="disease_cured_drug">
+      <segment state="initial">
+        <source>disease_cured_drug</source>
+        <target>disease_cured_drug</target>
+      </segment>
+    </unit>
+    <unit id="disease_treated_drug">
+      <segment state="initial">
+        <source>disease_treated_drug</source>
+        <target>disease_treated_drug</target>
+      </segment>
+    </unit>
+    <unit id="disorder_curred_player">
+      <segment state="initial">
+        <source>disorder_cured_player</source>
+        <target>disorder_cured_player</target>
+      </segment>
+    </unit>
+    <unit id="disorder_treated_player">
+      <segment state="initial">
+        <source>disorder_treated_player</source>
+        <target>disorder_treated_player</target>
+      </segment>
+    </unit>
+    <unit id="injury_appear">
+      <segment state="initial">
+        <source>injury_appear</source>
+        <target>injury_appear</target>
+      </segment>
+    </unit>
+    <unit id="disease_overridden">
+      <segment state="initial">
+        <source>disease_overridden</source>
+        <target>disease_overridden</target>
+      </segment>
+    </unit>
+    <unit id="screaming">
+      <segment state="initial">
+        <source>screaming</source>
+        <target>screaming</target>
+      </segment>
+    </unit>
+    <unit id="wall_head_bang">
+      <segment state="initial">
+        <source>wall_head_bang</source>
+        <target>wall_head_bang</target>
+      </segment>
+    </unit>
+    <unit id="run_in_circles">
+      <segment state="initial">
+        <source>run_in_circles</source>
+        <target>run_in_circles</target>
+      </segment>
+    </unit>
+    <unit id="vomiting">
+      <segment id="vomiting" state="initial">
+        <source>vomiting</source>
+        <target>vomiting</target>
+      </segment>
+    </unit>
+    <unit id="sneezing">
+      <segment id="sneezing" state="initial">
+        <source>sneezing</source>
+        <target>sneezing</target>
+      </segment>
+    </unit>
+    <unit id="biting">
+      <segment id="biting" state="initial">
+        <source>biting</source>
+        <target>biting</target>
+      </segment>
+    </unit>
+    <unit id="breakouts">
+      <segment id="breakouts" state="initial">
+        <source>breakouts</source>
+        <target>breakouts</target>
+      </segment>
+    </unit>
+    <unit id="foaming_mouth">
+      <segment id="foaming_mouth" state="initial">
+        <source>foaming_mouth</source>
+        <target>foaming_mouth</target>
+      </segment>
+    </unit>
+    <unit id="drooling">
+      <segment id="drooling" state="initial">
+        <source>drooling</source>
+        <target>drooling</target>
+      </segment>
+    </unit>
+    <unit id="cat_allergy">
+      <segment id="cat_allergy" state="initial">
+        <source>cat_allergy</source>
+        <target>cat_allergy</target>
+      </segment>
+    </unit>
+    <unit id="fear_of_cats">
+      <segment id="fear_of_cats" state="initial">
+        <source>fear_of_cats</source>
+        <target>fear_of_cats</target>
+      </segment>
+    </unit>
+    <unit id="fear_of_cats_notif">
+      <segment id="fear_of_cats_notif" state="initial">
+        <source>fear_of_cats_notif</source>
+        <target>fear_of_cats_notif</target>
+      </segment>
+    </unit>
+    <unit id="fitful_sleep">
+      <segment id="fitful_sleep" state="initial">
+        <source>fitful_sleep</source>
+        <target>fitful_sleep</target>
+      </segment>
+    </unit>
+    <unit id="surgery_success">
+      <segment id="surgery_success" state="initial">
+        <source>surgery_success</source>
+        <target>surgery_success</target>
+      </segment>
+    </unit>
+    <unit id="surgery_critical_success">
+      <segment id="surgery_critical_success" state="initial">
+        <source>surgery_critical_success</source>
+        <target>surgery_critical_success</target>
+      </segment>
+    </unit>
+    <unit id="self_surgery_success">
+      <segment id="self_surgery_success" state="initial">
+        <source>self_surgery_success</source>
+        <target>self_surgery_success</target>
+      </segment>
+    </unit>
+    <unit id="self_surgery_critical_success">
+      <segment id="self_surgery_critical_success" state="initial">
+        <source>self_surgery_critical_success</source>
+        <target>self_surgery_critical_success</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_sex">
+      <segment id="disease_by_sex" state="initial">
+        <source>disease_by_sex</source>
+        <target>disease_by_sex</target>
+      </segment>
+    </unit>
+    <unit id="trauma_disease">
+      <segment id="trauma_disease" state="initial">
+        <source>trauma_disease</source>
+        <target>trauma_disease</target>
+      </segment>
+    </unit>
+    <unit id="hunter_death_turret">
+      <segment id="hunter_death_turret" state="initial">
+        <source>hunter_death_turret</source>
+        <target>hunter_death_turret</target>
+      </segment>
+    </unit>
+    <unit id="infect_action">
+      <segment id="infect_action" state="initial">
+        <source>infect_action</source>
+        <target>infect_action</target>
+      </segment>
+    </unit>
+    <unit id="infect_trap">
+      <segment id="infect_trap" state="initial">
+        <source>infect_trap</source>
+        <target>infect_trap</target>
+      </segment>
+    </unit>
+    <unit id="infect_std">
+      <segment id="infect_std" state="initial">
+        <source>infect_std</source>
+        <target>infect_std</target>
+      </segment>
+    </unit>
+    <unit id="infect_cat">
+      <segment id="infect_cat" state="initial">
+        <source>infect_cat</source>
+        <target>infect_cat</target>
+      </segment>
+    </unit>
+    <unit id="infect_mush_raid">
+      <segment id="infect_mush_raid" state="initial">
+        <source>infect_mush_raid</source>
+        <target>infect_mush_raid</target>
+      </segment>
+    </unit>
+    <unit id="infect_trapped_ration">
+      <segment id="infect_trapped_ration" state="initial">
+        <source>infect_trapped_ration</source>
+        <target>infect_trapped_ration</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_event">
+      <segment id="mush_convert_event" state="initial">
+        <source>mush_convert_event</source>
+        <target>mush_convert_event</target>
+      </segment>
+    </unit>
+    <unit id="player_enter_chat">
+      <segment id="player_enter_chat" state="initial">
+        <source>player_enter_chat</source>
+        <target>player_enter_chat</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat">
+      <segment id="player_leave_chat" state="initial">
+        <source>player_leave_chat</source>
+        <target>player_leave_chat</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_death">
+      <segment id="player_leave_chat_death" state="initial">
+        <source>player_leave_chat_death</source>
+        <target>player_leave_chat_death</target>
+      </segment>
+    </unit>
+    <unit id="player_leave_chat_talky">
+      <segment id="player_leave_chat_talky" state="initial">
+        <source>player_leave_chat_talky</source>
+        <target>player_leave_chat_talky</target>
+      </segment>
+    </unit>
+    <unit id="hunter_death_patrol_ship">
+      <segment id="hunter_death_patrol_ship" state="initial">
+        <source>hunter_death_patrol_ship</source>
+        <target>hunter_death_patrol_ship</target>
+      </segment>
+    </unit>
+    <unit id="attacked_by_hunter">
+      <segment id="attacked_by_hunter" state="initial">
+        <source>attacked_by_hunter</source>
+        <target>attacked_by_hunter</target>
+      </segment>
+    </unit>
+    <unit id="patrol_discharge">
+      <segment id="patrol_discharge" state="initial">
+        <source>patrol_discharge</source>
+        <target>patrol_discharge</target>
+      </segment>
+    </unit>
+    <unit id="scrap_collected">
+      <segment id="scrap_collected" state="initial">
+        <source>scrap_collected</source>
+        <target>scrap_collected</target>
+      </segment>
+    </unit>
+    <unit id="patrol_damage">
+      <segment id="patrol_damage" state="initial">
+        <source>patrol_damage</source>
+        <target>patrol_damage</target>
+      </segment>
+    </unit>
+    <unit id="stuck_in_the_ship">
+      <segment id="stuck_in_the_ship" state="initial">
+        <source>stuck_in_the_ship</source>
+        <target>stuck_in_the_ship</target>
+      </segment>
+    </unit>
+    <unit id="exploration_finished">
+      <segment id="exploration_finished" state="initial">
+        <source>exploration_finished</source>
+        <target>exploration_finished</target>
+      </segment>
+    </unit>
+    <unit id="all_explorators_stucked">
+      <segment id="all_explorators_stucked" state="initial">
+        <source>all_explorators_stucked</source>
+        <target>all_explorators_stucked</target>
+      </segment>
+    </unit>
+    <unit id="liquid_map_helped">
+      <segment id="liquid_map_helped" state="initial">
+        <source>liquid_map_helped</source>
+        <target>liquid_map_helped</target>
+      </segment>
+    </unit>
+    <unit id="get_up_bed_broken">
+      <segment id="get_up_bed_broken" state="initial">
+        <source>get_up_bed_broken</source>
+        <target>get_up_bed_broken</target>
+      </segment>
+    </unit>
+    <unit id="help_disabled">
+      <segment id="help_disabled" state="initial">
+        <source>help_disabled</source>
+        <target>help_disabled</target>
+      </segment>
+    </unit>
+    <unit id="consume_mush">
+      <segment id="consume_mush" state="initial">
+        <source>consume_mush</source>
+        <target>consume_mush</target>
+      </segment>
+    </unit>
+    <unit id="daily_morale_loss">
+      <segment id="daily_morale_loss" state="initial">
+        <source>daily_morale_loss</source>
+        <target>daily_morale_loss</target>
+      </segment>
+    </unit>
+    <unit id="all_explorators_dead">
+      <segment id="all_explorators_dead" state="initial">
+        <source>all_explorators_dead</source>
+        <target>all_explorators_dead</target>
+      </segment>
+    </unit>
+    <unit id="gain_shoot_point">
+      <segment state="initial">
+        <source>gain_shoot_point</source>
+        <target>gain_shoot_point</target>
+      </segment>
+    </unit>
+    <unit id="found_item_in_exploration">
+      <segment state="initial">
+        <source>found_item_in_exploration</source>
+        <target>found_item_in_exploration</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_alien_fight">
+      <segment state="initial">
+        <source>disease_by_alien_fight</source>
+        <target>disease_by_alien_fight</target>
+      </segment>
+    </unit>
+    <unit id="disease_by_alien_travel">
+      <segment state="initial">
+        <source>disease_by_alien_travel</source>
+        <target>disease_by_alien_travel</target>
+      </segment>
+    </unit>
+    <unit id="invertebrate_shell_explosion">
+      <segment state="initial">
+        <source>invertebrate_shell_explosion</source>
+        <target>invertebrate_shell_explosion</target>
+      </segment>
+    </unit>
+    <unit id="lost_item_in_exploration">
+      <segment state="initial">
+        <source>lost_item_in_exploration</source>
+        <target>lost_item_in_exploration</target>
+      </segment>
+    </unit>
+    <unit id="lost_in_exploration">
+      <segment state="initial">
+        <source>lost_in_exploration</source>
+        <target>lost_in_exploration</target>
+      </segment>
+    </unit>
+    <unit id="lost_on_planet">
+      <segment state="initial">
+        <source>lost_on_planet</source>
+        <target>lost_on_planet</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

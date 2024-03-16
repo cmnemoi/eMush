@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="end_cause.ext">
+    <unit id="sol_return">
+      <segment id="name" state="initial">
+        <source>sol_return.name</source>
+        <target>sol_return.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>sol_return.short_name</source>
+        <target>sol_return.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>sol_return.category</source>
+        <target>sol_return.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>sol_return.description</source>
+        <target>sol_return.description</target>
+      </segment>
+    </unit>
+    <unit id="eden">
+      <segment id="name" state="initial">
+        <source>eden.name</source>
+        <target>eden.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>eden.short_name</source>
+        <target>eden.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>eden.category</source>
+        <target>eden.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eden.description</source>
+        <target>eden.description</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_destroyed">
+      <segment id="name" state="initial">
+        <source>daedalus_destroyed.name</source>
+        <target>daedalus_destroyed.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>daedalus_destroyed.short_name</source>
+        <target>daedalus_destroyed.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>daedalus_destroyed.category</source>
+        <target>daedalus_destroyed.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>daedalus_destroyed.description</source>
+        <target>daedalus_destroyed.description</target>
+      </segment>
+    </unit>
+    <unit id="killed_by_neron">
+      <segment id="name" state="initial">
+        <source>killed_by_neron.name</source>
+        <target>killed_by_neron.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>killed_by_neron.short_name</source>
+        <target>killed_by_neron.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>killed_by_neron.category</source>
+        <target>killed_by_neron.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>killed_by_neron.description</source>
+        <target>killed_by_neron.description</target>
+      </segment>
+    </unit>
+    <unit id="super_nova">
+      <segment id="name" state="initial">
+        <source>super_nova.name</source>
+        <target>super_nova.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>super_nova.short_name</source>
+        <target>super_nova.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>super_nova.category</source>
+        <target>super_nova.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>super_nova.description</source>
+        <target>super_nova.description</target>
+      </segment>
+    </unit>
+    <unit id="alien_abducted">
+      <segment id="name" state="initial">
+        <source>alien_abducted.name</source>
+        <target>alien_abducted.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>alien_abducted.short_name</source>
+        <target>alien_abducted.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>alien_abducted.category</source>
+        <target>alien_abducted.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>alien_abducted.description</source>
+        <target>alien_abducted.description</target>
+      </segment>
+    </unit>
+    <unit id="assassinated">
+      <segment id="name" state="initial">
+        <source>assassinated.name</source>
+        <target>assassinated.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>assassinated.short_name</source>
+        <target>assassinated.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>assassinated.category</source>
+        <target>assassinated.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>assassinated.description</source>
+        <target>assassinated.description</target>
+      </segment>
+    </unit>
+    <unit id="depression">
+      <segment id="name" state="initial">
+        <source>depression.name</source>
+        <target>depression.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>depression.short_name</source>
+        <target>depression.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>depression.category</source>
+        <target>depression.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>depression.description</source>
+        <target>depression.description</target>
+      </segment>
+    </unit>
+    <unit id="asphyxia">
+      <segment id="name" state="initial">
+        <source>asphyxia.name</source>
+        <target>asphyxia.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>asphyxia.short_name</source>
+        <target>asphyxia.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>asphyxia.category</source>
+        <target>asphyxia.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>asphyxia.description</source>
+        <target>asphyxia.description</target>
+      </segment>
+    </unit>
+    <unit id="abandoned">
+      <segment id="name" state="initial">
+        <source>abandoned.name</source>
+        <target>abandoned.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>abandoned.short_name</source>
+        <target>abandoned.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>abandoned.category</source>
+        <target>abandoned.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>abandoned.description</source>
+        <target>abandoned.description</target>
+      </segment>
+    </unit>
+    <unit id="allergy">
+      <segment id="name" state="initial">
+        <source>allergy.name</source>
+        <target>allergy.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>allergy.short_name</source>
+        <target>allergy.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>allergy.category</source>
+        <target>allergy.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>allergy.description</source>
+        <target>allergy.description</target>
+      </segment>
+    </unit>
+    <unit id="self_extracted">
+      <segment id="name" state="initial">
+        <source>self_extracted.name</source>
+        <target>self_extracted.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>self_extracted.short_name</source>
+        <target>self_extracted.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>self_extracted.category</source>
+        <target>self_extracted.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>self_extracted.description</source>
+        <target>self_extracted.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration">
+      <segment id="name" state="initial">
+        <source>exploration.name</source>
+        <target>exploration.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>exploration.short_name</source>
+        <target>exploration.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>exploration.category</source>
+        <target>exploration.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>exploration.description</source>
+        <target>exploration.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_combat">
+      <segment id="name" state="initial">
+        <source>exploration_combat.name</source>
+        <target>exploration_combat.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>exploration_combat.short_name</source>
+        <target>exploration_combat.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>exploration_combat.category</source>
+        <target>exploration_combat.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>exploration_combat.description</source>
+        <target>exploration_combat.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_lost">
+      <segment id="name" state="initial">
+        <source>exploration_lost.name</source>
+        <target>exploration_lost.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>exploration_lost.short_name</source>
+        <target>exploration_lost.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>exploration_lost.category</source>
+        <target>exploration_lost.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>exploration_lost.description</source>
+        <target>exploration_lost.description</target>
+      </segment>
+    </unit>
+    <unit id="electrocuted">
+      <segment id="name" state="initial">
+        <source>electrocuted.name</source>
+        <target>electrocuted.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>electrocuted.short_name</source>
+        <target>electrocuted.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>electrocuted.category</source>
+        <target>electrocuted.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>electrocuted.description</source>
+        <target>electrocuted.description</target>
+      </segment>
+    </unit>
+    <unit id="injury">
+      <segment id="name" state="initial">
+        <source>injury.name</source>
+        <target>injury.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>injury.short_name</source>
+        <target>injury.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>injury.category</source>
+        <target>injury.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>injury.description</source>
+        <target>injury.description</target>
+      </segment>
+    </unit>
+    <unit id="burnt">
+      <segment id="name" state="initial">
+        <source>burnt.name</source>
+        <target>burnt.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>burnt.short_name</source>
+        <target>burnt.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>burnt.category</source>
+        <target>burnt.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>burnt.description</source>
+        <target>burnt.description</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness">
+      <segment id="name" state="initial">
+        <source>clumsiness.name</source>
+        <target>clumsiness.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>clumsiness.short_name</source>
+        <target>clumsiness.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>clumsiness.category</source>
+        <target>clumsiness.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>clumsiness.description</source>
+        <target>clumsiness.description</target>
+      </segment>
+    </unit>
+    <unit id="space_battle">
+      <segment id="name" state="initial">
+        <source>space_battle.name</source>
+        <target>space_battle.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>space_battle.short_name</source>
+        <target>space_battle.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>space_battle.category</source>
+        <target>space_battle.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>space_battle.description</source>
+        <target>space_battle.description</target>
+      </segment>
+    </unit>
+    <unit id="space_asphyxiated">
+      <segment id="name" state="initial">
+        <source>space_asphyxiated.name</source>
+        <target>space_asphyxiated.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>space_asphyxiated.short_name</source>
+        <target>space_asphyxiated.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>space_asphyxiated.category</source>
+        <target>space_asphyxiated.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>space_asphyxiated.description</source>
+        <target>space_asphyxiated.description</target>
+      </segment>
+    </unit>
+    <unit id="beheaded">
+      <segment id="name" state="initial">
+        <source>beheaded.name</source>
+        <target>beheaded.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>beheaded.short_name</source>
+        <target>beheaded.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>beheaded.category</source>
+        <target>beheaded.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>beheaded.description</source>
+        <target>beheaded.description</target>
+      </segment>
+    </unit>
+    <unit id="starvation">
+      <segment id="name" state="initial">
+        <source>starvation.name</source>
+        <target>starvation.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>starvation.short_name</source>
+        <target>starvation.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>starvation.category</source>
+        <target>starvation.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>starvation.description</source>
+        <target>starvation.description</target>
+      </segment>
+    </unit>
+    <unit id="quarantine">
+      <segment id="name" state="initial">
+        <source>quarantine.name</source>
+        <target>quarantine.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>quarantine.short_name</source>
+        <target>quarantine.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>quarantine.category</source>
+        <target>quarantine.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>quarantine.description</source>
+        <target>quarantine.description</target>
+      </segment>
+    </unit>
+    <unit id="black_bite">
+      <segment id="name" state="initial">
+        <source>black_bite.name</source>
+        <target>black_bite.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>black_bite.short_name</source>
+        <target>black_bite.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>black_bite.category</source>
+        <target>black_bite.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>black_bite.description</source>
+        <target>black_bite.description</target>
+      </segment>
+    </unit>
+    <unit id="metal_plate">
+      <segment id="name" state="initial">
+        <source>metal_plate.name</source>
+        <target>metal_plate.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>metal_plate.short_name</source>
+        <target>metal_plate.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>metal_plate.category</source>
+        <target>metal_plate.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>metal_plate.description</source>
+        <target>metal_plate.description</target>
+      </segment>
+    </unit>
+    <unit id="rocketed">
+      <segment id="name" state="initial">
+        <source>rocketed.name</source>
+        <target>rocketed.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>rocketed.short_name</source>
+        <target>rocketed.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>rocketed.category</source>
+        <target>rocketed.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>rocketed.description</source>
+        <target>rocketed.description</target>
+      </segment>
+    </unit>
+    <unit id="bled">
+      <segment id="name" state="initial">
+        <source>bled.name</source>
+        <target>bled.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>bled.short_name</source>
+        <target>bled.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>bled.category</source>
+        <target>bled.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>bled.description</source>
+        <target>bled.description</target>
+      </segment>
+    </unit>
+    <unit id="infection">
+      <segment id="name" state="initial">
+        <source>infection.name</source>
+        <target>infection.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>infection.short_name</source>
+        <target>infection.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>infection.category</source>
+        <target>infection.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>infection.description</source>
+        <target>infection.description</target>
+      </segment>
+    </unit>
+    <unit id="mankarog">
+      <segment id="name" state="initial">
+        <source>mankarog.name</source>
+        <target>mankarog.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>mankarog.short_name</source>
+        <target>mankarog.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>mankarog.category</source>
+        <target>mankarog.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mankarog.description</source>
+        <target>mankarog.description</target>
+      </segment>
+    </unit>
+    <unit id="no_infirmerie">
+      <segment id="name" state="initial">
+        <source>no_infirmerie.name</source>
+        <target>no_infirmerie.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>no_infirmerie.short_name</source>
+        <target>no_infirmerie.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>no_infirmerie.category</source>
+        <target>no_infirmerie.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>no_infirmerie.description</source>
+        <target>no_infirmerie.description</target>
+      </segment>
+    </unit>
+    <unit id="suicide">
+      <segment id="name" state="initial">
+        <source>suicide.name</source>
+        <target>suicide.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>suicide.short_name</source>
+        <target>suicide.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>suicide.category</source>
+        <target>suicide.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>suicide.description</source>
+        <target>suicide.description</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_explosion">
+      <segment id="name" state="initial">
+        <source>patrol_ship_explosion.name</source>
+        <target>patrol_ship_explosion.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_explosion.short_name</source>
+        <target>patrol_ship_explosion.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>patrol_ship_explosion.category</source>
+        <target>patrol_ship_explosion.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>patrol_ship_explosion.description</source>
+        <target>patrol_ship_explosion.description</target>
+      </segment>
+    </unit>
+    <unit id="still_living">
+      <segment id="name" state="initial">
+        <source>still_living.name</source>
+        <target>still_living.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>still_living.description</source>
+        <target>still_living.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

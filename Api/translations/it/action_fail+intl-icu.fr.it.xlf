@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="actions_fail.ext">
+    <unit id="build_lack_ressources">
+      <segment id="description" state="initial">
+        <source>build_lack_ressources.description</source>
+        <target>build_lack_ressources.description</target>
+      </segment>
+    </unit>
+    <unit id="insufficient_action_point">
+      <segment id="description" state="initial">
+        <source>insufficient_action_point.description</source>
+        <target>insufficient_action_point.description</target>
+      </segment>
+    </unit>
+    <unit id="insufficient_action_point_mush">
+      <segment id="description" state="initial">
+        <source>insufficient_action_point_mush.description</source>
+        <target>insufficient_action_point_mush.description</target>
+      </segment>
+    </unit>
+    <unit id="no_shelving_unit">
+      <segment id="description" state="initial">
+        <source>no_shelving_unit.description</source>
+        <target>no_shelving_unit.description</target>
+      </segment>
+    </unit>
+    <unit id="full_inventory">
+      <segment id="description" state="initial">
+        <source>full_inventory.description</source>
+        <target>full_inventory.description</target>
+      </segment>
+    </unit>
+    <unit id="not_a_room">
+      <segment id="description" state="initial">
+        <source>not_a_room.description</source>
+        <target>not_a_room.description</target>
+      </segment>
+    </unit>
+    <unit id="on_planet">
+      <segment id="description" state="initial">
+        <source>on_planet.description</source>
+        <target>on_planet.description</target>
+      </segment>
+    </unit>
+    <unit id="daily_limit">
+      <segment id="description" state="initial">
+        <source>daily_limit.description</source>
+        <target>daily_limit.description</target>
+      </segment>
+    </unit>
+    <unit id="ceasefire">
+      <segment id="description" state="initial">
+        <source>ceasefire.description</source>
+        <target>ceasefire.description</target>
+      </segment>
+    </unit>
+    <unit id="unique_action">
+      <segment id="description" state="initial">
+        <source>unique_action.description</source>
+        <target>unique_action.description</target>
+      </segment>
+    </unit>
+    <unit id="in_space_capsule">
+      <segment id="description" state="initial">
+        <source>in_space_capsule.description</source>
+        <target>in_space_capsule.description</target>
+      </segment>
+    </unit>
+    <unit id="in_patroller">
+      <segment id="description" state="initial">
+        <source>in_patroller.description</source>
+        <target>in_patroller.description</target>
+      </segment>
+    </unit>
+    <unit id="pre_mush_restricted">
+      <segment id="description" state="initial">
+        <source>pre_mush_restricted.description</source>
+        <target>pre_mush_restricted.description</target>
+      </segment>
+    </unit>
+    <unit id="pre_mush_aggressive">
+      <segment id="description" state="initial">
+        <source>pre_mush_aggressive.description</source>
+        <target>pre_mush_aggressive.description</target>
+      </segment>
+    </unit>
+    <unit id="heal_no_injury">
+      <segment id="description" state="initial">
+        <source>heal_no_injury.description</source>
+        <target>heal_no_injury.description</target>
+      </segment>
+    </unit>
+    <unit id="dmz_core_peace">
+      <segment id="description" state="initial">
+        <source>dmz_core_peace.description</source>
+        <target>dmz_core_peace.description</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_traveling">
+      <segment id="description" state="initial">
+        <source>daedalus_traveling.description</source>
+        <target>daedalus_traveling.description</target>
+      </segment>
+    </unit>
+    <unit id="broken_equipment">
+      <segment id="description" state="initial">
+        <source>broken_equipment.description</source>
+        <target>broken_equipment.description</target>
+      </segment>
+    </unit>
+    <unit id="dirty_restriction">
+      <segment id="description" state="initial">
+        <source>dirty_restriction.description</source>
+        <target>dirty_restriction.description</target>
+      </segment>
+    </unit>
+    <unit id="terminal_role_restricted">
+      <segment id="description" state="initial">
+        <source>terminal_role_restricted.description</source>
+        <target>terminal_role_restricted.description</target>
+      </segment>
+    </unit>
+    <unit id="terminal_neron_lock">
+      <segment id="description" state="initial">
+        <source>terminal_neron_lock.description</source>
+        <target>terminal_neron_lock.description</target>
+      </segment>
+    </unit>
+    <unit id="explore_nothing_left">
+      <segment id="description" state="initial">
+        <source>explore_nothing_left.description</source>
+        <target>explore_nothing_left.description</target>
+      </segment>
+    </unit>
+    <unit id="explore_not_in_orbit">
+      <segment id="description" state="initial">
+        <source>explore_not_in_orbit.description</source>
+        <target>explore_not_in_orbit.description</target>
+      </segment>
+    </unit>
+    <unit id="fire_out_ammunition">
+      <segment id="description" state="initial">
+        <source>fire_out_ammunition.description</source>
+        <target>fire_out_ammunition.description</target>
+      </segment>
+    </unit>
+    <unit id="unloaded_weapon">
+      <segment id="description" state="initial">
+        <source>unloaded_weapon.description</source>
+        <target>unloaded_weapon.description</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_already_done">
+      <segment id="description" state="initial">
+        <source>do_the_thing_already_done.description</source>
+        <target>do_the_thing_already_done.description</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_camera">
+      <segment id="description" state="initial">
+        <source>do_the_thing_camera.description</source>
+        <target>do_the_thing_camera.description</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_witness">
+      <segment id="description" state="initial">
+        <source>do_the_thing_witness.description</source>
+        <target>do_the_thing_witness.description</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_asleep">
+      <segment id="description" state="initial">
+        <source>do_the_thing_asleep.description</source>
+        <target>do_the_thing_asleep.description</target>
+      </segment>
+    </unit>
+    <unit id="do_the_thing_not_interested">
+      <segment id="description" state="initial">
+        <source>do_the_thing_not_interested.description</source>
+        <target>do_the_thing_not_interested.description</target>
+      </segment>
+    </unit>
+    <unit id="flirt_already_flirted">
+      <segment id="description" state="initial">
+        <source>flirt_already_flirted.description</source>
+        <target>flirt_already_flirted.description</target>
+      </segment>
+    </unit>
+    <unit id="flirt_antisocial">
+      <segment id="description" state="initial">
+        <source>flirt_antisocial.description</source>
+        <target>flirt_antisocial.description</target>
+      </segment>
+    </unit>
+    <unit id="flirt_same_family">
+      <segment id="description" state="initial">
+        <source>flirt_same_family.description</source>
+        <target>flirt_same_family.description</target>
+      </segment>
+    </unit>
+    <unit id="daily_spore_limit">
+      <segment id="description" state="initial">
+        <source>daily_spore_limit.description</source>
+        <target>daily_spore_limit.description</target>
+      </segment>
+    </unit>
+    <unit id="personal_spore_limit">
+      <segment id="description" state="initial">
+        <source>personal_spore_limit.description</source>
+        <target>personal_spore_limit.description</target>
+      </segment>
+    </unit>
+    <unit id="boobytrap_already_done">
+      <segment id="description" state="initial">
+        <source>boobytrap_already_done.description</source>
+        <target>boobytrap_already_done.description</target>
+      </segment>
+    </unit>
+    <unit id="slime_already_done">
+      <segment id="description" state="initial">
+        <source>slime_already_done.description</source>
+        <target>slime_already_done.description</target>
+      </segment>
+    </unit>
+    <unit id="infect_immune">
+      <segment id="description" state="initial">
+        <source>infect_immune.description</source>
+        <target>infect_immune.description</target>
+      </segment>
+    </unit>
+    <unit id="infect_no_spore">
+      <segment id="description" state="initial">
+        <source>infect_no_spore.description</source>
+        <target>infect_no_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="infect_mush">
+      <segment id="description" state="initial">
+        <source>infect_mush.description</source>
+        <target>infect_mush.description</target>
+      </segment>
+    </unit>
+    <unit id="infect_daily_limit">
+      <segment id="description" state="initial">
+        <source>infect_daily_limit.description</source>
+        <target>infect_daily_limit.description</target>
+      </segment>
+    </unit>
+    <unit id="transfer_no_spore">
+      <segment id="description" state="initial">
+        <source>transfer_no_spore.description</source>
+        <target>transfer_no_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="phagocyte_no_spore">
+      <segment id="description" state="initial">
+        <source>phagocyte_no_spore.description</source>
+        <target>phagocyte_no_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="mutated">
+      <segment id="description" state="initial">
+        <source>mutated.description</source>
+        <target>mutated.description</target>
+      </segment>
+    </unit>
+    <unit id="whisper_mute">
+      <segment id="description" state="initial">
+        <source>whisper_mute.description</source>
+        <target>whisper_mute.description</target>
+      </segment>
+    </unit>
+    <unit id="whisper_no_available_chanel">
+      <segment id="description" state="initial">
+        <source>whisper_no_available_chanel.description</source>
+        <target>whisper_no_available_chanel.description</target>
+      </segment>
+    </unit>
+    <unit id="target_already_outcast">
+      <segment id="description" state="initial">
+        <source>target_already_outcast.description</source>
+        <target>target_already_outcast.description</target>
+      </segment>
+    </unit>
+    <unit id="already_outcast_onboard">
+      <segment id="description" state="initial">
+        <source>already_outcast_onboard.description</source>
+        <target>already_outcast_onboard.description</target>
+      </segment>
+    </unit>
+    <unit id="lonely_apprenticeship">
+      <segment id="description" state="initial">
+        <source>lonely_apprenticeship.description</source>
+        <target>lonely_apprenticeship.description</target>
+      </segment>
+    </unit>
+    <unit id="list_already_printed">
+      <segment id="description" state="initial">
+        <source>list_already_printed.description</source>
+        <target>list_already_printed.description</target>
+      </segment>
+    </unit>
+    <unit id="list_no_mush">
+      <segment id="description" state="initial">
+        <source>list_no_mush.description</source>
+        <target>list_no_mush.description</target>
+      </segment>
+    </unit>
+    <unit id="issue_mission_already_issued">
+      <segment id="description" state="initial">
+        <source>issue_mission_already_issued.description</source>
+        <target>issue_mission_already_issued.description</target>
+      </segment>
+    </unit>
+    <unit id="issue_mission_no_target">
+      <segment id="description" state="initial">
+        <source>issue_mission_no_target.description</source>
+        <target>issue_mission_no_target.description</target>
+      </segment>
+    </unit>
+    <unit id="drone_upgrade_lack_ressources">
+      <segment id="description" state="initial">
+        <source>drone_upgrade_lack_ressources.description</source>
+        <target>drone_upgrade_lack_ressources.description</target>
+      </segment>
+    </unit>
+    <unit id="mage_book_already_have_skill">
+      <segment id="description" state="initial">
+        <source>mage_book_already_have_skill.description</source>
+        <target>mage_book_already_have_skill.description</target>
+      </segment>
+    </unit>
+    <unit id="mage_book_already_have_read">
+      <segment id="description" state="initial">
+        <source>mage_book_already_have_read.description</source>
+        <target>mage_book_already_have_read.description</target>
+      </segment>
+    </unit>
+    <unit id="consume_drug_twice">
+      <segment id="description" state="initial">
+        <source>consume_drug_twice.description</source>
+        <target>consume_drug_twice.description</target>
+      </segment>
+    </unit>
+    <unit id="consume_full_belly">
+      <segment id="description" state="initial">
+        <source>consume_full_belly.description</source>
+        <target>consume_full_belly.description</target>
+      </segment>
+    </unit>
+    <unit id="reinforce_full_hull">
+      <segment id="description" state="initial">
+        <source>reinforce_full_hull.description</source>
+        <target>reinforce_full_hull.description</target>
+      </segment>
+    </unit>
+    <unit id="already_installed_camera">
+      <segment id="description" state="initial">
+        <source>already_installed_camera.description</source>
+        <target>already_installed_camera.description</target>
+      </segment>
+    </unit>
+    <unit id="water_plant_no_thirsty">
+      <segment id="description" state="initial">
+        <source>water_plant_no_thirsty.description</source>
+        <target>water_plant_no_thirsty.description</target>
+      </segment>
+    </unit>
+    <unit id="treat_plant_no_disease">
+      <segment id="description" state="initial">
+        <source>treat_plant_no_disease.description</source>
+        <target>treat_plant_no_disease.description</target>
+      </segment>
+    </unit>
+    <unit id="launch_grenade_alone">
+      <segment id="description" state="initial">
+        <source>launch_grenade_alone.description</source>
+        <target>launch_grenade_alone.description</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_no_door">
+      <segment id="description" state="initial">
+        <source>sabotage_no_door.description</source>
+        <target>sabotage_no_door.description</target>
+      </segment>
+    </unit>
+    <unit id="analyse_nothing_undiscovered">
+      <segment id="description" state="initial">
+        <source>analyse_nothing_undiscovered.description</source>
+        <target>analyse_nothing_undiscovered.description</target>
+      </segment>
+    </unit>
+    <unit id="no_pilgred">
+      <segment id="description" state="initial">
+        <source>no_pilgred.description</source>
+        <target>no_pilgred.description</target>
+      </segment>
+    </unit>
+    <unit id="not_enough_map_fragments">
+      <segment id="description" state="initial">
+        <source>not_enough_map_fragments.description</source>
+        <target>not_enough_map_fragments.description</target>
+      </segment>
+    </unit>
+    <unit id="no_direction_picked">
+      <segment id="description" state="initial">
+        <source>no_direction_picked.description</source>
+        <target>no_direction_picked.description</target>
+      </segment>
+    </unit>
+    <unit id="coms_already_attempted">
+      <segment id="description" state="initial">
+        <source>coms_already_attempted.description</source>
+        <target>coms_already_attempted.description</target>
+      </segment>
+    </unit>
+    <unit id="no_active_rebel">
+      <segment id="description" state="initial">
+        <source>no_active_rebel.description</source>
+        <target>no_active_rebel.description</target>
+      </segment>
+    </unit>
+    <unit id="no_selected_rebel">
+      <segment id="description" state="initial">
+        <source>no_selected_rebel.description</source>
+        <target>no_selected_rebel.description</target>
+      </segment>
+    </unit>
+    <unit id="no_xyloph_left">
+      <segment id="description" state="initial">
+        <source>no_xyloph_left.description</source>
+        <target>no_xyloph_left.description</target>
+      </segment>
+    </unit>
+    <unit id="no_project_left">
+      <segment id="description" state="initial">
+        <source>no_project_left.description</source>
+        <target>no_project_left.description</target>
+      </segment>
+    </unit>
+    <unit id="coms_not_officer">
+      <segment id="description" state="initial">
+        <source>coms_not_officer.description</source>
+        <target>coms_not_officer.description</target>
+      </segment>
+    </unit>
+    <unit id="deal_lack_ressources">
+      <segment id="description" state="initial">
+        <source>deal_lack_ressources.description</source>
+        <target>deal_lack_ressources.description</target>
+      </segment>
+    </unit>
+    <unit id="deal_not_coms_officer">
+      <segment id="description" state="initial">
+        <source>deal_not_coms_officer.description</source>
+        <target>deal_not_coms_officer.description</target>
+      </segment>
+    </unit>
+    <unit id="dismantle_reinforced">
+      <segment id="description" state="initial">
+        <source>dismantle_reinforced.description</source>
+        <target>dismantle_reinforced.description</target>
+      </segment>
+    </unit>
+    <unit id="bed_occupied">
+      <segment id="description" state="initial">
+        <source>bed_occupied.description</source>
+        <target>bed_occupied.description</target>
+      </segment>
+    </unit>
+    <unit id="already_washed_in_sink_today">
+      <segment id="description" state="initial">
+        <source>already_washed_in_sink_today.description</source>
+        <target>already_washed_in_sink_today.description</target>
+      </segment>
+    </unit>
+    <unit id="already_in_bed">
+      <segment id="description" state="initial">
+        <source>already_in_bed.description</source>
+        <target>already_in_bed.description</target>
+      </segment>
+    </unit>
+    <unit id="reinforce_lack_ressources">
+      <segment id="description" state="initial">
+        <source>reinforce_lack_ressources.description</source>
+        <target>reinforce_lack_ressources.description</target>
+      </segment>
+    </unit>
+    <unit id="renovate_lack_ressources">
+      <segment id="description" state="initial">
+        <source>renovate_lack_ressources.description</source>
+        <target>renovate_lack_ressources.description</target>
+      </segment>
+    </unit>
+    <unit id="surgery_not_lying_down">
+      <segment id="description" state="initial">
+        <source>surgery_not_lying_down.description</source>
+        <target>surgery_not_lying_down.description</target>
+      </segment>
+    </unit>
+    <unit id="mush_remove_spore">
+      <segment id="description" state="initial">
+        <source>mush_remove_spore.description</source>
+        <target>mush_remove_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="already_did_boring_speech">
+      <segment id="description" state="initial">
+        <source>already_did_boring_speech.description</source>
+        <target>already_did_boring_speech.description</target>
+      </segment>
+    </unit>
+    <unit id="have_all_fake_diseases">
+      <segment id="description" state="initial">
+        <source>have_all_fake_diseases.description</source>
+        <target>have_all_fake_diseases.description</target>
+      </segment>
+    </unit>
+    <unit id="symptoms_are_preventing_action">
+      <segment id="description" state="initial">
+        <source>symptoms_are_preventing_action.description</source>
+        <target>symptoms_are_preventing_action.description</target>
+      </segment>
+    </unit>
+    <unit id="gagged_prevent_spoken_action">
+      <segment id="description" state="initial">
+        <source>gagged_prevent_spoken_action.description</source>
+        <target>gagged_prevent_spoken_action.description</target>
+      </segment>
+    </unit>
+    <unit id="screwed_talkie_already_pirated">
+      <segment id="description" state="initial">
+        <source>screwed_talkie_already_pirated.description</source>
+        <target>screwed_talkie_already_pirated.description</target>
+      </segment>
+    </unit>
+    <unit id="screwed_talkie_no_talkie">
+      <segment id="description" state="initial">
+        <source>screwed_talkie_no_talkie.description</source>
+        <target>screwed_talkie_no_talkie.description</target>
+      </segment>
+    </unit>
+    <unit id="screwed_talkie_no_talkie_self">
+      <segment id="description" state="initial">
+        <source>screwed_talkie_no_talkie_self.description</source>
+        <target>screwed_talkie_no_talkie_self.description</target>
+      </segment>
+    </unit>
+    <unit id="update_talkie_require_neron">
+      <segment id="description" state="initial">
+        <source>update_talkie_require_neron.description</source>
+        <target>update_talkie_require_neron.description</target>
+      </segment>
+    </unit>
+    <unit id="update_talkie_require_tracker">
+      <segment id="description" state="initial">
+        <source>update_talkie_require_tracker.description</source>
+        <target>update_talkie_require_tracker.description</target>
+      </segment>
+    </unit>
+    <unit id="immunized_remove_spore">
+      <segment id="description" state="initial">
+        <source>immunized_remove_spore.description</source>
+        <target>immunized_remove_spore.description</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_already_full_hull.description">
+      <segment state="initial">
+        <source>daedalus_already_full_hull.description</source>
+        <target>daedalus_already_full_hull.description</target>
+      </segment>
+    </unit>
+    <unit id="combustion_chambre_full">
+      <segment state="initial">
+        <source>combustion_chamber_full.description</source>
+        <target>combustion_chamber_full.description</target>
+      </segment>
+    </unit>
+    <unit id="alpha_reactor_broken">
+      <segment state="initial">
+        <source>alpha_reactor_broken.description</source>
+        <target>alpha_reactor_broken.description</target>
+      </segment>
+    </unit>
+    <unit id="bravo_reactor_broken">
+      <segment state="initial">
+        <source>bravo_reactor_broken.description</source>
+        <target>bravo_reactor_broken.description</target>
+      </segment>
+    </unit>
+    <unit id="lateral_reactor_broken">
+      <segment state="initial">
+        <source>lateral_reactor_broken.description</source>
+        <target>lateral_reactor_broken.description</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_in_orbit">
+      <segment state="initial">
+        <source>daedalus_in_orbit.description</source>
+        <target>daedalus_in_orbit.description</target>
+      </segment>
+    </unit>
+    <unit id="cannot_go_to_this_room">
+      <segment state="initial">
+        <source>cannot_go_to_this_room.description</source>
+        <target>cannot_go_to_this_room.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_ongoing">
+      <segment state="initial">
+        <source>exploration_already_ongoing.description</source>
+        <target>exploration_already_ongoing.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

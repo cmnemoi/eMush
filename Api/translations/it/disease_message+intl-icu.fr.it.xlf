@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="disease_message.ext">
+    <unit id="coprolalia">
+      <segment id="pre" state="initial">
+        <source>pre_coprolalia</source>
+        <target>pre_coprolalia</target>
+      </segment>
+      <segment id="post" state="initial">
+        <source>post_coprolalia</source>
+        <target>post_coprolalia</target>
+      </segment>
+      <segment id="replace" state="initial">
+        <source>replace_coprolalia</source>
+        <target>replace_coprolalia</target>
+      </segment>
+      <segment id="word" state="initial">
+        <source>word_coprolalia</source>
+        <target>word_coprolalia</target>
+      </segment>
+      <segment id="word_plural" state="initial">
+        <source>word_plural_coprolalia</source>
+        <target>word_plural_coprolalia</target>
+      </segment>
+      <segment id="animal" state="initial">
+        <source>animal_coprolalia</source>
+        <target>animal_coprolalia</target>
+      </segment>
+      <segment id="animal_plural" state="initial">
+        <source>animal_plural_coprolalia</source>
+        <target>animal_plural_coprolalia</target>
+      </segment>
+      <segment id="balls" state="initial">
+        <source>balls_coprolalia</source>
+        <target>balls_coprolalia</target>
+      </segment>
+      <segment id="adjective_male_single" state="initial">
+        <source>adjective_male_single_coprolalia</source>
+        <target>adjective_male_single_coprolalia</target>
+      </segment>
+      <segment id="adjective_male_plural" state="initial">
+        <source>adjective_male_plural_coprolalia</source>
+        <target>adjective_male_plural_coprolalia</target>
+      </segment>
+      <segment id="adjective_coprolalia" state="initial">
+        <source>adjective_coprolalia</source>
+        <target>adjective_coprolalia</target>
+      </segment>
+      <segment id="adjective_female_single" state="initial">
+        <source>adjective_female_single_coprolalia</source>
+        <target>adjective_female_single_coprolalia</target>
+      </segment>
+      <segment id="adjective_female_plural" state="initial">
+        <source>adjective_female_plural_coprolalia</source>
+        <target>adjective_female_plural_coprolalia</target>
+      </segment>
+      <segment id="preposition" state="initial">
+        <source>preposition_coprolalia</source>
+        <target>preposition_coprolalia</target>
+      </segment>
+      <segment id="prefix" state="initial">
+        <source>prefix_coprolalia</source>
+        <target>prefix_coprolalia</target>
+      </segment>
+    </unit>
+    <unit id="paranoia">
+      <segment id="replace" state="initial">
+        <source>replace_paranoia</source>
+        <target>replace_paranoia</target>
+      </segment>
+      <segment id="accuse" state="initial">
+        <source>accuse_paranoia</source>
+        <target>accuse_paranoia</target>
+      </segment>
+      <segment id="pre" state="initial">
+        <source>pre_paranoia</source>
+        <target>pre_paranoia</target>
+      </segment>
+    </unit>
+    <unit id="deaf">
+      <segment id="deaf" state="initial">
+        <source>deaf</source>
+        <target>deaf</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

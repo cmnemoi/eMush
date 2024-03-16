@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="characters.ext">
+    <unit id="Neron">
+      <segment id="name" state="initial">
+        <source>neron.name</source>
+        <target>neron.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>neron.fullname</source>
+        <target>neron.fullname</target>
+      </segment>
+    </unit>
+    <unit id="Andie">
+      <segment id="name" state="initial">
+        <source>andie.name</source>
+        <target>andie.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>andie.fullname</source>
+        <target>andie.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>andie.age</source>
+        <target>andie.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>andie.description</source>
+        <target>andie.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>andie.employment</source>
+        <target>andie.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>andie.abstract</source>
+        <target>andie.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>andie.biography</source>
+        <target>andie.biography</target>
+      </segment>
+    </unit>
+    <unit id="Chao">
+      <segment id="name" state="initial">
+        <source>chao.name</source>
+        <target>chao.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>chao.fullname</source>
+        <target>chao.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>chao.age</source>
+        <target>chao.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chao.description</source>
+        <target>chao.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>chao.employment</source>
+        <target>chao.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>chao.abstract</source>
+        <target>chao.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>chao.biography</source>
+        <target>chao.biography</target>
+      </segment>
+    </unit>
+    <unit id="Chun">
+      <segment id="name" state="initial">
+        <source>chun.name</source>
+        <target>chun.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>chun.fullname</source>
+        <target>chun.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>chun.age</source>
+        <target>chun.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chun.description</source>
+        <target>chun.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>chun.employment</source>
+        <target>chun.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>chun.abstract</source>
+        <target>chun.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>chun.biography</source>
+        <target>chun.biography</target>
+      </segment>
+    </unit>
+    <unit id="Derek">
+      <segment id="name" state="initial">
+        <source>derek.name</source>
+        <target>derek.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>derek.fullname</source>
+        <target>derek.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>derek.age</source>
+        <target>derek.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>derek.description</source>
+        <target>derek.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>derek.employment</source>
+        <target>derek.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>derek.abstract</source>
+        <target>derek.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>derek.biography</source>
+        <target>derek.biography</target>
+      </segment>
+    </unit>
+    <unit id="Eleesha">
+      <segment id="name" state="initial">
+        <source>eleesha.name</source>
+        <target>eleesha.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>eleesha.fullname</source>
+        <target>eleesha.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>eleesha.age</source>
+        <target>eleesha.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eleesha.description</source>
+        <target>eleesha.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>eleesha.employment</source>
+        <target>eleesha.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>eleesha.abstract</source>
+        <target>eleesha.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>eleesha.biography</source>
+        <target>eleesha.biography</target>
+      </segment>
+    </unit>
+    <unit id="Finola">
+      <segment id="name" state="initial">
+        <source>finola.name</source>
+        <target>finola.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>finola.fullname</source>
+        <target>finola.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>finola.age</source>
+        <target>finola.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>finola.description</source>
+        <target>finola.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>finola.employment</source>
+        <target>finola.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>finola.abstract</source>
+        <target>finola.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>finola.biography</source>
+        <target>finola.biography</target>
+      </segment>
+    </unit>
+    <unit id="Frieda">
+      <segment id="name" state="initial">
+        <source>frieda.name</source>
+        <target>frieda.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>frieda.fullname</source>
+        <target>frieda.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>frieda.age</source>
+        <target>frieda.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>frieda.description</source>
+        <target>frieda.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>frieda.employment</source>
+        <target>frieda.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>frieda.abstract</source>
+        <target>frieda.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>frieda.biography</source>
+        <target>frieda.biography</target>
+      </segment>
+    </unit>
+    <unit id="Gioele">
+      <segment id="name" state="initial">
+        <source>gioele.name</source>
+        <target>gioele.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>gioele.fullname</source>
+        <target>gioele.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>gioele.age</source>
+        <target>gioele.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>gioele.description</source>
+        <target>gioele.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>gioele.employment</source>
+        <target>gioele.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>gioele.abstract</source>
+        <target>gioele.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>gioele.biography</source>
+        <target>gioele.biography</target>
+      </segment>
+    </unit>
+    <unit id="Hua">
+      <segment id="name" state="initial">
+        <source>hua.name</source>
+        <target>hua.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>hua.fullname</source>
+        <target>hua.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>hua.age</source>
+        <target>hua.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hua.description</source>
+        <target>hua.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>hua.employment</source>
+        <target>hua.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>hua.abstract</source>
+        <target>hua.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>hua.biography</source>
+        <target>hua.biography</target>
+      </segment>
+    </unit>
+    <unit id="Ian">
+      <segment id="name" state="initial">
+        <source>ian.name</source>
+        <target>ian.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>ian.fullname</source>
+        <target>ian.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>ian.age</source>
+        <target>ian.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ian.description</source>
+        <target>ian.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>ian.employment</source>
+        <target>ian.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>ian.abstract</source>
+        <target>ian.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>ian.biography</source>
+        <target>ian.biography</target>
+      </segment>
+    </unit>
+    <unit id="jin_su">
+      <segment id="name" state="initial">
+        <source>jin_su.name</source>
+        <target>jin_su.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>jin_su.fullname</source>
+        <target>jin_su.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>jin_su.age</source>
+        <target>jin_su.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>jin_su.description</source>
+        <target>jin_su.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>jin_su.employment</source>
+        <target>jin_su.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>jin_su.abstract</source>
+        <target>jin_su.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>jin_su.biography</source>
+        <target>jin_su.biography</target>
+      </segment>
+    </unit>
+    <unit id="kuan_ti">
+      <segment id="name" state="initial">
+        <source>kuan_ti.name</source>
+        <target>kuan_ti.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>kuan_ti.fullname</source>
+        <target>kuan_ti.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>kuan_ti.age</source>
+        <target>kuan_ti.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kuan_ti.description</source>
+        <target>kuan_ti.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>kuan_ti.employment</source>
+        <target>kuan_ti.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>kuan_ti.abstract</source>
+        <target>kuan_ti.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>kuan_ti.biography</source>
+        <target>kuan_ti.biography</target>
+      </segment>
+    </unit>
+    <unit id="Paola">
+      <segment id="name" state="initial">
+        <source>paola.name</source>
+        <target>paola.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>paola.fullname</source>
+        <target>paola.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>paola.age</source>
+        <target>paola.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>paola.description</source>
+        <target>paola.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>paola.employment</source>
+        <target>paola.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>paola.abstract</source>
+        <target>paola.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>paola.biography</source>
+        <target>paola.biography</target>
+      </segment>
+    </unit>
+    <unit id="Raluca">
+      <segment id="name" state="initial">
+        <source>raluca.name</source>
+        <target>raluca.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>raluca.fullname</source>
+        <target>raluca.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>raluca.age</source>
+        <target>raluca.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>raluca.description</source>
+        <target>raluca.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>raluca.employment</source>
+        <target>raluca.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>raluca.abstract</source>
+        <target>raluca.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>raluca.biography</source>
+        <target>raluca.biography</target>
+      </segment>
+    </unit>
+    <unit id="Roland">
+      <segment id="name" state="initial">
+        <source>roland.name</source>
+        <target>roland.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>roland.fullname</source>
+        <target>roland.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>roland.age</source>
+        <target>roland.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>roland.description</source>
+        <target>roland.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>roland.employment</source>
+        <target>roland.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>roland.abstract</source>
+        <target>roland.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>roland.biography</source>
+        <target>roland.biography</target>
+      </segment>
+    </unit>
+    <unit id="Stephen">
+      <segment id="name" state="initial">
+        <source>stephen.name</source>
+        <target>stephen.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>stephen.fullname</source>
+        <target>stephen.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>stephen.age</source>
+        <target>stephen.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>stephen.description</source>
+        <target>stephen.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>stephen.employment</source>
+        <target>stephen.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>stephen.abstract</source>
+        <target>stephen.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>stephen.biography</source>
+        <target>stephen.biography</target>
+      </segment>
+    </unit>
+    <unit id="Terrence">
+      <segment id="name" state="initial">
+        <source>terrence.name</source>
+        <target>terrence.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>terrence.fullname</source>
+        <target>terrence.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>terrence.age</source>
+        <target>terrence.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>terrence.description</source>
+        <target>terrence.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>terrence.employment</source>
+        <target>terrence.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>terrence.abstract</source>
+        <target>terrence.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>terrence.biography</source>
+        <target>terrence.biography</target>
+      </segment>
+    </unit>
+    <unit id="janice">
+      <segment id="name" state="initial">
+        <source>janice.name</source>
+        <target>janice.name</target>
+      </segment>
+      <segment id="fullname" state="initial">
+        <source>janice.fullname</source>
+        <target>janice.fullname</target>
+      </segment>
+      <segment id="age" state="initial">
+        <source>janice.age</source>
+        <target>janice.age</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>janice.description</source>
+        <target>janice.description</target>
+      </segment>
+      <segment id="employment" state="initial">
+        <source>janice.employment</source>
+        <target>janice.employment</target>
+      </segment>
+      <segment id="abstract" state="initial">
+        <source>janice.abstract</source>
+        <target>janice.abstract</target>
+      </segment>
+      <segment id="biography" state="initial">
+        <source>janice.biography</source>
+        <target>janice.biography</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

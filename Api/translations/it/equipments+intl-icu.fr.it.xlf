@@ -1,0 +1,1215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="equipments.ext">
+    <unit id="antenna">
+      <segment id="name" state="initial">
+        <source>antenna.name</source>
+        <target>antenna.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>antenna.short_name</source>
+        <target>antenna.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>antenna.plural_name</source>
+        <target>antenna.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>antenna.gender</source>
+        <target>antenna.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>antenna.first_letter</source>
+        <target>antenna.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>antenna.examine</source>
+        <target>antenna.examine</target>
+      </segment>
+    </unit>
+    <unit id="astro_terminal">
+      <segment id="name" state="initial">
+        <source>astro_terminal.name</source>
+        <target>astro_terminal.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>astro_terminal.short_name</source>
+        <target>astro_terminal.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>astro_terminal.plural_name</source>
+        <target>astro_terminal.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>astro_terminal.gender</source>
+        <target>astro_terminal.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>astro_terminal.first_letter</source>
+        <target>astro_terminal.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>astro_terminal.examine</source>
+        <target>astro_terminal.examine</target>
+      </segment>
+    </unit>
+    <unit id="auxiliary_terminal">
+      <segment id="name" state="initial">
+        <source>auxiliary_terminal.name</source>
+        <target>auxiliary_terminal.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>auxiliary_terminal.short_name</source>
+        <target>auxiliary_terminal.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>auxiliary_terminal.plural_name</source>
+        <target>auxiliary_terminal.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>auxiliary_terminal.gender</source>
+        <target>auxiliary_terminal.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>auxiliary_terminal.first_letter</source>
+        <target>auxiliary_terminal.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>auxiliary_terminal.examine</source>
+        <target>auxiliary_terminal.examine</target>
+      </segment>
+    </unit>
+    <unit id="bed">
+      <segment id="name" state="initial">
+        <source>bed.name</source>
+        <target>bed.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>bed.short_name</source>
+        <target>bed.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>bed.plural_name</source>
+        <target>bed.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>bed.gender</source>
+        <target>bed.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>bed.first_letter</source>
+        <target>bed.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>bed.examine</source>
+        <target>bed.examine</target>
+      </segment>
+    </unit>
+    <unit id="medlab_bed">
+      <segment id="name" state="initial">
+        <source>medlab_bed.name</source>
+        <target>medlab_bed.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>medlab_bed.short_name</source>
+        <target>medlab_bed.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>medlab_bed.plural_name</source>
+        <target>medlab_bed.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>medlab_bed.gender</source>
+        <target>medlab_bed.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>medlab_bed.first_letter</source>
+        <target>medlab_bed.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>medlab_bed.examine</source>
+        <target>medlab_bed.examine</target>
+      </segment>
+    </unit>
+    <unit id="bios_terminal">
+      <segment id="name" state="initial">
+        <source>bios_terminal.name</source>
+        <target>bios_terminal.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>bios_terminal.short_name</source>
+        <target>bios_terminal.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>bios_terminal.plural_name</source>
+        <target>bios_terminal.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>bios_terminal.gender</source>
+        <target>bios_terminal.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>bios_terminal.first_letter</source>
+        <target>bios_terminal.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>bios_terminal.examine</source>
+        <target>bios_terminal.examine</target>
+      </segment>
+    </unit>
+    <unit id="calculator">
+      <segment id="name" state="initial">
+        <source>calculator.name</source>
+        <target>calculator.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>calculator.short_name</source>
+        <target>calculator.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>calculator.plural_name</source>
+        <target>calculator.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>calculator.gender</source>
+        <target>calculator.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>calculator.first_letter</source>
+        <target>calculator.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>calculator.examine</source>
+        <target>calculator.examine</target>
+      </segment>
+    </unit>
+    <unit id="coffee_machine">
+      <segment id="name" state="initial">
+        <source>coffee_machine.name</source>
+        <target>coffee_machine.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>coffee_machine.short_name</source>
+        <target>coffee_machine.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>coffee_machine.plural_name</source>
+        <target>coffee_machine.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>coffee_machine.gender</source>
+        <target>coffee_machine.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>coffee_machine.first_letter</source>
+        <target>coffee_machine.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>coffee_machine.examine</source>
+        <target>coffee_machine.examine</target>
+      </segment>
+    </unit>
+    <unit id="combustion_chamber">
+      <segment id="name" state="initial">
+        <source>combustion_chamber.name</source>
+        <target>combustion_chamber.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>combustion_chamber.short_name</source>
+        <target>combustion_chamber.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>combustion_chamber.plural_name</source>
+        <target>combustion_chamber.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>combustion_chamber.gender</source>
+        <target>combustion_chamber.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>combustion_chamber.first_letter</source>
+        <target>combustion_chamber.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>combustion_chamber.examine</source>
+        <target>combustion_chamber.examine</target>
+      </segment>
+    </unit>
+    <unit id="command_terminal">
+      <segment id="name" state="initial">
+        <source>command_terminal.name</source>
+        <target>command_terminal.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>command_terminal.short_name</source>
+        <target>command_terminal.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>command_terminal.plural_name</source>
+        <target>command_terminal.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>command_terminal.gender</source>
+        <target>command_terminal.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>command_terminal.first_letter</source>
+        <target>command_terminal.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>command_terminal.examine</source>
+        <target>command_terminal.examine</target>
+      </segment>
+    </unit>
+    <unit id="communication_center">
+      <segment id="name" state="initial">
+        <source>communication_center.name</source>
+        <target>communication_center.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>communication_center.short_name</source>
+        <target>communication_center.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>communication_center.plural_name</source>
+        <target>communication_center.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>communication_center.gender</source>
+        <target>communication_center.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>communication_center.first_letter</source>
+        <target>communication_center.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>communication_center.examine</source>
+        <target>communication_center.examine</target>
+      </segment>
+    </unit>
+    <unit id="cryo_module">
+      <segment id="name" state="initial">
+        <source>cryo_module.name</source>
+        <target>cryo_module.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>cryo_module.short_name</source>
+        <target>cryo_module.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>cryo_module.plural_name</source>
+        <target>cryo_module.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>cryo_module.gender</source>
+        <target>cryo_module.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>cryo_module.first_letter</source>
+        <target>cryo_module.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>cryo_module.examine</source>
+        <target>cryo_module.examine</target>
+      </segment>
+    </unit>
+    <unit id="door">
+      <segment id="name" state="initial">
+        <source>door.name</source>
+        <target>door.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>door.short_name</source>
+        <target>door.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>door.plural_name</source>
+        <target>door.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>door.gender</source>
+        <target>door.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>door.first_letter</source>
+        <target>door.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>door.examine</source>
+        <target>door.examine</target>
+      </segment>
+    </unit>
+    <unit id="dynarcade">
+      <segment id="name" state="initial">
+        <source>dynarcade.name</source>
+        <target>dynarcade.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>dynarcade.short_name</source>
+        <target>dynarcade.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>dynarcade.plural_name</source>
+        <target>dynarcade.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>dynarcade.gender</source>
+        <target>dynarcade.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>dynarcade.first_letter</source>
+        <target>dynarcade.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>dynarcade.examine</source>
+        <target>dynarcade.examine</target>
+      </segment>
+    </unit>
+    <unit id="emergency_reactor">
+      <segment id="name" state="initial">
+        <source>emergency_reactor.name</source>
+        <target>emergency_reactor.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>emergency_reactor.short_name</source>
+        <target>emergency_reactor.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>emergency_reactor.plural_name</source>
+        <target>emergency_reactor.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>emergency_reactor.gender</source>
+        <target>emergency_reactor.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>emergency_reactor.first_letter</source>
+        <target>emergency_reactor.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>emergency_reactor.examine</source>
+        <target>emergency_reactor.examine</target>
+      </segment>
+    </unit>
+    <unit id="fuel_tank">
+      <segment id="name" state="initial">
+        <source>fuel_tank.name</source>
+        <target>fuel_tank.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>fuel_tank.short_name</source>
+        <target>fuel_tank.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>fuel_tank.plural_name</source>
+        <target>fuel_tank.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>fuel_tank.gender</source>
+        <target>fuel_tank.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>fuel_tank.first_letter</source>
+        <target>fuel_tank.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>fuel_tank.examine</source>
+        <target>fuel_tank.examine</target>
+      </segment>
+    </unit>
+    <unit id="gravity_simulator">
+      <segment id="name" state="initial">
+        <source>gravity_simulator.name</source>
+        <target>gravity_simulator.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>gravity_simulator.short_name</source>
+        <target>gravity_simulator.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>gravity_simulator.plural_name</source>
+        <target>gravity_simulator.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>gravity_simulator.gender</source>
+        <target>gravity_simulator.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>gravity_simulator.first_letter</source>
+        <target>gravity_simulator.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>gravity_simulator.examine</source>
+        <target>gravity_simulator.examine</target>
+      </segment>
+    </unit>
+    <unit id="kitchen">
+      <segment id="name" state="initial">
+        <source>kitchen.name</source>
+        <target>kitchen.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>kitchen.short_name</source>
+        <target>kitchen.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>kitchen.plural_name</source>
+        <target>kitchen.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>kitchen.gender</source>
+        <target>kitchen.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>kitchen.first_letter</source>
+        <target>kitchen.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>kitchen.examine</source>
+        <target>kitchen.examine</target>
+      </segment>
+    </unit>
+    <unit id="reactor_lateral">
+      <segment id="name" state="initial">
+        <source>reactor_lateral.name</source>
+        <target>reactor_lateral.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>reactor_lateral.short_name</source>
+        <target>reactor_lateral.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>reactor_lateral.plural_name</source>
+        <target>reactor_lateral.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>reactor_lateral.gender</source>
+        <target>reactor_lateral.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>reactor_lateral.first_letter</source>
+        <target>reactor_lateral.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>reactor_lateral.examine</source>
+        <target>reactor_lateral.examine</target>
+      </segment>
+    </unit>
+    <unit id="reactor_lateral_alpha">
+      <segment id="name" state="initial">
+        <source>reactor_lateral_alpha.name</source>
+        <target>reactor_lateral_alpha.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>reactor_lateral_alpha.short_name</source>
+        <target>reactor_lateral_alpha.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>reactor_lateral_alpha.plural_name</source>
+        <target>reactor_lateral_alpha.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>reactor_lateral_alpha.gender</source>
+        <target>reactor_lateral_alpha.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>reactor_lateral_alpha.first_letter</source>
+        <target>reactor_lateral_alpha.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>reactor_lateral_alpha.examine</source>
+        <target>reactor_lateral_alpha.examine</target>
+      </segment>
+    </unit>
+    <unit id="reactor_lateral_bravo">
+      <segment id="name" state="initial">
+        <source>reactor_lateral_bravo.name</source>
+        <target>reactor_lateral_bravo.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>reactor_lateral_bravo.short_name</source>
+        <target>reactor_lateral_bravo.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>reactor_lateral_bravo.plural_name</source>
+        <target>reactor_lateral_bravo.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>reactor_lateral_bravo.gender</source>
+        <target>reactor_lateral_bravo.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>reactor_lateral_bravo.first_letter</source>
+        <target>reactor_lateral_bravo.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>reactor_lateral_bravo.examine</source>
+        <target>reactor_lateral_bravo.examine</target>
+      </segment>
+    </unit>
+    <unit id="mycoscan">
+      <segment id="name" state="initial">
+        <source>mycoscan.name</source>
+        <target>mycoscan.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>mycoscan.short_name</source>
+        <target>mycoscan.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>mycoscan.plural_name</source>
+        <target>mycoscan.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>mycoscan.gender</source>
+        <target>mycoscan.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>mycoscan.first_letter</source>
+        <target>mycoscan.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>mycoscan.examine</source>
+        <target>mycoscan.examine</target>
+      </segment>
+    </unit>
+    <unit id="narcotic_distiller">
+      <segment id="name" state="initial">
+        <source>narcotic_distiller.name</source>
+        <target>narcotic_distiller.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>narcotic_distiller.short_name</source>
+        <target>narcotic_distiller.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>narcotic_distiller.plural_name</source>
+        <target>narcotic_distiller.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>narcotic_distiller.gender</source>
+        <target>narcotic_distiller.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>narcotic_distiller.first_letter</source>
+        <target>narcotic_distiller.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>narcotic_distiller.examine</source>
+        <target>narcotic_distiller.examine</target>
+      </segment>
+    </unit>
+    <unit id="neron_core">
+      <segment id="name" state="initial">
+        <source>neron_core.name</source>
+        <target>neron_core.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>neron_core.short_name</source>
+        <target>neron_core.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>neron_core.plural_name</source>
+        <target>neron_core.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>neron_core.gender</source>
+        <target>neron_core.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>neron_core.first_letter</source>
+        <target>neron_core.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>neron_core.examine</source>
+        <target>neron_core.examine</target>
+      </segment>
+    </unit>
+    <unit id="oxygen_tank">
+      <segment id="name" state="initial">
+        <source>oxygen_tank.name</source>
+        <target>oxygen_tank.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>oxygen_tank.short_name</source>
+        <target>oxygen_tank.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>oxygen_tank.plural_name</source>
+        <target>oxygen_tank.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>oxygen_tank.gender</source>
+        <target>oxygen_tank.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>oxygen_tank.first_letter</source>
+        <target>oxygen_tank.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>oxygen_tank.examine</source>
+        <target>oxygen_tank.examine</target>
+      </segment>
+    </unit>
+    <unit id="pasiphae">
+      <segment id="name" state="initial">
+        <source>pasiphae.name</source>
+        <target>pasiphae.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>pasiphae.short_name</source>
+        <target>pasiphae.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>pasiphae.plural_name</source>
+        <target>pasiphae.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>pasiphae.gender</source>
+        <target>pasiphae.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>pasiphae.first_letter</source>
+        <target>pasiphae.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>pasiphae.examine</source>
+        <target>pasiphae.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_2_wallis">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_2_wallis.name</source>
+        <target>patrol_ship_alpha_2_wallis.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_alpha_2_wallis.short_name</source>
+        <target>patrol_ship_alpha_2_wallis.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_alpha_2_wallis.plural_name</source>
+        <target>patrol_ship_alpha_2_wallis.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_alpha_2_wallis.gender</source>
+        <target>patrol_ship_alpha_2_wallis.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_alpha_2_wallis.first_letter</source>
+        <target>patrol_ship_alpha_2_wallis.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_alpha_2_wallis.examine</source>
+        <target>patrol_ship_alpha_2_wallis.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_bravo_epicure">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_epicure.name</source>
+        <target>patrol_ship_bravo_epicure.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_bravo_epicure.short_name</source>
+        <target>patrol_ship_bravo_epicure.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_bravo_epicure.plural_name</source>
+        <target>patrol_ship_bravo_epicure.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_bravo_epicure.gender</source>
+        <target>patrol_ship_bravo_epicure.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_bravo_epicure.first_letter</source>
+        <target>patrol_ship_bravo_epicure.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_bravo_epicure.examine</source>
+        <target>patrol_ship_bravo_epicure.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_jujube">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_jujube.name</source>
+        <target>patrol_ship_alpha_jujube.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_alpha_jujube.short_name</source>
+        <target>patrol_ship_alpha_jujube.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_alpha_jujube.plural_name</source>
+        <target>patrol_ship_alpha_jujube.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_alpha_jujube.gender</source>
+        <target>patrol_ship_alpha_jujube.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_alpha_jujube.first_letter</source>
+        <target>patrol_ship_alpha_jujube.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_alpha_jujube.examine</source>
+        <target>patrol_ship_alpha_jujube.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_longane">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_longane.name</source>
+        <target>patrol_ship_alpha_longane.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_alpha_longane.short_name</source>
+        <target>patrol_ship_alpha_longane.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_alpha_longane.plural_name</source>
+        <target>patrol_ship_alpha_longane.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_alpha_longane.gender</source>
+        <target>patrol_ship_alpha_longane.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_alpha_longane.first_letter</source>
+        <target>patrol_ship_alpha_longane.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_alpha_longane.examine</source>
+        <target>patrol_ship_alpha_longane.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_beta_planton">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_planton.name</source>
+        <target>patrol_ship_bravo_planton.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_bravo_planton.short_name</source>
+        <target>patrol_ship_bravo_planton.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_bravo_planton.plural_name</source>
+        <target>patrol_ship_bravo_planton.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_bravo_planton.gender</source>
+        <target>patrol_ship_bravo_planton.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_bravo_planton.first_letter</source>
+        <target>patrol_ship_bravo_planton.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_bravo_planton.examine</source>
+        <target>patrol_ship_bravo_planton.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_beta_socrate">
+      <segment id="name" state="initial">
+        <source>patrol_ship_bravo_socrate.name</source>
+        <target>patrol_ship_bravo_socrate.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_bravo_socrate.short_name</source>
+        <target>patrol_ship_bravo_socrate.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_bravo_socrate.plural_name</source>
+        <target>patrol_ship_bravo_socrate.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_bravo_socrate.gender</source>
+        <target>patrol_ship_bravo_socrate.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_bravo_socrate.first_letter</source>
+        <target>patrol_ship_bravo_socrate.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_bravo_socrate.examine</source>
+        <target>patrol_ship_bravo_socrate.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship_alpha_tamarin">
+      <segment id="name" state="initial">
+        <source>patrol_ship_alpha_tamarin.name</source>
+        <target>patrol_ship_alpha_tamarin.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>patrol_ship_alpha_tamarin.short_name</source>
+        <target>patrol_ship_alpha_tamarin.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>patrol_ship_alpha_tamarin.plural_name</source>
+        <target>patrol_ship_alpha_tamarin.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>patrol_ship_alpha_tamarin.gender</source>
+        <target>patrol_ship_alpha_tamarin.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>patrol_ship_alpha_tamarin.first_letter</source>
+        <target>patrol_ship_alpha_tamarin.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>patrol_ship_alpha_tamarin.examine</source>
+        <target>patrol_ship_alpha_tamarin.examine</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="name" state="initial">
+        <source>pilgred.name</source>
+        <target>pilgred.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>pilgred.short_name</source>
+        <target>pilgred.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>pilgred.plural_name</source>
+        <target>pilgred.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>pilgred.gender</source>
+        <target>pilgred.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>pilgred.first_letter</source>
+        <target>pilgred.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>pilgred.examine</source>
+        <target>pilgred.examine</target>
+      </segment>
+    </unit>
+    <unit id="planet_scanner">
+      <segment id="name" state="initial">
+        <source>planet_scanner.name</source>
+        <target>planet_scanner.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>planet_scanner.short_name</source>
+        <target>planet_scanner.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>planet_scanner.plural_name</source>
+        <target>planet_scanner.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>planet_scanner.gender</source>
+        <target>planet_scanner.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>planet_scanner.first_letter</source>
+        <target>planet_scanner.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>planet_scanner.examine</source>
+        <target>planet_scanner.examine</target>
+      </segment>
+    </unit>
+    <unit id="research_laboratory">
+      <segment id="name" state="initial">
+        <source>research_laboratory.name</source>
+        <target>research_laboratory.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>research_laboratory.short_name</source>
+        <target>research_laboratory.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>research_laboratory.plural_name</source>
+        <target>research_laboratory.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>research_laboratory.gender</source>
+        <target>research_laboratory.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>research_laboratory.first_letter</source>
+        <target>research_laboratory.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>research_laboratory.examine</source>
+        <target>research_laboratory.examine</target>
+      </segment>
+    </unit>
+    <unit id="shower">
+      <segment id="name" state="initial">
+        <source>shower.name</source>
+        <target>shower.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>shower.short_name</source>
+        <target>shower.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>shower.plural_name</source>
+        <target>shower.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>shower.gender</source>
+        <target>shower.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>shower.first_letter</source>
+        <target>shower.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>shower.examine</source>
+        <target>shower.examine</target>
+      </segment>
+    </unit>
+    <unit id="swedish_sofa">
+      <segment id="name" state="initial">
+        <source>.name</source>
+        <target>.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>swedish_sofa.short_name</source>
+        <target>swedish_sofa.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>swedish_sofa.plural_name</source>
+        <target>swedish_sofa.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>swedish_sofa.gender</source>
+        <target>swedish_sofa.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>swedish_sofa.first_letter</source>
+        <target>swedish_sofa.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>swedish_sofa.examine</source>
+        <target>swedish_sofa.examine</target>
+      </segment>
+    </unit>
+    <unit id="surgery_plot">
+      <segment id="name" state="initial">
+        <source>surgery_plot.name</source>
+        <target>surgery_plot.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>surgery_plot.short_name</source>
+        <target>surgery_plot.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>surgery_plot.plural_name</source>
+        <target>surgery_plot.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>surgery_plot.gender</source>
+        <target>surgery_plot.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>surgery_plot.first_letter</source>
+        <target>surgery_plot.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>surgery_plot.examine</source>
+        <target>surgery_plot.examine</target>
+      </segment>
+    </unit>
+    <unit id="thalasso">
+      <segment id="name" state="initial">
+        <source>thalasso.name</source>
+        <target>thalasso.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>thalasso.short_name</source>
+        <target>thalasso.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>thalasso.plural_name</source>
+        <target>thalasso.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>thalasso.gender</source>
+        <target>thalasso.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>thalasso.first_letter</source>
+        <target>thalasso.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>thalasso.examine</source>
+        <target>thalasso.examine</target>
+      </segment>
+    </unit>
+    <unit id="turret_command">
+      <segment id="name" state="initial">
+        <source>turret_command.name</source>
+        <target>turret_command.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>turret_command.short_name</source>
+        <target>turret_command.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>turret_command.plural_name</source>
+        <target>turret_command.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>turret_command.gender</source>
+        <target>turret_command.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>turret_command.first_letter</source>
+        <target>turret_command.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>turret_command.examine</source>
+        <target>turret_command.examine</target>
+      </segment>
+    </unit>
+    <unit id="icarus">
+      <segment id="name" state="initial">
+        <source>icarus.name</source>
+        <target>icarus.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>icarus.short_name</source>
+        <target>icarus.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>icarus.plural_name</source>
+        <target>icarus.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>icarus.gender</source>
+        <target>icarus.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>icarus.first_letter</source>
+        <target>icarus.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>icarus.examine</source>
+        <target>icarus.examine</target>
+      </segment>
+    </unit>
+    <unit id="jukebox">
+      <segment id="name" state="initial">
+        <source>jukebox.name</source>
+        <target>jukebox.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>jukebox.short_name</source>
+        <target>jukebox.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>jukebox.plural_name</source>
+        <target>jukebox.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>jukebox.gender</source>
+        <target>jukebox.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>jukebox.first_letter</source>
+        <target>jukebox.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>jukebox.examine</source>
+        <target>jukebox.examine</target>
+      </segment>
+    </unit>
+    <unit id="camera_equipment">
+      <segment id="name" state="initial">
+        <source>camera_equipment.name</source>
+        <target>camera_equipment.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>camera_equipment.short_name</source>
+        <target>camera_equipment.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>camera_equipment.plural_name</source>
+        <target>camera_equipment.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>camera_equipment.gender</source>
+        <target>camera_equipment.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>camera_equipment.first_letter</source>
+        <target>camera_equipment.first_letter</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>camera_equipment.examine</source>
+        <target>camera_equipment.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.examine">
+      <segment state="initial">
+        <source>patrol_ship.examine</source>
+        <target>patrol_ship.examine</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.name">
+      <segment state="initial">
+        <source>patrol_ship.name</source>
+        <target>patrol_ship.name</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.short_name">
+      <segment state="initial">
+        <source>patrol_ship.short_name</source>
+        <target>patrol_ship.short_name</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.plural_name">
+      <segment state="initial">
+        <source>patrol_ship.plural_name</source>
+        <target>patrol_ship.plural_name</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.gender">
+      <segment state="initial">
+        <source>patrol_ship.gender</source>
+        <target>patrol_ship.gender</target>
+      </segment>
+    </unit>
+    <unit id="patrol_ship.first_letter">
+      <segment state="initial">
+        <source>patrol_ship.first_letter</source>
+        <target>patrol_ship.first_letter</target>
+      </segment>
+    </unit>
+    <unit id="tabulatrix">
+      <segment id="name" state="initial">
+        <source>tabulatrix.name</source>
+        <target>tabulatrix.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>tabulatrix.short_name</source>
+        <target>tabulatrix.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>tabulatrix.plural_name</source>
+        <target>tabulatrix.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>tabulatrix.gender</source>
+        <target>tabulatrix.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>tabulatrix.first_letter</source>
+        <target>tabulatrix.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>tabulatrix.description</source>
+        <target>tabulatrix.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>tabulatrix.examine</source>
+        <target>tabulatrix.examine</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

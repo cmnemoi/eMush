@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="neron.ext">
+    <unit id="cycle_failures">
+      <segment id="cycle_failures" state="initial">
+        <source>cycle_failures</source>
+        <target>cycle_failures</target>
+      </segment>
+    </unit>
+    <unit id="start_game">
+      <segment id="start_game" state="initial">
+        <source>start_game</source>
+        <target>start_game</target>
+      </segment>
+    </unit>
+    <unit id="activate_dmz">
+      <segment id="activate_dmz" state="initial">
+        <source>activate_dmz</source>
+        <target>activate_dmz</target>
+      </segment>
+    </unit>
+    <unit id="asphyxia_death">
+      <segment id="asphyxia_death" state="initial">
+        <source>asphyxia_death</source>
+        <target>asphyxia_death</target>
+      </segment>
+    </unit>
+    <unit id="automatic_sprinklers">
+      <segment id="automatic_sprinklers" state="initial">
+        <source>automatic_sprinklers</source>
+        <target>automatic_sprinklers</target>
+      </segment>
+    </unit>
+    <unit id="broken_equipment">
+      <segment id="broken_equipment" state="initial">
+        <source>broken_equipment</source>
+        <target>broken_equipment</target>
+      </segment>
+    </unit>
+    <unit id="broken_fuel">
+      <segment id="broken_fuel" state="initial">
+        <source>broken_fuel</source>
+        <target>broken_fuel</target>
+      </segment>
+    </unit>
+    <unit id="broken_oxygen">
+      <segment id="broken_oxygen" state="initial">
+        <source>broken_oxygen</source>
+        <target>broken_oxygen</target>
+      </segment>
+    </unit>
+    <unit id="change_heading">
+      <segment id="change_heading" state="initial">
+        <source>change_heading</source>
+        <target>change_heading</target>
+      </segment>
+    </unit>
+    <unit id="deactivate_dmz">
+      <segment id="deactivate_dmz" state="initial">
+        <source>deactivate_dmz</source>
+        <target>deactivate_dmz</target>
+      </segment>
+    </unit>
+    <unit id="dismantled_shower">
+      <segment id="dismantled_shower" state="initial">
+        <source>dismantled_shower</source>
+        <target>dismantled_shower</target>
+      </segment>
+    </unit>
+    <unit id="heading_accident">
+      <segment id="heading_accident" state="initial">
+        <source>heading_accident</source>
+        <target>heading_accident</target>
+      </segment>
+    </unit>
+    <unit id="hunter_arrival">
+      <segment id="hunter_arrival" state="initial">
+        <source>hunter_arrival</source>
+        <target>hunter_arrival</target>
+      </segment>
+    </unit>
+    <unit id="leave_orbit">
+      <segment id="leave_orbit" state="initial">
+        <source>leave_orbit</source>
+        <target>leave_orbit</target>
+      </segment>
+    </unit>
+    <unit id="lost_signal">
+      <segment id="lost_signal" state="initial">
+        <source>lost_signal</source>
+        <target>lost_signal</target>
+      </segment>
+    </unit>
+    <unit id="lost_signal_oven">
+      <segment id="lost_signal_oven" state="initial">
+        <source>lost_signal_oven</source>
+        <target>lost_signal_oven</target>
+      </segment>
+    </unit>
+    <unit id="merchant_arrival">
+      <segment id="merchant_arrival" state="initial">
+        <source>merchant_arrival</source>
+        <target>merchant_arrival</target>
+      </segment>
+    </unit>
+    <unit id="merchant_exchange">
+      <segment id="merchant_exchange" state="initial">
+        <source>merchant_exchange</source>
+        <target>merchant_exchange</target>
+      </segment>
+    </unit>
+    <unit id="merchant_leave">
+      <segment id="merchant_leave" state="initial">
+        <source>merchant_leave</source>
+        <target>merchant_leave</target>
+      </segment>
+    </unit>
+    <unit id="neron_depression">
+      <segment id="neron_depression" state="initial">
+        <source>neron_depression</source>
+        <target>neron_depression</target>
+      </segment>
+    </unit>
+    <unit id="new_fire">
+      <segment id="new_fire" state="initial">
+        <source>new_fire</source>
+        <target>new_fire</target>
+      </segment>
+    </unit>
+    <unit id="new_project">
+      <segment id="new_project" state="initial">
+        <source>new_project</source>
+        <target>new_project</target>
+      </segment>
+    </unit>
+    <unit id="no_shower">
+      <segment id="no_shower" state="initial">
+        <source>no_shower</source>
+        <target>no_shower</target>
+      </segment>
+    </unit>
+    <unit id="oxygenated_ducts">
+      <segment id="oxygenated_ducts" state="initial">
+        <source>oxygenated_ducts</source>
+        <target>oxygenated_ducts</target>
+      </segment>
+    </unit>
+    <unit id="patching_up">
+      <segment id="patching_up" state="initial">
+        <source>patching_up</source>
+        <target>patching_up</target>
+      </segment>
+    </unit>
+    <unit id="player_death">
+      <segment id="player_death" state="initial">
+        <source>player_death</source>
+        <target>player_death</target>
+      </segment>
+    </unit>
+    <unit id="janice_death">
+      <segment id="janice_death" state="initial">
+        <source>janice_death</source>
+        <target>janice_death</target>
+      </segment>
+    </unit>
+    <unit id="raluca_death">
+      <segment id="raluca_death" state="initial">
+        <source>raluca_death</source>
+        <target>raluca_death</target>
+      </segment>
+    </unit>
+    <unit id="rebel_signal">
+      <segment id="rebel_signal" state="initial">
+        <source>rebel_signal</source>
+        <target>rebel_signal</target>
+      </segment>
+    </unit>
+    <unit id="repaired_pilgred">
+      <segment id="repaired_pilgred" state="initial">
+        <source>repaired_pilgred</source>
+        <target>repaired_pilgred</target>
+      </segment>
+    </unit>
+    <unit id="report_equipment">
+      <segment id="report_equipment" state="initial">
+        <source>report_equipment</source>
+        <target>report_equipment</target>
+      </segment>
+    </unit>
+    <unit id="report_fire">
+      <segment id="report_fire" state="initial">
+        <source>report_fire</source>
+        <target>report_fire</target>
+      </segment>
+    </unit>
+    <unit id="restart_gravity">
+      <segment id="restart_gravity" state="initial">
+        <source>restart_gravity</source>
+        <target>restart_gravity</target>
+      </segment>
+    </unit>
+    <unit id="schrodinger_death">
+      <segment id="schrodinger_death" state="initial">
+        <source>schrodinger_death</source>
+        <target>schrodinger_death</target>
+      </segment>
+    </unit>
+    <unit id="shield_breach">
+      <segment id="shield_breach" state="initial">
+        <source>shield_breach</source>
+        <target>shield_breach</target>
+      </segment>
+    </unit>
+    <unit id="sol_contact">
+      <segment id="sol_contact" state="initial">
+        <source>sol_contact</source>
+        <target>sol_contact</target>
+      </segment>
+    </unit>
+    <unit id="title_attribution">
+      <segment id="title_attribution" state="initial">
+        <source>title_attribution</source>
+        <target>title_attribution</target>
+      </segment>
+    </unit>
+    <unit id="travel_arrival">
+      <segment id="travel_arrival" state="initial">
+        <source>travel_arrival</source>
+        <target>travel_arrival</target>
+      </segment>
+    </unit>
+    <unit id="travel_broken">
+      <segment id="travel_broken" state="initial">
+        <source>travel_broken</source>
+        <target>travel_broken</target>
+      </segment>
+    </unit>
+    <unit id="travel_default">
+      <segment id="travel_default" state="initial">
+        <source>travel_default</source>
+        <target>travel_default</target>
+      </segment>
+    </unit>
+    <unit id="travel_planet">
+      <segment id="travel_planet" state="initial">
+        <source>travel_planet</source>
+        <target>travel_planet</target>
+      </segment>
+    </unit>
+    <unit id="venting_mush">
+      <segment id="venting_mush" state="initial">
+        <source>venting_mush</source>
+        <target>venting_mush</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

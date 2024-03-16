@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="misc.ext">
+    <unit id="asteroid">
+      <segment id="asteroid_name" state="initial">
+        <source>asteroid.name</source>
+        <target>asteroid.name</target>
+      </segment>
+      <segment id="asteroid_description" state="initial">
+        <source>asteroid.description</source>
+        <target>asteroid.description</target>
+      </segment>
+    </unit>
+    <unit id="dice">
+      <segment id="dice_name" state="initial">
+        <source>dice.name</source>
+        <target>dice.name</target>
+      </segment>
+      <segment id="dice_description" state="initial">
+        <source>dice.description</source>
+        <target>dice.description</target>
+      </segment>
+    </unit>
+    <unit id="hunter">
+      <segment id="hunter_name" state="initial">
+        <source>hunter.name</source>
+        <target>hunter.name</target>
+      </segment>
+      <segment id="hunter_description" state="initial">
+        <source>hunter.description</source>
+        <target>hunter.description</target>
+      </segment>
+    </unit>
+    <unit id="spider">
+      <segment id="spider_name" state="initial">
+        <source>spider.name</source>
+        <target>spider.name</target>
+      </segment>
+      <segment id="spider_description" state="initial">
+        <source>spider.description</source>
+        <target>spider.description</target>
+      </segment>
+    </unit>
+    <unit id="trax">
+      <segment id="trax_name" state="initial">
+        <source>trax.name</source>
+        <target>trax.name</target>
+      </segment>
+      <segment id="trax_description" state="initial">
+        <source>trax.description</source>
+        <target>trax.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

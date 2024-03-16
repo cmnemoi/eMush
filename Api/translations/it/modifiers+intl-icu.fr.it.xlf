@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="modifiers.ext">
+    <unit id="change.value.max.decrease">
+      <segment id="description" state="initial">
+        <source>change.value.max.decrease.description</source>
+        <target>change.value.max.decrease.description</target>
+      </segment>
+    </unit>
+    <unit id="change.variable.decrease_on_player.new.cycle">
+      <segment id="description" state="initial">
+        <source>change.variable.decrease_on_player.new.cycle.description</source>
+        <target>change.variable.decrease_on_player.new.cycle.description</target>
+      </segment>
+    </unit>
+    <unit id="change.variable.decrease_on_infection.player">
+      <segment id="description" state="initial">
+        <source>change.variable.decrease_on_infection.player.description</source>
+        <target>change.variable.decrease_on_infection.player.description</target>
+      </segment>
+    </unit>
+    <unit id="change.variable.decrease_on_post.action">
+      <segment id="description" state="initial">
+        <source>change.variable.decrease_on_post.action.description</source>
+        <target>change.variable.decrease_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_move">
+      <segment id="description" state="initial">
+        <source>apply.cost_increase_move.description</source>
+        <target>apply.cost_increase_move.description</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase">
+      <segment id="description" state="initial">
+        <source>apply.cost_increase.description</source>
+        <target>apply.cost_increase.description</target>
+      </segment>
+    </unit>
+    <unit id="roll.action.percentage_decrease_shoot">
+      <segment id="description" state="initial">
+        <source>roll.action.percentage_decrease_shoot.description</source>
+        <target>roll.action.percentage_decrease_shoot.description</target>
+      </segment>
+    </unit>
+    <unit id="biting_on_player.new.cycle">
+      <segment id="description" state="initial">
+        <source>biting_on_player.new.cycle.description</source>
+        <target>biting_on_player.new.cycle.description</target>
+      </segment>
+    </unit>
+    <unit id="breakouts_on_post.action">
+      <segment id="description" state="initial">
+        <source>breakouts_on_post.action.description</source>
+        <target>breakouts_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="roll.percentage_increase_cycle_disease">
+      <segment id="description" state="initial">
+        <source>roll.percentage_increase_cycle_disease.description</source>
+        <target>roll.percentage_increase_cycle_disease.description</target>
+      </segment>
+    </unit>
+    <unit id="prevent_move_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_move_on_pre.action.description</source>
+        <target>prevent_move_on_pre.action.description</target>
+      </segment>
+    </unit>
+    <unit id="prevent_pick_heavy_item_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_pick_heavy_item_on_pre.action.description</source>
+        <target>prevent_pick_heavy_item_on_pre.action.description</target>
+      </segment>
+    </unit>
+    <unit id="cat_allergy_on_post.action">
+      <segment id="description" state="initial">
+        <source>cat_allergy_on_post.action.description</source>
+        <target>cat_allergy_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="dirtiness_on_player.new.cycle">
+      <segment id="description" state="initial">
+        <source>dirtiness_on_player.new.cycle.description</source>
+        <target>dirtiness_on_player.new.cycle.description</target>
+      </segment>
+    </unit>
+    <unit id="deaf_speak_on_new_message">
+      <segment id="description" state="initial">
+        <source>deaf_speak_on_new_message.description</source>
+        <target>deaf_speak_on_new_message.description</target>
+      </segment>
+    </unit>
+    <unit id="drooling_on_post.action">
+      <segment id="description" state="initial">
+        <source>drooling_on_post.action.description</source>
+        <target>drooling_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="fear_of_cats_on_post.action">
+      <segment id="description" state="initial">
+        <source>fear_of_cats_on_post.action.description</source>
+        <target>fear_of_cats_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="foaming_mouth_on_post.action">
+      <segment id="description" state="initial">
+        <source>foaming_mouth_on_post.action.description</source>
+        <target>foaming_mouth_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="mute_modifier_on_new_message">
+      <segment id="description" state="initial">
+        <source>mute_modifier_on_new_message.description</source>
+        <target>mute_modifier_on_new_message.description</target>
+      </segment>
+    </unit>
+    <unit id="sneezing_on_post.action">
+      <segment id="description" state="initial">
+        <source>sneezing_on_post.action.description</source>
+        <target>sneezing_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="prevent_attack_actions_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_attack_actions_on_pre.action.description</source>
+        <target>prevent_attack_actions_on_pre.action.description</target>
+      </segment>
+    </unit>
+    <unit id="prevent_piloting_actions_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_piloting_actions_on_pre.action.description</source>
+        <target>prevent_piloting_actions_on_pre.action.description</target>
+      </segment>
+    </unit>
+    <unit id="prevent_shoot_actions_on_pre.action">
+      <segment id="description" state="initial">
+        <source>prevent_shoot_actions_on_pre.action.description</source>
+        <target>prevent_shoot_actions_on_pre.action.description</target>
+      </segment>
+    </unit>
+    <unit id="psychotic_attacks_on_post.action">
+      <segment id="description" state="initial">
+        <source>psychotic_attacks_on_post.action.description</source>
+        <target>psychotic_attacks_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="septicemia_on_status.applied">
+      <segment id="description" state="initial">
+        <source>septicemia_on_status.applied.description</source>
+        <target>septicemia_on_status.applied.description</target>
+      </segment>
+    </unit>
+    <unit id="vomiting_on_post.action">
+      <segment id="description" state="initial">
+        <source>vomiting_on_post.action.description</source>
+        <target>vomiting_on_post.action.description</target>
+      </segment>
+    </unit>
+    <unit id="coprolalia_messages_on_new_message">
+      <segment id="description" state="initial">
+        <source>coprolalia_messages_on_new_message.description</source>
+        <target>coprolalia_messages_on_new_message.description</target>
+      </segment>
+    </unit>
+    <unit id="paranoia_messages_on_new_message">
+      <segment id="description" state="initial">
+        <source>paranoia_messages_on_new_message.description</source>
+        <target>paranoia_messages_on_new_message.description</target>
+      </segment>
+    </unit>
+    <unit id="change.variable.increase_on_player.new.cycle">
+      <segment state="initial">
+        <source>change.variable.increase_on_player.new.cycle.description</source>
+        <target>change.variable.increase_on_player.new.cycle.description</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_move_if_player_in_room_four_people">
+      <segment id="description" state="initial">
+        <source>apply.cost_increase_move_if_player_in_room_four_people.description</source>
+        <target>apply.cost_increase_move_if_player_in_room_four_people.description</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_if_player_in_room_four_people">
+      <segment id="description" state="initial">
+        <source>apply.cost_increase_if_player_in_room_four_people.description</source>
+        <target>apply.cost_increase_if_player_in_room_four_people.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

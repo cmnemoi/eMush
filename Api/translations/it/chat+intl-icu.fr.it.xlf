@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="chat.ext">
+    <unit id="tips">
+      <segment id="name" state="initial">
+        <source>tips.name</source>
+        <target>tips.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>tips.description</source>
+        <target>tips.description</target>
+      </segment>
+    </unit>
+    <unit id="room_log">
+      <segment id="name" state="initial">
+        <source>room_log.name</source>
+        <target>room_log.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>room_log.description</source>
+        <target>room_log.description</target>
+      </segment>
+    </unit>
+    <unit id="public">
+      <segment id="name" state="initial">
+        <source>public.name</source>
+        <target>public.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>public.description</source>
+        <target>public.description</target>
+      </segment>
+    </unit>
+    <unit id="private">
+      <segment id="name" state="initial">
+        <source>private.name</source>
+        <target>private.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>private.description</source>
+        <target>private.description</target>
+      </segment>
+    </unit>
+    <unit id="mush">
+      <segment id="name" state="initial">
+        <source>mush.name</source>
+        <target>mush.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mush.description</source>
+        <target>mush.description</target>
+      </segment>
+    </unit>
+    <unit id="new">
+      <segment id="name" state="initial">
+        <source>new.name</source>
+        <target>new.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>new.description</source>
+        <target>new.description</target>
+      </segment>
+    </unit>
+    <unit id="message_date">
+      <segment id="message_date.less_minute" state="initial">
+        <source>message_date.less_minute</source>
+        <target>message_date.less_minute</target>
+      </segment>
+      <segment id="message_date.more_minute" state="initial">
+        <source>message_date.more_minute</source>
+        <target>message_date.more_minute</target>
+      </segment>
+      <segment id="message_date.more_hour" state="initial">
+        <source>message_date.more_hour</source>
+        <target>message_date.more_hour</target>
+      </segment>
+      <segment id="message_date.more_day" state="initial">
+        <source>message_date.more_day</source>
+        <target>message_date.more_day</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

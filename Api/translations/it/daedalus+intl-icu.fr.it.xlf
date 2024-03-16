@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="daedalus.ext">
+    <unit id="oxygen">
+      <segment id="name" state="initial">
+        <source>oxygen.name</source>
+        <target>oxygen.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>oxygen.description</source>
+        <target>oxygen.description</target>
+      </segment>
+    </unit>
+    <unit id="fuel">
+      <segment id="name" state="initial">
+        <source>fuel.name</source>
+        <target>fuel.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>fuel.description</source>
+        <target>fuel.description</target>
+      </segment>
+    </unit>
+    <unit id="shield">
+      <segment id="name" state="initial">
+        <source>shield.name</source>
+        <target>shield.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shield.description</source>
+        <target>shield.description</target>
+      </segment>
+    </unit>
+    <unit id="hull">
+      <segment id="name" state="initial">
+        <source>hull.name</source>
+        <target>hull.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hull.description</source>
+        <target>hull.description</target>
+      </segment>
+    </unit>
+    <unit id="crewPlayer">
+      <segment id="name" state="initial">
+        <source>crewPlayer.name</source>
+        <target>crewPlayer.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>crewPlayer.description</source>
+        <target>crewPlayer.description</target>
+      </segment>
+    </unit>
+    <unit id="currentCycle">
+      <segment id="name" state="initial">
+        <source>currentCycle.name</source>
+        <target>currentCycle.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>currentCycle.description</source>
+        <target>currentCycle.description</target>
+      </segment>
+    </unit>
+    <unit id="triumph">
+      <segment id="name" state="initial">
+        <source>triumph.name</source>
+        <target>triumph.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>triumph.description</source>
+        <target>triumph.description</target>
+      </segment>
+    </unit>
+    <unit id="calendar.name">
+      <segment state="initial">
+        <source>calendar.name</source>
+        <target>calendar.name</target>
+      </segment>
+    </unit>
+    <unit id="calendar.description">
+      <segment state="initial">
+        <source>calendar.description</source>
+        <target>calendar.description</target>
+      </segment>
+    </unit>
+    <unit id="cycle.name">
+      <segment state="initial">
+        <source>cycle.name</source>
+        <target>cycle.name</target>
+      </segment>
+    </unit>
+    <unit id="day.name">
+      <segment state="initial">
+        <source>day.name</source>
+        <target>day.name</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

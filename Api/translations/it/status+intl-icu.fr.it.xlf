@@ -1,0 +1,1573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="status.ext">
+    <unit id="alien_artefact">
+      <segment id="name" state="initial">
+        <source>alien_artefact.name</source>
+        <target>alien_artefact.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>alien_artefact.description</source>
+        <target>alien_artefact.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>alien_artefact.examine</source>
+        <target>alien_artefact.examine</target>
+      </segment>
+    </unit>
+    <unit id="electric_charges">
+      <segment id="name" state="initial">
+        <source>electric_charges.name</source>
+        <target>electric_charges.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>electric_charges.description</source>
+        <target>electric_charges.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>electric_charges.examine</source>
+        <target>electric_charges.examine</target>
+      </segment>
+    </unit>
+    <unit id="heavy">
+      <segment id="name" state="initial">
+        <source>heavy.name</source>
+        <target>heavy.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>heavy.description</source>
+        <target>heavy.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>heavy.examine</source>
+        <target>heavy.examine</target>
+      </segment>
+    </unit>
+    <unit id="module_access">
+      <segment id="name" state="initial">
+        <source>module_access.name</source>
+        <target>module_access.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>module_access.description</source>
+        <target>module_access.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>module_access.examine</source>
+        <target>module_access.examine</target>
+      </segment>
+    </unit>
+    <unit id="hidden">
+      <segment id="name" state="initial">
+        <source>hidden.name</source>
+        <target>hidden.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hidden.description</source>
+        <target>hidden.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>hidden.examine</source>
+        <target>hidden.examine</target>
+      </segment>
+    </unit>
+    <unit id="broken">
+      <segment id="name" state="initial">
+        <source>broken.name</source>
+        <target>broken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>broken.description</source>
+        <target>broken.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>broken.examine</source>
+        <target>broken.examine</target>
+      </segment>
+    </unit>
+    <unit id="unstable">
+      <segment id="name" state="initial">
+        <source>unstable.name</source>
+        <target>unstable.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>unstable.description</source>
+        <target>unstable.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>unstable.examine</source>
+        <target>unstable.examine</target>
+      </segment>
+    </unit>
+    <unit id="hazardous">
+      <segment id="name" state="initial">
+        <source>hazardous.name</source>
+        <target>hazardous.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hazardous.description</source>
+        <target>hazardous.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>hazardous.examine</source>
+        <target>hazardous.examine</target>
+      </segment>
+    </unit>
+    <unit id="decomposing">
+      <segment id="name" state="initial">
+        <source>decomposing.name</source>
+        <target>decomposing.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>decomposing.description</source>
+        <target>decomposing.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>decomposing.examine</source>
+        <target>decomposing.examine</target>
+      </segment>
+    </unit>
+    <unit id="frozen">
+      <segment id="name" state="initial">
+        <source>frozen.name</source>
+        <target>frozen.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>frozen.description</source>
+        <target>frozen.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>frozen.examine</source>
+        <target>frozen.examine</target>
+      </segment>
+    </unit>
+    <unit id="contaminated">
+      <segment id="name" state="initial">
+        <source>contaminated.name</source>
+        <target>contaminated.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>contaminated.description</source>
+        <target>contaminated.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>contaminated.examine</source>
+        <target>contaminated.examine</target>
+      </segment>
+    </unit>
+    <unit id="plant_young">
+      <segment id="name" state="initial">
+        <source>plant_young.name</source>
+        <target>plant_young.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>plant_young.description</source>
+        <target>plant_young.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>plant_young.examine</source>
+        <target>plant_young.examine</target>
+      </segment>
+    </unit>
+    <unit id="plant_thirsty">
+      <segment id="name" state="initial">
+        <source>plant_thirsty.name</source>
+        <target>plant_thirsty.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>plant_thirsty.description</source>
+        <target>plant_thirsty.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>plant_thirsty.examine</source>
+        <target>plant_thirsty.examine</target>
+      </segment>
+    </unit>
+    <unit id="plant_dry">
+      <segment id="name" state="initial">
+        <source>plant_dry.name</source>
+        <target>plant_dry.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>plant_dry.description</source>
+        <target>plant_dry.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>plant_dry.examine</source>
+        <target>plant_dry.examine</target>
+      </segment>
+    </unit>
+    <unit id="plant_diseased">
+      <segment id="name" state="initial">
+        <source>plant_diseased.name</source>
+        <target>plant_diseased.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>plant_diseased.description</source>
+        <target>plant_diseased.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>plant_diseased.examine</source>
+        <target>plant_diseased.examine</target>
+      </segment>
+    </unit>
+    <unit id="black_bite">
+      <segment id="name" state="initial">
+        <source>black_bite.name</source>
+        <target>black_bite.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>black_bite.description</source>
+        <target>black_bite.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>black_bite.examine</source>
+        <target>black_bite.examine</target>
+      </segment>
+    </unit>
+    <unit id="cat_allergy">
+      <segment id="name" state="initial">
+        <source>cat_allergy.name</source>
+        <target>cat_allergy.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cat_allergy.description</source>
+        <target>cat_allergy.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>cat_allergy.examine</source>
+        <target>cat_allergy.examine</target>
+      </segment>
+    </unit>
+    <unit id="cold">
+      <segment id="name" state="initial">
+        <source>cold.name</source>
+        <target>cold.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cold.description</source>
+        <target>cold.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>cold.examine</source>
+        <target>cold.examine</target>
+      </segment>
+    </unit>
+    <unit id="extreme_tinnitus">
+      <segment id="name" state="initial">
+        <source>extreme_tinnitus.name</source>
+        <target>extreme_tinnitus.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>extreme_tinnitus.description</source>
+        <target>extreme_tinnitus.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>extreme_tinnitus.examine</source>
+        <target>extreme_tinnitus.examine</target>
+      </segment>
+    </unit>
+    <unit id="flu">
+      <segment id="name" state="initial">
+        <source>flu.name</source>
+        <target>flu.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>flu.description</source>
+        <target>flu.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>flu.examine</source>
+        <target>flu.examine</target>
+      </segment>
+    </unit>
+    <unit id="fungic_infection">
+      <segment id="name" state="initial">
+        <source>fungic_infection.name</source>
+        <target>fungic_infection.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>fungic_infection.description</source>
+        <target>fungic_infection.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>fungic_infection.examine</source>
+        <target>fungic_infection.examine</target>
+      </segment>
+    </unit>
+    <unit id="junkbumpkinitis">
+      <segment id="name" state="initial">
+        <source>junkbumpkinitis.name</source>
+        <target>junkbumpkinitis.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>junkbumpkinitis.description</source>
+        <target>junkbumpkinitis.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>junkbumpkinitis.examine</source>
+        <target>junkbumpkinitis.examine</target>
+      </segment>
+    </unit>
+    <unit id="migraine">
+      <segment id="name" state="initial">
+        <source>migraine.name</source>
+        <target>migraine.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>migraine.description</source>
+        <target>migraine.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>migraine.examine</source>
+        <target>migraine.examine</target>
+      </segment>
+    </unit>
+    <unit id="mush_allergy">
+      <segment id="name" state="initial">
+        <source>mush_allergy.name</source>
+        <target>mush_allergy.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mush_allergy.description</source>
+        <target>mush_allergy.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>mush_allergy.examine</source>
+        <target>mush_allergy.examine</target>
+      </segment>
+    </unit>
+    <unit id="quincks_oedema">
+      <segment id="name" state="initial">
+        <source>quincks_oedema.name</source>
+        <target>quincks_oedema.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>quincks_oedema.description</source>
+        <target>quincks_oedema.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>quincks_oedema.examine</source>
+        <target>quincks_oedema.examine</target>
+      </segment>
+    </unit>
+    <unit id="rejuvenation">
+      <segment id="name" state="initial">
+        <source>rejuvenation.name</source>
+        <target>rejuvenation.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>rejuvenation.description</source>
+        <target>rejuvenation.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>rejuvenation.examine</source>
+        <target>rejuvenation.examine</target>
+      </segment>
+    </unit>
+    <unit id="rubella">
+      <segment id="name" state="initial">
+        <source>rubella.name</source>
+        <target>rubella.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>rubella.description</source>
+        <target>rubella.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>rubella.examine</source>
+        <target>rubella.examine</target>
+      </segment>
+    </unit>
+    <unit id="sepsis">
+      <segment id="name" state="initial">
+        <source>sepsis.name</source>
+        <target>sepsis.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>sepsis.description</source>
+        <target>sepsis.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>sepsis.examine</source>
+        <target>sepsis.examine</target>
+      </segment>
+    </unit>
+    <unit id="sinus_storm">
+      <segment id="name" state="initial">
+        <source>sinus_storm.name</source>
+        <target>sinus_storm.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>sinus_storm.description</source>
+        <target>sinus_storm.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>sinus_storm.examine</source>
+        <target>sinus_storm.examine</target>
+      </segment>
+    </unit>
+    <unit id="skin_inflammation">
+      <segment id="name" state="initial">
+        <source>skin_inflammation.name</source>
+        <target>skin_inflammation.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>skin_inflammation.description</source>
+        <target>skin_inflammation.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>skin_inflammation.examine</source>
+        <target>skin_inflammation.examine</target>
+      </segment>
+    </unit>
+    <unit id="slight_nausea">
+      <segment id="name" state="initial">
+        <source>slight_nausea.name</source>
+        <target>slight_nausea.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>slight_nausea.description</source>
+        <target>slight_nausea.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>slight_nausea.examine</source>
+        <target>slight_nausea.examine</target>
+      </segment>
+    </unit>
+    <unit id="smallpox">
+      <segment id="name" state="initial">
+        <source>smallpox.name</source>
+        <target>smallpox.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>smallpox.description</source>
+        <target>smallpox.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>smallpox.examine</source>
+        <target>smallpox.examine</target>
+      </segment>
+    </unit>
+    <unit id="space_rabies">
+      <segment id="name" state="initial">
+        <source>space_rabies.name</source>
+        <target>space_rabies.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>space_rabies.description</source>
+        <target>space_rabies.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>space_rabies.examine</source>
+        <target>space_rabies.examine</target>
+      </segment>
+    </unit>
+    <unit id="syphilis">
+      <segment id="name" state="initial">
+        <source>syphilis.name</source>
+        <target>syphilis.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>syphilis.description</source>
+        <target>syphilis.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>syphilis.examine</source>
+        <target>syphilis.examine</target>
+      </segment>
+    </unit>
+    <unit id="vitamin_deficiency">
+      <segment id="name" state="initial">
+        <source>vitamin_deficiency.name</source>
+        <target>vitamin_deficiency.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>vitamin_deficiency.description</source>
+        <target>vitamin_deficiency.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>vitamin_deficiency.examine</source>
+        <target>vitamin_deficiency.examine</target>
+      </segment>
+    </unit>
+    <unit id="agoraphobia">
+      <segment id="name" state="initial">
+        <source>agoraphobia.name</source>
+        <target>agoraphobia.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>agoraphobia.description</source>
+        <target>agoraphobia.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>agoraphobia.examine</source>
+        <target>agoraphobia.examine</target>
+      </segment>
+    </unit>
+    <unit id="ailurophobia">
+      <segment id="name" state="initial">
+        <source>ailurophobia.name</source>
+        <target>ailurophobia.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ailurophobia.description</source>
+        <target>ailurophobia.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>ailurophobia.examine</source>
+        <target>ailurophobia.examine</target>
+      </segment>
+    </unit>
+    <unit id="chronic_migraine">
+      <segment id="name" state="initial">
+        <source>chronic_migraine.name</source>
+        <target>chronic_migraine.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chronic_migraine.description</source>
+        <target>chronic_migraine.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>chronic_migraine.examine</source>
+        <target>chronic_migraine.examine</target>
+      </segment>
+    </unit>
+    <unit id="chronic_vertigo">
+      <segment id="name" state="initial">
+        <source>chronic_vertigo.name</source>
+        <target>chronic_vertigo.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chronic_vertigo.description</source>
+        <target>chronic_vertigo.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>chronic_vertigo.examine</source>
+        <target>chronic_vertigo.examine</target>
+      </segment>
+    </unit>
+    <unit id="coprolalia">
+      <segment id="name" state="initial">
+        <source>coprolalia.name</source>
+        <target>coprolalia.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>coprolalia.description</source>
+        <target>coprolalia.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>coprolalia.examine</source>
+        <target>coprolalia.examine</target>
+      </segment>
+    </unit>
+    <unit id="crabism">
+      <segment id="name" state="initial">
+        <source>crabism.name</source>
+        <target>crabism.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>crabism.description</source>
+        <target>crabism.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>crabism.examine</source>
+        <target>crabism.examine</target>
+      </segment>
+    </unit>
+    <unit id="depression">
+      <segment id="name" state="initial">
+        <source>depression.name</source>
+        <target>depression.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>depression.description</source>
+        <target>depression.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>depression.examine</source>
+        <target>depression.examine</target>
+      </segment>
+    </unit>
+    <unit id="paranoia">
+      <segment id="name" state="initial">
+        <source>paranoia.name</source>
+        <target>paranoia.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>paranoia.description</source>
+        <target>paranoia.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>paranoia.examine</source>
+        <target>paranoia.examine</target>
+      </segment>
+    </unit>
+    <unit id="psychotic_episodes">
+      <segment id="name" state="initial">
+        <source>psychotic_episodes.name</source>
+        <target>psychotic_episodes.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>psychotic_episodes.description</source>
+        <target>psychotic_episodes.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>psychotic_episodes.examine</source>
+        <target>psychotic_episodes.examine</target>
+      </segment>
+    </unit>
+    <unit id="spleen">
+      <segment id="name" state="initial">
+        <source>spleen.name</source>
+        <target>spleen.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>spleen.description</source>
+        <target>spleen.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>spleen.examine</source>
+        <target>spleen.examine</target>
+      </segment>
+    </unit>
+    <unit id="vertigo">
+      <segment id="name" state="initial">
+        <source>vertigo.name</source>
+        <target>vertigo.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>vertigo.description</source>
+        <target>vertigo.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>vertigo.examine</source>
+        <target>vertigo.examine</target>
+      </segment>
+    </unit>
+    <unit id="weapon_phobia">
+      <segment id="name" state="initial">
+        <source>weapon_phobia.name</source>
+        <target>weapon_phobia.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>weapon_phobia.description</source>
+        <target>weapon_phobia.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>weapon_phobia.examine</source>
+        <target>weapon_phobia.examine</target>
+      </segment>
+    </unit>
+    <unit id="burns_50_of_body">
+      <segment id="name" state="initial">
+        <source>burns_50_of_body.name</source>
+        <target>burns_50_of_body.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>burns_50_of_body.description</source>
+        <target>burns_50_of_body.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>burns_50_of_body.examine</source>
+        <target>burns_50_of_body.examine</target>
+      </segment>
+    </unit>
+    <unit id="burns_90_of_body">
+      <segment id="name" state="initial">
+        <source>burns_90_of_body.name</source>
+        <target>burns_90_of_body.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>burns_90_of_body.description</source>
+        <target>burns_90_of_body.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>burns_90_of_body.examine</source>
+        <target>burns_90_of_body.examine</target>
+      </segment>
+    </unit>
+    <unit id="broken_finger">
+      <segment id="name" state="initial">
+        <source>broken_finger.name</source>
+        <target>broken_finger.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>broken_finger.description</source>
+        <target>broken_finger.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>broken_finger.examine</source>
+        <target>broken_finger.examine</target>
+      </segment>
+    </unit>
+    <unit id="broken_foot">
+      <segment id="name" state="initial">
+        <source>broken_foot.name</source>
+        <target>broken_foot.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>broken_foot.description</source>
+        <target>broken_foot.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>broken_foot.examine</source>
+        <target>broken_foot.examine</target>
+      </segment>
+    </unit>
+    <unit id="broken_leg">
+      <segment id="name" state="initial">
+        <source>broken_leg.name</source>
+        <target>broken_leg.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>broken_leg.description</source>
+        <target>broken_leg.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>broken_leg.examine</source>
+        <target>broken_leg.examine</target>
+      </segment>
+    </unit>
+    <unit id="broken_ribs">
+      <segment id="name" state="initial">
+        <source>broken_ribs.name</source>
+        <target>broken_ribs.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>broken_ribs.description</source>
+        <target>broken_ribs.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>broken_ribs.examine</source>
+        <target>broken_ribs.examine</target>
+      </segment>
+    </unit>
+    <unit id="broken_shoulder">
+      <segment id="name" state="initial">
+        <source>broken_shoulder.name</source>
+        <target>broken_shoulder.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>broken_shoulder.description</source>
+        <target>broken_shoulder.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>broken_shoulder.examine</source>
+        <target>broken_shoulder.examine</target>
+      </segment>
+    </unit>
+    <unit id="bruised_shoulder">
+      <segment id="name" state="initial">
+        <source>bruised_shoulder.name</source>
+        <target>bruised_shoulder.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>bruised_shoulder.description</source>
+        <target>bruised_shoulder.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>bruised_shoulder.examine</source>
+        <target>bruised_shoulder.examine</target>
+      </segment>
+    </unit>
+    <unit id="burnt_arms">
+      <segment id="name" state="initial">
+        <source>burnt_arms.name</source>
+        <target>burnt_arms.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>burnt_arms.description</source>
+        <target>burnt_arms.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>burnt_arms.examine</source>
+        <target>burnt_arms.examine</target>
+      </segment>
+    </unit>
+    <unit id="burnt_hand">
+      <segment id="name" state="initial">
+        <source>burnt_hand.name</source>
+        <target>burnt_hand.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>burnt_hand.description</source>
+        <target>burnt_hand.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>burnt_hand.examine</source>
+        <target>burnt_hand.examine</target>
+      </segment>
+    </unit>
+    <unit id="burst_nose">
+      <segment id="name" state="initial">
+        <source>burst_nose.name</source>
+        <target>burst_nose.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>burst_nose.description</source>
+        <target>burst_nose.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>burst_nose.examine</source>
+        <target>burst_nose.examine</target>
+      </segment>
+    </unit>
+    <unit id="busted_arm_joint">
+      <segment id="name" state="initial">
+        <source>busted_arm_joint.name</source>
+        <target>busted_arm_joint.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>busted_arm_joint.description</source>
+        <target>busted_arm_joint.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>busted_arm_joint.examine</source>
+        <target>busted_arm_joint.examine</target>
+      </segment>
+    </unit>
+    <unit id="busted_shoulder">
+      <segment id="name" state="initial">
+        <source>busted_shoulder.name</source>
+        <target>busted_shoulder.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>busted_shoulder.description</source>
+        <target>busted_shoulder.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>busted_shoulder.examine</source>
+        <target>busted_shoulder.examine</target>
+      </segment>
+    </unit>
+    <unit id="critical_haemorrhage">
+      <segment id="name" state="initial">
+        <source>critical_haemorrhage.name</source>
+        <target>critical_haemorrhage.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>critical_haemorrhage.description</source>
+        <target>critical_haemorrhage.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>critical_haemorrhage.examine</source>
+        <target>critical_haemorrhage.examine</target>
+      </segment>
+    </unit>
+    <unit id="damaged_ears">
+      <segment id="name" state="initial">
+        <source>damaged_ears.name</source>
+        <target>damaged_ears.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>damaged_ears.description</source>
+        <target>damaged_ears.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>damaged_ears.examine</source>
+        <target>damaged_ears.examine</target>
+      </segment>
+    </unit>
+    <unit id="destroyed_ears">
+      <segment id="name" state="initial">
+        <source>destroyed_ears.name</source>
+        <target>destroyed_ears.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>destroyed_ears.description</source>
+        <target>destroyed_ears.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>destroyed_ears.examine</source>
+        <target>destroyed_ears.examine</target>
+      </segment>
+    </unit>
+    <unit id="dysfunctional_liver">
+      <segment id="name" state="initial">
+        <source>dysfunctional_liver.name</source>
+        <target>dysfunctional_liver.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>dysfunctional_liver.description</source>
+        <target>dysfunctional_liver.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>dysfunctional_liver.examine</source>
+        <target>dysfunctional_liver.examine</target>
+      </segment>
+    </unit>
+    <unit id="haemorrhage">
+      <segment id="name" state="initial">
+        <source>haemorrhage.name</source>
+        <target>haemorrhage.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>haemorrhage.description</source>
+        <target>haemorrhage.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>haemorrhage.examine</source>
+        <target>haemorrhage.examine</target>
+      </segment>
+    </unit>
+    <unit id="minor_haemorrhage">
+      <segment id="name" state="initial">
+        <source>minor_haemorrhage.name</source>
+        <target>minor_haemorrhage.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>minor_haemorrhage.description</source>
+        <target>minor_haemorrhage.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>minor_haemorrhage.examine</source>
+        <target>minor_haemorrhage.examine</target>
+      </segment>
+    </unit>
+    <unit id="head_trauma">
+      <segment id="name" state="initial">
+        <source>head_trauma.name</source>
+        <target>head_trauma.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>head_trauma.description</source>
+        <target>head_trauma.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>head_trauma.examine</source>
+        <target>head_trauma.examine</target>
+      </segment>
+    </unit>
+    <unit id="implanted_bullet">
+      <segment id="name" state="initial">
+        <source>implanted_bullet.name</source>
+        <target>implanted_bullet.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>implanted_bullet.description</source>
+        <target>implanted_bullet.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>implanted_bullet.examine</source>
+        <target>implanted_bullet.examine</target>
+      </segment>
+    </unit>
+    <unit id="inner_ear_damaged">
+      <segment id="name" state="initial">
+        <source>inner_ear_damaged.name</source>
+        <target>inner_ear_damaged.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>inner_ear_damaged.description</source>
+        <target>inner_ear_damaged.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>inner_ear_damaged.examine</source>
+        <target>inner_ear_damaged.examine</target>
+      </segment>
+    </unit>
+    <unit id="mashed_foot">
+      <segment id="name" state="initial">
+        <source>mashed_foot.name</source>
+        <target>mashed_foot.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mashed_foot.description</source>
+        <target>mashed_foot.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>mashed_foot.examine</source>
+        <target>mashed_foot.examine</target>
+      </segment>
+    </unit>
+    <unit id="mashed_hand">
+      <segment id="name" state="initial">
+        <source>mashed_hand.name</source>
+        <target>mashed_hand.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mashed_hand.description</source>
+        <target>mashed_hand.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>mashed_hand.examine</source>
+        <target>mashed_hand.examine</target>
+      </segment>
+    </unit>
+    <unit id="missing_finger">
+      <segment id="name" state="initial">
+        <source>missing_finger.name</source>
+        <target>missing_finger.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>missing_finger.description</source>
+        <target>missing_finger.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>missing_finger.examine</source>
+        <target>missing_finger.examine</target>
+      </segment>
+    </unit>
+    <unit id="open_air_brain">
+      <segment id="name" state="initial">
+        <source>open_air_brain.name</source>
+        <target>open_air_brain.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>open_air_brain.description</source>
+        <target>open_air_brain.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>open_air_brain.examine</source>
+        <target>open_air_brain.examine</target>
+      </segment>
+    </unit>
+    <unit id="punctured_lung">
+      <segment id="name" state="initial">
+        <source>punctured_lung.name</source>
+        <target>punctured_lung.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>punctured_lung.description</source>
+        <target>punctured_lung.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>punctured_lung.examine</source>
+        <target>punctured_lung.examine</target>
+      </segment>
+    </unit>
+    <unit id="smashed_arms">
+      <segment id="name" state="initial">
+        <source>smashed_arms.name</source>
+        <target>smashed_arms.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>smashed_arms.description</source>
+        <target>smashed_arms.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>smashed_arms.examine</source>
+        <target>smashed_arms.examine</target>
+      </segment>
+    </unit>
+    <unit id="smashed_legs">
+      <segment id="name" state="initial">
+        <source>smashed_legs.name</source>
+        <target>smashed_legs.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>smashed_legs.description</source>
+        <target>smashed_legs.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>smashed_legs.examine</source>
+        <target>smashed_legs.examine</target>
+      </segment>
+    </unit>
+    <unit id="torn_tongue">
+      <segment id="name" state="initial">
+        <source>torn_tongue.name</source>
+        <target>torn_tongue.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>torn_tongue.description</source>
+        <target>torn_tongue.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>torn_tongue.examine</source>
+        <target>torn_tongue.examine</target>
+      </segment>
+    </unit>
+    <unit id="commander">
+      <segment id="name" state="initial">
+        <source>commander.name</source>
+        <target>commander.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>commander.description</source>
+        <target>commander.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>commander.examine</source>
+        <target>commander.examine</target>
+      </segment>
+    </unit>
+    <unit id="communications_officer">
+      <segment id="name" state="initial">
+        <source>communications_officer.name</source>
+        <target>communications_officer.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>communications_officer.description</source>
+        <target>communications_officer.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>communications_officer.examine</source>
+        <target>communications_officer.examine</target>
+      </segment>
+    </unit>
+    <unit id="neron_administrator">
+      <segment id="name" state="initial">
+        <source>neron_administrator.name</source>
+        <target>neron_administrator.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>neron_administrator.description</source>
+        <target>neron_administrator.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>neron_administrator.examine</source>
+        <target>neron_administrator.examine</target>
+      </segment>
+    </unit>
+    <unit id="antisocial">
+      <segment id="name" state="initial">
+        <source>antisocial.name</source>
+        <target>antisocial.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>antisocial.description</source>
+        <target>antisocial.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>antisocial.examine</source>
+        <target>antisocial.examine</target>
+      </segment>
+    </unit>
+    <unit id="berzerk">
+      <segment id="name" state="initial">
+        <source>berzerk.name</source>
+        <target>berzerk.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>berzerk.description</source>
+        <target>berzerk.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>berzerk.examine</source>
+        <target>berzerk.examine</target>
+      </segment>
+    </unit>
+    <unit id="brainsync">
+      <segment id="name" state="initial">
+        <source>brainsync.name</source>
+        <target>brainsync.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>brainsync.description</source>
+        <target>brainsync.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>brainsync.examine</source>
+        <target>brainsync.examine</target>
+      </segment>
+    </unit>
+    <unit id="burdened">
+      <segment id="name" state="initial">
+        <source>burdened.name</source>
+        <target>burdened.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>burdened.description</source>
+        <target>burdened.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>burdened.examine</source>
+        <target>burdened.examine</target>
+      </segment>
+    </unit>
+    <unit id="demoralized">
+      <segment id="name" state="initial">
+        <source>demoralized.name</source>
+        <target>demoralized.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>demoralized.description</source>
+        <target>demoralized.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>demoralized.examine</source>
+        <target>demoralized.examine</target>
+      </segment>
+    </unit>
+    <unit id="dirty">
+      <segment id="name" state="initial">
+        <source>dirty.name</source>
+        <target>dirty.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>dirty.description</source>
+        <target>dirty.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>dirty.examine</source>
+        <target>dirty.examine</target>
+      </segment>
+    </unit>
+    <unit id="disabled">
+      <segment id="name" state="initial">
+        <source>disabled.name</source>
+        <target>disabled.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>disabled.description</source>
+        <target>disabled.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>disabled.examine</source>
+        <target>disabled.examine</target>
+      </segment>
+    </unit>
+    <unit id="eureka_moment">
+      <segment id="name" state="initial">
+        <source>eureka_moment.name</source>
+        <target>eureka_moment.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eureka_moment.description</source>
+        <target>eureka_moment.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>eureka_moment.examine</source>
+        <target>eureka_moment.examine</target>
+      </segment>
+    </unit>
+    <unit id="first_time">
+      <segment id="name" state="initial">
+        <source>first_time.name</source>
+        <target>first_time.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>first_time.description</source>
+        <target>first_time.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>first_time.examine</source>
+        <target>first_time.examine</target>
+      </segment>
+    </unit>
+    <unit id="focused">
+      <segment id="name" state="initial">
+        <source>focused.name</source>
+        <target>focused.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>focused.description</source>
+        <target>focused.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>focused.examine</source>
+        <target>focused.examine</target>
+      </segment>
+    </unit>
+    <unit id="full_stomach">
+      <segment id="name" state="initial">
+        <source>full_stomach.name</source>
+        <target>full_stomach.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>full_stomach.description</source>
+        <target>full_stomach.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>full_stomach.examine</source>
+        <target>full_stomach.examine</target>
+      </segment>
+    </unit>
+    <unit id="gagged">
+      <segment id="name" state="initial">
+        <source>gagged.name</source>
+        <target>gagged.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>gagged.description</source>
+        <target>gagged.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>gagged.examine</source>
+        <target>gagged.examine</target>
+      </segment>
+    </unit>
+    <unit id="germaphobe">
+      <segment id="name" state="initial">
+        <source>germaphobe.name</source>
+        <target>germaphobe.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>germaphobe.description</source>
+        <target>germaphobe.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>germaphobe.examine</source>
+        <target>germaphobe.examine</target>
+      </segment>
+    </unit>
+    <unit id="guardian">
+      <segment id="name" state="initial">
+        <source>guardian.name</source>
+        <target>guardian.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>guardian.description</source>
+        <target>guardian.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>guardian.examine</source>
+        <target>guardian.examine</target>
+      </segment>
+    </unit>
+    <unit id="highly_inactive">
+      <segment id="name" state="initial">
+        <source>highly_inactive.name</source>
+        <target>highly_inactive.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>highly_inactive.description</source>
+        <target>highly_inactive.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>highly_inactive.examine</source>
+        <target>highly_inactive.examine</target>
+      </segment>
+    </unit>
+    <unit id="hyperactive">
+      <segment id="name" state="initial">
+        <source>hyperactive.name</source>
+        <target>hyperactive.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hyperactive.description</source>
+        <target>hyperactive.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>hyperactive.examine</source>
+        <target>hyperactive.examine</target>
+      </segment>
+    </unit>
+    <unit id="immunized">
+      <segment id="name" state="initial">
+        <source>immunized.name</source>
+        <target>immunized.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>immunized.description</source>
+        <target>immunized.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>immunized.examine</source>
+        <target>immunized.examine</target>
+      </segment>
+    </unit>
+    <unit id="inactive">
+      <segment id="name" state="initial">
+        <source>inactive.name</source>
+        <target>inactive.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>inactive.description</source>
+        <target>inactive.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>inactive.examine</source>
+        <target>inactive.examine</target>
+      </segment>
+    </unit>
+    <unit id="lost">
+      <segment id="name" state="initial">
+        <source>lost.name</source>
+        <target>lost.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>lost.description</source>
+        <target>lost.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>lost.examine</source>
+        <target>lost.examine</target>
+      </segment>
+    </unit>
+    <unit id="lying_down">
+      <segment id="name" state="initial">
+        <source>lying_down.name</source>
+        <target>lying_down.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>lying_down.description</source>
+        <target>lying_down.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>lying_down.examine</source>
+        <target>lying_down.examine</target>
+      </segment>
+    </unit>
+    <unit id="multi_teamster">
+      <segment id="name" state="initial">
+        <source>multi_teamster.name</source>
+        <target>multi_teamster.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>multi_teamster.description</source>
+        <target>multi_teamster.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>multi_teamster.examine</source>
+        <target>multi_teamster.examine</target>
+      </segment>
+    </unit>
+    <unit id="mush">
+      <segment id="name" state="initial">
+        <source>mush.name</source>
+        <target>mush.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mush.description</source>
+        <target>mush.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>mush.examine</source>
+        <target>mush.examine</target>
+      </segment>
+    </unit>
+    <unit id="outcast">
+      <segment id="name" state="initial">
+        <source>outcast.name</source>
+        <target>outcast.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>outcast.description</source>
+        <target>outcast.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>outcast.examine</source>
+        <target>outcast.examine</target>
+      </segment>
+    </unit>
+    <unit id="pacifist">
+      <segment id="name" state="initial">
+        <source>pacifist.name</source>
+        <target>pacifist.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pacifist.description</source>
+        <target>pacifist.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>pacifist.examine</source>
+        <target>pacifist.examine</target>
+      </segment>
+    </unit>
+    <unit id="pregnant">
+      <segment id="name" state="initial">
+        <source>pregnant.name</source>
+        <target>pregnant.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pregnant.description</source>
+        <target>pregnant.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>pregnant.examine</source>
+        <target>pregnant.examine</target>
+      </segment>
+    </unit>
+    <unit id="spores">
+      <segment id="name" state="initial">
+        <source>spores.name</source>
+        <target>spores.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>spores.description</source>
+        <target>spores.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>spores.examine</source>
+        <target>spores.examine</target>
+      </segment>
+    </unit>
+    <unit id="starving">
+      <segment id="name" state="initial">
+        <source>starving.name</source>
+        <target>starving.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>starving.description</source>
+        <target>starving.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>starving.examine</source>
+        <target>starving.examine</target>
+      </segment>
+    </unit>
+    <unit id="stuck_in_the_ship">
+      <segment id="name" state="initial">
+        <source>stuck_in_the_ship.name</source>
+        <target>stuck_in_the_ship.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>stuck_in_the_ship.description</source>
+        <target>stuck_in_the_ship.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>stuck_in_the_ship.examine</source>
+        <target>stuck_in_the_ship.examine</target>
+      </segment>
+    </unit>
+    <unit id="suicidal">
+      <segment id="name" state="initial">
+        <source>suicidal.name</source>
+        <target>suicidal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>suicidal.description</source>
+        <target>suicidal.description</target>
+      </segment>
+      <segment id="effect" state="initial">
+        <source>suicidal.examine</source>
+        <target>suicidal.examine</target>
+      </segment>
+    </unit>
+    <unit id="updating">
+      <segment id="name" state="initial">
+        <source>updating.name</source>
+        <target>updating.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>updating.description</source>
+        <target>updating.description</target>
+      </segment>
+    </unit>
+    <unit id="fire.name">
+      <segment state="initial">
+        <source>fire.name</source>
+        <target>fire.name</target>
+      </segment>
+    </unit>
+    <unit id="fire.description">
+      <segment state="initial">
+        <source>fire.description</source>
+        <target>fire.description</target>
+      </segment>
+    </unit>
+    <unit id="poc_pilot_skill">
+      <segment id="name" state="initial">
+        <source>poc_pilot_skill.name</source>
+        <target>poc_pilot_skill.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>poc_pilot_skill.description</source>
+        <target>poc_pilot_skill.description</target>
+      </segment>
+    </unit>
+    <unit id="poc_shooter_skill">
+      <segment id="name" state="initial">
+        <source>poc_shooter_skill.name</source>
+        <target>poc_shooter_skill.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>poc_shooter_skill.description</source>
+        <target>poc_shooter_skill.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

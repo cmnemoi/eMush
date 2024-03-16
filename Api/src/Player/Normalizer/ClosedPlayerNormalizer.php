@@ -5,7 +5,8 @@ namespace Mush\Player\Normalizer;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Mush\User\Entity\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -18,16 +19,16 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
-    private TokenInterface $token;
+    private Security $security;
 
     public function __construct(
         CycleServiceInterface $cycleService,
         TranslationServiceInterface $translationService,
-        TokenInterface $token
+        Security $security
     ) {
         $this->cycleService = $cycleService;
         $this->translationService = $translationService;
-        $this->token = $token;
+        $this->security = $security;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -65,7 +66,18 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
             );
             $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
 
-            if ($closedPlayer->messageIsHidden() && $this->token->getUser() !== $closedPlayer->getUser()) {
+            // Tell moderators if closed player end message is hidden
+            /** @var ?User $user */
+            $user = $this->security->getUser();
+            if ($user?->isModerator()) {
+                $data['messageIsHidden'] = $closedPlayer->messageIsHidden();
+            }
+
+            // Do not normalize hidden end message except for their author and moderators
+            if (
+                $closedPlayer->messageIsHidden() 
+                && ($user !== $closedPlayer->getUser() && !$user?->isModerator())
+            ) {
                 $data['message'] = null;
             }
         }

@@ -26,7 +26,7 @@
                 <p class="epitaph" v-if="goldNovaPlayer.message">
                     <Tippy 
                         tag="span" 
-                        :class="['message', {'hidden' : goldNovaPlayer.messageIsHidden}]"
+                        :class="['message', {'hidden' : goldNovaPlayer.messageIsHidden && isModerator}]"
                         v-if="goldNovaPlayer.messageIsHidden"
                     >
                         <span v-html="formatEndMessage(goldNovaPlayer.message)" />
@@ -127,7 +127,7 @@
                         <p class="epitaph" v-if="player.message">
                             <Tippy 
                                 tag="span" 
-                                :class="['message', {'hidden' : player.messageIsHidden}]"
+                                :class="['message', {'hidden' : player.messageIsHidden && isModerator}]"
                                 v-if="player.messageIsHidden"
                             >
                                 <span v-html="formatEndMessage(player.message)" />
@@ -205,7 +205,7 @@
                         <p class="epitaph" v-if="player.message">
                             <Tippy 
                                 tag="span" 
-                                :class="['message', {'hidden' : player.messageIsHidden}]"
+                                :class="['message', {'hidden' : player.messageIsHidden && isModerator}]"
                                 v-if="player.messageIsHidden"
                             >
                                 <span v-html="formatEndMessage(player.message)" />

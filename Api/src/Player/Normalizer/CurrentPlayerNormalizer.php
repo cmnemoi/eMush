@@ -17,14 +17,11 @@ use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Exploration;
-use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\ClosedExplorationServiceInterface;
-use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\ClosedPlayer;
-use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -50,7 +47,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private GearToolServiceInterface $gearToolService;
     private HunterNormalizerHelperInterface $hunterNormalizerHelper;
     private ClosedExplorationServiceInterface $closedExplorationService;
-    private PlanetServiceInterface $planetService;
+    private ExplorationServiceInterface $explorationService;
 
     public function __construct(
         GameEquipmentServiceInterface $equipmentService,
@@ -63,7 +60,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         GearToolServiceInterface $gearToolService,
         HunterNormalizerHelperInterface $hunterNormalizerHelper,
         ClosedExplorationServiceInterface $closedExplorationService,
-        PlanetServiceInterface $planetService,
+        ExplorationServiceInterface $explorationService
     ) {
         $this->gameEquipmentService = $equipmentService;
         $this->playerService = $playerService;
@@ -75,7 +72,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->gearToolService = $gearToolService;
         $this->hunterNormalizerHelper = $hunterNormalizerHelper;
         $this->closedExplorationService = $closedExplorationService;
-        $this->planetService = $planetService;
+        $this->explorationService = $explorationService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -320,33 +317,9 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getExplorationForPlayer(Player $player): ?Exploration
     {
         // If player is lost but the exploration is finished, we need to normalize a dummy exploration with
-        // basic information.
-        // @TODO : move to ExplorationService
+        // basic information from their last closed exploration.
         if ($player->getExploration() === null && $player->hasStatus(PlayerStatusEnum::LOST)) {
-            $closedExploration = $this->closedExplorationService->getMostRecentForPlayer($player);
-            /** @var Planet $planet */
-            $planet = $this->planetService->findPlanetInDaedalusOrbit($player->getDaedalus());
-
-            $dummyExploration = new Exploration($planet);
-            $dummyExploration->setCreatedAt($closedExploration->getCreatedAt());
-            $dummyExploration->setUpdatedAt($closedExploration->getUpdatedAt());
-
-            /** @var array<int, Player> $explorators */
-            $explorators = $closedExploration
-                ->getClosedExplorators()
-                ->map(fn (ClosedPlayer $player) => $player->getPlayerInfo()->getPlayer())
-                ->filter(fn (?Player $player) => $player instanceof Player)
-                ->toArray()
-            ;
-
-            $dummyExploration->setExplorators(new PlayerCollection($explorators));
-            foreach ($closedExploration->getLogs() as $log) {
-                $dummyExploration->getClosedExploration()->addLog($log);
-            }
-
-            $dummyExploration->getClosedExploration()->finishExploration();
-
-            return $dummyExploration;
+            return $this->explorationService->getDummyExplorationForLostPlayer($this->closedExplorationService->getMostRecentForPlayer($player));
         }
 
         return $player->getExploration();

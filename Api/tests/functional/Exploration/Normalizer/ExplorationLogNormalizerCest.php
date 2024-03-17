@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Exploration\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
@@ -195,14 +196,21 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::KILL_RANDOM => 1]
         );
 
+        // given player has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY, PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
             explorators: new ArrayCollection([$this->player]),
         );
 
-        // given two extra steps are made to trigger the kill random event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        // given kill random event is triggered
         $this->explorationService->dispatchExplorationEvent($this->exploration);
 
         // when kill random event exploration log is normalized

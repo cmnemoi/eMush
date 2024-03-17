@@ -62,8 +62,8 @@ final class PlayerEventCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
 
-        // then I should see a room log reporting the AP loss
-        $I->seeInRepository(
+        // then I should see a single room log reporting the AP loss
+        $roomLog = $I->grabEntitiesFromRepository(
             entity: RoomLog::class,
             params: [
                 'playerInfo' => $this->player->getPlayerInfo(),
@@ -71,6 +71,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
                 'log' => PlayerModifierLogEnum::LOSS_ACTION_POINT,
             ]
         );
+        $I->assertCount(1, $roomLog);
 
         // the player gains 1 AP (cycle change) and lose 1 AP (disease), so they should have the same amount of AP
         $I->assertEquals(expected: 8, actual: $this->player->getActionPoint());

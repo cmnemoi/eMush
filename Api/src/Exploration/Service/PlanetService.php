@@ -48,7 +48,7 @@ final class PlanetService implements PlanetServiceInterface
             ->setSize($this->getPlanetSize($daedalus))
         ;
 
-        $planet->setCoordinates(new SpaceCoordinates('north', 1));
+        $planet->setCoordinates($this->getCoordinatesForPlanet($planet));
 
         $planet = $this->generatePlanetSectors($planet);
 

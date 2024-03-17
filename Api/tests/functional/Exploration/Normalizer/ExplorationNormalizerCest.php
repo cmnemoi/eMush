@@ -71,7 +71,6 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         // then the exploration is normalized as expected
         $I->assertEquals(
             expected: [
-                'id' => $this->exploration->getId(),
                 'createdAt' => $this->exploration->getCreatedAt(),
                 'updatedAt' => $this->exploration->getUpdatedAt(),
                 'cycleLength' => 10,
@@ -140,12 +139,13 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         );
 
         // given the exploration is finished
-        $clonedExploration = clone $this->exploration;
+        $closedExploration = $this->exploration->getClosedExploration();
         $this->explorationService->closeExploration($this->exploration, []);
 
-        // when the exploration is normalized for Chun
+        // when the dummy exploration is normalized for Chun
+        $dummyExploration = $this->explorationService->getDummyExplorationForLostPlayer($closedExploration);
         $normalizedExploration = $this->explorationNormalizer->normalize(
-            $clonedExploration,
+            $dummyExploration,
             format: null,
             context: ['currentPlayer' => $this->chun]
         );
@@ -153,9 +153,8 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         // then the exploration is normalized as expected
         $I->assertEquals(
             expected: [
-                'id' => $clonedExploration->getId(),
-                'createdAt' => $clonedExploration->getCreatedAt(),
-                'updatedAt' => $clonedExploration->getUpdatedAt(),
+                'createdAt' => $dummyExploration->getCreatedAt(),
+                'updatedAt' => $dummyExploration->getUpdatedAt(),
                 'cycleLength' => 10,
                 'planet' => [
                     'id' => $this->planet->getId(),
@@ -186,7 +185,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                 ],
                 'logs' => [
                     [
-                        'id' => $clonedExploration->getClosedExploration()->getLogs()->first()->getId(),
+                        'id' => $dummyExploration->getClosedExploration()->getLogs()->first()->getId(),
                         'planetSectorKey' => PlanetSectorEnum::LANDING,
                         'planetSectorName' => 'Atterrissage',
                         'eventName' => 'Rien à signaler',
@@ -194,14 +193,14 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                         'eventOutcome' => 'La zone est explorée, rien à signaler.////Toujours réussi car l\'expédition possède la compétence : Pilote.',
                     ],
                 ],
-                'estimated_duration' => 'Retour estimé dans 10 min.',
+                'estimated_duration' => 'Expédition déjà terminée.',
                 'timer' => [
                     'name' => 'Prochain cycle',
                     'description' => 'Votre montre incassable affiche le temps qu\'il reste avant le prochain **Cycle**.//Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.',
-                    'timerCycle' => (clone $clonedExploration->getUpdatedAt())->modify('+10 minutes')->format(\DateTimeInterface::ATOM),
+                    'timerCycle' => null,
                 ],
                 'uiElements' => [
-                    'tips' => 'L\'exploration se déroule automatiquement. Toutes les 10 minutes, une nouvelle étape se déroule. Une fois parti, impossible de faire demi-tour.',
+                    'tips' => 'Cette expédition est déjà terminée. Vous pouvez revoir ici les différents évènements qu\'ont rencontrés les membres de l\'équipage.',
                     'recoltedInfos' => 'Infos récoltées...',
                     'newStep' => 'Nouvelle étape',
                     'lost' => 'Vous êtes perdue sur cette planète. Votre moral va rapidement décroitre... Implorez l\'équipage pour qu\'il vienne vous chercher.',

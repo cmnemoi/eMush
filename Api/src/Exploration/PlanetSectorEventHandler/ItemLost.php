@@ -24,7 +24,7 @@ final class ItemLost extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $availableItemsToDestroy = $this->getAvailableItemsToDestroy($event->getExploration()->getNotLostExplorators());
+        $availableItemsToDestroy = $this->getAvailableItemsToDestroy($event->getExploration()->getActiveAndNotLostExplorators());
         if (empty($availableItemsToDestroy)) {
             $this->dispatchNothingToReportEvent($event);
 

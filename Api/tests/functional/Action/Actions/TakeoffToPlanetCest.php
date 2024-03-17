@@ -325,7 +325,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(ClosedExploration::class);
     }
 
-    public function testTakeOffToPlanetSucessWithoutSpaceSuitOnOxygenFreePlanetDoNotCreateASpecificLog(FunctionalTester $I): void
+    public function testTakeOffToPlanetSucessWithoutSpaceSuitOnOxygenFreePlanetCreatesASpecificLog(FunctionalTester $I): void
     {
         // given players do not have spacesuit in their inventory
 
@@ -339,7 +339,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
             params: [
                 'place' => RoomEnum::ICARUS_BAY,
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-                'playerInfo' => $this->player1->getPlayerInfo(),
+                'playerInfo' => $this->player->getPlayerInfo(),
                 'log' => LogEnum::ALL_EXPLORATORS_STUCKED,
                 'visibility' => VisibilityEnum::PRIVATE,
             ]

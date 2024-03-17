@@ -9,7 +9,6 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -36,10 +35,6 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     {
         $exploration = $event->getExploration();
         $explorators = $exploration->getExplorators();
-        $explorator = $explorators->first();
-        if (!$explorator instanceof Player) {
-            throw new \Exception('Exploration should have at least one explorator');
-        }
 
         $explorationUrl = '/expPerma/' . $exploration->getClosedExploration()->getId();
         $here = $this->translateService->translate(

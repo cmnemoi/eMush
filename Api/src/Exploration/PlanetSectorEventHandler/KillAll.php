@@ -17,7 +17,7 @@ final class KillAll extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        foreach ($event->getExploration()->getNotLostExplorators() as $player) {
+        foreach ($event->getExploration()->getActiveAndNotLostExplorators() as $player) {
             $deathEvent = new PlayerEvent(
                 player: $player,
                 tags: $event->getTags(),

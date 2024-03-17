@@ -105,9 +105,6 @@ class AbstractFunctionalTest
     protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): Collection
     {
         $players = new ArrayCollection([]);
-        $chunCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN]);
-        $kuanTiCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::KUAN_TI]);
-
         $characterNames = [CharacterEnum::CHUN, CharacterEnum::KUAN_TI];
 
         foreach ($characterNames as $characterName) {

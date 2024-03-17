@@ -40,8 +40,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
 
-    private Player $chun;
-    private Player $kuanTi;
     private Player $derek;
     private Player $janice;
 

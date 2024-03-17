@@ -113,7 +113,7 @@ class Exploration
         return $this->getExplorators()->filter(fn (Player $explorator) => $explorator->isAlive());
     }
 
-    public function getActiveAndNotLostExplorators(): PlayerCollection
+    public function getNotLostActiveExplorators(): PlayerCollection
     {
         return $this->getActiveExplorators()->filter(fn (Player $explorator) => !$explorator->hasStatus(PlayerStatusEnum::LOST));
     }

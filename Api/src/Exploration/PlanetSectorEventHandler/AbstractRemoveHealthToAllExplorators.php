@@ -20,7 +20,7 @@ abstract class AbstractRemoveHealthToAllExplorators extends AbstractPlanetSector
         // also remove health to explorators stucked in the ship for landing events
         $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
             $exploration->getAliveExplorators() :
-            $exploration->getActiveAndNotLostExplorators();
+            $exploration->getNotLostActiveExplorators();
 
         $healthLost = $this->drawEventOutputQuantity($event->getOutputTable());
         foreach ($explorators as $explorator) {

@@ -55,7 +55,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     private function closeExplorationPrematurelyIfNeeded(Exploration $exploration): void
     {
-        $allNonLostExploratorsAreDead = $exploration->getActiveAndNotLostExplorators()->isEmpty();
+        $allNonLostExploratorsAreDead = $exploration->getNotLostActiveExplorators()->isEmpty();
         $allSectorsVisited = $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1;
 
         if ($allNonLostExploratorsAreDead) {

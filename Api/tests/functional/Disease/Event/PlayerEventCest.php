@@ -62,13 +62,13 @@ final class PlayerEventCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
 
-        // then I should see a single room log reporting the AP loss
+        // then I should see a single room log for the modifier
         $roomLog = $I->grabEntitiesFromRepository(
             entity: RoomLog::class,
             params: [
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'place' => $this->player->getPlace()->getLogName(),
-                'log' => PlayerModifierLogEnum::LOSS_ACTION_POINT,
+                'log' => PlayerModifierLogEnum::FITFUL_SLEEP,
             ]
         );
         $I->assertCount(1, $roomLog);

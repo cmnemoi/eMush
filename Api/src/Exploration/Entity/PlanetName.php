@@ -133,16 +133,4 @@ class PlanetName
     {
         return json_encode($this->toArray());
     }
-
-    public function fromArray(array $data): self
-    {
-        $this->prefix = $data['prefix'];
-        $this->firstSyllable = $data['first_syllable'];
-        $this->secondSyllable = $data['second_syllable'];
-        $this->thirdSyllable = $data['third_syllable'];
-        $this->fourthSyllable = $data['fourth_syllable'];
-        $this->fifthSyllable = $data['fifth_syllable'];
-
-        return $this;
-    }
 }

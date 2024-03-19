@@ -78,7 +78,9 @@
     <unit id="estimated_duration">
       <segment id="estimated_duration" state="final">
         <source>estimated_duration</source>
-        <target>Retour estimé dans {duration} min.</target>
+        <target>{isExplorationFinished, select,
+        true {Expédition déjà terminée.}
+        other {Retour estimé dans {duration} min.}}</target>
       </segment>
     </unit>
     <unit id="exploration_pop_up">

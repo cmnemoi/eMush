@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Mush\Exploration\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Exploration\Entity\ClosedExploration;
 use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
@@ -15,6 +18,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
@@ -142,6 +146,38 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->eventService->callEvent($event, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
         return $exploration;
+    }
+
+    /**
+     * @psalm-suppress PossiblyNullArgument
+     */
+    public function getDummyExplorationForLostPlayer(ClosedExploration $closedExploration): Exploration
+    {
+        /** @var Daedalus $daedalus */
+        $daedalus = $closedExploration->getDaedalusInfo()->getDaedalus();
+        /** @var Planet $planet */
+        $planet = $this->planetService->findPlanetInDaedalusOrbit($daedalus);
+
+        $dummyExploration = new Exploration($planet);
+        $dummyExploration->setCreatedAt($closedExploration->getCreatedAt());
+        $dummyExploration->setUpdatedAt($closedExploration->getUpdatedAt());
+
+        /** @var array<int, Player> $explorators */
+        $explorators = $closedExploration
+            ->getClosedExplorators()
+            ->map(fn (ClosedPlayer $player) => $player->getPlayerInfo()->getPlayer())
+            ->filter(fn (?Player $player) => $player instanceof Player)
+            ->toArray()
+        ;
+
+        $dummyExploration->setExplorators(new PlayerCollection($explorators));
+        foreach ($closedExploration->getLogs() as $log) {
+            $dummyExploration->getClosedExploration()->addLog($log);
+        }
+
+        $dummyExploration->getClosedExploration()->finishExploration();
+
+        return $dummyExploration;
     }
 
     public function persist(array $entities): void

@@ -1163,7 +1163,7 @@ class ModifierConfigData
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
             'replaceEvent' => false,
-            'triggeredEvent' => 'change.variable_player_-1_moralPoint',
+            'triggeredEvent' => 'change.variable_player_-2_moralPoint',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],

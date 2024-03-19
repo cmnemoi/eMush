@@ -19,6 +19,7 @@ export enum StatusPlayerNameEnum {
     STUCK_IN_THE_SHIP = "stuck_in_the_ship",
     POC_SHOOTER_SKILL = "poc_shooter_skill",
     POC_PILOT_SKILL = "poc_pilot_skill",
+    LOST = "lost"
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -81,5 +82,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.POC_SHOOTER_SKILL]: {
         'icon': require('@/assets/images/skills/human/gunman.png')
+    },
+    [StatusPlayerNameEnum.LOST]: {
+        'icon': require('@/assets/images/status/lost_on_planet.png')
     }
 };

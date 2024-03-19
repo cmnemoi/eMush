@@ -750,7 +750,7 @@
     <unit id="lost_on_planet">
       <segment state="translated">
         <source>lost_on_planet</source>
-        <target>{target_equipment_gender, select,
+        <target>{target_character_gender, select,
           male {Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?}
           female {Vous vous sentez seule et abandonnée... Personne ne pense donc à vous là-haut ?}
           other {Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?}

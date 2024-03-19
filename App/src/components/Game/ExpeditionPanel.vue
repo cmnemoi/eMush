@@ -39,11 +39,11 @@
             </ul>
             <div v-if="player.hasStatusByKey('lost')" class="lost">
                 <img src="@/assets/images/att.png" alt="warning">
-                <p> Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher. </p>
+                <p>{{ exploration.uiElements.lost }}</p>
             </div>
         </section>
         <section class="logs" v-if="exploration.logs.length > 0">
-            <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle">
+            <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle" v-if="exploration.timer?.timerCycle">
                 <template #default="slotProps">
                     <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
                         <img src="@/assets/images/casio.png"> 
@@ -57,6 +57,12 @@
                     </div>
                 </template>
             </CountdownTimer>
+            <Tippy tag="div" class="estimate" v-else>
+                <div class="timer">
+                    <img src="@/assets/images/casio.png">
+                    <span>{{ exploration.uiElements.finished }}</span>
+                </div>
+            </Tippy>
             <div v-for="(log, i) in exploration.logs" :key=i class="event">
                 <img :src="getSectorImage(log.planetSectorKey)">
                 <div>

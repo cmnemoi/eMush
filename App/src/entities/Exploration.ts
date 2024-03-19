@@ -7,10 +7,11 @@ type ExplorationUiElements = {
     tips: string;
     recoltedInfos: string;
     newStep: string;
+    lost: string;
+    finished: string;
 };
 
 export class Exploration {
-    public id!: number;
     public createdAt!: Date;
     public updatedAt!: Date;
     public planet!: Planet;
@@ -22,7 +23,6 @@ export class Exploration {
 
     public load(object: any): Exploration {
         if (object) {
-            this.id = object.id;
             this.createdAt = object.createdAt;
             this.updatedAt = object.updatedAt;
             this.planet = (new Planet()).load(object.planet);

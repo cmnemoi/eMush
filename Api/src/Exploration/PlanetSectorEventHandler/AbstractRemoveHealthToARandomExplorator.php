@@ -20,7 +20,7 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
         // also remove health to explorators stucked in the ship for landing events
         $explorators = $event->getPlanetSector()->getName() === PlanetSectorEnum::LANDING ?
             $exploration->getAliveExplorators() :
-            $exploration->getNotLostExplorators();
+            $exploration->getNotLostActiveExplorators();
 
         $exploratorToInjure = $this->randomService->getRandomPlayer($explorators);
         $healthLost = $this->drawEventOutputQuantity($event->getOutputTable());

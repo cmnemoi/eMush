@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Exploration\Event;
 
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
@@ -18,12 +20,14 @@ use Mush\Tests\FunctionalTester;
 final class ExplorationEventCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function testExplorationCyclesAreIncrementedOnNewCycles(FunctionalTester $I): void
@@ -133,10 +137,20 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
     public function testClosedExplorationIsFinishedWhenAllExploratorsAreDead(FunctionalTester $I): void
     {
+        // given players have a spacesuit
+        foreach ($this->players as $player) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: GearItemEnum::SPACESUIT,
+                equipmentHolder: $player,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
         // given I have a planet to explore
         $planet = $this->createPlanet(
             sectors: [
-                PlanetSectorEnum::OXYGEN,
+                PlanetSectorEnum::DESERT,
             ],
             functionalTester: $I,
         );

@@ -89,7 +89,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
     private function getExpeditionStrength(PlanetSectorEvent $event, bool $includeGrenades = true): int
     {
         // base strength is the number of explorators present during the fight
-        $fighters = $event->getExploration()->getNotLostExplorators();
+        $fighters = $event->getExploration()->getNotLostActiveExplorators();
         $expeditionStrength = $fighters->count();
 
         // then, add bonus from their weapons
@@ -123,7 +123,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $damageWithoutGrenades): void
     {
-        $fighters = $event->getExploration()->getNotLostExplorators();
+        $fighters = $event->getExploration()->getNotLostActiveExplorators();
         foreach ($fighters as $fighter) {
             $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
 
@@ -144,7 +144,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     private function inflictDamageToExplorators(PlanetSectorEvent $event, int $damage): void
     {
-        $fighters = $event->getExploration()->getNotLostExplorators();
+        $fighters = $event->getExploration()->getNotLostActiveExplorators();
         $damages = [];
 
         // Randomly select a fighter to take the hit for each point of damage
@@ -182,7 +182,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
     private function giveDiseaseToExplorators(PlanetSectorEvent $event): void
     {
         $diseaseChance = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
-        $fighters = $event->getExploration()->getNotLostExplorators();
+        $fighters = $event->getExploration()->getNotLostActiveExplorators();
 
         /** @var Player $explorator */
         foreach ($fighters as $explorator) {

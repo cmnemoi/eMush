@@ -31,7 +31,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onTravelLaunched(DaedalusEvent $event): void
     {
         $playersToKill = $event->getDaedalus()->getPlayers()->getPlayerAlive()->filter(
-            fn (Player $player) => $player->isInSpaceBattle() || $player->isExploring()
+            fn (Player $player) => $player->isInSpaceBattle() || $player->isExploringOrIsLostOnPlanet()
         );
 
         foreach ($playersToKill as $player) {

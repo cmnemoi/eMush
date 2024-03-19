@@ -16,6 +16,9 @@ use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
+use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Service\ClosedExplorationServiceInterface;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -43,6 +46,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private TranslationServiceInterface $translationService;
     private GearToolServiceInterface $gearToolService;
     private HunterNormalizerHelperInterface $hunterNormalizerHelper;
+    private ClosedExplorationServiceInterface $closedExplorationService;
+    private ExplorationServiceInterface $explorationService;
 
     public function __construct(
         GameEquipmentServiceInterface $equipmentService,
@@ -53,7 +58,9 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         TerminalNormalizer $terminalNormalizer,
         TranslationServiceInterface $translationService,
         GearToolServiceInterface $gearToolService,
-        HunterNormalizerHelperInterface $hunterNormalizerHelper
+        HunterNormalizerHelperInterface $hunterNormalizerHelper,
+        ClosedExplorationServiceInterface $closedExplorationService,
+        ExplorationServiceInterface $explorationService
     ) {
         $this->gameEquipmentService = $equipmentService;
         $this->playerService = $playerService;
@@ -64,6 +71,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->translationService = $translationService;
         $this->gearToolService = $gearToolService;
         $this->hunterNormalizerHelper = $hunterNormalizerHelper;
+        $this->closedExplorationService = $closedExplorationService;
+        $this->explorationService = $explorationService;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -115,7 +124,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
             'spaceBattle' => $this->normalizeSpaceBattle($player, $format, $context),
             'terminal' => $this->terminalNormalizer->normalize($player->getFocusedTerminal(), $format, $context),
-            'exploration' => $this->normalizer->normalize($player->getExploration(), $format, $context),
+            'exploration' => $this->normalizer->normalize($this->getExplorationForPlayer($player), $format, $context),
         ];
 
         $statuses = $this->normalizeMushPlayerSpores($player, $this->getNormalizedPlayerStatuses($player, $format, $context));
@@ -303,5 +312,16 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'description' => $this->translationService->translate('shootPoint.description', [], 'player', $language),
             'quantity' => $shooterSkill->getCharge(),
         ];
+    }
+
+    private function getExplorationForPlayer(Player $player): ?Exploration
+    {
+        // If player is lost but the exploration is finished, we need to normalize a dummy exploration with
+        // basic information from their last closed exploration.
+        if ($player->getExploration() === null && $player->hasStatus(PlayerStatusEnum::LOST)) {
+            return $this->explorationService->getDummyExplorationForLostPlayer($this->closedExplorationService->getMostRecentForPlayer($player));
+        }
+
+        return $player->getExploration();
     }
 }

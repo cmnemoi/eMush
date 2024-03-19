@@ -32,8 +32,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    private Player $chun;
-    private Player $kuanTi;
     private Player $derek;
     private Player $janice;
 

@@ -38,7 +38,7 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         $exploration = $event->getExploration();
-        $lostPlayer = $this->randomService->getRandomPlayer($exploration->getNotLostExplorators());
+        $lostPlayer = $this->randomService->getRandomPlayer($exploration->getNotLostActiveExplorators());
 
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LOST,

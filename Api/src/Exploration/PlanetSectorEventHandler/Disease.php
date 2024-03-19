@@ -39,7 +39,7 @@ final class Disease extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $diseasedPlayer = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostExplorators());
+        $diseasedPlayer = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostActiveExplorators());
 
         $disease = $this->diseaseCauseService->handleDiseaseForCause(
             cause: DiseaseCauseEnum::EXPLORATION,

@@ -594,6 +594,13 @@ class EventConfigData
             'outputTable' => [],
         ],
         [
+            'type' => 'planet_sector_event_config',
+            'name' => 'find_lost',
+            'eventName' => 'find_lost',
+            'outputQuantity' => [],
+            'outputTable' => [],
+        ],
+        [
             'type' => 'variable_event_config',
             'quantity' => 2,
             'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,

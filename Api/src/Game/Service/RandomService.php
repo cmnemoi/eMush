@@ -3,6 +3,7 @@
 namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
@@ -11,7 +12,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
-use Mush\Exploration\Repository\PlanetSectorRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Hunter\Entity\Hunter;
@@ -22,13 +22,15 @@ use Mush\Player\Entity\Player;
 
 class RandomService implements RandomServiceInterface
 {
+    private EntityManagerInterface $entityManager;
     private GameEquipmentRepository $gameEquipmentRepository;
-    private PlanetSectorRepository $planetSectorRepository;
 
-    public function __construct(GameEquipmentRepository $gameEquipmentRepository, PlanetSectorRepository $planetSectorRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        GameEquipmentRepository $gameEquipmentRepository,
+    ) {
+        $this->entityManager = $entityManager;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
-        $this->planetSectorRepository = $planetSectorRepository;
     }
 
     public function random(int $min, int $max): int
@@ -281,7 +283,7 @@ class RandomService implements RandomServiceInterface
         /** @var ArrayCollection<int, PlanetSector> $sectors */
         $sectors = new ArrayCollection();
         foreach ($sectorIds as $sectorId) {
-            $sector = $this->planetSectorRepository->find($sectorId);
+            $sector = $this->entityManager->find(PlanetSector::class, $sectorId);
             if (!$sector) {
                 throw new \RuntimeException("Sector $sectorId not found");
             }

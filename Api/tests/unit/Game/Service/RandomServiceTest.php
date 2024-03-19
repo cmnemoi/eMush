@@ -3,13 +3,13 @@
 namespace Mush\Tests\unit\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Exploration\Repository\PlanetSectorRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -27,10 +27,10 @@ use PHPUnit\Framework\TestCase;
 
 class RandomServiceTest extends TestCase
 {
+    /** @var EntityManagerInterface|Mockery\Mock */
+    private EntityManagerInterface $entityManager;
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
-    /** @var PlanetSectorRepository|Mockery\Mock */
-    private PlanetSectorRepository $planetSectorRepository;
 
     private RandomService $service;
 
@@ -39,10 +39,10 @@ class RandomServiceTest extends TestCase
      */
     public function before()
     {
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
-        $this->planetSectorRepository = \Mockery::mock(PlanetSectorRepository::class);
 
-        $this->service = new RandomService($this->gameEquipmentRepository, $this->planetSectorRepository);
+        $this->service = new RandomService($this->entityManager, $this->gameEquipmentRepository);
     }
 
     /**

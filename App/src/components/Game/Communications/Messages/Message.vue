@@ -71,7 +71,6 @@ import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
-import moderationService from "@/services/moderation.service";
 
 export default defineComponent ({
     name: "Message",
@@ -140,7 +139,7 @@ export default defineComponent ({
             return formatText(value.toString());
         },
         deleteMessage(messageId: number) {
-            moderationService.deleteMessage(messageId);
+            ModerationService.deleteMessage(messageId);
         }
     }
 });

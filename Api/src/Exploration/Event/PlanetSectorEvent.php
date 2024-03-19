@@ -90,6 +90,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
         $this->visibility = $visibility;
         $this->addTag(self::PLANET_SECTOR_EVENT);
         $this->addTag($this->config->getEventName());
+        $this->addTag($this->planetSector->getName());
     }
 
     public function getName(): string

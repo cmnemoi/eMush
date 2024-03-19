@@ -20,4 +20,5 @@ class GearItemEnum
     public const PRINTED_CIRCUIT_JELLY = 'printed_circuit_jelly';
     public const INVERTEBRATE_SHELL = 'invertebrate_shell';
     public const MAGELLAN_LIQUID_MAP = 'magellan_liquid_map';
+    public const ROPE = 'rope';
 }

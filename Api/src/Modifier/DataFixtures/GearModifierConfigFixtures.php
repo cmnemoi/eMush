@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -55,6 +56,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
     public const LIQUID_MAP_MODIFIER_RANDOM_50 = 'liquid_map_modifier_random_50';
     public const ALIEN_OIL_INCREASE_FUEL_INJECTED = 'alien_oil_increase_fuel_injected';
     public const INVERTEBRATE_SHELL_DOUBLES_DAMAGE = 'invertebrate_shell_doubles_damage';
+    public const ROPE_MODIFIER = 'rope_modifier';
 
     public function load(ObjectManager $manager): void
     {
@@ -357,6 +359,23 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         ;
         $manager->persist($invertebrateShellDoublesDamage);
 
+        $ropeModifier = new EventModifierConfig(self::ROPE_MODIFIER);
+        $ropeModifier
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setApplyOnTarget(true)
+            ->setTagConstraints([
+                PlanetSectorEvent::ACCIDENT => ModifierRequirementEnum::ALL_TAGS,
+                PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
+                PlanetSectorEnum::SISMIC_ACTIVITY => ModifierRequirementEnum::ANY_TAGS,
+                PlanetSectorEnum::MOUNTAIN => ModifierRequirementEnum::ANY_TAGS,
+                PlanetSectorEnum::CAVE => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $manager->persist($ropeModifier);
+
         $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
@@ -380,6 +399,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::LIQUID_MAP_MODIFIER_RANDOM_50, $liquidMapRandom50Modifier);
         $this->addReference(self::ALIEN_OIL_INCREASE_FUEL_INJECTED, $alienOilIncreaseFuelInjected);
         $this->addReference(self::INVERTEBRATE_SHELL_DOUBLES_DAMAGE, $invertebrateShellDoublesDamage);
+        $this->addReference(self::ROPE_MODIFIER, $ropeModifier);
     }
 
     public function getDependencies(): array

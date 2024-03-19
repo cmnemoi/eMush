@@ -60,7 +60,7 @@
             <Tippy tag="div" class="estimate" v-else>
                 <div class="timer">
                     <img src="@/assets/images/casio.png">
-                    <span>Finie.</span>
+                    <span>{{ exploration.uiElements.finished }}</span>
                 </div>
             </Tippy>
             <div v-for="(log, i) in exploration.logs" :key=i class="event">

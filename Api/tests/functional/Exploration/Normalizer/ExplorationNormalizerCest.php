@@ -122,6 +122,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                     'recoltedInfos' => 'Infos récoltées...',
                     'newStep' => 'Nouvelle étape',
                     'lost' => 'Vous êtes perdue sur cette planète. Votre moral va rapidement décroitre... Implorez l\'équipage pour qu\'il vienne vous chercher.',
+                    'finished' => 'Finie.',
                 ],
             ],
             actual: $normalizedExploration
@@ -204,6 +205,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                     'recoltedInfos' => 'Infos récoltées...',
                     'newStep' => 'Nouvelle étape',
                     'lost' => 'Vous êtes perdue sur cette planète. Votre moral va rapidement décroitre... Implorez l\'équipage pour qu\'il vienne vous chercher.',
+                    'finished' => 'Finie.',
                 ],
             ],
             actual: $normalizedExploration

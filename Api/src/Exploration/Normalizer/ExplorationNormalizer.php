@@ -131,6 +131,12 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
             'terminal',
             $exploration->getDaedalus()->getLanguage()
         );
+        $normalizedUiElements['finished'] = $this->translationService->translate(
+            'exploration.finished',
+            [],
+            'terminal',
+            $exploration->getDaedalus()->getLanguage()
+        );
 
         return $normalizedUiElements;
     }

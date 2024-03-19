@@ -120,6 +120,10 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         female {Vous êtes perdue sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.}
         other {Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.}}</target>
       </segment>
+      <segment id="finished" state="translated">
+        <source>exploration.finished</source>
+        <target>Finie.</target>
+      </segment>
     </unit>
     <unit id="closed_exploration">
       <segment id="tips" state="final">

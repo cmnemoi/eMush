@@ -937,4 +937,57 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             actual: $normalizedExplorationLog,
         );
     }
+
+    public function testNormalizeAccidentEventWithARope(FunctionalTester $I): void
+    {
+        // given sismic activity sector has only accident event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
+        );
+
+        // given player has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given player has a rope
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::ROPE,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: new ArrayCollection([$this->player]),
+        );
+
+        // given accident is triggered
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when accident exploration log is normalized
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
+                'planetSectorName' => 'Sismique',
+                'eventName' => 'Accident',
+                'eventDescription' => 'Chun chute dans une crevasse… Aïe !////Esquivé : Corde',
+                'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\ConfigData;
 
-use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 

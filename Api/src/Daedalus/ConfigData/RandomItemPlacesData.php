@@ -43,6 +43,8 @@ class RandomItemPlacesData
                 'grenade',
                 'blaster',
                 'blaster',
+                'rope',
+                'rope',
             ],
             'places' => [
                 RoomEnum::FRONT_STORAGE,

@@ -20,7 +20,7 @@ const availableActions: {[index: string]: any} = {
     refresh: { icon: require('@/assets/images/comms/refresh.gif'), wording: 'game.communications.refresh' },
     reply: { icon: require('@/assets/images/comms/reply.png'), wording: 'game.communications.reply' },
     report: { icon: require('@/assets/images/comms/alert.png'), wording: 'game.communications.report' },
-    delete: { icon: require('@/assets/images/comms/alert.png'), wording: 'moderation.delete' }
+    delete: { icon: require('@/assets/images/bin.png'), wording: 'moderation.delete' }
 };
 
 export default defineComponent ({

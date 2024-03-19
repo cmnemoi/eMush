@@ -1032,4 +1032,32 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             ]
         );
     }
+
+    public function testKillLostEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created without Janice
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::LOST], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi, $this->derek])
+        );
+
+        // given only kill lost event can happen in lost sector
+        $lostSectorConfig = $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [PlanetSectorEvent::KILL_LOST => 1]
+        );
+        $lostSectorConfig->setWeightAtPlanetExploration(1);
+
+        // when kill lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice is dead
+        $I->assertFalse($this->janice->isAlive());
+
+        // then death cause should be "exploration_lost"
+        $I->assertEquals(
+            expected: EndCauseEnum::EXPLORATION_LOST,
+            actual: $this->janice->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+        );
+    }
 }

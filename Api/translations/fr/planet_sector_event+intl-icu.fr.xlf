@@ -610,5 +610,22 @@
         }</target>
       </segment>
     </unit>
+    <unit id="kill_lost">
+      <segment id="name" state="final">
+        <source>kill_lost.name</source>
+        <target>Mort</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>kill_lost.description</source>
+        <target>L'équipier perdu meurt.</target>
+      </segment>
+      <segment id="lost_description" state="final">
+        <source>kill_lost.lost_description</source>
+        <target>{character_gender, select,
+        male  {Vous avez trouvé {character} derrière un rocher ! Malheureusement, il ne bouge plus du tout. D'ailleurs, il n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'il est mort…}
+        female {Vous avez trouvé {character} derrière un rocher ! Malheureusement, elle ne bouge plus du tout. D'ailleurs, elle n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'elle est morte…}
+        other {Vous avez trouvé {character} derrière un rocher ! Malheureusement, il ne bouge plus du tout. D'ailleurs, il n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'il est mort…}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

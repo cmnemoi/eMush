@@ -102,6 +102,7 @@ class EndCauseEnum
         ActionEnum::ADVANCE_DAEDALUS => self::ABANDONED,
         ActionEnum::LEAVE_ORBIT => self::ABANDONED,
         PlanetSectorEvent::FIGHT => self::EXPLORATION_COMBAT,
+        PlanetSectorEvent::KILL_LOST => self::EXPLORATION_LOST,
         PlanetSectorEvent::PLANET_SECTOR_EVENT => self::EXPLORATION,
     ];
 

@@ -5,7 +5,7 @@
         @click="$emit(actionType)"
     >
         <img :src="action(actionType).icon">
-        {{ action(actionType).wording }}
+        {{ $t(action(actionType).wording) }}
     </button>
 </template>
 
@@ -14,12 +14,13 @@
 import { defineComponent } from "vue";
 
 const availableActions: {[index: string]: any} = {
-    favorite: { icon: require('@/assets/images/comms/fav.png'), wording: 'Favori' },
-    invite: { icon: require('@/assets/images/comms/invite.png'), wording: 'Inviter' },
-    leave: { icon: require('@/assets/images/comms/close.png'), wording: 'Quitter' },
-    refresh: { icon: require('@/assets/images/comms/refresh.gif'), wording: 'Rafr.' },
-    reply: { icon: require('@/assets/images/comms/reply.png'), wording: 'Répondre' },
-    report: { icon: require('@/assets/images/comms/alert.png'), wording: 'Plainte' }
+    favorite: { icon: require('@/assets/images/comms/fav.png'), wording: 'game.communications.bookmark' },
+    invite: { icon: require('@/assets/images/comms/invite.png'), wording: 'game.communications.invite' },
+    leave: { icon: require('@/assets/images/comms/close.png'), wording: 'game.communications.leave' },
+    refresh: { icon: require('@/assets/images/comms/refresh.gif'), wording: 'game.communications.refresh' },
+    reply: { icon: require('@/assets/images/comms/reply.png'), wording: 'game.communications.reply' },
+    report: { icon: require('@/assets/images/comms/alert.png'), wording: 'game.communications.report' },
+    delete: { icon: require('@/assets/images/comms/alert.png'), wording: 'moderation.delete' }
 };
 
 export default defineComponent ({

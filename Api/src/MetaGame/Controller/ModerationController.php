@@ -8,6 +8,7 @@ use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use Mush\Communication\Entity\Message;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
@@ -215,6 +216,34 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->hideClosedPlayerEndMessage($closedPlayer);
 
         return $this->view(['detail' => 'End message hidden successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Replace a message in the chat by a moderation message.
+     *
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="The message id",
+     *
+     *     @OA\Schema(type="integer")
+     * )
+     *
+     * @OA\Tag(name="Moderation")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/delete-message/{id}")
+     *
+     * @Rest\View()
+     */
+    public function deleteMessage(Message $message): View
+    {
+        $this->denyAccessIfNotModerator();
+
+        $this->moderationService->deleteMessage($message);
+
+        return $this->view(['detail' => 'message deleted successfully'], Response::HTTP_OK);
     }
 
     private function denyAccessIfNotModerator(): void

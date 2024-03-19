@@ -134,6 +134,7 @@
                         :message="message"
                         :is-root="true"
                         :is-replyable="false"
+                        :admin-mode = "true"
                     />
                     <button class="toggle-children" @click="message.toggleChildren()">
                         {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
@@ -143,6 +144,7 @@
                         :key="id"
                         :message="child"
                         :is-replyable="false"
+                        :admin-mode = "true"
                     />
                 </section>
             </div>
@@ -186,6 +188,7 @@
                         :message="message"
                         :is-root="true"
                         :is-replyable="false"
+                        :admin-mode = "true"
                     />
                 </section>
             </div>
@@ -229,6 +232,7 @@
                         :message="message"
                         :is-root="true"
                         :is-replyable="false"
+                        :admin-mode = "true"
                     />
                 </section>
             </div>

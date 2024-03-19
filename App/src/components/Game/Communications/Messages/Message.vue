@@ -14,9 +14,14 @@
         <div class="actions">
             <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
             <ActionButtons 
-                v-if="isPlayerAlive" 
+                v-if="isPlayerAlive || adminMode"
                 :actions="['report']"
                 @report="openReportPopup()"
+            />
+            <ActionButtons
+                v-if="adminMode"
+                :actions="['delete']"
+                @delete="deleteMessage(message.id)"
             />
         </div>
     </div>
@@ -47,6 +52,11 @@
                 :actions="['report']"
                 @report="openReportPopup()"
             />
+            <ActionButtons
+                v-if="adminMode"
+                @click="deleteMessage(message.id)">
+                $t('moderation.filters.messageAuthor')
+            </ActionButtons>
         </div>
     </div>
 </template>
@@ -60,6 +70,7 @@ import { mapGetters, mapActions } from "vuex";
 import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
+import ModerationService from "@/services/moderation.service";
 
 export default defineComponent ({
     name: "Message",
@@ -76,6 +87,10 @@ export default defineComponent ({
             default: false
         },
         isReplyable: {
+            type: Boolean,
+            default: false
+        },
+        adminMode: {
             type: Boolean,
             default: false
         }
@@ -122,6 +137,9 @@ export default defineComponent ({
         formatMessage(value: string): string {
             if (! value) return '';
             return formatText(value.toString());
+        },
+        deleteMessage(messageId: number) {
+            ModerationService.deleteMessage(messageId);
         }
     }
 });

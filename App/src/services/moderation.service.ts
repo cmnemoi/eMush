@@ -123,6 +123,13 @@ const ModerationService = {
 
         return response;
     },
+    deleteMessage: async(messageId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/delete-message/' + messageId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     quarantinePlayer: async(playerId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.patch(MODERATION_ENDPOINT + '/quarantine-player/' + playerId);

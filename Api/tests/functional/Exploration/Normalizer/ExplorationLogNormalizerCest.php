@@ -14,7 +14,6 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
-use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -27,7 +26,6 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     private Exploration $exploration;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private TranslationServiceInterface $translationService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -37,7 +35,6 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->translationService = $I->grabService(TranslationServiceInterface::class);
     }
 
     public function testNormalizeLandingNothingToReportEventWithPilot(FunctionalTester $I): void
@@ -986,6 +983,59 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Accident',
                 'eventDescription' => 'Chun chute dans une crevasse… Aïe !////Esquivé : Corde',
                 'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeFuelEventWithADrill(FunctionalTester $I): void
+    {
+        // given hydrocarbon sector has only fuel event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::HYDROCARBON,
+            events: [PlanetSectorEvent::FUEL_6 => 1]
+        );
+
+        // given player has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given player has a drill
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::DRILL,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::HYDROCARBON], $I),
+            explorators: new ArrayCollection([$this->player]),
+        );
+
+        // given fuel event is triggered
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when fuel event exploration log is normalized
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FUEL
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::HYDROCARBON,
+                'planetSectorName' => 'Hydrocarbures',
+                'eventName' => 'Hydrocarbures',
+                'eventDescription' => 'L\'expédition trouve un petit lac d\'heptanol violacé ! Avec tout ça le Daedalus n\'est pas prêt de tomber en panne !',
+                'eventOutcome' => 'Vous gagnez 12 unités de Fuel.////x2 car l\'expédition dispose de l\'objet : Foreuse',
             ],
             actual: $normalizedExplorationLog,
         );

@@ -393,6 +393,37 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(6, $daedalusFuelStatus?->getCharge());
     }
 
+    public function testFuelEventWithDrillDoublesLootAmount(FunctionalTester $I): void
+    {
+        // given there is only fuel event in fuel sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::HYDROCARBON,
+            events: [PlanetSectorEvent::FUEL_6 => 1]
+        );
+
+        // given Chun has a drill
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::DRILL,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::HYDROCARBON], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // when fuel event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then daedalus has an fuel status with 12 fuel
+        /** @var ChargeStatus $daedalusFuelStatus */
+        $daedalusFuelStatus = $this->daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_FUEL);
+        $I->assertEquals(12, $daedalusFuelStatus->getCharge());
+    }
+
     public function testArtefactEventCreatesAnArtefactInPlanetPlace(FunctionalTester $I): void
     {
         // given exploration is created

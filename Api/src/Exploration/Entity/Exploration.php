@@ -214,6 +214,6 @@ class Exploration
 
     public function hasAFunctionalDrill(): bool
     {
-        return $this->getAliveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::DRILL))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::DRILL))->count() > 0;
     }
 }

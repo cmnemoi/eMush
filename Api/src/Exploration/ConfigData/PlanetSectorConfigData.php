@@ -89,6 +89,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 7,
                 PlanetSectorEvent::PROVISION_3 => 2,
+                PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],
         [
@@ -213,6 +214,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 4,
                 PlanetSectorEvent::TIRED_2 => 3,
+                PlanetSectorEvent::PLAYER_LOST => 2,
                 PlanetSectorEvent::ACCIDENT_3_5 => 1,
             ],
         ],
@@ -335,6 +337,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::MUSH_TRAP => 4,
                 PlanetSectorEvent::STARMAP => 3,
                 PlanetSectorEvent::FIGHT_18 => 2,
+                PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],
     ];

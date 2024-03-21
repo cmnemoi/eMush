@@ -22,6 +22,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -44,17 +45,22 @@ final class MushTrapTest extends TestCase
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
+    /** @var TranslationServiceInterface|Mockery\Spy */
+    private TranslationServiceInterface $translationService;
+
     /** @before */
     public function before(): void
     {
         $this->entityManager = \Mockery::spy(EntityManagerInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->translationService = \Mockery::spy(TranslationServiceInterface::class);
 
         $this->mushTrapEventHandler = new MushTrap(
             $this->entityManager,
             $this->eventService,
             $this->randomService,
+            $this->translationService
         );
     }
 

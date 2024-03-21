@@ -27,6 +27,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
@@ -59,6 +60,9 @@ final class FightTest extends TestCase
     /** @var RoomLogServiceInterface|Mockery\Spy */
     private RoomLogServiceInterface $roomLogService;
 
+    /** @var TranslationServiceInterface|Mockery\Spy */
+    private TranslationServiceInterface $translationService;
+
     /** @before */
     public function before(): void
     {
@@ -67,11 +71,13 @@ final class FightTest extends TestCase
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = \Mockery::spy(RoomLogServiceInterface::class);
+        $this->translationService = \Mockery::spy(TranslationServiceInterface::class);
 
         $this->fightEventHandler = new Fight(
             $this->entityManager,
             $this->eventService,
             $this->randomService,
+            $this->translationService,
             $this->diseaseCauseService,
             $this->roomLogService,
         );

@@ -189,14 +189,11 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->entityManager->flush();
     }
 
-    /**
-     * @psalm-suppress InvalidArgument
-     */
     private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string
     {
         $sectorEvents = clone $sector->getExplorationEvents();
         if ($exploration->hasAFunctionalCompass()) {
-            $sectorEvents->removeElement(PlanetSectorEvent::AGAIN);
+            $sectorEvents->remove(PlanetSectorEvent::AGAIN);
         }
 
         return (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);

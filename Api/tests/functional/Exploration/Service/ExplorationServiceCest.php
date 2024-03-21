@@ -411,7 +411,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
             PlanetSectorEnum::DESERT,
             [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
-                PlanetSectorEvent::AGAIN => 1,
+                PlanetSectorEvent::AGAIN => PHP_INT_MAX - 1,
             ]
         );
 

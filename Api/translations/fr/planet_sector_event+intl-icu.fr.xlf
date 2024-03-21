@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="final">
         <source>nothing_to_report.description</source>
-        <target>La zone est explorée, rien à signaler.{always_successful_thanks_to_skill}</target>
+        <target>La zone est explorée, rien à signaler.{always_successful_thanks_to_skill}{fight_prevented_by_item}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>nothing_to_report.landing_description</source>
@@ -84,7 +84,7 @@
       </segment>
       <segment id="intelligent_description" state="final">
         <source>nothing_to_report.intelligent_description</source>
-        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…{fight_prevented_by_item}</target>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
       <segment id="insect_description" state="final">
         <source>nothing_to_report.insect_description</source>
@@ -113,7 +113,7 @@
         <target>{quantity, plural,
         one {Tous les équipiers subissent # point de dégâts.}
         other {Tous les équipiers subissent # points de dégâts.}
-        }</target>
+        }{fight_prevented_by_item}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>tired.landing_description</source>
@@ -151,7 +151,7 @@
       </segment>
       <segment id="description" state="final">
         <source>accident.description</source>
-        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.</target>
+        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{fight_prevented_by_item}</target>
       </segment>
       <segment id="predator_description" state="final">
         <source>accident.predator_description</source>
@@ -205,7 +205,7 @@
       </segment>
       <segment id="description" state="final">
         <source>disaster.description</source>
-        <target>Tous les équipiers subissent entre {min_quantity} et {max_quantity} points de dégâts.</target>
+        <target>Tous les équipiers subissent entre {min_quantity} et {max_quantity} points de dégâts.{fight_prevented_by_item}</target>
       </segment>
       <segment id="landing_description" state="final">
         <source>disaster.landing_description</source>
@@ -219,7 +219,7 @@
       </segment>
       <segment id="description" state="final">
         <source>oxygen.description</source>
-        <target>Vous gagnez {quantity} unités d'O².</target>
+        <target>Vous gagnez {quantity} unités d'O².{fight_prevented_by_item}</target>
       </segment>
       <segment id="oxygen_description" state="final">
         <source>oxygen.oxygen_description</source>
@@ -238,7 +238,7 @@
       </segment>
       <segment id="description" state="final">
         <source>fuel.description</source>
-        <target>Vous gagnez {quantity} unités de Fuel.{has_drill, select, true {////x2 car l'expédition dispose de l'objet : Foreuse} other {}}</target>
+        <target>Vous gagnez {quantity} unités de Fuel.{has_drill, select, true {////x2 car l'expédition dispose de l'objet : Foreuse} other {}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="hydrocarbon_description" state="final">
         <source>fuel.hydrocarbon_description</source>
@@ -277,7 +277,7 @@
       </segment>
       <segment id="description" state="final">
         <source>artefact.description</source>
-        <target>Vous trouvez un artefact.</target>
+        <target>Vous trouvez un artefact.{fight_prevented_by_item}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>artefact.intelligent_description</source>
@@ -285,7 +285,7 @@
         male {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
         female {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre une {target_equipment} avant de reprendre sa route.}
         other {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
-        }{fight_prevented_by_item}</target>
+        }</target>
       </segment>
       <segment id="cave_description" state="final">
         <source>artefact.cave_description</source>
@@ -323,7 +323,7 @@
       </segment>
       <segment id="description" state="final">
         <source>kill_random.description</source>
-        <target>Un équipier meurt.</target>
+        <target>Un équipier meurt.{fight_prevented_by_item}</target>
       </segment>
       <segment id="sismic_activity_description" state="final">
         <source>kill_random.sismic_activity_description</source>
@@ -341,7 +341,7 @@
       </segment>
       <segment id="description" state="final">
         <source>kill_all.description</source>
-        <target>Tous les équipiers meurent.</target>
+        <target>Tous les équipiers meurent.{fight_prevented_by_item}</target>
       </segment>
       <segment id="volcanic_activity_description" state="final">
         <source>kill_all.volcanic_activity_description</source>
@@ -417,7 +417,7 @@
       </segment>
       <segment id="intelligent_description" state="final">
         <source>provision.intelligent_description</source>
-        <target>Alors que l'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.{fight_prevented_by_item}</target>
+        <target>Alors que l'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.</target>
       </segment>
       <segment id="insect_description" state="final">
         <source>provision.insect_description</source>
@@ -431,7 +431,7 @@
       </segment>
       <segment id="description" state="final">
         <source>harvest.description</source>
-        <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.</target>
+        <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.{fight_prevented_by_item}</target>
       </segment>
       <segment id="forest_description" state="final">
         <source>harvest.forest_description</source>
@@ -465,7 +465,7 @@
       </segment>
       <segment id="description" state="final">
         <source>disease.description</source>
-        <target>Un équipier tombe malade.</target>
+        <target>Un équipier tombe malade.{fight_prevented_by_item}</target>
       </segment>
       <segment id="forest_description" state="final">
         <source>disease.forest_description</source>
@@ -487,7 +487,7 @@
       </segment>
       <segment id="description" state="final">
         <source>starmap.description</source>
-        <target>Vous trouvez 1 éclat de carte stellaire en cristalite.</target>
+        <target>Vous trouvez 1 éclat de carte stellaire en cristalite.{fight_prevented_by_item}</target>
       </segment>
       <segment id="cristal_field_description" state="final">
         <source>starmap.cristal_field_description</source>
@@ -501,7 +501,7 @@
       </segment>
       <segment id="description" state="final">
         <source>mush_trap.description</source>
-        <target>Tous les équipiers risquent une infection Mush.</target>
+        <target>Tous les équipiers risquent une infection Mush.{fight_prevented_by_item}</target>
       </segment>
       <segment id="cristal_field_description" state="final">
         <source>mush_trap.cristal_field_description</source>
@@ -515,7 +515,7 @@
       </segment>
       <segment id="description" state="final">
         <source>again.description</source>
-        <target>Échec de l'exploration de la zone. Il reste quand même des choses à découvrir…</target>
+        <target>Échec de l'exploration de la zone. Il reste quand même des choses à découvrir…{fight_prevented_by_item}</target>
       </segment>
       <segment id="desert_description" state="final">
         <source>again.desert_description</source>
@@ -537,14 +537,14 @@
       </segment>
       <segment id="description" state="final">
         <source>item_lost.description</source>
-        <target>Un objet possédé par un des équipiers est perdu.</target>
+        <target>Un objet possédé par un des équipiers est perdu.{fight_prevented_by_item}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>item_lost.intelligent_description</source>
         <target>{equipment_gender, select,
         male {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
         female {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'une {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
-        other {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}}{fight_prevented_by_item}</target>
+        other {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}}</target>
       </segment>
       <segment id="strong_wind_description" state="final">
         <source>item_lost.strong_wind_description</source>
@@ -561,7 +561,7 @@
       </segment>
       <segment id="description" state="final">
         <source>back.description</source>
-        <target>Vous abandonnez l'expédition en cours.</target>
+        <target>Vous abandonnez l'expédition en cours.{fight_prevented_by_item}</target>
       </segment>
       <segment id="sismic_activity_description" state="final">
         <source>back.sismic_activity_description</source>
@@ -583,7 +583,7 @@
       </segment>
       <segment id="description" state="final">
         <source>player_lost.description</source>
-        <target>Un équipier se perd.</target>
+        <target>Un équipier se perd.{fight_prevented_by_item}</target>
       </segment>
       <segment id="cristal_field_description" state="final">
         <source>player_lost.cristal_field_description</source>
@@ -613,7 +613,7 @@
       </segment>
       <segment id="description" state="final">
         <source>find_lost.description</source>
-        <target>Un équipier perdu est retrouvé !</target>
+        <target>Un équipier perdu est retrouvé !{fight_prevented_by_item}</target>
       </segment>
       <segment id="lost_description" state="final">
         <source>find_lost.lost_description</source>
@@ -630,7 +630,7 @@
       </segment>
       <segment id="description" state="final">
         <source>kill_lost.description</source>
-        <target>L'équipier perdu meurt.</target>
+        <target>L'équipier perdu meurt.{fight_prevented_by_item}</target>
       </segment>
       <segment id="lost_description" state="final">
         <source>kill_lost.lost_description</source>

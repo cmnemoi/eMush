@@ -14,6 +14,8 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
+use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -305,6 +307,63 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventName' => 'Combat',
                 'eventDescription' => 'Un être étrange s\'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.',
                 'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 12////Force Équipe : 2////L\'équipe subit 10 points de dégâts.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeFightEventWithAWhiteFlag(FunctionalTester $I): void
+    {
+        // given intelligent life has only fight and provision events
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [
+                PlanetSectorEvent::FIGHT_12 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::PROVISION_2 => 1,
+            ]
+        );
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has a white flag
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::WHITE_FLAG,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun]),
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given fight event is triggered
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when intelligent sector event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected : provision event as Chun has a white flag which prevents the fight event
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Provision',
+                'eventDescription' => 'Alors que l\'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.',
+                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée Drapeau blanc',
             ],
             actual: $normalizedExplorationLog,
         );

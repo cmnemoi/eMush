@@ -113,7 +113,7 @@ final class ExplorationService implements ExplorationServiceInterface
             $planetSectorEvent->addTag('always_successful_thanks_to_pilot');
             $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
         } else {
-            $eventKey = $this->drawPlanetSectorEvent($landingSector);
+            $eventKey = $this->drawPlanetSectorEvent($landingSector, $exploration);
             $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
 
             $planetSectorEvent = new PlanetSectorEvent(
@@ -136,7 +136,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $sector->visit();
         $closedExploration->addExploredSectorKey($sector->getName());
 
-        $eventKey = $this->drawPlanetSectorEvent($sector);
+        $eventKey = $this->drawPlanetSectorEvent($sector, $exploration);
         $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
 
         $event = new PlanetSectorEvent(
@@ -189,14 +189,17 @@ final class ExplorationService implements ExplorationServiceInterface
         $this->entityManager->flush();
     }
 
-    private function drawPlanetSectorEvent(PlanetSector $sector): string
+    /**
+     * @psalm-suppress InvalidArgument
+     */
+    private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string
     {
-        $eventKey = $this->randomService->getSingleRandomElementFromProbaCollection($sector->getExplorationEvents());
-        if (!is_string($eventKey)) {
-            throw new \RuntimeException('Exploration event name should be a string');
+        $sectorEvents = $sector->getExplorationEvents();
+        if ($exploration->hasAFunctionalCompass()) {
+            $sectorEvents->removeElement(PlanetSectorEvent::AGAIN);
         }
 
-        return $eventKey;
+        return (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);
     }
 
     private function findPlanetSectorConfigBySectorName(string $sectorName): PlanetSectorConfig

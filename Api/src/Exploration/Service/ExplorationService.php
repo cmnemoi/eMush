@@ -194,7 +194,7 @@ final class ExplorationService implements ExplorationServiceInterface
      */
     private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string
     {
-        $sectorEvents = $sector->getExplorationEvents();
+        $sectorEvents = clone $sector->getExplorationEvents();
         if ($exploration->hasAFunctionalCompass()) {
             $sectorEvents->removeElement(PlanetSectorEvent::AGAIN);
         }

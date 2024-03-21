@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -209,5 +210,10 @@ class Exploration
     public function hasAPilotAlive(): bool
     {
         return $this->getAliveExplorators()->filter(fn (Player $player) => $player->hasSkill(PlayerStatusEnum::POC_PILOT_SKILL))->count() > 0;
+    }
+
+    public function hasAFunctionalBabelModule(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::BABEL_MODULE))->count() > 0;
     }
 }

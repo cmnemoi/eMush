@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 
 final class Artefact extends AbstractLootItemsEventHandler
@@ -23,6 +24,10 @@ final class Artefact extends AbstractLootItemsEventHandler
         $logParameters = [
             'target_' . $artefact->getLogKey() => $artefact->getLogName(),
         ];
+
+        if ($event->getPlanetSector()->getName() === PlanetSectorEnum::INTELLIGENT) {
+            $logParameters['has_babel_module'] = $event->getExploration()->hasAFunctionalBabelModule() ? 'true' : 'false';
+        }
 
         return $this->createExplorationLog($event, $logParameters);
     }

@@ -270,7 +270,7 @@
       </segment>
       <segment id="description" state="final">
         <source>artefact.description</source>
-        <target>Vous trouvez un artefact.</target>
+        <target>Vous trouvez un artefact.{has_babel_module, select, true {////+100% Module Babel} other {}}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>artefact.intelligent_description</source>

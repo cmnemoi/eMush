@@ -21,6 +21,6 @@ final class Again extends AbstractPlanetSectorEventHandler
 
         $this->entityManager->persist($planetSector);
 
-        return $this->createExplorationLog($event);
+        return $this->createExplorationLog($event, $this->getLogParameters($event));
     }
 }

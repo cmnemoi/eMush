@@ -18,9 +18,8 @@ final class Harvest extends AbstractLootItemsEventHandler
     {
         $fruits = $this->createRandomItemsFromEvent($event);
 
-        $logParameters = [
-            'quantity' => $fruits->count(),
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters['quantity'] = $fruits->count();
 
         return $this->createExplorationLog($event, $logParameters);
     }

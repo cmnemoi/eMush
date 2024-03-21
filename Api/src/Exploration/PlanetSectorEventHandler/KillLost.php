@@ -28,10 +28,9 @@ final class KillLost extends AbstractPlanetSectorEventHandler
         );
         $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
 
-        $logParameters = [
-            $playerToKill->getLogKey() => $playerToKill->getLogName(),
-            'version' => $this->randomService->random(1, self::NUMBER_OF_DESCRIPTIONS),
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters[$playerToKill->getLogKey()] = $playerToKill->getLogName();
+        $logParameters['version'] = $this->randomService->random(1, self::NUMBER_OF_DESCRIPTIONS);
 
         return $this->createExplorationLog($event, $logParameters);
     }

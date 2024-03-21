@@ -9,6 +9,7 @@ use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -26,9 +27,10 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($entityManager, $eventService, $randomService);
+        parent::__construct($entityManager, $eventService, $randomService, $translationService);
         $this->statusService = $statusService;
     }
 
@@ -58,11 +60,10 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
             time: $event->getTime(),
         );
 
-        $logParameters = [
-            'quantity' => $lootedQuantity,
-            $finder->getLogKey() => $finder->getLogName(),
-            'has_drill' => $exploration->hasAFunctionalDrill() ? 'true' : 'false',
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters['quantity'] = $lootedQuantity;
+        $logParameters[$finder->getLogKey()] = $finder->getLogName();
+        $logParameters['has_drill'] = $exploration->hasAFunctionalDrill() ? 'true' : 'false';
 
         return $this->createExplorationLog($event, $logParameters);
     }

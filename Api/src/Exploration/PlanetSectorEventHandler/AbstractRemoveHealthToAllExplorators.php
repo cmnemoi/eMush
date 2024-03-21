@@ -34,7 +34,8 @@ abstract class AbstractRemoveHealthToAllExplorators extends AbstractPlanetSector
             $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
 
-        $logParameters = ['quantity' => $healthLost];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters['quantity'] = $healthLost;
 
         return $this->createExplorationLog($event, $logParameters);
     }

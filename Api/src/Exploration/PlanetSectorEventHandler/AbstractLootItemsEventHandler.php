@@ -11,6 +11,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 
 abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHandler
@@ -21,9 +22,10 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService,
         GameEquipmentServiceInterface $gameEquipmentService
     ) {
-        parent::__construct($entityManager, $eventService, $randomService);
+        parent::__construct($entityManager, $eventService, $randomService, $translationService);
         $this->gameEquipmentService = $gameEquipmentService;
     }
 

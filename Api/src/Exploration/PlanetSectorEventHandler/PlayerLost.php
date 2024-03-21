@@ -16,6 +16,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -27,9 +28,10 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($entityManager, $eventService, $randomService);
+        parent::__construct($entityManager, $eventService, $randomService, $translationService);
         $this->statusService = $statusService;
     }
 
@@ -66,7 +68,10 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
         $lostPlanetSector = $this->getLostPlanetSector($event);
         $this->addLostPlanetSectorToPlanet($lostPlanetSector, $exploration->getPlanet());
 
-        return $this->createExplorationLog($event, parameters: [$lostPlayer->getLogKey() => $lostPlayer->getLogName()]);
+        $logParameters = $this->getLogParameters($event);
+        $logParameters[$lostPlayer->getLogKey()] = $lostPlayer->getLogName();
+
+        return $this->createExplorationLog($event, $logParameters);
     }
 
     private function addLostPlanetSectorToPlanet(PlanetSector $lostPlanetSector, Planet $planet): void

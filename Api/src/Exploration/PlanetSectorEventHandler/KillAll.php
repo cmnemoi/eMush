@@ -26,6 +26,6 @@ final class KillAll extends AbstractPlanetSectorEventHandler
             $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
         }
 
-        return $this->createExplorationLog($event);
+        return $this->createExplorationLog($event, $this->getLogParameters($event));
     }
 }

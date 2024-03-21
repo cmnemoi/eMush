@@ -45,10 +45,9 @@ final class ItemLost extends AbstractPlanetSectorEventHandler
         );
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        $logParameters = [
-            $itemToDestroy->getLogKey() => $itemToDestroy->getLogName(),
-            $itemOwner->getLogKey() => $itemOwner->getLogName(),
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters[$itemToDestroy->getLogKey()] = $itemToDestroy->getLogName();
+        $logParameters[$itemOwner->getLogKey()] = $itemOwner->getLogName();
 
         return $this->createExplorationLog($event, $logParameters);
     }

@@ -84,7 +84,7 @@
       </segment>
       <segment id="intelligent_description" state="final">
         <source>nothing_to_report.intelligent_description</source>
-        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
+        <target>Un grand cri résonne. Un moment de panique. Puis plus rien…{fight_prevented_by_item}</target>
       </segment>
       <segment id="insect_description" state="final">
         <source>nothing_to_report.insect_description</source>
@@ -285,7 +285,7 @@
         male {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
         female {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre une {target_equipment} avant de reprendre sa route.}
         other {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
-        }</target>
+        }{fight_prevented_by_item}</target>
       </segment>
       <segment id="cave_description" state="final">
         <source>artefact.cave_description</source>
@@ -308,6 +308,12 @@
       <segment id="description" state="translated">
         <source>always_successful_thanks_to_skill</source>
         <target>Toujours réussi car l'expédition possède la compétence : {skill}.</target>
+      </segment>
+    </unit>
+    <unit id="fight_prevented_by_item">
+      <segment id="description" state="translated">
+        <source>fight_prevented_by_item</source>
+        <target>Probabilité de combat annulée {equipment}</target>
       </segment>
     </unit>
     <unit id="kill_random">
@@ -391,7 +397,7 @@
       </segment>
       <segment id="description" state="final">
         <source>provision.description</source>
-        <target>Vous gagnez {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.</target>
+        <target>Vous gagnez {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}</target>
       </segment>
       <segment id="ruminant_description" state="final">
         <source>provision.ruminant_description</source>
@@ -411,7 +417,7 @@
       </segment>
       <segment id="intelligent_description" state="final">
         <source>provision.intelligent_description</source>
-        <target>Alors que l'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.</target>
+        <target>Alors que l'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.{fight_prevented_by_item}</target>
       </segment>
       <segment id="insect_description" state="final">
         <source>provision.insect_description</source>
@@ -538,7 +544,7 @@
         <target>{equipment_gender, select,
         male {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
         female {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'une {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
-        other {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}}</target>
+        other {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="strong_wind_description" state="final">
         <source>item_lost.strong_wind_description</source>

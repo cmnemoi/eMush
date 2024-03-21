@@ -805,9 +805,17 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::NOTHING_TO_REPORT => 1]
         );
 
+        // given player has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons : [],
+            time: new \DateTime(),
+        );
+
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD, PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD], $I),
             explorators: new ArrayCollection([$this->player]),
         );
         $closedExploration = $this->exploration->getClosedExploration();

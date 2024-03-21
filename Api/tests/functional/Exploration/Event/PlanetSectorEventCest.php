@@ -1058,6 +1058,39 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertTrue($exploration->getPlanet()->hasSectorByName(PlanetSectorEnum::LOST));
     }
 
+    public function testPlayerLostEventDoesNotTargetPlayerWithACompass(FunctionalTester $I): void
+    {
+        // given Chun has a compass
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::QUADRIMETRIC_COMPASS,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created with Chun
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::COLD], $I),
+            explorators: new ArrayCollection([$this->chun])
+        );
+
+        // given only player lost event can happen in cold sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::COLD,
+            events: [PlanetSectorEvent::PLAYER_LOST => 1]
+        );
+
+        // when player lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Chun is not lost
+        $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::LOST));
+
+        // then the event should be nothing to report
+        $explorationLog = $exploration->getClosedExploration()->getLogs()->last();
+        $I->assertEquals(PlanetSectorEvent::NOTHING_TO_REPORT, $explorationLog->getEventName());
+    }
+
     public function testFindLostEvent(FunctionalTester $I): void
     {
         // given Janice has 10 morale points

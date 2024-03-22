@@ -16,9 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
- * Class DebugController for debug endpoints
+ * Class DebugController for debug endpoints.
  *
  * @Route(path="/admin/debug")
  */
@@ -33,7 +32,7 @@ final class DebugController extends AbstractFOSRestController
 
     /**
      * Force cycle change for a locked-up Daedalus.
-     * 
+     *
      * * @OA\Parameter(
      *     name="id",
      *     in="path",
@@ -72,4 +71,3 @@ final class DebugController extends AbstractFOSRestController
         }
     }
 }
-

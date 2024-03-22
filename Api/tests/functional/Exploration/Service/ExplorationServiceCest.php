@@ -407,7 +407,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $planet = $this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I);
 
         // given there are only nothing to report and again events on the desert sector
-        $this->setupPlanetSectorEvents(
+        $desertSector = $this->setupPlanetSectorEvents(
             PlanetSectorEnum::DESERT,
             [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
@@ -433,5 +433,8 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // then I don't see again event in the exploration logs
         $I->dontSeeInRepository(ExplorationLog::class, ['eventName' => PlanetSectorEvent::AGAIN]);
+
+        // then desert sector still has again event
+        $I->assertEquals(PHP_INT_MAX - 1, $desertSector->getExplorationEvents()[PlanetSectorEvent::AGAIN]);
     }
 }

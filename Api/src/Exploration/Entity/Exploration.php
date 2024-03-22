@@ -236,4 +236,9 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::BABEL_MODULE))->count() > 0;
     }
+
+    public function hasAFunctionalEcholocator(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::ECHOLOCATOR))->count() > 0;
+    }
 }

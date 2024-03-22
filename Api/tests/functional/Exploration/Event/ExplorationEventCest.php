@@ -13,6 +13,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
@@ -99,16 +100,8 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         $closedExploration = $exploration->getClosedExploration();
 
-        // given I visit landing sector
-        $explorationEvent = new ExplorationEvent(
-            exploration: $exploration,
-            tags: [],
-            time: new \DateTime(),
-        );
-        $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_STARTED);
-
-        // given I have visited all planet sectors minus one
-        for ($i = 0; $i < $exploration->getPlanet()->getUnvisitedSectors()->count() - 1; ++$i) {
+        // given I have visited the 2 first sectors
+        for ($i = 0; $i < 2; ++$i) {
             $cycleEvent = new ExplorationEvent(
                 $exploration,
                 [EventEnum::NEW_CYCLE],
@@ -180,5 +173,44 @@ final class ExplorationEventCest extends AbstractExplorationTester
             entity: Exploration::class,
             params: ['planet' => $exploration->getPlanet()],
         );
+    }
+
+    public function testAgainEventAsLastEvent(FunctionalTester $I): void
+    {
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::DESERT], $I),
+            explorators: new PlayerCollection([$this->chun]),
+        );
+        $closedExploration = $exploration->getClosedExploration();
+        $desertPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
+
+        // given only again event can happen in desert sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::DESERT,
+            events: [PlanetSectorEvent::AGAIN => 1]
+        );
+
+        // when I have a cycle change
+        $cycleEvent = new ExplorationEvent(
+            $exploration,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime(),
+        );
+        $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+
+        // then desert planet sector should be unvisited
+        $I->assertFalse($desertPlanetSector->isVisited());
+
+        // then exploration should not be finished
+        $I->assertFalse($closedExploration->isExplorationFinished());
     }
 }

@@ -19,6 +19,7 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -36,6 +37,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
 
     private GameEquipment $icarus;
@@ -46,6 +48,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is Icarus Bay on this Daedalus
@@ -437,4 +440,30 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         // then desert sector still has again event
         $I->assertEquals(PHP_INT_MAX - 1, $desertSector->getExplorationEvents()[PlanetSectorEvent::AGAIN]);
     }
+
+    public function testDispatchExplorationEventWithAnEcholocator(FunctionalTester $I): void
+    {
+        // given a planet
+        $this->planetService->delete([$this->planet]);
+        $myPlanet = $this->createPlanet([PlanetSectorEnum::HYDROCARBON, PlanetSectorEnum::OXYGEN], $I);
+
+        // given Chun has an echolocator
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::ECHOLOCATOR,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration($myPlanet, new PlayerCollection([$this->chun]));
+
+        // when dispatchExplorationEvent is called
+        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $this->explorationService->dispatchExplorationEvent($exploration);
+        }
+
+        dump($myPlanet->getSectors()->filter( fn ($s) => $s->getName() === PlanetSectorEnum::HYDROCARBON) ->first()->getWeightAtPlanetExploration());
+    }
+
 }

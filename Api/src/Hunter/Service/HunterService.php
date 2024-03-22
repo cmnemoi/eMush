@@ -169,6 +169,8 @@ class HunterService implements HunterServiceInterface
             if (!$hunter) {
                 $hunter = $this->createHunterFromName($daedalus, $hunterNameToCreate);
             }
+            // a hunter pooled for a random wave should not have a target, so they don't shoot right away
+            $hunter->resetTarget();
 
             // do not create a hunter if max per wave is reached
             $maxPerWave = $hunter->getHunterConfig()->getMaxPerWave();

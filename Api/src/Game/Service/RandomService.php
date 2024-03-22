@@ -10,7 +10,6 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -251,8 +250,7 @@ class RandomService implements RandomServiceInterface
     }
 
     public function getRandomPlanetSectorsToVisit(Planet $planet, int $number): ArrayCollection
-    {   
-        dump($this->getPlanetSectorsToVisitProbaCollection($planet));
+    {
         $sectorIdsToVisit = $this->getRandomElementsFromProbaCollection(
             array: $this->getPlanetSectorsToVisitProbaCollection($planet),
             number: $number,
@@ -279,7 +277,7 @@ class RandomService implements RandomServiceInterface
             if ($sector->getName() === PlanetSectorEnum::HYDROCARBON && $planet->getExploration()?->hasAFunctionalEcholocator()) {
                 $chanceToVisitSector *= 5;
             }
-            
+
             $probaCollection->setElementProbability($sector->getId(), $chanceToVisitSector);
         }
 

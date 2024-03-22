@@ -191,7 +191,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeArtefactEventWithBabelModule(FunctionalTester $I): void
     {
         // given intelligent life sector has only artefact event
-        $this->setupPlanetSectorEvents(
+        $intelligentSector = $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [PlanetSectorEvent::ARTEFACT => 1]
         );
@@ -244,6 +244,12 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventOutcome' => 'Vous trouvez un artefact.////+100% Module Babel',
             ],
             actual: $normalizedExplorationLog,
+        );
+
+        // then intelligent sector events are the same as before
+        $I->assertEquals(
+            expected: [PlanetSectorEvent::ARTEFACT => 1],
+            actual: $intelligentSector->getExplorationEvents()->toArray(),
         );
     }
 

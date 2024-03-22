@@ -440,30 +440,4 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         // then desert sector still has again event
         $I->assertEquals(PHP_INT_MAX - 1, $desertSector->getExplorationEvents()[PlanetSectorEvent::AGAIN]);
     }
-
-    public function testDispatchExplorationEventWithAnEcholocator(FunctionalTester $I): void
-    {
-        // given a planet
-        $this->planetService->delete([$this->planet]);
-        $myPlanet = $this->createPlanet([PlanetSectorEnum::HYDROCARBON, PlanetSectorEnum::OXYGEN], $I);
-
-        // given Chun has an echolocator
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::ECHOLOCATOR,
-            equipmentHolder: $this->chun,
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given an exploration is created
-        $exploration = $this->createExploration($myPlanet, new PlayerCollection([$this->chun]));
-
-        // when dispatchExplorationEvent is called
-        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
-            $this->explorationService->dispatchExplorationEvent($exploration);
-        }
-
-        dump($myPlanet->getSectors()->filter( fn ($s) => $s->getName() === PlanetSectorEnum::HYDROCARBON) ->first()->getWeightAtPlanetExploration());
-    }
-
 }

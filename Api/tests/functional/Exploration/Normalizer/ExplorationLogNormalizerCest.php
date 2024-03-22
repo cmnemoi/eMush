@@ -315,7 +315,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeFightEventWithAWhiteFlag(FunctionalTester $I): void
     {
         // given intelligent life has only fight and provision events
-        $this->setupPlanetSectorEvents(
+        $intelligentSector = $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [
                 PlanetSectorEvent::FIGHT_12 => PHP_INT_MAX - 1,
@@ -366,6 +366,15 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée Drapeau blanc',
             ],
             actual: $normalizedExplorationLog,
+        );
+
+        // then intelligent sector events still have the same probabilities
+        $I->assertEquals(
+            expected: [
+                PlanetSectorEvent::FIGHT_12 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::PROVISION_2 => 1,
+            ],
+            actual: $intelligentSector->getExplorationEvents()->toArray(),
         );
     }
 

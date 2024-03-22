@@ -174,13 +174,13 @@ class ConsumableDiseaseConfigData
         [
             'name' => 'alien_steak_default',
             'causeName' => 'alien_steak',
-            'diseasesName' => [],
+            'diseasesName' => ['acid_reflux' => 1, 'tapeworm' => 1],
             'curesName' => [],
-            'diseasesChances' => [],
+            'diseasesChances' => [25 => 1, 50 => 1],
             'curesChances' => [],
-            'diseasesDelayMin' => [],
-            'diseasesDelayLength' => [],
-            'effectNumber' => [],
+            'diseasesDelayMin' => [4 => 1],
+            'diseasesDelayLength' => [4 => 1],
+            'effectNumber' => [2 => 1],
         ],
         [
             'name' => 'supervitamin_bar_default',

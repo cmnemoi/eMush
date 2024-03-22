@@ -99,7 +99,7 @@ class DaedalusNormalizerTest extends TestCase
         $exploration->method('getAliveExplorators')->willReturn(new PlayerCollection([$explorator]));
         $exploration->method('getCycle')->willReturn(1);
         $exploration->method('getCycleLength')->willReturn(10);
-        $exploration->method('getEstimatedDurationBeforeEnd')->willReturn(10);
+        $exploration->method('getEstimatedDuration')->willReturn(10);
 
         $daedalus->setExploration($exploration);
 

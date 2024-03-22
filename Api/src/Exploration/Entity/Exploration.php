@@ -212,7 +212,7 @@ class Exploration
         return $this->getAliveExplorators()->filter(fn (Player $player) => $player->hasSkill(PlayerStatusEnum::POC_PILOT_SKILL))->count() > 0;
     }
 
-    public function getEstimatedDurationBeforeEnd(): int
+    public function getEstimatedDuration(): int
     {
         return $this->getCycleLength() * (min($this->numberOfSectionsToVisit, $this->getPlanet()->getUnvisitedSectors()->count()) + 1 - $this->getCycle());
     }

@@ -74,7 +74,7 @@ class CycleService implements CycleServiceInterface
 
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
-        if ($cycleElapsed > 0 && !$daedalus->isCycleChange()) {
+        if ($cycleElapsed > 0) {
             $daedalus->setIsCycleChange(true);
             $this->entityManager->persist($daedalus);
             $this->entityManager->flush();

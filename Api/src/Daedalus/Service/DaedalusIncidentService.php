@@ -48,7 +48,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfNewFire = $this->getNumberOfIncident($daedalus);
+        $numberOfNewFire = 0;
 
         $rooms = $daedalus->getRooms()->filter(fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
 

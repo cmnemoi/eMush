@@ -1,12 +1,10 @@
 import ApiService from "@/services/api.service";
-import { PlayerInfo } from "@/entities/PlayerInfo";
 import urlJoin from "url-join";
 import store from "@/store";
 
-// @ts-ignore
-const ADMIN_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "admin");
-// @ts-ignore
-const PLAYER_INFO_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player_infos");
+const API_URL = process.env.VUE_APP_API_URL as string;
+
+const ADMIN_ENDPOINT = urlJoin(API_URL, "admin");
 
 const AdminService = {
     addNewRoomsToDaedalus: async(daedalusId: integer): Promise<any> => {
@@ -65,6 +63,13 @@ const AdminService = {
             { announcement: announcement, language: language }
         );
 
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    unlockDaedalus: async(daedalusId: integer): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(urlJoin(ADMIN_ENDPOINT, 'debug', 'unlock-daedalus', String(daedalusId)));
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

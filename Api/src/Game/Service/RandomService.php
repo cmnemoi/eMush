@@ -277,6 +277,9 @@ class RandomService implements RandomServiceInterface
             if ($sector->getName() === PlanetSectorEnum::HYDROCARBON && $planet->getExploration()?->hasAFunctionalEcholocator()) {
                 $chanceToVisitSector *= 5;
             }
+            if (PlanetSectorEnum::getLifeForms()->contains($sector->getName()) && $planet->getExploration()?->hasAFunctionalThermosensor()) {
+                $chanceToVisitSector *= 5;
+            }
 
             $probaCollection->setElementProbability($sector->getId(), $chanceToVisitSector);
         }

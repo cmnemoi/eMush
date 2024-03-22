@@ -62,4 +62,16 @@ final class PlanetSectorEnum
             self::WRECK,
         ]);
     }
+
+    public static function getLifeForms(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::INSECT,
+            self::INTELLIGENT,
+            self::LOST,
+            self::MANKAROG,
+            self::PREDATOR,
+            self::RUMINANT,
+        ]);
+    }
 }

@@ -533,11 +533,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
-    public function getInOrbitPlanet(): ?Planet
-    {
-        return $this->exploration?->getPlanet();
-    }
-
     public function getClassName(): string
     {
         return get_class($this);

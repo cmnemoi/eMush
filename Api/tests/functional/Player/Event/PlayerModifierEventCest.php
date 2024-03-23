@@ -165,6 +165,9 @@ class PlayerModifierEventCest
             ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
             ->buildName(GameConfigEnum::TEST)
         ;
+
+        $starvingWarningStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::STARVING_WARNING]);
+
         $starvingStatusConfig = new StatusConfig();
         $starvingStatusConfig
             ->setStatusName(PlayerStatusEnum::STARVING)
@@ -175,7 +178,7 @@ class PlayerModifierEventCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$starvingStatusConfig, $fullStatusConfig]),
+            'statusConfigs' => new ArrayCollection([$starvingStatusConfig, $fullStatusConfig, $starvingWarningStatusConfig]),
         ]);
 
         /** @var User $user */

@@ -56,6 +56,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const OUTCAST_STATUS = 'outcast_status';
     public const PACIFIST_STATUS = 'pacifist_status';
     public const PREGNANT_STATUS = 'pregnant_status';
+    public const STARVING_WARNING_STATUS = 'starving_warning_status';
     public const STARVING_STATUS = 'starving_status';
     public const STUCK_IN_THE_SHIP_STATUS = 'stuck_in_the_ship_status';
     public const SUICIDAL_STATUS = 'suicidal_status';
@@ -392,6 +393,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($pregnant);
 
+        $starvingWarning = new StatusConfig();
+        $starvingWarning
+            ->setStatusName(PlayerStatusEnum::STARVING_WARNING)
+            ->setVisibility(VisibilityEnum::PRIVATE)
+            ->buildName(GameConfigEnum::DEFAULT)
+        ;
+        $manager->persist($starvingWarning);
+
         /** @var VariableEventModifierConfig $starvingModifier */
         $starvingModifier = $this->getReference(StatusModifierConfigFixtures::STARVING_MODIFIER);
         $starving = new StatusConfig();
@@ -541,6 +550,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($outcast)
             ->addStatusConfig($pacifist)
             ->addStatusConfig($pregnant)
+            ->addStatusConfig($starvingWarning)
             ->addStatusConfig($starving)
             ->addStatusConfig($stuckInTheShip)
             ->addStatusConfig($suicidal)
@@ -589,6 +599,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::OUTCAST_STATUS, $outcast);
         $this->addReference(self::PACIFIST_STATUS, $pacifist);
         $this->addReference(self::PREGNANT_STATUS, $pregnant);
+        $this->addReference(self::STARVING_WARNING_STATUS, $starvingWarning);
         $this->addReference(self::STARVING_STATUS, $starving);
         $this->addReference(self::STUCK_IN_THE_SHIP_STATUS, $stuckInTheShip);
         $this->addReference(self::SUICIDAL_STATUS, $suicidal);

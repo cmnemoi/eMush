@@ -2943,12 +2943,9 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
     </unit>
     <unit id="peniraft">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>peniraft.name</source>
-        <target>{age, select,
-       young {Jeune }
-       other {}
-}Pénicule</target>
+        <target>Pénicule</target>
       </segment>
       <segment id="short_name" state="final">
         <source>peniraft.short_name</source>

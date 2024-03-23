@@ -555,5 +555,11 @@ EVERYWHERE ACTIVATE DRY CLEANING}
                 }</target>
       </segment>
     </unit>
+    <unit id="edited_by_neron">
+      <segment id="edited_by_neron" state="translated">
+        <source>edited_by_neron</source>
+        <target>A-True protocol enabled. Jamming of unwanted frequencies enabled.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

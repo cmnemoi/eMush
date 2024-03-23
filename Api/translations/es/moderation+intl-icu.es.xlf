@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="moderation.ext">
+    <unit id="edited_by_neron">
+      <segment id="edited_by_neron" state="initial">
+        <source>edited_by_neron</source>
+        <target>edited_by_neron</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

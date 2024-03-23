@@ -611,8 +611,8 @@
     </unit>
     <unit id="edited_by_neron">
       <segment id="edited_by_neron" state="translated">
-         <source>edited_by_neron</source>
-         <target>Activation du protocole A-True. Brouillage des fréquences indésirables activé.</target>
+        <source>edited_by_neron</source>
+        <target>Activation du protocole A-True. Brouillage des fréquences indésirables activé.</target>
       </segment>
     </unit>
   </file>

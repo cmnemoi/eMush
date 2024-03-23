@@ -277,6 +277,12 @@
         <target>always_successful_thanks_to_skill</target>
       </segment>
     </unit>
+    <unit id="fight_prevented_by_item">
+      <segment id="description" state="initial">
+        <source>fight_prevented_by_item</source>
+        <target>fight_prevented_by_item</target>
+      </segment>
+    </unit>
     <unit id="kill_random">
       <segment id="name" state="initial">
         <source>kill_random.name</source>
@@ -547,6 +553,34 @@
       <segment id="cold_description" state="initial">
         <source>player_lost.cold_description</source>
         <target>player_lost.cold_description</target>
+      </segment>
+    </unit>
+    <unit id="find_lost">
+      <segment id="name" state="initial">
+        <source>find_lost.name</source>
+        <target>find_lost.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>find_lost.description</source>
+        <target>find_lost.description</target>
+      </segment>
+      <segment id="lost_description" state="initial">
+        <source>find_lost.lost_description</source>
+        <target>find_lost.lost_description</target>
+      </segment>
+    </unit>
+    <unit id="kill_lost">
+      <segment id="name" state="initial">
+        <source>kill_lost.name</source>
+        <target>kill_lost.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kill_lost.description</source>
+        <target>kill_lost.description</target>
+      </segment>
+      <segment id="lost_description" state="initial">
+        <source>kill_lost.lost_description</source>
+        <target>kill_lost.lost_description</target>
       </segment>
     </unit>
   </file>

@@ -92,7 +92,7 @@ To leave orbit, the Commander in charge must give this order from the Command Te
       </segment>
       <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="exploration">
@@ -110,6 +110,14 @@ To leave orbit, the Commander in charge must give this order from the Command Te
       <segment id="new_step" state="translated">
         <source>exploration.new_step</source>
         <target>New step</target>
+      </segment>
+      <segment id="lost" state="translated">
+        <source>exploration.lost</source>
+        <target>You're lost on this planet. Your morale will quickly decline... Beg the crew to come and get you.</target>
+      </segment>
+      <segment id="finished" state="translated">
+        <source>exploration.finished</source>
+        <target>Finished.</target>
       </segment>
     </unit>
     <unit id="closed_exploration">

@@ -576,7 +576,13 @@
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
 			"newCycle": "Nouveau cycle",
-			"myMessageHere": "Mon message ici !"
+			"myMessageHere": "Mon message ici !",
+			"bookmark": "Favori",
+			"invite": "Inviter",
+			"leave": "Quitter",
+			"refresh": "Rafr.",
+			"reply": "Répondre",
+			"report": "Plainte"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"
@@ -664,6 +670,14 @@
 			"alive": "Vivant",
 			"dead": "Mort"
 		},
+		"theEndPage": {
+			"editMessage": "Éditer",
+			"editMessageDescription": "Remplacer ce message par un avertissement de NERON.",
+			"hideMessage": "Masquer",
+			"hideMessageDescription": "Masquer ce message : il ne sera visible que pour son auteur et les modérateurs.",
+			"messageIsHidden": "Masqué",
+			"messageIsHiddenDescription": "Ce message est masqué. Il n'est visible que par son auteur et les modérateurs."
+		},
 		"playerList": {
 			"gameStatuses": {
 				"all": "Sans distinction",
@@ -705,6 +719,7 @@
 		"reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
 		"searchByCharacter": "Rechercher un personnage :",
 		"searchByDaedalusId": "Rechercher un Daedalus par ID :",
-		"searchByUsername": "Rechercher un utilisateur :"
+		"searchByUsername": "Rechercher un utilisateur :",
+		"delete": "Supprimer"
 	}
 }

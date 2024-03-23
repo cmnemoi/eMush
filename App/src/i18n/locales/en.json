@@ -576,7 +576,13 @@
 			"showMessageChildren": "Display {count} answer | Display {count} answers",
 			"hideMessageChildren": "Hide {count} answer | Hide {count} answers",
 			"newCycle": "New cycle",
-			"myMessageHere": "My message here!"
+			"myMessageHere": "My message here!",
+			"bookmark": "Favorite",
+			"invite": "Invite",
+			"leave": "Quit",
+			"refresh": "Refresh",
+			"reply": "Reply",
+			"report": "Report"
 		},
 		"exploration": {
 			"newStep": "New step"
@@ -664,6 +670,14 @@
 			"alive": "Alive",
 			"dead": "Death"
 		},
+		"theEndPage": {
+			"editMessage": "Edit",
+			"editMessageDescription": "Replace this message with a warning from NERON.",
+			"hideMessage": "Hide",
+			"hideMessageDescription": "Hide this message: it will only be visible to the author and moderators.",
+			"messageIsHidden": "Hidden",
+			"messageIsHiddenDescription": "This message is hidden. It is only visible to its author and moderators."
+		},
 		"playerList": {
 			"gameStatuses": {
 				"all": "Without distinction",
@@ -705,6 +719,7 @@
 		"reloadDataDescription": "Reload page data. Note: there is no need to use this button in most cases. Data is automatically reloaded each time a filter is changed.",
 		"searchByCharacter": "Search for a character :",
 		"searchByDaedalusId": "Search for a Daedalus by ID :",
-		"searchByUsername": "Search for a user :"
+		"searchByUsername": "Search for a user :",
+		"delete": "Delete"
 	}
 }

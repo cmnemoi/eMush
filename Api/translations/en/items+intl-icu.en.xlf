@@ -3033,11 +3033,11 @@ A place to put a plant in the hydroponic garden.</target>
       </segment>
       <segment id="description" state="translated">
         <source>fiboniccus.description</source>
-        <target>nan</target>
+        <target>A distant ancestor of the terrestrial Ficcus, the fiboniccus has long been little-known. And for good reason: it didn't grow on Earth...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>fiboniccus.examine</source>
-        <target>nan</target>
+        <target>A distant ancestor of the terrestrial Ficcus, the fiboniccus has long been little-known. And for good reason: it didn't grow on Earth...</target>
       </segment>
     </unit>
     <unit id="mycopia">

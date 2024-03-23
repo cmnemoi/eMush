@@ -96,6 +96,14 @@
         <source>exploration.new_step</source>
         <target>exploration.new_step</target>
       </segment>
+      <segment id="lost" state="initial">
+        <source>exploration.lost</source>
+        <target>exploration.lost</target>
+      </segment>
+      <segment id="finished" state="initial">
+        <source>exploration.finished</source>
+        <target>exploration.finished</target>
+      </segment>
     </unit>
     <unit id="closed_exploration">
       <segment id="tips" state="initial">

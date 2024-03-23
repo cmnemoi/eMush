@@ -614,7 +614,7 @@
     <unit id="help_disabled">
       <segment id="help_disabled" state="final">
         <source>help_disabled</source>
-        <target>**{character}** helped *{target_character}** to get out of the room, brotherly help is a beautiful thing.</target>
+        <target>**{character}** helped **{target_character}** to get out of the room, brotherly help is a beautiful thing.</target>
       </segment>
     </unit>
     <unit id="consume_mush">

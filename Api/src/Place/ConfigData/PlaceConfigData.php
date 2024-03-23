@@ -172,6 +172,7 @@ class PlaceConfigData
                 'old_faithful_blueprint',
                 'white_flag_blueprint',
                 'babel_module_blueprint',
+                'echolocator_blueprint',
             ],
             'equipments' => ['icarus'],
         ],

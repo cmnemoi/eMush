@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Hunter\Entity\Hunter;
@@ -272,7 +273,12 @@ class RandomService implements RandomServiceInterface
     {
         $probaCollection = new ProbaCollection();
         foreach ($planet->getUnvisitedSectors() as $sector) {
-            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetExploration());
+            $chanceToVisitSector = $sector->getWeightAtPlanetExploration();
+            if ($sector->getName() === PlanetSectorEnum::HYDROCARBON && $planet->getExploration()?->hasAFunctionalEcholocator()) {
+                $chanceToVisitSector *= 5;
+            }
+
+            $probaCollection->setElementProbability($sector->getId(), $chanceToVisitSector);
         }
 
         return $probaCollection;

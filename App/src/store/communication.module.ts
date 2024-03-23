@@ -61,14 +61,13 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
-    async loadChannels({ getters, dispatch, commit, rootState }) {
+    async loadChannels({ getters, dispatch, commit }) {
         commit('setLoadingOfChannels', true);
 
         try {
             const channels = await CommunicationService.loadChannels();
 
-            const currentPlayerKey = rootState.player.player.character.key;
-            const sortedChannels = sortChannels(channels, currentPlayerKey);
+            const sortedChannels = sortChannels(channels);
 
             commit('setChannels', sortedChannels);
 
@@ -217,7 +216,7 @@ const mutations: MutationTree<any> = {
     }
 };
 
-export function sortChannels(channels: Channel[], currentPlayerKey: string): Channel[] {
+export function sortChannels(channels: Channel[]): Channel[] {
     const channelOrderValue = {
         // TODO: not implemented yet
         // [ChannelType.TIPS] : 0,
@@ -232,16 +231,9 @@ export function sortChannels(channels: Channel[], currentPlayerKey: string): Cha
     return channels.sort(function (a: Channel, b: Channel) : number {
         const diff = channelOrderValue[a.scope] - channelOrderValue[b.scope];
 
+        // sort private channels by ascending creation date
         if (diff === 0 && a.scope === ChannelType.PRIVATE) {
-            const participantA = a.getParticipant(currentPlayerKey);
-            const participantB = b.getParticipant(currentPlayerKey);
-
-            if (typeof participantA === "undefined" || typeof participantB === "undefined") {
-                console.error(participantA, participantB, 'is undefined');
-                return 0;
-            }
-
-            return (participantA.joinedAt > participantB.joinedAt) ? 1 : -1;
+            return b.createdAt.getTime() - a.createdAt.getTime();
         }
 
         return diff;

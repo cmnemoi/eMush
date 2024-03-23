@@ -3,6 +3,7 @@ import { ChannelType } from "@/enums/communication.enum";
 
 export class Channel {
     public id!: number;
+    public createdAt!: Date;
     public scope!: ChannelType;
     public participants: Array<ChannelParticipant>;
     public newMessageAllowed = false;
@@ -17,6 +18,7 @@ export class Channel {
     load(object : any) : Channel {
         if (typeof object !== "undefined") {
             this.id = object.id;
+            this.createdAt = new Date(object.createdAt);
             this.scope = object.scope;
             this.newMessageAllowed = object.newMessageAllowed;
             this.piratedPlayer = object.piratedPlayer;

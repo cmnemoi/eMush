@@ -273,18 +273,18 @@ final class CycleEventCest extends AbstractFunctionalTest
         // given Chun has -23 satiety, so they will start starving at next cycle
         $this->chun->setSatiety(-23);
 
-        // given a new cycle passes
+        // given a new cycle passes, so starving status should appear
         $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
-        // when a new cycle passes
+        // when a new cycle passes with starving status
         $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then Chun should not have lost any health point
         $I->assertEquals(14, $this->chun->getHealthPoint());
 
-        // when another cycle passes
+        // when another cycle passes with starving status
         $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 

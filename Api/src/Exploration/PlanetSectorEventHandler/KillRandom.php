@@ -26,7 +26,8 @@ final class KillRandom extends AbstractPlanetSectorEventHandler
         );
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
-        $logParameters = [$playerToKill->getLogKey() => $playerToKill->getLogName()];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters[$playerToKill->getLogKey()] = $playerToKill->getLogName();
 
         return $this->createExplorationLog($event, $logParameters);
     }

@@ -12,6 +12,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 
@@ -24,10 +25,11 @@ final class Disease extends AbstractPlanetSectorEventHandler
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService,
         DiseaseCauseServiceInterface $diseaseCauseService,
         RoomLogServiceInterface $roomLogService
     ) {
-        parent::__construct($entityManager, $eventService, $randomService);
+        parent::__construct($entityManager, $eventService, $randomService, $translationService);
         $this->diseaseCauseService = $diseaseCauseService;
         $this->roomLogService = $roomLogService;
     }
@@ -59,6 +61,9 @@ final class Disease extends AbstractPlanetSectorEventHandler
             dateTime: $event->getTime(),
         );
 
-        return $this->createExplorationLog($event, parameters: [$diseasedPlayer->getLogKey() => $diseasedPlayer->getLogName()]);
+        $logParameters = $this->getLogParameters($event);
+        $logParameters[$diseasedPlayer->getLogKey()] = $diseasedPlayer->getLogName();
+
+        return $this->createExplorationLog($event, $logParameters);
     }
 }

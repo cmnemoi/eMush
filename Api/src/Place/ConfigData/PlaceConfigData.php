@@ -170,6 +170,7 @@ class PlaceConfigData
                 'rocket_launcher_blueprint',
                 'lizaro_jungle_blueprint',
                 'old_faithful_blueprint',
+                'white_flag_blueprint',
             ],
             'equipments' => ['icarus'],
         ],

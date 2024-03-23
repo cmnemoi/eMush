@@ -11,6 +11,7 @@ use Mush\Exploration\Service\AddPlayerToExplorationTeamServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -25,10 +26,11 @@ final class FindLost extends AbstractPlanetSectorEventHandler
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService,
         AddPlayerToExplorationTeamServiceInterface $addPlayerToExplorationTeam,
         StatusServiceInterface $statusService
     ) {
-        parent::__construct($entityManager, $eventService, $randomService);
+        parent::__construct($entityManager, $eventService, $randomService, $translationService);
         $this->addPlayerToExplorationTeam = $addPlayerToExplorationTeam;
         $this->statusService = $statusService;
     }
@@ -54,10 +56,9 @@ final class FindLost extends AbstractPlanetSectorEventHandler
             visibility: VisibilityEnum::PRIVATE
         );
 
-        $logParameters = [
-            $foundPlayer->getLogKey() => $foundPlayer->getLogName(),
-            'version' => $this->randomService->random(1, self::NUMBER_OF_DESCRIPTIONS),
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters[$foundPlayer->getLogKey()] = $foundPlayer->getLogName();
+        $logParameters['version'] = $this->randomService->random(1, self::NUMBER_OF_DESCRIPTIONS);
 
         return $this->createExplorationLog($event, $logParameters);
     }

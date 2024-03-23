@@ -19,11 +19,11 @@ final class Provision extends AbstractLootItemsEventHandler
         $food = $this->createRandomItemsFromEvent($event);
         $finder = $this->randomService->getRandomElement($event->getExploration()->getNotLostActiveExplorators()->toArray());
 
-        $logParameters = [
-            'quantity' => $food->count(),
-            $food->first()->getLogKey() => $food->first()->getLogName(),
-            $finder->getLogKey() => $finder->getLogName(),
-        ];
+        $logParameters = $this->getLogParameters($event);
+
+        $logParameters['quantity'] = $food->count();
+        $logParameters[$food->first()->getLogKey()] = $food->first()->getLogName();
+        $logParameters[$finder->getLogKey()] = $finder->getLogName();
 
         return $this->createExplorationLog($event, $logParameters);
     }

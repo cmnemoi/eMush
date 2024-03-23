@@ -18,6 +18,6 @@ final class Starmap extends AbstractLootItemsEventHandler
     {
         $this->createRandomItemsFromEvent($event);
 
-        return $this->createExplorationLog($event);
+        return $this->createExplorationLog($event, $this->getLogParameters($event));
     }
 }

@@ -5,26 +5,31 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 
 abstract class AbstractPlanetSectorEventHandler
 {
     protected EntityManagerInterface $entityManager;
     protected EventServiceInterface $eventService;
     protected RandomServiceInterface $randomService;
+    protected TranslationServiceInterface $translationService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->randomService = $randomService;
+        $this->translationService = $translationService;
     }
 
     abstract public function getName(): string;
@@ -59,5 +64,22 @@ abstract class AbstractPlanetSectorEventHandler
         }
 
         return $quantity;
+    }
+
+    protected function getLogParameters(PlanetSectorEvent $event): array
+    {
+        $logParameters = [];
+        $logParameters['fight_prevented_by_item'] = null;
+
+        if ($event->hasTag(ItemEnum::WHITE_FLAG)) {
+            $logParameters['fight_prevented_by_item'] = '////' . $this->translationService->translate(
+                key: 'fight_prevented_by_item',
+                parameters: ['item' => ItemEnum::WHITE_FLAG],
+                domain: 'planet_sector_event',
+                language: $event->getExploration()->getDaedalus()->getLanguage()
+            );
+        }
+
+        return $logParameters;
     }
 }

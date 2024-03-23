@@ -34,6 +34,6 @@ final class MushTrap extends AbstractPlanetSectorEventHandler
             }
         }
 
-        return $this->createExplorationLog($event);
+        return $this->createExplorationLog($event, $this->getLogParameters($event));
     }
 }

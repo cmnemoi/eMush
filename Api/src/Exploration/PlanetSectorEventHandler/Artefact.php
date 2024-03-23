@@ -19,10 +19,8 @@ final class Artefact extends AbstractLootItemsEventHandler
         // Artefact event creates only one item
         $artefact = $this->createRandomItemsFromEvent($event)->first();
 
-        // for Intelligent Life sector Artefact event, we need to log the name of the artefact in the expedition report
-        $logParameters = [
-            'target_' . $artefact->getLogKey() => $artefact->getLogName(),
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters['target_' . $artefact->getLogKey()] = $artefact->getLogName();
 
         return $this->createExplorationLog($event, $logParameters);
     }

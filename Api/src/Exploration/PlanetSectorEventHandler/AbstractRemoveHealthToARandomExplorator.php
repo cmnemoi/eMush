@@ -35,11 +35,10 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        $logParameters = [
-            $exploratorToInjure->getLogKey() => $exploratorToInjure->getLogName(),
-            'quantity' => $healthLost,
-            'has_rope' => $exploratorToInjure->hasEquipmentByName(GearItemEnum::ROPE) ? 'true' : 'false',
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters['quantity'] = $healthLost;
+        $logParameters[$exploratorToInjure->getLogKey()] = $exploratorToInjure->getLogName();
+        $logParameters['has_rope'] = $exploratorToInjure->hasEquipmentByName(GearItemEnum::ROPE) ? 'true' : 'false';
 
         return $this->createExplorationLog($event, $logParameters);
     }

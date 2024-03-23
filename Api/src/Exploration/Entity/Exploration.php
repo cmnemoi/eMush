@@ -221,4 +221,9 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS))->count() > 0;
     }
+
+    public function hasAWhiteFlag(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::WHITE_FLAG))->count() > 0;
+    }
 }

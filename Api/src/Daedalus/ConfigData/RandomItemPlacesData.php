@@ -46,7 +46,7 @@ class RandomItemPlacesData
                 'rope',
                 'rope',
                 'drill',
-                'compass',
+                'quadrimetric_compass',
             ],
             'places' => [
                 RoomEnum::FRONT_STORAGE,

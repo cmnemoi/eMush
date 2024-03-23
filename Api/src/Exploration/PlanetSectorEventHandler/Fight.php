@@ -13,12 +13,14 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -38,10 +40,11 @@ final class Fight extends AbstractPlanetSectorEventHandler
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
+        TranslationServiceInterface $translationService,
         DiseaseCauseServiceInterface $diseaseCauseService,
         RoomLogServiceInterface $roomLogService
     ) {
-        parent::__construct($entityManager, $eventService, $randomService);
+        parent::__construct($entityManager, $eventService, $randomService, $translationService);
         $this->diseaseCauseService = $diseaseCauseService;
         $this->roomLogService = $roomLogService;
     }
@@ -53,6 +56,17 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
+        if ($event->getExploration()->hasAWhiteFlag() && $event->getPlanetSector()->getName() === PlanetSectorEnum::INTELLIGENT) {
+            $sectorEvents = clone $event->getPlanetSector()->getExplorationEvents();
+            $sectorEvents->remove($event->getKey());
+
+            $newEventToDispatch = (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);
+
+            $newEventConfig = $this->getPlanetSectorEventConfigByKey($newEventToDispatch);
+            $event->addTag(ItemEnum::WHITE_FLAG);
+            $this->dispatchPlanetSectorEvent($newEventConfig, $event);
+        }
+
         $creatureStrength = $this->drawEventOutputQuantity($event->getOutputTable());
         $expeditionStrength = $this->getExpeditionStrength($event);
         $damage = max(0, $creatureStrength - $expeditionStrength);
@@ -62,11 +76,10 @@ final class Fight extends AbstractPlanetSectorEventHandler
             $this->removeGrenadesFromFighters($event, $damageWithoutGrenades);
         }
 
-        $logParameters = [
-            'creature_strength' => $creatureStrength,
-            'expedition_strength' => $expeditionStrength,
-            'damage' => $damage,
-        ];
+        $logParameters = $this->getLogParameters($event);
+        $logParameters['creature_strength'] = $creatureStrength;
+        $logParameters['expedition_strength'] = $expeditionStrength;
+        $logParameters['damage'] = $damage;
 
         if ($damage === 0) {
             return $this->createExplorationLog($event, $logParameters);
@@ -202,5 +215,28 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 );
             }
         }
+    }
+
+    private function getPlanetSectorEventConfigByKey(string $key): PlanetSectorEventConfig
+    {
+        /** @var ?PlanetSectorEventConfig $eventConfig */
+        $eventConfig = $this->entityManager->getRepository(PlanetSectorEventConfig::class)->findOneByName($key);
+        if (!$eventConfig) {
+            throw new \RuntimeException('PlanetSectorEventConfig not found for event ' . $key);
+        }
+
+        return $eventConfig;
+    }
+
+    private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void
+    {
+        $planetSectorEvent = new PlanetSectorEvent(
+            $event->getPlanetSector(),
+            $eventConfig,
+            $event->getTags(),
+            $event->getTime(),
+            $event->getVisibility()
+        );
+        $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
     }
 }

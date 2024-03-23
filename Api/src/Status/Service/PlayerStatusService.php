@@ -51,7 +51,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     }
 
     private function handleHungerStatus(Player $player, \DateTime $dateTime): void
-    {   
+    {
         if ($player->isMush()) {
             $this->statusService->removeStatus(
                 PlayerStatusEnum::STARVING_WARNING,
@@ -67,6 +67,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
                 $dateTime,
                 VisibilityEnum::PRIVATE
             );
+
             return;
         }
 

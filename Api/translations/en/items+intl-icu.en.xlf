@@ -1146,16 +1146,13 @@ The future of humanity will either be clean or it will not be.</target>
       </segment>
       <segment id="description" state="translated">
         <source>babel_module.description</source>
-        <target>A universal translation module
-*Expedition : 2x Chance of finding artefacts in a sector containing "Intelligent Life"*</target>
+        <target>A universal translation module.//Expedition : 2x Chance of finding artefacts in a sector containing "Intelligent Life"</target>
       </segment>
       <segment id="examine" state="translated">
         <source>babel_module.examine</source>
-        <target>A universal translation module
-Expedition : 2x Chance of finding artefacts in a sector containing "Intelligent Life"
+        <target>A universal translation module.//Expedition : 2x Chance of finding artefacts in a sector containing "Intelligent Life".//
 The Babel module was updated several years ago by a fish farmer. He had had enough of seeing his goldfish die so quickly so he decided to finance a
- project seeking to allow him to communicate with them. The module decodes the emotions linked to pre- and sub-conscious Alpha  and Beta waves and transforms them into intelligible words... more or less. This hit him really hard, because his fish just turned out to be  idiots with no intellect to speak of whatsoever. However, enabling himself to communicate with any and all life forms made him millions when he sold his invention to dog owners... Cats never deigned to speak to humans. After the first encounters with xenomorphs occurred, he became extremely rich &lt;delete&gt; and had many 
-children&lt;/delete&gt;.</target>
+ project seeking to allow him to communicate with them. The module decodes the emotions linked to pre- and sub-conscious Alpha  and Beta waves and transforms them into intelligible words... more or less. This hit him really hard, because his fish just turned out to be  idiots with no intellect to speak of whatsoever. However, enabling himself to communicate with any and all life forms made him millions when he sold his invention to dog owners... Cats never deigned to speak to humans. After the first encounters with xenomorphs occurred, he became extremely rich and had many children.</target>
       </segment>
     </unit>
     <unit id="drill">
@@ -1181,15 +1178,11 @@ children&lt;/delete&gt;.</target>
       </segment>
       <segment id="description" state="translated">
         <source>drill.description</source>
-        <target>The drill lets you recover minerals on expeditions
-    Expedition : Doubles the gain from "Hydrocarbon" events.</target>
+        <target>The drill lets you recover minerals on expeditions.//Expedition : Doubles the gain from "Hydrocarbon" events.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>drill.examine</source>
-        <target>The drill lets you recover minerals on expeditions
-    Expedition : Doubles the gain from "Hydrocarbon" events
-
-The drill allows expedition members to get through situations which are on the hard side.</target>
+        <target>The drill lets you recover minerals on expeditions.//Expedition : Doubles the gain from "Hydrocarbon" events//The drill allows expedition members to get through situations which are on the hard side.</target>
       </segment>
     </unit>
     <unit id="echolocator">
@@ -1245,17 +1238,11 @@ The Echo-Locator is a powerful tool for expedition troops in hostile areas. Unfo
       </segment>
       <segment id="description" state="translated">
         <source>quadrimetric_compass.description</source>
-        <target>The quadrimetric compass is most useful on missions
-    Expedition : Protects the group from "Wandering" events.
-    Expedition : Prevents you from getting "lost"</target>
+        <target>The quadrimetric compass is most useful on missions.//Expedition : Protects the group from "Wandering" events.//Expedition : Prevents you from getting "lost".</target>
       </segment>
       <segment id="examine" state="translated">
         <source>quadrimetric_compass.examine</source>
-        <target>The quadrimetric compass is most useful on missions
-    Expedition : Protects the group from "Wandering" events.
-    Expedition : Prevents you from getting "lost"
-
-The quadrimetric compass means you can find yourself if you get lost on an expedition, it is an invaluable tool for anyone venturing into hostile territory.</target>
+        <target>The quadrimetric compass is most useful on missions.//Expedition : Protects the group from "Wandering" events.//Expedition : Prevents you from getting "lost".//The quadrimetric compass means you can find yourself if you get lost on an expedition, it is an invaluable tool for anyone venturing into hostile territory.</target>
       </segment>
     </unit>
     <unit id="rope">
@@ -1277,15 +1264,11 @@ The quadrimetric compass means you can find yourself if you get lost on an exped
       </segment>
       <segment id="description" state="translated">
         <source>rope.description</source>
-        <target>On expeditions, the rope allows you to get out of an dead-end.
-    Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.</target>
+        <target>On expeditions, the rope allows you to get out of a dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>rope.examine</source>
-        <target>On expeditions, the rope allows you to get out of an dead-end.
-    Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.
-
-Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
+        <target>On expeditions, the rope allows you to get out of an dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.//Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
       </segment>
     </unit>
     <unit id="thermosensor">
@@ -1311,14 +1294,13 @@ Looking at the probability statistics of what one would conceivably find aboard 
       </segment>
       <segment id="description" state="translated">
         <source>thermosensor.description</source>
-        <target>Facilitates exploration by detecting nearby heat signatures
-Expedition : 5x Chance of finding a remaining "Ruminant","Predator","Intelligent life","Mankarog", or "Insect" sector.</target>
+        <target>Facilitates exploration by detecting nearby heat signatures.//Expedition : 5x Chance of finding a remaining "Ruminant", "Predator", "Intelligent life", "Mankarog", "Insect" or "MIA" sector.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>thermosensor.examine</source>
-        <target>Facilitates exploration by detecting nearby heat signatures
-Expedition : 5x Chance of finding a remaining "Ruminant","Predator","Intelligent life","Mankarog", or "Insect" sector.
-Paradoxically, interplanetary expeditions can sometimes prove to be extremely hazardous to your vital signs. The heat detector allows you to know ahead of time the size and intensity of any heat signal in the immediate surroundings. Unfortunately, the aggression levels of certain xenomorphs doesn't appear to be proportional to their body heat. In the event of contact with a xenomorph, some sort of light weapon could prove useful.</target>
+        <target>Facilitates exploration by detecting nearby heat signatures.//Expedition : 5x Chance of finding a remaining "Ruminant", "Predator", "Intelligent life", "Mankarog", "Insect" or "MIA" sector.//
+Paradoxically, interplanetary expeditions can sometimes prove to be extremely hazardous to your vital signs. The heat detector allows you to know ahead of time the size and intensity of any heat signal in the immediate surroundings.//
+Unfortunately, the aggression levels of certain xenomorphs doesn't appear to be proportional to their body heat. In the event of contact with a xenomorph, some sort of light weapon could prove useful.</target>
       </segment>
     </unit>
     <unit id="white_flag">
@@ -1340,14 +1322,13 @@ Paradoxically, interplanetary expeditions can sometimes prove to be extremely ha
       </segment>
       <segment id="description" state="translated">
         <source>white_flag.description</source>
-        <target>The white flag is a universal symbol of peace. Well, more or less...
-Expedition: Removes the possibility of combat occurring in a sector containing "Intelligent Life"</target>
+        <target>The white flag is a universal symbol of peace. Well, more or less...//Expedition: Removes the possibility of combat occurring in a sector containing "Intelligent Life".</target>
       </segment>
       <segment id="examine" state="translated">
         <source>white_flag.examine</source>
-        <target>The white flag is a universal symbol of peace. Well, more or less...
-Expedition: Removes the possibility of combat occurring in a sector containing "Intelligent Life"
-In 2030, the UN declared the white flag the international symbol of peoples wishing to negociate, which meant this signal came into widespread usage as a means to say, "we come in peace". Following some trivial complications in the beginning, reports of falsely declared white flags resulting in murdered dignitaries, its range is still highly limited and the good faith of an expedition team alone is often insufficient to guarantee access to diplomatic facilities.</target>
+        <target>The white flag is a universal symbol of peace. Well, more or less...//
+Expedition: Removes the possibility of combat occurring in a sector containing "Intelligent Life".//
+In 2030, the UN declared the white flag the international symbol of peoples wishing to negotiate, which meant this signal came into widespread usage as a means to say, "we come in peace". Following some trivial complications in the beginning, reports of falsely declared white flags resulting in murdered dignitaries, its range is still highly limited and the good faith of an expedition team alone is often insufficient to guarantee access to diplomatic facilities.</target>
       </segment>
     </unit>
     <unit id="alien_holographic_tv">
@@ -2386,9 +2367,7 @@ Expedition: +1 added to the strength of your team in the event of combat.</targe
       </segment>
       <segment id="examine" state="translated">
         <source>natamy_rifle.examine</source>
-        <target>The Natamy Rifle is an anti-Mush assault rifle.
-Expedition: +1 added to the strength of your team in the event of combat.
-A very special rifle developed by the crew. Its shells contain bicarbonate of soda and retro-patuline which have anti-fungal properties.</target>
+        <target>The Natamy Rifle is an anti-Mush assault rifle.//Expedition: +1 added to the strength of your team in the event of combat.//A very special rifle developed by the crew. Its shells contain bicarbonate of soda and retro-patuline which have anti-fungal properties.</target>
       </segment>
     </unit>
     <unit id="grenade">
@@ -3484,7 +3463,7 @@ This plan requires:</target>
         <source>blueprint_ingredient.description</source>
         <target>{quantity, plural,
                         one {1 x {equipment}}
-                        other {# x {equipment_plural}}
+                        other {# x {equipment}}
                     }</target>
       </segment>
     </unit>

@@ -19,15 +19,18 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
@@ -37,7 +40,8 @@ use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 final class CycleEventCest extends AbstractFunctionalTest
-{
+{   
+    private EventServiceInterface $eventService;
     private StatusCycleSubscriber $cycleSubscriber;
     private StatusServiceInterface $statusService;
 
@@ -45,6 +49,7 @@ final class CycleEventCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -263,5 +268,29 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         // then the patrol ship electric charges should still have 1 charge
         $I->assertEquals(1, $electricCharges->getCharge());
+    }
+
+    public function testStarvingDoesNotTriggerTheCycleItAppears(FunctionalTester $I): void
+    {
+        // given Chun has -24 satiety, so they will start starving at next cycle
+        $this->chun->setSatiety(-24);
+
+        // given a new cycle passes
+        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // when a new cycle passes
+        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        
+        // then Chun should not have lost any health point
+        $I->assertEquals(14, $this->chun->getHealthPoint());
+
+        // when another cycle passes
+        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then Chun should have lost 1 health point
+        $I->assertEquals(13, $this->chun->getHealthPoint());
     }
 }

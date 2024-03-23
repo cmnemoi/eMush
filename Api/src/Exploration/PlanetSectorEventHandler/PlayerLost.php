@@ -15,8 +15,8 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 

@@ -14,7 +14,6 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
-use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;

@@ -984,7 +984,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'plant_Fiboniccus_default',
+            'name' => 'plant_fiboniccus_default',
             'type' => 'plant',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -1440,7 +1440,7 @@ class MechanicsData
             'content' => null,
             'isTranslated' => null,
             'canShred' => null,
-            'plantName' => 'Fiboniccus',
+            'plantName' => 'fiboniccus',
             'fruitName' => null,
             'maturationTime' => null,
             'oxygen' => null,

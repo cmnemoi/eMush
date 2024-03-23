@@ -14,7 +14,7 @@ class GamePlantEnum
     public const PLATACIA = 'platacia';
     public const TUBILISCUS = 'tubiliscus';
     public const GRAAPSHOOT = 'graapshoot';
-    public const FIBONICCUS = 'Fiboniccus';
+    public const FIBONICCUS = 'fiboniccus';
     public const MYCOPIA = 'mycopia';
     public const ASPERAGUNK = 'asperagunk';
     public const BUMPJUMPKIN = 'bumpjumpkin';

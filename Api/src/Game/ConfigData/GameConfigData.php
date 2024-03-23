@@ -213,7 +213,7 @@ class GameConfigData
                 'peniraft_default',
                 'graapshoot_default',
                 'kubinus_default',
-                'Fiboniccus_default',
+                'fiboniccus_default',
                 'caleboot_default',
                 'mycopia_default',
                 'filandra_default',

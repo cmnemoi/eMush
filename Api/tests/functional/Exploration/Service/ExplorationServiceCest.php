@@ -427,7 +427,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $exploration = $this->createExploration($planet, new PlayerCollection([$this->chun]));
 
         // when dispatchExplorationEvent is called
-        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+        for ($i = 0; $i < 2; ++$i) {
             $this->explorationService->dispatchExplorationEvent($exploration);
         }
 

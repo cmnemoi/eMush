@@ -1261,8 +1261,8 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'Fiboniccus_default',
-            'equipmentName' => 'Fiboniccus',
+            'name' => 'fiboniccus_default',
+            'equipmentName' => 'fiboniccus',
             'isBreakable' => false,
             'isFireDestroyable' => true,
             'isFireBreakable' => false,
@@ -1277,7 +1277,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'plant_Fiboniccus_default',
+                'plant_fiboniccus_default',
             ],
             'initStatuses' => [],
         ],

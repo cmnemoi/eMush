@@ -9,6 +9,8 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 
 final class NothingToReport extends AbstractPlanetSectorEventHandler
 {
+    private const NUMBER_OF_VERSIONS = 2;
+
     public function getName(): string
     {
         return PlanetSectorEvent::NOTHING_TO_REPORT;
@@ -18,6 +20,7 @@ final class NothingToReport extends AbstractPlanetSectorEventHandler
     {
         $logParameters = $this->getLogParameters($event);
         $logParameters['always_successful_thanks_to_skill'] = $this->getAlwaysSuccessfulThanksToSkillLogParameter($event);
+        $logParameters['version'] = $this->randomService->random(1, self::NUMBER_OF_VERSIONS);
 
         return $this->createExplorationLog($event, $logParameters);
     }

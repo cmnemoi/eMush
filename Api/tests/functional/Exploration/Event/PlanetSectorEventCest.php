@@ -22,6 +22,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -168,6 +169,40 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $deathLogParameters = $deathLog->getParameters();
         $I->assertEquals($deadPlayer->getLogName(), $deathLogParameters['target_character']);
         $I->assertEquals(EndCauseEnum::EXPLORATION, $deathLogParameters['end_cause']);
+    }
+
+    public function testRopePreventsAccidentEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::SISMIC_ACTIVITY], $I),
+            explorators: new PlayerCollection([$this->chun]),
+        );
+
+        // given there is a sismic sector on the planet with accident event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::SISMIC_ACTIVITY,
+            events: [PlanetSectorEvent::ACCIDENT_3_5 => 1]
+        );
+
+        // given Chun has a rope
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::ROPE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        $chunHealthBeforeEvent = $this->chun->getHealthPoint();
+
+        // when accident event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Chun health is the same as before the event, because she has a rope
+        $I->assertEquals(
+            expected: $chunHealthBeforeEvent,
+            actual: $this->chun->getHealthPoint(),
+        );
     }
 
     public function testDisasterHurtsAllExplorators(FunctionalTester $I): void

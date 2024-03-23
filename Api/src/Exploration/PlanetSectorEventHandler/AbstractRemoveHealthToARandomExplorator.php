@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
@@ -37,6 +38,7 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
         $logParameters = [
             $exploratorToInjure->getLogKey() => $exploratorToInjure->getLogName(),
             'quantity' => $healthLost,
+            'has_rope' => $exploratorToInjure->hasEquipmentByName(GearItemEnum::ROPE) ? 'true' : 'false',
         ];
 
         return $this->createExplorationLog($event, $logParameters);

@@ -12,6 +12,7 @@ use Mush\Communication\Event\MessageEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Event\RollPercentageEvent;
@@ -1955,6 +1956,24 @@ class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => ['random_50'],
             'tagConstraints' => [EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS],
+        ],
+        [
+            'name' => 'rope_modifier_for_player_prevent_change.variable_if_reason_accident_and_variable_healthPoint',
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                PlanetSectorEvent::ACCIDENT => ModifierRequirementEnum::ALL_TAGS,
+                PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
+                PlanetSectorEnum::SISMIC_ACTIVITY => ModifierRequirementEnum::ANY_TAGS,
+                PlanetSectorEnum::MOUNTAIN => ModifierRequirementEnum::ANY_TAGS,
+                PlanetSectorEnum::CAVE => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
     ];
 }

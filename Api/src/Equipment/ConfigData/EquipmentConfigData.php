@@ -45,7 +45,7 @@ class EquipmentConfigData
                 'examine',
                 'repair_percent_25',
             ],
-            'mechanics' => [],
+            'mechanics' => ['gear_rope_default'],
             'initStatuses' => [],
         ],
         [

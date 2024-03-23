@@ -10,15 +10,24 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 
 class ExplorationConfigFixtures extends Fixture implements DependentFixtureInterface
 {
+    private ObjectManager $manager;
+
     public function load(ObjectManager $manager): void
     {
+        $this->manager = $manager;
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
@@ -60,6 +69,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         ;
         $manager->persist($compass);
 
+        $ropeGear = $this->createGear([GearModifierConfigFixtures::ROPE_MODIFIER], GearItemEnum::ROPE);
         $rope = new ItemConfig();
         $rope
             ->setEquipmentName(ItemEnum::ROPE)
@@ -67,6 +77,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
+            ->setMechanics([$ropeGear])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($rope);
@@ -167,6 +178,29 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         return [
             ActionsFixtures::class,
             GameConfigFixtures::class,
+            GearModifierConfigFixtures::class,
         ];
+    }
+
+    private function createGear(array $modifierConfigNames, string $name): Gear
+    {
+        $gear = new Gear();
+
+        $modifierConfigs = [];
+        foreach ($modifierConfigNames as $modifierConfigName) {
+            $currentModifierConfig = $this->getReference($modifierConfigName);
+            if ($currentModifierConfig instanceof AbstractModifierConfig) {
+                $modifierConfigs[] = $currentModifierConfig;
+            }
+        }
+
+        $gear
+            ->setModifierConfigs($modifierConfigs)
+            ->buildName(EquipmentMechanicEnum::GEAR . '_' . $name, GameConfigEnum::DEFAULT)
+        ;
+
+        $this->manager->persist($gear);
+
+        return $gear;
     }
 }

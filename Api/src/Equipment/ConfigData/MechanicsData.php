@@ -3613,5 +3613,13 @@ class MechanicsData
                 'modifier_for_place_x2_hunter_damage_on_change.variable',
             ],
         ],
+        [
+            'name' => 'gear_rope_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'rope_modifier_for_player_prevent_change.variable_if_reason_accident_and_variable_healthPoint',
+            ],
+        ],
     ];
 }

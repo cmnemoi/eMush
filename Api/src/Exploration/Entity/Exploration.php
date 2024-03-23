@@ -216,4 +216,9 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::DRILL))->count() > 0;
     }
+
+    public function hasAFunctionalCompass(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS))->count() > 0;
+    }
 }

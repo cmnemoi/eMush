@@ -19,7 +19,6 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
-use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -30,13 +29,12 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
-final class ExplorationServiceCest extends AbstractFunctionalTest
+final class ExplorationServiceCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
-    private ExplorationServiceInterface $explorationService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -47,7 +45,6 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -402,5 +399,42 @@ final class ExplorationServiceCest extends AbstractFunctionalTest
                 actual: $events[$i],
             );
         }
+    }
+
+    public function testDispatchExplorationEventDoesNotDispatchAgainEventIfExplorationTeamHasACompass(FunctionalTester $I): void
+    {
+        // given a planet
+        $planet = $this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I);
+
+        // given there are only nothing to report and again events on the desert sector
+        $desertSector = $this->setupPlanetSectorEvents(
+            PlanetSectorEnum::DESERT,
+            [
+                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
+                PlanetSectorEvent::AGAIN => PHP_INT_MAX - 1,
+            ]
+        );
+
+        // given Chun has a compass
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::QUADRIMETRIC_COMPASS,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration($planet, new PlayerCollection([$this->chun]));
+
+        // when dispatchExplorationEvent is called
+        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $this->explorationService->dispatchExplorationEvent($exploration);
+        }
+
+        // then I don't see again event in the exploration logs
+        $I->dontSeeInRepository(ExplorationLog::class, ['eventName' => PlanetSectorEvent::AGAIN]);
+
+        // then desert sector still has again event
+        $I->assertEquals(PHP_INT_MAX - 1, $desertSector->getExplorationEvents()[PlanetSectorEvent::AGAIN]);
     }
 }

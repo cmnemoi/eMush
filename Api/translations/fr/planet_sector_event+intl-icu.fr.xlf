@@ -277,7 +277,7 @@
       </segment>
       <segment id="description" state="final">
         <source>artefact.description</source>
-        <target>Vous trouvez un artefact.{fight_prevented_by_item}</target>
+        <target>Vous trouvez un artefact.{has_babel_module, select, true {////+100% Module Babel} other {}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>artefact.intelligent_description</source>

@@ -114,6 +114,7 @@ final class ExplorationService implements ExplorationServiceInterface
             $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
         } else {
             $eventKey = $this->drawPlanetSectorEvent($landingSector, $exploration);
+            $eventKey = $this->drawPlanetSectorEvent($landingSector, $exploration);
             $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
 
             $planetSectorEvent = new PlanetSectorEvent(
@@ -194,6 +195,10 @@ final class ExplorationService implements ExplorationServiceInterface
         $sectorEvents = clone $sector->getExplorationEvents();
         if ($exploration->hasAFunctionalCompass()) {
             $sectorEvents->remove(PlanetSectorEvent::AGAIN);
+        }
+        if ($exploration->hasAFunctionalBabelModule() && $sector->getName() === PlanetSectorEnum::INTELLIGENT) {
+            $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::ARTEFACT) * 2;
+            $sectorEvents->setElementProbability(PlanetSectorEvent::ARTEFACT, $newProbability);
         }
 
         return (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);

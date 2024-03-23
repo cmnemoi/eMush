@@ -171,6 +171,7 @@ class PlaceConfigData
                 'lizaro_jungle_blueprint',
                 'old_faithful_blueprint',
                 'white_flag_blueprint',
+                'babel_module_blueprint',
             ],
             'equipments' => ['icarus'],
         ],

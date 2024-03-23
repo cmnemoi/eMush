@@ -186,6 +186,71 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    public function testNormalizeArtefactEventWithBabelModule(FunctionalTester $I): void
+    {
+        // given intelligent life sector has only artefact event
+        $intelligentSector = $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ARTEFACT => 1]
+        );
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has a babel module
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::BABEL_MODULE,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players,
+        );
+
+        // given only starmap can be looted from the artefact event
+        /** @var PlanetSectorEventConfig $eventConfig */
+        $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
+        $eventConfig->setOutputTable([ItemEnum::STARMAP_FRAGMENT => 1]);
+
+        // given two extra steps are made to trigger the artefact event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when artefact event exploration log is normalized
+        /** @var ExplorationLog $explorationLog */
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::ARTEFACT,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
+                'planetSectorName' => 'Vie intelligente',
+                'eventName' => 'Artefact',
+                'eventDescription' => "Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un Morceau de carte stellaire avant de reprendre sa route.",
+                'eventOutcome' => 'Vous trouvez un artefact.////+100% Module Babel',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+
+        // then intelligent sector events are the same as before
+        $I->assertEquals(
+            expected: [PlanetSectorEvent::ARTEFACT => 1],
+            actual: $intelligentSector->getExplorationEvents()->toArray(),
+        );
+    }
+
     public function testNormalizeKillRandomEvent(FunctionalTester $I): void
     {
         // given sismic activity sector has only kill random event

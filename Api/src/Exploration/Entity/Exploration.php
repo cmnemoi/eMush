@@ -226,4 +226,9 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::WHITE_FLAG))->count() > 0;
     }
+
+    public function hasAFunctionalBabelModule(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::BABEL_MODULE))->count() > 0;
+    }
 }

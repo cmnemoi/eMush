@@ -8,7 +8,7 @@ use Mush\User\Entity\User;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'moderationAction')]
-class ModerationAction
+class ModerationSanction
 {
     use TimestampableEntity;
 
@@ -54,9 +54,11 @@ class ModerationAction
         return $this->moderationAction;
     }
 
-    public function setModerationAction(string $moderationAction): void
+    public function setModerationAction(string $moderationAction): self
     {
         $this->moderationAction = $moderationAction;
+
+        return $this;
     }
 
     public function getUser(): User
@@ -69,9 +71,11 @@ class ModerationAction
         return $this->reason;
     }
 
-    public function setReason(string $reason): void
+    public function setReason(string $reason): self
     {
         $this->reason = $reason;
+
+        return $this;
     }
 
     public function getMessage(): ?string
@@ -79,9 +83,11 @@ class ModerationAction
         return $this->message;
     }
 
-    public function setMessage(string $message): void
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
+
+        return $this;
     }
 
     public function getIsVisibleByUser(): bool
@@ -89,9 +95,11 @@ class ModerationAction
         return $this->isVisibleByUser;
     }
 
-    public function setIsVisibleByUser(bool $isVisibleByUser): void
+    public function setIsVisibleByUser(bool $isVisibleByUser): self
     {
         $this->isVisibleByUser = $isVisibleByUser;
+
+        return $this;
     }
 
     public function getStartDate(): \DateTime
@@ -99,9 +107,11 @@ class ModerationAction
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTime $startDate): void
+    public function setStartDate(\DateTime $startDate): self
     {
         $this->startDate = $startDate;
+
+        return $this;
     }
 
     public function getEndDate(): ?\DateTime
@@ -109,9 +119,11 @@ class ModerationAction
         return $this->endDate;
     }
 
-    public function setEndDate(\DateTime $endDate): void
+    public function setEndDate(?\DateTime $endDate): self
     {
-        $this->startDate = $endDate;
+        $this->endDate = $endDate;
+
+        return $this;
     }
 
     public function isSanctionActive(): bool

@@ -2,8 +2,12 @@
 
 namespace Mush\User\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\MetaGame\Entity\Collection\ModerationActionCollection;
+use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -37,8 +41,13 @@ class User implements UserInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $roles = [RoleEnum::USER];
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
-    private bool $banned = false;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ModerationSanction::class)]
+    private Collection $moderationSanction;
+
+    public function __construct()
+    {
+        $this->moderationSanction = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -150,26 +159,25 @@ class User implements UserInterface
 
     public function isBanned(): bool
     {
-        return $this->banned;
+        return $this->getModerationSanctions()->isBanned();
     }
 
-    public function ban(): self
+    public function getModerationSanctions(): ModerationActionCollection
     {
-        $this->banned = true;
+        return new ModerationActionCollection($this->moderationSanction->toArray());
+    }
+
+    public function addModerationSanctions(ModerationSanction $moderationAction): self
+    {
+        $this->moderationSanction->add($moderationAction);
 
         return $this;
     }
 
-    public function unban(): self
+    public function removeModerationSanctions(ModerationSanction $moderationAction): self
     {
-        $this->banned = false;
+        $this->moderationSanction->removeElement($moderationAction);
 
         return $this;
-    }
-
-    // getter for API Platform
-    public function getBanned(): bool
-    {
-        return $this->banned;
     }
 }

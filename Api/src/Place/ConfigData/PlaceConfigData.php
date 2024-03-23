@@ -173,6 +173,7 @@ class PlaceConfigData
                 'white_flag_blueprint',
                 'babel_module_blueprint',
                 'echolocator_blueprint',
+                'thermosensor_blueprint',
             ],
             'equipments' => ['icarus'],
         ],

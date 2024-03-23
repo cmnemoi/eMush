@@ -241,4 +241,9 @@ class Exploration
     {
         return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::ECHOLOCATOR))->count() > 0;
     }
+
+    public function hasAFunctionalThermosensor(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::THERMOSENSOR))->count() > 0;
+    }
 }

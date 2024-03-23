@@ -10,7 +10,8 @@ use Mush\Status\Enum\PlayerStatusEnum;
 class PlayerStatusService implements PlayerStatusServiceInterface
 {
     public const FULL_STOMACH_STATUS_THRESHOLD = 3;
-    public const STARVING_STATUS_THRESHOLD = -24;
+    public const STARVING_WARNING_STATUS_THRESHOLD = -24;
+    public const STARVING_STATUS_THRESHOLD = -25;
     public const SUICIDAL_THRESHOLD = 1;
     public const DEMORALIZED_THRESHOLD = 3;
 
@@ -51,9 +52,33 @@ class PlayerStatusService implements PlayerStatusServiceInterface
 
     private function handleHungerStatus(Player $player, \DateTime $dateTime): void
     {
-        $starvingStatus = $player->getStatusByName(PlayerStatusEnum::STARVING);
+        if ($player->isMush()) {
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::STARVING_WARNING,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime,
+                VisibilityEnum::PRIVATE
+            );
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::STARVING,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime,
+                VisibilityEnum::PRIVATE
+            );
 
-        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD && !$starvingStatus && !$player->isMush()) {
+            return;
+        }
+
+        if ($player->getSatiety() < self::STARVING_STATUS_THRESHOLD) {
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::STARVING_WARNING,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime,
+                VisibilityEnum::PRIVATE
+            );
             $this->statusService->createStatusFromName(
                 PlayerStatusEnum::STARVING,
                 $player,
@@ -62,7 +87,16 @@ class PlayerStatusService implements PlayerStatusServiceInterface
                 null,
                 VisibilityEnum::PRIVATE
             );
-        } elseif (($player->getSatiety() >= self::STARVING_STATUS_THRESHOLD || $player->isMush()) && $starvingStatus) {
+        } elseif ($player->getSatiety() < self::STARVING_WARNING_STATUS_THRESHOLD) {
+            $this->statusService->createStatusFromName(
+                PlayerStatusEnum::STARVING_WARNING,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime,
+                null,
+                VisibilityEnum::PRIVATE
+            );
+        } elseif ($player->getSatiety() >= self::STARVING_WARNING_STATUS_THRESHOLD) {
             $this->statusService->removeStatus(
                 PlayerStatusEnum::STARVING,
                 $player,

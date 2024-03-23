@@ -1499,6 +1499,16 @@
         <target>TODO</target>
       </segment>
     </unit>
+    <unit id="starving_warning">
+      <segment id="name" state="translated">
+        <source>starving_warning.name</source>
+        <target>Affamé</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>starving_warning.description</source>
+        <target>Cela fait longtemps que vous n'avez pas mangé quelque chose. Chaque cycle sans manger vous coûte 1 :hp:.</target>
+      </segment>
+    </unit>
     <unit id="stuck_in_the_ship">
       <segment id="name" state="translated">
         <source>stuck_in_the_ship.name</source>

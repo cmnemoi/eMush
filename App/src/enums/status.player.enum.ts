@@ -1,5 +1,6 @@
 export enum StatusPlayerNameEnum {
     STARVING = "starving",
+    STARVING_WARNING = "starving_warning",
     BURDENED = "burdened",
     DISABLED = "disabled",
     FULL_STOMACH = "full_stomach",
@@ -24,6 +25,9 @@ export enum StatusPlayerNameEnum {
 
 export const statusPlayerEnum: {[index: string]: any} = {
     [StatusPlayerNameEnum.STARVING]: {
+        'icon': require('@/assets/images/status/starving.png')
+    },
+    [StatusPlayerNameEnum.STARVING_WARNING]: {
         'icon': require('@/assets/images/status/starving.png')
     },
     [StatusPlayerNameEnum.FIRST_TIME]: {

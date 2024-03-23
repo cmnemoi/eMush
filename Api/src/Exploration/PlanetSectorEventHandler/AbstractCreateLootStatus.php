@@ -35,7 +35,13 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         $lootedQuantity = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
-        $finder = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostActiveExplorators());
+
+        $exploration = $event->getExploration();
+        if ($event->getName() === PlanetSectorEvent::FUEL && $exploration->hasAFunctionalDrill()) {
+            $lootedQuantity *= 2;
+        }
+
+        $finder = $this->randomService->getRandomPlayer($exploration->getNotLostActiveExplorators());
 
         /** @var ChargeStatus $lootStatus */
         $lootStatus = $this->statusService->createStatusFromName(
@@ -55,6 +61,7 @@ abstract class AbstractCreateLootStatus extends AbstractPlanetSectorEventHandler
         $logParameters = [
             'quantity' => $lootedQuantity,
             $finder->getLogKey() => $finder->getLogName(),
+            'has_drill' => $exploration->hasAFunctionalDrill() ? 'true' : 'false',
         ];
 
         return $this->createExplorationLog($event, $logParameters);

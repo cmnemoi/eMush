@@ -99,7 +99,7 @@ class DaedalusNormalizerTest extends TestCase
         $exploration->method('getAliveExplorators')->willReturn(new PlayerCollection([$explorator]));
         $exploration->method('getCycle')->willReturn(1);
         $exploration->method('getCycleLength')->willReturn(10);
-        $exploration->method('getNumberOfSectionsToVisit')->willReturn(9);
+        $exploration->method('getEstimatedDuration')->willReturn(10);
 
         $daedalus->setExploration($exploration);
 
@@ -225,8 +225,8 @@ class DaedalusNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('exploration_pop_up.estimated_duration', ['estimatedDuration' => 90], 'misc', 'fr')
-            ->andReturn('Retour estimé : 90 minutes')
+            ->with('exploration_pop_up.estimated_duration', ['estimatedDuration' => 10], 'misc', 'fr')
+            ->andReturn('Retour estimé : 10 minutes')
             ->once()
         ;
         $this->translationService
@@ -296,7 +296,7 @@ class DaedalusNormalizerTest extends TestCase
             'onGoingExploration' => [
                 'planet' => 'Planète : translated planet name',
                 'explorators' => 'Équipe : Roland',
-                'estimatedDuration' => 'Retour estimé : 90 minutes',
+                'estimatedDuration' => 'Retour estimé : 10 minutes',
                 'title' => 'Expédition en cours',
             ],
         ];

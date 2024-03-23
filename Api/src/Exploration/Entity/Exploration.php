@@ -212,6 +212,11 @@ class Exploration
         return $this->getAliveExplorators()->filter(fn (Player $player) => $player->hasSkill(PlayerStatusEnum::POC_PILOT_SKILL))->count() > 0;
     }
 
+    public function getEstimatedDuration(): int
+    {
+        return $this->getCycleLength() * (min($this->numberOfSectionsToVisit, $this->getPlanet()->getUnvisitedSectors()->count()) + 1 - $this->getCycle());
+    }
+
     public function hasAFunctionalDrill(): bool
     {
         return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::DRILL))->count() > 0;

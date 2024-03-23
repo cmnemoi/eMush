@@ -168,7 +168,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $normalizedEstimatedDuration = $this->translationService->translate(
             'exploration_pop_up.estimated_duration',
             [
-                'estimatedDuration' => $exploration->getCycleLength() * ($exploration->getNumberOfSectionsToVisit() + 1 - $exploration->getCycle()),
+                'estimatedDuration' => $exploration->getEstimatedDuration(),
             ],
             'misc',
             $daedalus->getLanguage()

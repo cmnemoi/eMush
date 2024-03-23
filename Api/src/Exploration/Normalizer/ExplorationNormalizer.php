@@ -56,7 +56,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
             'estimated_duration' => $this->translationService->translate(
                 'estimated_duration',
                 [
-                    '%duration%' => $exploration->getCycleLength() * ($exploration->getNumberOfSectionsToVisit() + 1 - $exploration->getCycle()),
+                    '%duration%' => $exploration->getEstimatedDuration(),
                     'isExplorationFinished' => $exploration->isFinished() ? 'true' : 'false',
                 ],
                 'misc',

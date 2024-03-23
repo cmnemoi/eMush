@@ -231,7 +231,7 @@ class PlayerStatusServiceTest extends TestCase
     public function testHandleFullStomachWhenStarving()
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
-            
+
         $starvingWarningConfig = new StatusConfig();
         $starvingWarningConfig->setStatusName(PlayerStatusEnum::STARVING_WARNING);
         new Status($player, $starvingWarningConfig);

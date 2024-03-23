@@ -114,7 +114,6 @@ final class ExplorationService implements ExplorationServiceInterface
             $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
         } else {
             $eventKey = $this->drawPlanetSectorEvent($landingSector, $exploration);
-            $eventKey = $this->drawPlanetSectorEvent($landingSector, $exploration);
             $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
 
             $planetSectorEvent = new PlanetSectorEvent(

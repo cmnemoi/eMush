@@ -460,14 +460,6 @@ class DaedalusService implements DaedalusServiceInterface
         return $this->daedalusRepository->findAllDaedalusesOnCycleChange();
     }
 
-    public function skipCycleChange(Daedalus $daedalus): Daedalus
-    {
-        $daedalus->setIsCycleChange(false);
-        $this->persist($daedalus);
-
-        return $daedalus;
-    }
-
     private function getValueInInterval(int $value, ?int $min, ?int $max): int
     {
         if ($max !== null && $value > $max) {

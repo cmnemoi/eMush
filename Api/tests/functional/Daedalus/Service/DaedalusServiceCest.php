@@ -89,20 +89,6 @@ class DaedalusServiceCest extends AbstractFunctionalTest
         }
     }
 
-    public function testSkipCycleChange(FunctionalTester $I)
-    {
-        $lockedUpDaedalus = $this->createDaedalus($I);
-        $lockedUpDaedalus->setIsCycleChange(true);
-        $this->daedalusService->persist($lockedUpDaedalus);
-        $I->refreshEntities($lockedUpDaedalus);
-
-        $this->daedalusService->skipCycleChange($lockedUpDaedalus);
-
-        $lockedUpDaedaluses = $this->daedalusService->findAllDaedalusesOnCycleChange();
-
-        $I->assertEmpty($lockedUpDaedaluses);
-    }
-
     public function testAttributeTitles(FunctionalTester $I)
     {
         /** @var Player $chun */

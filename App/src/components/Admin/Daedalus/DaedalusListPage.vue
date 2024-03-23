@@ -268,7 +268,7 @@ export default defineComponent({
             });
         },
         unlockDaedalus(id: number) {
-            DaedalusService.unlockDaedalus(id).then(() => {
+            AdminService.unlockDaedalus(id).then(() => {
                 this.loadData();
             });
         }

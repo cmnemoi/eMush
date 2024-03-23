@@ -11,10 +11,15 @@ use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,6 +30,8 @@ final class MoveCest extends AbstractFunctionalTest
     private Player $derek;
 
     private ChannelServiceInterface $channelService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -44,6 +51,8 @@ final class MoveCest extends AbstractFunctionalTest
         $this->moveAction = $I->grabService(Move::class);
 
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testMoveActionNotExecutableIfIcarusBayHasTooMuchPeopleInside(FunctionalTester $I): void
@@ -147,6 +156,66 @@ final class MoveCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->hasEquipmentByName(ItemEnum::WALKIE_TALKIE));
 
         // given there is a door for exiting laboratory to front corridor
+        $door = $this->createDoorFromLaboratoryToFrontCorridor($I);
+
+        // when player1 moves to the front corridor
+        $this->moveAction->loadParameters($this->moveConfig, $this->player, $door);
+        $this->moveAction->execute();
+
+        // then player1 should not be in the private channel anymore
+        $I->assertFalse($channel->getParticipants()->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())->contains($this->player));
+    }
+
+    public function testDisabledCrewmateDoesNotConvertAPToMPWithPlayerInTheRoomAndSimulatorIsBroken(FunctionalTester $I): void
+    {
+        // given a simulator in the laboratory
+        $simulator = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::GRAVITY_SIMULATOR,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given this simulator is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $simulator,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is disabled
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::DISABLED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has 1 AP and 0 MP
+        $this->chun->setActionPoint(1);
+        $this->chun->setMovementPoint(0);
+
+        // given there is a door for exiting laboratory to front corridor
+        $door = $this->createDoorFromLaboratoryToFrontCorridor($I);
+
+        // when Chun moves to the front corridor
+        $this->moveAction->loadParameters($this->moveConfig, $this->chun, $door);
+        $this->moveAction->execute();
+
+        // then Chun should not convert AP to MP, so she should have the same amount of AP and MP
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->chun->getActionPoint(),
+        );
+        $I->assertEquals(
+            expected: 0,
+            actual: $this->chun->getMovementPoint(),
+        );
+    }
+
+    private function createDoorFromLaboratoryToFrontCorridor(FunctionalTester $I): Door
+    {
         $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
         $door = new Door($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
@@ -157,11 +226,6 @@ final class MoveCest extends AbstractFunctionalTest
         ;
         $I->haveInRepository($door);
 
-        // when player1 moves to the front corridor
-        $this->moveAction->loadParameters($this->moveConfig, $this->player, $door);
-        $this->moveAction->execute();
-
-        // then player1 should not be in the private channel anymore
-        $I->assertFalse($channel->getParticipants()->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())->contains($this->player));
+        return $door;
     }
 }

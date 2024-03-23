@@ -9,7 +9,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Exploration\Entity\Exploration;
-use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Game\Entity\Collection\GameVariableCollection;
@@ -531,11 +530,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->exploration = $exploration;
 
         return $this;
-    }
-
-    public function getInOrbitPlanet(): ?Planet
-    {
-        return $this->exploration?->getPlanet();
     }
 
     public function getClassName(): string

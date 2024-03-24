@@ -224,9 +224,9 @@
         <source>fuel.description</source>
         <target>fuel.description</target>
       </segment>
-      <segment id="hydrocarbon_description" state="initial">
+      <segment id="hydrocarbon_description" state="translated">
         <source>fuel.hydrocarbon_description</source>
-        <target>fuel.hydrocarbon_description</target>
+        <target/>
       </segment>
       <segment id="cave_description" state="initial">
         <source>fuel.cave_description</source>

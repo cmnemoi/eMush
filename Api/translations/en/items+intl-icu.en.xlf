@@ -1146,7 +1146,7 @@ The future of humanity will either be clean or it will not be.</target>
       </segment>
       <segment id="description" state="translated">
         <source>babel_module.description</source>
-        <target>A universal translation module.//Expedition : 2x Chance of finding artefacts in a sector containing "Intelligent Life"</target>
+        <target>A universal translation module.//Expedition : 2x Chance of finding artefacts in a sector containing "Intelligent Life".</target>
       </segment>
       <segment id="examine" state="translated">
         <source>babel_module.examine</source>
@@ -1182,7 +1182,7 @@ The Babel module was updated several years ago by a fish farmer. He had had enou
       </segment>
       <segment id="examine" state="translated">
         <source>drill.examine</source>
-        <target>The drill lets you recover minerals on expeditions.//Expedition : Doubles the gain from "Hydrocarbon" events//The drill allows expedition members to get through situations which are on the hard side.</target>
+        <target>The drill lets you recover minerals on expeditions.//Expedition : Doubles the gain from "Hydrocarbon" events.//The drill allows expedition members to get through situations which are on the hard side.</target>
       </segment>
     </unit>
     <unit id="echolocator">
@@ -1208,15 +1208,14 @@ The Babel module was updated several years ago by a fish farmer. He had had enou
       </segment>
       <segment id="description" state="translated">
         <source>echolocator.description</source>
-        <target>The Echo-locator is useful for exploratory missions. It allows its user to detect movement in their immediate surroundings.
-    Expedition : 5x Chance of discovering a remaining "Hydrocarbon" sector.</target>
+        <target>The Echolocator is useful for exploratory missions. It allows its user to detect movement in their immediate surroundings.//
+Expedition : 5x Chance of discovering a remaining "Hydrocarbon" sector.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>echolocator.examine</source>
-        <target>The Echo-locator is useful for exploratory missions. It allows its user to detect movement in their immediate surroundings.
-    Expedition : 5x Chance of discovering a remaining "Hydrocarbon" sector.
-
-The Echo-Locator is a powerful tool for expedition troops in hostile areas. Unfortunately everything that moves isn't dangerous. And vice versa.</target>
+        <target>The Echolocator is useful for exploratory missions. It allows its user to detect movement in their immediate surroundings.//
+Expedition : 5x Chance of discovering a remaining "Hydrocarbon" sector.//
+The Echolocator is a powerful tool for expedition troops in hostile areas. Unfortunately everything that moves isn't dangerous. And vice versa.</target>
       </segment>
     </unit>
     <unit id="quadrimetric_compass">
@@ -1264,11 +1263,11 @@ The Echo-Locator is a powerful tool for expedition troops in hostile areas. Unfo
       </segment>
       <segment id="description" state="translated">
         <source>rope.description</source>
-        <target>On expeditions, the rope allows you to get out of a dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.</target>
+        <target>On expeditions, the rope allows you to get out of a dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Caverns" and "Mountains" areas, but does not prevent sudden deaths.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>rope.examine</source>
-        <target>On expeditions, the rope allows you to get out of an dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Grotto" and "Mountain" areas, but does not prevent sudden deaths.//Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
+        <target>On expeditions, the rope allows you to get out of an dead-end.//Expedition : Removes possibility of personal damage which could happen in "Seismic", "Caverns" and "Mountains" areas, but does not prevent sudden deaths.//Looking at the probability statistics of what one would conceivably find aboard the Daedalus, the rope got zero. However...</target>
       </segment>
     </unit>
     <unit id="thermosensor">
@@ -1294,11 +1293,11 @@ The Echo-Locator is a powerful tool for expedition troops in hostile areas. Unfo
       </segment>
       <segment id="description" state="translated">
         <source>thermosensor.description</source>
-        <target>Facilitates exploration by detecting nearby heat signatures.//Expedition : 5x Chance of finding a remaining "Ruminant", "Predator", "Intelligent life", "Mankarog", "Insect" or "MIA" sector.</target>
+        <target>Facilitates exploration by detecting nearby heat signatures.//Expedition : 5x Chance of finding a remaining "Ruminants", "Predators", "Intelligent life", "Mankarog", "Insects" or "MIA" sector.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>thermosensor.examine</source>
-        <target>Facilitates exploration by detecting nearby heat signatures.//Expedition : 5x Chance of finding a remaining "Ruminant", "Predator", "Intelligent life", "Mankarog", "Insect" or "MIA" sector.//
+        <target>Facilitates exploration by detecting nearby heat signatures.//Expedition : 5x Chance of finding a remaining "Ruminants", "Predators", "Intelligent life", "Mankarog", "Insects" or "MIA" sector.//
 Paradoxically, interplanetary expeditions can sometimes prove to be extremely hazardous to your vital signs. The heat detector allows you to know ahead of time the size and intensity of any heat signal in the immediate surroundings.//
 Unfortunately, the aggression levels of certain xenomorphs doesn't appear to be proportional to their body heat. In the event of contact with a xenomorph, some sort of light weapon could prove useful.</target>
       </segment>

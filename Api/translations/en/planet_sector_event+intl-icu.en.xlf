@@ -234,13 +234,20 @@
       </segment>
       <segment id="hydrocarbon_description" state="translated">
         <source>fuel.hydrocarbon_description</source>
-        <target>{quantity, select,
+        <target>{has_dril, select,
+        true {{quantity, select,
+        3 {At the bottom of a crevasse, you find a sizeable vein of carbonite...}
+        4 {These massive muddy puddles seem to contain traces of supercarbonated tar, we have to collect some for the Daedalus.}
+        5 {Incredible! The expedition has just discovered a gigantic carbonite monolith! It'll never fit in the reactor...}
+        6 {The expedition has found a bluish-purple lake of heptanol! With all that, the Daedalus is unlikely to break down!}
+        other {You have earned {quantity} units of Fuel.}}}
+        other {quantity, select,
         3 {At the bottom of a crevasse, you find a sizeable vein of carbonite...}
         4 {These massive muddy puddles seem to contain traces of supercarbonated tar, we have to collect some for the Daedalus.}
         5 {Incredible! The expedition has just discovered a gigantic carbonite monolith! It'll never fit in the reactor...}
         6 {The expedition has found a bluish-purple lake of heptanol! With all that, the Daedalus is unlikely to break down!}
         other {You have earned {quantity} units of Fuel.}
-        }</target>
+        }}</target>
       </segment>
       <segment id="cave_description" state="translated">
         <source>fuel.cave_description</source>

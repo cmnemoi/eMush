@@ -1143,11 +1143,11 @@ L'avenir de l'Humanité sera propre ou ne sera pas.</target>
       </segment>
       <segment id="description" state="translated">
         <source>babel_module.description</source>
-        <target>Un module de traduction universel.//Expédition : Chance de gains d'artefacts dans un secteur "Vie Intelligente" x2</target>
+        <target>Un module de traduction universel.//Expédition : Chance de gains d'artefacts dans un secteur "Vie Intelligente" x2.</target>
       </segment>
       <segment id="examine" state="final">
         <source>babel_module.examine</source>
-        <target>Un module de traduction universel.//Expédition : Chance de gains d'Artefact dans un secteur "Vie Intelligente" x2.//
+        <target>Un module de traduction universel.//Expédition : Chance de gains d'artefacts dans un secteur "Vie Intelligente" x2.//
 Le module Babel a été mis au point il y a de nombreuses années par un pisciculteur. Celui-ci en avait assez de voir ses poissons rouges mourir trop rapidement et a donc décidé de financer un projet de recherche visant à pouvoir communiquer avec eux. Le module décrypte les émotions des ondes pre et para-consciente Alpha et Beta et les transforme en mots intelligibles... ou presque. Bien mal lui en a pris, car ses poissons étaient en fait juste trop idiots et n'avaient aucun espèce d’intellect. Par contre, lui permettant de communiquer avec toute sorte d'autres entités vivantes, il a réussi à gagner des millions en refourguant son invention aux propriétaires de chiens... Les chats ne daignant pas répondre aux humains. Avec les premiers contacts xenomorphes, il devint très riche et eu beaucoup d'enfants.</target>
       </segment>
     </unit>
@@ -1174,11 +1174,11 @@ Le module Babel a été mis au point il y a de nombreuses années par un piscicu
       </segment>
       <segment id="description" state="final">
         <source>drill.description</source>
-        <target>La foreuse permet de récupérer des minéraux en mission.//Expédition : Double les gains de l'évènement "Hydrocarbure"</target>
+        <target>La foreuse permet de récupérer des minéraux en mission.//Expédition : Double les gains de l'évènement "Hydrocarbures".</target>
       </segment>
       <segment id="examine" state="final">
         <source>drill.examine</source>
-        <target>La foreuse permet de récupérer des minéraux en mission.//Expédition : Double les gains de l'évènement "Hydrocarbure"//La foreuse permet aux corps expéditionnaires de traverser certaines embûches un peu "dures" à contourner.</target>
+        <target>La foreuse permet de récupérer des minéraux en mission.//Expédition : Double les gains de l'évènement "Hydrocarbures".//La foreuse permet aux corps expéditionnaires de traverser certaines embûches un peu "dures" à contourner.</target>
       </segment>
     </unit>
     <unit id="echolocator">
@@ -1204,14 +1204,14 @@ Le module Babel a été mis au point il y a de nombreuses années par un piscicu
       </segment>
       <segment id="description" state="final">
         <source>echolocator.description</source>
-        <target>L'ÉchoLocateur est un outil pour missions expéditionnaires. Il permet de repérer des mouvements dans l’environnement immédiat du porteur.
-Expédition : Chance de parcourir une des sections restantes "Hydro-Carbure" x5</target>
+        <target>L'Écholocateur est un outil pour missions expéditionnaires. Il permet de repérer des mouvements dans l’environnement immédiat du porteur.//
+Expédition : Chance de parcourir une des sections restantes "Hydrocarbures" x5.</target>
       </segment>
       <segment id="examine" state="final">
         <source>echolocator.examine</source>
-        <target>L'ÉchoLocateur est un outil pour missions expéditionnaires. Il permet de repérer des mouvements dans l’environnement immédiat du porteur.
-Expédition : Chance de parcourir une des sections restantes "Hydro-Carbure" x5
-L' ÉchoLocateur est un outils puissant pour les corps expéditionnaire en milieu hostile. Malheureusement, tout ce qui bouge n'est pas dangereux. Et vice-versa.</target>
+        <target>L'Écholocateur est un outil pour missions expéditionnaires. Il permet de repérer des mouvements dans l’environnement immédiat du porteur.//
+Expédition : Chance de parcourir une des sections restantes "Hydrocarbures" x5.//
+L' Écholocateur est un outil puissant pour les corps expéditionnaire en milieu hostile. Malheureusement, tout ce qui bouge n'est pas dangereux. Et vice-versa.</target>
       </segment>
     </unit>
     <unit id="quadrimetric_compass">
@@ -1237,7 +1237,7 @@ L' ÉchoLocateur est un outils puissant pour les corps expéditionnaire en milie
       </segment>
       <segment id="examine" state="final">
         <source>quadrimetric_compass.examine</source>
-        <target>La boussole quadrimétrique sert surtout en mission.//Expédition : Protège le groupe des évènements ""Errance"".//Expédition : Vous protège des évènements "Perdu"//La boussole quadrimetrique permet de se repérer en expédition, c'est un outil indispensable pour le personnel qui s'aventure en milieu hostile.</target>
+        <target>La boussole quadrimétrique sert surtout en mission.//Expédition : Protège le groupe des évènements "Errance".//Expédition : Vous protège des évènements "Perdu".//La boussole quadrimétrique permet de se repérer en expédition, c'est un outil indispensable pour le personnel qui s'aventure en milieu hostile.</target>
       </segment>
     </unit>
     <unit id="rope">
@@ -1259,11 +1259,11 @@ L' ÉchoLocateur est un outils puissant pour les corps expéditionnaire en milie
       </segment>
       <segment id="description" state="final">
         <source>rope.description</source>
-        <target>Permet de se sortir d'impasse en expédition.//Expédition : Annule les dommages personnels qui peuvent vous arriver dans les secteurs "Sismique", "Grotte" et "Montagne", ne préserve pas des morts subites.</target>
+        <target>Permet de se sortir d'impasse en expédition.//Expédition : Annule les dommages personnels qui peuvent vous arriver dans les secteurs "Sismique", "Grottes" et "Montagnes", ne préserve pas des morts subites.</target>
       </segment>
-      <segment id="examine" state="final">
+      <segment id="examine" state="translated">
         <source>rope.examine</source>
-        <target>Permet de se sortir d'impasse en expédition.//Expédition : Annule les dommages personnels qui peuvent vous arriver dans les secteurs ""Sismique"", "Grotte" et "Montagne", ne préserve pas des morts subites.//Parmi les analyses probabilistes de ce qui serait sur le Daedalus, la corde avait une chance nulle. Et pourtant.</target>
+        <target>Permet de se sortir d'impasse en expédition.//Expédition : Annule les dommages personnels qui peuvent vous arriver dans les secteurs "Sismique", "Grottes" et "Montagnes", ne préserve pas des morts subites.//Parmi les analyses probabilistes de ce qui serait sur le Daedalus, la corde avait une chance nulle. Et pourtant.</target>
       </segment>
     </unit>
     <unit id="thermosensor">
@@ -1289,11 +1289,11 @@ L' ÉchoLocateur est un outils puissant pour les corps expéditionnaire en milie
       </segment>
       <segment id="description" state="final">
         <source>thermosensor.description</source>
-        <target>Facilite l'exploration en indiquant les formes de chaleur proche.//Expédition : Chance de parcourir une des sections restantes "Ruminant", "Prédateurs", "Vie intelligente", "Mankarog", "Insecte", "Perdu" x5.</target>
+        <target>Facilite l'exploration en indiquant les formes de chaleur proche.//Expédition : Chance de parcourir une des sections restantes "Ruminants", "Prédateurs", "Vie intelligente", "Mankarog", "Insectes", "Perdu" x5.</target>
       </segment>
       <segment id="examine" state="final">
         <source>thermosensor.examine</source>
-        <target>Facilite l'exploration en indiquant les formes de chaleur proche.//Expédition : Chance de parcourir une des sections restantes "Ruminant", "Prédateurs", "Vie intelligente", "Mankarog", "Insecte", "Perdu" x5.//
+        <target>Facilite l'exploration en indiquant les formes de chaleur proche.//Expédition : Chance de parcourir une des sections restantes "Ruminants", "Prédateurs", "Vie intelligente", "Mankarog", "Insectes", "Perdu" x5.//
 Paradoxalement, les expéditions interplanétaires peuvent parfois s'avérer extrêmement dangereuses pour vos signes vitaux. Le détecteur de chaleur permet de connaître à l'avance la taille et l'intensité de tout signal thermique dans l'environnement immédiat.//Malheureusement, le niveau d'agressivité de certains xénomorphes ne semble pas être proportionnel à leur chaleur corporelle. En cas de contact avec un xénomorphe, une sorte d'arme légère pourrait s'avérer utile.</target>
       </segment>
     </unit>

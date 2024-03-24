@@ -247,13 +247,13 @@
         6 {Au fond d'une crevasse, vous tombez sur une jolie veine de charbonite…}
         8 {Les grosses flaques de boues semblent contenir des traces de goudron supercarboné, il faut en récupérer un peu pour le Daedalus.}
         10 {Incroyable ! L'expédition vient de découvrir un gigantesque monolithe de charbonite ! Il ne rentrera jamais dans le réacteur…}
-        12 {L'expédition trouve un petit lac d'heptanol violacé ! Avec tout ça le Daedalus n'est pas prêt de tomber en panne !}
+        12 {L'expédition trouve un petit lac d'heptanol violacé ! Avec tout ça le Daedalus n'est pas près de tomber en panne !}
         other {Vous récupérez {quantity} unités de fuel.}}}
           other {{quantity, select,
         3 {Au fond d'une crevasse, vous tombez sur une jolie veine de charbonite…}
         4 {Les grosses flaques de boues semblent contenir des traces de goudron supercarboné, il faut en récupérer un peu pour le Daedalus.}
         5 {Incroyable ! L'expédition vient de découvrir un gigantesque monolithe de charbonite ! Il ne rentrera jamais dans le réacteur…}
-        6 {L'expédition trouve un petit lac d'heptanol violacé ! Avec tout ça le Daedalus n'est pas prêt de tomber en panne !}
+        6 {L'expédition trouve un petit lac d'heptanol violacé ! Avec tout ça le Daedalus n'est pas près de tomber en panne !}
         other {Vous récupérez {quantity} unités de fuel.}}}
         }</target>
       </segment>

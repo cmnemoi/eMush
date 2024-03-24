@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Front Storage",
-	"fr":"Stockage Avant",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Front Storage",
+    "fr": "Stockage Avant",
+    "es": "PlaceHolder"
   },
-  "id":31,
-  "objects":[],
-  "equipment":[],
-  "doors":[8,11,24]
+  "id": 31,
+  "objects": [],
+  "equipment": [],
+  "doors": [8, 11, 24]
 }

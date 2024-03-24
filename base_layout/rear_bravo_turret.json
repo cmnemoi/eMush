@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Rear Bravo Turret",
-	"fr":"Tourelle Beta Arrière",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Rear Bravo Turret",
+    "fr": "Tourelle Beta Arrière",
+    "es": "PlaceHolder"
   },
-  "id":15,
-  "objects":[],
-  "equipment":["turret_command"],
-  "doors":[9,28]
+  "id": 15,
+  "objects": [],
+  "equipment": ["turret_command"],
+  "doors": [9, 28]
 }

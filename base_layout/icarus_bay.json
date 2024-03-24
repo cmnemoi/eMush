@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Icarus Bay",
-	"fr":"Baie Icarus",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Icarus Bay",
+    "fr": "Baie Icarus",
+    "es": "PlaceHolder"
   },
-  "id":28,
-  "objects":[],
-  "equipment":["icarus_access"],
-  "doors":[9,15,26]
+  "id": 28,
+  "objects": [],
+  "equipment": ["icarus_access"],
+  "doors": [9, 15, 26]
 }

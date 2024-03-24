@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Center Alpha Storage",
-	"fr":"Stockage Alpha Centre",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Center Alpha Storage",
+    "fr": "Stockage Alpha Centre",
+    "es": "PlaceHolder"
   },
-  "id":32,
-  "objects":[],
-  "equipment":["oxygen_tank"],
-  "doors":[1]
+  "id": 32,
+  "objects": [],
+  "equipment": ["oxygen_tank"],
+  "doors": [1]
 }

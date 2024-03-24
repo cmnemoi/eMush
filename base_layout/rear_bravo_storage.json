@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Rear Bravo Storage",
-	"fr":"Stockage Beta Arrière",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Rear Bravo Storage",
+    "fr": "Stockage Beta Arrière",
+    "es": "PlaceHolder"
   },
-  "id":35,
-  "objects":[],
-  "equipment":["fuel_tank"],
-  "doors":[9,25]
+  "id": 35,
+  "objects": [],
+  "equipment": ["fuel_tank"],
+  "doors": [9, 25]
 }

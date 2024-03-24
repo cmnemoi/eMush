@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Rear Alpha Storage",
-	"fr":"Stockage Alpha Arrière",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Rear Alpha Storage",
+    "fr": "Stockage Alpha Arrière",
+    "es": "PlaceHolder"
   },
-  "id":33,
-  "objects":[],
-  "equipment":["fuel_tank"],
-  "doors":[9,25]
+  "id": 33,
+  "objects": [],
+  "equipment": ["fuel_tank"],
+  "doors": [9, 25]
 }

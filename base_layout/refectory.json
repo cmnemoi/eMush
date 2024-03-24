@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Kitchen",
-	"fr":"Réfectoire",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Kitchen",
+    "fr": "Réfectoire",
+    "es": "PlaceHolder"
   },
-  "id":7,
-  "objects":[35,"standard_ration"],
-  "equipment":["kitchen", "coffee_machine"],
-  "doors":[25]
+  "id": 7,
+  "objects": [35, "standard_ration"],
+  "equipment": ["kitchen", "coffee_machine"],
+  "doors": [25]
 }

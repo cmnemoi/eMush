@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Rear Corridor",
-	"fr":"Couloir Arrière",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Rear Corridor",
+    "fr": "Couloir Arrière",
+    "es": "PlaceHolder"
   },
-  "id":26,
-  "objects":[],
-  "equipment":[],
-  "doors":[2,3,4,28,29,30,33,35]
+  "id": 26,
+  "objects": [],
+  "equipment": [],
+  "doors": [2, 3, 4, 28, 29, 30, 33, 35]
 }

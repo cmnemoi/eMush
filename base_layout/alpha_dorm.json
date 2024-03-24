@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Alpha Dorm",
-	"fr":"Dortoir Alpha",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Alpha Dorm",
+    "fr": "Dortoir Alpha",
+    "es": "PlaceHolder"
   },
-  "id":29,
-  "objects":[],
-  "equipment":["bed","bed","bed"],
-  "doors":[26,1]
+  "id": 29,
+  "objects": [],
+  "equipment": ["bed", "bed", "bed"],
+  "doors": [26, 1]
 }

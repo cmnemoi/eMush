@@ -40,14 +40,33 @@
     "space",
     "great_beyond"
   ],
-  "starting_room":{"name":"laboratory","id":6},
-  "oxygen_room": [{"name":"center_alpha_storage","id":32},{"name":"center_bravo_storage","id":34}],
-  "gravity_simulator":[{"name":"laboratory","id":6}],
-  "storages":[31,32,33,34,35],
-
-  "starting_storage_gear":["magebook","adjustable_wrench","plasternite_armor","protective_gloves","soap","stainproof_apron","drill","quadrimetric_compass",2,"rope","block_of_post_it_notes","duct_tape","hacker_kit",2,"extinguisher","knife",2,"blaster",3,"camera","old_t_shirt"],
-  "starting_gear":[5,"blueprint","anti_grav_scooter",6,"spacesuit","grenade",2,"hydropot","medikit"],
-  "starting_drones":1
-
-
+  "starting_room": {"name": "laboratory", "id": 6},
+  "oxygen_room": [{"name": "center_alpha_storage", "id": 32}, {"name": "center_bravo_storage", "id": 34}],
+  "gravity_simulator": [{"name": "laboratory", "id": 6}],
+  "storages": [31, 32, 33, 34, 35],
+  "starting_storage_gear": [
+    "magebook",
+    "adjustable_wrench",
+    "plasternite_armor",
+    "protective_gloves",
+    "soap",
+    "stainproof_apron",
+    "drill",
+    "quadrimetric_compass",
+    2,
+    "rope",
+    "block_of_post_it_notes",
+    "duct_tape",
+    "hacker_kit",
+    2,
+    "extinguisher",
+    "knife",
+    2,
+    "blaster",
+    3,
+    "camera",
+    "old_t_shirt"
+  ],
+  "starting_gear": [5, "blueprint", "anti_grav_scooter", 6, "spacesuit", "grenade", 2, "hydropot", "medikit"],
+  "starting_drones": 1
 }

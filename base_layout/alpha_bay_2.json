@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Alpha Bay 2",
-	"fr":"Baie Alpha 2",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Alpha Bay 2",
+    "fr": "Baie Alpha 2",
+    "es": "PlaceHolder"
   },
-  "id":3,
-  "objects":[],
-  "equipment":["patrol_ship","pasiphae"],
-  "doors":[1,9,12,22,23,26]
+  "id": 3,
+  "objects": [],
+  "equipment": ["patrol_ship", "pasiphae"],
+  "doors": [1, 9, 12, 22, 23, 26]
 }

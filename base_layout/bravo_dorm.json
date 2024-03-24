@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Bravo Dorm",
-	"fr":"Dortoir Beta",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Bravo Dorm",
+    "fr": "Dortoir Beta",
+    "es": "PlaceHolder"
   },
-  "id":30,
-  "objects":[],
-  "equipment":["bed","bed","bed"],
-  "doors":[26,2]
+  "id": 30,
+  "objects": [],
+  "equipment": ["bed", "bed", "bed"],
+  "doors": [26, 2]
 }

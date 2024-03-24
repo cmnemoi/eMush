@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Center Bravo Storage",
-	"fr":"Stockage Beta Centre",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Center Bravo Storage",
+    "fr": "Stockage Beta Centre",
+    "es": "PlaceHolder"
   },
-  "id":34,
-  "objects":[],
-  "equipment":["oxygen_tank"],
-  "doors":[2]
+  "id": 34,
+  "objects": [],
+  "equipment": ["oxygen_tank"],
+  "doors": [2]
 }

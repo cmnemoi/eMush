@@ -1,11 +1,11 @@
 {
-  "name":{
-	"en":"Rear Alpha Turret",
-	"fr":"Tourelle Alpha Arrière",
-	"es":"PlaceHolder"
+  "name": {
+    "en": "Rear Alpha Turret",
+    "fr": "Tourelle Alpha Arrière",
+    "es": "PlaceHolder"
   },
-  "id":12,
-  "objects":[],
-  "equipment":["turret_command"],
-  "doors":[3,9]
+  "id": 12,
+  "objects": [],
+  "equipment": ["turret_command"],
+  "doors": [3, 9]
 }

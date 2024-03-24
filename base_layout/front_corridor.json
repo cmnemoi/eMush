@@ -1,10 +1,11 @@
 {
-  "name":{
-	"en":"Front Corridor",
-	"fr":"Couloir Avant",
-	"es":"PlaceHolder"},
-  "id":24,
-  "objects":[],
-  "equipment":[],
-  "doors":[0,5,6,8,10,13,25,31]
+  "name": {
+    "en": "Front Corridor",
+    "fr": "Couloir Avant",
+    "es": "PlaceHolder"
+  },
+  "id": 24,
+  "objects": [],
+  "equipment": [],
+  "doors": [0, 5, 6, 8, 10, 13, 25, 31]
 }

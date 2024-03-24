@@ -1,20 +1,20 @@
 {
-  "id" : 2,
-  "name" : "Frieda",
-  "fullName" : "Frieda Bergmann",
-  "age" : {"en":"66","fr":"66 ans","es":"66 años"},
-  "gender" : "female",
-  "profession" : {
-	"en":"Navigator",
-	"fr":"Navigatrice",
-	"es":"Navegante"
+  "id": 2,
+  "name": "Frieda",
+  "fullName": "Frieda Bergmann",
+  "age": {"en": "66", "fr": "66 ans", "es": "66 años"},
+  "gender": "female",
+  "profession": {
+    "en": "Navigator",
+    "fr": "Navigatrice",
+    "es": "Navegante"
   },
-  "summary" : {
-	"en":"Born in the 21st Century, she has over 45 years of experience in cross-system navigation. While she was studying, she proved the existence of Shapiro's slingshot effect. Woken from cryosleep in the 31st Century, her work on locating celestial bodies had already been most useful to great explorers such as GL Maubrick and Kim Jin-Su. Despite having retired to Bavaria, she is called to Xyloph-17 to serve as the navigator of the Daedalus.",
-	"fr":"Née au 21ème siècle, elle a plus de 45 années d'expériences en matière de navigation trans-système. Au cours de ses études, elle a mis en évidence l'effet de fronde de Shapiro. Décryogénisée au 31ème siècle, son travail de repérage des corps célestes a déjà servi à de grands explorateurs tels que GL Maubrick ou Kim Jin-Su. Aujourd'hui à la retraite en Bavière, elle est appelée sur Xyloph-17 pour devenir la navigatrice du Daedalus.",
-	"es":"Con su larga experiencia en la navegación intergaláctica, Frieda dedica su trabajo a la observación de cuerpos celestes. Jubilada en Baviera, fue convocada a Xyloph-17 para integrar la tripulación del Daedalus."
+  "summary": {
+    "en": "Born in the 21st Century, she has over 45 years of experience in cross-system navigation. While she was studying, she proved the existence of Shapiro's slingshot effect. Woken from cryosleep in the 31st Century, her work on locating celestial bodies had already been most useful to great explorers such as GL Maubrick and Kim Jin-Su. Despite having retired to Bavaria, she is called to Xyloph-17 to serve as the navigator of the Daedalus.",
+    "fr": "Née au 21ème siècle, elle a plus de 45 années d'expériences en matière de navigation trans-système. Au cours de ses études, elle a mis en évidence l'effet de fronde de Shapiro. Décryogénisée au 31ème siècle, son travail de repérage des corps célestes a déjà servi à de grands explorateurs tels que GL Maubrick ou Kim Jin-Su. Aujourd'hui à la retraite en Bavière, elle est appelée sur Xyloph-17 pour devenir la navigatrice du Daedalus.",
+    "es": "Con su larga experiencia en la navegación intergaláctica, Frieda dedica su trabajo a la observación de cuerpos celestes. Jubilada en Baviera, fue convocada a Xyloph-17 para integrar la tripulación del Daedalus."
   },
-  "skills" : [
+  "skills": [
     "ASTROPHYSICIST",
     "PILOT",
     "SURVIVALIST",
@@ -22,99 +22,101 @@
     "RADIO_EXPERT",
     "ANTIQUE_PERFUME"
   ],
-  "file" : "frieda_bergmann",
-  "color" : "#206786",
-  "short" : {
-	"en" : "Vintage Astro-Physicist. Allegedly a descendant of Copernicus...",
-	"fr" : "Scientifique millénaire",
-	"es" : "Experta en astrofísica y los misterios del universo"
+  "file": "frieda_bergmann",
+  "color": "#206786",
+  "short": {
+    "en": "Vintage Astro-Physicist. Allegedly a descendant of Copernicus...",
+    "fr": "Scientifique millénaire",
+    "es": "Experta en astrofísica y los misterios del universo"
   },
-  "intro" : {
-	"en" : "Frieda is Humanity's most experienced astrophysicist. Her life's work has been discovering new planets and systems. She was born over 1000 years ago and is a true survivor!",
-	"fr" : "Avec son millier d'années bien tassé, Frieda est la personne la plus expérimentée de l'Humanité en matière d'astrophysique. Elle a aussi acquis des savoirs annexes particulièrement utiles en milieux hostiles.",
-	"es" : "Frieda es la persona más experimentada en navegación intergaláctica. Su larga vida le ha hecho resistente a las atmósferas hostiles."
+  "intro": {
+    "en": "Frieda is Humanity's most experienced astrophysicist. Her life's work has been discovering new planets and systems. She was born over 1000 years ago and is a true survivor!",
+    "fr": "Avec son millier d'années bien tassé, Frieda est la personne la plus expérimentée de l'Humanité en matière d'astrophysique. Elle a aussi acquis des savoirs annexes particulièrement utiles en milieux hostiles.",
+    "es": "Frieda es la persona más experimentada en navegación intergaláctica. Su larga vida le ha hecho resistente a las atmósferas hostiles."
   },
-  "presentation" : {
-	"en" : "",
-	"fr" : "Vous êtes {b}Frieda Bergmann{\b}, experte en matière d'astrophysique. Vous êtes une excellente pilote et une technicienne acharnée !"
-	"es" : ""
+  "presentation": {
+    "en": "",
+    "fr": "Vous êtes {b}Frieda Bergmann{\b}, experte en matière d'astrophysique. Vous êtes une excellente pilote et une technicienne acharnée !"
+    "es": ""
   },
-  "bio" : [ {
-    "date" : 2037,
-    "desc" : {
-	"en":"Born on Earth.",
-	"fr":"Naissance sur Terre.",
-	"es":"Nace en la Tierra."
-  }
-  }, {
-    "date" : 2059,
-    "desc" : {
-	"en":"In less than 2 years Frieda Bergmann listed more than 100 new stars, from the observatory in Dusseldorf.",
-	"fr":"En moins de 2 ans, Frieda Bergmann recense plus de 100 nouvelles étoiles, au sein de l'observatoire de Düsseldorf.",
-	"es":"En menos de 2 años, Frieda Bergmann crea un registro de 100 nuevas estrellas en su observatorio de Düsseldorf."
-  }
-  }, {
-    "date" : 2060,
-    "desc" : {
-	"en":"While studying {b}the Shapiro effect{/b}, Frieda proves that the mass of a synthesized black hole could be used to propel space probes at speeds approaching that of light. That same year she was awarded the Nobel Prize for Astrophysics for her publication.",
-	"fr":"En étudiant {b}l'effet Shapiro{/b}, Frieda prouve que la masse d'un trou noir de synthèse peut être utilisée pour propulser des sondes spatiales à des vitesses proches de la lumière. Elle reçoit la même année le prix Nobel d'astro-physique pour sa publication.",
-	"es":"Estudiando el {b}efecto Shapiro{/b}, Frieda prueba teóricamente que es posible sintetizar la energía de un agujero negro para propulsar naves espaciales para alcanzar la velocidad de la luz. Su publicación le hace ganar el premio Nobel de astrofísica."
-  }
-  }, {
-    "date" : 2070,
-    "desc" : {
-	"en":"At the age of 33, Frieda decides to dedicate the rest of her life to space exploration. However, the sound technology of her time was only barely sufficient to reach the satellites of Jupiter. Frieda called upon {b}Cryo-Hertz{/b} – a society specializing in cryogenic freezing for billionaires and who guarantee an eventual reawakening in a future society in which they will no longer be condemned to die by lack of medical technology.",
-	"fr":"À l'âge de 33 ans Frieda décide de dédier le reste de sa vie à l'exploration spatiale. Malheureusement les technologies de son époque permettent à peine d'atteindre les satellites de Jupiter. Frieda fait donc appelle à {b}Cryo-Hertz{/b} une société de cryogénisation pour milliardaire qui promet à ses clients condamnés par la médecine, une survie éventuelle dans un futur lointain.",
-	"es":"A los 33 años, Frieda se somete a una {b}criogenización{/b} para ver un día su sueño de navegación intergaláctico realizado en forma de máquina."
-  }
-  }, {
-    "date" : 3094,
-    "desc" : {
-	"en":"Frieda is awakened from {b}a sleep lasting 1024 years{/b} by specialists who are almost ready to launch the first extra-solar mission to Barnard's Star. Her knowledge will be vital when conducting the first surveys of the star's surface. During this mission she meets the young pilot Kim Jin-Su with whom she must collaborate to take the first samples.",
-	"fr":"Frieda est sortie {b}d'un sommeil de 1024 ans{/b} par des spécialistes en vue d'organiser la première mission extra-solaire vers l'étoile de Barnard. Ses connaissances seront précieuses pour la première analyse de surface de l'étoile. Elle rencontre lors de cette expedition le jeune pilote Kim Jin-Su avec qui elle doit collaborer pour effectuer des prélèvements.",
-	"es":"Frieda es despertada de {b}su sueño de 1024 años{/b} por un grupo de científicos que desea explorar nuevas galaxias. Entre ellos se encuentra el joven piloto Kim Jin-Su."
-  }
-  }, {
-    "date" : 3110,
-    "desc" : {
-	"en":"Back on earth Frieda is summoned by the explorer {b}GL Maubrick{/b} to join the crew of the {b}Gonzak{/b}, a gigantic spaceship which is to explore the Epsilon-Indi system. This was the first time that Frieda set foot on soil outside her own solar system. During these expeditions, she met Kim Jin-Su again who told her about his expedition to Tau-Ceti. It is a system that Frieda knows well, because she studied it when she was at university in the 21st Century.",
-	"fr":"De retour sur terre, Frieda est appelée auprès de l'explorateur {b}GL Maubrick{/b} pour intégrer le {b}Gonzak{/b}, un gigantesque vaisseau spatial qui doit explorer le système Epsilon-Indi. À cette occasion, Frieda pose la première fois le pied sur un sol extra-solaire. Lors de ces expéditions, elle retrouve le pilote Kim Jin-Su qui lui décrit son projet d'expedition sur Tau-Ceti. C'est un système que Frieda connaît bien, car elle l'a étudié durant ses études au 21ème siècle.",
-	"es":"Por primera vez, Frieda pone los pies en suelo extra-galáctico en Epsilon-Indi."
-  }
-  }, {
-    "date" : 3123,
-    "desc" : {
-	"en":"After restocking, Kim Jin-Su and Frieda were authorized to leave the Gonzak to mount their own expedition to Tau-Ceti. Frieda catalogued all the bodies in the system in detail.",
-	"fr":"Lors d'un ravitaillement, Kim Jin-Su et Frieda obtiennent l'autorisation de quitter le Gonzak pour mettre en place leur propre expedition vers Tau-Ceti. Frieda travaille longuement au recensement des différents corps du système.",
-	"es":"Frieda trabaja en un repertorio completo de los cuerpos y recursos alrededor de Tau-Ceti."
-  }
-  }, {
-    "date" : 3123,
-    "desc" : {
-	"en":"The expedition is a success, the discovery of major Boxylium deposits re-energize space travel. Despite the major role played by Frieda in the geolocalisation of sites, the over-mediatization of the event worked out to the advantage of Jin-Su. Frieda was uninterested in the publicity surrounding the event and in the end she decided just to stay in the shadow of the explorer.",
-	"fr":"L'expédition est un succès, la découverte de gisements majeurs de Boxylium relance l'exploration spatiale. Malgré le rôle majeur de Frieda dans la géolocalisation des sites, la surmédiatisation de l'évènement profite surtout à Jin-Su. Frieda qui s'intéresse peu aux publications de l'évènement et au tumulte se résout à vivre dans l'ombre de l'explorateur.",
-	"es":"El equipo de expedición descubre la mayor fuente de Boxylium hasta el momento."
-  }
-  }, {
-    "date" : 3140,
-    "desc" : {
-	"en":"{b}GL Maubrick{/b}, who is the {b}minister of spatial expansion{/b} puts Frieda in charge of organizing 3 successive intergalactic missions. Unfortunately, the colossal workload rendered it impossible for her to actually join the expedition crews. Her age ( 53 ) combined with her 1060 years of cryosleep increase the risk of cryogenic complications.",
-	"fr":"{b}GL Maubrick{/b} qui est désormais {b}ministre de l'expansion spatiale{/b} charge Frieda d'organiser trois missions interstellaires successives, malheureusement ce travail colossal rend inenvisageable son embarquement dans l'une d'entre elle. De plus, son âge de 53 ans, ainsi que ses 1060 années de cryo-sommeil augmentent le risque d'accidents cryogéniques.",
-	"es":"El Ministro de la Exploración Espacial le confía a Frieda la misión de realizar una serie de expediciones."
-  }
-  }, {
-    "date" : 3150,
-    "desc" : {
-	"en":"At the age of 63 Frieda Bergmann's hopes of escaping were buried for good. She left her observatory in Dusseldorf and retired to Bavaria.",
-	"fr":"À 63 ans, les espoirs d'évasion de Frieda Bergmann sont définitivement enterrés. Elle quitte son observatoire de Düsseldorf pour profiter d'une retraite méritée en Bavière.",
-	"es":"Con 63 años, Frieda siente que no está más en condiciones de exponerse a viajes largos y se jubila en Baviera."
-  }
-  }, {
-    "date" : 3151,
-    "desc" : {
-	"en":"Jin-Su calls on Frieda to work on the discovery of a body found in Magellan's great cloud. This would be a real challenge given the massive distance between this galaxy and the Milky Way. Frieda accepts the mission on the condition that she can participate in the expedition and go to the cloud. Kim Jin-Su names her as the ship's navigator, even though he knows that {b}her chances of surviving 16 years of cryosleep are minimal.{/b}",
-	"fr":"Jin-Su fait appel à Frieda pour un repérage de corps dans des systèmes du grand nuage de Magellan. Il s'agit d'un véritable défi technique du fait de l'incroyable distance séparant cette galaxie et la voie lactée. Frieda accepte à la condition qu'elle puisse participer à l'exploration du nuage. Kim Jin-Su la nomme navigatrice mais il sait parfaitement que {b}ses chances de survie d'un cryo-sommeil de 16 ans sont mineures{/b}.",
-	"es":"Jin-Su invita a Frieda a participar en su proyecto de arca espacial. Sabiendo que tal vez sea la última misión de su vida, Frieda se embarca para salvar a la humanidad."
-  }
-  } ]
+  "bio": [
+    {
+      "date": 2037,
+      "desc": {
+        "en": "Born on Earth.",
+        "fr": "Naissance sur Terre.",
+        "es": "Nace en la Tierra."
+      }
+    }, {
+      "date": 2059,
+      "desc": {
+        "en": "In less than 2 years Frieda Bergmann listed more than 100 new stars, from the observatory in Dusseldorf.",
+        "fr": "En moins de 2 ans, Frieda Bergmann recense plus de 100 nouvelles étoiles, au sein de l'observatoire de Düsseldorf.",
+        "es": "En menos de 2 años, Frieda Bergmann crea un registro de 100 nuevas estrellas en su observatorio de Düsseldorf."
+      }
+    }, {
+      "date": 2060,
+      "desc": {
+        "en": "While studying {b}the Shapiro effect{/b}, Frieda proves that the mass of a synthesized black hole could be used to propel space probes at speeds approaching that of light. That same year she was awarded the Nobel Prize for Astrophysics for her publication.",
+        "fr": "En étudiant {b}l'effet Shapiro{/b}, Frieda prouve que la masse d'un trou noir de synthèse peut être utilisée pour propulser des sondes spatiales à des vitesses proches de la lumière. Elle reçoit la même année le prix Nobel d'astro-physique pour sa publication.",
+        "es": "Estudiando el {b}efecto Shapiro{/b}, Frieda prueba teóricamente que es posible sintetizar la energía de un agujero negro para propulsar naves espaciales para alcanzar la velocidad de la luz. Su publicación le hace ganar el premio Nobel de astrofísica."
+      }
+    }, {
+      "date": 2070,
+      "desc": {
+        "en": "At the age of 33, Frieda decides to dedicate the rest of her life to space exploration. However, the sound technology of her time was only barely sufficient to reach the satellites of Jupiter. Frieda called upon {b}Cryo-Hertz{/b} – a society specializing in cryogenic freezing for billionaires and who guarantee an eventual reawakening in a future society in which they will no longer be condemned to die by lack of medical technology.",
+        "fr": "À l'âge de 33 ans Frieda décide de dédier le reste de sa vie à l'exploration spatiale. Malheureusement les technologies de son époque permettent à peine d'atteindre les satellites de Jupiter. Frieda fait donc appelle à {b}Cryo-Hertz{/b} une société de cryogénisation pour milliardaire qui promet à ses clients condamnés par la médecine, une survie éventuelle dans un futur lointain.",
+        "es": "A los 33 años, Frieda se somete a una {b}criogenización{/b} para ver un día su sueño de navegación intergaláctico realizado en forma de máquina."
+      }
+    }, {
+      "date": 3094,
+      "desc": {
+        "en": "Frieda is awakened from {b}a sleep lasting 1024 years{/b} by specialists who are almost ready to launch the first extra-solar mission to Barnard's Star. Her knowledge will be vital when conducting the first surveys of the star's surface. During this mission she meets the young pilot Kim Jin-Su with whom she must collaborate to take the first samples.",
+        "fr": "Frieda est sortie {b}d'un sommeil de 1024 ans{/b} par des spécialistes en vue d'organiser la première mission extra-solaire vers l'étoile de Barnard. Ses connaissances seront précieuses pour la première analyse de surface de l'étoile. Elle rencontre lors de cette expedition le jeune pilote Kim Jin-Su avec qui elle doit collaborer pour effectuer des prélèvements.",
+        "es": "Frieda es despertada de {b}su sueño de 1024 años{/b} por un grupo de científicos que desea explorar nuevas galaxias. Entre ellos se encuentra el joven piloto Kim Jin-Su."
+      }
+    }, {
+      "date": 3110,
+      "desc": {
+        "en": "Back on earth Frieda is summoned by the explorer {b}GL Maubrick{/b} to join the crew of the {b}Gonzak{/b}, a gigantic spaceship which is to explore the Epsilon-Indi system. This was the first time that Frieda set foot on soil outside her own solar system. During these expeditions, she met Kim Jin-Su again who told her about his expedition to Tau-Ceti. It is a system that Frieda knows well, because she studied it when she was at university in the 21st Century.",
+        "fr": "De retour sur terre, Frieda est appelée auprès de l'explorateur {b}GL Maubrick{/b} pour intégrer le {b}Gonzak{/b}, un gigantesque vaisseau spatial qui doit explorer le système Epsilon-Indi. À cette occasion, Frieda pose la première fois le pied sur un sol extra-solaire. Lors de ces expéditions, elle retrouve le pilote Kim Jin-Su qui lui décrit son projet d'expedition sur Tau-Ceti. C'est un système que Frieda connaît bien, car elle l'a étudié durant ses études au 21ème siècle.",
+        "es": "Por primera vez, Frieda pone los pies en suelo extra-galáctico en Epsilon-Indi."
+      }
+    }, {
+      "date": 3123,
+      "desc": {
+        "en": "After restocking, Kim Jin-Su and Frieda were authorized to leave the Gonzak to mount their own expedition to Tau-Ceti. Frieda catalogued all the bodies in the system in detail.",
+        "fr": "Lors d'un ravitaillement, Kim Jin-Su et Frieda obtiennent l'autorisation de quitter le Gonzak pour mettre en place leur propre expedition vers Tau-Ceti. Frieda travaille longuement au recensement des différents corps du système.",
+        "es": "Frieda trabaja en un repertorio completo de los cuerpos y recursos alrededor de Tau-Ceti."
+      }
+    }, {
+      "date": 3123,
+      "desc": {
+        "en": "The expedition is a success, the discovery of major Boxylium deposits re-energize space travel. Despite the major role played by Frieda in the geolocalisation of sites, the over-mediatization of the event worked out to the advantage of Jin-Su. Frieda was uninterested in the publicity surrounding the event and in the end she decided just to stay in the shadow of the explorer.",
+        "fr": "L'expédition est un succès, la découverte de gisements majeurs de Boxylium relance l'exploration spatiale. Malgré le rôle majeur de Frieda dans la géolocalisation des sites, la surmédiatisation de l'évènement profite surtout à Jin-Su. Frieda qui s'intéresse peu aux publications de l'évènement et au tumulte se résout à vivre dans l'ombre de l'explorateur.",
+        "es": "El equipo de expedición descubre la mayor fuente de Boxylium hasta el momento."
+      }
+    }, {
+      "date": 3140,
+      "desc": {
+        "en": "{b}GL Maubrick{/b}, who is the {b}minister of spatial expansion{/b} puts Frieda in charge of organizing 3 successive intergalactic missions. Unfortunately, the colossal workload rendered it impossible for her to actually join the expedition crews. Her age ( 53 ) combined with her 1060 years of cryosleep increase the risk of cryogenic complications.",
+        "fr": "{b}GL Maubrick{/b} qui est désormais {b}ministre de l'expansion spatiale{/b} charge Frieda d'organiser trois missions interstellaires successives, malheureusement ce travail colossal rend inenvisageable son embarquement dans l'une d'entre elle. De plus, son âge de 53 ans, ainsi que ses 1060 années de cryo-sommeil augmentent le risque d'accidents cryogéniques.",
+        "es": "El Ministro de la Exploración Espacial le confía a Frieda la misión de realizar una serie de expediciones."
+      }
+    }, {
+      "date": 3150,
+      "desc": {
+        "en": "At the age of 63 Frieda Bergmann's hopes of escaping were buried for good. She left her observatory in Dusseldorf and retired to Bavaria.",
+        "fr": "À 63 ans, les espoirs d'évasion de Frieda Bergmann sont définitivement enterrés. Elle quitte son observatoire de Düsseldorf pour profiter d'une retraite méritée en Bavière.",
+        "es": "Con 63 años, Frieda siente que no está más en condiciones de exponerse a viajes largos y se jubila en Baviera."
+      }
+    }, {
+      "date": 3151,
+      "desc": {
+        "en": "Jin-Su calls on Frieda to work on the discovery of a body found in Magellan's great cloud. This would be a real challenge given the massive distance between this galaxy and the Milky Way. Frieda accepts the mission on the condition that she can participate in the expedition and go to the cloud. Kim Jin-Su names her as the ship's navigator, even though he knows that {b}her chances of surviving 16 years of cryosleep are minimal.{/b}",
+        "fr": "Jin-Su fait appel à Frieda pour un repérage de corps dans des systèmes du grand nuage de Magellan. Il s'agit d'un véritable défi technique du fait de l'incroyable distance séparant cette galaxie et la voie lactée. Frieda accepte à la condition qu'elle puisse participer à l'exploration du nuage. Kim Jin-Su la nomme navigatrice mais il sait parfaitement que {b}ses chances de survie d'un cryo-sommeil de 16 ans sont mineures{/b}.",
+        "es": "Jin-Su invita a Frieda a participar en su proyecto de arca espacial. Sabiendo que tal vez sea la última misión de su vida, Frieda se embarca para salvar a la humanidad."
+      }
+    }
+  ]
 }

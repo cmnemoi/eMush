@@ -9,10 +9,10 @@
 	"fr":"Chef de l'équipe de sécurité",
 	"es":"Jefe de seguridad"
   },
-  "summary" :{ 
+  "summary" :{
 	"en":"Wang Chao is assigned to crew protection detail. His chaotic personality makes him as much of a threat to his allies as his enemies. Despite errors made in his youth, Chao managed to earn the trust of his team by organising the emergency evacuation convoy from the Daedalus and successfully protecting them against ex-members of the SDF.",
 	"fr":"Wang Chao est assigné à la protection armée de l'équipage. Son caractère chaotique fait de Chao une menace pour ses ennemis comme pour ses amis. Malgré ses erreurs de jeunesse, Chao a gagné une relative confiance de la part de l'équipe en organisant le convoi de départ surprise de Daedalus et en les protégeant efficacement contre ses ex-collègues de la FDS.",
-	"es":"Chao tiene a su cargo la protección armada de la tripulación. Su carácter conflictivo le convierte en una amenaza, tanto para sus enemigos como para sus aliados, por algo le dicen "Gatillo flojo". A pesar de su susceptibilidad, ha sabido ganarse una relativa confianza por parte del equipo al defender con éxito el precipitado despegue del Daedalus."
+	"es":"Chao tiene a su cargo la protección armada de la tripulación. Su carácter conflictivo le convierte en una amenaza, tanto para sus enemigos como para sus aliados, por algo le dicen \"Gatillo flojo\". A pesar de su susceptibilidad, ha sabido ganarse una relativa confianza por parte del equipo al defender con éxito el precipitado despegue del Daedalus."
   },
   "skills" : [
     "SHOOTER",

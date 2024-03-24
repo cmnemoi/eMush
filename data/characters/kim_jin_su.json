@@ -1,20 +1,20 @@
 {
-  "id" : 1,
-  "name" : "Jin Su",
-  "fullName" : "Kim Jin-Su",
-  "age" : {"en":"40","fr":"40 ans","es":"40 años"},
-  "gender" : "male",
-  "profession" : {
-	"en":"Explorer of the Unknown",
-	"fr":"Explorateur de l'inconnu",
-	"es":"Explorador de lo desconocido"
+  "id": 1,
+  "name": "Jin Su",
+  "fullName": "Kim Jin-Su",
+  "age": {"en": "40", "fr": "40 ans", "es": "40 años"},
+  "gender": "male",
+  "profession": {
+    "en": "Explorer of the Unknown",
+    "fr": "Explorateur de l'inconnu",
+    "es": "Explorador de lo desconocido"
   },
-  "summary" : {
-	"en":"Jin-Su started exploring at a young age, on research missions on Barnard Star. He was quickly promoted to the rank of Commander and was placed in charge of important missions on Ross 154 and Epsilon Indi. Jin Su's discovery of multiple Boxylium deposits on Tau-ceti made him an instant interplanetary celebrity. In 3146 the Federation named him as Executive Commander of the Magellan project. Following the Mush invasion of Sol, he drew up the plans for the Daedalus with Lai Kuan-Ti, and assembled an elite crew to ensure the survival of the human race in another galaxy.",
-	"fr":"Il a débuté très jeune dans des missions d'analyse sur Barnard Star. Il est rapidement promu au rang de Commandant et se voit confier des expéditions importantes sur Ross 154 et Epsilon Indi. Sur Tau-Ceti, la découverte de plusieurs gisements de Boxylium font de Jin-Su une célébrité interplanétaire. En 3146, il est nommé par la Fédération pour commander l'exécution du projet Magellan. Suite à l'invasion du Mush sur Sol, il conçoit les plans du Daedalus avec Lai Kuan-Ti, et rassemble un équipage d'élite pour assurer la survie de l'espèce humaine dans une autre galaxie.",
-	"es":"Se inició muy joven en las misiones de análisis de estrellas. Fue rápidamente ascendido al rango de Comandante y se le confió importantes expediciones a Ross 154 y Epsilon Indi. El descubrimiento de yacimientos de Boxylium en Tau-Ceti, le dio a Jin-Su una reputación interplanetaria. En 3146, dirigió el proyecto de la gran nave interestelar Magallanes. Tras la invasión del Sistema Solar por los Mush, la construcción fue detenida; pero Jin-Su logró utilizar algunos de sus componentes para la concepción del Daedalus junto a Lai Kuan-Ti. Perseguido por la Federación, formó un equipo de élite para luchar contra los malignos parásitos e impedir la extinción de la especie humana."
+  "summary": {
+    "en": "Jin-Su started exploring at a young age, on research missions on Barnard Star. He was quickly promoted to the rank of Commander and was placed in charge of important missions on Ross 154 and Epsilon Indi. Jin Su's discovery of multiple Boxylium deposits on Tau-ceti made him an instant interplanetary celebrity. In 3146 the Federation named him as Executive Commander of the Magellan project. Following the Mush invasion of Sol, he drew up the plans for the Daedalus with Lai Kuan-Ti, and assembled an elite crew to ensure the survival of the human race in another galaxy.",
+    "fr": "Il a débuté très jeune dans des missions d'analyse sur Barnard Star. Il est rapidement promu au rang de Commandant et se voit confier des expéditions importantes sur Ross 154 et Epsilon Indi. Sur Tau-Ceti, la découverte de plusieurs gisements de Boxylium font de Jin-Su une célébrité interplanétaire. En 3146, il est nommé par la Fédération pour commander l'exécution du projet Magellan. Suite à l'invasion du Mush sur Sol, il conçoit les plans du Daedalus avec Lai Kuan-Ti, et rassemble un équipage d'élite pour assurer la survie de l'espèce humaine dans une autre galaxie.",
+    "es": "Se inició muy joven en las misiones de análisis de estrellas. Fue rápidamente ascendido al rango de Comandante y se le confió importantes expediciones a Ross 154 y Epsilon Indi. El descubrimiento de yacimientos de Boxylium en Tau-Ceti, le dio a Jin-Su una reputación interplanetaria. En 3146, dirigió el proyecto de la gran nave interestelar Magallanes. Tras la invasión del Sistema Solar por los Mush, la construcción fue detenida; pero Jin-Su logró utilizar algunos de sus componentes para la concepción del Daedalus junto a Lai Kuan-Ti. Perseguido por la Federación, formó un equipo de élite para luchar contra los malignos parásitos e impedir la extinción de la especie humana."
   },
-  "skills" : [
+  "skills": [
     "LEADER",
     "PILOT",
     "COLD_BLOODED",
@@ -22,92 +22,94 @@
     "LOGISTICS_EXPERT",
     "STRATEGURU"
   ],
-  "file" : "kim_jin_su",
-  "color" : "#C0304C",
-  "short" : {
-	"en" : "Supreme Commander of the Daedalus",
-	"fr" : "Commandant suprême du Daedalus",
-	"es" : ""
+  "file": "kim_jin_su",
+  "color": "#C0304C",
+  "short": {
+    "en": "Supreme Commander of the Daedalus",
+    "fr": "Commandant suprême du Daedalus",
+    "es": ""
   },
-  "intro" : {
-	"en" : "A born leader, Jin Su is the supreme commander of the Daedalus. He is in charge of piloting the Daedalus towards planets for expeditions and most importantly, towards Eden.",
-	"fr" : "Jin Su est le commandant suprême du Daedalus. Il mène l'équipage vers de glorieux horizons au péril de sa vie.",
-	"es" : "Jin Su es el comandante supremo del Daedalus. Ante el peligro y por su tripulación, jamás abandonará su puesto, ¡Jamás!"
+  "intro": {
+    "en": "A born leader, Jin Su is the supreme commander of the Daedalus. He is in charge of piloting the Daedalus towards planets for expeditions and most importantly, towards Eden.",
+    "fr": "Jin Su est le commandant suprême du Daedalus. Il mène l'équipage vers de glorieux horizons au péril de sa vie.",
+    "es": "Jin Su es el comandante supremo del Daedalus. Ante el peligro y por su tripulación, jamás abandonará su puesto, ¡Jamás!"
   },
-  "presentation" : {
-	"en" : "",
-	"fr" : "Vous êtes {b}Kim Jin Su{\b}, commandant suprême du Daedalus. Vous êtes pilote et capable de remotiver les troupes avec des discours charismatiques."
-	"es" : ""
+  "presentation": {
+    "en": "",
+    "fr": "Vous êtes {b}Kim Jin Su{\b}, commandant suprême du Daedalus. Vous êtes pilote et capable de remotiver les troupes avec des discours charismatiques."
+    "es": ""
   },
-  "bio" : [ {
-    "date" : 3070,
-    "desc" : {
-	"en":"Born on Earth.",
-	"fr":"Naissance sur Terre.",
-	"es":"Nacimiento en Corea, La Tierra."
-  }
-  }, {
-    "date" : 3095,
-    "desc" : {
-	"en":"Jin-Su begins his piloting classes at the {b}Faculty of Economic and Spatial Sciences on Ganymede{/b}. He quickly became known as the best fighter pilot of his class which snagged him an analyst's position on {b}Barnard Star{/b}.",
-	"fr":"Jin-Su commence des études de pilotage à la {b}Faculté de Sciences Economiques et Spatiales de Ganymède{/b}. Il est très vite considéré comme le meilleur pilote de sa promotion et décroche un stage d'analyste sur la base spatiale de {b}Barnard Star{/b}.",
-	"es":"Jin-Su inicia sus estudios de pilotaje en la {b}Facultad de Ciencias Espaciales de Ganímedes{/b}. Destaca como el mejor alumno de su promoción y hace prácticas en la base espacial de {b}Barnard Star{/b}."
-  }
-  }, {
-    "date" : 3097,
-    "desc" : {
-	"en":"While flying over Barnard Star, an eruption hits his patrol craft. The team lost contact with Jin-Su. Earth media covered the search for the black box from the ship, but there was very little debris left. Jin-Su re-established contact with the station 5 days later at the moment when news of his death was sent to his family. The press recounted the incredible adventure of this young Korean pilot who managed to survive for 126 days orbiting a red dwarf. Kim Jin-Su became an instant celebrity.",
-	"fr":"Au cours du survol de Barnard Star, une éruption touche son patrouilleur. L'équipe perd le contact avec Jin-Su. Les medias terrestres couvrent largement les recherches visant à retrouver la boite noire de l'appareil mais les débris sont peu nombreux. Jim-Su reprend contact 5 jours plus tard avec la station au moment où l'avis de décès est envoyé à sa famille. La presse relate l'aventure incroyable de ce jeune pilote Coréen qui a survécu 126 heures dans des conditions incroyables en orbite autour de la naine rouge. Kim Jin-Su est célèbre.",
-	"es":"Durante un sobrevuelo de Barnard Star, una erupción sacude su patrullero. El equipo pierde contacto con Jin-Su. Los medios terrestres cubren la noticia y la búsqueda de la caja negra pero los restos de la nave son muy escasos. Jin-Su envía un mensaje 5 días después, justo antes de que su familia recibiese una notificación que le daba por muerto. La prensa relata la increíble aventura de este piloto coreano que sobrevivió 126 horas en situaciones extremas. Kim Jin-Su se hizo famoso."
-  }
-  }, {
-    "date" : 3103,
-    "desc" : {
-	"en":"Jin-Su is sent on an exploration mission to the Ross 154 system. He is the first man to set foot on Merlin which will later become the most hyped holiday spot in the galaxy.",
-	"fr":"Jin-Su est envoyé en mission d'exploration dans le système Ross 154. Il est le premier homme à poser le pied sur Merlin qui deviendra plus tard le lieu de villégiature le plus hype de la galaxie.",
-	"es":"Jin-Su es enviado en una misión al sistema Ross 154. Es el primer hombre en poner los pies en Merlin, que se convertiría meses después en el planeta vacacional de moda."
-  }
-  }, {
-    "date" : 3116,
-    "desc" : {
-	"en":"The explorer {b}GL Maubrick{/b} discovers his talents and decides to include him in the crew of the Gonzak, on the first manned flight destined for Epsilon Indi. Jin-Su proved himself to be a key man in times of major crises during expeditions. He notably saved Captain Maubrick from certain death during a flight over the Thorum satellite.",
-	"fr":"L'explorateur {b}GL Maubrick{/b} repère ses talents et décide de l'intégrer à l'équipage du Gonzak, le premier vol habité en direction d' Epsilon Indi. Jin-Su s'y illustre comme l'homme-clé des crises majeurs de l'expédition. Il sauve notamment le capitaine Maubrick d'une mort certaine lors d'un survol du satellite Thorum.",
-	"es":"El explorador {b}GL Maubrick{/b} se interesa en sus talentos y lo recluta en el Gonzak, el primer vuelo tripulado en dirección a Epsilon Indi. Jin-Su destaca como el hombre clave en casos de crisis. Salva al capitán Maubrick de una muerte segura durante un sobrevuelo."
-  }
-  }, {
-    "date" : 3127,
-    "desc" : {
-	"en":"Commander Kim Jin-Su led the first expedition to Tau-Ceti. More than 28 major bodies were recorded, 22 possessing layers of Boxylium under the planet's surface. This is a major discovery not only for the Federation, but also for humanity. Man will now have sufficient resources to explore the Milky Way in its entirety as well as potentially other galaxies.",
-	"fr":"Le commandant Kim Jin-Su dirige la première expedition de Tau-Ceti. Plus de 28 corps majeurs sont recensés, 22 d'entre eux possèdent dans leurs couches inférieures des gisements de Boxylium. C'est une découverte majeur pour la fédération mais également pour l'humanité. L'homme dispose désormais des ressources nécessaires pour explorer la Voie lactée toute entière et peut-être même d'autres galaxies.",
-	"es":"El comandante Kim Jin-Su dirige la primera expedición a Tau-Ceti. De 28 zonas exploradas, 22 poseen yacimientos de Boxylium. Es un descubrimiento trascendental para la Federación y para la humanidad. La humanidad cuenta desde entonces con recursos suficientes para explorar la Vía Láctea entera y las galaxias aledañas."
-  }
-  }, {
-    "date" : 3146,
-    "desc" : {
-	"en":"GL Maubrick takes over the presidency of the Federation. He immediately appoints Jin-Su as a counsellor focusing on the Boxylium shortage dossier. Jin-Su carries out his research and contacts the crew of the {b}Magellan project on Xyloph-17{/b}. There he meets Lai Kuan-Ti who presents his colleague Raluca Tomescu's PILGRED technology to him. This is a major discovery for the federation as it will allow them to access further deposits. {b}Jin-Su convinces Maubrick to finance the production of the Ark{/b} and take the lead on the project.",
-	"fr":"GL Maubrick accède à la présidence de la fédération. Il convoque immédiatement Jin-Su comme conseiller dans le dossier de la pénurie de Boxylium. Jin-Su effectue des recherches et prend contact avec l'équipe du {b}projet Magellan sur Xyloph-17{/b}. Il y rencontre Lai Kuan-Ti qui lui présente la technologie PILGRED de sa collègue Raluca Tomescu. C'est une découverte majeure qui permettrait à la fédération d'accéder à de nouveaux gisements. {b}Jin-Su convainc Maubrick de financer la construction de l'arche{/b} et prend la tête du projet.",
-	"es":"GL Maubrick se convierte en el presidente de la Federación. Convoca inmediatamente a Jin-Su como consejero para resolver la escasez de Boxylium. Jin-Su toma contacto con el equipo del {b}Proyecto Magallanes en Xyloph-17{/b}. Se reúne con Lai Kuan-Ti, quien le presenta la tecnología PILGRED de su colega Raluca Tomescu. Su desarrollo permitiría la exploración de nuevas fuentes de energía. {b}Jin-Su convence a Maubrick de financiar la construcción de la nave{/b} y asume la dirección del proyecto."
-  }
-  }, {
-    "date" : 3152,
-    "desc" : {
-	"en":"Kuan-Ti gives a medical record to Jin-Su which proves that {b}President Maubrick{/b} is infected with the Mush. He wishes to speed up construction and the departure of the Ark in order to save as many humans as possible from the Mush invasion. After consulting with Raluca, Jin-Su receives confirmation that adequate preparation of the PILGRED reactor could not be reduced to less than 12 years. He asked Kuan-Ti and Raluca to revise their plan for a smaller ship capable of transporting a smaller crew of around twenty people.",
-	"fr":"Kuan-Ti présente à Jin-Su une fiche médicale prouvant {b}l'infection au Mush du président Maubrick{/b}. Il veut précipiter la construction et le départ de l'arche afin de sauver le plus grand nombre d'êtres humains possible de l'invasion Mush. Après consultation de Raluca, Jin-Su obtient la certitude que la construction du réacteur PILGRED adéquat ne peut être réduit à moins de 12 ans. Il propose a Kuan-Ti et Raluca de revoir leur plan pour un vaisseau plus petit capable de transporter un équipage d'une vingtaine de personne.",
-	"es":"Kuan-Ti presenta a Jin-Su una ficha médica que prueba la {b}infección del presidente Maubrick con el Mush{/b}. Se ordena la aceleración de las obras para escapar de una inminente invasión. Después de acaloradas discusiones con Raluca, Jin-Su se entera de que el PILGRED más adecuado no podría ser terminado en menos de 12 años. Le propone entonces a Kuan-Ti y Raluca de revisar los planos para construir una nave más pequeña capaz de transportar una veintena de personas: El Daedalus."
-  }
-  }, {
-    "date" : 3153,
-    "desc" : {
-	"en":"Following the disappearance of {b}sergeant Derek Hogan{/b}, Jin-Su manages to dissuade the SDF from launching an investigation. He attracts the mistrust of the administration who wish to advance the date of the bi-yearly report on the magellan report. Jin-Su, who cannot risk a Mush infection, refuses, only to find himself relieved of his duties.",
-	"fr":"Suite à la disparition du {b}sergent Derek Hogan{/b}, Jin-Su parvient à dissuader les inspecteurs de la FDS de lancer une enquête. Il s'attire cependant la méfiance de l'administration qui souhaite avancer la date du rapport biennal sur le projet Magellan. Jin-Su qui ne peut prendre le risque d'une infection au Mush refuse et se voit démis de ses fonctions.",
-	"es":"La desaparición del {b}Sargento Derek Hogan{/b}, pone en riesgo la culminación de la nave y en la Federación se habla del cierre del proyecto. Jin-Su protesta y es retirado de sus funciones."
-  }
-  }, {
-    "date" : 3154,
-    "desc" : {
-	"en":"His replacement, {b}Captain Baranov{/b} is assassinated immediately upon his arrival on Xyloph-17. The Federation is planning an immediate counter-attack but Jin-Su, with the help of a rebel SDF Trooper, manages to evacuate 16 members of the crew. The anticipated startup of the PILGRED reactor is a success, the Daedalus is propelled towards the Magellan nebula at more than a billion m/s.",
-	"fr":"Son remplaçant, {b}le capitaine Baranov{/b} est assassiné dès son arrivé sur Xyloph-17. La fédération planifie une contre-attaque immédiate mais Jin-Su parvient avec l'aide d'un trooper FDS rebelle à évacuer ses 16 membres d'équipage. Le démarrage anticipé du réacteur PILGRED est un succès, le Daedalus est projeté vers le nuage de Magellan à plus d'un milliard de m/s.",
-	"es":"Su remplazante, {b}el Capitán Baranov{/b} es asesinado a su llegada a Xyloph-17. La Federación lanza una intervención armada para capturar a todos los implicados en el proyecto, considerados desde ese momento como subversivos. Jin-Su logra, con la ayuda de un miembro de la FDS, subir al Daedalus junto a 16 tripulantes. El reactor PILGRED arrancó con éxito, el Daedalus partió de la Tierra esquivando los disparos de la FDS."
-  }
-  } ]
+  "bio": [
+    {
+      "date": 3070,
+      "desc": {
+        "en": "Born on Earth.",
+        "fr": "Naissance sur Terre.",
+        "es": "Nacimiento en Corea, La Tierra."
+      }
+    }, {
+      "date": 3095,
+      "desc": {
+        "en": "Jin-Su begins his piloting classes at the {b}Faculty of Economic and Spatial Sciences on Ganymede{/b}. He quickly became known as the best fighter pilot of his class which snagged him an analyst's position on {b}Barnard Star{/b}.",
+        "fr": "Jin-Su commence des études de pilotage à la {b}Faculté de Sciences Economiques et Spatiales de Ganymède{/b}. Il est très vite considéré comme le meilleur pilote de sa promotion et décroche un stage d'analyste sur la base spatiale de {b}Barnard Star{/b}.",
+        "es": "Jin-Su inicia sus estudios de pilotaje en la {b}Facultad de Ciencias Espaciales de Ganímedes{/b}. Destaca como el mejor alumno de su promoción y hace prácticas en la base espacial de {b}Barnard Star{/b}."
+      }
+    }, {
+      "date": 3097,
+      "desc": {
+        "en": "While flying over Barnard Star, an eruption hits his patrol craft. The team lost contact with Jin-Su. Earth media covered the search for the black box from the ship, but there was very little debris left. Jin-Su re-established contact with the station 5 days later at the moment when news of his death was sent to his family. The press recounted the incredible adventure of this young Korean pilot who managed to survive for 126 days orbiting a red dwarf. Kim Jin-Su became an instant celebrity.",
+        "fr": "Au cours du survol de Barnard Star, une éruption touche son patrouilleur. L'équipe perd le contact avec Jin-Su. Les medias terrestres couvrent largement les recherches visant à retrouver la boite noire de l'appareil mais les débris sont peu nombreux. Jim-Su reprend contact 5 jours plus tard avec la station au moment où l'avis de décès est envoyé à sa famille. La presse relate l'aventure incroyable de ce jeune pilote Coréen qui a survécu 126 heures dans des conditions incroyables en orbite autour de la naine rouge. Kim Jin-Su est célèbre.",
+        "es": "Durante un sobrevuelo de Barnard Star, una erupción sacude su patrullero. El equipo pierde contacto con Jin-Su. Los medios terrestres cubren la noticia y la búsqueda de la caja negra pero los restos de la nave son muy escasos. Jin-Su envía un mensaje 5 días después, justo antes de que su familia recibiese una notificación que le daba por muerto. La prensa relata la increíble aventura de este piloto coreano que sobrevivió 126 horas en situaciones extremas. Kim Jin-Su se hizo famoso."
+      }
+    }, {
+      "date": 3103,
+      "desc": {
+        "en": "Jin-Su is sent on an exploration mission to the Ross 154 system. He is the first man to set foot on Merlin which will later become the most hyped holiday spot in the galaxy.",
+        "fr": "Jin-Su est envoyé en mission d'exploration dans le système Ross 154. Il est le premier homme à poser le pied sur Merlin qui deviendra plus tard le lieu de villégiature le plus hype de la galaxie.",
+        "es": "Jin-Su es enviado en una misión al sistema Ross 154. Es el primer hombre en poner los pies en Merlin, que se convertiría meses después en el planeta vacacional de moda."
+      }
+    }, {
+      "date": 3116,
+      "desc": {
+        "en": "The explorer {b}GL Maubrick{/b} discovers his talents and decides to include him in the crew of the Gonzak, on the first manned flight destined for Epsilon Indi. Jin-Su proved himself to be a key man in times of major crises during expeditions. He notably saved Captain Maubrick from certain death during a flight over the Thorum satellite.",
+        "fr": "L'explorateur {b}GL Maubrick{/b} repère ses talents et décide de l'intégrer à l'équipage du Gonzak, le premier vol habité en direction d' Epsilon Indi. Jin-Su s'y illustre comme l'homme-clé des crises majeurs de l'expédition. Il sauve notamment le capitaine Maubrick d'une mort certaine lors d'un survol du satellite Thorum.",
+        "es": "El explorador {b}GL Maubrick{/b} se interesa en sus talentos y lo recluta en el Gonzak, el primer vuelo tripulado en dirección a Epsilon Indi. Jin-Su destaca como el hombre clave en casos de crisis. Salva al capitán Maubrick de una muerte segura durante un sobrevuelo."
+      }
+    }, {
+      "date": 3127,
+      "desc": {
+        "en": "Commander Kim Jin-Su led the first expedition to Tau-Ceti. More than 28 major bodies were recorded, 22 possessing layers of Boxylium under the planet's surface. This is a major discovery not only for the Federation, but also for humanity. Man will now have sufficient resources to explore the Milky Way in its entirety as well as potentially other galaxies.",
+        "fr": "Le commandant Kim Jin-Su dirige la première expedition de Tau-Ceti. Plus de 28 corps majeurs sont recensés, 22 d'entre eux possèdent dans leurs couches inférieures des gisements de Boxylium. C'est une découverte majeur pour la fédération mais également pour l'humanité. L'homme dispose désormais des ressources nécessaires pour explorer la Voie lactée toute entière et peut-être même d'autres galaxies.",
+        "es": "El comandante Kim Jin-Su dirige la primera expedición a Tau-Ceti. De 28 zonas exploradas, 22 poseen yacimientos de Boxylium. Es un descubrimiento trascendental para la Federación y para la humanidad. La humanidad cuenta desde entonces con recursos suficientes para explorar la Vía Láctea entera y las galaxias aledañas."
+      }
+    }, {
+      "date": 3146,
+      "desc": {
+        "en": "GL Maubrick takes over the presidency of the Federation. He immediately appoints Jin-Su as a counsellor focusing on the Boxylium shortage dossier. Jin-Su carries out his research and contacts the crew of the {b}Magellan project on Xyloph-17{/b}. There he meets Lai Kuan-Ti who presents his colleague Raluca Tomescu's PILGRED technology to him. This is a major discovery for the federation as it will allow them to access further deposits. {b}Jin-Su convinces Maubrick to finance the production of the Ark{/b} and take the lead on the project.",
+        "fr": "GL Maubrick accède à la présidence de la fédération. Il convoque immédiatement Jin-Su comme conseiller dans le dossier de la pénurie de Boxylium. Jin-Su effectue des recherches et prend contact avec l'équipe du {b}projet Magellan sur Xyloph-17{/b}. Il y rencontre Lai Kuan-Ti qui lui présente la technologie PILGRED de sa collègue Raluca Tomescu. C'est une découverte majeure qui permettrait à la fédération d'accéder à de nouveaux gisements. {b}Jin-Su convainc Maubrick de financer la construction de l'arche{/b} et prend la tête du projet.",
+        "es": "GL Maubrick se convierte en el presidente de la Federación. Convoca inmediatamente a Jin-Su como consejero para resolver la escasez de Boxylium. Jin-Su toma contacto con el equipo del {b}Proyecto Magallanes en Xyloph-17{/b}. Se reúne con Lai Kuan-Ti, quien le presenta la tecnología PILGRED de su colega Raluca Tomescu. Su desarrollo permitiría la exploración de nuevas fuentes de energía. {b}Jin-Su convence a Maubrick de financiar la construcción de la nave{/b} y asume la dirección del proyecto."
+      }
+    }, {
+      "date": 3152,
+      "desc": {
+        "en": "Kuan-Ti gives a medical record to Jin-Su which proves that {b}President Maubrick{/b} is infected with the Mush. He wishes to speed up construction and the departure of the Ark in order to save as many humans as possible from the Mush invasion. After consulting with Raluca, Jin-Su receives confirmation that adequate preparation of the PILGRED reactor could not be reduced to less than 12 years. He asked Kuan-Ti and Raluca to revise their plan for a smaller ship capable of transporting a smaller crew of around twenty people.",
+        "fr": "Kuan-Ti présente à Jin-Su une fiche médicale prouvant {b}l'infection au Mush du président Maubrick{/b}. Il veut précipiter la construction et le départ de l'arche afin de sauver le plus grand nombre d'êtres humains possible de l'invasion Mush. Après consultation de Raluca, Jin-Su obtient la certitude que la construction du réacteur PILGRED adéquat ne peut être réduit à moins de 12 ans. Il propose a Kuan-Ti et Raluca de revoir leur plan pour un vaisseau plus petit capable de transporter un équipage d'une vingtaine de personne.",
+        "es": "Kuan-Ti presenta a Jin-Su una ficha médica que prueba la {b}infección del presidente Maubrick con el Mush{/b}. Se ordena la aceleración de las obras para escapar de una inminente invasión. Después de acaloradas discusiones con Raluca, Jin-Su se entera de que el PILGRED más adecuado no podría ser terminado en menos de 12 años. Le propone entonces a Kuan-Ti y Raluca de revisar los planos para construir una nave más pequeña capaz de transportar una veintena de personas: El Daedalus."
+      }
+    }, {
+      "date": 3153,
+      "desc": {
+        "en": "Following the disappearance of {b}sergeant Derek Hogan{/b}, Jin-Su manages to dissuade the SDF from launching an investigation. He attracts the mistrust of the administration who wish to advance the date of the bi-yearly report on the magellan report. Jin-Su, who cannot risk a Mush infection, refuses, only to find himself relieved of his duties.",
+        "fr": "Suite à la disparition du {b}sergent Derek Hogan{/b}, Jin-Su parvient à dissuader les inspecteurs de la FDS de lancer une enquête. Il s'attire cependant la méfiance de l'administration qui souhaite avancer la date du rapport biennal sur le projet Magellan. Jin-Su qui ne peut prendre le risque d'une infection au Mush refuse et se voit démis de ses fonctions.",
+        "es": "La desaparición del {b}Sargento Derek Hogan{/b}, pone en riesgo la culminación de la nave y en la Federación se habla del cierre del proyecto. Jin-Su protesta y es retirado de sus funciones."
+      }
+    }, {
+      "date": 3154,
+      "desc": {
+        "en": "His replacement, {b}Captain Baranov{/b} is assassinated immediately upon his arrival on Xyloph-17. The Federation is planning an immediate counter-attack but Jin-Su, with the help of a rebel SDF Trooper, manages to evacuate 16 members of the crew. The anticipated startup of the PILGRED reactor is a success, the Daedalus is propelled towards the Magellan nebula at more than a billion m/s.",
+        "fr": "Son remplaçant, {b}le capitaine Baranov{/b} est assassiné dès son arrivé sur Xyloph-17. La fédération planifie une contre-attaque immédiate mais Jin-Su parvient avec l'aide d'un trooper FDS rebelle à évacuer ses 16 membres d'équipage. Le démarrage anticipé du réacteur PILGRED est un succès, le Daedalus est projeté vers le nuage de Magellan à plus d'un milliard de m/s.",
+        "es": "Su remplazante, {b}el Capitán Baranov{/b} es asesinado a su llegada a Xyloph-17. La Federación lanza una intervención armada para capturar a todos los implicados en el proyecto, considerados desde ese momento como subversivos. Jin-Su logra, con la ayuda de un miembro de la FDS, subir al Daedalus junto a 16 tripulantes. El reactor PILGRED arrancó con éxito, el Daedalus partió de la Tierra esquivando los disparos de la FDS."
+      }
+    }
+  ]
 }

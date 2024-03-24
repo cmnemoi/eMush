@@ -1,112 +1,142 @@
 {
-  "id" : 12,
-  "name" : "Chun",
-  "fullName" : "Zhong Chun",
-  "age" : {"en":"33","fr":"33 ans","es":"33 años"},
-  "gender" : "female",
-  "profession" : {
-	"en":"Maintenance Operative",
-	"fr":"Agent de maintenance",
-	"es":"Agente de mantenimiento"
+  "id": 12,
+  "name": "Chun",
+  "fullName": "Zhong Chun",
+  "age": {"en": "33", "fr": "33 ans", "es": "33 años"},
+  "gender": "female",
+  "profession": {
+    "en": "Maintenance Operative",
+    "fr": "Agent de maintenance",
+    "es": "Agente de mantenimiento"
   },
-  "summary" : {
-	"en":"As the only surviving member of the Tamina medical team, Chun was forced to board the Daedelus to be subjected to numerous tests. Cryogenically frozen by the Federation for over 9 years to ensure her silence, then harassed by journalists, Chun has never known an ordinary life. However, as the key to the survival of the human race, Zhong Chun must survive at all costs.",
-	"fr":"Parce qu'elle est la seule survivante de l'équipe médicale de Tamina, Chun a été embarquée sur le Daedelus pour être assujettie à plusieurs analyses. Cryogénisée par la Fédération pendant plus de 9 ans pour assurer son silence, puis harcelée par les journalistes, Chun n'a jamais connu une vie normale. Elle est pourtant la clé pour la survie de l'espèce humaine, Zhong Chun doit survivre à tout prix.",
-	"es":"Ella es la única superviviente de un equipo médico infectado por el Mush y es la clave para vencer la invasión, ¡por lo tanto no debe morir! Chun ha sido embarcada en el Daedelus para ser analizada y protegida. Fue criogenizada para guardar su secreto."
+  "summary": {
+    "en": "As the only surviving member of the Tamina medical team, Chun was forced to board the Daedelus to be subjected to numerous tests. Cryogenically frozen by the Federation for over 9 years to ensure her silence, then harassed by journalists, Chun has never known an ordinary life. However, as the key to the survival of the human race, Zhong Chun must survive at all costs.",
+    "fr": "Parce qu'elle est la seule survivante de l'équipe médicale de Tamina, Chun a été embarquée sur le Daedelus pour être assujettie à plusieurs analyses. Cryogénisée par la Fédération pendant plus de 9 ans pour assurer son silence, puis harcelée par les journalistes, Chun n'a jamais connu une vie normale. Elle est pourtant la clé pour la survie de l'espèce humaine, Zhong Chun doit survivre à tout prix.",
+    "es": "Ella es la única superviviente de un equipo médico infectado por el Mush y es la clave para vencer la invasión, ¡por lo tanto no debe morir! Chun ha sido embarcada en el Daedelus para ser analizada y protegida. Fue criogenizada para guardar su secreto."
   },
-  "skills" : [
+  "skills": [
     "MANKINDS_ONLY_HOPE",
     "NURSE",
     "PREMONITION",
     "SNEAK",
     "LETHARGY"
   ],
-  "file" : "zhong_chun",
-  "color" : "#DDD3CA",
-  "short" : {
-	"en" : "Everyone on board is important, but she is Humanity's last hope!",
-	"fr" : "Dernier espoir de l'Humanité",
-	"es" : "Última esperanza para la humanidad"
+  "file": "zhong_chun",
+  "color": "#DDD3CA",
+  "short": {
+    "en": "Everyone on board is important, but she is Humanity's last hope!",
+    "fr": "Dernier espoir de l'Humanité",
+    "es": "Última esperanza para la humanidad"
   },
-  "intro" : {
-	"en" : "Our last hope. She must survive and make the journey to Eden. She inspires the crew to achieve more, and when misfortune befalls her comrades she is always there to patch them up.",
-	"fr" : "Notre dernier espoir. Elle doit survivre. Elle possède quelques compétences médicales qui pourront aider.",
-	"es" : "Nuestra última esperanza. Ella debe sobrevivir, pues posee el secreto para eliminar al Mush."
+  "intro": {
+    "en": "Our last hope. She must survive and make the journey to Eden. She inspires the crew to achieve more, and when misfortune befalls her comrades she is always there to patch them up.",
+    "fr": "Notre dernier espoir. Elle doit survivre. Elle possède quelques compétences médicales qui pourront aider.",
+    "es": "Nuestra última esperanza. Ella debe sobrevivir, pues posee el secreto para eliminar al Mush."
   },
-  "presentation" : {
-	"en" : "",
-	"fr" : "Vous êtes {b}Zhon Chun{\b}, la seule immunisée au Mush ! Toujours prête à apprendre, vous appliquez avec enthousiasme vos connaissances en infirmerie."
-	"es" : ""
+  "presentation": {
+    "en": "",
+    "fr": "Vous êtes {b}Zhon Chun{\b}, la seule immunisée au Mush ! Toujours prête à apprendre, vous appliquez avec enthousiasme vos connaissances en infirmerie."
+    "es": ""
   },
-  "bio" : [ {
-    "date" : 3110,
-    "desc" : { 	"en":"Born in Vladivostok in China.",
-	"fr":"Naissance à Vladivostok en Chine.",
-	"es":"Nace en Vladivostok."}
-  }, {
-    "date" : 3129,
-    "desc" : { 	"en":"Zhong Chun joined the nurses-auxiliary missionary corps and set off in an intergalactic convoy to participate in the great colonisation of Tau Ceti. 6 months before she left, she completed an intensive nursing course.",
-	"fr":"Zhong Chun rejoint le corps des missionnaire-infirmiers et s'embarque dans un train interstellaire pour le grand plan de colonisation de Tau Ceti. Elle reçoit 6 mois avant son départ une formation accélérée d'infirmière.",
-	"es":"Zhong Chun se une al cuerpo médico que acompaña la colonización de Tau Ceti."   }
-  }, {
-    "date" : 3131,
-    "desc" : { 	"en":"Chun is assigned to the Tamina expedition support team. This luxurious planet has an abundance of animal and plant life, but because of the importance of the Boxylium deposits this does not spark much initial interest from Kim Jin-Su.",
-	"fr":"Chun est attachée au soutien de l'expedition de Tamina. Cette planète luxuriante regorge de formes de vies animales et végétales, mais privée de gisement de Boxylium elle n'a soulevé que peu d'interêt dans l'équipe du commandant Kim Jin-Su lors du premier survol.",
-	"es":"Chun parte junto con su equipo a Tamina, un planeta exhuberante de formas de vida."   }
-  }, {
-    "date" : 3132,
-    "desc" : { 	"en":"After two explorers falling ill after routine surface expeditions, the ship is rapidly re-routed to join Antemis on Tau Ceti III. During the voyage, the young explorer {b}Daryn William{/b} dies under Chun's eyes. The second pilot is still alive when he goes into the operating block.What happens next is a nightmare. In the middle of the operation, two assistants begin to vomit violently.The quarantine alarm sounds and the entire medical bay is sealed. Chun goes from one patient to the next, but in less than 36h the entire exploration and medical staff have succumb to what seems to be a {b}highly contagious form of fungal apraxia{/b}. {b}Of the entire group, Chun is the only survivor{/b}.",
-	"fr":"Suite à la maladie de deux explorateurs de l'expédition de surface, le vaisseau rejoint rapidement Antémis sur Tau Ceti III. Pendant le voyage, le jeune explorateur {b}Daryn William{/b} meurt sous les yeux de Chun. Le second pilote est encore en vie lorsqu'ils entrent dans le bloc opératoire. La suite relève du cauchemar. En pleine opération, deux assistants sont pris de violents vomissements. L'alarme de quarantaine est déclenchée et l'ensemble du bloc médical est automatiquement scellé. Chun passe d'un patient à un autre, mais en moins de 36h la totalité des explorateurs et des médecins succombent à ce qui semble être une {/b}forme fulgurante d'apraxie fongique{/b}. {/b}Chun est l'unique survivante du groupe{/b}.",
-	"es":"La súbita enfermedad de dos exploradores obliga a la misión a volver a su base. Durante el viaje, el joven cadete {b}Daryn William{/b} muere a pesar de los cuidados de Chun. El segundo, ingresa a la sala de operaciones y empieza la pesadilla... En plena operación, los cirujanos padecen de cólicos y vómitos fulminantes. La alarma de cuarentena es lanzada y Chun socorre a los caídos. En menos de 36 horas todos los médicos, asistentes y expedicionarios fallecen por una {b}forma de infección fúngica alienígena{/b}. {b}Chun es la única superviviente del equipo y del planeta Tamina{/b}."   }
-  }, {
-    "date" : 3132,
-    "desc" : { 	"en":"In a state of shock, Chun is sent back to Earth. Upon her arrival, her cryosleep is prolonged for an unspecified period by the government. Officially there were no survivor of the Tamina disaster.",
-	"fr":"En état de choc, Chun est renvoyée sur Terre. À l'arrivée, son sommeil cryogénique est prolongé pour une durée indéterminée sur ordre du gouvernement. Il n'y a officiellement aucun survivant à la catastrophe de Tamina.",
-	"es":"En estado de shock, Chun es enviada a la Tierra. A su llegada, el gobierno de la FDS decide someterla a una criogenización forzada."   }
-  }, {
-    "date" : 3141,
-    "desc" : { 	"en":"Chun wakes up in Central America where she awakes in the presence of a team led by {b}Nils Carlsson{/b}. She had been their test subject for the last 9 years. She is rehomed in the suburbs not far from the laboratory under an assumed name. In questioning Professor Carlsson, she learns that the infection discovered on Tamina has spread to Tau-Cetiand that the sanitation department is currently working on a vaccine to stop the spread. The colonists have not been advised.",
-	"fr":"Chun se réveille en Amérique centrale en présence d'une équipe scientifique dirigé par {b}Nils Carlsson{/b}. Elle a été leur sujet d'analyse durant ses 9 dernières années. Elle est relogée dans une banlieue non loin du laboratoire sous une fausse identité. En questionnant le professeur Carlsson, elle apprend que l'infection fongique de Tamina s'est étendue à Tau-Ceti et que le département sanitaire travaille actuellement à un vaccin permettant de stopper son extension. Les colons n'ont pas été avertis.",
-	"es":"Chun se despierta en América Central gracias al equipo científico dirigido por {b}Nils Carlsson{/b}. Desconcertada, se entera de que todo el cuerpo médico y los expedicionarios de Tamina fallecieron y que la infección se extiende a Tau-Ceti."   }
-  }, {
-    "date" : 3142,
-    "desc" : { 	"en":"An SNC journalist catches up with Chun and asks her exactly what happened on Tamina.Chun answered his questions but didn't mention the pandemic on Tau-Ceti for fear of causing widespread panic throughout the system.",
-	"fr":"Une journaliste de SNC retrouve sa trace et la questionne sur le déroulement de l'incident de Tamina. Chun répond aux questions mais ne mentionne pas la pandémie de Tau-Ceti par peur de déclencher un mouvement de panique dans ce système.",
-	"es":"Una periodosta de la cadena SNC le hace una entrevista exclusiva sobre la tragedia de Tamina. Chun responde a todas las preguntas pero evita mencionar la inminente llegada de la infección a Tau-Ceti para evitar el pánico general."   }
-  }, {
-    "date" : 3143,
-    "desc" : { 	"en":"Nils finally completes his analysis of Chun's immune system. He manages to isolate a sample of harmless mycelium which encourages human antibodies to gradually reject the mush. The Anti-Fungal vaccine is sent to Tau-Ceti.",
-	"fr":"Les recherches de Nils sur le système immunitaire de Chun aboutissent enfin. Il parvient à isoler une souche de mycelium inoffensive formant les anticorps humains à une réaction de rejet progressive. Le vaccin anti-fongique est envoyé vers Tau-Ceti.",
-	"es":"Las investigaciones de Nils sobre el sistema inmunitario de Chun llegan a su fin. Gracias a una compleja operación celular, logra extraer el anticuerpo que protegió su organismo. La vacuna es enviada a Tau-Ceti."   }
-  }, {
-    "date" : 3145,
-    "desc" : { 	"en":"While a massive preventative vaccination campaign is arranged on Antemis under some creative pretext, a spontaneous rebellion bursts out amongst the miners. A story breaks that the new vaccine transforms you into a mindless zombie to be enslaved in the mines of Sol.Only a handful of miners could be vaccinated before the SDF were obliged to leave the system.",
-	"fr":"Alors qu'une gigantesque campagne de vaccination préventive est organisé sur Antémis sous un prétexte fallacieux, une rébellion spontanée éclate parmis les mineurs. Le bruit court que le nouveau vaccin doit les transformer en zombie à la solde des firmes minières de Sol. Seul une poignée de mineurs peuvent être vaccinés avant que la FDS ne soit contrainte à quitter le système.",
-	"es":"Un grupo de médicos, organiza una campaña de vacunación encubierta para evitar el caos en la población."   }
-  }, {
-    "date" : 3149,
-    "desc" : { 	"en":"The official Federation announcement of the existence of Mush sets off an unprecedented media storm. News of Zhong Chun's existence rapidly breaks and she finds herself constantly harassed by groups of journalists. To escape the unrest, {b}Professor Nils sends Chun to Xyloph-17{/b}, the base from where her colleague Kim Jin-Su is organising a voyage to the Magellan nebula.",
-	"fr":"L'annonce officielle de l'existence du Mush par la fédération provoque un tollé médiatique sans précédent. L'existence de Zhong Chun filtre rapidement et elle est constamment harcelée par des équipes de journalistes. Pour l'éloigner du tumulte, {b}le professeur Nils envoie Chun sur la base de Xyloph-17{/b} où son collègue Kim Jin-Su organise une expedition vers le nuage de Magellan.",
-	"es":"Se filtra la primera información sobre la existencia del Mush en los medios locales y el escándalo se desata. Zhong Chun es acosada por periodistas y grupos de poder. Para evitar que le hagan daño, {b}el profesor Nils envía a Chun a la base de Xyloph-17{/b} donde Kim Jin-Su construye la gran nave Magallanes."   }
-  }, {
-    "date" : 3151,
-    "desc" : { 	"en":"Chun worked for two years on the orbital platform as a maintenance operative. Only Kim Jin-Su, the commander of operations, knew her true identity. Despite the satisfaction of finally being able to lead a normal life, Chun worried for Carlsson's safety as he was supposed to join her a few months later.",
-	"fr":"Chun travaille durant deux ans comme agent de maintenance sur la plateforme orbitale. Seul le commandant des opérations Kim Jin-Su connait sa véritable identité. Malgré la satisfaction de pouvoir enfin mener une vie normale, Chun s'inquiète du retard du professeur Carlsson qui devait la rejoindre quelques mois après son arrivée.",
-	"es":"Chun trabaja dos años como agente de mantenimiento en Xyloph-17. Solo el comandante Kim Jin-Su conoce su verdadera identidad. A los pocos meses de su nueva vida, Chun empieza a preocuparse por el profesor Carlsson, quien debería también llegar para ser protegido en la base."   }
-  }, {
-    "date" : 3152,
-    "desc" : { 	"en":"The {b}journalist Eleesha Williams{/b} who interviewed her 10 years previously suddenly contacts the crew with some alarming news.According to a note left by Carlsson dating from 3150, the decision makers of the Federation are infected.",
-	"fr":"La {b}journaliste Eleesha Williams{/b} qui l'avait interrogé 10 ans auparavant contacte l'équipage avec une nouvelle alarmante. Selon une note du professeur Carlsson datant de 3150, les dirigeants de la federation seraient infectés.",
-	"es":"La {b}periodista Eleesha Williams{/b} quien había entrevistado a Chun 10 años antes, contacta con el equipo Magallanes para revelar una terrible noticia. Según el profesor Carlsson, los dirigentes de la FDS están infectados con el Mush."   }
-  }, {
-    "date" : 3153,
-    "desc" : { 	"en":"Professor Carlsson finally makes it to the orbital platform, Chun's true identity is revealed to the crew.They started working together again to isolate another mycelium sample and restart vaccine production. However, Nils' deteriorating health hampers progress considerably.",
-	"fr":"Le professeur Carlsson parvient finalement à rejoindre la plateforme orbitale, l'identité réelle de Chun est révélée au reste de l'équipage. Ils reprennent ensemble les travaux afin d'isoler une nouvelle souche permettant de reprendre la production du vaccin. Cependant l'état de santé de Nils se dégrade et sa progression en est entravée.",
-	"es":"El profesor Carlsson llega a la base orbital, y la identidad de Chun es revelada al equipo de Kim Jin-Su para que sea protegida. Carlsson transfiere los estudios del Mush pero su salud se degrada poco a poco."   }
-  }, {
-    "date" : 3154,
-    "desc" : { 	"en":"The invasion of the orbital platform by the FDS provokes the hurried departure of the Daedalus. Professor Carlsson isn't up to following the team, so is obliged to leave Chun facing her compelling destiny.",
-	"fr":"L'invasion de la plateforme orbitale par la FDS provoque le départ anticipé du Daedalus. Le professeur Carlsson n'est pas en mesure de suivre l'équipage, il laisse Chun face à son écrasante destinée.",
-	"es":"El ataque a la base orbital por la FDS provoca el despegue del Daedalus. Carlsson, sin fuerzas para partir, se queda en Xyloph-17."   }
-  } ]
+  "bio": [
+    {
+      "date": 3110,
+      "desc": {
+        "en": "Born in Vladivostok in China.",
+        "fr": "Naissance à Vladivostok en Chine.",
+        "es": "Nace en Vladivostok."
+      }
+    }, {
+      "date": 3129,
+      "desc": {
+        "en": "Zhong Chun joined the nurses-auxiliary missionary corps and set off in an intergalactic convoy to participate in the great colonisation of Tau Ceti. 6 months before she left, she completed an intensive nursing course.",
+        "fr": "Zhong Chun rejoint le corps des missionnaire-infirmiers et s'embarque dans un train interstellaire pour le grand plan de colonisation de Tau Ceti. Elle reçoit 6 mois avant son départ une formation accélérée d'infirmière.",
+        "es": "Zhong Chun se une al cuerpo médico que acompaña la colonización de Tau Ceti."
+      }
+    }, {
+      "date": 3131,
+      "desc": {
+        "en": "Chun is assigned to the Tamina expedition support team. This luxurious planet has an abundance of animal and plant life, but because of the importance of the Boxylium deposits this does not spark much initial interest from Kim Jin-Su.",
+        "fr": "Chun est attachée au soutien de l'expedition de Tamina. Cette planète luxuriante regorge de formes de vies animales et végétales, mais privée de gisement de Boxylium elle n'a soulevé que peu d'interêt dans l'équipe du commandant Kim Jin-Su lors du premier survol.",
+        "es": "Chun parte junto con su equipo a Tamina, un planeta exhuberante de formas de vida."
+      }
+    }, {
+      "date": 3132,
+      "desc": {
+        "en": "After two explorers falling ill after routine surface expeditions, the ship is rapidly re-routed to join Antemis on Tau Ceti III. During the voyage, the young explorer {b}Daryn William{/b} dies under Chun's eyes. The second pilot is still alive when he goes into the operating block.What happens next is a nightmare. In the middle of the operation, two assistants begin to vomit violently.The quarantine alarm sounds and the entire medical bay is sealed. Chun goes from one patient to the next, but in less than 36h the entire exploration and medical staff have succumb to what seems to be a {b}highly contagious form of fungal apraxia{/b}. {b}Of the entire group, Chun is the only survivor{/b}.",
+        "fr": "Suite à la maladie de deux explorateurs de l'expédition de surface, le vaisseau rejoint rapidement Antémis sur Tau Ceti III. Pendant le voyage, le jeune explorateur {b}Daryn William{/b} meurt sous les yeux de Chun. Le second pilote est encore en vie lorsqu'ils entrent dans le bloc opératoire. La suite relève du cauchemar. En pleine opération, deux assistants sont pris de violents vomissements. L'alarme de quarantaine est déclenchée et l'ensemble du bloc médical est automatiquement scellé. Chun passe d'un patient à un autre, mais en moins de 36h la totalité des explorateurs et des médecins succombent à ce qui semble être une {/b}forme fulgurante d'apraxie fongique{/b}. {/b}Chun est l'unique survivante du groupe{/b}.",
+        "es": "La súbita enfermedad de dos exploradores obliga a la misión a volver a su base. Durante el viaje, el joven cadete {b}Daryn William{/b} muere a pesar de los cuidados de Chun. El segundo, ingresa a la sala de operaciones y empieza la pesadilla... En plena operación, los cirujanos padecen de cólicos y vómitos fulminantes. La alarma de cuarentena es lanzada y Chun socorre a los caídos. En menos de 36 horas todos los médicos, asistentes y expedicionarios fallecen por una {b}forma de infección fúngica alienígena{/b}. {b}Chun es la única superviviente del equipo y del planeta Tamina{/b}."
+      }
+    }, {
+      "date": 3132,
+      "desc": {
+        "en": "In a state of shock, Chun is sent back to Earth. Upon her arrival, her cryosleep is prolonged for an unspecified period by the government. Officially there were no survivor of the Tamina disaster.",
+        "fr": "En état de choc, Chun est renvoyée sur Terre. À l'arrivée, son sommeil cryogénique est prolongé pour une durée indéterminée sur ordre du gouvernement. Il n'y a officiellement aucun survivant à la catastrophe de Tamina.",
+        "es": "En estado de shock, Chun es enviada a la Tierra. A su llegada, el gobierno de la FDS decide someterla a una criogenización forzada."
+      }
+    }, {
+      "date": 3141,
+      "desc": {
+        "en": "Chun wakes up in Central America where she awakes in the presence of a team led by {b}Nils Carlsson{/b}. She had been their test subject for the last 9 years. She is rehomed in the suburbs not far from the laboratory under an assumed name. In questioning Professor Carlsson, she learns that the infection discovered on Tamina has spread to Tau-Cetiand that the sanitation department is currently working on a vaccine to stop the spread. The colonists have not been advised.",
+        "fr": "Chun se réveille en Amérique centrale en présence d'une équipe scientifique dirigé par {b}Nils Carlsson{/b}. Elle a été leur sujet d'analyse durant ses 9 dernières années. Elle est relogée dans une banlieue non loin du laboratoire sous une fausse identité. En questionnant le professeur Carlsson, elle apprend que l'infection fongique de Tamina s'est étendue à Tau-Ceti et que le département sanitaire travaille actuellement à un vaccin permettant de stopper son extension. Les colons n'ont pas été avertis.",
+        "es": "Chun se despierta en América Central gracias al equipo científico dirigido por {b}Nils Carlsson{/b}. Desconcertada, se entera de que todo el cuerpo médico y los expedicionarios de Tamina fallecieron y que la infección se extiende a Tau-Ceti."
+      }
+    }, {
+      "date": 3142,
+      "desc": {
+        "en": "An SNC journalist catches up with Chun and asks her exactly what happened on Tamina.Chun answered his questions but didn't mention the pandemic on Tau-Ceti for fear of causing widespread panic throughout the system.",
+        "fr": "Une journaliste de SNC retrouve sa trace et la questionne sur le déroulement de l'incident de Tamina. Chun répond aux questions mais ne mentionne pas la pandémie de Tau-Ceti par peur de déclencher un mouvement de panique dans ce système.",
+        "es": "Una periodosta de la cadena SNC le hace una entrevista exclusiva sobre la tragedia de Tamina. Chun responde a todas las preguntas pero evita mencionar la inminente llegada de la infección a Tau-Ceti para evitar el pánico general."
+      }
+    }, {
+      "date": 3143,
+      "desc": {
+        "en": "Nils finally completes his analysis of Chun's immune system. He manages to isolate a sample of harmless mycelium which encourages human antibodies to gradually reject the mush. The Anti-Fungal vaccine is sent to Tau-Ceti.",
+        "fr": "Les recherches de Nils sur le système immunitaire de Chun aboutissent enfin. Il parvient à isoler une souche de mycelium inoffensive formant les anticorps humains à une réaction de rejet progressive. Le vaccin anti-fongique est envoyé vers Tau-Ceti.",
+        "es": "Las investigaciones de Nils sobre el sistema inmunitario de Chun llegan a su fin. Gracias a una compleja operación celular, logra extraer el anticuerpo que protegió su organismo. La vacuna es enviada a Tau-Ceti."
+      }
+    }, {
+      "date": 3145,
+      "desc": {
+        "en": "While a massive preventative vaccination campaign is arranged on Antemis under some creative pretext, a spontaneous rebellion bursts out amongst the miners. A story breaks that the new vaccine transforms you into a mindless zombie to be enslaved in the mines of Sol.Only a handful of miners could be vaccinated before the SDF were obliged to leave the system.",
+        "fr": "Alors qu'une gigantesque campagne de vaccination préventive est organisé sur Antémis sous un prétexte fallacieux, une rébellion spontanée éclate parmis les mineurs. Le bruit court que le nouveau vaccin doit les transformer en zombie à la solde des firmes minières de Sol. Seul une poignée de mineurs peuvent être vaccinés avant que la FDS ne soit contrainte à quitter le système.",
+        "es": "Un grupo de médicos, organiza una campaña de vacunación encubierta para evitar el caos en la población."
+      }
+    }, {
+      "date": 3149,
+      "desc": {
+        "en": "The official Federation announcement of the existence of Mush sets off an unprecedented media storm. News of Zhong Chun's existence rapidly breaks and she finds herself constantly harassed by groups of journalists. To escape the unrest, {b}Professor Nils sends Chun to Xyloph-17{/b}, the base from where her colleague Kim Jin-Su is organising a voyage to the Magellan nebula.",
+        "fr": "L'annonce officielle de l'existence du Mush par la fédération provoque un tollé médiatique sans précédent. L'existence de Zhong Chun filtre rapidement et elle est constamment harcelée par des équipes de journalistes. Pour l'éloigner du tumulte, {b}le professeur Nils envoie Chun sur la base de Xyloph-17{/b} où son collègue Kim Jin-Su organise une expedition vers le nuage de Magellan.",
+        "es": "Se filtra la primera información sobre la existencia del Mush en los medios locales y el escándalo se desata. Zhong Chun es acosada por periodistas y grupos de poder. Para evitar que le hagan daño, {b}el profesor Nils envía a Chun a la base de Xyloph-17{/b} donde Kim Jin-Su construye la gran nave Magallanes."
+      }
+    }, {
+      "date": 3151,
+      "desc": {
+        "en": "Chun worked for two years on the orbital platform as a maintenance operative. Only Kim Jin-Su, the commander of operations, knew her true identity. Despite the satisfaction of finally being able to lead a normal life, Chun worried for Carlsson's safety as he was supposed to join her a few months later.",
+        "fr": "Chun travaille durant deux ans comme agent de maintenance sur la plateforme orbitale. Seul le commandant des opérations Kim Jin-Su connait sa véritable identité. Malgré la satisfaction de pouvoir enfin mener une vie normale, Chun s'inquiète du retard du professeur Carlsson qui devait la rejoindre quelques mois après son arrivée.",
+        "es": "Chun trabaja dos años como agente de mantenimiento en Xyloph-17. Solo el comandante Kim Jin-Su conoce su verdadera identidad. A los pocos meses de su nueva vida, Chun empieza a preocuparse por el profesor Carlsson, quien debería también llegar para ser protegido en la base."
+      }
+    }, {
+      "date": 3152,
+      "desc": {
+        "en": "The {b}journalist Eleesha Williams{/b} who interviewed her 10 years previously suddenly contacts the crew with some alarming news.According to a note left by Carlsson dating from 3150, the decision makers of the Federation are infected.",
+        "fr": "La {b}journaliste Eleesha Williams{/b} qui l'avait interrogé 10 ans auparavant contacte l'équipage avec une nouvelle alarmante. Selon une note du professeur Carlsson datant de 3150, les dirigeants de la federation seraient infectés.",
+        "es": "La {b}periodista Eleesha Williams{/b} quien había entrevistado a Chun 10 años antes, contacta con el equipo Magallanes para revelar una terrible noticia. Según el profesor Carlsson, los dirigentes de la FDS están infectados con el Mush."
+      }
+    }, {
+      "date": 3153,
+      "desc": {
+        "en": "Professor Carlsson finally makes it to the orbital platform, Chun's true identity is revealed to the crew.They started working together again to isolate another mycelium sample and restart vaccine production. However, Nils' deteriorating health hampers progress considerably.",
+        "fr": "Le professeur Carlsson parvient finalement à rejoindre la plateforme orbitale, l'identité réelle de Chun est révélée au reste de l'équipage. Ils reprennent ensemble les travaux afin d'isoler une nouvelle souche permettant de reprendre la production du vaccin. Cependant l'état de santé de Nils se dégrade et sa progression en est entravée.",
+        "es": "El profesor Carlsson llega a la base orbital, y la identidad de Chun es revelada al equipo de Kim Jin-Su para que sea protegida. Carlsson transfiere los estudios del Mush pero su salud se degrada poco a poco."
+      }
+    }, {
+      "date": 3154,
+      "desc": {
+        "en": "The invasion of the orbital platform by the FDS provokes the hurried departure of the Daedalus. Professor Carlsson isn't up to following the team, so is obliged to leave Chun facing her compelling destiny.",
+        "fr": "L'invasion de la plateforme orbitale par la FDS provoque le départ anticipé du Daedalus. Le professeur Carlsson n'est pas en mesure de suivre l'équipage, il laisse Chun face à son écrasante destinée.",
+        "es": "El ataque a la base orbital por la FDS provoca el despegue del Daedalus. Carlsson, sin fuerzas para partir, se queda en Xyloph-17."
+      }
+    }
+  ]
 }

@@ -1,51 +1,46 @@
-{ "frames":
-    {
-    "flame1":
-    {
-        "frame": {"x":0,"y":0,"w":3,"h":3},
-        "rotated": false,
-        "trimmed": false,
-        "spriteSourceSize": {"x":0,"y":0,"w":3,"h":3},
-        "sourceSize": {"w":3,"h":3}
+{
+  "frames": {
+    "flame1": {
+      "frame": {"x": 0, "y": 0, "w": 3, "h": 3},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 3, "h": 3},
+      "sourceSize": {"w": 3, "h": 3}
     },
-    "flame2":
-    {
-        "frame": {"x":3,"y":0,"w":3,"h":3},
-        "rotated": false,
-        "trimmed": false,
-        "spriteSourceSize": {"x":0,"y":0,"w":3,"h":3},
-        "sourceSize": {"w":3,"h":3}
+    "flame2": {
+      "frame": {"x": 3, "y": 0, "w": 3, "h": 3},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 3, "h": 3},
+      "sourceSize": {"w": 3, "h": 3}
     },
-    "flame3":
-    {
-        "frame": {"x":6,"y":0,"w":3,"h":3},
-        "rotated": false,
-        "trimmed": false,
-        "spriteSourceSize": {"x":0,"y":0,"w":3,"h":3},
-        "sourceSize": {"w":3,"h":3}
+    "flame3": {
+      "frame": {"x": 6, "y": 0, "w": 3, "h": 3},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 3, "h": 3},
+      "sourceSize": {"w": 3, "h": 3}
     },
-    "flame4":
-    {
-        "frame": {"x":9,"y":0,"w":3,"h":3},
-        "rotated": false,
-        "trimmed": false,
-        "spriteSourceSize": {"x":0,"y":0,"w":3,"h":3},
-        "sourceSize": {"w":3,"h":3}
+    "flame4": {
+      "frame": {"x": 9, "y": 0, "w": 3, "h": 3},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 3, "h": 3},
+      "sourceSize": {"w": 3, "h": 3}
     },
-    "flame5":
-    {
-        "frame": {"x":12,"y":0,"w":3,"h":3},
-        "rotated": false,
-        "trimmed": false,
-        "spriteSourceSize": {"x":0,"y":0,"w":3,"h":3},
-        "sourceSize": {"w":3,"h":3}
+    "flame5": {
+      "frame": {"x": 12, "y": 0, "w": 3, "h": 3},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 3, "h": 3},
+      "sourceSize": {"w": 3, "h": 3}
     },
-    "flame6":
-    {
-        "frame": {"x":15,"y":0,"w":3,"h":3},
-        "rotated": false,
-        "trimmed": false,
-        "spriteSourceSize": {"x":0,"y":0,"w":3,"h":3},
-        "sourceSize": {"w":3,"h":3}
-    }}
+    "flame6": {
+      "frame": {"x": 15, "y": 0, "w": 3, "h": 3},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 3, "h": 3},
+      "sourceSize": {"w": 3, "h": 3}
+    }
+  }
 }

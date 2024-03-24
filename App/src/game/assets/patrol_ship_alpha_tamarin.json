@@ -1,76 +1,81 @@
-{ "compressionlevel":-1,
- "height":9,
- "infinite":false,
- "layers":[
+{
+  "compressionlevel": -1,
+  "height": 9,
+  "infinite": false,
+  "layers": [
+    {
+      "draworder": "index",
+      "id": 7,
+      "name": "objects",
+      "objects": [
         {
-         "draworder":"index",
-         "id":7,
-         "name":"objects",
-         "objects":[
-                {
-                 "gid":1,
-                 "height":78,
-                 "id":44,
-                 "name":"patrol_ship_alpha_tamarin",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":15
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":64
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":70
-                        }],
-                 "rotation":0,
-                 "type":"patrol_ship",
-                 "visible":true,
-                 "width":103,
-                 "x":42,
-                 "y":56
-                }],
-         "offsetx":28.7915319023816,
-         "offsety":24.7927080270508,
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }],
- "nextlayerid":10,
- "nextobjectid":89,
- "orientation":"isometric",
- "renderorder":"right-down",
- "tiledversion":"git",
- "tileheight":16,
- "tilesets":[
-        {
-         "columns":1,
-         "firstgid":1,
-         "image":"tilemaps\/patrol_ship.png",
-         "imageheight":315,
-         "imagewidth":103,
-         "margin":0,
-         "name":"patrol_ship",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":4,
-         "tileheight":78,
-         "tilewidth":103
-        }],
- "tilewidth":32,
- "type":"map",
- "version":"1.10",
- "width":7
+          "gid": 1,
+          "height": 78,
+          "id": 44,
+          "name": "patrol_ship_alpha_tamarin",
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "depth",
+              "type": "int",
+              "value": 15
+            },
+            {
+              "name": "isoSizeX",
+              "type": "int",
+              "value": 64
+            },
+            {
+              "name": "isoSizeY",
+              "type": "int",
+              "value": 70
+            }
+          ],
+          "rotation": 0,
+          "type": "patrol_ship",
+          "visible": true,
+          "width": 103,
+          "x": 42,
+          "y": 56
+        }
+      ],
+      "offsetx": 28.7915319023816,
+      "offsety": 24.7927080270508,
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    }
+  ],
+  "nextlayerid": 10,
+  "nextobjectid": 89,
+  "orientation": "isometric",
+  "renderorder": "right-down",
+  "tiledversion": "git",
+  "tileheight": 16,
+  "tilesets": [
+    {
+      "columns": 1,
+      "firstgid": 1,
+      "image": "tilemaps\/patrol_ship.png",
+      "imageheight": 315,
+      "imagewidth": 103,
+      "margin": 0,
+      "name": "patrol_ship",
+      "objectalignment": "center",
+      "spacing": 0,
+      "tilecount": 4,
+      "tileheight": 78,
+      "tilewidth": 103
+    }
+  ],
+  "tilewidth": 32,
+  "type": "map",
+  "version": "1.10",
+  "width": 7
 }

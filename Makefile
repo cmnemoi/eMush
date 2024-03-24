@@ -1,4 +1,3 @@
-
 bash-apache:
 	docker exec -it mush_apache bash
 

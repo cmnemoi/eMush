@@ -1,9 +1,0 @@
-{
-    "id": 21,
-    "file": "jukebox",
-    "name_en": "Jukebox",
-    "description_en": "Each cycle, the jukebox plays a different song. Each character can gain 2 moral when their song plays.",
-    "effect_en": "",
-    "name_fr": "Jukebox",
-    "description_fr": "À chaque cycle, le jukebox diffuse une chanson différente. Chaque personnage peut gagner 2 :pmo: quand sa chanson passe."
-}

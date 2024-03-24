@@ -203,7 +203,7 @@ class GameConfigData
                 'ploshmina_default',
                 'pulminagro_default',
                 'precati_default',
-                'recatus_default',
+                'precatus_default',
                 'bottine_default',
                 'buttalien_default',
                 'fragilane_default',

@@ -37,7 +37,8 @@ interface ModerationServiceInterface
 
     public function quarantinePlayer(
         Player $player,
-        string $reason
+        string $reason,
+        ?string $message = null
     ): Player;
 
     public function warnUser(

@@ -16,6 +16,7 @@ use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -232,7 +233,7 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Rest\View()
      */
-    public function quarantinePlayer(Player $player, string $reason, ?string $message = null): View
+    public function quarantinePlayer(Player $player, Request $request): View
     {
         $this->denyAccessIfNotModerator();
 
@@ -240,7 +241,7 @@ final class ModerationController extends AbstractFOSRestController
             return $this->view(['error' => 'Player is already dead'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->moderationService->quarantinePlayer($player, $reason);
+        $this->moderationService->quarantinePlayer($player, $request->get('reason'), $request->get('message', null));
 
         return $this->view(['detail' => 'Player quarantined successfully'], Response::HTTP_OK);
     }

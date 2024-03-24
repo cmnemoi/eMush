@@ -26,7 +26,7 @@ class ModerationSanction
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $reason;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $message;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]

@@ -145,7 +145,8 @@ final class ModerationService implements ModerationServiceInterface
 
     public function quarantinePlayer(
         Player $player,
-        string $reason
+        string $reason,
+        ?string $message = null
     ): Player {
         $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
@@ -154,7 +155,8 @@ final class ModerationService implements ModerationServiceInterface
             $player->getUser(),
             ModerationSanctionEnum::QUARANTINE_PLAYER,
             $reason,
-            new \DateTime()
+            new \DateTime(),
+            $message
         );
 
         return $player;

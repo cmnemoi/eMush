@@ -4,8 +4,8 @@
             <MessageInput v-if="newMessageAllowed && ! loadingChannels" :channel="channel" />
             <div class="chatbox">
                 <slot />
+                <span v-if="loading" class="loading">{{ $t('loading') }}</span>
             </div>
-            <span v-if="loading" class="loading">{{ $t('loading') }}</span>
         </div>
     </div>
 </template>

@@ -1166,7 +1166,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorKey' => PlanetSectorEnum::HYDROCARBON,
                 'planetSectorName' => 'Hydrocarbures',
                 'eventName' => 'Hydrocarbures',
-                'eventDescription' => 'L\'expédition trouve un petit lac d\'heptanol violacé ! Avec tout ça le Daedalus n\'est pas prêt de tomber en panne !',
+                'eventDescription' => 'L\'expédition trouve un petit lac d\'heptanol violacé ! Avec tout ça le Daedalus n\'est pas près de tomber en panne !',
                 'eventOutcome' => 'Vous gagnez 12 unités de Fuel.////x2 car l\'expédition dispose de l\'objet : Foreuse',
             ],
             actual: $normalizedExplorationLog,

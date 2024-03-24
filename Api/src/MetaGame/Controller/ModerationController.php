@@ -75,6 +75,7 @@ final class ModerationController extends AbstractFOSRestController
      *       description="Duration of the ban",
      *
      *       @OA\Schema(type="string", format="date-time")
+     *  )
      *
      * @OA\Tag(name="Moderation")
      *
@@ -99,7 +100,7 @@ final class ModerationController extends AbstractFOSRestController
     }
 
     /**
-     * Warn an user.
+     * Warn a user.
      *
      * @OA\Parameter(
      *      name="id",
@@ -139,6 +140,7 @@ final class ModerationController extends AbstractFOSRestController
      *       description="Duration of the warning",
      *
      *       @OA\Schema(type="string", format="date-time")
+     *  )
      *
      * @OA\Tag(name="Moderation")
      *
@@ -206,23 +208,31 @@ final class ModerationController extends AbstractFOSRestController
      *     @OA\Schema(type="integer")
      * )
      *
-     *   @OA\Parameter(
-     *        name="reason",
-     *        in="query",
-     *        description="Reason for quarantine",
+     * @OA\Parameter(
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for quarantine",
      *
-     *        @OA\Schema(type="string")
-     *   )
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="message",
+     *     in="query",
+     *     description="moderation message",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
      *
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="/quarantine-player/{id}")
+     * @Rest\Post(path="/quarantine-player/{id}")
      *
      * @Rest\View()
      */
-    public function quarantinePlayer(Player $player, string $reason): View
+    public function quarantinePlayer(Player $player, string $reason, ?string $message = null): View
     {
         $this->denyAccessIfNotModerator();
 

@@ -1,4 +1,5 @@
 <template>
+    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="'delete_message'" @close="closeModerationDialog" @submitSanction="deleteMessage" />
     <div
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
@@ -21,7 +22,7 @@
             <ActionButtons
                 v-if="adminMode"
                 :actions="['delete']"
-                @delete="deleteMessage(message.id)"
+                @delete="openModerationDialog('delete_message')"
             />
         </div>
     </div>
@@ -54,9 +55,9 @@
             />
             <ActionButtons
                 v-if="adminMode"
-                @click="deleteMessage(message.id)">
-                $t('moderation.filters.messageAuthor')
-            </ActionButtons>
+                :actions="['delete']"
+                @delete="openModerationDialog('delete_message')"
+            />
         </div>
     </div>
 </template>
@@ -71,11 +72,18 @@ import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
+import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
 export default defineComponent ({
     name: "Message",
     components: {
-        ActionButtons
+        ActionButtons,
+        ModerationActionPopup,
+    },
+    data() {
+        return {
+            moderationDialogVisible: false
+        };
     },
     props: {
         message: {
@@ -93,7 +101,7 @@ export default defineComponent ({
         adminMode: {
             type: Boolean,
             default: false
-        }
+        },
     },
     emits: {
         // No validation
@@ -138,9 +146,15 @@ export default defineComponent ({
             if (! value) return '';
             return formatText(value.toString());
         },
-        deleteMessage(messageId: number) {
-            ModerationService.deleteMessage(messageId);
-        }
+        deleteMessage(formData) {
+            ModerationService.deleteMessage(this.message.id, formData);
+        },
+        openModerationDialog(moderationAction: string) {
+            this.moderationDialogVisible = true;
+        },
+        closeModerationDialog() {
+            this.moderationDialogVisible = false;
+        },
     }
 });
 </script>

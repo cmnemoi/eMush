@@ -1,9 +1,10 @@
 <template>
     <div v-if="player">
+        <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="currentAction" @close="closeModerationDialog" @submitSanction="applySanction" />
         <div class="flex-row">
             <Tippy tag="button"
                    class="action-button"
-                   @click="quarantinePlayer(player)"
+                   @click="openModerationDialog('quarantine')"
                    v-if="player.isAlive">
                 {{ $t("moderation.quarantine") }}
                 <template #content>
@@ -13,7 +14,7 @@
             </Tippy>
             <Tippy tag="button"
                    class="action-button"
-                   @click="quarantineAndBanPlayer(player)"
+                   @click="openModerationDialog('quarantine_ban')"
                    v-if="player.isAlive">
                 {{ $t("moderation.quarantineAndBan") }}
                 <template #content>
@@ -23,7 +24,7 @@
             </Tippy>
             <Tippy tag="button"
                    class="action-button"
-                   @click="banPlayer(player)"
+                   @click="openModerationDialog('ban')"
                    v-if="!player.isAlive">
                 {{ $t("moderation.ban") }}
                 <template #content>
@@ -250,6 +251,7 @@ import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
 import { Message as MessageEntity } from "@/entities/Message"; 
 import { Channel } from "@/entities/Channel";
+import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
 interface PrivateChannel {
     id: number,
@@ -279,6 +281,8 @@ interface ModerationViewPlayerData {
     playerLogs: any,
     privateChannels: PrivateChannel[],
     errors: any,
+    moderationDialogVisible: boolean,
+    currentAction: string
 }
 
 export default defineComponent({
@@ -286,6 +290,7 @@ export default defineComponent({
     components: {
         Log,
         Message,
+        ModerationActionPopup,
     },
     data() : ModerationViewPlayerData {
         return {
@@ -310,18 +315,43 @@ export default defineComponent({
             player: null,
             playerLogs: null,
             privateChannels: [],
-            errors: {}
+            errors: {},
+            moderationDialogVisible: false,
+            currentAction: "",
         };
     },
     methods: {
-        banPlayer(player: ModerationViewPlayer) {
-            ModerationService.banUser(player.user.id)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+        openModerationDialog(moderationAction: string) {
+            this.currentAction = moderationAction;
+            this.moderationDialogVisible = true;
+        },
+        closeModerationDialog() {
+            this.moderationDialogVisible = false;
+        },
+        applySanction(params: URLSearchParams) {
+            if (this.player === null) {
+                return;
+            }
+
+            if (this.currentAction === 'quarantine' || this.currentAction === 'quarantine_ban') {
+                ModerationService.quarantinePlayer(this.player.id, params)
+                    .then(() => {
+                        this.loadData();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            if (this.currentAction === 'ban' || this.currentAction === 'quarantine_ban') {
+                ModerationService.banUser(this.player.user.id, params)
+                    .then(() => {
+                        this.loadData();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+
         },
         async loadLogs(player: ModerationViewPlayer) {
             if (this.logsDay === null) {
@@ -389,30 +419,6 @@ export default defineComponent({
                         console.error(error);
                     });
             }
-        },
-        quarantinePlayer(player: ModerationViewPlayer) {
-            ModerationService.quarantinePlayer(player.id)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
-        quarantineAndBanPlayer(player: ModerationViewPlayer) {
-            ModerationService.quarantinePlayer(player.id)
-                .then(() => {
-                    ModerationService.banUser(player.user.id)
-                        .then(() => {
-                            this.loadData();
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
         },
         goBack() {
             this.$router.go(-1);

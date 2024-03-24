@@ -18,9 +18,9 @@ const ROOM_LOG_ENDPOINT = urlJoin(API_URL, "room_logs");
 type ChannelScope = "public" | "mush" | "private";
 
 const ModerationService = {
-    banUser: async(userId: integer): Promise<any> => {
+    banUser: async(userId: integer, formData: any): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/ban-user/' + userId);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/ban-user/' + userId, formData);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
@@ -109,30 +109,30 @@ const ModerationService = {
 
         return { "data": logs };
     },
-    editClosedPlayerEndMessage: async(playerId: number): Promise<any> => {
+    editClosedPlayerEndMessage: async(playerId: number, formData: any): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/edit-closed-player-end-message/' + playerId);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/edit-closed-player-end-message/' + playerId, formData);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    hideClosedPlayerEndMessage: async(playerId: number): Promise<any> => {
+    hideClosedPlayerEndMessage: async(playerId: number, formData: any): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/hide-closed-player-end-message/' + playerId);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/hide-closed-player-end-message/' + playerId, formData);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    deleteMessage: async(messageId: number): Promise<any> => {
+    deleteMessage: async(messageId: number, formData: any): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/delete-message/' + messageId);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/delete-message/' + messageId, formData);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    quarantinePlayer: async(playerId: number): Promise<any> => {
+    quarantinePlayer: async(playerId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/quarantine-player/' + playerId);
+        const response = await ApiService.post(MODERATION_ENDPOINT + '/quarantine-player/' + playerId + '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

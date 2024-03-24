@@ -31,4 +31,5 @@ class ModerationSanctionEnum
     public const WRONG_LANGUAGE = 'wrong_language';
     public const EXPLOIT = 'exploit';
     public const EXPLOIT_INCENTIVE = 'exploit_incentive';
+    public const LEAKING_PRIVATE_INFORMATION = 'leaking_private_information';
 }

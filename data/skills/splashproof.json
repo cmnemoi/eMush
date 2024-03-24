@@ -1,10 +1,10 @@
 {
-    "id": 77,
-    "file": "splashproof",
-    "name_en": "Splashproof",
-    "description_en": "You are of a fearful nature and you instinctively know how to make yourself scarce in order to avoid any and all attempts at physical contact.",
-    "effect_en": "",
-    "name_fr": "Résistance à l'Eau",
-    "description_fr": "La recherche fongique a mis au point un nouveau mucus parfait pour donner le change.",
-    "effect_fr": "{b}Se doucher{\\b} ne vous fait perdre {b}aucun{\\b} :pv:."
+  "id": 77,
+  "file": "splashproof",
+  "name_en": "Splashproof",
+  "description_en": "You are of a fearful nature and you instinctively know how to make yourself scarce in order to avoid any and all attempts at physical contact.",
+  "effect_en": "",
+  "name_fr": "Résistance à l'Eau",
+  "description_fr": "La recherche fongique a mis au point un nouveau mucus parfait pour donner le change.",
+  "effect_fr": "{b}Se doucher{\\b} ne vous fait perdre {b}aucun{\\b} :pv:."
 }

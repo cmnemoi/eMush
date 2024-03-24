@@ -1,10 +1,10 @@
 {
-    "id": 30,
-    "file": "green_thumb",
-    "name_en": "Green Thumb",
-    "description_en": "Plants grow naturally in your presence, you only require to speak to them with a languishing gaze for them to bear beautiful fruit.",
-    "effect_en": "",
-    "name_fr": "Main Verte",
-    "description_fr": "Les plantes poussent naturellement en votre présence, vous n'avez qu'a leur adresser un regard langoureux pour qu'elle produisent leur plus beaux fruits.",
-    "effect_fr": "Commence la partie avec {b}deux pots{\\b} supplémentaires.\nLes {b}greffes{\\b} de la Main Verte commencent avec un cycle de maturation court."
+  "id": 30,
+  "file": "green_thumb",
+  "name_en": "Green Thumb",
+  "description_en": "Plants grow naturally in your presence, you only require to speak to them with a languishing gaze for them to bear beautiful fruit.",
+  "effect_en": "",
+  "name_fr": "Main Verte",
+  "description_fr": "Les plantes poussent naturellement en votre présence, vous n'avez qu'a leur adresser un regard langoureux pour qu'elle produisent leur plus beaux fruits.",
+  "effect_fr": "Commence la partie avec {b}deux pots{\\b} supplémentaires.\nLes {b}greffes{\\b} de la Main Verte commencent avec un cycle de maturation court."
 }

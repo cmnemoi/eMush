@@ -1,10 +1,10 @@
 {
-    "id": 80,
-    "file": "survivalist",
-    "name_en": "Survivalist",
-    "description_en": "The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.",
-    "effect_en": "",
-    "name_fr": "Survie",
-    "description_fr": "L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.",
-    "effect_fr": "Expédition : Chaque dégât est {b}réduit de un point{\\b}.\nExpédition : L'évènement {b}Provision{\\b} donne un steak de plus.\nExpédition : Dernier à mourir en cas d\\'évènement fatal."
+  "id": 80,
+  "file": "survivalist",
+  "name_en": "Survivalist",
+  "description_en": "The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.",
+  "effect_en": "",
+  "name_fr": "Survie",
+  "description_fr": "L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vies extraterrestres et s'en sortira mieux que les autres.",
+  "effect_fr": "Expédition : Chaque dégât est {b}réduit de un point{\\b}.\nExpédition : L'évènement {b}Provision{\\b} donne un steak de plus.\nExpédition : Dernier à mourir en cas d\\'évènement fatal."
 }

@@ -1,10 +1,10 @@
 {
-    "id": 23,
-    "file": "expert",
-    "name_en": "Expert",
-    "description_en": "Your skills are impressive, but your disregard for your own safety is equally so!",
-    "effect_en": "",
-    "name_fr": "Expert",
-    "description_fr": "Vos compétences sont incroyables mais vous travaillez sans vraiment vous préocuper de certaines conséquences...",
-    "effect_fr": "Vos réussites aux actions sont améliorées de 20% mais vos chances de blessures et de salissures le sont aussi."
+  "id": 23,
+  "file": "expert",
+  "name_en": "Expert",
+  "description_en": "Your skills are impressive, but your disregard for your own safety is equally so!",
+  "effect_en": "",
+  "name_fr": "Expert",
+  "description_fr": "Vos compétences sont incroyables mais vous travaillez sans vraiment vous préocuper de certaines conséquences...",
+  "effect_fr": "Vos réussites aux actions sont améliorées de 20% mais vos chances de blessures et de salissures le sont aussi."
 }

@@ -1,10 +1,10 @@
 {
-    "id": 32,
-    "file": "quantum_sensors",
-    "name_en": "Quantum Sensors",
-    "description_en": "The InfraSensors also have a dark matter probability detector and recorder which should noticeably increase their utility.",
-    "effect_en": "",
-    "name_fr": "Détecteur à ondes de probabilité",
-    "description_fr": "Les InfraSenseurs disposent aussi d'un capteur de probabilité de présence de matière noire ce qui devrait notablement améliorer leur rendement.",
-    "effect_fr": "Le scanner de planète révèle une section de plus par essai."
+  "id": 32,
+  "file": "quantum_sensors",
+  "name_en": "Quantum Sensors",
+  "description_en": "The InfraSensors also have a dark matter probability detector and recorder which should noticeably increase their utility.",
+  "effect_en": "",
+  "name_fr": "Détecteur à ondes de probabilité",
+  "description_fr": "Les InfraSenseurs disposent aussi d'un capteur de probabilité de présence de matière noire ce qui devrait notablement améliorer leur rendement.",
+  "effect_fr": "Le scanner de planète révèle une section de plus par essai."
 }

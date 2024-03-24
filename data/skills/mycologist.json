@@ -1,10 +1,10 @@
 {
-    "id": 46,
-    "file": "mycologist",
-    "name_en": "Mycologist",
-    "description_en": "The mycologist can treat fungal infections in the {b}Hospital{/b} or using a {b}Medikit{/b}.",
-    "effect_en": "",
-    "name_fr": "Mycologiste",
-    "description_fr": "Le mycologiste peut soigner les infections fongiques à l'{b}Infirmerie{\\b} ou a l'aide d'un {b}Medikit{\\b}.",
-    "effect_fr": "Lorsque vous soignez un équipier, il perd automatiquement un spore."
+  "id": 46,
+  "file": "mycologist",
+  "name_en": "Mycologist",
+  "description_en": "The mycologist can treat fungal infections in the {b}Hospital{/b} or using a {b}Medikit{/b}.",
+  "effect_en": "",
+  "name_fr": "Mycologiste",
+  "description_fr": "Le mycologiste peut soigner les infections fongiques à l'{b}Infirmerie{\\b} ou a l'aide d'un {b}Medikit{\\b}.",
+  "effect_fr": "Lorsque vous soignez un équipier, il perd automatiquement un spore."
 }

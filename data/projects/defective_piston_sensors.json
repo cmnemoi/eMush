@@ -1,10 +1,10 @@
 {
-    "id": 12,
-    "file": "defective_piston_sensors",
-    "name_en": "Defective piston sensors",
-    "description_en": "By analyzing the smoke coming from defective pistons in the automatic doors, NERON can now determine precisely which doors are affrected and relay the information to your PDA.",
-    "effect_en": "",
-    "name_fr": "Détecteurs de pistons défectueux",
-    "description_fr": "En analysant les fumées provenants des pistons defectueux des portes automatiques, NERON peut desormais determiner avec exactitude leurs positions sur les modules persos",
-    "effect_fr": "Les portes bloquées sont reportées sur vos modules persos."
+  "id": 12,
+  "file": "defective_piston_sensors",
+  "name_en": "Defective piston sensors",
+  "description_en": "By analyzing the smoke coming from defective pistons in the automatic doors, NERON can now determine precisely which doors are affrected and relay the information to your PDA.",
+  "effect_en": "",
+  "name_fr": "Détecteurs de pistons défectueux",
+  "description_fr": "En analysant les fumées provenants des pistons defectueux des portes automatiques, NERON peut desormais determiner avec exactitude leurs positions sur les modules persos",
+  "effect_fr": "Les portes bloquées sont reportées sur vos modules persos."
 }

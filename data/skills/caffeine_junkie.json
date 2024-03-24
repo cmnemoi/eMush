@@ -1,10 +1,10 @@
 {
-    "id": 9,
-    "file": "caffeine_junkie",
-    "name_en": "Caffeine Junkie",
-    "description_en": "The caffeine junkie is twice as effective as their colleagues when they have access to the coffee machine.",
-    "effect_en": "",
-    "name_fr": "Caféinomane",
-    "description_fr": "Le caféinomane travaille deux fois mieux que ses collègues tant qu'il a accès à la machine à café.",
-    "effect_fr": "+2 :pa: suplementaires lorsqu'il consomme un {b}Café{\\b}.\nBonus pour développer certains {b}Projets NERON{\\b}."
+  "id": 9,
+  "file": "caffeine_junkie",
+  "name_en": "Caffeine Junkie",
+  "description_en": "The caffeine junkie is twice as effective as their colleagues when they have access to the coffee machine.",
+  "effect_en": "",
+  "name_fr": "Caféinomane",
+  "description_fr": "Le caféinomane travaille deux fois mieux que ses collègues tant qu'il a accès à la machine à café.",
+  "effect_fr": "+2 :pa: suplementaires lorsqu'il consomme un {b}Café{\\b}.\nBonus pour développer certains {b}Projets NERON{\\b}."
 }

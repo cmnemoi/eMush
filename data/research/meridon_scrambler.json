@@ -1,10 +1,10 @@
 {
-    "id": 5,
-    "file": "meridon_scrambler",
-    "name_en": "Meridon Scrambler",
-    "description_en": "Gauss-Freon's theory. A powerful weapon against the incredible Mush synchronization, by working with Fourrier's harmonic resonance frequencies, you realize that this huge carcass can be transformed into a loudspeaker and cause patulic trauma in the fragile brain of the Hunter. Traumatized by the repeated bursts of this horrific sound, they appear to be disconcerted[...]",
-    "effect_en": "",
-    "name_fr": "Brouilleur Meridon",
-    "description_fr": "Le théorème de Gauss-Fréon. Voilà une arme intéressante contre la fabuleuse synchronisation Mush, en vous penchant sur les fréquence de résonance des harmoniques de Fourrier, vous vous rendez compte que cette gigantesque carcasse peut servir de haut-parleur et instiller les trauma patulique dans la cervelle fragile des Hunter. Traumatisés par les coups répétés de son son ignoble, ils semblent désarçonnés[...]",
-    "effect_fr": "Les Hunters ont 20% de chance, à chaque tir, de cibler un des leurs.\nAccorde 3 :triumph:"
+  "id": 5,
+  "file": "meridon_scrambler",
+  "name_en": "Meridon Scrambler",
+  "description_en": "Gauss-Freon's theory. A powerful weapon against the incredible Mush synchronization, by working with Fourrier's harmonic resonance frequencies, you realize that this huge carcass can be transformed into a loudspeaker and cause patulic trauma in the fragile brain of the Hunter. Traumatized by the repeated bursts of this horrific sound, they appear to be disconcerted[...]",
+  "effect_en": "",
+  "name_fr": "Brouilleur Meridon",
+  "description_fr": "Le théorème de Gauss-Fréon. Voilà une arme intéressante contre la fabuleuse synchronisation Mush, en vous penchant sur les fréquence de résonance des harmoniques de Fourrier, vous vous rendez compte que cette gigantesque carcasse peut servir de haut-parleur et instiller les trauma patulique dans la cervelle fragile des Hunter. Traumatisés par les coups répétés de son son ignoble, ils semblent désarçonnés[...]",
+  "effect_fr": "Les Hunters ont 20% de chance, à chaque tir, de cibler un des leurs.\nAccorde 3 :triumph:"
 }

@@ -1,10 +1,10 @@
 {
-    "id": 20,
-    "file": "devotion",
-    "name_en": "Devotion",
-    "description_en": "In the heat of the action, we can count on you.",
-    "effect_en": "",
-    "name_fr": "Dévotion",
-    "description_fr": "Dans le feu de l'action, on peut compter sur vous.",
-    "effect_fr": "Vous gagnez {b}3{\\b} :pa: de plus quand vous acceptez une mission."
+  "id": 20,
+  "file": "devotion",
+  "name_en": "Devotion",
+  "description_en": "In the heat of the action, we can count on you.",
+  "effect_en": "",
+  "name_fr": "Dévotion",
+  "description_fr": "Dans le feu de l'action, on peut compter sur vous.",
+  "effect_fr": "Vous gagnez {b}3{\\b} :pa: de plus quand vous acceptez une mission."
 }

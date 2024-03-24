@@ -1,10 +1,10 @@
 {
-    "id": 24,
-    "file": "magnetic_net",
-    "name_en": "Magnetic Net",
-    "description_en": "One of the great assets of the Magellan was that the stellar ark could mobilize its own flotilla. You debug the last packets of code from the Magnet automatic pilot program. That'll do the trick.",
-    "effect_en": "",
-    "name_fr": "Filet magnétique",
-    "description_fr": "Un des grands apports de Magellan était que l'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.",
-    "effect_fr": "Lorsque le Daedalus se déplace les Patrouilleurs sont automatiquement ramenés à bord et le joueur apparaît dans la baie de décollage correspondante au changement de cycle."
+  "id": 24,
+  "file": "magnetic_net",
+  "name_en": "Magnetic Net",
+  "description_en": "One of the great assets of the Magellan was that the stellar ark could mobilize its own flotilla. You debug the last packets of code from the Magnet automatic pilot program. That'll do the trick.",
+  "effect_en": "",
+  "name_fr": "Filet magnétique",
+  "description_fr": "Un des grands apports de Magellan était que l'arche stellaire pouvait traîner sa flotte. Vous débuguez les derniers écueils du programme Magnet de pilotage magnétique. Ça va le faire.",
+  "effect_fr": "Lorsque le Daedalus se déplace les Patrouilleurs sont automatiquement ramenés à bord et le joueur apparaît dans la baie de décollage correspondante au changement de cycle."
 }

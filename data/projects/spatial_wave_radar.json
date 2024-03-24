@@ -1,10 +1,10 @@
 {
-    "id": 36,
-    "file": "spatial_wave_radar",
-    "name_en": "Spatial Wave Radar",
-    "description_en": "What wouldn't you give to please the Comm... By increasing the CPU priority of the harbinger thread, you make life a lot easier...",
-    "effect_en": "",
-    "name_fr": "Radar à ondes spatiales",
-    "description_fr": "Que ne feriez-vous pas pour les beaux yeux de la Comm... En augmentant la priorité CPU du thread Fourrier, vous leur rendrez la vie plus facile...",
-    "effect_fr": "L’antenne stellaire double désormais vos progrès pour établir la communication avec Sol."
+  "id": 36,
+  "file": "spatial_wave_radar",
+  "name_en": "Spatial Wave Radar",
+  "description_en": "What wouldn't you give to please the Comm... By increasing the CPU priority of the harbinger thread, you make life a lot easier...",
+  "effect_en": "",
+  "name_fr": "Radar à ondes spatiales",
+  "description_fr": "Que ne feriez-vous pas pour les beaux yeux de la Comm... En augmentant la priorité CPU du thread Fourrier, vous leur rendrez la vie plus facile...",
+  "effect_fr": "L’antenne stellaire double désormais vos progrès pour établir la communication avec Sol."
 }

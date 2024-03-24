@@ -1,10 +1,10 @@
 {
-    "id": 16,
-    "file": "fire_detector",
-    "name_en": "Fire Detector",
-    "description_en": "After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocates more CPU power to the task... it still seems pretty annoyed though.",
-    "effect_en": "",
-    "name_fr": "Détecteurs d'incendie",
-    "description_fr": "Après avoir passé quelques heures à convaincre NERON que le feu peut être préjudiciable pour lui-même, il cède et vous accorde plus de CPU...Il est quand même très contrarié.",
-    "effect_fr": "Les incendies sont reportés sur vos modules persos."
+  "id": 16,
+  "file": "fire_detector",
+  "name_en": "Fire Detector",
+  "description_en": "After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocates more CPU power to the task... it still seems pretty annoyed though.",
+  "effect_en": "",
+  "name_fr": "Détecteurs d'incendie",
+  "description_fr": "Après avoir passé quelques heures à convaincre NERON que le feu peut être préjudiciable pour lui-même, il cède et vous accorde plus de CPU...Il est quand même très contrarié.",
+  "effect_fr": "Les incendies sont reportés sur vos modules persos."
 }

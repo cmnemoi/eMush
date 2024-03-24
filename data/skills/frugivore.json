@@ -1,10 +1,10 @@
 {
-    "id": 26,
-    "file": "frugivore",
-    "name_en": "Frugivore",
-    "description_en": "You terrorize fruits, you adore them, they are your drug. When you make eye contact with a fruit, it over-ripens before you...",
-    "effect_en": "",
-    "name_fr": "Frugivore",
-    "description_fr": "Vous terrorisez les fruits, vous les adorez, c'est votre drogue. Quand vous croisez le regard d'un fruit, il blet instantanément.",
-    "effect_fr": "Vous gagnez 2 :pa: supplémentaires quand vous mangez des fruits aliens, 1 :pa: pour les bananes"
+  "id": 26,
+  "file": "frugivore",
+  "name_en": "Frugivore",
+  "description_en": "You terrorize fruits, you adore them, they are your drug. When you make eye contact with a fruit, it over-ripens before you...",
+  "effect_en": "",
+  "name_fr": "Frugivore",
+  "description_fr": "Vous terrorisez les fruits, vous les adorez, c'est votre drogue. Quand vous croisez le regard d'un fruit, il blet instantanément.",
+  "effect_fr": "Vous gagnez 2 :pa: supplémentaires quand vous mangez des fruits aliens, 1 :pa: pour les bananes"
 }

@@ -1,12 +1,12 @@
 {
-    "id": 65,
-    "file": "pyromaniac",
-    "name_en": "Pyromaniac",
-    "description_en": "The pyromaniac injects explosive microspores into an inflammable medium which triggers a violent combustion which is liable to do long-term damage to the ship.",
-    "effect_en": "",
-    "name_fr": "",
-    "description_fr": "Le pyromane peut injecter des microspores explosifs dans un support inflammable afin de déclencher une combustion violente susceptible d'endommager à terme le vaisseau",
-    "effect_fr": "Pour {b}4{\\b} :pa: vous pouvez déclencher un {b}Incendie{\\b} dans une salle.",
-    "name_es": "",
-    "actions": "4:pyromaniac"
+  "id": 65,
+  "file": "pyromaniac",
+  "name_en": "Pyromaniac",
+  "description_en": "The pyromaniac injects explosive microspores into an inflammable medium which triggers a violent combustion which is liable to do long-term damage to the ship.",
+  "effect_en": "",
+  "name_fr": "",
+  "description_fr": "Le pyromane peut injecter des microspores explosifs dans un support inflammable afin de déclencher une combustion violente susceptible d'endommager à terme le vaisseau",
+  "effect_fr": "Pour {b}4{\\b} :pa: vous pouvez déclencher un {b}Incendie{\\b} dans une salle.",
+  "name_es": "",
+  "actions": "4:pyromaniac"
 }

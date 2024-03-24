@@ -1,10 +1,10 @@
 {
-    "id": 13,
-    "file": "dismantler",
-    "name_en": "Dismantler",
-    "description_en": "By dismantling all of Raluca's failed PILGRED experiments, you are able to recover a stack of used metal which can then be used to patch up the hull or repair patrol ships!",
-    "effect_en": "",
-    "name_fr": "Démantèlement",
-    "description_fr": "En démontant toutes les expériences ratées de Raluca sur le PILGRED il y a moyen de récupérer un paquet de pièces usagées qui nous serviront à renforcer la coque ou réparer les patrouilleurs !",
-    "effect_fr": "Génère 5 débris métalliques dans la salle des moteurs."
+  "id": 13,
+  "file": "dismantler",
+  "name_en": "Dismantler",
+  "description_en": "By dismantling all of Raluca's failed PILGRED experiments, you are able to recover a stack of used metal which can then be used to patch up the hull or repair patrol ships!",
+  "effect_en": "",
+  "name_fr": "Démantèlement",
+  "description_fr": "En démontant toutes les expériences ratées de Raluca sur le PILGRED il y a moyen de récupérer un paquet de pièces usagées qui nous serviront à renforcer la coque ou réparer les patrouilleurs !",
+  "effect_fr": "Génère 5 débris métalliques dans la salle des moteurs."
 }

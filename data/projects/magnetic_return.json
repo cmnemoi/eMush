@@ -1,10 +1,10 @@
 {
-    "id": 25,
-    "file": "magnetic_return",
-    "name_en": "Magnetic Return",
-    "description_en": "Using NERON's source code, you realize that you can give the Icarus a kind of pseudo-awareness. You decide to get rid of the pseudo-cognitive code and the emotion engine but keep the survival kernel. Now if a mission is a failure, the Icarus returns automatically.",
-    "effect_en": "",
-    "name_fr": "Rapatriement magnétique",
-    "description_fr": "En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l'Icarus d'une pseudo-conscience. Vous décidez de virer le code pseudo-cognitif et le moteur d'émotion et de garder le noyau de survie. Maintenant l'Icarus reviendra si l'expédition est décimée",
-    "effect_fr": "L'Icarus retourne automatiquement dans le Daedalus en cas d'échec de la mission."
+  "id": 25,
+  "file": "magnetic_return",
+  "name_en": "Magnetic Return",
+  "description_en": "Using NERON's source code, you realize that you can give the Icarus a kind of pseudo-awareness. You decide to get rid of the pseudo-cognitive code and the emotion engine but keep the survival kernel. Now if a mission is a failure, the Icarus returns automatically.",
+  "effect_en": "",
+  "name_fr": "Rapatriement magnétique",
+  "description_fr": "En exploitant le code source de NERON, vous vous apercevez que vous pourriez doter l'Icarus d'une pseudo-conscience. Vous décidez de virer le code pseudo-cognitif et le moteur d'émotion et de garder le noyau de survie. Maintenant l'Icarus reviendra si l'expédition est décimée",
+  "effect_fr": "L'Icarus retourne automatiquement dans le Daedalus en cas d'échec de la mission."
 }

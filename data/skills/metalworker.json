@@ -1,12 +1,12 @@
 {
-    "id": 43,
-    "file": "metalworker",
-    "name_en": "Metalworker",
-    "description_en": "It seems pretty clear that you're a really productive person.",
-    "effect_en": "",
-    "name_fr": "Métalo",
-    "description_fr": "Vous, on peut dire que vous êtes vraiment quelqu'un de productif !",
-    "effect_fr": "{b}Journalier{\\b} Si vous vous trouvez dans un {b}Stockage{\\b}, pour 0 :pa:, vous avez une chance de trouver des débris voir mieux.",
-    "name_es": "",
-    "actions": "D0:metalworker"
+  "id": 43,
+  "file": "metalworker",
+  "name_en": "Metalworker",
+  "description_en": "It seems pretty clear that you're a really productive person.",
+  "effect_en": "",
+  "name_fr": "Métalo",
+  "description_fr": "Vous, on peut dire que vous êtes vraiment quelqu'un de productif !",
+  "effect_fr": "{b}Journalier{\\b} Si vous vous trouvez dans un {b}Stockage{\\b}, pour 0 :pa:, vous avez une chance de trouver des débris voir mieux.",
+  "name_es": "",
+  "actions": "D0:metalworker"
 }

@@ -1,10 +1,10 @@
 {
-    "id": 5,
-    "file": "automatic_sprinklers",
-    "name_en": "Automatic Sprinklers",
-    "description_en": "After several hours of negotiation with NERON, you can convince it to also use the anti-cigarette device for fires.",
-    "effect_en": "",
-    "name_fr": "Arroseurs automatiques",
-    "description_fr": "Après quelques heures de négociations avec NERON, vous pourriez le convaincre d'utiliser le dispositif anti-cigarette pour les incendies également.",
-    "effect_fr": "Chaque incendie a 25% de chance de s'éteindre automatiquement à chaque cycle."
+  "id": 5,
+  "file": "automatic_sprinklers",
+  "name_en": "Automatic Sprinklers",
+  "description_en": "After several hours of negotiation with NERON, you can convince it to also use the anti-cigarette device for fires.",
+  "effect_en": "",
+  "name_fr": "Arroseurs automatiques",
+  "description_fr": "Après quelques heures de négociations avec NERON, vous pourriez le convaincre d'utiliser le dispositif anti-cigarette pour les incendies également.",
+  "effect_fr": "Chaque incendie a 25% de chance de s'éteindre automatiquement à chaque cycle."
 }

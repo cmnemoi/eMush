@@ -1,14 +1,14 @@
 {
-    "id": 59,
-    "file": "physicist",
-    "name_en": "Physicist",
-    "description_en": "The physicist is a high flier in the field of physics research. Their understanding of quantum mechanics and even the essence of the strings that make up our universe is their major talent. They also have the advantage when repairing PILGRED.",
-    "effect_en": "",
-    "name_fr": "Physicien",
-    "description_fr": "Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.",
-    "effect_fr": "Accorde 1 :pa_pilgred: (point d'action de {b}réparation de PILGRED{\\b}) par jour.\nBonus pour développer certains {b}Projets NERON{\\b}.",
-    "name_es": "",
-    "actions": "",
-    "effects_cycle": "",
-    "effects_day": "Sp:pilgried1/2"
+  "id": 59,
+  "file": "physicist",
+  "name_en": "Physicist",
+  "description_en": "The physicist is a high flier in the field of physics research. Their understanding of quantum mechanics and even the essence of the strings that make up our universe is their major talent. They also have the advantage when repairing PILGRED.",
+  "effect_en": "",
+  "name_fr": "Physicien",
+  "description_fr": "Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.",
+  "effect_fr": "Accorde 1 :pa_pilgred: (point d'action de {b}réparation de PILGRED{\\b}) par jour.\nBonus pour développer certains {b}Projets NERON{\\b}.",
+  "name_es": "",
+  "actions": "",
+  "effects_cycle": "",
+  "effects_day": "Sp:pilgried1/2"
 }

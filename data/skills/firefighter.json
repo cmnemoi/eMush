@@ -1,12 +1,12 @@
 {
-    "id": 25,
-    "file": "firefighter",
-    "name_en": "Firefighter",
-    "description_en": "The Firefighter has great experience which means they will always succeed when using the extinguisher.",
-    "effect_en": "",
-    "name_fr": "Pompier",
-    "description_fr": "Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur...et il peut aussi s'en sortir sans extincteur !",
-    "effect_fr": "L'action {b}Éteindre le feu{\\b} est toujours réussie.\nBonus pour développer certains {b}Projets NERON{\\b}.\nDonne l'action {b}Eteindre à la main{\\b}.",
-    "name_es": "",
-    "actions": "1:extinguish_hand"
+  "id": 25,
+  "file": "firefighter",
+  "name_en": "Firefighter",
+  "description_en": "The Firefighter has great experience which means they will always succeed when using the extinguisher.",
+  "effect_en": "",
+  "name_fr": "Pompier",
+  "description_fr": "Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur...et il peut aussi s'en sortir sans extincteur !",
+  "effect_fr": "L'action {b}Éteindre le feu{\\b} est toujours réussie.\nBonus pour développer certains {b}Projets NERON{\\b}.\nDonne l'action {b}Eteindre à la main{\\b}.",
+  "name_es": "",
+  "actions": "1:extinguish_hand"
 }

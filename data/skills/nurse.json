@@ -1,13 +1,13 @@
 {
-    "id": 52,
-    "file": "nurse",
-    "name_en": "Nurse",
-    "description_en": "Always ready to help.",
-    "effect_en": "",
-    "name_fr": "Infirmier",
-    "description_fr": "L'infirmier est toujours prêt à rendre service.",
-    "effect_fr": "+1 :pa_heal: chaque jour (point d'action {b}Soin gratuite{\\b}).\nPeut lire les {b}propriétés des médicaments{\\b}.",
-    "name_es": "",
-    "actions": "",
-    "effects_cycle": "Sp:heal1/2"
+  "id": 52,
+  "file": "nurse",
+  "name_en": "Nurse",
+  "description_en": "Always ready to help.",
+  "effect_en": "",
+  "name_fr": "Infirmier",
+  "description_fr": "L'infirmier est toujours prêt à rendre service.",
+  "effect_fr": "+1 :pa_heal: chaque jour (point d'action {b}Soin gratuite{\\b}).\nPeut lire les {b}propriétés des médicaments{\\b}.",
+  "name_es": "",
+  "actions": "",
+  "effects_cycle": "Sp:heal1/2"
 }

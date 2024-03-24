@@ -1,10 +1,10 @@
 {
-    "id": 2,
-    "file": "antispore_gas",
-    "name_en": "Antispore Gas",
-    "description_en": "By injecting vanilla-flavoured components into the oxygen compressor at high pressure, it can be observed that this kills all the mushrooms in the ventilation shafts. Why not just diffuse it everywhere, help destroy our hated enemy and as a plus, the whole ship smells of vanilla.",
-    "effect_en": "",
-    "name_fr": "Gaz antispore",
-    "description_fr": "En injectant des composants vanillés à haute pression dans le compresseur à oxygène, on s'aperçoit que ça tue les champignons des conduites de ventilation. Pourquoi ne pas en diffuser partout ça nuira peut-être à notre parasite detesté et puis en plus le vaisseau sentira la vanille.",
-    "effect_fr": "Le maximum de spores journaliers des mush est réduit de deux points.\nAccorde 3 :triumph:"
+  "id": 2,
+  "file": "antispore_gas",
+  "name_en": "Antispore Gas",
+  "description_en": "By injecting vanilla-flavoured components into the oxygen compressor at high pressure, it can be observed that this kills all the mushrooms in the ventilation shafts. Why not just diffuse it everywhere, help destroy our hated enemy and as a plus, the whole ship smells of vanilla.",
+  "effect_en": "",
+  "name_fr": "Gaz antispore",
+  "description_fr": "En injectant des composants vanillés à haute pression dans le compresseur à oxygène, on s'aperçoit que ça tue les champignons des conduites de ventilation. Pourquoi ne pas en diffuser partout ça nuira peut-être à notre parasite detesté et puis en plus le vaisseau sentira la vanille.",
+  "effect_fr": "Le maximum de spores journaliers des mush est réduit de deux points.\nAccorde 3 :triumph:"
 }

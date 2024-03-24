@@ -1,10 +1,10 @@
 {
-    "id": 31,
-    "file": "pneumatic_distributor",
-    "name_en": "Pneumatic Distributor",
-    "description_en": "Wow... You never really thought of it, but this tubing system has inspired you. In certain prehistoric societies, they used induced air tubes to send messages... However, these could just as easily be used to transport food! You convert the guttering into a pneumatic tube. (What would be the point of having guttering in space... )",
-    "effect_en": "",
-    "name_fr": "Distributeur pneumatique",
-    "description_fr": "Oh pinaise...Vous n'y aviez jamais songé mais cette canalisation vous inspire. Dans certaines sociétés préhistoriques, ils se servaient de tubes aéro-induits pour faire passer des messages... Mais on peut aussi s'en servir pour la nourriture ! Vous transformez la gouttière en tube pneumatique. (Quel intérêt peut avoir une gouttière dans l'espace...)",
-    "effect_fr": "La nourriture du jardin est envoyée directement au réfectoire via le distributeur pneumatique."
+  "id": 31,
+  "file": "pneumatic_distributor",
+  "name_en": "Pneumatic Distributor",
+  "description_en": "Wow... You never really thought of it, but this tubing system has inspired you. In certain prehistoric societies, they used induced air tubes to send messages... However, these could just as easily be used to transport food! You convert the guttering into a pneumatic tube. (What would be the point of having guttering in space... )",
+  "effect_en": "",
+  "name_fr": "Distributeur pneumatique",
+  "description_fr": "Oh pinaise...Vous n'y aviez jamais songé mais cette canalisation vous inspire. Dans certaines sociétés préhistoriques, ils se servaient de tubes aéro-induits pour faire passer des messages... Mais on peut aussi s'en servir pour la nourriture ! Vous transformez la gouttière en tube pneumatique. (Quel intérêt peut avoir une gouttière dans l'espace...)",
+  "effect_fr": "La nourriture du jardin est envoyée directement au réfectoire via le distributeur pneumatique."
 }

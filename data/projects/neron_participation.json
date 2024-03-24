@@ -1,10 +1,10 @@
 {
-    "id": 27,
-    "file": "neron_participation",
-    "name_en": "NERON participation",
-    "description_en": "After a good telling off, NERON often becomes more productive, especially when it comes to working on itself. You install an alarm clock which insults its active memory automatically every hour.",
-    "effect_en": "",
-    "name_fr": "Participation de NERON",
-    "description_fr": "Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement tous les heures.",
-    "effect_fr": "Si un projet est au dessus de 0% il est automatiquement amélioré de 5% à chaque cycle."
+  "id": 27,
+  "file": "neron_participation",
+  "name_en": "NERON participation",
+  "description_en": "After a good telling off, NERON often becomes more productive, especially when it comes to working on itself. You install an alarm clock which insults its active memory automatically every hour.",
+  "effect_en": "",
+  "name_fr": "Participation de NERON",
+  "description_fr": "Après une engueulade NERON devient souvent plus productif, surtout pour bosser sur lui-même. Vous installez un réveil qui insulte sa mémoire vive automatiquement tous les heures.",
+  "effect_fr": "Si un projet est au dessus de 0% il est automatiquement amélioré de 5% à chaque cycle."
 }

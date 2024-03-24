@@ -1,10 +1,10 @@
 {
-    "id": 30,
-    "file": "plasma_shield",
-    "name_en": "Plasma Shield",
-    "description_en": "You never had the time to complete it, but this damned plasma shield would have been really handy. By downloading a new core and restarting the particle tabulatrix driver, it should work just fine.",
-    "effect_en": "",
-    "name_fr": "Bouclier plasma",
-    "description_fr": "Vous n'aviez jamais eu le temps de le finir, mais ce maudit bouclier à plasma vous aurait bien servi. En téléchargeant un nouveau noyau et en redémarrant le pilote de la tabulatrice à particule, ça devrait le faire.",
-    "effect_fr": "La coque du Daedalus est désormais protégé par un bouclier auto-régénérant."
+  "id": 30,
+  "file": "plasma_shield",
+  "name_en": "Plasma Shield",
+  "description_en": "You never had the time to complete it, but this damned plasma shield would have been really handy. By downloading a new core and restarting the particle tabulatrix driver, it should work just fine.",
+  "effect_en": "",
+  "name_fr": "Bouclier plasma",
+  "description_fr": "Vous n'aviez jamais eu le temps de le finir, mais ce maudit bouclier à plasma vous aurait bien servi. En téléchargeant un nouveau noyau et en redémarrant le pilote de la tabulatrice à particule, ça devrait le faire.",
+  "effect_fr": "La coque du Daedalus est désormais protégé par un bouclier auto-régénérant."
 }

@@ -1,10 +1,10 @@
 {
-    "id": 84,
-    "file": "tracker",
-    "name_en": "Tracker",
-    "description_en": "The Tracker can see the comings and goings of every team member. Furthermore, they can print any research results during the game via the Tabulatrix. This provides a list of players of which at least one is Mush.",
-    "effect_en": "",
-    "name_fr": "Traqueur",
-    "description_fr": "Le Traqueur voit les provenances et les directions de chaque mouvement de l'équipage. Il peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.",
-    "effect_fr": "Accès complet aux {b}historiques de déplacement{\\b}.\nPermet d'{b}imprimer la liste secrète{\\b} sur la Tabulatrice."
+  "id": 84,
+  "file": "tracker",
+  "name_en": "Tracker",
+  "description_en": "The Tracker can see the comings and goings of every team member. Furthermore, they can print any research results during the game via the Tabulatrix. This provides a list of players of which at least one is Mush.",
+  "effect_en": "",
+  "name_fr": "Traqueur",
+  "description_fr": "Le Traqueur voit les provenances et les directions de chaque mouvement de l'équipage. Il peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.",
+  "effect_fr": "Accès complet aux {b}historiques de déplacement{\\b}.\nPermet d'{b}imprimer la liste secrète{\\b} sur la Tabulatrice."
 }

@@ -1,10 +1,10 @@
 {
-    "id": 60,
-    "file": "pilot",
-    "name_en": "Pilot",
-    "description_en": "An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.",
-    "effect_en": "",
-    "name_fr": "Pilote",
-    "description_fr": "Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.",
-    "effect_fr": "Utilise des {b}Tactiques De Pilotage{\\b}.\n{b}Ne rate jamais{\\b} les atterrissages et décollages.\nBonus pour développer certains {b}Projets NERON{\\b}."
+  "id": 60,
+  "file": "pilot",
+  "name_en": "Pilot",
+  "description_en": "An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.",
+  "effect_en": "",
+  "name_fr": "Pilote",
+  "description_fr": "Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.",
+  "effect_fr": "Utilise des {b}Tactiques De Pilotage{\\b}.\n{b}Ne rate jamais{\\b} les atterrissages et décollages.\nBonus pour développer certains {b}Projets NERON{\\b}."
 }

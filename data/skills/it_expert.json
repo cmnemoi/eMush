@@ -1,14 +1,14 @@
 {
-    "id": 36,
-    "file": "it_expert",
-    "name_en": "IT Expert",
-    "description_en": "The IT Expert is at home as soon as they are in front of a screen. They manipulate the nexus, navigation and communications terminals with ease.",
-    "effect_en": "",
-    "name_fr": "Informaticien",
-    "description_fr": "L'informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les interfaces des terminaux du nexus, de navigation et de communication.",
-    "effect_fr": "+2 :pa_comp: par jour (points d'action {b}Informatique{\\b}).\nBonus pour développer certains {b}Projets NERON{\\b}.\nChances de succès améliorées lors de l'utilisation du {b}Bidouilleur{\\b}.",
-    "name_es": "",
-    "actions": "",
-    "effects_cycle": "",
-    "effects_day": "Sp:it2/4"
+  "id": 36,
+  "file": "it_expert",
+  "name_en": "IT Expert",
+  "description_en": "The IT Expert is at home as soon as they are in front of a screen. They manipulate the nexus, navigation and communications terminals with ease.",
+  "effect_en": "",
+  "name_fr": "Informaticien",
+  "description_fr": "L'informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les interfaces des terminaux du nexus, de navigation et de communication.",
+  "effect_fr": "+2 :pa_comp: par jour (points d'action {b}Informatique{\\b}).\nBonus pour développer certains {b}Projets NERON{\\b}.\nChances de succès améliorées lors de l'utilisation du {b}Bidouilleur{\\b}.",
+  "name_es": "",
+  "actions": "",
+  "effects_cycle": "",
+  "effects_day": "Sp:it2/4"
 }

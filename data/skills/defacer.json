@@ -1,12 +1,12 @@
 {
-    "id": 15,
-    "file": "defacer",
-    "name_en": "Defacer",
-    "description_en": "Your DNA allows you to modify certain peripheral data. This has potential!",
-    "effect_en": "",
-    "name_fr": "Dialoguiste",
-    "description_fr": "Votre ADN vous permets de modifier certaines séquences de données périphériques.Plein de potentiel !",
-    "effect_fr": "Une fois par jour. Pour {b}2{\\b} :pa: vous pouvez effacer tous les logs d'une salle. L'enregistrement des logs se fera à nouveau à partir du prochain cycle.",
-    "name_es": "",
-    "actions": "D2:deface"
+  "id": 15,
+  "file": "defacer",
+  "name_en": "Defacer",
+  "description_en": "Your DNA allows you to modify certain peripheral data. This has potential!",
+  "effect_en": "",
+  "name_fr": "Dialoguiste",
+  "description_fr": "Votre ADN vous permets de modifier certaines séquences de données périphériques.Plein de potentiel !",
+  "effect_fr": "Une fois par jour. Pour {b}2{\\b} :pa: vous pouvez effacer tous les logs d'une salle. L'enregistrement des logs se fera à nouveau à partir du prochain cycle.",
+  "name_es": "",
+  "actions": "D2:deface"
 }

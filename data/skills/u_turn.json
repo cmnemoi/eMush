@@ -1,12 +1,12 @@
 {
-    "id": 88,
-    "file": "u_turn",
-    "name_en": "U-Turn",
-    "description_en": "You've got to know how to change your certitudes.",
-    "effect_en": "",
-    "name_fr": "Retour Arrière",
-    "description_fr": "Il faut savoir changer de certitudes.",
-    "effect_fr": "Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.",
-    "name_es": "",
-    "actions": "2:u-turn"
+  "id": 88,
+  "file": "u_turn",
+  "name_en": "U-Turn",
+  "description_en": "You've got to know how to change your certitudes.",
+  "effect_en": "",
+  "name_fr": "Retour Arrière",
+  "description_fr": "Il faut savoir changer de certitudes.",
+  "effect_fr": "Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.",
+  "name_es": "",
+  "actions": "2:u-turn"
 }

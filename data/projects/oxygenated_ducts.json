@@ -1,10 +1,10 @@
 {
-    "id": 29,
-    "file": "oxygenated_ducts",
-    "name_en": "Oxygenated Ducts",
-    "description_en": "Algae growing in the air-conditioning ducts. Maybe we could encourage rampant growth of banana trees?",
-    "effect_en": "",
-    "name_fr": "Conduite Oxygénées",
-    "description_fr": "Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi non ?",
-    "effect_fr": "À chaque cycle, le Daedalus a 20% de chance d'économiser l'oxygène de l'équipage."
+  "id": 29,
+  "file": "oxygenated_ducts",
+  "name_en": "Oxygenated Ducts",
+  "description_en": "Algae growing in the air-conditioning ducts. Maybe we could encourage rampant growth of banana trees?",
+  "effect_en": "",
+  "name_fr": "Conduite Oxygénées",
+  "description_fr": "Des algues qui poussent dans les conduites de climatisation. On pourrait peut-être faire pousser des bananiers rampants aussi non ?",
+  "effect_fr": "À chaque cycle, le Daedalus a 20% de chance d'économiser l'oxygène de l'équipage."
 }

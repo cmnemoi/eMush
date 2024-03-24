@@ -1,10 +1,10 @@
 {
-    "id": 10,
-    "file": "convenient_sink",
-    "name_en": "Convenient sink",
-    "description_en": "What a magnificent stainless steel sink! You now have no excuse for not washing your hands between missions.",
-    "effect_en": "",
-    "name_fr": "Lavabo opportun",
-    "description_fr": "Quel magnifique lavabo inoxydable, vous n'avez plus d'excuse pour ne pas vous laver les mains entre chaque mission.",
-    "effect_fr": "Permet de ne pas se salir en revenant d'expédition."
+  "id": 10,
+  "file": "convenient_sink",
+  "name_en": "Convenient sink",
+  "description_en": "What a magnificent stainless steel sink! You now have no excuse for not washing your hands between missions.",
+  "effect_en": "",
+  "name_fr": "Lavabo opportun",
+  "description_fr": "Quel magnifique lavabo inoxydable, vous n'avez plus d'excuse pour ne pas vous laver les mains entre chaque mission.",
+  "effect_fr": "Permet de ne pas se salir en revenant d'expédition."
 }

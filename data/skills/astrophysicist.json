@@ -1,10 +1,10 @@
 {
-    "id": 4,
-    "file": "astrophysicist",
-    "name_en": "Astrophysicist",
-    "description_en": "Skilled in scanning for planets in range or to determine their composition.",
-    "effect_en": "",
-    "name_fr": "Astrophysicien",
-    "description_fr": "L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou déterminer leur composition",
-    "effect_fr": "L'action {b}Scanner Une Planète{\\b} coûte 1 :pa: de moins.\n+1 Secteur découvert lors des analyses de surface."
+  "id": 4,
+  "file": "astrophysicist",
+  "name_en": "Astrophysicist",
+  "description_en": "Skilled in scanning for planets in range or to determine their composition.",
+  "effect_en": "",
+  "name_fr": "Astrophysicien",
+  "description_fr": "L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou déterminer leur composition",
+  "effect_fr": "L'action {b}Scanner Une Planète{\\b} coûte 1 :pa: de moins.\n+1 Secteur découvert lors des analyses de surface."
 }

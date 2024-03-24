@@ -1,10 +1,10 @@
 {
-    "id": 14,
-    "file": "creative",
-    "name_en": "Creative",
-    "description_en": "Sometimes you need to think outside the box.",
-    "effect_en": "",
-    "name_fr": "Créatif",
-    "description_fr": "Parfois il faut savoir renverser le problème.",
-    "effect_fr": "Chacun de vos échec sur une action payante a 50% de chance de vous rendre {b}1{\\b} :pa:."
+  "id": 14,
+  "file": "creative",
+  "name_en": "Creative",
+  "description_en": "Sometimes you need to think outside the box.",
+  "effect_en": "",
+  "name_fr": "Créatif",
+  "description_fr": "Parfois il faut savoir renverser le problème.",
+  "effect_fr": "Chacun de vos échec sur une action payante a 50% de chance de vous rendre {b}1{\\b} :pa:."
 }

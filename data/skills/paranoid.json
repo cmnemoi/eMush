@@ -1,10 +1,10 @@
 {
-    "id": 57,
-    "file": "paranoid",
-    "name_en": "Paranoid",
-    "description_en": "The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.",
-    "effect_en": "",
-    "name_fr": "Paranoïaque",
-    "description_fr": "Le paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.",
-    "effect_fr": "Commence avec 2 {b}Caméras{\\b} supplémentaires."
+  "id": 57,
+  "file": "paranoid",
+  "name_en": "Paranoid",
+  "description_en": "The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.",
+  "effect_en": "",
+  "name_fr": "Paranoïaque",
+  "description_fr": "Le paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.",
+  "effect_fr": "Commence avec 2 {b}Caméras{\\b} supplémentaires."
 }

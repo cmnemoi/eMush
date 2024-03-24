@@ -1,10 +1,10 @@
 {
-    "id": 55,
-    "file": "opportunist",
-    "name_en": "Opportunist",
-    "description_en": "The opportunist waits for any chance to ascend in the ship's hierarchy, they'll miss no opportunity.",
-    "effect_en": "",
-    "name_fr": "Arriviste",
-    "description_fr": "L'arriviste attend la première occasion pour monter dans la hierarchie du vaisseau, aucune opportunité ne lui échappe.",
-    "effect_fr": "+5 :pa: lorsque vous {b}gagnez un titre{\\b} pour la première fois."
+  "id": 55,
+  "file": "opportunist",
+  "name_en": "Opportunist",
+  "description_en": "The opportunist waits for any chance to ascend in the ship's hierarchy, they'll miss no opportunity.",
+  "effect_en": "",
+  "name_fr": "Arriviste",
+  "description_fr": "L'arriviste attend la première occasion pour monter dans la hierarchie du vaisseau, aucune opportunité ne lui échappe.",
+  "effect_fr": "+5 :pa: lorsque vous {b}gagnez un titre{\\b} pour la première fois."
 }

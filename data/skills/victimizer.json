@@ -1,12 +1,12 @@
 {
-    "id": 89,
-    "file": "victimizer",
-    "name_en": "Victimizer",
-    "description_en": "Certain well-targeted remarks can have unexpected results.",
-    "effect_en": "",
-    "name_fr": "Persécuteur",
-    "description_fr": "Certaines remarques bien senties peuvent avoir des repercussions inattendues",
-    "effect_fr": "Pour {b}1{\\b} :pa:, permet de jeter l'anathème sur un co-équipier.\nCe co-équipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.\nSes actions furtives deviennent discrètes.\nLe statut Paria dure tant que le juge est en vie.\nSi le Paria meurt et est Mush, le Persécuteur gagne 8 :triumph:, sinon il perd 8 :triumph:.",
-    "name_es": "",
-    "actions": "1:victimize"
+  "id": 89,
+  "file": "victimizer",
+  "name_en": "Victimizer",
+  "description_en": "Certain well-targeted remarks can have unexpected results.",
+  "effect_en": "",
+  "name_fr": "Persécuteur",
+  "description_fr": "Certaines remarques bien senties peuvent avoir des repercussions inattendues",
+  "effect_fr": "Pour {b}1{\\b} :pa:, permet de jeter l'anathème sur un co-équipier.\nCe co-équipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.\nSes actions furtives deviennent discrètes.\nLe statut Paria dure tant que le juge est en vie.\nSi le Paria meurt et est Mush, le Persécuteur gagne 8 :triumph:, sinon il perd 8 :triumph:.",
+  "name_es": "",
+  "actions": "1:victimize"
 }

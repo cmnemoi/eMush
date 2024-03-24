@@ -1,10 +1,10 @@
 {
-    "id": 1,
-    "file": "actopi_protocol",
-    "name_en": "ACTOPI Protocol",
-    "description_en": "Displays a uniquely coloured pixel indicating who is on board on the tracker. Useful for tracking anyones slightest movements.",
-    "effect_en": "",
-    "name_fr": "Protocole ACTOPI",
-    "description_fr": "Affiche un pixel de couleur unique qui indique qui est qui à bord dans le tracker. Pratique pour traquer les moindres faits et gestes de chacun.",
-    "effect_fr": "Affiche l'identité des équipiers sur le Traqueur."
+  "id": 1,
+  "file": "actopi_protocol",
+  "name_en": "ACTOPI Protocol",
+  "description_en": "Displays a uniquely coloured pixel indicating who is on board on the tracker. Useful for tracking anyones slightest movements.",
+  "effect_en": "",
+  "name_fr": "Protocole ACTOPI",
+  "description_fr": "Affiche un pixel de couleur unique qui indique qui est qui à bord dans le tracker. Pratique pour traquer les moindres faits et gestes de chacun.",
+  "effect_fr": "Affiche l'identité des équipiers sur le Traqueur."
 }

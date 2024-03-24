@@ -1,10 +1,10 @@
 {
-    "id": 18,
-    "file": "general_patching_up",
-    "name_en": "General Patching Up",
-    "description_en": "Did someone think to SCREW the steel plating back down?",
-    "effect_en": "",
-    "name_fr": "Rafistolage Général",
-    "description_fr": "Quelqu'un a pensé à REVISSER les plaques de tôles ?",
-    "effect_fr": "À chaque cycle, le Daedalus a 15% de chances de ne pas tomber en miette..."
+  "id": 18,
+  "file": "general_patching_up",
+  "name_en": "General Patching Up",
+  "description_en": "Did someone think to SCREW the steel plating back down?",
+  "effect_en": "",
+  "name_fr": "Rafistolage Général",
+  "description_fr": "Quelqu'un a pensé à REVISSER les plaques de tôles ?",
+  "effect_fr": "À chaque cycle, le Daedalus a 15% de chances de ne pas tomber en miette..."
 }

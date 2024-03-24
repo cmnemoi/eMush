@@ -1,9 +1,9 @@
 {
-    "id": 28,
-    "file": "noise_reducer",
-    "name_en": "Noise Reducer",
-    "description_en": "Is the infernal din from the engines stopping you from realizing your potential? There's a solution for that.",
-    "effect_en": "",
-    "name_fr": "Isolateur Phonique",
-    "description_fr": "Le bruit infernal des moteurs vous empêche de profiter de votre potentiel  ? Il y a une solution pour ça."
+  "id": 28,
+  "file": "noise_reducer",
+  "name_en": "Noise Reducer",
+  "description_en": "Is the infernal din from the engines stopping you from realizing your potential? There's a solution for that.",
+  "effect_en": "",
+  "name_fr": "Isolateur Phonique",
+  "description_fr": "Le bruit infernal des moteurs vous empêche de profiter de votre potentiel  ? Il y a une solution pour ça."
 }

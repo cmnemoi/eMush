@@ -1,10 +1,10 @@
 {
-    "id": 18,
-    "file": "detached_crewmember",
-    "name_en": "Detached Crewmember",
-    "description_en": "The unconcerned crewmember is cold, hard, and unfeeling. They are unaffected by deaths of teammates.",
-    "effect_en": "",
-    "name_fr": "Détaché",
-    "description_fr": "Le détaché est froid, dur, imperméable. Il n'est pas affecté par la mort de ses camarades.",
-    "effect_fr": "Vous ne {b}perdez pas de Points de Moral (:pmo:) lorsqu'un équipier meurt{\\b}.\nPas de risque de maladies psy si vous êtes témoin d'un décès."
+  "id": 18,
+  "file": "detached_crewmember",
+  "name_en": "Detached Crewmember",
+  "description_en": "The unconcerned crewmember is cold, hard, and unfeeling. They are unaffected by deaths of teammates.",
+  "effect_en": "",
+  "name_fr": "Détaché",
+  "description_fr": "Le détaché est froid, dur, imperméable. Il n'est pas affecté par la mort de ses camarades.",
+  "effect_fr": "Vous ne {b}perdez pas de Points de Moral (:pmo:) lorsqu'un équipier meurt{\\b}.\nPas de risque de maladies psy si vous êtes témoin d'un décès."
 }

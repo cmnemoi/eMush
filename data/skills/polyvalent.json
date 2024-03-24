@@ -1,10 +1,10 @@
 {
-    "id": 63,
-    "file": "polyvalent",
-    "name_en": "Polyvalent",
-    "description_en": "You have skills, they're always useful...",
-    "effect_en": "",
-    "name_fr": "Polyvalent",
-    "description_fr": "Vous avez des connaissances...ça peut toujours servir.",
-    "effect_fr": "Vous êtes considéré comme {b}Botaniste{\\b}, {b}Diplomate{\\b} et {b}Biologiste{\\b} mais ne disposez pas de leur actions et ressources."
+  "id": 63,
+  "file": "polyvalent",
+  "name_en": "Polyvalent",
+  "description_en": "You have skills, they're always useful...",
+  "effect_en": "",
+  "name_fr": "Polyvalent",
+  "description_fr": "Vous avez des connaissances...ça peut toujours servir.",
+  "effect_fr": "Vous êtes considéré comme {b}Botaniste{\\b}, {b}Diplomate{\\b} et {b}Biologiste{\\b} mais ne disposez pas de leur actions et ressources."
 }

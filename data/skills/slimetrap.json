@@ -1,12 +1,12 @@
 {
-    "id": 74,
-    "file": "slimetrap",
-    "name_en": "Slimetrap",
-    "description_en": "These damn mushrooms reproduce quickly. Really quickly. Too quickly! They're everywhere!",
-    "effect_en": "",
-    "name_fr": "Piège Moisi",
-    "description_fr": "Ces foutus champignons se reproduisent vite, trop vite, très vite... Ils sont partout !!!",
-    "effect_fr": "Pour {b}1{\\b} :pa:, le joueur ciblé deviendra sale dans 1 à 4 cycles.",
-    "name_es": "",
-    "actions": "0:slimetrap"
+  "id": 74,
+  "file": "slimetrap",
+  "name_en": "Slimetrap",
+  "description_en": "These damn mushrooms reproduce quickly. Really quickly. Too quickly! They're everywhere!",
+  "effect_en": "",
+  "name_fr": "Piège Moisi",
+  "description_fr": "Ces foutus champignons se reproduisent vite, trop vite, très vite... Ils sont partout !!!",
+  "effect_fr": "Pour {b}1{\\b} :pa:, le joueur ciblé deviendra sale dans 1 à 4 cycles.",
+  "name_es": "",
+  "actions": "0:slimetrap"
 }

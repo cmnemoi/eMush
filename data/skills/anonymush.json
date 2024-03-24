@@ -1,10 +1,10 @@
 {
-    "id": 1,
-    "file": "anonymush",
-    "name_en": "Anonymush",
-    "description_en": "Your mycotoxins are indetectable in the atmosphere. You are a predator after all!",
-    "effect_en": "",
-    "name_fr": "Anonyme",
-    "description_fr": "Vos mycotoxines sont indétectables dans l'atmosphère. Vous êtes le prédateur après tout !",
-    "effect_fr": "Vous apparaissez comme un Humain dans la barre d'équipage sauf à votre mort."
+  "id": 1,
+  "file": "anonymush",
+  "name_en": "Anonymush",
+  "description_en": "Your mycotoxins are indetectable in the atmosphere. You are a predator after all!",
+  "effect_en": "",
+  "name_fr": "Anonyme",
+  "description_fr": "Vos mycotoxines sont indétectables dans l'atmosphère. Vous êtes le prédateur après tout !",
+  "effect_fr": "Vous apparaissez comme un Humain dans la barre d'équipage sauf à votre mort."
 }

@@ -1,12 +1,12 @@
 {
-    "id": 64,
-    "file": "premonition",
-    "name_en": "Premonition",
-    "description_en": "Your intuition never fails, you can see the most recent activities of a teammate in the form of a vivid flashback. It's practical, but gives you a monster headache!",
-    "effect_en": "",
-    "name_fr": "Pressentiment",
-    "description_fr": "Votre intuition ne vous trompe jamais, vous pouvez revoir les dernières activités d'un équipier sous forme de flashback lumineux. C'est pratique mais ca fait mal à la tête.",
-    "effect_fr": "Vous pouvez {b}voir la dernière action{\\b} d'un autre coéquipier. Cette action vous fait perdre un :pmo:.",
-    "name_es": "",
-    "actions": "0:premonition"
+  "id": 64,
+  "file": "premonition",
+  "name_en": "Premonition",
+  "description_en": "Your intuition never fails, you can see the most recent activities of a teammate in the form of a vivid flashback. It's practical, but gives you a monster headache!",
+  "effect_en": "",
+  "name_fr": "Pressentiment",
+  "description_fr": "Votre intuition ne vous trompe jamais, vous pouvez revoir les dernières activités d'un équipier sous forme de flashback lumineux. C'est pratique mais ca fait mal à la tête.",
+  "effect_fr": "Vous pouvez {b}voir la dernière action{\\b} d'un autre coéquipier. Cette action vous fait perdre un :pmo:.",
+  "name_es": "",
+  "actions": "0:premonition"
 }

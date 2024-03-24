@@ -34,7 +34,7 @@ export default defineComponent({
                 { name: 'description', content: this.$t('metaSeo.description') },
                 { name: 'og:title', content: this.$t('metaSeo.og:title') },
                 { name: 'og:description', content: this.$t('metaSeo.og:description') },
-                { name: 'og:url', content: this.baseUrl },
+                { name: 'og:url', content: this.baseUrl }
             ]
         };
     },

@@ -1,173 +1,187 @@
-{ "compressionlevel":-1,
- "height":9,
- "infinite":false,
- "layers":[
+{
+  "compressionlevel": -1,
+  "height": 9,
+  "infinite": false,
+  "layers": [
+    {
+      "data": [
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0
+      ],
+      "height": 9,
+      "id": 2,
+      "name": "wall",
+      "opacity": 1,
+      "properties": [
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
-         "height":9,
-         "id":2,
-         "name":"wall",
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"depth",
-                 "type":"int",
-                 "value":1
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":7,
-         "x":0,
-         "y":0
-        }, 
+          "name": "depth",
+          "type": "int",
+          "value": 1
+        }
+      ],
+      "type": "tilelayer",
+      "visible": true,
+      "width": 7,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "draworder": "topdown",
+      "id": 4,
+      "name": "doors",
+      "objects": [],
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "data": [
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0
+      ],
+      "height": 9,
+      "id": 1,
+      "name": "wall",
+      "opacity": 1,
+      "properties": [
         {
-         "draworder":"topdown",
-         "id":4,
-         "name":"doors",
-         "objects":[],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
+          "name": "depth",
+          "type": "int",
+          "value": 4
+        },
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
-         "height":9,
-         "id":1,
-         "name":"wall",
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"depth",
-                 "type":"int",
-                 "value":4
-                }, 
-                {
-                 "name":"walkingDepth",
-                 "type":"int",
-                 "value":20
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":7,
-         "x":0,
-         "y":0
-        }, 
+          "name": "walkingDepth",
+          "type": "int",
+          "value": 20
+        }
+      ],
+      "type": "tilelayer",
+      "visible": true,
+      "width": 7,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "data": [
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0
+      ],
+      "height": 9,
+      "id": 3,
+      "name": "ground",
+      "opacity": 1,
+      "properties": [
         {
-         "data":[0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0],
-         "height":9,
-         "id":3,
-         "name":"ground",
-         "opacity":1,
-         "properties":[
-                {
-                 "name":"depth",
-                 "type":"int",
-                 "value":5
-                }, 
-                {
-                 "name":"walkingDepth",
-                 "type":"int",
-                 "value":8
-                }],
-         "type":"tilelayer",
-         "visible":true,
-         "width":7,
-         "x":0,
-         "y":0
-        }, 
+          "name": "depth",
+          "type": "int",
+          "value": 5
+        },
         {
-         "draworder":"index",
-         "id":7,
-         "name":"objects",
-         "objects":[
-                {
-                 "gid":1,
-                 "height":93,
-                 "id":24,
-                 "name":"pasiphae",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":15
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":64
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":70
-                        }],
-                 "rotation":0,
-                 "type":"patrol_ship",
-                 "visible":true,
-                 "width":106,
-                 "x":40,
-                 "y":40
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }],
- "nextlayerid":10,
- "nextobjectid":63,
- "orientation":"isometric",
- "renderorder":"right-down",
- "tiledversion":"git",
- "tileheight":16,
- "tilesets":[
+          "name": "walkingDepth",
+          "type": "int",
+          "value": 8
+        }
+      ],
+      "type": "tilelayer",
+      "visible": true,
+      "width": 7,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "draworder": "index",
+      "id": 7,
+      "name": "objects",
+      "objects": [
         {
-         "columns":1,
-         "firstgid":1,
-         "image":"tilemaps\/pasiphae.png",
-         "imageheight":187,
-         "imagewidth":106,
-         "margin":0,
-         "name":"pasiphae",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":2,
-         "tileheight":93,
-         "tilewidth":106
-        }],
- "tilewidth":32,
- "type":"map",
- "version":"1.10",
- "width":7
+          "gid": 1,
+          "height": 93,
+          "id": 24,
+          "name": "pasiphae",
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "depth",
+              "type": "int",
+              "value": 15
+            },
+            {
+              "name": "isoSizeX",
+              "type": "int",
+              "value": 64
+            },
+            {
+              "name": "isoSizeY",
+              "type": "int",
+              "value": 70
+            }
+          ],
+          "rotation": 0,
+          "type": "patrol_ship",
+          "visible": true,
+          "width": 106,
+          "x": 40,
+          "y": 40
+        }
+      ],
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    }
+  ],
+  "nextlayerid": 10,
+  "nextobjectid": 63,
+  "orientation": "isometric",
+  "renderorder": "right-down",
+  "tiledversion": "git",
+  "tileheight": 16,
+  "tilesets": [
+    {
+      "columns": 1,
+      "firstgid": 1,
+      "image": "tilemaps\/pasiphae.png",
+      "imageheight": 187,
+      "imagewidth": 106,
+      "margin": 0,
+      "name": "pasiphae",
+      "objectalignment": "center",
+      "spacing": 0,
+      "tilecount": 2,
+      "tileheight": 93,
+      "tilewidth": 106
+    }
+  ],
+  "tilewidth": 32,
+  "type": "map",
+  "version": "1.10",
+  "width": 7
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\Tests\Exploration\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
@@ -1056,6 +1058,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then I should see a lost sector on the planet
         $I->assertTrue($exploration->getPlanet()->hasSectorByName(PlanetSectorEnum::LOST));
+
+        // then I should see a lost crewmate alert
+        $I->seeInRepository(
+            entity: Alert::class,
+            params: ['name' => AlertEnum::LOST_CREWMATE],
+        );
     }
 
     public function testPlayerLostEventDoesNotTargetPlayerWithACompass(FunctionalTester $I): void

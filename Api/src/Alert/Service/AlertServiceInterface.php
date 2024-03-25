@@ -7,6 +7,7 @@ use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Exploration\Entity\Planet;
 use Mush\Place\Entity\Place;
 
 interface AlertServiceInterface
@@ -52,4 +53,6 @@ interface AlertServiceInterface
     public function isFireReported(Place $room): bool;
 
     public function isEquipmentReported(GameEquipment $equipment): bool;
+
+    public function handlePlayerLost(Daedalus $daedalus): void;
 }

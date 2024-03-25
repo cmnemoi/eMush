@@ -107,7 +107,9 @@ final class Land extends AbstractAction
 
         // @TODO: use PlayerService::changePlace instead.
         // /!\ You need to delete all treatments in Modifier::ActionSubscriber before! /!\
-        $this->player->changePlace($patrolShipDockingPlace);
-        $this->playerService->persist($this->player);
+        foreach ($this->player->getPlace()->getPlayers()->getPlayerAlive() as $player) {
+            $player->changePlace($patrolShipDockingPlace);
+            $this->playerService->persist($player);
+        }
     }
 }

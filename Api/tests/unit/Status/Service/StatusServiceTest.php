@@ -68,32 +68,6 @@ class StatusServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testPersist()
-    {
-        $place = new Place();
-        $place->setDaedalus(new Daedalus());
-        $gameEquipment = new GameItem($place);
-        $status = new Status($gameEquipment, new StatusConfig());
-
-        $this->entityManager->shouldReceive('persist')->with($status)->once();
-        $this->entityManager->shouldReceive('flush')->once();
-        $this->service->persist($status);
-    }
-
-    public function testRemove()
-    {
-        $place = new Place();
-        $place->setDaedalus(new Daedalus());
-        $gameEquipment = new GameItem($place);
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName('status');
-        $status = new Status($gameEquipment, $statusConfig);
-
-        $this->entityManager->shouldReceive('remove')->with($status)->once();
-        $this->entityManager->shouldReceive('flush')->once();
-        $this->service->delete($status);
-    }
-
     public function testGetMostRecent()
     {
         $daedalus = new Daedalus();

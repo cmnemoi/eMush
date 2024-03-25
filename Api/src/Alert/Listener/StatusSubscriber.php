@@ -29,6 +29,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         return [
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_DELETED => 'onStatusDeleted',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
     }
@@ -68,6 +69,18 @@ class StatusSubscriber implements EventSubscriberInterface
 
             case PlayerStatusEnum::LOST:
                 $this->alertService->handlePlayerLost($holder->getDaedalus());
+
+                return;
+        }
+    }
+
+    public function onStatusDeleted(StatusEvent $event): void
+    {
+        $holder = $event->getStatusHolder();
+
+        switch ($event->getStatusName()) {
+            case PlayerStatusEnum::LOST:
+                $this->alertService->handleLostPlayerFound($holder->getDaedalus());
 
                 return;
         }

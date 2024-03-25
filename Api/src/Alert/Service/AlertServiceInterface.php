@@ -54,4 +54,6 @@ interface AlertServiceInterface
     public function isEquipmentReported(GameEquipment $equipment): bool;
 
     public function handlePlayerLost(Daedalus $daedalus): void;
+
+    public function handleLostPlayerFound(Daedalus $daedalus): void;
 }

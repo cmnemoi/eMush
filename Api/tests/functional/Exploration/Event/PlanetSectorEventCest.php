@@ -1138,6 +1138,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'log' => PlayerModifierLogEnum::GAIN_MORAL_POINT,
             ]
         );
+
+        // then I should not see a lost crewmate alert
+        $I->dontSeeInRepository(
+            entity: Alert::class,
+            params: ['name' => AlertEnum::LOST_CREWMATE],
+        );
     }
 
     public function testKillLostEvent(FunctionalTester $I): void
@@ -1165,6 +1171,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: EndCauseEnum::EXPLORATION_LOST,
             actual: $this->janice->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+        );
+
+        // then I should not see a lost crewmate alert
+        $I->dontSeeInRepository(
+            entity: Alert::class,
+            params: ['name' => AlertEnum::LOST_CREWMATE],
         );
     }
 }

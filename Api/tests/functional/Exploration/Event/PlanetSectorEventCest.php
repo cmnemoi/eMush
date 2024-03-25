@@ -20,6 +20,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
@@ -1057,7 +1058,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals($lostPlayer->getLogName(), $explorationLog->getParameters()['character']);
 
         // then I should see a lost sector on the planet
-        $I->assertTrue($exploration->getPlanet()->hasSectorByName(PlanetSectorEnum::LOST));
+        /** @var ?PlanetSector $lostSector */
+        $lostSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::LOST)->first() ?: null;
+        $I->assertNotNull($lostSector);
+
+        // then this sector should be revealed
+        $I->assertTrue($lostSector->isRevealed());
 
         // then I should see a lost crewmate alert
         $I->seeInRepository(

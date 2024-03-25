@@ -138,6 +138,7 @@ class StatusServiceTest extends TestCase
         $deleteEvent = new AbstractGameEvent([], new \DateTime());
         $deleteEvent->setPriority(0);
         $this->eventService->shouldReceive('callEvent')->once()->andReturn(new EventChain([$deleteEvent]));
+        $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->service->updateCharge($chargeStatus, -7, [], $time);
 
         $this->assertNull($result);

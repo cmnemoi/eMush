@@ -4,6 +4,7 @@ export class Alert {
     public name: string|null;
     public description: string|null;
     public reports: Array<string>;
+    public lostPlayer: string|null = null;
 
     constructor() {
         this.name = null;
@@ -19,6 +20,7 @@ export class Alert {
             if (typeof object.reports !== 'undefined') {
                 this.reports = object.reports;
             }
+            this.lostPlayer = object.lostPlayer;
         }
         return this;
     }
@@ -32,6 +34,8 @@ export class Alert {
             this.prefix = object.prefix;
             this.name = object.name;
             this.description = object.description;
+            this.reports = object.reports;
+            this.lostPlayer = object.lostPlayer;
         }
 
         return this;

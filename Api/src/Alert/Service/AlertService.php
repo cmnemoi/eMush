@@ -13,7 +13,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Exploration\Entity\Planet;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\StatusEnum;
 use Psr\Log\LoggerInterface;

@@ -8,6 +8,7 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AlertNormalizer implements NormalizerInterface
@@ -74,6 +75,12 @@ class AlertNormalizer implements NormalizerInterface
 
         if (!$alert->getAlertElements()->isEmpty()) {
             $normalizedAlert['reports'] = $this->handleAlertReport($alert, $language);
+        }
+
+        if ($alert->getName() === AlertEnum::LOST_CREWMATE) {
+            /** @var Player $lastLostPlayer */
+            $lastLostPlayer = $alert->getDaedalus()->getLostPlayers()->last();
+            $normalizedAlert['lostPlayer'] = $lastLostPlayer->getName();
         }
 
         return $normalizedAlert;

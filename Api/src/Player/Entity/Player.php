@@ -610,16 +610,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return in_array($title, $this->getTitles());
     }
 
-    public function getExploration(): ?Exploration
-    {
-        return $this->exploration;
-    }
-
     public function setExploration(?Exploration $exploration): static
     {
         $this->exploration = $exploration;
 
         return $this;
+    }
+
+    public function isExploring(): bool
+    {
+        return $this->exploration !== null;
     }
 
     public function isExploringOrIsLostOnPlanet(): bool

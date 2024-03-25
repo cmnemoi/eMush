@@ -318,10 +318,12 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         // If player is lost but the exploration is finished, we need to normalize a dummy exploration with
         // basic information from their last closed exploration.
-        if ($player->getExploration() === null && $player->hasStatus(PlayerStatusEnum::LOST)) {
-            return $this->explorationService->getDummyExplorationForLostPlayer($this->closedExplorationService->getMostRecentForPlayer($player));
+        if (!$player->isExploring() && $player->hasStatus(PlayerStatusEnum::LOST)) {
+            return $this->explorationService->getDummyExplorationForLostPlayer(
+                $this->closedExplorationService->getMostRecentForPlayer($player)
+            );
         }
 
-        return $player->getExploration();
+        return $player->getDaedalus()->getExploration();
     }
 }

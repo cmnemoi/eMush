@@ -306,7 +306,7 @@ class PlayerController extends AbstractGameController
         }
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
 
-        if (!$player->getExploration()) {
+        if (!$player->isExploring()) {
             return $this->view(['message' => 'You have to be in an exploration to do that!'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

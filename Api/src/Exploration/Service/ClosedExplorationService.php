@@ -4,26 +4,23 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Service;
 
+use Doctrine\Common\Collections\Criteria;
 use Mush\Exploration\Entity\ClosedExploration;
-use Mush\Exploration\Repository\ClosedExplorationRepository;
 use Mush\Player\Entity\Player;
 
 final class ClosedExplorationService implements ClosedExplorationServiceInterface
 {
-    private ClosedExplorationRepository $closedExplorationRepository;
-
-    public function __construct(ClosedExplorationRepository $closedExplorationRepository)
-    {
-        $this->closedExplorationRepository = $closedExplorationRepository;
-    }
-
     public function getMostRecentForPlayer(Player $player): ClosedExploration
     {
-        $closedExploration = $this->closedExplorationRepository->getMostRecentForPlayer($player);
-        if (!$closedExploration) {
-            throw new \RuntimeException('This player should have at least one exploration.');
+        $daedalusExplorations = $player->getDaedalus()->getDaedalusInfo()->getClosedExplorations();
+        $playerExplorations = $daedalusExplorations->filter(function (ClosedExploration $closedExploration) use ($player) {
+            return $closedExploration->getClosedExplorators()->contains($player->getPlayerInfo()->getClosedPlayer());
+        });
+
+        if ($playerExplorations->isEmpty()) {
+            throw new \RuntimeException('This player should have participated in at least one exploration');
         }
 
-        return $closedExploration;
+        return $playerExplorations->matching(Criteria::create()->orderBy(['createdAt' => Criteria::DESC]))->first();
     }
 }

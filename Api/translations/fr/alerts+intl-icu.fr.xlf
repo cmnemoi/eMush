@@ -91,7 +91,7 @@
       </segment>
       <segment id="description" state="final">
         <source>lost_crewmate.description</source>
-        <target>Un de vos co-équipier est perdu sur une planète, vous devriez monter une mission pour le rapatrier !</target>
+        <target>Un de vos co-équipiers est perdu sur une planète, vous devriez monter une mission pour le rapatrier !</target>
       </segment>
     </unit>
     <unit id="low_hull">

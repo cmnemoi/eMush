@@ -40,7 +40,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration->incrementCycle();
         $this->explorationService->persist([$exploration]);
 
-        $this->closeExplorationPrematurelyIfNeeded($exploration);
+        $this->closeExplorationIfNeeded($exploration);
     }
 
     public function onExplorationNewCycle(ExplorationEvent $event): void
@@ -56,10 +56,10 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration->incrementCycle();
         $this->explorationService->persist([$exploration]);
 
-        $this->closeExplorationPrematurelyIfNeeded($exploration);
+        $this->closeExplorationIfNeeded($exploration);
     }
 
-    private function closeExplorationPrematurelyIfNeeded(Exploration $exploration): void
+    private function closeExplorationIfNeeded(Exploration $exploration): void
     {
         $allNonLostExploratorsAreDead = $exploration->getNotLostActiveExplorators()->isEmpty();
         $allExplorationStepsDone = $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1;

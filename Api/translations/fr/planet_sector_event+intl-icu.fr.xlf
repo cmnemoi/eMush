@@ -539,6 +539,13 @@
         <source>again.cave_description</source>
         <target>Ce réseau de cavernes est inextricable, vous arrivez néanmoins à trouver la sortie, mais vous avez la sensation qu'il reste quelque chose là-dedans…</target>
       </segment>
+      <segment id="lost_description" state="translated">
+        <source>again.lost_description</source>
+        <target>{character_gender, select,
+        male {Malgré les recherches, vous n'avez trouvé aucune trace de {character}. Pourtant il doit bien être quelque part !}
+        female {Malgré les recherches, vous n'avez trouvé aucune trace de {character}. Pourtant elle doit bien être quelque part !}
+        other {Malgré les recherches, vous n'avez trouvé aucune trace de {character}. Pourtant il doit bien être quelque part !}}</target>
+      </segment>
     </unit>
     <unit id="item_lost">
       <segment id="name" state="final">

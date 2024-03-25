@@ -803,15 +803,23 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeAgainEvent(FunctionalTester $I): void
     {
-        // given desert sector has only again event
+        // given Chun is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given lost sector has only again event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::DESERT,
+            sectorName: PlanetSectorEnum::LOST,
             events: [PlanetSectorEvent::AGAIN => 1]
         );
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::LOST, PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players,
         );
         $closedExploration = $this->exploration->getClosedExploration();
@@ -830,10 +838,10 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::DESERT,
-                'planetSectorName' => 'Désert',
+                'planetSectorKey' => PlanetSectorEnum::LOST,
+                'planetSectorName' => 'Perdu',
                 'eventName' => 'Érrance',
-                'eventDescription' => 'Cette marche dans le désert ne rime à rien, vous n\'avez aucune idée de votre position et décidez de revenir sur vos pas.',
+                'eventDescription' => 'Malgré les recherches, vous n\'avez trouvé aucune trace de Chun. Pourtant elle doit bien être quelque part !',
                 'eventOutcome' => 'Échec de l\'exploration de la zone. Il reste quand même des choses à découvrir…',
             ],
             actual: $normalizedExplorationLog,

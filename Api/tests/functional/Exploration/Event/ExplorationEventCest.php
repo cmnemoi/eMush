@@ -213,4 +213,89 @@ final class ExplorationEventCest extends AbstractExplorationTester
         // then exploration should not be finished
         $I->assertFalse($closedExploration->isExplorationFinished());
     }
+
+    public function testExplorationEstimatedDurationWithMoreUnvisitSectorsThanSectionsToVisit(FunctionalTester $I): void
+    {
+        // given a planet with 20 oxygen sectors
+        $sectors = [];
+        for ($i = 0; $i < 20; ++$i) {
+            $sectors[] = PlanetSectorEnum::OXYGEN;
+        }
+        $planet = $this->createPlanet($sectors, $I);
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when an exploration is created
+        $exploration = $this->createExploration(
+            planet: $planet,
+            explorators: new PlayerCollection([$this->chun]),
+        );
+
+        // then estimated duration should be 90 minutes
+        $I->assertEquals(90, $exploration->getEstimatedDuration());
+
+        // when I have three cycle changes
+        for ($i = 0; $i < 3; ++$i) {
+            $cycleEvent = new ExplorationEvent(
+                $exploration,
+                [EventEnum::NEW_CYCLE],
+                new \DateTime(),
+            );
+            $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+        }
+
+        // then estimated duration should be 60 minutes
+        $I->assertEquals(60, $exploration->getEstimatedDuration());
+    }
+
+    public function testExplorationEstimatedDurationWithVisitedSectors(FunctionalTester $I): void
+    {
+        // given a planet with 20 oxygen sectors
+        $sectors = [];
+        for ($i = 0; $i < 20; ++$i) {
+            $sectors[] = PlanetSectorEnum::OXYGEN;
+        }
+        $planet = $this->createPlanet($sectors, $I);
+
+        // given 14 sectors are visited
+        foreach ($planet->getSectors()->slice(0, 14) as $sector) {
+            $sector->visit();
+        }
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when an exploration is created
+        $exploration = $this->createExploration(
+            planet: $planet,
+            explorators: new PlayerCollection([$this->chun]),
+        );
+
+        // then estimated duration should be 60 minutes
+        $I->assertEquals(60, $exploration->getEstimatedDuration());
+
+        // when I have three cycle changes
+        for ($i = 0; $i < 3; ++$i) {
+            $cycleEvent = new ExplorationEvent(
+                $exploration,
+                [EventEnum::NEW_CYCLE],
+                new \DateTime(),
+            );
+            $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+        }
+
+        // then estimated duration should be 30 minutes
+        $I->assertEquals(30, $exploration->getEstimatedDuration());
+    }
 }

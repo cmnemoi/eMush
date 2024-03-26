@@ -214,7 +214,7 @@ class Exploration
 
     public function getEstimatedDuration(): int
     {
-        return $this->getCycleLength() * (min($this->numberOfSectionsToVisit, $this->getPlanet()->getUnvisitedSectors()->count()) + 1 - $this->getCycle());
+        return $this->getCycleLength() * min($this->numberOfSectionsToVisit - $this->cycle + 1, $this->planet->getUnvisitedSectors()->count());
     }
 
     public function hasAFunctionalDrill(): bool

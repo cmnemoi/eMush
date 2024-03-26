@@ -9,6 +9,7 @@ export class Planet {
     public distance: number|null = null;
     public sectors: PlanetSector[]|null = null;
     public actions: Action[]|null = null;
+    public numberOfSectorsRevealed: number|null = null;
 
     public load(object: any): Planet {
         if (object) {
@@ -19,6 +20,7 @@ export class Planet {
             this.distance = object.distance || null;
             this.sectors = object.sectors || null;
             this.actions = object.actions || null;
+            this.numberOfSectorsRevealed = this.sectors?.filter(sector => sector.isRevealed).length || null;
         }
         return this;
     }

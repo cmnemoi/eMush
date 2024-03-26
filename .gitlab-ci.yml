@@ -91,7 +91,21 @@ api-lint:
     - ./linters.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: ["Api/**/*.php", "Api/**/*.xlf"]
+      changes: ["Api/**/*.php"]
+
+translations-lint:
+  <<: *php_template
+  stage: test
+  needs:
+    - job: check
+      optional: true
+    - job: build-front
+      optional: true
+  script:
+    - php bin/console lint:xliff translations
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: ["Api/**/*.xlf"]
     
 
 api-test-develop:

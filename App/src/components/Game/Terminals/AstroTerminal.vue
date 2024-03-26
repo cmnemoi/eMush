@@ -45,6 +45,16 @@
                         </template>
                         <img src="@/assets/images/bin.png">
                     </Tippy>
+                    <Tippy
+                        tag="button"
+                        class="delete"
+                        @click="sharePlanets()">
+                        <template #content>
+                            <h1 v-html="'Partager'" />
+                            <p v-html="formatText('Partager les planètes avec l\'équipage')" />
+                        </template>
+                        <img src="@/assets/images/planet.png">
+                    </Tippy>
                 </div>
             </div>
         </section>
@@ -82,7 +92,7 @@ import { defineComponent } from "vue";
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "@/entities/Action";
 import { formatText } from "@/utils/formatText";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 
 export default defineComponent ({
@@ -120,7 +130,8 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction'
+            'executeAction': 'action/executeAction',
+            'updateTypedMessage': 'communication/updateTypedMessage',
         }),
         analyzeAction(planet: Planet): Action | null {
             return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.ANALYZE_PLANET);
@@ -143,10 +154,21 @@ export default defineComponent ({
         getSectorImage(sector: PlanetSector): string {
             return require(`@/assets/images/astro/${sector.key}.png`);
         },
-        formatText(text: string | null): string {
-            if (!text)
-                return '';
-            return formatText(text);
+        formatText,
+        sharePlanet(planet: Planet) {
+            const publicChannelTab = document.getElementsByClassName('tabs')[0].getElementsByClassName('public')[0] as HTMLDivElement;
+            publicChannelTab.click();
+            setTimeout(async () => {
+                const chatInput = document.getElementsByClassName('chat-input')[0] as HTMLFormElement;
+                const textArea = chatInput.getElementsByTagName('textarea')[0] as HTMLTextAreaElement;
+                const planetSectorsAsString = planet.sectors?.map(sector => sector.name).join(', ');
+                textArea.value += `:planet: **${planet.name}** (${planet.numberOfSectorsRevealed}/${planet.sectors?.length})\n*${planet?.orientation} - ${planet?.distance} :fuel:*\n${planetSectorsAsString}\n\n`;
+            }, 10);
+        },
+        sharePlanets() {
+            this.planets.forEach(planet => this.sharePlanet(planet));
+            const textArea = document.getElementsByClassName('chat-input')[0].getElementsByTagName('textarea')[0] as HTMLTextAreaElement;
+            textArea.value = textArea.value.replace(/[\n]/g, '');
         }
     },
     data() {

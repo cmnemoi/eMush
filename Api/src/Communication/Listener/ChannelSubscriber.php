@@ -11,6 +11,7 @@ use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ChannelSubscriber implements EventSubscriberInterface
@@ -21,6 +22,7 @@ class ChannelSubscriber implements EventSubscriberInterface
         ActionEnum::DROP => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
         ActionEnum::MOVE => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
         EquipmentStatusEnum::BROKEN => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
+        PlayerStatusEnum::LOST => NeronMessageEnum::PLAYER_LEAVE_CHAT_LOST,
     ];
 
     private ChannelServiceInterface $channelService;

@@ -7,6 +7,7 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Event\ModifierEvent;
@@ -35,9 +36,7 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
             time: new \DateTime()
         );
         $dispatchedEvents = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-        $ropeWorked = $dispatchedEvents->filter(
-            fn ($event) => $event instanceof ModifierEvent && $event->hasTag(ModifierNameEnum::ROPE_MODIFIER)
-        )->count() > 0;
+        $ropeWorked = $dispatchedEvents->filter(fn (AbstractGameEvent $event) => $event->hasTag(ModifierNameEnum::ROPE_MODIFIER))->count() > 0;
 
         $logParameters = $this->getLogParameters($event);
         $logParameters['quantity'] = $healthLost;

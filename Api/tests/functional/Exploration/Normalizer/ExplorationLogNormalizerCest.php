@@ -251,6 +251,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    /**
+     * @covers \Mush\Exploration\PlanetSectorEventHandler\Artefact::handle
+     */
     public function testNormalizeArtefactEventTranslationForRuins(FunctionalTester $I): void
     {
         // given ruins sector has an artefact event
@@ -289,7 +292,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Ruines',
                 'eventName' => 'Artefact',
                 'eventDescription' => 'Au sein de la ruine du plus grand bâtiment de la cité vous trouvez un artefact alien intact !',
-                'eventOutcome' => 'Vous trouvez un artefact. ////+100% Module Babel',
+                'eventOutcome' => 'Vous trouvez un artefact.',
             ],
             actual: $normalizedExplorationLog,
         );

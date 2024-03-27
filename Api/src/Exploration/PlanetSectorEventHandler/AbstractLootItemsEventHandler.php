@@ -6,6 +6,7 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -29,6 +30,9 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
+    /**
+     * @return ArrayCollection<GameEquipment>
+     */
     protected function createRandomItemsFromEvent(PlanetSectorEvent $event): ArrayCollection
     {
         $numberOfItemsToCreate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());

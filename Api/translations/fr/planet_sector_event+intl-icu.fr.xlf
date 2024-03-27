@@ -161,7 +161,7 @@
       </segment>
       <segment id="description" state="final">
         <source>accident.description</source>
-        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{fight_prevented_by_item}</target>
+        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{rope_worked, select, true {////Esquivé Corde} other {}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="predator_description" state="final">
         <source>accident.predator_description</source>
@@ -169,7 +169,7 @@
       </segment>
       <segment id="mountain_description" state="final">
         <source>accident.mountain_description</source>
-        <target>{character} chute d'une petite falaise et s'écrase 4 mètres plus bas… Ouch !{has_rope, select, true {////Esquivé : Corde} other {}}</target>
+        <target>{character} chute d'une petite falaise et s'écrase 4 mètres plus bas… Ouch !</target>
       </segment>
       <segment id="ruminant_description" state="final">
         <source>accident.ruminant_description</source>
@@ -181,11 +181,11 @@
       </segment>
       <segment id="cave_description" state="final">
         <source>accident.cave_description</source>
-        <target>En sautant pour éviter un scorpion alien qui passait par là, {character} s'ouvre le cuir chevelu sur une stalactite.{has_rope, select, true {////Esquivé : Corde} other {}}</target>
+        <target>En sautant pour éviter un scorpion alien qui passait par là, {character} s'ouvre le cuir chevelu sur une stalactite.</target>
       </segment>
       <segment id="sismic_activity_description" state="final">
         <source>accident.sismic_activity_description</source>
-        <target>{character} chute dans une crevasse… Aïe !{has_rope, select, true {////Esquivé : Corde} other {}}</target>
+        <target>{character} chute dans une crevasse… Aïe !</target>
       </segment>
       <segment id="ruins_description" state="final">
         <source>accident.ruins_description</source>

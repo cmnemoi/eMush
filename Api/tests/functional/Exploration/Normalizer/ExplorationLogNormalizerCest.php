@@ -1168,8 +1168,8 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
                 'planetSectorName' => 'Sismique',
                 'eventName' => 'Accident',
-                'eventDescription' => 'Chun chute dans une crevasse… Aïe !////Esquivé : Corde',
-                'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.',
+                'eventDescription' => 'Chun chute dans une crevasse… Aïe !',
+                'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.////Esquivé Corde',
             ],
             actual: $normalizedExplorationLog,
         );

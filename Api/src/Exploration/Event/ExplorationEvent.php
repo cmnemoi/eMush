@@ -9,12 +9,12 @@ use Mush\Game\Event\AbstractGameEvent;
 
 class ExplorationEvent extends AbstractGameEvent
 {
-    public const ALL_EXPLORATORS_ARE_DEAD = 'exploration.all_explorators_are_dead';
-    public const ALL_EXPLORATORS_STUCKED = 'exploration.all_explorators_stucked';
-    public const ALL_SECTORS_VISITED = 'exploration.all_sectors_visited';
-    public const EXPLORATION_NEW_CYCLE = 'exploration.new_cycle';
-    public const EXPLORATION_STARTED = 'exploration.started';
-    public const EXPLORATION_FINISHED = 'exploration.finished';
+    public const string ALL_EXPLORATORS_ARE_DEAD = 'exploration.all_explorators_are_dead';
+    public const string ALL_EXPLORATORS_STUCKED = 'exploration.all_explorators_stucked';
+    public const string ALL_SECTORS_VISITED = 'exploration.all_sectors_visited';
+    public const string EXPLORATION_NEW_CYCLE = 'exploration.new_cycle';
+    public const string EXPLORATION_STARTED = 'exploration.started';
+    public const string EXPLORATION_FINISHED = 'exploration.finished';
 
     protected Exploration $exploration;
 

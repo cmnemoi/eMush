@@ -6,6 +6,7 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -29,27 +30,32 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
+    /**
+     * @return ArrayCollection<array-key, GameEquipment>
+     *
+     * @psalm-suppress InvalidArgument
+     */
     protected function createRandomItemsFromEvent(PlanetSectorEvent $event): ArrayCollection
     {
         $numberOfItemsToCreate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
+        $createdItems = new ArrayCollection();
 
-        $createdItems = [];
         for ($i = 0; $i < $numberOfItemsToCreate; ++$i) {
             $itemToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
             $finder = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostActiveExplorators());
 
             $tags = $event->getTags();
             $tags[] = LogEnum::FOUND_ITEM_IN_EXPLORATION;
-            $createdItems[] = $this->gameEquipmentService->createGameEquipmentFromName(
+            $createdItems->add($this->gameEquipmentService->createGameEquipmentFromName(
                 equipmentName: $itemToCreate,
                 equipmentHolder: $event->getExploration()->getDaedalus()->getPlanetPlace(),
                 reasons: $tags,
                 time: $event->getTime(),
                 visibility: VisibilityEnum::PUBLIC,
                 author: $finder
-            );
+            ));
         }
 
-        return new ArrayCollection($createdItems);
+        return $createdItems;
     }
 }

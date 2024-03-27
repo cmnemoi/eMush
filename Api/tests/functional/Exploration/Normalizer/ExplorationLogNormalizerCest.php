@@ -253,7 +253,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeArtefactEventTranslationForRuins(FunctionalTester $I): void
     {
-        // given intelligent life sector has only artefact event
+        // given ruins sector has an artefact event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::RUINS,
             events: [PlanetSectorEvent::ARTEFACT => 1]
@@ -261,11 +261,11 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::RUINS, PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players,
         );
 
-        // given only starmap can be looted from the artefact event
+        // given babel module can be looted from the artefact event
         /** @var PlanetSectorEventConfig $eventConfig */
         $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
         $eventConfig->setOutputTable([ItemEnum::BABEL_MODULE => 1]);

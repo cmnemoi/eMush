@@ -16,11 +16,15 @@
       </segment>
       <segment id="fruit_trees_description" state="final">
         <source>nothing_to_report.fruit_trees_description</source>
-        <target>Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé à la bonne saison, il faudra revenir plus tard !</target>
+        <target>{version, select,
+        1 {Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé à la bonne saison, il faudra revenir plus tard !}
+        other {Après plusieurs heures passées à récolter de petits fruits noirs, vous vous apercevez que ceux-ci se sont ouverts et que leur contenu a détalé hors de vos sacs !}}</target>
       </segment>
       <segment id="strong_wind_description" state="final">
         <source>nothing_to_report.strong_wind_description</source>
-        <target>À part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.</target>
+        <target>{version, select,
+        1 {À part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.}
+        other {Rien d'autre que le vent qui agite la poussière.}}</target>
       </segment>
       <segment id="cold_description" state="final">
         <source>nothing_to_report.cold_description</source>
@@ -40,15 +44,21 @@
       </segment>
       <segment id="volcanic_activity_description" state="final">
         <source>nothing_to_report.volcanic_activity_description</source>
-        <target>Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…</target>
+        <target>{version, select,
+        1 {Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…}
+        other {De très bucoliques rivières de lave traversent paisiblement la région.}}</target>
       </segment>
       <segment id="desert_description" state="final">
         <source>nothing_to_report.desert_description</source>
-        <target>Avec surprise, vous découvrez que cette étendue désertique ne contient absolument aucun élément permettant d'améliorer votre situation.</target>
+        <target>{version, select,
+        1 {Avec surprise, vous découvrez que cette étendue désertique ne contient absolument aucun élément permettant d'améliorer votre situation.}
+        other {Ce désert est désespérément vide… Personne à l'horizon…}}</target>
       </segment>
       <segment id="ocean_description" state="final">
         <source>nothing_to_report.ocean_description</source>
-        <target>De violents vents agitent l'océan. C'est un temps idéal pour faire du surf, mais vous devez sauver l'humanité...</target>
+        <target>{version, select, 
+        1 {De violents vents agitent l'océan. C'est un temps idéal pour faire du surf, mais vous devez sauver l'humanité...}
+        other {La mer est calme. Rien d'intéressant par ici.}}</target>
       </segment>
       <segment id="oxygen_description" state="final">
         <source>nothing_to_report.oxygen_description</source>

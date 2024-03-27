@@ -103,4 +103,9 @@ class PlayerDisease
     {
         return $this->diseaseConfig->getDiseaseName();
     }
+
+    public function isActive(): bool
+    {
+        return $this->status === DiseaseStatusEnum::ACTIVE;
+    }
 }

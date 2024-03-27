@@ -9,8 +9,10 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\EventEnum;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -74,6 +76,11 @@ class StatusSubscriber implements EventSubscriberInterface
                 $this->neronMessageService->createNewFireMessage($daedalus, $event->getTime(), $event->getTags());
 
                 return;
+
+            case PlayerStatusEnum::LOST:
+                /** @var Player $player */
+                $player = $holder;
+                $this->channelService->updatePlayerPrivateChannels($player, PlayerStatusEnum::LOST, $time);
         }
     }
 

@@ -269,7 +269,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>artefact.description</source>
-        <target>You have found an artefact. {has_babel_module, select, true {////+100% Babel Module} other {}}{fight_prevented_by_item}</target>
+        <target>You have found an artefact. {used_babel_module, select, true {////+100% Babel Module} other {}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>artefact.intelligent_description</source>

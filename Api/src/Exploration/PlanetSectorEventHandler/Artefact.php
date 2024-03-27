@@ -26,9 +26,8 @@ final class Artefact extends AbstractLootItemsEventHandler
         $logParameters = $this->getLogParameters($event);
         $logParameters['target_' . $artefact->getLogKey()] = $artefact->getLogName();
 
-        if ($event->getPlanetSector()->getName() === PlanetSectorEnum::INTELLIGENT || $event->getPlanetSector()->getName() === PlanetSectorEnum::RUINS) {
-            $logParameters['has_babel_module'] = $event->getExploration()->hasAFunctionalBabelModule() ? 'true' : 'false';
-        }
+        $babelWorked = $event->getPlanetSector()->getName() === PlanetSectorEnum::INTELLIGENT && $event->getExploration()->hasAFunctionalBabelModule();
+        $logParameters['used_babel_module'] = $babelWorked ? 'true' : 'false';
 
         return $this->createExplorationLog($event, $logParameters);
     }

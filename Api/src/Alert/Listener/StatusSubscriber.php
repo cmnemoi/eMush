@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,6 +29,7 @@ class StatusSubscriber implements EventSubscriberInterface
     {
         return [
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_DELETED => 'onStatusDeleted',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
     }
@@ -62,6 +64,23 @@ class StatusSubscriber implements EventSubscriberInterface
 
             case DaedalusStatusEnum::NO_GRAVITY_REPAIRED:
                 $this->alertService->gravityAlert($holder->getDaedalus(), AlertEnum::REPAIR);
+
+                return;
+
+            case PlayerStatusEnum::LOST:
+                $this->alertService->handlePlayerLost($holder->getDaedalus());
+
+                return;
+        }
+    }
+
+    public function onStatusDeleted(StatusEvent $event): void
+    {
+        $holder = $event->getStatusHolder();
+
+        switch ($event->getStatusName()) {
+            case PlayerStatusEnum::LOST:
+                $this->alertService->handleLostPlayerFound($holder->getDaedalus());
 
                 return;
         }

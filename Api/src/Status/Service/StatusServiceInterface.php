@@ -19,8 +19,6 @@ interface StatusServiceInterface
 {
     public function persist(Status $status): Status;
 
-    public function delete(Status $status): bool;
-
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig;
 
     public function removeAllStatuses(StatusHolderInterface $holder, array $reasons, \DateTime $time): void;

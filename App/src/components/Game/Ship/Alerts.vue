@@ -34,6 +34,7 @@ import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
 import { Alert } from "@/entities/Alerts";
 import { mapGetters } from "vuex";
+import { characterEnum } from "@/enums/character";
 
 interface AlertsState {
     loading: boolean,
@@ -60,11 +61,13 @@ export default defineComponent ({
     },
     methods: {
         alertIcon: function (alert: Alert): string {
+            if (alert.lostPlayer) {
+                return characterEnum[alert.lostPlayer].head;
+            }
             return AlertsIcons[alert.key];
         },
         formatAlert(value: string): string {
-            if (! value) return '';
-            return formatText(value.toString());
+            return formatText(value);
         }
     }
 });

@@ -428,6 +428,26 @@ class AlertService implements AlertServiceInterface
         return $this->getAlertEquipmentElement($alert, $equipment)->getPlayerInfo() !== null;
     }
 
+    public function handlePlayerLost(Daedalus $daedalus): void
+    {
+        $alert = $this->getAlert($daedalus, AlertEnum::LOST_CREWMATE);
+
+        $this->persist($alert);
+    }
+
+    public function handleLostPlayerFound(Daedalus $daedalus): void
+    {
+        $alert = $this->findByNameAndDaedalus(AlertEnum::LOST_CREWMATE, $daedalus);
+
+        if ($alert === null) {
+            throw new \LogicException('there should be a lost crewmate alert on this Daedalus');
+        }
+
+        if ($daedalus->getLostPlayers()->isEmpty()) {
+            $this->delete($alert);
+        }
+    }
+
     private function createEquipmentAlertElement(GameEquipment $equipment, Alert $alert): AlertElement
     {
         $alertElement = new AlertElement();

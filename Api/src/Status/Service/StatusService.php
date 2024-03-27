@@ -51,16 +51,6 @@ class StatusService implements StatusServiceInterface
         return $status;
     }
 
-    public function delete(Status $status): bool
-    {
-        $status->getOwner()->removeStatus($status);
-
-        $this->entityManager->remove($status);
-        $this->entityManager->flush();
-
-        return true;
-    }
-
     public function removeAllStatuses(StatusHolderInterface $holder, array $reasons, \DateTime $time): void
     {
         /** @var Status $status */
@@ -97,6 +87,16 @@ class StatusService implements StatusServiceInterface
         }
 
         $this->delete($status);
+
+        $statusEvent = new StatusEvent(
+            $status,
+            $holder,
+            $tags,
+            $time,
+            $status->getTarget()
+        );
+        $statusEvent->setVisibility($visibility);
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_DELETED);
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -303,5 +303,13 @@ class StatusService implements StatusServiceInterface
         }
 
         return $chargeStatus;
+    }
+
+    private function delete(Status $status): void
+    {
+        $status->getOwner()->removeStatus($status);
+
+        $this->entityManager->remove($status);
+        $this->entityManager->flush();
     }
 }

@@ -22,23 +22,26 @@ interface ModerationServiceInterface
 
     public function editClosedPlayerMessage(
         ClosedPlayer $closedPlayer,
-        string $reason
+        string $reason,
+        ?string $adminMessage
     ): void;
 
     public function hideClosedPlayerEndMessage(
         ClosedPlayer $closedPlayer,
-        string $reason
+        string $reason,
+        ?string $adminMessage
     ): void;
 
     public function deleteMessage(
         Message $message,
-        string $reason
+        string $reason,
+        ?string $adminMessage
     ): void;
 
     public function quarantinePlayer(
         Player $player,
         string $reason,
-        ?string $message = null
+        string $message = null
     ): Player;
 
     public function warnUser(

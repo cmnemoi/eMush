@@ -34,7 +34,8 @@ final class ModerationService implements ModerationServiceInterface
 
     public function editClosedPlayerMessage(
         ClosedPlayer $closedPlayer,
-        string $reason
+        string $reason,
+        ?string $adminMessage
     ): void {
         $message = $this->translationService->translate(
             key: 'edited_by_neron',
@@ -51,13 +52,15 @@ final class ModerationService implements ModerationServiceInterface
             $closedPlayer->getUser(),
             ModerationSanctionEnum::DELETE_END_MESSAGE,
             $reason,
-            new \DateTime()
+            new \DateTime(),
+            $adminMessage
         );
     }
 
     public function hideClosedPlayerEndMessage(
         ClosedPlayer $closedPlayer,
-        string $reason
+        string $reason,
+        ?string $adminMessage
     ): void {
         $closedPlayer->hideMessage();
         $this->entityManager->persist($closedPlayer);
@@ -67,7 +70,8 @@ final class ModerationService implements ModerationServiceInterface
             $closedPlayer->getUser(),
             ModerationSanctionEnum::HIDE_END_MESSAGE,
             $reason,
-            new \DateTime()
+            new \DateTime(),
+            $adminMessage
         );
     }
 
@@ -146,7 +150,7 @@ final class ModerationService implements ModerationServiceInterface
     public function quarantinePlayer(
         Player $player,
         string $reason,
-        ?string $message = null
+        string $message = null
     ): Player {
         $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
@@ -164,7 +168,8 @@ final class ModerationService implements ModerationServiceInterface
 
     public function deleteMessage(
         Message $message,
-        string $reason
+        string $reason,
+        ?string $adminMessage
     ): void {
         $message
             ->setAuthor(null)
@@ -184,7 +189,8 @@ final class ModerationService implements ModerationServiceInterface
             $author->getUser(),
             ModerationSanctionEnum::DELETE_MESSAGE,
             $reason,
-            new \DateTime()
+            new \DateTime(),
+            $adminMessage
         );
     }
 

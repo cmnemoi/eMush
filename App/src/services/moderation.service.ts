@@ -18,9 +18,9 @@ const ROOM_LOG_ENDPOINT = urlJoin(API_URL, "room_logs");
 type ChannelScope = "public" | "mush" | "private";
 
 const ModerationService = {
-    banUser: async(userId: integer, formData: any): Promise<any> => {
+    banUser: async(userId: integer, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/ban-user/' + userId, formData);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/ban-user/' + userId+ '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
@@ -109,23 +109,23 @@ const ModerationService = {
 
         return { "data": logs };
     },
-    editClosedPlayerEndMessage: async(playerId: number, formData: any): Promise<any> => {
+    editClosedPlayerEndMessage: async(playerId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/edit-closed-player-end-message/' + playerId, formData);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/edit-closed-player-end-message/' + playerId+ '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    hideClosedPlayerEndMessage: async(playerId: number, formData: any): Promise<any> => {
+    hideClosedPlayerEndMessage: async(playerId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/hide-closed-player-end-message/' + playerId, formData);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/hide-closed-player-end-message/' + playerId+ '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    deleteMessage: async(messageId: number, formData: any): Promise<any> => {
+    deleteMessage: async(messageId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/delete-message/' + messageId, formData);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/delete-message/' + messageId+ '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

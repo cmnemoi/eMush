@@ -59,7 +59,7 @@ final class ModerationController extends AbstractFOSRestController
      *       in="query",
      *       description="Message for the banned user",
      *
-     *       @OA\Schema(type="string")
+     *       @OA\Schema(type="string", nullable=true)
      *  )
      *
      *  @OA\Parameter(
@@ -67,7 +67,7 @@ final class ModerationController extends AbstractFOSRestController
      *       in="query",
      *       description="Start date of the ban",
      *
-     *       @OA\Schema(type="string", format="date")
+     *       @OA\Schema(type="string", format="date", nullable=true)
      *  )
      *
      *  @OA\Parameter(
@@ -75,27 +75,28 @@ final class ModerationController extends AbstractFOSRestController
      *       in="query",
      *       description="Duration of the ban",
      *
-     *       @OA\Schema(type="string", format="date-time")
+     *       @OA\Schema(type="string", format="date-time", nullable=true)
      *  )
      *
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="/ban-user/{id}")
+     * @Rest\Post(path="/ban-user/{id}")
      *
      * @Rest\View()
      */
-    public function banUser(
-        User $user,
-        string $reason,
-        ?string $message,
-        ?\DateTime $startDate,
-        ?\DateInterval $duration
-    ): View {
+    public function banUser(User $user, Request $request): View
+    {
         $this->denyAccessIfNotModerator();
 
-        $this->moderationService->banUser($user, $duration, $reason, $message, $startDate);
+        $this->moderationService->banUser(
+            $user,
+            $request->get('duration'),
+            $request->get('reason'),
+            $request->get('message', null),
+            $request->get('startDate', null),
+        );
 
         return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);
     }
@@ -132,7 +133,7 @@ final class ModerationController extends AbstractFOSRestController
      *       in="query",
      *       description="Start date of the warning",
      *
-     *       @OA\Schema(type="string", format="date")
+     *       @OA\Schema(type="string", format="date", nullable=true)
      *  )
      *
      *  @OA\Parameter(
@@ -140,27 +141,28 @@ final class ModerationController extends AbstractFOSRestController
      *       in="query",
      *       description="Duration of the warning",
      *
-     *       @OA\Schema(type="string", format="date-time")
+     *       @OA\Schema(type="string", format="date-time", nullable=true)
      *  )
      *
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="/warn-user/{id}")
+     * @Rest\Post(path="/warn-user/{id}")
      *
      * @Rest\View()
      */
-    public function warnUser(
-        User $user,
-        string $reason,
-        string $message,
-        ?\DateTime $startDate,
-        ?\DateInterval $duration
-    ): View {
+    public function warnUser(User $user, Request $request): View
+    {
         $this->denyAccessIfNotModerator();
 
-        $this->moderationService->warnUser($user, $duration, $reason, $message, $startDate);
+        $this->moderationService->warnUser(
+            $user,
+            $request->get('duration'),
+            $request->get('reason'),
+            $request->get('message', null),
+            $request->get('startDate', null),
+        );
 
         return $this->view(['detail' => 'User warn successfully'], Response::HTTP_OK);
     }
@@ -254,30 +256,42 @@ final class ModerationController extends AbstractFOSRestController
      *      in="path",
      *      description="The closed player id",
      *
-     *       @OA\Schema(type="string")
+     *      @OA\Schema(type="string")
      * )
      *
      * @OA\Parameter(
-     *        name="reason",
-     *        in="query",
-     *        description="Reason for the message edition",
+     *      name="reason",
+     *      in="query",
+     *      description="Reason for the message edition",
      *
-     *        @OA\Schema(type="string")
-     *   )
+     *      @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Parameter(
+     *      name="message",
+     *      in="query",
+     *      description="moderation message",
+     *
+     *      @OA\Schema(type="string", nullable=true)
+     * )
      *
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="/edit-closed-player-end-message/{id}")
+     * @Rest\Post(path="/edit-closed-player-end-message/{id}")
      *
      * @Rest\View()
      */
-    public function editEndMessage(ClosedPlayer $closedPlayer, string $reason): View
+    public function editEndMessage(ClosedPlayer $closedPlayer, Request $request): View
     {
         $this->denyAccessIfNotModerator();
 
-        $this->moderationService->editClosedPlayerMessage($closedPlayer, $reason);
+        $this->moderationService->editClosedPlayerMessage(
+            $closedPlayer,
+            $request->get('reason'),
+            $request->get('message', null),
+        );
 
         return $this->view(['detail' => 'End message edited successfully'], Response::HTTP_OK);
     }
@@ -290,30 +304,42 @@ final class ModerationController extends AbstractFOSRestController
      *      in="path",
      *      description="The closed player id",
      *
-     *       @OA\Schema(type="string")
+     *      @OA\Schema(type="string")
      * )
      *
      * @OA\Parameter(
-     *        name="reason",
-     *        in="query",
-     *        description="Reason for the message removal",
+     *      name="reason",
+     *      in="query",
+     *      description="Reason for the message removal",
      *
-     *        @OA\Schema(type="string")
-     *   )
+     *      @OA\Schema(type="string", nullable=true)
+     * )
+     *
+     * @OA\Parameter(
+     *      name="message",
+     *      in="query",
+     *      description="Moderation message",
+     *
+     *      @OA\Schema(type="string", nullable=true)
+     *  )
      *
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="/hide-closed-player-end-message/{id}")
+     * @Rest\Post(path="/hide-closed-player-end-message/{id}")
      *
      * @Rest\View()
      */
-    public function hideEndMessage(ClosedPlayer $closedPlayer, string $reason): View
+    public function hideEndMessage(ClosedPlayer $closedPlayer, Request $request): View
     {
         $this->denyAccessIfNotModerator();
 
-        $this->moderationService->hideClosedPlayerEndMessage($closedPlayer, $reason);
+        $this->moderationService->hideClosedPlayerEndMessage(
+            $closedPlayer,
+            $request->get('reason'),
+            $request->get('message', null),
+        );
 
         return $this->view(['detail' => 'End message hidden successfully'], Response::HTTP_OK);
     }
@@ -330,26 +356,38 @@ final class ModerationController extends AbstractFOSRestController
      * )
      *
      * @OA\Parameter(
-     *        name="reason",
-     *        in="query",
-     *        description="Reason for the message deletion",
+     *     name="reason",
+     *     in="query",
+     *     description="Reason for the message deletion",
      *
-     *        @OA\Schema(type="string")
-     *   )
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="message",
+     *     in="query",
+     *     description="Moderation message",
+     *
+     *     @OA\Schema(type="string", nullable=true)
+     * )
      *
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="/delete-message/{id}")
+     * @Rest\Post(path="/delete-message/{id}")
      *
      * @Rest\View()
      */
-    public function deleteMessage(Message $message, $reason): View
+    public function deleteMessage(Message $message, Request $request): View
     {
         $this->denyAccessIfNotModerator();
 
-        $this->moderationService->deleteMessage($message, $reason);
+        $this->moderationService->deleteMessage(
+            $message,
+            $request->get('reason'),
+            $request->get('message', null),
+        );
 
         return $this->view(['detail' => 'message deleted successfully'], Response::HTTP_OK);
     }
@@ -397,7 +435,7 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Patch(path="/suspend-sanction/{id}")
+     * @Rest\Post(path="/suspend-sanction/{id}")
      *
      * @Rest\View()
      */

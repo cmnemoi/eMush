@@ -1,4 +1,5 @@
 <template>
+    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="currentAction" @close="closeModerationDialog" @submitSanction="applySanction" />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
             <img src="@/assets/images/ending-destroyed.png" alt="destroyed!" >
@@ -36,14 +37,14 @@
                         </template>
                     </Tippy>
                     <span v-html="formatEndMessage(goldNovaPlayer.message)" v-else />
-                    <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="hideMessage(goldNovaPlayer)">   
+                    <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="openHideDialog(goldNovaPlayer)">
                         <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                             <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
                         </template>
                     </Tippy>
-                    <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="editMessage(goldNovaPlayer)">   
+                    <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="openEditDialog(goldNovaPlayer)">
                         <img src="@/assets/images/pa_core.png" alt="Edit message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
@@ -137,14 +138,14 @@
                                 </template>
                             </Tippy>
                             <span v-html="formatEndMessage(player.message)" v-else />
-                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="hideMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openHideDialog(player)">
                                 <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="editMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
                                 <img src="@/assets/images/pa_core.png" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
@@ -215,14 +216,14 @@
                                 </template>
                             </Tippy>
                             <span v-html="formatEndMessage(player.message)" v-else />
-                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="hideMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openHideDialog(player)">
                                 <img src="@/assets/images/comms/discrete.png" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="editMessage(player)">   
+                            <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
                                 <img src="@/assets/images/pa_core.png" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
@@ -370,17 +371,22 @@ import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
 import { mapGetters } from "vuex";
 import { formatText } from "@/utils/formatText";
+import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
     errors: any
     goldNovaPlayer: ClosedPlayer|null,
     mainRolesPlayers: ClosedPlayer[]|null,
-    figurantPlayers: ClosedPlayer[]|null
+    figurantPlayers: ClosedPlayer[]|null,
+    moderationDialogVisible: boolean,
+    currentAction: string,
+    currentPlayer: ClosedPlayer|null,
 }
 
 export default defineComponent ({
     name: 'TheEnd',
+    components: {ModerationActionPopup},
     computed: {
         ...mapGetters({
             isModerator: 'auth/isModerator',
@@ -392,7 +398,10 @@ export default defineComponent ({
             errors: {},
             goldNovaPlayer: null,
             mainRolesPlayers: [],
-            figurantPlayers: []
+            figurantPlayers: [],
+            moderationDialogVisible: false,
+            currentAction: "",
+            currentPlayer: null
         };
     },
     methods: {
@@ -430,14 +439,28 @@ export default defineComponent ({
                     }
                 });
         },
-        async editMessage(player: ClosedPlayer) {
-            if (player.id === null) return;
-            await ModerationService.editClosedPlayerEndMessage(player.id);
-            await this.loadData();
+        openEditDialog(player: ClosedPlayer) {
+            this.currentAction = 'edit_end_message';
+            this.currentPlayer = player;
+            this.moderationDialogVisible = true;
         },
-        async hideMessage(player: ClosedPlayer) {
-            if (player.id === null) return;
-            await ModerationService.hideClosedPlayerEndMessage(player.id);
+        openHideDialog(player: ClosedPlayer) {
+            this.currentAction = 'hide_end_message';
+            this.currentPlayer = player;
+            this.moderationDialogVisible = true;
+        },
+        closeModerationDialog() {
+            this.moderationDialogVisible = false;
+        },
+        async applySanction(params) {
+            if (this.currentPlayer === null || this.currentPlayer.id === null) return;
+
+            if (this.currentAction === 'hide_end_message') {
+                await ModerationService.hideClosedPlayerEndMessage(this.currentPlayer.id, params);
+            } else if (this.currentAction === 'edit_end_message') {
+                await ModerationService.editClosedPlayerEndMessage(this.currentPlayer.id, params);
+            }
+
             await this.loadData();
         },
         getAmountOfMushPlayers() {

@@ -146,8 +146,8 @@ export default defineComponent ({
             if (! value) return '';
             return formatText(value.toString());
         },
-        deleteMessage(formData) {
-            ModerationService.deleteMessage(this.message.id, formData);
+        deleteMessage(params) {
+            ModerationService.deleteMessage(this.message.id, params);
         },
         openModerationDialog(moderationAction: string) {
             this.moderationDialogVisible = true;

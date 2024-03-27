@@ -17,6 +17,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEventEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -25,6 +26,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
@@ -45,7 +47,7 @@ class FireTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    public function before(): void
     {
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
@@ -65,19 +67,22 @@ class FireTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    public function after(): void
     {
         \Mockery::close();
     }
 
-    public function testNewCycleFireDamage()
+    public function testNewCycleFireDamage(): void
     {
+        $date = new \DateTime();
         $room = new Place();
 
         $difficultyConfig = new DifficultyConfig();
         $daedalusConfig = new DaedalusConfig();
         $daedalusHull = 100;
-        $daedalusConfig->setMaxHull(100)->setInitHull($daedalusHull);
+        $daedalusConfig
+            ->setMaxHull(100)
+            ->setInitHull($daedalusHull);
 
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
@@ -106,14 +111,26 @@ class FireTest extends TestCase
         ;
         $room->addPlayer($player);
 
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->twice();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->twice();
+        $this->randomService->shouldReceive('getRandomElements')->andReturn([$room])->once();
+        $this->randomService->shouldReceive('getRandomElement')->andReturn($room)->once();
         $this->daedalusService->shouldReceive('persist')->once();
+
+        $this->statusService
+            ->shouldReceive('createStatusFromName')
+            ->withArgs(fn (string $name, StatusHolderInterface $holder, array $tags, \DateTime $dateTime) => (
+                $name === StatusEnum::FIRE
+                && $holder === $room
+                && $tags === [RoomEventEnum::PROPAGATING_FIRE]
+                && $dateTime === $date
+            ))
+            ->once();
 
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
-                intval($playerEvent->getRoundedQuantity()) === -2
+                $playerEvent->getRoundedQuantity() === -2
                 && $eventName === VariableEventInterface::CHANGE_VARIABLE
                 && $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
             ))
@@ -129,8 +146,7 @@ class FireTest extends TestCase
             ->once()
         ;
 
-        $this->cycleHandler->handleNewCycle($status, $room, new \DateTime());
-
+        $this->cycleHandler->handleNewCycle($status, $room, $date);
         $this->assertEquals($daedalusHull, $daedalus->getHull());
     }
 }

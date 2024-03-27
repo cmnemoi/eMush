@@ -15,6 +15,7 @@ class DifficultyConfigData
             'doorBreakRate' => 40,
             'equipmentFireBreakRate' => 30,
             'startingFireRate' => 2,
+            'maximumAllowedSpreadingFires' => 2,
             'propagatingFireRate' => 30,
             'hullFireDamageRate' => 20,
             'tremorRate' => 5,

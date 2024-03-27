@@ -37,6 +37,9 @@ class DifficultyConfig
     private int $propagatingFireRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    private int $maximumAllowedSpreadingFires = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $hullFireDamageRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
@@ -174,6 +177,18 @@ class DifficultyConfig
     public function setPropagatingFireRate(int $propagatingFireRate): static
     {
         $this->propagatingFireRate = $propagatingFireRate;
+
+        return $this;
+    }
+
+    public function getMaximumAllowedSpreadingFires(): int
+    {
+        return $this->maximumAllowedSpreadingFires;
+    }
+
+    public function setMaximumAllowedSpreadingFires(int $maximumAllowedSpreadingFires): static
+    {
+        $this->maximumAllowedSpreadingFires = $maximumAllowedSpreadingFires;
 
         return $this;
     }

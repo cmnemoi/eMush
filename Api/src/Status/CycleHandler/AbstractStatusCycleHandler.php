@@ -5,9 +5,9 @@ namespace Mush\Status\CycleHandler;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 
-abstract class AbstractStatusCycleHandler
+abstract readonly class AbstractStatusCycleHandler
 {
-    protected string $name = '';
+    protected string $name;
 
     public function getName(): string
     {

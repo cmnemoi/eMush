@@ -251,6 +251,50 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    public function testNormalizeArtefactEventTranslationForRuins(FunctionalTester $I): void
+    {
+        // given intelligent life sector has only artefact event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUINS,
+            events: [PlanetSectorEvent::ARTEFACT => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+
+        // given only starmap can be looted from the artefact event
+        /** @var PlanetSectorEventConfig $eventConfig */
+        $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
+        $eventConfig->setOutputTable([ItemEnum::BABEL_MODULE => 1]);
+
+        // given two extra steps are made to trigger the artefact event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when artefact event exploration log is normalized
+        /** @var ExplorationLog $explorationLog */
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::RUINS,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::RUINS,
+                'planetSectorName' => 'Ruines',
+                'eventName' => 'Artefact',
+                'eventDescription' => 'Au sein de la ruine du plus grand bâtiment de la cité vous trouvez un artefact alien intact !',
+                'eventOutcome' => 'Vous trouvez un artefact. ////+100% Module Babel',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
     public function testNormalizeKillRandomEvent(FunctionalTester $I): void
     {
         // given sismic activity sector has only kill random event

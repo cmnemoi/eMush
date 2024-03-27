@@ -166,7 +166,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     }
 
     /**
-     * @throws \RuntimeException if no planet place have been found.
+     * @throws \RuntimeException if no planet place have been found
      */
     public function getPlanetPlace(): Place
     {

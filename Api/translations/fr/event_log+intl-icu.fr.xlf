@@ -586,13 +586,9 @@
       </segment>
     </unit>
     <unit id="player_leave_chat_lost">
-      <segment id="player_leave_chat_lost" state="final">
+      <segment id="player_leave_chat_lost" state="initial">
         <source>player_leave_chat_lost</source>
-        <target>{character_gender, select,
-                  male {**{character}** a quitté la discussion, il est seul sur une planète et n'a pas de talkie...}
-                  female {**{character}** a quitté la discussion, elle est seule sur une planète et n'a pas de talkie...}
-                  other {**{character}** a quitté la discussion, il est seul sur une planète et n'a pas de talkie...}
-                  }</target>
+        <target>player_leave_chat_lost</target>
       </segment>
     </unit>
     <unit id="hunter_death_patrol_ship">

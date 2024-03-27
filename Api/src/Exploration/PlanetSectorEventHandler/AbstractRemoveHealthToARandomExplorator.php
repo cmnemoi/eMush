@@ -10,7 +10,6 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Modifier\Event\ModifierEvent;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 

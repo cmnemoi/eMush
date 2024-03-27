@@ -65,6 +65,16 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
 **Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
       </segment>
     </unit>
+    <unit id="favorites">
+      <segment id="name" state="final">
+        <source>favorites.name</source>
+        <target>Favoris</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>favorites.description</source>
+        <target>Votre sélection de sujets favoris.</target>
+      </segment>
+    </unit>
     <unit id="message_date">
       <segment id="message_date.less_minute" state="final">
         <source>message_date.less_minute</source>
@@ -83,5 +93,6 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
         <target>~{quantity}j</target>
       </segment>
     </unit>
+    
   </file>
 </xliff>

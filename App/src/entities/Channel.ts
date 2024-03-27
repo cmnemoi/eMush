@@ -15,19 +15,20 @@ export class Channel {
     public piratedPlayer: number | null = null;
     public name!: string;
     public description!: string;
+    public numberOfNewMessages!: integer;
 
     constructor() {
         this.participants = [];
     }
 
     load(object : any) : Channel {
-        if (typeof object !== "undefined") {
+        if (object) {
             this.id = object.id;
             this.createdAt = new Date(object.createdAt);
             this.scope = object.scope;
             this.newMessageAllowed = object.newMessageAllowed;
             this.piratedPlayer = object.piratedPlayer;
-            if (typeof object.participants !== 'undefined') {
+            if (object.participants) {
                 object.participants.forEach((itemObject: any) => {
                     const participant = (new ChannelParticipant()).load(itemObject);
                     this.participants.push(participant);
@@ -36,6 +37,7 @@ export class Channel {
 
             this.name = object.name;
             this.description = object.description;
+            this.numberOfNewMessages = object.numberOfNewMessages;
         }
         return this;
     }
@@ -50,6 +52,7 @@ export class Channel {
             this.participants = object.participants;
             this.name = object.name;
             this.description = object.description;
+            this.numberOfNewMessages = object.numberOfNewMessages;
         }
 
         return this;
@@ -61,5 +64,9 @@ export class Channel {
 
     isChannelWithPagination(): boolean {
         return [ChannelType.PUBLIC, ChannelType.PRIVATE, ChannelType.FAVORITES].includes(this.scope);
+    }
+
+    isFavorite(): boolean {
+        return this.scope === ChannelType.FAVORITES;
     }
 }

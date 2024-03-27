@@ -1,11 +1,12 @@
-
 export class RoomLog {
+    public id!: integer;
     public message : string|null;
     public visibility : string|null;
     public date : string|null;
     public place: string|null;
     public day: integer|null;
     public cycle: integer|null;
+    public isUnread!: boolean;
 
     constructor() {
         this.message = null;
@@ -17,12 +18,14 @@ export class RoomLog {
     }
     load(object: any): RoomLog {
         if (typeof object !== "undefined") {
+            this.id = object.id;
             this.message = object.log;
             this.visibility = object.visibility;
             this.date = object.date;
             this.place = object.place;
             this.day = object.day;
             this.cycle = object.cycle;
+            this.isUnread = object.isUnread;
         }
         return this;
     }

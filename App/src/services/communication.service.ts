@@ -34,6 +34,11 @@ const CommunicationService = {
             });
         }
 
+        const favoritesChannelData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites'));
+        if (favoritesChannelData.data) {
+            channels.push((new Channel()).load(favoritesChannelData.data));
+        }
+
         const piratedChannelsData = await ApiService.get(PIRATED_CHANNELS_ENDPOINT);
         if (piratedChannelsData.data) {
             Object.values(piratedChannelsData.data).forEach((data: any) => {
@@ -64,15 +69,12 @@ const CommunicationService = {
     },
 
     loadMessages: async (channel: Channel, page: integer = 1, limit: integer = Channel.MESSAGE_LIMIT): Promise<Array<Message|Record<string, unknown>>> => {
-        switch (channel.scope) {
-        case ChannelType.PRIVATE:
-        case ChannelType.PUBLIC:
-        case ChannelType.MUSH:
-            return CommunicationService.loadChannelMessages(channel, page, limit);
-        case ChannelType.ROOM_LOG:
-            return loadRoomLogs();
-        default:
-            return [];
+        if (channel.scope === ChannelType.ROOM_LOG) {
+            return await loadRoomLogs();
+        } else if (channel.scope === ChannelType.FAVORITES) {
+            return await loadFavoritesChannelMessages();
+        } else {
+            return await CommunicationService.loadChannelMessages(channel, page, limit);
         }
 
         async function loadRoomLogs(): Promise<Record<string, unknown>[]> {
@@ -97,6 +99,18 @@ const CommunicationService = {
                 });
             }
             return logs;
+        }
+
+        async function loadFavoritesChannelMessages(): Promise<Message[]> {
+            const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites', 'messages'));
+
+            const messages: Message[] = [];
+            if (messagesData.data) {
+                messagesData.data.forEach((data: any) => {
+                    messages.push((new Message()).load(data));
+                });
+            }
+            return messages;
         }
     },
 
@@ -133,6 +147,33 @@ const CommunicationService = {
         await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/invite', {
             player: player.id
         });
+    },
+
+    markChannelAsRead: async (channel: Channel): Promise<void> => {
+        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read', String(channel.id)));
+    },
+
+    markAllRoomLogsAsRead: async (): Promise<void> => {
+        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read-all'));
+    },
+
+    putMessageInFavorite: async (message: Message): Promise<void> => {
+        await ApiService.post(urlJoin(CHANNELS_ENDPOINT, 'favorite-message', String(message.id)));
+    },
+
+
+    readMessage: async (message: Message): Promise<void> => {
+        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read-message', String(message.id)));
+        message.isUnread = false;
+    },
+
+    readRoomLog: async (roomLog: RoomLog): Promise<void> => {
+        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read', String(roomLog.id)));
+        roomLog.isUnread = false;
+    },
+
+    removeMessageFromFavorite: async (message: Message): Promise<void> => {
+        await ApiService.delete(urlJoin(CHANNELS_ENDPOINT, 'unfavorite-message', String(message.id)));
     },
 
     sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {

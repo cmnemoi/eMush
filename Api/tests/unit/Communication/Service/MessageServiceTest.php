@@ -10,8 +10,8 @@ use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\MessageEvent;
+use Mush\Communication\Repository\ChannelRepository;
 use Mush\Communication\Repository\MessageRepository;
-use Mush\Communication\Services\MessageModifierServiceInterface;
 use Mush\Communication\Services\MessageService;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -28,12 +28,12 @@ class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
-    /** @var MessageModifierServiceInterface|Mockery\mock */
-    private MessageModifierServiceInterface $diseaseMessageService;
     /** @var EventServiceInterface|Mockery\mock */
     private EventServiceInterface $eventService;
     /** @var MessageRepository|Mockery\mock */
     private MessageRepository $messageRepository;
+    /** @var ChannelRepository|Mockery\mock */
+    private ChannelRepository $channelRepository;
 
     private MessageServiceInterface $service;
 
@@ -45,6 +45,7 @@ class MessageServiceTest extends TestCase
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->messageRepository = \Mockery::mock(MessageRepository::class);
+        $this->channelRepository = \Mockery::mock(ChannelRepository::class);
 
         $this->entityManager->shouldReceive([
             'persist' => null,
@@ -54,7 +55,8 @@ class MessageServiceTest extends TestCase
         $this->service = new MessageService(
             $this->entityManager,
             $this->eventService,
-            $this->messageRepository
+            $this->messageRepository,
+            $this->channelRepository
         );
     }
 
@@ -193,6 +195,7 @@ class MessageServiceTest extends TestCase
         $channel = new Channel();
 
         $player = new Player();
+        new PlayerInfo($player, new User(), new CharacterConfig());
 
         $message1 = new Message();
         $message2 = new Message();
@@ -201,6 +204,10 @@ class MessageServiceTest extends TestCase
             ->shouldReceive('findByChannelWithPagination')
             ->with($channel, 1, 10)
             ->andReturn([$message1, $message2])
+        ;
+        $this->channelRepository
+            ->shouldReceive('findFavoritesChannelForPlayer')
+            ->andReturn(null)
         ;
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
@@ -218,6 +225,7 @@ class MessageServiceTest extends TestCase
         $channel->setScope(ChannelScopeEnum::MUSH);
 
         $player = new Player();
+        new PlayerInfo($player, new User(), new CharacterConfig());
 
         $message1 = new Message();
         $message2 = new Message();
@@ -233,6 +241,10 @@ class MessageServiceTest extends TestCase
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
             ->twice()
+        ;
+        $this->channelRepository
+            ->shouldReceive('findFavoritesChannelForPlayer')
+            ->andReturn(null)
         ;
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);

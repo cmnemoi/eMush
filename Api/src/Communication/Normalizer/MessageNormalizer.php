@@ -77,6 +77,7 @@ class MessageNormalizer implements NormalizerInterface
             'message' => $message,
             'date' => $this->getMessageDate($object->getCreatedAt(), $language),
             'child' => $child,
+            'isUnread' => $object->isUnreadBy($currentPlayer),
         ];
     }
 

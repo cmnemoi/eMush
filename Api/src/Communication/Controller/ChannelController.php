@@ -8,14 +8,13 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
-use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Message;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Communication\Specification\SpecificationInterface;
 use Mush\Communication\Voter\ChannelVoter;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Controller\AbstractGameController;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Service\AdminServiceInterface;
@@ -23,8 +22,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
+use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -90,12 +89,10 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo?->getPlayer();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
 
-        $this->denyIfPlayerNotInGame($player);
-
-        if ($playerInfo->getGameStatus() !== GameStatusEnum::CURRENT) {
+        if (!$player->isAlive()) {
             throw new AccessDeniedException('Player is dead');
         }
 
@@ -139,12 +136,10 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo?->getPlayer();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
 
-        $this->denyIfPlayerNotInGame($player);
-
-        if ($playerInfo->getGameStatus() === GameStatusEnum::CLOSED) {
+        if (!$player->isAlive()) {
             throw new AccessDeniedException('Player is dead');
         }
 
@@ -186,10 +181,8 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo?->getPlayer();
-
-        $this->denyIfPlayerNotInGame($player);
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -224,10 +217,8 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo?->getPlayer();
-
-        $this->denyIfPlayerNotInGame($player);
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -386,10 +377,8 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo?->getPlayer();
-
-        $this->denyIfPlayerNotInGame($player);
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
@@ -470,15 +459,18 @@ class ChannelController extends AbstractGameController
 
         $messageCreate->setChannel($channel);
 
-        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+        $this->denyAccessUnlessGranted(ChannelVoter::POST, $channel);
 
         if (count($violations = $this->validator->validate($messageCreate))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $parentMessage = $messageCreate->getParent();
-
-        if ($parentMessage && $parentMessage->getChannel() !== $channel) {
+        if (
+            !$channel->isFavorites()
+            && $parentMessage
+            && $parentMessage->getChannel() !== $channel
+        ) {
             return $this->view(['error' => 'invalid parent message'], 422);
         }
 
@@ -492,22 +484,16 @@ class ChannelController extends AbstractGameController
 
         // in case of a pirated talkie, the message can be sent under the name of another player
         $playerMessage = $messageCreate->getPlayer();
-
-        if ($playerMessage === null) {
+        if (!$playerMessage) {
             $playerMessage = $currentPlayer;
         }
 
-        $this->denyIfPlayerNotInGame($currentPlayer);
-
-        if (!$this->playerCanPostMessage($currentPlayer, $channel)) {
-            return $this->view(['error' => 'You cannot post a message in this channel!'], Response::HTTP_FORBIDDEN);
-        }
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $currentPlayer->getDaedalus()) {
-            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
-        }
-
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
-        $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getPage(), $messageCreate->getLimit());
+        if ($channel->isFavorites()) {
+            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer);
+        } else {
+            $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getPage(), $messageCreate->getLimit());
+        }
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $currentPlayer);
@@ -516,30 +502,6 @@ class ChannelController extends AbstractGameController
         $view->setContext($context);
 
         return $view;
-    }
-
-    public function playerCanPostMessage(Player $currentPlayer, Channel $channel): bool
-    {
-        // all Mush players can post in mush channel, whatever the conditions
-        if ($channel->getScope() === ChannelScopeEnum::MUSH && $currentPlayer->hasStatus(PlayerStatusEnum::MUSH)) {
-            return true;
-        }
-
-        $cannotPostInPrivateChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
-        || !$this->channelService->canPlayerWhisperInChannel($channel, $currentPlayer);
-
-        $cannotPostInPublicChannel = !$this->messageService->canPlayerPostMessage($currentPlayer, $channel)
-        || !$this->channelService->canPlayerCommunicate($currentPlayer);
-
-        if (!$channel->isPublic() && $cannotPostInPrivateChannel) {
-            return false;
-        }
-
-        if ($channel->isPublic() && $cannotPostInPublicChannel) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -568,8 +530,8 @@ class ChannelController extends AbstractGameController
         // @TODO: move this to a Voter
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-        $player = $playerInfo?->getPlayer();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
             return $this->view(['error' => 'player is not from this daedalus'], 422);
@@ -589,10 +551,235 @@ class ChannelController extends AbstractGameController
         return $view;
     }
 
-    private function denyIfPlayerNotInGame(?Player $player): void
+    /**
+     * Mark a message as read.
+     *
+     * @OA\Tag(name="Channel")
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The message id",
+     *      required=true
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch (path="/read-message/{id}", requirements={"id"="\d+"})
+     */
+    public function readMessageAction(Message $message): View
     {
-        if ($player === null || $player->getPlayerInfo() === null) {
-            throw new AccessDeniedException('User should be in game');
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
         }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
+
+        $channel = $message->getChannel();
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        }
+
+        $this->messageService->markMessageAsReadForPlayer($message, $player);
+
+        return $this->view(['detail' => 'Message marked as read successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Mark a channel as read.
+     *
+     * @OA\Tag(name="Channel")
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The channel id",
+     *      required=true
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch (path="/read/{id}", requirements={"id"="\d+"})
+     */
+    public function markChannelAsReadAction(Channel $channel): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
+
+        $this->messageService->markChannelAsReadForPlayer($channel, $player);
+
+        return $this->view(['detail' => 'Channel marked as read successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Put a message in favorites.
+     *
+     * @OA\Tag(name="Channel")
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The message id",
+     *      required=true
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post (path="/favorite-message/{id}", requirements={"id"="\d+"})
+     */
+    public function favoriteMessageAction(Message $message): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
+
+        $channel = $message->getChannel();
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
+            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        }
+
+        $this->messageService->putMessageInFavoritesForPlayer($message, $player);
+
+        return $this->view(['detail' => 'Message marked as favorites successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Remove a message from favorites.
+     *
+     * @OA\Tag(name="Channel")
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The message id",
+     *      required=true
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Delete (path="/unfavorite-message/{id}", requirements={"id"="\d+"})
+     */
+    public function unfavoriteMessageAction(Message $message): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
+
+        $channel = $message->getChannel();
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
+            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        }
+
+        $this->messageService->removeMessageFromFavoritesForPlayer($message, $player);
+
+        return $this->view(['detail' => 'Message removed from favorites successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Get player favorites channel.
+     *
+     * @OA\Tag(name="Channel")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get(path="/favorites")
+     */
+    public function getFavoritesChannelAction(): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
+
+        $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
+
+        if ($player->getFavoriteMessages()->isEmpty()) {
+            return $this->view(null, Response::HTTP_NO_CONTENT);
+        }
+
+        $favoritesChannel = $this->channelService->getPlayerFavoritesChannel($player);
+
+        $context = new Context();
+        $context
+            ->setAttribute('currentPlayer', $player)
+        ;
+
+        $view = $this->view($favoritesChannel, Response::HTTP_OK);
+        $view->setContext($context);
+
+        return $view;
+    }
+
+    /**
+     * Get favorites channel messages.
+     *
+     * @OA\Tag(name="Channel")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Get (path="/favorites/messages")
+     */
+    public function getFavoritesChannelMessages(): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
+        $player = $this->getUserPlayer($user);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $player->getDaedalus();
+        if ($daedalus->isCycleChange()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
+
+        $context = new Context();
+        $context->setAttribute('currentPlayer', $player);
+
+        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player), Response::HTTP_OK);
+        $view->setContext($context);
+
+        return $view;
+    }
+
+    private function getUserPlayer(User $user): Player
+    {
+        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
+        if (!$player) {
+            throw new AccessDeniedException('In game user should have a player');
+        }
+
+        return $player;
     }
 }

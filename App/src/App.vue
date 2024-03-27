@@ -9,7 +9,7 @@
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
-        <ModerationWarningBanner :userWarnings="userWarnings" />
+        <ModerationWarningBanner :user-warnings="userWarnings" />
         <LocaleChange />
     </div>
 </template>

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
@@ -95,6 +96,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     #[ORM\ManyToOne(targetEntity: Exploration::class, inversedBy: 'explorators')]
     private ?Exploration $exploration = null;
+
+    #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'favorites')]
+    private Collection $favoriteMessages;
 
     public function __construct()
     {
@@ -625,5 +629,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isExploringOrIsLostOnPlanet(): bool
     {
         return $this->exploration !== null || $this->hasStatus(PlayerStatusEnum::LOST);
+    }
+
+    public function getFavoriteMessages(): Collection
+    {
+        return $this->favoriteMessages;
     }
 }

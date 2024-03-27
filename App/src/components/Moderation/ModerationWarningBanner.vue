@@ -29,18 +29,18 @@ export default defineComponent({
             type: Array,
             default: [] as ModerationSanction[],
             required: true
-        },
+        }
     },
     data() {
         return {
-            showAll: true,
+            showAll: true
         };
     },
     computed: {
         bannerHeight() {
             return this.showAll ? 'auto' : '10%'; // Limite la hauteur à 10% si showAll est false
         }
-    },
+    }
 });
 </script>
 

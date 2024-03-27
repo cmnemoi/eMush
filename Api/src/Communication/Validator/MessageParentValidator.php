@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class MessageParentValidator extends ConstraintValidator
 {
+    private const array ALLOWED_SCOPES = [ChannelScopeEnum::PUBLIC, ChannelScopeEnum::FAVORITES];
+
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof CreateMessage) {
@@ -21,7 +23,7 @@ class MessageParentValidator extends ConstraintValidator
         }
 
         $channel = $value->getChannel();
-        if ($channel->getScope() !== ChannelScopeEnum::PUBLIC && $value->getParent()) {
+        if ($value->getParent() && !in_array($channel->getScope(), self::ALLOWED_SCOPES)) {
             $this->context
                     ->buildViolation($constraint->message)
                     ->setCode(MessageParent::PARENT_CANNOT_BE_SET)

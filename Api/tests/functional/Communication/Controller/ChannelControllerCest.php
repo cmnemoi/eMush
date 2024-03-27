@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\tests\Functional\Communication\Controller;
 
-use Mush\Communication\Controller\ChannelController;
+use Mush\Communication\Entity\Channel;
 use Mush\Communication\Services\ChannelServiceInterface;
+use Mush\Communication\Voter\ChannelVoter;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -14,7 +15,7 @@ use Mush\Tests\FunctionalTester;
 
 final class ChannelControllerCest extends AbstractFunctionalTest
 {
-    private ChannelController $channelController;
+    private ChannelVoter $channelVoter;
     private ChannelServiceInterface $channelService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -22,7 +23,7 @@ final class ChannelControllerCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->channelController = $I->grabService(ChannelController::class);
+        $this->channelVoter = $I->grabService(ChannelVoter::class);
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
@@ -34,7 +35,7 @@ final class ChannelControllerCest extends AbstractFunctionalTest
 
         // when I check if player can post a message in public channel
         $publicChannel = $this->channelService->getPublicChannel($this->daedalus->getDaedalusInfo());
-        $canPostMessage = $this->channelController->playerCanPostMessage($this->player, $publicChannel);
+        $canPostMessage = $this->channelVoter->playerCanPostMessage($this->player, $publicChannel);
 
         // then player should not be able to post a message
         $I->assertFalse($canPostMessage);
@@ -49,7 +50,7 @@ final class ChannelControllerCest extends AbstractFunctionalTest
         $channel = $this->channelService->createPrivateChannel($this->player);
 
         // when I check if player can post a message in this channel
-        $canPostMessage = $this->channelController->playerCanPostMessage($this->player, $channel);
+        $canPostMessage = $this->channelVoter->playerCanPostMessage($this->player, $channel);
 
         // then player should be able to post a message
         $I->assertTrue($canPostMessage);
@@ -83,7 +84,7 @@ final class ChannelControllerCest extends AbstractFunctionalTest
         $this->channelService->invitePlayer($this->player2, $channel);
 
         // when I check if player can post a message in this channel
-        $canPostMessage = $this->channelController->playerCanPostMessage($this->player, $channel);
+        $canPostMessage = $this->channelVoter->playerCanPostMessage($this->player, $channel);
 
         // then player should be able to post a message
         $I->assertTrue($canPostMessage);

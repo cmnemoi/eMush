@@ -9,6 +9,7 @@
                 :name="channel.name"
                 :description="channel.description"
                 :selected="isChannelSelected(channel)"
+                :numberOfNewMessages="channel.numberOfNewMessages"
                 @select="changeChannel({ channel })"
             />
         </ul>

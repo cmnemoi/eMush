@@ -40,6 +40,7 @@ class MessageService implements MessageServiceInterface
             ->setChannel($createMessage->getChannel())
             ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
+            ->addReader($player)
         ;
 
         $rootMessage = $createMessage->getParent();
@@ -143,5 +144,27 @@ class MessageService implements MessageServiceInterface
     public function getMessageById(int $messageId): ?Message
     {
         return $this->entityManager->getRepository(Message::class)->find($messageId);
+    }
+
+    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int
+    {   
+        $messages = $this->getChannelMessages($player, $channel);
+        $newMessages = 0;
+
+        foreach ($messages as $message) {
+            if (!$message->getReaders()->contains($player)) {
+                $newMessages++;
+            }
+        }
+
+        return $newMessages;
+    }
+
+    public function markMessageAsReadForPlayer(Message $message, Player $player): void
+    {   
+        $message->addReader($player);
+
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
     }
 }

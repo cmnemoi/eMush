@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
@@ -41,9 +42,14 @@ class Message
     #[ORM\Column(type: 'array', nullable: true)]
     private array $translationParameters = [];
 
+    #[ORM\ManyToMany(targetEntity: Player::class)]
+    #[ORM\JoinTable(name: 'message_readers')]
+    private Collection $readers;
+
     public function __construct()
     {
         $this->child = new ArrayCollection();
+        $this->readers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,5 +139,24 @@ class Message
         $this->child = $child;
 
         return $this;
+    }
+
+    public function getReaders(): Collection
+    {
+        return $this->readers;
+    }
+
+    public function addReader(Player $reader): static
+    {
+        if (!$this->readers->contains($reader)) {
+            $this->readers->add($reader);
+        }
+
+        return $this;
+    }
+
+    public function isUnreadBy(Player $player): bool
+    {
+        return !$this->readers->contains($player);
     }
 }

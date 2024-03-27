@@ -10,6 +10,7 @@ export class Channel {
     public piratedPlayer: number | null = null;
     public name!: string;
     public description!: string;
+    public numberOfNewMessages!: integer;
 
     constructor() {
         this.participants = [];
@@ -31,6 +32,7 @@ export class Channel {
 
             this.name = object.name;
             this.description = object.description;
+            this.numberOfNewMessages = object.numberOfNewMessages;
         }
         return this;
     }
@@ -45,6 +47,7 @@ export class Channel {
             this.participants = object.participants;
             this.name = object.name;
             this.description = object.description;
+            this.numberOfNewMessages = object.numberOfNewMessages;
         }
 
         return this;

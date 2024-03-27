@@ -3,11 +3,12 @@
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
         @click="$emit('click')"
+        @mouseover="readMessage(message);"
     >
         <div class="character-body">
             <img :src="characterPortrait">
         </div>
-        <p class="text">
+        <p :class="['text', { unread: message.isUnread }]">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
@@ -29,8 +30,9 @@
         v-if="isRoot && isSystemMessage"
         class="log"
         @click="$emit('click')"
+        @mouseover="readMessage(message);"
     >
-        <p class="text">
+        <p :class="['text', { unread: message.isUnread }]">
             <span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
@@ -39,8 +41,9 @@
         v-else-if="!isRoot"
         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
         @click="$emit('click')"
+        @mouseover="readMessage(message);"
     >
-        <p class="text">
+        <p :class="['text', { unread: message.isUnread }]">
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
@@ -71,6 +74,7 @@ import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
+import CommunicationService from "@/services/communication.service";
 
 export default defineComponent ({
     name: "Message",
@@ -101,9 +105,11 @@ export default defineComponent ({
         report: null
     },
     computed: {
-        ...mapGetters('player', [
-            'player'
-        ]),
+        ...mapGetters({
+            channel: 'communication/currentChannel',
+            player: 'player/player',
+            readMessageMutex: 'communication/readMessageMutex'
+        }),
         characterPortrait: function(): string| null {
             if (this.message.character.key !== null) {
                 const images = characterEnum[this.message.character.key];
@@ -125,12 +131,16 @@ export default defineComponent ({
                 return false;
             }
             return !['finished'].includes(this.player.gameStatus);
-        }
+        },
     },
     methods: {
-        ...mapActions('popup', [
-            'openReportPopup'
-        ]),
+        ...mapActions({
+            acquireReadMessageMutex: 'communication/acquireReadMessageMutex',
+            releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
+            decrementCurrentChannelNewMessages: 'communication/decrementCurrentChannelNewMessages',
+            loadChannels: 'communication/lightLoadChannels',
+            openReportPopup: 'moderation/openReportPopup',
+        }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
@@ -140,8 +150,16 @@ export default defineComponent ({
         },
         deleteMessage(messageId: number) {
             ModerationService.deleteMessage(messageId);
+        },
+        async readMessage(message: Message) {
+            if (message.isUnread && !this.readMessageMutex) {
+                this.acquireReadMessageMutex();
+                await CommunicationService.readMessage(message);
+                this.decrementCurrentChannelNewMessages(this.channel);
+                this.releaseReadMessageMutex();
+            }
         }
-    }
+    },
 });
 </script>
 

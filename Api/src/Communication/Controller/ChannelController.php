@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
+use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
@@ -574,6 +575,45 @@ class ChannelController extends AbstractGameController
         $view->setContext($context);
 
         return $view;
+    }
+
+    /**
+     * Mark a message as read.
+     *
+     * @OA\Tag(name="Channel")
+     * 
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The message id",
+     *      required=true
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch (path="/read-message/{id}", requirements={"id"="\d+"})
+     */
+    public function readMessageAction(Message $message): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $player = $playerInfo?->getPlayer();
+
+        $this->denyIfPlayerNotInGame($player);
+
+        $channel = $message->getChannel();
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
+            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        }
+
+        $this->messageService->markMessageAsReadForPlayer($message, $player);
+
+        return $this->view(['detail' => 'Message marked as read successfully'], Response::HTTP_OK);
     }
 
     private function denyIfPlayerNotInGame(?Player $player): void

@@ -24,4 +24,8 @@ interface MessageServiceInterface
     public function getChannelMessages(?Player $player, Channel $channel): Collection;
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool;
+
+    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int;
+
+    public function markMessageAsReadForPlayer(Message $message, Player $player): void;
 }

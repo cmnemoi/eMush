@@ -7,16 +7,13 @@ import { ChannelType } from "@/enums/communication.enum";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 
-// @ts-ignore
-const CAN_CREATE_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel/canCreatePrivate");
-// @ts-ignore
-const CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel");
-// @ts-ignore
-const PIRATED_CHANNELS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "channel/pirated");
-// @ts-ignore
-const ROOM_LOGS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log");
-// @ts-ignore
-const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "room-log/channel");
+const API_URL = process.env.VUE_APP_API_URL as string;
+
+const CAN_CREATE_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/canCreatePrivate");
+const CHANNELS_ENDPOINT = urlJoin(API_URL, "channel");
+const PIRATED_CHANNELS_ENDPOINT = urlJoin(API_URL, "channel/pirated");
+const ROOM_LOGS_ENDPOINT = urlJoin(API_URL, "room-log");
+const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(API_URL, "room-log/channel");
 
 const CommunicationService = {
     loadChannels: async(): Promise<Channel[]> => {
@@ -131,6 +128,11 @@ const CommunicationService = {
         await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/invite', {
             player: player.id
         });
+    },
+
+    readMessage: async (message: Message): Promise<void> => {
+        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read-message', String(message.id)));
+        message.isUnread = false;
     },
 
     sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {

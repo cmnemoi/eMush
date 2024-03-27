@@ -14,6 +14,8 @@ const state =  {
     loadingByChannelId: {},
     messagesByChannelId: {},
     typedMessage: '',
+    readMessageMutex: false,
+    currentChannelNumberOfNewMessages: 0
 };
 
 const getters: GetterTree<any, any> = {
@@ -40,6 +42,15 @@ const getters: GetterTree<any, any> = {
     },
     typedMessage(state) {
         return state.typedMessage;
+    },
+    readMessageMutex(state) {
+        return state.readMessageMutex;
+    },
+    currentChannel(state) {
+        return state.currentChannel;
+    },
+    currentChannelNumberOfNewMessages(state) {
+        return state.currentChannel.numberOfNewMessages;
     }
 };
 
@@ -160,7 +171,22 @@ const actions: ActionTree<any, any> = {
 
     updateTypedMessage({ commit }, message) {
         commit('setTypedMessage', message);
-    }
+    },
+
+    acquireReadMessageMutex({ commit }) {
+        commit('setReadMessageMutex', true);
+    },
+
+    releaseReadMessageMutex({ commit }) {
+        commit('setReadMessageMutex', false);
+    },
+
+    decrementCurrentChannelNewMessages({ commit }) {
+        commit(
+            'setCurrentChannelNumberOfNewMessages', 
+            { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 }
+        );
+    },
 };
 
 const mutations: MutationTree<any> = {
@@ -213,6 +239,18 @@ const mutations: MutationTree<any> = {
         state.loadingByChannelId = {};
         state.messagesByChannelId = {};
         state.channels = [];
+        state.readMessageMutex = false;
+        state.currentChannelNumberOfNewMessages = 0;
+    },
+
+    setReadMessageMutex(state: any, mutex: boolean): void {
+        state.readMessageMutex = mutex;
+    },
+
+    setCurrentChannelNumberOfNewMessages(state: any, { channel, numberOfNewMessages }): void {
+        if (channel.id === state.currentChannel.id) {
+            state.currentChannel.numberOfNewMessages = numberOfNewMessages;
+        }
     }
 };
 

@@ -31,7 +31,9 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
     }
 
     /**
-     * @return ArrayCollection<GameEquipment>
+     * @return ArrayCollection<array-key, GameEquipment>
+     *
+     * @psalm-suppress InvalidArgument
      */
     protected function createRandomItemsFromEvent(PlanetSectorEvent $event): ArrayCollection
     {

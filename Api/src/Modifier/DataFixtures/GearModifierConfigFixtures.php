@@ -373,6 +373,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(self::ROPE_MODIFIER)
         ;
         $manager->persist($ropeModifier);
 

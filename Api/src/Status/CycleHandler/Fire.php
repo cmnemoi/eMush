@@ -20,33 +20,28 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class Fire extends AbstractStatusCycleHandler
+final readonly class Fire extends AbstractStatusCycleHandler
 {
-    protected string $name = StatusEnum::FIRE;
-
-    private RandomServiceInterface $randomService;
-    private EventServiceInterface $eventService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private DaedalusServiceInterface $daedalusService;
-    private StatusServiceInterface $statusService;
-
     public function __construct(
-        RandomServiceInterface $randomService,
-        EventServiceInterface $eventService,
-        GameEquipmentServiceInterface $gameEquipmentService,
-        DaedalusServiceInterface $daedalusService,
-        StatusServiceInterface $statusService
+        private RandomServiceInterface $randomService,
+        private EventServiceInterface $eventService,
+        private GameEquipmentServiceInterface $gameEquipmentService,
+        private DaedalusServiceInterface $daedalusService,
+        private StatusServiceInterface $statusService,
+
+        protected string $name = StatusEnum::FIRE,
     ) {
-        $this->randomService = $randomService;
-        $this->eventService = $eventService;
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->daedalusService = $daedalusService;
-        $this->statusService = $statusService;
     }
 
+    /**
+     * @param Status                       $status       apparently the status of the fire
+     * @param StatusHolderInterface<Place> $statusHolder The place of the fire
+     * @param \DateTime                    $dateTime     Date time of the event propagated. Dispatched for the event generation.
+     * @param array                        $context      unused context
+     */
     public function handleNewCycle(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
     {
-        if (!$status instanceof ChargeStatus || $status->getName() !== StatusEnum::FIRE) {
+        if (!$status instanceof ChargeStatus || $status->getName() !== $this->name) {
             return;
         }
 
@@ -54,37 +49,57 @@ class Fire extends AbstractStatusCycleHandler
             throw new \LogicException('Fire status does not have a room');
         }
 
-        // If fire is active
-        if ($status->getCharge() > 0) {
-            $this->propagateFire($statusHolder, $dateTime);
-            $this->fireDamage($statusHolder, $dateTime);
+        if ($status->getCharge() === 0) {
+            return;
         }
+
+        // The fire is then active. Damage existing room then propagate new fires.
+        $this->fireDamage($statusHolder, $dateTime);
+        $this->propagateFire($statusHolder, $dateTime);
     }
 
-    private function propagateFire(Place $room, \DateTime $date): Place
+    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
     {
-        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
-
-        /** @var Door $door */
-        foreach ($room->getDoors() as $door) {
-            $adjacentRoom = $door->getOtherRoom($room);
-
-            if (!$adjacentRoom->hasStatus(StatusEnum::FIRE)
-                && $this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())
-            ) {
-                $this->statusService->createStatusFromName(
-                    StatusEnum::FIRE,
-                    $adjacentRoom,
-                    [RoomEventEnum::PROPAGATING_FIRE],
-                    $date
-                );
-            }
-        }
-
-        return $room;
     }
 
-    private function fireDamage(Place $room, \DateTime $date): Place
+    private function propagateFire(Place $room, \DateTime $date): void
+    {
+        $allFires = $room->getDaedalus()->getRooms()->filter(fn (Place $place) => $place->hasStatus($this->name));
+        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
+        // Get the lowest number between actual fires or the rate allowed by the difficulty.
+        $maxPropagation = min($difficultyConfig->getMaximumAllowedSpreadingFires(), $allFires->count());
+
+        /** @var Place $roomToPropagate */
+        foreach ($this->randomService->getRandomElements($allFires->toArray(), $maxPropagation) as $roomToPropagate) {
+            if (!$this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())) {
+                // Next room.
+                continue;
+            }
+
+            // The random service has taken the lead, the fire will propagate but where? So:
+            // Get all adjacent rooms that are not on fire. Then:
+            $nextRooms = $roomToPropagate
+                ->getDoors()
+                ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
+                ->toArray();
+
+            $adjacentRoom = $this->randomService->getRandomElement($nextRooms);
+            if ($adjacentRoom === null) {
+                // Probably an edge case here.
+                continue;
+            }
+
+            // Bring fire and destruction.
+            $this->statusService->createStatusFromName(
+                $this->name,
+                $adjacentRoom,
+                [RoomEventEnum::PROPAGATING_FIRE],
+                $date
+            );
+        }
+    }
+
+    private function fireDamage(Place $room, \DateTime $date): void
     {
         $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
 
@@ -106,7 +121,7 @@ class Fire extends AbstractStatusCycleHandler
         }
 
         if ($this->randomService->isSuccessful($difficultyConfig->getHullFireDamageRate())) {
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($difficultyConfig->getFireHullDamage()));
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($difficultyConfig->getFireHullDamage());
 
             $daedalusEvent = new DaedalusVariableEvent(
                 $room->getDaedalus(),
@@ -117,14 +132,7 @@ class Fire extends AbstractStatusCycleHandler
             );
 
             $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
-
             $this->daedalusService->persist($room->getDaedalus());
         }
-
-        return $room;
-    }
-
-    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
-    {
     }
 }

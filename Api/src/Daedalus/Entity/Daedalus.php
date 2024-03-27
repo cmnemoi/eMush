@@ -159,7 +159,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         $space = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === RoomEnum::SPACE)->first();
         if (!$space) {
-            throw new \Exception('Daedalus should have a place named Space');
+            throw new \RuntimeException('Daedalus should have a place named Space');
         }
 
         return $space;

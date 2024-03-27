@@ -48,10 +48,10 @@
                     <Tippy
                         tag="button"
                         class="delete"
-                        @click="sharePlanets()">
+                        @click="sharePlanet(planet)">
                         <template #content>
                             <h1 v-html="'Partager'" />
-                            <p v-html="formatText('Partager les planètes avec l\'équipage')" />
+                            <p v-html="formatText('Partager cette planète avec l\'équipage')" />
                         </template>
                         <img src="@/assets/images/planet.png">
                     </Tippy>
@@ -107,6 +107,9 @@ export default defineComponent ({
         }
     },
     computed: {
+        ...mapGetters({
+            'typedMessage': 'communication/typedMessage'
+        }),
         scanAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.SCAN);
         },
@@ -158,18 +161,16 @@ export default defineComponent ({
         sharePlanet(planet: Planet) {
             const publicChannelTab = document.getElementsByClassName('tabs')[0].getElementsByClassName('public')[0] as HTMLDivElement;
             publicChannelTab.click();
-            setTimeout(async () => {
+            setTimeout(() => {
                 const chatInput = document.getElementsByClassName('chat-input')[0] as HTMLFormElement;
                 const textArea = chatInput.getElementsByTagName('textarea')[0] as HTMLTextAreaElement;
-                const planetSectorsAsString = planet.sectors?.map(sector => sector.name).join(', ');
-                textArea.value += `:planet: **${planet.name}** (${planet.numberOfSectorsRevealed}/${planet.sectors?.length})\n*${planet?.orientation} - ${planet?.distance} :fuel:*\n${planetSectorsAsString}\n\n`;
+                if (textArea.value !== '') {
+                    textArea.value = `${textArea.value}\n${planet.toString()}`;
+                } else {
+                    textArea.value = planet.toString();
+                }
             }, 10);
         },
-        sharePlanets() {
-            this.planets.forEach(planet => this.sharePlanet(planet));
-            const textArea = document.getElementsByClassName('chat-input')[0].getElementsByTagName('textarea')[0] as HTMLTextAreaElement;
-            textArea.value = textArea.value.replace(/[\n]/g, '');
-        }
     },
     data() {
         return {

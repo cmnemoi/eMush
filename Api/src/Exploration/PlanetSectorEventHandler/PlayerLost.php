@@ -66,6 +66,8 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
         );
 
         $lostPlanetSector = $this->getLostPlanetSector($event);
+        $lostPlanetSector->reveal();
+
         $this->addLostPlanetSectorToPlanet($lostPlanetSector, $exploration->getPlanet());
 
         $logParameters = $this->getLogParameters($event);

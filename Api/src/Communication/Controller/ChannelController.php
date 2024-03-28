@@ -581,7 +581,7 @@ class ChannelController extends AbstractGameController
      * Mark a message as read.
      *
      * @OA\Tag(name="Channel")
-     * 
+     *
      * @OA\Parameter(
      *      name="id",
      *      in="path",
@@ -620,7 +620,7 @@ class ChannelController extends AbstractGameController
      * Put a message in favorites.
      *
      * @OA\Tag(name="Channel")
-     * 
+     *
      * @OA\Parameter(
      *      name="id",
      *      in="path",
@@ -661,7 +661,7 @@ class ChannelController extends AbstractGameController
      * Remove a message from favorites.
      *
      * @OA\Tag(name="Channel")
-     * 
+     *
      * @OA\Parameter(
      *      name="id",
      *      in="path",

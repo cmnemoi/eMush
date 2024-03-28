@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class MessageParentValidator extends ConstraintValidator
-{   
+{
     private const array ACCEPTED_SCOPES = [
         ChannelScopeEnum::PUBLIC,
         ChannelScopeEnum::FAVORITES,

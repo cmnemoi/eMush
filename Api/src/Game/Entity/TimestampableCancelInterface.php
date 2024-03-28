@@ -6,5 +6,5 @@ namespace Mush\Game\Entity;
 
 interface TimestampableCancelInterface
 {
-   public function isTimestampableCanceled(): bool;
+    public function isTimestampableCanceled(): bool;
 }

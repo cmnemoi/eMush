@@ -106,24 +106,16 @@ class MessageService implements MessageServiceInterface
 
         $messages = new ArrayCollection($this->messageRepository->findByChannel($channel, $ageLimit));
 
-        // if a message has been put in favorite, remove it from the public channel message for the player
-        $favoriteChannel = $this->channelRepository->findFavoritesChannelForPlayer($player->getPlayerInfo());
-        if ($channel->isPublic() && $favoriteChannel) {
-            $favoritesMesages = $this->messageRepository->findByChannel($favoriteChannel, $ageLimit);
-            
-            /** @var Message $message */
-            foreach ($messages as $message) {
-                /** @var Message $favoriteMessage */
-                foreach ($favoritesMesages as $favoriteMessage) {
-                    $hasBeenPostedAtTheSameTime = date_diff($message->getCreatedAt(), $favoriteMessage->getCreatedAt())->s === 0;
-                    if ($hasBeenPostedAtTheSameTime && $message->getMessage() === $favoriteMessage->getMessage()) {
-                        $messages->removeElement($message);
-                    }
-                }
+        // if a message has been put in favorite, remove it from the public channel messages for the player
+        if ($player) {
+            $favoriteChannel = $this->channelRepository->findFavoritesChannelForPlayer($player->getPlayerInfo());
+            if ($channel->isPublic() && $favoriteChannel) {
+                $this->removeFavoritesMessagesFromPublicChannel($messages, $favoriteChannel, $ageLimit);
             }
         }
 
         // apply messages modifications
+        /** @var ArrayCollection<int, Message> $modifiedMessages */
         $modifiedMessages = new ArrayCollection();
         foreach ($messages as $message) {
             $messageEvent = new MessageEvent(
@@ -169,14 +161,14 @@ class MessageService implements MessageServiceInterface
     }
 
     public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int
-    {   
+    {
         $messages = $this->getChannelMessages($player, $channel);
         $newMessages = 0;
 
         /** @var Message $message */
         foreach ($messages as $message) {
             if ($message->isUnreadBy($player)) {
-                $newMessages++;
+                ++$newMessages;
             }
         }
 
@@ -184,7 +176,7 @@ class MessageService implements MessageServiceInterface
     }
 
     public function markMessageAsReadForPlayer(Message $message, Player $player): void
-    {   
+    {
         $message->addReader($player);
 
         $message->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
@@ -193,7 +185,8 @@ class MessageService implements MessageServiceInterface
     }
 
     public function putMessageInFavoritesForPlayer(Message $message, Player $player, Channel $favoritesChannel): void
-    {   
+    {
+        /** @var Message $rootMessage */
         $rootMessage = $message->isRoot() ? $message : $message->getParent();
 
         $clonedRootMessage = clone $rootMessage;
@@ -216,11 +209,33 @@ class MessageService implements MessageServiceInterface
     }
 
     public function removeMessageFromFavoritesForPlayer(Message $message, Player $player): void
-    {   
+    {
+        /** @var Message $rootMessage */
         $rootMessage = $message->isRoot() ? $message : $message->getParent();
         $rootMessage->removeFavorite($player);
 
         $this->entityManager->remove($rootMessage);
         $this->entityManager->flush();
+    }
+
+    private function removeFavoritesMessagesFromPublicChannel(ArrayCollection $messages, Channel $favoriteChannel, ?\DateInterval $ageLimit): void
+    {
+        $favoritesMesages = $this->messageRepository->findByChannel($favoriteChannel, $ageLimit);
+
+        /** @var Message $message */
+        foreach ($messages as $message) {
+            /** @var Message $favoriteMessage */
+            foreach ($favoritesMesages as $favoriteMessage) {
+                /** @var \DateTime $a */
+                $a = $message->getCreatedAt();
+                /** @var \DateTime $b */
+                $b = $favoriteMessage->getCreatedAt();
+
+                $hasBeenPostedAtTheSameTime = date_diff($a, $b)->s === 0;
+                if ($hasBeenPostedAtTheSameTime && $message->getMessage() === $favoriteMessage->getMessage()) {
+                    $messages->removeElement($message);
+                }
+            }
+        }
     }
 }

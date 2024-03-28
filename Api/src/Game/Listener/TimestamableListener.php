@@ -7,14 +7,19 @@ namespace Mush\Game\Listener;
 use Mush\Game\Entity\TimestampableCancelInterface;
 
 /**
- * Listener to prevent some entities from being timestamped.
- * Author: zajca (https://stackoverflow.com/a/53666915)
+ * Listener to prevent some entities from being timestamped (auto-update of createdAt and updatedAt values).
+ * Author: zajca (https://stackoverflow.com/a/53666915).
+ *
+ * @psalm-suppress InvalidExtendClass
  */
-final class TimestampableListener extends \Gedmo\Timestampable\TimestampableListener
+class TimestampableListener extends \Gedmo\Timestampable\TimestampableListener
 {
     protected function updateField($object, $eventAdapter, $meta, $field)
     {
-        /** @var \Doctrine\Orm\Mapping\ClassMetadata $meta */
+        /** @var \Gedmo\Timestampable\Mapping\Event\TimestampableAdapter $eventAdapter */
+        $eventAdapter = $eventAdapter;
+
+        /** @var \Doctrine\ORM\Mapping\ClassMetadata $meta */
         $property = $meta->getReflectionProperty($field);
         $newValue = $this->getFieldValue($meta, $field, $eventAdapter);
 

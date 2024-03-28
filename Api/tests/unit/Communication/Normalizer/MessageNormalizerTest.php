@@ -261,6 +261,7 @@ class MessageNormalizerTest extends TestCase
                 'child' => [],
                 'isUnread' => true,
             ]],
+            'isUnread' => true,
         ], $normalizedData);
     }
 

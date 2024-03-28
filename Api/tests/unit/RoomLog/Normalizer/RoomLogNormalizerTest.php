@@ -50,29 +50,27 @@ class RoomLogNormalizerTest extends TestCase
 
         $date = new \DateTime();
 
-        $roomLog1 = new RoomLog();
-        $roomLog1
-            ->setLog('logKey1')
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDate($date)
-            ->setParameters([])
-            ->setDay(1)
-            ->setCycle(3)
-            ->setType('log')
-            ->setPlace('place')
-        ;
+        $roomLog1 = $this->createStub(RoomLog::class);
+        $roomLog1->method('getId')->willReturn(1);
+        $roomLog1->method('getLog')->willReturn('logKey1');
+        $roomLog1->method('getVisibility')->willReturn(VisibilityEnum::PUBLIC);
+        $roomLog1->method('getDate')->willReturn($date);
+        $roomLog1->method('getParameters')->willReturn([]);
+        $roomLog1->method('getDay')->willReturn(1);
+        $roomLog1->method('getCycle')->willReturn(3);
+        $roomLog1->method('getType')->willReturn('log');
+        $roomLog1->method('getPlace')->willReturn('place');
 
-        $roomLog2 = new RoomLog();
-        $roomLog2
-            ->setLog('logKey2')
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDate($date)
-            ->setParameters(['player' => 'andie'])
-            ->setDay(1)
-            ->setCycle(4)
-            ->setType('log')
-            ->setPlace('place')
-        ;
+        $roomLog2 = $this->createStub(RoomLog::class);
+        $roomLog2->method('getId')->willReturn(2);
+        $roomLog2->method('getLog')->willReturn('logKey2');
+        $roomLog2->method('getVisibility')->willReturn(VisibilityEnum::PUBLIC);
+        $roomLog2->method('getDate')->willReturn($date);
+        $roomLog2->method('getParameters')->willReturn(['player' => 'andie']);
+        $roomLog2->method('getDay')->willReturn(1);
+        $roomLog2->method('getCycle')->willReturn(4);
+        $roomLog2->method('getType')->willReturn('log');
+        $roomLog2->method('getPlace')->willReturn('place');
 
         $this->roomLogCollection = new RoomLogCollection([$roomLog1, $roomLog2]);
     }
@@ -109,8 +107,8 @@ class RoomLogNormalizerTest extends TestCase
         $normalizeLogs = $this->normalizer->normalize($this->roomLogCollection, null, ['currentPlayer' => $this->player]);
 
         $expectedLogs = [1 => [
-            3 => [['log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date']],
-            4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date']],
+            3 => [['id' => 1, 'log' => 'translated log 1', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'isUnread' => false]],
+            4 => [['id' => 2, 'log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'isUnread' => false]],
         ]];
 
         $this->assertEquals($expectedLogs, $normalizeLogs);

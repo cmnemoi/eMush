@@ -187,6 +187,7 @@ class MessageService implements MessageServiceInterface
     {   
         $message->addReader($player);
 
+        $message->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
         $this->entityManager->persist($message);
         $this->entityManager->flush();
     }
@@ -205,7 +206,10 @@ class MessageService implements MessageServiceInterface
         $clonedRootMessage->addFavorite($player);
         $clonedRootMessage->setChannel($favoritesChannel);
 
+        $clonedRootMessage->cancelTimestampable();
         $this->entityManager->persist($clonedRootMessage);
+
+        $clonedChildren->map(fn (Message $child) => $child->cancelTimestampable());
         $clonedChildren->map(fn (Message $child) => $this->entityManager->persist($child));
 
         $this->entityManager->flush();

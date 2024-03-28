@@ -7,11 +7,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Game\Entity\TimestampableCancelInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
-class Message
+class Message implements TimestampableCancelInterface
 {
     use TimestampableEntity;
 
@@ -49,6 +50,9 @@ class Message
     #[ORM\ManyToMany(targetEntity: Player::class)]
     #[ORM\JoinTable(name: 'message_favorites')]
     private Collection $favorites;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $timestampableCanceled = false;
 
     public function __construct()
     {
@@ -191,5 +195,15 @@ class Message
     public function isRoot(): bool
     {
         return $this->parent === null;
+    }
+
+    public function isTimestampableCanceled(): bool
+    {
+        return $this->timestampableCanceled;
+    }
+
+    public function cancelTimestampable(): void
+    {
+        $this->timestampableCanceled = true;
     }
 }

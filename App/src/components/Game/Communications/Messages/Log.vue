@@ -33,7 +33,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             acquireReadLogMutex: "communication/acquireReadMessageMutex",
-            decrementRoomLogNewMessages: 'communication/decrementCurrentChannelNewMessages',
+            loadChannels: "communication/loadChannels",
             releaseReadLogMutex: "communication/releaseReadMessageMutex"
         }),
         formatText,
@@ -41,7 +41,7 @@ export default defineComponent ({
             if (!this.isReadingLog && roomLog.isUnread) {
                 this.acquireReadLogMutex();
                 await CommunicationService.readRoomLog(roomLog);
-                await this.decrementRoomLogNewMessages(this.roomLogChannel);
+                await this.loadChannels();
                 this.releaseReadLogMutex();
             }
         }

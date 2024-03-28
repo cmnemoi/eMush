@@ -82,6 +82,17 @@ class ChannelRepository extends ServiceEntityRepository
         return $result[0];
     }
 
+    public function findPublicChannelByDaedalus(Daedalus $daedalus): Channel
+    {
+        $queryBuilder = $this->createQueryBuilder('channel');
+        $queryBuilder->where($queryBuilder->expr()->eq('channel.daedalusInfo', ':daedalus'))
+            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
+            ->setParameter('scope', ChannelScopeEnum::PUBLIC)
+            ->setParameter('daedalus', $daedalus->getDaedalusInfo());
+
+        return $queryBuilder->getQuery()->getSingleResult();
+    }
+
     private function findPrivateChannelsByPlayer(PlayerInfo $playerInfo): Collection
     {
         $queryBuilder = $this->createQueryBuilder('channel');
@@ -95,19 +106,4 @@ class ChannelRepository extends ServiceEntityRepository
 
         return new ArrayCollection($queryBuilder->getQuery()->getResult());
     }
-
-    private function findPublicChannelByDaedalus(Daedalus $daedalus): Channel
-    {
-        $queryBuilder = $this->createQueryBuilder('channel');
-        $queryBuilder->where($queryBuilder->expr()->eq('channel.daedalusInfo', ':daedalus'))
-            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
-            ->setParameter('scope', ChannelScopeEnum::PUBLIC)
-            ->setParameter('daedalus', $daedalus->getDaedalusInfo());
-
-        $result = $queryBuilder->getQuery()->getResult();
-
-        return $result[0];
-    }
-
-    
 }

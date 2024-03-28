@@ -187,4 +187,9 @@ class Message
     {
         return $this->favorites->contains($player);
     }
+
+    public function isRoot(): bool
+    {
+        return $this->parent === null;
+    }
 }

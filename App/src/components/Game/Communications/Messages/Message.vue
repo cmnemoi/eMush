@@ -145,6 +145,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             acquireReadMessageMutex: 'communication/acquireReadMessageMutex',
+            changeChannel: 'communication/changeChannel',
             decrementCurrentChannelNewMessages: 'communication/decrementCurrentChannelNewMessages',
             favoriteMessage: 'communication/favoriteMessage',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
@@ -171,9 +172,9 @@ export default defineComponent ({
         },
         async toggleFavorite(message: Message) {
             if (this.channel.scope === ChannelType.FAVORITES) {
-                await this.favoriteMessage(message);
-            } else {
                 await this.unfavoriteMessage(message);
+            } else {
+                await this.favoriteMessage(message);
             }
         }
     },

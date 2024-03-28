@@ -93,7 +93,7 @@ const actions: ActionTree<any, any> = {
                 state.currentChannel.scope === undefined
                 || sortedChannels.filter((channel: Channel) => channel.id === state.currentChannel.id).length === 0
             ) {
-                commit('setCurrentChannel', getters.roomChannel);
+                commit('setCurrentChannel', getters.publicChannel);
             }
 
             await dispatch('loadMessages', { channel: state.currentChannel });
@@ -194,17 +194,15 @@ const actions: ActionTree<any, any> = {
         );
     },
 
-    async favoriteMessage({ commit, dispatch }, message) {
+    async favoriteMessage({ dispatch }, message) {
         await CommunicationService.putMessageInFavorite(message);
-        dispatch('loadChannels');
-        commit('setCurrentChannel', getters.favoritesChannel);
+        await dispatch('loadChannels');
     },
 
-    async unfavoriteMessage({ commit, dispatch }, message) {
+    async unfavoriteMessage({ dispatch }, message) {
         await CommunicationService.removeMessageFromFavorite(message);
-        dispatch('loadChannels');
-        commit('setCurrentChannel', getters.publicChannel);
-    }
+        await dispatch('loadChannels');
+    },
 };
 
 const mutations: MutationTree<any> = {
@@ -259,6 +257,7 @@ const mutations: MutationTree<any> = {
         state.channels = [];
         state.readMessageMutex = false;
         state.currentChannelNumberOfNewMessages = 0;
+        state.typedMessage = '';
     },
 
     setReadMessageMutex(state: any, mutex: boolean): void {
@@ -267,7 +266,7 @@ const mutations: MutationTree<any> = {
 
     setCurrentChannelNumberOfNewMessages(state: any, { channel, numberOfNewMessages }): void {
         if (channel.id === state.currentChannel.id) {
-            state.currentChannel.numberOfNewMessages = numberOfNewMessages;
+            state.currentChannel.numberOfNewMessages = Math.max(0, numberOfNewMessages);
         }
     }
 };

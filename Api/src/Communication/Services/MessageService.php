@@ -10,6 +10,7 @@ use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\MessageEvent;
+use Mush\Communication\Repository\ChannelRepository;
 use Mush\Communication\Repository\MessageRepository;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,15 +20,18 @@ class MessageService implements MessageServiceInterface
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private MessageRepository $messageRepository;
+    private ChannelRepository $channelRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         MessageRepository $messageRepository,
+        ChannelRepository $channelRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->messageRepository = $messageRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
@@ -100,9 +104,27 @@ class MessageService implements MessageServiceInterface
             $ageLimit = new \DateInterval('PT24H');
         }
 
-        $messages = $this->messageRepository->findByChannel($channel, $ageLimit);
-        $modifiedMessages = [];
+        $messages = new ArrayCollection($this->messageRepository->findByChannel($channel, $ageLimit));
 
+        // if a message has been put in favorite, remove it from the public channel message for the player
+        $favoriteChannel = $this->channelRepository->findFavoritesChannelForPlayer($player->getPlayerInfo());
+        if ($channel->isPublic() && $favoriteChannel) {
+            $favoritesMesages = $this->messageRepository->findByChannel($favoriteChannel, $ageLimit);
+            
+            /** @var Message $message */
+            foreach ($messages as $message) {
+                /** @var Message $favoriteMessage */
+                foreach ($favoritesMesages as $favoriteMessage) {
+                    $hasBeenPostedAtTheSameTime = date_diff($message->getCreatedAt(), $favoriteMessage->getCreatedAt())->s === 0;
+                    if ($hasBeenPostedAtTheSameTime && $message->getMessage() === $favoriteMessage->getMessage()) {
+                        $messages->removeElement($message);
+                    }
+                }
+            }
+        }
+
+        // apply messages modifications
+        $modifiedMessages = new ArrayCollection();
         foreach ($messages as $message) {
             $messageEvent = new MessageEvent(
                 $message,
@@ -113,10 +135,10 @@ class MessageService implements MessageServiceInterface
             /** @var MessageEvent $event */
             $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::READ_MESSAGE);
 
-            $modifiedMessages[] = $event->getMessage();
+            $modifiedMessages->add($event->getMessage());
         }
 
-        return new ArrayCollection($modifiedMessages);
+        return $modifiedMessages;
     }
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool
@@ -170,18 +192,20 @@ class MessageService implements MessageServiceInterface
     }
 
     public function putMessageInFavoritesForPlayer(Message $message, Player $player, Channel $favoritesChannel): void
-    {        
-        $clonedMessage = clone $message;
-        $clonedChildren = $clonedMessage
+    {   
+        $rootMessage = $message->isRoot() ? $message : $message->getParent();
+
+        $clonedRootMessage = clone $rootMessage;
+        $clonedChildren = $clonedRootMessage
             ->getChild()
             ->map(fn (Message $child) => clone $child)
-            ->map(fn (Message $child) => $child->setParent($clonedMessage))
+            ->map(fn (Message $child) => $child->setParent($clonedRootMessage))
         ;
 
-        $clonedMessage->addFavorite($player);
-        $clonedMessage->setChannel($favoritesChannel);
+        $clonedRootMessage->addFavorite($player);
+        $clonedRootMessage->setChannel($favoritesChannel);
 
-        $this->entityManager->persist($clonedMessage);
+        $this->entityManager->persist($clonedRootMessage);
         $clonedChildren->map(fn (Message $child) => $this->entityManager->persist($child));
 
         $this->entityManager->flush();
@@ -189,9 +213,10 @@ class MessageService implements MessageServiceInterface
 
     public function removeMessageFromFavoritesForPlayer(Message $message, Player $player): void
     {   
-        $message->removeFavorite($player);
+        $rootMessage = $message->isRoot() ? $message : $message->getParent();
+        $rootMessage->removeFavorite($player);
 
-        $this->entityManager->remove($message);
+        $this->entityManager->remove($rootMessage);
         $this->entityManager->flush();
     }
 }

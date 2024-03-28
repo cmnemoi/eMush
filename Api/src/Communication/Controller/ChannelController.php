@@ -671,7 +671,7 @@ class ChannelController extends AbstractGameController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Post (path="/unfavorite-message/{id}", requirements={"id"="\d+"})
+     * @Rest\Delete (path="/unfavorite-message/{id}", requirements={"id"="\d+"})
      */
     public function unfavoriteMessageAction(Message $message): View
     {

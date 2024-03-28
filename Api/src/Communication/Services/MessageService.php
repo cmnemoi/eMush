@@ -237,7 +237,11 @@ class MessageService implements MessageServiceInterface
                 $b = $favoriteMessage->getCreatedAt();
 
                 $hasBeenPostedAtTheSameTime = date_diff($a, $b)->s === 0;
-                if ($hasBeenPostedAtTheSameTime && $message->getMessage() === $favoriteMessage->getMessage()) {
+                if (
+                    $hasBeenPostedAtTheSameTime 
+                    && $message->getMessage() === $favoriteMessage->getMessage()
+                    && $message->getTranslationParameters() === $favoriteMessage->getTranslationParameters()
+                ) {
                     $messages->removeElement($message);
                 }
             }

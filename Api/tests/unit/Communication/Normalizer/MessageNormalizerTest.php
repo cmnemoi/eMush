@@ -107,6 +107,7 @@ class MessageNormalizerTest extends TestCase
             'message' => 'message',
             'date' => 'translated date',
             'child' => [],
+            'isUnread' => true,
         ], $normalizedData);
     }
 
@@ -171,6 +172,7 @@ class MessageNormalizerTest extends TestCase
             'message' => 'translatedMessage',
             'date' => 'translated date',
             'child' => [],
+            'isUnread' => true,
         ], $normalizedData);
     }
 
@@ -257,6 +259,7 @@ class MessageNormalizerTest extends TestCase
                 'message' => 'message child',
                 'date' => 'translated date',
                 'child' => [],
+                'isUnread' => true,
             ]],
         ], $normalizedData);
     }
@@ -327,6 +330,7 @@ class MessageNormalizerTest extends TestCase
             'message' => 'modified message',
             'date' => 'translated date',
             'child' => [],
+            'isUnread' => true,
         ], $normalizedData);
     }
 }

@@ -34,10 +34,10 @@ final readonly class Fire extends AbstractStatusCycleHandler
     }
 
     /**
-     * @param Status                       $status       apparently the status of the fire
+     * @param Status                $status       apparently the status of the fire
      * @param StatusHolderInterface $statusHolder The place of the fire
-     * @param \DateTime                    $dateTime     Date time of the event propagated. Dispatched for the event generation.
-     * @param array                        $context      unused context
+     * @param \DateTime             $dateTime     Date time of the event propagated. Dispatched for the event generation.
+     * @param array                 $context      unused context
      */
     public function handleNewCycle(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime, array $context = []): void
     {

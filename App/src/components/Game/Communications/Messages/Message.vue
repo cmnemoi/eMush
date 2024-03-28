@@ -166,6 +166,7 @@ export default defineComponent ({
             if (message.isUnread && !this.readMessageMutex) {
                 this.acquireReadMessageMutex();
                 await CommunicationService.readMessage(message);
+                // @TODO : if you refresh the page by clicking on eMush logo, this does not work anymore...
                 this.decrementCurrentChannelNewMessages(this.channel);
                 this.releaseReadMessageMutex();
             }
@@ -173,8 +174,10 @@ export default defineComponent ({
         async toggleFavorite(message: Message) {
             if (this.channel.scope === ChannelType.FAVORITES) {
                 await this.unfavoriteMessage(message);
+                // @TODO : we should switch to public channel here, but I don't manage to make it working
             } else {
                 await this.favoriteMessage(message);
+                // @TODO : we should switch to favorites channel here, but I don't manage to make it working
             }
         }
     },

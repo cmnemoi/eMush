@@ -41,6 +41,7 @@ export default defineComponent ({
             if (!this.isReadingLog && roomLog.isUnread) {
                 this.acquireReadLogMutex();
                 await CommunicationService.readRoomLog(roomLog);
+                // @TODO : find a reliable way to update the number of unread messages from front end, because reloading all channels is slow
                 await this.loadChannels();
                 this.releaseReadLogMutex();
             }

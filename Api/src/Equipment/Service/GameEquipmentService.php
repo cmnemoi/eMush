@@ -209,8 +209,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
-        if ($gameEquipment->getEquipment()->isFireBreakable()
-            && !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
+        if (!$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
+            && $gameEquipment->getEquipment()->isFireBreakable()
             && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $this->statusService->createStatusFromName(

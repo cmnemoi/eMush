@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\unit\Status\CycleHandler;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -9,6 +10,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -72,6 +74,11 @@ class FireTest extends TestCase
         \Mockery::close();
     }
 
+    /**
+     * @covers \Mush\Status\CycleHandler\Fire::handleNewCycle
+     * @covers \Mush\Status\CycleHandler\Fire::propagateFire
+     * @covers \Mush\Status\CycleHandler\Fire::fireDamage
+     */
     public function testNewCycleFireDamage(): void
     {
         $date = new \DateTime();
@@ -88,8 +95,7 @@ class FireTest extends TestCase
         $daedalus = new Daedalus();
         $gameConfig
             ->setDifficultyConfig($difficultyConfig)
-            ->setDaedalusConfig($daedalusConfig)
-        ;
+            ->setDaedalusConfig($daedalusConfig);
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $room->setDaedalus($daedalus);
 
@@ -99,16 +105,14 @@ class FireTest extends TestCase
         $statusConfig->setStatusName(StatusEnum::FIRE);
         $status = new ChargeStatus($room, $statusConfig);
         $status
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
         $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player
-            ->setPlayerInfo($playerInfo)
-        ;
+            ->setPlayerInfo($playerInfo);
         $room->addPlayer($player);
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->twice();
@@ -116,6 +120,8 @@ class FireTest extends TestCase
         $this->randomService->shouldReceive('getRandomElements')->andReturn([$room])->once();
         $this->randomService->shouldReceive('getRandomElement')->andReturn($room)->once();
         $this->daedalusService->shouldReceive('persist')->once();
+
+        $this->assertTrue($room->hasStatus(StatusEnum::FIRE));
 
         $this->statusService
             ->shouldReceive('createStatusFromName')
@@ -134,8 +140,7 @@ class FireTest extends TestCase
                 && $eventName === VariableEventInterface::CHANGE_VARIABLE
                 && $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->eventService
             ->shouldReceive('callEvent')
@@ -143,10 +148,115 @@ class FireTest extends TestCase
                 $eventName === VariableEventInterface::CHANGE_VARIABLE
                 && $daedalusEvent->getVariableName() === DaedalusVariableEnum::HULL
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->cycleHandler->handleNewCycle($status, $room, $date);
         $this->assertEquals($daedalusHull, $daedalus->getHull());
+    }
+
+    /**
+     * @dataProvider fireTestPropagationDataProvider
+     */
+    public function testFirePropagation(int $roomNumbers, int $numberOfFires, int $expectedNumberOfFires, int $expectedDispatchedEvents): void
+    {
+        assert($roomNumbers >= $numberOfFires);
+
+        $date = new \DateTime();
+        $rooms = new ArrayCollection();
+
+        for ($i = 0; $roomNumbers !== $i; ++$i) {
+            $rooms->add(new Place());
+        }
+
+        $initialRoom = $rooms->first();
+        $this->assertCount($roomNumbers, $rooms);
+
+        $linkedDoor = (new Door($initialRoom))->setRooms($rooms);
+        // Propagate all the fire 🔥.
+        $difficultyConfig = (new DifficultyConfig())
+            ->setPropagatingFireRate(100)
+            ->setMaximumAllowedSpreadingFires(100);
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusConfig
+            ->setMaxHull(100)
+            ->setInitHull(100);
+
+        $gameConfig = new GameConfig();
+        $daedalus = new Daedalus();
+        $gameConfig
+            ->setDifficultyConfig($difficultyConfig)
+            ->setDaedalusConfig($daedalusConfig);
+
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $rooms->forAll(static fn (int $_, Place $place) => $place->setDaedalus($daedalus));
+        $daedalus->setDaedalusVariables($daedalusConfig);
+
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setStatusName(StatusEnum::FIRE);
+
+        $statuses = new ArrayCollection();
+        foreach ($rooms as $cleanRoom) {
+            if ($statuses->count() === $numberOfFires) {
+                break;
+            }
+
+            $charge = new ChargeStatus($cleanRoom, $statusConfig);
+            $charge->setCharge(1);
+            $statuses->add($charge);
+        }
+
+        if ($numberOfFires < $roomNumbers) {
+            $remainingRooms = $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
+            $this->assertCount($roomNumbers - $numberOfFires, $remainingRooms);
+            $remainingRooms->forAll(fn (int $_, Place $place) => $this->assertFalse($place->hasStatus(StatusEnum::FIRE)));
+        }
+
+        $this->assertCount($roomNumbers, $linkedDoor->getRooms());
+        $this->assertCount($numberOfFires, $rooms->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE)));
+
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->atLeast()->once();
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->once();
+        $this->randomService->shouldReceive('getRandomElements')->andReturn($rooms->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE))->toArray())->once();
+        $this->randomService->shouldReceive('getRandomElement')->andReturn(
+            $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE))?->first() ?: null
+        )->atLeast()->once();
+        $this->gameEquipmentService->shouldReceive('handleBreakFire')->andReturns()->once();
+        $this->daedalusService->shouldReceive('persist')->once();
+
+        $this->statusService
+            ->shouldReceive('createStatusFromName')
+            ->withArgs(static fn (string $name, StatusHolderInterface $holder, array $tags, \DateTime $dateTime) => (
+                $name === StatusEnum::FIRE
+                && $holder === $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE))->first()
+                && $tags === [RoomEventEnum::PROPAGATING_FIRE]
+                && $dateTime === $date
+            ))
+            ->times($expectedDispatchedEvents);
+
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->withArgs(static fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
+                $eventName === VariableEventInterface::CHANGE_VARIABLE
+                && $daedalusEvent->getVariableName() === DaedalusVariableEnum::HULL
+            ))
+            ->once();
+
+        $this->cycleHandler->handleNewCycle($statuses->first(), $initialRoom, $date);
+        // $this->assertCount($expectedNumberOfFires, $daedalus->getRooms()->filter(static fn(Place $place) => $place->hasStatus(StatusEnum::FIRE)));
+        // TODO: How to count propagated fires?
+    }
+
+    /**
+     * @return iterable [number of rooms, number of fire, expected number of fires, number of dispatched events]
+     */
+    final public static function fireTestPropagationDataProvider(): iterable
+    {
+        yield [2, 1, 2, 1];
+        yield [3, 2, 3, 2];
+        yield [3, 1, 2, 1];
+        yield [4, 1, 2, 1];
+        yield [4, 2, 3, 2];
+        yield [4, 3, 4, 3];
+        yield [4, 4, 4, 0];
     }
 }

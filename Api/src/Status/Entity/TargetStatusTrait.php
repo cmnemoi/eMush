@@ -36,7 +36,7 @@ trait TargetStatusTrait
     {
         $status = $this->getStatuses()->filter(fn (Status $status) => ($status->getName() === $name))->first();
 
-        return $status ? $status : null;
+        return $status ?: null;
     }
 
     public function hasStatus(string $statusName): bool

@@ -35,7 +35,7 @@ final readonly class Fire extends AbstractStatusCycleHandler
 
     /**
      * @param Status                       $status       apparently the status of the fire
-     * @param StatusHolderInterface<Place> $statusHolder The place of the fire
+     * @param StatusHolderInterface $statusHolder The place of the fire
      * @param \DateTime                    $dateTime     Date time of the event propagated. Dispatched for the event generation.
      * @param array                        $context      unused context
      */
@@ -78,12 +78,12 @@ final readonly class Fire extends AbstractStatusCycleHandler
 
             // The random service has taken the lead, the fire will propagate but where? So:
             // Get all adjacent rooms that are not on fire. Then:
-            $nextRooms = $roomToPropagate
+            $adjacentCleanRooms = $roomToPropagate
                 ->getDoors()
                 ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
-                ->toArray();
+                ->map(fn (Door $door) => $door->getRooms())->toArray();
 
-            $adjacentRoom = $this->randomService->getRandomElement($nextRooms);
+            $adjacentRoom = $this->randomService->getRandomElement($adjacentCleanRooms);
             if ($adjacentRoom === null) {
                 // Probably an edge case here.
                 continue;

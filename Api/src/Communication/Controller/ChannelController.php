@@ -657,6 +657,47 @@ class ChannelController extends AbstractGameController
         return $this->view(['detail' => 'Message marked as favorites successfully'], Response::HTTP_OK);
     }
 
+    /**
+     * Remove a message from favorites.
+     *
+     * @OA\Tag(name="Channel")
+     * 
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The message id",
+     *      required=true
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post (path="/unfavorite-message/{id}", requirements={"id"="\d+"})
+     */
+    public function unfavoriteMessageAction(Message $message): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $player = $playerInfo?->getPlayer();
+
+        $this->denyIfPlayerNotInGame($player);
+
+        $channel = $message->getChannel();
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
+            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        }
+
+        $favoritesChannel = $this->channelService->getFavoritesChannelForPlayer($player);
+
+        $this->messageService->removeMessageFromFavoritesForPlayer($message, $player, $favoritesChannel);
+
+        return $this->view(['detail' => 'Message removed from favorites successfully'], Response::HTTP_OK);
+    }
+
     private function denyIfPlayerNotInGame(?Player $player): void
     {
         if ($player === null || $player->getPlayerInfo() === null) {

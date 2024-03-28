@@ -135,6 +135,10 @@ const CommunicationService = {
         message.isUnread = false;
     },
 
+    removeMessageFromFavorite: async (message: Message): Promise<void> => {
+        await ApiService.delete(urlJoin(CHANNELS_ENDPOINT, 'unfavorite-message', String(message.id)));
+    },
+
     sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {
 
         let parentId = null;

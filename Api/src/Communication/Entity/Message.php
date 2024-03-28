@@ -26,7 +26,7 @@ class Message
     #[ORM\ManyToOne(targetEntity: Neron::class)]
     private ?Neron $neron = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Message::class)]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Message::class, orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private Collection $child;
 

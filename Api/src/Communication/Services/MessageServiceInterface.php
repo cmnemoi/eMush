@@ -30,4 +30,6 @@ interface MessageServiceInterface
     public function markMessageAsReadForPlayer(Message $message, Player $player): void;
 
     public function putMessageInFavoritesForPlayer(Message $message, Player $player, Channel $favoritesChannel): void;
+
+    public function removeMessageFromFavoritesForPlayer(Message $message, Player $player): void;
 }

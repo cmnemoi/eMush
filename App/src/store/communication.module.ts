@@ -54,6 +54,9 @@ const getters: GetterTree<any, any> = {
     },
     favoritesChannel(state) {
         return state.channels.find((channel: Channel) => channel.scope === ChannelType.FAVORITES);
+    },
+    publicChannel(state) {
+        return state.channels.find((channel: Channel) => channel.scope === ChannelType.PUBLIC);
     }
 };
 
@@ -195,6 +198,12 @@ const actions: ActionTree<any, any> = {
         await CommunicationService.putMessageInFavorite(message);
         dispatch('loadChannels');
         commit('setCurrentChannel', getters.favoritesChannel);
+    },
+
+    async unfavoriteMessage({ commit, dispatch }, message) {
+        await CommunicationService.removeMessageFromFavorite(message);
+        dispatch('loadChannels');
+        commit('setCurrentChannel', getters.publicChannel);
     }
 };
 

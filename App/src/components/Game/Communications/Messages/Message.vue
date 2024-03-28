@@ -16,7 +16,7 @@
             <ActionButtons 
                 v-if="isPlayerAlive && isReplyable" 
                 :actions="['reply', 'favorite']" 
-                @favorite="favoriteMessage(message)"
+                @favorite="toggleFavorite(message)"
             />
             <ActionButtons 
                 v-if="isPlayerAlive || adminMode"
@@ -56,7 +56,7 @@
             <ActionButtons 
                 v-if="isPlayerAlive && isReplyable" 
                 :actions="['reply', 'favorite']" 
-                @favorite="favoriteMessage(message)"
+                @favorite="toggleFavorite(message)"
             />
             <ActionButtons 
                 v-if="isPlayerAlive" 
@@ -83,6 +83,7 @@ import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
 import CommunicationService from "@/services/communication.service";
+import { ChannelType } from "@/enums/communication.enum";
 
 export default defineComponent ({
     name: "Message",
@@ -144,10 +145,10 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             acquireReadMessageMutex: 'communication/acquireReadMessageMutex',
-            releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             decrementCurrentChannelNewMessages: 'communication/decrementCurrentChannelNewMessages',
             favoriteMessage: 'communication/favoriteMessage',
-            loadChannels: 'communication/lightLoadChannels',
+            releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
+            unfavoriteMessage: 'communication/unfavoriteMessage',
             openReportPopup: 'moderation/openReportPopup',
         }),
         formatDate: (date: Date): string => {
@@ -166,6 +167,13 @@ export default defineComponent ({
                 await CommunicationService.readMessage(message);
                 this.decrementCurrentChannelNewMessages(this.channel);
                 this.releaseReadMessageMutex();
+            }
+        },
+        async toggleFavorite(message: Message) {
+            if (this.channel.scope === ChannelType.FAVORITES) {
+                await this.favoriteMessage(message);
+            } else {
+                await this.unfavoriteMessage(message);
             }
         }
     },

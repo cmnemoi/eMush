@@ -162,17 +162,9 @@ class MessageService implements MessageServiceInterface
 
     public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int
     {
-        $messages = $this->getChannelMessages($player, $channel);
-        $newMessages = 0;
-
-        /** @var Message $message */
-        foreach ($messages as $message) {
-            if ($message->isUnreadBy($player)) {
-                ++$newMessages;
-            }
-        }
-
-        return $newMessages;
+        return $this->getChannelMessages($player, $channel)->filter(
+            fn (Message $message) => $message->isUnreadBy($player)
+        )->count();
     }
 
     public function markMessageAsReadForPlayer(Message $message, Player $player): void

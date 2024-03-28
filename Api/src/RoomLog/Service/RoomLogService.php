@@ -255,17 +255,9 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int
     {
-        $roomLogs = $this->getRoomLog($player);
-        $unreadRoomLogs = 0;
-
-        /** @var RoomLog $roomLog */
-        foreach ($roomLogs as $roomLog) {
-            if ($roomLog->isUnreadBy($player)) {
-                ++$unreadRoomLogs;
-            }
-        }
-
-        return $unreadRoomLogs;
+        return $this->getRoomLog($player)->filter(
+            fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
+        )->count();
     }
 
     public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void

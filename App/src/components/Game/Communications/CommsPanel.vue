@@ -21,6 +21,9 @@
             </template>
         </Tippy>
         <component :is="currentTabComponent" :channel="currentChannel" :calendar="calendar" />
+        <button class="action-button" @click="markChannelAsRead">
+            {{ $t('game.communications.markChannelAsRead') }}
+        </button>
     </div>
 </template>
 
@@ -33,11 +36,12 @@ import PrivateTab from "@/components/Game/Communications/PrivateTab.vue";
 import MushTab from "@/components/Game/Communications/MushTab.vue";
 import Tab from "@/components/Game/Communications/Tab.vue";
 import { Room } from "@/entities/Room";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
+import CommunicationService from "@/services/communication.service";
 
 
 export default defineComponent ({
@@ -60,7 +64,8 @@ export default defineComponent ({
             'currentChannel'
         ]),
         ...mapGetters('communication', [
-            'channels'
+            'channels',
+            'currentChannelNumberOfNewMessages'
         ]),
         currentTabComponent(): Component {
             if (this.currentChannel instanceof Channel) {
@@ -91,7 +96,7 @@ export default defineComponent ({
     methods: {
         ...mapActions('communication', [
             'loadChannels',
-            'changeChannel'
+            'changeChannel',
         ]),
         isChannelPirated(channel: Channel): boolean
         {
@@ -102,7 +107,19 @@ export default defineComponent ({
             return (this.currentChannel.scope === channel.scope &&
                 this.currentChannel.id === channel.id) &&
                 this.currentChannel.piratedPlayer === channel.piratedPlayer;
-        }
+        },
+        async markChannelAsRead(): Promise<void> {
+           if (this.currentChannelNumberOfNewMessages === 0) return;
+
+           if (this.currentChannel.scope === ChannelType.ROOM_LOG) {
+                await CommunicationService.markAllRoomLogsAsRead();
+           } else {
+                await CommunicationService.markChannelAsRead(this.currentChannel);
+           }
+
+           // @TODO Find a way to mark all messages as unread from front end before reloading channels is slow
+           await this.loadChannels();
+        },
     }
 });
 </script>
@@ -203,6 +220,10 @@ export default defineComponent ({
         span:not(.mobile) { display: none; }
         span.mobile {display: initial; }
     }
+}
+
+.action-button {
+   float: right;
 }
 
 </style>

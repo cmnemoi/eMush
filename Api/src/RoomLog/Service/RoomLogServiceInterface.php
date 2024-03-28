@@ -43,4 +43,6 @@ interface RoomLogServiceInterface
     public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int;
 
     public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void;
+
+    public function markAllRoomLogsAsReadForPlayer(Player $player): void;
 }

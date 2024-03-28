@@ -270,6 +270,20 @@ class RoomLogService implements RoomLogServiceInterface
         $this->entityManager->flush();
     }
 
+    public function markAllRoomLogsAsReadForPlayer(Player $player): void
+    {
+        $roomLogs = $this->getRoomLog($player);
+
+        foreach ($roomLogs as $roomLog) {
+            $roomLog->addReader($player);
+
+            $roomLog->cancelTimestampable();
+            $this->entityManager->persist($roomLog);
+        }
+
+        $this->entityManager->flush();
+    }
+
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
         /** @var ChargeStatus|null $electricCharges * */

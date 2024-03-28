@@ -210,6 +210,19 @@ class MessageService implements MessageServiceInterface
         $this->entityManager->flush();
     }
 
+    public function markChannelAsReadForPlayer(Channel $channel, Player $player): void
+    {
+        $messages = $this->messageRepository->findByChannel($channel);
+        foreach ($messages as $message) {
+            $message->addReader($player);
+
+            $message->cancelTimestampable();
+            $this->entityManager->persist($message);
+        }
+
+        $this->entityManager->flush();
+    }
+
     private function removeFavoritesMessagesFromPublicChannel(ArrayCollection $messages, Channel $favoriteChannel, ?\DateInterval $ageLimit): void
     {
         $favoritesMesages = $this->messageRepository->findByChannel($favoriteChannel, $ageLimit);

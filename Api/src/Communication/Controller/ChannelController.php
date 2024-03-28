@@ -643,7 +643,7 @@ class ChannelController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
         $player = $playerInfo?->getPlayer();
 
-        $this->denyIfPlayerNotInGame($player);        
+        $this->denyIfPlayerNotInGame($player);
 
         $this->messageService->markChannelAsReadForPlayer($channel, $player);
 

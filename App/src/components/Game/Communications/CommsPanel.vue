@@ -109,16 +109,16 @@ export default defineComponent ({
                 this.currentChannel.piratedPlayer === channel.piratedPlayer;
         },
         async markChannelAsRead(): Promise<void> {
-           if (this.currentChannelNumberOfNewMessages === 0) return;
+            if (this.currentChannelNumberOfNewMessages === 0) return;
 
-           if (this.currentChannel.scope === ChannelType.ROOM_LOG) {
+            if (this.currentChannel.scope === ChannelType.ROOM_LOG) {
                 await CommunicationService.markAllRoomLogsAsRead();
-           } else {
+            } else {
                 await CommunicationService.markChannelAsRead(this.currentChannel);
-           }
+            }
 
-           // @TODO Find a way to mark all messages as unread from front end before reloading channels is slow
-           await this.loadChannels();
+            // @TODO Find a way to mark all messages as unread from front end before reloading channels is slow
+            await this.loadChannels();
         },
     }
 });

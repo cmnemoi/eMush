@@ -51,6 +51,9 @@ const getters: GetterTree<any, any> = {
     },
     currentChannelNumberOfNewMessages(state) {
         return state.currentChannel.numberOfNewMessages;
+    },
+    favoritesChannel(state) {
+        return state.channels.find((channel: Channel) => channel.scope === ChannelType.FAVORITES);
     }
 };
 
@@ -187,6 +190,12 @@ const actions: ActionTree<any, any> = {
             { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 }
         );
     },
+
+    async favoriteMessage({ commit, dispatch }, message) {
+        await CommunicationService.putMessageInFavorite(message);
+        dispatch('loadChannels');
+        commit('setCurrentChannel', getters.favoritesChannel);
+    }
 };
 
 const mutations: MutationTree<any> = {
@@ -258,10 +267,10 @@ export function sortChannels(channels: Channel[]): Channel[] {
     const channelOrderValue = {
         // TODO: not implemented yet
         // [ChannelType.TIPS] : 0,
-        [ChannelType.FAVORITES] : 1,
-        [ChannelType.MUSH] : 2,
-        [ChannelType.ROOM_LOG] : 3,
-        [ChannelType.PUBLIC] : 4,
+        [ChannelType.MUSH] : 1,
+        [ChannelType.ROOM_LOG] : 2,
+        [ChannelType.PUBLIC] : 3,
+        [ChannelType.FAVORITES] : 4,
         [ChannelType.PRIVATE] : 5,
         [ChannelType.NEW_CHANNEL] : 6
     };

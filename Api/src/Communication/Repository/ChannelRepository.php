@@ -47,7 +47,26 @@ class ChannelRepository extends ServiceEntityRepository
             $playerChannels->add($mushChannel);
         }
 
+        $favoritesChannel = $this->findFavoritesChannelForPlayer($playerInfo);
+        if ($favoritesChannel) {
+            $playerChannels->add($favoritesChannel);
+        }
+
         return $playerChannels;
+    }
+
+    public function findFavoritesChannelForPlayer(PlayerInfo $playerInfo): ?Channel
+    {
+        $queryBuilder = $this->createQueryBuilder('channel');
+        $queryBuilder
+            ->leftJoin('channel.participants', 'channelPlayer')
+            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
+            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':favorites'))
+            ->setParameter('playerInfo', $playerInfo->getId())
+            ->setParameter('favorites', ChannelScopeEnum::FAVORITES)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 
     public function findMushChannelByDaedalus(Daedalus $daedalus): Channel
@@ -89,4 +108,6 @@ class ChannelRepository extends ServiceEntityRepository
 
         return $result[0];
     }
+
+    
 }

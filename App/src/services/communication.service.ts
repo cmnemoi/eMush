@@ -64,15 +64,10 @@ const CommunicationService = {
     },
 
     loadMessages: async (channel: Channel): Promise<Array<Message|Record<string, unknown>>> => {
-        switch (channel.scope) {
-        case ChannelType.PRIVATE:
-        case ChannelType.PUBLIC:
-        case ChannelType.MUSH:
-            return CommunicationService.loadChannelMessages(channel);
-        case ChannelType.ROOM_LOG:
-            return loadRoomLogs();
-        default:
-            return [];
+        if (channel.scope === ChannelType.ROOM_LOG) {
+            return await loadRoomLogs();
+        } else {
+            return await CommunicationService.loadChannelMessages(channel);
         }
 
         async function loadRoomLogs(): Promise<Record<string, unknown>[]> {
@@ -130,6 +125,11 @@ const CommunicationService = {
         });
     },
 
+    putMessageInFavorite: async (message: Message): Promise<void> => {
+        await ApiService.post(urlJoin(CHANNELS_ENDPOINT, 'favorite-message', String(message.id)));
+    },
+
+
     readMessage: async (message: Message): Promise<void> => {
         await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read-message', String(message.id)));
         message.isUnread = false;
@@ -155,6 +155,6 @@ const CommunicationService = {
             });
         }
         return messages;
-    }
+    },
 };
 export default CommunicationService;

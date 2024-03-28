@@ -74,6 +74,8 @@ export default defineComponent ({
                     return MushTab;
                 case ChannelType.PRIVATE:
                     return PrivateTab;
+                case ChannelType.FAVORITES:
+                    return FavouritesTab;
 
                 case ChannelType.PUBLIC:
                 default:

@@ -110,6 +110,16 @@ class ChannelService implements ChannelServiceInterface
         return $channel instanceof Channel ? $channel : null;
     }
 
+    public function getFavoritesChannelForPlayer(Player $player): Channel
+    {
+        $channel = $this->channelRepository->findFavoritesChannelForPlayer($player->getPlayerInfo());
+        if (!$channel) {
+            $channel = $this->createFavoritesChannelForPlayer($player);
+        }
+
+        return $channel;
+    }
+
     public function getInvitablePlayersToPrivateChannel(Channel $channel, Player $player): PlayerCollection
     {
         $playersWithChannelsSlots = $this->channelPlayerRepository->findAvailablePlayerForPrivateChannel(
@@ -401,5 +411,21 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager->flush();
 
         return true;
+    }
+
+    private function createFavoritesChannelForPlayer(Player $player): Channel
+    {
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
+            ->setScope(ChannelScopeEnum::FAVORITES)
+        ;
+
+        $this->entityManager->persist($channel);
+        $this->entityManager->flush();
+
+        $this->addPlayer($player->getPlayerInfo(), $channel);
+
+        return $channel;
     }
 }

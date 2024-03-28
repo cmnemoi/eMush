@@ -23,6 +23,8 @@ interface ChannelServiceInterface
 
     public function createPrivateChannel(Player $player): Channel;
 
+    public function getFavoritesChannelForPlayer(Player $player): ?Channel;
+
     public function invitePlayer(Player $player, Channel $channel): Channel;
 
     public function addPlayerToMushChannel(Player $player);

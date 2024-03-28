@@ -28,4 +28,6 @@ interface MessageServiceInterface
     public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int;
 
     public function markMessageAsReadForPlayer(Message $message, Player $player): void;
+
+    public function putMessageInFavoritesForPlayer(Message $message, Player $player, Channel $favoritesChannel): void;
 }

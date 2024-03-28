@@ -13,7 +13,11 @@
             <span class="timestamp">{{ message.date }}</span>
         </p>
         <div class="actions">
-            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive && isReplyable" 
+                :actions="['reply', 'favorite']" 
+                @favorite="favoriteMessage(message)"
+            />
             <ActionButtons 
                 v-if="isPlayerAlive || adminMode"
                 :actions="['report']"
@@ -49,7 +53,11 @@
             <span class="timestamp">{{ message.date }}</span>
         </p>
         <div class="actions">
-            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons 
+                v-if="isPlayerAlive && isReplyable" 
+                :actions="['reply', 'favorite']" 
+                @favorite="favoriteMessage(message)"
+            />
             <ActionButtons 
                 v-if="isPlayerAlive" 
                 :actions="['report']"
@@ -138,6 +146,7 @@ export default defineComponent ({
             acquireReadMessageMutex: 'communication/acquireReadMessageMutex',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             decrementCurrentChannelNewMessages: 'communication/decrementCurrentChannelNewMessages',
+            favoriteMessage: 'communication/favoriteMessage',
             loadChannels: 'communication/lightLoadChannels',
             openReportPopup: 'moderation/openReportPopup',
         }),

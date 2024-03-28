@@ -46,6 +46,10 @@ class Message
     #[ORM\JoinTable(name: 'message_readers')]
     private Collection $readers;
 
+    #[ORM\ManyToMany(targetEntity: Player::class)]
+    #[ORM\JoinTable(name: 'message_favorites')]
+    private Collection $favorites;
+
     public function __construct()
     {
         $this->child = new ArrayCollection();
@@ -141,11 +145,6 @@ class Message
         return $this;
     }
 
-    public function getReaders(): Collection
-    {
-        return $this->readers;
-    }
-
     public function addReader(Player $reader): static
     {
         if (!$this->readers->contains($reader)) {
@@ -158,5 +157,34 @@ class Message
     public function isUnreadBy(Player $player): bool
     {
         return !$this->readers->contains($player);
+    }
+
+    public function addFavorite(Player $player): static
+    {
+        if (!$this->favorites->contains($player)) {
+            $this->favorites->add($player);
+            /** @var Message $child */
+            foreach ($this->child as $child) {
+                $child->favorites->add($player);
+            }
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Player $player): static
+    {
+        $this->favorites->removeElement($player);
+        /** @var Message $child */
+        foreach ($this->child as $child) {
+            $child->favorites->removeElement($player);
+        }
+
+        return $this;
+    }
+
+    public function isFavoriteFor(Player $player): bool
+    {
+        return $this->favorites->contains($player);
     }
 }

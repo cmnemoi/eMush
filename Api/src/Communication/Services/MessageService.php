@@ -10,6 +10,7 @@ use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\MessageEvent;
+use Mush\Communication\Repository\ChannelRepository;
 use Mush\Communication\Repository\MessageRepository;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -19,15 +20,18 @@ class MessageService implements MessageServiceInterface
     private EntityManagerInterface $entityManager;
     private EventServiceInterface $eventService;
     private MessageRepository $messageRepository;
+    private ChannelRepository $channelRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
+        ChannelRepository $channelRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->messageRepository = $messageRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
@@ -151,8 +155,9 @@ class MessageService implements MessageServiceInterface
         $messages = $this->getChannelMessages($player, $channel);
         $newMessages = 0;
 
+        /** @var Message $message */
         foreach ($messages as $message) {
-            if (!$message->getReaders()->contains($player)) {
+            if ($message->isUnreadBy($player)) {
                 $newMessages++;
             }
         }
@@ -165,6 +170,17 @@ class MessageService implements MessageServiceInterface
         $message->addReader($player);
 
         $this->entityManager->persist($message);
+        $this->entityManager->flush();
+    }
+
+    public function putMessageInFavoritesForPlayer(Message $message, Player $player, Channel $favoritesChannel): void
+    {        
+        $clonedMessage = clone $message;
+
+        $clonedMessage->addFavorite($player);
+        $clonedMessage->setChannel($favoritesChannel);
+
+        $this->entityManager->persist($clonedMessage);
         $this->entityManager->flush();
     }
 }

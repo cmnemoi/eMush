@@ -8,4 +8,5 @@ class ChannelScopeEnum
     public const PRIVATE = 'private';
     public const MUSH = 'mush';
     public const ROOM_LOG = 'room_log';
+    public const FAVORITES = 'favorites';
 }

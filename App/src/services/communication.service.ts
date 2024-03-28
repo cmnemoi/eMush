@@ -135,6 +135,11 @@ const CommunicationService = {
         message.isUnread = false;
     },
 
+    readRoomLog: async (roomLog: RoomLog): Promise<void> => {
+        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read', String(roomLog.id)));
+        roomLog.isUnread = false;
+    },
+
     removeMessageFromFavorite: async (message: Message): Promise<void> => {
         await ApiService.delete(urlJoin(CHANNELS_ENDPOINT, 'unfavorite-message', String(message.id)));
     },

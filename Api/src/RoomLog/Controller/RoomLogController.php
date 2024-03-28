@@ -10,7 +10,9 @@ use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Service\AdminServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
@@ -132,6 +134,44 @@ class RoomLogController extends AbstractGameController
             'name' => $this->translationService->translate('room_log.name', [], 'chat', $language),
             'description' => $this->translationService->translate('room_log.description', [], 'chat', $language),
             'scope' => ChannelScopeEnum::ROOM_LOG,
+            'numberOfNewMessages' => $this->roomLogService->getNumberOfUnreadRoomLogsForPlayer($player),
         ]);
+    }
+
+    /**
+     * Mark a room log as read.
+     *
+     * @OA\Tag(name="RoomLog")
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="The room log id",
+     *      required=true
+     * )
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch (path="/read/{id}", requirements={"id"="\d+"})
+     */
+    public function readRoomLog(RoomLog $roomLog): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        /** @var Player $player */
+        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
+        if ($player->getDaedalus() !== $roomLog->getDaedalusInfo()->getDaedalus()) {
+            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        }
+
+        $this->roomLogService->markRoomLogAsReadForPlayer($roomLog, $player);
+
+        return $this->view(['detail' => 'Room log marked as read successfully'], Response::HTTP_OK);
     }
 }

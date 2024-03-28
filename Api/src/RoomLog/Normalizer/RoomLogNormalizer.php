@@ -24,7 +24,7 @@ class RoomLogNormalizer implements NormalizerInterface
 
     public function normalize($object, string $format = null, array $context = []): array
     {
-        /** @var RoomLogCollection $roomLogCollection */
+        /** @var RoomLogCollection $logCollection */
         $logCollection = $object;
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -33,6 +33,7 @@ class RoomLogNormalizer implements NormalizerInterface
         $logs = [];
         foreach ($logCollection as $roomLog) {
             $log = [
+                'id' => $roomLog->getId(),
                 'log' => $this->translationService->translate(
                     $roomLog->getLog(),
                     $roomLog->getParameters(),
@@ -41,6 +42,7 @@ class RoomLogNormalizer implements NormalizerInterface
                 ),
                 'visibility' => $roomLog->getVisibility(),
                 'date' => $this->getLogDate($roomLog->getDate(), $language),
+                'isUnread' => $roomLog->isUnreadBy($currentPlayer),
             ];
 
             $logs[$roomLog->getDay()][$roomLog->getCycle()][] = $log;

@@ -253,6 +253,31 @@ class RoomLogService implements RoomLogServiceInterface
         return new RoomLogCollection($this->repository->findAllByDaedalusAndPlace($daedalus, $place));
     }
 
+    public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int
+    {
+        $roomLogs = $this->getRoomLog($player);
+        $unreadRoomLogs = 0;
+
+        /** @var RoomLog $roomLog */
+        foreach ($roomLogs as $roomLog) {
+            if ($roomLog->isUnreadBy($player)) {
+                ++$unreadRoomLogs;
+            }
+        }
+
+        return $unreadRoomLogs;
+    }
+
+    public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void
+    {
+        $roomLog->addReader($player);
+
+        // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
+        $roomLog->cancelTimestampable();
+        $this->entityManager->persist($roomLog);
+        $this->entityManager->flush();
+    }
+
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
         /** @var ChargeStatus|null $electricCharges * */

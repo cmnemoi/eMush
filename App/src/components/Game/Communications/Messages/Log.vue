@@ -33,6 +33,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             acquireReadLogMutex: "communication/acquireReadMessageMutex",
+            decrementRoomLogChannelNewMessages: "communication/decrementCurrentChannelNewMessages",
             loadChannels: "communication/loadChannels",
             releaseReadLogMutex: "communication/releaseReadMessageMutex"
         }),
@@ -41,8 +42,8 @@ export default defineComponent ({
             if (!this.isReadingLog && roomLog.isUnread) {
                 this.acquireReadLogMutex();
                 await CommunicationService.readRoomLog(roomLog);
-                // @TODO : find a reliable way to update the number of unread messages from front end, because reloading all channels is slow
-                await this.loadChannels();
+                // @TODO: if you do an action, this does not work anymore...
+                this.decrementRoomLogChannelNewMessages(this.roomLogChannel);
                 this.releaseReadLogMutex();
             }
         }

@@ -107,7 +107,8 @@ final class ModerationService implements ModerationServiceInterface
         }
 
         if ($duration !== null) {
-            $endDate = $startingDate->add($duration);
+            $endDate = clone $startingDate;
+            $endDate->add($duration);
         } else {
             $endDate = null;
         }
@@ -206,7 +207,8 @@ final class ModerationService implements ModerationServiceInterface
         }
 
         if ($duration !== null) {
-            $endDate = $startingDate->add($duration);
+            $endDate = clone $startingDate;
+            $endDate->add($duration);
         } else {
             $endDate = null;
         }

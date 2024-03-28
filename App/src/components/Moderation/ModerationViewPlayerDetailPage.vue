@@ -351,7 +351,7 @@ export default defineComponent({
                         console.error(error);
                     });
             }
-
+            this.moderationDialogVisible = false;
         },
         async loadLogs(player: ModerationViewPlayer) {
             if (this.logsDay === null) {

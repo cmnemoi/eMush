@@ -58,7 +58,7 @@ export default {
 
             params.append('reason', this.moderationReason);
             if (this.moderationMessage) {
-                params.append('message', this.moderationMessage);
+                params.append('adminMessage', this.moderationMessage);
             }
             if (this.moderationStartDate) {
                 params.append('startDate', this.moderationStartDate);

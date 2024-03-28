@@ -55,7 +55,7 @@ final class ModerationController extends AbstractFOSRestController
      *  )
      *
      *  @OA\Parameter(
-     *       name="message",
+     *       name="adminMessage",
      *       in="query",
      *       description="Message for the banned user",
      *
@@ -75,7 +75,7 @@ final class ModerationController extends AbstractFOSRestController
      *       in="query",
      *       description="Duration of the ban",
      *
-     *       @OA\Schema(type="string", format="date-time", nullable=true)
+     *       @OA\Schema(type="string", format="string", nullable=true)
      *  )
      *
      * @OA\Tag(name="Moderation")
@@ -90,11 +90,12 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
+        $duration = new \DateInterval($request->get('duration'));
         $this->moderationService->banUser(
             $user,
-            $request->get('duration'),
+            $duration,
             $request->get('reason'),
-            $request->get('message', null),
+            $request->get('adminMessage', null),
             $request->get('startDate', null),
         );
 
@@ -121,7 +122,7 @@ final class ModerationController extends AbstractFOSRestController
      *  )
      *
      *  @OA\Parameter(
-     *       name="message",
+     *       name="adminMessage",
      *       in="query",
      *       description="Message for the user",
      *
@@ -141,7 +142,7 @@ final class ModerationController extends AbstractFOSRestController
      *       in="query",
      *       description="Duration of the warning",
      *
-     *       @OA\Schema(type="string", format="date-time", nullable=true)
+     *       @OA\Schema(type="string", format="string", nullable=true)
      *  )
      *
      * @OA\Tag(name="Moderation")
@@ -160,7 +161,7 @@ final class ModerationController extends AbstractFOSRestController
             $user,
             $request->get('duration'),
             $request->get('reason'),
-            $request->get('message', null),
+            $request->get('adminMessage', null),
             $request->get('startDate', null),
         );
 
@@ -220,7 +221,7 @@ final class ModerationController extends AbstractFOSRestController
      * )
      *
      * @OA\Parameter(
-     *     name="message",
+     *     name="adminMessage",
      *     in="query",
      *     description="moderation message",
      *
@@ -243,7 +244,7 @@ final class ModerationController extends AbstractFOSRestController
             return $this->view(['error' => 'Player is already dead'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->moderationService->quarantinePlayer($player, $request->get('reason'), $request->get('message', null));
+        $this->moderationService->quarantinePlayer($player, $request->get('reason'), $request->get('adminMessage', null));
 
         return $this->view(['detail' => 'Player quarantined successfully'], Response::HTTP_OK);
     }
@@ -268,7 +269,7 @@ final class ModerationController extends AbstractFOSRestController
      * )
      *
      * @OA\Parameter(
-     *      name="message",
+     *      name="adminMessage",
      *      in="query",
      *      description="moderation message",
      *
@@ -290,7 +291,7 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->editClosedPlayerMessage(
             $closedPlayer,
             $request->get('reason'),
-            $request->get('message', null),
+            $request->get('adminMessage', null),
         );
 
         return $this->view(['detail' => 'End message edited successfully'], Response::HTTP_OK);
@@ -316,7 +317,7 @@ final class ModerationController extends AbstractFOSRestController
      * )
      *
      * @OA\Parameter(
-     *      name="message",
+     *      name="adminMessage",
      *      in="query",
      *      description="Moderation message",
      *
@@ -364,7 +365,7 @@ final class ModerationController extends AbstractFOSRestController
      * )
      *
      * @OA\Parameter(
-     *     name="message",
+     *     name="adminMessage",
      *     in="query",
      *     description="Moderation message",
      *
@@ -386,7 +387,7 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->deleteMessage(
             $message,
             $request->get('reason'),
-            $request->get('message', null),
+            $request->get('adminMessage', null),
         );
 
         return $this->view(['detail' => 'message deleted successfully'], Response::HTTP_OK);

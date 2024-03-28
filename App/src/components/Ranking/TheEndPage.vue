@@ -460,7 +460,7 @@ export default defineComponent ({
             } else if (this.currentAction === 'edit_end_message') {
                 await ModerationService.editClosedPlayerEndMessage(this.currentPlayer.id, params);
             }
-
+            this.moderationDialogVisible = false;
             await this.loadData();
         },
         getAmountOfMushPlayers() {

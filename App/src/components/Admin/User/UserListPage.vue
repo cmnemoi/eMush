@@ -1,4 +1,5 @@
 <template>
+    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="'ban'" @close="closeModerationDialog" @submitSanction="banUser" />
     <div class="user_list_container">
         <div class="user_filter_options">
             <label>{{ $t('admin.show') }}
@@ -43,21 +44,11 @@
                     <Tippy tag="button"
                            class="action-button"
                            v-if="!user.isBanned"
-                           @click="banUser(user)">
+                           @click="openModerationDialog(user)">
                         {{ $t('moderation.ban') }}
                         <template #content>
                             <h1>{{ $t('moderation.ban') }}</h1>
                             <p>{{ $t('moderation.banDescription') }}</p>
-                        </template>
-                    </Tippy>
-                    <Tippy tag="button"
-                           class="action-button"
-                           v-else
-                           @click="unbanUser(user)">
-                        {{ $t('moderation.unban') }}
-                        <template #content>
-                            <h1>{{ $t('moderation.unban') }}</h1>
-                            <p>{{ $t('moderation.unbanDescription') }}</p>
                         </template>
                     </Tippy>
                 </div>
@@ -74,10 +65,33 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
+import {User} from "@/entities/User";
+import {ClosedDaedalus} from "@/entities/ClosedDaedalus";
+import {ClosedPlayer} from "@/entities/ClosedPlayer";
+import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+
+interface UserListData {
+    fields: [
+        { key: string; name: string; },
+        { key: string; name: string; },
+        { key: string; name: string; },
+        { key: string; name: string; sortable: false; slot: true; }
+    ],
+    pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number; };
+    rowData: never[];
+    filter: string;
+    sortField: string;
+    sortDirection: string;
+    loading: boolean;
+    pageSizeOptions: { text: number; value: number; }[];
+    moderationDialogVisible: boolean,
+    currentUser: User|null,
+}
 
 export default defineComponent({
     name: "UserListPage",
     components: {
+        ModerationActionPopup,
         Datatable
     },
     computed: {
@@ -86,7 +100,7 @@ export default defineComponent({
             isModerator: 'auth/isModerator',
         }),
     },
-    data() {
+    data(): UserListData {
         return {
             fields: [
                 {
@@ -120,30 +134,34 @@ export default defineComponent({
             sortDirection: 'DESC',
             loading: false,
             pageSizeOptions: [
-                { text: 5, value: 5 },
-                { text: 10, value: 10 },
-                { text: 20, value: 20 }
-            ]
+                {text: 5, value: 5},
+                {text: 10, value: 10},
+                {text: 20, value: 20}
+            ],
+            moderationDialogVisible: false,
+            currentUser: null
         };
     },
     methods: {
-        banUser(user: any) {
-            ModerationService.banUser(user.id)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+        openModerationDialog(user: User) {
+            this.currentUser = user;
+            this.moderationDialogVisible = true;
         },
-        unbanUser(user: any) {
-            ModerationService.unbanUser(user.id)
+        closeModerationDialog() {
+            this.moderationDialogVisible = false;
+        },
+        banUser(param) {
+            if (this.currentUser === null || this.currentUser.id === null) {
+                return;
+            }
+            ModerationService.banUser(this.currentUser.id, param)
                 .then(() => {
                     this.loadData();
                 })
                 .catch((error) => {
                     console.error(error);
                 });
+            this.moderationDialogVisible = false;
         },
         loadData() {
             this.loading = true;

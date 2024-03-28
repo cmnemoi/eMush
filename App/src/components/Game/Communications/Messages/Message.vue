@@ -148,6 +148,7 @@ export default defineComponent ({
         },
         deleteMessage(params) {
             ModerationService.deleteMessage(this.message.id, params);
+            this.moderationDialogVisible = false;
         },
         openModerationDialog(moderationAction: string) {
             this.moderationDialogVisible = true;

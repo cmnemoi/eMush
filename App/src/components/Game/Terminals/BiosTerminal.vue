@@ -2,7 +2,7 @@
     <div class="bios-terminal-container" v-if="terminal">
         <section class="cpu-priorities-section">
             <Tippy tag="h3">
-                <img :src="require('@/assets/images/notes.gif')" />
+                <img :src="'src/assets/images/notes.gif'" /> 
                 {{ terminal.sectionTitles?.cpuPriorityName }}
                 <template #content>
                     <h1 v-html="formatText(terminal.sectionTitles?.cpuPriorityName)" />

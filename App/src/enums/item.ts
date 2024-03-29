@@ -115,304 +115,304 @@ const ALIEN_STEAK = "alien_steak";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
-        'image': require('@/assets/images/items/alien_can_opener.jpg')
+        'image': 'src/assets/images/items/alien_can_opener.png'
     },
     [ECHOLOCATOR]: {
-        'image': require('@/assets/images/items/echo_sounder.jpg')
+        'image': 'src/assets/images/items/echo_sounder.png'
     },
     [ROLLING_BOULDER]: {
-        'image': require('@/assets/images/items/rolling_boulder.jpg')
+        'image': 'src/assets/images/items/rolling_boulder.png'
     },
     [OSCILLOSCOPE]: {
-        'image': require('@/assets/images/items/wavoscope.jpg')
+        'image': 'src/assets/images/items/wavoscope.png'
     },
     [MEDIKIT]: {
-        'image': require('@/assets/images/items/medikit.jpg')
+        'image': 'src/assets/images/items/medikit.png'
     },
     [BANDAGE]: {
-        'image': require('@/assets/images/items/bandage.jpg')
+        'image': 'src/assets/images/items/bandage.png'
     },
     [ANTIGRAV_SCOOTER]: {
-        'image': require('@/assets/images/items/antigrav_scooter.jpg')
+        'image': 'src/assets/images/items/antigrav_scooter.png'
     },
     [JAR_OF_ALIEN_OIL]: {
-        'image': require('@/assets/images/items/alien_oil.jpg')
+        'image': 'src/assets/images/items/alien_oil.png'
     },
     [COFFEE]: {
-        'image': require('@/assets/images/items/coffee.jpg')
+        'image': 'src/assets/images/items/coffee.png'
     },
     [METAL_SCRAP]: {
-        'image': require('@/assets/images/items/metal_scraps.jpg')
+        'image': 'src/assets/images/items/metal_scraps.png'
     },
     [PLASTIC_SCRAP]: {
-        'image': require('@/assets/images/items/plastic_scraps.jpg')
+        'image': 'src/assets/images/items/plastic_scraps.png'
     },
     [APPRENTON]: {
-        'image': require('@/assets/images/items/book.jpg')
+        'image': 'src/assets/images/items/book.png'
     },
     [BLUEPRINT]: {
-        'image': require('@/assets/images/items/blueprint.jpg')
+        'image': 'src/assets/images/items/blueprint.png'
     },
     [SNIPER_HELMET]: {
-        'image': require('@/assets/images/items/aiming_helmet.jpg')
+        'image': 'src/assets/images/items/aiming_helmet.png'
     },
     [STANDARD_RATION]: {
-        'image': require('@/assets/images/items/ration_0.jpg')
+        'image': 'src/assets/images/items/ration_0.png'
     },
     [COOKED_RATION]: {
-        'image': require('@/assets/images/items/ration_1.jpg')
+        'image': 'src/assets/images/items/ration_1.png'
     },
     [MAD_KUBE]: {
-        'image': require('@/assets/images/items/mad_kube.jpg')
+        'image': 'src/assets/images/items/mad_kube.png'
     },
     [MICROWAVE]: {
-        'image': require('@/assets/images/items/microwave.jpg')
+        'image': 'src/assets/images/items/microwave.png'
     },
     [SUPERFREEZER]: {
-        'image': require('@/assets/images/items/freezer.jpg')
+        'image': 'src/assets/images/items/freezer.png'
     },
     [HYDROPOT]: {
-        'image': require('@/assets/images/items/tree_pot.jpg')
+        'image': 'src/assets/images/items/tree_pot.png'
     },
 
     [TWINOID]: {
-        'image': require('@/assets/images/items/drug/drug_0.jpg')
+        'image': 'src/assets/images/items/drug/drug_0.png'
     },
     [XENOX]: {
-        'image': require('@/assets/images/items/drug/drug_1.jpg')
+        'image': 'src/assets/images/items/drug/drug_1.png'
     },
     [PHUXX]: {
-        'image': require('@/assets/images/items/drug/drug_2.jpg')
+        'image': 'src/assets/images/items/drug/drug_2.png'
     },
     [EUFURYLATE]: {
-        'image': require('@/assets/images/items/drug/drug_3.jpg')
+        'image': 'src/assets/images/items/drug/drug_3.png'
     },
     [SOMA]: {
-        'image': require('@/assets/images/items/drug/drug_4.jpg')
+        'image': 'src/assets/images/items/drug/drug_4.png'
     },
     [SPYCE]: {
-        'image': require('@/assets/images/items/drug/drug_5.jpg')
+        'image': 'src/assets/images/items/drug/drug_5.png'
     },
     [NEWKE]: {
-        'image': require('@/assets/images/items/drug/drug_6.jpg')
+        'image': 'src/assets/images/items/drug/drug_6.png'
     },
     [PINQ]: {
-        'image': require('@/assets/images/items/drug/drug_7.jpg')
+        'image': 'src/assets/images/items/drug/drug_7.png'
     },
     [BACTA]: {
-        'image': require('@/assets/images/items/drug/drug_8.jpg')
+        'image': 'src/assets/images/items/drug/drug_8.png'
     },
     [BETAPROPYL]: {
-        'image': require('@/assets/images/items/drug/drug_9.jpg')
+        'image': 'src/assets/images/items/drug/drug_9.png'
     },
     [PYMP]: {
-        'image': require('@/assets/images/items/drug/drug_10.jpg')
+        'image': 'src/assets/images/items/drug/drug_10.png'
     },
     [ROSEBUD]: {
-        'image': require('@/assets/images/items/drug/drug_11.jpg')
+        'image': 'src/assets/images/items/drug/drug_11.png'
     },
 
     [BANANA_TREE]: {
-        'image': require('@/assets/images/items/plant/fruit_tree00.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree00.png'
     },
     [BANANA]: {
-        'image': require('@/assets/images/items/fruit/fruit00.jpg')
+        'image': 'src/assets/images/items/fruit/fruit00.png'
     },
     [CREEPNUT_TREE]: {
-        'image': require('@/assets/images/items/plant/fruit_tree01.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree01.png'
     },
     [CREEPNUT]: {
-        'image': require('@/assets/images/items/fruit/fruit01.jpg')
+        'image': 'src/assets/images/items/fruit/fruit01.png'
     },
     [CACTAX]: {
-        'image': require('@/assets/images/items/plant/fruit_tree02.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree02.png'
     },
     [MEZTINE]: {
-        'image': require('@/assets/images/items/fruit/fruit02.jpg')
+        'image': 'src/assets/images/items/fruit/fruit02.png'
     },
     [BIFFLON]: {
-        'image': require('@/assets/images/items/plant/fruit_tree03.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree03.png'
     },
     [GUNTIFLOP]: {
-        'image': require('@/assets/images/items/fruit/fruit03.jpg')
+        'image': 'src/assets/images/items/fruit/fruit03.png'
     },
     [PULMMINAGRO]: {
-        'image': require('@/assets/images/items/plant/fruit_tree04.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree04.png'
     },
     [PLOSHMINA]: {
-        'image': require('@/assets/images/items/fruit/fruit04.jpg')
+        'image': 'src/assets/images/items/fruit/fruit04.png'
     },
     [PRECATUS]: {
-        'image': require('@/assets/images/items/plant/fruit_tree05.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree05.png'
     },
     [PRECATI]: {
-        'image': require('@/assets/images/items/fruit/fruit05.jpg')
+        'image': 'src/assets/images/items/fruit/fruit05.png'
     },
     [BUTTALIEN]: {
-        'image': require('@/assets/images/items/plant/fruit_tree06.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree06.png'
     },
     [BOTTINE]: {
-        'image': require('@/assets/images/items/fruit/fruit06.jpg')
+        'image': 'src/assets/images/items/fruit/fruit06.png'
     },
     [PLATACIA]: {
-        'image': require('@/assets/images/items/plant/fruit_tree07.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree07.png'
     },
     [FRAGILANE]: {
-        'image': require('@/assets/images/items/fruit/fruit07.jpg')
+        'image': 'src/assets/images/items/fruit/fruit07.png'
     },
     [TUBILISCUS]: {
-        'image': require('@/assets/images/items/plant/fruit_tree08.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree08.png'
     },
     [ANEMOLE]: {
-        'image': require('@/assets/images/items/fruit/fruit08.jpg')
+        'image': 'src/assets/images/items/fruit/fruit08.png'
     },
     [GRAAPSHOOT]: {
-        'image': require('@/assets/images/items/plant/fruit_tree09.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree09.png'
     },
     [PENICRAFT]: {
-        'image': require('@/assets/images/items/fruit/fruit09.jpg')
+        'image': 'src/assets/images/items/fruit/fruit09.png'
     },
     [FIBONICCUS]: {
-        'image': require('@/assets/images/items/plant/fruit_tree10.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree10.png'
     },
     [KUBINUS]: {
-        'image': require('@/assets/images/items/fruit/fruit10.jpg')
+        'image': 'src/assets/images/items/fruit/fruit10.png'
     },
     [MYCOPIA]: {
-        'image': require('@/assets/images/items/plant/fruit_tree11.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree11.png'
     },
     [CALEBOOT]: {
-        'image': require('@/assets/images/items/fruit/fruit11.jpg')
+        'image': 'src/assets/images/items/fruit/fruit11.png'
     },
     [ASPERAGUNK]: {
-        'image': require('@/assets/images/items/plant/fruit_tree12.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree12.png'
     },
     [FILANDRA]: {
-        'image': require('@/assets/images/items/fruit/fruit12.jpg')
+        'image': 'src/assets/images/items/fruit/fruit12.png'
     },
     [BUMPJUMPKIN]: {
-        'image': require('@/assets/images/items/plant/fruit_tree13.jpg')
+        'image': 'src/assets/images/items/plant/fruit_tree13.png'
     },
     [JUMPKIN]: {
-        'image': require('@/assets/images/items/fruit/fruit13.jpg')
+        'image': 'src/assets/images/items/fruit/fruit13.png'
     },
 
     [PLASTENITE_ARMOR]: {
-        'image': require('@/assets/images/items/plastenite_armor.jpg')
+        'image': 'src/assets/images/items/plastenite_armor.png'
     },
     [CAMERA_ITEM]: {
-        'image': require('@/assets/images/items/camera.jpg')
+        'image': 'src/assets/images/items/camera.png'
     },
     [EXTINGUISHER]: {
-        'image': require('@/assets/images/items/extinguisher.jpg')
+        'image': 'src/assets/images/items/extinguisher.png'
     },
     [DUCT_TAPE]: {
-        'image': require('@/assets/images/items/duck_tape.jpg')
+        'image': 'src/assets/images/items/duck_tape.png'
     },
     [BLASTER]: {
-        'image': require('@/assets/images/items/blaster.jpg')
+        'image': 'src/assets/images/items/blaster.png'
     },
     [HACKER_KIT]: {
-        'image': require('@/assets/images/items/hacker_kit.jpg')
+        'image': 'src/assets/images/items/hacker_kit.png'
     },
     [GRENADE]: {
-        'image': require('@/assets/images/items/grenade.jpg')
+        'image': 'src/assets/images/items/grenade.png'
     },
     [QUADRIMETRIC_COMPASS]: {
-        'image': require('@/assets/images/items/quad_compass.jpg')
+        'image': 'src/assets/images/items/quad_compass.png'
     },
     [ADJUSTABLE_WRENCH]: {
-        'image': require('@/assets/images/items/wrench.jpg')
+        'image': 'src/assets/images/items/wrench.png'
     },
     [APRON]: {
-        'image': require('@/assets/images/items/apron.jpg')
+        'image': 'src/assets/images/items/apron.png'
     },
     [BLOCK_POST_IT]: {
-        'image': require('@/assets/images/items/postit_bloc.jpg')
+        'image': 'src/assets/images/items/postit_bloc.png'
     },
     [POST_IT]: {
-        'image': require('@/assets/images/items/postit.jpg')
+        'image': 'src/assets/images/items/postit.png'
     },
     [ROPE]: {
-        'image': require('@/assets/images/items/rope.jpg')
+        'image': 'src/assets/images/items/rope.png'
     },
     [DRILL]: {
-        'image': require('@/assets/images/items/driller.jpg')
+        'image': 'src/assets/images/items/driller.png'
     },
     [KNIFE]: {
-        'image': require('@/assets/images/items/knife.jpg')
+        'image': 'src/assets/images/items/knife.png'
     },
     [GLOVES]: {
-        'image': require('@/assets/images/items/protection_gloves.jpg')
+        'image': 'src/assets/images/items/protection_gloves.png'
     },
     [SOAP]: {
-        'image': require('@/assets/images/items/soap.jpg')
+        'image': 'src/assets/images/items/soap.png'
     },
     [TABULATRIX]: {
-        'image': require('@/assets/images/items/printer.jpg')
+        'image': 'src/assets/images/items/printer.png'
     },
     [OXYGEN_CAPSULE]: {
-        'image': require('@/assets/images/items/oxy_capsule.jpg')
+        'image': 'src/assets/images/items/oxy_capsule.png'
     },
     [FUEL_CAPSULE]: {
-        'image': require('@/assets/images/items/fuel_capsule.jpg')
+        'image': 'src/assets/images/items/fuel_capsule.png'
     },
     [THICK_TUBE]: {
-        'image': require('@/assets/images/items/thick_tube.jpg')
+        'image': 'src/assets/images/items/thick_tube.png'
     },
     [SPACE_CAPSULE]: {
-        'image': require('@/assets/images/items/space_capsule.jpg')
+        'image': 'src/assets/images/items/space_capsule.png'
     },
     [SPORE_SUCKER]: {
-        'image': require('@/assets/images/items/spore_sucker.jpg')
+        'image': 'src/assets/images/items/spore_sucker.png'
     },
     [ALIEN_HOLOGRAPHIC_TV]: {
-        'image': require('@/assets/images/items/alien_holographic_tv.jpg')
+        'image': 'src/assets/images/items/alien_holographic_tv.png'
     },
     [WALKIE_TALKIE]: {
-        'image': require('@/assets/images/items/walkie_talkie.jpg')
+        'image': 'src/assets/images/items/walkie_talkie.png'
     },
     [TRACKER]: {
-        'image': require('@/assets/images/items/tracker.jpg')
+        'image': 'src/assets/images/items/tracker.png'
     },
     [ITRACKIE]: {
-        'image': require('@/assets/images/items/super_talkie.jpg')
+        'image': 'src/assets/images/items/super_talkie.png'
     },
     [ORGANIC_WASTE]: {
-        'image': require('@/assets/images/items/organic_waste.jpg')
+        'image': 'src/assets/images/items/organic_waste.png'
     },
     [SPACESUIT]: {
-        'image': require('@/assets/images/items/space_suit.jpg')
+        'image': 'src/assets/images/items/space_suit.png'
     },
     [MAGELLAN_LIQUID_MAP]: {
-        'image': require('@/assets/images/items/magellan_liquid_map.jpg')
+        'image': 'src/assets/images/items/magellan_liquid_map.png'
     },
     [STARMAP_FRAGMENT]: {
-        'image': require('@/assets/images/items/super_map.jpg')
+        'image': 'src/assets/images/items/super_map.png'
     },
     [WATER_STICK]: {
-        'image': require('@/assets/images/items/water_stick.jpg')
+        'image': 'src/assets/images/items/water_stick.png'
     },
     [INVERTEBRATE_SHELL]: {
-        'image': require('@/assets/images/items/insectoid_shell.jpg')
+        'image': 'src/assets/images/items/insectoid_shell.png'
     },
     [PRINTED_CIRCUIT_JELLY]: {
-        'image': require('@/assets/images/items/computer_jelly.jpg')
+        'image': 'src/assets/images/items/computer_jelly.png'
     },
     [OLD_FAITHFUL]: {
-        'image': require('@/assets/images/items/machine_gun.jpg')
+        'image': 'src/assets/images/items/machine_gun.png'
     },
     [ROCKET_LAUNCHER]: {
-        'image': require('@/assets/images/items/missile_launcher.jpg')
+        'image': 'src/assets/images/items/missile_launcher.png'
     },
     [LIZARO_JUNGLE]: {
-        'image': require('@/assets/images/items/sniper_riffle.jpg')
+        'image': 'src/assets/images/items/sniper_riffle.png'
     },
     [NATAMY_RIFLE]: {
-        'image': require('@/assets/images/items/natamy_riffle.jpg')
+        'image': 'src/assets/images/items/natamy_riffle.png'
     },
     [ALIEN_STEAK]: {
-        'image': require('@/assets/images/items/ration_5.jpg')
+        'image': 'src/assets/images/items/ration_5.png'
     },
     [THERMOSENSOR]: {
         'image': require('@/assets/images/items/heat_seeker.jpg')

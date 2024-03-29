@@ -169,15 +169,15 @@ export default defineComponent({
         ]),
         getRoleImage(role: string) {
             if (role === 'developer') {
-                return require('@/assets/images/project_roles/developerPicto.png');
+                return 'src/assets/images/project_roles/developerPicto.png';
             } else if (role === 'admin') {
-                return require('@/assets/images/project_roles/adminPicto.png');
+                return 'src/assets/images/project_roles/adminPicto.png';
             } else if (role === 'helper') {
-                return require('@/assets/images/project_roles/helperPicto.png');
+                return 'src/assets/images/project_roles/helperPicto.png';
             } else if (role === 'artist') {
-                return require('@/assets/images/project_roles/artistPicto.png');
+                return 'src/assets/images/project_roles/artistPicto.png';
             } else if (role === 'translator') {
-                return require('@/assets/images/project_roles/translatorPicto.png');
+                return 'src/assets/images/project_roles/translatorPicto.png';
             } else {
                 return '';
             }

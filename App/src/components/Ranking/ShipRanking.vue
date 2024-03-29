@@ -26,7 +26,7 @@
             </template>
             <template #row-actions="slotProps">
 
-                <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.id } }"> <img :src="require('@/assets/images/right.png')" id="arrow" />  {{  $t('ranking.goToTheEnd') }}</router-link>
+                <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.id } }"> <img :src="'src/assets/images/right.png'" id="arrow" />  {{  $t('ranking.goToTheEnd') }}</router-link>
             </template>
         </Datatable>
     </div>

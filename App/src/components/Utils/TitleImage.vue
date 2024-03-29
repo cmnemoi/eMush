@@ -13,7 +13,7 @@ export default defineComponent ({
     },
     methods: {
         titleIcon: function(title: NameDescObject) {
-            return titleEnum[title.id] ? titleEnum[title.id].image : require('@/assets/images/title_commander.png');
+            return titleEnum[title.id] ? titleEnum[title.id].image : 'src/assets/images/title_commander.png';
         }
     }
 });

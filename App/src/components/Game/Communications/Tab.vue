@@ -39,21 +39,21 @@ export default defineComponent ({
         icon(): string {
             switch (this.type) {
             case ChannelType.FAVORITES:
-                return require('@/assets/images/comms/fav.png');
+                return 'src/assets/images/comms/fav.png';
             case ChannelType.MUSH:
-                return require('@/assets/images/comms/mush.png');
+                return 'src/assets/images/comms/mush.png';
             case ChannelType.PRIVATE:
-                return require('@/assets/images/comms/private.png');
+                return 'src/assets/images/comms/private.png';
             case ChannelType.PUBLIC:
-                return require('@/assets/images/comms/wall.png');
+                return 'src/assets/images/comms/wall.png';
             case ChannelType.ROOM_LOG:
-                return require('@/assets/images/comms/local.png');
+                return 'src/assets/images/comms/local.png';
             // TODO: not implemented yet
             // case ChannelType.TIPS:
-            //     return require('@/assets/images/comms/tip.png');
+            //     return 'src/assets/images/comms/tip.png';
             case "new":
             default:
-                return require('@/assets/images/comms/newtab.png');
+                return 'src/assets/images/comms/newtab.png';
             }
         },
         numberOfNewMessagesDisplayed(): string|number {

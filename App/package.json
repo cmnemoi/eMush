@@ -2,10 +2,11 @@
   "name": "mush-front",
   "version": "0.7.16",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview",
+    "serve": "vite --host",
     "test": "mocha --require ts-node/register src/**/*.test.ts",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
   },
@@ -32,6 +33,7 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/chai": "^4.3.9",
     "@types/mocha": "^10.0.3",
     "@types/node": "^20.8.10",

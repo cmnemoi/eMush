@@ -666,7 +666,7 @@ h2 {
         display: initial;
         float: left;
         margin-bottom: 1em;
-        list-style: disc inside url("~@/assets/images/point.png");
+        list-style: disc inside url("/src/assets/images/point.png");
     }
 
     button {
@@ -695,7 +695,7 @@ h2 {
 
     &::after { //background with fadeout
         border: 16px solid transparent;
-        border-image: url("~@/assets/images/nova/star-border.png") 16 round;
+        border-image: url("/src/assets/images/nova/star-border.png") 16 round;
         background: #283378;
         background-clip: padding-box;
         // background: linear-gradient(0deg, rgba(77,108,210,1) 30%, rgba(39,49,117,1) 100%);
@@ -739,9 +739,9 @@ h2 {
             font-size: 3.2em;
             text-align: center;
             z-index: 2;
-            background: url("~@/assets/images/nova/podium.png") no-repeat center bottom;
+            background: url("/src/assets/images/nova/podium.png") no-repeat center bottom;
 
-            &.mush { background-image:  url("~@/assets/images/nova/podium_mush.png") }
+            &.mush { background-image:  url("/src/assets/images/nova/podium_mush.png") }
         }
 
         .nova { font-size: 1.1em; }
@@ -768,7 +768,7 @@ h2 {
 
     &::after { //background with fadeout
         border: 16px solid transparent;
-        border-image: url("~@/assets/images/nova/guest-border.png") 16 round;
+        border-image: url("/src/assets/images/nova/guest-border.png") 16 round;
         background: #1d2d72;
         background-clip: padding-box;
         // @include corner-bezel(16px, 0);

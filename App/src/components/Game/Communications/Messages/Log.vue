@@ -49,7 +49,7 @@ export default defineComponent ({
             left: -6px;
             min-height: 11px;
             width: 11px;
-            background: transparent url('~@/assets/images/comms/thinklinked.png') center no-repeat;
+            background: transparent url('/src/assets/images/comms/thinklinked.png') center no-repeat;
         }
     }
 
@@ -89,25 +89,25 @@ export default defineComponent ({
     &.personnal .timestamp::before {
         width: 16px;
         height: 16px;
-        background: url('~@/assets/images/comms/personnal.png') center no-repeat;
+        background: url('/src/assets/images/comms/personnal.png') center no-repeat;
     }
 
     &.covert .timestamp::before {
         width: 16px;
         height: 16px;
-        background: url('~@/assets/images/comms/covert.png') center no-repeat;
+        background: url('/src/assets/images/comms/covert.png') center no-repeat;
     }
 
     &.secret .timestamp::before {
         width: 16px;
         height: 15px;
-        background: url('~@/assets/images/comms/discrete.png') center no-repeat;
+        background: url('/src/assets/images/comms/discrete.png') center no-repeat;
     }
 
     &.revealed .timestamp::before {
         width: 20px;
         height: 16px;
-        background: url('~@/assets/images/comms/spotted.png') center no-repeat;
+        background: url('/src/assets/images/comms/spotted.png') center no-repeat;
     }
 }
 

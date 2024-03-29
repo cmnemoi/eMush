@@ -24,7 +24,7 @@
                                 </ul>
                             </li>
                             <li class="iconLife">
-                                <p><img src="@/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
+                                <p><img src="/src/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
                             </li>
                             <template #content>
                                 <h1 v-html="formatContent(player.healthPoint.name)" />
@@ -40,7 +40,7 @@
                                 </ul>
                             </li>
                             <li class="iconMorale">
-                                <p><img src="@/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
+                                <p><img src="/src/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
                             </li>
                             <template #content>
                                 <h1 v-html="formatContent(player.moralPoint.name)" />
@@ -101,7 +101,7 @@
             </div>
 
             <div class="actions-sheet">
-                <img src="@/assets/images/pam.png" alt="pam">
+                <img src="/src/assets/images/pam.png" alt="pam">
                 <Tippy tag="div">
                     <div class="action-points">
                         <div class="actions">
@@ -122,7 +122,7 @@
                 </Tippy>
                 <ul class="specials">
                     <Tippy tag="li" v-if="player.shootPoint && player.shootPoint.quantity > 0">
-                        <img src="@/assets/images/pa_shoot.png">x{{ player.shootPoint.quantity }}
+                        <img src="/src/assets/images/pa_shoot.png">x{{ player.shootPoint.quantity }}
                         <template #content>
                             <h1 v-html="formatContent(player.shootPoint.name)" />
                             <p v-html="formatContent(player.shootPoint.description)" />
@@ -375,7 +375,7 @@ div.inventory {
         height: 34px;
         padding-right: 3px;
         margin-bottom: 7px;
-        background: transparent url('~@/assets/images/skills/skillblock.png') center left no-repeat;
+        background: transparent url('/src/assets/images/skills/skillblock.png') center left no-repeat;
         border-left: 1px solid #191a53;
 
         button {
@@ -391,7 +391,7 @@ div.inventory {
         }
 
         &.locked {
-            background: transparent url('~@/assets/images/skills/skillblock_gold.png') center left no-repeat;
+            background: transparent url('/src/assets/images/skills/skillblock_gold.png') center left no-repeat;
 
             &:before {
                 content: "";
@@ -399,7 +399,7 @@ div.inventory {
                 z-index: 1;
                 top: 14px;
                 left: 13px;
-                background: transparent url('~@/assets/images/skills/lock_gold.png') center no-repeat;
+                background: transparent url('/src/assets/images/skills/lock_gold.png') center no-repeat;
                 width: 20px;
                 height: 23px;
                 padding-top: 7px;
@@ -415,7 +415,7 @@ div.inventory {
 
         &.innate.locked { border: 1px solid red; }
 
-        &.genome { background-image: url('~@/assets/images/skills/skillblock_once.png'); }
+        &.genome { background-image: url('/src/assets/images/skills/skillblock_once.png'); }
     }
 }
 
@@ -439,7 +439,7 @@ div.inventory {
                 flex-direction: column;
                 align-items: center;
                 border: 3px solid transparent;
-                border-image: url('~@/assets/images/actionpoints_bg.svg') 40% stretch;
+                border-image: url('/src/assets/images/actionpoints_bg.svg') 40% stretch;
 
                 li {
                     width: 5px;

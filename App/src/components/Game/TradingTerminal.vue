@@ -105,7 +105,7 @@ export default defineComponent ({
 .tips { @extend %retracted-tips; }
 
 .trading-objects {
-    background-image: url("~@/assets/images/sensor_bg.svg");
+    background-image: url("/src/assets/images/sensor_bg.svg");
     background-repeat: no-repeat;
     background-position: right bottom;
 }
@@ -124,7 +124,7 @@ export default defineComponent ({
 
     .proposal {
         display: block;
-        background: $lightCyan url("~@/assets/images/sensor_bg.svg") no-repeat right bottom;
+        background: $lightCyan url("/src/assets/images/sensor_bg.svg") no-repeat right bottom;
 
         img {
             width: 85px;

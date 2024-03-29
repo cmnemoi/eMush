@@ -289,7 +289,7 @@ h1 {
             transform: translate(-17px, 0);
             min-width: 39px;
             min-height: 21px;
-            background: url("~@/assets/images/figure.png") center no-repeat;
+            background: url("/src/assets/images/figure.png") center no-repeat;
         }
     }
 
@@ -358,7 +358,7 @@ h1 {
             text-decoration: none;
             font-variant: small-caps;
             text-align: center;
-            background: transparent url('~@/assets/images/big-button-center.png') center repeat-x;
+            background: transparent url('/src/assets/images/big-button-center.png') center repeat-x;
             text-shadow: 0 0 5px black, 0 1px 2px black;
 
             transition: all .15s;
@@ -369,7 +369,7 @@ h1 {
                 content:"";
                 width: 35px;
                 height: 100%;
-                background: transparent url('~@/assets/images/big-button-side.png') center no-repeat;
+                background: transparent url('/src/assets/images/big-button-side.png') center no-repeat;
             }
 
             &::before { transform: translateX(-35px) }

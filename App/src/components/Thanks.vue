@@ -216,7 +216,7 @@ footer {
         width: 100%;
         margin-top: 2.8em;
         background-color: $footer-bg-color;
-        mask-image: url("~@/assets/images/footer_waves.svg");
+        mask-image: url("/src/assets/images/footer_waves.svg");
         mask-size: 300px;
         mask-repeat: repeat-x;
         mask-position: top center;
@@ -293,7 +293,7 @@ footer {
     top: 0;
     left: 50%;
     transform: translate(-50%, -60%);
-    background-image: url("~@/assets/images/etwin_icon_bw.svg");
+    background-image: url("/src/assets/images/etwin_icon_bw.svg");
     background-repeat: no-repeat;
     background-position: center;
     }

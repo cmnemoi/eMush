@@ -222,7 +222,7 @@ span.tippy-tooltip {
         bottom: 2px;
         width: 9px;
         height: 11px;
-        background: transparent url('~@/assets/images/levelup_arrow_ingame.png') no-repeat center;
+        background: transparent url('/src/assets/images/levelup_arrow_ingame.png') no-repeat center;
     }
 }
 

@@ -136,7 +136,7 @@ export default defineComponent ({
     width: 132px;
     padding-bottom: .4em;
     margin-right: 6px;
-    background: $lightCyan url("~@/assets/images/neroncore_bg.svg") no-repeat right bottom;
+    background: $lightCyan url("/src/assets/images/neroncore_bg.svg") no-repeat right bottom;
     border-left: 2px solid #aad4e5;
 
     scroll-snap-align: start; // to control scroll snapping

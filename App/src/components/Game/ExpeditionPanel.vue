@@ -149,7 +149,7 @@ export default defineComponent ({
     @extend %terminal-section;
     flex-direction: column;
     align-items: flex-start;
-    background-image: url("~@/assets/images/astro/astro_bg.svg");
+    background-image: url("/src/assets/images/astro/astro_bg.svg");
 
     .estimate { font-style: italic; }
 }

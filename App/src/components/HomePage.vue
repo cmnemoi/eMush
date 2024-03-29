@@ -312,7 +312,7 @@ export default defineComponent ({
     text-decoration: none;
     font-variant: small-caps;
     text-align: center;
-    background: transparent url('~@/assets/images/big-button-center.png') center repeat-x;
+    background: transparent url('/src/assets/images/big-button-center.png') center repeat-x;
     text-shadow: 0 0 5px black, 0 1px 2px black;
 
     transition: all .15s;
@@ -323,7 +323,7 @@ export default defineComponent ({
         content:"";
         width: 35px;
         height: 100%;
-        background: transparent url('~@/assets/images/big-button-side.png') center no-repeat;
+        background: transparent url('/src/assets/images/big-button-side.png') center no-repeat;
     }
 
     &::before { transform: translateX(-35px) }

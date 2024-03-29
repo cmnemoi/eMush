@@ -180,7 +180,7 @@ export default defineComponent ({
 
 .planet {
     @extend %terminal-section;
-    background-image: url("~@/assets/images/astro/astro_bg.svg");
+    background-image: url("/src/assets/images/astro/astro_bg.svg");
 
     &.unknown { border-left-color: #aad4e5; }
 

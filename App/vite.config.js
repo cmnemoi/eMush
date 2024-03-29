@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'url';    
 import typescript from '@rollup/plugin-typescript';
@@ -27,5 +28,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: { additionalData: `@import "./src/assets/scss/_mixins.scss";` },
     },
+  },
+  test: {
   },
 })

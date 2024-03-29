@@ -139,7 +139,7 @@ front-test:
     - job: build-front
       optional: true
   script:
-    - yarn test
+    - yarn test-ci
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]

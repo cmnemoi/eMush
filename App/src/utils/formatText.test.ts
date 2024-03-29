@@ -1,10 +1,11 @@
-import { expect } from 'chai';
 import sinon from 'sinon';
+
+import { describe, it, beforeEach, afterEach, expect } from 'vitest';
 import { formatText, helpers } from './formatText';
 
 describe('formatText', () => {
 
-    before(() => {
+    beforeEach(() => {
         sinon.stub(helpers, "computeImageHtml").returns("<img/>");
         sinon.stub(helpers, "computeCharacterImageHtmlByKey").returns("<img/>");
         sinon.stub(helpers, "computeAlertImageHtmlByKey").returns("<img/>");
@@ -13,7 +14,7 @@ describe('formatText', () => {
         sinon.stub(helpers, "computeTitleImageHtmlByKey").returns("<img/>");
     });
 
-    after(() => {
+    afterEach(() => {
         (helpers.computeImageHtml as any).restore();
         (helpers.computeCharacterImageHtmlByKey as any).restore();
         (helpers.computeAlertImageHtmlByKey as any).restore();

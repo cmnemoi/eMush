@@ -10,45 +10,45 @@ export const helpers = {
     computeImageHtml(key: string): string {
         switch(key) {
         case "hp":
-            return `<img src="src/assets/images/lp.png")}" alt="hp">`;
+            return `<img src="/src/assets/images/lp.png"}" alt="hp">`;
         case "pa":
-            return `<img src="src/assets/images/pa.png")}" alt="pa">`;
+            return `<img src="/src/assets/images/pa.png"}" alt="pa">`;
         case "pm":
-            return `<img src="src/assets/images/pm.png")}" alt="pm">`;
+            return `<img src="/src/assets/images/pm.png"}" alt="pm">`;
         case "pmo":
-            return `<img src="src/assets/images/moral.png")}" alt="pmo">`;
+            return `<img src="/src/assets/images/moral.png"}" alt="pmo">`;
         case "triumph":
-            return `<img src="src/assets/images/triumph.png")}" alt="pmo">`;
+            return `<img src="/src/assets/images/triumph.png"}" alt="pmo">`;
         case "ill":
-            return `<img src="src/assets/images/status/disease.png")}" alt="ill">`;
+            return `<img src="/src/assets/images/status/disease.png"}" alt="ill">`;
         case "pill":
-            return `<img src="src/assets/images/status/demoralized2.png")}" alt="pill">`;
+            return `<img src="/src/assets/images/status/demoralized2.png"}" alt="pill">`;
         case "dead":
-            return `<img src="src/assets/images/dead.png")}" alt="dead">`;
+            return `<img src="/src/assets/images/dead.png"}" alt="dead">`;
         case "cat":
-            return `<img src="src/assets/images/char/body/cat.png")}" alt="cat">`;
+            return `<img src="/src/assets/images/char/body/cat.png"}" alt="cat">`;
         case "hurt":
-            return `<img src="src/assets/images/status/injury.png")}" alt="hurt">`;
+            return `<img src="/src/assets/images/status/injury.png"}" alt="hurt">`;
         case "psy_disease":
-            return `<img src="src/assets/images/status/disorder.png")}" alt="psy_disease">`;
+            return `<img src="/src/assets/images/status/disorder.png"}" alt="psy_disease">`;
         case "hungry":
-            return `<img src="src/assets/images/status/hungry.png")}" alt="hungry">`;
+            return `<img src="/src/assets/images/status/hungry.png"}" alt="hungry">`;
         case "talkie":
-            return `<img src="src/assets/images/comms/talkie.png")}" alt="talkie">`;
+            return `<img src="/src/assets/images/comms/talkie.png"}" alt="talkie">`;
         case "mush":
-            return `<img src="src/assets/images/status/mush.png")}" alt="mush">`;
+            return `<img src="/src/assets/images/status/mush.png"}" alt="mush">`;
         case "pa_cook":
-            return `<img src="src/assets/images/pa_cook.png")}" alt="pa_cook">`;
+            return `<img src="/src/assets/images/pa_cook.png"}" alt="pa_cook">`;
         case "hunter":
-            return `<img src="src/assets/images/alerts/hunter.png")}" alt="hunter">`;
+            return `<img src="/src/assets/images/alerts/hunter.png"}" alt="hunter">`;
         case "pa_shoot":
-            return `<img src="src/assets/images/pa_shoot.png")}" alt="pa_shoot">`;
+            return `<img src="/src/assets/images/pa_shoot.png"}" alt="pa_shoot">`;
         case "pa_core":
-            return `<img src="src/assets/images/pa_core.png")}" alt="pa_core">`;
+            return `<img src="/src/assets/images/pa_core.png" alt="pa_core">`;
         case "planet":
-            return `<img src="src/assets/images/planet.png"}" alt="planet">`;
+            return `<img src="src/assets/images/planet.png" alt="planet">`;
         case "fuel":
-            return `<img src="src/assets/images/fuel.png"}" alt="fuel">`;
+            return `<img src="src/assets/images/fuel.png" alt="fuel">`;
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }

@@ -168,7 +168,7 @@ export default defineComponent({
             HunterConfigService.createHunterConfig(newHunterConfig).then((res: HunterConfig | null) => {
                 this.hunterConfig = res;
                 if (null === this.hunterConfig) return null;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
+                ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
                     .then((result) => {
                         const initialStatuses: StatusConfig[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
@@ -203,7 +203,7 @@ export default defineComponent({
                 .then((res: HunterConfig | null) => {
                     this.hunterConfig = res;
                     if (null === this.hunterConfig) return null;
-                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
+                    ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
                         .then((result) => {
                             const initialStatuses: StatusConfig[] = [];
                             result.data['hydra:member'].forEach((datum: any) => {
@@ -288,7 +288,7 @@ export default defineComponent({
         const hunterConfigId = Number(this.$route.params.hunterConfigId);
         HunterConfigService.loadHunterConfig(hunterConfigId).then((res: HunterConfig | null) => {
             this.hunterConfig = res;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'hunter_configs', String(hunterConfigId), 'initial_statuses'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'hunter_configs', String(hunterConfigId), 'initial_statuses'))
                 .then((result) => {
                     const initialStatuses: StatusConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {

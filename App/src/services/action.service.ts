@@ -12,9 +12,9 @@ import { Terminal } from "@/entities/Terminal";
 import { Planet } from "@/entities/Planet";
 
 // @ts-ignore
-const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
+const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 // @ts-ignore
-const ACTION_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "actions");
+const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "actions");
 
 const ActionService = {
     executeTargetAction(target: Item | Equipment | Player | Hunter | Terminal | Planet | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {

@@ -5,7 +5,7 @@ import { News } from "@/entities/News";
 import qs from "qs";
 
 // @ts-ignore
-const NEWS_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "news");
+const NEWS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "news");
 
 const NewsService = {
     createNews: async(news: News): Promise<News | null> => {

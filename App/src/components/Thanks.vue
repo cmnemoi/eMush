@@ -154,8 +154,8 @@ export default defineComponent({
             crowdin: crowdin,
             team: team,
             version: version as string,
-            release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
-            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
+            release: import.meta.env.VITE_APP_API_RELEASE_COMMIT as string,
+            channel: import.meta.env.VITE_APP_API_RELEASE_CHANNEL as string,
             displayedContributors: team.filter((member) => !member.coreTeam).slice(0,6)
         };
     },

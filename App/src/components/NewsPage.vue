@@ -77,7 +77,7 @@ export default defineComponent ({
             params.params['isPublished'] = true;
             qs.stringify(params.params['order'] = { ['publicationDate']: 'DESC' });
 
-            await ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'), params)
+            await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'news'), params)
                 .then((result) => {
                     this.news = new Array<News>();
                     for (const newsData of result.data['hydra:member']) {

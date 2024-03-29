@@ -66,7 +66,7 @@ export default defineComponent({
 
             GameConfigService.createRandomItemPlaces(newRandomItemPlaces)
                 .then((res: RandomItemPlaces | null) => {
-                    const newRandomItemPlacesUrl = urlJoin(process.env.VUE_APP_URL+ '/config/random-item-places', String(res?.id));
+                    const newRandomItemPlacesUrl = urlJoin(import.meta.env.VITE_APP_URL+ '/config/random-item-places', String(res?.id));
                     window.location.href = newRandomItemPlacesUrl;
                 })
                 .catch((error) => {

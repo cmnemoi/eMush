@@ -64,7 +64,7 @@ export default defineComponent({
             userIsAdmin: 'auth/isAdmin'
         }),
         baseUrl() {
-            return process.env.VUE_APP_URL as string;
+            return import.meta.env.VITE_APP_URL as string;
         }
     },
     methods: {

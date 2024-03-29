@@ -136,7 +136,7 @@ export default defineComponent({
 
             params.params['playerInfo.user.userId'] = this.$route.params.userId;
 
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_players'), params)
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'closed_players'), params)
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {
                         closedPlayer.endCause = this.$t('userShips.endCause.' + closedPlayer.endCause);

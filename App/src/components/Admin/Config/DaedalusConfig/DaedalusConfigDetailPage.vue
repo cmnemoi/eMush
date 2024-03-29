@@ -161,7 +161,7 @@ export default defineComponent({
                         newDaedalusConfig.randomItemPlaces = res;
                         GameConfigService.createDaedalusConfig(newDaedalusConfig)
                             .then((res: DaedalusConfig | null) => {
-                                const newDaedalusConfigUrl = urlJoin(process.env.VUE_APP_URL + "/config/daedalus-config", String(res?.id));
+                                const newDaedalusConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + "/config/daedalus-config", String(res?.id));
                                 window.location.href = newDaedalusConfigUrl;
                             });
                     });
@@ -176,13 +176,13 @@ export default defineComponent({
                 .then((res: DaedalusConfig | null) => {
                     this.daedalusConfig = res;
                     if (this.daedalusConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places'))
                             .then((result) => {
                                 if (this.daedalusConfig instanceof DaedalusConfig) {
                                     this.daedalusConfig.randomItemPlaces = (new RandomItemPlaces()).load(result.data);
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'place_configs?pagination=false'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'place_configs?pagination=false'))
                             .then((result) => {
                                 const placeConfigs: PlaceConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -226,13 +226,13 @@ export default defineComponent({
         const daedalusConfigId = String(this.$route.params.daedalusConfigId);
         GameConfigService.loadDaedalusConfig(Number(daedalusConfigId)).then((res: DaedalusConfig | null) => {
             this.daedalusConfig = res;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'random_item_places'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'random_item_places'))
                 .then((result) => {
                     if (this.daedalusConfig instanceof DaedalusConfig) {
                         this.daedalusConfig.randomItemPlaces = (new RandomItemPlaces()).load(result.data);
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'place_configs?pagination=false'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'place_configs?pagination=false'))
                 .then((result) => {
                     const placeConfigs : PlaceConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {

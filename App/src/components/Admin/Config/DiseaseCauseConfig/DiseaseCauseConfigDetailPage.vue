@@ -67,7 +67,7 @@ export default defineComponent({
             newDiseaseCauseConfig.id = null;
 
             GameConfigService.createDiseaseCauseConfig(newDiseaseCauseConfig).then((res: DiseaseCauseConfig | null) => {
-                const newDiseaseCauseConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/disease-cause-config', String(res?.id));
+                const newDiseaseCauseConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/disease-cause-config', String(res?.id));
                 window.location.href = newDiseaseCauseConfigUrl;
             })
                 .catch((error) => {

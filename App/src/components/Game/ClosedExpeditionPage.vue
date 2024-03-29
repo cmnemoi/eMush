@@ -75,9 +75,9 @@ export default defineComponent ({
     methods: {
         getClosedExplorationById: async(id: number): Promise<ClosedExploration| null> => {
             store.dispatch('gameConfig/setLoading', { loading: true });
-            const apiBaseUrl = process.env.VUE_APP_API_URL;
+            const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
             if (!apiBaseUrl) {
-                throw new Error('VUE_APP_API_URL is undefined');
+                throw new Error('VITE_APP_API_URL is undefined');
             }
             const closedExplorationData = await ApiService.get(urlJoin(apiBaseUrl, 'closed_explorations', String(id))).then((response) => {
                 return response.data;

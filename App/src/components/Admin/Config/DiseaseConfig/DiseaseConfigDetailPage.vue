@@ -138,7 +138,7 @@ export default defineComponent({
             }
 
             GameConfigService.createDiseaseConfig(newDiseaseConfig).then((res: DiseaseConfig | null) => {
-                const newDiseaseConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/disease-config', String(res?.id));
+                const newDiseaseConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/disease-config', String(res?.id));
                 window.location.href = newDiseaseConfigUrl;
             })
                 .catch((error) => {
@@ -164,7 +164,7 @@ export default defineComponent({
                 .then((res: DiseaseConfig | null) => {
                     this.diseaseConfig = res;
                     if (this.diseaseConfig !== null){
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'disease_configs', String(this.diseaseConfig.id), 'modifier_configs'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'disease_configs', String(this.diseaseConfig.id), 'modifier_configs'))
                             .then((result) => {
                                 const modifierConfigs : ModifierConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -220,7 +220,7 @@ export default defineComponent({
             this.diseaseConfig = res;
             if (res instanceof DiseaseConfig) {
                 this.diseaseConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'disease_configs', diseaseConfigId, 'modifier_configs'))
+                ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'disease_configs', diseaseConfigId, 'modifier_configs'))
                     .then((result) => {
                         const modifierConfigs : ModifierConfig[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {

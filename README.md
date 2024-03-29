@@ -208,18 +208,18 @@ To use different port modify the docker/docker-compose.dev.yml file
 in docker/docker-compose.dev.yml
 Change line 55: `- "80:8080"` by `- "new_port:8080"` where new_port is the desired port
 Change the `App/.env`
-`VUE_APP_URL=http://localhost` by `VUE_APP_URL=http://localhost:new_port`
+`VITE_APP_URL=http://localhost` by `VITE_APP_URL=http://localhost:new_port`
 Run `make docker-start` (`make gitpod-start` on Gitpod) so that the changes are taken into account
 
 #### Changing back port:
 - in docker/docker-compose.dev.yml:
 Change line 8: `- "8080:80"` by `- "new_port:80"` where new_port is the desired port
 - Change the `App/.env`
-`VUE_APP_API_URL=http://localhost:8080/api/v1/
-VUE_APP_OAUTH_URL=http://localhost:8080/oauth
+`VITE_APP_API_URL=http://localhost:8080/api/v1/
+VITE_APP_OAUTH_URL=http://localhost:8080/oauth
 ` by
-`VUE_APP_API_URL=http://localhost:new_port/api/v1/
-VUE_APP_OAUTH_URL=http://localhost:new_port/oauth`
+`VITE_APP_API_URL=http://localhost:new_port/api/v1/
+VITE_APP_OAUTH_URL=http://localhost:new_port/oauth`
 
 - Change `Api.env`:
 `OAUTH_CALLBACK="'http://localhost:8080/oauth/callback'"`

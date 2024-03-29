@@ -222,7 +222,7 @@ export default defineComponent({
             // @ts-ignore
             GameConfigService.createCharacterConfig(newCharacterConfig)
                 .then((res: CharacterConfig | null) => {
-                    const newCharacterConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/character-config', String(res?.id));
+                    const newCharacterConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/character-config', String(res?.id));
                     window.location.href = newCharacterConfigUrl;
                 })
                 .catch((error) => {
@@ -250,7 +250,7 @@ export default defineComponent({
                 .then((res: CharacterConfig | null) => {
                     this.characterConfig = res;
                     if (this.characterConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'init_statuses'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'init_statuses'))
                             .then((result) => {
                                 const initStatuses: StatusConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -261,7 +261,7 @@ export default defineComponent({
                                     this.characterConfig.initStatuses = initStatuses;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'actions'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'actions'))
                             .then((result) => {
                                 const actions: Action[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -272,7 +272,7 @@ export default defineComponent({
                                     this.characterConfig.actions = actions;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'starting_items'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'starting_items'))
                             .then((result) => {
                                 const startingItems: EquipmentConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -283,7 +283,7 @@ export default defineComponent({
                                     this.characterConfig.startingItems = startingItems;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'init_diseases'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', String(this.characterConfig.id), 'init_diseases'))
                             .then((result) => {
                                 const initDiseases: DiseaseConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -363,7 +363,7 @@ export default defineComponent({
         const characterConfigId = String(this.$route.params.characterConfigId);
         GameConfigService.loadCharacterConfig(Number(characterConfigId)).then((res: CharacterConfig | null) => {
             this.characterConfig = res;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', characterConfigId, 'init_statuses'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', characterConfigId, 'init_statuses'))
                 .then((result) => {
                     const initStatuses : StatusConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -374,7 +374,7 @@ export default defineComponent({
                         this.characterConfig.initStatuses = initStatuses;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', characterConfigId, 'actions'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', characterConfigId, 'actions'))
                 .then((result) => {
                     const actions : Action[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -385,7 +385,7 @@ export default defineComponent({
                         this.characterConfig.actions = actions;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', characterConfigId, 'starting_items'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', characterConfigId, 'starting_items'))
                 .then((result) => {
                     const startingItems : EquipmentConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -396,7 +396,7 @@ export default defineComponent({
                         this.characterConfig.startingItems = startingItems;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'character_configs', characterConfigId, 'init_diseases'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'character_configs', characterConfigId, 'init_diseases'))
                 .then((result) => {
                     const initDiseases : DiseaseConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {

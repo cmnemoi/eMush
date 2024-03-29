@@ -8,7 +8,7 @@
     "build": "vite build",
     "serve": "vite --host",
     "test": "mocha --require ts-node/register src/**/*.test.ts",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
     "@unhead/vue": "^1.8.4",

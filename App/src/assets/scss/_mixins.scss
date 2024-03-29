@@ -243,7 +243,7 @@ Inventory slots with .empty class will have no interactive styling. */
             float: right;
             width: 21px;
             height: 21px;
-            background: url("~@/assets/images/comms/more.png") no-repeat center;
+            background: url("/src/assets/images/comms/more.png") no-repeat center;
         }
     }
 
@@ -252,7 +252,7 @@ Inventory slots with .empty class will have no interactive styling. */
         height: auto;
 
         &::before {
-            background-image: url("~@/assets/images/comms/less.png");
+            background-image: url("/src/assets/images/comms/less.png");
         }
     }
 

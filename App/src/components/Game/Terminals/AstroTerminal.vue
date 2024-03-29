@@ -165,7 +165,7 @@ export default defineComponent ({
                 const chatInput = document.getElementsByClassName('chat-input')[0] as HTMLFormElement;
                 const textArea = chatInput.getElementsByTagName('textarea')[0] as HTMLTextAreaElement;
                 if (textArea.value !== '') {
-                    textArea.value = `${textArea.value}\n${planet.toString()}`;
+                    textArea.value = `${textArea.value}\n\n${planet.toString()}`;
                 } else {
                     textArea.value = planet.toString();
                 }

@@ -19,6 +19,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -247,6 +248,44 @@ class FireTest extends TestCase
     }
 
     /**
+     * @covers \Mush\Status\CycleHandler\Fire::handleNewCycle
+     * @dataProvider placesNotFireCapableEnumTypesDataProvider
+     */
+    public function testFireDoesntGoSomewhereElse(string $placeType): void
+    {
+        $date = new \DateTime();
+        $roomNotFireCapable = (new Place())
+            ->setType($placeType);
+
+        $difficultyConfig = new DifficultyConfig();
+        $daedalusConfig = new DaedalusConfig();
+        $daedalusHull = 100;
+        $daedalusConfig
+            ->setMaxHull(100)
+            ->setInitHull($daedalusHull);
+
+        $gameConfig = new GameConfig();
+        $daedalus = new Daedalus();
+        $gameConfig
+            ->setDifficultyConfig($difficultyConfig)
+            ->setDaedalusConfig($daedalusConfig);
+        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $roomNotFireCapable->setDaedalus($daedalus);
+
+        $daedalus->setDaedalusVariables($daedalusConfig);
+
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setStatusName(StatusEnum::FIRE);
+        $status = new ChargeStatus($roomNotFireCapable, $statusConfig);
+        $status
+            ->setCharge(1);
+
+        $this->randomService->shouldReceive('isSuccessful')->never();
+        $this->randomService->shouldReceive('getRandomElements')->never();
+        $this->cycleHandler->handleNewCycle($status, $roomNotFireCapable, $date);
+    }
+
+    /**
      * @return iterable [number of rooms, number of fire, expected number of fires, number of dispatched events]
      */
     final public static function fireTestPropagationDataProvider(): iterable
@@ -258,5 +297,17 @@ class FireTest extends TestCase
         yield [4, 2, 3, 2];
         yield [4, 3, 4, 3];
         yield [4, 4, 4, 0];
+    }
+
+    /**
+     * Ensure fire can only be propagated to rooms.
+     *
+     * @return iterable
+     */
+    final public static function placesNotFireCapableEnumTypesDataProvider(): iterable
+    {
+        yield 'Space' => [PlaceTypeEnum::SPACE];
+        yield 'PatrolShip' => [PlaceTypeEnum::PATROL_SHIP];
+        yield 'Planet' => [PlaceTypeEnum::PLANET];
     }
 }

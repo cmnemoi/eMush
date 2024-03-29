@@ -81,18 +81,16 @@ final readonly class Fire extends AbstractStatusCycleHandler
             $adjacentCleanRooms = $roomToPropagate
                 ->getDoors()
                 ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
-                ->map(fn (Door $door) => $door->getRooms())->toArray();
+                ->map(fn (Door $door) => $door->getOtherRoom($roomToPropagate))->toArray();
 
-            $adjacentRoom = $this->randomService->getRandomElement($adjacentCleanRooms);
-            if ($adjacentRoom === null) {
-                // Probably an edge case here.
+            if (empty($adjacentCleanRooms)) {
                 continue;
             }
 
             // Bring fire and destruction.
             $this->statusService->createStatusFromName(
                 $this->name,
-                $adjacentRoom,
+                $this->randomService->getRandomElement($adjacentCleanRooms),
                 [RoomEventEnum::PROPAGATING_FIRE],
                 $date
             );

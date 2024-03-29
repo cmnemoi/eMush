@@ -161,15 +161,11 @@ export default defineComponent ({
         sharePlanet(planet: Planet) {
             const publicChannelTab = document.getElementsByClassName('tabs')[0].getElementsByClassName('public')[0] as HTMLDivElement;
             publicChannelTab.click();
-            setTimeout(() => {
-                const chatInput = document.getElementsByClassName('chat-input')[0] as HTMLFormElement;
-                const textArea = chatInput.getElementsByTagName('textarea')[0] as HTMLTextAreaElement;
-                if (textArea.value !== '') {
-                    textArea.value = `${textArea.value}\n\n${planet.toString()}`;
-                } else {
-                    textArea.value = planet.toString();
-                }
-            }, 10);
+            if (this.typedMessage) {
+                this.updateTypedMessage(`${this.typedMessage}\n\n${planet.toString()}`);
+            } else {
+                this.updateTypedMessage(planet.toString());
+            }
         },
     },
     data() {

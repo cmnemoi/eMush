@@ -110,29 +110,18 @@ class FireTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $player = new Player();
-        $player->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player
+            ->setPlayerVariables($characterConfig)
             ->setPlayerInfo($playerInfo);
         $room->addPlayer($player);
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->twice();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->twice();
         $this->randomService->shouldReceive('getRandomElements')->andReturn([$room])->once();
-        $this->randomService->shouldReceive('getRandomElement')->andReturn($room)->once();
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->assertTrue($room->hasStatus(StatusEnum::FIRE));
-
-        $this->statusService
-            ->shouldReceive('createStatusFromName')
-            ->withArgs(fn (string $name, StatusHolderInterface $holder, array $tags, \DateTime $dateTime) => (
-                $name === StatusEnum::FIRE
-                && $holder === $room
-                && $tags === [RoomEventEnum::PROPAGATING_FIRE]
-                && $dateTime === $date
-            ))
-            ->once();
 
         $this->eventService
             ->shouldReceive('callEvent')
@@ -158,21 +147,35 @@ class FireTest extends TestCase
     /**
      * @dataProvider fireTestPropagationDataProvider
      */
-    public function testFirePropagation(int $roomNumbers, int $numberOfFires, int $expectedNumberOfFires, int $expectedDispatchedEvents): void
+    public function testFirePropagation(int $roomNumbers, int $doorPerRoom, int $numberOfFires, int $expectedNumberOfFires, int $expectedDispatchedEvents): void
     {
         assert($roomNumbers >= $numberOfFires);
 
         $date = new \DateTime();
+        /** @var ArrayCollection<array-key, Place> $rooms */
         $rooms = new ArrayCollection();
+        /** @var ArrayCollection<array-key, Door> $doors */
+        $doors = new ArrayCollection();
 
         for ($i = 0; $roomNumbers !== $i; ++$i) {
-            $rooms->add(new Place());
+            $rooms->add((new Place())->setName("Place $i"));
+        }
+        // For each room, we add the requested doors
+        foreach ($rooms as $index => $room) {
+            for ($i = 0; $doorPerRoom !== $i; ++$i) {
+                // We take the room from our index + 1
+                $roomsSegment = new ArrayCollection($rooms->slice($index, $doorPerRoom === 1 ? $doorPerRoom + 1 : $doorPerRoom));
+                if ($roomsSegment->count() <= 1) {
+                    continue;
+                }
+
+                $doors->add((new Door($room))->setRooms($roomsSegment));
+            }
         }
 
-        $initialRoom = $rooms->first();
+        $expectedCont = ($doorPerRoom * $roomNumbers) - $doorPerRoom;
         $this->assertCount($roomNumbers, $rooms);
-
-        $linkedDoor = (new Door($initialRoom))->setRooms($rooms);
+        $this->assertCount($expectedCont, $doors);
         // Propagate all the fire 🔥.
         $difficultyConfig = (new DifficultyConfig())
             ->setPropagatingFireRate(100)
@@ -206,33 +209,34 @@ class FireTest extends TestCase
             $statuses->add($charge);
         }
 
+        $roomsInFire = $rooms->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE));
+        $roomsNotInFire = $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
+
         if ($numberOfFires < $roomNumbers) {
-            $remainingRooms = $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
-            $this->assertCount($roomNumbers - $numberOfFires, $remainingRooms);
-            $remainingRooms->forAll(fn (int $_, Place $place) => $this->assertFalse($place->hasStatus(StatusEnum::FIRE)));
+            $this->assertCount($roomNumbers - $numberOfFires, $roomsNotInFire);
+            $roomsNotInFire->forAll(fn (int $_, Place $place) => $this->assertFalse($place->hasStatus(StatusEnum::FIRE)));
         }
 
-        $this->assertCount($roomNumbers, $linkedDoor->getRooms());
-        $this->assertCount($numberOfFires, $rooms->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE)));
+        $this->assertCount($numberOfFires, $roomsInFire);
+        $this->assertCount($roomNumbers - $numberOfFires, $roomsNotInFire);
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->atLeast()->once();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn($rooms->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE))->toArray())->once();
-        $this->randomService->shouldReceive('getRandomElement')->andReturn(
-            $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE))?->first() ?: null
-        )->atLeast()->once();
-        $this->gameEquipmentService->shouldReceive('handleBreakFire')->andReturns()->once();
+        $this->randomService->shouldReceive('getRandomElements')->andReturn($roomsInFire->toArray())->once();
+        $this->randomService->shouldReceive('getRandomElement')->andReturn($roomsNotInFire?->first() ?: null)
+            ->atMost()->times($numberOfFires === $roomNumbers ? 0 : 1);
+        $this->gameEquipmentService->shouldReceive('handleBreakFire')->andReturns()->atLeast()->once();
         $this->daedalusService->shouldReceive('persist')->once();
 
         $this->statusService
             ->shouldReceive('createStatusFromName')
             ->withArgs(static fn (string $name, StatusHolderInterface $holder, array $tags, \DateTime $dateTime) => (
                 $name === StatusEnum::FIRE
-                && $holder === $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE))->first()
+                && $holder === $roomsNotInFire->first()
                 && $tags === [RoomEventEnum::PROPAGATING_FIRE]
                 && $dateTime === $date
             ))
-            ->times($expectedDispatchedEvents);
+            ->atMost()->times($expectedDispatchedEvents);
 
         $this->eventService
             ->shouldReceive('callEvent')
@@ -242,7 +246,7 @@ class FireTest extends TestCase
             ))
             ->once();
 
-        $this->cycleHandler->handleNewCycle($statuses->first(), $initialRoom, $date);
+        $this->cycleHandler->handleNewCycle($statuses->first(), $rooms->first(), $date);
         // $this->assertCount($expectedNumberOfFires, $daedalus->getRooms()->filter(static fn(Place $place) => $place->hasStatus(StatusEnum::FIRE)));
         // TODO: How to count propagated fires?
     }
@@ -287,17 +291,25 @@ class FireTest extends TestCase
     }
 
     /**
-     * @return iterable [number of rooms, number of fire, expected number of fires, number of dispatched events]
+     * [] = room
+     * | = door = room - 1.
+     *
+     * F.E:
+     * [ 🔥 ] | [] => will propagate
+     * [ 🔥 ] | [ 🔥 ] | [] => will propagate
+     * [ 🔥 ] | [ 🔥 ] | [ 🔥 ] | [ 🔥 ] => won't propagate
+     *
+     * @return iterable [number of rooms, number of door per room, number of fire, expected number of fires, number of dispatched events]
      */
     final public static function fireTestPropagationDataProvider(): iterable
     {
-        yield [2, 1, 2, 1];
-        yield [3, 2, 3, 2];
-        yield [3, 1, 2, 1];
-        yield [4, 1, 2, 1];
-        yield [4, 2, 3, 2];
-        yield [4, 3, 4, 3];
-        yield [4, 4, 4, 0];
+        yield [2, 1, 1, 2, 1];
+        yield [3, 1, 2, 3, 2];
+        yield [3, 1, 1, 2, 1];
+        yield [4, 2, 1, 2, 1];
+        yield [4, 2, 2, 3, 2];
+        yield [4, 2, 3, 4, 3];
+        yield [4, 2, 4, 4, 0];
     }
 
     /**

@@ -82,16 +82,18 @@ final readonly class Fire extends AbstractStatusCycleHandler
             // Get all adjacent rooms that are not on fire. Then:
             $adjacentCleanRooms = $roomToPropagate
                 ->getDoors()
+                // The filter only remove the doors who have the other room not in fire.
                 ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
-                ->map(fn (Door $door) => $door->getOtherRoom($roomToPropagate))->toArray();
+                // So I ask to have the other room in the array.
+                ->map(fn (Door $door) => $door->getOtherRoom($roomToPropagate));
 
             // No luck for this loop, check for another fire.
-            if (empty($adjacentCleanRooms)) {
+            if ($adjacentCleanRooms->isEmpty()) {
                 continue;
             }
 
             /** @var Place $randomCleanRoom */
-            $randomCleanRoom = $this->randomService->getRandomElement($adjacentCleanRooms);
+            $randomCleanRoom = $this->randomService->getRandomElement($adjacentCleanRooms->toArray());
 
             // Bring fire and destruction.
             $this->statusService->createStatusFromName(

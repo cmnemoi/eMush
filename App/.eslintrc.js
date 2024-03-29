@@ -3,7 +3,8 @@ module.exports = {
 
     "env": {
         "node": true,
-        "mocha": true
+        "mocha": true,
+        "es2022": true
     },
 
     extends: [

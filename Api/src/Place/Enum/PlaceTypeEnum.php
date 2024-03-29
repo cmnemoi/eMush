@@ -4,8 +4,8 @@ namespace Mush\Place\Enum;
 
 class PlaceTypeEnum
 {
-    public const PATROL_SHIP = 'patrol_ship';
-    public const PLANET = 'planet';
-    public const ROOM = 'room';
-    public const SPACE = 'space';
+    public const string PATROL_SHIP = 'patrol_ship';
+    public const string PLANET = 'planet';
+    public const string ROOM = 'room';
+    public const string SPACE = 'space';
 }

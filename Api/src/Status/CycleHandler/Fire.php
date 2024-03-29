@@ -11,6 +11,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -49,7 +50,8 @@ final readonly class Fire extends AbstractStatusCycleHandler
             throw new \LogicException('Fire status does not have a room');
         }
 
-        if ($status->getCharge() === 0) {
+        // Make sure the fire will be set only on Rooms.
+        if ($statusHolder->getType() !== PlaceTypeEnum::ROOM && $status->getCharge() === 0) {
             return;
         }
 
@@ -83,14 +85,18 @@ final readonly class Fire extends AbstractStatusCycleHandler
                 ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
                 ->map(fn (Door $door) => $door->getOtherRoom($roomToPropagate))->toArray();
 
+            // No luck for this loop, check for another fire.
             if (empty($adjacentCleanRooms)) {
                 continue;
             }
 
+            /** @var Place $randomCleanRoom */
+            $randomCleanRoom = $this->randomService->getRandomElement($adjacentCleanRooms);
+
             // Bring fire and destruction.
             $this->statusService->createStatusFromName(
                 $this->name,
-                $this->randomService->getRandomElement($adjacentCleanRooms),
+                $randomCleanRoom,
                 [RoomEventEnum::PROPAGATING_FIRE],
                 $date
             );

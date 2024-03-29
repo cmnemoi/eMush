@@ -249,6 +249,7 @@ class FireTest extends TestCase
 
     /**
      * @covers \Mush\Status\CycleHandler\Fire::handleNewCycle
+     *
      * @dataProvider placesNotFireCapableEnumTypesDataProvider
      */
     public function testFireDoesntGoSomewhereElse(string $placeType): void
@@ -301,8 +302,6 @@ class FireTest extends TestCase
 
     /**
      * Ensure fire can only be propagated to rooms.
-     *
-     * @return iterable
      */
     final public static function placesNotFireCapableEnumTypesDataProvider(): iterable
     {

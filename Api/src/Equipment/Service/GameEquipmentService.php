@@ -304,10 +304,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initDocument(GameEquipment $gameEquipment, Document $document): GameEquipment
     {
-        if (!$document instanceof Document) {
-            throw new \LogicException('Parameter is not a document');
-        }
-
         /** @var ContentStatus $status */
         $status = $this->statusService->createStatusFromName(
             EquipmentStatusEnum::DOCUMENT_CONTENT,

@@ -61,6 +61,10 @@ class EquipmentEnum
         self::BIOS_TERMINAL => ['cpu_priority_name', 'cpu_priority_description'],
     ];
 
+    public static array $terminalButtonsMap = [
+        self::ASTRO_TERMINAL => ['share_planet'],
+    ];
+
     public static function getBeds(): array
     {
         return [

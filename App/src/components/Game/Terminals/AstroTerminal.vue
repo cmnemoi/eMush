@@ -50,8 +50,8 @@
                         class="delete"
                         @click="sharePlanet(planet)">
                         <template #content>
-                            <h1 v-html="'Partager'" />
-                            <p v-html="formatText('Partager cette planète avec l\'équipage')" />
+                            <h1 v-html="formatText(terminal.buttons.sharePlanet.name)" />
+                            <p v-html="formatText(terminal.buttons.sharePlanet.description)" />
                         </template>
                         <img src="@/assets/images/planet.png">
                     </Tippy>

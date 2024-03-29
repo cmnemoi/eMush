@@ -86,6 +86,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             ),
             'actions' => $this->normalizeTerminalActions($terminal, $format, $context),
             'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
+            'buttons' => $this->getNormalizedTerminalButtons($terminal),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($format, $context);
@@ -135,6 +136,30 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $titles;
+    }
+
+    private function getNormalizedTerminalButtons(GameEquipment $terminal): array
+    {
+        $buttons = [];
+        $terminalKey = $terminal->getName();
+        if (array_key_exists($terminalKey, EquipmentEnum::$terminalButtonsMap)) {
+            foreach (EquipmentEnum::$terminalButtonsMap[$terminalKey] as $buttonKey) {
+                $buttons[$buttonKey]['name'] = $this->translationService->translate(
+                    $terminalKey . '.' . $buttonKey . '_button_name',
+                    [],
+                    'terminal',
+                    $terminal->getDaedalus()->getLanguage(),
+                );
+                $buttons[$buttonKey]['description'] = $this->translationService->translate(
+                    $terminalKey . '.' . $buttonKey . '_button_description',
+                    [],
+                    'terminal',
+                    $terminal->getDaedalus()->getLanguage(),
+                );
+            }
+        }
+
+        return $buttons;
     }
 
     private function normalizeCommandTerminalInfos(GameEquipment $terminal): array

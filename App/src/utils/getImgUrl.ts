@@ -1,3 +1,5 @@
 export function getImgUrl(imgName: string): string {
-    return new URL(`/src/assets/images/${imgName}`, import.meta.url).href;
+    const assetsPath = import.meta.env.DEV ? '/src/assets/images/' : '/assets/images/';
+
+    return new URL(`${assetsPath}${imgName}`, import.meta.url).href;
 }

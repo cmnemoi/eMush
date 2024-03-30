@@ -2,16 +2,16 @@
     <GamePopUp title="Choix de Compétence">
         <div class="skill-selection">
             <button>
-                <img :src="getAssetUrl('skills/human/cook.png')">
+                <img :src="getImgUrl('skills/human/cook.png')">
             </button>
             <button>
-                <img :src="getAssetUrl('skills/human/opportunist.png')">
+                <img :src="getImgUrl('skills/human/opportunist.png')">
             </button>
             <button>
-                <img :src="getAssetUrl('skills/mush/mycellium_spirit.png')">
+                <img :src="getImgUrl('skills/mush/mycellium_spirit.png')">
             </button>
             <button>
-                <img :src="getAssetUrl('skills/mush/trapper.png')">
+                <img :src="getImgUrl('skills/mush/trapper.png')">
             </button>
         </div>
     </GamePopUp>
@@ -20,13 +20,13 @@
 <script lang="ts">
 import GamePopUp from "@/components/Utils/GamePopUp.vue";
 import { defineComponent } from "vue";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "SkillSelectionMenu",
     components: { GamePopUp },
     methods: {
-        getAssetUrl
+        getImgUrl
     }
 });
 </script>

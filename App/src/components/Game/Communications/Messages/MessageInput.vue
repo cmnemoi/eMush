@@ -15,7 +15,7 @@
             :disabled="typedMessage.length <= 0"
             @click="sendNewMessage"
             @click.stop="clearTypedMessage">
-            <img :src="getAssetUrl('comms/submit.gif')" alt="submit">
+            <img :src="getImgUrl('comms/submit.gif')" alt="submit">
         </button>
     </form>
 </template>
@@ -25,7 +25,7 @@ import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "MessageInput",
@@ -50,7 +50,7 @@ export default defineComponent ({
         ])
     },
     methods: {
-        getAssetUrl,
+        getImgUrl,
         sendNewMessage(): void {
             if (this.text.length > 0) {
                 this.text = this.text.replace(/\n/g, "//"); // Replace line breaks with "//" so they are actually interpreted as line breaks

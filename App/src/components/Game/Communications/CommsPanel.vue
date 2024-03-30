@@ -14,7 +14,7 @@
             />
         </ul>
         <Tippy tag="div" class="cycle-time">
-            <img :src="getAssetUrl('comms/calendar.png')"><span>{{ calendar?.dayName }} {{ calendar.day }} - <br />{{ calendar?.cycleName }} {{ calendar.cycle }}</span><span class="mobile">{{ calendar.day }}-{{ calendar.cycle }}</span>
+            <img :src="getImgUrl('comms/calendar.png')"><span>{{ calendar?.dayName }} {{ calendar.day }} - <br />{{ calendar?.cycleName }} {{ calendar.cycle }}</span><span class="mobile">{{ calendar.day }}-{{ calendar.cycle }}</span>
             <template #content>
                 <h1 v-html="formatContent(calendar.name)" />
                 <p v-html="formatContent(calendar.description)" />
@@ -38,7 +38,7 @@ import { Channel } from "@/entities/Channel";
 import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 
 export default defineComponent ({
@@ -92,7 +92,7 @@ export default defineComponent ({
             'loadChannels',
             'changeChannel'
         ]),
-        getAssetUrl,
+        getImgUrl,
         isChannelPirated(channel: Channel): boolean
         {
             return channel.piratedPlayer != null;

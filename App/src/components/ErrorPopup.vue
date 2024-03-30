@@ -2,7 +2,7 @@
     <PopUp :is-open="isError() && isGamePage()" @close="clearErrorAndReloadData">
         <h1 class="title">{{ getTranslatedErrorStatus() }}</h1>
         <div class="message">
-            <img class="neron-img" :src="getAssetUrl('neron_eye.gif')" alt="Neron">
+            <img class="neron-img" :src="getImgUrl('neron_eye.gif')" alt="Neron">
             <div>
                 <p v-if="isWorkingServerError()">{{ $t('errors.reportToDevs') }}</p>
                 <p v-else>{{ $t('errors.problem') }}</p>
@@ -23,7 +23,7 @@
 import { mapActions, mapGetters, mapState } from "vuex";
 import PopUp from "@/components/Utils/PopUp.vue";
 import { defineComponent } from "vue";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     components: {
@@ -57,7 +57,7 @@ export default defineComponent ({
                 this.loadRoomLogs();
             }
         },
-        getAssetUrl,
+        getImgUrl,
         getTranslatedErrorDetails(): string | null {
             // If the error is a 502, it's probably due to server synchronization
             // but we don't have much details about it. Then, hardcode the error message.

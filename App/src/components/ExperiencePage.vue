@@ -16,7 +16,7 @@
                             </p>
                         </div>
                         <p class="score">
-                            {{ player.triumph }}<img :src="getAssetUrl('triumph.png')" alt="triumph">
+                            {{ player.triumph }}<img :src="getImgUrl('triumph.png')" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">
@@ -32,7 +32,7 @@
                     </div>
                     <div>
                         <p class="death-cause">
-                            <img :src="getAssetUrl('dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
+                            <img :src="getImgUrl('dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
                         </p>
                     </div>
                     <HistoryLogs />
@@ -52,7 +52,7 @@
                         <td>{{ player.endCauseValue ? player.endCauseValue : "Pas Encore" }}</td>
                         <td>
                             <button class="like">
-                                1 <img :src="getAssetUrl('dislike.png')">
+                                1 <img :src="getImgUrl('dislike.png')">
                             </button>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@ import HistoryLogs from "@/components/Game/HistoryLogs.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import { defineComponent } from "vue";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 interface PurgatoryState {
     deadPlayerInfo: DeadPlayerInfo | null,
@@ -106,7 +106,7 @@ export default defineComponent ({
         endGame: function(): void {
             PlayerService.sendEndGameRequest(this.player, this.epitaph, []);
         },
-        getAssetUrl
+        getImgUrl
     },
     computed: {
         characterPortrait: function(): string {

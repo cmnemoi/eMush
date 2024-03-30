@@ -1,7 +1,7 @@
 <template>
     <div class="news-container">
         <div class="janice">
-            <img :src="getAssetUrl('janice.png')" alt="Janice">
+            <img :src="getImgUrl('janice.png')" alt="Janice">
         </div>
         <div class="news-feed">
             <NewsItem
@@ -30,7 +30,7 @@ import ApiService from "@/services/api.service";
 import { News } from "@/entities/News";
 import Pagination from "@/components/Utils/Datatable/Pagination.vue";
 import NewsItem from "./NewsItem.vue";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: 'TheEnd',
@@ -57,7 +57,7 @@ export default defineComponent ({
         };
     },
     methods: {
-        getAssetUrl,
+        getImgUrl,
         async getNews() {
             const params: any = {
                 header: {

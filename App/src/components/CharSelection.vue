@@ -43,15 +43,15 @@
         <div class="banner" v-if="!error">
             <div class="skills" style="display:none">
                 <div class="Expert radio">
-                    <img :src="getAssetUrl('skills/human/cook.png')" alt="cook">
+                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
                     <p>Expert radio</p>
                 </div>
                 <div class="Expert logistique">
-                    <img :src="getAssetUrl('skills/human/cook.png')" alt="cook">
+                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
                     <p>Expert logistique</p>
                 </div>
                 <div class="Tireur">
-                    <img :src="getAssetUrl('skills/human/cook.png')" alt="cook">
+                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
                     <p>Tireur</p>
                 </div>
             </div>
@@ -78,7 +78,7 @@ import Spinner from "@/components/Utils/Spinner.vue";
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import { gameLocales } from "@/i18n";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: 'CharSelection',
@@ -129,15 +129,15 @@ export default defineComponent ({
 
         },
         characterPortrait: function(character: Character) {
-            return characterEnum[character.key] ? characterEnum[character.key].portrait : getAssetUrl('items/todo.png');
+            return characterEnum[character.key] ? characterEnum[character.key].portrait : getImgUrl('items/todo.png');
         },
         characterBody: function(character: Character) {
-            return characterEnum[character.key] ? characterEnum[character.key].body : getAssetUrl('items/todo.png');
+            return characterEnum[character.key] ? characterEnum[character.key].body : getImgUrl('items/todo.png');
         },
         characterCompleteName: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].completeName : 'Unknown';
         },
-        getAssetUrl,
+        getImgUrl,
         resetValues: function() {
             this.characterHovered = false;
             this.hoveredCharacter = null;

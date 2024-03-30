@@ -2,7 +2,7 @@
     <div class="box-container">
         <h1 class="title">{{ $t("errors.title") }}</h1>
         <div class="error-container">
-            <img class="neron-img" :src="getAssetUrl('neron_eye.gif')" alt="Neron">
+            <img class="neron-img" :src="getImgUrl('neron_eye.gif')" alt="Neron">
             <span class="neron-message" v-html="$t('errors.neronMessage')"></span>
             <p class="error">{{ $t('errors.gameInMaintenance') }}</p>
             <p class="community" v-html="$t('errors.consultCommunity')"></p>
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
@@ -23,7 +23,7 @@ export default defineComponent ({
         }
     },
     methods: {
-        getAssetUrl
+        getImgUrl
     }
 });
 

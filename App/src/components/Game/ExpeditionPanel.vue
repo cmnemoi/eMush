@@ -5,26 +5,26 @@
             <h3>{{ exploration.planet.name }}</h3>
             <span class="estimate">{{ exploration.estimatedDuration }}</span>
             <div class="card">
-                <img class="planet-img" :src="getAssetUrl('astro/planet_unknown.png')">
+                <img class="planet-img" :src="getImgUrl('astro/planet_unknown.png')">
                 <ul class="crew">
                     <li v-for="(explorator,) in exploration.explorators" :key="explorator.key">
                         <img :src="explorator.getExploratorBody()" :alt="explorator.name">
                         <p v-if="explorator.isDead">
-                            <img :src="getAssetUrl('dead.png')">
+                            <img :src="getImgUrl('dead.png')">
                         </p>
                         <p v-else-if="explorator.isLost">
-                            <img :src="getAssetUrl('status/lost_on_planet.png')">
+                            <img :src="getImgUrl('status/lost_on_planet.png')">
                         </p>
                         <p v-else-if="explorator.isStuck">
-                            <img :src="getAssetUrl('status/stuck_in_ship.png')">
+                            <img :src="getImgUrl('status/stuck_in_ship.png')">
                         </p>
                         <p v-else>
-                            <img :src="getAssetUrl('lp.png')"> {{ explorator.healthPoints }}
+                            <img :src="getImgUrl('lp.png')"> {{ explorator.healthPoints }}
                         </p>
                     </li>
                 </ul>
             </div>
-            <span class="info-trigger" @click="show = !show"><img :src="getAssetUrl('down.png')" :class="{ revert: show }"> {{ exploration.uiElements.recoltedInfos }}</span>
+            <span class="info-trigger" @click="show = !show"><img :src="getImgUrl('down.png')" :class="{ revert: show }"> {{ exploration.uiElements.recoltedInfos }}</span>
             <ul class="analysis" v-if="show">
                 <Tippy
                     tag="li"
@@ -39,7 +39,7 @@
                 </Tippy>
             </ul>
             <div v-if="player.hasStatusByKey('lost')" class="lost">
-                <img :src="getAssetUrl('att.png')" alt="warning">
+                <img :src="getImgUrl('att.png')" alt="warning">
                 <p>{{ exploration.uiElements.lost }}</p>
             </div>
         </section>
@@ -47,7 +47,7 @@
             <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle" v-if="exploration.timer?.timerCycle">
                 <template #default="slotProps">
                     <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
-                        <img :src="getAssetUrl('casio.png')">
+                        <img :src="getImgUrl('casio.png')">
                         <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
                         }}h</span>
                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
@@ -60,7 +60,7 @@
             </CountdownTimer>
             <Tippy tag="div" class="estimate" v-else>
                 <div class="timer">
-                    <img :src="getAssetUrl('casio.png')">
+                    <img :src="getImgUrl('casio.png')">
                     <span>{{ exploration.uiElements.finished }}</span>
                 </div>
             </Tippy>
@@ -84,7 +84,7 @@ import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
 import { Exploration } from "@/entities/Exploration";
 import { Player } from "@/entities/Player";
 import PlayerService from "@/services/player.service";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "ExpeditionPanel",
@@ -108,9 +108,9 @@ export default defineComponent ({
         }
     },
     methods: {
-        getAssetUrl,
+        getImgUrl,
         getSectorImage(sectorKey: string): string {
-            return getAssetUrl(`astro/${sectorKey}.png`);
+            return getImgUrl(`astro/${sectorKey}.png`);
         },
         formatText,
         isCycleChangeAvailable(exploration: Exploration) {

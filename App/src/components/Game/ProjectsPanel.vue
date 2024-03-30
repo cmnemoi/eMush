@@ -1,28 +1,28 @@
 <template>
     <ul class="projects">
-        <!--    <li class="project"><span>Project</span><img :src="getAssetUrl('projects/equipment_sensor.png')" alt="Equipment sensor"></li>-->
-        <!--    <li class="project"><span>Project</span><img :src="getAssetUrl('projects/fission_coffee_roaster.png')" alt="Fission coffee roaster"></li>-->
-        <!--    <li class="project"><span>Project</span><img :src="getAssetUrl('projects/plasma_shield.png')" alt="Plasma shield"></li>-->
-        <!--    <li class="project"><span>Project</span><img :src="getAssetUrl('projects/gold/thalasso.png')" alt="Thalasso"></li>-->
-        <!--    <li class="research"><span>Research</span><img :src="getAssetUrl('researches/anti_mush_serum.png')" alt="Anti-mush serum"></li>-->
-        <!--    <li class="research"><span>Res.</span><img :src="getAssetUrl('researches/drug_dispenser.png')" alt="Drug dispenser"></li>-->
-        <!--    <li class="research"><span>Res.</span><img :src="getAssetUrl('researches/myco_alarm.png')" alt="Myco-alarm"></li>-->
-        <!--    <li class="research"><span>Res.</span><img :src="getAssetUrl('researches/natamy_gun.png')" alt="Natamy gun"></li>-->
-        <!--    <li class="research"><span>Res.</span><img :src="getAssetUrl('researches/ncc_lens.png')" alt="NCC lens"></li>-->
-        <!--    <li class="research"><span>Res.</span><img :src="getAssetUrl('researches/mushicide_soap.png')" alt="Mushicide soap"></li>-->
+        <!--    <li class="project"><span>Project</span><img :src="getImgUrl('projects/equipment_sensor.png')" alt="Equipment sensor"></li>-->
+        <!--    <li class="project"><span>Project</span><img :src="getImgUrl('projects/fission_coffee_roaster.png')" alt="Fission coffee roaster"></li>-->
+        <!--    <li class="project"><span>Project</span><img :src="getImgUrl('projects/plasma_shield.png')" alt="Plasma shield"></li>-->
+        <!--    <li class="project"><span>Project</span><img :src="getImgUrl('projects/gold/thalasso.png')" alt="Thalasso"></li>-->
+        <!--    <li class="research"><span>Research</span><img :src="getImgUrl('researches/anti_mush_serum.png')" alt="Anti-mush serum"></li>-->
+        <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/drug_dispenser.png')" alt="Drug dispenser"></li>-->
+        <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/myco_alarm.png')" alt="Myco-alarm"></li>-->
+        <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/natamy_gun.png')" alt="Natamy gun"></li>-->
+        <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/ncc_lens.png')" alt="NCC lens"></li>-->
+        <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/mushicide_soap.png')" alt="Mushicide soap"></li>-->
     </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "ProjectsPanel",
     props: {
     },
     methods: {
-        getAssetUrl
+        getImgUrl
     }
 });
 </script>

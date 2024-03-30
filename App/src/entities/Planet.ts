@@ -1,4 +1,4 @@
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 import { Action } from "@/entities/Action";
 import { PlanetSector } from "@/entities/PlanetSector";
@@ -39,7 +39,7 @@ export class Planet {
     }
 
     public getSmallImage(): string {
-        return getAssetUrl(`astro/planet_${this.imageId}_small.png`);
+        return getImgUrl(`astro/planet_${this.imageId}_small.png`);
     }
 
     public getActionByKey(key: string): Action | null {

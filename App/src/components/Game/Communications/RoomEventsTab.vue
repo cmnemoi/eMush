@@ -2,7 +2,7 @@
     <TabContainer :channel="channel">
         <section v-for="(cycleRoomLog, id) in roomLogs.slice().reverse()" :key="id" class="unit">
             <div class="banner cycle-banner">
-                <img class="expand" :src="getAssetUrl('comms/less.png')">
+                <img class="expand" :src="getImgUrl('comms/less.png')">
                 <span>{{ calendar?.dayName }} {{ cycleRoomLog.day }} {{ calendar?.cycleName }} {{ cycleRoomLog.cycle }}</span>
             </div>
             <div class="cycle-events">
@@ -20,7 +20,7 @@ import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { RoomLog } from "@/entities/RoomLog";
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "RoomEventsTab",
@@ -44,7 +44,7 @@ export default defineComponent ({
         ...mapActions('communication', [
             'loadMessages'
         ]),
-        getAssetUrl
+        getImgUrl
     }
 });
 </script>

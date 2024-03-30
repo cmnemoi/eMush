@@ -3,19 +3,19 @@
         <div class="spinner-container">
             <span>{{ $t('loading') }}</span>
             <div class="spinner">
-                <img :src="getAssetUrl('floor-tile.gif')">
-                <img :src="getAssetUrl('floor-tile.gif')">
-                <img :src="getAssetUrl('floor-tile.gif')">
-                <img :src="getAssetUrl('floor-tile.gif')">
-                <img :src="getAssetUrl('floor-tile.gif')">
-                <img class="cat" :src="getAssetUrl('char/body/cat.png')">
+                <img :src="getImgUrl('floor-tile.gif')">
+                <img :src="getImgUrl('floor-tile.gif')">
+                <img :src="getImgUrl('floor-tile.gif')">
+                <img :src="getImgUrl('floor-tile.gif')">
+                <img :src="getImgUrl('floor-tile.gif')">
+                <img class="cat" :src="getImgUrl('char/body/cat.png')">
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { getAssetUrl } from "@/utils/getAssetUrl";
+import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
@@ -27,7 +27,7 @@ export default defineComponent ({
         }
     },
     methods: {
-        getAssetUrl
+        getImgUrl
     }
 });
 </script>

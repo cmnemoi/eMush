@@ -1,16 +1,16 @@
 <template>
     <div class="homepage-container">
         <section class="decorative">
-            <img class="daedalus" src="@/assets/images/daedalus_home.png" alt="Daedalus" />
+            <img class="daedalus" :src="getImgUrl('daedalus_home.png')" alt="Daedalus" />
             <img
                 class="award"
                 v-if="localeIsFrench()"
-                src="@/assets/images/eigd_fr.png"
+                :src="getImgUrl('eigd_fr.png')"
                 alt="Award" />
             <img
                 class="award"
                 v-else
-                src="@/assets/images/eigd_en.png"
+                :src="getImgUrl('eigd_en.png')"
                 alt="Award" />
         </section>
         <section class="trailer-container">
@@ -19,7 +19,7 @@
                 controls
                 ref="trailer"
                 preload="metadata">
-                <source src="@/assets/videos/trailer_fr.mp4#t=1" type="video/mp4"/>
+                <source :src="getImgUrl('trailer_fr.mp4#t=1')" type="video/mp4"/>
                 Désolé, votre navigateur ne supporte pas les vidéos intégrées.
             </video>
             <video
@@ -27,7 +27,7 @@
                 controls
                 ref="trailer"
                 preload="metadata">
-                <source src="@/assets/videos/trailer_en.mp4#t=1" type="video/mp4"/>
+                <source :src="getImgUrl('trailer_en.mp4#t=1')" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </section>
@@ -52,7 +52,7 @@
                 <transition mode="out-in">
                     <div class="slide" :key="slide">
                         <div class="avatar" :class="chars[slide].id">
-                            <img :src="chars[slide].portrait" :alt="chars[slide].name" />
+                            <img ::src="chars[slide].portrait" :alt="chars[slide].name" />
                         </div>
                         <div class="character-description">
                             <h4>{{ chars[slide].name }}</h4>
@@ -61,8 +61,8 @@
                     </div>
                 </transition>
                 <div class="arrows">
-                    <img class="next" src="@/assets/images/blue-arrow.png" @click="move(-1)">
-                    <img class="previous" src="@/assets/images/blue-arrow.png" @click="move(1)">
+                    <img class="next" :src="getImgUrl('blue-arrow.png')" @click="move(-1)">
+                    <img class="previous" :src="getImgUrl('blue-arrow.png')" @click="move(1)">
                 </div>
             </div>
             -->
@@ -78,41 +78,41 @@
             <div class="reviews">
                 <div>
                     <a href="#">
-                        <img src="@/assets/images/medias/jeuxvideo.png">
+                        <img :src="getImgUrl('medias/jeuxvideo.png')">
                     </a>
                     <p>"Avec un bon groupe, le jeu procure une expérience jouissive où la suspicion, les mensonges et la paranoïa règnent en maîtres. "</p>
                     <span class="score">15/20</span>
                 </div>
                 <div>
                     <a href="#">
-                        <img src="@/assets/images/medias/gamesphere.png">
+                        <img :src="getImgUrl('medias/gamesphere.png')">
                     </a>
                     <p>"Un vrai jeu communautaire où l’on partage une partie de son quotidien avec quinze personnes pour quelques jours"</p>
                     <span class="score">91%</span>
                 </div>
                 <div>
                     <a href="#">
-                        <img src="@/assets/images/medias/gaminfo.png">
+                        <img :src="getImgUrl('medias/gaminfo.png')">
                     </a>
                     <p>"N’oubliez pas que le Mush est toujours là, à rôder dans les couloirs du Daedalus pour contaminer tout l’équipage !"</p>
                 </div>
                 <div>
-                    <img src="@/assets/images/medias/jeuxcapt.png">
+                    <img :src="getImgUrl('medias/jeuxcapt.png')">
                     <p>[...] même si nous avons terminé une partie, nous aurons toujours envie d'en recommencer une nouvelle, car rien ne se déroulera comme la précédente."</p>
                 </div>
                 <div>
-                    <img src="@/assets/images/medias/logo_cpc.png">
+                    <img :src="getImgUrl('medias/logo_cpc.png')">
                     <p>"Mush est l’enfant contre-nature qu’aurait pu avoir un Cylon s’il s’était tapé un des loups-garous de Thiercelieux."</p>
                 </div>
                 <div>
                     <a href="#">
-                        <img src="@/assets/images/medias/gamalive.png">
+                        <img :src="getImgUrl('medias/gamalive.png')">
                     </a>
                     <p>"Un mélange subtil de social, stratégie, gestion et bien d'autres encore. Très addictif une fois qu'on est lancé."</p>
                 </div>
                 <div>
                     <a href="#">
-                        <img src="@/assets/images/medias/gamer-news.png">
+                        <img :src="getImgUrl('medias/gamer-news.png')">
                     </a>
                     <p>"Si vous êtes adepte de jeux de rôles, si vous aimez jouer en équipe et vous marrer en groupe, Mush est fait pour vous."</p>
                     <span class="score">7.2/10</span>
@@ -121,10 +121,10 @@
             -->
             <div class="weblinks">
                 <h3>{{ $t('homePage.followUs') }}</h3>
-                <a href="https://discord.gg/ERc3svy"><img src="@/assets/images/medias/discord.png"> Discord</a>
-                <a href="https://eternaltwin.org/"><img src="@/assets/images/medias/etwin.png"> EternalTwin</a>
-                <a href="https://gitlab.com/eternaltwin/mush/mush"><img src="@/assets/images/medias/gitlab.png"> GitLab</a>
-                <img class="pegi" src="@/assets/images/medias/pegi.png">
+                <a href="https://discord.gg/ERc3svy"><img :src="getImgUrl('medias/discord.png')"> Discord</a>
+                <a href="https://eternaltwin.org/"><img :src="getImgUrl('medias/etwin.png')"> EternalTwin</a>
+                <a href="https://gitlab.com/eternaltwin/mush/mush"><img :src="getImgUrl('medias/gitlab.png')"> GitLab</a>
+                <img class="pegi" :src="getImgUrl('medias/pegi.png')">
             </div>
         </section>
     </div>
@@ -136,6 +136,7 @@ import { mapActions, mapGetters } from "vuex";
 import NewsItem from "./NewsItem.vue";
 import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "HomePage",
@@ -151,6 +152,7 @@ export default defineComponent ({
         ...mapActions('auth', [
             'redirectToLogin'
         ]),
+        getImgUrl,
         localeIsFrench() {
             return this.$i18n.locale.split('-')[0] === 'fr';
         },

@@ -5,13 +5,13 @@
             <section class="planet">
                 <h3>{{ closedExploration.planet }}</h3>
                 <div class="card">
-                    <img class="planet-img" src="@/assets/images/astro/planet_unknown.png">
+                    <img class="planet-img" :src="getImgUrl('astro/planet_unknown.png')">
                     <ul class="crew">
                         <li v-for="(explorator, i) in closedExploration.explorators" :key="i">
                             <img :src="getExploratorBody(explorator)" :alt="explorator">
                             <p>
-                                <img class="explorator-status" src="@/assets/images/in_game.png" v-if="explorator.isAlive">
-                                <img class="explorator-status" src="@/assets/images/dead.png" v-else>
+                                <img class="explorator-status" :src="getImgUrl('in_game.png')" v-if="explorator.isAlive">
+                                <img class="explorator-status" :src="getImgUrl('dead.png')" v-else>
                             </p>
                         </li>
                     </ul>
@@ -36,7 +36,7 @@
         <div class="error" v-else-if="error">
             <h1 class="title">{{ $t("errors.title") }}</h1>
             <div class="error-container">
-                <img class="neron-img" src="@/assets/images/neron_eye.gif" alt="Neron">
+                <img class="neron-img" :src="getImgUrl('neron_eye.gif')" alt="Neron">
                 <span class="neron-message" v-html="$t('errors.neronMessage')"></span>
                 <p class="error">{{ $t('errors.cannotAccessExploration') }}</p>
                 <p class="community" v-html="$t('errors.consultCommunity')"></p>
@@ -56,6 +56,7 @@ import urlJoin from "url-join";
 import { mapState } from "vuex";
 import { formatText } from "@/utils/formatText";
 import { ClosedExplorator } from "@/entities/ClosedExplorator";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "ClosedExpeditionPanel",
@@ -73,6 +74,7 @@ export default defineComponent ({
         };
     },
     methods: {
+        getImgUrl,
         getClosedExplorationById: async(id: number): Promise<ClosedExploration| null> => {
             store.dispatch('gameConfig/setLoading', { loading: true });
             const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
@@ -99,7 +101,7 @@ export default defineComponent ({
             return characterEnum[explorator.logName].body;
         },
         getSectorImageByKey(key: string): string {
-            return require(`@/assets/images/astro/${key}.png`);
+            return getImgUrl(`astro/${key}.png`);
         },
         formatText
     },

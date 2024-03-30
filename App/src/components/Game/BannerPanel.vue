@@ -25,28 +25,28 @@
             <div class="daedalus-info">
                 <ul>
                     <Tippy tag="li">
-                        <span>{{ daedalus.oxygen.quantity }} <img src="@/assets/images/o2.png"></span>
+                        <span>{{ daedalus.oxygen.quantity }} <img :src="getImgUrl('o2.png')"></span>
                         <template #content>
                             <h1 v-html="formatContent(daedalus.oxygen.name)" />
                             <p v-html="formatContent(daedalus.oxygen.description)" />
                         </template>
                     </Tippy>
                     <Tippy tag="li">
-                        <span>{{ daedalus.fuel.quantity }} <img src="@/assets/images/fuel.png"></span>
+                        <span>{{ daedalus.fuel.quantity }} <img :src="getImgUrl('fuel.png')"></span>
                         <template #content>
                             <h1 v-html="formatContent(daedalus.fuel.name)" />
                             <p v-html="formatContent(daedalus.fuel.description)" />
                         </template>
                     </Tippy>
                     <Tippy tag="li">
-                        <span>{{ daedalus.hull.quantity }} <img src="@/assets/images/shield.png"></span>
+                        <span>{{ daedalus.hull.quantity }} <img :src="getImgUrl('shield.png')"></span>
                         <template #content>
                             <h1 v-html="formatContent(daedalus.hull.name)" />
                             <p v-html="formatContent(daedalus.hull.description)" />
                         </template>
                     </Tippy>
                     <Tippy tag="li">
-                        <span>{{ player.triumph?.quantity }} <img src="@/assets/images/triumph.png"></span>
+                        <span>{{ player.triumph?.quantity }} <img :src="getImgUrl('triumph.png')"></span>
                         <template #content>
                             <h1 v-html="player?.triumph?.name" />
                             <p v-html="player?.triumph?.description" />
@@ -58,19 +58,19 @@
                 <Tippy tag="div">
                     <ol>
                         <li v-for="(key) in daedalus.humanPlayerAlive" :key="key">
-                            <img class="alive" src="@/assets/images/p_alive.png" alt="crewmate">
+                            <img class="alive" :src="getImgUrl('p_alive.png')" alt="crewmate">
                         </li>
                         <li v-for="(key) in daedalus.mushPlayerAlive" :key="key">
-                            <img class="mush" src="@/assets/images/p_mush.png" alt="mush">
+                            <img class="mush" :src="getImgUrl('p_mush.png')" alt="mush">
                         </li>
                         <li v-for="(key) in daedalus.cryogenizedPlayers" :key="key">
-                            <img class="cryo" src="@/assets/images/p_cryo.png" alt="in cryosleep">
+                            <img class="cryo" :src="getImgUrl('p_cryo.png')" alt="in cryosleep">
                         </li>
                         <li v-for="(key) in daedalus.mushPlayerDead" :key="key">
-                            <img class="deadmush" src="@/assets/images/p_deadmush.png" alt="dead mush">
+                            <img class="deadmush" :src="getImgUrl('p_deadmush.png')" alt="dead mush">
                         </li>
                         <li v-for="(key) in daedalus.humanPlayerDead" :key="key">
-                            <img class="dead" src="@/assets/images/p_dead.png" alt="dead crewmate">
+                            <img class="dead" :src="getImgUrl('p_dead.png')" alt="dead crewmate">
                         </li>
                     </ol>
                     <template #content>
@@ -82,7 +82,7 @@
             <div class="cycle-time">
                 <Tippy tag="div">
                     <ul>
-                        <li v-if="!isCycleChangeAvailable(daedalus)"><img class="casio-img" src="@/assets/images/casio.png"></li>
+                        <li v-if="!isCycleChangeAvailable(daedalus)"><img class="casio-img" :src="getImgUrl('casio.png')"></li>
                         <li>
                             <countdown-timer :end-date="daedalus?.timer?.timerCycle">
                                 <template #default="slotProps">
@@ -117,6 +117,7 @@ import TitleImage from "@/components/Utils/TitleImage.vue";
 import Alerts from "@/components/Game/Ship/Alerts.vue";
 import { defineComponent } from "vue";
 import PlayerService from "@/services/player.service";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 
 export default defineComponent({
@@ -127,6 +128,7 @@ export default defineComponent({
         daedalus: Daedalus
     },
     methods: {
+        getImgUrl,
         isCycleChangeAvailable(daedalus: Daedalus | undefined): boolean {
             if (!daedalus?.timer?.timerCycle) {
                 return false;

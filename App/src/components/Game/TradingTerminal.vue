@@ -1,6 +1,6 @@
 <template>
     <div class="trading-terminal">
-        <h1><img :src="getImgUrl('spot2.svg')"> Radio ondes courtes</h1>
+        <h1><img :src="getAssetUrl('spot2.svg')"> Radio ondes courtes</h1>
         <div class="tips">
             <input id="tips-comm" type="checkbox" name="tips-comm">
             <label for="tips-comm">
@@ -37,7 +37,7 @@
 
         <section class="trade">
             <div class="proposal">
-                <img :src="getImgUrl('trading.png')">
+                <img :src="getAssetUrl('trading.png')">
                 <p>Aloha, vos organismes sont vraiment passionnant surtout la métanisation de vos déchets organiques, incroyable... Nous vous échangeons un de vos amis contre des réserves d'oxygène conséquentes !</p>
             </div>
             <button class="choice">
@@ -50,7 +50,7 @@
         </section>
         <section class="trade">
             <div class="proposal">
-                <img :src="getImgUrl('trading.png')">
+                <img :src="getAssetUrl('trading.png')">
                 <p>Aloha, vos organismes sont vraiment passionnant surtout la métanisation de vos déchets organiques, incroyable... Nous vous échangeons un de vos amis contre des réserves d'oxygène conséquentes !</p>
             </div>
             <button class="choice">
@@ -69,14 +69,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default defineComponent ({
     name: "TradingTerminal",
     props: {
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     }
 });
 </script>

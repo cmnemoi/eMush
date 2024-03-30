@@ -22,8 +22,8 @@
         <section v-if="advanceDaedalusAction || leaveOrbitAction">
             <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
             <div class="move-status" v-if="terminal.infos.advanceDaedalusStatus">
-                <img :src="getImgUrl('att.png')" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
-                <img :src="getImgUrl('info.png')" alt="info" v-else>
+                <img :src="getAssetUrl('att.png')" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
+                <img :src="getAssetUrl('info.png')" alt="info" v-else>
                 <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
             <div class="action">
@@ -49,7 +49,7 @@
             <h3>Pilgred</h3>
             <div class="action">
                 <button>
-                    <span class="cost">1<img :src="getImgUrl('pa.png')" alt="ap"></span>
+                    <span class="cost">1<img :src="getAssetUrl('pa.png')" alt="ap"></span>
                     <span>Retourner sur Sol</span>
                 </button>
             </div>
@@ -70,7 +70,7 @@ import ActionButton from "@/components/Utils/ActionButton.vue";
 import { Action } from "@/entities/Action";
 import { ActionEnum } from "@/enums/action.enum";
 import { mapActions } from "vuex";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 
 export default defineComponent ({
@@ -113,7 +113,7 @@ export default defineComponent ({
                 await this.executeAction({ target, action });
             }
         },
-        getImgUrl,
+        getAssetUrl,
         formatText,
     },
     data() {

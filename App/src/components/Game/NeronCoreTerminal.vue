@@ -2,7 +2,7 @@
 
 <template>
     <div class="neron-core-terminal">
-        <h1><img :src="getImgUrl('spot2.svg')"> Cœur de NERON V4.54</h1>
+        <h1><img :src="getAssetUrl('spot2.svg')"> Cœur de NERON V4.54</h1>
         <div class="tips">
             <input id="tips" type="checkbox" name="tips">
             <label for="tips">
@@ -19,11 +19,11 @@
             <div class="project">
                 <h3>Anti-gravity Thrusters</h3>
                 <div class="card">
-                    <img :src="getImgUrl('projects/icarus_antigrav_propeller.png')">
+                    <img :src="getAssetUrl('projects/icarus_antigrav_propeller.png')">
                     <div class="progress-container">
                         <div>
-                            <img class="skill" :src="getImgUrl('skills/human/cook.png')">
-                            <img class="skill" :src="getImgUrl('skills/human/sturdy.png')">
+                            <img class="skill" :src="getAssetUrl('skills/human/cook.png')">
+                            <img class="skill" :src="getAssetUrl('skills/human/sturdy.png')">
                         </div>
                         <span class="completion">0%</span>
                     </div>
@@ -42,10 +42,10 @@
             <div class="project ongoing">
                 <h3>Launch Propulsion System</h3>
                 <div class="card">
-                    <img :src="getImgUrl('projects/patrol_ship_launcher.png')">
+                    <img :src="getAssetUrl('projects/patrol_ship_launcher.png')">
                     <div class="progress-container">
                         <div>
-                            <img class="skill" :src="getImgUrl('skills/human/sturdy.png')">
+                            <img class="skill" :src="getAssetUrl('skills/human/sturdy.png')">
                         </div>
                         <span class="completion">25%</span>
                     </div>
@@ -69,14 +69,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default defineComponent ({
     name: "NeronCoreTerminal",
     props: {
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     }
 });
 </script>

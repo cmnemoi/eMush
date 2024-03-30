@@ -1,6 +1,6 @@
 import sanitizeHtml from 'sanitize-html';
 
-import { getImgUrl } from './getImgUrl';
+import { getAssetUrl } from './getAssetUrl';
 
 import { AlertEnum, AlertsIcons } from '@/enums/alerts.enum';
 import { CharacterEnum, characterEnum } from '@/enums/character';
@@ -12,45 +12,45 @@ export const helpers = {
     computeImageHtml(key: string): string {
         switch(key) {
         case "hp":
-            return `<img src="${getImgUrl('lp.png')}" alt="hp">`;
+            return `<img src="${getAssetUrl('lp.png')}" alt="hp">`;
         case "pa":
-            return `<img src="${getImgUrl('pa.png')}" alt="pa">`;
+            return `<img src="${getAssetUrl('pa.png')}" alt="pa">`;
         case "pm":
-            return `<img src="${getImgUrl('pm.png')}" alt="pm">`;
+            return `<img src="${getAssetUrl('pm.png')}" alt="pm">`;
         case "pmo":
-            return `<img src="${getImgUrl('moral.png')}" alt="pmo">`;
+            return `<img src="${getAssetUrl('moral.png')}" alt="pmo">`;
         case "triumph":
-            return `<img src="${getImgUrl('triumph.png')}" alt="pmo">`;
+            return `<img src="${getAssetUrl('triumph.png')}" alt="pmo">`;
         case "ill":
-            return `<img src="${getImgUrl('status/disease.png')}" alt="ill">`;
+            return `<img src="${getAssetUrl('status/disease.png')}" alt="ill">`;
         case "pill":
-            return `<img src="${getImgUrl('status/demoralized2.png')}" alt="pill">`;
+            return `<img src="${getAssetUrl('status/demoralized2.png')}" alt="pill">`;
         case "dead":
-            return `<img src="${getImgUrl('dead.png')}" alt="dead">`;
+            return `<img src="${getAssetUrl('dead.png')}" alt="dead">`;
         case "cat":
-            return `<img src="${getImgUrl('char/body/cat.png')}" alt="cat">`;
+            return `<img src="${getAssetUrl('char/body/cat.png')}" alt="cat">`;
         case "hurt":
-            return `<img src="${getImgUrl('status/injury.png')}" alt="hurt">`;
+            return `<img src="${getAssetUrl('status/injury.png')}" alt="hurt">`;
         case "psy_disease":
-            return `<img src="${getImgUrl('status/disorder.png')}" alt="psy_disease">`;
+            return `<img src="${getAssetUrl('status/disorder.png')}" alt="psy_disease">`;
         case "hungry":
-            return `<img src="${getImgUrl('status/hungry.png')}" alt="hungry">`;
+            return `<img src="${getAssetUrl('status/hungry.png')}" alt="hungry">`;
         case "talkie":
-            return `<img src="${getImgUrl('comms/talkie.png')}" alt="talkie">`;
+            return `<img src="${getAssetUrl('comms/talkie.png')}" alt="talkie">`;
         case "mush":
-            return `<img src="${getImgUrl('status/mush.png')}" alt="mush">`;
+            return `<img src="${getAssetUrl('status/mush.png')}" alt="mush">`;
         case "pa_cook":
-            return `<img src="${getImgUrl('pa_cook.png')}" alt="pa_cook">`;
+            return `<img src="${getAssetUrl('pa_cook.png')}" alt="pa_cook">`;
         case "hunter":
-            return `<img src="${getImgUrl('alerts/hunter.png')}" alt="hunter">`;
+            return `<img src="${getAssetUrl('alerts/hunter.png')}" alt="hunter">`;
         case "pa_shoot":
-            return `<img src="${getImgUrl('pa_shoot.png')}" alt="pa_shoot">`;
+            return `<img src="${getAssetUrl('pa_shoot.png')}" alt="pa_shoot">`;
         case "pa_core":
-            return `<img src="${getImgUrl('pa_core.png')}" alt="pa_core">`;
+            return `<img src="${getAssetUrl('pa_core.png')}" alt="pa_core">`;
         case "planet":
-            return `<img src="${getImgUrl('planet.png')}" alt="planet">`;
+            return `<img src="${getAssetUrl('planet.png')}" alt="planet">`;
         case "fuel":
-            return `<img src="${getImgUrl('fuel.png')}" alt="fuel">`;
+            return `<img src="${getAssetUrl('fuel.png')}" alt="fuel">`;
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }

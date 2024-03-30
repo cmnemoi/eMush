@@ -15,7 +15,7 @@
                             </p>
                         </div>
                         <p class="score">
-                            {{ player.triumph?.quantity }}<img :src="getImgUrl('triumph.png')" alt="triumph">
+                            {{ player.triumph?.quantity }}<img :src="getAssetUrl('triumph.png')" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">
@@ -31,7 +31,7 @@
                     </div>
                     <div>
                         <p class="death-cause">
-                            <img :src="getImgUrl('dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
+                            <img :src="getAssetUrl('dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
                         </p>
                     </div>
                     <HistoryLogs />
@@ -51,7 +51,7 @@
                         <td>{{ crewPlayer.endCauseValue }}</td>
                         <td>
                             <button class="like" :class="isPlayerLiked(crewPlayer.id) ? 'liked' : ''" @click="toggleLike(crewPlayer.id)">
-                                {{ getNumberLikes(crewPlayer) }} <img :src="getImgUrl('dislike.png')">
+                                {{ getNumberLikes(crewPlayer) }} <img :src="getAssetUrl('dislike.png')">
                             </button>
                         </td>
                     </tr>
@@ -74,7 +74,7 @@ import HistoryLogs from "@/components/Game/HistoryLogs.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import { defineComponent } from "vue";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 interface PurgatoryState {
     deadPlayerInfo: DeadPlayerInfo | null,
@@ -106,7 +106,7 @@ export default defineComponent ({
         };
     },
     methods: {
-        getImgUrl,
+        getAssetUrl,
         toggleLike: function(playerId: number): void {
             if (!playerId) return;
             if (this.likedPlayers.includes(playerId)) {

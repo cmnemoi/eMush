@@ -3,10 +3,10 @@
         <a
             :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
-            <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
-            <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap"></span>
-            <span v-else-if="action.actionPointCost > 0 && action.movementPointCost > 0" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
-            <span v-if="action.shootPointCost" class="cost">{{ action.shootPointCost }}<img :src="getImgUrl('pa_shoot.png')" alt="pa_shoot"></span>
+            <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img :src="getAssetUrl('pm.png')" alt="mp"></span>
+            <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getAssetUrl('pa.png')" alt="ap"></span>
+            <span v-else-if="action.actionPointCost > 0 && action.movementPointCost > 0" class="cost">{{ action.actionPointCost }}<img :src="getAssetUrl('pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getAssetUrl('pm.png')" alt="mp"></span>
+            <span v-if="action.shootPointCost" class="cost">{{ action.shootPointCost }}<img :src="getAssetUrl('pa_shoot.png')" alt="pa_shoot"></span>
             <span v-if="action.canExecute">{{ action.name }}</span>
             <span v-else><s>{{ action.name }}</s></span>
             <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
@@ -24,7 +24,7 @@ import { defineComponent } from "vue";
 import { Action } from "@/entities/Action";
 import { Player } from "@/entities/Player";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default defineComponent ({
     props: {
@@ -38,7 +38,7 @@ export default defineComponent ({
         }
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     },
     data() {
         return {

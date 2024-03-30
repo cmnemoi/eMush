@@ -2,7 +2,7 @@
     <TabContainer id="tips-tab" :channel="channel" style="display: none;">
         <section class="unit">
             <div class="banner">
-                <span><img :src="getImgUrl('comms/tip.png')"> Conseils <img :src="getImgUrl('comms/tip.png')"></span>
+                <span><img :src="getAssetUrl('comms/tip.png')"> Conseils <img :src="getAssetUrl('comms/tip.png')"></span>
             </div>
             <div class="tip focus">
                 <span class="title">Rétablir la communication</span>
@@ -16,11 +16,11 @@
 
         <section class="unit">
             <div class="banner">
-                <span><img :src="getImgUrl('comms/star.png')"> Annonce Générale <img :src="getImgUrl('comms/star.png')"></span>
+                <span><img :src="getAssetUrl('comms/star.png')"> Annonce Générale <img :src="getAssetUrl('comms/star.png')"></span>
             </div>
             <div class="message">
                 <div class="char-portrait">
-                    <img :src="getImgUrl('char/body/paola.png')">
+                    <img :src="getAssetUrl('char/body/paola.png')">
                 </div>
                 <p>
                     <span class="author">Paola :</span><strong>Salut à tous !</strong><br>
@@ -32,11 +32,11 @@
 
         <section class="unit">
             <div class="banner">
-                <span><img :src="getImgUrl('comms/notebook.png')"> Missions <img :src="getImgUrl('comms/notebook.png')"></span>
+                <span><img :src="getAssetUrl('comms/notebook.png')"> Missions <img :src="getAssetUrl('comms/notebook.png')"></span>
             </div>
             <div class="message">
                 <div class="char-portrait">
-                    <img :src="getImgUrl('char/body/jin_su.png')">
+                    <img :src="getAssetUrl('char/body/jin_su.png')">
                 </div>
                 <p><span class="author">Jin Su :</span>Mission pour rétablir les comms.</p>
                 <span class="timestamp">~1d</span>
@@ -49,7 +49,7 @@
 import { Channel } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 
 export default defineComponent ({
@@ -61,7 +61,7 @@ export default defineComponent ({
         channel: Channel
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     }
 });
 </script>

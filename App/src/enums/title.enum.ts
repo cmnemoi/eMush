@@ -1,4 +1,4 @@
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 const DEFAULT = "default";
 
@@ -14,16 +14,16 @@ export interface TitleInfos {
 
 export const titleEnum : {[index: string]: TitleInfos}  = {
     [TitleEnum.COMMANDER]: {
-        'image': getImgUrl('title_commander.png'),
+        'image': getAssetUrl('title_commander.png'),
     },
     [TitleEnum.COM_MANAGER]: {
-        'image': getImgUrl('title_com_manager.png'),
+        'image': getAssetUrl('title_com_manager.png'),
     },
     [TitleEnum.NERON_MANAGER]: {
-        'image': getImgUrl('title_neron_manager.png'),
+        'image': getAssetUrl('title_neron_manager.png'),
     },
     [DEFAULT]: {
-        'image': getImgUrl('title_commander.png'),
+        'image': getAssetUrl('title_commander.png'),
     }
 }
 ;

@@ -3,7 +3,7 @@
         <section class="unit">
             <div class="message main-message">
                 <div class="char-portrait">
-                    <img :src="getImgUrl('char/body/stephen.png')">
+                    <img :src="getAssetUrl('char/body/stephen.png')">
                 </div>
                 <p><span class="author">Stephen :</span>Comrades. Today starts the revolution</p>
                 <span class="timestamp">2 jours</span>
@@ -11,14 +11,14 @@
             <a href="#" class="chat-expand">Afficher les 18 réponses</a>
             <div class="message child-message">
                 <p>
-                    <img :src="getImgUrl('char/head/frieda.png')">
+                    <img :src="getAssetUrl('char/head/frieda.png')">
                     <span class="author">Frieda :</span>The ghost is ok with that. BoooOOOOooOOOooo.
                 </p>
                 <span class="timestamp">2 jours</span>
             </div>
             <div class="message child-message">
                 <p>
-                    <img :src="getImgUrl('char/head/jin_su.png')">
+                    <img :src="getAssetUrl('char/head/jin_su.png')">
                     <span class="author">Jin Su :</span>I, Leader of the Ship, must show my disagreement, you mustached crazy moron !
                 </p>
                 <span class="timestamp">2 jours</span>
@@ -31,7 +31,7 @@
 import { Channel } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 
 export default defineComponent ({
@@ -43,7 +43,7 @@ export default defineComponent ({
         channel: Channel
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     }
 });
 </script>

@@ -1,4 +1,4 @@
-import { getImgUrl } from '../utils/getImgUrl';
+import { getAssetUrl } from '../utils/getAssetUrl';
 
 const PLASTIC_SCRAP = "plastic_scraps";
 const METAL_SCRAP = "metal_scraps";
@@ -117,304 +117,304 @@ const ALIEN_STEAK = "alien_steak";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
-        'image': getImgUrl('items/alien_can_opener.jpg')
+        'image': getAssetUrl('items/alien_can_opener.jpg')
     },
     [ECHOLOCATOR]: {
-        'image': getImgUrl('items/echo_sounder.jpg')
+        'image': getAssetUrl('items/echo_sounder.jpg')
     },
     [ROLLING_BOULDER]: {
-        'image': getImgUrl('items/rolling_boulder.jpg')
+        'image': getAssetUrl('items/rolling_boulder.jpg')
     },
     [OSCILLOSCOPE]: {
-        'image': getImgUrl('items/wavoscope.jpg')
+        'image': getAssetUrl('items/wavoscope.jpg')
     },
     [MEDIKIT]: {
-        'image': getImgUrl('items/medikit.jpg')
+        'image': getAssetUrl('items/medikit.jpg')
     },
     [BANDAGE]: {
-        'image': getImgUrl('items/bandage.jpg')
+        'image': getAssetUrl('items/bandage.jpg')
     },
     [ANTIGRAV_SCOOTER]: {
-        'image': getImgUrl('items/antigrav_scooter.jpg')
+        'image': getAssetUrl('items/antigrav_scooter.jpg')
     },
     [JAR_OF_ALIEN_OIL]: {
-        'image': getImgUrl('items/alien_oil.jpg')
+        'image': getAssetUrl('items/alien_oil.jpg')
     },
     [COFFEE]: {
-        'image': getImgUrl('items/coffee.jpg')
+        'image': getAssetUrl('items/coffee.jpg')
     },
     [METAL_SCRAP]: {
-        'image': getImgUrl('items/metal_scraps.jpg')
+        'image': getAssetUrl('items/metal_scraps.jpg')
     },
     [PLASTIC_SCRAP]: {
-        'image': getImgUrl('items/plastic_scraps.jpg')
+        'image': getAssetUrl('items/plastic_scraps.jpg')
     },
     [APPRENTON]: {
-        'image': getImgUrl('items/book.jpg')
+        'image': getAssetUrl('items/book.jpg')
     },
     [BLUEPRINT]: {
-        'image': getImgUrl('items/blueprint.jpg')
+        'image': getAssetUrl('items/blueprint.jpg')
     },
     [SNIPER_HELMET]: {
-        'image': getImgUrl('items/aiming_helmet.jpg')
+        'image': getAssetUrl('items/aiming_helmet.jpg')
     },
     [STANDARD_RATION]: {
-        'image': getImgUrl('items/ration_0.jpg')
+        'image': getAssetUrl('items/ration_0.jpg')
     },
     [COOKED_RATION]: {
-        'image': getImgUrl('items/ration_1.jpg')
+        'image': getAssetUrl('items/ration_1.jpg')
     },
     [MAD_KUBE]: {
-        'image': getImgUrl('items/mad_kube.jpg')
+        'image': getAssetUrl('items/mad_kube.jpg')
     },
     [MICROWAVE]: {
-        'image': getImgUrl('items/microwave.jpg')
+        'image': getAssetUrl('items/microwave.jpg')
     },
     [SUPERFREEZER]: {
-        'image': getImgUrl('items/freezer.jpg')
+        'image': getAssetUrl('items/freezer.jpg')
     },
     [HYDROPOT]: {
-        'image': getImgUrl('items/tree_pot.jpg')
+        'image': getAssetUrl('items/tree_pot.jpg')
     },
 
     [TWINOID]: {
-        'image': getImgUrl('items/drug/drug_0.jpg')
+        'image': getAssetUrl('items/drug/drug_0.jpg')
     },
     [XENOX]: {
-        'image': getImgUrl('items/drug/drug_1.jpg')
+        'image': getAssetUrl('items/drug/drug_1.jpg')
     },
     [PHUXX]: {
-        'image': getImgUrl('items/drug/drug_2.jpg')
+        'image': getAssetUrl('items/drug/drug_2.jpg')
     },
     [EUFURYLATE]: {
-        'image': getImgUrl('items/drug/drug_3.jpg')
+        'image': getAssetUrl('items/drug/drug_3.jpg')
     },
     [SOMA]: {
-        'image': getImgUrl('items/drug/drug_4.jpg')
+        'image': getAssetUrl('items/drug/drug_4.jpg')
     },
     [SPYCE]: {
-        'image': getImgUrl('items/drug/drug_5.jpg')
+        'image': getAssetUrl('items/drug/drug_5.jpg')
     },
     [NEWKE]: {
-        'image': getImgUrl('items/drug/drug_6.jpg')
+        'image': getAssetUrl('items/drug/drug_6.jpg')
     },
     [PINQ]: {
-        'image': getImgUrl('items/drug/drug_7.jpg')
+        'image': getAssetUrl('items/drug/drug_7.jpg')
     },
     [BACTA]: {
-        'image': getImgUrl('items/drug/drug_8.jpg')
+        'image': getAssetUrl('items/drug/drug_8.jpg')
     },
     [BETAPROPYL]: {
-        'image': getImgUrl('items/drug/drug_9.jpg')
+        'image': getAssetUrl('items/drug/drug_9.jpg')
     },
     [PYMP]: {
-        'image': getImgUrl('items/drug/drug_10.jpg')
+        'image': getAssetUrl('items/drug/drug_10.jpg')
     },
     [ROSEBUD]: {
-        'image': getImgUrl('items/drug/drug_11.jpg')
+        'image': getAssetUrl('items/drug/drug_11.jpg')
     },
 
     [BANANA_TREE]: {
-        'image': getImgUrl('items/plant/fruit_tree00.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree00.jpg')
     },
     [BANANA]: {
-        'image': getImgUrl('items/fruit/fruit00.jpg')
+        'image': getAssetUrl('items/fruit/fruit00.jpg')
     },
     [CREEPNUT_TREE]: {
-        'image': getImgUrl('items/plant/fruit_tree01.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree01.jpg')
     },
     [CREEPNUT]: {
-        'image': getImgUrl('items/fruit/fruit01.jpg')
+        'image': getAssetUrl('items/fruit/fruit01.jpg')
     },
     [CACTAX]: {
-        'image': getImgUrl('items/plant/fruit_tree02.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree02.jpg')
     },
     [MEZTINE]: {
-        'image': getImgUrl('items/fruit/fruit02.jpg')
+        'image': getAssetUrl('items/fruit/fruit02.jpg')
     },
     [BIFFLON]: {
-        'image': getImgUrl('items/plant/fruit_tree03.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree03.jpg')
     },
     [GUNTIFLOP]: {
-        'image': getImgUrl('items/fruit/fruit03.jpg')
+        'image': getAssetUrl('items/fruit/fruit03.jpg')
     },
     [PULMMINAGRO]: {
-        'image': getImgUrl('items/plant/fruit_tree04.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree04.jpg')
     },
     [PLOSHMINA]: {
-        'image': getImgUrl('items/fruit/fruit04.jpg')
+        'image': getAssetUrl('items/fruit/fruit04.jpg')
     },
     [PRECATUS]: {
-        'image': getImgUrl('items/plant/fruit_tree05.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree05.jpg')
     },
     [PRECATI]: {
-        'image': getImgUrl('items/fruit/fruit05.jpg')
+        'image': getAssetUrl('items/fruit/fruit05.jpg')
     },
     [BUTTALIEN]: {
-        'image': getImgUrl('items/plant/fruit_tree06.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree06.jpg')
     },
     [BOTTINE]: {
-        'image': getImgUrl('items/fruit/fruit06.jpg')
+        'image': getAssetUrl('items/fruit/fruit06.jpg')
     },
     [PLATACIA]: {
-        'image': getImgUrl('items/plant/fruit_tree07.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree07.jpg')
     },
     [FRAGILANE]: {
-        'image': getImgUrl('items/fruit/fruit07.jpg')
+        'image': getAssetUrl('items/fruit/fruit07.jpg')
     },
     [TUBILISCUS]: {
-        'image': getImgUrl('items/plant/fruit_tree08.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree08.jpg')
     },
     [ANEMOLE]: {
-        'image': getImgUrl('items/fruit/fruit08.jpg')
+        'image': getAssetUrl('items/fruit/fruit08.jpg')
     },
     [GRAAPSHOOT]: {
-        'image': getImgUrl('items/plant/fruit_tree09.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree09.jpg')
     },
     [PENICRAFT]: {
-        'image': getImgUrl('items/fruit/fruit09.jpg')
+        'image': getAssetUrl('items/fruit/fruit09.jpg')
     },
     [FIBONICCUS]: {
-        'image': getImgUrl('items/plant/fruit_tree10.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree10.jpg')
     },
     [KUBINUS]: {
-        'image': getImgUrl('items/fruit/fruit10.jpg')
+        'image': getAssetUrl('items/fruit/fruit10.jpg')
     },
     [MYCOPIA]: {
-        'image': getImgUrl('items/plant/fruit_tree11.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree11.jpg')
     },
     [CALEBOOT]: {
-        'image': getImgUrl('items/fruit/fruit11.jpg')
+        'image': getAssetUrl('items/fruit/fruit11.jpg')
     },
     [ASPERAGUNK]: {
-        'image': getImgUrl('items/plant/fruit_tree12.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree12.jpg')
     },
     [FILANDRA]: {
-        'image': getImgUrl('items/fruit/fruit12.jpg')
+        'image': getAssetUrl('items/fruit/fruit12.jpg')
     },
     [BUMPJUMPKIN]: {
-        'image': getImgUrl('items/plant/fruit_tree13.jpg')
+        'image': getAssetUrl('items/plant/fruit_tree13.jpg')
     },
     [JUMPKIN]: {
-        'image': getImgUrl('items/fruit/fruit13.jpg')
+        'image': getAssetUrl('items/fruit/fruit13.jpg')
     },
 
     [PLASTENITE_ARMOR]: {
-        'image': getImgUrl('items/plastenite_armor.jpg')
+        'image': getAssetUrl('items/plastenite_armor.jpg')
     },
     [CAMERA_ITEM]: {
-        'image': getImgUrl('items/camera.jpg')
+        'image': getAssetUrl('items/camera.jpg')
     },
     [EXTINGUISHER]: {
-        'image': getImgUrl('items/extinguisher.jpg')
+        'image': getAssetUrl('items/extinguisher.jpg')
     },
     [DUCT_TAPE]: {
-        'image': getImgUrl('items/duck_tape.jpg')
+        'image': getAssetUrl('items/duck_tape.jpg')
     },
     [BLASTER]: {
-        'image': getImgUrl('items/blaster.jpg')
+        'image': getAssetUrl('items/blaster.jpg')
     },
     [HACKER_KIT]: {
-        'image': getImgUrl('items/hacker_kit.jpg')
+        'image': getAssetUrl('items/hacker_kit.jpg')
     },
     [GRENADE]: {
-        'image': getImgUrl('items/grenade.jpg')
+        'image': getAssetUrl('items/grenade.jpg')
     },
     [QUADRIMETRIC_COMPASS]: {
-        'image': getImgUrl('items/quad_compass.jpg')
+        'image': getAssetUrl('items/quad_compass.jpg')
     },
     [ADJUSTABLE_WRENCH]: {
-        'image': getImgUrl('items/wrench.jpg')
+        'image': getAssetUrl('items/wrench.jpg')
     },
     [APRON]: {
-        'image': getImgUrl('items/apron.jpg')
+        'image': getAssetUrl('items/apron.jpg')
     },
     [BLOCK_POST_IT]: {
-        'image': getImgUrl('items/postit_bloc.jpg')
+        'image': getAssetUrl('items/postit_bloc.jpg')
     },
     [POST_IT]: {
-        'image': getImgUrl('items/postit.jpg')
+        'image': getAssetUrl('items/postit.jpg')
     },
     [ROPE]: {
-        'image': getImgUrl('items/rope.jpg')
+        'image': getAssetUrl('items/rope.jpg')
     },
     [DRILL]: {
-        'image': getImgUrl('items/driller.jpg')
+        'image': getAssetUrl('items/driller.jpg')
     },
     [KNIFE]: {
-        'image': getImgUrl('items/knife.jpg')
+        'image': getAssetUrl('items/knife.jpg')
     },
     [GLOVES]: {
-        'image': getImgUrl('items/protection_gloves.jpg')
+        'image': getAssetUrl('items/protection_gloves.jpg')
     },
     [SOAP]: {
-        'image': getImgUrl('items/soap.jpg')
+        'image': getAssetUrl('items/soap.jpg')
     },
     [TABULATRIX]: {
-        'image': getImgUrl('items/printer.jpg')
+        'image': getAssetUrl('items/printer.jpg')
     },
     [OXYGEN_CAPSULE]: {
-        'image': getImgUrl('items/oxy_capsule.jpg')
+        'image': getAssetUrl('items/oxy_capsule.jpg')
     },
     [FUEL_CAPSULE]: {
-        'image': getImgUrl('items/fuel_capsule.jpg')
+        'image': getAssetUrl('items/fuel_capsule.jpg')
     },
     [THICK_TUBE]: {
-        'image': getImgUrl('items/thick_tube.jpg')
+        'image': getAssetUrl('items/thick_tube.jpg')
     },
     [SPACE_CAPSULE]: {
-        'image': getImgUrl('items/space_capsule.jpg')
+        'image': getAssetUrl('items/space_capsule.jpg')
     },
     [SPORE_SUCKER]: {
-        'image': getImgUrl('items/spore_sucker.jpg')
+        'image': getAssetUrl('items/spore_sucker.jpg')
     },
     [ALIEN_HOLOGRAPHIC_TV]: {
-        'image': getImgUrl('items/alien_holographic_tv.jpg')
+        'image': getAssetUrl('items/alien_holographic_tv.jpg')
     },
     [WALKIE_TALKIE]: {
-        'image': getImgUrl('items/walkie_talkie.jpg')
+        'image': getAssetUrl('items/walkie_talkie.jpg')
     },
     [TRACKER]: {
-        'image': getImgUrl('items/tracker.jpg')
+        'image': getAssetUrl('items/tracker.jpg')
     },
     [ITRACKIE]: {
-        'image': getImgUrl('items/super_talkie.jpg')
+        'image': getAssetUrl('items/super_talkie.jpg')
     },
     [ORGANIC_WASTE]: {
-        'image': getImgUrl('items/organic_waste.jpg')
+        'image': getAssetUrl('items/organic_waste.jpg')
     },
     [SPACESUIT]: {
-        'image': getImgUrl('items/space_suit.jpg')
+        'image': getAssetUrl('items/space_suit.jpg')
     },
     [MAGELLAN_LIQUID_MAP]: {
-        'image': getImgUrl('items/magellan_liquid_map.jpg')
+        'image': getAssetUrl('items/magellan_liquid_map.jpg')
     },
     [STARMAP_FRAGMENT]: {
-        'image': getImgUrl('items/super_map.jpg')
+        'image': getAssetUrl('items/super_map.jpg')
     },
     [WATER_STICK]: {
-        'image': getImgUrl('items/water_stick.jpg')
+        'image': getAssetUrl('items/water_stick.jpg')
     },
     [INVERTEBRATE_SHELL]: {
-        'image': getImgUrl('items/insectoid_shell.jpg')
+        'image': getAssetUrl('items/insectoid_shell.jpg')
     },
     [PRINTED_CIRCUIT_JELLY]: {
-        'image': getImgUrl('items/computer_jelly.jpg')
+        'image': getAssetUrl('items/computer_jelly.jpg')
     },
     [OLD_FAITHFUL]: {
-        'image': getImgUrl('items/machine_gun.jpg')
+        'image': getAssetUrl('items/machine_gun.jpg')
     },
     [ROCKET_LAUNCHER]: {
-        'image': getImgUrl('items/missile_launcher.jpg')
+        'image': getAssetUrl('items/missile_launcher.jpg')
     },
     [LIZARO_JUNGLE]: {
-        'image': getImgUrl('items/sniper_riffle.jpg')
+        'image': getAssetUrl('items/sniper_riffle.jpg')
     },
     [NATAMY_RIFLE]: {
-        'image': getImgUrl('items/natamy_riffle.jpg')
+        'image': getAssetUrl('items/natamy_riffle.jpg')
     },
     [ALIEN_STEAK]: {
-        'image': getImgUrl('items/ration_5.jpg')
+        'image': getAssetUrl('items/ration_5.jpg')
     },
     [THERMOSENSOR]: {
         'image': getImgUrl('items/heat_seeker.jpg')

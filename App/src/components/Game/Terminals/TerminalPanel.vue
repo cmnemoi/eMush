@@ -1,6 +1,6 @@
 <template>
     <div class="terminal" v-if="player.terminal">
-        <h1><img :src="getImgUrl('spot2.svg')">{{ player.terminal.name }}</h1>
+        <h1><img :src="getAssetUrl('spot2.svg')">{{ player.terminal.name }}</h1>
         <div>
             <TerminalTips :content="player.terminal.tips" />
             <AstroTerminal v-if="player.isFocusedOnTerminal(TerminalEnum.ASTRO_TERMINAL)" :terminal="player.terminal" />
@@ -22,7 +22,7 @@ import BiosTerminal from "@/components/Game/Terminals/BiosTerminal.vue";
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import { Player } from "@/entities/Player";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default defineComponent ({
     name: "TerminalPanel",
@@ -41,7 +41,7 @@ export default defineComponent ({
         }
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     },
     data() {
         return {

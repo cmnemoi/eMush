@@ -1,6 +1,6 @@
 <template>
     <div class="mush-genome-terminal">
-        <h1><img :src="getImgUrl('spot2.svg')"> Génome</h1>
+        <h1><img :src="getAssetUrl('spot2.svg')"> Génome</h1>
         <div class="tips">
             <input id="tips-comm" type="checkbox" name="tips-comm">
             <label for="tips-comm">
@@ -10,9 +10,9 @@
         <div>
             <p><em>Choisir mes compétences humaines</em></p>
             <ul class="skills">
-                <li><img :src="getImgUrl('skills/human/politician.png')" alt="politician"> Politician</li>
-                <li><img :src="getImgUrl('skills/human/crazy_eye.png')" alt="Crazy Eye"> Crazy Eye</li>
-                <li><img :src="getImgUrl('skills/human/mankind_only_hope.png')" alt="Mankind's only hope"> Mankind's only hope</li>
+                <li><img :src="getAssetUrl('skills/human/politician.png')" alt="politician"> Politician</li>
+                <li><img :src="getAssetUrl('skills/human/crazy_eye.png')" alt="Crazy Eye"> Crazy Eye</li>
+                <li><img :src="getAssetUrl('skills/human/mankind_only_hope.png')" alt="Mankind's only hope"> Mankind's only hope</li>
                 <li><button>Choisir une compétence</button></li>
             </ul>
         </div>
@@ -24,14 +24,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default defineComponent ({
     name: "MushGenomeTerminal",
     props: {
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     }
 });
 </script>

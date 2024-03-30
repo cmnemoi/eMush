@@ -17,7 +17,7 @@
         <Pannel v-for="child in children" :key="child.id">
             <template #header>
                 <slot name="header" v-bind="child"/>
-                <button class="icon" @click="$emit('remove', child)"><img :src="getImgUrl('bin.png')" :alt="$t('admin.buttons.delete')" :title="$t('admin.buttons.delete')"></button>
+                <button class="icon" @click="$emit('remove', child)"><img :src="getAssetUrl('bin.png')" :alt="$t('admin.buttons.delete')" :title="$t('admin.buttons.delete')"></button>
             </template>
             <template #body>
                 <slot name="body" v-bind="child"/>
@@ -32,7 +32,7 @@
 <script>
 import Pannel from "@/components/Utils/Pannel";
 import Input from "@/components/Utils/Input.vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default {
     name: "ChildCollectionManager",
@@ -49,7 +49,7 @@ export default {
         }
     },
     methods: {
-        getImgUrl
+        getAssetUrl
     },
     emits: ['addId', 'remove'],
     data: function () {

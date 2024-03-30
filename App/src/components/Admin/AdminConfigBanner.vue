@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <button class="menu-toggle" @click="show = !show"><img :src="getImgUrl('comms/newtab.png')"></button>
+        <button class="menu-toggle" @click="show = !show"><img :src="getAssetUrl('comms/newtab.png')"></button>
         <div v-if="show" class="admin-menu">
             <router-link :to="{ name: 'AdminGameConfigList' }">Game Config</router-link>
             <router-link :to="{ name: 'AdminDaedalusConfigList' }">Daedalus Config</router-link>
@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 
 export default defineComponent ({
@@ -45,7 +45,7 @@ export default defineComponent ({
         window.removeEventListener('resize', this.handleResize);
     },
     methods: {
-        getImgUrl,
+        getAssetUrl,
         handleResize() {
             this.show = window.matchMedia('(max-width: 768px)').matches ? false : true;
         }

@@ -1,8 +1,8 @@
 <template>
     <div class="banner">
         <div class="logo">
-            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }" @click="reloadData"><img :src="getImgUrl('logo_new.png')" alt="eMush logo"></router-link>
-            <router-link v-else :to="{ name: 'HomePage' }"><img :src="getImgUrl('logo_new.png')" alt="eMush logo"></router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }" @click="reloadData"><img :src="getAssetUrl('logo_new.png')" alt="eMush logo"></router-link>
+            <router-link v-else :to="{ name: 'HomePage' }"><img :src="getAssetUrl('logo_new.png')" alt="eMush logo"></router-link>
         </div>
         <div class="mainmenu">
             <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>
@@ -21,7 +21,7 @@
 import Login from "@/components/Login.vue";
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 
 export default defineComponent ({
@@ -52,7 +52,7 @@ export default defineComponent ({
             loadRoomLogs: 'communication/loadRoomLogs',
             reloadPlayer: 'player/reloadPlayer'
         }),
-        getImgUrl,
+        getAssetUrl,
         reloadData() {
             if (this.route !== 'GamePage' || this.player === null) return;
             this.reloadPlayer();

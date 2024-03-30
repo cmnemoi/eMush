@@ -1,4 +1,4 @@
-import { getImgUrl } from '../utils/getImgUrl';
+import { getAssetUrl } from '../utils/getAssetUrl';
 
 import en from './locales/en.json';
 import fr from './locales/fr.json';
@@ -21,20 +21,20 @@ export interface LangInfos {
 export const gameLocales : {[index: string]: LangInfos}  = {
     [GameLocales.EN]: {
         'caption': 'English',
-        'icon': getImgUrl('lang_en.png'),
+        'icon': getAssetUrl('lang_en.png'),
     },
     [GameLocales.FR]: {
         'caption': 'Français',
-        'icon': getImgUrl('lang_fr.png'),
+        'icon': getAssetUrl('lang_fr.png'),
     }
     // TODO: not supported yet
     // [GameLocales.ES]: {
     //     'caption': 'Spanish',
-    //     'icon': getImgUrl('lang_es.png'),
+    //     'icon': getAssetUrl('lang_es.png'),
     // },
     // [GameLocales.DE]: {
     //     'caption': 'German',
-    //     'icon': getImgUrl('lang_de.png'),
+    //     'icon': getAssetUrl('lang_de.png'),
     // }
 };
 

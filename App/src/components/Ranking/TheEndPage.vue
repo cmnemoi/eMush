@@ -6,7 +6,7 @@
         @submitSanction="applySanction" />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
-            <img :src="getImgUrl('ending-destroyed.png')" alt="destroyed!" >
+            <img :src="getAssetUrl('ending-destroyed.png')" alt="destroyed!" >
         </div>
         <h2>{{ $t("theEnd.headliner") }}</h2>
         <div class="card star-card" v-if="goldNovaPlayer">
@@ -23,7 +23,7 @@
                                 {{ goldNovaPlayer.username }}
                             </router-link>
                             <span class="likes">
-                                {{ goldNovaPlayer.likes }} <img :src="getImgUrl('dislike.png')">
+                                {{ goldNovaPlayer.likes }} <img :src="getAssetUrl('dislike.png')">
                             </span>
                         </p>
                     </div>
@@ -42,14 +42,14 @@
                     </Tippy>
                     <span v-html="formatEndMessage(goldNovaPlayer.message)" v-else />
                     <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="openHideDialog(goldNovaPlayer)">
-                        <img :src="getImgUrl('comms/discrete.png')" alt="Hide message">
+                        <img :src="getAssetUrl('comms/discrete.png')" alt="Hide message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                             <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
                         </template>
                     </Tippy>
                     <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="openEditDialog(goldNovaPlayer)">
-                        <img :src="getImgUrl('pa_core.png')" alt="Edit message">
+                        <img :src="getAssetUrl('pa_core.png')" alt="Edit message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                             <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -71,11 +71,11 @@
                         {{ goldNovaPlayer.cyclesSurvived }}
                     </p>
                     <p class="death-cause">
-                        <img :src="getImgUrl('dead.png')" alt="Dead">
+                        <img :src="getAssetUrl('dead.png')" alt="Dead">
                         {{ $t("theEnd.endCause." + goldNovaPlayer.endCause) }}
                     </p>
                     <p class="nova">
-                        <img :src="getImgUrl('nova/first.png')" alt="First"> {{ $t('theEnd.goldSuperNova') }}
+                        <img :src="getAssetUrl('nova/first.png')" alt="First"> {{ $t('theEnd.goldSuperNova') }}
                     </p>
                     <!-- <ul>
                         <li>Vous avez éteint un incendie !</li>
@@ -83,7 +83,7 @@
                         <li>Vous avez pris une douche bien méritée !</li>
                     </ul> -->
                     <!-- <button>
-                        <img :src="getImgUrl('notes.gif" alt="Historique et Triomphe">
+                        <img :src="getAssetUrl('notes.gif" alt="Historique et Triomphe">
                     </button> -->
                 </div>
             </div>
@@ -108,7 +108,7 @@
                                     {{ player.username }}
                                 </router-link>
                                 <span class="likes">
-                                    {{ player.likes }} <img :src="getImgUrl('dislike.png')" alt="likes">
+                                    {{ player.likes }} <img :src="getAssetUrl('dislike.png')" alt="likes">
                                 </span>
                             </p>
                         </div>
@@ -121,20 +121,20 @@
                             {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
-                            <img :src="getImgUrl('dead.png')" alt="Dead">
+                            <img :src="getAssetUrl('dead.png')" alt="Dead">
                             {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
                         <p class="nova" v-if="key === 0">
-                            <img :src="getImgUrl('nova/second.png')" alt="Second"> {{ $t('theEnd.silverSuperNova') }}
+                            <img :src="getAssetUrl('nova/second.png')" alt="Second"> {{ $t('theEnd.silverSuperNova') }}
                         </p>
                         <p class="nova" v-else-if="key === 1">
-                            <img :src="getImgUrl('nova/third.png')" alt="Third"> {{ $t('theEnd.bronzeSuperNova') }}
+                            <img :src="getAssetUrl('nova/third.png')" alt="Third"> {{ $t('theEnd.bronzeSuperNova') }}
                         </p>
                         <p class="nova" v-else-if="key === 2">
-                            <img :src="getImgUrl('nova/fourth.png')" alt="Fourth"> {{ $t('theEnd.discoveredSuperNova') }}
+                            <img :src="getAssetUrl('nova/fourth.png')" alt="Fourth"> {{ $t('theEnd.discoveredSuperNova') }}
                         </p>
                         <p class="nova" v-else-if="key >= 3">
-                            <img :src="getImgUrl('nova/fifth.png')" alt="fifth"> {{ $t('theEnd.specialSuperNova') }}
+                            <img :src="getAssetUrl('nova/fifth.png')" alt="fifth"> {{ $t('theEnd.specialSuperNova') }}
                         </p>
                         <p class="epitaph" v-if="player.message">
                             <Tippy
@@ -150,14 +150,14 @@
                             </Tippy>
                             <span v-html="formatEndMessage(player.message)" v-else />
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openHideDialog(player)">
-                                <img :src="getImgUrl('comms/discrete.png')" alt="Hide message">
+                                <img :src="getAssetUrl('comms/discrete.png')" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
-                                <img :src="getImgUrl('pa_core.png')" alt="Edit message">
+                                <img :src="getAssetUrl('pa_core.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -175,7 +175,7 @@
                             <li>Vous avez éteint un incendie !</li>
                         </ul>
                         <button>
-                            <img :src="getImgUrl('notes.gif" alt="Historique et Triomphe">
+                            <img :src="getAssetUrl('notes.gif" alt="Historique et Triomphe">
                         </button> -->
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                                     {{ player.username }}
                                 </router-link>
                                 <span class="likes">
-                                    {{ player.likes }} <img :src="getImgUrl('dislike.png')" alt="likes">
+                                    {{ player.likes }} <img :src="getAssetUrl('dislike.png')" alt="likes">
                                 </span>
                             </p>
                         </div>
@@ -215,11 +215,11 @@
                             {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
-                            <img :src="getImgUrl('dead.png')" alt="Dead">
+                            <img :src="getAssetUrl('dead.png')" alt="Dead">
                             {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
                         <p class="nova">
-                            <img :src="getImgUrl('nova/sixth.png')" alt="sixth"> {{ $t('theEnd.normalSuperNova') }}
+                            <img :src="getAssetUrl('nova/sixth.png')" alt="sixth"> {{ $t('theEnd.normalSuperNova') }}
                         </p>
                         <p class="epitaph" v-if="player.message">
                             <Tippy
@@ -235,14 +235,14 @@
                             </Tippy>
                             <span v-html="formatEndMessage(player.message)" v-else />
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openHideDialog(player)">
-                                <img :src="getImgUrl('comms/discrete.png')" alt="Hide message">
+                                <img :src="getAssetUrl('comms/discrete.png')" alt="Hide message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.hideMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.hideMessageDescription') }}</p>
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
-                                <img :src="getImgUrl('pa_core.png')" alt="Edit message">
+                                <img :src="getAssetUrl('pa_core.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -260,7 +260,7 @@
                             <li>Vous avez éteint un incendie !</li>
                         </ul>
                         <button>
-                            <img :src="getImgUrl('notes.gif" alt="Historique et Triomphe">
+                            <img :src="getAssetUrl('notes.gif" alt="Historique et Triomphe">
                         </button> -->
                     </div>
                 </div>
@@ -296,28 +296,28 @@
                 <div>
                     <p>Recherches</p>
                     <ul>
-                        <li><img :src="getImgUrl('researches/mycoscan.png')" alt="Mycoscan"></li>
-                        <li><img :src="getImgUrl('researches/pheromodem.png')" alt="Pheromodem"></li>
+                        <li><img :src="getAssetUrl('researches/mycoscan.png')" alt="Mycoscan"></li>
+                        <li><img :src="getAssetUrl('researches/pheromodem.png')" alt="Pheromodem"></li>
                     </ul>
                 </div>
                 <div>
                     <p>Projets NERON</p>
                     <ul>
-                        <li><img :src="getImgUrl('projects/dismantling.png')" alt="Dismantling"></li>
-                        <li><img :src="getImgUrl('projects/trash_load.png')" alt="Trash load"></li>
+                        <li><img :src="getAssetUrl('projects/dismantling.png')" alt="Dismantling"></li>
+                        <li><img :src="getAssetUrl('projects/trash_load.png')" alt="Trash load"></li>
                     </ul>
                 </div>
                 <div>
                     <p>PILGRED</p>
                     <ul>
-                        <li><img :src="getImgUrl('projects/pilgred.png')" alt="Pilgred"></li>
+                        <li><img :src="getAssetUrl('projects/pilgred.png')" alt="Pilgred"></li>
                     </ul>
                 </div>
                 <div>
                     <p>Bases rebelles</p>
                     <ul>
-                        <li><img :src="getImgUrl('rebel_bases/bases_centauri.png')" alt="Centauri"></li>
-                        <li><img :src="getImgUrl('rebel_bases/bases_cygni.png')" alt="Cygni"></li>
+                        <li><img :src="getAssetUrl('rebel_bases/bases_centauri.png')" alt="Centauri"></li>
+                        <li><img :src="getAssetUrl('rebel_bases/bases_cygni.png')" alt="Cygni"></li>
                     </ul>
                 </div>
             </div>
@@ -325,22 +325,22 @@
                 <div>
                     <p>Les Commandants</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
+                        <li><img :src="getAssetUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
+                        <li><img :src="getAssetUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
                     </ul>
                 </div>
                 <div>
                     <p>Les Responsables des Communications</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
+                        <li><img :src="getAssetUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
+                        <li><img :src="getAssetUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
                     </ul>
                 </div>
                 <div>
                     <p>L'Administrateur NERON</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
+                        <li><img :src="getAssetUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
+                        <li><img :src="getAssetUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
                     </ul>
                 </div>
             </div>
@@ -348,31 +348,31 @@
                 <div>
                     <p>Bidouilleur Anonymous</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
+                        <li><img :src="getAssetUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
                     </ul>
                 </div>
                 <div>
                     <p>« J'aurais pas dû venir »</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
+                        <li><img :src="getAssetUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
                     </ul>
                 </div>
                 <div>
                     <p>La violence c'est le mal</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
+                        <li><img :src="getAssetUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
                     </ul>
                 </div>
                 <div>
                     <p>Quand l'appétit va...</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
+                        <li><img :src="getAssetUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
                     </ul>
                 </div>
                 <div>
                     <p>Dilapidateur d'énergie</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
+                        <li><img :src="getAssetUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
                     </ul>
                 </div>
             </div> -->
@@ -397,7 +397,7 @@ import ModerationService from "@/services/moderation.service";
 import { mapActions, mapGetters } from "vuex";
 import { formatText } from "@/utils/formatText";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -438,7 +438,7 @@ export default defineComponent ({
         ...mapActions('popup', [
             'openReportPopup'
         ]),
-        getImgUrl,
+        getAssetUrl,
         async loadData() {
             const closedDaedalusId = String(this.$route.params.closedDaedalusId);
             await DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))

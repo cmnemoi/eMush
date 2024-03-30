@@ -5,23 +5,23 @@
         <div class="logs">
             Not implemented yet ...
 
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 2 x Cycle Humain ( + 1 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 1 x Ambitieux ( + 4 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 1 x Contact Avec Sol ( + 8 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 1 x Vers le Nouvel Eden ( + 6 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 3 x Cycle Humain ( + 1 )</p>-->
+            <!--            <p><img :src=getAssetUrl('point.png')" alt="dot"> 2 x Cycle Humain ( + 1 )</p>-->
+            <!--            <p><img :src=getAssetUrl('point.png')" alt="dot"> 1 x Ambitieux ( + 4 )</p>-->
+            <!--            <p><img :src=getAssetUrl('point.png')" alt="dot"> 1 x Contact Avec Sol ( + 8 )</p>-->
+            <!--            <p><img :src=getAssetUrl('point.png')" alt="dot"> 1 x Vers le Nouvel Eden ( + 6 )</p>-->
+            <!--            <p><img :src=getAssetUrl('point.png')" alt="dot"> 3 x Cycle Humain ( + 1 )</p>-->
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default defineComponent ({
     name: "HistoryLogs",
     methods: {
-        getImgUrl
+        getAssetUrl
     }
 });
 </script>

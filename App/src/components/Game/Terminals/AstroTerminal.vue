@@ -9,7 +9,7 @@
             <div class="card">
                 <img :src="planet.getSmallImage()" :alt="`planet_${planet.imageId}`">
                 <p class="in-orbit" v-if="terminal.infos.inOrbit">
-                    <img :src="getImgUrl('infoalert.png')" alt="info">
+                    <img :src="getAssetUrl('infoalert.png')" alt="info">
                     <span v-html="formatText(terminal.infos.inOrbit)"/>
                 </p>
                 <p><span>{{ terminal.sectionTitles.orientation }}</span> {{ planet.orientation }}</p>
@@ -43,7 +43,7 @@
                             <h1 v-html="formatText(deleteAction(planet)?.name)" />
                             <p v-html="formatText(deleteAction(planet)?.description)" />
                         </template>
-                        <img :src="getImgUrl('bin.png')">
+                        <img :src="getAssetUrl('bin.png')">
                     </Tippy>
                     <Tippy
                         tag="button"
@@ -66,11 +66,11 @@
             >
                 <h3>???</h3>
                 <div class="card">
-                    <img :src="getImgUrl('astro/planet_unknown.png')" alt="unknown planet">
+                    <img :src="getAssetUrl('astro/planet_unknown.png')" alt="unknown planet">
                 </div>
                 <div class="analysis" >
                     <!-- <p>Scanning impossible...</p> -->
-                    <p>{{ scanAction.successRate }}% <img :src="getImgUrl('astro/thermosensors.png')" alt="thermosensors"></p>
+                    <p>{{ scanAction.successRate }}% <img :src="getAssetUrl('astro/thermosensors.png')" alt="thermosensors"></p>
                     <div class="actions">
                         <ActionButton
                             :key="scanAction.key"
@@ -94,7 +94,7 @@ import { Action } from "@/entities/Action";
 import { formatText } from "@/utils/formatText";
 import { mapActions, mapGetters } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton.vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+import { getAssetUrl } from "@/utils/getAssetUrl";
 
 export default defineComponent ({
     name: "AstroTerminal",
@@ -137,7 +137,7 @@ export default defineComponent ({
             'executeAction': 'action/executeAction',
             'updateTypedMessage': 'communication/updateTypedMessage'
         }),
-        getImgUrl,
+        getAssetUrl,
         analyzeAction(planet: Planet): Action | null {
             return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.ANALYZE_PLANET);
         },
@@ -157,7 +157,7 @@ export default defineComponent ({
             return planet;
         },
         getSectorImage(sector: PlanetSector): string {
-            return getImgUrl(`astro/${sector.key}.png`);
+            return getAssetUrl(`astro/${sector.key}.png`);
         },
         formatText,
         sharePlanet(planet: Planet) {

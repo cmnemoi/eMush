@@ -417,12 +417,12 @@ export const itemEnum: {[index: string]: any} = {
         'image': getImgUrl('items/ration_5.jpg')
     },
     [THERMOSENSOR]: {
-        'image': require('@/assets/images/items/heat_seeker.jpg')
+        'image': getImgUrl('items/heat_seeker.jpg')
     },
     [OLD_T_SHIRT]: {
-        'image': require('@/assets/images/items/old_shirt.jpg')
+        'image': getImgUrl('items/old_shirt.jpg')
     },
     [BABEL_MODULE]: {
-        'image': require('@/assets/images/items/trad_module.jpg')
+        'image': getImgUrl('items/trad_module.jpg')
     },
 };

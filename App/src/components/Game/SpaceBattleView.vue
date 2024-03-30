@@ -10,15 +10,15 @@
             </div>
             <div>
                 <div class="ship-img-container">
-                    <img class="turret-img" :src="'src/assets/images/spaceBattleTurret.png'" alt="turret">
+                    <img class="turret-img" :src="getImgUrl('spaceBattleTurret.png')" alt="turret">
                 </div>
                 <div class="stats">
                     <p class="quantity">{{ turret.charges }}</p>
-                    <img class="charges-img" :src="'src/assets/images/status/charge.png'" alt="charges">
+                    <img class="charges-img" :src="getImgUrl('status/charge.png')" alt="charges">
                     <img
                         v-if="turret.isBroken"
                         class="broken-img"
-                        :src="'src/assets/images/alerts/broken.png'"
+                        :src="getImgUrl('alerts/broken.png')"
                         alt="broken">
                 </div>
             </div>
@@ -35,12 +35,12 @@
                     <img
                         v-if="!patrolShip.isPasiphae()"
                         class="patrol-ship-img"
-                        :src="'src/assets/images/patrol_ship.png'"
+                        :src="getImgUrl('patrol_ship.png')"
                         alt="patrol ship">
                     <img
                         v-else
                         class="pasiphae-img"
-                        :src="'src/assets/images/pasiphae.png'"
+                        :src="getImgUrl('pasiphae.png')"
                         alt="pasiphae">
                 </div>
                 <div class="stats">
@@ -48,18 +48,18 @@
                     <img
                         v-if="patrolShip.armor"
                         class="armor-img"
-                        :src="'src/assets/images/shield.png'"
+                        :src="getImgUrl('shield.png')"
                         alt="armor">
                     <p class="quantity" v-if="!patrolShip.isPasiphae()">{{ patrolShip.charges }}</p>
                     <img
                         class="charges-img"
                         v-if="!patrolShip.isPasiphae()"
-                        :src="'src/assets/images/status/charge.png'"
+                        :src="getImgUrl('status/charge.png')"
                         alt="charges">
                     <img
                         v-if="patrolShip.isBroken"
                         class="broken-img"
-                        :src="'src/assets/images/alerts/broken.png'"
+                        :src="getImgUrl('alerts/broken.png')"
                         alt="broken">
                 </div>
             </div>
@@ -79,7 +79,7 @@
             </div>
             <div class="stats">
                 <p class="quantity">{{ hunter.health }}</p>
-                <img class="armor-img" :src="'src/assets/images/shield.png'" alt="armor">
+                <img class="armor-img" :src="getImgUrl('shield.png')" alt="armor">
             </div>
             <template #content>
                 <h1 v-html="formatContent(hunter.name)" />
@@ -100,6 +100,7 @@ import { defineComponent } from 'vue';
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { Item } from "@/entities/Item";
 import { Action } from "@/entities/Action";
+import { getImgUrl } from '@/utils/getImgUrl';
 
 export default defineComponent({
     name: 'SpaceBattleView',
@@ -130,6 +131,7 @@ export default defineComponent({
             'setIsHunterBeenHit': 'action/setIsHunterBeenHit',
             'setIsHunterBeenKilled': 'action/setIsHunterBeenKilled'
         }),
+        getImgUrl,
         async executeTargetAction(target: Hunter | null, action: Action): Promise<void> {
             if (action.canExecute) {
                 await this.executeAction({ target: target, action: action });

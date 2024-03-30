@@ -141,6 +141,7 @@ import { crowdin, team } from '@/enums/footer';
 import { version } from '../../package.json';
 import { mapActions } from "vuex";
 import { mapGetters } from 'vuex';
+import { getImgUrl } from '@/utils/getImgUrl';
 
 export default defineComponent({
     name: 'Thanks',
@@ -169,15 +170,15 @@ export default defineComponent({
         ]),
         getRoleImage(role: string) {
             if (role === 'developer') {
-                return 'src/assets/images/project_roles/developerPicto.png';
+                return getImgUrl('project_roles/developerPicto.png');
             } else if (role === 'admin') {
-                return 'src/assets/images/project_roles/adminPicto.png';
+                return getImgUrl('project_roles/adminPicto.png');
             } else if (role === 'helper') {
-                return 'src/assets/images/project_roles/helperPicto.png';
+                return getImgUrl('project_roles/helperPicto.png');
             } else if (role === 'artist') {
-                return 'src/assets/images/project_roles/artistPicto.png';
+                return getImgUrl('project_roles/artistPicto.png');
             } else if (role === 'translator') {
-                return 'src/assets/images/project_roles/translatorPicto.png';
+                return getImgUrl('project_roles/translatorPicto.png');
             } else {
                 return '';
             }

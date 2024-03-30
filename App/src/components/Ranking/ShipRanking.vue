@@ -26,7 +26,9 @@
             </template>
             <template #row-actions="slotProps">
 
-                <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.id } }"> <img :src="'src/assets/images/right.png'" id="arrow" />  {{  $t('ranking.goToTheEnd') }}</router-link>
+                <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.id } }"> 
+                    <img :src="getImgUrl('src/assets/images/right.png')" id="arrow" />  {{  $t('ranking.goToTheEnd') }}
+                </router-link>
             </template>
         </Datatable>
     </div>
@@ -38,6 +40,7 @@ import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent({
     name: "ShipRanking",
@@ -94,6 +97,7 @@ export default defineComponent({
         };
     },
     methods: {
+        getImgUrl,
         loadData() {
             this.loading = true;
             const params: any = {

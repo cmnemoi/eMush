@@ -200,31 +200,31 @@ export default defineComponent ({
                     id: 'andie',
                     name: 'Andie Graham',
                     descr: 'Fayot de la fédération.',
-                    portrait: 'src/assets/images/char/portrait/andie_graham_portrait.png'
+                    portrait: getImgUrl('char/portrait/andie_graham_portrait.png')
                 },
                 {
                     id: 'chao',
                     name: 'Wang Chao',
                     descr: 'Chef de la sécurité du Daedalus.',
-                    portrait: 'src/assets/images/char/portrait/Wang_chao_portrait.png'
+                    portrait: getImgUrl('char/portrait/Wang_chao_portrait.png')
                 },
                 {
                     id: 'chun',
                     name: 'Zhong Chun',
                     descr: 'Dernier espoir de l\'Humanité',
-                    portrait: 'src/assets/images/char/portrait/Zhong_chun_portrait.png'
+                    portrait: getImgUrl('char/portrait/Zhong_chun_portrait.png')
                 },
                 {
                     id: 'derek',
                     name: 'Derek Hogan',
                     descr: 'Héros malgré lui.',
-                    portrait: 'src/assets/images/char/portrait/derek_hogan_portrait.png'
+                    portrait: getImgUrl('char/portrait/derek_hogan_portrait.png')
                 },
                 {
                     id: 'eleesha',
                     name: 'Eleesha Williams',
                     descr: 'Investigatrice déchue de premier plan.',
-                    portrait: 'src/assets/images/char/portrait/Eleesha_williams_portrait.png'
+                    portrait: getImgUrl('char/portrait/Eleesha_williams_portrait.png')
                 }
             ]
         };

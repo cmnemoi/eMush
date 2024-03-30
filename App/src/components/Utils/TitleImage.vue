@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { titleEnum } from "@/enums/title.enum";
+import { TitleEnum, titleEnum } from "@/enums/title.enum";
 import { NameDescObject } from "@/entities/NameDescObject";
 
 export default defineComponent ({
@@ -13,7 +13,7 @@ export default defineComponent ({
     },
     methods: {
         titleIcon: function(title: NameDescObject) {
-            return titleEnum[title.id] ? titleEnum[title.id].image : 'src/assets/images/title_commander.png';
+            return titleEnum[title.id] ? titleEnum[title.id].image : titleEnum[TitleEnum.COMMANDER].image;
         }
     }
 });

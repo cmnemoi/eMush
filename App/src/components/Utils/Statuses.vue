@@ -18,6 +18,7 @@ import { statusPlayerEnum } from "@/enums/status.player.enum";
 import { statusItemEnum } from "@/enums/status.item.enum";
 import { defineComponent } from "vue";
 import { Status } from "@/entities/Status";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     props: {
@@ -33,18 +34,18 @@ export default defineComponent ({
                 case "disease":
                     switch (status.diseaseType) {
                     case "disease":
-                        return 'src/assets/images/status/disease.png';
+                        return getImgUrl('status/disease.png');
                     case "disorder":
-                        return 'src/assets/images/status/disorder.png';
+                        return getImgUrl('status/disorder.png');
                     case "injury":
-                        return 'src/assets/images/status/injury.png';
+                        return getImgUrl('status/injury.png');
                     }
                     return null;
                 case "item":
                 case "equipment":
                     return statusItemEnum[status.key]?.icon || null;
                 case "room":
-                    return 'src/assets/images/alerts/fire.png';
+                    return getImgUrl('alerts/fire.png');
                 default:
                     return null;
                 }

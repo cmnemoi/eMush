@@ -14,6 +14,7 @@ export default defineConfig({
     typescript(),
     vue()
   ],
+  base: "./",
   define: {
     global: 'globalThis'
   },
@@ -22,7 +23,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(pathSegments, './src'),
     },
-    extensions: ['.mjs', '.js', '.ts', '.json', '.vue'],
+    extensions: ['.js', '.ts', '.json', '.vue'],
   },
   css: {
     preprocessorOptions: {

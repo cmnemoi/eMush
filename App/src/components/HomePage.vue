@@ -19,7 +19,7 @@
                 controls
                 ref="trailer"
                 preload="metadata">
-                <source :src="getImgUrl('trailer_fr.mp4#t=1')" type="video/mp4"/>
+                <source :src="getVideoUrl('trailer_fr.mp4#t=1')" type="video/mp4"/>
                 Désolé, votre navigateur ne supporte pas les vidéos intégrées.
             </video>
             <video
@@ -27,7 +27,7 @@
                 controls
                 ref="trailer"
                 preload="metadata">
-                <source :src="getImgUrl('trailer_en.mp4#t=1')" type="video/mp4"/>
+                <source :src="getVideoUrl('trailer_en.mp4#t=1')" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </section>
@@ -137,6 +137,7 @@ import NewsItem from "./NewsItem.vue";
 import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { getVideoUrl } from "@/utils/getVideoUrl";
 
 export default defineComponent ({
     name: "HomePage",
@@ -153,6 +154,7 @@ export default defineComponent ({
             'redirectToLogin'
         ]),
         getImgUrl,
+        getVideoUrl,
         localeIsFrench() {
             return this.$i18n.locale.split('-')[0] === 'fr';
         },

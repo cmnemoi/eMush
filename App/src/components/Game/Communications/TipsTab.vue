@@ -111,7 +111,7 @@ export default defineComponent ({
             left: -6px;
             height: 11px;
             width: 11px;
-            background: transparent url('/src/assets/images/comms/thinklinked.png')') center no-repeat;
+            background: transparent url('/src/assets/images/comms/thinklinked.png') center no-repeat;
         }
     }
 

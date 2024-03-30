@@ -10,17 +10,17 @@ use Mush\Player\Entity\Player;
 /**
  * @template-extends ArrayCollection<int, Player>
  */
-class ModerationActionCollection extends ArrayCollection
+class ModerationSanctionCollection extends ArrayCollection
 {
     public function getActiveSanction(): self
     {
-        return $this->filter(fn (ModerationSanction $moderationAction) => $moderationAction->isSanctionActive());
+        return $this->filter(fn (ModerationSanction $moderationAction) => $moderationAction->getIsActive());
     }
 
     public function isBanned(): bool
     {
         $activeBans = $this->filter(fn (ModerationSanction $moderationAction) => (
-            $moderationAction->isSanctionActive()
+            $moderationAction->getIsActive()
             && $moderationAction->getModerationAction() === ModerationSanctionEnum::BAN_USER
         ));
 
@@ -30,7 +30,7 @@ class ModerationActionCollection extends ArrayCollection
     public function getWarnings(): self
     {
         return $this->filter(fn (ModerationSanction $moderationAction) => (
-            $moderationAction->isSanctionActive()
+            $moderationAction->getIsActive()
             && $moderationAction->getModerationAction() === ModerationSanctionEnum::WARNING
         ));
     }

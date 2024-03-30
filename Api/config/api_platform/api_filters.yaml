@@ -158,3 +158,19 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    adminSanction.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { reason: 'exact',
+                       sanctionType: 'exact',
+        } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    adminSanctionActive.search_filter:
+        parent: 'api_platform.doctrine.orm.boolean_filter'
+        arguments: [ { adminSanction.isActive: ~ } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

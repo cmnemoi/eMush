@@ -21,3 +21,7 @@ Mush\User\Entity\User:
       identifier: false
     userId:
       identifier: true
+    moderationSanctions:
+      subresource:
+        resourceClass: 'Mush\MetaGame\Entity\ModerationSanction'
+        collection: true

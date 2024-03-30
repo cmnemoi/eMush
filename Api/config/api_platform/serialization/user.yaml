@@ -12,3 +12,5 @@ Mush\User\Entity\User:
       groups: [ 'player_info_read', 'user_read', 'user_write' ]
     isBanned:
       groups: [ 'user_read' ]
+    moderationSanctions:
+      groups: [ 'user_read' ]

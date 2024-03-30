@@ -91,12 +91,13 @@ final class ModerationController extends AbstractFOSRestController
         $this->denyAccessIfNotModerator();
 
         $duration = new \DateInterval($request->get('duration'));
+        $startDate = new \DateTime($request->get('startDate'));
         $this->moderationService->banUser(
             $user,
             $duration,
             $request->get('reason'),
             $request->get('adminMessage', null),
-            $request->get('startDate', null),
+            $startDate
         );
 
         return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);
@@ -157,12 +158,14 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
-        $this->moderationService->warnUser(
+        $duration = new \DateInterval($request->get('duration'));
+        $startDate = new \DateTime($request->get('startDate'));
+        $this->moderationService->banUser(
             $user,
-            $request->get('duration'),
+            $duration,
             $request->get('reason'),
             $request->get('adminMessage', null),
-            $request->get('startDate', null),
+            $startDate
         );
 
         return $this->view(['detail' => 'User warn successfully'], Response::HTTP_OK);

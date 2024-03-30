@@ -78,7 +78,7 @@ final class ModerationService implements ModerationServiceInterface
     public function removeSanction(ModerationSanction $moderationAction): User
     {
         $user = $moderationAction->getUser();
-        $user->removeModerationSanctions($moderationAction);
+        $user->removeModerationSanction($moderationAction);
 
         $this->entityManager->remove($moderationAction);
         $this->entityManager->persist($user);
@@ -130,6 +130,7 @@ final class ModerationService implements ModerationServiceInterface
         \DateTime $startingDate,
         string $message = null,
         \DateTime $endDate = null,
+        bool $isVisibleByUser = false
     ): User {
         $sanction = new ModerationSanction($user, $startingDate);
         $sanction
@@ -137,9 +138,10 @@ final class ModerationService implements ModerationServiceInterface
             ->setReason($reason)
             ->setMessage($message)
             ->setEndDate($endDate)
+            ->setIsVisibleByUser($isVisibleByUser)
         ;
 
-        $user->addModerationSanctions($sanction);
+        $user->addModerationSanction($sanction);
 
         $this->entityManager->persist($user);
         $this->entityManager->persist($sanction);
@@ -172,15 +174,6 @@ final class ModerationService implements ModerationServiceInterface
         string $reason,
         ?string $adminMessage
     ): void {
-        $message
-            ->setAuthor(null)
-            ->setNeron($message->getChannel()->getDaedalusInfo()->getNeron())
-            ->setMessage('edited_by_neron')
-        ;
-
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
-
         $author = $message->getAuthor();
         if ($author === null) {
             return;
@@ -193,6 +186,15 @@ final class ModerationService implements ModerationServiceInterface
             new \DateTime(),
             $adminMessage
         );
+
+        $message
+            ->setAuthor(null)
+            ->setNeron($message->getChannel()->getDaedalusInfo()->getNeron())
+            ->setMessage('edited_by_neron')
+        ;
+
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
     }
 
     public function warnUser(
@@ -220,6 +222,7 @@ final class ModerationService implements ModerationServiceInterface
             $startingDate,
             $message,
             $endDate,
+            true
         );
     }
 }

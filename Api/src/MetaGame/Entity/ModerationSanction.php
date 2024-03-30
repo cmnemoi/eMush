@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\User\Entity\User;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'moderationAction')]
+#[ORM\Table(name: 'moderationSanction')]
 class ModerationSanction
 {
     use TimestampableEntity;
@@ -17,7 +17,7 @@ class ModerationSanction
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'moderationSanctions')]
     private User $user;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
@@ -126,11 +126,11 @@ class ModerationSanction
         return $this;
     }
 
-    public function isSanctionActive(): bool
+    public function getIsActive(): bool
     {
         $currentTime = new \DateTime();
         if (
-            $this->endDate === null
+            ($this->endDate === null && $this->startDate < $currentTime)
             || ($this->endDate > $currentTime && $this->startDate < $currentTime)
         ) {
             return true;

@@ -1,7 +1,6 @@
 <template>
-    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="'ban'" @close="closeModerationDialog" @submitSanction="banUser" />
     <div class="user_list_container">
-        <div class="user_filter_options">
+        <div class="sanction_filter_options">
             <label>{{ $t('admin.show') }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
@@ -13,13 +12,27 @@
                     </option>
                 </select>
             </label>
-            <label>{{ $t('moderation.searchByUsername') }}
+            <label>{{ $t('moderation.searchByType') }}
+                <label>{{ $t('moderation.searchByType') }}
+                    <select v-model="typeFilter" @change="updateFilter">
+                        <option value="">{{ $t('moderation.allTypes') }}</option>
+                        <option v-for="type in moderationSanctionTypes()" :value="type" :key="type">{{ type }}</option>
+                    </select>
+                </label>
+            </label>
+            <label>{{ $t('moderation.searchByReason') }}
+                <select v-model="reasonFilter" @change="updateFilter">
+                    <option value="">{{ $t('moderation.allReasons') }}</option>
+                    <option v-for="reason in moderationReasons()" :value="reason" :key="reason">{{ reason }}</option>
+                </select>
+            </label>
+            <label>{{ $t('moderation.isSanctionActive') }}
                 <input
-                    v-model="filter"
-                    type="search"
+                    type="checkbox"
                     class=""
                     placeholder=""
                     aria-controls="example"
+                    v-model="isActiveFilter"
                     @change="updateFilter"
                 >
             </label>
@@ -38,18 +51,14 @@
                 Actions
             </template>
             <template #row-actions="user">
-                <router-link :to="{ name: 'SanctionListPage', params: { userId : user.userId, username: user.username } }" v-if="isAdmin">{{ $t('moderation.sanction') }}</router-link>
-                <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
                 <div v-if="isModerator">
-                    <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
                     <Tippy tag="button"
                            class="action-button"
-                           v-if="!user.isBanned"
-                           @click="openModerationDialog(user)">
-                        {{ $t('moderation.ban') }}
+                           @click="removeSanction()">
+                        {{ $t('moderation.removeSanction') }}
                         <template #content>
-                            <h1>{{ $t('moderation.ban') }}</h1>
-                            <p>{{ $t('moderation.banDescription') }}</p>
+                            <h1>{{ $t('moderation.removeSanction') }}</h1>
+                            <p>{{ $t('moderation.removeSanctionDescription') }}</p>
                         </template>
                     </Tippy>
                 </div>
@@ -66,17 +75,20 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
-import {User} from "@/entities/User";
-import {ClosedDaedalus} from "@/entities/ClosedDaedalus";
-import {ClosedPlayer} from "@/entities/ClosedPlayer";
+import { User } from "@/entities/User";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+import { Tippy } from "vue-tippy";
+import {moderationReasons, moderationSanctionTypes} from "@/enums/moderation_reason.enum";
 
-interface UserListData {
+interface SanctionListData {
+    userId: string,
+    username: string,
     fields: [
         { key: string; name: string; },
         { key: string; name: string; },
         { key: string; name: string; },
-        { key: string; name: string; sortable: false; slot: true; }
+        { key: string; name: string; },
+        { key: string; name: string; }
     ],
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number; };
     rowData: never[];
@@ -85,13 +97,15 @@ interface UserListData {
     sortDirection: string;
     loading: boolean;
     pageSizeOptions: { text: number; value: number; }[];
-    moderationDialogVisible: boolean,
-    currentUser: User|null,
+    typeFilter: string,
+    reasonFilter: string,
+    isActiveFilter: boolean,
 }
 
 export default defineComponent({
-    name: "UserListPage",
+    name: "SanctionListPage",
     components: {
+        Tippy,
         ModerationActionPopup,
         Datatable
     },
@@ -101,26 +115,30 @@ export default defineComponent({
             isModerator: 'auth/isModerator',
         }),
     },
-    data(): UserListData {
+    data(): SanctionListData {
         return {
+            userId: '',
+            username: '',
             fields: [
                 {
-                    key: 'username',
-                    name: 'moderation.playerList.user',
+                    key: 'moderationAction',
+                    name: 'moderation.sanctionName',
                 },
                 {
-                    key: 'userId',
-                    name: 'moderation.userList.userId',
+                    key: 'reason',
+                    name: 'moderation.sanctionReason',
                 },
                 {
-                    key: 'roles',
-                    name: 'moderation.userList.roles',
+                    key: 'message',
+                    name: 'moderation.adminMessage',
                 },
                 {
-                    key: 'actions',
-                    name: 'Action',
-                    sortable: false,
-                    slot: true
+                    key: 'startDate',
+                    name: 'moderation.startDate',
+                },
+                {
+                    key: 'endDate',
+                    name: 'moderation.endDate',
                 }
             ],
             pagination: {
@@ -139,30 +157,23 @@ export default defineComponent({
                 {text: 10, value: 10},
                 {text: 20, value: 20}
             ],
-            moderationDialogVisible: false,
-            currentUser: null
+            typeFilter: '',
+            reasonFilter: '',
+            isActiveFilter: false,
         };
     },
     methods: {
-        openModerationDialog(user: User) {
-            this.currentUser = user;
-            this.moderationDialogVisible = true;
+        moderationReasons() {
+            return moderationReasons
         },
-        closeModerationDialog() {
-            this.moderationDialogVisible = false;
+        moderationSanctionTypes() {
+            return moderationSanctionTypes
         },
-        banUser(param) {
-            if (this.currentUser === null || this.currentUser.id === null) {
-                return;
-            }
-            ModerationService.banUser(this.currentUser.id, param)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-            this.moderationDialogVisible = false;
+        removeSanction() {
+
+        },
+        suspendSanction() {
+
         },
         loadData() {
             this.loading = true;
@@ -185,7 +196,17 @@ export default defineComponent({
             if (this.sortField) {
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'users'), params)
+            if (this.typeFilter) {
+                params.params['moderationSanction.sanctionType'] = this.typeFilter;
+            }
+            if (this.reasonFilter) {
+                params.params['moderationSanction.reason'] = this.reasonFilter;
+            }
+            if (this.isActiveFilter) {
+                params.params['moderationSanction.isActive'] = true;
+            }
+
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'users/'+ this.userId + '/moderation_sanctions'), params)
                 .then((result) => {
                     return result.data;
                 })
@@ -225,13 +246,15 @@ export default defineComponent({
         }
     },
     beforeMount() {
+        this.userId = this.$route.params.userId;
+        this.username = this.$route.params.username;
         this.loadData();
     }
 });
 </script>
 
 <style lang="scss" scoped>
-.user_filter_options {
+.sanction_filter_options {
     display: flex;
     flex-grow: 1;
     flex-direction: row;

@@ -12,6 +12,15 @@ export const moderationReasons= [
     'leaking_private_information',
 ];
 
+export const moderationSanctionTypes= [
+    'ban_user',
+    'quarantine_player',
+    'warning',
+    'delete_message',
+    'delete_end_message',
+    'hide_message',
+];
+
 export const sanctionDuration= [
     { key: 'permanent', value: null },
     { key: '1_day', value: 'P1D' },

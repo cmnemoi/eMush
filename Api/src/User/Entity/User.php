@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\MetaGame\Entity\Collection\ModerationActionCollection;
+use Mush\MetaGame\Entity\Collection\ModerationSanctionCollection;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\UserRepository;
@@ -42,11 +42,11 @@ class User implements UserInterface
     private array $roles = [RoleEnum::USER];
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ModerationSanction::class)]
-    private Collection $moderationSanction;
+    private Collection $moderationSanctions;
 
     public function __construct()
     {
-        $this->moderationSanction = new ArrayCollection();
+        $this->moderationSanctions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -162,21 +162,21 @@ class User implements UserInterface
         return $this->getModerationSanctions()->isBanned();
     }
 
-    public function getModerationSanctions(): ModerationActionCollection
+    public function getModerationSanctions(): ModerationSanctionCollection
     {
-        return new ModerationActionCollection($this->moderationSanction->toArray());
+        return new ModerationSanctionCollection($this->moderationSanctions->toArray());
     }
 
-    public function addModerationSanctions(ModerationSanction $moderationAction): self
+    public function addModerationSanction(ModerationSanction $moderationAction): self
     {
-        $this->moderationSanction->add($moderationAction);
+        $this->moderationSanctions->add($moderationAction);
 
         return $this;
     }
 
-    public function removeModerationSanctions(ModerationSanction $moderationAction): self
+    public function removeModerationSanction(ModerationSanction $moderationAction): self
     {
-        $this->moderationSanction->removeElement($moderationAction);
+        $this->moderationSanctions->removeElement($moderationAction);
 
         return $this;
     }

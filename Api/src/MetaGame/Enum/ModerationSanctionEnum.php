@@ -17,7 +17,7 @@ class ModerationSanctionEnum
     public const QUARANTINE_PLAYER = 'quarantine_player';
     public const WARNING = 'warning';
     public const DELETE_MESSAGE = 'delete_message';
-    public const DELETE_END_MESSAGE = 'delete_message';
+    public const DELETE_END_MESSAGE = 'delete_end_message';
     public const HIDE_END_MESSAGE = 'hide_message';
 
     // reasons for the ban

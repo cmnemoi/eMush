@@ -39,7 +39,7 @@ class Plant extends EquipmentMechanic
         return $this->fruitName;
     }
 
-    public function setFruitName(string $fruitName)
+    public function setFruitName(string $fruitName): static
     {
         $this->fruitName = $fruitName;
 

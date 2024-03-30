@@ -36,7 +36,7 @@ class RandomService implements RandomServiceInterface
 
     public function random(int $min, int $max): int
     {
-        return random_int($min, $max);
+        return \random_int($min, $max);
     }
 
     public function poissonRandom(float $lambda): int
@@ -64,7 +64,7 @@ class RandomService implements RandomServiceInterface
 
     public function rollTwiceAndAverage(int $min, int $max): int
     {
-        return intval(($this->random($min, $max) + $this->random($min, $max)) / 2);
+        return (int) (($this->random($min, $max) + $this->random($min, $max)) / 2);
     }
 
     public function isSuccessful(int $successRate): bool
@@ -89,11 +89,14 @@ class RandomService implements RandomServiceInterface
 
         if ($chance <= $criticalFailRate) {
             return ActionOutputEnum::CRITICAL_FAIL;
-        } elseif ($chance <= $successRate) {
+        }
+        if ($chance <= $successRate) {
             return ActionOutputEnum::FAIL;
-        } elseif ($chance <= 100 - $criticalSuccessRate) {
+        }
+        if ($chance <= 100 - $criticalSuccessRate) {
             return ActionOutputEnum::SUCCESS;
-        } elseif ($chance <= 100) {
+        }
+        if ($chance <= 100) {
             return ActionOutputEnum::CRITICAL_SUCCESS;
         }
 
@@ -187,8 +190,9 @@ class RandomService implements RandomServiceInterface
         return $element;
     }
 
-    // This function takes an array [element => proba%] as input and send back an array
-    // Instead of proba relative weight also work
+    /** This function takes an array [element => proba%] as input and send back an array
+     * Instead of proba relative weight also work.
+     **/
     public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null
     {
         if (count($array) < 1) {

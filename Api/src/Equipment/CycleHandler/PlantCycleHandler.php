@@ -50,12 +50,11 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewCycle($object, \DateTime $dateTime): void
     {
-        if (!($object instanceof GameEquipment)) {
+        if (!$object instanceof GameEquipment) {
             return;
         }
 
         $daedalus = $object->getDaedalus();
-
         $plantType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
             return;
@@ -63,10 +62,13 @@ class PlantCycleHandler extends AbstractCycleHandler
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
 
-        if ($this->randomService->isSuccessful($diseaseRate)
-            && !$object->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)
-        ) {
-            $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_DISEASED, $object, [EventEnum::NEW_CYCLE], new \DateTime());
+        if ($this->randomService->isSuccessful($diseaseRate) && !$object->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)) {
+            $this->statusService->createStatusFromName(
+                EquipmentStatusEnum::PLANT_DISEASED,
+                $object,
+                [EventEnum::NEW_CYCLE],
+                new \DateTime()
+            );
         }
     }
 
@@ -77,7 +79,6 @@ class PlantCycleHandler extends AbstractCycleHandler
         }
 
         $daedalus = $object->getDaedalus();
-
         $plantType = $object->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
         if (!$plantType instanceof Plant) {
             return;
@@ -88,20 +89,13 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plantStatus = $object->getStatuses();
 
         // If plant is young, dried or diseased, do not produce oxygen
-        if ($plantStatus->filter(
-            fn (Status $status) => in_array(
-                $status->getName(),
-                [
-                    EquipmentStatusEnum::PLANT_DRY,
-                    EquipmentStatusEnum::PLANT_DISEASED,
-                    EquipmentStatusEnum::PLANT_YOUNG,
-                ]
-            )
-        )->isEmpty()
-        ) {
+        if ($plantStatus->filter(static fn (Status $status) => in_array($status->getName(), [
+            EquipmentStatusEnum::PLANT_DRY,
+            EquipmentStatusEnum::PLANT_DISEASED,
+            EquipmentStatusEnum::PLANT_YOUNG,
+        ], true))->isEmpty()) {
             $this->addOxygen($object, $plantEffect, $dateTime);
-            if ($plantStatus->filter(fn (Status $status) => $status->getName() == EquipmentStatusEnum::PLANT_THIRSTY)->isEmpty()
-            ) {
+            if ($plantStatus->filter(static fn (Status $status) => $status->getName() === EquipmentStatusEnum::PLANT_THIRSTY)->isEmpty()) {
                 $this->addFruit($object, $plantType, $dateTime);
             }
         }
@@ -112,13 +106,14 @@ class PlantCycleHandler extends AbstractCycleHandler
     private function handleStatus(GameEquipment $gamePlant, \DateTime $dateTime): void
     {
         // If plant was thirsty, become dried
-        if (($thirsty = $gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY)) !== null) {
+        if ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) !== null) {
             $this->statusService->removeStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
             $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_DRY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
 
         // If plant was dried, become hydropot
         } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
             $this->handleDriedPlant($gamePlant, $dateTime);
+
         // If plant was not thirsty or dried become thirsty
         } else {
             $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
@@ -127,7 +122,6 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function handleDriedPlant(GameEquipment $gamePlant, \DateTime $dateTime): void
     {
-        $place = $gamePlant->getPlace();
         $holder = $gamePlant->getHolder();
 
         // Create a new hydropot
@@ -151,30 +145,9 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addFruit(GameEquipment $gamePlant, Plant $plantType, \DateTime $dateTime): void
     {
-        // If plant is young, thirsty, dried or diseased, do not produce fruit
-        if (!$gamePlant->getStatuses()
-            ->filter(
-                fn (Status $status) => in_array(
-                    $status->getName(),
-                    [
-                        EquipmentStatusEnum::PLANT_DRY,
-                        EquipmentStatusEnum::PLANT_DISEASED,
-                        EquipmentStatusEnum::PLANT_YOUNG,
-                        EquipmentStatusEnum::PLANT_THIRSTY,
-                    ]
-                )
-            )
-            ->isEmpty()
-        ) {
-            return;
-        }
-
-        // If plant is not in a room, it is in player inventory
-        $place = $gamePlant->getPlace();
-
-        $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->gameEquipmentService->createGameEquipmentFromName(
             $plantType->getFruitName(),
-            $place,
+            $gamePlant->getPlace(), // If plant is not in a room, it is in player inventory
             [EventEnum::PLANT_PRODUCTION],
             $dateTime,
             VisibilityEnum::PUBLIC
@@ -183,11 +156,10 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     private function addOxygen(GameEquipment $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
-        $daedalus = $gamePlant->getDaedalus();
         // Add Oxygen
         if ($oxygen = $plantEffect->getOxygen()) {
             $daedalusEvent = new DaedalusVariableEvent(
-                $daedalus,
+                $gamePlant->getDaedalus(),
                 DaedalusVariableEnum::OXYGEN,
                 $oxygen,
                 [EventEnum::PLANT_PRODUCTION],

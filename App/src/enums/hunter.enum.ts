@@ -1,3 +1,5 @@
+import { getImgUrl } from '../utils/getImgUrl';
+
 const ARACK = 'spider';
 const ASTEROID = 'asteroid';
 const D1000 = 'dice';
@@ -6,18 +8,18 @@ const TRAX = 'trax';
 
 export const hunterEnum: {[index: string]: any} = {
     [ARACK]: {
-        'image': '/src/assets/images/hunters/arack.png',
+        'image': getImgUrl('hunters/arack.png'),
     },
     [ASTEROID]: {
-        'image': '/src/assets/images/hunters/asteroid.png',
+        'image': getImgUrl('hunters/asteroid.png'),
     },
     [D1000]: {
-        'image': '/src/assets/images/hunters/d1000.png',
+        'image': getImgUrl('hunters/d1000.png'),
     },
     [HUNTER]: {
-        'image': '/src/assets/images/hunters/hunter.png',
+        'image': getImgUrl('hunters/hunter.png'),
     },
     [TRAX]: {
-        'image': '/src/assets/images/hunters/trax.png',
+        'image': getImgUrl('hunters/trax.png'),
     }
 };

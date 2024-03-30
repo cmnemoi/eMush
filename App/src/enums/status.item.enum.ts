@@ -1,3 +1,5 @@
+import { getImgUrl } from "@/utils/getImgUrl";
+
 export enum StatusItemNameEnum {
     HEAVY = "heavy",
     HIDDEN = "hidden",
@@ -16,42 +18,42 @@ export enum StatusItemNameEnum {
 
 export const statusItemEnum: {[index: string]: any} = {
     [StatusItemNameEnum.HEAVY]: {
-        'icon': '/src/assets/images/status/heavy.png',
+        'icon': getImgUrl('status/heavy.png'),
     },
     [StatusItemNameEnum.HIDDEN]: {
-        'icon': '/src/assets/images/status/hidden.png',
+        'icon': getImgUrl('status/hidden.png'),
     },
     [StatusItemNameEnum.PLANT_YOUNG]: {
-        'icon': '/src/assets/images/status/plant_youngling.png',
+        'icon': getImgUrl('status/plant_youngling.png'),
     },
     [StatusItemNameEnum.PLANT_THIRSTY]: {
-        'icon': '/src/assets/images/status/plant_thirsty.png',
+        'icon': getImgUrl('status/plant_thirsty.png'),
     },
     [StatusItemNameEnum.PLANT_DRY]: {
-        'icon': '/src/assets/images/status/plant_dry.png',
+        'icon': getImgUrl('status/plant_dry.png'),
     },
     [StatusItemNameEnum.PLANT_DISEASED]: {
-        'icon': '/src/assets/images/status/plant_diseased.png',
+        'icon': getImgUrl('status/plant_diseased.png'),
     },
     [StatusItemNameEnum.ELECTRIC_CHARGE]: {
-        'icon': '/src/assets/images/status/charge.png',
+        'icon': getImgUrl('status/charge.png'),
     },
     [StatusItemNameEnum.BROKEN]: {
-        'icon': '/src/assets/images/status/broken.png',
+        'icon': getImgUrl('status/broken.png'),
     },
     [StatusItemNameEnum.FROZEN]: {
-        'icon': '/src/assets/images/status/food_frozen.png',
+        'icon': getImgUrl('status/food_frozen.png'),
     },
     [StatusItemNameEnum.UPDATING]: {
-        'icon': '/src/assets/images/status/update.png',
+        'icon': getImgUrl('status/update.png'),
     },
     [StatusItemNameEnum.UNSTABLE]: {
-        'icon': '/src/assets/images/status/food_unstable.png',
+        'icon': getImgUrl('status/food_unstable.png'),
     },
     [StatusItemNameEnum.HASARDOUS]: {
-        'icon': '/src/assets/images/status/food_hazardous.png',
+        'icon': getImgUrl('status/food_hazardous.png'),
     },
     [StatusItemNameEnum.DECOMPOSING]: {
-        'icon': '/src/assets/images/status/food_decaying.png',
+        'icon': getImgUrl('status/food_decaying.png'),
     }
 };

@@ -24,7 +24,7 @@
                                 </ul>
                             </li>
                             <li class="iconLife">
-                                <p><img src="/src/assets/images/lp.png" alt="lp">{{ player.healthPoint.quantity }}</p>
+                                <p><img :src="getImgUrl('lp.png')" alt="lp">{{ player.healthPoint.quantity }}</p>
                             </li>
                             <template #content>
                                 <h1 v-html="formatContent(player.healthPoint.name)" />
@@ -40,7 +40,7 @@
                                 </ul>
                             </li>
                             <li class="iconMorale">
-                                <p><img src="/src/assets/images/moral.png" alt="mp">{{ player.moralPoint.quantity }}</p>
+                                <p><img :src="getImgUrl('moral.png')" alt="mp">{{ player.moralPoint.quantity }}</p>
                             </li>
                             <template #content>
                                 <h1 v-html="formatContent(player.moralPoint.name)" />
@@ -101,7 +101,7 @@
             </div>
 
             <div class="actions-sheet">
-                <img src="/src/assets/images/pam.png" alt="pam">
+                <img :src="getImgUrl('pam.png')" alt="pam">
                 <Tippy tag="div">
                     <div class="action-points">
                         <div class="actions">
@@ -122,7 +122,7 @@
                 </Tippy>
                 <ul class="specials">
                     <Tippy tag="li" v-if="player.shootPoint && player.shootPoint.quantity > 0">
-                        <img src="/src/assets/images/pa_shoot.png">x{{ player.shootPoint.quantity }}
+                        <img :src="getImgUrl('pa_shoot.png')">x{{ player.shootPoint.quantity }}
                         <template #content>
                             <h1 v-html="formatContent(player.shootPoint.name)" />
                             <p v-html="formatContent(player.shootPoint.description)" />
@@ -149,6 +149,7 @@ import { defineComponent } from "vue";
 import { Status } from "@/entities/Status";
 import { StatusPlayerNameEnum, statusPlayerEnum } from "@/enums/status.player.enum";
 import { formatText } from "@/utils/formatText";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 interface CharPanelState {
     selectedItem: Item | Player | null
@@ -192,6 +193,7 @@ export default defineComponent ({
                 'empty': value > threshold
             };
         },
+        getImgUrl,
         formatText,
         skillImage(skill: Status): string {
             return statusPlayerEnum[skill.key].icon ?? '';

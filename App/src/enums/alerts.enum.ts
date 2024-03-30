@@ -1,3 +1,5 @@
+import { getImgUrl } from "@/utils/getImgUrl";
+
 export enum AlertEnum {
     NO_ALERT = 'no_alert',
     GRAVITY_REBOOT = 'gravity_reboot',
@@ -12,15 +14,15 @@ export enum AlertEnum {
 }
 
 export const AlertsIcons: {[index: string]: string} = {
-    [AlertEnum.NO_ALERT]: '/src/assets/images/alerts/infoalert.png',
-    [AlertEnum.LOW_OXYGEN]: '/src/assets/images/alerts/o2alert.png',
-    [AlertEnum.LOW_HULL]: '/src/assets/images/shield.png',
-    [AlertEnum.FIRES]: '/src/assets/images/alerts/fire.png',
-    [AlertEnum.BROKEN_DOORS]: '/src/assets/images/alerts/door.png',
-    [AlertEnum.BROKEN_EQUIPMENTS]: '/src/assets/images/alerts/broken.png',
-    [AlertEnum.NO_GRAVITY]: '/src/assets/images/alerts/simulator.png',
-    [AlertEnum.GRAVITY_REBOOT]: '/src/assets/images/alerts/simulatorReboot.png',
-    [AlertEnum.HUNGER]: '/src/assets/images/alerts/hunger.png',
-    [AlertEnum.HUNTER]: '/src/assets/images/alerts/hunter.png',
+    [AlertEnum.NO_ALERT]: getImgUrl('alerts/infoalert.png'),
+    [AlertEnum.LOW_OXYGEN]: getImgUrl('alerts/o2alert.png'),
+    [AlertEnum.LOW_HULL]: getImgUrl('shield.png'),
+    [AlertEnum.FIRES]: getImgUrl('alerts/fire.png'),
+    [AlertEnum.BROKEN_DOORS]: getImgUrl('alerts/door.png'),
+    [AlertEnum.BROKEN_EQUIPMENTS]: getImgUrl('alerts/broken.png'),
+    [AlertEnum.NO_GRAVITY]: getImgUrl('alerts/simulator.png'),
+    [AlertEnum.GRAVITY_REBOOT]: getImgUrl('alerts/simulatorReboot.png'),
+    [AlertEnum.HUNGER]: getImgUrl('alerts/hunger.png'),
+    [AlertEnum.HUNTER]: getImgUrl('alerts/hunter.png'),
 }
 ;

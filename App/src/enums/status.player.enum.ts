@@ -1,3 +1,5 @@
+import { getImgUrl } from '../utils/getImgUrl';
+
 export enum StatusPlayerNameEnum {
     STARVING = "starving",
     BURDENED = "burdened",
@@ -24,66 +26,66 @@ export enum StatusPlayerNameEnum {
 
 export const statusPlayerEnum: {[index: string]: any} = {
     [StatusPlayerNameEnum.STARVING]: {
-        'icon': '/src/assets/images/status/starving.png',
+        'icon': getImgUrl('status/starving.png'),
     },
     [StatusPlayerNameEnum.FIRST_TIME]: {
-        'icon': '/src/assets/images/status/first_time.png',
+        'icon': getImgUrl('status/first_time.png'),
     },
     [StatusPlayerNameEnum.BURDENED]: {
-        'icon': '/src/assets/images/status/heavy.png',
+        'icon': getImgUrl('status/heavy.png'),
     },
     [StatusPlayerNameEnum.DISABLED]: {
-        'icon': '/src/assets/images/status/disabled.png',
+        'icon': getImgUrl('status/disabled.png'),
     },
     [StatusPlayerNameEnum.FULL_STOMACH]: {
-        'icon': '/src/assets/images/status/belly_full.png',
+        'icon': getImgUrl('status/belly_full.png'),
     },
     [StatusPlayerNameEnum.IMMUNIZED]: {
-        'icon': '/src/assets/images/status/immune.png',
+        'icon': getImgUrl('status/immune.png'),
     },
     [StatusPlayerNameEnum.LYING_DOWN]: {
-        'icon': '/src/assets/images/status/laid.png',
+        'icon': getImgUrl('status/laid.png'),
     },
     [StatusPlayerNameEnum.DIRTY]: {
-        'icon': '/src/assets/images/status/stinky.png',
+        'icon': getImgUrl('status/stinky.png'),
     },
     [StatusPlayerNameEnum.MUSH]: {
-        'icon': '/src/assets/images/status/mush.png',
+        'icon': getImgUrl('status/mush.png'),
     },
     [StatusPlayerNameEnum.PACIFIST]: {
-        'icon': '/src/assets/images/status/pacifist.png',
+        'icon': getImgUrl('status/pacifist.png'),
     },
     [StatusPlayerNameEnum.DEMORALIZED]: {
-        'icon': '/src/assets/images/status/demoralized.png',
+        'icon': getImgUrl('status/demoralized.png'),
     },
     [StatusPlayerNameEnum.SUICIDAL]: {
-        'icon': '/src/assets/images/status/suicidal.png',
+        'icon': getImgUrl('status/suicidal.png'),
     },
     [StatusPlayerNameEnum.SPORES]: {
-        'icon': '/src/assets/images/status/spore.png',
+        'icon': getImgUrl('status/spore.png'),
     },
     [StatusPlayerNameEnum.ANTISOCIAL]: {
-        'icon': '/src/assets/images/status/unsociable.png',
+        'icon': getImgUrl('status/unsociable.png'),
     },
     [StatusPlayerNameEnum.PREGNANT]: {
-        'icon': '/src/assets/images/status/pregnant.png',
+        'icon': getImgUrl('status/pregnant.png'),
     },
     [StatusPlayerNameEnum.GAGGED]: {
-        'icon': '/src/assets/images/status/gagged.png',
+        'icon': getImgUrl('status/gagged.png'),
     },
     [StatusPlayerNameEnum.FOCUSED]: {
-        'icon': '/src/assets/images/status/moduling.png',
+        'icon': getImgUrl('status/moduling.png'),
     },
     [StatusPlayerNameEnum.STUCK_IN_THE_SHIP]: {
-        'icon': '/src/assets/images/status/stuck_in_ship.png',
+        'icon': getImgUrl('status/stuck_in_ship.png'),
     },
     [StatusPlayerNameEnum.POC_PILOT_SKILL]: {
-        'icon': '/src/assets/images/skills/human/pilot.png',
+        'icon': getImgUrl('skills/human/pilot.png'),
     },
     [StatusPlayerNameEnum.POC_SHOOTER_SKILL]: {
-        'icon': '/src/assets/images/skills/human/gunman.png',
+        'icon': getImgUrl('skills/human/gunman.png'),
     },
     [StatusPlayerNameEnum.LOST]: {
-        'icon': '/src/assets/images/status/lost_on_planet.png',
+        'icon': getImgUrl('status/lost_on_planet.png'),
     }
 };

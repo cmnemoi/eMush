@@ -3,6 +3,7 @@
         <ul class="tabs">
             <Tab
                 v-for="(channel, id) in channels"
+                :class="channel.scope"
                 :key="id"
                 :type="channel.scope"
                 :is-pirated="isChannelPirated(channel)"

@@ -60,7 +60,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then I should see a single room log for the modifier
         $roomLog = $I->grabEntitiesFromRepository(

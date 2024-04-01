@@ -35,7 +35,7 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
             time: new \DateTime()
         );
         $dispatchedEvents = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-        $ropeWorked = $dispatchedEvents->filter(fn (AbstractGameEvent $event) => $event->hasTag(ModifierNameEnum::ROPE_MODIFIER))->count() > 0;
+        $ropeWorked = $dispatchedEvents->filter(static fn (AbstractGameEvent $event) => $event->hasTag(ModifierNameEnum::ROPE_MODIFIER))->count() > 0;
 
         $logParameters = $this->getLogParameters($event);
         $logParameters['quantity'] = $healthLost;

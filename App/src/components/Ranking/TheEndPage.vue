@@ -411,6 +411,7 @@ export default defineComponent ({
     computed: {
         ...mapGetters({
             isModerator: 'auth/isModerator',
+            reportPopup: 'popup/reportPopup'
         }),
     },
     data: function (): ClosedDaedalusState {

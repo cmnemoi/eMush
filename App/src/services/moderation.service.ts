@@ -137,13 +137,20 @@ const ModerationService = {
 
         return response;
     },
-    unbanUser: async(userId: integer): Promise<any> => {
+    suspendSanction: async(sanctionId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.patch(MODERATION_ENDPOINT + '/unban-user/' + userId);
+        const response = await ApiService.patch(MODERATION_ENDPOINT + '/suspend-sanction/' + sanctionId);
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
-    }
+    },
+    removeSanction: async(sanctionId: number): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(MODERATION_ENDPOINT + '/remove-sanction/' + sanctionId);
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
 };
 
 export default ModerationService;

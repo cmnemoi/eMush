@@ -49,15 +49,24 @@
             <template #header-actions>
                 Actions
             </template>
-            <template #row-actions="user">
+            <template #row-actions="sanction">
                 <div v-if="isModerator">
                     <Tippy tag="button"
                            class="action-button"
-                           @click="removeSanction()">
+                           @click="removeSanction(sanction.id)">
                         {{ $t('moderation.removeSanction') }}
                         <template #content>
                             <h1>{{ $t('moderation.removeSanction') }}</h1>
                             <p>{{ $t('moderation.removeSanctionDescription') }}</p>
+                        </template>
+                    </Tippy>
+                    <Tippy tag="button"
+                           class="action-button"
+                           @click="suspendSanction(sanction.id)">
+                        {{ $t('moderation.suspendSanction') }}
+                        <template #content>
+                            <h1>{{ $t('moderation.suspendSanction') }}</h1>
+                            <p>{{ $t('moderation.suspendSanctionDescription') }}</p>
                         </template>
                     </Tippy>
                 </div>
@@ -87,7 +96,8 @@ interface SanctionListData {
         { key: string; name: string; },
         { key: string; name: string; },
         { key: string; name: string; },
-        { key: string; name: string; }
+        { key: string; name: string; },
+        { key: string; name: string; sortable: false; slot: true; }
     ],
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number; };
     rowData: never[];
@@ -138,6 +148,12 @@ export default defineComponent({
                 {
                     key: 'endDate',
                     name: 'moderation.endDate',
+                },
+                {
+                    key: 'actions',
+                    name: 'Action',
+                    sortable: false,
+                    slot: true
                 }
             ],
             pagination: {
@@ -168,11 +184,23 @@ export default defineComponent({
         moderationSanctionTypes() {
             return moderationSanctionTypes
         },
-        removeSanction() {
-
+        removeSanction(sanctionId: number) {
+            ModerationService.removeSanction(sanctionId)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         },
-        suspendSanction() {
-
+        suspendSanction(sanctionId: number) {
+            ModerationService.suspendSanction(sanctionId)
+                .then(() => {
+                    this.loadData();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         },
         loadData() {
             this.loading = true;

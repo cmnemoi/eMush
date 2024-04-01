@@ -91,7 +91,7 @@ final class ModerationService implements ModerationServiceInterface
     {
         $moderationAction->setEndDate(new \DateTime());
 
-        $this->entityManager->remove($moderationAction);
+        $this->entityManager->persist($moderationAction);
         $this->entityManager->flush();
     }
 

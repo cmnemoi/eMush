@@ -578,11 +578,15 @@
       "newCycle": "Nouveau cycle",
       "myMessageHere": "Mon message ici !",
       "bookmark": "Favori",
+      "bookmarkDescription": "Mettre ce message et ses réponses en favori",
       "invite": "Inviter",
+      "inviteDescription": "Plus on est de fous, plus on rit.",
       "leave": "Quitter",
+      "leaveDescription": "Vous n'êtes pas d'accord avec vos coéquipiers, adoptez la solution d'efficacité, quittez la conversation",
       "refresh": "Rafr.",
+      "refreshDescription": "Qu'est ce qui a bien pu se dire ?",
       "reply": "Répondre",
-      "report": "Plainte"
+      "replyDescription": "Répondre à ce message"
     },
     "exploration": {
       "newStep": "Nouvelle étape"
@@ -705,6 +709,7 @@
       "quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
       "warning": "Avertissement",
       "delete_message": "Supprimer le message",
+      "deleteDescription": "Cette action supprime le message et le remplace par un message de NERON",
       "delete_end_message": "Supprimer le message de fin",
       "hide_end_message": "Cacher le message de fin",
       "allTypes": "Toutes les sanctions"
@@ -763,6 +768,12 @@
     "reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
     "searchByCharacter": "Rechercher un personnage :",
     "searchByDaedalusId": "Rechercher un Daedalus par ID :",
-    "searchByUsername": "Rechercher un utilisateur :"
+    "searchByUsername": "Rechercher un utilisateur :",
+    "suspendSanction": "Suspendre la sanction",
+    "suspendSanctionDescription": "Suspendre la sanction. La date de fin est définie à la date courante. La sanction reste dans l'historique de l'utilisateur",
+    "removeSanction": "Supprimer la sanction",
+    "removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur",
+    "report": "Plainte",
+    "reportDescription": "Faire remonter un message problématique à la modération."
   }
 }

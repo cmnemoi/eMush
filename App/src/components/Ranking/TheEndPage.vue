@@ -51,6 +51,13 @@
                             <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                         </template>
                     </Tippy>
+                    <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportPopup()">
+                        <img src="@/assets/images/comms/alert.png" alt="Edit message">
+                        <template #content>
+                            <h1>{{ $t('moderation.report')}}</h1>
+                            <p>{{ $t('moderation.reportDescription') }}</p>
+                        </template>
+                    </Tippy>
                 </p>
                 <div class="triumph">
                     <p class="score mush" v-if="goldNovaPlayer.isMush">
@@ -152,6 +159,13 @@
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
+                            <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportPopup()">
+                                <img src="@/assets/images/comms/alert.png" alt="Edit message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.report')}}</h1>
+                                    <p>{{ $t('moderation.reportDescription') }}</p>
+                                </template>
+                            </Tippy>
                         </p>
                         <!-- <ul>
                             <li>Vous avez éteint un incendie !</li>
@@ -228,6 +242,13 @@
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
+                                </template>
+                            </Tippy>
+                            <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportPopup()">
+                                <img src="@/assets/images/comms/alert.png" alt="Edit message">
+                                <template #content>
+                                    <h1>{{ $t('moderation.report')}}</h1>
+                                    <p>{{ $t('moderation.reportDescription') }}</p>
                                 </template>
                             </Tippy>
                         </p>
@@ -369,7 +390,7 @@ import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import ApiService from "@/services/api.service";
 import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
-import { mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import { formatText } from "@/utils/formatText";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
@@ -404,7 +425,13 @@ export default defineComponent ({
             currentPlayer: null
         };
     },
+    emits: {
+        report: null
+    },
     methods: {
+        ...mapActions('popup', [
+            'openReportPopup'
+        ]),
         async loadData() {
             const closedDaedalusId = String(this.$route.params.closedDaedalusId);
             await DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))

@@ -91,7 +91,7 @@ final class ModerationController extends AbstractFOSRestController
         $this->denyAccessIfNotModerator();
 
         $durationString = $request->get('duration');
-        if ($durationString !== null && $durationString !== "") {
+        if ($durationString !== null && $durationString !== '') {
             $duration = new \DateInterval($durationString);
         } else {
             $duration = null;
@@ -103,7 +103,6 @@ final class ModerationController extends AbstractFOSRestController
         } else {
             $startDate = null;
         }
-
 
         $this->moderationService->banUser(
             $user,
@@ -172,7 +171,7 @@ final class ModerationController extends AbstractFOSRestController
         $this->denyAccessIfNotModerator();
 
         $durationString = $request->get('duration');
-        if ($durationString !== null && $durationString !== "") {
+        if ($durationString !== null && $durationString !== '') {
             $duration = new \DateInterval($durationString);
         } else {
             $duration = null;
@@ -446,7 +445,7 @@ final class ModerationController extends AbstractFOSRestController
 
         $this->moderationService->suspendSanction($moderationSanction);
 
-        return $this->view(['detail' => 'message deleted successfully'], Response::HTTP_OK);
+        return $this->view(['detail' => 'sanction suspended successfully'], Response::HTTP_OK);
     }
 
     /**
@@ -464,7 +463,7 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Post(path="/suspend-sanction/{id}")
+     * @Rest\Post(path="/remove-sanction/{id}")
      *
      * @Rest\View()
      */
@@ -474,7 +473,7 @@ final class ModerationController extends AbstractFOSRestController
 
         $this->moderationService->removeSanction($moderationSanction);
 
-        return $this->view(['detail' => 'message deleted successfully'], Response::HTTP_OK);
+        return $this->view(['detail' => 'sanction deleted successfully'], Response::HTTP_OK);
     }
 
     private function denyAccessIfNotModerator(): void

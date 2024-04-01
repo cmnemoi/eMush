@@ -1,12 +1,12 @@
 <template>
     <PopUp :is-open=moderationDialogVisible @close="closeModerationDialog()">
-        <h2>{{ $t("moderation.dialogTitle") }}</h2>
-        <label>{{ $t("moderation.reason") }}:
+        <h2>{{ $t(action.key) }}</h2>
+        <label>{{ $t("moderation.sanctionReason") }}:
             <select v-model="moderationReason">
-                <option v-for="reason in moderationReasonOptions" :key="reason">{{ reason }}</option>
+                <option v-for="reason in moderationReasons()" :key="reason.key" :value="reason.value">{{ $t(reason.key) }}</option>
             </select>
         </label>
-        <label>{{ $t("moderation.message") }}:
+        <label>{{ $t("moderation.adminMessage") }}:
             <textarea v-model="moderationMessage"></textarea>
         </label>
         <label v-if="showDateOptions">{{ $t("moderation.startDate") }}:
@@ -14,7 +14,8 @@
         </label>
         <label v-if="showDateOptions">{{ $t("moderation.duration") }}:
             <select v-model="moderationDuration">
-                <option v-for="duration in moderationDurationOptions" :key="duration.key" :value="duration.value">{{ duration.key }}</option>
+                <option value="">{{ $t('moderation.durations.permanent') }}</option>
+                <option v-for="duration in sanctionDuration()" :value="duration.value" :key="duration.key">{{ $t(duration.key) }}</option>
             </select>
         </label>
         <div class="actions">
@@ -24,19 +25,17 @@
 </template>
 
 <script>
-import {moderationReasons, sanctionDuration} from "@/enums/moderation_reason.enum";
 import PopUp from "@/components/Utils/PopUp.vue";
+import { moderationReasons, sanctionDuration } from "@/enums/moderation_reason.enum";
 
 export default {
     components: { PopUp },
     props: {
         moderationDialogVisible: Boolean,
-        action: String, // moderation action that opened the pop-up
+        action: { key: String, value: String } // moderation action that opened the pop-up
     },
     data() {
         return {
-            moderationReasonOptions: moderationReasons,
-            moderationDurationOptions: sanctionDuration,
             moderationReason: "",
             moderationMessage: "",
             moderationStartDate: "",
@@ -46,10 +45,16 @@ export default {
     computed: {
         showDateOptions() {
             // display the starting date and duration of the sanction only for ban and warning
-            return this.action === "ban" || this.action === "warning" || this.action === "quarantine_ban";
+            return this.action.value === "ban_user" || this.action.value === "warning" || this.action.value === "quarantine_ban";
         },
     },
     methods: {
+        moderationReasons() {
+            return moderationReasons
+        },
+        sanctionDuration() {
+            return sanctionDuration
+        },
         closeModerationDialog() {
             this.$emit("close");
         },

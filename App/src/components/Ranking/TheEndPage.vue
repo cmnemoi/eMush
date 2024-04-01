@@ -380,13 +380,13 @@ interface ClosedDaedalusState {
     mainRolesPlayers: ClosedPlayer[]|null,
     figurantPlayers: ClosedPlayer[]|null,
     moderationDialogVisible: boolean,
-    currentAction: string,
+    currentAction: { key: string, value: string },
     currentPlayer: ClosedPlayer|null,
 }
 
 export default defineComponent ({
     name: 'TheEnd',
-    components: {ModerationActionPopup},
+    components: { ModerationActionPopup },
     computed: {
         ...mapGetters({
             isModerator: 'auth/isModerator',
@@ -400,7 +400,7 @@ export default defineComponent ({
             mainRolesPlayers: [],
             figurantPlayers: [],
             moderationDialogVisible: false,
-            currentAction: "",
+            currentAction: { key: "", value: "" },
             currentPlayer: null
         };
     },
@@ -440,12 +440,12 @@ export default defineComponent ({
                 });
         },
         openEditDialog(player: ClosedPlayer) {
-            this.currentAction = 'edit_end_message';
+            this.currentAction = { key: 'moderation.sanction.delete_end_message', value: 'delete_end_message' };
             this.currentPlayer = player;
             this.moderationDialogVisible = true;
         },
         openHideDialog(player: ClosedPlayer) {
-            this.currentAction = 'hide_end_message';
+            this.currentAction = { key: 'moderation.sanction.hide_end_message', value: 'hide_end_message' };
             this.currentPlayer = player;
             this.moderationDialogVisible = true;
         },
@@ -455,9 +455,9 @@ export default defineComponent ({
         async applySanction(params) {
             if (this.currentPlayer === null || this.currentPlayer.id === null) return;
 
-            if (this.currentAction === 'hide_end_message') {
+            if (this.currentAction.value === 'hide_end_message') {
                 await ModerationService.hideClosedPlayerEndMessage(this.currentPlayer.id, params);
-            } else if (this.currentAction === 'edit_end_message') {
+            } else if (this.currentAction.value === 'delete_end_message') {
                 await ModerationService.editClosedPlayerEndMessage(this.currentPlayer.id, params);
             }
             this.moderationDialogVisible = false;

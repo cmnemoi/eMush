@@ -1,5 +1,5 @@
 <template>
-    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="'delete_message'" @close="closeModerationDialog" @submitSanction="deleteMessage" />
+    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="{ key: 'moderation.sanction.delete_message', value: 'delete_message' }" @close="closeModerationDialog" @submitSanction="deleteMessage" />
     <div
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"

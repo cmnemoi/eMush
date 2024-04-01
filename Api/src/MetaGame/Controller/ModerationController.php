@@ -90,8 +90,21 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
-        $duration = new \DateInterval($request->get('duration'));
-        $startDate = new \DateTime($request->get('startDate'));
+        $durationString = $request->get('duration');
+        if ($durationString !== null && $durationString !== "") {
+            $duration = new \DateInterval($durationString);
+        } else {
+            $duration = null;
+        }
+
+        $startDateString = $request->get('startDate');
+        if ($startDateString !== null) {
+            $startDate = new \DateTime($startDateString);
+        } else {
+            $startDate = null;
+        }
+
+
         $this->moderationService->banUser(
             $user,
             $duration,
@@ -158,8 +171,20 @@ final class ModerationController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotModerator();
 
-        $duration = new \DateInterval($request->get('duration'));
-        $startDate = new \DateTime($request->get('startDate'));
+        $durationString = $request->get('duration');
+        if ($durationString !== null && $durationString !== "") {
+            $duration = new \DateInterval($durationString);
+        } else {
+            $duration = null;
+        }
+
+        $startDateString = $request->get('startDate');
+        if ($startDateString !== null) {
+            $startDate = new \DateTime($startDateString);
+        } else {
+            $startDate = null;
+        }
+
         $this->moderationService->banUser(
             $user,
             $duration,

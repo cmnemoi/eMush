@@ -1,5 +1,6 @@
 <template>
     <div class="user_list_container">
+        <h2 class="sanction_heading">{{ $t('moderation.sanctionsFor', { username: username }) }}</h2>
         <div class="sanction_filter_options">
             <label>{{ $t('admin.show') }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
@@ -12,18 +13,16 @@
                     </option>
                 </select>
             </label>
-            <label>{{ $t('moderation.searchByType') }}
-                <label>{{ $t('moderation.searchByType') }}
-                    <select v-model="typeFilter" @change="updateFilter">
-                        <option value="">{{ $t('moderation.allTypes') }}</option>
-                        <option v-for="type in moderationSanctionTypes()" :value="type" :key="type">{{ type }}</option>
-                    </select>
-                </label>
+            <label>{{ $t('moderation.sanctionType') }}
+                <select v-model="typeFilter" @change="updateFilter">
+                    <option value="">{{ $t('moderation.sanction.allTypes') }}</option>
+                    <option v-for="type in moderationSanctionTypes()" :value="type.value" :key="type.key">{{ $t(type.key) }}</option>
+                </select>
             </label>
-            <label>{{ $t('moderation.searchByReason') }}
+            <label>{{ $t('moderation.sanctionReason') }}
                 <select v-model="reasonFilter" @change="updateFilter">
-                    <option value="">{{ $t('moderation.allReasons') }}</option>
-                    <option v-for="reason in moderationReasons()" :value="reason" :key="reason">{{ reason }}</option>
+                    <option value="">{{ $t('moderation.reason.allReasons') }}</option>
+                    <option v-for="reason in moderationReasons()" :value="reason.value" :key="reason.key">{{ $t(reason.key) }}</option>
                 </select>
             </label>
             <label>{{ $t('moderation.isSanctionActive') }}
@@ -122,7 +121,7 @@ export default defineComponent({
             fields: [
                 {
                     key: 'moderationAction',
-                    name: 'moderation.sanctionName',
+                    name: 'moderation.sanctionType',
                 },
                 {
                     key: 'reason',
@@ -197,16 +196,19 @@ export default defineComponent({
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
             if (this.typeFilter) {
-                params.params['moderationSanction.sanctionType'] = this.typeFilter;
+                params.params['moderationAction'] = this.typeFilter;
             }
             if (this.reasonFilter) {
-                params.params['moderationSanction.reason'] = this.reasonFilter;
+                params.params['reason'] = this.reasonFilter;
             }
             if (this.isActiveFilter) {
-                params.params['moderationSanction.isActive'] = true;
+                params.params['startDate[before]'] = 'now';
+                params.params['endDate[after]'] = 'now';
             }
 
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'users/'+ this.userId + '/moderation_sanctions'), params)
+            params.params['user.userId'] = this.userId;
+
+            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'moderation_sanctions'), params)
                 .then((result) => {
                     return result.data;
                 })
@@ -248,6 +250,8 @@ export default defineComponent({
     beforeMount() {
         this.userId = this.$route.params.userId;
         this.username = this.$route.params.username;
+        console.log(this.username);
+        console.log(this.userId);
         this.loadData();
     }
 });

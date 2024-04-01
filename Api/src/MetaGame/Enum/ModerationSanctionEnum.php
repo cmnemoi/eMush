@@ -18,7 +18,7 @@ class ModerationSanctionEnum
     public const WARNING = 'warning';
     public const DELETE_MESSAGE = 'delete_message';
     public const DELETE_END_MESSAGE = 'delete_end_message';
-    public const HIDE_END_MESSAGE = 'hide_message';
+    public const HIDE_END_MESSAGE = 'hide_end_message';
 
     // reasons for the ban
     public const MULTI_ACCOUNT = 'multi_account';

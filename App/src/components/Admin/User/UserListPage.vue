@@ -1,5 +1,5 @@
 <template>
-    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="'ban'" @close="closeModerationDialog" @submitSanction="banUser" />
+    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="{ value: 'ban_user', key: 'moderation.sanction.ban_user' }" @close="closeModerationDialog" @submitSanction="banUser" />
     <div class="user_list_container">
         <div class="user_filter_options">
             <label>{{ $t('admin.show') }}
@@ -38,7 +38,7 @@
                 Actions
             </template>
             <template #row-actions="user">
-                <router-link :to="{ name: 'SanctionListPage', params: { userId : user.userId, username: user.username } }" v-if="isAdmin">{{ $t('moderation.sanction') }}</router-link>
+                <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }" v-if="isAdmin">{{ $t('moderation.sanctionList') }}</router-link>
                 <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
                 <div v-if="isModerator">
                     <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
@@ -46,10 +46,10 @@
                            class="action-button"
                            v-if="!user.isBanned"
                            @click="openModerationDialog(user)">
-                        {{ $t('moderation.ban') }}
+                        {{ $t('moderation.sanction.ban_user') }}
                         <template #content>
-                            <h1>{{ $t('moderation.ban') }}</h1>
-                            <p>{{ $t('moderation.banDescription') }}</p>
+                            <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
+                            <p>{{ $t('moderation.sanction.banDescription') }}</p>
                         </template>
                     </Tippy>
                 </div>
@@ -66,9 +66,7 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
-import {User} from "@/entities/User";
-import {ClosedDaedalus} from "@/entities/ClosedDaedalus";
-import {ClosedPlayer} from "@/entities/ClosedPlayer";
+import { User } from "@/entities/User";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
 interface UserListData {

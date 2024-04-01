@@ -4,32 +4,32 @@
         <div class="flex-row">
             <Tippy tag="button"
                    class="action-button"
-                   @click="openModerationDialog('quarantine')"
+                   @click="openModerationDialog({ key: 'moderation.sanction.quarantine_player', value: 'quarantine_player' })"
                    v-if="player.isAlive">
-                {{ $t("moderation.quarantine") }}
+                {{ $t("moderation.sanction.quarantine_player") }}
                 <template #content>
-                    <h1>{{ $t("moderation.quarantine") }}</h1>
-                    <p>{{ $t("moderation.quarantineDescription") }}</p>
+                    <h1>{{ $t("moderation.sanction.quarantine_player") }}</h1>
+                    <p>{{ $t("moderation.sanction.quarantineDescription") }}</p>
                 </template>
             </Tippy>
             <Tippy tag="button"
                    class="action-button"
-                   @click="openModerationDialog('quarantine_ban')"
+                   @click="openModerationDialog({ key: 'moderation.sanction.quarantineAndBan', value: 'quarantine_ban' })"
                    v-if="player.isAlive">
-                {{ $t("moderation.quarantineAndBan") }}
+                {{ $t("moderation.sanction.quarantineAndBan") }}
                 <template #content>
-                    <h1>{{ $t("moderation.quarantineAndBan") }}</h1>
-                    <p>{{ $t("moderation.quarantineAndBanDescription") }}</p>
+                    <h1>{{ $t("moderation.sanction.quarantineAndBan") }}</h1>
+                    <p>{{ $t("moderation.sanction.quarantineAndBanDescription") }}</p>
                 </template>
             </Tippy>
             <Tippy tag="button"
                    class="action-button"
-                   @click="openModerationDialog('ban')"
+                   @click="openModerationDialog({ key: 'moderation.sanction.ban_user', value: 'ban_user' })"
                    v-if="!player.isAlive">
-                {{ $t("moderation.ban") }}
+                {{ $t("moderation.sanction.ban") }}
                 <template #content>
-                    <h1>{{ $t("moderation.ban") }}</h1>
-                    <p>{{ $t("moderation.banDescription") }}</p>
+                    <h1>{{ $t("moderation.sanction.ban") }}</h1>
+                    <p>{{ $t("moderation.sanction.banDescription") }}</p>
                 </template>
             </Tippy>
             <button class="action-button router-button">
@@ -282,7 +282,7 @@ interface ModerationViewPlayerData {
     privateChannels: PrivateChannel[],
     errors: any,
     moderationDialogVisible: boolean,
-    currentAction: string
+    currentAction: { key: string, value: string }
 }
 
 export default defineComponent({
@@ -317,11 +317,11 @@ export default defineComponent({
             privateChannels: [],
             errors: {},
             moderationDialogVisible: false,
-            currentAction: "",
+            currentAction: { key: "", value: "" },
         };
     },
     methods: {
-        openModerationDialog(moderationAction: string) {
+        openModerationDialog(moderationAction: { key: string, value: string }) {
             this.currentAction = moderationAction;
             this.moderationDialogVisible = true;
         },
@@ -333,7 +333,7 @@ export default defineComponent({
                 return;
             }
 
-            if (this.currentAction === 'quarantine' || this.currentAction === 'quarantine_ban') {
+            if (this.currentAction.value === 'quarantine_player' || this.currentAction.value === 'quarantine_ban') {
                 ModerationService.quarantinePlayer(this.player.id, params)
                     .then(() => {
                         this.loadData();
@@ -342,7 +342,7 @@ export default defineComponent({
                         console.error(error);
                     });
             }
-            if (this.currentAction === 'ban' || this.currentAction === 'quarantine_ban') {
+            if (this.currentAction.value === 'ban_user' || this.currentAction.value === 'quarantine_ban') {
                 ModerationService.banUser(this.player.user.id, params)
                     .then(() => {
                         this.loadData();

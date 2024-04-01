@@ -9,9 +9,8 @@ Mush\MetaGame\Entity\ModerationSanction:
     get:
       security: 'is_granted("ROLE_MODERATOR")'
       filters: [
-        'default.search_filter',
-        'default.order_filter',
-        'adminSanctionActive.search_filter',
+        'adminSanction.order_filter',
+        'adminSanction.date_filter',
         'adminSanction.search_filter'
       ]
   itemOperations:

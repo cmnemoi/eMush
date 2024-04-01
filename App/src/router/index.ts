@@ -26,8 +26,9 @@ import ModerationPlayerListPage from "@/components/Moderation/ModerationPlayerLi
 import ModerationViewPlayerDetailPage from "@/components/Moderation/ModerationViewPlayerDetailPage.vue";
 import ModerationPage from "@/components/Moderation/ModerationPage.vue";
 import ModerationHomePage from "@/components/Moderation/ModerationHomePage.vue";
-import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
+import Page from "@/components/Moderation/SanctionListPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
+import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
 
 const routes = [
     {
@@ -208,7 +209,7 @@ const routes = [
                     },
                     {
                         name: "SanctionListPage",
-                        path: '/user/:userId/ModerationSanction',
+                        path: '/user/:username/:userId/ModerationSanction',
                         component: UserPage,
                         redirect: { name: 'SanctionListPage' }
                     }
@@ -229,7 +230,7 @@ const routes = [
             },
             {
                 name: "SanctionListPage",
-                path: '/user/:userId/moderationSanctions',
+                path: '/user/:username/:userId/moderationSanctions',
                 component: SanctionListPage,
             }
         ]

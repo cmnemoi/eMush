@@ -521,6 +521,13 @@
         <source>again.cave_description</source>
         <target>This network of caves is seemingly never ending, somehow you manage to eventually find a way out, but you get the feeling that there's still something down there...</target>
       </segment>
+      <segment id="lost_description" state="translated">
+        <source>again.lost_description</source>
+        <target>{character_gender, select,
+        male {In spite of tireless searching, you have found no trace of {character}. However, he's got to be somewhere around here!}
+        female {In spite of tireless searching, you have found no trace of {character}. However, she's got to be somewhere around here!}
+        other {In spite of tireless searching, you have found no trace of {character}. However, they've got to be somewhere around here!}}</target>
+      </segment>
     </unit>
     <unit id="item_lost">
       <segment id="name" state="translated">

@@ -463,6 +463,12 @@
         <target>player_leave_chat_talky</target>
       </segment>
     </unit>
+    <unit id="player_leave_chat_lost">
+      <segment id="player_leave_chat_lost" state="initial">
+        <source>player_leave_chat_lost</source>
+        <target>player_leave_chat_lost</target>
+      </segment>
+    </unit>
     <unit id="hunter_death_patrol_ship">
       <segment id="hunter_death_patrol_ship" state="initial">
         <source>hunter_death_patrol_ship</source>

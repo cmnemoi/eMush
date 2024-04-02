@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
@@ -33,12 +34,13 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
             tags: $event->getTags(),
             time: new \DateTime()
         );
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $dispatchedEvents = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $ropeWorked = $dispatchedEvents->filter(static fn (AbstractGameEvent $event) => $event->hasTag(ModifierNameEnum::ROPE_MODIFIER))->count() > 0;
 
         $logParameters = $this->getLogParameters($event);
         $logParameters['quantity'] = $healthLost;
         $logParameters[$exploratorToInjure->getLogKey()] = $exploratorToInjure->getLogName();
-        $logParameters['has_rope'] = $exploratorToInjure->hasEquipmentByName(GearItemEnum::ROPE) ? 'true' : 'false';
+        $logParameters['rope_worked'] = $ropeWorked ? 'true' : 'false';
 
         return $this->createExplorationLog($event, $logParameters);
     }

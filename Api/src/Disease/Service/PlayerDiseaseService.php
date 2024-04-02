@@ -51,8 +51,8 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         array $causes,
         \DateTime $time,
         string $visibility,
-        Player $author = null): bool
-    {
+        Player $author = null
+    ): bool {
         $event = new DiseaseEvent(
             $playerDisease,
             $causes,
@@ -92,8 +92,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $disease = new PlayerDisease();
         $disease
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-        ;
+            ->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($disease);
 
         $delayMin = $delayMin ?? $diseaseConfig->getDelayMin();
@@ -174,37 +173,17 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             return;
         }
 
-        if ($this->diseaseHealsAtCycleChange($playerDisease)) {
-            $newDiseasePoint = $playerDisease->getDiseasePoint() - 1;
-            $playerDisease->setDiseasePoint($newDiseasePoint);
-        }
-
         $diseasePoint = $playerDisease->getDiseasePoint();
-
-        if ($diseasePoint <= 0) {
-            if ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) {
-                $diseaseConfig = $playerDisease->getDiseaseConfig();
-                $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
-                $playerDisease
-                    ->setStatus(DiseaseStatusEnum::ACTIVE)
-                    ->setResistancePoint($diseaseConfig->getResistance())
-                    ->setDiseasePoint(
-                        $this->randomService->random(
-                            $diseaseDurationMin,
-                            $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()
-                        )
-                    )
-                ;
-
-                $this->persist($playerDisease);
-
-                $this->activateDisease($playerDisease, [DiseaseCauseEnum::INCUBATING_END], $time);
-            } else {
-                $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::SPONTANEOUS_CURE], $time, VisibilityEnum::PRIVATE);
-            }
-        } else {
-            $this->persist($playerDisease);
+        if ($this->diseaseHealsAtCycleChange($playerDisease)) {
+            --$diseasePoint;
+            $playerDisease->setDiseasePoint($diseasePoint);
         }
+        if ($diseasePoint <= 0) {
+            $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::SPONTANEOUS_CURE], $time, VisibilityEnum::PRIVATE);
+        }
+
+        $this->activateDiseaseAfterIncubating($playerDisease, $time);
+        $this->persist($playerDisease);
     }
 
     public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time, string $visibility): void
@@ -231,6 +210,27 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $spontaneousHealingDisorders = [DisorderEnum::VERTIGO, DisorderEnum::SPLEEN];
 
         return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
-        || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders);
+            || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders, true);
+    }
+
+    private function activateDiseaseAfterIncubating(PlayerDisease $disease, \DateTime $time): void
+    {
+        if ($disease->getStatus() !== DiseaseStatusEnum::INCUBATING) {
+            return;
+        }
+
+        $diseaseConfig = $disease->getDiseaseConfig();
+        $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
+        $disease
+            ->setStatus(DiseaseStatusEnum::ACTIVE)
+            ->setResistancePoint($diseaseConfig->getResistance())
+            ->setDiseasePoint(
+                $this->randomService->random(
+                    $diseaseDurationMin,
+                    $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()
+                )
+            );
+
+        $this->activateDisease($disease, [DiseaseCauseEnum::INCUBATING_END], $time);
     }
 }

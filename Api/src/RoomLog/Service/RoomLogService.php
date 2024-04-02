@@ -182,12 +182,6 @@ class RoomLogService implements RoomLogServiceInterface
             }
         }
 
-        if ($player === null) {
-            $author = null;
-        } else {
-            $author = $player->getPlayerInfo();
-        }
-
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
@@ -195,7 +189,7 @@ class RoomLogService implements RoomLogServiceInterface
             ->setType($type)
             ->setDaedalusInfo($place->getDaedalus()->getDaedalusInfo())
             ->setPlace($place->getName())
-            ->setPlayerInfo($author)
+            ->setPlayerInfo($player?->getPlayerInfo())
             ->setVisibility($this->getVisibility($player, $visibility))
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())

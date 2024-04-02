@@ -53,7 +53,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         $gainOrLoss = $delta > 0 ? PlayerModifierLogEnum::GAIN : PlayerModifierLogEnum::LOSS;
         $logMap = PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS[$gainOrLoss];
 
-        if (key_exists($modifiedVariable, $logMap)) {
+        if (array_key_exists($modifiedVariable, $logMap)) {
             $logKey = $logMap[$modifiedVariable];
             $this->createEventLog($logKey, $playerEvent, $playerEvent->getVisibility());
         }
@@ -61,14 +61,12 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
     private function createEventLog(string $logKey, PlayerEvent $event, string $logVisibility): void
     {
-        $player = $event->getPlayer();
-
         $this->roomLogService->createLog(
             $logKey,
             $event->getPlace(),
             $logVisibility,
             'event_log',
-            $player,
+            $event->getPlayer(),
             $event->getLogParameters(),
             $event->getTime()
         );

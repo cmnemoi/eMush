@@ -3,7 +3,6 @@
 namespace Mush\Tests;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -102,7 +101,7 @@ class AbstractFunctionalTest
         return $daedalus;
     }
 
-    protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): Collection
+    protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): ArrayCollection
     {
         $players = new ArrayCollection([]);
         $characterNames = [CharacterEnum::CHUN, CharacterEnum::KUAN_TI];

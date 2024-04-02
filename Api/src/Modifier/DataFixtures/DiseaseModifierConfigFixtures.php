@@ -30,37 +30,37 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const REDUCE_MAX_1_HEALTH_POINT = 'reduce_max_1_health_point';
-    public const REDUCE_MAX_2_HEALTH_POINT = 'reduce_max_2_health_point';
-    public const REDUCE_MAX_4_HEALTH_POINT = 'reduce_max_4_health_point';
-    public const REDUCE_MAX_1_MORAL_POINT = 'reduce_max_1_moral_point';
-    public const REDUCE_MAX_2_MORAL_POINT = 'reduce_max_2_moral_point';
-    public const CYCLE_1_HEALTH_LOST = 'cycle_1_health_lost';
-    public const CYCLE_2_HEALTH_LOST = 'cycle_2_health_lost';
-    public const CYCLE_4_HEALTH_LOST = 'cycle_4_health_lost';
-    public const CYCLE_1_MOVEMENT_LOST = 'cycle_1_movement_lost';
-    public const CYCLE_1_SATIETY_LOST = 'cycle_1_satiety_lost';
-    public const CYCLE_1_SATIETY_INCREASE = 'cycle_1_satiety_increase';
-    public const CYCLE_1_ACTION_LOST_RAND_10 = 'cycle_1_action_lost_rand_10';
-    public const CYCLE_1_HEALTH_LOST_RAND_10 = 'cycle_1_health_lost_rand_10';
-    public const CYCLE_1_ACTION_LOST_RAND_16 = 'cycle_1_action_lost_rand_16';
-    public const CYCLE_1_HEALTH_LOST_RAND_16 = 'cycle_1_health_lost_rand_16';
-    public const CYCLE_1_ACTION_LOST_RAND_16_FITFUL_SLEEP = 'cycle_1_action_lost_rand_16_fitful_sleep';
-    public const CYCLE_1_ACTION_LOST_RAND_20 = 'cycle_1_action_lost_rand_20';
-    public const CYCLE_1_ACTION_LOST_RAND_30 = 'cycle_1_action_lost_rand_30';
-    public const CYCLE_2_ACTION_LOST_RAND_40 = 'cycle_2_action_lost_rand_40';
-    public const CYCLE_1_MOVEMENT_LOST_RAND_50 = 'cycle_1_movement_lost_rand_50';
-    public const CYCLE_1_HEALTH_LOST_RAND_50 = 'cycle_1_health_lost_rand_50';
-    public const CONSUME_1_ACTION_LOSS = 'consume_1_action_loss';
-    public const CONSUME_2_ACTION_LOSS = 'consume_2_action_loss';
-    public const SHOOT_ACTION_10_PERCENT_ACCURACY_LOST = 'shoot_action_10_percent_accuracy_lost';
-    public const MOVE_INCREASE_MOVEMENT = 'move_increase_movement';
-    public const TAKE_CAT_6_HEALTH_LOSS = 'take_cat_6_health_loss';
-    public const INFECTED_4_HEALTH_LOSS = 'infected_4_health_loss';
-    public const INCREASE_CYCLE_DISEASE_CHANCES_10 = 'increase_cycle_disease_chances_10';
-    public const RANDOM_16 = 'random_16_modifier';
-    public const RANDOM_40 = 'random_40_modifier';
-    public const RANDOM_50 = 'random_50_modifier';
+    public const string REDUCE_MAX_1_HEALTH_POINT = 'reduce_max_1_health_point';
+    public const string REDUCE_MAX_2_HEALTH_POINT = 'reduce_max_2_health_point';
+    public const string REDUCE_MAX_4_HEALTH_POINT = 'reduce_max_4_health_point';
+    public const string REDUCE_MAX_1_MORAL_POINT = 'reduce_max_1_moral_point';
+    public const string REDUCE_MAX_2_MORAL_POINT = 'reduce_max_2_moral_point';
+    public const string CYCLE_1_HEALTH_LOST = 'cycle_1_health_lost';
+    public const string CYCLE_2_HEALTH_LOST = 'cycle_2_health_lost';
+    public const string CYCLE_4_HEALTH_LOST = 'cycle_4_health_lost';
+    public const string CYCLE_1_MOVEMENT_LOST = 'cycle_1_movement_lost';
+    public const string CYCLE_1_SATIETY_LOST = 'cycle_1_satiety_lost';
+    public const string CYCLE_1_SATIETY_INCREASE = 'cycle_1_satiety_increase';
+    public const string CYCLE_1_ACTION_LOST_RAND_10 = 'cycle_1_action_lost_rand_10';
+    public const string CYCLE_1_HEALTH_LOST_RAND_10 = 'cycle_1_health_lost_rand_10';
+    public const string CYCLE_1_ACTION_LOST_RAND_16 = 'cycle_1_action_lost_rand_16';
+    public const string CYCLE_1_HEALTH_LOST_RAND_16 = 'cycle_1_health_lost_rand_16';
+    public const string CYCLE_1_ACTION_LOST_RAND_16_FITFUL_SLEEP = 'cycle_1_action_lost_rand_16_fitful_sleep';
+    public const string CYCLE_1_ACTION_LOST_RAND_20 = 'cycle_1_action_lost_rand_20';
+    public const string CYCLE_1_ACTION_LOST_RAND_30 = 'cycle_1_action_lost_rand_30';
+    public const string CYCLE_2_ACTION_LOST_RAND_40 = 'cycle_2_action_lost_rand_40';
+    public const string CYCLE_1_MOVEMENT_LOST_RAND_50 = 'cycle_1_movement_lost_rand_50';
+    public const string CYCLE_1_HEALTH_LOST_RAND_50 = 'cycle_1_health_lost_rand_50';
+    public const string CONSUME_1_ACTION_LOSS = 'consume_1_action_loss';
+    public const string CONSUME_2_ACTION_LOSS = 'consume_2_action_loss';
+    public const string SHOOT_ACTION_10_PERCENT_ACCURACY_LOST = 'shoot_action_10_percent_accuracy_lost';
+    public const string MOVE_INCREASE_MOVEMENT = 'move_increase_movement';
+    public const string TAKE_CAT_6_HEALTH_LOSS = 'take_cat_6_health_loss';
+    public const string INFECTED_4_HEALTH_LOSS = 'infected_4_health_loss';
+    public const string INCREASE_CYCLE_DISEASE_CHANCES_10 = 'increase_cycle_disease_chances_10';
+    public const string RANDOM_16 = 'random_16_modifier';
+    public const string RANDOM_40 = 'random_40_modifier';
+    public const string RANDOM_50 = 'random_50_modifier';
 
     public function load(ObjectManager $manager): void
     {

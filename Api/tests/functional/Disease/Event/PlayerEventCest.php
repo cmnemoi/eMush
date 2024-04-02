@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Disease\Event;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -34,6 +34,17 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
     public function testDiseaseModifierTriggersOnPlayerNewCycleEvent(FunctionalTester $I): void
     {
+        // Remove initial diseases if any.
+        foreach ($this->player->getMedicalConditions() as $condition) {
+            $this->playerDiseaseService->removePlayerDisease(
+                $condition,
+                [],
+                new \DateTime(),
+                VisibilityEnum::HIDDEN,
+                $this->player,
+            );
+        }
+        $I->refreshEntities($this->player);
         // given player has a disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
             diseaseName: DiseaseEnum::REJUVENATION,
@@ -46,13 +57,13 @@ final class PlayerEventCest extends AbstractFunctionalTest
         // note : this modifier removes 1 AP to the player
         /** @var TriggerEventModifierConfig $modifierConfig */
         $modifierConfig = $disease->getDiseaseConfig()->getModifierConfigs()->filter(
-            fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === ModifierNameEnum::FITFUL_SLEEP
+            static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === ModifierNameEnum::FITFUL_SLEEP
         )->first();
-        $modifierConfig->setModifierActivationRequirements([]);
+        $modifierConfig->setModifierActivationRequirements([])->setModifierStrategy('');
 
         // given player disease has only the fitful sleep modifier
-        $diseaseConfig = $disease->getDiseaseConfig();
-        $diseaseConfig->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $diseaseConfig = $disease->getDiseaseConfig()->setModifierConfigs([$modifierConfig]);
+        $I->assertCount(1, $diseaseConfig->getModifierConfigs(), 'Only one config should be taken for this disease.');
 
         // when player has a new cycle
         $playerEvent = new PlayerEvent(
@@ -71,7 +82,10 @@ final class PlayerEventCest extends AbstractFunctionalTest
                 'log' => PlayerModifierLogEnum::FITFUL_SLEEP,
             ]
         );
-        $I->assertCount(1, $roomLog);
+
+        $currentDiseases = $this->player->getMedicalConditions();
+        $I->assertCount(1, $currentDiseases);
+        $I->assertCount(1, $roomLog, 'Double FITFUL_SLEEP have been dispatched.');
 
         // the player gains 1 AP (cycle change) and lose 1 AP (disease), so they should have the same amount of AP
         $I->assertEquals(expected: 8, actual: $this->player->getActionPoint());

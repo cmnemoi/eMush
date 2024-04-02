@@ -2448,7 +2448,7 @@ class EquipmentConfigData
             'isBreakable' => true,
             'isFireDestroyable' => false,
             'isFireBreakable' => true,
-            'dismountedProducts' => ['metal_scraps' => 1],
+            'dismountedProducts' => ['metal_scraps' => 1, 'thick_tube' => 1],
             'isPersonal' => false,
             'type' => 'item_config',
             'isStackable' => true,

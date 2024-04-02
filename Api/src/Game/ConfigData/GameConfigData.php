@@ -418,7 +418,7 @@ class GameConfigData
                 PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
                 'astronavigation_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
-                'defence_neron_cpu_priority',
+                'defence_neron_cpu_priority_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

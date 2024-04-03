@@ -154,7 +154,7 @@ export default defineComponent({
         closeModerationDialog() {
             this.moderationDialogVisible = false;
         },
-        banUser(param) {
+        banUser(param: any) {
             if (this.currentUser === null || this.currentUser.id === null) {
                 return;
             }

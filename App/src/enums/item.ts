@@ -414,5 +414,5 @@ export const itemEnum: {[index: string]: any} = {
     },
     [THERMOSENSOR]: {
         'image': require('@/assets/images/items/heat_seeker.jpg')
-    },
+    }
 };

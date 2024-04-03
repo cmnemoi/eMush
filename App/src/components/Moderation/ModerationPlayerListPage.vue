@@ -243,19 +243,6 @@ export default defineComponent({
                     this.loading = false;
                 });
         },
-        quarantinePlayer(playerId: number) {
-            ModerationService.quarantinePlayer(playerId)
-                .then((result) => {
-                    this.loadData();
-                    return result.data;
-                })
-                .then((remoteRowData: any) => {
-                    this.rowData = remoteRowData['hydra:member'];
-                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
-                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-                    this.loading = false;
-                });
-        },
         sortTable(selectedField: any): void {
             if (!selectedField.sortable) {
                 return;

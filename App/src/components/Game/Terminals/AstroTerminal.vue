@@ -134,7 +134,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             'executeAction': 'action/executeAction',
-            'updateTypedMessage': 'communication/updateTypedMessage',
+            'updateTypedMessage': 'communication/updateTypedMessage'
         }),
         analyzeAction(planet: Planet): Action | null {
             return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.ANALYZE_PLANET);
@@ -166,7 +166,7 @@ export default defineComponent ({
             } else {
                 this.updateTypedMessage(planet.toString());
             }
-        },
+        }
     },
     data() {
         return {

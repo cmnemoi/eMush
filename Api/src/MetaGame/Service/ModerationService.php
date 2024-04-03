@@ -102,6 +102,25 @@ final class ModerationService implements ModerationServiceInterface
         ?string $message,
         \DateTime $startingDate = null
     ): User {
+        return $this->addSanctionEntity(
+            $user,
+            ModerationSanctionEnum::BAN_USER,
+            $reason,
+            $startingDate,
+            $message,
+            $duration,
+        );
+    }
+
+    public function addSanctionEntity(
+        User $user,
+        string $sanctionType,
+        string $reason,
+        ?\DateTime $startingDate,
+        string $message = null,
+        \DateInterval $duration = null,
+        bool $isVisibleByUser = false
+    ): User {
         if ($startingDate === null) {
             $startingDate = new \DateTime();
         }
@@ -110,28 +129,10 @@ final class ModerationService implements ModerationServiceInterface
             $endDate = clone $startingDate;
             $endDate->add($duration);
         } else {
-            $endDate = null;
+            // if sanction is permanent, set end date to
+            $endDate = new \DateTime('9999-01-01');
         }
 
-        return $this->addSanctionEntity(
-            $user,
-            ModerationSanctionEnum::BAN_USER,
-            $reason,
-            $startingDate,
-            $message,
-            $endDate,
-        );
-    }
-
-    public function addSanctionEntity(
-        User $user,
-        string $sanctionType,
-        string $reason,
-        \DateTime $startingDate,
-        string $message = null,
-        \DateTime $endDate = null,
-        bool $isVisibleByUser = false
-    ): User {
         $sanction = new ModerationSanction($user, $startingDate);
         $sanction
             ->setModerationAction($sanctionType)
@@ -204,24 +205,13 @@ final class ModerationService implements ModerationServiceInterface
         string $message,
         \DateTime $startingDate = null
     ): User {
-        if ($startingDate === null) {
-            $startingDate = new \DateTime();
-        }
-
-        if ($duration !== null) {
-            $endDate = clone $startingDate;
-            $endDate->add($duration);
-        } else {
-            $endDate = null;
-        }
-
         return $this->addSanctionEntity(
             $user,
             ModerationSanctionEnum::WARNING,
             $reason,
             $startingDate,
             $message,
-            $endDate,
+            $duration,
             true
         );
     }

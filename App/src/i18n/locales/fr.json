@@ -740,6 +740,8 @@
       "2_month": "2 mois",
       "3_month": "3 mois"
     },
+    "reduce": "Réduire",
+    "showAll": "Montrer toutes les sanctions",
     "sanctionsFor": "Liste des sanctions de {username}",
     "isSanctionActive": "Sanctions en cours",
     "sanctionType": "Type de sanction",

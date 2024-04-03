@@ -83,10 +83,9 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
-import { User } from "@/entities/User";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import { Tippy } from "vue-tippy";
-import {moderationReasons, moderationSanctionTypes} from "@/enums/moderation_reason.enum";
+import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 
 interface SanctionListData {
     userId: string,
@@ -278,8 +277,6 @@ export default defineComponent({
     beforeMount() {
         this.userId = this.$route.params.userId;
         this.username = this.$route.params.username;
-        console.log(this.username);
-        console.log(this.userId);
         this.loadData();
     }
 });

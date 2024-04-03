@@ -137,6 +137,13 @@ const ModerationService = {
 
         return response;
     },
+    warnUser: async(userId: number, params: URLSearchParams): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(MODERATION_ENDPOINT + '/warn-user/' + userId + '?' + params.toString());
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     suspendSanction: async(sanctionId: number): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.patch(MODERATION_ENDPOINT + '/suspend-sanction/' + sanctionId);

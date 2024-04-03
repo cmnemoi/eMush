@@ -184,11 +184,11 @@ final class ModerationController extends AbstractFOSRestController
             $startDate = null;
         }
 
-        $this->moderationService->banUser(
+        $this->moderationService->warnUser(
             $user,
             $duration,
             $request->get('reason'),
-            $request->get('adminMessage', null),
+            $request->get('adminMessage', ''),
             $startDate
         );
 

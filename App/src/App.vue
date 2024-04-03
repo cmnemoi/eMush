@@ -8,6 +8,7 @@
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
+        <ModerationWarningBanner :userId="userInfo ? userInfo.userId : null"/>
         <LocaleChange />
     </div>
 </template>
@@ -23,6 +24,7 @@ import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
+import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -39,6 +41,7 @@ export default defineComponent({
         };
     },
     components: {
+        ModerationWarningBanner,
         Spinner,
         Banner,
         ErrorPopup,
@@ -52,6 +55,7 @@ export default defineComponent({
         ...mapGetters({
             gameInMaintenance: 'admin/gameInMaintenance',
             userLoading: 'auth/isLoading',
+            userInfo: 'auth/getUserInfo',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
             userIsAdmin: 'auth/isAdmin'
@@ -79,6 +83,7 @@ export default defineComponent({
     min-width: 100%;
     min-height: 100%;
     background: #0f0f43 url("~@/assets/images/bg.jpg") no-repeat center 0;
+    overflow-y: auto;
 }
 
 </style>

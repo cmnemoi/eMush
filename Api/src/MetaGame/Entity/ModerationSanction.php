@@ -32,11 +32,11 @@ class ModerationSanction
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isVisibleByUser = false;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTime $startDate;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTime $endDate = null;
+    #[ORM\Column(type: 'datetime', nullable: false)]
+    private \DateTime $endDate;
 
     public function __construct(User $user, \DateTime $startDate)
     {
@@ -114,12 +114,12 @@ class ModerationSanction
         return $this;
     }
 
-    public function getEndDate(): ?\DateTime
+    public function getEndDate(): \DateTime
     {
         return $this->endDate;
     }
 
-    public function setEndDate(?\DateTime $endDate): self
+    public function setEndDate(\DateTime $endDate): self
     {
         $this->endDate = $endDate;
 

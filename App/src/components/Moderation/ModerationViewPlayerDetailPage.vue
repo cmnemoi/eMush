@@ -24,12 +24,20 @@
             </Tippy>
             <Tippy tag="button"
                    class="action-button"
-                   @click="openModerationDialog({ key: 'moderation.sanction.ban_user', value: 'ban_user' })"
-                   v-if="!player.isAlive">
-                {{ $t("moderation.sanction.ban") }}
+                   @click="openModerationDialog({ key: 'moderation.sanction.ban_user', value: 'ban_user' })">
+                {{ $t("moderation.sanction.ban_user") }}
                 <template #content>
-                    <h1>{{ $t("moderation.sanction.ban") }}</h1>
+                    <h1>{{ $t("moderation.sanction.ban_user") }}</h1>
                     <p>{{ $t("moderation.sanction.banDescription") }}</p>
+                </template>
+            </Tippy>
+            <Tippy tag="button"
+                   class="action-button"
+                   @click="openModerationDialog({ key: 'moderation.sanction.warning', value: 'warning' })">
+                {{ $t("moderation.sanction.warning") }}
+                <template #content>
+                    <h1>{{ $t("moderation.sanction.warning") }}</h1>
+                    <p>{{ $t("moderation.sanction.warningDescription") }}</p>
                 </template>
             </Tippy>
             <button class="action-button router-button">
@@ -344,6 +352,15 @@ export default defineComponent({
             }
             if (this.currentAction.value === 'ban_user' || this.currentAction.value === 'quarantine_ban') {
                 ModerationService.banUser(this.player.user.id, params)
+                    .then(() => {
+                        this.loadData();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            if (this.currentAction.value === 'warning') {
+                ModerationService.warnUser(this.player.user.id, params)
                     .then(() => {
                         this.loadData();
                     })

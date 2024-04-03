@@ -85,7 +85,6 @@ export default {
         if (this.warnings.length > 0) {
             this.showBanner = true;
         }
-        console.log(this.warnings.length);
     }
 };
 </script>

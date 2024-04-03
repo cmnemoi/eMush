@@ -9,24 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testIsUserBannedPermanentBan()
-    {
-        $user = new User();
-        $startSanction = new \DateTime('now');
-        $startSanction->sub(new \DateInterval('P1D')); // sanction started yesterday
-
-        $endSanction = new \DateTime('now');
-        $endSanction->add(new \DateInterval('P1D')); // sanction end tomorrow
-
-        $sanction = new ModerationSanction($user, $startSanction);
-        $sanction->setModerationAction(ModerationSanctionEnum::BAN_USER);
-
-        $user->addModerationSanction($sanction);
-
-        // given no end date is given, sanction is permanent
-        $this->assertTrue($user->isBanned());
-    }
-
     public function testUserNotBannedOtherSanction()
     {
         $user = new User();
@@ -37,11 +19,11 @@ class UserTest extends TestCase
         $endSanction->add(new \DateInterval('P1D')); // sanction end tomorrow
 
         $sanction = new ModerationSanction($user, $startSanction);
-        $sanction->setModerationAction(ModerationSanctionEnum::DELETE_MESSAGE);
+        $sanction->setModerationAction(ModerationSanctionEnum::DELETE_MESSAGE)->setEndDate($endSanction);
 
         $user->addModerationSanction($sanction);
 
-        // given no end date is given, sanction is permanent
+        // the sanction is not a ban
         $this->assertFalse($user->isBanned());
     }
 

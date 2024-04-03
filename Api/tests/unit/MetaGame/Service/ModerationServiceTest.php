@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Mockery;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Service\ModerationService;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\User\Entity\User;
@@ -49,5 +51,24 @@ class ModerationServiceTest extends TestCase
 
         $this->assertCount(1, $user->getModerationSanctions());
         $this->assertTrue($user->isBanned());
+    }
+
+    public function testPermanentBan()
+    {
+        $user = new User();
+
+        $this->entityManager->shouldReceive('persist')->twice();
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->service->banUser($user, null, 'reason', 'adminMessage');
+
+        $this->assertCount(1, $user->getModerationSanctions());
+        $this->assertTrue($user->isBanned());
+        $sanction = $user->getModerationSanctions()->first();
+        $this->assertInstanceOf(ModerationSanction::class, $sanction);
+        $this->assertEquals($sanction->getEndDate(), new \DateTime('99999/12/31'));
+        $this->assertEquals($sanction->getModerationAction(), ModerationSanctionEnum::BAN_USER);
+        $this->assertEquals($sanction->getReason(), 'reason');
+        $this->assertEquals($sanction->getMessage(), 'adminMessage');
     }
 }

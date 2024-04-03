@@ -130,7 +130,7 @@ final class ModerationService implements ModerationServiceInterface
             $endDate->add($duration);
         } else {
             // if sanction is permanent, set end date to
-            $endDate = new \DateTime('9999-01-01');
+            $endDate = new \DateTime('99999/12/31');
         }
 
         $sanction = new ModerationSanction($user, $startingDate);

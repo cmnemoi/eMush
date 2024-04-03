@@ -19,9 +19,6 @@ class ModerationSanctionTest extends TestCase
 
         $sanction = new ModerationSanction($user, $startSanction);
 
-        // given no end date is given, sanction is permanent
-        $this->assertTrue($sanction->getIsActive());
-
         // given sanction ends tomorrow
         $sanction->setEndDate($endSanction);
         // then the sanction is active

@@ -129,10 +129,7 @@ class ModerationSanction
     public function getIsActive(): bool
     {
         $currentTime = new \DateTime();
-        if (
-            ($this->endDate === null && $this->startDate < $currentTime)
-            || ($this->endDate > $currentTime && $this->startDate < $currentTime)
-        ) {
+        if ($this->endDate > $currentTime && $this->startDate < $currentTime) {
             return true;
         }
 

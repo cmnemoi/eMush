@@ -77,6 +77,7 @@ const SPACE_CAPSULE = "space_capsule";
 const BANDAGE = "bandage";
 const SPORE_SUCKER = "spore_sucker";
 const SPACESUIT = "spacesuit";
+const THERMOSENSOR = "thermosensor";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -410,5 +411,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [ALIEN_STEAK]: {
         'image': require('@/assets/images/items/ration_5.jpg')
-    }
+    },
+    [THERMOSENSOR]: {
+        'image': require('@/assets/images/items/heat_seeker.jpg')
+    },
 };

@@ -1051,8 +1051,8 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'recatus_default',
-            'equipmentName' => 'recatus',
+            'name' => 'precatus_default',
+            'equipmentName' => 'precatus',
             'isBreakable' => false,
             'isFireDestroyable' => true,
             'isFireBreakable' => false,
@@ -1067,7 +1067,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'plant_recatus_default',
+                'plant_precatus_default',
             ],
             'initStatuses' => [],
         ],

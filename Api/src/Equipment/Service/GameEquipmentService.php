@@ -209,8 +209,8 @@ class GameEquipmentService implements GameEquipmentServiceInterface
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
-        if ($gameEquipment->getEquipment()->isFireBreakable()
-            && !$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
+        if (!$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
+            && $gameEquipment->getEquipment()->isFireBreakable()
             && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
         ) {
             $this->statusService->createStatusFromName(
@@ -304,10 +304,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initDocument(GameEquipment $gameEquipment, Document $document): GameEquipment
     {
-        if (!$document instanceof Document) {
-            throw new \LogicException('Parameter is not a document');
-        }
-
         /** @var ContentStatus $status */
         $status = $this->statusService->createStatusFromName(
             EquipmentStatusEnum::DOCUMENT_CONTENT,

@@ -114,7 +114,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $I->seeInRepository(ChargeStatus::class, ['id' => $id]);
     }
 
-    public function testFireStatusCycleSubscriber(FunctionalTester $I)
+    public function testFireStatusCycleSubscriber(FunctionalTester $I): void
     {
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
@@ -129,6 +129,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $difficultyConfig = $I->have(DifficultyConfig::class, [
             'propagatingFireRate' => 100,
             'hullFireDamageRate' => 100,
+            'maximumAllowedSpreadingFires' => 2,
         ]);
 
         /** @var GameConfig $gameConfig */

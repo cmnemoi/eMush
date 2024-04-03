@@ -84,6 +84,14 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>astro_terminal.in_orbit</source>
         <target>*In orbit!*</target>
       </segment>
+      <segment id="share_planet_button_name" state="translated">
+        <source>astro_terminal.share_planet_button_name</source>
+        <target>Share</target>
+      </segment>
+      <segment id="share_planet_button_description" state="translated">
+        <source>astro_terminal.share_planet_button_description</source>
+        <target>Share this planet with the crew.</target>
+      </segment>
     </unit>
     <unit id="block_of_post_it">
       <segment id="name" state="translated">

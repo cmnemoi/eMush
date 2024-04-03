@@ -35,13 +35,13 @@ class NeronMessageCycleCest
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testNewFire(FunctionalTester $I)
+    public function testNewFire(FunctionalTester $I): void
     {
         $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::FIRE]);
 
@@ -49,6 +49,7 @@ class NeronMessageCycleCest
         $difficultyConfig = $I->have(DifficultyConfig::class, [
             'propagatingFireRate' => 100,
             'hullFireDamageRate' => 0,
+            'maximumAllowedSpreadingFires' => 2,
             ]);
 
         /** @var GameConfig $gameConfig */
@@ -153,9 +154,7 @@ class NeronMessageCycleCest
             [],
             new \DateTime()
         );
-        $status
-            ->setCharge(1)
-        ;
+        $status->setCharge(1);
 
         $I->assertCount(2, $channel->getMessages());
 
@@ -169,8 +168,8 @@ class NeronMessageCycleCest
 
         $I->refreshEntities($channel);
         $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);
-        $I->assertCount(5, $channel->getMessages());
-        $I->assertCount(4, $fireMessages);
+        $I->assertCount(3, $channel->getMessages());
+        $I->assertCount(2, $fireMessages);
         $I->assertEquals($fireMessages->first()->getParent(), $message);
     }
 }

@@ -50,6 +50,7 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
                 language: $planetSector->getPlanet()->getDaedalus()->getLanguage()
             ),
             'isVisited' => $planetSector->isVisited(),
+            'isRevealed' => $planetSector->isRevealed(),
         ];
     }
 }

@@ -75,6 +75,11 @@ export default defineComponent ({
     },
     mounted() {
         this.text = this.typedMessage;
+    },
+    watch: {
+        typedMessage() {
+            this.text = this.typedMessage;
+        }
     }
 });
 </script>

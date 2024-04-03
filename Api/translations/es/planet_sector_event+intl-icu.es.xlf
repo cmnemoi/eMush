@@ -224,9 +224,9 @@
         <source>fuel.description</source>
         <target>fuel.description</target>
       </segment>
-      <segment id="hydrocarbon_description" state="initial">
+      <segment id="hydrocarbon_description" state="translated">
         <source>fuel.hydrocarbon_description</source>
-        <target>fuel.hydrocarbon_description</target>
+        <target/>
       </segment>
       <segment id="cave_description" state="initial">
         <source>fuel.cave_description</source>
@@ -487,6 +487,10 @@
       <segment id="cave_description" state="initial">
         <source>again.cave_description</source>
         <target>again.cave_description</target>
+      </segment>
+      <segment id="lost_description" state="initial">
+        <source>again.lost_description</source>
+        <target>again.lost_description</target>
       </segment>
     </unit>
     <unit id="item_lost">

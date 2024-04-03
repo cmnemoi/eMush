@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\Tests\Exploration\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
@@ -18,6 +20,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\ExplorationLog;
+use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
@@ -1055,7 +1058,18 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals($lostPlayer->getLogName(), $explorationLog->getParameters()['character']);
 
         // then I should see a lost sector on the planet
-        $I->assertTrue($exploration->getPlanet()->hasSectorByName(PlanetSectorEnum::LOST));
+        /** @var ?PlanetSector $lostSector */
+        $lostSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::LOST)->first() ?: null;
+        $I->assertNotNull($lostSector);
+
+        // then this sector should be revealed
+        $I->assertTrue($lostSector->isRevealed());
+
+        // then I should see a lost crewmate alert
+        $I->seeInRepository(
+            entity: Alert::class,
+            params: ['name' => AlertEnum::LOST_CREWMATE],
+        );
     }
 
     public function testPlayerLostEventDoesNotTargetPlayerWithACompass(FunctionalTester $I): void
@@ -1130,6 +1144,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'log' => PlayerModifierLogEnum::GAIN_MORAL_POINT,
             ]
         );
+
+        // then I should not see a lost crewmate alert
+        $I->dontSeeInRepository(
+            entity: Alert::class,
+            params: ['name' => AlertEnum::LOST_CREWMATE],
+        );
     }
 
     public function testKillLostEvent(FunctionalTester $I): void
@@ -1157,6 +1177,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: EndCauseEnum::EXPLORATION_LOST,
             actual: $this->janice->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+        );
+
+        // then I should not see a lost crewmate alert
+        $I->dontSeeInRepository(
+            entity: Alert::class,
+            params: ['name' => AlertEnum::LOST_CREWMATE],
         );
     }
 }

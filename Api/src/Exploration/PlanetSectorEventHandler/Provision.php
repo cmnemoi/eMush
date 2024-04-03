@@ -14,6 +14,9 @@ final class Provision extends AbstractLootItemsEventHandler
         return PlanetSectorEvent::PROVISION;
     }
 
+    /**
+     * @psalm-suppress PossiblyFalseReference
+     */
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         $food = $this->createRandomItemsFromEvent($event);

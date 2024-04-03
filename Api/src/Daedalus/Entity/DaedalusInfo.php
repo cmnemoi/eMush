@@ -155,9 +155,9 @@ class DaedalusInfo
         return $this->localizationConfig;
     }
 
-    public function getClosedExplorations(): Collection
+    public function getClosedExplorations(): ArrayCollection
     {
-        return $this->closedExplorations;
+        return new ArrayCollection($this->closedExplorations->toArray());
     }
 
     public function addClosedExploration(ClosedExploration $closedExploration): self

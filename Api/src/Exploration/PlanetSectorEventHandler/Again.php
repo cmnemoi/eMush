@@ -6,6 +6,7 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Player\Entity\Player;
 
 final class Again extends AbstractPlanetSectorEventHandler
 {
@@ -21,6 +22,15 @@ final class Again extends AbstractPlanetSectorEventHandler
 
         $this->entityManager->persist($planetSector);
 
-        return $this->createExplorationLog($event, $this->getLogParameters($event));
+        $logParameters = $this->getLogParameters($event);
+
+        $lostPlayers = $event->getExploration()->getDaedalus()->getLostPlayers();
+        if (!$lostPlayers->isEmpty()) {
+            /** @var Player $lostPlayer */
+            $lostPlayer = $lostPlayers->first();
+            $logParameters[$lostPlayer->getLogKey()] = $lostPlayer->getLogName();
+        }
+
+        return $this->createExplorationLog($event, $logParameters);
     }
 }

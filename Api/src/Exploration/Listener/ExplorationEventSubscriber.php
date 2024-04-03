@@ -40,20 +40,26 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration->incrementCycle();
         $this->explorationService->persist([$exploration]);
 
-        $this->closeExplorationPrematurelyIfNeeded($exploration);
+        $this->closeExplorationIfNeeded($exploration);
     }
 
     public function onExplorationNewCycle(ExplorationEvent $event): void
     {
+        $closedExploration = $event->getExploration()->getClosedExploration();
         $exploration = $this->explorationService->dispatchExplorationEvent($event->getExploration());
+
+        // Exploration might have been closed early, if the "Back to Daedalus" event is triggered !
+        if ($closedExploration->isExplorationFinished()) {
+            return;
+        }
 
         $exploration->incrementCycle();
         $this->explorationService->persist([$exploration]);
 
-        $this->closeExplorationPrematurelyIfNeeded($exploration);
+        $this->closeExplorationIfNeeded($exploration);
     }
 
-    private function closeExplorationPrematurelyIfNeeded(Exploration $exploration): void
+    private function closeExplorationIfNeeded(Exploration $exploration): void
     {
         $allNonLostExploratorsAreDead = $exploration->getNotLostActiveExplorators()->isEmpty();
         $allExplorationStepsDone = $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1;

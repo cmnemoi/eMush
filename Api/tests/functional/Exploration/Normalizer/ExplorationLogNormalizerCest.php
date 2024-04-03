@@ -251,6 +251,53 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    /**
+     * @covers \Mush\Exploration\PlanetSectorEventHandler\Artefact::handle
+     */
+    public function testNormalizeArtefactEventTranslationForRuins(FunctionalTester $I): void
+    {
+        // given ruins sector has an artefact event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUINS,
+            events: [PlanetSectorEvent::ARTEFACT => 1]
+        );
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUINS, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+
+        // given babel module can be looted from the artefact event
+        /** @var PlanetSectorEventConfig $eventConfig */
+        $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
+        $eventConfig->setOutputTable([ItemEnum::BABEL_MODULE => 1]);
+
+        // given two extra steps are made to trigger the artefact event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when artefact event exploration log is normalized
+        /** @var ExplorationLog $explorationLog */
+        $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
+            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::RUINS,
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::RUINS,
+                'planetSectorName' => 'Ruines',
+                'eventName' => 'Artefact',
+                'eventDescription' => 'Au sein de la ruine du plus grand bâtiment de la cité vous trouvez un artefact alien intact !',
+                'eventOutcome' => 'Vous trouvez un artefact.',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
     public function testNormalizeKillRandomEvent(FunctionalTester $I): void
     {
         // given sismic activity sector has only kill random event
@@ -756,15 +803,23 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeAgainEvent(FunctionalTester $I): void
     {
-        // given desert sector has only again event
+        // given Chun is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given lost sector has only again event
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::DESERT,
+            sectorName: PlanetSectorEnum::LOST,
             events: [PlanetSectorEvent::AGAIN => 1]
         );
 
         // given exploration is created
         $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::DESERT, PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::LOST, PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players,
         );
         $closedExploration = $this->exploration->getClosedExploration();
@@ -783,10 +838,10 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::DESERT,
-                'planetSectorName' => 'Désert',
+                'planetSectorKey' => PlanetSectorEnum::LOST,
+                'planetSectorName' => 'Perdu',
                 'eventName' => 'Érrance',
-                'eventDescription' => 'Cette marche dans le désert ne rime à rien, vous n\'avez aucune idée de votre position et décidez de revenir sur vos pas.',
+                'eventDescription' => 'Malgré les recherches, vous n\'avez trouvé aucune trace de Chun. Pourtant elle doit bien être quelque part !',
                 'eventOutcome' => 'Échec de l\'exploration de la zone. Il reste quand même des choses à découvrir…',
             ],
             actual: $normalizedExplorationLog,
@@ -1113,8 +1168,8 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorKey' => PlanetSectorEnum::SISMIC_ACTIVITY,
                 'planetSectorName' => 'Sismique',
                 'eventName' => 'Accident',
-                'eventDescription' => 'Chun chute dans une crevasse… Aïe !////Esquivé : Corde',
-                'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.',
+                'eventDescription' => 'Chun chute dans une crevasse… Aïe !',
+                'eventOutcome' => 'Un équipier subit entre 3 et 5 points de dégâts.////Esquivé Corde',
             ],
             actual: $normalizedExplorationLog,
         );

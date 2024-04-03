@@ -109,10 +109,7 @@ class StatusTarget
     public function setPlace(?Place $place): self
     {
         $this->place = $place;
-
-        if ($place !== null) {
-            $place->addStatusTarget($this);
-        }
+        $place?->addStatusTarget($this);
 
         return $this;
     }

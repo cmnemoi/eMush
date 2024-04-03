@@ -120,7 +120,7 @@ class ChannelService implements ChannelServiceInterface
 
         $availablePlayers = new PlayerCollection();
 
-        /* @var PlayerInfo $invitablePlayer */
+        /** @var PlayerInfo $invitablePlayerInfo */
         foreach ($playersWithChannelsSlots as $invitablePlayerInfo) {
             /** @var Player $invitablePlayer */
             $invitablePlayer = $invitablePlayerInfo->getPlayer();
@@ -193,7 +193,9 @@ class ChannelService implements ChannelServiceInterface
 
     public function canPlayerWhisper(Player $player, Player $otherPlayer): bool
     {
-        return $player->getPlace() === $otherPlayer->getPlace();
+        return $player->getPlace() === $otherPlayer->getPlace()
+            && !$player->hasStatus(PlayerStatusEnum::LOST)
+            && !$otherPlayer->hasStatus(PlayerStatusEnum::LOST);
     }
 
     private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool

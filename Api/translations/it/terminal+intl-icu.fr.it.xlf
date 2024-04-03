@@ -72,6 +72,14 @@
         <source>astro_terminal.in_orbit</source>
         <target>astro_terminal.in_orbit</target>
       </segment>
+      <segment id="share_planet_button_name" state="initial">
+        <source>astro_terminal.share_planet_button_name</source>
+        <target>astro_terminal.share_planet_button_name</target>
+      </segment>
+      <segment id="share_planet_button_description" state="initial">
+        <source>astro_terminal.share_planet_button_description</source>
+        <target>astro_terminal.share_planet_button_description</target>
+      </segment>
     </unit>
     <unit id="block_of_post_it">
       <segment id="name" state="initial">

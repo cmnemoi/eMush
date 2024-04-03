@@ -45,6 +45,16 @@
                         </template>
                         <img src="@/assets/images/bin.png">
                     </Tippy>
+                    <Tippy
+                        tag="button"
+                        class="delete"
+                        @click="sharePlanet(planet)">
+                        <template #content>
+                            <h1 v-html="formatText(terminal.buttons.sharePlanet.name)" />
+                            <p v-html="formatText(terminal.buttons.sharePlanet.description)" />
+                        </template>
+                        <img src="@/assets/images/planet.png">
+                    </Tippy>
                 </div>
             </div>
         </section>
@@ -82,7 +92,7 @@ import { defineComponent } from "vue";
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "@/entities/Action";
 import { formatText } from "@/utils/formatText";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 
 export default defineComponent ({
@@ -97,6 +107,9 @@ export default defineComponent ({
         }
     },
     computed: {
+        ...mapGetters({
+            'typedMessage': 'communication/typedMessage'
+        }),
         scanAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.SCAN);
         },
@@ -120,7 +133,8 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            'executeAction': 'action/executeAction'
+            'executeAction': 'action/executeAction',
+            'updateTypedMessage': 'communication/updateTypedMessage',
         }),
         analyzeAction(planet: Planet): Action | null {
             return this.getPlanetTargetById(planet.id).getActionByKey(ActionEnum.ANALYZE_PLANET);
@@ -143,11 +157,16 @@ export default defineComponent ({
         getSectorImage(sector: PlanetSector): string {
             return require(`@/assets/images/astro/${sector.key}.png`);
         },
-        formatText(text: string | null): string {
-            if (!text)
-                return '';
-            return formatText(text);
-        }
+        formatText,
+        sharePlanet(planet: Planet) {
+            const publicChannelTab = document.getElementsByClassName('tabs')[0].getElementsByClassName('public')[0] as HTMLDivElement;
+            publicChannelTab.click();
+            if (this.typedMessage) {
+                this.updateTypedMessage(`${this.typedMessage}\n\n${planet.toString()}`);
+            } else {
+                this.updateTypedMessage(planet.toString());
+            }
+        },
     },
     data() {
         return {

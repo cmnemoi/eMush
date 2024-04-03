@@ -10,7 +10,10 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -19,16 +22,22 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class DiseaseCauseServiceCest
+final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 {
     private DiseaseCauseServiceInterface $diseaseCauseService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
         $this->diseaseCauseService = $I->grabService(DiseaseCauseServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
     public function testAddADiseaseFromCause(FunctionalTester $I)
@@ -98,5 +107,35 @@ class DiseaseCauseServiceCest
             'player' => $player->getId(),
             'diseaseConfig' => $diseaseConfig,
         ]);
+    }
+
+    public function testHandleConsumableDoesNotHealIncubatingDisease(FunctionalTester $I): void
+    {
+        // given player has a incubating flu
+        $flu = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::FLU,
+            player: $this->player,
+            reasons: [],
+            delayMin: 1,
+            delayLength: 1,
+        );
+
+        // given I have a fruit healing the flu
+        $fluHealerFruit = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: 'flu_healer_test',
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when I call handleConsumable on the player
+        $this->diseaseCauseService->handleConsumable($this->player, $fluHealerFruit);
+
+        // then the flu should still be incubating
+        $I->assertNotNull($this->player->getMedicalConditionByName(DiseaseEnum::FLU));
+        $I->assertEquals(
+            expected: DiseaseStatusEnum::INCUBATING,
+            actual: $flu->getStatus()
+        );
     }
 }

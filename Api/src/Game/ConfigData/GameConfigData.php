@@ -203,7 +203,7 @@ class GameConfigData
                 'ploshmina_default',
                 'pulminagro_default',
                 'precati_default',
-                'recatus_default',
+                'precatus_default',
                 'bottine_default',
                 'buttalien_default',
                 'fragilane_default',
@@ -418,6 +418,7 @@ class GameConfigData
                 PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
                 'astronavigation_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
+                'defence_neron_cpu_priority_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

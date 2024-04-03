@@ -488,6 +488,10 @@
         <source>again.cave_description</source>
         <target>again.cave_description</target>
       </segment>
+      <segment id="lost_description" state="initial">
+        <source>again.lost_description</source>
+        <target>again.lost_description</target>
+      </segment>
     </unit>
     <unit id="item_lost">
       <segment id="name" state="initial">

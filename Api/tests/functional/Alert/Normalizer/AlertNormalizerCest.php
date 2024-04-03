@@ -16,6 +16,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -66,6 +67,33 @@ final class AlertNormalizerCest extends AbstractFunctionalTest
                 '**Kuan Ti** a reporté **1** équipement endommagé sur le **Pont**.',
             ],
             $normalizedAlertReports,
+        );
+    }
+
+    public function testNormalizeLostCrewmateAlert(FunctionalTester $I): void
+    {
+        // given Chun is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I normalize the lost crewmate alert
+        $alert = $I->grabEntityFromRepository(Alert::class, ['name' => AlertEnum::LOST_CREWMATE]);
+        $normalizedAlert = $this->alertNormalizer->normalize($alert);
+
+        // then the normalized alert should have the expected values
+        $I->assertEquals(
+            expected: [
+                'prefix' => 'Alertes :',
+                'key' => 'lost_crewmate',
+                'name' => 'Équipier perdu',
+                'description' => 'Un de vos co-équipiers est perdu sur une planète, vous devriez monter une mission pour le rapatrier !',
+                'lostPlayer' => 'chun',
+            ],
+            actual: $normalizedAlert,
         );
     }
 

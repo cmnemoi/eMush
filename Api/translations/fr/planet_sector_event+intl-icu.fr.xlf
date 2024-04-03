@@ -16,11 +16,15 @@
       </segment>
       <segment id="fruit_trees_description" state="final">
         <source>nothing_to_report.fruit_trees_description</source>
-        <target>Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé à la bonne saison, il faudra revenir plus tard !</target>
+        <target>{version, select,
+        1 {Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé à la bonne saison, il faudra revenir plus tard !}
+        other {Après plusieurs heures passées à récolter de petits fruits noirs, vous vous apercevez que ceux-ci se sont ouverts et que leur contenu a détalé hors de vos sacs !}}</target>
       </segment>
       <segment id="strong_wind_description" state="final">
         <source>nothing_to_report.strong_wind_description</source>
-        <target>À part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.</target>
+        <target>{version, select,
+        1 {À part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.}
+        other {Rien d'autre que le vent qui agite la poussière.}}</target>
       </segment>
       <segment id="cold_description" state="final">
         <source>nothing_to_report.cold_description</source>
@@ -40,15 +44,21 @@
       </segment>
       <segment id="volcanic_activity_description" state="final">
         <source>nothing_to_report.volcanic_activity_description</source>
-        <target>Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…</target>
+        <target>{version, select,
+        1 {Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…}
+        other {De très bucoliques rivières de lave traversent paisiblement la région.}}</target>
       </segment>
       <segment id="desert_description" state="final">
         <source>nothing_to_report.desert_description</source>
-        <target>Avec surprise, vous découvrez que cette étendue désertique ne contient absolument aucun élément permettant d'améliorer votre situation.</target>
+        <target>{version, select,
+        1 {Avec surprise, vous découvrez que cette étendue désertique ne contient absolument aucun élément permettant d'améliorer votre situation.}
+        other {Ce désert est désespérément vide… Personne à l'horizon…}}</target>
       </segment>
       <segment id="ocean_description" state="final">
         <source>nothing_to_report.ocean_description</source>
-        <target>De violents vents agitent l'océan. C'est un temps idéal pour faire du surf, mais vous devez sauver l'humanité...</target>
+        <target>{version, select, 
+        1 {De violents vents agitent l'océan. C'est un temps idéal pour faire du surf, mais vous devez sauver l'humanité...}
+        other {La mer est calme. Rien d'intéressant par ici.}}</target>
       </segment>
       <segment id="oxygen_description" state="final">
         <source>nothing_to_report.oxygen_description</source>
@@ -151,7 +161,7 @@
       </segment>
       <segment id="description" state="final">
         <source>accident.description</source>
-        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{fight_prevented_by_item}</target>
+        <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{rope_worked, select, true {////Esquivé Corde} other {}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="predator_description" state="final">
         <source>accident.predator_description</source>
@@ -159,7 +169,7 @@
       </segment>
       <segment id="mountain_description" state="final">
         <source>accident.mountain_description</source>
-        <target>{character} chute d'une petite falaise et s'écrase 4 mètres plus bas… Ouch !{has_rope, select, true {////Esquivé : Corde} other {}}</target>
+        <target>{character} chute d'une petite falaise et s'écrase 4 mètres plus bas… Ouch !</target>
       </segment>
       <segment id="ruminant_description" state="final">
         <source>accident.ruminant_description</source>
@@ -171,11 +181,11 @@
       </segment>
       <segment id="cave_description" state="final">
         <source>accident.cave_description</source>
-        <target>En sautant pour éviter un scorpion alien qui passait par là, {character} s'ouvre le cuir chevelu sur une stalactite.{has_rope, select, true {////Esquivé : Corde} other {}}</target>
+        <target>En sautant pour éviter un scorpion alien qui passait par là, {character} s'ouvre le cuir chevelu sur une stalactite.</target>
       </segment>
       <segment id="sismic_activity_description" state="final">
         <source>accident.sismic_activity_description</source>
-        <target>{character} chute dans une crevasse… Aïe !{has_rope, select, true {////Esquivé : Corde} other {}}</target>
+        <target>{character} chute dans une crevasse… Aïe !</target>
       </segment>
       <segment id="ruins_description" state="final">
         <source>accident.ruins_description</source>
@@ -277,7 +287,7 @@
       </segment>
       <segment id="description" state="final">
         <source>artefact.description</source>
-        <target>Vous trouvez un artefact.{has_babel_module, select, true {////+100% Module Babel} other {}}{fight_prevented_by_item}</target>
+        <target>Vous trouvez un artefact.{used_babel_module, select, true {////+100% Module Babel} other {}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="intelligent_description" state="final">
         <source>artefact.intelligent_description</source>
@@ -528,6 +538,13 @@
       <segment id="cave_description" state="final">
         <source>again.cave_description</source>
         <target>Ce réseau de cavernes est inextricable, vous arrivez néanmoins à trouver la sortie, mais vous avez la sensation qu'il reste quelque chose là-dedans…</target>
+      </segment>
+      <segment id="lost_description" state="translated">
+        <source>again.lost_description</source>
+        <target>{character_gender, select,
+        male {Malgré les recherches, vous n'avez trouvé aucune trace de {character}. Pourtant il doit bien être quelque part !}
+        female {Malgré les recherches, vous n'avez trouvé aucune trace de {character}. Pourtant elle doit bien être quelque part !}
+        other {Malgré les recherches, vous n'avez trouvé aucune trace de {character}. Pourtant il doit bien être quelque part !}}</target>
       </segment>
     </unit>
     <unit id="item_lost">

@@ -115,7 +115,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function getHolder(): EquipmentHolderInterface
     {
         if ($this->place === null) {
-            throw new \Exception("equipment {$this->name} should have a holder");
+            throw new \RuntimeException("Equipment {$this->name} should have a holder");
         }
 
         return $this->place;

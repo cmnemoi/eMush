@@ -1959,7 +1959,7 @@ class ModifierConfigData
         ],
         [
             'name' => 'rope_modifier_for_player_prevent_change.variable_if_reason_accident_and_variable_healthPoint',
-            'modifierName' => null,
+            'modifierName' => 'rope_modifer',
             'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
             'priority' => ModifierPriorityEnum::PREVENT_EVENT,

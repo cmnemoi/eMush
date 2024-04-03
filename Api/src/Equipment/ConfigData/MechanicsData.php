@@ -824,7 +824,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'plant_recatus_default',
+            'name' => 'plant_precatus_default',
             'type' => 'plant',
             'craftedEquipmentName' => null,
             'ingredients' => null,
@@ -1280,7 +1280,7 @@ class MechanicsData
             'content' => null,
             'isTranslated' => null,
             'canShred' => null,
-            'plantName' => 'recatus',
+            'plantName' => 'precatus',
             'fruitName' => null,
             'maturationTime' => null,
             'oxygen' => null,

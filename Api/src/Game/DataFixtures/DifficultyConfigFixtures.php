@@ -13,7 +13,7 @@ use Mush\Game\Enum\GameConfigEnum;
 
 class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const DEFAULT_DIFFICULTY_CONFIG = 'default_difficulty_config';
+    public const string DEFAULT_DIFFICULTY_CONFIG = 'default_difficulty_config';
 
     public function load(ObjectManager $manager): void
     {
@@ -29,6 +29,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ->setEquipmentFireBreakRate(0)
             ->setStartingFireRate(2)
             ->setPropagatingFireRate(0)
+            ->setMaximumAllowedSpreadingFires(2)
             ->setHullFireDamageRate(0)
             ->setTremorRate(0)
             ->setMetalPlateRate(0)

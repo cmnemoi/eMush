@@ -543,6 +543,16 @@
                   }</target>
       </segment>
     </unit>
+    <unit id="player_leave_chat_lost">
+      <segment id="player_leave_chat_lost" state="translated">
+        <source>player_leave_chat_lost</source>
+        <target>{character_gender, select,
+                  male {**{character}** cannot be reached here, he is alone on a planet without a walkie-talkie.}
+                  female {**{character}** cannot be reached here, she is alone on a planet without a walkie-talkie.}
+                  other {**{character}** cannot be reached here, they are alone on a planet without a walkie-talkie.}
+                  }</target>
+      </segment>
+    </unit>
     <unit id="hunter_death_patrol_ship">
       <segment id="hunter_death_patrol_ship" state="translated">
         <source>hunter_death_patrol_ship</source>

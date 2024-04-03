@@ -214,6 +214,31 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
         $manager->persist($bumpjumpkin);
         $gameConfig->addEquipmentConfig($bumpjumpkin);
 
+        $fluHealerMechanic = new Fruit();
+        $fluHealerMechanic
+            ->setPlantName('flu_healer_plant_test')
+            ->setActionPoints([0 => 1])
+            ->setMovementPoints([0 => 1])
+            ->setHealthPoints([0 => 1])
+            ->setMoralPoints([0 => 1])
+            ->setActions($fruitActions)
+            ->buildName(EquipmentMechanicEnum::FRUIT . '_flu_healer_test', GameConfigEnum::DEFAULT)
+        ;
+
+        $fluHealer = new ItemConfig();
+        $fluHealer
+            ->setEquipmentName('flu_healer_test')
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setMechanics([$fluHealerMechanic])
+            ->setActions($actions)
+            ->buildName(GameConfigEnum::TEST)
+        ;
+        $manager->persist($fluHealerMechanic);
+        $manager->persist($fluHealer);
+        $gameConfig->addEquipmentConfig($fluHealer);
+
         $manager->persist($gameConfig);
 
         $manager->flush();

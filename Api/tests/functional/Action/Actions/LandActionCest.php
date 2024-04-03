@@ -196,6 +196,22 @@ final class LandActionCest extends AbstractFunctionalTest
         );
     }
 
+    public function testLandSuccessPutAllPlayersInPatrolshipInTheBay(FunctionalTester $I): void
+    {
+        // given player 2 is in pasiphae
+        $this->player2->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+
+        // when player 1 lands
+        $this->landAction->loadParameters($this->action, $this->player1, $this->pasiphae);
+        $this->landAction->execute();
+
+        // then player 2 is in alpha bay 2
+        $I->assertEquals(
+            $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2)->getName(),
+            $this->player2->getPlace()->getName()
+        );
+    }
+
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void
     {
         /** @var PlaceConfig $pasiphaeRoomConfig */

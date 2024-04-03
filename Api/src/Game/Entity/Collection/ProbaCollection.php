@@ -10,14 +10,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @template-extends ArrayCollection<string|int, int>
  */
-class ProbaCollection extends ArrayCollection
+final class ProbaCollection extends ArrayCollection
 {
     public function getElementProbability(string|int $key): ?int
     {
         return $this->get($key);
     }
 
-    public function setElementProbability(string|int $key, int $value): static
+    public function setElementProbability(string|int $key, int $value): ProbaCollection
     {
         $this->set($key, $value);
 
@@ -36,9 +36,9 @@ class ProbaCollection extends ArrayCollection
     public function getTotalWeight(): int
     {
         $cumuProba = 0;
-        foreach ($this as $element => $probability) {
+        foreach ($this as $probability) {
             if (!is_int($probability)) {
-                throw new \Exception('Probability weight should be provided as integers');
+                throw new \RuntimeException('Probability weight should be provided as integers');
             }
 
             $cumuProba += $probability;
@@ -60,7 +60,7 @@ class ProbaCollection extends ArrayCollection
             }
         }
 
-        throw new \Exception("random value ($value) should be comprised between 0 and total Weight ($cumuProba)");
+        throw new \RuntimeException("random value ($value) should be comprised between 0 and total Weight ($cumuProba)");
     }
 
     public function getProbabilities(): array

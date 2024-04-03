@@ -43,4 +43,9 @@ export class Planet {
     public getActionByKey(key: string): Action | null {
         return this.actions?.find(action => action.key === key) || null;
     }
+
+    public toString(): string {
+        const numberOfSectorsRevealed = this.sectors?.filter(sector => sector.isRevealed).length || 0;
+        return `:planet: **${this.name}** (${numberOfSectorsRevealed}/${this.sectors?.length})\n*${this?.orientation} - ${this?.distance} :fuel:*\n${this.sectors?.map(sector => sector.name).join(', ')}`;
+    }
 }

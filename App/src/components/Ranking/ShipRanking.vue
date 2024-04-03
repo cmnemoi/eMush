@@ -49,7 +49,7 @@ export default defineComponent({
             languagesOption: [
                 { key: 'ranking.all', value: '' },
                 { key: 'ranking.french', value: 'fr' },
-                { key: 'ranking.english', value: 'en' },
+                { key: 'ranking.english', value: 'en' }
             ],
             language: '',
             fields: [

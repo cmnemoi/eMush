@@ -22,7 +22,7 @@ const getters = {
 const mutations: MutationTree<any> = {
     setError(state: any, error: any): void {
         const isHydraError = error.response?.data['@type'] === 'hydra:Error';
-        
+
         let errorDetails = '';
         if (isHydraError) {
             errorDetails = error.response?.data['hydra:description'];

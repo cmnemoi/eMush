@@ -29,19 +29,19 @@ export default {
         userId: {
             type: String,
             default: null
-        },
+        }
     },
     data() {
         return {
             showBanner: true,
             showAll: true,
-            warnings: [],
+            warnings: []
         };
     },
     computed: {
         bannerHeight() {
             return this.showAll ? 'auto' : '10%'; // Limite la hauteur à 10% si showAll est false
-        },
+        }
     },
     methods: {
         toggleShowAll() {
@@ -77,7 +77,7 @@ export default {
                     this.warnings = remoteRowData['hydra:member'];
                     this.loading = false;
                 });
-        },
+        }
     },
     beforeMount() {
         this.loadData();

@@ -2,14 +2,16 @@
     <div class="homepage-container">
         <section class="decorative">
             <img class="daedalus" src="@/assets/images/daedalus_home.png" alt="Daedalus" />
-            <img class="award"
-                 v-if="localeIsFrench()"
-                 src="@/assets/images/eigd_fr.png"
-                 alt="Award" />
-            <img class="award"
-                 v-else
-                 src="@/assets/images/eigd_en.png"
-                 alt="Award" />
+            <img
+                class="award"
+                v-if="localeIsFrench()"
+                src="@/assets/images/eigd_fr.png"
+                alt="Award" />
+            <img
+                class="award"
+                v-else
+                src="@/assets/images/eigd_en.png"
+                alt="Award" />
         </section>
         <section class="trailer-container">
             <video
@@ -40,7 +42,7 @@
                 </button>
             </div>
             <!-- CARROUSEL TEMPLATE
-            <div 
+            <div
                 class="box-container"
                 id="carrousel-container"
                 @mouseenter.stop="toggleTimer = false"
@@ -143,7 +145,7 @@ export default defineComponent ({
     computed: {
         ...mapGetters('auth', [
             'loggedIn'
-        ]),
+        ])
     },
     methods: {
         ...mapActions('auth', [
@@ -167,7 +169,7 @@ export default defineComponent ({
             const allNews = await NewsService.getLastPinnedNews().then((news: News[]) => {
                 return news;
             });
-            
+
             return allNews[allNews.length - 1];
         },
         displayNews(news: News) {
@@ -181,7 +183,7 @@ export default defineComponent ({
             news.spanishTitle = news.spanishTitle || news.frenchTitle;
 
             return news;
-        },
+        }
     },
     data: function() {
         return {
@@ -504,7 +506,7 @@ export default defineComponent ({
 
 
 @media screen and (max-width: $breakpoint-desktop-m) {
-  
+
 
     .homepage-container > section { max-width: 92%; }
 

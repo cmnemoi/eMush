@@ -9,7 +9,7 @@ export const moderationReasons= [
     { key: 'moderation.reason.wrong_language', value: 'wrong_language' },
     { key: 'moderation.reason.exploit', value: 'exploit' },
     { key: 'moderation.reason.exploit_incentive', value: 'exploit_incentive' },
-    { key: 'moderation.reason.leaking_private_information', value: 'leaking_private_information' },
+    { key: 'moderation.reason.leaking_private_information', value: 'leaking_private_information' }
 ];
 
 export const moderationSanctionTypes= [
@@ -18,7 +18,7 @@ export const moderationSanctionTypes= [
     { key: 'moderation.sanction.warning', value: 'warning' },
     { key: 'moderation.sanction.delete_message', value: 'delete_message' },
     { key: 'moderation.sanction.delete_end_message', value: 'delete_end_message' },
-    { key: 'moderation.sanction.hide_end_message', value: 'hide_end_message' },
+    { key: 'moderation.sanction.hide_end_message', value: 'hide_end_message' }
 ];
 
 export const sanctionDuration= [
@@ -30,5 +30,5 @@ export const sanctionDuration= [
     { key: 'moderation.durations.3_week', value: 'P21D' },
     { key: 'moderation.durations.1_month', value: 'P28D' },
     { key: 'moderation.durations.2_month', value: 'P60D' },
-    { key: 'moderation.durations.3_month', value: 'P90D' },
+    { key: 'moderation.durations.3_month', value: 'P90D' }
 ];

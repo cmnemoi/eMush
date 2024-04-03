@@ -68,7 +68,7 @@ export default defineComponent ({
                 return null;
             }
 
-            // Else, try to translate the error message. If there is no translation key associated, 
+            // Else, try to translate the error message. If there is no translation key associated,
             // return the raw error message.
             const translatedDetails = this.$t(['errors', this.error.response.details].join('.'));
             if (translatedDetails === ['errors', this.error.response.details].join('.')) {

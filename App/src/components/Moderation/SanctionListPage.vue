@@ -51,18 +51,20 @@
             </template>
             <template #row-actions="sanction">
                 <div v-if="isModerator">
-                    <Tippy tag="button"
-                           class="action-button"
-                           @click="removeSanction(sanction.id)">
+                    <Tippy
+                        tag="button"
+                        class="action-button"
+                        @click="removeSanction(sanction.id)">
                         {{ $t('moderation.removeSanction') }}
                         <template #content>
                             <h1>{{ $t('moderation.removeSanction') }}</h1>
                             <p>{{ $t('moderation.removeSanctionDescription') }}</p>
                         </template>
                     </Tippy>
-                    <Tippy tag="button"
-                           class="action-button"
-                           @click="suspendSanction(sanction.id)">
+                    <Tippy
+                        tag="button"
+                        class="action-button"
+                        @click="suspendSanction(sanction.id)">
                         {{ $t('moderation.suspendSanction') }}
                         <template #content>
                             <h1>{{ $t('moderation.suspendSanction') }}</h1>
@@ -83,7 +85,6 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
-import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import { Tippy } from "vue-tippy";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 
@@ -114,14 +115,13 @@ export default defineComponent({
     name: "SanctionListPage",
     components: {
         Tippy,
-        ModerationActionPopup,
         Datatable
     },
     computed: {
         ...mapGetters({
             isAdmin: 'auth/isAdmin',
-            isModerator: 'auth/isModerator',
-        }),
+            isModerator: 'auth/isModerator'
+        })
     },
     data(): SanctionListData {
         return {
@@ -130,23 +130,23 @@ export default defineComponent({
             fields: [
                 {
                     key: 'moderationAction',
-                    name: 'moderation.sanctionType',
+                    name: 'moderation.sanctionType'
                 },
                 {
                     key: 'reason',
-                    name: 'moderation.sanctionReason',
+                    name: 'moderation.sanctionReason'
                 },
                 {
                     key: 'message',
-                    name: 'moderation.adminMessage',
+                    name: 'moderation.adminMessage'
                 },
                 {
                     key: 'startDate',
-                    name: 'moderation.startDate',
+                    name: 'moderation.startDate'
                 },
                 {
                     key: 'endDate',
-                    name: 'moderation.endDate',
+                    name: 'moderation.endDate'
                 },
                 {
                     key: 'actions',
@@ -167,21 +167,21 @@ export default defineComponent({
             sortDirection: 'DESC',
             loading: false,
             pageSizeOptions: [
-                {text: 5, value: 5},
-                {text: 10, value: 10},
-                {text: 20, value: 20}
+                { text: 5, value: 5 },
+                { text: 10, value: 10 },
+                { text: 20, value: 20 }
             ],
             typeFilter: '',
             reasonFilter: '',
-            isActiveFilter: false,
+            isActiveFilter: false
         };
     },
     methods: {
         moderationReasons() {
-            return moderationReasons
+            return moderationReasons;
         },
         moderationSanctionTypes() {
-            return moderationSanctionTypes
+            return moderationSanctionTypes;
         },
         removeSanction(sanctionId: number) {
             ModerationService.removeSanction(sanctionId)
@@ -275,8 +275,21 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        this.userId = this.$route.params.userId;
-        this.username = this.$route.params.username;
+        const userId = this.$route.params.userId;
+        const username = this.$route.params.username;
+
+        if (typeof userId === 'string') {
+            this.userId = userId;
+        } else {
+            console.error('userId is not a string');
+        }
+
+        if (typeof username === 'string') {
+            this.username = username;
+        } else {
+            console.error('username is not a string');
+        }
+
         this.loadData();
     }
 });

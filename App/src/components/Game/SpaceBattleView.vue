@@ -15,10 +15,11 @@
                 <div class="stats">
                     <p class="quantity">{{ turret.charges }}</p>
                     <img class="charges-img" :src="require('@/assets/images/status/charge.png')" alt="charges">
-                    <img v-if="turret.isBroken"
-                         class="broken-img"
-                         :src="require('@/assets/images/alerts/broken.png')"
-                         alt="broken">
+                    <img
+                        v-if="turret.isBroken"
+                        class="broken-img"
+                        :src="require('@/assets/images/alerts/broken.png')"
+                        alt="broken">
                 </div>
             </div>
         </div>
@@ -44,20 +45,22 @@
                 </div>
                 <div class="stats">
                     <p v-if="patrolShip.armor" class="quantity">{{ patrolShip.armor }}</p>
-                    <img v-if="patrolShip.armor"
-                         class="armor-img"
-                         :src="require('@/assets/images/shield.png')"
-                         alt="armor">
+                    <img
+                        v-if="patrolShip.armor"
+                        class="armor-img"
+                        :src="require('@/assets/images/shield.png')"
+                        alt="armor">
                     <p class="quantity" v-if="!patrolShip.isPasiphae()">{{ patrolShip.charges }}</p>
                     <img
                         class="charges-img"
                         v-if="!patrolShip.isPasiphae()"
                         :src="require('@/assets/images/status/charge.png')"
                         alt="charges">
-                    <img v-if="patrolShip.isBroken"
-                         class="broken-img"
-                         :src="require('@/assets/images/alerts/broken.png')"
-                         alt="broken">
+                    <img
+                        v-if="patrolShip.isBroken"
+                        class="broken-img"
+                        :src="require('@/assets/images/alerts/broken.png')"
+                        alt="broken">
                 </div>
             </div>
         </div>
@@ -101,7 +104,7 @@ import { Action } from "@/entities/Action";
 export default defineComponent({
     name: 'SpaceBattleView',
     props: {
-        player: Player,
+        player: Player
     },
     computed: {
         ...mapGetters({
@@ -109,13 +112,13 @@ export default defineComponent({
             isHunterBeenHit: 'action/isHunterBeenHit',
             isHunterBeenKilled: 'action/isHunterBeenKilled',
             selectedTarget: 'room/selectedTarget',
-            targetedHunterId: 'action/targetedHunterId',
+            targetedHunterId: 'action/targetedHunterId'
         }),
         getSelectedTarget(): Item | Hunter | null
         {
             if (this.selectedTarget instanceof Hunter) { return this.selectedTarget;}
             return null;
-        },
+        }
     },
     methods: {
         ...mapActions({
@@ -179,7 +182,7 @@ export default defineComponent({
             } else {
                 this.selectTarget({ target: hunter });
             }
-        },
+        }
     }
 });
 

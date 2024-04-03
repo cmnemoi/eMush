@@ -7,7 +7,7 @@ export class SpaceBattlePatrolShip {
     public pilot: string|null;
     public isBroken!: boolean;
 
-    public constructor() {  
+    public constructor() {
         this.armor = null;
         this.charges = null;
         this.pilot = null;
@@ -28,7 +28,7 @@ export class SpaceBattlePatrolShip {
     }
 
     public jsonEncode(): string {
-        return JSON.stringify(this); 
+        return JSON.stringify(this);
     }
 
     public decode(jsonString : string): SpaceBattlePatrolShip {

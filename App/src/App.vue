@@ -8,7 +8,7 @@
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
-        <ModerationWarningBanner :userId="userInfo ? userInfo.userId : null"/>
+        <ModerationWarningBanner :user-id="userInfo ? userInfo.userId : null"/>
         <LocaleChange />
     </div>
 </template>

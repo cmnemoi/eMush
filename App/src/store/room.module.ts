@@ -57,7 +57,7 @@ const getters: GetterTree<any, any> = {
             equipment.key?.substring(0, 11) === 'patrol_ship'
             || equipment.key?.substring(0, 8) === 'pasiphae')
         )[0];
-    },
+    }
 };
 
 const actions: ActionTree<any, any> = {

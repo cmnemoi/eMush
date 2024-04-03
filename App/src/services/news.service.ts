@@ -61,7 +61,7 @@ const NewsService = {
         }).finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         return news;
-        
+
     },
     getLastPinnedNews: async (): Promise<News[]> => {
         let news: News[] = [];
@@ -86,6 +86,6 @@ const NewsService = {
         }).finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         return news;
-    },
+    }
 };
 export default NewsService;

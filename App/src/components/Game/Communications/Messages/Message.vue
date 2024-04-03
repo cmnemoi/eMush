@@ -1,5 +1,9 @@
 <template>
-    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="{ key: 'moderation.sanction.delete_message', value: 'delete_message' }" @close="closeModerationDialog" @submitSanction="deleteMessage" />
+    <ModerationActionPopup
+        :moderation-dialog-visible="moderationDialogVisible"
+        :action="{ key: 'moderation.sanction.delete_message', value: 'delete_message' }"
+        @close="closeModerationDialog"
+        @submitSanction="deleteMessage" />
     <div
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
@@ -14,7 +18,7 @@
         </p>
         <div class="actions">
             <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
-            <ActionButtons 
+            <ActionButtons
                 v-if="isPlayerAlive || adminMode"
                 :actions="['report']"
                 @report="openReportPopup()"
@@ -48,8 +52,8 @@
         </p>
         <div class="actions">
             <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
-            <ActionButtons 
-                v-if="isPlayerAlive" 
+            <ActionButtons
+                v-if="isPlayerAlive"
                 :actions="['report']"
                 @report="openReportPopup()"
             />
@@ -78,7 +82,7 @@ export default defineComponent ({
     name: "Message",
     components: {
         ActionButtons,
-        ModerationActionPopup,
+        ModerationActionPopup
     },
     data() {
         return {
@@ -101,7 +105,7 @@ export default defineComponent ({
         adminMode: {
             type: Boolean,
             default: false
-        },
+        }
     },
     emits: {
         // No validation
@@ -146,7 +150,10 @@ export default defineComponent ({
             if (! value) return '';
             return formatText(value.toString());
         },
-        deleteMessage(params) {
+        deleteMessage(params: any) {
+            if (this.message.id === null) {
+                return;
+            }
             ModerationService.deleteMessage(this.message.id, params);
             this.moderationDialogVisible = false;
         },
@@ -155,7 +162,7 @@ export default defineComponent ({
         },
         closeModerationDialog() {
             this.moderationDialogVisible = false;
-        },
+        }
     }
 });
 </script>
@@ -379,7 +386,7 @@ export default defineComponent ({
 .message:active {
     .actions {
         $delay-show: 0.3s;
-        
+
         visibility: visible;
         opacity: 1;
         bottom: 7px;

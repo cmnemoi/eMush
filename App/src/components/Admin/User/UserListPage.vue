@@ -1,5 +1,9 @@
 <template>
-    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="{ value: 'ban_user', key: 'moderation.sanction.ban_user' }" @close="closeModerationDialog" @submitSanction="banUser" />
+    <ModerationActionPopup
+        :moderation-dialog-visible="moderationDialogVisible"
+        :action="{ value: 'ban_user', key: 'moderation.sanction.ban_user' }"
+        @close="closeModerationDialog"
+        @submitSanction="banUser" />
     <div class="user_list_container">
         <div class="user_filter_options">
             <label>{{ $t('admin.show') }}
@@ -42,10 +46,11 @@
                 <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
                 <div v-if="isModerator">
                     <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
-                    <Tippy tag="button"
-                           class="action-button"
-                           v-if="!user.isBanned"
-                           @click="openModerationDialog(user)">
+                    <Tippy
+                        tag="button"
+                        class="action-button"
+                        v-if="!user.isBanned"
+                        @click="openModerationDialog(user)">
                         {{ $t('moderation.sanction.ban_user') }}
                         <template #content>
                             <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
@@ -96,23 +101,23 @@ export default defineComponent({
     computed: {
         ...mapGetters({
             isAdmin: 'auth/isAdmin',
-            isModerator: 'auth/isModerator',
-        }),
+            isModerator: 'auth/isModerator'
+        })
     },
     data(): UserListData {
         return {
             fields: [
                 {
                     key: 'username',
-                    name: 'moderation.playerList.user',
+                    name: 'moderation.playerList.user'
                 },
                 {
                     key: 'userId',
-                    name: 'moderation.userList.userId',
+                    name: 'moderation.userList.userId'
                 },
                 {
                     key: 'roles',
-                    name: 'moderation.userList.roles',
+                    name: 'moderation.userList.roles'
                 },
                 {
                     key: 'actions',
@@ -133,9 +138,9 @@ export default defineComponent({
             sortDirection: 'DESC',
             loading: false,
             pageSizeOptions: [
-                {text: 5, value: 5},
-                {text: 10, value: 10},
-                {text: 20, value: 20}
+                { text: 5, value: 5 },
+                { text: 10, value: 10 },
+                { text: 20, value: 20 }
             ],
             moderationDialogVisible: false,
             currentUser: null

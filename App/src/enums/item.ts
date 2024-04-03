@@ -410,5 +410,5 @@ export const itemEnum: {[index: string]: any} = {
     },
     [ALIEN_STEAK]: {
         'image': require('@/assets/images/items/ration_5.jpg')
-    },
+    }
 };

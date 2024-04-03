@@ -101,7 +101,7 @@ const ModerationService = {
                     "day": day,
                     "cycle": cycle,
                     "roomLogs": roomLogsForCycle.reverse()
-                });         
+                });
             });
         });
 
@@ -157,7 +157,7 @@ const ModerationService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
-    },
+    }
 };
 
 export default ModerationService;

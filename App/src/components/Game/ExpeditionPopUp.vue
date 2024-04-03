@@ -19,7 +19,7 @@ export default defineComponent ({
         exploration: {
             type: DaedalusExploration,
             required: true
-        },
+        }
     },
     methods: {
         formatText

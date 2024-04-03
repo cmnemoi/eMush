@@ -39,21 +39,21 @@ export default {
             moderationReason: "",
             moderationMessage: "",
             moderationStartDate: "",
-            moderationDuration: "",
+            moderationDuration: ""
         };
     },
     computed: {
         showDateOptions() {
             // display the starting date and duration of the sanction only for ban and warning
             return this.action.value === "ban_user" || this.action.value === "warning" || this.action.value === "quarantine_ban";
-        },
+        }
     },
     methods: {
         moderationReasons() {
-            return moderationReasons
+            return moderationReasons;
         },
         sanctionDuration() {
-            return sanctionDuration
+            return sanctionDuration;
         },
         closeModerationDialog() {
             this.$emit("close");
@@ -73,7 +73,7 @@ export default {
             }
 
             this.$emit("submitSanction", params);
-        },
-    },
+        }
+    }
 };
 </script>

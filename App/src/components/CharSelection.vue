@@ -83,11 +83,11 @@ export default defineComponent ({
     name: 'CharSelection',
     head() {
         return {
-            title: this.$t('title'),
+            title: this.$t('title')
         };
     },
     components: {
-        Spinner,
+        Spinner
     },
     props: {
     },

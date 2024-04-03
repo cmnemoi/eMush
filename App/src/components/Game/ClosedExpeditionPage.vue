@@ -65,11 +65,11 @@ export default defineComponent ({
     computed: {
         ...mapState('error', [
             'error'
-        ]),
+        ])
     },
     data() {
         return {
-            closedExploration: null as ClosedExploration | null,
+            closedExploration: null as ClosedExploration | null
         };
     },
     methods: {
@@ -87,7 +87,7 @@ export default defineComponent ({
             }).finally(() => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
             });
-            
+
             let closedExploration = null;
             if (closedExplorationData) {
                 closedExploration = (new ClosedExploration()).load(closedExplorationData);

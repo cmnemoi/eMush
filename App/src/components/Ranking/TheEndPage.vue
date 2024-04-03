@@ -1,5 +1,9 @@
 <template>
-    <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="currentAction" @close="closeModerationDialog" @submitSanction="applySanction" />
+    <ModerationActionPopup
+        :moderation-dialog-visible="moderationDialogVisible"
+        :action="currentAction"
+        @close="closeModerationDialog"
+        @submitSanction="applySanction" />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
             <img src="@/assets/images/ending-destroyed.png" alt="destroyed!" >
@@ -25,8 +29,8 @@
                     </div>
                 </div>
                 <p class="epitaph" v-if="goldNovaPlayer.message">
-                    <Tippy 
-                        tag="span" 
+                    <Tippy
+                        tag="span"
                         :class="['message', {'hidden' : goldNovaPlayer.messageIsHidden && isModerator}]"
                         v-if="goldNovaPlayer.messageIsHidden"
                     >
@@ -133,8 +137,8 @@
                             <img src="@/assets/images/nova/fifth.png" alt="fifth"> {{ $t('theEnd.specialSuperNova') }}
                         </p>
                         <p class="epitaph" v-if="player.message">
-                            <Tippy 
-                                tag="span" 
+                            <Tippy
+                                tag="span"
                                 :class="['message', {'hidden' : player.messageIsHidden && isModerator}]"
                                 v-if="player.messageIsHidden"
                             >
@@ -218,8 +222,8 @@
                             <img src="@/assets/images/nova/sixth.png" alt="sixth"> {{ $t('theEnd.normalSuperNova') }}
                         </p>
                         <p class="epitaph" v-if="player.message">
-                            <Tippy 
-                                tag="span" 
+                            <Tippy
+                                tag="span"
                                 :class="['message', {'hidden' : player.messageIsHidden && isModerator}]"
                                 v-if="player.messageIsHidden"
                             >
@@ -390,7 +394,7 @@ import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import ApiService from "@/services/api.service";
 import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { formatText } from "@/utils/formatText";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
@@ -412,7 +416,7 @@ export default defineComponent ({
         ...mapGetters({
             isModerator: 'auth/isModerator',
             reportPopup: 'popup/reportPopup'
-        }),
+        })
     },
     data: function (): ClosedDaedalusState {
         return {
@@ -480,7 +484,7 @@ export default defineComponent ({
         closeModerationDialog() {
             this.moderationDialogVisible = false;
         },
-        async applySanction(params) {
+        async applySanction(params: any) {
             if (this.currentPlayer === null || this.currentPlayer.id === null) return;
 
             if (this.currentAction.value === 'hide_end_message') {
@@ -746,7 +750,7 @@ h2 {
     }
 }
 
-.hidden { 
+.hidden {
     opacity: 20%;
 }
 

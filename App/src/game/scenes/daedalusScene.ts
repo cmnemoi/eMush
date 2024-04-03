@@ -763,7 +763,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         const gameLimits = new Phaser.Geom.Rectangle(
             -10, minSpawnY - 5,
-            gameSize.width + 130, gameSize.height - minSpawnY + 10,
+            gameSize.width + 130, gameSize.height - minSpawnY + 10
         );
 
 
@@ -800,7 +800,7 @@ export default class DaedalusScene extends Phaser.Scene
             quantity: { min: 1, max: displayedHunter },
             frequency: hunterFrequency,
             accelerationY: 2,
-            accelerationX: 2,
+            accelerationX: 2
         });
         hunterEmitter.setDepth(3);
         hunterEmitter.addDeathZone(new DeathZone(gameLimits, false));
@@ -837,7 +837,7 @@ export default class DaedalusScene extends Phaser.Scene
 
         const gameLimits = new Phaser.Geom.Rectangle(
             -10, -10,
-            gameSize.width + 20, gameSize.height + 20,
+            gameSize.width + 20, gameSize.height + 20
         );
 
         const topStarEmitter = this.add.particles(0,0, 'star_particles', {
@@ -848,7 +848,7 @@ export default class DaedalusScene extends Phaser.Scene
             quantity: 1,
             frequency: starFrequency,
             //@ts-ignore
-            emitZone: { type: 'random', source: verticalEmitArea },
+            emitZone: { type: 'random', source: verticalEmitArea }
         });
         topStarEmitter.setDepth(1);
         topStarEmitter.setScrollFactor(0, 0);
@@ -862,7 +862,7 @@ export default class DaedalusScene extends Phaser.Scene
             quantity: 1,
             frequency: starFrequency,
             //@ts-ignore
-            emitZone: { type: 'random', source: horizontalEmitArea },
+            emitZone: { type: 'random', source: horizontalEmitArea }
         });
         leftStarEmitter.setDepth(1);
         leftStarEmitter.setScrollFactor(0,0);

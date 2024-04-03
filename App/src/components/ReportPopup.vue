@@ -23,11 +23,11 @@ export default defineComponent ({
             user: 'auth/getUserInfo',
             player: 'player/player',
             reportPopup: 'popup/reportPopup'
-        }),
+        })
     },
     methods: {
         ...mapActions('popup', [
-            'closeReportPopup',
+            'closeReportPopup'
         ]),
         formatText
     }

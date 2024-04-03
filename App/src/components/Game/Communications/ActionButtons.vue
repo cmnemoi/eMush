@@ -1,8 +1,9 @@
 <template>
-    <Tippy tag="button"
-           v-for="(actionType, key) in actions"
-           :key="key"
-           @click="$emit(actionType)"
+    <Tippy
+        tag="button"
+        v-for="(actionType, key) in actions"
+        :key="key"
+        @click="$emit(actionType)"
     >
         <img :src="action(actionType).icon">
         {{ $t(action(actionType).wording) }}
@@ -17,7 +18,7 @@
 <script lang="ts">
 
 import { defineComponent } from "vue";
-import {Tippy} from "vue-tippy";
+import { Tippy } from "vue-tippy";
 
 const availableActions: {[index: string]: any} = {
     favorite: { icon: require('@/assets/images/comms/fav.png'), wording: 'game.communications.bookmark', description: 'game.communications.bookmarkDescription' },
@@ -30,7 +31,7 @@ const availableActions: {[index: string]: any} = {
 };
 
 export default defineComponent ({
-    components: {Tippy},
+    components: { Tippy },
     props: {
         actions: {
             type: Array,

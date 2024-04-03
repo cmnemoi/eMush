@@ -37,7 +37,7 @@ export default defineComponent ({
         isChannelPirated(): string
         {
             return (this.channel?.piratedPlayer != null) ? 'pirated' : '';
-        },
+        }
     }
 });
 </script>

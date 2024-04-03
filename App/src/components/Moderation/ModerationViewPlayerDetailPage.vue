@@ -1,39 +1,47 @@
 <template>
     <div v-if="player">
-        <ModerationActionPopup :moderationDialogVisible="moderationDialogVisible" :action="currentAction" @close="closeModerationDialog" @submitSanction="applySanction" />
+        <ModerationActionPopup
+            :moderation-dialog-visible="moderationDialogVisible"
+            :action="currentAction"
+            @close="closeModerationDialog"
+            @submitSanction="applySanction" />
         <div class="flex-row">
-            <Tippy tag="button"
-                   class="action-button"
-                   @click="openModerationDialog({ key: 'moderation.sanction.quarantine_player', value: 'quarantine_player' })"
-                   v-if="player.isAlive">
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.quarantine_player', value: 'quarantine_player' })"
+                v-if="player.isAlive">
                 {{ $t("moderation.sanction.quarantine_player") }}
                 <template #content>
                     <h1>{{ $t("moderation.sanction.quarantine_player") }}</h1>
                     <p>{{ $t("moderation.sanction.quarantineDescription") }}</p>
                 </template>
             </Tippy>
-            <Tippy tag="button"
-                   class="action-button"
-                   @click="openModerationDialog({ key: 'moderation.sanction.quarantineAndBan', value: 'quarantine_ban' })"
-                   v-if="player.isAlive">
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.quarantineAndBan', value: 'quarantine_ban' })"
+                v-if="player.isAlive">
                 {{ $t("moderation.sanction.quarantineAndBan") }}
                 <template #content>
                     <h1>{{ $t("moderation.sanction.quarantineAndBan") }}</h1>
                     <p>{{ $t("moderation.sanction.quarantineAndBanDescription") }}</p>
                 </template>
             </Tippy>
-            <Tippy tag="button"
-                   class="action-button"
-                   @click="openModerationDialog({ key: 'moderation.sanction.ban_user', value: 'ban_user' })">
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.ban_user', value: 'ban_user' })">
                 {{ $t("moderation.sanction.ban_user") }}
                 <template #content>
                     <h1>{{ $t("moderation.sanction.ban_user") }}</h1>
                     <p>{{ $t("moderation.sanction.banDescription") }}</p>
                 </template>
             </Tippy>
-            <Tippy tag="button"
-                   class="action-button"
-                   @click="openModerationDialog({ key: 'moderation.sanction.warning', value: 'warning' })">
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.warning', value: 'warning' })">
                 {{ $t("moderation.sanction.warning") }}
                 <template #content>
                     <h1>{{ $t("moderation.sanction.warning") }}</h1>
@@ -257,7 +265,7 @@ import Message from "@/components/Game/Communications/Messages/Message.vue";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
-import { Message as MessageEntity } from "@/entities/Message"; 
+import { Message as MessageEntity } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
@@ -298,7 +306,7 @@ export default defineComponent({
     components: {
         Log,
         Message,
-        ModerationActionPopup,
+        ModerationActionPopup
     },
     data() : ModerationViewPlayerData {
         return {
@@ -325,7 +333,7 @@ export default defineComponent({
             privateChannels: [],
             errors: {},
             moderationDialogVisible: false,
-            currentAction: { key: "", value: "" },
+            currentAction: { key: "", value: "" }
         };
     },
     methods: {
@@ -473,11 +481,11 @@ export default defineComponent({
                 this.generalChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
                 this.privateChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
             }
-        },
+        }
     },
     beforeMount() {
         this.loadData();
-    },
+    }
 });
 </script>
 

@@ -194,7 +194,7 @@ const routes = [
             {
                 name: "ModerationPlayerList",
                 path: 'player-list',
-                component: ModerationPlayerListPage,
+                component: ModerationPlayerListPage
             },
             {
                 name: "ModerationUserList",
@@ -213,7 +213,7 @@ const routes = [
                         component: UserPage,
                         redirect: { name: 'SanctionListPage' }
                     }
-                ],
+                ]
             },
             {
                 name: "ModerationViewPlayerDetail",
@@ -231,7 +231,7 @@ const routes = [
             {
                 name: "SanctionListPage",
                 path: '/user/:username/:userId/moderationSanctions',
-                component: SanctionListPage,
+                component: SanctionListPage
             }
         ]
     },

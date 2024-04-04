@@ -1,11 +1,12 @@
 <template>
     <div class="warning-banner-container" v-if="userWarnings.length > 0">
         <div class="warning-banner" v-for="(warning, index) in (showAll ? userWarnings : userWarnings.slice(0, 1))" :key="index">
-            <h1 class="banner-title">{{ $t('moderation.sanction.warning') }}</h1>
+            <h1 class="banner-title">
+                {{ $t('moderation.sanction.warning') }} {{ $t('moderation.sanction.until') }} {{ warning.endDate.toLocaleDateString() }}
+            </h1>
             <p class="banner-content">
-                <span>{{ $t('moderation.sanctionReason') }} :</span>
-                <span>{{ $t('moderation.reason.'+ warning.reason) }}.</span>
-                <br>
+                <span>{{ $t('moderation.sanctionReason') }} : {{ $t('moderation.reason.'+ warning.reason) }}</span>
+                <br><br>
                 <span>{{ warning.message }}</span>
             </p>
             <button v-if="index === 0" class="button-toggle-show-all" @click="showAll = !showAll">

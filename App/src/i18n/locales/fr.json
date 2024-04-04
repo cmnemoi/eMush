@@ -709,7 +709,8 @@
       "deleteDescription": "Cette action supprime le message et le remplace par un message de NERON",
       "delete_end_message": "Supprimer le message de fin",
       "hide_end_message": "Cacher le message de fin",
-      "allTypes": "Toutes les sanctions"
+      "allTypes": "Toutes les sanctions",
+	  "until": "jusqu'au"
     },
     "reason": {
       "multi_account": "Multicompte",

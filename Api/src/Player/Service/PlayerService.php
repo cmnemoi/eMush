@@ -296,18 +296,12 @@ class PlayerService implements PlayerServiceInterface
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $triumphChange = 0;
-
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
-        if ($player->isMush()
-            && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
-        ) {
+        if ($player->isMush() && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))) {
             $triumphChange = $mushTriumph->getTriumph();
         }
-
-        if (!$player->isMush()
-            && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
-        ) {
+        if (!$player->isMush() && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))) {
             $triumphChange = $humanTriumph->getTriumph();
         }
 

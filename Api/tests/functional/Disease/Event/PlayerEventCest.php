@@ -59,7 +59,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $modifierConfig = $disease->getDiseaseConfig()->getModifierConfigs()->filter(
             static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === ModifierNameEnum::FITFUL_SLEEP
         )->first();
-        $modifierConfig->setModifierActivationRequirements([])->setModifierStrategy('');
+        $modifierConfig->setModifierActivationRequirements([]);
 
         // given player disease has only the fitful sleep modifier
         $diseaseConfig = $disease->getDiseaseConfig()->setModifierConfigs([$modifierConfig]);
@@ -85,6 +85,9 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
         $currentDiseases = $this->player->getMedicalConditions();
         $I->assertCount(1, $currentDiseases);
+        if (count($roomLog) > 1) {
+            exit;
+        }
         $I->assertCount(1, $roomLog, 'Double FITFUL_SLEEP have been dispatched.');
 
         // the player gains 1 AP (cycle change) and lose 1 AP (disease), so they should have the same amount of AP

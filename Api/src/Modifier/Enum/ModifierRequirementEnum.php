@@ -30,28 +30,21 @@ namespace Mush\Modifier\Enum;
  * ALL_TAG: The event must have ALL the following tags
  * NONE_TAG: The event must have NONE of the following tags
  */
-class ModifierRequirementEnum
+abstract class ModifierRequirementEnum
 {
-    public const RANDOM = 'random';
-
-    public const PLAYER_IN_ROOM = 'player_in_room';
-    public const ALONE = 'alone';
-    public const NOT_ALONE = 'not_alone';
-    public const FOUR_PEOPLE = 'four_people';
-    public const MUSH_IN_ROOM = 'mush_in_room';
-
-    public const ITEM_IN_ROOM = 'item_in_room';
-
-    public const CYCLE = 'cycle';
-    public const EVEN = 'even';
-
-    public const PLAYER_EQUIPMENT = 'player_equipment';
-
-    public const HOLDER_HAS_STATUS = 'status';
-
-    public const HOLDER_NAME = 'holder_name';
-
-    public const ANY_TAGS = 'any_tags';
-    public const NONE_TAGS = 'none_tags';
-    public const ALL_TAGS = 'all_tags';
+    public const string RANDOM = 'random';
+    public const string PLAYER_IN_ROOM = 'player_in_room';
+    public const string ALONE = 'alone';
+    public const string NOT_ALONE = 'not_alone';
+    public const string FOUR_PEOPLE = 'four_people';
+    public const string MUSH_IN_ROOM = 'mush_in_room';
+    public const string ITEM_IN_ROOM = 'item_in_room';
+    public const string CYCLE = 'cycle';
+    public const string EVEN = 'even';
+    public const string PLAYER_EQUIPMENT = 'player_equipment';
+    public const string HOLDER_HAS_STATUS = 'status';
+    public const string HOLDER_NAME = 'holder_name';
+    public const string ANY_TAGS = 'any_tags';
+    public const string NONE_TAGS = 'none_tags';
+    public const string ALL_TAGS = 'all_tags';
 }

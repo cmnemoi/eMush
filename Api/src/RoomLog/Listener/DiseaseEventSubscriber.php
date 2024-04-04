@@ -70,15 +70,12 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getTargetPlayer();
 
-        $reasons = $event->getTags();
-
         $key = $event->mapLog(self::TREAT_LOG_MAP);
         if ($key === null) {
             $key = LogEnum::DISEASE_TREATED;
         }
 
         $event->setVisibility(VisibilityEnum::PUBLIC);
-
         $this->createEventLog($key, $event, $player);
     }
 

@@ -14,10 +14,10 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 
 class DiseaseEvent extends AbstractGameEvent implements LoggableEventInterface
 {
-    public const NEW_DISEASE = 'disease.new';
-    public const APPEAR_DISEASE = 'disease.appear';
-    public const TREAT_DISEASE = 'disease.treat';
-    public const CURE_DISEASE = 'disease.cure';
+    public const string NEW_DISEASE = 'disease.new';
+    public const string APPEAR_DISEASE = 'disease.appear';
+    public const string TREAT_DISEASE = 'disease.treat';
+    public const string CURE_DISEASE = 'disease.cure';
 
     private PlayerDisease $playerDisease;
     private string $visibility = VisibilityEnum::PUBLIC;

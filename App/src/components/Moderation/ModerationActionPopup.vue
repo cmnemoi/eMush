@@ -2,12 +2,21 @@
     <PopUp :is-open=moderationDialogVisible @close="closeModerationDialog()">
         <h2>{{ $t(action.key) }}</h2>
         <label>{{ $t("moderation.sanctionReason") }}:
-            <select v-model="moderationReason">
-                <option v-for="reason in moderationReasons()" :key="reason.key" :value="reason.value">{{ $t(reason.key) }}</option>
+            <select v-model="moderationReason" required>
+                <option value="" 
+                        selected 
+                        disabled 
+                        hidden
+                >
+                    {{ $t("moderation.chooseSanction") }}
+                </option>
+                <option v-for="reason in moderationReasons()" :key="reason.key" :value="reason.value">
+                    {{ $t(reason.key) }}
+                </option>
             </select>
         </label>
         <label>{{ $t("moderation.adminMessage") }}:
-            <textarea v-model="moderationMessage"></textarea>
+            <textarea v-model="moderationMessage" />
         </label>
         <label v-if="showDateOptions">{{ $t("moderation.startDate") }}:
             <input type="date" v-model="moderationStartDate" />
@@ -15,10 +24,12 @@
         <label v-if="showDateOptions">{{ $t("moderation.duration") }}:
             <select v-model="moderationDuration">
                 <option value="">{{ $t('moderation.durations.permanent') }}</option>
-                <option v-for="duration in sanctionDuration()" :value="duration.value" :key="duration.key">{{ $t(duration.key) }}</option>
+                <option v-for="duration in sanctionDuration()" :value="duration.value" :key="duration.key">
+                    {{ $t(duration.key) }}
+                </option>
             </select>
         </label>
-        <div class="actions">
+        <div class="actions" v-if="moderationReason && moderationMessage">
             <button class="action-button" @click="submitSanction">{{ $t("moderation.confirmSanction") }}</button>
         </div>
     </PopUp>

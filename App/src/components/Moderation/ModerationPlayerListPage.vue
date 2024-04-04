@@ -60,9 +60,9 @@
             :loading="loading"
             :row-data="rowData"
             :pagination="pagination"
-            :characterFilter="characterFilter"
-            :daedalusIdFilter="daedalusIdFilter"
-            :usernameFilter="usernameFilter"
+            :character-filter="characterFilter"
+            :daedalus-id-filter="daedalusIdFilter"
+            :username-filter="usernameFilter"
             @paginationClick="paginationClick"
             @sortTable="sortTable"
         >
@@ -105,20 +105,20 @@ export default defineComponent({
                 { key: 'moderation.playerList.gameStatuses.in_game', value: 'in_game' },
                 { key: 'moderation.playerList.gameStatuses.finished', value: 'finished' },
                 { key: 'moderation.playerList.gameStatuses.closed', value: 'closed' },
-                { key: 'moderation.playerList.gameStatuses.all', value: '' },
+                { key: 'moderation.playerList.gameStatuses.all', value: '' }
             ],
             fields: [
                 {
                     key: 'id',
-                    name: 'moderation.playerList.id',
+                    name: 'moderation.playerList.id'
                 },
                 {
                     key: 'gameStatus',
-                    name: 'moderation.playerList.gameStatus',
+                    name: 'moderation.playerList.gameStatus'
                 },
                 {
                     key: 'daedalusId',
-                    name: 'moderation.playerList.daedalusId',
+                    name: 'moderation.playerList.daedalusId'
                 },
                 {
                     key: 'characterName',
@@ -128,7 +128,7 @@ export default defineComponent({
                 {
                     key: 'user',
                     subkey: 'username',
-                    name: 'moderation.playerList.user',
+                    name: 'moderation.playerList.user'
                 },
                 {
                     key: 'actions',
@@ -198,7 +198,7 @@ export default defineComponent({
             if (this.usernameFilter) {
                 params.params['user.username'] = this.usernameFilter;
             }
-            
+
             ModerationService.getPlayerInfoList(params)
                 .then((result) => {
                     for (const playerInfo of result.data['hydra:member']) {
@@ -232,19 +232,6 @@ export default defineComponent({
         },
         closePlayer(playerId: string) {
             AdminService.closePlayer(playerId)
-                .then((result) => {
-                    this.loadData();
-                    return result.data;
-                })
-                .then((remoteRowData: any) => {
-                    this.rowData = remoteRowData['hydra:member'];
-                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
-                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-                    this.loading = false;
-                });
-        },
-        quarantinePlayer(playerId: number) {
-            ModerationService.quarantinePlayer(playerId)
                 .then((result) => {
                     this.loadData();
                     return result.data;

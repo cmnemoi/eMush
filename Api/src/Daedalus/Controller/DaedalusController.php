@@ -95,7 +95,7 @@ class DaedalusController extends AbstractGameController
         }
 
         $language = $request->get('language', '');
-        $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $this->getUser());
+        $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $user);
 
         if ($daedalus === null) {
             // TODO: handle different game configs (send game config in the request? how to choose the game config?)

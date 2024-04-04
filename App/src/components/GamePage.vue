@@ -12,7 +12,7 @@
 <script lang="ts">
 import GameContent from "@/components/Game/GameContent.vue";
 import CharSelection from "@/components/CharSelection.vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
@@ -24,8 +24,19 @@ export default defineComponent ({
     computed: {
         ...mapGetters('auth', [
             'loggedIn',
-            'getUserInfo'
+            'getUserInfo',
+            'userId'
         ])
+    },
+    methods: {
+        ...mapActions({
+            loadUserWarnings: 'moderation/loadUserWarnings',
+        }),
+    },
+    beforeMount(): void {
+        if (this.userId) {
+            this.loadUserWarnings(this.userId);
+        }
     }
 });
 </script>

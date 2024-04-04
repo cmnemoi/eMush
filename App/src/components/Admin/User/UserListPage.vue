@@ -1,4 +1,9 @@
 <template>
+    <ModerationActionPopup
+        :moderation-dialog-visible="moderationDialogVisible"
+        :action="{ value: 'ban_user', key: 'moderation.sanction.ban_user' }"
+        @close="closeModerationDialog"
+        @submitSanction="banUser" />
     <div class="user_list_container">
         <div class="user_filter_options">
             <label>{{ $t('admin.show') }}
@@ -37,27 +42,19 @@
                 Actions
             </template>
             <template #row-actions="user">
+                <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }" v-if="isAdmin">{{ $t('moderation.sanctionList') }}</router-link>
                 <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
                 <div v-if="isModerator">
                     <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
-                    <Tippy tag="button"
-                           class="action-button"
-                           v-if="!user.isBanned"
-                           @click="banUser(user)">
-                        {{ $t('moderation.ban') }}
+                    <Tippy
+                        tag="button"
+                        class="action-button"
+                        v-if="!user.isBanned"
+                        @click="openModerationDialog(user)">
+                        {{ $t('moderation.sanction.ban_user') }}
                         <template #content>
-                            <h1>{{ $t('moderation.ban') }}</h1>
-                            <p>{{ $t('moderation.banDescription') }}</p>
-                        </template>
-                    </Tippy>
-                    <Tippy tag="button"
-                           class="action-button"
-                           v-else
-                           @click="unbanUser(user)">
-                        {{ $t('moderation.unban') }}
-                        <template #content>
-                            <h1>{{ $t('moderation.unban') }}</h1>
-                            <p>{{ $t('moderation.unbanDescription') }}</p>
+                            <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
+                            <p>{{ $t('moderation.sanction.banDescription') }}</p>
                         </template>
                     </Tippy>
                 </div>
@@ -74,32 +71,53 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { mapGetters } from "vuex";
 import ModerationService from "@/services/moderation.service";
+import { User } from "@/entities/User";
+import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+
+interface UserListData {
+    fields: [
+        { key: string; name: string; },
+        { key: string; name: string; },
+        { key: string; name: string; },
+        { key: string; name: string; sortable: false; slot: true; }
+    ],
+    pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number; };
+    rowData: never[];
+    filter: string;
+    sortField: string;
+    sortDirection: string;
+    loading: boolean;
+    pageSizeOptions: { text: number; value: number; }[];
+    moderationDialogVisible: boolean,
+    currentUser: User|null,
+}
 
 export default defineComponent({
     name: "UserListPage",
     components: {
+        ModerationActionPopup,
         Datatable
     },
     computed: {
         ...mapGetters({
             isAdmin: 'auth/isAdmin',
-            isModerator: 'auth/isModerator',
-        }),
+            isModerator: 'auth/isModerator'
+        })
     },
-    data() {
+    data(): UserListData {
         return {
             fields: [
                 {
                     key: 'username',
-                    name: 'moderation.playerList.user',
+                    name: 'moderation.playerList.user'
                 },
                 {
                     key: 'userId',
-                    name: 'moderation.userList.userId',
+                    name: 'moderation.userList.userId'
                 },
                 {
                     key: 'roles',
-                    name: 'moderation.userList.roles',
+                    name: 'moderation.userList.roles'
                 },
                 {
                     key: 'actions',
@@ -123,27 +141,31 @@ export default defineComponent({
                 { text: 5, value: 5 },
                 { text: 10, value: 10 },
                 { text: 20, value: 20 }
-            ]
+            ],
+            moderationDialogVisible: false,
+            currentUser: null
         };
     },
     methods: {
-        banUser(user: any) {
-            ModerationService.banUser(user.id)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+        openModerationDialog(user: User) {
+            this.currentUser = user;
+            this.moderationDialogVisible = true;
         },
-        unbanUser(user: any) {
-            ModerationService.unbanUser(user.id)
+        closeModerationDialog() {
+            this.moderationDialogVisible = false;
+        },
+        banUser(param: any) {
+            if (this.currentUser === null || this.currentUser.id === null) {
+                return;
+            }
+            ModerationService.banUser(this.currentUser.id, param)
                 .then(() => {
                     this.loadData();
                 })
                 .catch((error) => {
                     console.error(error);
                 });
+            this.moderationDialogVisible = false;
         },
         loadData() {
             this.loading = true;

@@ -82,7 +82,7 @@ export default defineComponent ({
         },
         isMinimapOpen() {
             return this.isMinimapAvailable;
-        },
+        }
     },
     methods: {
         ...mapActions({
@@ -91,7 +91,7 @@ export default defineComponent ({
         }),
         selectHunter(target: Hunter) {
             this.selectTarget({ target: target });
-        },
+        }
     }
 });
 </script>

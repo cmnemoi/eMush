@@ -146,7 +146,7 @@ export default defineComponent({
     name: 'Thanks',
     computed: {
         ...mapGetters({
-            player: 'player/player',
+            player: 'player/player'
         })
     },
     data() {
@@ -156,7 +156,7 @@ export default defineComponent({
             version: version as string,
             release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
             channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
-            displayedContributors: team.filter((member) => !member.coreTeam).slice(0,6),
+            displayedContributors: team.filter((member) => !member.coreTeam).slice(0,6)
         };
     },
     mounted() {
@@ -165,7 +165,7 @@ export default defineComponent({
     },
     methods: {
         ...mapActions('popup', [
-            'openReportPopup',
+            'openReportPopup'
         ]),
         getRoleImage(role: string) {
             if (role === 'developer') {
@@ -193,8 +193,8 @@ export default defineComponent({
                     this.displayedContributors = this.displayedContributors.concat(contributorList.slice(0, displayedNames + currentIndex - contributorList.length)); };
                 currentIndex = (currentIndex + 1) % contributorList.length;
             }, 3000);
-        },
-    },
+        }
+    }
 });
 </script>
 

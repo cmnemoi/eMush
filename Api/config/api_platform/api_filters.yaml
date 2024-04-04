@@ -158,3 +158,41 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    adminSanction.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ {
+            reason: 'exact',
+            moderationAction: 'exact',
+            user.userId: 'exact',
+        } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    adminSanction.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { startDate: ~, endDate: ~ } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    adminSanction.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: {
+                startDate: ~,
+                reason: ~,
+                moderationAction: ~
+            }
+            $orderParameterName: order
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    moderationSanction.boolean_filter:
+        parent: 'api_platform.doctrine.orm.boolean_filter'
+        arguments: [ { isActive: ~ } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

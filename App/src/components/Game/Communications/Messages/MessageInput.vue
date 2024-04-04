@@ -40,7 +40,7 @@ export default defineComponent ({
     },
     data(): any {
         return {
-            text: this.typedMessage,
+            text: this.typedMessage
         };
     },
     computed: {

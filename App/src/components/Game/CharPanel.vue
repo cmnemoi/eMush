@@ -3,9 +3,10 @@
         <div class="char-sheet">
             <div class="char-card">
                 <div class="avatar">
-                    <img :src="characterPortrait"
-                         alt="avatar"
-                         @mousedown.stop="toggleItemSelection(null)"
+                    <img
+                        :src="characterPortrait"
+                        alt="avatar"
+                        @mousedown.stop="toggleItemSelection(null)"
                     >
                 </div>
 
@@ -214,7 +215,7 @@ export default defineComponent ({
     data() {
         return {
             StatusPlayerNameEnum
-        }; 
+        };
     }
 });
 </script>
@@ -473,7 +474,7 @@ div.inventory {
     .specials {
         display: flex;
         flex-direction: column;
-        
+
         li {
             display: flex;
             flex-direction: row;

@@ -13,7 +13,7 @@ const state =  {
     loadingChannels: false,
     loadingByChannelId: {},
     messagesByChannelId: {},
-    typedMessage: '',
+    typedMessage: ''
 };
 
 const getters: GetterTree<any, any> = {

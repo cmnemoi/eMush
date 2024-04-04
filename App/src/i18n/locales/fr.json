@@ -644,82 +644,137 @@
 		"ok": "J'ai compris",
 		"title": "Signaler un comportement inapproprié"
 	},
-	"moderation": {
-		"banner": {
-			"players": "Joueurs",
-			"users": "Utilisateurs"
-		},
-		"filters": {
-			"cycle": "Cycle",
-			"day": "Jour",
-			"endDate": "Date de fin",
-			"logContent": "Log",
-			"logContentDescription": "Nom du log à chercher. Pour le moment, vous devez rentrer le code du log (donné entre parenthèses). Dans le futur, des filtres pré-sélectionnés (actions agressives, actions mush...) seront disponibles.",
-			"messageAuthor": "Auteur du message",
-			"messageContent": "Contenu du message",
-			"room": "Pièce",
-			"roomDescription": "Pièce du log à chercher. Pour le moment, vous devez rentrer le code de la pièce (indiqué entre parenthèses).",
-			"startDate": "Date de début"
-		},
-		"player": {
-			"playedBy": "Joué par",
-			"mush": "Mush",
-			"human": "Humain",
-			"banned": "Banni",
-			"notBanned": "Non banni",
-			"alive": "Vivant",
-			"dead": "Mort"
-		},
-		"theEndPage": {
-			"editMessage": "Éditer",
-			"editMessageDescription": "Remplacer ce message par un avertissement de NERON.",
-			"hideMessage": "Masquer",
-			"hideMessageDescription": "Masquer ce message : il ne sera visible que pour son auteur et les modérateurs.",
-			"messageIsHidden": "Masqué",
-			"messageIsHiddenDescription": "Ce message est masqué. Il n'est visible que par son auteur et les modérateurs."
-		},
-		"playerList": {
-			"gameStatuses": {
-				"all": "Sans distinction",
-				"in_game": "En jeu",
-				"finished": "Mort non validée",
-				"closed": "Mort validée"
-			},
-			"id": "Identifiant du joueur",
-			"gameStatus": "Status du joueur",
-			"daedalusId": "Identifiant du Daedalus",
-			"characterName": "Personnage incarné",
-			"user": "Utilisateur"
-		},
-		"userList": {
-			"userId": "Identifiant de l'utilisateur",
-			"roles": "Rôles"
-		},
-		"alivePlayersFilter": "Status du joueur :",
-		"mushPlayersFilter": "Afficher uniquement les joueurs Mush",
-		"ban": "Bannir",
-		"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
-		"generalChannel": "Canal général",
-		"goToPlayerDetails": "Voir les détails du joueur",
-		"goToUserProfile": "Voir le profil de l'utilisateur",
-		"loadMushChannel": "Charger le canal Mush",
-		"loadPrivateChannels": "Charger les canaux privés",
-		"loadPublicChannel": "Charger le canal public",
-		"logs": "Logs",
-		"mushChannel": "Canal Mush",
-		"nothingToDisplay": "Rien à afficher.",
-		"privateChannel": "Canal privé",
-		"unban": "Débannir",
-		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
-		"quarantineAndBan": "Mettre en quarantaine et bannir",
-		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
-		"quarantine": "Mettre en quarantaine",
-		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
-		"reloadData": "Recharger les données",
-		"reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
-		"searchByCharacter": "Rechercher un personnage :",
-		"searchByDaedalusId": "Rechercher un Daedalus par ID :",
-		"searchByUsername": "Rechercher un utilisateur :",
-		"delete": "Supprimer"
-	}
+  "moderation": {
+    "banner": {
+      "players": "Joueurs",
+      "users": "Utilisateurs"
+    },
+    "filters": {
+      "cycle": "Cycle",
+      "day": "Jour",
+      "endDate": "Date de fin",
+      "logContent": "Log",
+      "logContentDescription": "Nom du log à chercher. Pour le moment, vous devez rentrer le code du log (donné entre parenthèses). Dans le futur, des filtres pré-sélectionnés (actions agressives, actions mush...) seront disponibles.",
+      "messageAuthor": "Auteur du message",
+      "messageContent": "Contenu du message",
+      "room": "Pièce",
+      "roomDescription": "Pièce du log à chercher. Pour le moment, vous devez rentrer le code de la pièce (indiqué entre parenthèses).",
+      "startDate": "Date de début"
+    },
+    "player": {
+      "playedBy": "Joué par",
+      "mush": "Mush",
+      "human": "Humain",
+      "banned": "Banni",
+      "notBanned": "Non banni",
+      "alive": "Vivant",
+      "dead": "Mort"
+    },
+    "theEndPage": {
+      "editMessage": "Éditer",
+      "editMessageDescription": "Remplacer ce message par un avertissement de NERON.",
+      "hideMessage": "Masquer",
+      "hideMessageDescription": "Masquer ce message : il ne sera visible que pour son auteur et les modérateurs.",
+      "messageIsHidden": "Masqué",
+      "messageIsHiddenDescription": "Ce message est masqué. Il n'est visible que par son auteur et les modérateurs."
+    },
+    "playerList": {
+      "gameStatuses": {
+        "all": "Sans distinction",
+        "in_game": "En jeu",
+        "finished": "Mort non validée",
+        "closed": "Mort validée"
+      },
+      "id": "Identifiant du joueur",
+      "gameStatus": "Status du joueur",
+      "daedalusId": "Identifiant du Daedalus",
+      "characterName": "Personnage incarné",
+      "user": "Utilisateur"
+    },
+    "userList": {
+      "userId": "Identifiant de l'utilisateur",
+      "roles": "Rôles"
+    },
+    "sanction": {
+      "delete": "Supprimer",
+      "ban_user": "Bannir",
+      "banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
+      "quarantineAndBan": "Mettre en quarantaine et bannir",
+      "quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
+      "quarantine_player": "Mettre en quarantaine",
+      "quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
+      "warning": "Avertissement",
+	  "warningDescription": "Donner un avertissement à cet utilisateur.",
+      "delete_message": "Supprimer le message",
+      "deleteDescription": "Cette action supprime le message et le remplace par un message de NERON",
+      "delete_end_message": "Supprimer le message de fin",
+      "hide_end_message": "Cacher le message de fin",
+      "allTypes": "Toutes les sanctions",
+	  "until": "jusqu'au"
+    },
+    "reason": {
+      "multi_account": "Multicompte",
+      "mush_play_against_team": "Anti-jeu Mush",
+      "killing_spree": "Massacre",
+      "foul_play": "Anti-jeu Humain",
+      "suicide": "Suicides",
+      "hate_speech": "Insultes",
+      "flood": "Flood",
+      "wrong_language": "Langue étrangère",
+      "exploit": "Exploitation de bugs",
+      "exploit_incentive": "Incitation à exploiter des bugs",
+      "leaking_private_information": "Diffusion d'info personnelles",
+      "allReasons": "Toutes les raisons"
+    },
+    "durations": {
+      "permanent": "Permanent",
+      "1_day": "1 jour",
+      "2_day": "2 jours",
+      "3_day": "3 jours",
+      "1_week": "1 semaine",
+      "2_week": "2 semaines",
+      "3_week": "3 semaines",
+      "1_month": "1 mois",
+      "2_month": "2 mois",
+      "3_month": "3 mois"
+    },
+    "reduce": "Réduire",
+    "showAll": "Montrer toutes les sanctions",
+    "sanctionsFor": "Liste des sanctions de {username}",
+    "isSanctionActive": "Sanctions en cours",
+    "sanctionType": "Type de sanction",
+    "sanctionReason": "Raison",
+    "adminMessage": "Message de la modération",
+    "startDate": "Date de début",
+    "endDate": "Date de fin",
+    "duration": "Durée",
+    "sanctionList": "Liste des sanctions",
+    "confirmSanction": "Confirmer",
+	"chooseReason": "Choisir une raison",
+    "alivePlayersFilter": "Status du joueur :",
+    "mushPlayersFilter": "Afficher uniquement les joueurs Mush",
+    "generalChannel": "Canal général",
+    "goToPlayerDetails": "Voir les détails du joueur",
+    "goToUserProfile": "Voir le profil de l'utilisateur",
+    "loadMushChannel": "Charger le canal Mush",
+    "loadPrivateChannels": "Charger les canaux privés",
+    "loadPublicChannel": "Charger le canal public",
+    "logs": "Logs",
+    "mushChannel": "Canal Mush",
+    "nothingToDisplay": "Rien à afficher.",
+    "privateChannel": "Canal privé",
+    "unban": "Débannir",
+    "unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
+    "reloadData": "Recharger les données",
+    "reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
+    "searchByCharacter": "Rechercher un personnage :",
+    "searchByDaedalusId": "Rechercher un Daedalus par ID :",
+    "searchByUsername": "Rechercher un utilisateur :",
+    "suspendSanction": "Suspendre la sanction",
+    "suspendSanctionDescription": "Suspendre la sanction. La date de fin est définie à la date courante. La sanction reste dans l'historique de l'utilisateur",
+    "removeSanction": "Supprimer la sanction",
+    "removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur",
+    "report": "Plainte",
+    "reportDescription": "Faire remonter un message problématique à la modération."
+  }
 }

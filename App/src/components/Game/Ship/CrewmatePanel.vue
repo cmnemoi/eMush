@@ -124,7 +124,7 @@ export default defineComponent ({
         formatText,
         skillImage(skill: Status): string {
             return statusPlayerEnum[skill.key].icon ?? '';
-        },
+        }
     }
 });
 </script>

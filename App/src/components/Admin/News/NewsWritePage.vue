@@ -70,7 +70,7 @@ interface NewsData {
 export default defineComponent({
     name: "NewsWritePage",
     components: {
-        Input,
+        Input
     },
     data() : NewsData {
         return {

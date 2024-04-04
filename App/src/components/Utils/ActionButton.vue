@@ -34,12 +34,12 @@ export default defineComponent ({
     computed:{
         isDisabled(): string {
             return !this.action?.canExecute ? "disabled" : "";
-        },
+        }
     },
     data() {
         return {
             StatusPlayerNameEnum
-        }; 
+        };
     }
 });
 </script>

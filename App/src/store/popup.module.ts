@@ -6,7 +6,7 @@ interface ReportPopup {
 
 const state = {
     reportPopup: {
-        isOpen: false,
+        isOpen: false
     } as ReportPopup
 };
 
@@ -22,7 +22,7 @@ const mutations: MutationTree<any> = {
     },
     closeReportPopup(state) {
         state.reportPopup.isOpen = false;
-    },
+    }
 
 };
 

@@ -75,6 +75,6 @@ const DaedalusService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
-    },
+    }
 };
 export default DaedalusService;

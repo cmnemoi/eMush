@@ -4,10 +4,11 @@
             <img src="@/assets/images/janice.png" alt="Janice">
         </div>
         <div class="news-feed">
-            <NewsItem v-for="item in news"
-                      :news="item"
-                      @click="toggleNews(item)"
-                      :key="item.id"/>
+            <NewsItem
+                v-for="item in news"
+                :news="item"
+                @click="toggleNews(item)"
+                :key="item.id"/>
             <div class="pagination-container">
                 <Pagination
                     :page-count="Math.ceil(pagination.totalPage)"
@@ -39,7 +40,7 @@ export default defineComponent ({
     props: {
         numberOfNews: {
             type: Number,
-            required: false,
+            required: false
         }
     },
     data() {

@@ -46,7 +46,7 @@ export default defineComponent ({
         },
         formatNewsContent(content: string | null) {
             return content ? formatText(content) : '';
-        },
+        }
     }
 });
 </script>

@@ -1,0 +1,19 @@
+Mush\MetaGame\Entity\ModerationSanction:
+  shortName: 'moderationSanction'
+  description: 'sanction given by the moderation to users'
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'moderation_sanction_read' ]
+  collectionOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'
+      filters: [
+        'adminSanction.order_filter',
+        'adminSanction.date_filter',
+        'adminSanction.search_filter',
+        'moderationSanction.boolean_filter'
+      ]
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'

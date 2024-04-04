@@ -1,6 +1,6 @@
 export class DaedalusExploration {
     public title!: string;
-    public planet!: string; 
+    public planet!: string;
     public explorators!: string;
     public estimatedDuration!: string;
 

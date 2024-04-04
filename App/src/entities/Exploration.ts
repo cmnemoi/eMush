@@ -39,7 +39,7 @@ export class Exploration {
     public jsonEncode(): string {
         return JSON.stringify(this);
     }
-    
+
     public decode(jsonString : string): Exploration {
         if (jsonString) {
             const object = JSON.parse(jsonString);
@@ -57,4 +57,3 @@ export class Exploration {
         return this.explorators.map((explorator: Explorator) => explorator.name);
     }
 }
-    

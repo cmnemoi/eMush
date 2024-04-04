@@ -1,34 +1,51 @@
 <template>
     <div v-if="player">
+        <ModerationActionPopup
+            :moderation-dialog-visible="moderationDialogVisible"
+            :action="currentAction"
+            @close="closeModerationDialog"
+            @submitSanction="applySanction" />
         <div class="flex-row">
-            <Tippy tag="button"
-                   class="action-button"
-                   @click="quarantinePlayer(player)"
-                   v-if="player.isAlive">
-                {{ $t("moderation.quarantine") }}
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.quarantine_player', value: 'quarantine_player' })"
+                v-if="player.isAlive">
+                {{ $t("moderation.sanction.quarantine_player") }}
                 <template #content>
-                    <h1>{{ $t("moderation.quarantine") }}</h1>
-                    <p>{{ $t("moderation.quarantineDescription") }}</p>
+                    <h1>{{ $t("moderation.sanction.quarantine_player") }}</h1>
+                    <p>{{ $t("moderation.sanction.quarantineDescription") }}</p>
                 </template>
             </Tippy>
-            <Tippy tag="button"
-                   class="action-button"
-                   @click="quarantineAndBanPlayer(player)"
-                   v-if="player.isAlive">
-                {{ $t("moderation.quarantineAndBan") }}
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.quarantineAndBan', value: 'quarantine_ban' })"
+                v-if="player.isAlive">
+                {{ $t("moderation.sanction.quarantineAndBan") }}
                 <template #content>
-                    <h1>{{ $t("moderation.quarantineAndBan") }}</h1>
-                    <p>{{ $t("moderation.quarantineAndBanDescription") }}</p>
+                    <h1>{{ $t("moderation.sanction.quarantineAndBan") }}</h1>
+                    <p>{{ $t("moderation.sanction.quarantineAndBanDescription") }}</p>
                 </template>
             </Tippy>
-            <Tippy tag="button"
-                   class="action-button"
-                   @click="banPlayer(player)"
-                   v-if="!player.isAlive">
-                {{ $t("moderation.ban") }}
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.ban_user', value: 'ban_user' })">
+                {{ $t("moderation.sanction.ban_user") }}
                 <template #content>
-                    <h1>{{ $t("moderation.ban") }}</h1>
-                    <p>{{ $t("moderation.banDescription") }}</p>
+                    <h1>{{ $t("moderation.sanction.ban_user") }}</h1>
+                    <p>{{ $t("moderation.sanction.banDescription") }}</p>
+                </template>
+            </Tippy>
+            <Tippy
+                tag="button"
+                class="action-button"
+                @click="openModerationDialog({ key: 'moderation.sanction.warning', value: 'warning' })">
+                {{ $t("moderation.sanction.warning") }}
+                <template #content>
+                    <h1>{{ $t("moderation.sanction.warning") }}</h1>
+                    <p>{{ $t("moderation.sanction.warningDescription") }}</p>
                 </template>
             </Tippy>
             <button class="action-button router-button">
@@ -248,8 +265,9 @@ import Message from "@/components/Game/Communications/Messages/Message.vue";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
-import { Message as MessageEntity } from "@/entities/Message"; 
+import { Message as MessageEntity } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
+import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
 interface PrivateChannel {
     id: number,
@@ -279,6 +297,8 @@ interface ModerationViewPlayerData {
     playerLogs: any,
     privateChannels: PrivateChannel[],
     errors: any,
+    moderationDialogVisible: boolean,
+    currentAction: { key: string, value: string }
 }
 
 export default defineComponent({
@@ -286,6 +306,7 @@ export default defineComponent({
     components: {
         Log,
         Message,
+        ModerationActionPopup
     },
     data() : ModerationViewPlayerData {
         return {
@@ -310,18 +331,52 @@ export default defineComponent({
             player: null,
             playerLogs: null,
             privateChannels: [],
-            errors: {}
+            errors: {},
+            moderationDialogVisible: false,
+            currentAction: { key: "", value: "" }
         };
     },
     methods: {
-        banPlayer(player: ModerationViewPlayer) {
-            ModerationService.banUser(player.user.id)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+        openModerationDialog(moderationAction: { key: string, value: string }) {
+            this.currentAction = moderationAction;
+            this.moderationDialogVisible = true;
+        },
+        closeModerationDialog() {
+            this.moderationDialogVisible = false;
+        },
+        applySanction(params: URLSearchParams) {
+            if (this.player === null) {
+                return;
+            }
+
+            if (this.currentAction.value === 'quarantine_player' || this.currentAction.value === 'quarantine_ban') {
+                ModerationService.quarantinePlayer(this.player.id, params)
+                    .then(() => {
+                        this.loadData();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            if (this.currentAction.value === 'ban_user' || this.currentAction.value === 'quarantine_ban') {
+                ModerationService.banUser(this.player.user.id, params)
+                    .then(() => {
+                        this.loadData();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            if (this.currentAction.value === 'warning') {
+                ModerationService.warnUser(this.player.user.id, params)
+                    .then(() => {
+                        this.loadData();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            this.moderationDialogVisible = false;
         },
         async loadLogs(player: ModerationViewPlayer) {
             if (this.logsDay === null) {
@@ -390,30 +445,6 @@ export default defineComponent({
                     });
             }
         },
-        quarantinePlayer(player: ModerationViewPlayer) {
-            ModerationService.quarantinePlayer(player.id)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
-        quarantineAndBanPlayer(player: ModerationViewPlayer) {
-            ModerationService.quarantinePlayer(player.id)
-                .then(() => {
-                    ModerationService.banUser(player.user.id)
-                        .then(() => {
-                            this.loadData();
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
         goBack() {
             this.$router.go(-1);
         },
@@ -450,11 +481,11 @@ export default defineComponent({
                 this.generalChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
                 this.privateChannelStartDateFilter = this.getDateMinusOneDay(this.player.cycleStartedAt).toISOString();
             }
-        },
+        }
     },
     beforeMount() {
         this.loadData();
-    },
+    }
 });
 </script>
 

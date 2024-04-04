@@ -9,6 +9,7 @@ import { communication } from "@/store/communication.module";
 import { daedalus } from "@/store/daedalus.module";
 import { admin } from "@/store/admin.module";
 import { popup } from "@/store/popup.module";
+import { moderation } from "@/store/moderation.module";
 
 export default createStore({
     modules: {
@@ -21,7 +22,8 @@ export default createStore({
         communication,
         daedalus,
         admin,
-        popup
+        popup,
+        moderation,
     }
 })
 ;

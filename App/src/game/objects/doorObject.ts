@@ -19,7 +19,7 @@ export default class DoorObject extends DoorGroundObject {
         tiledFrame: number,
         isFlipped: { x: boolean, y: boolean},
         door: DoorEntity,
-        group: Phaser.GameObjects.Group | null = null,
+        group: Phaser.GameObjects.Group | null = null
     )
     {
         super(scene, cart_coords, iso_geom, tileset, tiledFrame, isFlipped, door, group);

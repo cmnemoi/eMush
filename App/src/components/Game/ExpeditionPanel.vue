@@ -26,10 +26,11 @@
             </div>
             <span class="info-trigger" @click="show = !show"><img src="@/assets/images/down.png" :class="{ revert: show }"> {{ exploration.uiElements.recoltedInfos }}</span>
             <ul class="analysis" v-if="show">
-                <Tippy tag="li"
-                       v-for="(sector, i) in exploration.planet.sectors"
-                       :key="i"
-                       :class="sector.isVisited ? '' : 'unexplored'">
+                <Tippy
+                    tag="li"
+                    v-for="(sector, i) in exploration.planet.sectors"
+                    :key="i"
+                    :class="sector.isVisited ? '' : 'unexplored'">
                     <img :src="getSectorImage(sector.key)" :alt="sector.name">
                     <template #content>
                         <h1 v-html="formatText(sector.name)" />
@@ -46,7 +47,7 @@
             <CountdownTimer class="estimate" :end-date="exploration.timer?.timerCycle" v-if="exploration.timer?.timerCycle">
                 <template #default="slotProps">
                     <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
-                        <img src="@/assets/images/casio.png"> 
+                        <img src="@/assets/images/casio.png">
                         <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
                         }}h</span>
                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
@@ -123,7 +124,7 @@ export default defineComponent ({
     },
     data() {
         return {
-            show: false,
+            show: false
         };
     }
 });
@@ -259,7 +260,7 @@ export default defineComponent ({
 
     .estimate {
         position: relative;
-        font-variant: small-caps; 
+        font-variant: small-caps;
     }
 }
 
@@ -269,9 +270,9 @@ export default defineComponent ({
     padding: 0.4em 0.3em 0 0;
     border-bottom: 1px solid #aad4e5;
 
-    .estimate { 
+    .estimate {
         position: relative;
-        font-variant: small-caps; 
+        font-variant: small-caps;
     }
 
     & > img {

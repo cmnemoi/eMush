@@ -31,7 +31,7 @@ export class ClosedExploration {
     public jsonEncode(): string {
         return JSON.stringify(this, null, 4);
     }
-    
+
     public decode(jsonString : string): ClosedExploration {
         if (jsonString) {
             const object = JSON.parse(jsonString);
@@ -41,4 +41,3 @@ export class ClosedExploration {
         return this;
     }
 }
-    

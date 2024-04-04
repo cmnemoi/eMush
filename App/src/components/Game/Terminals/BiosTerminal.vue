@@ -2,22 +2,22 @@
     <div class="bios-terminal-container" v-if="terminal">
         <section class="cpu-priorities-section">
             <Tippy tag="h3">
-                <img :src="require('@/assets/images/notes.gif')" /> 
+                <img :src="require('@/assets/images/notes.gif')" />
                 {{ terminal.sectionTitles?.cpuPriorityName }}
                 <template #content>
                     <h1 v-html="formatText(terminal.sectionTitles?.cpuPriorityName)" />
                     <p v-html="formatText(terminal.sectionTitles?.cpuPriorityDescription)" />
                 </template>
             </Tippy>
-            <div 
-                class="cpu-priority-container"                    
+            <div
+                class="cpu-priority-container"
                 v-for="priority in terminal.infos?.availableCpuPriorities"
                 :key="priority.key"
             >
                 <input
-                    type="radio" 
-                    v-model="selectedCpuPriority" 
-                    :value="priority.key" 
+                    type="radio"
+                    v-model="selectedCpuPriority"
+                    :value="priority.key"
                     :checked="selectedCpuPriority === priority.key"
                     :disabled="!changeNeronCpuPriorityAction.canExecute"
                     @change="executeTargetAction(terminal, changeNeronCpuPriorityAction, { cpuPriority: selectedCpuPriority })"
@@ -77,7 +77,7 @@ export default defineComponent ({
         const currentCpuPriority = this.terminal.infos?.currentCpuPriority;
         if (!currentCpuPriority) throw new Error(`No currentCpuPriority found for terminal ${this.terminal?.key}`);
         this.selectedCpuPriority = currentCpuPriority;
-    },
+    }
 });
 </script>
 

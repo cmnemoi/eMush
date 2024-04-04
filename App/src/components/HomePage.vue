@@ -19,7 +19,7 @@
                 controls
                 ref="trailer"
                 preload="metadata">
-                <source :src="getVideoUrl('trailer_fr.mp4#t=1')" type="video/mp4"/>
+                <source :src="`${getVideoUrl('trailer_fr.mp4')}#t=1`" type="video/mp4"/>
                 Désolé, votre navigateur ne supporte pas les vidéos intégrées.
             </video>
             <video
@@ -27,7 +27,7 @@
                 controls
                 ref="trailer"
                 preload="metadata">
-                <source :src="getVideoUrl('trailer_en.mp4#t=1')" type="video/mp4"/>
+                <source :src="`${getVideoUrl('trailer_fr.mp4')}#t=1`" type="video/mp4"/>
                 Sorry, your browser doesn't support embedded videos.
             </video>
         </section>

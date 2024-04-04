@@ -750,7 +750,7 @@
     "duration": "Durée",
     "sanctionList": "Liste des sanctions",
     "confirmSanction": "Confirmer",
-	"chooseSanction": "Choisir une sanction",
+	"chooseReason": "Choisir une raison",
     "alivePlayersFilter": "Status du joueur :",
     "mushPlayersFilter": "Afficher uniquement les joueurs Mush",
     "generalChannel": "Canal général",

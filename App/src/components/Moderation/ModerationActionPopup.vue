@@ -8,7 +8,7 @@
                         disabled 
                         hidden
                 >
-                    {{ $t("moderation.chooseSanction") }}
+                    {{ $t("moderation.chooseReason") }}
                 </option>
                 <option v-for="reason in moderationReasons()" :key="reason.key" :value="reason.value">
                     {{ $t(reason.key) }}

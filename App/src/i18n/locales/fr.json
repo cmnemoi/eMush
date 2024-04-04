@@ -704,6 +704,7 @@
       "quarantine_player": "Mettre en quarantaine",
       "quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
       "warning": "Avertissement",
+	  "warningDescription": "Donner un avertissement à cet utilisateur.",
       "delete_message": "Supprimer le message",
       "deleteDescription": "Cette action supprime le message et le remplace par un message de NERON",
       "delete_end_message": "Supprimer le message de fin",

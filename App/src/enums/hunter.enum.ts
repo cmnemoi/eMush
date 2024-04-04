@@ -8,18 +8,18 @@ const TRAX = 'trax';
 
 export const hunterEnum: {[index: string]: any} = {
     [ARACK]: {
-        'image': getImgUrl('hunters/arack.png'),
+        'image': getImgUrl('hunters/arack.png')
     },
     [ASTEROID]: {
-        'image': getImgUrl('hunters/asteroid.png'),
+        'image': getImgUrl('hunters/asteroid.png')
     },
     [D1000]: {
-        'image': getImgUrl('hunters/d1000.png'),
+        'image': getImgUrl('hunters/d1000.png')
     },
     [HUNTER]: {
-        'image': getImgUrl('hunters/hunter.png'),
+        'image': getImgUrl('hunters/hunter.png')
     },
     [TRAX]: {
-        'image': getImgUrl('hunters/trax.png'),
+        'image': getImgUrl('hunters/trax.png')
     }
 };

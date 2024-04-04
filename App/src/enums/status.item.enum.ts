@@ -18,42 +18,42 @@ export enum StatusItemNameEnum {
 
 export const statusItemEnum: {[index: string]: any} = {
     [StatusItemNameEnum.HEAVY]: {
-        'icon': getImgUrl('status/heavy.png'),
+        'icon': getImgUrl('status/heavy.png')
     },
     [StatusItemNameEnum.HIDDEN]: {
-        'icon': getImgUrl('status/hidden.png'),
+        'icon': getImgUrl('status/hidden.png')
     },
     [StatusItemNameEnum.PLANT_YOUNG]: {
-        'icon': getImgUrl('status/plant_youngling.png'),
+        'icon': getImgUrl('status/plant_youngling.png')
     },
     [StatusItemNameEnum.PLANT_THIRSTY]: {
-        'icon': getImgUrl('status/plant_thirsty.png'),
+        'icon': getImgUrl('status/plant_thirsty.png')
     },
     [StatusItemNameEnum.PLANT_DRY]: {
-        'icon': getImgUrl('status/plant_dry.png'),
+        'icon': getImgUrl('status/plant_dry.png')
     },
     [StatusItemNameEnum.PLANT_DISEASED]: {
-        'icon': getImgUrl('status/plant_diseased.png'),
+        'icon': getImgUrl('status/plant_diseased.png')
     },
     [StatusItemNameEnum.ELECTRIC_CHARGE]: {
-        'icon': getImgUrl('status/charge.png'),
+        'icon': getImgUrl('status/charge.png')
     },
     [StatusItemNameEnum.BROKEN]: {
-        'icon': getImgUrl('status/broken.png'),
+        'icon': getImgUrl('status/broken.png')
     },
     [StatusItemNameEnum.FROZEN]: {
-        'icon': getImgUrl('status/food_frozen.png'),
+        'icon': getImgUrl('status/food_frozen.png')
     },
     [StatusItemNameEnum.UPDATING]: {
-        'icon': getImgUrl('status/update.png'),
+        'icon': getImgUrl('status/update.png')
     },
     [StatusItemNameEnum.UNSTABLE]: {
-        'icon': getImgUrl('status/food_unstable.png'),
+        'icon': getImgUrl('status/food_unstable.png')
     },
     [StatusItemNameEnum.HASARDOUS]: {
-        'icon': getImgUrl('status/food_hazardous.png'),
+        'icon': getImgUrl('status/food_hazardous.png')
     },
     [StatusItemNameEnum.DECOMPOSING]: {
-        'icon': getImgUrl('status/food_decaying.png'),
+        'icon': getImgUrl('status/food_decaying.png')
     }
 };

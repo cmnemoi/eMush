@@ -114,7 +114,7 @@ export default defineComponent ({
             }
         },
         getImgUrl,
-        formatText,
+        formatText
     },
     data() {
         return {

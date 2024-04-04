@@ -23,6 +23,6 @@ export const AlertsIcons: {[index: string]: string} = {
     [AlertEnum.NO_GRAVITY]: getImgUrl('alerts/simulator.png'),
     [AlertEnum.GRAVITY_REBOOT]: getImgUrl('alerts/simulatorReboot.png'),
     [AlertEnum.HUNGER]: getImgUrl('alerts/hunger.png'),
-    [AlertEnum.HUNTER]: getImgUrl('alerts/hunter.png'),
+    [AlertEnum.HUNTER]: getImgUrl('alerts/hunter.png')
 }
 ;

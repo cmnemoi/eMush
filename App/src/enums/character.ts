@@ -163,12 +163,12 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
         'name': 'Neron',
         'completeName': 'Neron',
         'head': getImgUrl('comms/neron-mini.png'),
-        'body': getImgUrl('comms/neron_chat.png'),
+        'body': getImgUrl('comms/neron_chat.png')
     },
     [DEFAULT]: {
         'name': 'Hero',
         'head': getImgUrl('char/head/lambda_f.png'),
-        'body': getImgUrl('char/body/lambda_f.png'),
+        'body': getImgUrl('char/body/lambda_f.png')
     }
 }
 ;

@@ -21,11 +21,11 @@ export interface LangInfos {
 export const gameLocales : {[index: string]: LangInfos}  = {
     [GameLocales.EN]: {
         'caption': 'English',
-        'icon': getImgUrl('lang_en.png'),
+        'icon': getImgUrl('lang_en.png')
     },
     [GameLocales.FR]: {
         'caption': 'Français',
-        'icon': getImgUrl('lang_fr.png'),
+        'icon': getImgUrl('lang_fr.png')
     }
     // TODO: not supported yet
     // [GameLocales.ES]: {

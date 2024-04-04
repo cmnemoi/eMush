@@ -166,17 +166,17 @@ final class PlanetService implements PlanetServiceInterface
         $planetName->setFirstSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_FIRST_SYLLABLES));
         $planetName->setFourthSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_FOURTH_SYLLABLES));
 
-        if ($this->randomService->isSuccessful(10)) {
+        if ($this->randomService->random(0, 10) === 0) {
             $planetName->setSecondSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_SECOND_SYLLABLES));
         }
 
-        if ($this->randomService->isSuccessful(40)) {
+        if ($this->randomService->random(0, 40) === 0) {
             $planetName->setThirdSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_THIRD_SYLLABLES));
         }
 
-        if ($this->randomService->isSuccessful(3)) {
+        if ($this->randomService->random(0, 3) === 0) {
             $planetName->setFifthSyllable($this->randomService->random(1, PlanetName::NUMBER_OF_FIFTH_SYLLABLES));
-        } elseif ($this->randomService->isSuccessful(30)) {
+        } elseif ($this->randomService->random(0, 30) === 0) {
             $planetName->setPrefix($this->randomService->random(1, PlanetName::NUMBER_OF_PREFIXES));
         }
 

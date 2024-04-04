@@ -168,11 +168,11 @@ class PlanetServiceTest extends TestCase
     {
         $this->randomService->shouldReceive('random')->with(1, 47)->andReturn(1)->once();
         $this->randomService->shouldReceive('random')->with(1, 33)->andReturn(1)->once();
-        $this->randomService->shouldReceive('isSuccessful')->with(10)->andReturn(true)->once();
+        $this->randomService->shouldReceive('random')->with(0, 10)->andReturn(0)->once();
         $this->randomService->shouldReceive('random')->with(1, 25)->andReturn(1)->once();
-        $this->randomService->shouldReceive('isSuccessful')->with(40)->andReturn(true)->once();
+        $this->randomService->shouldReceive('random')->with(0, 40)->andReturn(0)->once();
         $this->randomService->shouldReceive('random')->with(1, 25)->andReturn(1)->once();
-        $this->randomService->shouldReceive('isSuccessful')->with(3)->andReturn(true)->once();
+        $this->randomService->shouldReceive('random')->with(0, 3)->andReturn(0)->once();
         $this->randomService->shouldReceive('random')->with(1, 34)->andReturn(1)->once();
 
         $this->entityManager->shouldReceive('persist')->once();

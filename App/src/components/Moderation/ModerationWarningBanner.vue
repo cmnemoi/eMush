@@ -1,6 +1,6 @@
 <template>
-    <div class="warning-banner-container" v-if="showBanner">
-        <div class="warning-banner" v-for="(warning, index) in (showAll ? warnings : warnings.slice(0, 1))" :key="index">
+    <div class="warning-banner-container" v-if="userWarnings.length > 0">
+        <div class="warning-banner" v-for="(warning, index) in (showAll ? userWarnings : userWarnings.slice(0, 1))" :key="index">
             <h1 class="banner-title">{{ $t('moderation.sanction.warning') }}</h1>
             <p class="banner-content">
                 <span>{{ $t('moderation.sanctionReason') }} :</span>
@@ -8,34 +8,31 @@
                 <br>
                 <span>{{ warning.message }}</span>
             </p>
-            <button v-if="index === 0" class="button-toggle-show-all" @click="toggleShowAll">
-                {{ showAll ? $t('moderation.reduce') : $t('moderation.showAll') + ' (' + warnings.length + ')' }}
+            <button v-if="index === 0" class="button-toggle-show-all" @click="showAll = !showAll">
+                {{ showAll ? $t('moderation.reduce') : $t('moderation.showAll') + ' (' + userWarnings.length + ')' }}
             </button>
         </div>
     </div>
-    <div class="dummy_space" v-if="showBanner">
+    <div class="dummy_space" v-if="userWarnings.length > 0">
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { ModerationSanction } from "@/entities/ModerationSanction";
+import { defineComponent } from "vue";
 
-import qs from "qs";
-import ApiService from "@/services/api.service";
-import urlJoin from "url-join";
-
-export default {
+export default defineComponent({
     name: 'ModerationWarningBanner',
     props: {
-        userId: {
-            type: String,
-            default: null
-        }
+        userWarnings: {
+            type: Array,
+            default: [] as ModerationSanction[],
+            required: true
+        },
     },
     data() {
         return {
-            showBanner: true,
             showAll: true,
-            warnings: []
         };
     },
     computed: {
@@ -43,50 +40,7 @@ export default {
             return this.showAll ? 'auto' : '10%'; // Limite la hauteur à 10% si showAll est false
         }
     },
-    methods: {
-        toggleShowAll() {
-            this.showAll = !this.showAll;
-        },
-        loadData() {
-            if (this.userId === null) {
-                return;
-            }
-            this.loading = true;
-
-            const params = {
-                header: {
-                    'accept': 'application/ld+json'
-                },
-                params: {},
-                paramsSerializer: qs.stringify
-            };
-
-            qs.stringify(params.params['order'] = { ['startDate']: 'DEC' });
-            params.params['moderationAction'] = 'warning';
-
-            params.params['startDate[before]'] = 'now';
-            params.params['endDate[after]'] = 'now';
-
-            params.params['user.userId'] = this.userId;
-
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'moderation_sanctions'), params)
-                .then((result) => {
-                    return result.data;
-                })
-                .then((remoteRowData) => {
-                    this.warnings = remoteRowData['hydra:member'];
-                    this.loading = false;
-                });
-        }
-    },
-    beforeMount() {
-        this.loadData();
-
-        if (this.warnings.length > 0) {
-            this.showBanner = true;
-        }
-    }
-};
+});
 </script>
 
 
@@ -141,3 +95,4 @@ export default {
     margin-left: auto;
 }
 </style>
+@/services/moderation_sanction.service

@@ -11,7 +11,8 @@ Mush\MetaGame\Entity\ModerationSanction:
       filters: [
         'adminSanction.order_filter',
         'adminSanction.date_filter',
-        'adminSanction.search_filter'
+        'adminSanction.search_filter',
+        'moderationSanction.boolean_filter'
       ]
   itemOperations:
     get:

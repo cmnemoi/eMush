@@ -8,7 +8,7 @@
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
-        <ModerationWarningBanner :user-id="userInfo ? userInfo.userId : null"/>
+        <ModerationWarningBanner :userWarnings="userWarnings" />
         <LocaleChange />
     </div>
 </template>
@@ -55,7 +55,8 @@ export default defineComponent({
         ...mapGetters({
             gameInMaintenance: 'admin/gameInMaintenance',
             userLoading: 'auth/isLoading',
-            userInfo: 'auth/getUserInfo',
+            userId: 'auth/userId',
+            userWarnings: 'moderation/userWarnings',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
             userIsAdmin: 'auth/isAdmin'
@@ -66,11 +67,15 @@ export default defineComponent({
     },
     methods: {
         ...mapActions({
-            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus'
+            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
+            loadUserWarnings: 'moderation/loadUserWarnings'
         })
     },
     beforeMount() {
         this.loadGameMaintenanceStatus();
+        if (this.userId) {
+            this.loadUserWarnings(this.userId);
+        }
     }
 });
 </script>

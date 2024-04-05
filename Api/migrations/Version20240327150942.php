@@ -15,7 +15,7 @@ final class Version20240327150942 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE config_difficulty ADD maximum_allowed_spreading_fires INT NOT NULL');
+        $this->addSql('ALTER TABLE config_difficulty ADD maximum_allowed_spreading_fires INT NOT NULL DEFAULT 0');
     }
 
     public function down(Schema $schema): void

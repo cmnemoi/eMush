@@ -36,7 +36,7 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $propagatingFireRate = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maximumAllowedSpreadingFires = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]

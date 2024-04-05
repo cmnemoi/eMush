@@ -78,6 +78,8 @@ const BANDAGE = "bandage";
 const SPORE_SUCKER = "spore_sucker";
 const SPACESUIT = "spacesuit";
 const THERMOSENSOR = "thermosensor";
+const OLD_T_SHIRT = "old_t_shirt";
+const BABEL_MODULE = "babel_module";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -414,5 +416,11 @@ export const itemEnum: {[index: string]: any} = {
     },
     [THERMOSENSOR]: {
         'image': require('@/assets/images/items/heat_seeker.jpg')
-    }
+    },
+    [OLD_T_SHIRT]: {
+        'image': require('@/assets/images/items/old_shirt.jpg')
+    },
+    [BABEL_MODULE]: {
+        'image': require('@/assets/images/items/trad_module.jpg')
+    },
 };

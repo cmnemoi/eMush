@@ -27,6 +27,7 @@ import ModerationHomePage from "@/components/Moderation/ModerationHomePage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
 import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
+import Rules from "@/components/Rules.vue";
 
 const routes = [
     {
@@ -97,6 +98,11 @@ const routes = [
 
             }
         ]
+    },
+    {
+        path: "/rules",
+        name: "Rules",
+        component: Rules
     },
     {
         path: "/admin",

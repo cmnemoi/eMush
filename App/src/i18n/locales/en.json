@@ -732,14 +732,14 @@
 		"communication": {
 			"title":"Communication",
 			"introText":"The rules concerning communication apply to all places allowing the player to communicate by sending messages: main channel, private channels, Mush channel, missions, general announcements, messages at the end of ships. These messages can all be subjected to moderation after the facts, at the discretion of the game’s admins and moderators according to the following guidelines:",
-			"courtesy": "<strong>Courtesy</strong> : Communication being an essential part of the game, players are allowed a lot of leeway as to the words used, and the aim here is not to list the forbidden words exhaustively. However, in order to guarantee a sound and inclusive game atmosphere to all players, any form of explicit language, intolerance, hatred, discrimination, harassment, violence is strictly prohibited.",
-			"spokenLanguage": "<strong>Spoken language</strong> : The player must be able to communicate easily in the language of the server."		},
+			"courtesy": "<strong>Courtesy</strong>: Communication being an essential part of the game, players are allowed a lot of leeway as to the words used, and the aim here is not to list the forbidden words exhaustively. However, in order to guarantee a sound and inclusive game atmosphere to all players, any form of explicit language, intolerance, hatred, discrimination, harassment, violence is strictly prohibited.",
+			"spokenLanguage": "<strong>Spoken language</strong>: The player must be able to communicate easily in the language of the server."		},
 		"behaviour": {
 			"title":"Behaviour",
 			"introText": "This section is not meant to constitute an exhaustive list of tolerated or forbidden behaviours, but to give an idea of behaviours that go against the spirit of the game.",
-			"multiAccounts": "<strong>Multi-accounts</strong> : It is forbidden to have more than one account per person on the eMush game.",
-			"spoilingHuman": "<strong>Human griefing</strong> : As a human, it is forbidden to seriously ruin the other players’ playing experience by committing deliberate and conscious actions threatening to impede the objective of the human side.",
-			"spoilingMush": "<strong>Mush griefing</strong> : As a Mush, it is forbidden to deliberately harm your own side, including but not limited to revealing the identity of the Mush, either yourself or the other Mush. This can only be tolerated for ex-Mush on whom the serum has been used, but it is advised to use common sense.",
+			"multiAccounts": "<strong>Multi-accounts</strong>: It is forbidden to have more than one account per person on the eMush game. Lending, giving or sharing accounts is also forbidden.",
+			"spoilingHuman": "<strong>Human griefing</strong>: As a human, it is forbidden to seriously ruin the other players’ playing experience by committing deliberate and conscious actions threatening to impede the objective of the human side.",
+			"spoilingMush": "<strong>Mush griefing</strong>: As a Mush, it is forbidden to deliberately harm your own side, including but not limited to revealing the identity of the Mush, either yourself or the other Mush. This can only be tolerated for ex-Mush on whom the serum has been used, but it is advised to use common sense.",
 			"suicide": "<strong>Suicide</strong> : It is forbidden to voluntarily leave a game, either actively or passively, by exploiting the game's mechanisms."
 		},
 		"sanctionsAppeal": {
@@ -751,9 +751,10 @@
 		"alphaRules": {
 			"title":"Rules specific to the open alpha",
 			"introText":"In the aim of contributing actively to the development and testing of the game, allowances are made to the rules marked by this icon in the preceding rules. These allowances are applicable until the opening of the game in a new phase, and players will be notified of any modification.",
+			"tests":"<strong>Testing facilitation</strong> : The aim of the alpha phase is to involve the community in the development of the game, to obtain feedback and bug reports. To this end, any bugs must be reported immediately to the development team without being exploited, and it remains forbidden to behave in a way that seriously harms the game experience of other players. To find out what features are available, please consult the <a href='https://discord.com/channels/693082011484684348/693144970433003540/1079173112848994304'>roadmap</a>.",
 			"spokenLanguage":"<strong>Allowances on the spoken language</strong>: During the development phases, the frequentation of the various servers can be unequal. In that context, players not having knowledge of the French language are allowed to join games on the French server. It is then recommended to notify the crew and to make particular efforts to communicate with them.",
 			"cooperation":"<strong>Allowances on the cooperation between humans and Mush</strong>: In order to test the game’s functionalities, the “investigation” part of the Mush game is not expected to be respected. In particular, cooperation between humans and Mush is tolerated in order to test game mechanisms.",
-			"endText":"Note that all rules not marked by an asterisk remain fully applicable during the alpha period."
+			"endText":"Note that all rules not marked by the icon remain fully applicable during the alpha period."
 		}
 	}
 }

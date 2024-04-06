@@ -793,7 +793,7 @@
 		"behaviour": {
 			"title":"Comportement",
 			"introText": "Cette section n’a pas vocation à constituer une liste exhaustive des comportements tolérés ou interdits, mais donne une idée des comportements contraires à l’esprit du jeu.",
-			"multiAccounts": "<strong>Multicompte</strong> : Il est interdit de posséder plus d’un compte par personne sur le jeu eMush, ou de prêter son compte à un autre joueur.",
+			"multiAccounts": "<strong>Multicompte</strong> : Il est interdit de posséder plus d’un compte par personne sur le jeu eMush. Le prêt, don ou partage de compte est également interdit.",
 			"spoilingHuman": "<strong>Anti-jeu Humain</strong> : En tant qu’humain, il est interdit de nuire gravement à l’expérience de jeu des autres joueurs en effectuant volontairement et en pleine conscience des actions menaçant l’atteinte de l’objectif du camp humain.",
 			"spoilingMush": "<strong>Anti-jeu Mush</strong> : En tant que Mush, il est interdit de nuire volontairement à son camp. Cela inclut, sans s’y limiter, de dévoiler son appartenance au camp Mush ou de divulguer l’identité des autres Mushs. Une tolérance s’applique dans le cas d’un Mush redevenu humain grâce à l’utilisation du sérum mais il convient de faire preuve de bon sens.",
 			"suicide": "<strong>Suicide</strong> : Il est interdit de quitter volontairement une partie, que ce soit activement ou passivement, en exploitant les mécanismes du jeu."
@@ -807,9 +807,10 @@
 		"alphaRules": {
 			"title":"Règles spécifiques à l’alpha ouverte",
 			"introText":"Dans le but de contribuer activement au développement et au test du jeu, des tolérances s’appliquent aux règles signalées par cette icône dans les points précédents. Ces tolérances sont valables jusqu’à la sortie du jeu dans une nouvelle phase, et les joueurs seront notifiés de tout changement.",
+			"tests":"<strong>Bon déroulement des tests</strong> : Le but de cette période d’alpha est d’impliquer la communauté dans le développement du jeu, d’obtenir des retours d’expérience ainsi que des rapports de bugs. A cet effet, tout bug doit être reporté immédiatement à l’équipe de développement sans être exploité, et il reste interdit d’avoir des comportements nuisant gravement à l’expérience de jeu des autres joueurs. Pour connaître les fonctionnalités disponibles, consultez la <a href='https://discord.com/channels/693082011484684348/693144970433003540/1079173112848994304'>feuille de route</a>.",
 			"spokenLanguage":"<strong>Tolérance sur la langue parlée</strong> : Durant les phases de développement, la fréquentation des différents serveurs peut être inégale. Dans ce contexte, il est toléré que les joueurs n’ayant pas une bonne maîtrise du français rejoignent les parties du serveur français. Il est alors recommandé de le signaler et de faire des efforts particuliers pour communiquer avec les équipiers.",
 			"cooperation":"<strong>Tolérance sur la coopération entre les humains et les mushs</strong> : À des fins de tests des fonctionnalités, il n’est pas attendu que la partie “enquête” du jeu Mush soit respectée. En particulier, il est toléré pour les mushs et les humains de collaborer pour tester les mécaniques du jeu.",
-			"endText":"Notez que toutes les règles non marquées par une étoile restent pleinement applicables durant la période de l’alpha."
+			"endText":"Notez que toutes les règles non marquées par une icône restent pleinement applicables durant la période de l’alpha."
 		}
 	}
 }

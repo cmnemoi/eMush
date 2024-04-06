@@ -43,6 +43,7 @@
             <h2 class="subtitle"><img class="alpha" src="@/assets/images/pa_core.png"> {{ $t("rules.alphaRules.title") }}</h2>
             <p class="text"> {{ $t("rules.alphaRules.introText") }} </p>
             <ul class="rulesList">
+                <li class="rule" v-html="$t('rules.alphaRules.tests')"></li>
                 <li class="rule" v-html="$t('rules.alphaRules.spokenLanguage')"></li>
                 <li class="rule" v-html="$t('rules.alphaRules.cooperation')"></li>
             </ul>
@@ -120,10 +121,6 @@ export default defineComponent ({
     width:20px;
     display:inline;
     margin-right:20px;
-}
-
-.alphaRule {
-    
 }
 
 </style>

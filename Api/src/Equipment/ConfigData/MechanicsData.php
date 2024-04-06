@@ -2081,7 +2081,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [],
             'modifierConfigs' => [
-                'modifier_for_target_player_-1healthPoint_on_injury',
+                'modifier_for_target_player_+1healthPoint_on_injury',
             ],
         ],
         [

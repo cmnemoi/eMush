@@ -463,7 +463,7 @@ class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_for_target_player_-1healthPoint_on_injury',
+            'name' => 'modifier_for_target_player_+1healthPoint_on_injury',
             'modifierName' => null,
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -473,7 +473,7 @@ class ModifierConfigData
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,
             'visibility' => null,
-            'delta' => -1.0,
+            'delta' => 1.0,
             'targetVariable' => 'healthPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],

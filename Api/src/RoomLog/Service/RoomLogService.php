@@ -199,39 +199,6 @@ class RoomLogService implements RoomLogServiceInterface
         return $this->persist($roomLog);
     }
 
-    private function getVisibility(?Player $player, string $visibility): string
-    {
-        if ($player === null) {
-            return $visibility;
-        }
-
-        $place = $player->getPlace();
-
-        $placeEquipments = $place->getEquipments();
-
-        $equipmentIsACamera = fn (GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
-
-        $equipmentIsNotBroken = fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
-
-        $placeHasAFunctionalCamera = $placeEquipments->filter($equipmentIsACamera)->filter($equipmentIsNotBroken)->count() > 0;
-        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
-
-        if (
-            $visibility === VisibilityEnum::SECRET
-            && ($placeHasAWitness
-             || $placeHasAFunctionalCamera)
-        ) {
-            return VisibilityEnum::REVEALED;
-        } elseif (
-            $visibility === VisibilityEnum::COVERT
-            && $placeHasAFunctionalCamera
-        ) {
-            return VisibilityEnum::REVEALED;
-        }
-
-        return $visibility;
-    }
-
     public function getRoomLog(Player $player): RoomLogCollection
     {
         return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
@@ -245,6 +212,32 @@ class RoomLogService implements RoomLogServiceInterface
     public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection
     {
         return new RoomLogCollection($this->repository->findAllByDaedalusAndPlace($daedalus, $place));
+    }
+
+    private function getVisibility(?Player $player, string $visibility): string
+    {
+        if ($player === null) {
+            return $visibility;
+        }
+
+        $place = $player->getPlace();
+        $placeEquipments = $place->getEquipments();
+
+        $equipmentIsACamera = static fn(GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
+        $equipmentIsNotBroken = static fn(GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
+
+        $placeHasAFunctionalCamera = $placeEquipments->filter($equipmentIsACamera)->filter($equipmentIsNotBroken)->count() > 0;
+        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
+
+        if ($visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera)) {
+            return VisibilityEnum::REVEALED;
+        }
+
+        if ($visibility === VisibilityEnum::COVERT && $placeHasAFunctionalCamera) {
+            return VisibilityEnum::REVEALED;
+        }
+
+        return $visibility;
     }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array

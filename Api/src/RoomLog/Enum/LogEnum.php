@@ -7,7 +7,7 @@ use Mush\Disease\Enum\SymptomEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
-class LogEnum
+abstract class LogEnum
 {
     public const string AWAKEN = 'awaken';
     public const string DEATH = 'death';

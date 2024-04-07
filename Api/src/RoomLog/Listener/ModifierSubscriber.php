@@ -17,10 +17,8 @@ class ModifierSubscriber implements EventSubscriberInterface
     private RoomLogServiceInterface $roomLogService;
     private RandomServiceInterface $randomService;
 
-    public function __construct(
-        RoomLogServiceInterface $roomLogService,
-        RandomServiceInterface $randomService
-    ) {
+    public function __construct(RoomLogServiceInterface $roomLogService, RandomServiceInterface $randomService)
+    {
         $this->roomLogService = $roomLogService;
         $this->randomService = $randomService;
     }
@@ -37,10 +35,7 @@ class ModifierSubscriber implements EventSubscriberInterface
         $modifierName = $event->getModifier()->getModifierConfig()->getModifierName();
         $logMap = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VALUE];
 
-        if (
-            $modifierName !== null
-            && key_exists($modifierName, $logMap)
-        ) {
+        if ($modifierName !== null && array_key_exists($modifierName, $logMap)) {
             $logKey = $logMap[$modifierName];
             $logVisibility = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VISIBILITY][$modifierName];
 
@@ -74,7 +69,7 @@ class ModifierSubscriber implements EventSubscriberInterface
         // Log for disabled require to get another player in the room
         if ($logKey === LogEnum::HELP_DISABLED && $player instanceof Player) {
             $otherPlayers = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(
-                fn (Player $otherPlayer) => ($player->getLogName() !== $otherPlayer->getLogName())
+                static fn(Player $otherPlayer) => ($player->getLogName() !== $otherPlayer->getLogName())
             );
             if ($otherPlayers->count() < 1) {
                 throw new \LogicException('there should be another player in the room for this modifier to trigger');

@@ -23,18 +23,10 @@ abstract class PlayerModifierLogEnum
     public const string LOSS_HEALTH_POINT = 'loss_health_point';
     public const string GAIN_MORAL_POINT = 'gain_moral_point';
     public const string LOSS_MORAL_POINT = 'loss_moral_point';
-    public const string SHOWER_MUSH = 'shower_mush';
-    public const string ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
     public const string PANIC_CRISIS = 'panic_crisis';
     public const string CLUMSINESS = 'clumsiness';
     public const string HUNGER = 'hunger';
-    public const string SCREAMING = 'screaming';
-    public const string WALL_HEAD_BANG = 'wall_head_bang';
-    public const string RUN_IN_CIRCLES = 'run_in_circles';
-    public const string FITFUL_SLEEP = 'fitful_sleep';
-    public const string LYING_DOWN = 'lying_down';
     public const string DAILY_MORALE_LOSS = 'daily_morale_loss';
-    public const string LOST_ON_PLANET = 'lost_on_planet';
     public const string GAIN = 'gain';
     public const string LOSS = 'loss';
     public const string VISIBILITY = 'visibility';
@@ -59,28 +51,15 @@ abstract class PlayerModifierLogEnum
 
     public const array PLAYER_VARIABLE_SPECIAL_LOGS = [
         self::VALUE => [
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
             ModifierNameEnum::STARVING => self::HUNGER,
-            ModifierNameEnum::SCREAMING => self::SCREAMING,
-            ModifierNameEnum::WALL_HEAD_BANG => self::WALL_HEAD_BANG,
-            ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,
-            ModifierNameEnum::LYING_DOWN_MODIFIER => self::LYING_DOWN,
-            ModifierNameEnum::FITFUL_SLEEP => self::FITFUL_SLEEP,
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
-            ModifierNameEnum::LOST_MODIFIER => self::LOST_ON_PLANET,
         ],
         self::VISIBILITY => [
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
-            ModifierNameEnum::SCREAMING => VisibilityEnum::PUBLIC,
-            ModifierNameEnum::WALL_HEAD_BANG => VisibilityEnum::PUBLIC,
-            ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
-            ModifierNameEnum::LYING_DOWN_MODIFIER => VisibilityEnum::HIDDEN,
-            ModifierNameEnum::FITFUL_SLEEP => VisibilityEnum::PRIVATE,
             SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,

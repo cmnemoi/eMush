@@ -44,7 +44,6 @@ final class PlayerEventCest extends AbstractFunctionalTest
                 $this->player,
             );
         }
-        $I->refreshEntities($this->player);
         // given player has a disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
             diseaseName: DiseaseEnum::REJUVENATION,
@@ -71,6 +70,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+
         $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then I should see a single room log for the modifier
@@ -79,7 +79,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
             params: [
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'place' => $this->player->getPlace()->getLogName(),
-                'log' => PlayerModifierLogEnum::FITFUL_SLEEP,
+                'log' => LogEnum::FITFUL_SLEEP,
             ]
         );
 
@@ -88,7 +88,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $I->assertCount(1, $roomLog, 'Double FITFUL_SLEEP have been dispatched.');
 
         // the player gains 1 AP (cycle change) and lose 1 AP (disease), so they should have the same amount of AP
-        $I->assertEquals(expected: 8, actual: $this->player->getActionPoint());
+        $I->assertEquals(expected: 8, actual: $playerEvent->getPlayer()->getActionPoint());
     }
 
     public function testHealedDiseaseDoesNotActOnPlayerNewCycleEvent(FunctionalTester $I): void

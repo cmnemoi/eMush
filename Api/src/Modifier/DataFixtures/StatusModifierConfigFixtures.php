@@ -35,29 +35,28 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 class StatusModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const FROZEN_MODIFIER = 'frozen_modifier';
-    public const DISABLED_CONVERSION_MODIFIER = 'disabled_conversion_modifier';
-    public const DISABLED_NOT_ALONE_MODIFIER = 'disabled_not_alone_modifier';
-    public const PACIFIST_MODIFIER = 'pacifist_modifier';
-    public const BURDENED_MODIFIER = 'burdened_modifier';
-    public const ANTISOCIAL_MODIFIER = 'antisocial_modifier';
-    public const LOST_MODIFIER = 'lost_modifier';
-    public const LYING_DOWN_MODIFIER = 'lying_down_modifier';
-    public const STARVING_MODIFIER = 'starving_modifier';
-    public const INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
+    public const string FROZEN_MODIFIER = 'frozen_modifier';
+    public const string DISABLED_CONVERSION_MODIFIER = 'disabled_conversion_modifier';
+    public const string DISABLED_NOT_ALONE_MODIFIER = 'disabled_not_alone_modifier';
+    public const string PACIFIST_MODIFIER = 'pacifist_modifier';
+    public const string BURDENED_MODIFIER = 'burdened_modifier';
+    public const string ANTISOCIAL_MODIFIER = 'antisocial_modifier';
+    public const string LOST_MODIFIER = 'lost_modifier';
+    public const string LYING_DOWN_MODIFIER = 'lying_down_modifier';
+    public const string STARVING_MODIFIER = 'starving_modifier';
+    public const string INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
+    public const string MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
+    public const string MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';
+    public const string MUSH_CONSUME_MODIFIER = 'mush_consume_modifier';
+    public const string MUSH_MORALE_MODIFIER = 'mush_morale_modifier';
 
-    public const MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
-    public const MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';
-    public const MUSH_CONSUME_MODIFIER = 'mush_consume_modifier';
-    public const MUSH_MORALE_MODIFIER = 'mush_morale_modifier';
+    public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
+    public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION = 'astronavigation_neron_cpu_priority_modifier_plus_1_section';
+    public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT = 'astronavigation_neron_cpu_priority_modifier_minus_1_action_point';
 
-    public const SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
-    public const ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION = 'astronavigation_neron_cpu_priority_modifier_plus_1_section';
-    public const ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT = 'astronavigation_neron_cpu_priority_modifier_minus_1_action_point';
-
-    public const DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE = 'defence_neron_cpu_priority_modifier_increased_turret_max_charge';
-    public const DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
-    public const IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
+    public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE = 'defence_neron_cpu_priority_modifier_increased_turret_max_charge';
+    public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
+    public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
 
     public function load(ObjectManager $manager): void
     {

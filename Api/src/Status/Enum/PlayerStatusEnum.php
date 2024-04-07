@@ -2,46 +2,45 @@
 
 namespace Mush\Status\Enum;
 
-class PlayerStatusEnum
+abstract class PlayerStatusEnum
 {
-    public const ANTISOCIAL = 'antisocial';
-    public const BERZERK = 'berzerk';
-    public const BRAINSYNC = 'brainsync';
-    public const BURDENED = 'burdened';
-    public const DEMORALIZED = 'demoralized';
-    public const DID_THE_THING = 'did_the_thing';
-    public const DID_BORING_SPEECH = 'did_boring_speech';
-    public const DIRTY = 'dirty';
-    public const DISABLED = 'disabled';
-    public const DRUG_EATEN = 'drug_eaten';
-    public const EUREKA_MOMENT = 'eureka_moment';
-    public const FIRST_TIME = 'first_time';
-    public const FOCUSED = 'focused';
-    public const FULL_STOMACH = 'full_stomach';
-    public const GAGGED = 'gagged';
-    public const GERMAPHOBE = 'germaphobe';
-    public const GUARDIAN = 'guardian';
-    public const HIGHLY_INACTIVE = 'highly_inactive';
-    public const HYPERACTIVE = 'hyperactive';
-    public const IMMUNIZED = 'immunized';
-    public const INACTIVE = 'inactive';
-    public const LOST = 'lost';
-    public const LYING_DOWN = 'lying_down';
-    public const MULTI_TEAMSTER = 'multi_teamster';
-    public const MUSH = 'mush';
-    public const OUTCAST = 'outcast';
-    public const PACIFIST = 'pacifist';
-    public const PREGNANT = 'pregnant';
-
-    public const SPORES = 'spores';
-    public const STARVING = 'starving';
-    public const STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
-    public const SUICIDAL = 'suicidal';
-    public const WATCHED_PUBLIC_BROADCAST = 'WATCHED_PUBLIC_BROADCAST';
-    public const TALKIE_SCREWED = 'talkie_screwed';
-    public const ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
-    public const HAS_REJUVENATED = 'has_rejuvenated';
-    public const POC_PILOT_SKILL = 'poc_pilot_skill';
-    public const POC_SHOOTER_SKILL = 'poc_shooter_skill';
-    public const CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
+    public const string ANTISOCIAL = 'antisocial';
+    public const string BERZERK = 'berzerk';
+    public const string BRAINSYNC = 'brainsync';
+    public const string BURDENED = 'burdened';
+    public const string DEMORALIZED = 'demoralized';
+    public const string DID_THE_THING = 'did_the_thing';
+    public const string DID_BORING_SPEECH = 'did_boring_speech';
+    public const string DIRTY = 'dirty';
+    public const string DISABLED = 'disabled';
+    public const string DRUG_EATEN = 'drug_eaten';
+    public const string EUREKA_MOMENT = 'eureka_moment';
+    public const string FIRST_TIME = 'first_time';
+    public const string FOCUSED = 'focused';
+    public const string FULL_STOMACH = 'full_stomach';
+    public const string GAGGED = 'gagged';
+    public const string GERMAPHOBE = 'germaphobe';
+    public const string GUARDIAN = 'guardian';
+    public const string HIGHLY_INACTIVE = 'highly_inactive';
+    public const string HYPERACTIVE = 'hyperactive';
+    public const string IMMUNIZED = 'immunized';
+    public const string INACTIVE = 'inactive';
+    public const string LOST = 'lost';
+    public const string LYING_DOWN = 'lying_down';
+    public const string MULTI_TEAMSTER = 'multi_teamster';
+    public const string MUSH = 'mush';
+    public const string OUTCAST = 'outcast';
+    public const string PACIFIST = 'pacifist';
+    public const string PREGNANT = 'pregnant';
+    public const string SPORES = 'spores';
+    public const string STARVING = 'starving';
+    public const string STUCK_IN_THE_SHIP = 'stuck_in_the_ship';
+    public const string SUICIDAL = 'suicidal';
+    public const string WATCHED_PUBLIC_BROADCAST = 'WATCHED_PUBLIC_BROADCAST';
+    public const string TALKIE_SCREWED = 'talkie_screwed';
+    public const string ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
+    public const string HAS_REJUVENATED = 'has_rejuvenated';
+    public const string POC_PILOT_SKILL = 'poc_pilot_skill';
+    public const string POC_SHOOTER_SKILL = 'poc_shooter_skill';
+    public const string CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
 }

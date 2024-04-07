@@ -12,11 +12,8 @@ class PlayerCycleEvent extends AbstractGameEvent
 
     protected Player $player;
 
-    public function __construct(
-        Player $player,
-        array $tags,
-        \DateTime $time
-    ) {
+    public function __construct(Player $player, array $tags, \DateTime $time)
+    {
         parent::__construct($tags, $time);
 
         $this->player = $player;

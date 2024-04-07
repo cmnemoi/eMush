@@ -106,7 +106,7 @@ class AbstractGameEvent extends Event
 
     public function hasTag(string $tag): bool
     {
-        return in_array($tag, $this->tags, true);
+        return in_array($tag, $this->tags);
     }
 
     public function hasAnyTag(array $tags): bool

@@ -39,9 +39,8 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionEnum::CONSUME_DRUG => LogEnum::DISEASE_TREATED_DRUG,
     ];
 
-    public function __construct(
-        RoomLogServiceInterface $roomLogService,
-    ) {
+    public function __construct(RoomLogServiceInterface $roomLogService)
+    {
         $this->roomLogService = $roomLogService;
     }
 

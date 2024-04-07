@@ -160,7 +160,6 @@ class AbstractFunctionalTest
             ->setDaedalus($daedalus)
         ;
         $I->haveInRepository($extraRoom);
-
         $I->haveInRepository($daedalus);
 
         return $extraRoom;

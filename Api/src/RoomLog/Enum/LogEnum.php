@@ -58,7 +58,6 @@ abstract class LogEnum
     public const string INVERTEBRATE_SHELL_EXPLOSION = 'invertebrate_shell_explosion';
     public const string LOST_ITEM_IN_EXPLORATION = 'lost_item_in_exploration';
     public const string VISIBILITY = 'visibility';
-
     public const string SHOWER_MUSH = 'shower_mush';
     public const string ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
     public const string SCREAMING = 'screaming';

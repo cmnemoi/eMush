@@ -20,4 +20,5 @@ abstract class ModifierNameEnum
     public const string LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
     public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
     public const string LOST_MODIFIER = 'lost_modifier';
+    public const string ROPE_MODIFIER = 'rope_modifier';
 }

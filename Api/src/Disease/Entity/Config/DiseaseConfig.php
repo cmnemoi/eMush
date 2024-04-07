@@ -112,7 +112,7 @@ class DiseaseConfig implements LogParameterInterface
      */
     public function setModifierConfigs(Collection|array $modifierConfigs): self
     {
-        if (!$modifierConfigs instanceof Collection) {
+        if (is_array($modifierConfigs)) {
             $modifierConfigs = new ArrayCollection($modifierConfigs);
         }
 

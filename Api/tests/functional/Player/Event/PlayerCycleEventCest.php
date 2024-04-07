@@ -1,6 +1,6 @@
 <?php
 
-namespace functional\Player\Event;
+namespace Mush\Tests\functional\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -11,6 +11,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
@@ -28,7 +29,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private RoomLogRepository $roomLogRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -38,7 +39,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->roomLogRepository = $I->grabService(RoomLogRepository::class);
     }
 
-    public function testDispatchCycleChange(FunctionalTester $I)
+    public function testDispatchCycleChange(FunctionalTester $I): void
     {
         $startCycle = $this->daedalus->getCycle();
         $startDay = $this->daedalus->getDay();
@@ -89,7 +90,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testNoGravitySimulator(FunctionalTester $I)
+    public function testNoGravitySimulator(FunctionalTester $I): void
     {
         $startCycle = $this->daedalus->getCycle();
         $startDay = $this->daedalus->getDay();
@@ -252,7 +253,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             entity: RoomLog::class,
             params: [
                 'place' => $this->player->getPlace()->getName(),
-                'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
+                'log' => LogEnum::ANTISOCIAL_MORALE_LOSS,
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
@@ -394,7 +395,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             entity: RoomLog::class,
             params: [
                 'place' => $this->player->getPlace()->getName(),
-                'log' => PlayerModifierLogEnum::LOST_ON_PLANET,
+                'log' => LogEnum::LOST_ON_PLANET,
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
             ]

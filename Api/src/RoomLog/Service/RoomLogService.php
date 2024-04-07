@@ -101,71 +101,6 @@ class RoomLogService implements RoomLogServiceInterface
         );
     }
 
-    private function getActionLogParameters(
-        ActionResult $actionResult,
-        Player $player,
-        ?LogParameterInterface $actionParameter
-    ): array {
-        $parameters = [];
-        $parameters[$player->getLogKey()] = $player->getLogName();
-
-        if (($quantity = $actionResult->getQuantity()) !== null) {
-            $parameters['quantity'] = $quantity;
-        }
-        if ($actionParameter !== null) {
-            $key = 'target_' . $actionParameter->getLogKey();
-            $parameters[$key] = $actionParameter->getLogName();
-
-            // we need to translate planet name before logging it, as it is saved in database as an array of numbers (basically)
-            if (str_contains($key, 'planet')) {
-                /** @var Planet $planet */
-                $planet = $actionParameter;
-
-                $parameters[$key] = $this->translationService->translate(
-                    key: 'planet_name',
-                    parameters: $planet->getName()->toArray(),
-                    domain: 'planet',
-                    language: $player->getDaedalus()->getLanguage()
-                );
-            }
-        }
-        if (($equipment = $actionResult->getEquipment()) !== null) {
-            $parameters[$equipment->getLogKey()] = $equipment->getLogName();
-        }
-
-        return $parameters;
-    }
-
-    private function createExamineLog(
-        Player $player,
-        ?LogParameterInterface $actionParameter,
-    ): RoomLog {
-        if ($actionParameter instanceof GameItem) {
-            return $this->createLog(
-                $actionParameter->getLogName() . '.examine',
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'items',
-                $player,
-            );
-        }
-
-        if ($actionParameter instanceof GameEquipment) {
-            $logParameters = $this->getPatrolShipLogParameters($actionParameter);
-
-            return $this->createLog(
-                $actionParameter->getLogName() . '.examine',
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'equipments',
-                $player,
-                $logParameters,
-            );
-        }
-
-        throw new \LogicException('examine action is not implemented for this type of entity');
-    }
-
     public function createLog(
         string $logKey,
         Place $place,
@@ -238,6 +173,69 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         return $visibility;
+    }
+
+    private function getActionLogParameters(
+        ActionResult $actionResult,
+        Player $player,
+        ?LogParameterInterface $actionParameter
+    ): array {
+        $parameters = [];
+        $parameters[$player->getLogKey()] = $player->getLogName();
+
+        if (($quantity = $actionResult->getQuantity()) !== null) {
+            $parameters['quantity'] = $quantity;
+        }
+        if ($actionParameter !== null) {
+            $key = 'target_' . $actionParameter->getLogKey();
+            $parameters[$key] = $actionParameter->getLogName();
+
+            // we need to translate planet name before logging it, as it is saved in database as an array of numbers (basically)
+            if (str_contains($key, 'planet')) {
+                /** @var Planet $planet */
+                $planet = $actionParameter;
+
+                $parameters[$key] = $this->translationService->translate(
+                    key: 'planet_name',
+                    parameters: $planet->getName()->toArray(),
+                    domain: 'planet',
+                    language: $player->getDaedalus()->getLanguage()
+                );
+            }
+        }
+        if (($equipment = $actionResult->getEquipment()) !== null) {
+            $parameters[$equipment->getLogKey()] = $equipment->getLogName();
+        }
+
+        return $parameters;
+    }
+
+    private function createExamineLog(Player $player, ?LogParameterInterface $actionParameter): RoomLog
+    {
+        if ($actionParameter instanceof GameItem) {
+            return $this->createLog(
+                $actionParameter->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'items',
+                $player,
+            );
+        }
+
+        if ($actionParameter instanceof GameEquipment) {
+            $logParameters = $this->getPatrolShipLogParameters($actionParameter);
+
+            return $this->createLog(
+                $actionParameter->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'equipments',
+                $player,
+                $logParameters,
+            );
+        }
+
+        throw new \LogicException('examine action is not implemented for this type of entity');
     }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array

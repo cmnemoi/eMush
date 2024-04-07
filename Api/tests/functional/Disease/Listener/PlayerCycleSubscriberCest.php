@@ -34,17 +34,15 @@ use Mush\User\Entity\User;
 class PlayerCycleSubscriberCest
 {
     private PlayerCycleSubscriber $subscriber;
-
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->subscriber = $I->grabService(PlayerCycleSubscriber::class);
-
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testOnPlayerCycle(FunctionalTester $I)
+    public function testOnPlayerCycle(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -108,7 +106,7 @@ class PlayerCycleSubscriberCest
         ]);
     }
 
-    public function testOnPlayerCycleSpontaneousCure(FunctionalTester $I)
+    public function testOnPlayerCycleSpontaneousCure(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -155,13 +153,11 @@ class PlayerCycleSubscriberCest
         ;
 
         $I->haveInRepository($playerDisease);
-
         $I->refreshEntities($player);
 
         $event = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], new \DateTime());
 
         $this->subscriber->onPlayerNewCycle($event);
-
         $I->dontSeeInRepository(PlayerDisease::class, [
             'player' => $player,
             'diseaseConfig' => $diseaseConfig,
@@ -175,7 +171,7 @@ class PlayerCycleSubscriberCest
         ]);
     }
 
-    public function testOnPlayerCycleDiseaseAppear(FunctionalTester $I)
+    public function testOnPlayerCycleDiseaseAppear(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -246,7 +242,7 @@ class PlayerCycleSubscriberCest
         ]);
     }
 
-    public function testOnPlayerCycleBitingSymptom(FunctionalTester $I)
+    public function testOnPlayerCycleBitingSymptom(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -263,8 +259,6 @@ class PlayerCycleSubscriberCest
         ]);
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        /** @var CharacterConfig $otherCharacterConfig */
-        $otherCharacterConfig = $I->have(CharacterConfig::class, ['name' => 'test2']);
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -338,7 +332,7 @@ class PlayerCycleSubscriberCest
         ]);
     }
 
-    public function testOnPlayerCycleDirtinessSymptom(FunctionalTester $I)
+    public function testOnPlayerCycleDirtinessSymptom(FunctionalTester $I): void
     {
         /** @var StatusConfig $dirtyStatus */
         $dirtyStatus = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::DIRTY]);

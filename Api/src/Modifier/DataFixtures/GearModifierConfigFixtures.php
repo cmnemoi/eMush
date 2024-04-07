@@ -35,28 +35,28 @@ use Mush\Status\Event\StatusEvent;
 
 class GearModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const APRON_MODIFIER = 'apron_modifier';
-    public const ARMOR_MODIFIER = 'armor_modifier';
-    public const WRENCH_MODIFIER = 'wrench_modifier';
-    public const GLOVES_MODIFIER = 'gloves_modifier';
-    public const SOAP_MODIFIER = 'soap_modifier';
-    public const AIM_MODIFIER = 'aim_modifier';
-    public const AIM_HUNTER_MODIFIER = 'aim_hunter_modifier';
-    public const SCOOTER_MODIFIER = 'scooter_modifier';
-    public const ROLLING_BOULDER = 'rolling_boulder';
-    public const OSCILLOSCOPE_SUCCESS_MODIFIER = 'oscilloscope_success_modifier';
-    public const OSCILLOSCOPE_SUCCESS_MODIFIER_RENOVATE_ACTION = 'oscilloscope_success_modifier_renovate_action';
-    public const OSCILLOSCOPE_REPAIR_MODIFIER = 'oscilloscope_repair_modifier';
-    public const ANTENNA_MODIFIER = 'antenna_modifier';
-    public const GRAVITY_CONVERSION_MODIFIER = 'gravity_conversion_modifier';
-    public const GRAVITY_CYCLE_MODIFIER = 'gravity_cycle_modifier';
-    public const OXYGEN_TANK_MODIFIER = 'oxygen_tank_modifier';
-    public const PLANET_SCANNER_MODIFIER = 'planet_scanner_modifier';
-    public const LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
-    public const LIQUID_MAP_MODIFIER_RANDOM_50 = 'liquid_map_modifier_random_50';
-    public const ALIEN_OIL_INCREASE_FUEL_INJECTED = 'alien_oil_increase_fuel_injected';
-    public const INVERTEBRATE_SHELL_DOUBLES_DAMAGE = 'invertebrate_shell_doubles_damage';
-    public const ROPE_MODIFIER = 'rope_modifier';
+    public const string APRON_MODIFIER = 'apron_modifier';
+    public const string ARMOR_MODIFIER = 'armor_modifier';
+    public const string WRENCH_MODIFIER = 'wrench_modifier';
+    public const string GLOVES_MODIFIER = 'gloves_modifier';
+    public const string SOAP_MODIFIER = 'soap_modifier';
+    public const string AIM_MODIFIER = 'aim_modifier';
+    public const string AIM_HUNTER_MODIFIER = 'aim_hunter_modifier';
+    public const string SCOOTER_MODIFIER = 'scooter_modifier';
+    public const string ROLLING_BOULDER = 'rolling_boulder';
+    public const string OSCILLOSCOPE_SUCCESS_MODIFIER = 'oscilloscope_success_modifier';
+    public const string OSCILLOSCOPE_SUCCESS_MODIFIER_RENOVATE_ACTION = 'oscilloscope_success_modifier_renovate_action';
+    public const string OSCILLOSCOPE_REPAIR_MODIFIER = 'oscilloscope_repair_modifier';
+    public const string ANTENNA_MODIFIER = 'antenna_modifier';
+    public const string GRAVITY_CONVERSION_MODIFIER = 'gravity_conversion_modifier';
+    public const string GRAVITY_CYCLE_MODIFIER = 'gravity_cycle_modifier';
+    public const string OXYGEN_TANK_MODIFIER = 'oxygen_tank_modifier';
+    public const string PLANET_SCANNER_MODIFIER = 'planet_scanner_modifier';
+    public const string LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
+    public const string LIQUID_MAP_MODIFIER_RANDOM_50 = 'liquid_map_modifier_random_50';
+    public const string ALIEN_OIL_INCREASE_FUEL_INJECTED = 'alien_oil_increase_fuel_injected';
+    public const string INVERTEBRATE_SHELL_DOUBLES_DAMAGE = 'invertebrate_shell_doubles_damage';
+    public const string ROPE_MODIFIER = 'rope_modifier';
 
     public function load(ObjectManager $manager): void
     {

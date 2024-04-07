@@ -56,7 +56,7 @@
                         </template>
                     </Tippy>
                     <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportPopup()">
-                        <img src="@/assets/images/comms/alert.png" alt="Edit message">
+                        <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                         <template #content>
                             <h1>{{ $t('moderation.report')}}</h1>
                             <p>{{ $t('moderation.reportDescription') }}</p>
@@ -164,7 +164,7 @@
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportPopup()">
-                                <img src="@/assets/images/comms/alert.png" alt="Edit message">
+                                <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report')}}</h1>
                                     <p>{{ $t('moderation.reportDescription') }}</p>
@@ -248,8 +248,8 @@
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
                                 </template>
                             </Tippy>
-                            <Tippy tag="span" v-if="!goldNovaPlayer.messageHasBeenModerated" @click="openReportPopup()">
-                                <img src="@/assets/images/comms/alert.png" alt="Edit message">
+                            <Tippy tag="span" v-if="!goldNovaPlayer?.messageHasBeenModerated" @click="openReportPopup()">
+                                <img :src="getImgUrl('comms/alert.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.report')}}</h1>
                                     <p>{{ $t('moderation.reportDescription') }}</p>

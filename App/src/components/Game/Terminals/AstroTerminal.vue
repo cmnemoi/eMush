@@ -53,7 +53,7 @@
                             <h1 v-html="formatText(terminal.buttons.sharePlanet.name)" />
                             <p v-html="formatText(terminal.buttons.sharePlanet.description)" />
                         </template>
-                        <img src="@/assets/images/planet.png">
+                        <img :src="getImgUrl('planet.png')">
                     </Tippy>
                 </div>
             </div>

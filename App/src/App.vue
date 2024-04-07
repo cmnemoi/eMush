@@ -5,6 +5,7 @@
         <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
         <router-view v-else/>
         <ErrorPopup />
+        <!-- <Toasts /> -->
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
@@ -16,7 +17,8 @@
 <script lang="ts">
 
 import Banner from "@/components/Banner.vue";
-import ErrorPopup from "@/components/ToastContainer.vue";
+import ErrorPopup from "@/components/ErrorPopup.vue";
+import Toasts from "@/components/ToastContainer.vue";
 import ConfirmPopup from "@/components/ConfirmPopup.vue";
 import ReportPopup from "@/components/ReportPopup.vue";
 import Spinner from "@/components/Utils/Spinner.vue";

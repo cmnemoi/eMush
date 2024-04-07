@@ -11,7 +11,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Status\Entity\ChargeStatus;
@@ -99,7 +98,7 @@ class CycleEventCest extends AbstractFunctionalTest
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'place' => $this->player1->getPlace()->getName(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => LogEnum::ANTISOCIAL_MORALE_LOSS,
+            'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }

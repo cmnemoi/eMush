@@ -253,7 +253,7 @@ class PlayerCycleEventCest extends AbstractFunctionalTest
             entity: RoomLog::class,
             params: [
                 'place' => $this->player->getPlace()->getName(),
-                'log' => LogEnum::ANTISOCIAL_MORALE_LOSS,
+                'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
             ]

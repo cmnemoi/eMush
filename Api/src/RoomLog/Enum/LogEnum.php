@@ -59,7 +59,6 @@ abstract class LogEnum
     public const string LOST_ITEM_IN_EXPLORATION = 'lost_item_in_exploration';
     public const string VISIBILITY = 'visibility';
     public const string SHOWER_MUSH = 'shower_mush';
-    public const string ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
     public const string SCREAMING = 'screaming';
     public const string WALL_HEAD_BANG = 'wall_head_bang';
     public const string RUN_IN_CIRCLES = 'run_in_circles';
@@ -86,7 +85,6 @@ abstract class LogEnum
             ModifierNameEnum::FITFUL_SLEEP => VisibilityEnum::PRIVATE,
             ModifierNameEnum::LYING_DOWN_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::MUSH_SHOWER_MALUS => VisibilityEnum::PRIVATE,
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::SCREAMING => VisibilityEnum::PUBLIC,
             ModifierNameEnum::WALL_HEAD_BANG => VisibilityEnum::PUBLIC,
             ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
@@ -110,7 +108,6 @@ abstract class LogEnum
             ModifierNameEnum::FITFUL_SLEEP => self::FITFUL_SLEEP,
             ModifierNameEnum::LYING_DOWN_MODIFIER => self::LYING_DOWN,
             ModifierNameEnum::MUSH_SHOWER_MALUS => self::SHOWER_MUSH,
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
             ModifierNameEnum::SCREAMING => self::SCREAMING,
             ModifierNameEnum::WALL_HEAD_BANG => self::WALL_HEAD_BANG,
             ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,

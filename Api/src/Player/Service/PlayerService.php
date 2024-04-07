@@ -228,9 +228,9 @@ class PlayerService implements PlayerServiceInterface
             $likedPlayer = $this->findById($likedPlayerId);
 
             // Only keep players that are not source player and that are in same daedalus
-            if ($likedPlayer
-                    && $likedPlayer->getId() != $player->getId()
-                    && $likedPlayer->getDaedalus()->getId() == $player->getDaedalus()->getId()
+            if ($likedPlayer &&
+                $likedPlayer->getId() !== $player->getId() &&
+                $likedPlayer->getDaedalus()->getId() === $player->getDaedalus()->getId()
             ) {
                 $likedClosedPlayer = $likedPlayer->getPlayerInfo()->getClosedPlayer();
                 $likedClosedPlayer->addLike();
@@ -404,7 +404,7 @@ class PlayerService implements PlayerServiceInterface
      * Currently it drops 3-4 organic waste.
      * TODO: add more powerful compensation?
      */
-    private function handleQuarantineCompensation(Place $playerDeathPlace)
+    private function handleQuarantineCompensation(Place $playerDeathPlace): void
     {
         $nbOrganicWaste = $this->randomService->random(self::NB_ORGANIC_WASTE_MIN, self::NB_ORGANIC_WASTE_MAX);
 

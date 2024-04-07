@@ -227,6 +227,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $spontaneousHealingDisorders = [DisorderEnum::VERTIGO, DisorderEnum::SPLEEN];
 
         return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
-            || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders, true);
+            || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders);
     }
 }

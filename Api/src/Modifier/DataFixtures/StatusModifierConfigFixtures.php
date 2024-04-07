@@ -44,6 +44,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const string STARVING_MODIFIER = 'starving_modifier';
+
     public const string INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
     public const string MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
     public const string MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';

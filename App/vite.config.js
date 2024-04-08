@@ -30,6 +30,9 @@ export default defineConfig({
       scss: { additionalData: `@import "./src/assets/scss/_mixins.scss";` },
     },
   },
+  build: {
+    assetsInlineLimit: 0,
+  },
   test: {
   },
 })

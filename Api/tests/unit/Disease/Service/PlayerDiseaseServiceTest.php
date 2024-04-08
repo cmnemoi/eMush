@@ -261,9 +261,9 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(
-                static fn(DiseaseEvent $event) => (
-                        $event->getPlayerDisease() === $diseasePlayer
-                    )
+                static fn (DiseaseEvent $event) => (
+                    $event->getPlayerDisease() === $diseasePlayer
+                )
                     && in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags(), true)
             )
             ->once();
@@ -273,9 +273,9 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(
-                static fn(DiseaseEvent $event) => (
-                        $event->getPlayerDisease() === $diseasePlayer2
-                    )
+                static fn (DiseaseEvent $event) => (
+                    $event->getPlayerDisease() === $diseasePlayer2
+                )
                     && in_array(DiseaseCauseEnum::OVERRODE, $event->getTags(), true)
             )->once();
 

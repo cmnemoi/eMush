@@ -228,9 +228,9 @@ class PlayerService implements PlayerServiceInterface
             $likedPlayer = $this->findById($likedPlayerId);
 
             // Only keep players that are not source player and that are in same daedalus
-            if ($likedPlayer &&
-                $likedPlayer->getId() !== $player->getId() &&
-                $likedPlayer->getDaedalus()->getId() === $player->getDaedalus()->getId()
+            if ($likedPlayer
+                && $likedPlayer->getId() !== $player->getId()
+                && $likedPlayer->getDaedalus()->getId() === $player->getDaedalus()->getId()
             ) {
                 $likedClosedPlayer = $likedPlayer->getPlayerInfo()->getClosedPlayer();
                 $likedClosedPlayer->addLike();

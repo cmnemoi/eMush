@@ -1,7 +1,7 @@
 <template>
     <div class="news-container">
         <div class="janice">
-            <img src="@/assets/images/janice.png" alt="Janice">
+            <img :src="getImgUrl('janice.png')" alt="Janice">
         </div>
         <div class="news-feed">
             <NewsItem
@@ -30,6 +30,7 @@ import ApiService from "@/services/api.service";
 import { News } from "@/entities/News";
 import Pagination from "@/components/Utils/Datatable/Pagination.vue";
 import NewsItem from "./NewsItem.vue";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: 'TheEnd',
@@ -56,6 +57,7 @@ export default defineComponent ({
         };
     },
     methods: {
+        getImgUrl,
         async getNews() {
             const params: any = {
                 header: {
@@ -77,7 +79,7 @@ export default defineComponent ({
             params.params['isPublished'] = true;
             qs.stringify(params.params['order'] = { ['publicationDate']: 'DESC' });
 
-            await ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'news'), params)
+            await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'news'), params)
                 .then((result) => {
                     this.news = new Array<News>();
                     for (const newsData of result.data['hydra:member']) {

@@ -69,7 +69,7 @@ export default defineComponent({
 
             GameConfigService.createModifierActivationRequirement(newModifierActivationRequirement)
                 .then((res: ModifierActivationRequirement | null) => {
-                    const newModifierActivationRequirementUrl = urlJoin(process.env.VUE_APP_URL + '/config/modifier-activation-requirement', String(res?.id));
+                    const newModifierActivationRequirementUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/modifier-activation-requirement', String(res?.id));
                     window.location.href = newModifierActivationRequirementUrl;
                 })
                 .catch((error) => {

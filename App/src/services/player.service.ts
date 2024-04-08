@@ -6,9 +6,9 @@ import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 import urlJoin from "url-join";
 
 // @ts-ignore
-const PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "player");
+const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 // @ts-ignore
-const CLOSED_PLAYER_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "closed_players");
+const CLOSED_PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "closed_players");
 
 const PlayerService = {
     addLikeToPlayer: (player: Player): Promise<void> => {

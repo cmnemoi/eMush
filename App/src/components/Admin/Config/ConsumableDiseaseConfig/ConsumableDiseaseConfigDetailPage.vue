@@ -125,7 +125,7 @@ export default defineComponent({
             // @ts-ignore
             GameConfigService.createConsumableDiseaseConfig(newConsumableDiseaseConfig)
                 .then((res: ConsumableDiseaseConfig | null) => {
-                    const newConsumableDiseaseConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/consumable-disease-config', String(res?.id));
+                    const newConsumableDiseaseConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/consumable-disease-config', String(res?.id));
                     window.location.href = newConsumableDiseaseConfigUrl;
                 })
                 .catch((error) => {

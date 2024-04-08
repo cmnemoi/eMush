@@ -2,7 +2,7 @@
     <div class="bios-terminal-container" v-if="terminal">
         <section class="cpu-priorities-section">
             <Tippy tag="h3">
-                <img :src="require('@/assets/images/notes.gif')" />
+                <img :src="getImgUrl('notes.gif')" />
                 {{ terminal.sectionTitles?.cpuPriorityName }}
                 <template #content>
                     <h1 v-html="formatText(terminal.sectionTitles?.cpuPriorityName)" />
@@ -35,6 +35,7 @@ import { formatText } from "@/utils/formatText";
 import { Action } from "@/entities/Action";
 import { ActionEnum } from "@/enums/action.enum";
 import { mapActions } from "vuex";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 
 export default defineComponent ({
@@ -65,6 +66,7 @@ export default defineComponent ({
                 await this.executeAction({ target, action, params });
             }
         },
+        getImgUrl,
         formatText
     },
     data() {
@@ -87,7 +89,7 @@ section {
     @extend %terminal-section;
     flex-direction: column;
     padding: 1.5em .8em .8em;
-    background-image: url("~@/assets/images/bios_bg.png");
+    background-image: url("/src/assets/images/bios_bg.png");
 
     & > p, & > div {
         margin: 0.8em 0 0;

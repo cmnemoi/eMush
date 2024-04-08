@@ -15,7 +15,7 @@
                             </p>
                         </div>
                         <p class="score">
-                            {{ player.triumph?.quantity }}<img src="@/assets/images/triumph.png" alt="triumph">
+                            {{ player.triumph?.quantity }}<img :src="getImgUrl('triumph.png')" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">
@@ -31,7 +31,7 @@
                     </div>
                     <div>
                         <p class="death-cause">
-                            <img src="@/assets/images/dead.png" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
+                            <img :src="getImgUrl('dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
                         </p>
                     </div>
                     <HistoryLogs />
@@ -51,7 +51,7 @@
                         <td>{{ crewPlayer.endCauseValue }}</td>
                         <td>
                             <button class="like" :class="isPlayerLiked(crewPlayer.id) ? 'liked' : ''" @click="toggleLike(crewPlayer.id)">
-                                {{ getNumberLikes(crewPlayer) }} <img src="@/assets/images/dislike.png">
+                                {{ getNumberLikes(crewPlayer) }} <img :src="getImgUrl('dislike.png')">
                             </button>
                         </td>
                     </tr>
@@ -74,6 +74,7 @@ import HistoryLogs from "@/components/Game/HistoryLogs.vue";
 import CommsPanel from "@/components/Game/Communications/CommsPanel.vue";
 import { defineComponent } from "vue";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 interface PurgatoryState {
     deadPlayerInfo: DeadPlayerInfo | null,
@@ -105,6 +106,7 @@ export default defineComponent ({
         };
     },
     methods: {
+        getImgUrl,
         toggleLike: function(playerId: number): void {
             if (!playerId) return;
             if (this.likedPlayers.includes(playerId)) {

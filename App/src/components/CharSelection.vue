@@ -43,15 +43,15 @@
         <div class="banner" v-if="!error">
             <div class="skills" style="display:none">
                 <div class="Expert radio">
-                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
+                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
                     <p>Expert radio</p>
                 </div>
                 <div class="Expert logistique">
-                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
+                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
                     <p>Expert logistique</p>
                 </div>
                 <div class="Tireur">
-                    <img src="@/assets/images/skills/human/cook.png" alt="cook">
+                    <img :src="getImgUrl('skills/human/cook.png')" alt="cook">
                     <p>Tireur</p>
                 </div>
             </div>
@@ -78,6 +78,7 @@ import Spinner from "@/components/Utils/Spinner.vue";
 import { defineComponent } from "vue";
 import { mapGetters, mapActions } from "vuex";
 import { gameLocales } from "@/i18n";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: 'CharSelection',
@@ -128,14 +129,15 @@ export default defineComponent ({
 
         },
         characterPortrait: function(character: Character) {
-            return characterEnum[character.key] ? characterEnum[character.key].portrait : require('@/assets/images/items/todo.jpg');
+            return characterEnum[character.key] ? characterEnum[character.key].portrait : getImgUrl('items/todo.png');
         },
         characterBody: function(character: Character) {
-            return characterEnum[character.key] ? characterEnum[character.key].body : require('@/assets/images/items/todo.jpg');
+            return characterEnum[character.key] ? characterEnum[character.key].body : getImgUrl('items/todo.png');
         },
         characterCompleteName: function(character: Character) {
             return characterEnum[character.key] ? characterEnum[character.key].completeName : 'Unknown';
         },
+        getImgUrl,
         resetValues: function() {
             this.characterHovered = false;
             this.hoveredCharacter = null;
@@ -289,7 +291,7 @@ h1 {
             transform: translate(-17px, 0);
             min-width: 39px;
             min-height: 21px;
-            background: url("~@/assets/images/figure.png") center no-repeat;
+            background: url("/src/assets/images/figure.png") center no-repeat;
         }
     }
 
@@ -358,7 +360,7 @@ h1 {
             text-decoration: none;
             font-variant: small-caps;
             text-align: center;
-            background: transparent url('~@/assets/images/big-button-center.png') center repeat-x;
+            background: transparent url('/src/assets/images/big-button-center.png') center repeat-x;
             text-shadow: 0 0 5px black, 0 1px 2px black;
 
             transition: all .15s;
@@ -369,7 +371,7 @@ h1 {
                 content:"";
                 width: 35px;
                 height: 100%;
-                background: transparent url('~@/assets/images/big-button-side.png') center no-repeat;
+                background: transparent url('/src/assets/images/big-button-side.png') center no-repeat;
             }
 
             &::before { transform: translateX(-35px) }

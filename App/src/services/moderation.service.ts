@@ -7,7 +7,7 @@ import { Message } from "@/entities/Message";
 import { Channel } from "@/entities/Channel";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 
-const API_URL = process.env.VUE_APP_API_URL as string;
+const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
 const CHANNEL_ENDPOINT = urlJoin(API_URL, "channels");
 const MESSAGES_ENDPOINT = urlJoin(API_URL, "messages");

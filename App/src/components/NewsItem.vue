@@ -1,17 +1,17 @@
 <template>
     <article :class="'article ' + (news.hidden ? 'hidden' : '') + (news.isPublished ? '' : ' grayed-out')">
         <div class="title" v-if="localeIsFrench()" @click="$emit('click')">
-            <img class="news-cover" src="@/assets/images/emush-cover.png">
+            <img class="news-cover" :src="getImgUrl('emush-cover.png')">
             <h2>{{ news.frenchTitle }}</h2>
-            <p><img class="flag" src="@/assets/images/lang_fr.png" alt="🇫🇷"> {{ $t('newsPage.publishedAt') }} {{ formatDate(news.publicationDate) }}</p>
+            <p><img class="flag" :src="getImgUrl('lang_fr.png')" alt="🇫🇷"> {{ $t('newsPage.publishedAt') }} {{ formatDate(news.publicationDate) }}</p>
         </div>
         <div class="content" v-if="localeIsFrench()">
             <p v-html="formatNewsContent(news.frenchContent)" />
         </div>
         <div class="title" v-if="localeIsEnglish()" @click="$emit('click')">
-            <img class="news-cover" src="@/assets/images/emush-cover.png">
+            <img class="news-cover" :src="getImgUrl('emush-cover.png')">
             <h2>{{ news.englishTitle }}</h2>
-            <p><img class="flag" src="@/assets/images/lang_en.png" alt="🇬🇧"> {{ $t('newsPage.publishedAt') }} {{ formatDate(news.publicationDate) }}</p>
+            <p><img class="flag" :src="getImgUrl('lang_en.png')" alt="🇬🇧"> {{ $t('newsPage.publishedAt') }} {{ formatDate(news.publicationDate) }}</p>
         </div>
         <div class="content" v-if="localeIsEnglish()">
             <p v-html="formatNewsContent(news.englishContent)" />
@@ -23,6 +23,7 @@
 import { News } from "@/entities/News";
 import { GameLocales } from "@/i18n";
 import { formatText } from "@/utils/formatText";
+import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
@@ -35,6 +36,7 @@ export default defineComponent ({
     },
     emits: ['click'],
     methods: {
+        getImgUrl,
         localeIsFrench() {
             return this.$i18n.locale.split('-')[0] === GameLocales.FR;
         },

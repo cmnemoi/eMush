@@ -62,7 +62,7 @@ export default defineComponent ({
             bottom: 0;
             margin: 3px;
             border: 5px solid transparent;
-            border-image: url('~@/assets/images/ToolTip-corners.gif') 50% round;
+            border-image: url('/src/assets/images/ToolTip-corners.gif') 50% round;
         };
     }
 

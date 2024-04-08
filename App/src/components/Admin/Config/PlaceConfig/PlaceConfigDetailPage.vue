@@ -86,7 +86,7 @@ export default defineComponent({
 
             GameConfigService.createPlaceConfig(newPlaceConfig)
                 .then((res: PlaceConfig | null) => {
-                    const newPlaceConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/place-config', String(res?.id));
+                    const newPlaceConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/place-config', String(res?.id));
                     window.location.href = newPlaceConfigUrl;
                 })
                 .catch((error) => {

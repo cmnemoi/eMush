@@ -3,7 +3,8 @@ module.exports = {
 
     "env": {
         "node": true,
-        "mocha": true
+        "mocha": true,
+        "es2022": true
     },
 
     extends: [
@@ -36,7 +37,9 @@ module.exports = {
     },
 
     parserOptions: {
-        parser: '@typescript-eslint/parser'
+        parser: '@typescript-eslint/parser',
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
 
     overrides: [

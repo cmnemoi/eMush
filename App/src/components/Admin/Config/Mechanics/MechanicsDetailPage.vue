@@ -376,7 +376,7 @@ export default defineComponent({
             // @ts-ignore
             GameConfigService.createMechanics(newMechanics)
                 .then((res: Mechanics | null) => {
-                    const newMechanicsUrl = urlJoin(process.env.VUE_APP_URL + '/config/mechanics', String(res?.id));
+                    const newMechanicsUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/mechanics', String(res?.id));
                     window.location.href = newMechanicsUrl;
                 })
                 .catch((error) => {
@@ -403,7 +403,7 @@ export default defineComponent({
                 .then((res: Mechanics | null) => {
                     this.mechanics = res;
                     if (this.mechanics !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'mechanics', String(this.mechanics.id), 'actions'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'mechanics', String(this.mechanics.id), 'actions'))
                             .then((result) => {
                                 const actions : Action[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -414,7 +414,7 @@ export default defineComponent({
                                     this.mechanics.actions = actions;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'gears', String(this.mechanics.id), 'modifier_configs'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'gears', String(this.mechanics.id), 'modifier_configs'))
                             .then((result) => {
                                 const modifierConfigs : ModifierConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -662,7 +662,7 @@ export default defineComponent({
         GameConfigService.loadMechanics(Number(mechanicsId)).then((res: Mechanics | null) => {
             if (res instanceof Mechanics) {
                 this.mechanics = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'mechanics', String(mechanicsId), 'actions'))
+                ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'mechanics', String(mechanicsId), 'actions'))
                     .then((result) => {
                         const actions : Action[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {
@@ -674,7 +674,7 @@ export default defineComponent({
                         }
                     });
                 if (this.mechanics.mechanicsType == "Gear"){
-                    ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'gears', String(mechanicsId), 'modifier_configs'))
+                    ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'gears', String(mechanicsId), 'modifier_configs'))
                         .then((result) => {
                             const modifierConfigs : ModifierConfig[] = [];
                             result.data['hydra:member'].forEach((datum: any) => {

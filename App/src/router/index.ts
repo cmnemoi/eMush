@@ -19,16 +19,14 @@ import UserShips from "@/components/User/UserShips.vue";
 import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
 import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
 import NewsPage from "@/components/NewsPage.vue";
-import PlayerListPage from "@/components/Admin/Player/PlayerListPage.vue";
 import NeronAnnouncementPage from "@/components/Admin/Daedalus/NeronAnnouncementPage.vue";
-import AdminViewPlayerDetailPage from "@/components/Admin/Player/AdminViewPlayerDetailPage.vue";
 import ModerationPlayerListPage from "@/components/Moderation/ModerationPlayerListPage.vue";
 import ModerationViewPlayerDetailPage from "@/components/Moderation/ModerationViewPlayerDetailPage.vue";
 import ModerationPage from "@/components/Moderation/ModerationPage.vue";
 import ModerationHomePage from "@/components/Moderation/ModerationHomePage.vue";
-import Page from "@/components/Moderation/SanctionListPage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
+import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
 
 const routes = [
     {
@@ -242,8 +240,8 @@ const routes = [
     },
     {
         path: "/expPerma/:id",
-        name: "ClosedExpeditionPage",
-        component: () => import("@/components/Game/ClosedExpeditionPage.vue")
+        name: "ClosedExpeditionPanel",
+        component: ClosedExpeditionPanel,
     },
     {
         path: "/token",

@@ -3,7 +3,7 @@ import { ModerationSanction } from "@/entities/ModerationSanction";
 import urlJoin from "url-join";
 import store from "@/store";
 
-const API_URL = process.env.VUE_APP_API_URL as string;
+const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
 const MODERATION_SANCTION_ENDPOINT = urlJoin(API_URL, "moderation_sanctions");
 

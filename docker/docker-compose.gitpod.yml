@@ -18,8 +18,7 @@ services:
 
   mush_front:
     ports:
-      - 4173:8080
-      - 8000:8000  # only needed if using vue-cli UI
+      - 4173:5173
     build:
       args:
         - UID=33333

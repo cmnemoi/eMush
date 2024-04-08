@@ -1,17 +1,17 @@
-@import "~@/assets/css/normalize.css";
+@import "../css/normalize.css";
 
 @font-face {
     font-family: 'Days-One';
     font-style: normal;
     font-weight: 700;
-    src: url('~@/assets/fonts/DaysOne-Regular.ttf') format('truetype');
+    src: url('../fonts/DaysOne-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Pixel-Square';
     font-style: normal;
     font-weight: 700;
-    src: url('~@/assets/fonts/Pixel_Square.ttf') format('truetype');
+    src: url('../fonts/Pixel_Square.ttf') format('truetype');
 }
 
 // Uncomment this to test the Kanit webfont
@@ -19,28 +19,28 @@
     font-family: 'eKanit';
     font-style: normal;
     font-weight: 400;
-    src: url('~@/assets/fonts/eKanit-Light.ttf') format('truetype');
+    src: url('../fonts/eKanit-Light.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'eKanit';
     font-style: italic;
     font-weight: 400;
-    src: url('~@/assets/fonts/eKanit-LightItalic.ttf') format('truetype');
+    src: url('../fonts/eKanit-LightItalic.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'eKanit';
     font-style: normal;
     font-weight: 700;
-    src: url('~@/assets/fonts/eKanit-SemiBold.ttf') format('truetype');
+    src: url('../fonts/eKanit-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'eKanit';
     font-style: italic;
     font-weight: 700;
-    src: url('~@/assets/fonts/eKanit-SemiBoldItalic.ttf') format('truetype');
+    src: url('../fonts/eKanit-SemiBoldItalic.ttf') format('truetype');
 }
 
 
@@ -132,7 +132,7 @@ button {
 		bottom: 0;
 		margin: 3px;
 		border: 5px solid transparent;
-		border-image: url('~@/assets/images/ToolTip-corners.gif') 50% round;
+		border-image: url('../images/ToolTip-corners.gif') 50% round;
 	};
 
 	p {
@@ -155,7 +155,7 @@ button {
 		font-size: 1.05em;
 		letter-spacing: .03em;
 		font-variant: small-caps;
-		background: transparent url('~@/assets/images/notes.gif') no-repeat center left;
+		background: transparent url('../images/notes.gif') no-repeat center left;
 	};
 }
 

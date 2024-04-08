@@ -5,7 +5,7 @@
         </h1>
         <slot />
         <button v-if="hasCancelListener" class="modal-close" @click="$emit('exit', $event)">
-            <img src="@/assets/images/comms/close.png" alt="close">
+            <img :src="getImgUrl('comms/close.png')" alt="close">
         </button>
     </div>
 </template>
@@ -13,6 +13,7 @@
 <script lang="ts">
 
 import { defineComponent } from "vue";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "GamePopUp",
@@ -23,6 +24,9 @@ export default defineComponent ({
         hasCancelListener() : boolean {
             return (this.$attrs && this.$attrs.onExit) as boolean;
         }
+    },
+    methods: {
+        getImgUrl
     }
 });
 </script>
@@ -92,7 +96,7 @@ export default defineComponent ({
         }
 
         h1.header::before {
-            content:  url("@/assets/images/planet.png");
+            content:  url("/src/assets/images/planet.png");
             padding-right: 0.25em;
         }
     }

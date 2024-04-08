@@ -105,7 +105,7 @@ export default defineComponent ({
     max-width: 424px;
     height: fit-content;
     max-height: 460px;
-    background: #09092d url("~@/assets/images/shipview/background.png") center repeat;
+    background: #09092d url("/src/assets/images/shipview/background.png") center repeat;
 
     .ship-panel-content {
         width: 100%;

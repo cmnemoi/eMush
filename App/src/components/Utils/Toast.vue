@@ -2,10 +2,10 @@
     <template v-if="isOpen">
         <div class="toast" :class="type">
             <div class="icon">
-                <img v-if="type == 'warning'" src="@/assets/images/att.png" alt="warning" />
-                <img v-else-if="type == 'error'" src="@/assets/images/neron_eye.gif" alt="error" />
-                <img v-else-if="type == 'success'" src="@/assets/images/ready.png" alt="warning" />
-                <img v-else src="@/assets/images/info.png" alt="info" />
+                <img v-if="type == 'warning'" :src="getImgUrl('att.png')" alt="warning" />
+                <img v-else-if="type == 'error'" :src="getImgUrl('neron_eye.gif')" alt="error" />
+                <img v-else-if="type == 'success'" :src="getImgUrl('ready.png')" alt="warning" />
+                <img v-else :src="getImgUrl('info.png')" alt="info" />
             </div>
             <div class="content">
                 <h1 v-if="title">
@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     props: {
@@ -35,7 +36,8 @@ export default defineComponent ({
     methods: {
         close() {
             this.$emit("close");
-        }
+        },
+        getImgUrl,
     }
 });
 </script>

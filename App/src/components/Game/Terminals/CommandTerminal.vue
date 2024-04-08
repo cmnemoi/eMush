@@ -22,8 +22,8 @@
         <section v-if="advanceDaedalusAction || leaveOrbitAction">
             <h3>{{ terminal.sectionTitles?.moveDaedalus }}</h3>
             <div class="move-status" v-if="terminal.infos.advanceDaedalusStatus">
-                <img src="@/assets/images/att.png" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
-                <img src="@/assets/images/info.png" alt="info" v-else>
+                <img :src="getImgUrl('att.png')" alt="warning" v-if="terminal.infos.advanceDaedalusStatus.isWarning()">
+                <img :src="getImgUrl('info.png')" alt="info" v-else>
                 <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
             <div class="action">
@@ -49,7 +49,7 @@
             <h3>Pilgred</h3>
             <div class="action">
                 <button>
-                    <span class="cost">1<img src="@/assets/images/pa.png" alt="ap"></span>
+                    <span class="cost">1<img :src="getImgUrl('pa.png')" alt="ap"></span>
                     <span>Retourner sur Sol</span>
                 </button>
             </div>
@@ -70,6 +70,7 @@ import ActionButton from "@/components/Utils/ActionButton.vue";
 import { Action } from "@/entities/Action";
 import { ActionEnum } from "@/enums/action.enum";
 import { mapActions } from "vuex";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 
 export default defineComponent ({
@@ -112,11 +113,8 @@ export default defineComponent ({
                 await this.executeAction({ target, action });
             }
         },
-        formatText(text: string | null): string {
-            if (!text)
-                return '';
-            return formatText(text);
-        }
+        getImgUrl,
+        formatText
     },
     data() {
         return {
@@ -133,7 +131,7 @@ section {
     @extend %terminal-section;
     flex-direction: column;
     padding: 1.5em .8em .8em;
-    background-image: url("~@/assets/images/nav_bg.svg");
+    background-image: url("/src/assets/images/nav_bg.svg");
 
     & > p, & > div {
         margin: 0.8em 0 0;

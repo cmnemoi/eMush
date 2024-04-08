@@ -37,6 +37,7 @@ import { itemEnum } from "@/enums/item";
 import { Item } from "@/entities/Item";
 import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "Inventory",
@@ -66,7 +67,7 @@ export default defineComponent ({
     },
     methods: {
         itemImage: function(item: Item): string {
-            return itemEnum[item.key] ? itemEnum[item.key].image : require('@/assets/images/items/todo.jpg');
+            return itemEnum[item.key] ? itemEnum[item.key].image : getImgUrl('items/todo.png');
         },
         formatDescription(value: string): string {
             if (! value) return '';

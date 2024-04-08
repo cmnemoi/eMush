@@ -157,7 +157,7 @@ export default defineComponent({
 
             GameConfigService.createModifierConfig(newModifierConfig)
                 .then((res: ModifierConfig | null) => {
-                    const newModifierConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/modifier-config', String(res?.id));
+                    const newModifierConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/modifier-config', String(res?.id));
                     window.location.href = newModifierConfigUrl;
                 })
                 .catch((error) => {
@@ -183,7 +183,7 @@ export default defineComponent({
                 .then((res: ModifierConfig | null) => {
                     this.modifierConfig = res;
                     if (this.modifierConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
                                 const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -228,7 +228,7 @@ export default defineComponent({
         GameConfigService.loadModifierConfig(Number(modifierConfigId)).then((res: ModifierConfig | null) => {
             if (res instanceof ModifierConfig) {
                 this.modifierConfig = res;
-                ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
+                ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
                     .then((result) => {
                         const modifierActivationRequirements : ModifierActivationRequirement[] = [];
                         result.data['hydra:member'].forEach((datum: any) => {

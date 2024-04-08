@@ -159,7 +159,7 @@ export default defineComponent({
 
             // @ts-ignore
             GameConfigService.createEquipmentConfig(newEquipmentConfig).then((res: EquipmentConfig | null) => {
-                const newEquipmentConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/equipment-config', String(res?.id));
+                const newEquipmentConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/equipment-config', String(res?.id));
                 window.location.href = newEquipmentConfigUrl;
             });
         },
@@ -173,7 +173,7 @@ export default defineComponent({
                 .then((res: EquipmentConfig | null) => {
                     this.equipmentConfig = res;
                     if (this.equipmentConfig !== null) {
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'actions'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'actions'))
                             .then((result) => {
                                 const actions: Action[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -184,7 +184,7 @@ export default defineComponent({
                                     this.equipmentConfig.actions = actions;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'init_statuses'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'init_statuses'))
                             .then((result) => {
                                 const statuses: StatusConfig[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -195,7 +195,7 @@ export default defineComponent({
                                     this.equipmentConfig.initStatuses = statuses;
                                 }
                             });
-                        ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'mechanics'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'mechanics'))
                             .then((result) => {
                                 const mechanics: Mechanics[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
@@ -292,7 +292,7 @@ export default defineComponent({
         const equipmentConfigId = String(this.$route.params.equipmentConfigId);
         GameConfigService.loadEquipmentConfig(Number(equipmentConfigId)).then((res: EquipmentConfig | null) => {
             this.equipmentConfig = res;
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'equipment_configs', equipmentConfigId, 'actions'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'actions'))
                 .then((result) => {
                     const actions : Action[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -303,7 +303,7 @@ export default defineComponent({
                         this.equipmentConfig.actions = actions;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'equipment_configs', equipmentConfigId, 'init_statuses'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'init_statuses'))
                 .then((result) => {
                     const initStatuses : StatusConfig[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {
@@ -314,7 +314,7 @@ export default defineComponent({
                         this.equipmentConfig.initStatuses = initStatuses;
                     }
                 });
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'equipment_configs', equipmentConfigId, 'mechanics'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'mechanics'))
                 .then((result) => {
                     const mechanics : Mechanics[] = [];
                     result.data['hydra:member'].forEach((datum: any) => {

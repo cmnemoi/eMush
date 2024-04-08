@@ -4,8 +4,8 @@ import store from "@/store";
 import { HunterConfig } from "@/entities/Config/HunterConfig";
 
 let HUNTER_CONFIG_ENDPOINT = "";
-if (process.env.VUE_APP_API_URL !== undefined) {
-    HUNTER_CONFIG_ENDPOINT = urlJoin(process.env.VUE_APP_API_URL, "hunter_configs");
+if (import.meta.env.VITE_APP_API_URL !== undefined) {
+    HUNTER_CONFIG_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "hunter_configs");
 }
 
 const HunterConfigService = {

@@ -1,3 +1,5 @@
+import { getImgUrl } from "@/utils/getImgUrl";
+
 const DEFAULT = "default";
 
 export enum TitleEnum {
@@ -12,16 +14,16 @@ export interface TitleInfos {
 
 export const titleEnum : {[index: string]: TitleInfos}  = {
     [TitleEnum.COMMANDER]: {
-        'image': require('@/assets/images/title_commander.png')
+        'image': getImgUrl('title_commander.png')
     },
     [TitleEnum.COM_MANAGER]: {
-        'image': require('@/assets/images/title_com_manager.png')
+        'image': getImgUrl('title_com_manager.png')
     },
     [TitleEnum.NERON_MANAGER]: {
-        'image': require('@/assets/images/title_neron_manager.png')
+        'image': getImgUrl('title_neron_manager.png')
     },
     [DEFAULT]: {
-        'image': require('@/assets/images/title_commander.png')
+        'image': getImgUrl('title_commander.png')
     }
 }
 ;

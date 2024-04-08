@@ -18,6 +18,7 @@
 
 import { ChannelType } from "@/enums/communication.enum";
 import { defineComponent } from "vue";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     props: {
@@ -39,21 +40,21 @@ export default defineComponent ({
         icon(): string {
             switch (this.type) {
             case ChannelType.FAVORITES:
-                return require('@/assets/images/comms/fav.png');
+                return getImgUrl('comms/fav.png');
             case ChannelType.MUSH:
-                return require('@/assets/images/comms/mush.png');
+                return getImgUrl('comms/mush.png');
             case ChannelType.PRIVATE:
-                return require('@/assets/images/comms/private.png');
+                return getImgUrl('comms/private.png');
             case ChannelType.PUBLIC:
-                return require('@/assets/images/comms/wall.png');
+                return getImgUrl('comms/wall.png');
             case ChannelType.ROOM_LOG:
-                return require('@/assets/images/comms/local.png');
+                return getImgUrl('comms/local.png');
             // TODO: not implemented yet
             // case ChannelType.TIPS:
-            //     return require('@/assets/images/comms/tip.png');
+            //     return getImgUrl('comms/tip.png');
             case "new":
             default:
-                return require('@/assets/images/comms/newtab.png');
+                return getImgUrl('comms/newtab.png');
             }
         },
         numberOfNewMessagesDisplayed(): string|number {

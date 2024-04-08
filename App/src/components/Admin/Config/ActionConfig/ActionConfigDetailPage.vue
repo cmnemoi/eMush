@@ -140,7 +140,7 @@ export default defineComponent({
             // @ts-ignore
             GameConfigService.createActionConfig(newActionConfig)
                 .then((res: ActionConfig | null) => {
-                    const newActionConfigUrl = urlJoin(process.env.VUE_APP_URL + '/config/action-config', String(res?.id));
+                    const newActionConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/action-config', String(res?.id));
                     window.location.href = newActionConfigUrl;
                 })
                 .catch((error) => {

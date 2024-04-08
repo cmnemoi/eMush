@@ -141,6 +141,7 @@ import { crowdin, team } from '@/enums/footer';
 import { version } from '../../package.json';
 import { mapActions } from "vuex";
 import { mapGetters } from 'vuex';
+import { getImgUrl } from '@/utils/getImgUrl';
 
 export default defineComponent({
     name: 'Thanks',
@@ -154,8 +155,8 @@ export default defineComponent({
             crowdin: crowdin,
             team: team,
             version: version as string,
-            release: process.env.VUE_APP_API_RELEASE_COMMIT as string,
-            channel: process.env.VUE_APP_API_RELEASE_CHANNEL as string,
+            release: import.meta.env.VITE_APP_API_RELEASE_COMMIT as string,
+            channel: import.meta.env.VITE_APP_API_RELEASE_CHANNEL as string,
             displayedContributors: team.filter((member) => !member.coreTeam).slice(0,6)
         };
     },
@@ -169,15 +170,15 @@ export default defineComponent({
         ]),
         getRoleImage(role: string) {
             if (role === 'developer') {
-                return require('@/assets/images/project_roles/developerPicto.png');
+                return getImgUrl('project_roles/developerPicto.png');
             } else if (role === 'admin') {
-                return require('@/assets/images/project_roles/adminPicto.png');
+                return getImgUrl('project_roles/adminPicto.png');
             } else if (role === 'helper') {
-                return require('@/assets/images/project_roles/helperPicto.png');
+                return getImgUrl('project_roles/helperPicto.png');
             } else if (role === 'artist') {
-                return require('@/assets/images/project_roles/artistPicto.png');
+                return getImgUrl('project_roles/artistPicto.png');
             } else if (role === 'translator') {
-                return require('@/assets/images/project_roles/translatorPicto.png');
+                return getImgUrl('project_roles/translatorPicto.png');
             } else {
                 return '';
             }
@@ -216,7 +217,7 @@ footer {
         width: 100%;
         margin-top: 2.8em;
         background-color: $footer-bg-color;
-        mask-image: url("~@/assets/images/footer_waves.svg");
+        mask-image: url("/src/assets/images/footer_waves.svg");
         mask-size: 300px;
         mask-repeat: repeat-x;
         mask-position: top center;
@@ -293,7 +294,7 @@ footer {
     top: 0;
     left: 50%;
     transform: translate(-50%, -60%);
-    background-image: url("~@/assets/images/etwin_icon_bw.svg");
+    background-image: url("/src/assets/images/etwin_icon_bw.svg");
     background-repeat: no-repeat;
     background-position: center;
     }

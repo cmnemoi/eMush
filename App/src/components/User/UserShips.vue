@@ -26,7 +26,9 @@
                 {{ $t('userShips.linkToTheEnd') }}
             </template>
             <template #row-actions="slotProps">
-                <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.closedDaedalusId } }"> <img :src="require('@/assets/images/right.png')" id="arrow" />  {{  $t('userShips.goToTheEnd') }}</router-link>
+                <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.closedDaedalusId } }">
+                    <img :src="getImgUrl('right.png')" id="arrow" />  {{  $t('userShips.goToTheEnd') }}
+                </router-link>
             </template>
         </Datatable>
     </div>
@@ -40,6 +42,7 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import { characterEnum } from "@/enums/character";
 import UserService from "@/services/user.service";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent({
     name: "UserPage",
@@ -103,6 +106,7 @@ export default defineComponent({
         };
     },
     methods: {
+        getImgUrl,
         loadData() {
             this.loading = true;
             if (typeof this.$route.params.userId !== 'string') {
@@ -136,7 +140,7 @@ export default defineComponent({
 
             params.params['playerInfo.user.userId'] = this.$route.params.userId;
 
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL+'closed_players'), params)
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'closed_players'), params)
                 .then((result) => {
                     for (const closedPlayer of result.data['hydra:member']) {
                         closedPlayer.endCause = this.$t('userShips.endCause.' + closedPlayer.endCause);

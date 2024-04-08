@@ -1,6 +1,6 @@
 <template>
     <div class="trading-terminal">
-        <h1><img src="@/assets/images/spot2.svg"> Radio ondes courtes</h1>
+        <h1><img :src="getImgUrl('spot2.svg')"> Radio ondes courtes</h1>
         <div class="tips">
             <input id="tips-comm" type="checkbox" name="tips-comm">
             <label for="tips-comm">
@@ -37,7 +37,7 @@
 
         <section class="trade">
             <div class="proposal">
-                <img src="@/assets/images/trading.png">
+                <img :src="getImgUrl('trading.png')">
                 <p>Aloha, vos organismes sont vraiment passionnant surtout la métanisation de vos déchets organiques, incroyable... Nous vous échangeons un de vos amis contre des réserves d'oxygène conséquentes !</p>
             </div>
             <button class="choice">
@@ -50,7 +50,7 @@
         </section>
         <section class="trade">
             <div class="proposal">
-                <img src="@/assets/images/trading.png">
+                <img :src="getImgUrl('trading.png')">
                 <p>Aloha, vos organismes sont vraiment passionnant surtout la métanisation de vos déchets organiques, incroyable... Nous vous échangeons un de vos amis contre des réserves d'oxygène conséquentes !</p>
             </div>
             <button class="choice">
@@ -69,10 +69,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
     name: "TradingTerminal",
     props: {
+    },
+    methods: {
+        getImgUrl
     }
 });
 </script>
@@ -105,7 +109,7 @@ export default defineComponent ({
 .tips { @extend %retracted-tips; }
 
 .trading-objects {
-    background-image: url("~@/assets/images/sensor_bg.svg");
+    background-image: url("/src/assets/images/sensor_bg.svg");
     background-repeat: no-repeat;
     background-position: right bottom;
 }
@@ -124,7 +128,7 @@ export default defineComponent ({
 
     .proposal {
         display: block;
-        background: $lightCyan url("~@/assets/images/sensor_bg.svg") no-repeat right bottom;
+        background: $lightCyan url("/src/assets/images/sensor_bg.svg") no-repeat right bottom;
 
         img {
             width: 85px;

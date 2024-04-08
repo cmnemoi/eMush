@@ -27,7 +27,7 @@
             </template>
             <template #row-actions="slotProps">
                 <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.closedDaedalusId } }">
-                    <img :src="getImgUrl('src/assets/images/right.png')" id="arrow" />  {{  $t('userShips.goToTheEnd') }}
+                    <img :src="getImgUrl('right.png')" id="arrow" />  {{  $t('userShips.goToTheEnd') }}
                 </router-link>
             </template>
         </Datatable>

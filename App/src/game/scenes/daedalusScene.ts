@@ -1140,7 +1140,6 @@ export default class DaedalusScene extends Phaser.Scene
             }
 
             this.playerSprite.updateMovement(pointer, gameObject);
-            console.log(this.selectedGameObject, this.playerSprite);
             if (this.selectedGameObject !== null &&
                 this.selectedGameObject instanceof InteractObject &&
                 this.selectedGameObject !== gameObject

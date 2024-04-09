@@ -13,6 +13,7 @@ export default class PlayableCharacterObject extends CharacterObject {
     private currentMove : number;
     private lastMove: InteractObject | null;
     private moveObjective: CartesianCoordinates | null;
+    private characterSpeed = 74; //TODO: Bring it down if alert = no_gravity?
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player)
     {
@@ -151,8 +152,7 @@ export default class PlayableCharacterObject extends CharacterObject {
     // moving the sprite and playing the animation
     movement(): void
     {
-        //Would it be possible to use variables instead of Array? :)
-        const cartSpeed = 74;
+        const cartSpeed = this.characterSpeed;
 
         if (this.currentMove !== -1) {
             this.updateCurrentMove();

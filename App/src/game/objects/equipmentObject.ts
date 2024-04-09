@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates } from "@/game/types";
 import { Equipment } from "@/entities/Equipment";
 import store from "@/store";
 import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
@@ -62,7 +62,7 @@ export default class EquipmentObject extends InteractObject {
                 alpha: { start: 0.5, end: 0, ease: 'Quad.easeIn' },
                 tint: [ 0x666666, 0xFFFFFF, 0x10EEEEEE ],
                 quantity: 1,
-                frequency: 100000/(this.width * this.height ),
+                frequency: 100000/(this.width * this.height),
                 //@ts-ignore
                 emitZone: { type: 'random', source: this.isoGeom }
             });

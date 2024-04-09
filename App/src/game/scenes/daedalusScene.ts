@@ -164,7 +164,7 @@ import OutlinePostFx from 'phaser3-rex-plugins/plugins/outlinepipeline.js';
 
 import { Player } from "@/entities/Player";
 import PlayableCharacterObject from "@/game/objects/playableCharacterObject";
-import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { SceneGrid } from "@/game/scenes/sceneGrid";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
@@ -176,10 +176,9 @@ import DecorationObject from "@/game/objects/decorationObject";
 import DoorObject from "@/game/objects/doorObject";
 import DoorGroundObject from "@/game/objects/doorGroundObject";
 import { Door } from "@/entities/Door";
-import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
 import { Planet } from "@/entities/Planet";
 import PatrolShipObject from "@/game/objects/patrolShipObject";
-
+import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -219,7 +218,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.isoTileSize = 16;
         this.sceneIsoSize= new IsometricCoordinates(0, 0);
         this.playerIsoSize = new IsometricCoordinates(this.characterSize, this.characterSize);
-
 
         if (player.room === null){
             throw new Error('player should have a room');
@@ -392,10 +390,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('sofa_asset', sofa_asset, { frameWidth: 62, frameHeight: 47 });
         this.load.spritesheet('small_sofa', small_sofa, { frameWidth: 42, frameHeight: 37 });
 
-
         this.load.spritesheet('ground_object', ground_tileset, { frameWidth: 32, frameHeight: 72 });
-
-
 
         this.load.image('smoke_particle', smoke_particle);
         this.load.atlas('fire_particles', fire_particles, fire_particles_frame);
@@ -642,7 +637,6 @@ export default class DaedalusScene extends Phaser.Scene
         //else it is centered on the scene
         const sceneCartesianSize = new CartesianCoordinates(this.sceneIsoSize.x + this.sceneIsoSize.y, (this.sceneIsoSize.x + this.sceneIsoSize.y)/2);
         //this.cameras.main.setBounds(-this.sceneIsoSize.y, 0, sceneCartesianSize.x, sceneCartesianSize.y);
-
 
         this.cameras.main.setBounds(-this.game.scale.gameSize.width/2, -this.game.scale.gameSize.height/2 +72, sceneCartesianSize.x, sceneCartesianSize.y);
 
@@ -1141,18 +1135,17 @@ export default class DaedalusScene extends Phaser.Scene
     {
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, gameObjects: Array<Phaser.GameObjects.GameObject>) => {
             let gameObject = null;
-            if (gameObjects.length>0) {
+            if (gameObjects.length > 0) {
                 gameObject = gameObjects[0];
             }
 
             this.playerSprite.updateMovement(pointer, gameObject);
-
+            console.log(this.selectedGameObject, this.playerSprite);
             if (this.selectedGameObject !== null &&
                 this.selectedGameObject instanceof InteractObject &&
                 this.selectedGameObject !== gameObject
             ) {
                 this.selectedGameObject.onClickedOut();
-
                 this.selectedGameObject = gameObject;
 
                 if (gameObject === null) {
@@ -1164,7 +1157,6 @@ export default class DaedalusScene extends Phaser.Scene
                 gameObject.onSelected();
                 this.selectedGameObject = gameObject;
             }
-
 
             // screen sliding
             const playerTargetCoordinates = this.playerSprite.getMovementTarget();

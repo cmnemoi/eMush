@@ -32,6 +32,7 @@ export class Player {
     public exploration: Exploration|null;
     public skills: Array<Status>;
     public shootPoint: QuantityPoint|null;
+    public isSeated: boolean;
 
     public constructor() {
         this.gameStatus = null;
@@ -53,6 +54,7 @@ export class Player {
         this.exploration = null;
         this.skills = [];
         this.shootPoint = null;
+        this.isSeated = false;
     }
 
     public load(object: any): Player {
@@ -160,7 +162,7 @@ export class Player {
 
     public isLyingDown(): { "key" : string, "id" : number } | null
     {
-        for (let i=0; i<this.statuses.length; i++) {
+        for (let i= 0; i<this.statuses.length; i++) {
             const status = this.statuses[i];
             if (status.key === 'lying_down') {
                 return status.target;

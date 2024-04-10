@@ -30,6 +30,7 @@ class MushActionFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(2)
             ->setDirtyRate(100)
+            ->makeSuperDirty()
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
         ;
 

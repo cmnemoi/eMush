@@ -4,12 +4,10 @@ namespace Mush\Action\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
-use Mush\Player\Enum\PlayerVariableEnum;
 
-class ActionDataLoader extends ConfigDataLoader
+final class ActionDataLoader extends ConfigDataLoader
 {
     private ActionRepository $actionRepository;
 
@@ -48,16 +46,14 @@ class ActionDataLoader extends ConfigDataLoader
 
     private function setActionVariables(Action $action, array $actionData): void
     {
-        $gameVariables = $action->getGameVariables();
-        $gameVariables->setValuesByName($actionData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
-        $gameVariables->setValuesByName($actionData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
-        $gameVariables->setValuesByName($actionData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
-        $gameVariables->setValuesByName($actionData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
-        $gameVariables->setValuesByName($actionData['outputQuantity'], ActionVariableEnum::OUTPUT_QUANTITY);
-
-        $gameVariables->setValuesByName($actionData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
-        $gameVariables->setValuesByName($actionData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
-        $gameVariables->setValuesByName($actionData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+        $action->setActionCost($actionData['actionPoint']);
+        $action->setCriticalRate($actionData['percentageCritical']);
+        $action->setDirtyRate($actionData['percentageDirtiness']);
+        $action->setInjuryRate($actionData['percentageInjury']);
+        $action->setMoralCost($actionData['moralPoint']);
+        $action->setMovementCost($actionData['movementPoint']);
+        $action->setOutputQuantity($actionData['outputQuantity']);
+        $action->setSuccessRate($actionData['percentageSuccess']);
     }
 
     private function setActionVisibilities(Action $action, array $visibilityData): void

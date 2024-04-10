@@ -241,9 +241,10 @@ class Action implements GameVariableHolderInterface
         return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
     }
 
-    public function setDirtyRate(int $dirtyRate, bool $isSuperDirty = false): self
+    public function setDirtyRate(int $dirtyRate): self
     {
         $gameVariable = $this->actionVariables->getVariableByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
+        $isSuperDirty = $dirtyRate >= 100;
 
         if ($isSuperDirty) {
             $gameVariable->setMinValue($dirtyRate);

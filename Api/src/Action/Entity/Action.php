@@ -3,6 +3,7 @@
 namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
@@ -246,6 +247,7 @@ class Action implements GameVariableHolderInterface
 
         if ($isSuperDirty) {
             $gameVariable->setMinValue($dirtyRate);
+            $this->types[] = ActionTypeEnum::ACTION_SUPER_DIRTY;
         } else {
             $gameVariable->setMinValue(0);
         }

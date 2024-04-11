@@ -7,16 +7,13 @@ import { ChannelType } from "@/enums/communication.enum";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 
-// @ts-ignore
-const CAN_CREATE_CHANNEL_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "channel/canCreatePrivate");
-// @ts-ignore
-const CHANNELS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "channel");
-// @ts-ignore
-const PIRATED_CHANNELS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "channel/pirated");
-// @ts-ignore
-const ROOM_LOGS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "room-log");
-// @ts-ignore
-const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "room-log/channel");
+const API_URL = import.meta.env.VITE_APP_API_URL as string;
+
+const CAN_CREATE_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/canCreatePrivate");
+const CHANNELS_ENDPOINT = urlJoin(API_URL, "channel");
+const PIRATED_CHANNELS_ENDPOINT = urlJoin(API_URL, "channel/pirated");
+const ROOM_LOGS_ENDPOINT = urlJoin(API_URL, "room-log");
+const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(API_URL, "room-log/channel");
 
 const CommunicationService = {
     loadChannels: async(): Promise<Channel[]> => {
@@ -66,12 +63,12 @@ const CommunicationService = {
         return ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/exit');
     },
 
-    loadMessages: async (channel: Channel): Promise<Array<Message|Record<string, unknown>>> => {
+    loadMessages: async (channel: Channel, page: integer = 1, limit: integer = Channel.MESSAGE_LIMIT): Promise<Array<Message|Record<string, unknown>>> => {
         switch (channel.scope) {
         case ChannelType.PRIVATE:
         case ChannelType.PUBLIC:
         case ChannelType.MUSH:
-            return CommunicationService.loadChannelMessages(channel);
+            return CommunicationService.loadChannelMessages(channel, page, limit);
         case ChannelType.ROOM_LOG:
             return loadRoomLogs();
         default:
@@ -103,8 +100,13 @@ const CommunicationService = {
         }
     },
 
-    loadChannelMessages: async (channel: Channel): Promise<Message[]> => {
-        const messagesData = await ApiService.get(CHANNELS_ENDPOINT + '/' + channel.id + '/message');
+    loadChannelMessages: async (channel: Channel, page: integer, limit: integer): Promise<Message[]> => {
+        const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, String(channel.id), 'message'), {
+            params: {
+                'page': page,
+                'limit': limit
+            }
+        });
 
         const messages: Message[] = [];
         if (messagesData.data) {
@@ -143,7 +145,9 @@ const CommunicationService = {
         const messagesData = await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/message', {
             'message': text,
             'parent': parentId,
-            'player': channel.piratedPlayer
+            'player': channel.piratedPlayer,
+            'page': 1,
+            'limit': Channel.MESSAGE_LIMIT
         });
 
         const messages: Message[] = [];

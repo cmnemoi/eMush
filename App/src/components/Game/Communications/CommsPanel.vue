@@ -21,6 +21,9 @@
             </template>
         </Tippy>
         <component :is="currentTabComponent" :channel="currentChannel" :calendar="calendar" />
+        <button class="action-button" @click="loadMoreMessages()" v-if="currentChannel.isChannelWithPagination()">
+            {{ $t('game.communications.loadMoreMessages') }}
+        </button>
     </div>
 </template>
 
@@ -90,7 +93,8 @@ export default defineComponent ({
     methods: {
         ...mapActions('communication', [
             'loadChannels',
-            'changeChannel'
+            'changeChannel',
+            'loadMoreMessages'
         ]),
         getImgUrl,
         isChannelPirated(channel: Channel): boolean
@@ -203,6 +207,10 @@ export default defineComponent ({
         span:not(.mobile) { display: none; }
         span.mobile {display: initial; }
     }
+}
+
+.action-button {
+    float: right;
 }
 
 </style>

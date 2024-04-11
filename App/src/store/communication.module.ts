@@ -102,6 +102,26 @@ const actions: ActionTree<any, any> = {
         }
     },
 
+    async loadMoreMessages({ getters, commit }) {
+        const channel = state.currentChannel;
+        const channelMessages = getters.messages;
+        const page = channelMessages.length / Channel.MESSAGE_LIMIT + 1;
+
+        commit('setLoadingForChannel', { channel, newStatus: true });
+        try {
+            const newMessages = await CommunicationService.loadMessages(channel, page);
+            const messages = channelMessages.concat(newMessages);
+
+            commit('setChannelMessages', { channel, messages });
+            commit('setLoadingForChannel', { channel, newStatus: false });
+            return true;
+        } catch (e) {
+            console.error(e);
+            commit('setLoadingForChannel', { channel, newStatus: false });
+            return false;
+        }
+    },
+
     async sendMessage({ commit }, { channel, text, parent }) {
         commit('setLoadingForChannel', { channel, newStatus: true });
         try {

@@ -3074,12 +3074,13 @@ class EquipmentConfigData
                 'sabotage_percent_12',
                 'report_equipment',
                 'examine',
-                'wash_in_sink',
             ],
             'mechanics' => [
                 'tools_kitchen_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                'electric_charges_kitchen_default',
+            ],
         ],
         [
             'name' => 'narcotic_distiller_default',

@@ -712,8 +712,8 @@ class StatusConfigData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'electric_charges_kitchen_default',
-            'statusName' => 'electric_charges',
+            'name' => 'sink_charge_default',
+            'statusName' => 'sink_charge',
             'visibility' => 'hidden',
             'type' => 'charge_status_config',
             'chargeVisibility' => 'hidden',

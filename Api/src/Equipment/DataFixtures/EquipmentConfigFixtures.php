@@ -507,8 +507,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $kitchenMechanic = $this->createTool([$cookAction, $washAction], EquipmentEnum::KITCHEN);
 
-        /** @var ChargeStatusConfig $kitchenCharge */
-        $kitchenCharge = $this->getReference(ChargeStatusFixtures::KITCHEN_CHARGE);
+        /** @var ChargeStatusConfig $sinkCharge */
+        $sinkCharge = $this->getReference(ChargeStatusFixtures::SINK_CHARGE);
 
         $kitchen = new EquipmentConfig();
         $kitchen
@@ -516,7 +516,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setInitStatuses([$kitchenCharge])
+            ->setInitStatuses([$sinkCharge])
             ->setMechanics([$kitchenMechanic])
             ->setActions([
                 $repair12,

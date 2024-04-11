@@ -3079,7 +3079,7 @@ class EquipmentConfigData
                 'tools_kitchen_default',
             ],
             'initStatuses' => [
-                'electric_charges_kitchen_default',
+                'sink_charge_default',
             ],
         ],
         [

@@ -38,7 +38,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const DISPENSER_CHARGE = 'dispenser_charge';
     public const TURRET_CHARGE = 'turret_charge';
     public const PATROLLER_CHARGE = 'patroller_charge';
-    public const KITCHEN_CHARGE = 'kitchen_charge';
+    public const SINK_CHARGE = 'sink_charge';
 
     public const FIRE_STATUS = 'fire_status';
     public const PLANT_YOUNG = 'plant_young';
@@ -197,18 +197,18 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         ;
         $manager->persist($patrolShipCharge);
 
-        $kitchenCharge = new ChargeStatusConfig();
-        $kitchenCharge
-            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
+        $sinkCharge = new ChargeStatusConfig();
+        $sinkCharge
+            ->setStatusName(EquipmentStatusEnum::SINK_CHARGE)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategies([ActionEnum::WASH_IN_SINK])
-            ->buildName(GameConfigEnum::DEFAULT, EquipmentEnum::KITCHEN)
+            ->buildName(GameConfigEnum::DEFAULT)
         ;
-        $manager->persist($kitchenCharge);
+        $manager->persist($sinkCharge);
 
         $fireStatus = new ChargeStatusConfig();
         $fireStatus
@@ -517,7 +517,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($dispenserCharge)
             ->addStatusConfig($blasterCharge)
             ->addStatusConfig($patrolShipCharge)
-            ->addStatusConfig($kitchenCharge)
+            ->addStatusConfig($sinkCharge)
             ->addStatusConfig($fireStatus)
             ->addStatusConfig($plantYoung)
             ->addStatusConfig($eurekaMoment)
@@ -554,7 +554,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::DISPENSER_CHARGE, $dispenserCharge);
         $this->addReference(self::BLASTER_CHARGE, $blasterCharge);
         $this->addReference(self::PATROLLER_CHARGE, $patrolShipCharge);
-        $this->addReference(self::KITCHEN_CHARGE, $kitchenCharge);
+        $this->addReference(self::SINK_CHARGE, $sinkCharge);
 
         $this->addReference(self::FIRE_STATUS, $fireStatus);
         $this->addReference(self::PLANT_YOUNG, $plantYoung);

@@ -87,8 +87,8 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $I->assertCount(1, $currentDiseases);
         $I->assertCount(1, $roomLog, 'Double FITFUL_SLEEP have been dispatched.');
 
-        // the player gains 1 AP (cycle change) and lose 1 AP (disease), so they should have the same amount of AP
-        $I->assertEquals(expected: 8, actual: $playerEvent->getPlayer()->getActionPoint());
+        // the player gains 1 AP (cycle change) and lose 2 AP (disease), so they should have 7 AP
+        $I->assertEquals(expected: 7, actual: $playerEvent->getPlayer()->getActionPoint());
     }
 
     public function testHealedDiseaseDoesNotActOnPlayerNewCycleEvent(FunctionalTester $I): void

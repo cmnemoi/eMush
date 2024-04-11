@@ -56,6 +56,8 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $cycle1HealthLostRand16 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_16);
         /** @var VariableEventModifierConfig $cycle1ActionLostRand20 */
         $cycle1ActionLostRand20 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_20);
+        /** @var VariableEventModifierConfig $cycle1ActionLost */
+        $cycle1ActionLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST);
         /** @var VariableEventModifierConfig $cycle1ActionLostRand30 */
         $cycle1ActionLostRand30 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_30);
         /** @var VariableEventModifierConfig $cycle2ActionLostRand40 */
@@ -252,7 +254,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setDiseaseName(DiseaseEnum::REJUVENATION)
             ->setModifierConfigs([
                 $cycle1ActionLostRand16FitfulSleep,
-                $cycle1ActionLostRand20,
+                $cycle1ActionLost,
                 $increaseCycleDiseaseChances10,
             ])
             ->buildName(GameConfigEnum::DEFAULT)

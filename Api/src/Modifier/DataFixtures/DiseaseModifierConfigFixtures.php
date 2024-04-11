@@ -47,6 +47,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
     public const string CYCLE_1_HEALTH_LOST_RAND_16 = 'cycle_1_health_lost_rand_16';
     public const string CYCLE_1_ACTION_LOST_RAND_16_FITFUL_SLEEP = 'cycle_1_action_lost_rand_16_fitful_sleep';
     public const string CYCLE_1_ACTION_LOST_RAND_20 = 'cycle_1_action_lost_rand_20';
+    public const string CYCLE_1_ACTION_LOST = 'cycle_1_action_lost';
     public const string CYCLE_1_ACTION_LOST_RAND_30 = 'cycle_1_action_lost_rand_30';
     public const string CYCLE_2_ACTION_LOST_RAND_40 = 'cycle_2_action_lost_rand_40';
     public const string CYCLE_1_MOVEMENT_LOST_RAND_50 = 'cycle_1_movement_lost_rand_50';
@@ -288,6 +289,16 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1ActionLostRand20);
 
+        $cycle1ActionLost = new TriggerEventModifierConfig('cycle1ActionLostRand20');
+        $cycle1ActionLost
+            ->setTriggeredEvent($eventConfigLose1Action)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setApplyOnTarget(true)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+        ;
+        $manager->persist($cycle1ActionLost);
+
         $cycle1ActionLostRand30 = new TriggerEventModifierConfig('cycle1ActionLostRand30');
         $cycle1ActionLostRand30
             ->setTriggeredEvent($eventConfigLose1Action)
@@ -457,6 +468,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         $this->addReference(self::CYCLE_1_HEALTH_LOST_RAND_16, $cycle1HealthLostRand16);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_16_FITFUL_SLEEP, $cycle1ActionLostRand16FitfulSleep);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_20, $cycle1ActionLostRand20);
+        $this->addReference(self::CYCLE_1_ACTION_LOST, $cycle1ActionLost);
         $this->addReference(self::CYCLE_1_ACTION_LOST_RAND_30, $cycle1ActionLostRand30);
         $this->addReference(self::CYCLE_2_ACTION_LOST_RAND_40, $cycle2ActionLostRand40);
         $this->addReference(self::CYCLE_1_MOVEMENT_LOST_RAND_50, $cycle1MovementLostRand50);

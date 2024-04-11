@@ -377,6 +377,7 @@ class GameConfigData
                 'pacifist_default',
                 'pregnant_default',
                 'starving_default',
+                'starving_warning_default',
                 'stuck_in_the_ship_default',
                 'suicidal_default',
                 'WATCHED_PUBLIC_BROADCAST_default',

@@ -205,6 +205,12 @@ class MessageService implements MessageServiceInterface
               ->addReader($player)
               ->cancelTimestampable();
 
+            foreach ($message->getChild() as $child) {
+                $child
+                  ->addReader($player)
+                  ->cancelTimestampable();
+            }
+
             $this->entityManager->persist($message);
         }
 

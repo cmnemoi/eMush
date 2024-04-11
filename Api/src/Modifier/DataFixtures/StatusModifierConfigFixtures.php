@@ -32,6 +32,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class StatusModifierConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -134,6 +135,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
         $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::MORAL_REDUCE_1);
+        $modifierRequirementNotMush = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
+        $modifierRequirementNotMush
+            ->setActivationRequirement(PlayerStatusEnum::MUSH)
+            ->setValue(0)
+            ->setName('player_not_mush_requirement_test')
+        ;
+        $manager->persist($modifierRequirementNotMush);
         $antisocialModifier = new TriggerEventModifierConfig(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $antisocialModifier
             ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
@@ -141,6 +149,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($notAloneActivationRequirement)
+            ->addModifierRequirement($modifierRequirementNotMush)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
         ;

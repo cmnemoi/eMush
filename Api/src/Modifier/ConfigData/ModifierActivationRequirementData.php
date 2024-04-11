@@ -65,6 +65,12 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
         [
+            'name' => 'player_is_mush',
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
+            'activationRequirement' => PlayerStatusEnum::MUSH,
+            'value' => 0,
+        ],
+        [
           'name' => 'player_equipment_schrodinger',
           'activationRequirementName' => 'player_equipment',
           'activationRequirement' => 'schrodinger',

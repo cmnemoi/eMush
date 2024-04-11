@@ -61,7 +61,7 @@ class WashInSinkActionTest extends AbstractActionTest
         $this->action->loadParameters($this->actionEntity, $player, $sinkEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->statusService->shouldReceive('createStatusFromName')->once();
+        $this->statusService->shouldReceive('removeStatus')->once();
 
         $result = $this->action->execute();
 

@@ -2,6 +2,7 @@
 
 namespace Mush\Disease\Event;
 
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Player\Entity\Player;
@@ -21,6 +22,9 @@ class SymptomEvent extends AbstractGameEvent
     ) {
         $this->player = $player;
         $this->symptomName = $symptomName;
+
+        // all symptoms are super dirty : dirty status application cannot be prevented by stainproof apron
+        $tags[] = ActionTypeEnum::ACTION_SUPER_DIRTY;
 
         parent::__construct($tags, $time);
     }

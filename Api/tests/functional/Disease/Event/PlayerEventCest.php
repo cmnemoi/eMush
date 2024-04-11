@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -17,18 +19,21 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 final class PlayerEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
@@ -179,5 +184,34 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
         // the player gains 1 AP (cycle change) and lose 1 AP (disease)
         $I->assertEquals($this->player->getActionPoint(), $initialAP);
+    }
+
+    public function testDiseaseMakesPlayerDirtyAtCycleChangeEvenWithAnApron(FunctionalTester $I): void
+    {
+        // given Chun has an apron
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::STAINPROOF_APRON,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun has a disease which makes her dirty at cycle change
+        $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::FUNGIC_INFECTION,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // when player has a new cycle
+        $playerEvent = new PlayerEvent(
+            player: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
+
+        // then Chun should be dirty
+        $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::DIRTY));
     }
 }

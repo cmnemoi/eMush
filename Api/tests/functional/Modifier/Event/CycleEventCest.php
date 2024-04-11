@@ -55,7 +55,7 @@ class CycleEventCest extends AbstractFunctionalTest
         $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
     }
 
-    public function testAntisocialStatusCycleSubscriber(FunctionalTester $I)
+    public function testAntisocialStatusCycleSubscriber(FunctionalTester $I): void
     {
         // given first player has antisocial status
         $this->statusService->createStatusFromName(PlayerStatusEnum::ANTISOCIAL, $this->player1, [], new \DateTime());

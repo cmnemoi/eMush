@@ -65,6 +65,8 @@ abstract class LogEnum
     public const string LOST_ON_PLANET = 'lost_on_planet';
     public const string FITFUL_SLEEP = 'fitful_sleep';
     public const string LYING_DOWN = 'lying_down';
+    public const string ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
+
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [
         self::VISIBILITY => [
@@ -89,6 +91,7 @@ abstract class LogEnum
             ModifierNameEnum::WALL_HEAD_BANG => VisibilityEnum::PUBLIC,
             ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
         ],
         self::VALUE => [
             ModifierNameEnum::MUSH_CONSUME => self::CONSUME_MUSH,
@@ -112,6 +115,7 @@ abstract class LogEnum
             ModifierNameEnum::WALL_HEAD_BANG => self::WALL_HEAD_BANG,
             ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,
             ModifierNameEnum::LOST_MODIFIER => self::LOST_ON_PLANET,
+            ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
         ],
     ];
 

@@ -23,7 +23,6 @@ abstract class PlayerModifierLogEnum
     public const string LOSS_HEALTH_POINT = 'loss_health_point';
     public const string GAIN_MORAL_POINT = 'gain_moral_point';
     public const string LOSS_MORAL_POINT = 'loss_moral_point';
-    public const string ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
     public const string PANIC_CRISIS = 'panic_crisis';
     public const string CLUMSINESS = 'clumsiness';
     public const string HUNGER = 'hunger';
@@ -52,7 +51,6 @@ abstract class PlayerModifierLogEnum
 
     public const array PLAYER_VARIABLE_SPECIAL_LOGS = [
         self::VALUE => [
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
             ModifierNameEnum::STARVING => self::HUNGER,
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
@@ -61,7 +59,6 @@ abstract class PlayerModifierLogEnum
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
         ],
         self::VISIBILITY => [
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
             SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,

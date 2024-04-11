@@ -746,7 +746,7 @@ class ChannelController extends AbstractGameController
      *
      * @Rest\Get (path="/favorites/messages")
      */
-    public function getFavoritesChannelMessages(): View
+    public function getFavoritesChannelMessages(Request $request): View
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -767,7 +767,10 @@ class ChannelController extends AbstractGameController
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
 
-        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player), Response::HTTP_OK);
+        $page = (int) $request->get('page');
+        $limit = (int) $request->get('limit');
+
+        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player, $page, $limit), Response::HTTP_OK);
         $view->setContext($context);
 
         return $view;

@@ -23,7 +23,7 @@ interface MessageServiceInterface
 
     public function getChannelMessages(?Player $player, Channel $channel, int $page, int $limit): Collection;
 
-    public function getPlayerFavoritesChannelMessages(Player $player): Collection;
+    public function getPlayerFavoritesChannelMessages(Player $player, int $page, int $limit): Collection;
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool;
 

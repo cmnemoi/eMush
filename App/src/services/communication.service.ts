@@ -72,7 +72,7 @@ const CommunicationService = {
         if (channel.scope === ChannelType.ROOM_LOG) {
             return await loadRoomLogs();
         } else if (channel.scope === ChannelType.FAVORITES) {
-            return await loadFavoritesChannelMessages();
+            return await loadFavoritesChannelMessages(page, limit);
         } else {
             return await CommunicationService.loadChannelMessages(channel, page, limit);
         }
@@ -101,8 +101,13 @@ const CommunicationService = {
             return logs;
         }
 
-        async function loadFavoritesChannelMessages(): Promise<Message[]> {
-            const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites', 'messages'));
+        async function loadFavoritesChannelMessages(page: integer, limit: integer): Promise<Message[]> {
+            const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites', 'messages'), {
+                params: {
+                    'page': page,
+                    'limit': limit
+                }
+            });
 
             const messages: Message[] = [];
             if (messagesData.data) {

@@ -289,7 +289,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
         ;
         $manager->persist($cycle1ActionLostRand20);
 
-        $cycle1ActionLost = new TriggerEventModifierConfig('cycle1ActionLostRand20');
+        $cycle1ActionLost = new TriggerEventModifierConfig('cycle1ActionLost');
         $cycle1ActionLost
             ->setTriggeredEvent($eventConfigLose1Action)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)

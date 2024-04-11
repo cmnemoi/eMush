@@ -1,7 +1,7 @@
 import DaedalusScene from "@/game/scenes/daedalusScene";
 
 import CharacterObject from "@/game/objects/characterObject";
-import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
+import { CartesianCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { MushPath } from "@/game/scenes/navigationGrid";
@@ -11,9 +11,9 @@ import GameObject = Phaser.GameObjects.GameObject;
 export default class PlayableCharacterObject extends CharacterObject {
     private isoPath : MushPath;
     private currentMove : number;
-    private indexDepthArray: number;
     private lastMove: InteractObject | null;
     private moveObjective: CartesianCoordinates | null;
+    private characterSpeed = 74; //TODO: Bring it down if alert = no_gravity?
 
     constructor(scene: DaedalusScene, cart_coords: CartesianCoordinates, isoGeom: IsometricGeom, player: Player)
     {
@@ -21,7 +21,6 @@ export default class PlayableCharacterObject extends CharacterObject {
 
         this.isoPath = [];
         this.currentMove = -1;
-        this.indexDepthArray = 0;
         this.lastMove = null;
         this.moveObjective = null;
     }
@@ -45,14 +44,13 @@ export default class PlayableCharacterObject extends CharacterObject {
         let startingPoint = this.getFeetCartCoords().toIsometricCoordinates();
         let finishPoint = (new CartesianCoordinates(pointer.worldX, pointer.worldY)).toIsometricCoordinates();
 
-
         let interactEquipment: InteractObject | null = null;
         if (object !== null && object instanceof InteractObject && !(object instanceof CharacterObject)) {
             interactEquipment = object.getInteractibleObject();
             finishPoint = object.getInteractCoordinates(this.navMesh);
         }
 
-        if (this.interactedEquipment !== null) {
+        if (this.interactedEquipment !== null && interactEquipment === this.interactedEquipment) {
             startingPoint = this.interactedEquipment.getInteractCoordinates(this.navMesh);
             this.setPositionFromFeet(startingPoint.toCartesianCoordinates());
 
@@ -70,12 +68,14 @@ export default class PlayableCharacterObject extends CharacterObject {
             this.lastMove = null;
 
             this.moveObjective = finishPoint.toCartesianCoordinates();
-
             this.setPositionFromFeet(new CartesianCoordinates(newPath[0].cartX, newPath[0].cartY));
 
             // Character is sitting after walking to the equipment
             if (interactEquipment !== null && interactEquipment.getInteractionInformation()?.sitAutoTrigger) {
                 this.lastMove = interactEquipment;
+                this.player.isSeated = true;
+            } else {
+                this.player.isSeated = false;
             }
         }
 
@@ -99,9 +99,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             return this.currentMove;
         }
 
-
         const currentIsoPath = this.isoPath[this.currentMove];
-
 
         if (!this.isIsoPathSectionFinished(currentIsoPath)){
             return this.currentMove;
@@ -125,6 +123,7 @@ export default class PlayableCharacterObject extends CharacterObject {
             }
 
             this.resetMove();
+
             return this.currentMove;
         }
     }
@@ -149,13 +148,11 @@ export default class PlayableCharacterObject extends CharacterObject {
         return true;
     }
 
-
     // this function apply the computed path
     // moving the sprite and playing the animation
     movement(): void
     {
-        //Would it be possible to use variables instead of Array? :)
-        const cartSpeed = 74;
+        const cartSpeed = this.characterSpeed;
 
         if (this.currentMove !== -1) {
             this.updateCurrentMove();
@@ -177,8 +174,6 @@ export default class PlayableCharacterObject extends CharacterObject {
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }
-
-
         } else if (currentMove.direction === 'east') { //move to the E
             this.flipX = false;
             // @ts-ignore
@@ -188,8 +183,6 @@ export default class PlayableCharacterObject extends CharacterObject {
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
-
-
         } else if (currentMove.direction === 'south') {//move to the S
             this.flipX = true;
             // @ts-ignore
@@ -199,8 +192,6 @@ export default class PlayableCharacterObject extends CharacterObject {
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_right') {
                 this.anims.play('move_right');
             }
-
-
         } else if (currentMove.direction === 'north') {//move to the N
             this.flipX = true;
             // @ts-ignore
@@ -210,7 +201,6 @@ export default class PlayableCharacterObject extends CharacterObject {
             if (this.anims.currentAnim === null || this.anims.currentAnim.key !== 'move_left') {
                 this.anims.play('move_left');
             }
-
         }
     }
 
@@ -224,7 +214,7 @@ export default class PlayableCharacterObject extends CharacterObject {
         this.isoPath = [];
         this.currentMove = -1;
         this.moveObjective = null;
-        (<Phaser.Physics.Arcade.Body >this.body).stop();
+        (<Phaser.Physics.Arcade.Body>this.body).stop();
     }
 
     applyEquipmentInteraction(): void

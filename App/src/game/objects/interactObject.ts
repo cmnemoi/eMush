@@ -3,7 +3,6 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import DecorationObject from "@/game/objects/decorationObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
-import EquipmentObject from "@/game/objects/equipmentObject";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 
 export default class InteractObject extends DecorationObject {
@@ -29,10 +28,8 @@ export default class InteractObject extends DecorationObject {
 
         this.interactionInformation = interactionInformation;
 
-
         this.on('pointerover', () => {
             this.onHovering();
-
         }, this);
 
         this.on('pointerout', () => { this.onPointerOut(); }, this);

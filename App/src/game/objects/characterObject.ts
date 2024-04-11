@@ -4,10 +4,9 @@ import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import store from "@/store";
 import InteractObject from "@/game/objects/interactObject";
-import Tileset = Phaser.Tilemaps.Tileset;
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
-import EquipmentObject from "@/game/objects/equipmentObject";
+import Tileset = Phaser.Tilemaps.Tileset;
 
 export default class CharacterObject extends InteractObject {
     public player : Player;
@@ -91,7 +90,6 @@ export default class CharacterObject extends InteractObject {
     {
         this.navMesh = (<DaedalusScene>this.scene).navMeshGrid;
     }
-
 
     applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string) {
         this.setTexture('character', this.tiledFrame);

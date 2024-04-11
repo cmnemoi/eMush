@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-import { IsometricCoordinates, CartesianCoordinates } from "@/game/types";
+import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 
 
@@ -43,7 +43,6 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
         this.applyTexture(tileset, name, isFlipped, isAnimationYoyo);
 
         this.isoHeight = this.height - (this.isoGeom.getIsoSize().x + this.isoGeom.getIsoSize().y)/2;
-
 
         /* const graphics = this.scene.add.graphics();
         graphics.lineStyle(1, 0x000000, 0.5);

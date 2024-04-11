@@ -113,7 +113,7 @@ class MessageService implements MessageServiceInterface
     }
 
     public function getPlayerFavoritesChannelMessages(Player $player, int $page, int $limit): Collection
-    {   
+    {
         $messages = new ArrayCollection($player->getFavoriteMessages()->slice(($page - 1) * $limit, $limit));
 
         return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));

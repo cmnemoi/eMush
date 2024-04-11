@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\unit\Communication\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Communication\Entity\Channel;
@@ -197,8 +198,8 @@ class MessageServiceTest extends TestCase
         $message2 = new Message();
 
         $this->messageRepository
-            ->shouldReceive('findByChannel')
-            ->with($channel, null)
+            ->shouldReceive('findByChannelWithPagination')
+            ->with($channel, 1, 10)
             ->andReturn([$message1, $message2])
         ;
         $this->eventService->shouldReceive('computeEventModifications')
@@ -206,7 +207,7 @@ class MessageServiceTest extends TestCase
             ->twice()
         ;
 
-        $messages = $this->service->getChannelMessages($player, $channel);
+        $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
         $this->assertCount(2, $messages);
     }
@@ -234,8 +235,35 @@ class MessageServiceTest extends TestCase
             ->twice()
         ;
 
-        $messages = $this->service->getChannelMessages($player, $channel);
+        $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
         $this->assertCount(2, $messages);
+    }
+
+    public function testGetMessageWithLimit(): void
+    {
+        $channel = new Channel();
+
+        $player = new Player();
+
+        $messages = new ArrayCollection();
+        for ($i = 0; $i < 15; ++$i) {
+            $message = new Message();
+            $messages[] = $message;
+        }
+
+        $this->messageRepository
+            ->shouldReceive('findByChannelWithPagination')
+            ->with($channel, 1, 10)
+            ->andReturn($messages->slice(0, 10))
+        ;
+        $this->eventService->shouldReceive('computeEventModifications')
+            ->andReturn(new MessageEvent($message, $player, [], new \DateTime()))
+            ->times(10)
+        ;
+
+        $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
+
+        $this->assertCount(10, $messages);
     }
 }

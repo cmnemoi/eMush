@@ -2,6 +2,11 @@ import { ChannelParticipant } from "./ChannelParticipant";
 import { ChannelType } from "@/enums/communication.enum";
 
 export class Channel {
+
+    static get MESSAGE_LIMIT() {
+        return 20;
+    }
+
     public id!: number;
     public createdAt!: Date;
     public scope!: ChannelType;
@@ -52,5 +57,9 @@ export class Channel {
 
     getParticipant(key: string): ChannelParticipant | undefined {
         return this.participants.find((element: ChannelParticipant) => element.character !== null && element.character.key === key);
+    }
+
+    isChannelWithPagination(): boolean {
+        return [ChannelType.PUBLIC, ChannelType.PRIVATE, ChannelType.FAVORITES].includes(this.scope);
     }
 }

@@ -434,6 +434,16 @@ class ChannelController extends AbstractGameController
      *                  type="integer",
      *                  property="player",
      *                  description="id of the player sending message"
+     *              ),
+     *              @OA\Property(
+     *                  type="integer",
+     *                  property="page",
+     *                  description="page number"
+     *              ),
+     *              @OA\Property(
+     *                  type="integer",
+     *                  property="limit",
+     *                  description="number of messages per page"
      *              )
      *          )
      *      )
@@ -497,7 +507,7 @@ class ChannelController extends AbstractGameController
         }
 
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
-        $messages = $this->messageService->getChannelMessages($currentPlayer, $channel);
+        $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getPage(), $messageCreate->getLimit());
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $currentPlayer);
@@ -565,7 +575,10 @@ class ChannelController extends AbstractGameController
             return $this->view(['error' => 'player is not from this daedalus'], 422);
         }
 
-        $messages = $this->messageService->getChannelMessages($player, $channel);
+        $page = (int) $request->get('page');
+        $limit = (int) $request->get('limit');
+
+        $messages = $this->messageService->getChannelMessages($player, $channel, $page, $limit);
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);

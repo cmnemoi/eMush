@@ -582,7 +582,8 @@
 			"leave": "Quitter",
 			"refresh": "Rafr.",
 			"reply": "Répondre",
-			"report": "Plainte"
+			"report": "Plainte",
+			"loadMoreMessages": "Charger plus de messages"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

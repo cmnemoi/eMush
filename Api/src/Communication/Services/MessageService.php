@@ -92,30 +92,23 @@ class MessageService implements MessageServiceInterface
         return $message;
     }
 
-    public function getChannelMessages(?Player $player, Channel $channel): Collection
+    public function getChannelMessages(?Player $player, Channel $channel, int $page, int $limit): Collection
     {
-        $ageLimit = null;
         if ($channel->getScope() === ChannelScopeEnum::MUSH) {
-            $ageLimit = new \DateInterval('PT24H');
-        }
-
-        $messages = $this->messageRepository->findByChannel($channel, $ageLimit);
-        $modifiedMessages = [];
-
-        foreach ($messages as $message) {
-            $messageEvent = new MessageEvent(
-                $message,
-                $player,
-                [],
-                new \DateTime()
+            $messages = new ArrayCollection(
+                $this->messageRepository->findByChannel($channel, ageLimit: new \DateInterval('PT24H'))
             );
-            /** @var MessageEvent $event */
-            $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::READ_MESSAGE);
-
-            $modifiedMessages[] = $event->getMessage();
+        } else {
+            $messages = new ArrayCollection(
+                $this->messageRepository->findByChannelWithPagination($channel, $page, $limit)
+            );
         }
 
-        return new ArrayCollection($modifiedMessages);
+        if ($player === null) {
+            return $messages;
+        }
+
+        return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
     }
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool
@@ -143,5 +136,19 @@ class MessageService implements MessageServiceInterface
     public function getMessageById(int $messageId): ?Message
     {
         return $this->entityManager->getRepository(Message::class)->find($messageId);
+    }
+
+    private function getModifiedMessage(Message $message, Player $player): Message
+    {
+        $messageEvent = new MessageEvent(
+            $message,
+            $player,
+            [],
+            new \DateTime()
+        );
+        /** @var MessageEvent $event */
+        $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::READ_MESSAGE);
+
+        return $event->getMessage();
     }
 }

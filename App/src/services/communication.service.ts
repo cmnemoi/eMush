@@ -106,7 +106,8 @@ const CommunicationService = {
 
             const messages: Message[] = [];
             if (messagesData.data) {
-                messagesData.data.forEach((data: any) => {
+                const messagesDataArray = Array.isArray(messagesData.data) ? messagesData.data : Object.values(messagesData.data);
+                messagesDataArray.forEach((data: any) => {
                     messages.push((new Message()).load(data));
                 });
             }
@@ -124,7 +125,8 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            messagesData.data.forEach((data: any) => {
+            const messagesDataArray = Array.isArray(messagesData.data) ? messagesData.data : Object.values(messagesData.data);
+            messagesDataArray.forEach((data: any) => {
                 messages.push((new Message()).load(data));
             });
         }

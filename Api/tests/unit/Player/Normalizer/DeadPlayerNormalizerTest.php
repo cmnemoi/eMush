@@ -185,23 +185,23 @@ final class DeadPlayerNormalizerTest extends TestCase
                 'key' => CharacterEnum::ELEESHA,
                 'value' => 'translated eleesha',
             ],
-            'gameStatus' => 'finished',
             'triumph' => [
-                'quantity' => 33,
                 'name' => 'translated triumph',
                 'description' => 'translated triumph description',
+                'quantity' => 33,
             ],
             'daedalus' => [
                 'key' => 19,
                 'calendar' => [
                     'name' => 'translated calendar name',
                     'description' => 'translated calendar description',
-                    'day' => 56,
-                    'dayName' => 'translated day',
                     'cycle' => 3,
                     'cycleName' => 'translated cycle',
+                    'day' => 56,
+                    'dayName' => 'translated day',
                 ],
             ],
+            'gameStatus' => 'finished',
             'endCause' => [
                 'key' => EndCauseEnum::INJURY,
                 'name' => 'translated injury',
@@ -217,12 +217,12 @@ final class DeadPlayerNormalizerTest extends TestCase
                     ],
                     'deathDay' => 56,
                     'deathCycle' => 3,
+                    'likes' => 1,
                     'endCause' => [
                         'key' => EndCauseEnum::ALLERGY,
                         'name' => 'translated end cause',
                         'description' => 'translated end cause description',
                     ],
-                    'likes' => 1,
                 ],
                 1 => [
                     'id' => 4,
@@ -233,12 +233,12 @@ final class DeadPlayerNormalizerTest extends TestCase
                     ],
                     'deathDay' => 0,
                     'deathCycle' => 0,
+                    'likes' => 0,
                     'endCause' => [
                         'key' => EndCauseEnum::STILL_LIVING,
                         'name' => 'translated still living',
                         'description' => 'translated still living description',
                     ],
-                    'likes' => 0,
                 ],
             ],
         ];

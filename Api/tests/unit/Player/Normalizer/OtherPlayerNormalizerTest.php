@@ -92,8 +92,8 @@ final class OtherPlayerNormalizerTest extends TestCase
             ],
             'skills' => [],
             'statuses' => [],
-            'actions' => [],
             'titles' => [],
+            'actions' => [],
         ];
 
         self::assertIsArray($data);

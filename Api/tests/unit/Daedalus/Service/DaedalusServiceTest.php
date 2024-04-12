@@ -191,7 +191,7 @@ final class DaedalusServiceTest extends TestCase
         $daedalus = $this->service->startDaedalus($daedalus);
 
         self::assertSame(GameStatusEnum::STARTING, $daedalus->getGameStatus());
-        self::assertSame(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
+        self::assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
         self::assertSame(2, $daedalus->getCycle());
     }
 

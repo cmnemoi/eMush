@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\unit\Daedalus\Normalizer;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
@@ -192,7 +193,8 @@ final class DaedalusNormalizerTest extends TestCase
                     'playerAlive' => 0,
                     'playerDead' => 0,
                     'mushAlive' => 0,
-                    'mushDead' => 0, ],
+                    'mushDead' => 0,
+                ],
                 'daedalus',
                 LanguageEnum::FRENCH
             )
@@ -240,6 +242,31 @@ final class DaedalusNormalizerTest extends TestCase
         $expected = [
             'id' => 2,
             'game_config' => null,
+            'oxygen' => [
+                'quantity' => 24,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'fuel' => [
+                'quantity' => 24,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'hull' => [
+                'quantity' => 100,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'shield' => [
+                'quantity' => 100,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'timer' => [
+                'name' => 'translated one',
+                'description' => 'translated current cycle description',
+                'timerCycle' => $nextCycle->format(DateTimeInterface::ATOM),
+            ],
             'calendar' => [
                 'name' => 'translated calendar name',
                 'description' => 'translated calendar description',
@@ -248,42 +275,23 @@ final class DaedalusNormalizerTest extends TestCase
                 'day' => 4,
                 'dayName' => 'translated day name',
             ],
-            'oxygen' => [
-                'quantity' => 24,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
-            'fuel' => [
-                'quantity' => 24,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
-            'hull' => [
-                'quantity' => 100,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
-            'shield' => [
-                'quantity' => 100,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
             'cryogenizedPlayers' => 0,
             'humanPlayerAlive' => 0,
             'humanPlayerDead' => 0,
             'mushPlayerAlive' => 0,
             'mushPlayerDead' => 0,
-            'timer' => [
-                'timerCycle' => $nextCycle->format(\DateTime::ATOM),
-                'name' => 'translated one',
-                'description' => 'translated current cycle description', ],
             'crewPlayer' => [
                 'name' => 'translated one',
-                'description' => 'translated two', ],
+                'description' => 'translated two',
+            ],
             'inOrbitPlanet' => null,
             'isDaedalusTravelling' => false,
             'attackingHunters' => 0,
             'onGoingExploration' => [
+                'title' => 'Expédition en cours',
                 'planet' => 'Planète : translated planet name',
                 'explorators' => 'Équipe : Roland',
                 'estimatedDuration' => 'Retour estimé : 10 minutes',
-                'title' => 'Expédition en cours',
             ],
         ];
 

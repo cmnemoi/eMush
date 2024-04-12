@@ -124,6 +124,6 @@ final class ModifierRequirementServiceTest extends TestCase
         $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(true);
 
         $result = $this->service->getActiveModifiers($modifierCollection);
-        self::assertSame($result, $modifierCollection);
+        self::assertEquals($result, $modifierCollection);
     }
 }

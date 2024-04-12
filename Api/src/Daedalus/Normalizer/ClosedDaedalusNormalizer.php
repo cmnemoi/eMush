@@ -13,8 +13,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 {
     use NormalizerAwareTrait;
 
-    private const ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
-
+    private const string ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
 

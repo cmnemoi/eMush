@@ -279,14 +279,14 @@ final class CycleServiceTest extends TestCase
         $daedalus
             ->setCreatedAt(new \DateTime("2020-08-09 00:30:00.0 {$timeZone}"))
             ->setCycle(1);
-        self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-08-09 00:00:00.0 {$timeZone}"));
+        self::assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-08-09 00:00:00.0 {$timeZone}"));
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
             ->setCreatedAt(new \DateTime("2020-08-09 23:30:00.0 {$timeZone}"))
             ->setCycle(8);
-        self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-08-09 21:00:00.0 {$timeZone}"));
+        self::assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-08-09 21:00:00.0 {$timeZone}"));
 
         // Change cycle length
         $daedalusConfig = new DaedalusConfig();
@@ -301,13 +301,13 @@ final class CycleServiceTest extends TestCase
             ->setCreatedAt(new \DateTime('2020-09-09 21:30:00.0 UTC'))
             ->setCycle(8)
             ->setDay(3);
-        self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-09-09 23:00:00.0 {$timeZone}"));
+        self::assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-09-09 23:00:00.0 {$timeZone}"));
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
             ->setCreatedAt(new \DateTime("2020-09-09 11:30:00.0 {$timeZone}"))
             ->setCycle(4);
-        self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-09-09 11:00:00.0 {$timeZone}"));
+        self::assertEquals($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-09-09 11:00:00.0 {$timeZone}"));
     }
 }

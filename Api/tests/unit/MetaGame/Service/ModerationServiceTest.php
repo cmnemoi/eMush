@@ -73,7 +73,7 @@ final class ModerationServiceTest extends TestCase
         self::assertTrue($user->isBanned());
         $sanction = $user->getModerationSanctions()->first();
         self::assertInstanceOf(ModerationSanction::class, $sanction);
-        self::assertSame($sanction->getEndDate(), new \DateTime('99999/12/31'));
+        self::assertEquals($sanction->getEndDate(), new \DateTime('99999/12/31'));
         self::assertSame($sanction->getModerationAction(), ModerationSanctionEnum::BAN_USER);
         self::assertSame($sanction->getReason(), 'reason');
         self::assertSame($sanction->getMessage(), 'adminMessage');

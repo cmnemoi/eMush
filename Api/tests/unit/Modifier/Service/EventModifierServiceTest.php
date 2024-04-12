@@ -139,7 +139,7 @@ final class EventModifierServiceTest extends TestCase
         $modifiedEvent = $modifiedEvents->first();
         self::assertInstanceOf(VariableEventInterface::class, $modifiedEvent);
         self::assertSame(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        self::assertSame(50, $modifiedEvent->getQuantity());
+        self::assertSame(50.0, $modifiedEvent->getQuantity());
     }
 
     public function testApplyOneModifier()

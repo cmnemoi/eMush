@@ -209,7 +209,6 @@ class PlayerDiseaseServiceTest extends TestCase
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = new DiseaseConfig();
-
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
@@ -261,23 +260,25 @@ class PlayerDiseaseServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (DiseaseEvent $event) => (
-                $event->getPlayerDisease() === $diseasePlayer)
-                && in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags())
+            ->withArgs(
+                static fn (DiseaseEvent $event) => (
+                    $event->getPlayerDisease() === $diseasePlayer
+                )
+                    && in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags(), true)
             )
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('random')->andReturn(10);
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (DiseaseEvent $event) => (
-                $event->getPlayerDisease() === $diseasePlayer2)
-                && in_array(DiseaseCauseEnum::OVERRODE, $event->getTags())
-            )
-            ->once()
-        ;
+            ->withArgs(
+                static fn (DiseaseEvent $event) => (
+                    $event->getPlayerDisease() === $diseasePlayer2
+                )
+                    && in_array(DiseaseCauseEnum::OVERRODE, $event->getTags(), true)
+            )->once();
+
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
 

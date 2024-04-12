@@ -35,7 +35,7 @@ final class CycleServiceCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testHandleCycleChangeTriggerNewExplorationStep(FunctionalTester $I)
+    public function testHandleCycleChangeTriggerNewExplorationStep(FunctionalTester $I): void
     {
         // given Daedalus is in game so cycle changes can happen
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);

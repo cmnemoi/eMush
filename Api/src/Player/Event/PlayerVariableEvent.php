@@ -4,11 +4,9 @@ namespace Mush\Player\Event;
 
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\RoomLog\Event\LoggableEventInterface;
 
-class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface, VariableEventInterface
+class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
 {
     private float $quantity;
     private string $variableName;
@@ -29,7 +27,7 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
 
     public function getRoundedQuantity(): int
     {
-        return intval($this->quantity);
+        return (int) $this->quantity;
     }
 
     public function getQuantity(): float
@@ -70,11 +68,6 @@ class PlayerVariableEvent extends PlayerEvent implements LoggableEventInterface,
     public function getVariable(): GameVariable
     {
         return $this->getPlayer()->getVariableByName($this->variableName);
-    }
-
-    public function getPlace(): Place
-    {
-        return $this->getPlayer()->getPlace();
     }
 
     public function getLogParameters(): array

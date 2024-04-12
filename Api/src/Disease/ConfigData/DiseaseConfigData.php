@@ -220,8 +220,8 @@ class DiseaseConfigData
             'diseasePointLength' => 4,
             'override' => [],
             'modifierConfigs' => [
-                'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
                 'fitful_sleep_for_player_-1actionPoint_on_new_cycle_if_random_16_if_player_status_lying_down',
+                'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20',
                 'modifier_for_player_+10percentage_on_cycle_disease',
             ],
         ],

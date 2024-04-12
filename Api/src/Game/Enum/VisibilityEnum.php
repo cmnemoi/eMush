@@ -15,16 +15,16 @@ namespace Mush\Game\Enum;
  * HUMAN: only human player can see this element
  * HIDDEN: this element is not visible to anyone but administrators and developers
  */
-class VisibilityEnum
+abstract class VisibilityEnum
 {
-    public const PUBLIC = 'public';
-    public const PRIVATE = 'private';
-    public const COVERT = 'covert'; // revealed by camera
-    public const SECRET = 'secret'; // revealed by camera or someone
-    public const REVEALED = 'revealed'; // secret or covert action that has been revealed
-    public const MUSH = 'mush'; // logs in mush channel
-    public const HUMAN = 'human'; // not visible by mush
-    public const HIDDEN = 'hidden'; // internal status
+    public const string PUBLIC = 'public';
+    public const string PRIVATE = 'private';
+    public const string COVERT = 'covert'; // revealed by camera
+    public const string SECRET = 'secret'; // revealed by camera or someone
+    public const string REVEALED = 'revealed'; // secret or covert action that has been revealed
+    public const string MUSH = 'mush'; // logs in mush channel
+    public const string HUMAN = 'human'; // not visible by mush
+    public const string HIDDEN = 'hidden'; // internal status
 
-    public const COOK_RESTRICTED = 'cook_restricted'; // perishable status only visible to cooks
+    public const string COOK_RESTRICTED = 'cook_restricted'; // perishable status only visible to cooks
 }

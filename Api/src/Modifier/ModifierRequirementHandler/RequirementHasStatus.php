@@ -26,6 +26,10 @@ class RequirementHasStatus extends AbstractModifierRequirementHandler
             throw new \LogicException('provide a status for player_status activationRequirement');
         }
 
+        if ($modifierRequirement->getValue() === ModifierRequirementEnum::ABSENT_STATUS) {
+            return !$player->hasStatus($expectedStatus);
+        }
+
         return $player->hasStatus($expectedStatus);
     }
 }

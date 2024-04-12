@@ -53,10 +53,10 @@ class ModifierActivationRequirement
         $name = $this->activationRequirementName;
 
         if ($this->activationRequirement !== null) {
-            $name = $name . '_' . $this->activationRequirement;
+            $name .= '_' . $this->activationRequirement;
         }
         if ($this->value !== 100) {
-            $name = $name . '_' . $this->value;
+            $name .= '_' . $this->value;
         }
         $this->name = $name;
 

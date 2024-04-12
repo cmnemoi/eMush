@@ -11,40 +11,28 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
 
-class PlayerModifierLogEnum
+abstract class PlayerModifierLogEnum
 {
-    public const GAIN_TRIUMPH = 'gain_triumph';
-    public const LOSS_TRIUMPH = 'loss_triumph';
-    public const GAIN_ACTION_POINT = 'gain_action_point';
-    public const LOSS_ACTION_POINT = 'loss_action_point';
-    public const GAIN_MOVEMENT_POINT = 'gain_movement_point';
-    public const LOSS_MOVEMENT_POINT = 'loss_movement_point';
-    public const GAIN_HEALTH_POINT = 'gain_health_point';
-    public const LOSS_HEALTH_POINT = 'loss_health_point';
-    public const GAIN_MORAL_POINT = 'gain_moral_point';
-    public const LOSS_MORAL_POINT = 'loss_moral_point';
+    public const string GAIN_TRIUMPH = 'gain_triumph';
+    public const string LOSS_TRIUMPH = 'loss_triumph';
+    public const string GAIN_ACTION_POINT = 'gain_action_point';
+    public const string LOSS_ACTION_POINT = 'loss_action_point';
+    public const string GAIN_MOVEMENT_POINT = 'gain_movement_point';
+    public const string LOSS_MOVEMENT_POINT = 'loss_movement_point';
+    public const string GAIN_HEALTH_POINT = 'gain_health_point';
+    public const string LOSS_HEALTH_POINT = 'loss_health_point';
+    public const string GAIN_MORAL_POINT = 'gain_moral_point';
+    public const string LOSS_MORAL_POINT = 'loss_moral_point';
+    public const string PANIC_CRISIS = 'panic_crisis';
+    public const string CLUMSINESS = 'clumsiness';
+    public const string HUNGER = 'hunger';
+    public const string DAILY_MORALE_LOSS = 'daily_morale_loss';
+    public const string GAIN = 'gain';
+    public const string LOSS = 'loss';
+    public const string VISIBILITY = 'visibility';
+    public const string VALUE = 'value';
 
-    public const SHOWER_MUSH = 'shower_mush';
-    public const ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
-    public const PANIC_CRISIS = 'panic_crisis';
-    public const CLUMSINESS = 'clumsiness';
-    public const HUNGER = 'hunger';
-
-    public const SCREAMING = 'screaming';
-    public const WALL_HEAD_BANG = 'wall_head_bang';
-    public const RUN_IN_CIRCLES = 'run_in_circles';
-    public const FITFUL_SLEEP = 'fitful_sleep';
-    public const LYING_DOWN = 'lying_down';
-    public const DAILY_MORALE_LOSS = 'daily_morale_loss';
-    public const LOST_ON_PLANET = 'lost_on_planet';
-
-    public const GAIN = 'gain';
-    public const LOSS = 'loss';
-
-    public const VISIBILITY = 'visibility';
-    public const VALUE = 'value';
-
-    public const PLAYER_VARIABLE_LOGS = [
+    public const array PLAYER_VARIABLE_LOGS = [
         self::GAIN => [
             PlayerVariableEnum::HEALTH_POINT => self::GAIN_HEALTH_POINT,
             PlayerVariableEnum::MORAL_POINT => self::GAIN_MORAL_POINT,
@@ -61,30 +49,17 @@ class PlayerModifierLogEnum
         ],
     ];
 
-    public const PLAYER_VARIABLE_SPECIAL_LOGS = [
+    public const array PLAYER_VARIABLE_SPECIAL_LOGS = [
         self::VALUE => [
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
             ModifierNameEnum::STARVING => self::HUNGER,
-            ModifierNameEnum::SCREAMING => self::SCREAMING,
-            ModifierNameEnum::WALL_HEAD_BANG => self::WALL_HEAD_BANG,
-            ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,
-            ModifierNameEnum::LYING_DOWN_MODIFIER => self::LYING_DOWN,
-            ModifierNameEnum::FITFUL_SLEEP => self::FITFUL_SLEEP,
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
-            ModifierNameEnum::LOST_MODIFIER => self::LOST_ON_PLANET,
         ],
         self::VISIBILITY => [
-            ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
-            ModifierNameEnum::SCREAMING => VisibilityEnum::PUBLIC,
-            ModifierNameEnum::WALL_HEAD_BANG => VisibilityEnum::PUBLIC,
-            ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
-            ModifierNameEnum::LYING_DOWN_MODIFIER => VisibilityEnum::HIDDEN,
-            ModifierNameEnum::FITFUL_SLEEP => VisibilityEnum::PRIVATE,
             SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,

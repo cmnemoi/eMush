@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Disease\Event;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -39,6 +39,16 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
     public function testDiseaseModifierTriggersOnPlayerNewCycleEvent(FunctionalTester $I): void
     {
+        // Remove initial diseases if any.
+        foreach ($this->player->getMedicalConditions() as $condition) {
+            $this->playerDiseaseService->removePlayerDisease(
+                $condition,
+                [],
+                new \DateTime(),
+                VisibilityEnum::HIDDEN,
+                $this->player,
+            );
+        }
         // given player has a disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
             diseaseName: DiseaseEnum::REJUVENATION,
@@ -51,13 +61,13 @@ final class PlayerEventCest extends AbstractFunctionalTest
         // note : this modifier removes 1 AP to the player
         /** @var TriggerEventModifierConfig $modifierConfig */
         $modifierConfig = $disease->getDiseaseConfig()->getModifierConfigs()->filter(
-            fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === ModifierNameEnum::FITFUL_SLEEP
+            static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === ModifierNameEnum::FITFUL_SLEEP
         )->first();
         $modifierConfig->setModifierActivationRequirements([]);
 
         // given player disease has only the fitful sleep modifier
-        $diseaseConfig = $disease->getDiseaseConfig();
-        $diseaseConfig->setModifierConfigs(new ArrayCollection([$modifierConfig]));
+        $diseaseConfig = $disease->getDiseaseConfig()->setModifierConfigs([$modifierConfig]);
+        $I->assertCount(1, $diseaseConfig->getModifierConfigs(), 'Only one config should be taken for this disease.');
 
         // when player has a new cycle
         $playerEvent = new PlayerEvent(
@@ -65,20 +75,25 @@ final class PlayerEventCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
 
-        // then I should see a room log reporting the AP loss
-        $I->seeInRepository(
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then I should see a single room log for the modifier
+        $roomLog = $I->grabEntitiesFromRepository(
             entity: RoomLog::class,
             params: [
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'place' => $this->player->getPlace()->getLogName(),
-                'log' => PlayerModifierLogEnum::LOSS_ACTION_POINT,
+                'log' => LogEnum::FITFUL_SLEEP,
             ]
         );
 
-        // the player gains 1 AP (cycle change) and lose 1 AP (disease), so they should have the same amount of AP
-        $I->assertEquals(expected: 8, actual: $this->player->getActionPoint());
+        $currentDiseases = $this->player->getMedicalConditions();
+        $I->assertCount(1, $currentDiseases);
+        $I->assertCount(1, $roomLog, 'Double FITFUL_SLEEP have been dispatched.');
+
+        // the player gains 1 AP (cycle change) and lose 2 AP (disease), so they should have 7 AP
+        $I->assertEquals(expected: 7, actual: $playerEvent->getPlayer()->getActionPoint());
     }
 
     public function testHealedDiseaseDoesNotActOnPlayerNewCycleEvent(FunctionalTester $I): void
@@ -107,7 +122,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then I should see a healing room log
         $healingRoomLog = $I->grabEntityFromRepository(
@@ -209,7 +224,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
-        $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then Chun should be dirty
         $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::DIRTY));

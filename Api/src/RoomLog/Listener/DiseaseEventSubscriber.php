@@ -18,7 +18,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
 
-    private const CURE_LOG_MAP = [
+    private const array CURE_LOG_MAP = [
         ActionEnum::HEAL => LogEnum::DISEASE_CURED_PLAYER,
         ActionEnum::SELF_HEAL => LogEnum::DISEASE_CURED_PLAYER,
         ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_CURED_PLAYER,
@@ -31,7 +31,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         DiseaseStatusEnum::DRUG_HEALED => LogEnum::DISEASE_CURED_DRUG,
     ];
 
-    private const TREAT_LOG_MAP = [
+    private const array TREAT_LOG_MAP = [
         ActionEnum::HEAL => LogEnum::DISEASE_TREATED_PLAYER,
         ActionEnum::SELF_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
         ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
@@ -39,9 +39,8 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionEnum::CONSUME_DRUG => LogEnum::DISEASE_TREATED_DRUG,
     ];
 
-    public function __construct(
-        RoomLogServiceInterface $roomLogService,
-    ) {
+    public function __construct(RoomLogServiceInterface $roomLogService)
+    {
         $this->roomLogService = $roomLogService;
     }
 
@@ -70,15 +69,12 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     {
         $player = $event->getTargetPlayer();
 
-        $reasons = $event->getTags();
-
         $key = $event->mapLog(self::TREAT_LOG_MAP);
         if ($key === null) {
             $key = LogEnum::DISEASE_TREATED;
         }
 
         $event->setVisibility(VisibilityEnum::PUBLIC);
-
         $this->createEventLog($key, $event, $player);
     }
 

@@ -2,20 +2,20 @@
 
 namespace Mush\Disease\Enum;
 
-class DisorderEnum
+abstract class DisorderEnum
 {
-    public const AGORAPHOBIA = 'agoraphobia';
-    public const AILUROPHOBIA = 'ailurophobia';
-    public const CHRONIC_MIGRAINE = 'chronic_migraine';
-    public const CHRONIC_VERTIGO = 'chronic_vertigo';
-    public const COPROLALIA = 'coprolalia';
-    public const CRABISM = 'crabism';
-    public const DEPRESSION = 'depression';
-    public const PARANOIA = 'paranoia';
-    public const PSYCHOTIC_EPISODE = 'psychotic_episodes';
-    public const SPLEEN = 'spleen';
-    public const VERTIGO = 'vertigo';
-    public const WEAPON_PHOBIA = 'weapon_phobia';
+    public const string AGORAPHOBIA = 'agoraphobia';
+    public const string AILUROPHOBIA = 'ailurophobia';
+    public const string CHRONIC_MIGRAINE = 'chronic_migraine';
+    public const string CHRONIC_VERTIGO = 'chronic_vertigo';
+    public const string COPROLALIA = 'coprolalia';
+    public const string CRABISM = 'crabism';
+    public const string DEPRESSION = 'depression';
+    public const string PARANOIA = 'paranoia';
+    public const string PSYCHOTIC_EPISODE = 'psychotic_episodes';
+    public const string SPLEEN = 'spleen';
+    public const string VERTIGO = 'vertigo';
+    public const string WEAPON_PHOBIA = 'weapon_phobia';
 
     public static function getAllDisorders(): array
     {

@@ -101,6 +101,80 @@ class RoomLogService implements RoomLogServiceInterface
         );
     }
 
+    public function createLog(
+        string $logKey,
+        Place $place,
+        string $visibility,
+        string $type,
+        Player $player = null,
+        array $parameters = [],
+        \DateTime $dateTime = null
+    ): RoomLog {
+        // if there is several version of the log
+        if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+            foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
+                $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
+            }
+        }
+
+        $roomLog = new RoomLog();
+        $roomLog
+            ->setLog($logKey)
+            ->setParameters($parameters)
+            ->setType($type)
+            ->setDaedalusInfo($place->getDaedalus()->getDaedalusInfo())
+            ->setPlace($place->getName())
+            ->setPlayerInfo($player?->getPlayerInfo())
+            ->setVisibility($this->getVisibility($player, $visibility))
+            ->setDate($dateTime ?? new \DateTime('now'))
+            ->setCycle($place->getDaedalus()->getCycle())
+            ->setDay($place->getDaedalus()->getDay())
+        ;
+
+        return $this->persist($roomLog);
+    }
+
+    public function getRoomLog(Player $player): RoomLogCollection
+    {
+        return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
+    }
+
+    public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection
+    {
+        return new RoomLogCollection($this->repository->getAllRoomLogsByDaedalus($daedalus));
+    }
+
+    public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection
+    {
+        return new RoomLogCollection($this->repository->findAllByDaedalusAndPlace($daedalus, $place));
+    }
+
+    private function getVisibility(?Player $player, string $visibility): string
+    {
+        if ($player === null) {
+            return $visibility;
+        }
+
+        $place = $player->getPlace();
+        $placeEquipments = $place->getEquipments();
+
+        $equipmentIsACamera = static fn (GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
+        $equipmentIsNotBroken = static fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
+
+        $placeHasAFunctionalCamera = $placeEquipments->filter($equipmentIsACamera)->filter($equipmentIsNotBroken)->count() > 0;
+        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
+
+        if ($visibility === VisibilityEnum::SECRET && ($placeHasAWitness || $placeHasAFunctionalCamera)) {
+            return VisibilityEnum::REVEALED;
+        }
+
+        if ($visibility === VisibilityEnum::COVERT && $placeHasAFunctionalCamera) {
+            return VisibilityEnum::REVEALED;
+        }
+
+        return $visibility;
+    }
+
     private function getActionLogParameters(
         ActionResult $actionResult,
         Player $player,
@@ -136,10 +210,8 @@ class RoomLogService implements RoomLogServiceInterface
         return $parameters;
     }
 
-    private function createExamineLog(
-        Player $player,
-        ?LogParameterInterface $actionParameter,
-    ): RoomLog {
+    private function createExamineLog(Player $player, ?LogParameterInterface $actionParameter): RoomLog
+    {
         if ($actionParameter instanceof GameItem) {
             return $this->createLog(
                 $actionParameter->getLogName() . '.examine',
@@ -164,93 +236,6 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         throw new \LogicException('examine action is not implemented for this type of entity');
-    }
-
-    public function createLog(
-        string $logKey,
-        Place $place,
-        string $visibility,
-        string $type,
-        Player $player = null,
-        array $parameters = [],
-        \DateTime $dateTime = null
-    ): RoomLog {
-        // if there is several version of the log
-        if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
-            foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
-                $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
-            }
-        }
-
-        if ($player === null) {
-            $author = null;
-        } else {
-            $author = $player->getPlayerInfo();
-        }
-
-        $roomLog = new RoomLog();
-        $roomLog
-            ->setLog($logKey)
-            ->setParameters($parameters)
-            ->setType($type)
-            ->setDaedalusInfo($place->getDaedalus()->getDaedalusInfo())
-            ->setPlace($place->getName())
-            ->setPlayerInfo($author)
-            ->setVisibility($this->getVisibility($player, $visibility))
-            ->setDate($dateTime ?? new \DateTime('now'))
-            ->setCycle($place->getDaedalus()->getCycle())
-            ->setDay($place->getDaedalus()->getDay())
-        ;
-
-        return $this->persist($roomLog);
-    }
-
-    private function getVisibility(?Player $player, string $visibility): string
-    {
-        if ($player === null) {
-            return $visibility;
-        }
-
-        $place = $player->getPlace();
-
-        $placeEquipments = $place->getEquipments();
-
-        $equipmentIsACamera = fn (GameEquipment $gameEquipment): bool => $gameEquipment->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
-
-        $equipmentIsNotBroken = fn (GameEquipment $gameEquipment): bool => $gameEquipment->isBroken() === false;
-
-        $placeHasAFunctionalCamera = $placeEquipments->filter($equipmentIsACamera)->filter($equipmentIsNotBroken)->count() > 0;
-        $placeHasAWitness = $place->getNumberOfPlayersAlive() > 1;
-
-        if (
-            $visibility === VisibilityEnum::SECRET
-            && ($placeHasAWitness
-             || $placeHasAFunctionalCamera)
-        ) {
-            return VisibilityEnum::REVEALED;
-        } elseif (
-            $visibility === VisibilityEnum::COVERT
-            && $placeHasAFunctionalCamera
-        ) {
-            return VisibilityEnum::REVEALED;
-        }
-
-        return $visibility;
-    }
-
-    public function getRoomLog(Player $player): RoomLogCollection
-    {
-        return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo()));
-    }
-
-    public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection
-    {
-        return new RoomLogCollection($this->repository->getAllRoomLogsByDaedalus($daedalus));
-    }
-
-    public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection
-    {
-        return new RoomLogCollection($this->repository->findAllByDaedalusAndPlace($daedalus, $place));
     }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array

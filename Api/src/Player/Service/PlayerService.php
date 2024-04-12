@@ -229,8 +229,8 @@ class PlayerService implements PlayerServiceInterface
 
             // Only keep players that are not source player and that are in same daedalus
             if ($likedPlayer
-                    && $likedPlayer->getId() != $player->getId()
-                    && $likedPlayer->getDaedalus()->getId() == $player->getDaedalus()->getId()
+                && $likedPlayer->getId() !== $player->getId()
+                && $likedPlayer->getDaedalus()->getId() === $player->getDaedalus()->getId()
             ) {
                 $likedClosedPlayer = $likedPlayer->getPlayerInfo()->getClosedPlayer();
                 $likedClosedPlayer->addLike();
@@ -296,18 +296,12 @@ class PlayerService implements PlayerServiceInterface
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
         $triumphChange = 0;
-
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
-        if ($player->isMush()
-            && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))
-        ) {
+        if ($player->isMush() && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))) {
             $triumphChange = $mushTriumph->getTriumph();
         }
-
-        if (!$player->isMush()
-            && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))
-        ) {
+        if (!$player->isMush() && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))) {
             $triumphChange = $humanTriumph->getTriumph();
         }
 
@@ -410,7 +404,7 @@ class PlayerService implements PlayerServiceInterface
      * Currently it drops 3-4 organic waste.
      * TODO: add more powerful compensation?
      */
-    private function handleQuarantineCompensation(Place $playerDeathPlace)
+    private function handleQuarantineCompensation(Place $playerDeathPlace): void
     {
         $nbOrganicWaste = $this->randomService->random(self::NB_ORGANIC_WASTE_MIN, self::NB_ORGANIC_WASTE_MAX);
 

@@ -6,22 +6,20 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 
-class LogDeclinationEnum
+abstract class LogDeclinationEnum
 {
-    public const VERSION = 'version';
-    public const VERSION_PART_1 = 'versionPart1';
-    public const VERSION_PART_2 = 'versionPart2';
-    public const VERSION_CRAZY = 'version_crazy';
-    public const VERSION_UNINHIB = 'version_uninhib';
-
-    public const WORD_COPROLALIA = 'word';
-    public const ANIMAL_COPROLALIA = 'animal';
-    public const PREFIX_COPROLALIA = 'prefix';
-    public const ADJECTIVE_COPROLALIA = 'adjective';
-    public const BALLS_COPROLALIA = 'balls';
-
-    public const PARANOIA_VERSION_4 = 'paranoia_version_4';
-    public const PARANOIA_VERSION_6 = 'paranoia_version_6';
+    public const string VERSION = 'version';
+    public const string VERSION_PART_1 = 'versionPart1';
+    public const string VERSION_PART_2 = 'versionPart2';
+    public const string VERSION_CRAZY = 'version_crazy';
+    public const string VERSION_UNINHIB = 'version_uninhib';
+    public const string WORD_COPROLALIA = 'word';
+    public const string ANIMAL_COPROLALIA = 'animal';
+    public const string PREFIX_COPROLALIA = 'prefix';
+    public const string ADJECTIVE_COPROLALIA = 'adjective';
+    public const string BALLS_COPROLALIA = 'balls';
+    public const string PARANOIA_VERSION_4 = 'paranoia_version_4';
+    public const string PARANOIA_VERSION_6 = 'paranoia_version_6';
 
     public static function getVersionNumber(): array
     {

@@ -25,24 +25,24 @@ namespace Mush\Disease\Enum;
  *
  * ACTION_DIRTY_RATE : the activationRequirement is checked on action dirty rate
  */
-class SymptomActivationRequirementEnum
+abstract class SymptomActivationRequirementEnum
 {
-    public const REASON = 'reason';
+    public const string REASON = 'reason';
 
-    public const RANDOM = 'random';
+    public const string RANDOM = 'random';
 
-    public const PLAYER_IN_ROOM = 'player_in_room';
-    public const NOT_ALONE = 'not_alone';
-    public const THREE_OTHERS = 'three_others';
-    public const MUSH_IN_ROOM = 'mush_in_room';
+    public const string PLAYER_IN_ROOM = 'player_in_room';
+    public const string NOT_ALONE = 'not_alone';
+    public const string THREE_OTHERS = 'three_others';
+    public const string MUSH_IN_ROOM = 'mush_in_room';
 
-    public const ITEM_IN_ROOM = 'item_in_room';
+    public const string ITEM_IN_ROOM = 'item_in_room';
 
-    public const PLAYER_EQUIPMENT = 'player_equipment';
+    public const string PLAYER_EQUIPMENT = 'player_equipment';
 
-    public const ITEM_STATUS = 'item_status';
+    public const string ITEM_STATUS = 'item_status';
 
-    public const PLAYER_STATUS = 'player_status';
+    public const string PLAYER_STATUS = 'player_status';
 
-    public const ACTION_DIRTY_RATE = 'action_dirty_rate';
+    public const string ACTION_DIRTY_RATE = 'action_dirty_rate';
 }

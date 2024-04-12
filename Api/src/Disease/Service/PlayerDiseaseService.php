@@ -51,8 +51,8 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         array $causes,
         \DateTime $time,
         string $visibility,
-        Player $author = null): bool
-    {
+        Player $author = null
+    ): bool {
         $event = new DiseaseEvent(
             $playerDisease,
             $causes,
@@ -92,8 +92,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $disease = new PlayerDisease();
         $disease
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-        ;
+            ->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($disease);
 
         $delayMin = $delayMin ?? $diseaseConfig->getDelayMin();
@@ -180,7 +179,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
 
         $diseasePoint = $playerDisease->getDiseasePoint();
-
         if ($diseasePoint <= 0) {
             if ($playerDisease->getStatus() === DiseaseStatusEnum::INCUBATING) {
                 $diseaseConfig = $playerDisease->getDiseaseConfig();
@@ -193,11 +191,9 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                             $diseaseDurationMin,
                             $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()
                         )
-                    )
-                ;
+                    );
 
                 $this->persist($playerDisease);
-
                 $this->activateDisease($playerDisease, [DiseaseCauseEnum::INCUBATING_END], $time);
             } else {
                 $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::SPONTANEOUS_CURE], $time, VisibilityEnum::PRIVATE);
@@ -231,6 +227,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $spontaneousHealingDisorders = [DisorderEnum::VERTIGO, DisorderEnum::SPLEEN];
 
         return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
-        || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders);
+            || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders);
     }
 }

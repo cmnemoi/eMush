@@ -16,7 +16,7 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -30,7 +30,7 @@ class ShowerActionCest extends AbstractFunctionalTest
     private Shower $showerAction;
     private Action $action;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -40,7 +40,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         $I->refreshEntities($this->action);
     }
 
-    public function testShower(FunctionalTester $I)
+    public function testShower(FunctionalTester $I): void
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
@@ -86,7 +86,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testMushShower(FunctionalTester $I)
+    public function testMushShower(FunctionalTester $I): void
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
@@ -96,7 +96,9 @@ class ShowerActionCest extends AbstractFunctionalTest
         $I->haveInRepository($mushStatus);
 
         /** @var VariableEventModifierConfig $mushShowerModifierConfig */
-        $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(TriggerEventModifierConfig::class, [
+        $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(
+            TriggerEventModifierConfig::class,
+            [
             'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
         ));
         $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
@@ -131,14 +133,14 @@ class ShowerActionCest extends AbstractFunctionalTest
             'place' => $room->getName(),
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo()->getId(),
-            'log' => PlayerModifierLogEnum::SHOWER_MUSH,
+            'log' => LogEnum::SHOWER_MUSH,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
 
         // @TODO test skill water resistance
     }
 
-    public function testShowerWithSoap(FunctionalTester $I)
+    public function testShowerWithSoap(FunctionalTester $I): void
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 

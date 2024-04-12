@@ -11,6 +11,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Status\Entity\ChargeStatus;
@@ -54,7 +55,7 @@ class CycleEventCest extends AbstractFunctionalTest
         $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
     }
 
-    public function testAntisocialStatusCycleSubscriber(FunctionalTester $I)
+    public function testAntisocialStatusCycleSubscriber(FunctionalTester $I): void
     {
         // given first player has antisocial status
         $this->statusService->createStatusFromName(PlayerStatusEnum::ANTISOCIAL, $this->player1, [], new \DateTime());
@@ -98,7 +99,7 @@ class CycleEventCest extends AbstractFunctionalTest
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'place' => $this->player1->getPlace()->getName(),
             'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => PlayerModifierLogEnum::ANTISOCIAL_MORALE_LOSS,
+            'log' => LogEnum::ANTISOCIAL_MORALE_LOSS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
     }
@@ -107,7 +108,8 @@ class CycleEventCest extends AbstractFunctionalTest
     {
         // given a patrol ship with 9 electric charges in its room (in battle)
         $patrolShipConfig = $I->grabEntityFromRepository(
-            EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]
+            EquipmentConfig::class,
+            ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]
         );
         $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
         $patrolShip
@@ -117,7 +119,8 @@ class CycleEventCest extends AbstractFunctionalTest
         $I->haveInRepository($patrolShip);
 
         $electricChargesConfig = $I->grabEntityFromRepository(
-            ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']
+            ChargeStatusConfig::class,
+            ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']
         );
         $electricChargesConfig->setStartCharge(9);
         /** @var ChargeStatus $electricCharges */
@@ -140,7 +143,8 @@ class CycleEventCest extends AbstractFunctionalTest
     {
         // given a patrol ship with 9 electric charges in alpha bay
         $patrolShipConfig = $I->grabEntityFromRepository(
-            EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]
+            EquipmentConfig::class,
+            ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]
         );
         $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
         $patrolShip
@@ -150,7 +154,8 @@ class CycleEventCest extends AbstractFunctionalTest
         $I->haveInRepository($patrolShip);
 
         $electricChargesConfig = $I->grabEntityFromRepository(
-            ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']
+            ChargeStatusConfig::class,
+            ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']
         );
 
         $electricChargesConfig->setStartCharge(9);

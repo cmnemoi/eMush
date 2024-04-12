@@ -1,11 +1,10 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
+$finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
     ->exclude('var')
     ->exclude('_data')
-    ->exclude('_generated')
-;
+    ->exclude('_generated');
 
 return (new PhpCsFixer\Config())
     ->setRules([
@@ -14,5 +13,4 @@ return (new PhpCsFixer\Config())
         'concat_space' => ['spacing' => 'one'],
         'array_syntax' => ['syntax' => 'short'],
     ])
-    ->setFinder($finder)
-;
+    ->setFinder($finder);

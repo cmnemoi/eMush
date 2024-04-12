@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\unit\Daedalus\Normalizer;
 
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
@@ -265,7 +264,7 @@ final class DaedalusNormalizerTest extends TestCase
             'timer' => [
                 'name' => 'translated one',
                 'description' => 'translated current cycle description',
-                'timerCycle' => $nextCycle->format(DateTimeInterface::ATOM),
+                'timerCycle' => $nextCycle->format(\DateTimeInterface::ATOM),
             ],
             'calendar' => [
                 'name' => 'translated calendar name',

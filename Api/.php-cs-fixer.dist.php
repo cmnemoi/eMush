@@ -15,6 +15,7 @@ return (new PhpCsFixer\Config())
         'concat_space' => ['spacing' => 'one'],
         'array_syntax' => ['syntax' => 'short'],
         'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
+        'php_unit_strict' => false,
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder);

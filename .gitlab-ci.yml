@@ -37,7 +37,7 @@ stages:
     - chmod go+r config/jwt/private.pem
 
 .node_template: &node_template
-  image: node:18
+  image: node:20-slim
   cache:
     paths:
       - node_modules/
@@ -147,7 +147,7 @@ front-test:
     
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 release:
-  image: node:latest
+  image: node:latest-slim
   stage: release
   before_script:
     - npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/release-notes-generator @semantic-release/gitlab

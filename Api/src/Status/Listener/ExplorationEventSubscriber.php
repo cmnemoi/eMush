@@ -22,7 +22,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ExplorationEventSubscriber implements EventSubscriberInterface
 {
-    public const int DIRTY_RATE = 33;
+    public const int DIRTY_RATE = 15;
 
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;

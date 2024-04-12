@@ -728,6 +728,10 @@ h2 {
         transform: rotate(-45deg);
         clip-path: polygon(0 0, 100% 0, 0 100%);
         }
+
+        :deep(em) { 
+            color: #cf1830; 
+        }
     }
 
     .triumph {

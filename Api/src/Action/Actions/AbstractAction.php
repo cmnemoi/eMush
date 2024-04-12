@@ -46,7 +46,7 @@ abstract class AbstractAction
 
     abstract protected function support(?LogParameterInterface $target, array $parameters): bool;
 
-    public function loadParameters(Action $action, Player $player, LogParameterInterface $target = null, array $parameters = []): void
+    public function loadParameters(Action $action, Player $player, ?LogParameterInterface $target = null, array $parameters = []): void
     {
         if (!$this->support($target, $parameters)) {
             throw new \InvalidArgumentException('Invalid action parameters : one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');

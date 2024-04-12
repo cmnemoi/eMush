@@ -113,7 +113,7 @@ class ActionService implements ActionServiceInterface
         Action $action,
         ?LogParameterInterface $actionTarget,
         string $variable,
-        ActionResult $result = null
+        ?ActionResult $result = null
     ): ActionVariableEvent {
         $event = new ActionVariableEvent(
             $action,

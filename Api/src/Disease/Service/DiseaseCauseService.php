@@ -83,7 +83,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         return $causesConfigs->first();
     }
 
-    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): PlayerDisease
+    public function handleDiseaseForCause(string $cause, Player $player, ?int $delayMin = null, ?int $delayLength = null): PlayerDisease
     {
         $diseasesProbaArray = $this->findCauseConfigByDaedalus($cause, $player->getDaedalus())->getDiseases();
 

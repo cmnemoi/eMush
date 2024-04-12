@@ -115,7 +115,7 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null,
+        ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
         // if holder already have this status, abort and return existing status
@@ -161,7 +161,7 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null,
+        ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
         // if holder already have this status, abort and return existing status

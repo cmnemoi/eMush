@@ -25,12 +25,12 @@ class Document extends Tool
         return $mechanics;
     }
 
-    public function getContent(): string|null
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
-    public function setContent(string|null $content): static
+    public function setContent(?string $content): static
     {
         $this->content = $content;
 

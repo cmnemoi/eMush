@@ -21,12 +21,12 @@ class AlertNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Alert;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Alert $alert */
         $alert = $object;

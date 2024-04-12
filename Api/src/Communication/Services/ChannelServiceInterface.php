@@ -32,7 +32,7 @@ interface ChannelServiceInterface
     public function exitChannel(
         Player $player,
         Channel $channel,
-        \DateTime $time = null,
+        ?\DateTime $time = null,
         string $reason = CommunicationActionEnum::EXIT
     ): bool;
 

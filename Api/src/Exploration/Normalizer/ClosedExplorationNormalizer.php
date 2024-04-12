@@ -25,7 +25,7 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // Make sure we're not called twice
         if (isset($context[self::ALREADY_CALLED])) {
@@ -35,7 +35,7 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
         return $data instanceof ClosedExploration;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): ?array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
     {
         /** @var ClosedExploration $closedExploration */
         $closedExploration = $object;

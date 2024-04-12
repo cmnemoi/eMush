@@ -33,7 +33,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null
+        ?StatusHolderInterface $target = null
     ) {
         $this->status = $status;
         $this->holder = $holder;

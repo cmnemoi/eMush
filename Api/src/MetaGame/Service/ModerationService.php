@@ -100,7 +100,7 @@ final class ModerationService implements ModerationServiceInterface
         ?\DateInterval $duration,
         string $reason,
         ?string $message,
-        \DateTime $startingDate = null
+        ?\DateTime $startingDate = null
     ): User {
         return $this->addSanctionEntity(
             $user,
@@ -117,8 +117,8 @@ final class ModerationService implements ModerationServiceInterface
         string $sanctionType,
         string $reason,
         ?\DateTime $startingDate,
-        string $message = null,
-        \DateInterval $duration = null,
+        ?string $message = null,
+        ?\DateInterval $duration = null,
         bool $isVisibleByUser = false
     ): User {
         if ($startingDate === null) {
@@ -154,7 +154,7 @@ final class ModerationService implements ModerationServiceInterface
     public function quarantinePlayer(
         Player $player,
         string $reason,
-        string $message = null
+        ?string $message = null
     ): Player {
         $deathEvent = new PlayerEvent($player, [EndCauseEnum::QUARANTINE], new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
@@ -203,7 +203,7 @@ final class ModerationService implements ModerationServiceInterface
         ?\DateInterval $duration,
         string $reason,
         string $message,
-        \DateTime $startingDate = null
+        ?\DateTime $startingDate = null
     ): User {
         return $this->addSanctionEntity(
             $user,

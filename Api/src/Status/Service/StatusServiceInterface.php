@@ -36,7 +36,7 @@ interface StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null,
+        ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status;
 
@@ -45,7 +45,7 @@ interface StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null,
+        ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status;
 

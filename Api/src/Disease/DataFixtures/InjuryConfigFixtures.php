@@ -96,7 +96,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $increaseCycleDiseaseChances10,
-                ])
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($burns50OfBody);
@@ -110,7 +110,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $septicemiaOnCycleChange,
                 $septicemiaOnDirtyEvent,
                 $septicemiaOnPostAction,
-                ])
+            ])
             ->setOverride([InjuryEnum::BURNS_50_OF_BODY])
             ->buildName(GameConfigEnum::DEFAULT)
         ;

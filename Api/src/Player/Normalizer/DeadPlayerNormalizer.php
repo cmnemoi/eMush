@@ -23,7 +23,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
@@ -33,7 +33,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
         ;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $player */
         $player = $object;

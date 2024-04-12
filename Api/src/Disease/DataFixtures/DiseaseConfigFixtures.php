@@ -136,7 +136,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $cycle1ActionLostRand10,
                 $infected4HealthLoss,
-                ])
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($blackBite);

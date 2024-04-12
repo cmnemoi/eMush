@@ -9,7 +9,7 @@ use Mush\Player\Entity\Player;
 
 interface NeronMessageServiceInterface
 {
-    public function createNeronMessage(string $messageKey, Daedalus $daedalus, array $parameters, \DateTime $dateTime, Message $parent = null): Message;
+    public function createNeronMessage(string $messageKey, Daedalus $daedalus, array $parameters, \DateTime $dateTime, ?Message $parent = null): Message;
 
     public function createPlayerDeathMessage(Player $player, string $cause, \DateTime $time): void;
 

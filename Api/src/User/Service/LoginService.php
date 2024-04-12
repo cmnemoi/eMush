@@ -121,9 +121,9 @@ class LoginService
 
         return $this->jwtEncoder
             ->encode([
-                    'code' => $nonce,
-                    'exp' => $expiryTime,
-                ]
+                'code' => $nonce,
+                'exp' => $expiryTime,
+            ]
             );
     }
 

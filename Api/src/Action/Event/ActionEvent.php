@@ -23,7 +23,7 @@ class ActionEvent extends AbstractGameEvent
     private ?ActionResult $actionResult = null;
     private array $actionParameters = [];
 
-    public function __construct(Action $action, Player $player, LogParameterInterface $actionTarget = null, array $actionParameters = [])
+    public function __construct(Action $action, Player $player, ?LogParameterInterface $actionTarget = null, array $actionParameters = [])
     {
         $this->action = $action;
         $this->author = $player;

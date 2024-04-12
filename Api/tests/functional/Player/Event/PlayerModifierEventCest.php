@@ -102,8 +102,8 @@ class PlayerModifierEventCest
         $I->assertCount(1, $player->getStatuses());
         $I->seeInRepository(
             Status::class, [
-            'statusConfig' => $demoralizedStatusConfig->getId(),
-        ]);
+                'statusConfig' => $demoralizedStatusConfig->getId(),
+            ]);
 
         // remove moral bellow suicidal threshold
         $playerEvent = new PlayerVariableEvent(
@@ -118,12 +118,12 @@ class PlayerModifierEventCest
         $I->assertCount(1, $player->getStatuses());
         $I->dontSeeInRepository(
             Status::class, [
-            'statusConfig' => $demoralizedStatusConfig->getId(),
-        ]);
+                'statusConfig' => $demoralizedStatusConfig->getId(),
+            ]);
         $I->seeInRepository(
             Status::class, [
-            'statusConfig' => $suicidalStatusConfig->getId(),
-        ]);
+                'statusConfig' => $suicidalStatusConfig->getId(),
+            ]);
 
         // remove moral within suicidal threshold
         $playerEvent = new PlayerVariableEvent(
@@ -138,12 +138,12 @@ class PlayerModifierEventCest
         $I->assertCount(1, $player->getStatuses());
         $I->dontSeeInRepository(
             Status::class, [
-            'statusConfig' => $demoralizedStatusConfig->getId(),
-        ]);
+                'statusConfig' => $demoralizedStatusConfig->getId(),
+            ]);
         $I->seeInRepository(
             Status::class, [
-            'statusConfig' => $suicidalStatusConfig->getId(),
-        ]);
+                'statusConfig' => $suicidalStatusConfig->getId(),
+            ]);
 
         // add moral to remove any status
         $playerEvent = new PlayerVariableEvent(

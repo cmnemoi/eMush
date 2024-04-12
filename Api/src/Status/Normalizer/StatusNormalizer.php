@@ -20,12 +20,12 @@ class StatusNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Status;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         $status = $object;
         $statusName = $status->getName();

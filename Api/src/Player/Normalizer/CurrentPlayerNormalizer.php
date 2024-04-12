@@ -75,7 +75,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->explorationService = $explorationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
@@ -85,7 +85,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         ;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $player */
         $player = $object;
@@ -186,25 +186,25 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $name = $this->translationService->translate(
             $variable . '.name', [
-            'quantityHealth' => $player->getHealthPoint(),
-            'quantityMoral' => $player->getMoralPoint(),
-        ], 'player',
+                'quantityHealth' => $player->getHealthPoint(),
+                'quantityMoral' => $player->getMoralPoint(),
+            ], 'player',
             $language
         );
 
         $description = $this->translationService->translate(
             $variable . '.description', [
-            'quantityAction' => $player->getActionPoint(),
-            'quantityMovement' => $player->getMovementPoint(),
-        ], 'player',
+                'quantityAction' => $player->getActionPoint(),
+                'quantityMovement' => $player->getMovementPoint(),
+            ], 'player',
             $language
         );
 
         return [
-                'quantity' => $gameVariable->getValue(),
-                'max' => $gameVariable->getMaxValue(),
-                'name' => $name,
-                'description' => $description,
+            'quantity' => $gameVariable->getValue(),
+            'max' => $gameVariable->getMaxValue(),
+            'name' => $name,
+            'description' => $description,
         ];
     }
 
@@ -238,7 +238,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $this->gearToolService->getActionsTools($player, $scope);
     }
 
-    private function normalizeSpaceBattle(Player $player, string $format = null, array $context = []): ?array
+    private function normalizeSpaceBattle(Player $player, ?string $format = null, array $context = []): ?array
     {
         if (!$player->canSeeSpaceBattle()) {
             return null;
@@ -272,7 +272,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));
     }
 
-    private function getNormalizedPlayerStatuses(Player $player, string $format = null, array $context = []): array
+    private function getNormalizedPlayerStatuses(Player $player, ?string $format = null, array $context = []): array
     {
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
@@ -285,7 +285,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $statuses;
     }
 
-    private function getNormalizedPlayerSkills(Player $player, string $format = null, array $context = []): array
+    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {

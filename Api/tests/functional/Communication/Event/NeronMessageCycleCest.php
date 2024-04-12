@@ -50,7 +50,7 @@ class NeronMessageCycleCest
             'propagatingFireRate' => 100,
             'hullFireDamageRate' => 0,
             'maximumAllowedSpreadingFires' => 2,
-            ]);
+        ]);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [

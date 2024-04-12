@@ -226,13 +226,13 @@ class DeadPlayerNormalizerTest extends TestCase
                         'key' => CharacterEnum::ELEESHA,
                         'value' => 'translated eleesha',
                         'description' => 'translated eleesha description',
-                        ],
+                    ],
                     'deathDay' => 56,
                     'deathCycle' => 3,
                     'endCause' => [
-                            'key' => EndCauseEnum::ALLERGY,
-                            'name' => 'translated end cause',
-                            'description' => 'translated end cause description',
+                        'key' => EndCauseEnum::ALLERGY,
+                        'name' => 'translated end cause',
+                        'description' => 'translated end cause description',
                     ],
                     'likes' => 1,
                 ],
@@ -246,14 +246,14 @@ class DeadPlayerNormalizerTest extends TestCase
                     'deathDay' => 0,
                     'deathCycle' => 0,
                     'endCause' => [
-                            'key' => EndCauseEnum::STILL_LIVING,
-                            'name' => 'translated still living',
-                            'description' => 'translated still living description',
+                        'key' => EndCauseEnum::STILL_LIVING,
+                        'name' => 'translated still living',
+                        'description' => 'translated still living description',
                     ],
                     'likes' => 0,
-                    ],
                 ],
-            ];
+            ],
+        ];
 
         $this->assertIsArray($data);
         $this->assertEquals($expected, $data);

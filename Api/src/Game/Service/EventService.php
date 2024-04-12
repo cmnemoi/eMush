@@ -26,7 +26,7 @@ class EventService implements EventServiceInterface
     /**
      * @throws \Exception
      */
-    public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null): EventChain
+    public function callEvent(AbstractGameEvent $event, string $name, ?AbstractGameEvent $caller = null): EventChain
     {
         if ($caller !== null) {
             $event->addTags($caller->getTags());

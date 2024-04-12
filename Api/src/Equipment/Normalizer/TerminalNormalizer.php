@@ -41,12 +41,12 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];

@@ -153,7 +153,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
                 $takeAction, $dropAction, $hideAction, $examineAction,
                 $dismantle325, $repair25, $sabotage25, $reportAction,
                 $extinguishAction,
-                ])
+            ])
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -275,7 +275,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
                 $takeAction, $dropAction, $hideAction,
                 $repair3, $sabotage3, $reportAction, $examineAction,
                 $alienHolographicTVAction,
-                ])
+            ])
             ->setInitStatuses([$alienArtifactStatus])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
@@ -306,7 +306,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
                 $takeAction, $dropAction, $hideAction, $examineAction,
                 $repair25, $sabotage25,
                 $removeSporeAction,
-                ])
+            ])
             ->buildName(GameConfigEnum::DEFAULT)
         ;
         $manager->persist($sporeSucker);

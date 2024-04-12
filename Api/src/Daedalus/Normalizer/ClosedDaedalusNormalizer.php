@@ -26,7 +26,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // Make sure we're not called twice
         if (isset($context[self::ALREADY_CALLED])) {

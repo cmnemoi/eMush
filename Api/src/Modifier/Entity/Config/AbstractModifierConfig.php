@@ -69,7 +69,7 @@ abstract class AbstractModifierConfig
         return $this->name;
     }
 
-    public function setModifierName(string|null $modifierName): self
+    public function setModifierName(?string $modifierName): self
     {
         $this->modifierName = $modifierName;
 

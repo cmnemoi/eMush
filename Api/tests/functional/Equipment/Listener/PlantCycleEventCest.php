@@ -77,7 +77,7 @@ class PlantCycleEventCest
             'gameConfig' => $gameConfig,
             'name' => 'fruit_test',
             'equipmentName' => 'fruit',
-            ]);
+        ]);
 
         $plantMechanic = new Plant();
         $plantMechanic

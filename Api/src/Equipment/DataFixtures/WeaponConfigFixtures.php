@@ -118,7 +118,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 25,
                 4 => 12,
                 5 => 12,
-                ])
+            ])
             ->setExpeditionBonus(1)
             ->setCriticalSuccessRate(25)
             ->setCriticalFailRate(20)

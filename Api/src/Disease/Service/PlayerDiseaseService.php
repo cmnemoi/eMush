@@ -51,7 +51,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         array $causes,
         \DateTime $time,
         string $visibility,
-        Player $author = null
+        ?Player $author = null
     ): bool {
         $event = new DiseaseEvent(
             $playerDisease,
@@ -70,8 +70,8 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         string $diseaseName,
         Player $player,
         array $reasons,
-        int $delayMin = null,
-        int $delayLength = null
+        ?int $delayMin = null,
+        ?int $delayLength = null
     ): PlayerDisease {
         $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 

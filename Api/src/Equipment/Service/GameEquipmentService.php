@@ -100,7 +100,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN,
-        Player $author = null
+        ?Player $author = null
     ): GameEquipment {
         $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
@@ -113,7 +113,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN,
-        Player $author = null
+        ?Player $author = null
     ): GameEquipment {
         $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reasons);
 

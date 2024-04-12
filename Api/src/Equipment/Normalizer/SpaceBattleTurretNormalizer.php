@@ -23,12 +23,12 @@ final class SpaceBattleTurretNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment && $data->getName() === EquipmentEnum::TURRET_COMMAND;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var GameEquipment $turret */
         $turret = $object;

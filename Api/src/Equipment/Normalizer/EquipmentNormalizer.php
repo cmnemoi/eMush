@@ -51,12 +51,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $this->equipmentEffectService = $equipmentEffectService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];

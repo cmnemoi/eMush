@@ -65,7 +65,7 @@ class News
         $this->frenchContent = $frenchContent;
     }
 
-    public function getEnglishTitle(): string|null
+    public function getEnglishTitle(): ?string
     {
         return $this->englishTitle;
     }
@@ -75,7 +75,7 @@ class News
         $this->englishTitle = $englishTitle;
     }
 
-    public function getEnglishContent(): string|null
+    public function getEnglishContent(): ?string
     {
         return $this->englishContent;
     }
@@ -85,7 +85,7 @@ class News
         $this->englishContent = $englishContent;
     }
 
-    public function getSpanishTitle(): string|null
+    public function getSpanishTitle(): ?string
     {
         return $this->spanishTitle;
     }
@@ -95,7 +95,7 @@ class News
         $this->spanishTitle = $spanishTitle;
     }
 
-    public function getSpanishContent(): string|null
+    public function getSpanishContent(): ?string
     {
         return $this->spanishContent;
     }
@@ -115,7 +115,7 @@ class News
         $this->isPinned = $isPinned;
     }
 
-    public function getPublicationDate(): \DateTime|null
+    public function getPublicationDate(): ?\DateTime
     {
         return $this->publicationDate;
     }

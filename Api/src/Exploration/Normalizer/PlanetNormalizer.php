@@ -30,12 +30,12 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Planet;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -79,7 +79,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         ];
     }
 
-    private function normalizePlanetActions(Planet $planet, string $format = null, array $context = []): array
+    private function normalizePlanetActions(Planet $planet, ?string $format = null, array $context = []): array
     {
         $actions = [];
         $currentPlayer = $context['currentPlayer'];

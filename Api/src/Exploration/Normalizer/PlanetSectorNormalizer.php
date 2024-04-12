@@ -22,12 +22,12 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof PlanetSector;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var PlanetSector $planetSector */
         $planetSector = $object;

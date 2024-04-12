@@ -106,9 +106,9 @@ class RoomLogService implements RoomLogServiceInterface
         Place $place,
         string $visibility,
         string $type,
-        Player $player = null,
+        ?Player $player = null,
         array $parameters = [],
-        \DateTime $dateTime = null
+        ?\DateTime $dateTime = null
     ): RoomLog {
         // if there is several version of the log
         if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {

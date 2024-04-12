@@ -72,7 +72,7 @@ class HunterService implements HunterServiceInterface
         return $this->entityManager->getRepository(Hunter::class)->find($id);
     }
 
-    public function killHunter(Hunter $hunter, array $reasons, Player $author = null): void
+    public function killHunter(Hunter $hunter, array $reasons, ?Player $author = null): void
     {
         $daedalus = $hunter->getDaedalus();
 

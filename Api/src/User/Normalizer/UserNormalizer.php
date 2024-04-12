@@ -22,12 +22,12 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $this->playerInfoRepository = $playerInfoRepository;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof User;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var User $user */
         $user = $object;

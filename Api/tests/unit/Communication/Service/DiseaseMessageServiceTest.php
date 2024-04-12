@@ -122,7 +122,7 @@ class DiseaseMessageServiceTest extends TestCase
                     LogDeclinationEnum::PREFIX_COPROLALIA => 1,
                     LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
                     LogDeclinationEnum::BALLS_COPROLALIA => 1,
-                    ],
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
@@ -161,13 +161,13 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::PRE_COPROLALIA, [
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::WORD_COPROLALIA => 1,
-                LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
-                LogDeclinationEnum::PREFIX_COPROLALIA => 1,
-                LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-                LogDeclinationEnum::BALLS_COPROLALIA => 1,
-            ],
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
+                    LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
@@ -208,10 +208,10 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::REPLACE_PARANOIA, [
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
-            ],
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
@@ -251,10 +251,10 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::REPLACE_PARANOIA, [
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
-            ],
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
@@ -317,11 +317,11 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('translate')
             ->with(
                 DiseaseMessagesEnum::ACCUSE_PARANOIA, [
-                'character' => CharacterEnum::TERRENCE,
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
-            ],
+                    'character' => CharacterEnum::TERRENCE,
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )

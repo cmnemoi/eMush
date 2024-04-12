@@ -62,7 +62,7 @@ class TriggerEventModifierConfig extends EventModifierConfig
         return $this;
     }
 
-    public function setModifierName(string|null $modifierName): self
+    public function setModifierName(?string $modifierName): self
     {
         parent::setModifierName($modifierName);
         $this->addNoneTagName();

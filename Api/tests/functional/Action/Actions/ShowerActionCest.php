@@ -99,7 +99,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(
             TriggerEventModifierConfig::class,
             [
-            'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
+                'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
         ));
         $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
         $I->haveInRepository($mushShowerModifier);

@@ -71,7 +71,7 @@ class GearToolService implements GearToolServiceInterface
         return $this->getEquipmentsOnReach($player, $reach)->filter(fn (GameEquipment $equipment) => $equipment->getName() === $equipmentName);
     }
 
-    public function getActionsTools(Player $player, array $scopes, string $target = null): Collection
+    public function getActionsTools(Player $player, array $scopes, ?string $target = null): Collection
     {
         /** @var Collection $actions */
         $grantedActions = new ArrayCollection();

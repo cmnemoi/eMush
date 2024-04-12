@@ -45,12 +45,12 @@ class ActionNormalizer implements NormalizerInterface
         $this->planetService = $planetService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Action && empty($context['groups']);
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         $actionClass = $this->actionStrategyService->getAction($object->getActionName());
         if (!$actionClass) {
@@ -176,7 +176,7 @@ class ActionNormalizer implements NormalizerInterface
         return $parameters;
     }
 
-    private function getTypesDescriptions(string $description, array $types, string $language = null): string
+    private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
     {
         foreach ($types as $type) {
             if (key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {

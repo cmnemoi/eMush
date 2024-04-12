@@ -32,10 +32,10 @@ class ClosedExplorationVoter extends Voter
         // if the attribute isn't one we support, return false
         if (
             !in_array($attribute, [
-            self::DAEDALUS_IS_FINISHED,
-            self::IS_AN_EXPLORATOR,
-            self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED,
-        ])) {
+                self::DAEDALUS_IS_FINISHED,
+                self::IS_AN_EXPLORATOR,
+                self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED,
+            ])) {
             return false;
         }
 

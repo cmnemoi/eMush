@@ -17,7 +17,7 @@ interface ModerationServiceInterface
         ?\DateInterval $duration,
         string $reason,
         ?string $message,
-        \DateTime $startingDate = null
+        ?\DateTime $startingDate = null
     ): User;
 
     public function editClosedPlayerMessage(
@@ -41,7 +41,7 @@ interface ModerationServiceInterface
     public function quarantinePlayer(
         Player $player,
         string $reason,
-        string $message = null
+        ?string $message = null
     ): Player;
 
     public function warnUser(
@@ -49,7 +49,7 @@ interface ModerationServiceInterface
         ?\DateInterval $duration,
         string $reason,
         string $message,
-        \DateTime $startingDate = null
+        ?\DateTime $startingDate = null
     ): User;
 
     public function removeSanction(ModerationSanction $moderationAction): User;

@@ -30,14 +30,14 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         $this->gearToolService = $gearToolService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
         return $data instanceof Player && $data !== $currentPlayer;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $player */
         $player = $object;
@@ -137,7 +137,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         return $this->gearToolService->getActionsTools($currentPlayer, $scope);
     }
 
-    private function getNormalizedPlayerSkills(Player $player, string $format = null, array $context = []): array
+    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {

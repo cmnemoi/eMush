@@ -12,5 +12,6 @@ return (new PhpCsFixer\Config())
         'yoda_style' => false,
         'concat_space' => ['spacing' => 'one'],
         'array_syntax' => ['syntax' => 'short'],
+        'no_alias_functions' => ['sets' => ['@all']]
     ])
     ->setFinder($finder);

@@ -32,12 +32,12 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Hunter && !$data->isInPool();
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];

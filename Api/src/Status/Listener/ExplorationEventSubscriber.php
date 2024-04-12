@@ -158,7 +158,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     private function makeExploratorsDirty(ExplorationEvent $event): void
     {
-        $explorators = $event->getExploration()->getExplorators();
+        $explorators = $event->getExploration()->getActiveExplorators();
 
         // Dirtiness should not be prevented by stainproof apron
         $event->addTag(ActionTypeEnum::ACTION_SUPER_DIRTY);

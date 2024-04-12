@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,7 +11,7 @@ use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Player\Enum\PlayerVariableEnum;
 
-class ActionDataLoader extends ConfigDataLoader
+final class ActionDataLoader extends ConfigDataLoader
 {
     private ActionRepository $actionRepository;
 
@@ -49,7 +51,6 @@ class ActionDataLoader extends ConfigDataLoader
     private function setActionVariables(Action $action, array $actionData): void
     {
         $gameVariables = $action->getGameVariables();
-        $gameVariables->setValuesByName($actionData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
         $gameVariables->setValuesByName($actionData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
         $gameVariables->setValuesByName($actionData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
         $gameVariables->setValuesByName($actionData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
@@ -58,6 +59,11 @@ class ActionDataLoader extends ConfigDataLoader
         $gameVariables->setValuesByName($actionData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
         $gameVariables->setValuesByName($actionData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
         $gameVariables->setValuesByName($actionData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+
+        $gameVariables->setValuesByName($actionData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
+        if ($actionData['percentageDirtiness']['min_value'] >= 100) {
+            $action->makeSuperDirty();
+        }
     }
 
     private function setActionVisibilities(Action $action, array $visibilityData): void

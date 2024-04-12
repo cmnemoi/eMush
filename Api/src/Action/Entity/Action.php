@@ -3,6 +3,7 @@
 namespace Mush\Action\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
@@ -240,17 +241,21 @@ class Action implements GameVariableHolderInterface
         return $this->actionVariables->getValueByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
     }
 
-    public function setDirtyRate(int $dirtyRate, bool $isSuperDirty = false): self
+    public function setDirtyRate(int $dirtyRate): self
     {
         $gameVariable = $this->actionVariables->getVariableByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
-
-        if ($isSuperDirty) {
-            $gameVariable->setMinValue($dirtyRate);
-        } else {
-            $gameVariable->setMinValue(0);
-        }
-
         $gameVariable->setValue($dirtyRate);
+        $gameVariable->setMaxValue(100);
+        $gameVariable->setMinValue(0);
+
+        return $this;
+    }
+
+    public function makeSuperDirty(): self
+    {
+        $gameVariable = $this->actionVariables->getVariableByName(ActionVariableEnum::PERCENTAGE_DIRTINESS);
+        $this->types[] = ActionTypeEnum::ACTION_SUPER_DIRTY;
+        $gameVariable->setMinValue(100);
 
         return $this;
     }

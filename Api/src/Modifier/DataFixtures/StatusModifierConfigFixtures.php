@@ -138,9 +138,9 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $modifierRequirementNotMush = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $modifierRequirementNotMush
             ->setActivationRequirement(PlayerStatusEnum::MUSH)
-            ->setValue(0)
-            ->setName('player_not_mush_requirement_test')
-        ;
+            ->setValue(ModifierRequirementEnum::ABSENT_STATUS)
+            ->setName('player_not_mush_requirement_test');
+
         $manager->persist($modifierRequirementNotMush);
         $antisocialModifier = new TriggerEventModifierConfig(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $antisocialModifier

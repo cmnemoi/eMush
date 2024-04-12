@@ -6,6 +6,9 @@ namespace Mush\Tests\unit\Status\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
@@ -58,6 +61,12 @@ final class ExplorationEventSubscriberTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
         new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $spacesuitConfig = new EquipmentConfig();
+        $spacesuitConfig->setName(GearItemEnum::SPACESUIT);
+        $spacesuit = new GameItem($player);
+        $spacesuit->setEquipment($spacesuitConfig);
+        $spacesuit->setName(GearItemEnum::SPACESUIT);
 
         $planet = new Planet($player);
         $planet->setName(new PlanetName());

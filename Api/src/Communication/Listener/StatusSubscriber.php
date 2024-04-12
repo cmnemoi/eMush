@@ -57,7 +57,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 if (!$holder instanceof GameEquipment) {
                     throw new UnexpectedTypeException($holder, GameEquipment::class);
                 }
-                // @TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange)
+                /** @TODO : if ($brokenByGreenJelly || $equipmentBrokenByCycleChange) */
                 if ($equipmentBrokenByCycleChange) {
                     $this->neronMessageService->createBrokenEquipmentMessage($holder, $event->getVisibility(), $time, $event->getTags());
                 }

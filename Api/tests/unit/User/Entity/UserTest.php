@@ -24,7 +24,7 @@ class UserTest extends TestCase
         $user->addModerationSanction($sanction);
 
         // the sanction is not a ban
-        $this->assertFalse($user->isBanned());
+        self::assertFalse($user->isBanned());
     }
 
     public function testIsUserBannedTemporary()
@@ -44,6 +44,6 @@ class UserTest extends TestCase
         // given sanction ends tomorrow
         $sanction->setEndDate($endSanction);
         // then the sanction is active
-        $this->assertTrue($user->isBanned());
+        self::assertTrue($user->isBanned());
     }
 }

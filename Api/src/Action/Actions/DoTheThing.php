@@ -153,7 +153,7 @@ class DoTheThing extends AbstractAction
         $target = $this->target;
         $player = $this->player;
 
-        // @TODO add confirmation pop up
+        /** @TODO add confirmation pop up */
 
         // give two moral points, or max morale if it is their first time
         $moralePoints = $this->getOutputQuantity();
@@ -267,7 +267,7 @@ class DoTheThing extends AbstractAction
         $stds = array_keys($sexDiseaseCauseConfig->getDiseases()->toArray());
 
         return $player->getMedicalConditions()->getActiveDiseases()->filter(
-            function ($disease) use ($stds) { return in_array($disease->getDiseaseConfig()->getName(), $stds); }
+            static function ($disease) use ($stds) { return \in_array($disease->getDiseaseConfig()->getName(), $stds, true); }
         );
     }
 

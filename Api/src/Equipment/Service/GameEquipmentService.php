@@ -269,7 +269,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         /** @var EquipmentMechanic $mechanic */
         foreach ($gameEquipment->getEquipment()->getMechanics() as $mechanic) {
             if ($mechanic instanceof Plant) {
-                if (!in_array(EventEnum::CREATE_DAEDALUS, $reasons)) {
+                if (!\in_array(EventEnum::CREATE_DAEDALUS, $reasons, true)) {
                     $this->initPlant($gameEquipment, $mechanic, $daedalus);
                 }
             } elseif ($mechanic instanceof Document && $mechanic->getContent()) {

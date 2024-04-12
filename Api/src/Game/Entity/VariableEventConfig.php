@@ -166,7 +166,7 @@ class VariableEventConfig extends AbstractEventConfig
 
     public function revertEvent(): ?AbstractEventConfig
     {
-        $reverseEvent = new VariableEventConfig();
+        $reverseEvent = new self();
         $reverseEvent
             ->setTargetVariable($this->targetVariable)
             ->setVariableHolderClass($this->variableHolderClass)

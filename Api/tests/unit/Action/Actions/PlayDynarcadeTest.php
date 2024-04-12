@@ -82,18 +82,18 @@ class PlayDynarcadeTest extends AbstractActionTest
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventService->shouldReceive('callEvent')
-        ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
-            return $event->getAuthor() == $expectedPlayerModifierEvent->getAuthor()
-                 && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
-                 && $event->getRoundedQuantity() == $expectedPlayerModifierEvent->getRoundedQuantity()
-                 && $event->getTags() == $expectedPlayerModifierEvent->getTags()
-                 && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
+        ->withArgs([\Mockery::on(static function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
+            return $event->getAuthor() === $expectedPlayerModifierEvent->getAuthor()
+                 && $event->getVariableName() === $expectedPlayerModifierEvent->getVariableName()
+                 && $event->getRoundedQuantity() === $expectedPlayerModifierEvent->getRoundedQuantity()
+                 && $event->getTags() === $expectedPlayerModifierEvent->getTags()
+                 && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
         }), VariableEventInterface::CHANGE_VARIABLE])
         ->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
+        self::assertInstanceOf(Fail::class, $result);
     }
 
     public function testExecuteSuccess()
@@ -132,17 +132,17 @@ class PlayDynarcadeTest extends AbstractActionTest
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventService->shouldReceive('callEvent')
-        ->withArgs([\Mockery::on(function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
-            return $event->getAuthor() == $expectedPlayerModifierEvent->getAuthor()
-                 && $event->getVariableName() == $expectedPlayerModifierEvent->getVariableName()
-                 && $event->getRoundedQuantity() == $expectedPlayerModifierEvent->getRoundedQuantity()
-                 && $event->getTags() == $expectedPlayerModifierEvent->getTags()
-                 && $event->getVisibility() == $expectedPlayerModifierEvent->getVisibility();
+        ->withArgs([\Mockery::on(static function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
+            return $event->getAuthor() === $expectedPlayerModifierEvent->getAuthor()
+                 && $event->getVariableName() === $expectedPlayerModifierEvent->getVariableName()
+                 && $event->getRoundedQuantity() === $expectedPlayerModifierEvent->getRoundedQuantity()
+                 && $event->getTags() === $expectedPlayerModifierEvent->getTags()
+                 && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
         }), VariableEventInterface::CHANGE_VARIABLE])
         ->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

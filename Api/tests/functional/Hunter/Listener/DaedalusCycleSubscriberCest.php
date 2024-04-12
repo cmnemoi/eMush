@@ -53,7 +53,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->haveInRepository($hunter);
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new DaedalusCycleEvent(
             $this->daedalus,
             [EventEnum::NEW_CYCLE],
@@ -77,7 +77,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->haveInRepository($hunter);
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new DaedalusCycleEvent(
             $this->daedalus,
             [EventEnum::NEW_CYCLE],
@@ -96,7 +96,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->haveInRepository($hunter);
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new DaedalusCycleEvent(
             $this->daedalus,
             [EventEnum::NEW_CYCLE],
@@ -114,7 +114,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->haveInRepository($hunter);
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new DaedalusCycleEvent(
             $this->daedalus,
             [EventEnum::NEW_CYCLE],
@@ -129,7 +129,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $hullBeforeCycleChange = $this->daedalus->getHull();
 
         $dateDaedalusLastCycle = $this->daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new DaedalusCycleEvent(
             $this->daedalus,
             [EventEnum::NEW_CYCLE],
@@ -150,7 +150,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
         $I->assertNotFalse($asteroid);
@@ -160,7 +160,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES));
 
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new DaedalusCycleEvent(
             $daedalus,
             [EventEnum::NEW_CYCLE],
@@ -184,7 +184,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
@@ -193,7 +193,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         for ($i = 0; $i < $truceStatusConfig->getStartCharge(); ++$i) {
             $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
-            $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+            $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
             $cycleEvent = new HunterCycleEvent(
                 $daedalus,
                 [EventEnum::NEW_CYCLE],
@@ -219,7 +219,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         /** @var Hunter $d1000 */
         $d1000 = $daedalus
                             ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
+                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
                             ->first()
         ;
         $d1000->getHunterConfig()->setHitChance(100)->setDamageRange([6 => 1]);
@@ -231,7 +231,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         // when hunter shoots
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new HunterCycleEvent(
             $daedalus,
             [EventEnum::NEW_CYCLE],
@@ -250,7 +250,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         // when hunter shoots
         $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
-        $dateDaedalusLastCycle->add(new \DateInterval('PT' . strval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength()) . 'M'));
+        $dateDaedalusLastCycle->add(new \DateInterval('PT' . (string) $daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() . 'M'));
         $cycleEvent = new HunterCycleEvent(
             $daedalus,
             [EventEnum::NEW_CYCLE],
@@ -285,7 +285,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only asteroids can spawn
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
         );
 
         /** @var LocalizationConfig $localizationConfig */
@@ -336,7 +336,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only D1000 can spawn
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
 
         /** @var LocalizationConfig $localizationConfig */

@@ -115,8 +115,8 @@ class ShootHunter extends AttemptAction
     {
         /** @var GameEquipment $shootingEquipment */
         $shootingEquipment = $this->player->getPlace()->getEquipments()
-            ->filter(fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
-            ->filter(fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
+            ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
+            ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
             ->first();
 
         if (!$shootingEquipment instanceof GameEquipment) {
@@ -129,7 +129,7 @@ class ShootHunter extends AttemptAction
     private function getWeaponMechanic(GameEquipment $shootingEquipment): Weapon
     {
         /** @var Weapon $weapon */
-        $weapon = $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
+        $weapon = $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
         if (!$weapon instanceof Weapon) {
             throw new \Exception("Shoot hunter action : {$shootingEquipment->getName()} should have a weapon mechanic");
         }

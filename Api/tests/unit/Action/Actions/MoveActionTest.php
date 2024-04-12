@@ -64,15 +64,15 @@ class MoveActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals($player->getPlace(), $roomEnd);
+        self::assertInstanceOf(Success::class, $result);
+        self::assertSame($player->getPlace(), $roomEnd);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
         $this->eventService->shouldReceive('callEvent')->times(3);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals($player->getPlace(), $roomStart);
+        self::assertInstanceOf(Success::class, $result);
+        self::assertSame($player->getPlace(), $roomStart);
     }
 }

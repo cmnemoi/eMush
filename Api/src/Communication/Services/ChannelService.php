@@ -226,8 +226,8 @@ class ChannelService implements ChannelServiceInterface
 
         // or at least one member of the conversation in each room can communicate
         $otherParticipants = $channel->getParticipants()
-            ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
-            ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)
+            ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
+            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player)
         ;
 
         /** @var Player $participant */
@@ -278,7 +278,7 @@ class ChannelService implements ChannelServiceInterface
         $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
 
         if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
-            return $channels->filter(fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE)
+            return $channels->filter(static fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE)
                 || $channel->isScope(ChannelScopeEnum::MUSH)
             );
         }
@@ -335,8 +335,8 @@ class ChannelService implements ChannelServiceInterface
         } else {
             // can whisper with at least one channel participant
             $otherParticipants = $channel->getParticipants()
-                ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
-                ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)
+                ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
+                ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player)
             ;
 
             /** @var Player $participant */
@@ -390,7 +390,7 @@ class ChannelService implements ChannelServiceInterface
     public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool
     {
         $channelParticipant = $channel->getParticipants()
-            ->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))
+            ->filter(static fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))
         ;
 
         if ($channelParticipant->isEmpty()) {

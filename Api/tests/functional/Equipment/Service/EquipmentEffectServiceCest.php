@@ -52,9 +52,9 @@ class EquipmentEffectServiceCest
 
         $consumableEffect = $this->equipmentEffectService->getConsumableEffect($rationEffect, $daedalus);
 
-        $I->assertTrue(in_array($consumableEffect->getActionPoint(), [1, 2, 3]));
+        $I->assertTrue(\in_array($consumableEffect->getActionPoint(), [1, 2, 3], true));
         $I->assertEquals(0, $consumableEffect->getMovementPoint());
-        $I->assertTrue(in_array($consumableEffect->getHealthPoint(), [1, 3]));
+        $I->assertTrue(\in_array($consumableEffect->getHealthPoint(), [1, 3], true));
         $I->assertEquals(1000, $consumableEffect->getMoralPoint());
 
         $existingEffect = $this->equipmentEffectService->getConsumableEffect($rationEffect, $daedalus);

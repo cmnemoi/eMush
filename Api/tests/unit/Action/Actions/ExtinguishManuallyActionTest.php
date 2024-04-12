@@ -17,10 +17,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class ExtinguishManuallyActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
-    /* @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
 
     /**
@@ -80,8 +78,8 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         // Fail try
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
-        $this->assertCount(1, $room->getStatuses());
+        self::assertInstanceOf(Fail::class, $result);
+        self::assertCount(1, $room->getStatuses());
     }
 
     public function testExecuteSuccess()
@@ -113,6 +111,6 @@ class ExtinguishManuallyActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

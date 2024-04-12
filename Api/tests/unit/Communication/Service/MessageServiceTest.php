@@ -96,7 +96,7 @@ class MessageServiceTest extends TestCase
 
         $message = $this->service->createPlayerMessage($player, $playerMessageDto);
 
-        $this->assertInstanceOf(Message::class, $message);
+        self::assertInstanceOf(Message::class, $message);
     }
 
     public function testCreatePlayerMessageWithParent()
@@ -135,7 +135,7 @@ class MessageServiceTest extends TestCase
 
         $messageWithParent = $this->service->createPlayerMessage($player, $playerMessageDto);
 
-        $this->assertInstanceOf(Message::class, $messageWithParent);
+        self::assertInstanceOf(Message::class, $messageWithParent);
     }
 
     public function testCanPlayerPostMessage()
@@ -147,7 +147,7 @@ class MessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
         $player->setPlayerInfo($playerInfo);
-        $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
+        self::assertFalse($this->service->canPlayerPostMessage($player, $channel));
 
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
@@ -157,7 +157,7 @@ class MessageServiceTest extends TestCase
             ->andReturn(new MessageEvent(new Message(), $player, [], new \DateTime()))
             ->once()
         ;
-        $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
+        self::assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
         // event new message is prevented
         $this->eventService
@@ -165,7 +165,7 @@ class MessageServiceTest extends TestCase
             ->andReturn(null)
             ->once()
         ;
-        $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
+        self::assertFalse($this->service->canPlayerPostMessage($player, $channel));
     }
 
     public function testCreateSystemMessage()
@@ -180,12 +180,12 @@ class MessageServiceTest extends TestCase
             $time
         );
 
-        $this->assertInstanceOf(Message::class, $message);
-        $this->assertEquals('key', $message->getMessage());
-        $this->assertEquals(null, $message->getAuthor());
-        $this->assertEquals($time, $message->getCreatedAt());
-        $this->assertEquals($time, $message->getUpdatedAt());
-        $this->assertEquals($channel, $message->getChannel());
+        self::assertInstanceOf(Message::class, $message);
+        self::assertSame('key', $message->getMessage());
+        self::assertNull($message->getAuthor());
+        self::assertSame($time, $message->getCreatedAt());
+        self::assertSame($time, $message->getUpdatedAt());
+        self::assertSame($channel, $message->getChannel());
     }
 
     public function testGetMessage()
@@ -209,7 +209,7 @@ class MessageServiceTest extends TestCase
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
-        $this->assertCount(2, $messages);
+        self::assertCount(2, $messages);
     }
 
     public function testGetMessageMush()
@@ -224,9 +224,9 @@ class MessageServiceTest extends TestCase
 
         $this->messageRepository
             ->shouldReceive('findByChannel')
-            ->withArgs(fn ($channelTest, $age) => $channelTest === $channel
+            ->withArgs(static fn ($channelTest, $age) => $channelTest === $channel
                 && $age instanceof \DateInterval
-                && intval($age->format('%H')) === 24
+                && (int) $age->format('%H') === 24
             )
             ->andReturn([$message1, $message2])
         ;
@@ -237,7 +237,7 @@ class MessageServiceTest extends TestCase
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
-        $this->assertCount(2, $messages);
+        self::assertCount(2, $messages);
     }
 
     public function testGetMessageWithLimit(): void
@@ -264,6 +264,6 @@ class MessageServiceTest extends TestCase
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
-        $this->assertCount(10, $messages);
+        self::assertCount(10, $messages);
     }
 }

@@ -66,7 +66,7 @@ class StatusNormalizer implements NormalizerInterface
         ?StatusHolderInterface $statusTarget,
         array $context
     ): bool {
-        $isModerator = isset($context['groups']) && in_array('moderation_view', $context['groups'], true);
+        $isModerator = isset($context['groups']) && \in_array('moderation_view', $context['groups'], true);
 
         if (
             $isModerator

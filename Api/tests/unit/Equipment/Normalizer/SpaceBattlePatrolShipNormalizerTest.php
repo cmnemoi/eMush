@@ -35,7 +35,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $patrolShip = $this->createMock(GameEquipment::class);
         $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
 
-        $this->assertTrue($this->normalizer->supportsNormalization($patrolShip));
+        self::assertTrue($this->normalizer->supportsNormalization($patrolShip));
     }
 
     public function testSupportsNormalizationReturnsFalseForNonPatrolShip(): void
@@ -43,7 +43,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $door = $this->createMock(GameEquipment::class);
         $door->method('getName')->willReturn(EquipmentEnum::DOOR);
 
-        $this->assertFalse($this->normalizer->supportsNormalization($door));
+        self::assertFalse($this->normalizer->supportsNormalization($door));
     }
 
     public function testNormalizeReturnsExpectedArray(): void
@@ -99,7 +99,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'isBroken' => false,
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));
+        self::assertSame($expected, $this->normalizer->normalize($patrolShip));
     }
 
     public function testNormalizeReturnsExpectedArrayForPasiphae(): void
@@ -154,7 +154,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'isBroken' => false,
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));
+        self::assertSame($expected, $this->normalizer->normalize($patrolShip));
     }
 
     public function testNormalizeReturnsExpectedArrayWithDeadPilot(): void
@@ -207,7 +207,7 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'isBroken' => false,
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));
+        self::assertSame($expected, $this->normalizer->normalize($patrolShip));
     }
 
     public function testNormalizeWithBrokenPatrolShip(): void
@@ -264,6 +264,6 @@ class SpaceBattlePatrolShipNormalizerTest extends TestCase
             'isBroken' => true,
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($patrolShip));
+        self::assertSame($expected, $this->normalizer->normalize($patrolShip));
     }
 }

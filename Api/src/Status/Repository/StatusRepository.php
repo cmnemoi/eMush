@@ -51,7 +51,7 @@ class StatusRepository extends ServiceEntityRepository
         ;
 
         if ($name = $criteria->getName()) {
-            if (is_array($name)) {
+            if (\is_array($name)) {
                 $queryBuilder
                     ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
                     ->andWhere($queryBuilder->expr()->in('status_config.statusName', ':name'));

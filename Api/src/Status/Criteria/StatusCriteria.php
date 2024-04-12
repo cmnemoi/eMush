@@ -20,7 +20,7 @@ class StatusCriteria
         return $this->daedalus;
     }
 
-    public function setDaedalus(Daedalus $daedalus): StatusCriteria
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -32,7 +32,7 @@ class StatusCriteria
         return $this->name;
     }
 
-    public function setName($name): StatusCriteria
+    public function setName($name): self
     {
         $this->name = $name;
 

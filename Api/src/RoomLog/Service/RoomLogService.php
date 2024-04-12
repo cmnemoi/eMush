@@ -111,7 +111,7 @@ class RoomLogService implements RoomLogServiceInterface
         ?\DateTime $dateTime = null
     ): RoomLog {
         // if there is several version of the log
-        if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+        if (\array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }

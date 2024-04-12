@@ -89,8 +89,8 @@ class InsertOxygenTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

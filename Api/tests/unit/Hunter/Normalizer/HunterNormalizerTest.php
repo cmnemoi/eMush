@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 final class HunterNormalizerTest extends TestCase
 {
     private const ASTEROID_DESCRIPTION = 'Un gros caillou qui se rapproche dangereusement du Daedalus
-    Pas de poursuite. 
+    Pas de poursuite.
     Dans 6 cycles, va collisionner le Daedalus infligeant 20 points de dégâts.';
     private const HUNTER_DESCRIPTION = 'Chasseur standard de la FDS';
 
@@ -54,7 +54,7 @@ final class HunterNormalizerTest extends TestCase
         $hunter = $this->createMock(Hunter::class);
         $hunter->method('isInPool')->willReturn(false);
 
-        $this->assertTrue($this->normalizer->supportsNormalization($hunter));
+        self::assertTrue($this->normalizer->supportsNormalization($hunter));
     }
 
     public function testSupportsNormalizationReturnsFalseForHunterInPool(): void
@@ -62,7 +62,7 @@ final class HunterNormalizerTest extends TestCase
         $hunter = $this->createMock(Hunter::class);
         $hunter->method('isInPool')->willReturn(true);
 
-        $this->assertFalse($this->normalizer->supportsNormalization($hunter));
+        self::assertFalse($this->normalizer->supportsNormalization($hunter));
     }
 
     public function testNormalizeReturnsExpectedArray(): void
@@ -131,7 +131,7 @@ final class HunterNormalizerTest extends TestCase
             'actions' => [],
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($hunter, context: $context));
+        self::assertSame($expected, $this->normalizer->normalize($hunter, context: $context));
     }
 
     public function testNormalizeReturnsNullChargesForNonAsteroidHunter(): void
@@ -198,6 +198,6 @@ final class HunterNormalizerTest extends TestCase
             'actions' => [],
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($hunter, context: $context));
+        self::assertSame($expected, $this->normalizer->normalize($hunter, context: $context));
     }
 }

@@ -110,8 +110,8 @@ class PlanetServiceTest extends TestCase
 
         $planet = $this->service->createPlanet($this->player);
 
-        $this->assertEquals(4, $planet->getSize());
-        $this->assertCount(4, $planet->getSectors());
+        self::assertSame(4, $planet->getSize());
+        self::assertCount(4, $planet->getSectors());
     }
 
     public function testMaxSectorPerPlanetTest()
@@ -160,8 +160,8 @@ class PlanetServiceTest extends TestCase
 
         $planet = $this->service->createPlanet($this->player);
 
-        $this->assertEquals(4, $planet->getSize());
-        $this->assertCount(4, $planet->getSectors());
+        self::assertSame(4, $planet->getSize());
+        self::assertCount(4, $planet->getSectors());
     }
 
     private function randomPlanetNameGenerationExpectations(): void

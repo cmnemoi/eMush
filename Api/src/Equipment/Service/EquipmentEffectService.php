@@ -70,11 +70,11 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 ->setDaedalus($daedalus)
                 ->setPlant($plant)
                 ->setMaturationTime(
-                    intval($this->randomService->getSingleRandomElementFromProbaCollection(
+                    (int) $this->randomService->getSingleRandomElementFromProbaCollection(
                         $plant->getMaturationTime()
-                    ))
+                    )
                 )
-                ->setOxygen(intval($this->randomService->getSingleRandomElementFromProbaCollection($plant->getOxygen())))
+                ->setOxygen((int) $this->randomService->getSingleRandomElementFromProbaCollection($plant->getOxygen()))
             ;
 
             $this->plantEffectRepository->persist($plantEffect);
@@ -98,16 +98,16 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         } else {
             $consumableEffect
                 ->setActionPoint(
-                    intval($this->randomService->getSingleRandomElementFromProbaCollection($ration->getActionPoints()))
+                    (int) $this->randomService->getSingleRandomElementFromProbaCollection($ration->getActionPoints())
                 )
                 ->setMovementPoint(
-                    intval($this->randomService->getSingleRandomElementFromProbaCollection($ration->getMovementPoints()))
+                    (int) $this->randomService->getSingleRandomElementFromProbaCollection($ration->getMovementPoints())
                 )
                 ->setHealthPoint(
-                    intval($this->randomService->getSingleRandomElementFromProbaCollection($ration->getHealthPoints()))
+                    (int) $this->randomService->getSingleRandomElementFromProbaCollection($ration->getHealthPoints())
                 )
                 ->setMoralPoint(
-                    intval($this->randomService->getSingleRandomElementFromProbaCollection($ration->getMoralPoints()))
+                    (int) $this->randomService->getSingleRandomElementFromProbaCollection($ration->getMoralPoints())
                 );
         }
 
@@ -120,22 +120,22 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         if ($this->randomService->isSuccessful(50)) {
             $consumableEffect
                 ->setActionPoint(
-                    intval($this->randomService->getSingleRandomElementFromProbaCollection($drug->getActionPoints()))
+                    (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getActionPoints())
                 );
         } else {
             $consumableEffect->setMovementPoint(
-                intval($this->randomService->getSingleRandomElementFromProbaCollection($drug->getMovementPoints()))
+                (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getMovementPoints())
             );
         }
 
         // if the ration is a drug either health point gain or moral point gain
         if ($this->randomService->isSuccessful(50)) {
             $consumableEffect->setHealthPoint(
-                intval($this->randomService->getSingleRandomElementFromProbaCollection($drug->getHealthPoints()))
+                (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getHealthPoints())
             );
         } else {
             $consumableEffect->setMoralPoint(
-                intval($this->randomService->getSingleRandomElementFromProbaCollection($drug->getMoralPoints()))
+                (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getMoralPoints())
             );
         }
 

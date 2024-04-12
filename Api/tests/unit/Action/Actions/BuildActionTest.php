@@ -20,7 +20,6 @@ class BuildActionTest extends AbstractActionTest
 {
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     protected AbstractAction $action;
@@ -102,6 +101,6 @@ class BuildActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

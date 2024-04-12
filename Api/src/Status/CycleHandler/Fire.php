@@ -85,7 +85,7 @@ final readonly class Fire extends AbstractStatusCycleHandler
                 // The filter only remove the doors who have the other room not in fire.
                 ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
                 // So I ask to have the other room in the array.
-                ->map(fn (Door $door) => $door->getOtherRoom($roomToPropagate));
+                ->map(static fn (Door $door) => $door->getOtherRoom($roomToPropagate));
 
             // No luck for this loop, check for another fire.
             if ($adjacentCleanRooms->isEmpty()) {

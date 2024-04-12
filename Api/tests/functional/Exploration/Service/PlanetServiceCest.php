@@ -74,7 +74,7 @@ final class PlanetServiceCest extends AbstractFunctionalTest
     {
         // given only oxygen sector may be created
         $availableSectorConfigs = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
-            fn (PlanetSectorConfig $planetSectorConfig) => PlanetSectorEnum::OXYGEN === $planetSectorConfig->getSectorName()
+            static fn (PlanetSectorConfig $planetSectorConfig) => PlanetSectorEnum::OXYGEN === $planetSectorConfig->getSectorName()
         );
         $this->daedalus->getGameConfig()->setPlanetSectorConfigs($availableSectorConfigs);
 

@@ -103,7 +103,7 @@ final class MoveCest extends AbstractFunctionalTest
         $I->haveInRepository($door);
 
         // when jinsu tries to move to the laboratory
-        $jinsu = $this->players->filter(fn (Player $player) => $player->getName() === CharacterEnum::JIN_SU)->first();
+        $jinsu = $this->players->filter(static fn (Player $player) => $player->getName() === CharacterEnum::JIN_SU)->first();
         $this->moveAction->loadParameters($this->moveConfig, $jinsu, $door);
         $this->moveAction->execute();
 
@@ -163,7 +163,7 @@ final class MoveCest extends AbstractFunctionalTest
         $this->moveAction->execute();
 
         // then player1 should not be in the private channel anymore
-        $I->assertFalse($channel->getParticipants()->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())->contains($this->player));
+        $I->assertFalse($channel->getParticipants()->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())->contains($this->player));
     }
 
     public function testDisabledCrewmateDoesNotConvertAPToMPWithPlayerInTheRoomAndSimulatorIsBroken(FunctionalTester $I): void

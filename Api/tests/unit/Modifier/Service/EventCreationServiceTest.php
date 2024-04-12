@@ -85,36 +85,36 @@ class EventCreationServiceTest extends TestCase
         // range is a player
         $eventTargets = $this->service->getEventTargetsFromModifierHolder(ModifierHolderClassEnum::PLAYER, $player1);
 
-        $this->assertCount(1, $eventTargets);
+        self::assertCount(1, $eventTargets);
         $player = $eventTargets[0];
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals($player1, $player);
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame($player1, $player);
 
         // range is a place
         $eventTargets = $this->service->getEventTargetsFromModifierHolder(ModifierHolderClassEnum::PLAYER, $place1);
 
-        $this->assertCount(2, $eventTargets);
+        self::assertCount(2, $eventTargets);
         $player = $eventTargets[0];
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals($player1, $player);
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame($player1, $player);
 
         $player = $eventTargets[1];
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals($player2, $player);
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame($player2, $player);
 
         // range is Daedalus
         $eventTargets = $this->service->getEventTargetsFromModifierHolder(ModifierHolderClassEnum::PLAYER, $daedalus);
 
-        $this->assertCount(3, $eventTargets);
+        self::assertCount(3, $eventTargets);
         $player = $eventTargets[0];
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals($player1, $player);
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame($player1, $player);
         $player = $eventTargets[1];
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals($player2, $player);
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame($player2, $player);
         $player = $eventTargets[2];
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals($player3, $player);
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame($player3, $player);
     }
 
     public function testGetDaedalusTarget()
@@ -140,23 +140,23 @@ class EventCreationServiceTest extends TestCase
         // range is a player
         $eventTarget = $this->service->getEventTargetsFromModifierHolder(ModifierHolderClassEnum::DAEDALUS, $player1);
 
-        $this->assertCount(1, $eventTarget);
+        self::assertCount(1, $eventTarget);
         $result = $eventTarget[0];
-        $this->assertInstanceOf(Daedalus::class, $result);
-        $this->assertEquals($daedalus, $result);
+        self::assertInstanceOf(Daedalus::class, $result);
+        self::assertSame($daedalus, $result);
 
         // range is a place
         $eventTarget = $this->service->getEventTargetsFromModifierHolder(ModifierHolderClassEnum::DAEDALUS, $place1);
-        $this->assertCount(1, $eventTarget);
+        self::assertCount(1, $eventTarget);
         $result = $eventTarget[0];
-        $this->assertInstanceOf(Daedalus::class, $result);
-        $this->assertEquals($daedalus, $result);
+        self::assertInstanceOf(Daedalus::class, $result);
+        self::assertSame($daedalus, $result);
 
         // range is Daedalus
         $eventTarget = $this->service->getEventTargetsFromModifierHolder(ModifierHolderClassEnum::DAEDALUS, $daedalus);
-        $this->assertCount(1, $eventTarget);
+        self::assertCount(1, $eventTarget);
         $result = $eventTarget[0];
-        $this->assertInstanceOf(Daedalus::class, $result);
-        $this->assertEquals($daedalus, $result);
+        self::assertInstanceOf(Daedalus::class, $result);
+        self::assertSame($daedalus, $result);
     }
 }

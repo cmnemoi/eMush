@@ -64,7 +64,7 @@ class UserVoterTest extends TestCase
             $user, 'credentials', []
         );
 
-        $this->assertEquals(
+        self::assertSame(
             $expectedVote,
             $this->voter->vote($token, $editedUser, [$attribute])
         );

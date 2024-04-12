@@ -22,10 +22,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class CookActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -92,11 +90,11 @@ class CookActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getEquipments());
-        $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(1, $player->getEquipments());
+        self::assertSame($gameRation->getName(), $player->getEquipments()->first()->getName());
+        self::assertCount(0, $player->getStatuses());
 
         $room = new Place();
     }
@@ -140,9 +138,9 @@ class CookActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 }

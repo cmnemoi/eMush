@@ -76,7 +76,7 @@ class RoomLogServiceTest extends TestCase
         $log = new RoomLog();
         $this->repository->shouldReceive('find')->with(5)->andReturn($log)->once();
 
-        $this->assertEquals($log, $this->service->findById(5));
+        self::assertSame($log, $this->service->findById(5));
     }
 
     public function testPersist()
@@ -118,14 +118,14 @@ class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals([], $test->getParameters());
-        $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($player, $test->getPlayerInfo());
-        $this->assertEquals($visibility, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame([], $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($player, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateLogWithParameters()
@@ -168,14 +168,14 @@ class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals($parameters, $test->getParameters());
-        $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals($visibility, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateSecretLog()
@@ -216,14 +216,14 @@ class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals($parameters, $test->getParameters());
-        $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals($visibility, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateSecretRevealedLog()
@@ -275,14 +275,14 @@ class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals($parameters, $test->getParameters());
-        $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals(VisibilityEnum::REVEALED, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::REVEALED, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateCovertRevealedLog()
@@ -327,14 +327,14 @@ class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals($parameters, $test->getParameters());
-        $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals(VisibilityEnum::REVEALED, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::REVEALED, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateCovertItemCameraLog()
@@ -377,14 +377,14 @@ class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals($parameters, $test->getParameters());
-        $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals($visibility, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateActionSuccessLog()
@@ -420,14 +420,14 @@ class RoomLogServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertEquals(ActionLogEnum::STRENGTHEN_SUCCESS, $test->getLog());
-        $this->assertEquals(['character' => 'andie'], $test->getParameters());
-        $this->assertEquals('actions_log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals(VisibilityEnum::PUBLIC, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame(ActionLogEnum::STRENGTHEN_SUCCESS, $test->getLog());
+        self::assertSame(['character' => 'andie'], $test->getParameters());
+        self::assertSame('actions_log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::PUBLIC, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateActionFailLog()
@@ -463,14 +463,14 @@ class RoomLogServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
-        $this->assertEquals(['character' => 'andie'], $test->getParameters());
-        $this->assertEquals('actions_log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals(VisibilityEnum::PRIVATE, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
+        self::assertSame(['character' => 'andie'], $test->getParameters());
+        self::assertSame('actions_log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::PRIVATE, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateActionWithParameterLog()
@@ -510,14 +510,14 @@ class RoomLogServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertEquals(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
-        $this->assertEquals(['character' => 'andie', 'target_equipment' => 'equipment'], $test->getParameters());
-        $this->assertEquals('actions_log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals(VisibilityEnum::PRIVATE, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
+        self::assertSame(['character' => 'andie', 'target_equipment' => 'equipment'], $test->getParameters());
+        self::assertSame('actions_log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::PRIVATE, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testGetLogs()
@@ -572,7 +572,7 @@ class RoomLogServiceTest extends TestCase
 
         $expectedLogs = new RoomLogCollection([$roomLog1, $roomLog2]);
 
-        $this->assertEquals($expectedLogs, $logs);
+        self::assertSame($expectedLogs, $logs);
     }
 
     public function testCreateSecretLogDeadPlayerInRoom()
@@ -625,13 +625,13 @@ class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $this->assertEquals($logKey, $test->getLog());
-        $this->assertEquals($parameters, $test->getParameters());
-        $this->assertEquals('log', $test->getType());
-        $this->assertEquals($place->getName(), $test->getPlace());
-        $this->assertEquals($playerInfo, $test->getPlayerInfo());
-        $this->assertEquals(VisibilityEnum::SECRET, $test->getVisibility());
-        $this->assertEquals(4, $test->getCycle());
-        $this->assertEquals(2, $test->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::SECRET, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 }

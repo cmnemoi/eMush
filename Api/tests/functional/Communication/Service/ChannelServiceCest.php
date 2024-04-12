@@ -141,7 +141,7 @@ final class ChannelServiceCest extends AbstractFunctionalTest
 
         // when I check the players Chun can invite to the channel
         $invitablePlayers = $this->channelService->getInvitablePlayersToPrivateChannel($channel, $chun);
-        $invitablePlayers = $invitablePlayers->map(fn (Player $player) => $player->getLogName());
+        $invitablePlayers = $invitablePlayers->map(static fn (Player $player) => $player->getLogName());
 
         // then raluca should not be in the list
         $I->assertNotContains($raluca->getLogName(), $invitablePlayers);

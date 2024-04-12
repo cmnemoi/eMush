@@ -201,7 +201,7 @@ class HealCest extends AbstractFunctionalTest
     {
         // given players are in medlab
         $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
-        $this->players->map(function (Player $player) use ($medlab) {
+        $this->players->map(static function (Player $player) use ($medlab) {
             $player->changePlace($medlab);
         });
 

@@ -45,7 +45,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
-        if (!is_array($data)) {
+        if (!\is_array($data)) {
             throw new \Exception('normalized closedDaedalus should be an array');
         }
 
@@ -64,7 +64,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                 end: $finishedAt,
                 daedalusInfo: $daedalus->getDaedalusInfo()
             );
-            $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
         }
 
         return $data;

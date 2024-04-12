@@ -69,11 +69,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $takeoffToPlanetAction */
         $takeoffToPlanetAction = $this->getReference(ActionsFixtures::TAKEOFF_TO_PLANET);
 
-        // @TODO terminals
+        /** @TODO terminals */
         /** @var Action $moveAction */
         $moveAction = $this->getReference(ActionsFixtures::MOVE_DEFAULT);
 
-        // @TODO terminals
+        /** @TODO terminals */
         $door = new EquipmentConfig();
         $door
             ->setEquipmentName(EquipmentEnum::DOOR)
@@ -211,7 +211,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $planetScannerGear = $this->createGear([GearModifierConfigFixtures::PLANET_SCANNER_MODIFIER], EquipmentEnum::PLANET_SCANNER);
         $manager->persist($planetScannerGear);
 
-        // @TODO gears
+        /** @TODO gears */
         $planetScanner = new EquipmentConfig();
         $planetScanner
             ->setEquipmentName(EquipmentEnum::PLANET_SCANNER)
@@ -309,7 +309,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($thalasso);
 
-        // @TODO ships
+        /** @TODO ships */
         /** @var Action $takeoffAction */
         $takeoffAction = $this->getReference(ActionsFixtures::TAKEOFF);
         /** @var Action $landAction */

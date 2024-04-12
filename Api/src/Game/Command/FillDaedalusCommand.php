@@ -142,12 +142,12 @@ class FillDaedalusCommand extends Command
                 $queryResult = [];
 
                 $url = parse_url($location[0]);
-                if ($url == null) {
+                if ($url === null) {
                     $io->warning("$name cannot join Daedalus : Cannot retrieve url or redirect from ET response for authorization token. Skipping ...");
                     continue;
                 }
                 $query = $url['query'] ?? null;
-                if ($query == null) {
+                if ($query === null) {
                     $io->warning("$name cannot join Daedalus. : Cannot retrieve query part from url from ET response for authorization token. Skipping ...");
                     continue;
                 }
@@ -158,21 +158,21 @@ class FillDaedalusCommand extends Command
 
                 $user = $this->loginService->login($fistTokenApi);
 
-                if ($daedalusId == null) {
-                    if ($locale != 'fr' && $locale != 'en') {
+                if ($daedalusId === null) {
+                    if ($locale !== 'fr' && $locale !== 'en') {
                         $io->error("locale must be fr or en. Found : $locale");
 
                         return Command::FAILURE;
                     }
                     $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($locale, $user);
-                    if ($daedalus == null) {
+                    if ($daedalus === null) {
                         $io->error("Can't find any available daedalus for $locale / $name. Skipping ...");
                         continue;
                     }
                     $daedalusId = $daedalus->getId();
                 } else {
                     $daedalus = $this->daedalusRepository->find($daedalusId);
-                    if ($daedalus == null) {
+                    if ($daedalus === null) {
                         $io->error("Can't fin daedalus with id $daedalusId !");
 
                         return Command::FAILURE;
@@ -195,7 +195,7 @@ class FillDaedalusCommand extends Command
                 $isChaoAndFinola = true;
             }
 
-            if ($count == $numberOfMemberToBoard) {
+            if ($count === $numberOfMemberToBoard) {
                 break;
             }
         }
@@ -206,11 +206,11 @@ class FillDaedalusCommand extends Command
 
     public function isAndieOrDerek(string $name): bool
     {
-        return $name == 'andie' || $name == 'derek';
+        return $name === 'andie' || $name === 'derek';
     }
 
     public function isChaoOrFinola(string $name): bool
     {
-        return $name == 'chao' || $name == 'finola';
+        return $name === 'chao' || $name === 'finola';
     }
 }

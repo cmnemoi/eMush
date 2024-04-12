@@ -69,14 +69,14 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         );
 
         // Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
+        $partition = $room->getEquipments()->partition(static fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
             && !EquipmentEnum::equipmentToNormalizeAsItems()->contains($gameEquipment->getName())));
 
         $equipments = $partition[0];
         $items = $partition[1];
 
         // do not normalize doors
-        $items = $items->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
+        $items = $items->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
 
         $normalizedEquipments = $this->normalizeEquipments(
             $currentPlayer,
@@ -136,12 +136,12 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
             $normedDoor = $this->normalizer->normalize($door, $format, $context);
-            if (is_array($normedDoor)) {
+            if (\is_array($normedDoor)) {
                 $doors[] = array_merge(
                     $normedDoor,
                     ['direction' => $door
                         ->getRooms()
-                        ->filter(fn (Place $doorRoom) => $doorRoom !== $room)
+                        ->filter(static fn (Place $doorRoom) => $doorRoom !== $room)
                         ->first()
                         ->getName(),
                     ]
@@ -211,10 +211,10 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         }
 
         // Sort items in a stack fashion in shelves : last in, first out
-        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+        usort($piles, static fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
 
         // remove updatedAt from the normalized items because it's not needed in the response
-        return array_map(fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $piles);
+        return array_map(static fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $piles);
     }
 
     private function handleNonStackableItem(
@@ -231,7 +231,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         }
 
         // Sort items in a stack fashion in shelves : last in, first out
-        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+        usort($piles, static fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
 
         return $piles;
     }
@@ -257,7 +257,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $normalizedItem = $this->normalizer->normalize($item, $format, $context);
             $normalizedItem['updatedAt'] = $oldestItemUpdatedDate;
 
-            $countItem = count($statusesPile);
+            $countItem = \count($statusesPile);
             if ($countItem > 1) {
                 $normalizedItem['number'] = $countItem;
             }
@@ -333,7 +333,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $statusesFilter[] = EquipmentStatusEnum::CONTAMINATED;
         }
 
-        $statusesName = $itemStatuses->filter(fn (Status $status) => in_array($status->getName(), $statusesFilter));
+        $statusesName = $itemStatuses->filter(static fn (Status $status) => \in_array($status->getName(), $statusesFilter, true));
 
         if (!$statusesName->isEmpty()) {
             /** @var Status $status */

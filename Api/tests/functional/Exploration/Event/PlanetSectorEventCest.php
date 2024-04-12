@@ -448,7 +448,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $planetPlaceEquipments = $this->daedalus
             ->getPlanetPlace()
             ->getEquipments()
-            ->map(fn (GameEquipment $gameEquipment) => $gameEquipment->getLogName())
+            ->map(static fn (GameEquipment $gameEquipment) => $gameEquipment->getLogName())
             ->toArray()
         ;
         $I->assertNotEmpty(array_intersect($planetPlaceEquipments, ItemEnum::getArtefacts()->toArray()));
@@ -469,7 +469,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals($this->player->getLogName(), $player);
 
         $artefact = $roomLog->getParameters()['target_item'];
-        $I->assertTrue(in_array($artefact, $planetPlaceEquipments));
+        $I->assertTrue(\in_array($artefact, $planetPlaceEquipments, true));
     }
 
     public function testKillRandomEventKillsOneExplorator(FunctionalTester $I): void
@@ -610,7 +610,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then I should see 4 alien steaks in planet place
-        $I->assertCount(4, $this->daedalus->getPlanetPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
+        $I->assertCount(4, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
 
         // then I should see 4 public logs in planet place to tell an explorator has found an alien steak
         $roomLogs = $I->grabEntitiesFromRepository(
@@ -626,7 +626,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
-        $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
+        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
     }
 
     public function testHarvestEvent(FunctionalTester $I): void
@@ -649,7 +649,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then I should see 3 alien fruits in planet place
         $I->assertCount(
             expectedCount: 3,
-            haystack: $this->daedalus->getPlanetPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => GameFruitEnum::getAlienFruits()->contains($gameEquipment->getName()))
+            haystack: $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => GameFruitEnum::getAlienFruits()->contains($gameEquipment->getName()))
         );
 
         // then I should see 3 public logs in planet place to tell an explorator has found an alien fruit
@@ -666,7 +666,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertTrue(GameFruitEnum::getAlienFruits()->contains($roomLogParameters['target_item']));
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
-        $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
+        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
     }
 
     public function testDiseaseEventCreatesADiseaseForOneExplorator(FunctionalTester $I): void
@@ -741,7 +741,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             ->getGameConfig()
             ->getDiseaseCauseConfig()
             ->filter(
-                fn (DiseaseCauseConfig $diseaseCauseConfig) => $diseaseCauseConfig->getCauseName() === DiseaseCauseEnum::EXPLORATION
+                static fn (DiseaseCauseConfig $diseaseCauseConfig) => $diseaseCauseConfig->getCauseName() === DiseaseCauseEnum::EXPLORATION
             )
             ->first()
         ;
@@ -844,7 +844,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $roomLogParameters = $roomLog->getParameters();
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
-        $I->assertTrue(in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()]));
+        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
     }
 
     public function testAgainEvent(FunctionalTester $I): void
@@ -854,7 +854,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             planet: $this->createPlanet([PlanetSectorEnum::DESERT], $I),
             explorators: $this->players
         );
-        $desertPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
+        $desertPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
 
         // given only again event can happen in desert sector
         $this->setupPlanetSectorEvents(
@@ -1059,7 +1059,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then I should see a lost sector on the planet
         /** @var ?PlanetSector $lostSector */
-        $lostSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::LOST)->first() ?: null;
+        $lostSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::LOST)->first() ?: null;
         $I->assertNotNull($lostSector);
 
         // then this sector should be revealed

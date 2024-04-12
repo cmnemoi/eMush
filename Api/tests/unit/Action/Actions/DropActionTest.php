@@ -63,6 +63,6 @@ class DropActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

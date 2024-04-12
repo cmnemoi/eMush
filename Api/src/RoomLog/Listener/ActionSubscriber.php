@@ -56,7 +56,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $actionResult = $event->getActionResult();
 
         if ($actionSupport instanceof Player
-            && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
+            && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
             && $lyingDownStatus = $actionSupport->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionSupport->removeStatus($lyingDownStatus);

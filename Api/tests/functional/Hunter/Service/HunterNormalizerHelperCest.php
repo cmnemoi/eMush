@@ -156,7 +156,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
 
         // then all hunters are distinct
         foreach ($hunters as $hunter) {
-            $I->assertEquals(1, $hunters->filter(fn (Hunter $h) => $h === $hunter)->count());
+            $I->assertEquals(1, $hunters->filter(static fn (Hunter $h) => $h === $hunter)->count());
         }
 
         // then I get at least one hunter of each type

@@ -120,7 +120,7 @@ class ShootActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 
     public function testFail()
@@ -176,7 +176,7 @@ class ShootActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
+        self::assertInstanceOf(Fail::class, $result);
     }
 
     public function testOneShot()
@@ -235,7 +235,7 @@ class ShootActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(OneShot::class, $result);
+        self::assertInstanceOf(OneShot::class, $result);
     }
 
     public function testCriticalFail()
@@ -293,6 +293,6 @@ class ShootActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(CriticalFail::class, $result);
+        self::assertInstanceOf(CriticalFail::class, $result);
     }
 }

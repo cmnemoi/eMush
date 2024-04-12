@@ -472,7 +472,7 @@ class ChannelController extends AbstractGameController
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        if (count($violations = $this->validator->validate($messageCreate))) {
+        if (\count($violations = $this->validator->validate($messageCreate))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

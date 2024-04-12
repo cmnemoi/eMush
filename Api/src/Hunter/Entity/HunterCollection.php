@@ -16,7 +16,7 @@ class HunterCollection extends ArrayCollection
      */
     public function getAllHuntersByType(string $type): self
     {
-        return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() === $type));
+        return $this->filter(static fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() === $type));
     }
 
     /**
@@ -24,7 +24,7 @@ class HunterCollection extends ArrayCollection
      */
     public function getAllHuntersExcept(string $type): self
     {
-        return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
+        return $this->filter(static fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
     }
 
     public function getAllHuntersSortedBy(string $criteriaName, bool $descending = false): self
@@ -40,17 +40,17 @@ class HunterCollection extends ArrayCollection
 
     public function getAttackingHunters(): self
     {
-        return $this->filter(fn (Hunter $hunter) => (!$hunter->isInPool()));
+        return $this->filter(static fn (Hunter $hunter) => (!$hunter->isInPool()));
     }
 
     public function getHunterPool(): self
     {
-        return $this->filter(fn (Hunter $hunter) => $hunter->isInPool());
+        return $this->filter(static fn (Hunter $hunter) => $hunter->isInPool());
     }
 
     public function getOneHunterByType(string $type): ?Hunter
     {
-        return $this->filter(fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() === $type))->first() ?: null;
+        return $this->filter(static fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() === $type))->first() ?: null;
     }
 
     /**
@@ -59,7 +59,7 @@ class HunterCollection extends ArrayCollection
     public function getProbaCollection(): ProbaCollection
     {
         $probaCollection = new ProbaCollection();
-        $this->map(fn (Hunter $hunter) => $probaCollection->setElementProbability($hunter->getId(), $hunter->getHunterConfig()->getDrawWeight()));
+        $this->map(static fn (Hunter $hunter) => $probaCollection->setElementProbability($hunter->getId(), $hunter->getHunterConfig()->getDrawWeight()));
 
         return $probaCollection;
     }

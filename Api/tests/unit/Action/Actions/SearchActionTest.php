@@ -19,10 +19,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class SearchActionTest extends AbstractActionTest
 {
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -66,7 +64,7 @@ class SearchActionTest extends AbstractActionTest
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
-        $this->assertInstanceOf(Fail::class, $result);
+        self::assertInstanceOf(Fail::class, $result);
     }
 
     public function testExecuteNoHiddenItem()
@@ -88,7 +86,7 @@ class SearchActionTest extends AbstractActionTest
         ;
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
-        $this->assertInstanceOf(Fail::class, $result);
+        self::assertInstanceOf(Fail::class, $result);
     }
 
     public function testExecuteSuccess()
@@ -123,10 +121,10 @@ class SearchActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getStatuses());
-        $this->assertCount(0, $hiddenBy->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $player->getStatuses());
+        self::assertCount(0, $hiddenBy->getStatuses());
     }
 
     public function testExecuteTwoHiddenItems()
@@ -173,8 +171,8 @@ class SearchActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(1, $room->getEquipments()->last()->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
+        self::assertCount(1, $room->getEquipments()->last()->getStatuses());
     }
 }

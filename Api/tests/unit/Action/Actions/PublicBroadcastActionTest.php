@@ -19,7 +19,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class PublicBroadcastActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -79,7 +78,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 
     public function testExecute()
@@ -109,6 +108,6 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

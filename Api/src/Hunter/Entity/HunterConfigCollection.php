@@ -12,7 +12,7 @@ class HunterConfigCollection extends ArrayCollection
     public function getHunter(string $name): ?HunterConfig
     {
         $hunter = $this
-            ->filter(fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === $name)
+            ->filter(static fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === $name)
             ->first()
         ;
 

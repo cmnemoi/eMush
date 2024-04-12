@@ -37,8 +37,7 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $actions = [$takeAction, $dropAction, $hideAction, $examineAction];
 
-        // @TODO add support_drone and swedish_sofa
-
+        /** @TODO add support_drone and swedish_sofa */
         $blueprintEcholocatorMechanic = new Blueprint();
         $blueprintEcholocatorMechanic
             ->setCraftedEquipmentName(ItemEnum::ECHOLOCATOR)

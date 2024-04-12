@@ -12,7 +12,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class SpreadFireActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -57,6 +56,6 @@ class SpreadFireActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

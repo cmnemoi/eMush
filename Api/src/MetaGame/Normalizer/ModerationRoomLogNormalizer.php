@@ -19,7 +19,7 @@ class ModerationRoomLogNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof RoomLog && in_array('moderation_read', $context['groups'] ?? [], true);
+        return $data instanceof RoomLog && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array

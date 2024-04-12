@@ -78,7 +78,7 @@ class PlaceServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlaceInitEvent $event) => (
+            ->withArgs(static fn (PlaceInitEvent $event) => (
                 $event->getPlaceConfig() === $roomConfig)
             )
             ->once()
@@ -95,9 +95,9 @@ class PlaceServiceTest extends TestCase
 
         $result = $this->placeService->createPlace($roomConfig, $daedalus, ['daedalus_start'], new \DateTime());
 
-        $this->assertInstanceOf(Place::class, $result);
-        $this->assertCount(0, $result->getDoors());
-        $this->assertCount(0, $result->getEquipments());
+        self::assertInstanceOf(Place::class, $result);
+        self::assertCount(0, $result->getDoors());
+        self::assertCount(0, $result->getEquipments());
     }
 
     private function createRoomConfig(string $name, DaedalusConfig $daedalusConfig): PlaceConfig

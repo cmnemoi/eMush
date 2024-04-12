@@ -84,12 +84,12 @@ class EventModifierServiceTest extends TestCase
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
-        $this->assertInstanceOf(EventChain::class, $modifiedEvents);
-        $this->assertCount(1, $modifiedEvents);
+        self::assertInstanceOf(EventChain::class, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertInstanceOf(VariableEventInterface::class, $modifiedEvent);
-        $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(50 * 1.25 ** 1, $modifiedEvent->getQuantity());
+        self::assertInstanceOf(VariableEventInterface::class, $modifiedEvent);
+        self::assertSame(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
+        self::assertSame(50 * 1.25 ** 1, $modifiedEvent->getQuantity());
 
         // More attempts
         $event = new ActionVariableEvent($action, ActionVariableEnum::PERCENTAGE_SUCCESS, 50, $player, null);
@@ -97,12 +97,12 @@ class EventModifierServiceTest extends TestCase
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
-        $this->assertInstanceOf(EventChain::class, $modifiedEvents);
-        $this->assertCount(1, $modifiedEvents);
+        self::assertInstanceOf(EventChain::class, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertInstanceOf(VariableEventInterface::class, $modifiedEvent);
-        $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(50 * 1.25 ** 3, $modifiedEvent->getQuantity());
+        self::assertInstanceOf(VariableEventInterface::class, $modifiedEvent);
+        self::assertSame(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
+        self::assertSame(50 * 1.25 ** 3, $modifiedEvent->getQuantity());
     }
 
     public function testComputeAttemptIncreaseWrongAction()
@@ -131,12 +131,12 @@ class EventModifierServiceTest extends TestCase
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
-        $this->assertInstanceOf(EventChain::class, $modifiedEvents);
-        $this->assertCount(1, $modifiedEvents);
+        self::assertInstanceOf(EventChain::class, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertInstanceOf(VariableEventInterface::class, $modifiedEvent);
-        $this->assertEquals(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
-        $this->assertEquals(50, $modifiedEvent->getQuantity());
+        self::assertInstanceOf(VariableEventInterface::class, $modifiedEvent);
+        self::assertSame(ActionVariableEnum::PERCENTAGE_SUCCESS, $modifiedEvent->getVariableName());
+        self::assertSame(50, $modifiedEvent->getQuantity());
     }
 
     public function testApplyOneModifier()
@@ -180,10 +180,10 @@ class EventModifierServiceTest extends TestCase
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
-        $this->assertCount(1, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertInstanceOf(DaedalusEvent::class, $modifiedEvent);
-        $this->assertContains('testEventModifierConfig', $modifiedEvent->getTags());
+        self::assertInstanceOf(DaedalusEvent::class, $modifiedEvent);
+        self::assertContains('testEventModifierConfig', $modifiedEvent->getTags());
     }
 
     public function testModifierNonRelevantTargetEvent()
@@ -217,9 +217,9 @@ class EventModifierServiceTest extends TestCase
         ;
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
-        $this->assertCount(1, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertEquals($modifiedEvent, $event);
+        self::assertSame($modifiedEvent, $event);
     }
 
     public function testModifierNonRelevantTag()
@@ -254,9 +254,9 @@ class EventModifierServiceTest extends TestCase
         ;
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
-        $this->assertCount(1, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertEquals($modifiedEvent, $event);
+        self::assertSame($modifiedEvent, $event);
     }
 
     public function testModifierNonRelevantModifierRequirement()
@@ -291,9 +291,9 @@ class EventModifierServiceTest extends TestCase
         ;
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::PRE_MODIFICATION);
-        $this->assertCount(1, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertEquals($modifiedEvent, $event);
+        self::assertSame($modifiedEvent, $event);
     }
 
     public function testApplyTwoModifiers()
@@ -363,10 +363,10 @@ class EventModifierServiceTest extends TestCase
 
         $modifiedEvents = $this->service->applyModifiers($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION);
 
-        $this->assertCount(1, $modifiedEvents);
+        self::assertCount(1, $modifiedEvents);
         $modifiedEvent = $modifiedEvents->first();
-        $this->assertInstanceOf(DaedalusEvent::class, $modifiedEvent);
-        $this->assertContains('testEventModifierConfig1', $modifiedEvent->getTags());
-        $this->assertContains('testEventModifierConfig2', $modifiedEvent->getTags());
+        self::assertInstanceOf(DaedalusEvent::class, $modifiedEvent);
+        self::assertContains('testEventModifierConfig1', $modifiedEvent->getTags());
+        self::assertContains('testEventModifierConfig2', $modifiedEvent->getTags());
     }
 }

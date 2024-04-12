@@ -49,7 +49,7 @@ class EventModifierConfig extends AbstractModifierConfig
 
     public function getPriorityAsInteger(): int
     {
-        if (array_key_exists($this->priority, ModifierPriorityEnum::PRIORITY_MAP)) {
+        if (\array_key_exists($this->priority, ModifierPriorityEnum::PRIORITY_MAP)) {
             return ModifierPriorityEnum::PRIORITY_MAP[$this->priority];
         }
 

@@ -50,13 +50,13 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
         $gameConfig = $daedalus->getGameConfig();
         $players = $daedalus->getPlayers();
-        $closedPlayers = $players->map(fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
+        $closedPlayers = $players->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
 
         $cryoPlayers = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
         $humanAlive = $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count();
         $mushAlive = $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count();
-        $humanDead = $closedPlayers->filter(fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && !$player->isMush())->count();
-        $mushDead = $closedPlayers->filter(fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && $player->isMush())->count();
+        $humanDead = $closedPlayers->filter(static fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && !$player->isMush())->count();
+        $mushDead = $closedPlayers->filter(static fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && $player->isMush())->count();
 
         $language = $daedalus->getLanguage();
 
@@ -191,7 +191,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         /** @var array<int, string> $exploratorNames */
         $exploratorNames = $exploration->getAliveExplorators()
-                                        ->filter(fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
+                                        ->filter(static fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
                                         ->map(fn (Player $player) => $this->translateExploratorName($player))
                                         ->toArray();
 

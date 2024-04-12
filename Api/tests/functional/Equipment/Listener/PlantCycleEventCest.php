@@ -173,7 +173,7 @@ class PlantCycleEventCest
             'name' => 'fruit',
             'equipmentName' => 'fruit',
         ]);
-        /* @var EquipmentConfig $equipmentConfig */
+        /** @var EquipmentConfig $equipmentConfig */
         $hydropotConfig = $I->have(EquipmentConfig::class, [
             'name' => ItemEnum::HYDROPOT,
             'equipmentName' => ItemEnum::HYDROPOT,
@@ -249,7 +249,7 @@ class PlantCycleEventCest
 
         $I->assertCount(2, $gameEquipment->getStatuses());
         $I->assertCount(1, $room->getEquipments());
-        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_THIRSTY));
+        $I->assertTrue($gameEquipment->getStatuses()->exists(static fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_THIRSTY));
         $I->assertEquals(10, $daedalus->getOxygen());
 
         // Plant is diseased
@@ -265,7 +265,7 @@ class PlantCycleEventCest
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(2, $gameEquipment->getStatuses());
-        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRY));
+        $I->assertTrue($gameEquipment->getStatuses()->exists(static fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRY));
         $I->assertEquals(10, $daedalus->getOxygen());
 
         // Plant is totally healthy
@@ -281,7 +281,7 @@ class PlantCycleEventCest
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $I->assertTrue($room->getEquipments()->exists(fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
+        $I->assertTrue($room->getEquipments()->exists(static fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
         $I->assertEquals(11, $daedalus->getOxygen());
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),

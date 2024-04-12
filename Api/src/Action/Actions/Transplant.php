@@ -73,7 +73,7 @@ class Transplant extends AbstractAction
         $target = $this->target;
         $time = new \DateTime();
 
-        // @TODO fail transplant
+        /** @TODO fail transplant */
         /** @var Fruit $fruitType */
         $fruitType = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::FRUIT);
 

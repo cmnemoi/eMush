@@ -71,7 +71,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions25->add($sabotage25);
         $actions25->add($reportAction);
 
-        // @TODO more details are needed on the output of each weapon
+        /** @TODO more details are needed on the output of each weapon */
         $blasterMechanic = new Weapon();
         $blasterMechanic
             ->setBaseAccuracy(50)

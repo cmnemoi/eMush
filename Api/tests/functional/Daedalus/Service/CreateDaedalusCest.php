@@ -159,16 +159,16 @@ class CreateDaedalusCest
         $I->assertCount(2, $room2->getDoors());
         $I->assertCount(1, $room3->getDoors());
 
-        $I->assertNotNull($gameGravitySimulator = $room3->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
+        $I->assertNotNull($gameGravitySimulator = $room3->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === EquipmentEnum::GRAVITY_SIMULATOR)->first()
         );
 
-        $I->assertNotNull($gameHydropot = $room2->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
+        $I->assertNotNull($gameHydropot = $room2->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT)->first()
         );
 
         $equipmentCollection = new ArrayCollection(array_merge($room1->getEquipments()->toArray(), $room2->getEquipments()->toArray()));
 
         $I->assertNotNull($gameWaterStick = $equipmentCollection
-            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::WATER_STICK)->first()
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::WATER_STICK)->first()
         );
 
         $I->assertInstanceOf(GameItem::class, $gameWaterStick);

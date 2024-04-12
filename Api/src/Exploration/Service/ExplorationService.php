@@ -56,7 +56,7 @@ final class ExplorationService implements ExplorationServiceInterface
 
         $exploration = new Exploration($planet);
         $exploration->setExplorators($players);
-        $exploration->getClosedExploration()->setClosedExplorators($players->map(fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer())->toArray());
+        $exploration->getClosedExploration()->setClosedExplorators($players->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer())->toArray());
         $exploration->setNumberOfSectionsToVisit($numberOfSectorsToVisit);
 
         if ($exploration->getNumberOfSectionsToVisit() < 1) {
@@ -91,7 +91,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $closedExploration->finishExploration();
 
         $this->delete([$exploration]);
-        if (in_array(ExplorationEvent::ALL_EXPLORATORS_STUCKED, $reasons)) {
+        if (\in_array(ExplorationEvent::ALL_EXPLORATORS_STUCKED, $reasons, true)) {
             $this->delete([$closedExploration]);
         }
     }
@@ -164,8 +164,8 @@ final class ExplorationService implements ExplorationServiceInterface
         /** @var array<int, Player> $explorators */
         $explorators = $closedExploration
             ->getClosedExplorators()
-            ->map(fn (ClosedPlayer $player) => $player->getPlayerInfo()->getPlayer())
-            ->filter(fn (?Player $player) => $player instanceof Player)
+            ->map(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getPlayer())
+            ->filter(static fn (?Player $player) => $player instanceof Player)
             ->toArray()
         ;
 

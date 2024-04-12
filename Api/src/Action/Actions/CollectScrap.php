@@ -109,9 +109,9 @@ final class CollectScrap extends AbstractAction
 
     private function damagePlayer(PatrolShip $patrolShipMechanic, Place $patrolShipPlace): void
     {
-        $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($patrolShipMechanic->getCollectScrapPlayerDamage()));
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($patrolShipMechanic->getCollectScrapPlayerDamage());
 
-        if ($damage != 0) {
+        if ($damage !== 0) {
             $this->roomLogService->createLog(
                 logKey: LogEnum::ATTACKED_BY_HUNTER,
                 place: $patrolShipPlace,
@@ -143,11 +143,11 @@ final class CollectScrap extends AbstractAction
             throw new \RuntimeException('PatrolShip should have a patrol ship armor status');
         }
 
-        $damage = intval(
+        $damage = (int)
             $this->randomService->getSingleRandomElementFromProbaCollection(
                 $patrolShipMechanic->getCollectScrapPatrolShipDamage()
             )
-        );
+        ;
 
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,

@@ -171,8 +171,8 @@ class DaedalusService implements DaedalusServiceInterface
     public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
     {
         return $daedalus->getGameConfig()->getCharactersConfig()->filter(
-            fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
-                fn (int $key, Player $player) => ($player->getName() === $characterConfig->getCharacterName())
+            static fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
+                static fn (int $key, Player $player) => ($player->getName() === $characterConfig->getCharacterName())
             )
         );
     }
@@ -293,14 +293,16 @@ class DaedalusService implements DaedalusServiceInterface
         foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
             if ($characterConfig
                     ->getInitStatuses()
-                    ->map(fn (StatusConfig $statusConfig) => $statusConfig->getStatusName())
+                    ->map(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName())
                     ->contains(PlayerStatusEnum::IMMUNIZED)
             ) {
                 continue;
             }
 
-            // @TODO lower $mushChance if user is a beginner
-            // @TODO (maybe add a "I want to be mush" setting to increase this proba)
+            /**
+             * @TODO lower $mushChance if user is a beginner
+             * @TODO (maybe add a "I want to be mush" setting to increase this proba)
+             */
             $mushChance = 1;
             $chancesArray[$characterConfig->getCharacterName()] = $mushChance;
         }
@@ -311,7 +313,7 @@ class DaedalusService implements DaedalusServiceInterface
         foreach ($mushPlayerName as $playerName) {
             $mushPlayers = $daedalus
                 ->getPlayers()
-                ->filter(fn (Player $player) => $player->getName() === $playerName)
+                ->filter(static fn (Player $player) => $player->getName() === $playerName)
             ;
 
             if (!$mushPlayers->isEmpty()) {
@@ -346,7 +348,7 @@ class DaedalusService implements DaedalusServiceInterface
 
             $this->eventService->callEvent($playerEvent, PlayerEvent::DEATH_PLAYER);
         } else {
-            $capsule = $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
+            $capsule = $player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
 
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $capsule,
@@ -391,7 +393,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     private function getOxygenCapsuleCount(Player $player): int
     {
-        return $player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
+        return $player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
     }
 
     public function killRemainingPlayers(Daedalus $daedalus, array $reasons, \DateTime $date): Daedalus

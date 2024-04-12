@@ -42,7 +42,7 @@ class ActionSubscriber implements EventSubscriberInterface
                     throw new \LogicException('a game equipment should be given');
                 }
 
-                if (in_array($target->getName(), self::COMMUNICATION_ITEMS)) {
+                if (\in_array($target->getName(), self::COMMUNICATION_ITEMS, true)) {
                     $this->channelService->updatePlayerPrivateChannels($player, $actionName, $time);
                 }
 

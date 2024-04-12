@@ -73,7 +73,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var Action $dismantle425 */
         $dismantle425 = $this->getReference(TechnicianFixtures::DISMANTLE_4_25);
 
-        // @TODO
+        /** @TODO */
         $hackerKitMechanic = new Tool();
         $hackerKitMechanic->buildName(EquipmentMechanicEnum::TOOL . '_' . ToolItemEnum::HACKER_KIT, GameConfigEnum::DEFAULT);
 

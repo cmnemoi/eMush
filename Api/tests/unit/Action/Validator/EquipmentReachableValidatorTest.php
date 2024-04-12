@@ -59,7 +59,7 @@ class EquipmentReachableValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()

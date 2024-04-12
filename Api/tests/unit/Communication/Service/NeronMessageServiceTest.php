@@ -72,12 +72,12 @@ class NeronMessageServiceTest extends TestCase
 
         $message = $this->service->createNeronMessage('message', $daedalus, ['player' => 'hua'], new \DateTime());
 
-        $this->assertInstanceOf(Message::class, $message);
-        $this->assertEquals('message', $message->getMessage());
-        $this->assertEquals($neron, $message->getNeron());
-        $this->assertEquals(['player' => 'hua', 'neronMood' => 'uninhibited'], $message->getTranslationParameters());
-        $this->assertNull($message->getAuthor());
-        $this->assertNull($message->getParent());
-        $this->assertEquals($channel, $message->getChannel());
+        self::assertInstanceOf(Message::class, $message);
+        self::assertSame('message', $message->getMessage());
+        self::assertSame($neron, $message->getNeron());
+        self::assertSame(['player' => 'hua', 'neronMood' => 'uninhibited'], $message->getTranslationParameters());
+        self::assertNull($message->getAuthor());
+        self::assertNull($message->getParent());
+        self::assertSame($channel, $message->getChannel());
     }
 }

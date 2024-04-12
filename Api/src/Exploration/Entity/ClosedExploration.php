@@ -97,7 +97,7 @@ class ClosedExploration
 
     public function setClosedExplorators(Collection|array $closedExplorators): void
     {
-        if (is_array($closedExplorators)) {
+        if (\is_array($closedExplorators)) {
             $closedExplorators = new ArrayCollection($closedExplorators);
         }
 

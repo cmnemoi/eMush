@@ -46,7 +46,7 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
 
         $exploratorsWithoutACompass = $exploration
             ->getNotLostActiveExplorators()
-            ->filter(fn (Player $player) => !$player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS))
+            ->filter(static fn (Player $player) => !$player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS))
         ;
 
         if ($exploratorsWithoutACompass->isEmpty()) {

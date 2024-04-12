@@ -22,7 +22,6 @@ class DisassembleActionTest extends AbstractActionTest
 {
     private RandomServiceInterface|Mockery\Mock $randomService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -91,8 +90,8 @@ class DisassembleActionTest extends AbstractActionTest
         // Fail try
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
-        $this->assertCount(1, $room->getEquipments());
+        self::assertInstanceOf(Fail::class, $result);
+        self::assertCount(1, $room->getEquipments());
     }
 
     public function testExecuteSuccess()
@@ -137,7 +136,7 @@ class DisassembleActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(0, $player->getStatuses());
     }
 }

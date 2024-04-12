@@ -21,7 +21,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class HideActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -80,7 +79,7 @@ class HideActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent
+            ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent
                 && $event->getGameEquipment() === $gameItem
                 && $event->getAuthor() === $player
                 && $event->getTags() === [ActionEnum::HIDE]
@@ -90,6 +89,6 @@ class HideActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

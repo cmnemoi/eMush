@@ -53,7 +53,7 @@ class Door extends GameEquipment
 
     public function getOtherRoom(Place $currentRoom): Place
     {
-        return $this->getRooms()->filter(fn (Place $room) => $room !== $currentRoom)->first();
+        return $this->getRooms()->filter(static fn (Place $room) => $room !== $currentRoom)->first();
     }
 
     public function getLogName(): string

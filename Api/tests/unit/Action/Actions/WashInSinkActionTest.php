@@ -15,7 +15,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class WashInSinkActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -65,7 +64,7 @@ class WashInSinkActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
     }
 }

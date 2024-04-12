@@ -239,7 +239,7 @@ class AlertService implements AlertServiceInterface
             throw $exception;
         }
 
-        $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
+        $filteredList = $alert->getAlertElements()->filter(static fn (AlertElement $element) => $element->getEquipment() === $equipment);
         $alertEquipment = $filteredList->first();
 
         if (!$alertEquipment) {
@@ -294,7 +294,7 @@ class AlertService implements AlertServiceInterface
 
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement
     {
-        $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
+        $filteredList = $alert->getAlertElements()->filter(static fn (AlertElement $element) => $element->getPlace() === $place);
         $fireAlert = $filteredList->first();
 
         if (!$fireAlert) {

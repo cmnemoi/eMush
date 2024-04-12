@@ -65,7 +65,7 @@ class HasEquipmentValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForEquipment()
@@ -125,7 +125,7 @@ class HasEquipmentValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForAllEquipment()
@@ -157,7 +157,7 @@ class HasEquipmentValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForAllEquipment()

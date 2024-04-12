@@ -20,10 +20,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class ExpressCookActionTest extends AbstractActionTest
 {
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -90,11 +88,11 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getEquipments());
-        $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(1, $player->getEquipments());
+        self::assertSame($gameRation->getName(), $player->getEquipments()->first()->getName());
+        self::assertSame(10, $player->getActionPoint());
     }
 
     public function testExecuteRation()
@@ -138,7 +136,7 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
     }
 }

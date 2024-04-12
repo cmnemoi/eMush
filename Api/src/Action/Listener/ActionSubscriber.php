@@ -124,7 +124,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $player->getDaedalus()->addDailyActionPointsSpent($action->getActionCost());
 
         if ($actionTarget instanceof Player
-            && in_array($action->getActionName(), ActionEnum::getForceGetUpActions())
+            && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
             && $lyingDownStatus = $actionTarget->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionTarget->removeStatus($lyingDownStatus);

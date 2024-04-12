@@ -54,7 +54,7 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
                 'players_count' => $room->getPlayers()->getPlayerAlive()->count(),
                 'actopi' => [],
                 'fire' => $this->isFireDisplayed($room),
-                'broken_count' => count($brokenEquipmentsList) + count($brokenDoorsList),
+                'broken_count' => \count($brokenEquipmentsList) + \count($brokenDoorsList),
                 'broken_doors' => $brokenDoorsList,
                 'broken_equipments' => $brokenEquipmentsList,
                 'name' => $roomName,

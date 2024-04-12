@@ -22,12 +22,12 @@ class ModerationSanctionTest extends TestCase
         // given sanction ends tomorrow
         $sanction->setEndDate($endSanction);
         // then the sanction is active
-        $this->assertTrue($sanction->getIsActive());
+        self::assertTrue($sanction->getIsActive());
 
         // given sanction ended yesterday
         $endSanction->sub(new \DateInterval('PT35H'));
         $sanction->setEndDate($endSanction);
         // then the sanction is not active
-        $this->assertFalse($sanction->getIsActive());
+        self::assertFalse($sanction->getIsActive());
     }
 }

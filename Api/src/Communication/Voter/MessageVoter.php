@@ -31,7 +31,7 @@ class MessageVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::CREATE])) {
+        if (!\in_array($attribute, [self::VIEW, self::CREATE], true)) {
             return false;
         }
 

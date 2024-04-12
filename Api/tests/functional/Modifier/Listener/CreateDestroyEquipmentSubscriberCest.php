@@ -56,7 +56,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         $name = 'test item';
 
-        /* @var EquipmentConfig $equipmentConfig */
+        /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,
@@ -256,7 +256,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         $name = 'test name';
 
-        /* @var EquipmentConfig $equipmentConfig */
+        /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
             'name' => $name,

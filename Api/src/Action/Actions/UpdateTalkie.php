@@ -83,7 +83,7 @@ class UpdateTalkie extends AbstractAction
     {
         // destroy tracker
         /** @var GameItem $tracker */
-        $tracker = $this->player->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::TRACKER)->first();
+        $tracker = $this->player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::TRACKER)->first();
         $time = new \DateTime();
 
         $equipmentEvent = new InteractWithEquipmentEvent(

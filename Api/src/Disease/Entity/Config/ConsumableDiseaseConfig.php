@@ -191,7 +191,7 @@ class ConsumableDiseaseConfig
      */
     public function setAttributes(Collection|array $diseases): self
     {
-        if (is_array($diseases)) {
+        if (\is_array($diseases)) {
             $this->consumableAttributes = new ArrayCollection($diseases);
 
             return $this;

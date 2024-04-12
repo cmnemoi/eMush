@@ -28,7 +28,7 @@ class DestroyAllDaedalusesCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $nonFinishedDaedaluses = $this->daedalusService->findAllNonFinishedDaedaluses();
-        if (count($nonFinishedDaedaluses) === 0) {
+        if (\count($nonFinishedDaedaluses) === 0) {
             $output->writeln('No Daedalus to destroy.');
 
             return Command::SUCCESS;

@@ -89,7 +89,7 @@ class OpenCapsule extends AbstractAction
         // Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(self::$capsuleContent));
 
-        if (!is_string($contentName)) {
+        if (!\is_string($contentName)) {
             throw new \Exception('capsule content should not be empty');
         }
 

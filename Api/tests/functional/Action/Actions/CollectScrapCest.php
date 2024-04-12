@@ -283,7 +283,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         // given only asteroids can spawn
         $this->daedalus->getGameConfig()->setHunterConfigs(
             $this->daedalus->getGameConfig()->getHunterConfigs()->filter(
-                fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
+                static fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
             ));
         // given it's day 10 so asteroids can spawn
         $this->daedalus->setDay(10);

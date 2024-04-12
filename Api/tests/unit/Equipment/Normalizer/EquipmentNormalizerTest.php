@@ -126,8 +126,8 @@ class EquipmentNormalizerTest extends TestCase
             'effects' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testItemNormalizer()
@@ -191,8 +191,8 @@ class EquipmentNormalizerTest extends TestCase
             'effects' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testBlueprintNormalizer()
@@ -276,8 +276,8 @@ class EquipmentNormalizerTest extends TestCase
             'effects' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testPlantNormalizer(): void
@@ -347,8 +347,8 @@ class EquipmentNormalizerTest extends TestCase
             'effects' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testYoungPlantNormalizer(): void
@@ -418,7 +418,7 @@ class EquipmentNormalizerTest extends TestCase
             'effects' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 }

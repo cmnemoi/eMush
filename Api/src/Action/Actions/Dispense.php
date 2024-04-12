@@ -67,7 +67,7 @@ class Dispense extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /* @var string $drugName */
+        /** @var string $drugName */
         $drugName = current($this->randomService->getRandomElements(GameDrugEnum::getAll()));
         $time = new \DateTime();
 

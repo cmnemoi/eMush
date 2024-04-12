@@ -82,11 +82,11 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
         $minimap = $this->service->getMinimap($daedalus, $player);
 
-        $this->assertIsArray($minimap);
-        $this->assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
-        $this->assertEquals(0, $minimap[RoomEnum::LABORATORY]['players_count']);
-        $this->assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
-        $this->assertEquals(1, $minimap[RoomEnum::BRIDGE]['players_count']);
+        self::assertIsArray($minimap);
+        self::assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
+        self::assertSame(0, $minimap[RoomEnum::LABORATORY]['players_count']);
+        self::assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
+        self::assertSame(1, $minimap[RoomEnum::BRIDGE]['players_count']);
     }
 
     public function testgetMinimapNoTracker()
@@ -123,8 +123,8 @@ class DaedalusWidgetServiceTest extends TestCase
         ;
         $minimap = $this->service->getMinimap($daedalus, $player);
 
-        $this->assertIsArray($minimap);
-        $this->assertEmpty($minimap);
+        self::assertIsArray($minimap);
+        self::assertEmpty($minimap);
     }
 
     public function testgetMinimapWithReportedFires()
@@ -175,16 +175,16 @@ class DaedalusWidgetServiceTest extends TestCase
 
         $minimap = $this->service->getMinimap($daedalus, $player);
 
-        $this->assertIsArray($minimap);
+        self::assertIsArray($minimap);
         // fire reported
-        $this->assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
-        $this->assertTrue($minimap[RoomEnum::LABORATORY]['fire']);
+        self::assertArrayHasKey(RoomEnum::LABORATORY, $minimap);
+        self::assertTrue($minimap[RoomEnum::LABORATORY]['fire']);
         // fire but no reported
-        $this->assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
-        $this->assertFalse($minimap[RoomEnum::BRIDGE]['fire']);
+        self::assertArrayHasKey(RoomEnum::BRIDGE, $minimap);
+        self::assertFalse($minimap[RoomEnum::BRIDGE]['fire']);
         // no fire
-        $this->assertArrayHasKey(RoomEnum::CENTRAL_CORRIDOR, $minimap);
-        $this->assertFalse($minimap[RoomEnum::CENTRAL_CORRIDOR]['fire']);
+        self::assertArrayHasKey(RoomEnum::CENTRAL_CORRIDOR, $minimap);
+        self::assertFalse($minimap[RoomEnum::CENTRAL_CORRIDOR]['fire']);
     }
 
     // Disabled because the projects are not yet implemented

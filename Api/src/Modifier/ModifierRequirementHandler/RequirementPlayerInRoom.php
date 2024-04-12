@@ -34,7 +34,7 @@ class RequirementPlayerInRoom extends AbstractModifierRequirementHandler
             case ModifierRequirementEnum::FOUR_PEOPLE:
                 return $players->count() >= 4;
             case ModifierRequirementEnum::MUSH_IN_ROOM:
-                return $players->filter(fn (Player $player) => $player->isMush())->count() >= 1;
+                return $players->filter(static fn (Player $player) => $player->isMush())->count() >= 1;
 
             default:
                 throw new \LogicException('This activationRequirement is invalid for player_in_room');

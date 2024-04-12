@@ -75,6 +75,6 @@ class UltraHealTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

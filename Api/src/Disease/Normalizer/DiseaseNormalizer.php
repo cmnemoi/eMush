@@ -72,7 +72,7 @@ class DiseaseNormalizer implements NormalizerInterface
                 $language
             );
 
-            if (!in_array($effect, $effects)) {
+            if (!\in_array($effect, $effects, true)) {
                 $effects[] = $effect;
                 $description = $description . '//' . $effect;
             }

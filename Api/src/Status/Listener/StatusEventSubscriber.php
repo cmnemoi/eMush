@@ -153,7 +153,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         $brokenStatusHolder = $brokenStatus->getOwner();
         // If so, remove the screwed talkie status from the pirate
         if ($brokenStatusHolder instanceof GameItem
-            && in_array($brokenStatusHolder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE])
+            && \in_array($brokenStatusHolder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE], true)
         ) {
             /** @var Player $player */
             foreach ($brokenStatusHolder->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {

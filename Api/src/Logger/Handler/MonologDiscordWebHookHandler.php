@@ -37,7 +37,7 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
 
     protected function write(LogRecord $record): void
     {
-        if ($this->webhookUrl != null && filter_var($this->webhookUrl, FILTER_VALIDATE_URL)) {
+        if ($this->webhookUrl !== null && filter_var($this->webhookUrl, FILTER_VALIDATE_URL)) {
             if ($record->level->value >= $this->logLevel) {
                 $timestamp = date('c', strtotime('now'));
                 $content = $this->formatField($record->message, 6000);
@@ -119,7 +119,7 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
     private function formatField(?string $field, int $maxLength): string
     {
         $formatted = '';
-        if ($field != null) {
+        if ($field !== null) {
             $formatted = substr($field, 0, $maxLength);
         }
 

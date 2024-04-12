@@ -19,7 +19,7 @@ class MessageNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Message && !in_array('moderation_read', $context['groups'] ?? []);
+        return $data instanceof Message && !\in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array
@@ -84,9 +84,9 @@ class MessageNormalizer implements NormalizerInterface
     {
         $dateInterval = $dateTime->diff(new \DateTime());
 
-        $days = intval($dateInterval->format('%a'));
-        $hours = intval($dateInterval->format('%H'));
-        $minutes = intval($dateInterval->format('%i'));
+        $days = (int) $dateInterval->format('%a');
+        $hours = (int) $dateInterval->format('%H');
+        $minutes = (int) $dateInterval->format('%i');
 
         if ($days > 0) {
             return $this->translationService->translate('message_date.more_day', ['quantity' => $days], 'chat', $language);

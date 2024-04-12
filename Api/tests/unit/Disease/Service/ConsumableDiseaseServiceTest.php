@@ -91,8 +91,8 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
-        $this->assertCount(2, $consumableDisease->getDiseases());
+        self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        self::assertCount(2, $consumableDisease->getDiseases());
     }
 
     public function testCreateConsumableDiseasesWithMultiplePossibleDiseases()
@@ -116,11 +116,11 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(1, $probaCollection->toArray())
+                && \array_key_exists(1, $probaCollection->toArray())
                 && $probaCollection->toArray()[1] === 1
-                && array_key_exists(2, $probaCollection->toArray())
+                && \array_key_exists(2, $probaCollection->toArray())
                 && $probaCollection->toArray()[2] === 10
             ))
             ->andReturn(2)
@@ -138,9 +138,9 @@ class ConsumableDiseaseServiceTest extends TestCase
         // first the service chose and design the cure
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
-            ->withArgs(fn ($probaCollection, $number) => (
+            ->withArgs(static fn ($probaCollection, $number) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists('Disease 1', $probaCollection->toArray())
+                && \array_key_exists('Disease 1', $probaCollection->toArray())
                 && $probaCollection->toArray()['Disease 1'] === 10
                 && $number === 1
             ))
@@ -149,11 +149,11 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(30, $probaCollection->toArray())
+                && \array_key_exists(30, $probaCollection->toArray())
                 && $probaCollection->toArray()[30] === 1
-                && array_key_exists(45, $probaCollection->toArray())
+                && \array_key_exists(45, $probaCollection->toArray())
                 && $probaCollection->toArray()[45] === 2
             ))
             ->andReturn(45)
@@ -163,11 +163,11 @@ class ConsumableDiseaseServiceTest extends TestCase
         // then the disease
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
-            ->withArgs(fn ($probaCollection, $number) => (
+            ->withArgs(static fn ($probaCollection, $number) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists('Disease 1', $probaCollection->toArray())
+                && \array_key_exists('Disease 1', $probaCollection->toArray())
                 && $probaCollection->toArray()['Disease 1'] === 5
-                && array_key_exists('Disease 2', $probaCollection->toArray())
+                && \array_key_exists('Disease 2', $probaCollection->toArray())
                 && $probaCollection->toArray()['Disease 2'] === 10
                 && $number === 1
             ))
@@ -176,11 +176,11 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(20, $probaCollection->toArray())
+                && \array_key_exists(20, $probaCollection->toArray())
                 && $probaCollection->toArray()[20] === 1
-                && array_key_exists(25, $probaCollection->toArray())
+                && \array_key_exists(25, $probaCollection->toArray())
                 && $probaCollection->toArray()[25] === 2
             ))
             ->andReturn(45)
@@ -188,9 +188,9 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(0, $probaCollection->toArray())
+                && \array_key_exists(0, $probaCollection->toArray())
                 && $probaCollection->toArray()[0] === 1
             ))
             ->andReturn(0)
@@ -209,9 +209,9 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
-        $this->assertCount(1, $consumableDisease->getDiseases());
-        $this->assertCount(1, $consumableDisease->getCures());
+        self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        self::assertCount(1, $consumableDisease->getDiseases());
+        self::assertCount(1, $consumableDisease->getCures());
     }
 
     public function testCreateConsumableDiseasesWithDelay()
@@ -236,9 +236,9 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(1, $probaCollection->toArray())
+                && \array_key_exists(1, $probaCollection->toArray())
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
@@ -255,9 +255,9 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
-            ->withArgs(fn ($probaCollection, $number) => (
+            ->withArgs(static fn ($probaCollection, $number) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists('Disease 1', $probaCollection->toArray())
+                && \array_key_exists('Disease 1', $probaCollection->toArray())
                 && $probaCollection->toArray()['Disease 1'] === 5
                 && $number === 1
             ))
@@ -266,9 +266,9 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(20, $probaCollection->toArray())
+                && \array_key_exists(20, $probaCollection->toArray())
                 && $probaCollection->toArray()[20] === 1
             ))
             ->andReturn(20)
@@ -276,9 +276,9 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(1, $probaCollection->toArray())
+                && \array_key_exists(1, $probaCollection->toArray())
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
@@ -286,12 +286,12 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
                 && $probaCollection->count() === 2
-                && array_key_exists(5, $probaCollection->toArray())
+                && \array_key_exists(5, $probaCollection->toArray())
                 && $probaCollection->toArray()[5] === 1
-                && array_key_exists(8, $probaCollection->toArray())
+                && \array_key_exists(8, $probaCollection->toArray())
                 && $probaCollection->toArray()[8] === 5
             ))
             ->andReturn(8)
@@ -310,13 +310,13 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
-        $this->assertCount(1, $consumableDisease->getDiseases());
+        self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        self::assertCount(1, $consumableDisease->getDiseases());
         /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
-        $this->assertEquals('Disease 1', $disease->getDisease());
-        $this->assertEquals(1, $disease->getDelayMin());
-        $this->assertEquals(8, $disease->getDelayLength());
+        self::assertSame('Disease 1', $disease->getDisease());
+        self::assertSame(1, $disease->getDelayMin());
+        self::assertSame(8, $disease->getDelayLength());
     }
 
     public function testCreateConsumableDiseasesWithoutDelay()
@@ -341,9 +341,9 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(1, $probaCollection->toArray())
+                && \array_key_exists(1, $probaCollection->toArray())
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
@@ -360,9 +360,9 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
-            ->withArgs(fn ($probaCollection, $number) => (
+            ->withArgs(static fn ($probaCollection, $number) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists('Disease 1', $probaCollection->toArray())
+                && \array_key_exists('Disease 1', $probaCollection->toArray())
                 && $probaCollection->toArray()['Disease 1'] === 5
                 && $number === 1
             ))
@@ -371,9 +371,9 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(100, $probaCollection->toArray())
+                && \array_key_exists(100, $probaCollection->toArray())
                 && $probaCollection->toArray()[100] === 1
             ))
             ->andReturn(100)
@@ -381,9 +381,9 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(1, $probaCollection->toArray())
+                && \array_key_exists(1, $probaCollection->toArray())
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(0)
@@ -402,14 +402,14 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
-        $this->assertCount(1, $consumableDisease->getDiseases());
+        self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        self::assertCount(1, $consumableDisease->getDiseases());
         /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
-        $this->assertEquals('Disease 1', $disease->getDisease());
-        $this->assertEquals(100, $disease->getRate());
-        $this->assertEquals(0, $disease->getDelayMin());
-        $this->assertEquals(0, $disease->getDelayLength());
+        self::assertSame('Disease 1', $disease->getDisease());
+        self::assertSame(100, $disease->getRate());
+        self::assertSame(0, $disease->getDelayMin());
+        self::assertSame(0, $disease->getDelayLength());
     }
 
     public function testCreateConsumableCure()
@@ -434,9 +434,9 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(1, $probaCollection->toArray())
+                && \array_key_exists(1, $probaCollection->toArray())
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
@@ -453,9 +453,9 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
-            ->withArgs(fn ($probaCollection, $number) => (
+            ->withArgs(static fn ($probaCollection, $number) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists('Disease 1', $probaCollection->toArray())
+                && \array_key_exists('Disease 1', $probaCollection->toArray())
                 && $probaCollection->toArray()['Disease 1'] === 5
                 && $number === 1
             ))
@@ -464,9 +464,9 @@ class ConsumableDiseaseServiceTest extends TestCase
         ;
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
+            ->withArgs(static fn ($probaCollection) => (
                 $probaCollection instanceof ProbaCollection
-                && array_key_exists(30, $probaCollection->toArray())
+                && \array_key_exists(30, $probaCollection->toArray())
                 && $probaCollection->toArray()[30] === 1
             ))
             ->andReturn(30)
@@ -485,13 +485,13 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
-        $this->assertInstanceOf(ConsumableDisease::class, $consumableDisease);
-        $this->assertCount(1, $consumableDisease->getCures());
+        self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
+        self::assertCount(1, $consumableDisease->getCures());
         /** @var ConsumableDiseaseAttribute $cure */
         $cure = $consumableDisease->getCures()->first();
-        $this->assertEquals('Disease 1', $cure->getDisease());
-        $this->assertEquals(MedicalConditionTypeEnum::CURE, $cure->getType());
-        $this->assertEquals(0, $cure->getDelayMin());
-        $this->assertEquals(0, $cure->getDelayLength());
+        self::assertSame('Disease 1', $cure->getDisease());
+        self::assertSame(MedicalConditionTypeEnum::CURE, $cure->getType());
+        self::assertSame(0, $cure->getDelayMin());
+        self::assertSame(0, $cure->getDelayLength());
     }
 }

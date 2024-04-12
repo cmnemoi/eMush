@@ -29,7 +29,7 @@ class TranslationService implements TranslationServiceInterface
 
     private function getTranslateParameters(array $parameters, string $language): array
     {
-        if (array_key_exists($language, $translationMap = LanguageEnum::TRANSLATE_PARAMETERS)) {
+        if (\array_key_exists($language, $translationMap = LanguageEnum::TRANSLATE_PARAMETERS)) {
             $parameterTranslationMaps = $translationMap[$language];
 
             foreach ($parameters as $paramKey => $element) {
@@ -39,7 +39,7 @@ class TranslationService implements TranslationServiceInterface
                 }
                 $convertedKey = LanguageEnum::convertParameterKeyToTranslationKey($paramKey);
 
-                if (array_key_exists($convertedKey, $parameterTranslationMaps)) {
+                if (\array_key_exists($convertedKey, $parameterTranslationMaps)) {
                     $parameterTranslationMap = $parameterTranslationMaps[$convertedKey];
                 } else {
                     $parameterTranslationMap = ['name'];
@@ -65,7 +65,7 @@ class TranslationService implements TranslationServiceInterface
         array $parameterTranslationMap,
         string $language
     ): array {
-        if (!array_key_exists($initialKey, LanguageEnum::PARAMETER_KEY_TO_DOMAIN)) {
+        if (!\array_key_exists($initialKey, LanguageEnum::PARAMETER_KEY_TO_DOMAIN)) {
             return $parameters;
         }
         $parameterKey = LanguageEnum::convertParameterKeyToTranslationKey($initialKey);
@@ -96,7 +96,7 @@ class TranslationService implements TranslationServiceInterface
     {
         if ($additionalInfoKey === 'name' || $additionalInfoKey === 'short_name') {
             return $parameterKey;
-        } elseif (in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS)) {
+        } elseif (\in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS, true)) {
             return $additionalInfoKey;
         } else {
             return $parameterKey . '_' . $additionalInfoKey;
@@ -108,7 +108,7 @@ class TranslationService implements TranslationServiceInterface
         string $additionalInfoKey,
         string $parameterTranslationId
     ): string {
-        if (in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS)) {
+        if (\in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS, true)) {
             return $additionalInfoKey;
         } else {
             return $parameterTranslationId . '.' . $additionalInfoKey;

@@ -106,24 +106,24 @@ class AbstractGameEvent extends Event
 
     public function hasTag(string $tag): bool
     {
-        return in_array($tag, $this->tags);
+        return \in_array($tag, $this->tags, true);
     }
 
     public function hasAnyTag(array $tags): bool
     {
-        return count(array_intersect($tags, $this->tags)) > 0;
+        return \count(array_intersect($tags, $this->tags)) > 0;
     }
 
     public function hasAllTags(array $tags): bool
     {
-        return count(array_intersect($tags, $this->tags)) === count($tags);
+        return \count(array_intersect($tags, $this->tags)) === \count($tags);
     }
 
     public function mapLog(array $map): ?string
     {
         $logs = array_intersect_key($map, array_flip($this->tags));
 
-        if (count($logs) > 0) {
+        if (\count($logs) > 0) {
             return reset($logs);
         }
 

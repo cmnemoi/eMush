@@ -79,7 +79,7 @@ class PlayerSuscriberTest extends TestCase
         );
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
+            ->withArgs(static fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once();
 
         $this->playerSubscriber->onDeathPlayer($event);

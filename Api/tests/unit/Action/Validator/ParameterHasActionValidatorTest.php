@@ -67,7 +67,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -93,7 +93,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidTool()
@@ -119,7 +119,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidTool()

@@ -50,7 +50,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewFire = $this->getNumberOfIncident($daedalus);
 
-        $rooms = $daedalus->getRooms()->filter(fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
+        $rooms = $daedalus->getRooms()->filter(static fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
 
         $newFireRooms = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewFire);
 
@@ -73,8 +73,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewTremor = $this->getNumberOfIncident($daedalus);
 
-        $isARoom = fn (Place $place): bool => $place->getType() === PlaceTypeEnum::ROOM;
-        $hasPlayersInside = fn (Place $place): bool => $place->getPlayers()->getPlayerAlive()->count() > 0;
+        $isARoom = static fn (Place $place): bool => $place->getType() === PlaceTypeEnum::ROOM;
+        $hasPlayersInside = static fn (Place $place): bool => $place->getPlayers()->getPlayerAlive()->count() > 0;
 
         $rooms = $daedalus->getRooms()->filter($isARoom)->filter($hasPlayersInside);
 
@@ -97,7 +97,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewElectricArcs = $this->getNumberOfIncident($daedalus);
 
-        $rooms = $daedalus->getRooms()->filter(fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
+        $rooms = $daedalus->getRooms()->filter(static fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
 
         $newElectricArcs = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewElectricArcs);
 
@@ -162,11 +162,11 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
             $daedalusDoors = $this->gameEquipmentRepository->findByCriteria($criteria);
 
-            $daedalusDoorsNames = array_map(fn (Door $door) => $door->getName(), $daedalusDoors);
+            $daedalusDoorsNames = array_map(static fn (Door $door) => $door->getName(), $daedalusDoors);
 
-            $breakableDoorsNames = array_filter($daedalusDoorsNames, fn (string $doorName) => DoorEnum::isBreakable($doorName));
+            $breakableDoorsNames = array_filter($daedalusDoorsNames, static fn (string $doorName) => DoorEnum::isBreakable($doorName));
 
-            $breakableDoors = array_filter($daedalusDoors, fn (Door $door) => in_array($door->getName(), $breakableDoorsNames));
+            $breakableDoors = array_filter($daedalusDoors, static fn (Door $door) => \in_array($door->getName(), $breakableDoorsNames, true));
 
             $brokenDoors = $this->randomService->getRandomElements($breakableDoors, $numberOfDoorBroken);
 

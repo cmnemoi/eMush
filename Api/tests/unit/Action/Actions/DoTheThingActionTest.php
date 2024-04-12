@@ -25,18 +25,12 @@ use Mush\User\Entity\User;
 
 class DoTheThingActionTest extends AbstractActionTest
 {
-    /* @var DiseaseCauseServiceInterface|Mockery\Mock */
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
-    /* @var PlayerDiseaseServiceInterface|Mockery\Mock */
     private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
-    /* @var PlayerVariableServiceInterface|Mockery\Mock */
     private PlayerVariableServiceInterface|Mockery\Mock $playerVariableService;
-    /* @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface|Mockery\Mock $randomService;
-    /* @var RoomLogServiceInterface|Mockery\Mock */
     private RoomLogServiceInterface|Mockery\Mock $roomLogService;
 
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -102,7 +96,7 @@ class DoTheThingActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 
     public function testDoTheThingWithAndieDoesNotMakeMaleCharacterPregnant(): void

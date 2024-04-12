@@ -13,7 +13,7 @@ class PlanetSectorConfigCollection extends ArrayCollection
     public function getBySectorName(string $sectorName): PlanetSectorConfig
     {
         $planetSectorConfig = $this
-            ->filter(fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName)
+            ->filter(static fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName)
             ->first()
         ;
 

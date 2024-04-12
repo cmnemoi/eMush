@@ -85,7 +85,7 @@ class ModifierRequirementServiceTest extends TestCase
         $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(false);
 
         $result = $this->service->getActiveModifiers($modifierCollection);
-        $this->assertEmpty($result);
+        self::assertEmpty($result);
     }
 
     public function testCheckRequirementsMet()
@@ -123,6 +123,6 @@ class ModifierRequirementServiceTest extends TestCase
         $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(true);
 
         $result = $this->service->getActiveModifiers($modifierCollection);
-        $this->assertEquals($result, $modifierCollection);
+        self::assertSame($result, $modifierCollection);
     }
 }

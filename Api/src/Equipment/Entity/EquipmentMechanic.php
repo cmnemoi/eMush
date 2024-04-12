@@ -102,7 +102,7 @@ abstract class EquipmentMechanic
      */
     public function setActions(Collection|array $actions): static
     {
-        if (is_array($actions)) {
+        if (\is_array($actions)) {
             $actions = new ArrayCollection($actions);
         }
 

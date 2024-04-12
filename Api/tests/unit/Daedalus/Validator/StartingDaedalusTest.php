@@ -56,7 +56,7 @@ class StartingDaedalusTest extends TestCase
 
         $this->validator->validate($daedalus, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -74,7 +74,7 @@ class StartingDaedalusTest extends TestCase
 
         $this->validator->validate($daedalus, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     protected function initValidator(?string $expectedMessage = null)

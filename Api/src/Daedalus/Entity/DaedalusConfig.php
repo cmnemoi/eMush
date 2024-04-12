@@ -182,7 +182,7 @@ class DaedalusConfig
      */
     public function setPlaceConfigs(Collection|array $placeConfigs): static
     {
-        if (is_array($placeConfigs)) {
+        if (\is_array($placeConfigs)) {
             $placeConfigs = new ArrayCollection($placeConfigs);
         }
 

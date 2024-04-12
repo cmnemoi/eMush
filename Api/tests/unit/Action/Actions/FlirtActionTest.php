@@ -64,7 +64,7 @@ class FlirtActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertTrue($player->HasFlirtedWith($targetPlayer));
+        self::assertInstanceOf(Success::class, $result);
+        self::assertTrue($player->HasFlirtedWith($targetPlayer));
     }
 }

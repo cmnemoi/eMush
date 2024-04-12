@@ -121,11 +121,11 @@ class FireTest extends TestCase
         $this->randomService->shouldReceive('getRandomElements')->andReturn([$room])->once();
         $this->daedalusService->shouldReceive('persist')->once();
 
-        $this->assertTrue($room->hasStatus(StatusEnum::FIRE));
+        self::assertTrue($room->hasStatus(StatusEnum::FIRE));
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlayerVariableEvent $playerEvent, string $eventName) => (
+            ->withArgs(static fn (PlayerVariableEvent $playerEvent, string $eventName) => (
                 $playerEvent->getRoundedQuantity() === -2
                 && $eventName === VariableEventInterface::CHANGE_VARIABLE
                 && $playerEvent->getVariableName() === PlayerVariableEnum::HEALTH_POINT
@@ -134,22 +134,22 @@ class FireTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
+            ->withArgs(static fn (DaedalusVariableEvent $daedalusEvent, string $eventName) => (
                 $eventName === VariableEventInterface::CHANGE_VARIABLE
                 && $daedalusEvent->getVariableName() === DaedalusVariableEnum::HULL
             ))
             ->once();
 
         $this->cycleHandler->handleNewCycle($status, $room, $date);
-        $this->assertEquals($daedalusHull, $daedalus->getHull());
+        self::assertSame($daedalusHull, $daedalus->getHull());
     }
 
     /**
-     * @dataProvider fireTestPropagationDataProvider
+     * @dataProvider provideFirePropagationCases
      */
     public function testFirePropagation(int $roomNumbers, int $doorPerRoom, int $numberOfFires, int $expectedNumberOfFires, int $expectedDispatchedEvents): void
     {
-        assert($roomNumbers >= $numberOfFires);
+        \assert($roomNumbers >= $numberOfFires);
 
         $date = new \DateTime();
         /** @var ArrayCollection<array-key, Place> $rooms */
@@ -174,8 +174,8 @@ class FireTest extends TestCase
         }
 
         $expectedCont = ($doorPerRoom * $roomNumbers) - $doorPerRoom;
-        $this->assertCount($roomNumbers, $rooms);
-        $this->assertCount($expectedCont, $doors);
+        self::assertCount($roomNumbers, $rooms);
+        self::assertCount($expectedCont, $doors);
         // Propagate all the fire 🔥.
         $difficultyConfig = (new DifficultyConfig())
             ->setPropagatingFireRate(100)
@@ -213,12 +213,12 @@ class FireTest extends TestCase
         $roomsNotInFire = $rooms->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
 
         if ($numberOfFires < $roomNumbers) {
-            $this->assertCount($roomNumbers - $numberOfFires, $roomsNotInFire);
-            $roomsNotInFire->forAll(fn (int $_, Place $place) => $this->assertFalse($place->hasStatus(StatusEnum::FIRE)));
+            self::assertCount($roomNumbers - $numberOfFires, $roomsNotInFire);
+            $roomsNotInFire->forAll(static fn (int $_, Place $place) => self::assertFalse($place->hasStatus(StatusEnum::FIRE)));
         }
 
-        $this->assertCount($numberOfFires, $roomsInFire);
-        $this->assertCount($roomNumbers - $numberOfFires, $roomsNotInFire);
+        self::assertCount($numberOfFires, $roomsInFire);
+        self::assertCount($roomNumbers - $numberOfFires, $roomsNotInFire);
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->atLeast()->once();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->once();
@@ -254,7 +254,7 @@ class FireTest extends TestCase
     /**
      * @covers \Mush\Status\CycleHandler\Fire::handleNewCycle
      *
-     * @dataProvider placesNotFireCapableEnumTypesDataProvider
+     * @dataProvider provideFireDoesntGoSomewhereElseCases
      */
     public function testFireDoesntGoSomewhereElse(string $placeType): void
     {
@@ -301,7 +301,7 @@ class FireTest extends TestCase
      *
      * @return iterable [number of rooms, number of door per room, number of fire, expected number of fires, number of dispatched events]
      */
-    final public static function fireTestPropagationDataProvider(): iterable
+    final public static function provideFirePropagationCases(): iterable
     {
         yield [2, 1, 1, 2, 1];
         yield [3, 1, 2, 3, 2];
@@ -315,7 +315,7 @@ class FireTest extends TestCase
     /**
      * Ensure fire can only be propagated to rooms.
      */
-    final public static function placesNotFireCapableEnumTypesDataProvider(): iterable
+    final public static function provideFireDoesntGoSomewhereElseCases(): iterable
     {
         yield 'Space' => [PlaceTypeEnum::SPACE];
         yield 'PatrolShip' => [PlaceTypeEnum::PATROL_SHIP];

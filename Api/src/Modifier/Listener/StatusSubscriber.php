@@ -60,7 +60,7 @@ class StatusSubscriber implements EventSubscriberInterface
             $charge = null;
             if (
                 $statusConfig instanceof ChargeStatusConfig
-                && in_array($modifierConfig->getModifierName(), $statusConfig->getDischargeStrategies())
+                && \in_array($modifierConfig->getModifierName(), $statusConfig->getDischargeStrategies(), true)
             ) {
                 /** @var ChargeStatus $charge */
                 $charge = $event->getStatus();

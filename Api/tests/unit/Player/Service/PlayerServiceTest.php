@@ -132,15 +132,15 @@ class PlayerServiceTest extends TestCase
 
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals('character', $player->getPlayerInfo()->getCharacterConfig()->getCharacterName());
-        $this->assertEquals($characterConfig->getInitActionPoint(), $player->getActionPoint());
-        $this->assertEquals($characterConfig->getInitMovementPoint(), $player->getMovementPoint());
-        $this->assertEquals($characterConfig->getInitHealthPoint(), $player->getHealthPoint());
-        $this->assertEquals($characterConfig->getInitMoralPoint(), $player->getMoralPoint());
-        $this->assertEquals($characterConfig->getInitSatiety(), $player->getSatiety());
-        $this->assertCount(0, $player->getEquipments());
-        $this->assertCount(0, $player->getSkills());
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame('character', $player->getPlayerInfo()->getCharacterConfig()->getCharacterName());
+        self::assertSame($characterConfig->getInitActionPoint(), $player->getActionPoint());
+        self::assertSame($characterConfig->getInitMovementPoint(), $player->getMovementPoint());
+        self::assertSame($characterConfig->getInitHealthPoint(), $player->getHealthPoint());
+        self::assertSame($characterConfig->getInitMoralPoint(), $player->getMoralPoint());
+        self::assertSame($characterConfig->getInitSatiety(), $player->getSatiety());
+        self::assertCount(0, $player->getEquipments());
+        self::assertCount(0, $player->getSkills());
     }
 
     public function testPlayerDeath()
@@ -187,10 +187,10 @@ class PlayerServiceTest extends TestCase
 
         $player = $this->service->playerDeath($player, $reason, new \DateTime());
 
-        $this->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
-        $this->assertCount(0, $player->getEquipments());
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $room->getPlayers());
+        self::assertSame(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
+        self::assertCount(0, $player->getEquipments());
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(1, $room->getPlayers());
     }
 
     public function testEndPlayer()
@@ -217,7 +217,7 @@ class PlayerServiceTest extends TestCase
 
         $player = $this->service->endPlayer($player, $message, []);
 
-        $this->assertEquals(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
-        $this->assertEquals($closedPlayer->getMessage(), $message);
+        self::assertSame(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
+        self::assertSame($closedPlayer->getMessage(), $message);
     }
 }

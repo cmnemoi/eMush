@@ -73,7 +73,7 @@ class RationCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(1, $gameFruit->getStatuses());
+        self::assertCount(1, $gameFruit->getStatuses());
     }
 
     public function testNewDayFresh()
@@ -98,7 +98,7 @@ class RationCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(0, $gameFruit->getStatuses());
+        self::assertCount(0, $gameFruit->getStatuses());
     }
 
     public function testNewDayUnstable()
@@ -156,7 +156,7 @@ class RationCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(1, $gameFruit->getStatuses());
+        self::assertCount(1, $gameFruit->getStatuses());
     }
 
     public function testNewDayDecomposing()
@@ -183,6 +183,6 @@ class RationCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('createStatusFromName')->never();
         $this->statusService->shouldReceive('removeStatus')->never();
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(1, $gameFruit->getStatuses());
+        self::assertCount(1, $gameFruit->getStatuses());
     }
 }

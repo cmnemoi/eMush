@@ -61,7 +61,7 @@ class CycleService implements CycleServiceInterface
         $daedalusInfo = $daedalus->getDaedalusInfo();
         $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
 
-        if (!in_array($daedalusInfo->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT])) {
+        if (!\in_array($daedalusInfo->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT], true)) {
             return 0;
         }
 
@@ -188,8 +188,8 @@ class CycleService implements CycleServiceInterface
         /** @var non-empty-string $timeZone */
         $timeZone = $localizationConfig->getTimeZone();
         $timeZoneDate = $date->setTimezone(new \DateTimeZone($timeZone));
-        $minutes = intval($timeZoneDate->format('i'));
-        $hours = intval($timeZoneDate->format('H'));
+        $minutes = (int) $timeZoneDate->format('i');
+        $hours = (int) $timeZoneDate->format('H');
 
         return (int) (floor(
             ($minutes + $hours * 60) / $daedalusConfig->getCycleLength() + 1
@@ -218,8 +218,8 @@ class CycleService implements CycleServiceInterface
             ->setTimezone(new \DateTimeZone('UTC'))
         ;
 
-        $gameDayLength = intval($daedalusConfig->getCyclePerGameDay() * $daedalusConfig->getCycleLength()); // in min
-        $numberOfCompleteDay = intval($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
+        $gameDayLength = (int) ($daedalusConfig->getCyclePerGameDay() * $daedalusConfig->getCycleLength()); // in min
+        $numberOfCompleteDay = (int) ($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);
         $minutesBetweenDayStartAndDaedalusFirstCycle = $numberOfCompleteDay * $gameDayLength + (($daedalus->getCycle() - 1) * $daedalusConfig->getCycleLength());
 
         return $firstDayDate->add(new \DateInterval('PT' . $minutesBetweenDayStartAndDaedalusFirstCycle . 'M'));
@@ -238,7 +238,7 @@ class CycleService implements CycleServiceInterface
 
         $differencesInMinutes = $this->getDateIntervalAsMinutes($start, $end);
 
-        return intval(floor($differencesInMinutes / $daedalusConfig->getCycleLength()));
+        return (int) floor($differencesInMinutes / $daedalusConfig->getCycleLength());
     }
 
     public function getExplorationDateStartNextCycle(Exploration $exploration): \DateTime
@@ -263,16 +263,16 @@ class CycleService implements CycleServiceInterface
 
         $differencesInMinutes = $this->getDateIntervalAsMinutes($start, $end);
 
-        return intval(floor($differencesInMinutes / $exploration->getCycleLength()));
+        return (int) floor($differencesInMinutes / $exploration->getCycleLength());
     }
 
     private function getDateIntervalAsMinutes(\DateTime $dateStart, \DateTime $dateEnd): int
     {
         $dateInterval = $dateEnd->diff($dateStart);
 
-        return intval($dateInterval->format('%a')) * 24 * 60 +
-                intval($dateInterval->format('%H')) * 60 +
-                intval($dateInterval->format('%i'));
+        return (int) $dateInterval->format('%a') * 24 * 60 +
+                (int) $dateInterval->format('%H') * 60 +
+                (int) $dateInterval->format('%i');
     }
 
     private function isDaedalusOrExplorationFinished(ClosedExploration $exploration): bool

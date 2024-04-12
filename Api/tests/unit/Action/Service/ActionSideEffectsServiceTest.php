@@ -64,7 +64,7 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player = $this->actionService->handleActionSideEffect($action, $player, null);
 
-        $this->assertCount(0, $player->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 
     public function testHandleActionSideEffectAlreadyDirty()
@@ -87,6 +87,6 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player = $this->actionService->handleActionSideEffect($action, $player, null);
 
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
     }
 }

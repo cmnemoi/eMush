@@ -21,7 +21,6 @@ class RepairActionTest extends AbstractActionTest
     /** @var RandomServiceInterface|Mockery\Mock */
     private RandomServiceInterface $randomService;
 
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -85,7 +84,7 @@ class RepairActionTest extends AbstractActionTest
         // Fail try
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
+        self::assertInstanceOf(Fail::class, $result);
     }
 
     public function testExecuteSuccess()
@@ -128,7 +127,7 @@ class RepairActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
     }
 }

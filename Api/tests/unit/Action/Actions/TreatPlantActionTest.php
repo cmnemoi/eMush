@@ -80,9 +80,9 @@ class TreatPlantActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 }

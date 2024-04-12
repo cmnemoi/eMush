@@ -58,7 +58,7 @@ class TryKube extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        // @TODO add triumph when successful
+        /** @TODO add triumph when successful */
         $solveKube = $this->randomService->isSuccessful(self::KUBE_SUCCESS_RATE);
     }
 }

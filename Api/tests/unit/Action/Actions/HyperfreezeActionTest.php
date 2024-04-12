@@ -19,7 +19,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class HyperfreezeActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
@@ -91,11 +90,11 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $player->getEquipments());
-        $this->assertEquals($gameRation->getName(), $room->getEquipments()->first()->getName());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
+        self::assertCount(0, $player->getEquipments());
+        self::assertSame($gameRation->getName(), $room->getEquipments()->first()->getName());
+        self::assertCount(0, $player->getStatuses());
     }
 
     public function testExecuteSteak()
@@ -144,9 +143,9 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $gameSuperfreezer->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
+        self::assertCount(0, $gameSuperfreezer->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 }

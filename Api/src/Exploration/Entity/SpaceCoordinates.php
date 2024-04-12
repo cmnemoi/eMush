@@ -66,7 +66,7 @@ final class SpaceCoordinates
         return $this->distance;
     }
 
-    public function equals(SpaceCoordinates $spaceCoordinates): bool
+    public function equals(self $spaceCoordinates): bool
     {
         return $this->orientation === $spaceCoordinates->orientation && $this->distance === $spaceCoordinates->distance;
     }

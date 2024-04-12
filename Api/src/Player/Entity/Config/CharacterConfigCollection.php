@@ -12,7 +12,7 @@ class CharacterConfigCollection extends ArrayCollection
     public function getCharacter(string $name): ?CharacterConfig
     {
         $character = $this
-            ->filter(fn (CharacterConfig $characterConfig) => $characterConfig->getCharacterName() === $name)
+            ->filter(static fn (CharacterConfig $characterConfig) => $characterConfig->getCharacterName() === $name)
             ->first()
         ;
 

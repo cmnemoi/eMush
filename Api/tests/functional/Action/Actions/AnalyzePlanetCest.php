@@ -109,7 +109,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     public function testAnalyzePlanetIsNotVisibleIfPlanetHasAllTheirSectionsRevealed(FunctionalTester $I): void
     {
         // given all sections of the planet are revealed
-        $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->reveal());
+        $this->planet->getSectors()->map(static fn (PlanetSector $sector) => $sector->reveal());
 
         // when player tries to analyze planet
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);

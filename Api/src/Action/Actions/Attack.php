@@ -117,7 +117,7 @@ class Attack extends AttemptAction
         $knife = $this->getPlayerKnife();
 
         if ($result instanceof Success) {
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($knife->getBaseDamageRange()));
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($knife->getBaseDamageRange());
             $damageEvent = $this->createDamageEvent($damage, $target, $player);
 
             if ($result instanceof OneShot) {
@@ -151,7 +151,7 @@ class Attack extends AttemptAction
     {
         /** @var GameItem $knifeItem */
         $knifeItem = $this->player->getEquipments()->filter(
-            fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::KNIFE && $gameItem->isOperational()
+            static fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::KNIFE && $gameItem->isOperational()
         )->first();
 
         if (!$knifeItem instanceof GameItem) {

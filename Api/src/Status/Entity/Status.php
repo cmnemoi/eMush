@@ -187,7 +187,7 @@ class Status
         return $this->target;
     }
 
-    public function delete(): Status
+    public function delete(): self
     {
         if ($this->owner !== null) {
             $this->owner->removeStatusLinksTarget();

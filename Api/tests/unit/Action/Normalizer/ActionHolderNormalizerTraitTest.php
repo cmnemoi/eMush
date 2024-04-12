@@ -79,11 +79,11 @@ final class ActionHolderNormalizerTraitTest extends TestCase
         $sortedActions = $this->getNormalizedActionsSortedBy('actionPointCost', $sortedActions);
 
         // then I get the actions sorted by name and then by actionPointCost
-        $this->assertEquals('auto_destroy', $sortedActions[0]['key']);
-        $this->assertEquals('rejuvenate', $sortedActions[1]['key']);
-        $this->assertEquals('suicide', $sortedActions[2]['key']);
-        $this->assertEquals('search', $sortedActions[3]['key']);
-        $this->assertEquals('boring_speech', $sortedActions[4]['key']);
-        $this->assertEquals('motivational_speech', $sortedActions[5]['key']);
+        self::assertSame('auto_destroy', $sortedActions[0]['key']);
+        self::assertSame('rejuvenate', $sortedActions[1]['key']);
+        self::assertSame('suicide', $sortedActions[2]['key']);
+        self::assertSame('search', $sortedActions[3]['key']);
+        self::assertSame('boring_speech', $sortedActions[4]['key']);
+        self::assertSame('motivational_speech', $sortedActions[5]['key']);
     }
 }

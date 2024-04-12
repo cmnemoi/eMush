@@ -56,7 +56,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
                 $types[] = $queryBuilder->expr()->isInstanceOf('equipment', $type);
             }
             $queryBuilder->andWhere(
-                call_user_func_array([$queryBuilder->expr(), 'orX'], $types)
+                \call_user_func_array([$queryBuilder->expr(), 'orX'], $types)
             );
         }
 
@@ -66,7 +66,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
                 $types[] = $queryBuilder->expr()->not($queryBuilder->expr()->isInstanceOf('equipment', $type));
             }
             $queryBuilder->andWhere(
-                call_user_func_array([$queryBuilder->expr(), 'andX'], $types)
+                \call_user_func_array([$queryBuilder->expr(), 'andX'], $types)
             );
         }
 

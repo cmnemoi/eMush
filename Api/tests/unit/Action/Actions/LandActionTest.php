@@ -91,9 +91,9 @@ class LandActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertNotInstanceOf(CriticalSuccess::class, $result);
-        $this->assertEquals($player->getPlace(), $roomEnd);
+        self::assertInstanceOf(Success::class, $result);
+        self::assertNotInstanceOf(CriticalSuccess::class, $result);
+        self::assertSame($player->getPlace(), $roomEnd);
     }
 
     public function testExecuteSuccess()
@@ -138,7 +138,7 @@ class LandActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(CriticalSuccess::class, $result);
-        $this->assertEquals($player->getPlace(), $roomEnd);
+        self::assertInstanceOf(CriticalSuccess::class, $result);
+        self::assertSame($player->getPlace(), $roomEnd);
     }
 }

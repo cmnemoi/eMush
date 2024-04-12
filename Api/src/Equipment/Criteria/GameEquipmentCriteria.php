@@ -24,7 +24,7 @@ class GameEquipmentCriteria
         return $this->daedalus;
     }
 
-    public function setDaedalus(Daedalus $daedalus): GameEquipmentCriteria
+    public function setDaedalus(Daedalus $daedalus): self
     {
         $this->daedalus = $daedalus;
 
@@ -36,7 +36,7 @@ class GameEquipmentCriteria
         return $this->breakable;
     }
 
-    public function setBreakable(?bool $breakable): GameEquipmentCriteria
+    public function setBreakable(?bool $breakable): self
     {
         $this->breakable = $breakable;
 
@@ -48,7 +48,7 @@ class GameEquipmentCriteria
         return $this->instanceOf;
     }
 
-    public function setInstanceOf(?array $instanceOf): GameEquipmentCriteria
+    public function setInstanceOf(?array $instanceOf): self
     {
         $this->instanceOf = $instanceOf;
 
@@ -60,7 +60,7 @@ class GameEquipmentCriteria
         return $this->notInstanceOf;
     }
 
-    public function setNotInstanceOf(?array $notInstanceOf): GameEquipmentCriteria
+    public function setNotInstanceOf(?array $notInstanceOf): self
     {
         $this->notInstanceOf = $notInstanceOf;
 

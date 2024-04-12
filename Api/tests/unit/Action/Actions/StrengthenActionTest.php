@@ -79,7 +79,7 @@ class StrengthenActionTest extends AbstractActionTest
         // Fail try
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
+        self::assertInstanceOf(Fail::class, $result);
     }
 
     public function testExecuteSuccess()
@@ -133,6 +133,6 @@ class StrengthenActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

@@ -54,7 +54,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $logParameters = $event->getLogParameters();
         $language = $player->getDaedalus()->getLanguage();
 
-        if ($logKey == LogEnum::DEATH) {
+        if ($logKey === LogEnum::DEATH) {
             $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
             if ($endCause === null) {

@@ -99,8 +99,8 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertEquals('some Name', $gameItem->getName());
+        self::assertInstanceOf(GameItem::class, $gameItem);
+        self::assertSame('some Name', $gameItem->getName());
     }
 
     public function testCreateBasicEquipment()
@@ -133,8 +133,8 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameEquipment::class, $gameEquipment);
-        $this->assertEquals('equipment Name', $gameEquipment->getName());
+        self::assertInstanceOf(GameEquipment::class, $gameEquipment);
+        self::assertSame('equipment Name', $gameEquipment->getName());
     }
 
     public function testCreatePlant()
@@ -188,8 +188,8 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertEquals('some plant', $gameItem->getName());
+        self::assertInstanceOf(GameItem::class, $gameItem);
+        self::assertSame('some plant', $gameItem->getName());
     }
 
     public function testCreateDocument()
@@ -242,7 +242,7 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertEquals('some document', $gameItem->getName());
+        self::assertInstanceOf(GameItem::class, $gameItem);
+        self::assertSame('some document', $gameItem->getName());
     }
 }

@@ -88,7 +88,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onDeathPlayer(PlayerEvent $event): void
     {
         $playersInRoom = $event->getPlace()->getPlayers()->getPlayerAlive()->filter(
-            function ($player) use ($event) {
+            static function ($player) use ($event) {
                 return $player !== $event->getPlayer();
             }
         );
@@ -140,7 +140,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $initDiseases = $characterConfig->getInitDiseases();
         // get diseases name from initDiseases configs with a closure
         $initDiseases = array_map(
-            function ($diseaseConfig) {
+            static function ($diseaseConfig) {
                 return $diseaseConfig->getDiseaseName();
             },
             $initDiseases->toArray()

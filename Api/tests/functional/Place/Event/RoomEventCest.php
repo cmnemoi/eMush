@@ -175,7 +175,7 @@ class RoomEventCest
         $I->refreshEntities($player);
 
         // filter rooms with players
-        $rooms = $rooms->filter(function (Place $room) {
+        $rooms = $rooms->filter(static function (Place $room) {
             return $room->getPlayers()->getPlayerAlive()->count() > 0;
         });
 

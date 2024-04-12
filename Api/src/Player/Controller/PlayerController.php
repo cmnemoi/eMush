@@ -144,7 +144,7 @@ class PlayerController extends AbstractGameController
             return $maintenanceView;
         }
 
-        if (count($violations = $this->validator->validate($playerCreateRequest))) {
+        if (\count($violations = $this->validator->validate($playerCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -225,7 +225,7 @@ class PlayerController extends AbstractGameController
             return $maintenanceView;
         }
 
-        if (count($violations = $this->validator->validate($request))) {
+        if (\count($violations = $this->validator->validate($request))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

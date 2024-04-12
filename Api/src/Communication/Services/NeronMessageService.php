@@ -66,7 +66,7 @@ class NeronMessageService implements NeronMessageServiceInterface
             $parameters['neronMood'] = NeronPersonalitiesEnum::NEUTRAL;
         }
 
-        if (array_key_exists($messageKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+        if (\array_key_exists($messageKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$messageKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }

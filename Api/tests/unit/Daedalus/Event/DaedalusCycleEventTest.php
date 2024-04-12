@@ -104,7 +104,7 @@ class DaedalusCycleEventTest extends TestCase
         $event = new DaedalusCycleEvent($daedalus, [DaedalusEvent::FINISH_DAEDALUS], $date);
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
+            ->withArgs(static fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once()
         ;
 

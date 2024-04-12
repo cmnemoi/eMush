@@ -61,7 +61,7 @@ final class PlanetService implements PlanetServiceInterface
     {
         $sectorsToReveal = $this->randomService->getRandomPlanetSectorsToReveal($planet, $number);
 
-        $revealedSectors = $sectorsToReveal->map(fn (PlanetSector $sector) => $sector->reveal());
+        $revealedSectors = $sectorsToReveal->map(static fn (PlanetSector $sector) => $sector->reveal());
 
         $this->persist($revealedSectors->toArray());
 
@@ -134,7 +134,7 @@ final class PlanetService implements PlanetServiceInterface
         while (!$drawnCoordinates) {
             $chosenDistance = $this->randomService->rollTwiceAndAverage($minDistance, $maxDistance);
             $coordinatesAtDistance = $availableCoordinates->filter(
-                fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() === $chosenDistance
+                static fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() === $chosenDistance
             )->toArray();
             $drawnCoordinates = $this->randomService->getRandomElement($coordinatesAtDistance);
         }
@@ -145,7 +145,7 @@ final class PlanetService implements PlanetServiceInterface
     private function getAvailableCoordinatesForPlanetUnderDistance(Planet $planet, int $distance): ArrayCollection
     {
         $availableCoordinates = SpaceCoordinates::getAll()->filter(
-            fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() <= $distance
+            static fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() <= $distance
         );
 
         $existingPlanets = $this->planetRepository->findAllByDaedalus($planet->getDaedalus());

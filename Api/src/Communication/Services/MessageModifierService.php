@@ -182,7 +182,7 @@ class MessageModifierService implements MessageModifierServiceInterface
         $translationParameters = $message->getTranslationParameters();
         if (
             $message->getAuthor() === $player->getPlayerInfo()
-            && array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters)
+            && \array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters)
             && $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE] === MessageModificationEnum::PARANOIA_MESSAGES
         ) {
             $message->setMessage($translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE]);
@@ -211,7 +211,7 @@ class MessageModifierService implements MessageModifierServiceInterface
 
     private function getVersionParameter(array $parameters, string $versionKey): array
     {
-        if (array_key_exists($versionKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+        if (\array_key_exists($versionKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$versionKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }

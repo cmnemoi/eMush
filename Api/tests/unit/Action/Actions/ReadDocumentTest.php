@@ -78,7 +78,7 @@ class ReadDocumentTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals('test content', $result->getContent());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertSame('test content', $result->getContent());
     }
 }

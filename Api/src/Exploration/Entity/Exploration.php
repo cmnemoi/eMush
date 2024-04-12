@@ -91,7 +91,7 @@ class Exploration
     public function getExploratorsWithoutSpacesuit(): PlayerCollection
     {
         return $this->getExplorators()->filter(
-            fn (Player $explorator) => !$explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
+            static fn (Player $explorator) => !$explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
         );
     }
 
@@ -105,23 +105,23 @@ class Exploration
         }
 
         return $this->getAliveExplorators()->filter(
-            fn (Player $explorator) => $explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
+            static fn (Player $explorator) => $explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
         );
     }
 
     public function getAliveExplorators(): PlayerCollection
     {
-        return $this->getExplorators()->filter(fn (Player $explorator) => $explorator->isAlive());
+        return $this->getExplorators()->filter(static fn (Player $explorator) => $explorator->isAlive());
     }
 
     public function getNotLostActiveExplorators(): PlayerCollection
     {
-        return $this->getActiveExplorators()->filter(fn (Player $explorator) => !$explorator->hasStatus(PlayerStatusEnum::LOST));
+        return $this->getActiveExplorators()->filter(static fn (Player $explorator) => !$explorator->hasStatus(PlayerStatusEnum::LOST));
     }
 
     public function getNotLostAliveExplorators(): PlayerCollection
     {
-        return $this->getAliveExplorators()->filter(fn (Player $explorator) => !$explorator->hasStatus(PlayerStatusEnum::LOST));
+        return $this->getAliveExplorators()->filter(static fn (Player $explorator) => !$explorator->hasStatus(PlayerStatusEnum::LOST));
     }
 
     public function addExplorator(Player $explorator): void
@@ -192,7 +192,7 @@ class Exploration
 
     public function getCycleLength(): int
     {
-        $cycleLength = intval($this->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCycleLength() / self::CYCLE_LENGTH);
+        $cycleLength = (int) ($this->getDaedalus()->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCycleLength() / self::CYCLE_LENGTH);
 
         return $cycleLength > 1 ? $cycleLength : 1;
     }
@@ -209,7 +209,7 @@ class Exploration
 
     public function hasAPilotAlive(): bool
     {
-        return $this->getAliveExplorators()->filter(fn (Player $player) => $player->hasSkill(PlayerStatusEnum::POC_PILOT_SKILL))->count() > 0;
+        return $this->getAliveExplorators()->filter(static fn (Player $player) => $player->hasSkill(PlayerStatusEnum::POC_PILOT_SKILL))->count() > 0;
     }
 
     public function getEstimatedDuration(): int
@@ -219,31 +219,31 @@ class Exploration
 
     public function hasAFunctionalDrill(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::DRILL))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::DRILL))->count() > 0;
     }
 
     public function hasAFunctionalCompass(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS))->count() > 0;
     }
 
     public function hasAWhiteFlag(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::WHITE_FLAG))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::WHITE_FLAG))->count() > 0;
     }
 
     public function hasAFunctionalBabelModule(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::BABEL_MODULE))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::BABEL_MODULE))->count() > 0;
     }
 
     public function hasAFunctionalEcholocator(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::ECHOLOCATOR))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::ECHOLOCATOR))->count() > 0;
     }
 
     public function hasAFunctionalThermosensor(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::THERMOSENSOR))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::THERMOSENSOR))->count() > 0;
     }
 }

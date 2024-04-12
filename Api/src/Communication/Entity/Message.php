@@ -25,11 +25,11 @@ class Message
     #[ORM\ManyToOne(targetEntity: Neron::class)]
     private ?Neron $neron = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Message::class)]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private Collection $child;
 
-    #[ORM\ManyToOne(targetEntity: Message::class, inversedBy: 'child')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'child')]
     private ?Message $parent = null;
 
     #[ORM\ManyToOne(targetEntity: Channel::class, inversedBy: 'messages')]
@@ -75,12 +75,12 @@ class Message
         return $this;
     }
 
-    public function getParent(): ?Message
+    public function getParent(): ?self
     {
         return $this->parent;
     }
 
-    public function setParent(?Message $parent): static
+    public function setParent(?self $parent): static
     {
         $this->parent = $parent;
 

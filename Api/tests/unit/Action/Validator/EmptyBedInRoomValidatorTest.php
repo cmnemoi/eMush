@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class EmptyOperationalBedInRoomValidatorTest extends TestCase
+class EmptyBedInRoomValidatorTest extends TestCase
 {
     private EmptyOperationalBedInRoomValidator $validator;
     private EmptyOperationalBedInRoom $constraint;

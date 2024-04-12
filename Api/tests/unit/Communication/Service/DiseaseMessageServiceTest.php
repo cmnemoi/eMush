@@ -66,7 +66,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::DEAF_SPEAK);
 
-        $this->assertEquals('SOME MESSAGE', $modifiedMessage->getMessage());
+        self::assertSame('SOME MESSAGE', $modifiedMessage->getMessage());
     }
 
     public function testCoprolaliaPlayerNoTrigger()
@@ -89,7 +89,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
-        $this->assertEquals($message, $modifiedMessage);
+        self::assertSame($message, $modifiedMessage);
     }
 
     public function testCoprolaliaPlayerTriggerReplace()
@@ -132,8 +132,8 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
     public function testCoprolaliaPlayerTriggerPre()
@@ -177,8 +177,8 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
-        $this->assertEquals('prefix, some message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('prefix, some message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
     public function testParanoiaPlayerTriggerReplaceAware()
@@ -221,8 +221,8 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
     public function testParanoiaPlayerTriggerReplaceNotAware()
@@ -264,8 +264,8 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals(
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame(
             [
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'Some message',
                 DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
@@ -331,7 +331,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 }

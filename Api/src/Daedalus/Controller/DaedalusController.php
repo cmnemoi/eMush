@@ -105,7 +105,7 @@ class DaedalusController extends AbstractGameController
 
         $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);
 
-        $nbCharactersToReturn = min(self::MAX_CHARACTERS_TO_RETURN, count($availableCharacters));
+        $nbCharactersToReturn = min(self::MAX_CHARACTERS_TO_RETURN, \count($availableCharacters));
 
         $availableCharacters = $this->randomService->getRandomElements($availableCharacters->toArray(), $nbCharactersToReturn);
         $characters = [];
@@ -203,7 +203,7 @@ class DaedalusController extends AbstractGameController
             return $maintenanceView;
         }
 
-        if (count($violations = $this->validator->validate($daedalusCreateRequest))) {
+        if (\count($violations = $this->validator->validate($daedalusCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -211,8 +211,8 @@ class DaedalusController extends AbstractGameController
         $user = $this->getUser();
 
         $userRoles = $user->getRoles();
-        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
-            || in_array(RoleEnum::ADMIN, $userRoles, true))) {
+        if (!(\in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
+            || \in_array(RoleEnum::ADMIN, $userRoles, true))) {
             throw new AccessDeniedException('User is not an admin');
         }
 
@@ -243,8 +243,8 @@ class DaedalusController extends AbstractGameController
         $user = $this->getUser();
 
         $userRoles = $user->getRoles();
-        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
-            || in_array(RoleEnum::ADMIN, $userRoles, true))) {
+        if (!(\in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
+            || \in_array(RoleEnum::ADMIN, $userRoles, true))) {
             throw new AccessDeniedException('User is not an admin');
         }
 
@@ -287,13 +287,13 @@ class DaedalusController extends AbstractGameController
         $user = $this->getUser();
 
         $userRoles = $user->getRoles();
-        if (!(in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
-            || in_array(RoleEnum::ADMIN, $userRoles, true))) {
+        if (!(\in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
+            || \in_array(RoleEnum::ADMIN, $userRoles, true))) {
             throw new AccessDeniedException('User is not an admin');
         }
 
         $daedaluses = $this->daedalusService->findAllNonFinishedDaedaluses();
-        if (count($daedaluses) === 0) {
+        if (\count($daedaluses) === 0) {
             return $this->view(['error' => 'No daedaluses found'], 404);
         }
 

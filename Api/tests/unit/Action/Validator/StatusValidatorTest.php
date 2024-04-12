@@ -65,7 +65,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidParameter()
@@ -96,7 +96,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForPlayer()
@@ -126,7 +126,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayer()
@@ -157,7 +157,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForPlayerRoom()
@@ -190,7 +190,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayerRoom()
@@ -225,7 +225,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testInverseSide()
@@ -260,7 +260,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     protected function initValidator(?string $expectedMessage = null)

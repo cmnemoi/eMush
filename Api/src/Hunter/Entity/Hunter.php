@@ -197,7 +197,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
 
     public function getClassName(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function getDaedalus(): Daedalus

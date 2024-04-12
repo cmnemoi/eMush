@@ -78,7 +78,7 @@ class PlayerVoterTest extends TestCase
             $user, 'credentials', []
         );
 
-        $this->assertEquals(
+        self::assertSame(
             $expectedVote,
             $this->voter->vote($token, $player, [$attribute])
         );

@@ -21,7 +21,7 @@ class IsSameGenderValidator extends ConstraintValidator
 
     private function isCoupleWithAndie(string $player, string $targetPlayer): bool
     {
-        return $player == CharacterEnum::ANDIE || $targetPlayer == CharacterEnum::ANDIE;
+        return $player === CharacterEnum::ANDIE || $targetPlayer === CharacterEnum::ANDIE;
     }
 
     public function validate($value, Constraint $constraint): void

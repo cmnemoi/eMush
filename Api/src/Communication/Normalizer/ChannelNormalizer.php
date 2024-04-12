@@ -24,7 +24,7 @@ class ChannelNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Channel && !in_array('moderation_read', $context['groups'] ?? []);
+        return $data instanceof Channel && !\in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array
@@ -39,7 +39,7 @@ class ChannelNormalizer implements NormalizerInterface
 
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if (array_key_exists('piratedPlayer', $context)) {
+        if (\array_key_exists('piratedPlayer', $context)) {
             /** @var Player $piratedPlayer */
             $piratedPlayer = $context['piratedPlayer'];
             $piratedPlayerId = $piratedPlayer->getId();

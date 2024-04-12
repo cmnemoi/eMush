@@ -72,7 +72,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
             $statuses = [];
             foreach ($player->getStatuses() as $status) {
                 $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-                if (is_array($normedStatus) && count($normedStatus) > 0) {
+                if (\is_array($normedStatus) && \count($normedStatus) > 0) {
                     $statuses[] = $normedStatus;
                 }
             }
@@ -119,7 +119,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         /** @var Action $action */
         foreach ($actionsToNormalize as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }
@@ -142,7 +142,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         $skills = [];
         foreach ($player->getSkills() as $skill) {
             $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['currentPlayer' => $player]));
-            if (is_array($normedSkill) && count($normedSkill) > 0) {
+            if (\is_array($normedSkill) && \count($normedSkill) > 0) {
                 $skills[] = $normedSkill;
             }
         }

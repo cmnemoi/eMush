@@ -22,7 +22,7 @@ class UserVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::USER_IN_GAME, self::EDIT_USER_ROLE])) {
+        if (!\in_array($attribute, [self::USER_IN_GAME, self::EDIT_USER_ROLE], true)) {
             return false;
         }
 
@@ -52,7 +52,7 @@ class UserVoter extends Voter
     {
         $roles = $this->roleHierarchy->getReachableRoleNames($token->getRoleNames());
         foreach ($editedUser->getRoles() as $editedUserRole) {
-            if (!in_array($editedUserRole, $roles)) {
+            if (!\in_array($editedUserRole, $roles, true)) {
                 return false;
             }
         }

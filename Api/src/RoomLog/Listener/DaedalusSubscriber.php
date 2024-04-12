@@ -51,7 +51,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     {
         $planetLogs = $this->roomLogService->findAllByDaedalusAndPlace($daedalus, $daedalus->getPlanetPlace());
 
-        $planetLogs->map(fn (RoomLog $log) => $log->setVisibility(VisibilityEnum::HIDDEN));
+        $planetLogs->map(static fn (RoomLog $log) => $log->setVisibility(VisibilityEnum::HIDDEN));
         $planetLogs->map(fn (RoomLog $log) => $this->roomLogService->persist($log));
     }
 }

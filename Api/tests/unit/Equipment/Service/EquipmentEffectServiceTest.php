@@ -71,8 +71,8 @@ class EquipmentEffectServiceTest extends TestCase
 
         $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
 
-        $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
-        $this->assertEquals($consumableEffectFromRepository, $consumableEffect);
+        self::assertInstanceOf(ConsumableEffect::class, $consumableEffect);
+        self::assertSame($consumableEffectFromRepository, $consumableEffect);
 
         $this->consumableEffectRepository
             ->shouldReceive('findOneBy')
@@ -91,13 +91,13 @@ class EquipmentEffectServiceTest extends TestCase
         ;
         $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
 
-        $this->assertInstanceOf(ConsumableEffect::class, $consumableEffect);
-        $this->assertEquals($daedalus, $consumableEffect->getDaedalus());
-        $this->assertEquals($ration, $consumableEffect->getRation());
-        $this->assertEquals(2, $consumableEffect->getActionPoint());
-        $this->assertEquals(2, $consumableEffect->getMovementPoint());
-        $this->assertEquals(2, $consumableEffect->getHealthPoint());
-        $this->assertEquals(2, $consumableEffect->getMoralPoint());
+        self::assertInstanceOf(ConsumableEffect::class, $consumableEffect);
+        self::assertSame($daedalus, $consumableEffect->getDaedalus());
+        self::assertSame($ration, $consumableEffect->getRation());
+        self::assertSame(2, $consumableEffect->getActionPoint());
+        self::assertSame(2, $consumableEffect->getMovementPoint());
+        self::assertSame(2, $consumableEffect->getHealthPoint());
+        self::assertSame(2, $consumableEffect->getMoralPoint());
     }
 
     public function testGetPlantEffect()
@@ -118,8 +118,8 @@ class EquipmentEffectServiceTest extends TestCase
 
         $plantEffect = $this->service->getPlantEffect($plant, $daedalus);
 
-        $this->assertInstanceOf(PlantEffect::class, $plantEffect);
-        $this->assertEquals($plantEffectFromRepository, $plantEffect);
+        self::assertInstanceOf(PlantEffect::class, $plantEffect);
+        self::assertSame($plantEffectFromRepository, $plantEffect);
 
         $this->plantEffectRepository
             ->shouldReceive('findOneBy')
@@ -143,10 +143,10 @@ class EquipmentEffectServiceTest extends TestCase
         ;
         $plantEffect = $this->service->getPlantEffect($plant, $daedalus);
 
-        $this->assertInstanceOf(PlantEffect::class, $plantEffect);
-        $this->assertEquals($daedalus, $plantEffect->getDaedalus());
-        $this->assertEquals($plant, $plantEffect->getPlant());
-        $this->assertEquals(1, $plantEffect->getOxygen());
-        $this->assertEquals(8, $plantEffect->getMaturationTime());
+        self::assertInstanceOf(PlantEffect::class, $plantEffect);
+        self::assertSame($daedalus, $plantEffect->getDaedalus());
+        self::assertSame($plant, $plantEffect->getPlant());
+        self::assertSame(1, $plantEffect->getOxygen());
+        self::assertSame(8, $plantEffect->getMaturationTime());
     }
 }

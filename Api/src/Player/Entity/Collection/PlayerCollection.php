@@ -12,27 +12,27 @@ class PlayerCollection extends ArrayCollection
 {
     public function getPlayerAlive(): self
     {
-        return $this->filter(fn (Player $player) => $player->isAlive());
+        return $this->filter(static fn (Player $player) => $player->isAlive());
     }
 
     public function getPlayerDead(): self
     {
-        return $this->filter(fn (Player $player) => !$player->isAlive());
+        return $this->filter(static fn (Player $player) => !$player->isAlive());
     }
 
     public function getMushPlayer(): self
     {
-        return $this->filter(fn (Player $player) => $player->isMush());
+        return $this->filter(static fn (Player $player) => $player->isMush());
     }
 
     public function getHumanPlayer(): self
     {
-        return $this->filter(fn (Player $player) => !$player->isMush());
+        return $this->filter(static fn (Player $player) => !$player->isMush());
     }
 
     public function getPlayerByName(string $name): ?Player
     {
-        $player = $this->filter(fn (Player $player) => $player->getName() === $name)->first();
+        $player = $this->filter(static fn (Player $player) => $player->getName() === $name)->first();
         if (!$player) {
             return null;
         }

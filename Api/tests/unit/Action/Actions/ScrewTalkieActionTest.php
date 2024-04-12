@@ -23,7 +23,6 @@ use Mush\User\Entity\User;
 
 class ScrewTalkieActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -82,8 +81,8 @@ class ScrewTalkieActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $targetPlayer->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $targetPlayer->getEquipments());
     }
 
     public function testExecuteAlreadyBrokenTalkie()
@@ -121,7 +120,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $targetPlayer->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $targetPlayer->getEquipments());
     }
 }

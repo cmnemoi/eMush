@@ -37,8 +37,8 @@ use Mush\Status\Enum\PlayerStatusEnum;
 #[ORM\Table(name: 'daedalus')]
 class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, StatusHolderInterface
 {
-    use TimestampableEntity;
     use TargetStatusTrait;
+    use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -152,12 +152,12 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getRooms(): Collection
     {
-        return $this->getPlaces()->filter(fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM);
+        return $this->getPlaces()->filter(static fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM);
     }
 
     public function getSpace(): Place
     {
-        $space = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === RoomEnum::SPACE)->first();
+        $space = $this->getPlaces()->filter(static fn (Place $place) => $place->getName() === RoomEnum::SPACE)->first();
         if (!$space) {
             throw new \RuntimeException('Daedalus should have a place named Space');
         }
@@ -180,7 +180,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getPlaceByName(string $name): ?Place
     {
-        $place = $this->getPlaces()->filter(fn (Place $place) => $place->getName() === $name)->first();
+        $place = $this->getPlaces()->filter(static fn (Place $place) => $place->getName() === $name)->first();
 
         return $place === false ? null : $place;
     }
@@ -537,7 +537,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getClassName(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function getLanguage(): string
@@ -612,6 +612,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getLostPlayers(): PlayerCollection
     {
-        return $this->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->hasStatus(PlayerStatusEnum::LOST));
+        return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::LOST));
     }
 }

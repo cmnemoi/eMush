@@ -20,7 +20,7 @@ class ModerationChannelNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Channel && in_array('moderation_read', $context['groups'] ?? []);
+        return $data instanceof Channel && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array

@@ -125,7 +125,7 @@ class Shoot extends AttemptAction
         $blaster = $this->getPlayerBlaster();
 
         if ($result instanceof Success) {
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($blaster->getBaseDamageRange()));
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($blaster->getBaseDamageRange());
             $damageEvent = $this->createDamageEvent($damage, $target);
 
             if ($result instanceof OneShot) {
@@ -158,7 +158,7 @@ class Shoot extends AttemptAction
     {
         /** @var GameItem $blasterItem */
         $blasterItem = $this->player->getEquipments()->filter(
-            fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::BLASTER && $gameItem->isOperational()
+            static fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::BLASTER && $gameItem->isOperational()
         )->first();
 
         if (!$blasterItem instanceof GameItem) {

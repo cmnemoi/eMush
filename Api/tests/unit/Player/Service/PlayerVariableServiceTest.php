@@ -54,12 +54,12 @@ class PlayerVariableServiceTest extends TestCase
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
-        $this->assertEquals(3, $player->getSatiety());
+        self::assertSame(3, $player->getSatiety());
 
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
-        $this->assertEquals(2, $player->getSatiety());
+        self::assertSame(2, $player->getSatiety());
     }
 
     public function testMushSatietyModifier()
@@ -75,7 +75,7 @@ class PlayerVariableServiceTest extends TestCase
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleGameVariableChange(PlayerVariableEnum::SATIETY, -1, $player);
 
-        $this->assertEquals(0, $player->getSatiety());
+        self::assertSame(0, $player->getSatiety());
     }
 
     public function testMoraleModifier()
@@ -98,21 +98,21 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, -2, $player);
 
-        $this->assertEquals(3, $player->getMoralPoint());
+        self::assertSame(3, $player->getMoralPoint());
 
         // go below 1 moral
         $this->playerService->shouldReceive('persist')->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, -2, $player);
 
-        $this->assertEquals(1, $player->getMoralPoint());
+        self::assertSame(1, $player->getMoralPoint());
 
         // regain more moral than suicidal threshold
         $this->playerService->shouldReceive('persist')->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, 2, $player);
 
-        $this->assertEquals(3, $player->getMoralPoint());
+        self::assertSame(3, $player->getMoralPoint());
 
         // $status = new Status($player, PlayerStatusEnum::DEMORALIZED);
 
@@ -121,7 +121,7 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::MORAL_POINT, 22, $player);
 
-        $this->assertEquals(16, $player->getMoralPoint());
+        self::assertSame(16, $player->getMoralPoint());
     }
 
     public function testActionPointModifier()
@@ -143,21 +143,21 @@ class PlayerVariableServiceTest extends TestCase
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, -2, $player);
 
-        $this->assertEquals(3, $player->getActionPoint());
+        self::assertSame(3, $player->getActionPoint());
 
         // less than 0
         $this->playerService->shouldReceive('persist')->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, -6, $player);
 
-        $this->assertEquals(0, $player->getActionPoint());
+        self::assertSame(0, $player->getActionPoint());
 
         // more than threshold
         $this->playerService->shouldReceive('persist')->once();
 
         $this->service->handleGameVariableChange(PlayerVariableEnum::ACTION_POINT, 35, $player);
 
-        $this->assertEquals(16, $player->getActionPoint());
+        self::assertSame(16, $player->getActionPoint());
     }
 
     public function testHealthPointModifier()
@@ -179,7 +179,7 @@ class PlayerVariableServiceTest extends TestCase
         $this->playerService->shouldReceive('persist')->once();
         $this->service->handleGameVariableChange(PlayerVariableEnum::HEALTH_POINT, -2, $player);
 
-        $this->assertEquals(3, $player->getHealthPoint());
+        self::assertSame(3, $player->getHealthPoint());
     }
 
     protected function createPlayer(int $health, int $moral, int $movement, int $action, int $satiety): Player

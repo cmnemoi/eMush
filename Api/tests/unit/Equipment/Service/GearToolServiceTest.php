@@ -87,11 +87,11 @@ class GearToolServiceTest extends TestCase
         ;
 
         $items = $this->service->getEquipmentsOnReach($player, ReachEnum::SHELVE);
-        $this->assertCount(2, $items);
+        self::assertCount(2, $items);
 
         $items = $this->service->getEquipmentsOnReach($player, ReachEnum::INVENTORY);
-        $this->assertCount(1, $items);
-        $this->assertEquals($gameItem2, $items->first());
+        self::assertCount(1, $items);
+        self::assertSame($gameItem2, $items->first());
     }
 
     public function testGetEquipmentsOnReachByName()
@@ -115,15 +115,15 @@ class GearToolServiceTest extends TestCase
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::PLASTIC_SCRAPS, ReachEnum::SHELVE);
 
-        $this->assertEmpty($items);
+        self::assertEmpty($items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
 
-        $this->assertEmpty($items);
+        self::assertEmpty($items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
 
-        $this->assertNotEmpty($items);
+        self::assertNotEmpty($items);
 
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
@@ -133,10 +133,10 @@ class GearToolServiceTest extends TestCase
         ;
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE_NOT_HIDDEN);
-        $this->assertEmpty($items);
+        self::assertEmpty($items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
-        $this->assertNotEmpty($items);
+        self::assertNotEmpty($items);
 
         $gameItem2 = new GameItem($player);
         $gameItem2
@@ -145,10 +145,10 @@ class GearToolServiceTest extends TestCase
         ;
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
-        $this->assertCount(1, $items);
+        self::assertCount(1, $items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
-        $this->assertCount(2, $items);
+        self::assertCount(2, $items);
     }
 
     public function testGetActionsTool()
@@ -182,25 +182,25 @@ class GearToolServiceTest extends TestCase
         ;
 
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
-        $this->assertEmpty($actions);
+        self::assertEmpty($actions);
 
         $action->setScope(ActionScopeEnum::ROOM);
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
-        $this->assertNotEmpty($actions);
+        self::assertNotEmpty($actions);
 
         $action->setScope(ActionScopeEnum::INVENTORY);
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
-        $this->assertEmpty($actions);
+        self::assertEmpty($actions);
 
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
-        $this->assertNotEmpty($actions);
+        self::assertNotEmpty($actions);
 
         $action->setTarget(GameItem::class);
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
-        $this->assertEmpty($actions);
+        self::assertEmpty($actions);
 
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY], GameItem::class);
-        $this->assertNotEmpty($actions);
+        self::assertNotEmpty($actions);
     }
 
     public function testUsedTool()
@@ -255,10 +255,10 @@ class GearToolServiceTest extends TestCase
         ;
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::TAKE);
-        $this->assertNull($usedTool);
+        self::assertNull($usedTool);
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
-        $this->assertEquals($gameItem2, $usedTool);
+        self::assertSame($gameItem2, $usedTool);
 
         // Two tool with the same action but 1 with charges
         $chargeConfig = new ChargeStatusConfig();
@@ -271,7 +271,7 @@ class GearToolServiceTest extends TestCase
         $action->setActionName(ActionEnum::REPAIR);
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
-        $this->assertEquals($gameItem2, $usedTool);
+        self::assertSame($gameItem2, $usedTool);
 
         // Two tool with the same action but 1 is charged and the other have no charge left
         $chargeStatus2 = new ChargeStatus($gameItem2, $chargeConfig);
@@ -280,7 +280,7 @@ class GearToolServiceTest extends TestCase
         ;
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
-        $this->assertEquals($gameItem, $usedTool);
+        self::assertSame($gameItem, $usedTool);
     }
 
     public function testApplyChargeCost()

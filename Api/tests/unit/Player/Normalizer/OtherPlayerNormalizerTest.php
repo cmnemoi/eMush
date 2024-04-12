@@ -92,7 +92,7 @@ class OtherPlayerNormalizerTest extends TestCase
             'titles' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 }

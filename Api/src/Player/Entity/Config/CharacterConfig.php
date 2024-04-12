@@ -124,7 +124,7 @@ class CharacterConfig
      */
     public function setInitStatuses(Collection|array $initStatuses): static
     {
-        if (is_array($initStatuses)) {
+        if (\is_array($initStatuses)) {
             $initStatuses = new ArrayCollection($initStatuses);
         }
 
@@ -140,7 +140,7 @@ class CharacterConfig
 
     public function getActionByName(string $name): ?Action
     {
-        $actions = $this->actions->filter(fn (Action $action) => $action->getActionName() === $name);
+        $actions = $this->actions->filter(static fn (Action $action) => $action->getActionName() === $name);
 
         return $actions->isEmpty() ? null : $actions->first();
     }
@@ -150,7 +150,7 @@ class CharacterConfig
      */
     public function setActions(Collection|array $actions): static
     {
-        if (is_array($actions)) {
+        if (\is_array($actions)) {
             $actions = new ArrayCollection($actions);
         }
 
@@ -181,7 +181,7 @@ class CharacterConfig
      */
     public function setStartingItems(Collection|array $items): static
     {
-        if (is_array($items)) {
+        if (\is_array($items)) {
             $items = new ArrayCollection($items);
         }
 
@@ -200,7 +200,7 @@ class CharacterConfig
      */
     public function setInitDiseases(Collection|array $initDiseases): static
     {
-        if (is_array($initDiseases)) {
+        if (\is_array($initDiseases)) {
             $initDiseases = new ArrayCollection($initDiseases);
         }
 

@@ -133,7 +133,7 @@ class EquipmentConfig
      */
     public function setMechanics(Collection|array $mechanics): static
     {
-        if (is_array($mechanics)) {
+        if (\is_array($mechanics)) {
             $mechanics = new ArrayCollection($mechanics);
         }
 
@@ -144,7 +144,7 @@ class EquipmentConfig
 
     public function getMechanicByName(string $mechanic): ?EquipmentMechanic
     {
-        $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => in_array($mechanic, $equipmentMechanic->getMechanics()));
+        $equipmentMechanics = $this->mechanics->filter(static fn (EquipmentMechanic $equipmentMechanic) => \in_array($mechanic, $equipmentMechanic->getMechanics(), true));
 
         return $equipmentMechanics->first() ?: null;
     }
@@ -208,7 +208,7 @@ class EquipmentConfig
      */
     public function setActions(Collection|array $actions): static
     {
-        if (is_array($actions)) {
+        if (\is_array($actions)) {
             $actions = new ArrayCollection($actions);
         }
 
@@ -234,7 +234,7 @@ class EquipmentConfig
      */
     public function setInitStatuses(ArrayCollection|array $initStatuses): static
     {
-        if (is_array($initStatuses)) {
+        if (\is_array($initStatuses)) {
             $initStatuses = new ArrayCollection($initStatuses);
         }
 
@@ -250,7 +250,7 @@ class EquipmentConfig
 
     public function hasAction(string $actionName): bool
     {
-        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getActionName() === $actionName);
+        return $this->getActions()->exists(static fn (int $id, Action $action) => $action->getActionName() === $actionName);
     }
 
     public function getDismountedProducts(): array

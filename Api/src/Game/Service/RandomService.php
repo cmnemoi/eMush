@@ -36,7 +36,7 @@ class RandomService implements RandomServiceInterface
 
     public function random(int $min, int $max): int
     {
-        return \random_int($min, $max);
+        return random_int($min, $max);
     }
 
     public function poissonRandom(float $lambda): int
@@ -82,8 +82,8 @@ class RandomService implements RandomServiceInterface
         $chance = $this->randomPercent();
 
         if ($criticalFailRate > $successRate || 100 - $criticalSuccessRate < $successRate) {
-            throw new \Exception("criticalFailRate ({$criticalFailRate}) 
-            must be lower than successRate ({$successRate}) and 
+            throw new \Exception("criticalFailRate ({$criticalFailRate})
+            must be lower than successRate ({$successRate}) and
             100-criticalSuccessRate ({100 - $criticalSuccessRate}) higher than successRate ({$successRate})");
         }
 
@@ -133,8 +133,8 @@ class RandomService implements RandomServiceInterface
         $hunterProbaCollection = $hunterPool->getProbaCollection();
         $selectedHuntersIds = array_values($this->getRandomElementsFromProbaCollection($hunterProbaCollection, $number));
 
-        return $hunterPool->map(fn (Hunter $hunter) => in_array($hunter->getId(), $selectedHuntersIds) ? $hunter : null)
-            ->filter(fn (?Hunter $hunter) => $hunter instanceof Hunter);
+        return $hunterPool->map(static fn (Hunter $hunter) => \in_array($hunter->getId(), $selectedHuntersIds, true) ? $hunter : null)
+            ->filter(static fn (?Hunter $hunter) => $hunter instanceof Hunter);
     }
 
     public function getPlayerInRoom(Place $place): Player
@@ -153,7 +153,7 @@ class RandomService implements RandomServiceInterface
             throw new \Exception("there isn't any item in this room");
         }
 
-        $items = $place->getEquipments()->filter(fn (GameEquipment $equipment) => $equipment instanceof GameItem);
+        $items = $place->getEquipments()->filter(static fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
         return current($this->getRandomElements($items->toArray()));
     }
@@ -163,15 +163,15 @@ class RandomService implements RandomServiceInterface
         if (empty($array)) {
             return [];
         }
-        if ($number > count($array)) {
-            $number = count($array);
+        if ($number > \count($array)) {
+            $number = \count($array);
         }
 
         $result = [];
         for ($i = 0; $i < $number; ++$i) {
             $keysNotPicked = array_values(array_diff(array_keys($array), array_keys($result)));
 
-            $key = $keysNotPicked[$this->random(0, count($keysNotPicked) - 1)];
+            $key = $keysNotPicked[$this->random(0, \count($keysNotPicked) - 1)];
             $result[$key] = $array[$key];
         }
 
@@ -195,7 +195,7 @@ class RandomService implements RandomServiceInterface
      **/
     public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null
     {
-        if (count($array) < 1) {
+        if (\count($array) < 1) {
             return null;
         }
 
@@ -212,7 +212,7 @@ class RandomService implements RandomServiceInterface
     // This function takes a ProbaCollection as input and send back an array
     public function getRandomElementsFromProbaCollection(ProbaCollection $array, int $number): array
     {
-        $number = min($number, count($array));
+        $number = min($number, \count($array));
 
         $randomElements = [];
         for ($i = 0; $i < $number; ++$i) {

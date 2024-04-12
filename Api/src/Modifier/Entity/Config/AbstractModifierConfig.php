@@ -119,7 +119,7 @@ abstract class AbstractModifierConfig
 
     public function setModifierActivationRequirements(array|Collection $modifierActivationRequirements): self
     {
-        if (is_array($modifierActivationRequirements)) {
+        if (\is_array($modifierActivationRequirements)) {
             $modifierActivationRequirements = new ArrayCollection($modifierActivationRequirements);
         }
 
@@ -141,7 +141,7 @@ abstract class AbstractModifierConfig
             $parameters = array_merge($parameters, $requirement->getTranslationParameters());
         }
 
-        if (!array_key_exists('chance', $parameters)) {
+        if (!\array_key_exists('chance', $parameters)) {
             $parameters['chance'] = 100;
         }
 

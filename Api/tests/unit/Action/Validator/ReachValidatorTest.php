@@ -77,7 +77,7 @@ class ReachValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForEquipment()
@@ -108,7 +108,7 @@ class ReachValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayer()
@@ -140,7 +140,7 @@ class ReachValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForEquipment()
@@ -172,7 +172,7 @@ class ReachValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForInventory()
@@ -195,7 +195,7 @@ class ReachValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForInventory()
@@ -217,7 +217,7 @@ class ReachValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForShelve()
@@ -242,7 +242,7 @@ class ReachValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForShelve()
@@ -267,7 +267,7 @@ class ReachValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     protected function initValidator(?string $expectedMessage = null)

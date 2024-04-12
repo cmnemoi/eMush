@@ -17,7 +17,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 class LieDownActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
     private StatusServiceInterface|Mockery\Mock $statusService;
 
     /**
@@ -74,10 +73,10 @@ class LieDownActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getStatuses());
-        $this->assertCount(0, $gameEquipment->getTargetingStatuses());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $player->getStatuses());
+        self::assertCount(0, $gameEquipment->getTargetingStatuses());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

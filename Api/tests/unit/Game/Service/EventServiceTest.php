@@ -70,7 +70,7 @@ class EventServiceTest extends TestCase
         $event = new AbstractGameEvent(['test'], new \DateTime());
 
         $this->eventDispatcherService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
+            ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent->getTags() === $event->getTags()
                 && $dispatchedEvent->getEventName() === 'eventName'
                 && $eventName === 'eventName'
@@ -117,9 +117,9 @@ class EventServiceTest extends TestCase
 
         $newEvent = $this->service->computeEventModifications($event, 'eventName');
 
-        $this->assertEquals('eventName', $newEvent->getEventName());
-        $this->assertEquals(['test'], $newEvent->getTags());
-        $this->assertEquals($time, $newEvent->getTime());
+        self::assertSame('eventName', $newEvent->getEventName());
+        self::assertSame(['test'], $newEvent->getTags());
+        self::assertSame($time, $newEvent->getTime());
     }
 
     public function testCallTriggerModifier()
@@ -194,7 +194,7 @@ class EventServiceTest extends TestCase
         ;
 
         $this->eventDispatcherService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
+            ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $triggeredEvent
                 && $eventName === StatusEvent::STATUS_APPLIED
             ))
@@ -220,7 +220,7 @@ class EventServiceTest extends TestCase
             ->once()
         ;
         $this->eventDispatcherService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
+            ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $modifierEvent
                 && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
@@ -228,7 +228,7 @@ class EventServiceTest extends TestCase
         ;
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
+            ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $event
                 && $eventName === 'eventName'
             ))
@@ -270,7 +270,7 @@ class EventServiceTest extends TestCase
 
         $newEvent = $this->service->computeEventModifications($event, 'eventName');
 
-        $this->assertEquals($event, $newEvent);
+        self::assertSame($event, $newEvent);
     }
 
     public function testCallVariableModifier()
@@ -339,7 +339,7 @@ class EventServiceTest extends TestCase
             ->once()
         ;
         $this->eventDispatcherService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
+            ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $modifierEvent
                 && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
@@ -348,7 +348,7 @@ class EventServiceTest extends TestCase
 
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
+            ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $modifiedEvent
                 && $eventName === 'eventName'
             ))
@@ -396,8 +396,8 @@ class EventServiceTest extends TestCase
 
         $newEvent = $this->service->computeEventModifications($event, 'eventName');
 
-        $this->assertInstanceOf(DaedalusVariableEvent::class, $newEvent);
-        $this->assertEquals($modifiedEvent, $newEvent);
+        self::assertInstanceOf(DaedalusVariableEvent::class, $newEvent);
+        self::assertSame($modifiedEvent, $newEvent);
     }
 
     public function testPreventEvent()
@@ -454,7 +454,7 @@ class EventServiceTest extends TestCase
             ->once()
         ;
         $this->eventDispatcherService->shouldReceive('dispatch')
-            ->withArgs(fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
+            ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $modifierEvent
                 && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
@@ -483,7 +483,7 @@ class EventServiceTest extends TestCase
         ;
 
         $reason = $this->service->eventCancelReason($event, 'eventName');
-        $this->assertNull($reason);
+        self::assertNull($reason);
 
         $modifierConfig = new EventModifierConfig('unitTestPreventEventModifier');
         $modifierConfig
@@ -505,6 +505,6 @@ class EventServiceTest extends TestCase
         ;
         $reason = $this->service->eventCancelReason($event, 'eventName');
 
-        $this->assertEquals('modifierName', $reason);
+        self::assertSame('modifierName', $reason);
     }
 }

@@ -131,7 +131,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
             return null;
         }
 
-        $charges = $statusHolder->getStatuses()->filter(function (Status $status) use ($modifierName) {
+        $charges = $statusHolder->getStatuses()->filter(static function (Status $status) use ($modifierName) {
             return $status instanceof ChargeStatus
                 && $status->hasDischargeStrategy($modifierName);
         });
@@ -165,7 +165,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
     private function deleteGearModifiers(GameEquipment $gameEquipment, array $reaches, array $tags, \DateTime $time, ?Player $player): void
     {
         foreach ($this->getGearModifierConfigs($gameEquipment) as $modifierConfig) {
-            if (in_array($modifierConfig->getModifierRange(), $reaches)) {
+            if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
                 if ($holder === null) {
                     return;
@@ -220,7 +220,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
             $statusConfig = $status->getStatusConfig();
 
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
-                if (in_array($modifierConfig->getModifierRange(), $reaches)) {
+                if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
                     $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
                     if ($holder === null) {
                         return;
@@ -241,7 +241,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         ?Player $player
     ): void {
         foreach ($modifiers as $modifierConfig) {
-            if (in_array($modifierConfig->getModifierRange(), $reaches)) {
+            if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
                 $charge = $this->getChargeStatus($modifierConfig->getModifierName(), $gameEquipment);
 
                 $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);

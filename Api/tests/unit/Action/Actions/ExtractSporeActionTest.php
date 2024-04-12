@@ -70,7 +70,7 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $player->getStatuses());
     }
 }

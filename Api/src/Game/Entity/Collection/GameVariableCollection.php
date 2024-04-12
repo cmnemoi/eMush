@@ -56,7 +56,7 @@ abstract class GameVariableCollection
     {
         /** @var GameVariable $variable */
         $variable = $this->gameVariables
-            ->filter(fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
+            ->filter(static fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
             ->first()
         ;
 
@@ -67,7 +67,7 @@ abstract class GameVariableCollection
     {
         /** @var GameVariable $variable */
         $variable = $this->gameVariables
-            ->filter(fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
+            ->filter(static fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
             ->first()
         ;
 
@@ -95,7 +95,7 @@ abstract class GameVariableCollection
     public function hasVariable(string $name): bool
     {
         return !$this->gameVariables
-            ->filter(fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)->isEmpty()
+            ->filter(static fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)->isEmpty()
         ;
     }
 }

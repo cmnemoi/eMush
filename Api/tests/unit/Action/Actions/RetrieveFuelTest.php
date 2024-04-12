@@ -85,6 +85,6 @@ class RetrieveFuelTest extends AbstractActionTest
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());
-        self::assertEquals(10, $player->getActionPoint());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

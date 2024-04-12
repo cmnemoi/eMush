@@ -95,7 +95,7 @@ class AdminController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        $daedalusId = intval($request->get('id'));
+        $daedalusId = (int) $request->get('id');
         $daedalus = $this->daedalusService->findById($daedalusId);
         if (!$daedalus) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'Daedalus not found');
@@ -143,7 +143,7 @@ class AdminController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        $playerId = intval($request->get('id'));
+        $playerId = (int) $request->get('id');
         $playerToClose = $this->playerService->findById($playerId);
         if (!$playerToClose instanceof Player) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'Player to close not found');
@@ -182,7 +182,7 @@ class AdminController extends AbstractFOSRestController
     {
         $this->denyAccessIfNotAdmin();
 
-        $daedalusId = intval($request->get('id'));
+        $daedalusId = (int) $request->get('id');
         $daedalus = $this->daedalusService->findById($daedalusId);
         if (!$daedalus) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'Daedalus not found');
@@ -351,11 +351,11 @@ class AdminController extends AbstractFOSRestController
 
         $requestContent = json_decode($request->getContent(), true);
 
-        if (!array_key_exists('announcement', $requestContent)) {
+        if (!\array_key_exists('announcement', $requestContent)) {
             return $this->view('Announcement content is missing', Response::HTTP_BAD_REQUEST);
         }
 
-        if (!array_key_exists('language', $requestContent)) {
+        if (!\array_key_exists('language', $requestContent)) {
             return $this->view('Annoucement language is missing', Response::HTTP_BAD_REQUEST);
         }
 

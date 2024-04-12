@@ -66,7 +66,7 @@ class Hyperfreeze extends AbstractAction
         $target = $this->target;
         $time = new \DateTime();
 
-        if (in_array($target->getName(), [GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK])) {
+        if (\in_array($target->getName(), [GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK], true)) {
             $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
                 GameRationEnum::STANDARD_RATION,
                 $target,

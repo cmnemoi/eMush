@@ -245,7 +245,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
 
         $I->assertTrue($this->shootHunterAction->isVisible());
 
-        $I->assertEquals(intval(40 * 1.1), $this->shootHunterAction->getSuccessRate());
+        $I->assertEquals((int) (40 * 1.1), $this->shootHunterAction->getSuccessRate());
     }
 
     public function testShootHunterWithInvertebrateShellDoublesDamage(FunctionalTester $I): void

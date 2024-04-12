@@ -113,7 +113,7 @@ class ActionsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // @TODO remove this after alpha
+        /** @TODO remove this after alpha */
         $suicide = new Action();
         $suicide
             ->setName(ActionEnum::SUICIDE)

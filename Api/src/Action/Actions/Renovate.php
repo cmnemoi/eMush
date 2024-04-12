@@ -97,14 +97,14 @@ final class Renovate extends AttemptAction
 
     private function getPieceOfScrapMetal(): GameEquipment
     {
-        $playerScrapMetal = $this->player->getEquipments()->filter(function (GameItem $item) {
+        $playerScrapMetal = $this->player->getEquipments()->filter(static function (GameItem $item) {
             return $item->getName() === ItemEnum::METAL_SCRAPS;
         });
         if ($playerScrapMetal->count() >= 1) {
             return $playerScrapMetal->first();
         }
 
-        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(function (GameEquipment $equipment) {
+        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(static function (GameEquipment $equipment) {
             return $equipment->getName() === ItemEnum::METAL_SCRAPS;
         });
         if ($roomScrapMetal->isEmpty()) {

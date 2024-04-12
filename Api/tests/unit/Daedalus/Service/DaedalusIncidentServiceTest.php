@@ -86,7 +86,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(0, $fires);
+        self::assertSame(0, $fires);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -103,7 +103,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(1, $fires);
+        self::assertSame(1, $fires);
     }
 
     public function testHandleTremorEvents()
@@ -113,7 +113,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(0, $fires);
+        self::assertSame(0, $fires);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -128,13 +128,13 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && in_array(EventEnum::NEW_CYCLE, $event->getTags()))
+            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once()
         ;
 
         $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(1, $fires);
+        self::assertSame(1, $fires);
     }
 
     public function testHandleElectricArcEvents()
@@ -144,7 +144,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(0, $fires);
+        self::assertSame(0, $fires);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -159,13 +159,13 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (RoomEvent $event) => $event->getPlace() === $room1 && in_array(EventEnum::NEW_CYCLE, $event->getTags()))
+            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once()
         ;
 
         $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(1, $fires);
+        self::assertSame(1, $fires);
     }
 
     public function testHandleEquipmentBreakEvents()
@@ -184,7 +184,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        $this->assertEquals(0, $broken);
+        self::assertSame(0, $broken);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -192,7 +192,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $place->setDaedalus($daedalus);
         $equipment = new GameEquipment($place);
 
-        $this->isFalse($equipment->isBroken());
+        self::isFalse($equipment->isBroken());
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByNameAndDaedalus')
@@ -203,7 +203,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->withArgs(fn ($probaArray, $number, $funcDaedalus) => (
+            ->withArgs(static fn ($probaArray, $number, $funcDaedalus) => (
                 $probaArray instanceof ProbaCollection
                 && $probaArray->toArray() === ['communication_center' => 1]
                 && $number === 1
@@ -217,8 +217,8 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        $this->isTrue($equipment->isBroken());
-        $this->assertEquals(1, $broken);
+        self::isTrue($equipment->isBroken());
+        self::assertSame(1, $broken);
     }
 
     public function testEquipmentBreakAlreadyBrokenEvent()
@@ -259,7 +259,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        $this->assertEquals(0, $broken);
+        self::assertSame(0, $broken);
     }
 
     public function testNotBreakingGameItems()
@@ -278,7 +278,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(0, $broken);
+        self::assertSame(0, $broken);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -296,7 +296,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->withArgs(fn ($probaArray, $number, $funcDaedalus) => (
+            ->withArgs(static fn ($probaArray, $number, $funcDaedalus) => (
                 $probaArray instanceof ProbaCollection
                 && $probaArray->toArray() === ['communication_center' => 1]
                 && $number === 1
@@ -310,7 +310,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        $this->assertEquals(1, $broken);
+        self::assertSame(1, $broken);
     }
 
     public function testHandleDoorBreakEvents()
@@ -319,7 +319,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(0, $broken);
+        self::assertSame(0, $broken);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -331,7 +331,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByCriteria')
-            ->withArgs(fn (GameEquipmentCriteria $criteria) => $criteria->getInstanceOf() === [Door::class])
+            ->withArgs(static fn (GameEquipmentCriteria $criteria) => $criteria->getInstanceOf() === [Door::class])
             ->andReturn([$door])
             ->once()
         ;
@@ -346,7 +346,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(1, $broken);
+        self::assertSame(1, $broken);
     }
 
     public function testHandlePanicCrisisEvents()
@@ -355,7 +355,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $panicCrisis = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
-        $this->assertEquals(0, $panicCrisis);
+        self::assertSame(0, $panicCrisis);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -367,7 +367,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $daedalus->addPlayer($player);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once()
         ;
 
@@ -379,7 +379,7 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
-        $this->assertEquals(1, $broken);
+        self::assertSame(1, $broken);
     }
 
     public function testHandlePanicCrisisEventsMushNotConcerned()
@@ -404,27 +404,27 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once()
         ;
 
         $this->randomService
             ->shouldReceive('getRandomElements')
-            ->withArgs(fn (array $humans, int $pick) => count($humans) === 1 && in_array($player, $humans))
+            ->withArgs(static fn (array $humans, int $pick) => \count($humans) === 1 && \in_array($player, $humans, true))
             ->andReturn([$player])
             ->once()
         ;
 
         $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
-        $this->assertEquals(1, $broken);
+        self::assertSame(1, $broken);
     }
 
     public function testHandleMetalPlatesEvents()
     {
         $metalPlates = $this->service->handleMetalPlates(new Daedalus(), new \DateTime());
 
-        $this->assertEquals(0, $metalPlates);
+        self::assertSame(0, $metalPlates);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -436,7 +436,7 @@ class DaedalusIncidentServiceTest extends TestCase
         $daedalus->addPlayer($player);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once()
         ;
 
@@ -448,6 +448,6 @@ class DaedalusIncidentServiceTest extends TestCase
 
         $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
 
-        $this->assertEquals(1, $metalPlates);
+        self::assertSame(1, $metalPlates);
     }
 }

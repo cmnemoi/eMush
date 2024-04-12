@@ -35,8 +35,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 ])]
 class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface
 {
-    use TimestampableEntity;
     use TargetStatusTrait;
+    use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -80,7 +80,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getClassName(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function getActions(): Collection
@@ -206,7 +206,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         return $this
             ->getStatuses()
-            ->exists(fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN))
+            ->exists(static fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN))
         ;
     }
 
@@ -214,7 +214,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         /** @var Status $status */
         foreach ($this->getStatuses() as $status) {
-            if (in_array($status->getStatusConfig()->getStatusName(), EquipmentStatusEnum::getOutOfOrderStatuses())) {
+            if (\in_array($status->getStatusConfig()->getStatusName(), EquipmentStatusEnum::getOutOfOrderStatuses(), true)) {
                 return false;
             }
             if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES)
@@ -248,7 +248,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return LogParameterKeyEnum::EQUIPMENT;
     }
 
-    public function getGameEquipment(): ?GameEquipment
+    public function getGameEquipment(): ?self
     {
         return $this;
     }

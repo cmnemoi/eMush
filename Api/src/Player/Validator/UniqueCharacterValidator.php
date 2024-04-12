@@ -32,7 +32,7 @@ class UniqueCharacterValidator extends ConstraintValidator
         $character = $value->getCharacter();
 
         if ($daedalus !== null
-            && !$daedalus->getPlayers()->filter(fn (Player $player) => $player->getName() === $character)->isEmpty()
+            && !$daedalus->getPlayers()->filter(static fn (Player $player) => $player->getName() === $character)->isEmpty()
         ) {
             $this->context
                 ->buildViolation($constraint->message)

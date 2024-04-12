@@ -94,7 +94,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -110,7 +110,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Place)
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Place)
             ->once()
         ;
         $this->entityManager->shouldReceive('flush')->once();
@@ -127,7 +127,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Player)
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Player)
             ->once()
         ;
         $this->entityManager->shouldReceive('flush')->once();
@@ -148,7 +148,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => (
+            ->withArgs(static fn (GameModifier $modifier) => (
                 $modifier->getModifierHolder() === $player
                 && $modifier->getModifierConfig() === $modifierConfig
                 && $modifier->getCharge() === $charge
@@ -169,7 +169,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -230,7 +230,7 @@ class ModifierCreationServiceTest extends TestCase
         $this->eventService->shouldReceive('callEvent')->once();
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
             ->once()
         ;
         $this->entityManager->shouldReceive('flush')->once();

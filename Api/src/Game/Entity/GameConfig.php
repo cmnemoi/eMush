@@ -110,7 +110,7 @@ class GameConfig
 
     public function setCharactersConfig(ArrayCollection|array $charactersConfig): static
     {
-        if (is_array($charactersConfig)) {
+        if (\is_array($charactersConfig)) {
             $charactersConfig = new ArrayCollection($charactersConfig);
         }
 
@@ -138,7 +138,7 @@ class GameConfig
      */
     public function setTriumphConfig(ArrayCollection|array $triumphConfig): self
     {
-        if (is_array($triumphConfig)) {
+        if (\is_array($triumphConfig)) {
             $triumphConfig = new ArrayCollection($triumphConfig);
         }
 
@@ -166,7 +166,7 @@ class GameConfig
      */
     public function setEquipmentsConfig(ArrayCollection|array $equipmentsConfig): static
     {
-        if (is_array($equipmentsConfig)) {
+        if (\is_array($equipmentsConfig)) {
             $equipmentsConfig = new ArrayCollection($equipmentsConfig);
         }
 
@@ -194,7 +194,7 @@ class GameConfig
      */
     public function setDiseaseCauseConfig(ArrayCollection|array $diseaseCauseConfig): static
     {
-        if (is_array($diseaseCauseConfig)) {
+        if (\is_array($diseaseCauseConfig)) {
             $diseaseCauseConfig = new ArrayCollection($diseaseCauseConfig);
         }
 
@@ -222,7 +222,7 @@ class GameConfig
      */
     public function setDiseaseConfig(ArrayCollection|array $diseaseConfig): static
     {
-        if (is_array($diseaseConfig)) {
+        if (\is_array($diseaseConfig)) {
             $diseaseConfig = new ArrayCollection($diseaseConfig);
         }
 
@@ -250,7 +250,7 @@ class GameConfig
      */
     public function setConsumableDiseaseConfig(ArrayCollection|array $consumableDiseaseConfig): static
     {
-        if (is_array($consumableDiseaseConfig)) {
+        if (\is_array($consumableDiseaseConfig)) {
             $consumableDiseaseConfig = new ArrayCollection($consumableDiseaseConfig);
         }
 
@@ -297,7 +297,7 @@ class GameConfig
      */
     public function setStatusConfigs(ArrayCollection|array $statusConfigs): static
     {
-        if (is_array($statusConfigs)) {
+        if (\is_array($statusConfigs)) {
             $statusConfigs = new ArrayCollection($statusConfigs);
         }
 
@@ -318,7 +318,7 @@ class GameConfig
      */
     public function setHunterConfigs(ArrayCollection|array $hunterConfigs): static
     {
-        if (is_array($hunterConfigs)) {
+        if (\is_array($hunterConfigs)) {
             $hunterConfigs = new ArrayCollection($hunterConfigs);
         }
 
@@ -346,7 +346,7 @@ class GameConfig
      */
     public function setPlanetSectorConfigs(ArrayCollection|array $planetSectorConfigs): static
     {
-        if (is_array($planetSectorConfigs)) {
+        if (\is_array($planetSectorConfigs)) {
             $planetSectorConfigs = new ArrayCollection($planetSectorConfigs);
         }
 
@@ -374,7 +374,7 @@ class GameConfig
      */
     public function setTitleConfigs(ArrayCollection|array $titleConfigs): self
     {
-        if (is_array($titleConfigs)) {
+        if (\is_array($titleConfigs)) {
             $titleConfigs = new ArrayCollection($titleConfigs);
         }
 

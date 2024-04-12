@@ -139,7 +139,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->createExploration($I);
 
         // given there is an oxygen sector with an oxygen event
-        $oxygenSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
+        $oxygenSector = $this->planet->getSectors()->filter(static fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
 
         /** @var PlanetSectorEventConfig $oxygenEventConfig */
         $oxygenEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::OXYGEN . '_8']);
@@ -224,7 +224,7 @@ final class TravelEventCest extends AbstractFunctionalTest
                 ->getGameConfig()
                 ->getHunterConfigs()
                 ->filter(
-                    fn (
+                    static fn (
                         HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::TRAX
                         || $hunterConfig->getHunterName() === HunterEnum::HUNTER
                 )

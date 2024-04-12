@@ -101,7 +101,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     {
         // given only asteroids can spawn
         $this->daedalus->getGameConfig()->setHunterConfigs(
-            $this->daedalus->getGameConfig()->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
+            $this->daedalus->getGameConfig()->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
         );
 
         // given daedalus is D5 so asteroid can spawn
@@ -114,7 +114,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->hunterService->unpoolHunters($this->daedalus, [], new \DateTime());
 
         // then only `maxAsteroidsPerWave` asteroids are spawned
-        $maxAsteroidsPerWave = $this->daedalus->getGameConfig()->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)->first()->getMaxPerWave();
+        $maxAsteroidsPerWave = $this->daedalus->getGameConfig()->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)->first()->getMaxPerWave();
         $I->assertCount($maxAsteroidsPerWave, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::ASTEROID));
     }
 
@@ -294,7 +294,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
@@ -315,7 +315,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
@@ -356,7 +356,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
                             ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
                             ->first()
         ;
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES));
@@ -387,7 +387,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only asteroids can spawn
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
         );
 
         /** @var LocalizationConfig $localizationConfig */
@@ -425,7 +425,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
             ->getAttackingHunters()
-            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first()
         ;
         $hunterTarget = new HunterTarget($asteroid);
@@ -453,7 +453,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only D1000 can spawn
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
 
         /** @var LocalizationConfig $localizationConfig */
@@ -488,7 +488,7 @@ class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         /** @var Hunter $d1000 */
         $d1000 = $daedalus
                             ->getAttackingHunters()
-                            ->filter(fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
+                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
                             ->first()
         ;
 

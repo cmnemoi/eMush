@@ -73,7 +73,7 @@ final class ChangeNeronCpuPriority extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $params = $this->getParameters();
-        $cpuPriority = ($params && array_key_exists('cpuPriority', $params)) ? $params['cpuPriority'] : NeronCpuPriorityEnum::NONE;
+        $cpuPriority = ($params && \array_key_exists('cpuPriority', $params)) ? $params['cpuPriority'] : NeronCpuPriorityEnum::NONE;
 
         $neron = $this->player->getDaedalus()->getDaedalusInfo()->getNeron();
 

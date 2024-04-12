@@ -163,7 +163,7 @@ class AlertNormalizer implements NormalizerInterface
     private function handleBrokenEquipmentsAlertsReports(Alert $alert, string $language): array
     {
         $reportedAlertElements = $alert->getAlertElements()->filter(
-            fn (AlertElement $element) => $element->getPlayerInfo() !== null && $element->getPlace() !== null
+            static fn (AlertElement $element) => $element->getPlayerInfo() !== null && $element->getPlace() !== null
         );
 
         $playerPlaceCount = [];

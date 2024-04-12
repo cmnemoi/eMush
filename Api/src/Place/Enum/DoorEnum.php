@@ -93,7 +93,7 @@ class DoorEnum
 
     public static function isBreakable(string $doorName): bool
     {
-        return in_array($doorName, [
+        return \in_array($doorName, [
             self::BRIDGE_FRONT_BRAVO_TURRET,
             self::FRONT_CORRIDOR_FRONT_BRAVO_TURRET,
             self::MEDLAB_LABORATORY,
@@ -114,6 +114,6 @@ class DoorEnum
             self::ENGINE_ROOM_REAR_BRAVO_STORAGE,
             self::ENGINE_ROOM_BAY_ALPHA_2,
             self::ENGINE_ROOM_REAR_ALPHA_TURRET,
-        ]);
+        ], true);
     }
 }

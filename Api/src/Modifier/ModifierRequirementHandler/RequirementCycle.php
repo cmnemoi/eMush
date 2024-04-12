@@ -18,7 +18,7 @@ class RequirementCycle extends AbstractModifierRequirementHandler
 
         switch ($modifierRequirement->getActivationRequirement()) {
             case ModifierRequirementEnum::EVEN:
-                return $daedalus->getCycle() / 2 === intval($daedalus->getCycle() / 2);
+                return $daedalus->getCycle() / 2 === (int) ($daedalus->getCycle() / 2);
 
             default:
                 throw new \LogicException('This activationRequirement is invalid for cycle');

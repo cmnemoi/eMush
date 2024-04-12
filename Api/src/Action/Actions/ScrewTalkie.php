@@ -99,7 +99,7 @@ class ScrewTalkie extends AbstractAction
         $target = $this->target;
 
         /** @var GameItem $talkie */
-        $talkie = $target->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
+        $talkie = $target->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
             || $item->getName() === ItemEnum::ITRACKIE
         )->first();
 

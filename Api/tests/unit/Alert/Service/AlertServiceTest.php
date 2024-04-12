@@ -274,7 +274,7 @@ class AlertServiceTest extends TestCase
 
         $this->alertService->handleEquipmentBreak($gameEquipment);
 
-        $this->assertCount(2, $alert->getAlertElements());
+        self::assertCount(2, $alert->getAlertElements());
     }
 
     public function testRepairEquipment()
@@ -308,7 +308,7 @@ class AlertServiceTest extends TestCase
 
         $this->alertService->handleEquipmentRepair($gameEquipment);
 
-        $this->assertCount(1, $alert->getAlertElements());
+        self::assertCount(1, $alert->getAlertElements());
     }
 
     public function testRepairAllEquipment()
@@ -392,7 +392,7 @@ class AlertServiceTest extends TestCase
 
         $this->alertService->handleFireStop($room);
 
-        $this->assertCount(1, $alert->getAlertElements());
+        self::assertCount(1, $alert->getAlertElements());
     }
 
     public function testStopAllFire()
@@ -555,7 +555,7 @@ class AlertServiceTest extends TestCase
         $noAlert = new Alert();
         $noAlert->setDaedalus($daedalus)->setName(AlertEnum::NO_ALERT);
 
-        $this->assertEquals(new ArrayCollection([$noAlert]), $alerts);
+        self::assertSame(new ArrayCollection([$noAlert]), $alerts);
     }
 
     public function getAlertsTest()
@@ -575,7 +575,7 @@ class AlertServiceTest extends TestCase
 
         $alerts = $this->alertService->getAlerts($daedalus);
 
-        $this->assertEquals(new ArrayCollection([$alert, $alert2]), $alerts);
+        self::assertSame(new ArrayCollection([$alert, $alert2]), $alerts);
     }
 
     public function testFireNorReported()
@@ -606,7 +606,7 @@ class AlertServiceTest extends TestCase
             ->once()
         ;
 
-        $this->assertFalse($this->alertService->isFireReported($room));
+        self::assertFalse($this->alertService->isFireReported($room));
     }
 
     public function testNotValidFire()
@@ -640,7 +640,7 @@ class AlertServiceTest extends TestCase
             ->once()
         ;
 
-        $this->assertTrue($this->alertService->isFireReported($room));
+        self::assertTrue($this->alertService->isFireReported($room));
     }
 
     public function testValidEquipment()
@@ -672,7 +672,7 @@ class AlertServiceTest extends TestCase
             ->once()
         ;
 
-        $this->assertFalse($this->alertService->isEquipmentReported($gameEquipment));
+        self::assertFalse($this->alertService->isEquipmentReported($gameEquipment));
     }
 
     public function testNotValidEquipment()
@@ -707,6 +707,6 @@ class AlertServiceTest extends TestCase
             ->once()
         ;
 
-        $this->assertTrue($this->alertService->isEquipmentReported($gameEquipment));
+        self::assertTrue($this->alertService->isEquipmentReported($gameEquipment));
     }
 }

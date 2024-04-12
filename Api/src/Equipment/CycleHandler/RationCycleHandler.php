@@ -55,7 +55,7 @@ class RationCycleHandler extends AbstractCycleHandler
         // If ration is not perishable or frozen or decomposing or not in a room do nothing
         if (!$ration->getIsPerishable()
             || $gameRation->getStatuses()->exists(
-                fn (int $key, Status $status) => in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::FROZEN])
+                static fn (int $key, Status $status) => \in_array($status->getName(), [EquipmentStatusEnum::DECOMPOSING, EquipmentStatusEnum::FROZEN], true)
             )
             || ($gameRation->getHolder() instanceof Place && $gameRation->getPlace()->getType() !== PlaceTypeEnum::ROOM)
         ) {

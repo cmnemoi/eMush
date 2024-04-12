@@ -81,7 +81,7 @@ class AlertNormalizerTest extends TestCase
 
         $normalized = $this->normalizer->normalize($alert);
 
-        $this->assertEquals([
+        self::assertSame([
             'prefix' => 'translated prefix',
             'key' => 'outcast',
             'name' => 'translated one',
@@ -131,7 +131,7 @@ class AlertNormalizerTest extends TestCase
 
         $normalized = $this->normalizer->normalize($alert);
 
-        $this->assertEquals([
+        self::assertSame([
             'prefix' => 'translated prefix',
             'key' => 'low_hull',
             'name' => 'translated one',
@@ -225,7 +225,7 @@ class AlertNormalizerTest extends TestCase
 
         $normalized = $this->normalizer->normalize($alert);
 
-        $this->assertEquals([
+        self::assertSame([
             'prefix' => 'translated prefix',
             'key' => 'fire',
             'name' => 'translated one',

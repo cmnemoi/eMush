@@ -17,27 +17,27 @@ final class ProbaCollection extends ArrayCollection
         return $this->get($key);
     }
 
-    public function setElementProbability(string|int $key, int $value): ProbaCollection
+    public function setElementProbability(string|int $key, int $value): self
     {
         $this->set($key, $value);
 
         return $this;
     }
 
-    public function withdrawElements(array $elements): ProbaCollection
+    public function withdrawElements(array $elements): self
     {
-        if (count($elements) === 0) {
+        if (\count($elements) === 0) {
             return $this;
         }
 
-        return new ProbaCollection(array_diff_key($this->toArray(), array_flip($elements)));
+        return new self(array_diff_key($this->toArray(), array_flip($elements)));
     }
 
     public function getTotalWeight(): int
     {
         $cumuProba = 0;
         foreach ($this as $probability) {
-            if (!is_int($probability)) {
+            if (!\is_int($probability)) {
                 throw new \RuntimeException('Probability weight should be provided as integers');
             }
 
@@ -75,7 +75,7 @@ final class ProbaCollection extends ArrayCollection
     {
         $probaCollectionAsArray = $this->getProbabilities();
         $keys = array_keys($probaCollectionAsArray);
-        if (is_int($keys[0])) {
+        if (\is_int($keys[0])) {
             return min($keys);
         }
 
@@ -89,7 +89,7 @@ final class ProbaCollection extends ArrayCollection
     {
         $probaCollectionAsArray = $this->getProbabilities();
         $keys = array_keys($probaCollectionAsArray);
-        if (is_int($keys[0])) {
+        if (\is_int($keys[0])) {
             return max($keys);
         }
 

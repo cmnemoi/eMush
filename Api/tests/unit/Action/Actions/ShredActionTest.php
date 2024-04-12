@@ -62,7 +62,7 @@ class ShredActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertEmpty($player->getEquipments());
     }
 }

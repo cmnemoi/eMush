@@ -61,7 +61,7 @@ class CreateCrewEternalTwinAccountCommand extends Command
                     ['json' => ['username' => "$name", 'display_name' => "$name", 'password' => '31323334353637383931']]
                 );
                 $statusCode = $createETUserResponse->getStatusCode();
-                if ($statusCode == 200) {
+                if ($statusCode === 200) {
                     $io->info("Account created for $name");
                 } else {
                     $io->error("Error while creating account for $name");

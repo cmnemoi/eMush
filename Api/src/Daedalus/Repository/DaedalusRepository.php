@@ -33,7 +33,7 @@ class DaedalusRepository extends ServiceEntityRepository
             ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
         ;
 
-        return count($qb->getQuery()->getResult()) > 0;
+        return \count($qb->getQuery()->getResult()) > 0;
     }
 
     public function findAvailableDaedalus(string $name): ?Daedalus

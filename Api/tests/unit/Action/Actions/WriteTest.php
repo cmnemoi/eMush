@@ -86,8 +86,8 @@ class WriteTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals($status->getContent(), 'test content');
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertSame($status->getContent(), 'test content');
     }
 }

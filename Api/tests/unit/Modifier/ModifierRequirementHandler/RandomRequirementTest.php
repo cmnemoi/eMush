@@ -49,10 +49,10 @@ class RandomRequirementTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(true);
         $result = $this->service->checkRequirement($modifierActivationRequirement, $room);
-        $this->assertTrue($result);
+        self::assertTrue($result);
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(false);
         $result = $this->service->checkRequirement($modifierActivationRequirement, $room);
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 }

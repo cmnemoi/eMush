@@ -101,7 +101,7 @@ class MessageNormalizerTest extends TestCase
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
 
-        $this->assertEquals([
+        self::assertSame([
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => 'message',
@@ -165,7 +165,7 @@ class MessageNormalizerTest extends TestCase
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
 
-        $this->assertEquals([
+        self::assertSame([
             'id' => null,
             'character' => ['key' => CharacterEnum::NERON, 'value' => 'translatedName'],
             'message' => 'translatedMessage',
@@ -246,7 +246,7 @@ class MessageNormalizerTest extends TestCase
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($neronMessage, null, $context);
 
-        $this->assertEquals([
+        self::assertSame([
             'id' => null,
             'character' => ['key' => CharacterEnum::NERON, 'value' => 'translatedName'],
             'message' => 'translated message parent',
@@ -321,7 +321,7 @@ class MessageNormalizerTest extends TestCase
         $context = ['currentPlayer' => $player];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
 
-        $this->assertEquals([
+        self::assertSame([
             'id' => null,
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => 'modified message',

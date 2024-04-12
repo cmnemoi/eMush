@@ -124,31 +124,31 @@ class Planet implements LogParameterInterface
 
     public function hasSectorByName(string $name): bool
     {
-        return $this->sectors->exists(fn ($key, PlanetSector $sector) => $sector->getName() === $name);
+        return $this->sectors->exists(static fn ($key, PlanetSector $sector) => $sector->getName() === $name);
     }
 
     /** @return Collection<int, PlanetSector> */
     public function getRevealedSectors(): Collection
     {
-        return $this->sectors->filter(fn (PlanetSector $sector) => $sector->isRevealed());
+        return $this->sectors->filter(static fn (PlanetSector $sector) => $sector->isRevealed());
     }
 
     /** @return Collection<int, PlanetSector> */
     public function getUnrevealedSectors(): Collection
     {
-        return $this->sectors->filter(fn (PlanetSector $sector) => !$sector->isRevealed());
+        return $this->sectors->filter(static fn (PlanetSector $sector) => !$sector->isRevealed());
     }
 
     /** @return Collection<int, PlanetSector> */
     public function getVisitedSectors(): Collection
     {
-        return $this->sectors->filter(fn (PlanetSector $sector) => $sector->isVisited());
+        return $this->sectors->filter(static fn (PlanetSector $sector) => $sector->isVisited());
     }
 
     /** @return Collection<int, PlanetSector> */
     public function getUnvisitedSectors(): Collection
     {
-        return $this->sectors->filter(fn (PlanetSector $sector) => !$sector->isVisited());
+        return $this->sectors->filter(static fn (PlanetSector $sector) => !$sector->isVisited());
     }
 
     public function getPlayer(): Player

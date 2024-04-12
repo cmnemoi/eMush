@@ -92,12 +92,12 @@ class User implements UserInterface
 
     public function isAdmin(): bool
     {
-        return in_array(RoleEnum::ADMIN, $this->roles) || in_array(RoleEnum::SUPER_ADMIN, $this->roles);
+        return \in_array(RoleEnum::ADMIN, $this->roles, true) || \in_array(RoleEnum::SUPER_ADMIN, $this->roles, true);
     }
 
     public function isModerator(): bool
     {
-        return in_array(RoleEnum::MODERATOR, $this->roles) || $this->isAdmin();
+        return \in_array(RoleEnum::MODERATOR, $this->roles, true) || $this->isAdmin();
     }
 
     public function getPassword()

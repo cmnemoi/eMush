@@ -17,7 +17,7 @@ class PlayerVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::PLAYER_VIEW, self::PLAYER_CREATE, self::PLAYER_END, self::PLAYER_QUARANTINE])) {
+        if (!\in_array($attribute, [self::PLAYER_VIEW, self::PLAYER_CREATE, self::PLAYER_END, self::PLAYER_QUARANTINE], true)) {
             return false;
         }
 

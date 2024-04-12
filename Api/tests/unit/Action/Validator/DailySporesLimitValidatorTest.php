@@ -37,7 +37,7 @@ class DailySporesLimitValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    // @TODO once spore status is totaly replaced by the spore variable on player, rework this test using GameVariableLevel validator
+    /** @TODO once spore status is totaly replaced by the spore variable on player, rework this test using GameVariableLevel validator */
     /*public function testValidForDaedalus()
     {
         $daedalusConfig = new DaedalusConfig();
@@ -121,7 +121,7 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayer()
@@ -160,7 +160,7 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     protected function initValidator(?string $expectedMessage = null)

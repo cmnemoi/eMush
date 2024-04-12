@@ -95,7 +95,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(0, $player->getStatuses());
     }
 }

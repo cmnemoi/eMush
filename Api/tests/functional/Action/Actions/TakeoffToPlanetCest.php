@@ -119,7 +119,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     public function testTakeoffToPlanetNotExectableIfAllPlanetSectorsHasBeenVisited(FunctionalTester $I): void
     {
         // given all planet sectors have been visited
-        $planetSectors = $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->visit());
+        $planetSectors = $this->planet->getSectors()->map(static fn (PlanetSector $sector) => $sector->visit());
         $this->planet->setSectors($planetSectors);
         $I->haveInRepository($this->planet);
 

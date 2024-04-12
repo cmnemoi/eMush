@@ -29,7 +29,7 @@ class ChannelVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if ($attribute != self::VIEW) {
+        if ($attribute !== self::VIEW) {
             return false;
         }
 

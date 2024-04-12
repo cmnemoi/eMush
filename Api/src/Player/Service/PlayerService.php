@@ -166,7 +166,7 @@ class PlayerService implements PlayerServiceInterface
             ->setDaedalus($daedalus)
             ->setPlace(
                 $daedalus->getRooms()
-                    ->filter(fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
+                    ->filter(static fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
             ->setSkills([])
@@ -375,7 +375,7 @@ class PlayerService implements PlayerServiceInterface
         ;
         $this->persistPlayerInfo($playerInfo);
 
-        if (!in_array($endReason, [EndCauseEnum::DEPRESSION, EndCauseEnum::QUARANTINE])) {
+        if (!\in_array($endReason, [EndCauseEnum::DEPRESSION, EndCauseEnum::QUARANTINE], true)) {
             $moraleLoss = -1;
             if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
                 $moraleLoss = -2;

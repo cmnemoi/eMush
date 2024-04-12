@@ -90,7 +90,7 @@ class PlayerStatusServiceTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
-        $this->assertNotEmpty($player->getStatuses());
+        self::assertNotEmpty($player->getStatuses());
 
         // Player Already suicidal, improvement of mental
         $player = $this->createPlayer(0, 0, 0, 0, 0);
@@ -124,7 +124,7 @@ class PlayerStatusServiceTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
 
         // Player was demoralized
         $player = $this->createPlayer(0, 0, 0, 0, 0);
@@ -274,14 +274,14 @@ class PlayerStatusServiceTest extends TestCase
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
 
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player->setSatiety(-26);
         $mushStatus = new Status($player, $mushConfig);
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
     }
 
     protected function createPlayer(int $health, int $moral, int $movement, int $action, int $satiety): Player

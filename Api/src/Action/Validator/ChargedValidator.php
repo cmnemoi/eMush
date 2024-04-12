@@ -50,7 +50,7 @@ class ChargedValidator extends ConstraintValidator
 
     private function getChargeStatus(string $actionName, StatusHolderInterface $actionTarget): ?ChargeStatus
     {
-        $charges = $actionTarget->getStatuses()->filter(function (Status $status) use ($actionName) {
+        $charges = $actionTarget->getStatuses()->filter(static function (Status $status) use ($actionName) {
             return $status instanceof ChargeStatus
                 && $status->hasDischargeStrategy($actionName);
         });
@@ -68,8 +68,8 @@ class ChargedValidator extends ConstraintValidator
     {
         /** @var GameEquipment $shootingEquipment */
         $shootingEquipment = $player->getPlace()->getEquipments()
-            ->filter(fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
-            ->filter(fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
+            ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
+            ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
             ->first();
 
         if (!$shootingEquipment instanceof GameEquipment) {

@@ -59,7 +59,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
     {
         $userDaedaluses = $this->userService->findUserDaedaluses($user);
 
-        if (count($userDaedaluses) === 0) {
+        if (\count($userDaedaluses) === 0) {
             return $this->findAvailableDaedalusInLanguage($language);
         }
 
@@ -90,7 +90,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
         ;
 
-        return count($qb->getQuery()->getResult()) > 0;
+        return \count($qb->getQuery()->getResult()) > 0;
     }
 
     public function existAvailableDaedalusInLanguage(string $language): bool
@@ -106,7 +106,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->setParameter('language', $language)
         ;
 
-        return count($qb->getQuery()->getResult()) > 0;
+        return \count($qb->getQuery()->getResult()) > 0;
     }
 
     public function existAvailableDaedalusWithName(string $name): bool
@@ -121,6 +121,6 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->setParameter('name', $name)
         ;
 
-        return count($qb->getQuery()->getResult()) > 0;
+        return \count($qb->getQuery()->getResult()) > 0;
     }
 }

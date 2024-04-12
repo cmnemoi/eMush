@@ -57,7 +57,7 @@ class Search extends AbstractAction
             ->getPlace()
             ->getEquipments()
             ->filter(
-                fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
+                static fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
             )
         ;
 

@@ -38,22 +38,22 @@ class EventModifierConfigTest extends TestCase
         $event = new AbstractGameEvent([], new \DateTime());
 
         $event->setEventName(VariableEventInterface::ROLL_PERCENTAGE);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->addTag(ModifierNameEnum::APRON_MODIFIER);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::CONVERT_ACTION_TO_MOVEMENT);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::ANATHEMA);
-        $this->assertTrue($modifier->doModifierApplies($event));
+        self::assertTrue($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::CHECK_INFECTION);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
     }
 
     public function testDoModifierApplyVariableModifier()
@@ -71,18 +71,18 @@ class EventModifierConfigTest extends TestCase
         $event = new AbstractGameEvent([], new \DateTime());
 
         $event->setEventName(VariableEventInterface::ROLL_PERCENTAGE);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event = new ActionVariableEvent($action, PlayerVariableEnum::ACTION_POINT, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event = new ActionVariableEvent($action, DaedalusVariableEnum::FUEL, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertTrue($modifier->doModifierApplies($event));
+        self::assertTrue($modifier->doModifierApplies($event));
     }
 
     public function testGetPriority()
@@ -92,13 +92,13 @@ class EventModifierConfigTest extends TestCase
             ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT)
         ;
 
-        $this->assertEquals(ModifierPriorityEnum::PRIORITY_MAP[ModifierPriorityEnum::BEFORE_INITIAL_EVENT], $modifier->getPriorityAsInteger());
-        $this->assertEquals(ModifierPriorityEnum::BEFORE_INITIAL_EVENT, $modifier->getPriority());
+        self::assertSame(ModifierPriorityEnum::PRIORITY_MAP[ModifierPriorityEnum::BEFORE_INITIAL_EVENT], $modifier->getPriorityAsInteger());
+        self::assertSame(ModifierPriorityEnum::BEFORE_INITIAL_EVENT, $modifier->getPriority());
 
         $modifier
             ->setPriority('4')
         ;
-        $this->assertEquals(4, $modifier->getPriorityAsInteger());
-        $this->assertEquals('4', $modifier->getPriority());
+        self::assertSame(4, $modifier->getPriorityAsInteger());
+        self::assertSame('4', $modifier->getPriority());
     }
 }

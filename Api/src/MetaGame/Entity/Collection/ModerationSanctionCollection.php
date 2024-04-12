@@ -14,12 +14,12 @@ class ModerationSanctionCollection extends ArrayCollection
 {
     public function getActiveSanction(): self
     {
-        return $this->filter(fn (ModerationSanction $moderationAction) => $moderationAction->getIsActive());
+        return $this->filter(static fn (ModerationSanction $moderationAction) => $moderationAction->getIsActive());
     }
 
     public function isBanned(): bool
     {
-        $activeBans = $this->filter(fn (ModerationSanction $moderationAction) => (
+        $activeBans = $this->filter(static fn (ModerationSanction $moderationAction) => (
             $moderationAction->getIsActive()
             && $moderationAction->getModerationAction() === ModerationSanctionEnum::BAN_USER
         ));
@@ -29,7 +29,7 @@ class ModerationSanctionCollection extends ArrayCollection
 
     public function getWarnings(): self
     {
-        return $this->filter(fn (ModerationSanction $moderationAction) => (
+        return $this->filter(static fn (ModerationSanction $moderationAction) => (
             $moderationAction->getIsActive()
             && $moderationAction->getModerationAction() === ModerationSanctionEnum::WARNING
         ));

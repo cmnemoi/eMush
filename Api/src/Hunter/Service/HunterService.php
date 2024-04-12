@@ -143,7 +143,7 @@ class HunterService implements HunterServiceInterface
 
     public function unpoolHunters(Daedalus $daedalus, array $tags, \DateTime $time): void
     {
-        if (in_array(DaedalusEvent::TRAVEL_FINISHED, $tags)) {
+        if (\in_array(DaedalusEvent::TRAVEL_FINISHED, $tags, true)) {
             $this->unpoolHuntersForCatchingWave($daedalus);
         } else {
             $this->unpoolHuntersForRandomWave($daedalus, $time);
@@ -161,7 +161,7 @@ class HunterService implements HunterServiceInterface
             $hunterNameToCreate = $this->randomService->getSingleRandomElementFromProbaCollection(
                 $hunterProbaCollection
             );
-            if (!is_string($hunterNameToCreate)) {
+            if (!\is_string($hunterNameToCreate)) {
                 break;
             }
 
@@ -366,9 +366,9 @@ class HunterService implements HunterServiceInterface
         // if there is no patrol ship in battle, remove patrol ship target from probabilities to draw
         $patrolShips = EquipmentEnum::getPatrolShips()
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
-            ->filter(fn ($patrolShip) => $patrolShip instanceof GameEquipment)
+            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment)
         ;
-        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
+        $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         if (!$patrolShipsInBattle->isEmpty()) {
             $successRate = $targetProbabilities?->get(HunterTargetEnum::PATROL_SHIP);
@@ -384,7 +384,7 @@ class HunterService implements HunterServiceInterface
             }
         }
 
-        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(fn (Player $player) => $player->isInSpaceBattle());
+        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->isInSpaceBattle());
         if (!$playersInBattle->isEmpty()) {
             $successRate = $targetProbabilities?->get(HunterTargetEnum::PLAYER);
             if ($successRate === null) {

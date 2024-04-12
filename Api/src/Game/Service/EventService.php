@@ -121,7 +121,7 @@ class EventService implements EventServiceInterface
         $lastEvent = $events->last();
 
         /** @var ModifierEvent $preventEvent */
-        $preventEvent = $events->filter(fn (AbstractGameEvent $event) => (
+        $preventEvent = $events->filter(static fn (AbstractGameEvent $event) => (
             $event->getPriority() === $lastEvent->getPriority()
             && $event instanceof ModifierEvent
             && $event->getModifier()->getModifierConfig()->getModifierStrategy() === ModifierStrategyEnum::PREVENT_EVENT

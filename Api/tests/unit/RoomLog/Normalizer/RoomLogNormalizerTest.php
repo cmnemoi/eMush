@@ -113,6 +113,6 @@ class RoomLogNormalizerTest extends TestCase
             4 => [['log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date']],
         ]];
 
-        $this->assertEquals($expectedLogs, $normalizeLogs);
+        self::assertSame($expectedLogs, $normalizeLogs);
     }
 }

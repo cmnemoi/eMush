@@ -108,16 +108,16 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
-        $this->assertFalse(
+        self::assertFalse(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_YOUNG === $status->getName())
+                ->filter(static fn (Status $status) => EquipmentStatusEnum::PLANT_YOUNG === $status->getName())
                 ->isEmpty()
         );
-        $this->assertTrue(
+        self::assertTrue(
             $gamePlant
                 ->getStatuses()
-                ->filter(fn (Status $status) => EquipmentStatusEnum::PLANT_DISEASED === $status->getName())
+                ->filter(static fn (Status $status) => EquipmentStatusEnum::PLANT_DISEASED === $status->getName())
                 ->isEmpty()
         );
     }
@@ -161,7 +161,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
-        $this->assertCount(1, $gamePlant->getStatuses());
+        self::assertCount(1, $gamePlant->getStatuses());
     }
 
     public function testNewCycleAlreadyDiseased()
@@ -199,7 +199,7 @@ class PlantCycleHandlerTest extends TestCase
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
-        $this->assertCount(1, $gamePlant->getStatuses());
+        self::assertCount(1, $gamePlant->getStatuses());
     }
 
     public function testNewDayPlantHealthy()
@@ -248,7 +248,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
+            ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
                 && $event->getRoundedQuantity() === 10)
             ->once()
@@ -259,7 +259,7 @@ class PlantCycleHandlerTest extends TestCase
         // Mature Plant, no problem
         $this->plantCycleHandler->handleNewDay($gamePlant, $time);
 
-        $this->assertCount(1, $room->getEquipments());
+        self::assertCount(1, $room->getEquipments());
     }
 
     public function testNewDayPlantThirsty()
@@ -306,7 +306,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
+            ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
                 && $event->getRoundedQuantity() === 10)
             ->once()
@@ -315,7 +315,7 @@ class PlantCycleHandlerTest extends TestCase
         // Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
 
-        $this->assertCount(1, $room->getEquipments());
+        self::assertCount(1, $room->getEquipments());
 
         $this->gameEquipmentService->shouldReceive('createEquipment')->andReturn(new GameItem(new Place()));
     }
@@ -365,7 +365,7 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent
+            ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent
                 && $event->getGameEquipment() === $gamePlant
             )->once()
         ;
@@ -375,7 +375,7 @@ class PlantCycleHandlerTest extends TestCase
         // @TODO $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName');
         $this->plantCycleHandler->handleNewDay($gamePlant, $time);
 
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertNotContains($plant, $room->getEquipments());
+        self::assertCount(1, $room->getEquipments());
+        self::assertNotContains($plant, $room->getEquipments());
     }
 }

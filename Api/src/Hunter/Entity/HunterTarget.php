@@ -65,7 +65,7 @@ class HunterTarget
                 $this->player = $target;
                 break;
             default:
-                throw new \Exception('Hunter target type should be a Daedalus, GameEquipment or Player instance, got a ' . get_class($target) . '.');
+                throw new \Exception('Hunter target type should be a Daedalus, GameEquipment or Player instance, got a ' . \get_class($target) . '.');
         }
 
         return $this;

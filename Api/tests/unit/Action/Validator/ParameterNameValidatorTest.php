@@ -55,7 +55,7 @@ class ParameterNameValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -78,7 +78,7 @@ class ParameterNameValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     protected function initValidator(?string $expectedMessage = null)

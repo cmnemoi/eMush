@@ -89,7 +89,7 @@ class PlantCycleHandler extends AbstractCycleHandler
         $plantStatus = $object->getStatuses();
 
         // If plant is young, dried or diseased, do not produce oxygen
-        if ($plantStatus->filter(static fn (Status $status) => in_array($status->getName(), [
+        if ($plantStatus->filter(static fn (Status $status) => \in_array($status->getName(), [
             EquipmentStatusEnum::PLANT_DRY,
             EquipmentStatusEnum::PLANT_DISEASED,
             EquipmentStatusEnum::PLANT_YOUNG,

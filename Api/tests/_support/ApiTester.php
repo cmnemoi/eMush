@@ -36,10 +36,10 @@ class ApiTester extends \Codeception\Actor
     {
         if (!$user instanceof User) {
             switch ($user) {
-                case ApiTester::USER:
+                case self::USER:
                     $user = $this->have(User::class, ['roles' => [RoleEnum::USER]]);
                     break;
-                case ApiTester::ADMIN:
+                case self::ADMIN:
                     $user = $this->have(User::class, ['roles' => [RoleEnum::ADMIN]]);
                     break;
                 default:

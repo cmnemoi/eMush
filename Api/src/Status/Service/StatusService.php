@@ -101,7 +101,7 @@ class StatusService implements StatusServiceInterface
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
     {
-        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
+        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
 
         if ($statusConfigs->count() < 1) {
             throw new \LogicException("there should be at least 1 statusConfig with this name ({$name}). There are currently {$statusConfigs->count()}");
@@ -244,7 +244,7 @@ class StatusService implements StatusServiceInterface
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment
     {
         $pickedEquipments = $equipments
-            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
         ;
         if ($pickedEquipments->isEmpty()) {
             throw new \Exception("no such status ({$statusName}) in item collection");

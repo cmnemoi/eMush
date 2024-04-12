@@ -121,7 +121,7 @@ class HunterConfig
      */
     public function setInitialStatuses(Collection|array $initialStatuses): static
     {
-        if (is_array($initialStatuses)) {
+        if (\is_array($initialStatuses)) {
             $initialStatuses = new ArrayCollection($initialStatuses);
         }
 

@@ -88,7 +88,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         foreach ($toolsActions as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }

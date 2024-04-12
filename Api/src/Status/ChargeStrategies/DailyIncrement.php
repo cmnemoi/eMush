@@ -13,7 +13,7 @@ class DailyIncrement extends AbstractChargeStrategy
     public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
         // Only applied on cycle 1
-        if (!in_array(EventEnum::NEW_DAY, $reasons)) {
+        if (!\in_array(EventEnum::NEW_DAY, $reasons, true)) {
             return $status;
         }
 

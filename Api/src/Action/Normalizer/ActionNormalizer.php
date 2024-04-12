@@ -129,7 +129,7 @@ class ActionNormalizer implements NormalizerInterface
                 $normalizedAction['description'] = $description;
                 $normalizedAction['canExecute'] = true;
                 $normalizedAction['confirmation'] =
-                    in_array(ActionTypeEnum::ACTION_CONFIRM, $object->getTypes())
+                    \in_array(ActionTypeEnum::ACTION_CONFIRM, $object->getTypes(), true)
                     ? $this->translationService->translate(
                         "{$actionName}.confirmation",
                         $translationParameters,
@@ -149,25 +149,25 @@ class ActionNormalizer implements NormalizerInterface
     {
         $parameters = [];
         $actionTarget = null;
-        if (array_key_exists('player', $context)) {
+        if (\array_key_exists('player', $context)) {
             $actionTarget = $context['player'];
         }
-        if (array_key_exists('door', $context)) {
+        if (\array_key_exists('door', $context)) {
             $actionTarget = $context['door'];
         }
-        if (array_key_exists('item', $context)) {
+        if (\array_key_exists('item', $context)) {
             $actionTarget = $context['item'];
         }
-        if (array_key_exists('equipment', $context)) {
+        if (\array_key_exists('equipment', $context)) {
             $actionTarget = $context['equipment'];
         }
-        if (array_key_exists('hunter', $context)) {
+        if (\array_key_exists('hunter', $context)) {
             $actionTarget = $context['hunter'];
         }
-        if (array_key_exists('terminal', $context)) {
+        if (\array_key_exists('terminal', $context)) {
             $actionTarget = $context['terminal'];
         }
-        if (array_key_exists('planet', $context)) {
+        if (\array_key_exists('planet', $context)) {
             $actionTarget = $context['planet'];
         }
 
@@ -179,7 +179,7 @@ class ActionNormalizer implements NormalizerInterface
     private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
     {
         foreach ($types as $type) {
-            if (array_key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
+            if (\array_key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
                 $key = self::ACTION_TYPE_DESCRIPTION_MAP[$type];
                 $description = $description . '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
             }
@@ -234,6 +234,6 @@ class ActionNormalizer implements NormalizerInterface
 
     private function isShootAction(Action $action): bool
     {
-        return in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes()) || in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes());
+        return \in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes(), true) || \in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes(), true);
     }
 }

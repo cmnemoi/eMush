@@ -64,7 +64,7 @@ class Build extends AbstractAction
 
     public function cannotExecuteReason(): ?string
     {
-        // @TODO use validator
+        /** @TODO use validator */
         /** @var GameEquipment $target */
         $target = $this->target;
         /** @var Blueprint $blueprintMechanic */
@@ -98,13 +98,13 @@ class Build extends AbstractAction
         foreach ($blueprintMechanic->getIngredients() as $name => $number) {
             for ($i = 0; $i < $number; ++$i) {
                 if ($this->player->hasEquipmentByName($name)) {
-                    // @FIXME change to a random choice of the item
+                    /** @FIXME change to a random choice of the item */
                     $ingredient = $this->player->getEquipments()
-                        ->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
+                        ->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
                 } else {
-                    // @FIXME change to a random choice of the equipment
+                    /** @FIXME change to a random choice of the equipment */
                     $ingredient = $this->player->getPlace()->getEquipments()
-                        ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
+                        ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                 }
 
                 $interactEvent = new InteractWithEquipmentEvent(

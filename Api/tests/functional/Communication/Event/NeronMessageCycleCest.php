@@ -167,7 +167,7 @@ class NeronMessageCycleCest
         $message = $I->grabEntityFromRepository(Message::class, ['message' => NeronMessageEnum::CYCLE_FAILURES]);
 
         $I->refreshEntities($channel);
-        $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);
+        $fireMessages = $channel->getMessages()->filter(static fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);
         $I->assertCount(3, $channel->getMessages());
         $I->assertCount(2, $fireMessages);
         $I->assertEquals($fireMessages->first()->getParent(), $message);

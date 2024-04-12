@@ -81,7 +81,7 @@ class DiseaseNormalizerTest extends TestCase
 
         $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
-        $this->assertEquals([
+        self::assertSame([
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),
@@ -141,7 +141,7 @@ class DiseaseNormalizerTest extends TestCase
 
         $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
-        $this->assertEquals([
+        self::assertSame([
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),
@@ -205,7 +205,7 @@ class DiseaseNormalizerTest extends TestCase
 
         $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
-        $this->assertEquals([
+        self::assertSame([
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),

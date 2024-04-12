@@ -55,8 +55,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         $dirtyStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::DIRTY]);
@@ -117,8 +116,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         $this->showerAction->loadParameters($this->action, $this->player1, $gameEquipment);
@@ -155,8 +153,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         /** @var VariableEventModifierConfig $soapModifierConfig */

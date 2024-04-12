@@ -92,8 +92,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Patrouilleur Wallis')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -147,8 +146,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Pasiphae')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -200,8 +198,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Patrouilleur Wallis')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -257,8 +254,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Patrouilleur Wallis')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,

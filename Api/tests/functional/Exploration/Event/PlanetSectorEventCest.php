@@ -449,8 +449,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             ->getPlanetPlace()
             ->getEquipments()
             ->map(static fn (GameEquipment $gameEquipment) => $gameEquipment->getLogName())
-            ->toArray()
-        ;
+            ->toArray();
         $I->assertNotEmpty(array_intersect($planetPlaceEquipments, ItemEnum::getArtefacts()->toArray()));
 
         // then I should see a public log in planet place to tell an explorator has found an artefact
@@ -745,8 +744,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             ->filter(
                 static fn (DiseaseCauseConfig $diseaseCauseConfig) => $diseaseCauseConfig->getCauseName() === DiseaseCauseEnum::EXPLORATION
             )
-            ->first()
-        ;
+            ->first();
         $explorationDiseaseCauseConfig->setDiseases([DiseaseEnum::MIGRAINE => 1]);
 
         // when disease event is dispatched

@@ -55,8 +55,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -83,8 +82,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->message = 'not valid';
 
@@ -112,8 +110,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -133,8 +130,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->message = 'not valid';
 
@@ -163,8 +159,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -191,8 +186,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->message = 'not valid';
 
@@ -224,8 +218,7 @@ final class HasDiseasesValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $targetPlayer,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);

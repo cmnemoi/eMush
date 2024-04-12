@@ -111,8 +111,7 @@ final class RandomServiceTest extends TestCase
 
         $room
             ->addPlayer($player1)
-            ->addPlayer($player2)
-        ;
+            ->addPlayer($player2);
 
         self::assertInstanceOf(Player::class, $this->service->getPlayerInRoom($room));
     }
@@ -131,8 +130,7 @@ final class RandomServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus
             ->addPlayer($player2)
-            ->addPlayer($player1)
-        ;
+            ->addPlayer($player1);
 
         for ($i = 1; $i <= 10; ++$i) {
             self::assertSame($player1, $this->service->getAlivePlayerInDaedalus($daedalus));
@@ -146,8 +144,7 @@ final class RandomServiceTest extends TestCase
         $item = new GameItem($room);
         $room
             ->addEquipment($equipment)
-            ->addEquipment($item)
-        ;
+            ->addEquipment($item);
 
         for ($i = 1; $i <= 10; ++$i) {
             self::assertInstanceOf(GameItem::class, $this->service->getItemInRoom($room));
@@ -225,8 +222,7 @@ final class RandomServiceTest extends TestCase
         $this->gameEquipmentRepository
             ->shouldReceive('findByNameAndDaedalus')
             ->withArgs(['equipment', $daedalus])
-            ->andReturn([$equipment])
-        ;
+            ->andReturn([$equipment]);
 
         $draw = $this->service->getRandomDaedalusEquipmentFromProbaCollection(
             new ProbaCollection(['equipment' => 1]),

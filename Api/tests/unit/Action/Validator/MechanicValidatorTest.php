@@ -56,8 +56,7 @@ final class MechanicValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->constraint->mechanic = EquipmentMechanicEnum::DOCUMENT;
 
@@ -78,8 +77,7 @@ final class MechanicValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->constraint->mechanic = EquipmentMechanicEnum::FRUIT;
 

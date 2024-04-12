@@ -55,8 +55,7 @@ final class FullHullValidatorTest extends TestCase
             ->setInitOxygen(1)
             ->setInitShield(1)
             ->setInitHull(99)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -66,15 +65,13 @@ final class FullHullValidatorTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -92,8 +89,7 @@ final class FullHullValidatorTest extends TestCase
             ->setInitOxygen(1)
             ->setInitShield(1)
             ->setInitHull(100)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -103,15 +99,13 @@ final class FullHullValidatorTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

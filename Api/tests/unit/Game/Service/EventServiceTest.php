@@ -83,27 +83,23 @@ final class EventServiceTest extends TestCase
                 && $eventName === 'eventName'
                 && $dispatchedEvent->getTime() === $event->getTime()
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::POST_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
 
         $this->service->callEvent($event, 'eventName');
     }
@@ -119,8 +115,7 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
 
         $newEvent = $this->service->computeEventModifications($event, 'eventName');
 
@@ -147,8 +142,7 @@ final class EventServiceTest extends TestCase
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
-            ->setTriggeredEvent($eventConfig)
-        ;
+            ->setTriggeredEvent($eventConfig);
 
         $modifier = new GameModifier($player, $modifierConfig);
         $triggeredEvent = new PlayerCycleEvent(
@@ -165,82 +159,70 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$triggeredEvent, $modifierEvent, $event]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::POST_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
 
         // dispatch the event triggered by the modifier
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($triggeredEvent, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$triggeredEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($triggeredEvent, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$triggeredEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($triggeredEvent, ModifierPriorityEnum::POST_MODIFICATION)
             ->andReturn(new EventChain([$triggeredEvent]))
-            ->once()
-        ;
+            ->once();
 
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $triggeredEvent
                 && $eventName === StatusEvent::STATUS_APPLIED
             ))
-            ->once()
-        ;
+            ->once();
         // dispatch the modifier Application
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::POST_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $modifierEvent
                 && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
-            ->once()
-        ;
+            ->once();
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $event
                 && $eventName === 'eventName'
             ))
-            ->once()
-        ;
+            ->once();
         $this->service->callEvent($event, 'eventName');
     }
 
@@ -271,8 +253,7 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$triggeredEvent, $event]))
-            ->once()
-        ;
+            ->once();
         $this->eventDispatcherService->shouldReceive('dispatch')->never();
 
         $newEvent = $this->service->computeEventModifications($event, 'eventName');
@@ -300,8 +281,7 @@ final class EventServiceTest extends TestCase
             ->setTargetEvent('eventName')
             ->setTargetVariable(DaedalusVariableEnum::FUEL)
             ->setDelta(3)
-            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE);
         $modifier = new GameModifier($player, $modifierConfig);
 
         $modifierEvent = new ModifierEvent($modifier, ['test', 'modifierName'], $time);
@@ -311,47 +291,40 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent, $modifiedEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifiedEvent, ModifierPriorityEnum::POST_MODIFICATION)
             ->andReturn(new EventChain([$modifiedEvent]))
-            ->once()
-        ;
+            ->once();
 
         // dispatch the modifier Application
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::POST_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $modifierEvent
                 && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
-            ->once()
-        ;
+            ->once();
 
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')
@@ -359,8 +332,7 @@ final class EventServiceTest extends TestCase
                 $dispatchedEvent === $modifiedEvent
                 && $eventName === 'eventName'
             ))
-            ->once()
-        ;
+            ->once();
         $this->service->callEvent($event, 'eventName');
     }
 
@@ -384,8 +356,7 @@ final class EventServiceTest extends TestCase
             ->setTargetEvent('eventName')
             ->setTargetVariable(DaedalusVariableEnum::FUEL)
             ->setDelta(3)
-            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE);
         $modifier = new GameModifier($player, $modifierConfig);
 
         $modifierEvent = new ModifierEvent($modifier, ['test', 'modifierName'], $time);
@@ -395,8 +366,7 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent, $modifiedEvent]))
-            ->once()
-        ;
+            ->once();
 
         // dispatch the event
         $this->eventDispatcherService->shouldReceive('dispatch')->never();
@@ -421,8 +391,7 @@ final class EventServiceTest extends TestCase
         $modifierConfig = new EventModifierConfig('unitTestPreventEventModifier');
         $modifierConfig
             ->setModifierName('modifierName')
-            ->setTargetEvent('eventName')
-        ;
+            ->setTargetEvent('eventName');
         $modifier = new GameModifier($player, $modifierConfig);
 
         $modifierEvent = new ModifierEvent($modifier, ['test', 'modifierName'], $time);
@@ -432,41 +401,35 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($event, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
 
         // dispatch the modifier Application
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::PRE_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::SIMULTANEOUS_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventModifierService
             ->shouldReceive('applyModifiers')
             ->with($modifierEvent, ModifierPriorityEnum::POST_MODIFICATION)
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $this->eventDispatcherService->shouldReceive('dispatch')
             ->withArgs(static fn (AbstractGameEvent $dispatchedEvent, string $eventName) => (
                 $dispatchedEvent === $modifierEvent
                 && $eventName === ModifierEvent::APPLY_MODIFIER
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->service->callEvent($event, 'eventName');
     }
@@ -486,8 +449,7 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, [ModifierPriorityEnum::PREVENT_EVENT])
             ->andReturn(new EventChain([$event]))
-            ->once()
-        ;
+            ->once();
 
         $reason = $this->service->eventCancelReason($event, 'eventName');
         self::assertNull($reason);
@@ -496,8 +458,7 @@ final class EventServiceTest extends TestCase
         $modifierConfig
             ->setModifierName('modifierName')
             ->setTargetEvent('eventName')
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-        ;
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT);
         $modifier = new GameModifier($player, $modifierConfig);
 
         $modifierEvent = new ModifierEvent($modifier, ['test', 'modifierName'], $time);
@@ -508,8 +469,7 @@ final class EventServiceTest extends TestCase
             ->shouldReceive('applyModifiers')
             ->with($event, [ModifierPriorityEnum::PREVENT_EVENT])
             ->andReturn(new EventChain([$modifierEvent]))
-            ->once()
-        ;
+            ->once();
         $reason = $this->service->eventCancelReason($event, 'eventName');
 
         self::assertSame('modifierName', $reason);

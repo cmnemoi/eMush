@@ -52,8 +52,7 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setDailySporeNb($daedalusConfigData['dailySporeNb'])
                 ->setNbMush($daedalusConfigData['nbMush'])
                 ->setCyclePerGameDay($daedalusConfigData['cyclePerGameDay'])
-                ->setCycleLength($daedalusConfigData['cycleLength'])
-            ;
+                ->setCycleLength($daedalusConfigData['cycleLength']);
 
             $this->setDaedalusConfigRandomItemPlaces($daedalusConfig, $daedalusConfigData);
             $this->setDaedalusConfigPlaceConfigs($daedalusConfig, $daedalusConfigData);

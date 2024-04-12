@@ -64,8 +64,7 @@ final class SelfHealTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, null, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(3)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 

@@ -66,8 +66,7 @@ final class StrengthenActionTest extends AbstractActionTest
 
         $gameItem
             ->setEquipment($item)
-            ->setName('item')
-        ;
+            ->setName('item');
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -77,8 +76,7 @@ final class StrengthenActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
 
         // Fail try
@@ -97,8 +95,7 @@ final class StrengthenActionTest extends AbstractActionTest
 
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -106,8 +103,7 @@ final class StrengthenActionTest extends AbstractActionTest
         $attemptConfig->setStatusName('attempt');
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
-            ->setAction($this->action->getActionName())
-        ;
+            ->setAction($this->action->getActionName());
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
@@ -116,21 +112,18 @@ final class StrengthenActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(5)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->eventService->shouldReceive('callEvent')->once();

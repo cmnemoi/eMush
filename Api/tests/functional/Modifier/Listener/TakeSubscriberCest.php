@@ -73,8 +73,7 @@ class TakeSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -84,8 +83,7 @@ class TakeSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -99,8 +97,7 @@ class TakeSubscriberCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $this->takeAction->loadParameters($takeActionEntity, $player, $gameEquipment);
@@ -148,8 +145,7 @@ class TakeSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -160,8 +156,7 @@ class TakeSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -175,8 +170,7 @@ class TakeSubscriberCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new ChargeStatusConfig();
@@ -184,8 +178,7 @@ class TakeSubscriberCest
             ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies(['soapShowerActionModifier'])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($statusConfig);
         $status = new ChargeStatus($gameEquipment, $statusConfig);
@@ -237,8 +230,7 @@ class TakeSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -248,8 +240,7 @@ class TakeSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -263,8 +254,7 @@ class TakeSubscriberCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new ChargeStatusConfig();
@@ -272,8 +262,7 @@ class TakeSubscriberCest
             ->setStatusName(ActionEnum::REPAIR)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies([ActionEnum::SHOWER])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -324,8 +313,7 @@ class TakeSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -335,8 +323,7 @@ class TakeSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -350,16 +337,14 @@ class TakeSubscriberCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -408,8 +393,7 @@ class TakeSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -419,8 +403,7 @@ class TakeSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -434,16 +417,14 @@ class TakeSubscriberCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);

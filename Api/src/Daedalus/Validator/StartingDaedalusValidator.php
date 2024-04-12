@@ -24,8 +24,7 @@ class StartingDaedalusValidator extends ConstraintValidator
             $this->context
                 ->buildViolation($constraint->message)
                 ->setCode(StartingDaedalus::STARTING_DAEDALUS_ERROR)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

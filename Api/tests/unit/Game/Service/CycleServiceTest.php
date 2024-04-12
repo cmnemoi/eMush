@@ -83,8 +83,7 @@ final class CycleServiceTest extends TestCase
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setCyclePerGameDay(8)
-            ->setCycleLength(30)
-        ;
+            ->setCycleLength(30);
 
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
@@ -99,19 +98,16 @@ final class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('callEvent')
-        ;
+            ->shouldReceive('callEvent');
 
         $localizationConfig = new LocalizationConfig();
         $localizationConfig
-            ->setTimeZone($timeZone)
-        ;
+            ->setTimeZone($timeZone);
 
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
-        ;
+            ->setCycleLength(3 * 60);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -121,8 +117,7 @@ final class CycleServiceTest extends TestCase
         $daedalus
             ->setCreatedAt(new \DateTime("2020-10-09 23:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new \DateTime("2020-10-09 21:00:00.0 {$timeZone}"))
-            ->setCycle(8)
-        ;
+            ->setCycle(8);
 
         self::assertSame(0, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-09 23:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
 
@@ -132,8 +127,7 @@ final class CycleServiceTest extends TestCase
         $daedalus
             ->setCreatedAt(new \DateTime("2020-10-09 00:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new \DateTime("2020-10-09 00:00:00.0 {$timeZone}"))
-            ->setCycle(1)
-        ;
+            ->setCycle(1);
 
         self::assertSame(2, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-09 06:30:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
 
@@ -144,8 +138,7 @@ final class CycleServiceTest extends TestCase
         // 1 hours cycles => 24 cycle elapsed
         $daedalusConfig
             ->setCyclePerGameDay(24)
-            ->setCycleLength(1 * 60)
-        ;
+            ->setCycleLength(1 * 60);
         $daedalus->setCycleStartedAt(new \DateTime("2020-10-09 00:00:00.0 {$timeZone}"));
 
         self::assertSame(24, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
@@ -153,8 +146,7 @@ final class CycleServiceTest extends TestCase
         // 12 hours cycles => 2 cycle elapsed
         $daedalusConfig
             ->setCyclePerGameDay(2)
-            ->setCycleLength(12 * 60)
-        ;
+            ->setCycleLength(12 * 60);
         $daedalus->setCycleStartedAt(new \DateTime("2020-10-09 00:00:00.0 {$timeZone}"));
 
         self::assertSame(2, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-10 00:30:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
@@ -162,8 +154,7 @@ final class CycleServiceTest extends TestCase
         // 24 hours cycles
         $daedalusConfig
             ->setCyclePerGameDay(2)
-            ->setCycleLength(24 * 60)
-        ;
+            ->setCycleLength(24 * 60);
         $daedalus->setCycleStartedAt(new \DateTime("2020-10-09 00:00:00.0 {$timeZone}"));
 
         // 31 days in October
@@ -175,16 +166,14 @@ final class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('callEvent')
-        ;
+            ->shouldReceive('callEvent');
 
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setTimeZone($timeZone);
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
-        ;
+            ->setCycleLength(3 * 60);
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
@@ -195,8 +184,7 @@ final class CycleServiceTest extends TestCase
             ->setCreatedAt(new \DateTime("2020-10-08 00:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new \DateTime("2020-10-09 00:00:00.0 {$timeZone}"))
             ->setDay(2)
-            ->setCycle(1)
-        ;
+            ->setCycle(1);
 
         self::assertSame(0, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-09 00:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
         $daedalus->setCycleStartedAt(new \DateTime("2020-10-09 00:00:00.0 {$timeZone}"));
@@ -211,8 +199,7 @@ final class CycleServiceTest extends TestCase
             ->setCreatedAt(new \DateTime("2020-10-08 02:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new \DateTime("2020-10-09 03:00:00.0 {$timeZone}"))
             ->setDay(2)
-            ->setCycle(2)
-        ;
+            ->setCycle(2);
 
         self::assertSame(0, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-09 02:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
         self::assertSame(0, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-09 03:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
@@ -225,8 +212,7 @@ final class CycleServiceTest extends TestCase
             ->setCreatedAt(new \DateTime("2021-03-27 00:00:00.0 {$timeZone}"))
             ->setCycleStartedAt(new \DateTime("2021-03-28 00:00:00.0 {$timeZone}"))
             ->setDay(2)
-            ->setCycle(1)
-        ;
+            ->setCycle(1);
 
         self::assertSame(0, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2021-03-28 03:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
         $daedalus->setCycleStartedAt(new \DateTime("2021-03-28 00:00:00.0 {$timeZone}"));
@@ -240,8 +226,7 @@ final class CycleServiceTest extends TestCase
             ->setCreatedAt(new \DateTime("2020-10-24 00:00:00.0 {$timeZone}"))
             ->setCycleStartedAt(new \DateTime("2020-10-25 00:00:00.0 {$timeZone}"))
             ->setDay(2)
-            ->setCycle(1)
-        ;
+            ->setCycle(1);
 
         self::assertSame(1, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-25 03:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
 
@@ -254,8 +239,7 @@ final class CycleServiceTest extends TestCase
         $timeZone = 'Europe/Paris';
 
         $this->eventService
-            ->shouldReceive('callEvent')
-        ;
+            ->shouldReceive('callEvent');
 
         $localizationConfig = new LocalizationConfig();
         $localizationConfig->setTimeZone($timeZone);
@@ -263,8 +247,7 @@ final class CycleServiceTest extends TestCase
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
-        ;
+            ->setCycleLength(3 * 60);
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
@@ -273,8 +256,7 @@ final class CycleServiceTest extends TestCase
         $daedalus
             ->setCreatedAt(new \DateTime("2020-10-09 00:30:00.0 {$timeZone}"))
             ->setCycleStartedAt(new \DateTime("2020-09-09 24:00:00.0 {$timeZone}"))
-            ->setCycle(0)
-        ;
+            ->setCycle(0);
 
         self::assertSame(0, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-09 23:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
     }
@@ -288,8 +270,7 @@ final class CycleServiceTest extends TestCase
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
-        ;
+            ->setCycleLength(3 * 60);
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
@@ -297,24 +278,21 @@ final class CycleServiceTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
             ->setCreatedAt(new \DateTime("2020-08-09 00:30:00.0 {$timeZone}"))
-            ->setCycle(1)
-        ;
+            ->setCycle(1);
         self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-08-09 00:00:00.0 {$timeZone}"));
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
             ->setCreatedAt(new \DateTime("2020-08-09 23:30:00.0 {$timeZone}"))
-            ->setCycle(8)
-        ;
+            ->setCycle(8);
         self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-08-09 21:00:00.0 {$timeZone}"));
 
         // Change cycle length
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setCyclePerGameDay(8)
-            ->setCycleLength(60)
-        ;
+            ->setCycleLength(60);
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
         $daedalus = new Daedalus();
@@ -322,16 +300,14 @@ final class CycleServiceTest extends TestCase
         $daedalus
             ->setCreatedAt(new \DateTime('2020-09-09 21:30:00.0 UTC'))
             ->setCycle(8)
-            ->setDay(3)
-        ;
+            ->setDay(3);
         self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-09-09 23:00:00.0 {$timeZone}"));
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalus
             ->setCreatedAt(new \DateTime("2020-09-09 11:30:00.0 {$timeZone}"))
-            ->setCycle(4)
-        ;
+            ->setCycle(4);
         self::assertSame($this->service->getDaedalusStartingCycleDate($daedalus), new \DateTime("2020-09-09 11:00:00.0 {$timeZone}"));
     }
 }

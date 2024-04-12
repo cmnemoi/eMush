@@ -70,8 +70,7 @@ final class InfectActionTest extends AbstractActionTest
         $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 

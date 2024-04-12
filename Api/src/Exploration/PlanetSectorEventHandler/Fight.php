@@ -112,8 +112,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
             $fighterWeapons = $fighter->getEquipments()
                 ->filter(static fn (GameItem $item) => ItemEnum::getWeapons()->contains($item->getName()))
                 ->filter(static fn (GameItem $item) => $item->isOperational())
-                ->filter(static fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades)
-            ;
+                ->filter(static fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades);
 
             // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
             foreach ($fighterWeapons as $weapon) {

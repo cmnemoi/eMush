@@ -65,8 +65,7 @@ final class UniqueCharacterTest extends TestCase
 
         $playerRequest
             ->setCharacter('character')
-            ->setDaedalus(new Daedalus())
-        ;
+            ->setDaedalus(new Daedalus());
         $this->daedalusService->shouldReceive('findOneByCharacter')->andReturn(null);
 
         $this->validator->validate($playerRequest, $constraint);
@@ -90,8 +89,7 @@ final class UniqueCharacterTest extends TestCase
         $daedalus->addPlayer($player);
         $playerRequest
             ->setCharacter(CharacterEnum::CHUN)
-            ->setDaedalus(new Daedalus())
-        ;
+            ->setDaedalus(new Daedalus());
 
         $this->validator->validate($playerRequest, $constraint);
 

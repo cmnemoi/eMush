@@ -45,8 +45,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
-            ->setSuccessRate(1)
-        ;
+            ->setSuccessRate(1);
         $manager->persist($repair1);
 
         $repair3 = new Action();
@@ -58,8 +57,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
-            ->setSuccessRate(3)
-        ;
+            ->setSuccessRate(3);
         $manager->persist($repair3);
 
         $repair6 = new Action();
@@ -71,8 +69,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
-            ->setSuccessRate(6)
-        ;
+            ->setSuccessRate(6);
         $manager->persist($repair6);
 
         $repair12 = new Action();
@@ -84,8 +81,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
-            ->setSuccessRate(12)
-        ;
+            ->setSuccessRate(12);
         $manager->persist($repair12);
 
         $repair25 = new Action();
@@ -97,8 +93,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
-            ->setSuccessRate(25)
-        ;
+            ->setSuccessRate(25);
         $manager->persist($repair25);
 
         $repair50 = new Action();
@@ -110,8 +105,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
-            ->setSuccessRate(50)
-        ;
+            ->setSuccessRate(50);
         $manager->persist($repair50);
 
         $dismantle312 = new Action();
@@ -123,8 +117,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(3)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
-            ->setSuccessRate(12)
-        ;
+            ->setSuccessRate(12);
         $manager->persist($dismantle312);
 
         $dismantle325 = new Action();
@@ -136,8 +129,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(3)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
-            ->setSuccessRate(25)
-        ;
+            ->setSuccessRate(25);
         $manager->persist($dismantle325);
 
         $dismantle350 = new Action();
@@ -149,8 +141,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(3)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
-            ->setSuccessRate(50)
-        ;
+            ->setSuccessRate(50);
         $manager->persist($dismantle350);
 
         $dismantle46 = new Action();
@@ -162,8 +153,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(4)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
-            ->setSuccessRate(6)
-        ;
+            ->setSuccessRate(6);
         $manager->persist($dismantle46);
 
         $dismantle412 = new Action();
@@ -175,8 +165,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(4)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
-            ->setSuccessRate(12)
-        ;
+            ->setSuccessRate(12);
         $manager->persist($dismantle412);
 
         $dismantle425 = new Action();
@@ -188,8 +177,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(4)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
-            ->setSuccessRate(25)
-        ;
+            ->setSuccessRate(25);
         $manager->persist($dismantle425);
 
         $sabotageAction1 = new Action();
@@ -200,8 +188,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($sabotageAction1);
 
@@ -213,8 +200,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(3)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($sabotageAction3);
 
@@ -226,8 +212,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(6)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($sabotageAction6);
 
@@ -239,8 +224,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(12)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($sabotageAction12);
 
@@ -252,8 +236,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(25)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($sabotageAction25);
 
@@ -265,8 +248,7 @@ class TechnicianFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(50)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($sabotageAction50);
 

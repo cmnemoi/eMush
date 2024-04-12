@@ -47,8 +47,7 @@ final class ActionCostModificationCapCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         /** @var VariableEventModifierConfig $soapModifierConfig */

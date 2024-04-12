@@ -70,8 +70,7 @@ final class ComfortActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $result = $this->action->execute();
 
         self::assertInstanceOf(Success::class, $result);

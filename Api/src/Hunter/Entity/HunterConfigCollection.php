@@ -13,8 +13,7 @@ class HunterConfigCollection extends ArrayCollection
     {
         $hunter = $this
             ->filter(static fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === $name)
-            ->first()
-        ;
+            ->first();
 
         return $hunter === false ? null : $hunter;
     }

@@ -185,15 +185,13 @@ final class BuildActionCest extends AbstractFunctionalTest
             ->setName('character name')
             ->setInitActionPoint(10)
             ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10)
-        ;
+            ->setInitMoralPoint(10);
 
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
         $player->setPlayerInfo($playerInfo);
@@ -208,8 +206,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         $equipment->setEquipmentName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setName($name)
-        ;
+            ->setName($name);
 
         return $gameEquipment;
     }
@@ -222,8 +219,7 @@ final class BuildActionCest extends AbstractFunctionalTest
             $gameProduct = new GameItem(new Place());
             $gameProduct
                 ->setEquipment($product)
-                ->setName('product')
-            ;
+                ->setName('product');
         }
 
         $blueprint = new Blueprint();
@@ -231,8 +227,7 @@ final class BuildActionCest extends AbstractFunctionalTest
             ->setName('blueprint')
             ->setIngredients($ingredients)
             ->setCraftedEquipmentName($product->getEquipmentName())
-            ->addAction($buildAction)
-        ;
+            ->addAction($buildAction);
 
         return $blueprint;
     }

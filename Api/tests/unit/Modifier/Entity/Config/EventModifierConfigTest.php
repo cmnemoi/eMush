@@ -37,8 +37,7 @@ final class EventModifierConfigTest extends TestCase
                 ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS,
                 ModifierNameEnum::APRON_MODIFIER => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
-            ])
-        ;
+            ]);
 
         $event = new AbstractGameEvent([], new \DateTime());
 
@@ -66,8 +65,7 @@ final class EventModifierConfigTest extends TestCase
         $modifier = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTargetVariable(DaedalusVariableEnum::FUEL)
-        ;
+            ->setTargetVariable(DaedalusVariableEnum::FUEL);
         $action = new Action();
         $action->setActionName('test');
         $player = new Player();
@@ -94,15 +92,13 @@ final class EventModifierConfigTest extends TestCase
     {
         $modifier = new EventModifierConfig('unitTestVariableEventModifier');
         $modifier
-            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT)
-        ;
+            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT);
 
         self::assertSame(ModifierPriorityEnum::PRIORITY_MAP[ModifierPriorityEnum::BEFORE_INITIAL_EVENT], $modifier->getPriorityAsInteger());
         self::assertSame(ModifierPriorityEnum::BEFORE_INITIAL_EVENT, $modifier->getPriority());
 
         $modifier
-            ->setPriority('4')
-        ;
+            ->setPriority('4');
         self::assertSame(4, $modifier->getPriorityAsInteger());
         self::assertSame('4', $modifier->getPriority());
     }

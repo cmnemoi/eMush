@@ -64,8 +64,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->alphaBay2);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
@@ -95,8 +94,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $metalScrap = new GameEquipment($this->alphaBay2);
         $metalScrap
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig)
-        ;
+            ->setEquipment($metalScrapConfig);
         $I->haveInRepository($metalScrap);
 
         $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
@@ -136,8 +134,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->alphaBay2);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
@@ -159,8 +156,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $metalScrap = new GameEquipment($this->alphaBay2);
         $metalScrap
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig)
-        ;
+            ->setEquipment($metalScrapConfig);
         $I->haveInRepository($metalScrap);
 
         $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
@@ -197,8 +193,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->alphaBay2);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
@@ -217,8 +212,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $metalScrap = new GameEquipment($this->alphaBay2);
         $metalScrap
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig)
-        ;
+            ->setEquipment($metalScrapConfig);
         $I->haveInRepository($metalScrap);
 
         $this->renovateAction->loadParameters($this->action, $this->player1, $pasiphae);
@@ -232,8 +226,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->alphaBay2);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var EquipmentConfig $metalScrapConfig */
@@ -241,8 +234,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $metalScrap = new GameEquipment($this->alphaBay2);
         $metalScrap
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig)
-        ;
+            ->setEquipment($metalScrapConfig);
         $I->haveInRepository($metalScrap);
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
@@ -267,8 +259,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->alphaBay2);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var EquipmentConfig $metalScrapConfig */
@@ -276,8 +267,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $metalScrap = new GameEquipment($this->alphaBay2);
         $metalScrap
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig)
-        ;
+            ->setEquipment($metalScrapConfig);
         $I->haveInRepository($metalScrap);
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
@@ -298,8 +288,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->alphaBay2);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
@@ -329,8 +318,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $alphaBay2
             ->setName(RoomEnum::ALPHA_BAY_2)
             ->setType($alphaBay2Config->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($alphaBay2);
 
         $I->refreshEntities($daedalus);

@@ -50,8 +50,7 @@ abstract class AbstractSpeech extends AbstractAction
         $listeners = $this->player->getPlace()->getPlayers()
             ->filter(static function (Player $player) use ($speaker) {
                 return $player !== $speaker;
-            })
-        ;
+            });
 
         foreach ($listeners as $player) {
             $this->addVariablePoints($player, $this->playerVariable, $this->getOutputQuantity());

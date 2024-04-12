@@ -65,8 +65,7 @@ class GearToolService implements GearToolServiceInterface
                 }
 
                 return $room
-                    ->getEquipments()
-                ;
+                    ->getEquipments();
         }
     }
 

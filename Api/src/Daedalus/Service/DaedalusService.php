@@ -185,8 +185,7 @@ class DaedalusService implements DaedalusServiceInterface
 
         $daedalus
             ->setCycle(0)
-            ->setDaedalusVariables($daedalusConfig)
-        ;
+            ->setDaedalusVariables($daedalusConfig);
 
         $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
         if ($localizationConfig === null) {
@@ -197,8 +196,7 @@ class DaedalusService implements DaedalusServiceInterface
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setName($name)
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $this->persistDaedalusInfo($daedalusInfo);
 
         $daedalusEvent = new DaedalusInitEvent(
@@ -313,8 +311,7 @@ class DaedalusService implements DaedalusServiceInterface
         foreach ($mushPlayerName as $playerName) {
             $mushPlayers = $daedalus
                 ->getPlayers()
-                ->filter(static fn (Player $player) => $player->getName() === $playerName)
-            ;
+                ->filter(static fn (Player $player) => $player->getName() === $playerName);
 
             if (!$mushPlayers->isEmpty()) {
                 /** @var Player $currentPlayer */

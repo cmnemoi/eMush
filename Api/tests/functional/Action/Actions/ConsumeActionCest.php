@@ -84,8 +84,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setActionPoint(5)
             ->setHealthPoint(5)
             ->setMoralPoint(5)
-            ->setMovementPoint(5)
-        ;
+            ->setMovementPoint(5);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -100,16 +99,14 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
         $ration
             ->setActions(new ArrayCollection([$consumeActionEntity]))
-            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST);
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -120,8 +117,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setMoralPoint(4)
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
-            ->setRation($ration)
-        ;
+            ->setRation($ration);
         $I->haveInRepository($effect);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -138,8 +134,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($equipmentConfig)
-            ->setName('ration')
-        ;
+            ->setName('ration');
         $I->haveInRepository($gameItem);
 
         $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
@@ -183,8 +178,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setHealthPoint(5)
             ->setMoralPoint(5)
             ->setMovementPoint(5)
-            ->setSatiety(-7)
-        ;
+            ->setSatiety(-7);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -199,16 +193,14 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
         $ration
             ->setActions(new ArrayCollection([$consumeActionEntity]))
-            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST);
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -219,8 +211,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setMoralPoint(4)
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
-            ->setRation($ration)
-        ;
+            ->setRation($ration);
         $I->haveInRepository($effect);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -232,16 +223,14 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setEquipmentName('ration')
-        ;
+            ->setEquipmentName('ration');
 
         $I->haveInRepository($equipmentConfig);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($equipmentConfig)
-            ->setName('ration')
-        ;
+            ->setName('ration');
         $I->haveInRepository($gameItem);
 
         $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
@@ -264,15 +253,13 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
 
         $fullStomach = new StatusConfig();
         $fullStomach
             ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fullStomach);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -301,8 +288,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setActionPoint(5)
             ->setHealthPoint(5)
             ->setMoralPoint(5)
-            ->setMovementPoint(5)
-        ;
+            ->setMovementPoint(5);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -320,23 +306,20 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
         $ration
             ->setActions(new ArrayCollection([$consumeActionEntity]))
-            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST);
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
         $effect
             ->setSatiety(1)
             ->setDaedalus($daedalus)
-            ->setRation($ration)
-        ;
+            ->setRation($ration);
         $I->haveInRepository($effect);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -348,16 +331,14 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setEquipmentName('ration')
-        ;
+            ->setEquipmentName('ration');
 
         $I->haveInRepository($equipmentConfig);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($equipmentConfig)
-            ->setName('ration')
-        ;
+            ->setName('ration');
         $I->haveInRepository($gameItem);
 
         $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);

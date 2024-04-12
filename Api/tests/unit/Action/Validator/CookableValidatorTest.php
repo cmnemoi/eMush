@@ -55,8 +55,7 @@ final class CookableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -85,8 +84,7 @@ final class CookableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

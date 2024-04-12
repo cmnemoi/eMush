@@ -49,8 +49,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $this->pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($this->pasiphae);
 
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
@@ -88,8 +87,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $spaceSuit = new GameItem($this->player1);
         $spaceSuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spaceSuitConfig)
-        ;
+            ->setEquipment($spaceSuitConfig);
         $I->haveInRepository($spaceSuit);
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
 
@@ -107,8 +105,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $spaceSuit = new GameItem($this->player1);
         $spaceSuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spaceSuitConfig)
-        ;
+            ->setEquipment($spaceSuitConfig);
         $I->haveInRepository($spaceSuit);
 
         $brokenStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
@@ -137,8 +134,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $spaceSuit = new GameItem($this->player1);
         $spaceSuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spaceSuitConfig)
-        ;
+            ->setEquipment($spaceSuitConfig);
         $I->haveInRepository($spaceSuit);
 
         // when we load the auto eject action
@@ -155,8 +151,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $spaceSuit = new GameItem($this->player1);
         $spaceSuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spaceSuitConfig)
-        ;
+            ->setEquipment($spaceSuitConfig);
         $I->haveInRepository($spaceSuit);
 
         // when the player auto ejects
@@ -183,8 +178,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $pasiphaeRoom
             ->setName(RoomEnum::PASIPHAE)
             ->setType($pasiphaeRoomConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($pasiphaeRoom);
 
         $I->haveInRepository($daedalus);

@@ -79,8 +79,7 @@ class HideSubscriberCest
         $hideActionEntity
             ->setActionName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'soapShowerActionModifier']);
@@ -91,8 +90,7 @@ class HideSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -106,8 +104,7 @@ class HideSubscriberCest
         $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $player->addEquipment($gameEquipment);
@@ -163,8 +160,7 @@ class HideSubscriberCest
         $hideActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'soapShowerActionModifier']);
@@ -172,8 +168,7 @@ class HideSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -186,16 +181,14 @@ class HideSubscriberCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -251,8 +244,7 @@ class HideSubscriberCest
         $hideActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'soapShowerActionModifier']);
@@ -262,8 +254,7 @@ class HideSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -277,16 +268,14 @@ class HideSubscriberCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);

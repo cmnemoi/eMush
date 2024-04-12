@@ -58,8 +58,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -73,36 +72,31 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $talkie1
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($this->player1)
-        ;
+            ->setOwner($this->player1);
         $I->haveInRepository($talkie1);
 
         $talkie2 = new GameItem($this->player2);
         $talkie2
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($this->player2)
-        ;
+            ->setOwner($this->player2);
         $I->haveInRepository($talkie2);
 
         // create privateChannel
         $this->privateChannel = new Channel();
         $this->privateChannel
             ->setDaedalus($this->daedalus->getDaedalusInfo())
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($this->privateChannel);
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($this->privateChannel)
-            ->setParticipant($this->player1->getPlayerInfo())
-        ;
+            ->setParticipant($this->player1->getPlayerInfo());
         $I->haveInRepository($channelPlayer);
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($this->privateChannel)
-            ->setParticipant($this->player2->getPlayerInfo())
-        ;
+            ->setParticipant($this->player2->getPlayerInfo());
         $I->haveInRepository($channelPlayer2);
         $this->convertPlayerToMush($I, $this->player1);
     }
@@ -235,8 +229,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         $talkie3
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player3)
-        ;
+            ->setOwner($player3);
         $I->haveInRepository($talkie3);
 
         // Given player3 pirates player1

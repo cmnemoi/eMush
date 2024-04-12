@@ -60,8 +60,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->astroTerminal = new GameEquipment($this->bridge);
         $this->astroTerminal
             ->setName(EquipmentEnum::ASTRO_TERMINAL)
-            ->setEquipment($astroTerminalConfig)
-        ;
+            ->setEquipment($astroTerminalConfig);
         $I->haveInRepository($this->astroTerminal);
 
         // given player is on the bridge

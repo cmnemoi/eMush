@@ -96,8 +96,7 @@ class ActionSubscriberCest
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -106,8 +105,7 @@ class ActionSubscriberCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $I->haveInRepository($door);
 
@@ -141,8 +139,7 @@ class ActionSubscriberCest
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierName(SymptomEnum::BREAKOUTS)
-        ;
+            ->setModifierName(SymptomEnum::BREAKOUTS);
 
         $I->haveInRepository($symptomConfig);
 
@@ -150,8 +147,7 @@ class ActionSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -162,8 +158,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
 
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
@@ -220,8 +215,7 @@ class ActionSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         /** @var CharacterConfig $characterConfig */
@@ -248,8 +242,7 @@ class ActionSubscriberCest
         $cat = new GameItem($room);
         $cat
             ->setName(ItemEnum::SCHRODINGER)
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
 
         $I->haveInRepository($cat);
 
@@ -263,16 +256,14 @@ class ActionSubscriberCest
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::CAT_ALLERGY)
-        ;
+            ->setModifierName(SymptomEnum::CAT_ALLERGY);
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::CAT_ALLERGY)
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -281,8 +272,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
 
@@ -329,8 +319,7 @@ class ActionSubscriberCest
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -339,8 +328,7 @@ class ActionSubscriberCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $I->haveInRepository($door);
 
@@ -376,8 +364,7 @@ class ActionSubscriberCest
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::DROOLING)
-        ;
+            ->setModifierName(SymptomEnum::DROOLING);
 
         $I->haveInRepository($symptomConfig);
 
@@ -385,8 +372,7 @@ class ActionSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -395,8 +381,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
 
@@ -443,8 +428,7 @@ class ActionSubscriberCest
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -453,8 +437,7 @@ class ActionSubscriberCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $I->haveInRepository($door);
 
@@ -490,8 +473,7 @@ class ActionSubscriberCest
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::FOAMING_MOUTH)
-        ;
+            ->setModifierName(SymptomEnum::FOAMING_MOUTH);
 
         $I->haveInRepository($symptomConfig);
 
@@ -499,8 +481,7 @@ class ActionSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -509,8 +490,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
 
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
@@ -558,8 +538,7 @@ class ActionSubscriberCest
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -568,8 +547,7 @@ class ActionSubscriberCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $I->haveInRepository($door);
 
@@ -605,8 +583,7 @@ class ActionSubscriberCest
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::SNEEZING)
-        ;
+            ->setModifierName(SymptomEnum::SNEEZING);
 
         $I->haveInRepository($symptomConfig);
 
@@ -614,8 +591,7 @@ class ActionSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -624,8 +600,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
 
@@ -651,8 +626,7 @@ class ActionSubscriberCest
         $dirtyStatusConfig = new StatusConfig();
         $dirtyStatusConfig
             ->setStatusName('dirty')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dirtyStatusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -679,24 +653,21 @@ class ActionSubscriberCest
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         $consumeActionEntity = new Action();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
         $consumeDrugActionEntity = new Action();
         $consumeDrugActionEntity
             ->setActionName(ActionEnum::CONSUME_DRUG)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeDrugActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -706,8 +677,7 @@ class ActionSubscriberCest
         $door
             ->setName('door name')
             ->setEquipment($doorConfig)
-            ->setHolder($room2)
-        ;
+            ->setHolder($room2);
 
         $I->haveInRepository($door);
 
@@ -719,8 +689,7 @@ class ActionSubscriberCest
         $ration = new Ration();
         $ration
             ->setActions(new ArrayCollection([$consumeActionEntity]))
-            ->setName('ration_test')
-        ;
+            ->setName('ration_test');
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -731,8 +700,7 @@ class ActionSubscriberCest
             ->setMoralPoint(4)
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
-            ->setRation($ration)
-        ;
+            ->setRation($ration);
         $I->haveInRepository($effect);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -745,16 +713,14 @@ class ActionSubscriberCest
 
         $equipmentConfig
             ->setMechanics(new ArrayCollection([$ration]))
-            ->setEquipmentName('ration')
-        ;
+            ->setEquipmentName('ration');
 
         $I->haveInRepository($equipmentConfig);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($equipmentConfig)
-            ->setName('ration')
-        ;
+            ->setName('ration');
         $I->haveInRepository($gameItem);
 
         /** @var CharacterConfig $characterConfig */
@@ -785,16 +751,14 @@ class ActionSubscriberCest
                 ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::VOMITING)
-        ;
+            ->setModifierName(SymptomEnum::VOMITING);
         $I->haveInRepository($vomitingConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$vomitingConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -803,8 +767,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
 
@@ -865,8 +828,7 @@ class ActionSubscriberCest
         $cat = new GameItem($room);
         $cat
             ->setName(ItemEnum::SCHRODINGER)
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
 
         $I->haveInRepository($cat);
 
@@ -874,8 +836,7 @@ class ActionSubscriberCest
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -883,15 +844,13 @@ class ActionSubscriberCest
         $doorConfig
             ->setEquipmentName('door')
             ->setName('door')
-            ->setActions(new ArrayCollection([$moveActionEntity]))
-        ;
+            ->setActions(new ArrayCollection([$moveActionEntity]));
         $I->haveInRepository($doorConfig);
 
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $I->haveInRepository($door);
 
@@ -931,8 +890,7 @@ class ActionSubscriberCest
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$catInRoomSymptomActivationRequirement])
-            ->setModifierName(SymptomEnum::FEAR_OF_CATS)
-        ;
+            ->setModifierName(SymptomEnum::FEAR_OF_CATS);
 
         $I->haveInRepository($symptomConfig);
 
@@ -940,8 +898,7 @@ class ActionSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -950,8 +907,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
 
@@ -980,30 +936,26 @@ class ActionSubscriberCest
             ->setApplyOnTarget(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::PSYCHOTIC_ATTACKS)
-        ;
+            ->setModifierName(SymptomEnum::PSYCHOTIC_ATTACKS);
         $I->haveInRepository($symptomConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases(['Name' => 1])
             ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseConfig);
         $diseaseCauseContactConfig = new DiseaseCauseConfig();
         $diseaseCauseContactConfig
             ->setDiseases([])
             ->setCauseName(DiseaseCauseEnum::CONTACT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseContactConfig);
 
         /** @var LocalizationConfig $localizationConfig */
@@ -1026,31 +978,27 @@ class ActionSubscriberCest
         $daedalus = $I->have(Daedalus::class);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $attackAction = new Action();
         $attackAction
             ->setActionName(ActionEnum::ATTACK)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($attackAction);
 
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         $place = $I->have(Place::class, [
@@ -1068,14 +1016,12 @@ class ActionSubscriberCest
         $doorConfig
             ->setEquipmentName('door')
             ->setName('door')
-            ->setActions(new ArrayCollection([$moveActionEntity]))
-        ;
+            ->setActions(new ArrayCollection([$moveActionEntity]));
         $I->haveInRepository($doorConfig);
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $place->addDoor($door);
         $room2->addDoor($door);
@@ -1117,8 +1063,7 @@ class ActionSubscriberCest
         $knifeMechanic
             ->setBaseDamageRange([1 => 100])
             ->setActions(new ArrayCollection([$attackAction]))
-            ->setName('weapon_knife_test')
-        ;
+            ->setName('weapon_knife_test');
         $I->haveInRepository($knifeMechanic);
 
         /** @var ItemConfig $knifeItemConfig */
@@ -1131,8 +1076,7 @@ class ActionSubscriberCest
         $knife = new GameItem($player);
         $knife
             ->setName(ItemEnum::KNIFE)
-            ->setEquipment($knifeItemConfig)
-        ;
+            ->setEquipment($knifeItemConfig);
         $I->haveInRepository($knife);
 
         $playerDisease = new PlayerDisease();
@@ -1140,8 +1084,7 @@ class ActionSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
 

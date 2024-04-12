@@ -45,8 +45,7 @@ final class UserVoterTest extends TestCase
         $this->roleHierarchy
             ->shouldReceive('getReachableRoleNames')
             ->andReturn([RoleEnum::MODERATOR, RoleEnum::ADMIN])
-            ->once()
-        ;
+            ->once();
 
         $this->testVote(UserVoter::EDIT_USER_ROLE, $editedUser, $loggedUser, Voter::ACCESS_GRANTED);
 
@@ -54,8 +53,7 @@ final class UserVoterTest extends TestCase
         $this->roleHierarchy
             ->shouldReceive('getReachableRoleNames')
             ->andReturn([RoleEnum::MODERATOR])
-            ->once()
-        ;
+            ->once();
         $this->testVote(UserVoter::EDIT_USER_ROLE, $editedUser, $loggedUser, Voter::ACCESS_DENIED);
     }
 

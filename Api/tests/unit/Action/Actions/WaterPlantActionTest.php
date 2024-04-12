@@ -60,8 +60,7 @@ final class WaterPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setName('plant')
-        ;
+            ->setName('plant');
 
         $plant = new Plant();
         $plant->addAction($this->actionEntity);
@@ -94,8 +93,7 @@ final class WaterPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setName('plant')
-        ;
+            ->setName('plant');
 
         $plant = new Plant();
         $plant->addAction($this->actionEntity);

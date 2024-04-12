@@ -55,29 +55,24 @@ final class ActionPointValidatorTest extends TestCase
             ->setInitMoralPoint(5)
             ->setMaxMoralPoint(12)
             ->setMaxMovementPoint(12)
-            ->setInitMovementPoint(5)
-        ;
+            ->setInitMovementPoint(5);
         $player = new Player();
         $player
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(true);
 
@@ -94,29 +89,24 @@ final class ActionPointValidatorTest extends TestCase
             ->setInitMoralPoint(5)
             ->setMaxMoralPoint(12)
             ->setMaxMovementPoint(12)
-            ->setInitMovementPoint(5)
-        ;
+            ->setInitMovementPoint(5);
         $player = new Player();
         $player
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(false);
 

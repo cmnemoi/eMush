@@ -74,8 +74,7 @@ final class ModifierRequirementServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->addModifierRequirement($modifierActivationRequirement)
-        ;
+            ->addModifierRequirement($modifierActivationRequirement);
         $modifier = new GameModifier($room, $modifierConfig1);
         $modifierCollection = new ModifierCollection([$modifier]);
 
@@ -85,8 +84,7 @@ final class ModifierRequirementServiceTest extends TestCase
         $this->modifierRequirementHandlerService
             ->shouldReceive('getModifierRequirementHandler')
             ->once()
-            ->andReturn($requirementHandler)
-        ;
+            ->andReturn($requirementHandler);
         $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(false);
 
         $result = $this->service->getActiveModifiers($modifierCollection);
@@ -113,8 +111,7 @@ final class ModifierRequirementServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->addModifierRequirement($modifierActivationRequirement)
-        ;
+            ->addModifierRequirement($modifierActivationRequirement);
         $modifier = new GameModifier($room, $modifierConfig1);
         $modifierCollection = new ModifierCollection([$modifier]);
 
@@ -123,8 +120,7 @@ final class ModifierRequirementServiceTest extends TestCase
         $this->modifierRequirementHandlerService
             ->shouldReceive('getModifierRequirementHandler')
             ->once()
-            ->andReturn($requirementHandler)
-        ;
+            ->andReturn($requirementHandler);
         $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(true);
 
         $result = $this->service->getActiveModifiers($modifierCollection);

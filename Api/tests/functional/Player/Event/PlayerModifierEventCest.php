@@ -39,13 +39,11 @@ class PlayerModifierEventCest
         $suicidalStatusConfig = new StatusConfig();
         $suicidalStatusConfig
             ->setStatusName(PlayerStatusEnum::SUICIDAL)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $demoralizedStatusConfig = new StatusConfig();
         $demoralizedStatusConfig
             ->setStatusName(PlayerStatusEnum::DEMORALIZED)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($suicidalStatusConfig);
         $I->haveInRepository($demoralizedStatusConfig);
 
@@ -173,16 +171,14 @@ class PlayerModifierEventCest
         $fullStatusConfig = new StatusConfig();
         $fullStatusConfig
             ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $starvingWarningStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::STARVING_WARNING]);
 
         $starvingStatusConfig = new StatusConfig();
         $starvingStatusConfig
             ->setStatusName(PlayerStatusEnum::STARVING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fullStatusConfig);
         $I->haveInRepository($starvingStatusConfig);
 
@@ -282,8 +278,7 @@ class PlayerModifierEventCest
         $fullStatusConfig = new StatusConfig();
         $fullStatusConfig
             ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($fullStatusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -322,8 +317,7 @@ class PlayerModifierEventCest
         $mushConfig = new ChargeStatusConfig();
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $I->haveInRepository($mushStatus);

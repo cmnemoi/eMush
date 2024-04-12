@@ -397,8 +397,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->icarus = new GameEquipment($icarusBay);
         $this->icarus
             ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig)
-        ;
+            ->setEquipment($icarusConfig);
         $I->haveInRepository($this->icarus);
 
         // given a planet with oxygen is found
@@ -410,8 +409,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->planet = new Planet($this->player);
         $this->planet
             ->setName($planetName)
-            ->setSize(3)
-        ;
+            ->setSize(3);
         $I->haveInRepository($this->planet);
 
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);

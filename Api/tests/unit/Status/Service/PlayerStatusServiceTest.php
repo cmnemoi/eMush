@@ -177,8 +177,7 @@ final class PlayerStatusServiceTest extends TestCase
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player
             ->setSatiety(-40)
-            ->setPlace(new Place())
-        ;
+            ->setPlace(new Place());
 
         $this->statusService->shouldReceive('removeStatus')->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();
@@ -210,8 +209,7 @@ final class PlayerStatusServiceTest extends TestCase
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player
             ->setSatiety(-40)
-            ->setPlace(new Place())
-        ;
+            ->setPlace(new Place());
         $fullStomachConfig = new StatusConfig();
         $fullStomachConfig->setStatusName(PlayerStatusEnum::FULL_STOMACH);
         new Status($player, $fullStomachConfig);
@@ -301,14 +299,12 @@ final class PlayerStatusServiceTest extends TestCase
             ->setInitMovementPoint($movement)
             ->setInitMoralPoint($moral)
             ->setInitSatiety($satiety)
-            ->setInitHealthPoint($health)
-        ;
+            ->setInitHealthPoint($health);
 
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus(new Daedalus())
-        ;
+            ->setDaedalus(new Daedalus());
 
         $playerInfo = new PlayerInfo(
             $player,

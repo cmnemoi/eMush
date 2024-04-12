@@ -76,13 +76,11 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
 
         $gameEquipment
             ->setEquipment($item)
-            ->setName(EquipmentEnum::SURGERY_PLOT)
-        ;
+            ->setName(EquipmentEnum::SURGERY_PLOT);
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(MedicalConditionTypeEnum::DISEASE);
@@ -106,8 +104,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
@@ -118,14 +115,12 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::FAIL)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -149,13 +144,11 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
 
         $gameEquipment
             ->setEquipment($item)
-            ->setName(EquipmentEnum::SURGERY_PLOT)
-        ;
+            ->setName(EquipmentEnum::SURGERY_PLOT);
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(MedicalConditionTypeEnum::DISEASE);
@@ -179,8 +172,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
@@ -191,14 +183,12 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::SUCCESS)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -223,13 +213,11 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
 
         $gameEquipment
             ->setEquipment($item)
-            ->setName(EquipmentEnum::SURGERY_PLOT)
-        ;
+            ->setName(EquipmentEnum::SURGERY_PLOT);
 
         $diseaseConfig1 = new DiseaseConfig();
         $diseaseConfig1->setType(MedicalConditionTypeEnum::DISEASE);
@@ -253,8 +241,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
@@ -265,14 +252,12 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::CRITICAL_SUCCESS)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 

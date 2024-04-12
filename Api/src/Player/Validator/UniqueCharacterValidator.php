@@ -39,8 +39,7 @@ class UniqueCharacterValidator extends ConstraintValidator
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->setCode(UniqueCharacter::CHARACTER_IS_NOT_UNIQUE_ERROR)
                 ->atPath('character')
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

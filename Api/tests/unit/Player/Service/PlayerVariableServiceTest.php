@@ -95,8 +95,7 @@ final class PlayerVariableServiceTest extends TestCase
         $player
             ->setMoralPoint(5)
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         // go below 4 moral
         $this->playerService->shouldReceive('persist')->once();
@@ -141,8 +140,7 @@ final class PlayerVariableServiceTest extends TestCase
         $player
             ->setActionPoint(5)
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $this->playerService->shouldReceive('persist')->once();
 
@@ -177,8 +175,7 @@ final class PlayerVariableServiceTest extends TestCase
         $player
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
 
         $this->playerService->shouldReceive('persist')->once();
@@ -199,13 +196,11 @@ final class PlayerVariableServiceTest extends TestCase
             ->setInitMovementPoint($movement)
             ->setInitMoralPoint($moral)
             ->setInitSatiety($satiety)
-            ->setInitHealthPoint($health)
-        ;
+            ->setInitHealthPoint($health);
 
         $player = new Player();
         $player
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
 
         $playerInfo = new PlayerInfo(
             $player,

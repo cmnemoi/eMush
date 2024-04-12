@@ -61,8 +61,7 @@ class RepairActionCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables(new CharacterConfig());
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
@@ -82,8 +81,7 @@ class RepairActionCest
             ->setSuccessRate(25)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -95,8 +93,7 @@ class RepairActionCest
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $this->repairAction->loadParameters($action, $player, $gameEquipment);
@@ -107,8 +104,7 @@ class RepairActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -124,8 +120,7 @@ class RepairActionCest
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE);
 
         $I->haveInRepository($modifierConfig);
 
@@ -143,8 +138,7 @@ class RepairActionCest
             ->setIsStackable(false)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$wrenchGear]))
-        ;
+            ->setMechanics(new ArrayCollection([$wrenchGear]));
 
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }

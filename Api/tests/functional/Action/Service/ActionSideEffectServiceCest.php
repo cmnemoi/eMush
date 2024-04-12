@@ -61,8 +61,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $apron = new GameItem($this->player1);
         $apron
             ->setName('apron_test')
-            ->setEquipment($apronConfig)
-        ;
+            ->setEquipment($apronConfig);
         $I->haveInRepository($apron);
 
         $event = new EquipmentInitEvent($apron, $apronConfig, [], new \DateTime());
@@ -101,8 +100,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $apron = new GameItem($this->player1);
         $apron
             ->setName('apron_test')
-            ->setEquipment($apronConfig)
-        ;
+            ->setEquipment($apronConfig);
         $I->haveInRepository($apron);
 
         $event = new EquipmentInitEvent($apron, $apronConfig, [], new \DateTime());
@@ -143,8 +141,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $gloves = new GameItem($this->player1);
         $gloves
             ->setName('apron_test')
-            ->setEquipment($gloveConfig)
-        ;
+            ->setEquipment($gloveConfig);
         $I->haveInRepository($gloves);
 
         $event = new EquipmentInitEvent($gloves, $gloveConfig, [], new \DateTime());

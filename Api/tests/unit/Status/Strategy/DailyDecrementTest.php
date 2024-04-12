@@ -50,8 +50,7 @@ final class DailyDecrementTest extends TestCase
 
         $player = new Player();
         $player
-            ->addStatus($status)
-        ;
+            ->addStatus($status);
 
         $this->statusService->shouldReceive('updateCharge')->with($status, -1, [EventEnum::NEW_DAY], $time)->once();
 
@@ -65,8 +64,7 @@ final class DailyDecrementTest extends TestCase
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
         $status = new ChargeStatus(new Player(), $statusConfig);
 
         $status->getVariableByName($status->getName())->setValue(10);

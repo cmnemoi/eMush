@@ -47,8 +47,7 @@ class SymptomModifierHandler extends AbstractModifierHandler
         );
         $symptomEvent
             ->setPriority($modifierConfig->getPriorityAsInteger())
-            ->setEventName(SymptomEvent::TRIGGER_SYMPTOM)
-        ;
+            ->setEventName(SymptomEvent::TRIGGER_SYMPTOM);
 
         $events = $events->addEvent($symptomEvent);
 

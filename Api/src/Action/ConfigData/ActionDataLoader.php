@@ -37,8 +37,7 @@ final class ActionDataLoader extends ConfigDataLoader
                 ->setActionName($actionData['action_name'])
                 ->setTypes($actionData['types'])
                 ->setTarget($actionData['target'])
-                ->setScope($actionData['scope'])
-            ;
+                ->setScope($actionData['scope']);
             $this->setActionVariables($action, $actionData);
             $this->setActionVisibilities($action, $actionData['visibilities']);
 

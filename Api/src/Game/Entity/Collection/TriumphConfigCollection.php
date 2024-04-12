@@ -14,8 +14,7 @@ class TriumphConfigCollection extends ArrayCollection
     {
         $triumph = $this
             ->filter(static fn (TriumphConfig $triumphConfig) => $triumphConfig->getName() === $name)
-            ->first()
-        ;
+            ->first();
 
         return $triumph === false ? null : $triumph;
     }

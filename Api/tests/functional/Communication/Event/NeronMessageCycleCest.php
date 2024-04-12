@@ -74,8 +74,7 @@ class NeronMessageCycleCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -97,8 +96,7 @@ class NeronMessageCycleCest
         $characterConfig = $I->have(CharacterConfig::class);
         $characterConfig
             ->setMaxHealthPoint(99)
-            ->setInitHealthPoint(99)
-        ;
+            ->setInitHealthPoint(99);
         $I->refreshEntities($characterConfig);
 
         /** @var Player $player */
@@ -121,14 +119,12 @@ class NeronMessageCycleCest
 
         $doorConfig
             ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false)
-        ;
+            ->setIsFireDestroyable(false);
 
         $door1 = new Door($room);
         $door1
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $room->addDoor($door1);
         $room2->addDoor($door1);
@@ -136,8 +132,7 @@ class NeronMessageCycleCest
         $door2 = new Door($room);
         $door2
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $room->addDoor($door2);
         $room3->addDoor($door2);
@@ -145,8 +140,7 @@ class NeronMessageCycleCest
         $door3 = new Door($room4);
         $door3
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $room->addDoor($door3);
         $room4->addDoor($door3);
@@ -155,8 +149,7 @@ class NeronMessageCycleCest
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setStatusName(StatusEnum::FIRE)
-            ->setName('otherFireStatus')
-        ;
+            ->setName('otherFireStatus');
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */

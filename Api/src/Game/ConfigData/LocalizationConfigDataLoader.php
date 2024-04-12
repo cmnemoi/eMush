@@ -29,8 +29,7 @@ class LocalizationConfigDataLoader extends ConfigDataLoader
             $localizationConfig
                 ->setName($localizationConfigData['name'])
                 ->setTimeZone($localizationConfigData['timeZone'])
-                ->setLanguage($localizationConfigData['language'])
-            ;
+                ->setLanguage($localizationConfigData['language']);
 
             $this->entityManager->persist($localizationConfig);
         }

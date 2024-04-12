@@ -89,15 +89,13 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -116,8 +114,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             ->setActionPoint(5)
             ->setHealthPoint(5)
             ->setMoralPoint(5)
-            ->setMovementPoint(5)
-        ;
+            ->setMovementPoint(5);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -133,16 +130,14 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Drug();
         $ration
             ->setActions(new ArrayCollection([$consumeActionEntity]))
-            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST);
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -153,8 +148,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             ->setMoralPoint(4)
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
-            ->setRation($ration)
-        ;
+            ->setRation($ration);
         $I->haveInRepository($effect);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -171,15 +165,13 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($equipmentConfig)
-            ->setName('ration')
-        ;
+            ->setName('ration');
         $I->haveInRepository($gameItem);
 
         $gameItem2 = new GameItem($room);
         $gameItem2
             ->setEquipment($equipmentConfig)
-            ->setName('ration')
-        ;
+            ->setName('ration');
         $I->haveInRepository($gameItem2);
 
         $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);

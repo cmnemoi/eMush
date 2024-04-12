@@ -51,8 +51,7 @@ final class WriteCest extends AbstractFunctionalTest
         $this->blockOfPostIt = new GameItem($this->room);
         $this->blockOfPostIt
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
-            ->setEquipment($blockOfPostItConfig)
-        ;
+            ->setEquipment($blockOfPostItConfig);
         $I->haveInRepository($this->blockOfPostIt);
     }
 

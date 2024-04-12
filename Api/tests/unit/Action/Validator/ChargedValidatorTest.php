@@ -61,13 +61,11 @@ final class ChargedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getActionName' => ActionEnum::EXPRESS_COOK,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -87,20 +85,17 @@ final class ChargedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getActionName' => ActionEnum::EXPRESS_COOK,
-            ])
-        ;
+            ]);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK]);
         $chargeStatus = new ChargeStatus($target, $statusConfig);
         $chargeStatus
-            ->setCharge(0)
-        ;
+            ->setCharge(0);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

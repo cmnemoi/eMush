@@ -54,8 +54,7 @@ final class PreMushValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -81,8 +80,7 @@ final class PreMushValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

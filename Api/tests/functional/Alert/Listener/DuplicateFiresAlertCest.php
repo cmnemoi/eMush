@@ -66,15 +66,13 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -118,8 +116,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $reportAction
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
@@ -135,8 +132,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
 
         $I->haveInRepository($gameEquipment);
 

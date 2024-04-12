@@ -25,8 +25,7 @@ class PlanetRepository extends ServiceEntityRepository
         $queryBuilder
             ->innerJoin('planet.player', 'player')
             ->where('player.daedalus = :daedalus')
-            ->setParameter('daedalus', $daedalus)
-        ;
+            ->setParameter('daedalus', $daedalus);
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -41,8 +40,7 @@ class PlanetRepository extends ServiceEntityRepository
             ->andWhere('planet.orientation = :orientation')
             ->setParameter('daedalus', $daedalus)
             ->setParameter('distance', $daedalus->getDestination()->getDistance())
-            ->setParameter('orientation', $daedalus->getDestination()->getOrientation())
-        ;
+            ->setParameter('orientation', $daedalus->getDestination()->getOrientation());
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }

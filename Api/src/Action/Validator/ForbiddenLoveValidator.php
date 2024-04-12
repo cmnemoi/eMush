@@ -31,8 +31,7 @@ class ForbiddenLoveValidator extends ConstraintValidator
 
         if (CharacterEnum::isFromRinaldoFamily($player) && CharacterEnum::isFromRinaldoFamily($targetPlayer)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

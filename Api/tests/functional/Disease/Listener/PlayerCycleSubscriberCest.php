@@ -80,8 +80,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -89,8 +88,7 @@ class PlayerCycleSubscriberCest
         $playerDisease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
 
         $I->haveInRepository($playerDisease);
 
@@ -149,8 +147,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -158,8 +155,7 @@ class PlayerCycleSubscriberCest
         $playerDisease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
@@ -219,8 +215,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -229,8 +224,7 @@ class PlayerCycleSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $I->haveInRepository($playerDisease);
 
@@ -310,8 +304,7 @@ class PlayerCycleSubscriberCest
             ->setApplyOnTarget(true)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::BITING)
-        ;
+            ->setModifierName(SymptomEnum::BITING);
 
         $I->haveInRepository($symptomConfig);
 
@@ -319,8 +312,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -329,8 +321,7 @@ class PlayerCycleSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
@@ -395,8 +386,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -405,8 +395,7 @@ class PlayerCycleSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());

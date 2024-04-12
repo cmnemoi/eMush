@@ -55,8 +55,7 @@ final class ShredActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $this->eventService->shouldReceive('callEvent');
 

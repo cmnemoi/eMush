@@ -93,8 +93,7 @@ final class PlanetServiceTest extends TestCase
             ->setWeightAtPlanetAnalysis(1)
             ->setWeightAtPlanetExploration(1)
             ->setMaxPerPlanet(4)
-            ->setExplorationEvents([])
-        ;
+            ->setExplorationEvents([]);
         $this->gameConfig->setPlanetSectorConfigs([$planetSectorConfig1]);
 
         // when creating a planet
@@ -132,8 +131,7 @@ final class PlanetServiceTest extends TestCase
             ->setWeightAtPlanetAnalysis(1)
             ->setWeightAtPlanetExploration(1)
             ->setMaxPerPlanet(4)
-            ->setExplorationEvents([])
-        ;
+            ->setExplorationEvents([]);
         $planetSectorConfig2 = new PlanetSectorConfig();
         $planetSectorConfig2
             ->setName('sector2_test')
@@ -142,8 +140,7 @@ final class PlanetServiceTest extends TestCase
             ->setWeightAtPlanetAnalysis(1)
             ->setWeightAtPlanetExploration(1)
             ->setMaxPerPlanet(1)
-            ->setExplorationEvents([])
-        ;
+            ->setExplorationEvents([]);
         $this->gameConfig->setPlanetSectorConfigs([$planetSectorConfig1, $planetSectorConfig2]);
 
         // when creating a planet
@@ -192,18 +189,15 @@ final class PlanetServiceTest extends TestCase
             ->shouldReceive('findAllByDaedalus')
             ->with($this->daedalus)
             ->andReturn([])
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('rollTwiceAndAverage')
             ->with(2, 7)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getRandomElement')
             ->andReturn(new SpaceCoordinates(SpaceOrientationEnum::NORTH, 2))
-            ->once()
-        ;
+            ->once();
     }
 }

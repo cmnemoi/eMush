@@ -377,8 +377,7 @@ class HunterService implements HunterServiceInterface
         // if there is no patrol ship in battle, remove patrol ship target from probabilities to draw
         $patrolShips = EquipmentEnum::getPatrolShips()
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
-            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment)
-        ;
+            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
         $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         if (!$patrolShipsInBattle->isEmpty()) {

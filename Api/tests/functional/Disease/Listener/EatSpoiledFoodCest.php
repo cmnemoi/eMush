@@ -64,8 +64,7 @@ class EatSpoiledFoodCest
             ->setActionPoint(5)
             ->setHealthPoint(5)
             ->setMoralPoint(5)
-            ->setMovementPoint(5)
-        ;
+            ->setMovementPoint(5);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -80,15 +79,13 @@ class EatSpoiledFoodCest
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
         $ration = new Ration();
         $ration
             ->setActions(new ArrayCollection([$consumeActionEntity]))
-            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST);
         $I->haveInRepository($ration);
 
         $effect = new ConsumableEffect();
@@ -99,8 +96,7 @@ class EatSpoiledFoodCest
             ->setMoralPoint(4)
             ->setHealthPoint(5)
             ->setDaedalus($daedalus)
-            ->setRation($ration)
-        ;
+            ->setRation($ration);
         $I->haveInRepository($effect);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -117,15 +113,13 @@ class EatSpoiledFoodCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::DECOMPOSING)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($equipmentConfig)
-            ->setName('ration')
-        ;
+            ->setName('ration');
         $I->haveInRepository($gameItem);
 
         $status = new Status($gameItem, $statusConfig);

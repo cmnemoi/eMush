@@ -77,15 +77,13 @@ class DaedalusDestroyedOnEndDayCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */

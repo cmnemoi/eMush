@@ -76,8 +76,7 @@ class PlayerDeathCest
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
@@ -90,15 +89,13 @@ class PlayerDeathCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($publicChannel);

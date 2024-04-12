@@ -268,8 +268,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         $patrolShips = RoomEnum::getPatrolShips()
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $daedalus)->first())
-            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment)
-        ;
+            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
         $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));

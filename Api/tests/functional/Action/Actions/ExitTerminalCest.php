@@ -42,8 +42,7 @@ final class ExitTerminalCest extends AbstractFunctionalTest
         $this->commandTerminal = new GameEquipment($bridge);
         $this->commandTerminal
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
+            ->setEquipment($commandTerminalConfig);
         $I->haveInRepository($this->commandTerminal);
 
         // given player is on the bridge

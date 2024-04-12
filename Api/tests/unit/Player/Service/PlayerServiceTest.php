@@ -120,26 +120,21 @@ final class PlayerServiceTest extends TestCase
             ->setInitActionPoint(1)
             ->setInitSatiety(2)
             ->setInitMoralPoint(3)
-            ->setInitHealthPoint(4)
-        ;
+            ->setInitHealthPoint(4);
         $this->charactersConfigs->add($characterConfig);
 
         $gameConfig
-            ->setCharactersConfig($this->charactersConfigs)
-        ;
+            ->setCharactersConfig($this->charactersConfigs);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->times(2)
-        ;
+            ->times(2);
         $this->entityManager
             ->shouldReceive('flush')
-            ->times(2)
-        ;
+            ->times(2);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->once()
-        ;
+            ->once();
 
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
@@ -164,8 +159,7 @@ final class PlayerServiceTest extends TestCase
         $daedalus
             ->setCycle(3)
             ->setDay(5)
-            ->addPlace($room)
-        ;
+            ->addPlace($room);
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $characterConfig = new CharacterConfig();
@@ -174,8 +168,7 @@ final class PlayerServiceTest extends TestCase
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $gameItem = new GameItem($player);
 
@@ -187,12 +180,10 @@ final class PlayerServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
         $this->gameEquipmentService
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
 
         $reason = 'bled';
 

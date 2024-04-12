@@ -106,8 +106,7 @@ class VariableEventConfig extends AbstractEventConfig
             ->setTargetVariable($this->targetVariable)
             ->setVariableHolderClass($this->variableHolderClass)
             ->setQuantity(-$this->quantity)
-            ->setEventName($this->eventName)
-        ;
+            ->setEventName($this->eventName);
 
         return $reverseEvent;
     }

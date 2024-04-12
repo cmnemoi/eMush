@@ -51,8 +51,7 @@ final class PlaceTypeValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->type = PlaceTypeEnum::ROOM;
         $this->initValidator();
@@ -73,8 +72,7 @@ final class PlaceTypeValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->type = PlaceTypeEnum::ROOM;
         $this->initValidator($this->constraint->message);

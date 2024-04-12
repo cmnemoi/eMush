@@ -54,8 +54,7 @@ final class EquipmentReachableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $collection = new ArrayCollection([new GameEquipment(new Place())]);
 
@@ -73,8 +72,7 @@ final class EquipmentReachableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $collection = new ArrayCollection();
 

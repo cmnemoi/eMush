@@ -13,8 +13,7 @@ class CharacterConfigCollection extends ArrayCollection
     {
         $character = $this
             ->filter(static fn (CharacterConfig $characterConfig) => $characterConfig->getCharacterName() === $name)
-            ->first()
-        ;
+            ->first();
 
         return $character === false ? null : $character;
     }

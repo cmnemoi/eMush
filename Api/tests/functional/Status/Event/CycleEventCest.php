@@ -69,8 +69,7 @@ final class CycleEventCest extends AbstractFunctionalTest
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(0)
-        ;
+            ->setStartCharge(0);
         $I->haveInRepository($statusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -133,8 +132,7 @@ final class CycleEventCest extends AbstractFunctionalTest
             ->setStatusName(StatusEnum::FIRE)
             ->setModifierConfigs(new ArrayCollection([]))
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(0)
-        ;
+            ->setStartCharge(0);
         $I->haveInRepository($statusConfig);
 
         /** @var DifficultyConfig $difficultyConfig */
@@ -170,8 +168,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -207,14 +204,12 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         $doorConfig
             ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false)
-        ;
+            ->setIsFireDestroyable(false);
 
         $door = new Door($room);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
 
         $room->addDoor($door);
         $room2->addDoor($door);

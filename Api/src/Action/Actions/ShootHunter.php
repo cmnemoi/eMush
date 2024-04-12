@@ -116,8 +116,7 @@ class ShootHunter extends AttemptAction
         $shootingEquipment = $this->player->getPlace()->getEquipments()
             ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
             ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
-            ->first()
-        ;
+            ->first();
 
         if (!$shootingEquipment instanceof GameEquipment) {
             throw new \Exception("Shoot hunter action : {$this->player->getPlace()->getName()} should have a shooting equipment (turret or patrol ship)");

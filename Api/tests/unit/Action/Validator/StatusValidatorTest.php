@@ -53,8 +53,7 @@ final class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = false;
@@ -83,8 +82,7 @@ final class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = true;
@@ -114,8 +112,7 @@ final class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = false;
@@ -144,8 +141,7 @@ final class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = true;
@@ -178,8 +174,7 @@ final class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = false;
@@ -211,8 +206,7 @@ final class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = true;
@@ -246,8 +240,7 @@ final class StatusValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);

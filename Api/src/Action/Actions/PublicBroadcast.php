@@ -78,8 +78,7 @@ class PublicBroadcast extends AbstractAction
     {
         $playersInTheRoom = $this->player
             ->getPlace()
-            ->getPlayers()
-        ;
+            ->getPlayers();
 
         foreach ($playersInTheRoom as $player) {
             $alreadyWatchedPublicBroadcast = $player->getStatusbyName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);

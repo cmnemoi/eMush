@@ -67,8 +67,7 @@ final class DispenseActionTest extends AbstractActionTest
         $distillerMachine->setEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER);
         $gameDistillerMachine
             ->setEquipment($distillerMachine)
-            ->setName(EquipmentEnum::COFFEE_MACHINE)
-        ;
+            ->setName(EquipmentEnum::COFFEE_MACHINE);
 
         $distillerMachine->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -81,12 +80,10 @@ final class DispenseActionTest extends AbstractActionTest
         $gameDrug = new GameItem(new Place());
         $drug = new ItemConfig();
         $drug
-            ->setEquipmentName(GameDrugEnum::PHUXX)
-        ;
+            ->setEquipmentName(GameDrugEnum::PHUXX);
         $gameDrug
             ->setEquipment($drug)
-            ->setName(GameDrugEnum::PHUXX)
-        ;
+            ->setName(GameDrugEnum::PHUXX);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();

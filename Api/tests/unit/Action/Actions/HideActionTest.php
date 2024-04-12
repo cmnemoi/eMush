@@ -70,12 +70,10 @@ final class HideActionTest extends AbstractActionTest
 
         $item = new ItemConfig();
         $item
-            ->setActions(new ArrayCollection([$this->actionEntity]))
-        ;
+            ->setActions(new ArrayCollection([$this->actionEntity]));
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -90,8 +88,7 @@ final class HideActionTest extends AbstractActionTest
                 && $event->getAuthor() === $player
                 && $event->getTags() === [ActionEnum::HIDE]
             )
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 

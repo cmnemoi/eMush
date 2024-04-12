@@ -69,21 +69,17 @@ final class ModifierCollectionTest extends TestCase
         $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setTargetVariable(DaedalusVariableEnum::FUEL)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-        ;
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE);
         $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig2
             ->setTargetVariable(DaedalusVariableEnum::HULL)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-        ;
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE);
         $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-        ;
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE);
         $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig4
-            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
-        ;
+            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE);
 
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier2 = new GameModifier($player, $modifierConfig2);
@@ -127,23 +123,20 @@ final class ModifierCollectionTest extends TestCase
             ->setTagConstraints([
                 ActionEnum::ANATHEMA => ModifierRequirementEnum::ALL_TAGS,
                 ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ALL_TAGS,
-            ])
-        ;
+            ]);
         $modifierConfig2 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig2
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
                 ActionEnum::ANATHEMA => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ANY_TAGS,
-            ])
-        ;
+            ]);
         $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
                 ActionEnum::ANATHEMA => ModifierRequirementEnum::NONE_TAGS,
-            ])
-        ;
+            ]);
         $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig4
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
@@ -153,8 +146,7 @@ final class ModifierCollectionTest extends TestCase
                 ActionEnum::ATTACK => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CEASEFIRE => ModifierRequirementEnum::ANY_TAGS,
                 StatusEnum::FIRE => ModifierRequirementEnum::NONE_TAGS,
-            ])
-        ;
+            ]);
 
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier2 = new GameModifier($player, $modifierConfig2);

@@ -61,8 +61,7 @@ class ChannelService implements ChannelServiceInterface
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
@@ -75,8 +74,7 @@ class ChannelService implements ChannelServiceInterface
         $channel = new Channel();
         $channel
             ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
@@ -92,8 +90,7 @@ class ChannelService implements ChannelServiceInterface
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH)
-        ;
+            ->setScope(ChannelScopeEnum::MUSH);
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
@@ -214,8 +211,7 @@ class ChannelService implements ChannelServiceInterface
         // or at least one member of the conversation in each room can communicate
         $otherParticipants = $channel->getParticipants()
             ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
-            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player)
-        ;
+            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player);
 
         /** @var Player $participant */
         foreach ($otherParticipants as $participant) {
@@ -299,8 +295,7 @@ class ChannelService implements ChannelServiceInterface
 
         $channelPlayer
             ->setChannel($channel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
 
         $this->entityManager->persist($channelPlayer);
         $this->entityManager->flush();
@@ -311,8 +306,7 @@ class ChannelService implements ChannelServiceInterface
     public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool
     {
         $channelParticipant = $channel->getParticipants()
-            ->filter(static fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))
-        ;
+            ->filter(static fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo));
 
         if ($channelParticipant->isEmpty()) {
             return false;
@@ -376,8 +370,7 @@ class ChannelService implements ChannelServiceInterface
         // can whisper with at least one channel participant
         $otherParticipants = $channel->getParticipants()
             ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
-            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player)
-        ;
+            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player);
 
         /** @var Player $participant */
         foreach ($otherParticipants as $participant) {

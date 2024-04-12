@@ -60,8 +60,7 @@ final class DaedalusWidgetServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus
             ->addPlace($room)
-            ->addPlace($room2)
-        ;
+            ->addPlace($room2);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -77,14 +76,12 @@ final class DaedalusWidgetServiceTest extends TestCase
             ->shouldReceive('findByNameAndDaedalus')
             ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->alertService
             ->shouldReceive('findByNameAndDaedalus')
             ->with(AlertEnum::BROKEN_DOORS, $daedalus)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $minimap = $this->service->getMinimap($daedalus, $player);
 
         self::assertIsArray($minimap);
@@ -104,8 +101,7 @@ final class DaedalusWidgetServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus
             ->addPlace($room)
-            ->addPlace($room2)
-        ;
+            ->addPlace($room2);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -118,14 +114,12 @@ final class DaedalusWidgetServiceTest extends TestCase
             ->shouldReceive('findByNameAndDaedalus')
             ->with(AlertEnum::BROKEN_EQUIPMENTS, $daedalus)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->alertService
             ->shouldReceive('findByNameAndDaedalus')
             ->with(AlertEnum::BROKEN_DOORS, $daedalus)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $minimap = $this->service->getMinimap($daedalus, $player);
 
         self::assertIsArray($minimap);
@@ -153,8 +147,7 @@ final class DaedalusWidgetServiceTest extends TestCase
         $daedalus
             ->addPlace($room)
             ->addPlace($room2)
-            ->addPlace($room3)
-        ;
+            ->addPlace($room3);
 
         $fireConfig = new StatusConfig();
         $fireConfig->setStatusName(StatusEnum::FIRE);
@@ -165,18 +158,15 @@ final class DaedalusWidgetServiceTest extends TestCase
         $this->alertService
             ->shouldReceive('findByNameAndDaedalus')
             ->andReturn(null)
-            ->twice()
-        ;
+            ->twice();
         $this->alertService->shouldReceive('isFireReported')
             ->with($room)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
         $this->alertService->shouldReceive('isFireReported')
             ->with($room2)
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $minimap = $this->service->getMinimap($daedalus, $player);
 

@@ -52,8 +52,7 @@ final class UseBandageTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $this->eventService->shouldReceive('callEvent');
 
@@ -65,8 +64,7 @@ final class UseBandageTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent');
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();

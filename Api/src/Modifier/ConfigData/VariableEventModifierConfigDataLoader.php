@@ -27,8 +27,7 @@ class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoade
             $modifierConfig
                 ->setMode($modifierConfigData['mode'])
                 ->setDelta($modifierConfigData['delta'])
-                ->setTargetVariable($modifierConfigData['targetVariable'])
-            ;
+                ->setTargetVariable($modifierConfigData['targetVariable']);
             $this->loadEventModifierData($modifierConfig, $modifierConfigData);
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 

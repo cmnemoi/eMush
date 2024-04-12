@@ -39,8 +39,7 @@ class HasActionValidator extends ConstraintValidator
             && $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 

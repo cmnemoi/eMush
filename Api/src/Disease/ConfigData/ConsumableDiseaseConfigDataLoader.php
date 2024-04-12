@@ -37,8 +37,7 @@ class ConsumableDiseaseConfigDataLoader extends ConfigDataLoader
                 ->setCuresChances($diseaseCauseConfigData['curesChances'])
                 ->setDiseasesDelayMin($diseaseCauseConfigData['diseasesDelayMin'])
                 ->setDiseasesDelayLength($diseaseCauseConfigData['diseasesDelayLength'])
-                ->setEffectNumber($diseaseCauseConfigData['effectNumber'])
-            ;
+                ->setEffectNumber($diseaseCauseConfigData['effectNumber']);
 
             $this->entityManager->persist($diseaseCauseConfig);
         }

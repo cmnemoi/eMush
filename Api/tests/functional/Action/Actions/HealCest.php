@@ -71,16 +71,14 @@ final class HealCest extends AbstractFunctionalTest
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]))
-        ;
+            ->setActions(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);
 
@@ -95,8 +93,7 @@ final class HealCest extends AbstractFunctionalTest
         ]);
         $healerPlayer->setPlayerVariables($characterConfig);
         $healerPlayer
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -111,8 +108,7 @@ final class HealCest extends AbstractFunctionalTest
         ]);
         $healedPlayer->setPlayerVariables($characterConfig);
         $healedPlayer
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
         $I->haveInRepository($healedPlayerInfo);
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
@@ -154,16 +150,14 @@ final class HealCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]))
-        ;
+            ->setActions(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);
 
@@ -178,8 +172,7 @@ final class HealCest extends AbstractFunctionalTest
         ]);
         $healerPlayer->setPlayerVariables($characterConfig);
         $healerPlayer
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -194,8 +187,7 @@ final class HealCest extends AbstractFunctionalTest
         ]);
         $healedPlayer->setPlayerVariables($characterConfig);
         $healedPlayer
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
         $I->haveInRepository($healedPlayerInfo);
         $healedPlayer->setPlayerInfo($healedPlayerInfo);

@@ -65,8 +65,7 @@ final class DeadPlayerNormalizerTest extends TestCase
 
         $characterConfig = new CharacterConfig();
         $characterConfig
-            ->setName(CharacterEnum::ELEESHA)
-        ;
+            ->setName(CharacterEnum::ELEESHA);
 
         $otherPlayerDead = $this->createMock(Player::class);
         $playerInformationDead = new PlayerInfo($otherPlayerDead, new User(), $characterConfig);
@@ -75,8 +74,7 @@ final class DeadPlayerNormalizerTest extends TestCase
             ->setMessage('yoyoyo')
             ->setDayCycleDeath($daedalus)
             ->setEndCause(EndCauseEnum::ALLERGY)
-            ->addLike()
-        ;
+            ->addLike();
 
         $playerInformationDead->setGameStatus(GameStatusEnum::FINISHED);
         $otherPlayerDead->method('getId')->willReturn(3);
@@ -96,8 +94,7 @@ final class DeadPlayerNormalizerTest extends TestCase
         $closedPlayer = $playerInformation->getClosedPlayer();
         $closedPlayer
             ->setDayCycleDeath($daedalus)
-            ->setEndCause(EndCauseEnum::INJURY)
-        ;
+            ->setEndCause(EndCauseEnum::INJURY);
 
         $player->method('getName')->willReturn(CharacterEnum::ELEESHA);
         $player->method('getId')->willReturn(2);
@@ -109,87 +106,73 @@ final class DeadPlayerNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('eleesha.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated eleesha')
-            ->times(3)
-        ;
+            ->times(3);
         $this->translationService
             ->shouldReceive('translate')
             ->with('eleesha.abstract', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated eleesha description')
-            ->times(2)
-        ;
+            ->times(2);
         $this->translationService
             ->shouldReceive('translate')
             ->with('allergy.name', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated end cause')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('allergy.description', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated end cause description')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('injury.name', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated injury')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('injury.description', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated injury description')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('still_living.name', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated still living')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('still_living.description', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated still living description')
-            ->times(1)
-        ;
+            ->times(1);
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('calendar.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated calendar description')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('calendar.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated calendar name')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('triumph.name', [], 'player', LanguageEnum::FRENCH)
             ->andReturn('translated triumph')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('triumph.description', [], 'player', LanguageEnum::FRENCH)
             ->andReturn('translated triumph description')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('day.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated day')
-            ->times(1)
-        ;
+            ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('cycle.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated cycle')
-            ->times(1)
-        ;
+            ->times(1);
 
         $daedalus->method('getPlayers')->willReturn(new PlayerCollection([$player, $otherPlayerDead, $otherPlayerAlive]));
         $player->method('getDaedalus')->willReturn($daedalus);

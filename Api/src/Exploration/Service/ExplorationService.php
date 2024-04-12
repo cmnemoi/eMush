@@ -167,8 +167,7 @@ final class ExplorationService implements ExplorationServiceInterface
             ->getClosedExplorators()
             ->map(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getPlayer())
             ->filter(static fn (?Player $player) => $player instanceof Player)
-            ->toArray()
-        ;
+            ->toArray();
 
         $dummyExploration->setExplorators(new PlayerCollection($explorators));
         foreach ($closedExploration->getLogs() as $log) {

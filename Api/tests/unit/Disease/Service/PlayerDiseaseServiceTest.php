@@ -68,8 +68,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDelayMin(4)->setDelayLength(4)
-            ->setDiseaseName('name')
-        ;
+            ->setDiseaseName('name');
 
         $gameConfig = new GameConfig();
         $gameConfig->addDiseaseConfig($diseaseConfig);
@@ -87,8 +86,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('random')
             ->withArgs([$diseaseConfig->getDelayMin(), $diseaseConfig->getDelayMin() + $diseaseConfig->getDelayLength()])
             ->andReturn(4)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, [DiseaseCauseEnum::INCUBATING_END]);
@@ -118,8 +116,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('random')
             ->withArgs([10, 15])
             ->andReturn(4)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, ['cause'], 10, 5);
@@ -150,8 +147,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('random')
             ->withArgs([$diseaseConfig->getDiseasePointMin(), $diseaseConfig->getDiseasePointMin() + $diseaseConfig->getDiseasePointLength()])
             ->andReturn(4)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->twice();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, ['reason']);
@@ -175,8 +171,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
 
@@ -197,8 +192,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -221,8 +215,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -249,8 +242,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $diseaseConfig2 = new DiseaseConfig();
         $diseaseConfig2->setDiseaseName(InjuryEnum::BROKEN_SHOULDER);
@@ -259,8 +251,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseaseConfig($diseaseConfig2)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
         $player->addMedicalCondition($diseasePlayer2);
 
         $this->entityManager->shouldReceive('persist')->once();
@@ -273,8 +264,7 @@ final class PlayerDiseaseServiceTest extends TestCase
                 )
                     && \in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags(), true)
             )
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('random')->andReturn(10);
 
@@ -285,8 +275,7 @@ final class PlayerDiseaseServiceTest extends TestCase
                     $event->getPlayerDisease() === $diseasePlayer2
                 )
                     && \in_array(DiseaseCauseEnum::OVERRODE, $event->getTags(), true)
-            )->once()
-        ;
+            )->once();
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -307,8 +296,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setResistancePoint(0)
-        ;
+            ->setResistancePoint(0);
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -327,8 +315,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setResistancePoint(1)
-        ;
+            ->setResistancePoint(1);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();

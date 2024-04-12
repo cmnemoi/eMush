@@ -46,8 +46,7 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         // given they have a 100% chance to hit
         $this->daedalus->getAttackingHunters()
             ->map(static fn (Hunter $hunter) => $hunter->setHitChance(100))
-            ->map(static fn (Hunter $hunter) => $I->haveInRepository($hunter))
-        ;
+            ->map(static fn (Hunter $hunter) => $I->haveInRepository($hunter));
 
         $hunter = $this->daedalus->getAttackingHunters()->first();
 

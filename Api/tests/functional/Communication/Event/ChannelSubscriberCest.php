@@ -61,8 +61,7 @@ class ChannelSubscriberCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
@@ -118,22 +117,19 @@ class ChannelSubscriberCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo2)
-        ;
+            ->setParticipant($playerInfo2);
         $I->haveInRepository($channelPlayer2);
 
         $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::EXIT], new \DateTime(), $player);

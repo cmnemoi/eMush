@@ -69,8 +69,7 @@ final class FromSameFamilyValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -103,8 +102,7 @@ final class FromSameFamilyValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'visibility');

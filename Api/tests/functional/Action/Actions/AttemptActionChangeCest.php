@@ -71,8 +71,7 @@ class AttemptActionChangeCest
 
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(10)
-        ;
+            ->setActionPoint(10);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -88,8 +87,7 @@ class AttemptActionChangeCest
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
         $I->haveInRepository($actionRepair);
 
         $actionDisassemble = new Action();
@@ -98,8 +96,7 @@ class AttemptActionChangeCest
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
         $I->haveInRepository($actionDisassemble);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -111,8 +108,7 @@ class AttemptActionChangeCest
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $status = new Status($gameEquipment, $statusConfig);
@@ -181,8 +177,7 @@ class AttemptActionChangeCest
 
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(10)
-        ;
+            ->setActionPoint(10);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -198,8 +193,7 @@ class AttemptActionChangeCest
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
         $I->haveInRepository($actionRepair);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -211,8 +205,7 @@ class AttemptActionChangeCest
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $status = new Status($gameEquipment, $statusConfig);
@@ -250,8 +243,7 @@ class AttemptActionChangeCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -292,8 +284,7 @@ class AttemptActionChangeCest
             ->setActionCost(1)
             ->setSuccessRate(0)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionRepair);
 
         $actionDisassemble = new Action();
@@ -302,8 +293,7 @@ class AttemptActionChangeCest
             ->setActionCost(1)
             ->setSuccessRate(75)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionDisassemble);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -315,8 +305,7 @@ class AttemptActionChangeCest
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $status = new Status($gameEquipment, $statusConfig);

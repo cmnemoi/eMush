@@ -63,8 +63,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
             ->setDaedalus($daedalus)
-            ->setName($name)
-        ;
+            ->setName($name);
         $this->entityManager->persist($consumableDisease);
 
         $effectsNumber = 0;
@@ -110,8 +109,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
                 ->setDisease($disease->getDisease())
                 ->setRate($disease->getRate())
                 ->setDelayMin($disease->getDelayMin())
-                ->setDelayLength($disease->getDelayLength())
-            ;
+                ->setDelayLength($disease->getDelayLength());
 
             $this->entityManager->persist($ConsumableDiseaseAttribute);
         }
@@ -124,8 +122,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
     private function findConsumableDiseaseConfigByNameAndDaedalus(string $name, Daedalus $daedalus): ?ConsumableDiseaseConfig
     {
         $consumableDiseaseConfigs = $daedalus->getGameConfig()
-            ->getConsumableDiseaseConfig()->filter(static fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getCauseName() === $name)
-        ;
+            ->getConsumableDiseaseConfig()->filter(static fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getCauseName() === $name);
 
         if ($consumableDiseaseConfigs->count() === 0) {
             return null;
@@ -161,8 +158,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         $ConsumableDiseaseAttribute
             ->setDisease($diseaseName)
             ->setType($type)
-            ->setRate((int) $this->randomService->getSingleRandomElementFromProbaCollection($rates))
-        ;
+            ->setRate((int) $this->randomService->getSingleRandomElementFromProbaCollection($rates));
 
         if ($type === MedicalConditionTypeEnum::DISEASE) {
             $delay = (int) $this->randomService->getSingleRandomElementFromProbaCollection($config->getDiseasesDelayMin());
@@ -170,8 +166,7 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             if ($delay > 0) {
                 $ConsumableDiseaseAttribute
                     ->setDelayMin($delay)
-                    ->setDelayLength((int) $this->randomService->getSingleRandomElementFromProbaCollection($config->getDiseasesDelayLength()))
-                ;
+                    ->setDelayLength((int) $this->randomService->getSingleRandomElementFromProbaCollection($config->getDiseasesDelayLength()));
             }
         }
 

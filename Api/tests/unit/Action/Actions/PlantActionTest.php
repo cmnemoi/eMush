@@ -64,8 +64,7 @@ final class PlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setName('toto')
-        ;
+            ->setName('toto');
 
         $fruit = new Fruit();
         $fruit->addAction($this->actionEntity);
@@ -78,16 +77,14 @@ final class PlantActionTest extends AbstractActionTest
         $gamePlant = new GameItem(new Place());
         $gamePlant
             ->setEquipment($plant)
-            ->setName('banana_tree')
-        ;
+            ->setName('banana_tree');
 
         $gameHydropot = new GameItem($room);
         $hydropot = new ItemConfig();
         $hydropot->setEquipmentName(ItemEnum::HYDROPOT);
         $gameHydropot
             ->setEquipment($hydropot)
-            ->setName(ItemEnum::HYDROPOT)
-        ;
+            ->setName(ItemEnum::HYDROPOT);
 
         $player = $this->createPlayer($daedalus, $room);
 

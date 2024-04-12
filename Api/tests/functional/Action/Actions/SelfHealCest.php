@@ -71,8 +71,7 @@ final class SelfHealCest extends AbstractFunctionalTest
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
@@ -87,8 +86,7 @@ final class SelfHealCest extends AbstractFunctionalTest
         $healerPlayer->setPlayerVariables($characterConfig);
         $healerPlayer
             ->setActionPoint(3)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);

@@ -45,8 +45,7 @@ final class PlanetService implements PlanetServiceInterface
         $planet = new Planet($player);
         $planet
             ->setName($this->getPlanetName())
-            ->setSize($this->getPlanetSize($daedalus))
-        ;
+            ->setSize($this->getPlanetSize($daedalus));
 
         $planet->setCoordinates($this->getCoordinatesForPlanet($planet));
 

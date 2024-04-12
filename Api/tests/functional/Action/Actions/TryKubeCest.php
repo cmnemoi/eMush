@@ -54,8 +54,7 @@ class TryKubeCest
             ->setActionName(ActionEnum::TRY_KUBE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
@@ -67,8 +66,7 @@ class TryKubeCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(10)
-        ;
+            ->setActionPoint(10);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -83,14 +81,12 @@ class TryKubeCest
 
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MAD_KUBE)
-            ->setActions(new ArrayCollection([$action]))
-        ;
+            ->setActions(new ArrayCollection([$action]));
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::MAD_KUBE)
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
         $I->haveInRepository($gameItem);
 
         $this->tryKube->loadParameters($action, $player, $gameItem);

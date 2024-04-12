@@ -67,44 +67,38 @@ class PlantNewDayCest
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->buildName(GameConfigEnum::TEST)
-            ->setMaxCharge(10)
-        ;
+            ->setMaxCharge(10);
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantThirsty);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
         $plantMechanic = new Plant();
         $plantMechanic
             ->setName('plantMechanic')
             ->setFruitName(GameFruitEnum::BANANA)
             ->setOxygen([1 => 1])
-            ->setMaturationTime([10 => 1])
-        ;
+            ->setMaturationTime([10 => 1]);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -158,15 +152,13 @@ class PlantNewDayCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -180,8 +172,7 @@ class PlantNewDayCest
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig);
 
         /** @var Player $player */
@@ -242,44 +233,38 @@ class PlantNewDayCest
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->buildName(GameConfigEnum::TEST)
-            ->setMaxCharge(10)
-        ;
+            ->setMaxCharge(10);
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantThirsty);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
         $plantMechanic = new Plant();
         $plantMechanic
             ->setName('plantMechanic')
             ->setFruitName(GameFruitEnum::BANANA)
             ->setOxygen([1 => 1])
-            ->setMaturationTime([10 => 1])
-        ;
+            ->setMaturationTime([10 => 1]);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -333,15 +318,13 @@ class PlantNewDayCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -357,8 +340,7 @@ class PlantNewDayCest
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
             ->setInitMoralPoint(99)
-            ->setMaxMoralPoint(99)
-        ;
+            ->setMaxMoralPoint(99);
         $I->haveInRepository($characterConfig);
 
         /** @var Player $player */
@@ -422,44 +404,38 @@ class PlantNewDayCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantThirsty);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
         $plantMechanic = new Plant();
         $plantMechanic
             ->setName('plantMechanic')
             ->setFruitName(GameFruitEnum::BANANA)
             ->setOxygen([1 => 1])
-            ->setMaturationTime([10 => 1])
-        ;
+            ->setMaturationTime([10 => 1]);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -513,15 +489,13 @@ class PlantNewDayCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -537,8 +511,7 @@ class PlantNewDayCest
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
             ->setInitMoralPoint(99)
-            ->setMaxMoralPoint(99)
-        ;
+            ->setMaxMoralPoint(99);
         $I->haveInRepository($characterConfig);
 
         /** @var Player $player */
@@ -601,44 +574,38 @@ class PlantNewDayCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantThirsty);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
         $plantMechanic = new Plant();
         $plantMechanic
             ->setName('plantMechanic')
             ->setFruitName(GameFruitEnum::BANANA)
             ->setOxygen([1 => 1])
-            ->setMaturationTime([10 => 1])
-        ;
+            ->setMaturationTime([10 => 1]);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -692,15 +659,13 @@ class PlantNewDayCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -716,8 +681,7 @@ class PlantNewDayCest
             ->setInitHealthPoint(99)
             ->setMaxHealthPoint(99)
             ->setInitMoralPoint(99)
-            ->setMaxMoralPoint(99)
-        ;
+            ->setMaxMoralPoint(99);
         $I->haveInRepository($characterConfig);
 
         /** @var Player $player */
@@ -790,44 +754,38 @@ class PlantNewDayCest
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->buildName(GameConfigEnum::TEST)
-            ->setMaxCharge(10)
-        ;
+            ->setMaxCharge(10);
         $I->haveInRepository($plantYoung);
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDiseased);
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantDry);
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($plantThirsty);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
         $plantMechanic = new Plant();
         $plantMechanic
             ->setName('plantMechanic')
             ->setFruitName(GameFruitEnum::BANANA)
             ->setOxygen([1 => 1])
-            ->setMaturationTime([10 => 1])
-        ;
+            ->setMaturationTime([10 => 1]);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -881,15 +839,13 @@ class PlantNewDayCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -903,8 +859,7 @@ class PlantNewDayCest
         $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN . '_test']);
         $characterConfig
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig);
 
         /** @var Player $player */

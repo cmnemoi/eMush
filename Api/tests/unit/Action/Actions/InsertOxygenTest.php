@@ -60,8 +60,7 @@ final class InsertOxygenTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE);
 
         $gameItem->setName(ItemEnum::OXYGEN_CAPSULE);
 
@@ -82,8 +81,7 @@ final class InsertOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(1);

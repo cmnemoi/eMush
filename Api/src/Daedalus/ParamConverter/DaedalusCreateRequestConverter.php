@@ -34,8 +34,7 @@ class DaedalusCreateRequestConverter implements ParamConverterInterface
         $daedalusRequest
             ->setName((string) $name)
             ->setConfig($config)
-            ->setLanguage((string) $language)
-        ;
+            ->setLanguage((string) $language);
 
         $request->attributes->set($configuration->getName(), $daedalusRequest);
 

@@ -140,8 +140,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $contextActions = $this->getContextActions($gameEquipment, $currentPlayer);
         $currentScopeActions = $gameEquipment->getEquipment()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT)
-        ;
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT);
 
         $actionsToNormalize = array_merge($contextActions->toArray(), $currentScopeActions->toArray());
 

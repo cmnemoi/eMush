@@ -24,8 +24,7 @@ class NumberOfDiscoverablePlanetsValidator extends ConstraintValidator
 
         if ($player->getPlanets()->count() === $nbDiscoverablePlanets) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

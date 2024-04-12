@@ -135,8 +135,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                     $workingEquipmentBreakRateDistribution,
                     $numberOfEquipmentBroken,
                     $daedalus
-                )
-            ;
+                );
 
             foreach ($brokenEquipments as $gameEquipment) {
                 if (!$gameEquipment->isBroken()) {
@@ -284,8 +283,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $equipmentBreakRateDistribution = $daedalus
             ->getGameConfig()
             ->getDifficultyConfig()
-            ->getEquipmentBreakRateDistribution()
-        ;
+            ->getEquipmentBreakRateDistribution();
 
         $absentEquipments = [];
 

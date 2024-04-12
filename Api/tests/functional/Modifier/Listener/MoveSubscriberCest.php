@@ -68,8 +68,7 @@ class MoveSubscriberCest
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var EquipmentConfig $doorConfig */
@@ -80,8 +79,7 @@ class MoveSubscriberCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -112,8 +110,7 @@ class MoveSubscriberCest
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig1);
         $I->refreshEntities($player);
         $modifier = new GameModifier($player, $modifierConfig1);
@@ -122,8 +119,7 @@ class MoveSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig1]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -135,8 +131,7 @@ class MoveSubscriberCest
         $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
         $I->refreshEntities($player);
         $player->addEquipment($gameEquipment);
@@ -150,8 +145,7 @@ class MoveSubscriberCest
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
+            ->buildName();
         $I->haveInRepository($modifierConfig2);
         $modifier2 = new GameModifier($room, $modifierConfig2);
         $I->haveInRepository($modifier2);
@@ -159,8 +153,7 @@ class MoveSubscriberCest
         $gear2 = new Gear();
         $gear2
             ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
-            ->setName('gear_test_2')
-        ;
+            ->setName('gear_test_2');
         $I->haveInRepository($gear2);
 
         /** @var ItemConfig $equipmentConfig2 */
@@ -184,8 +177,7 @@ class MoveSubscriberCest
         $statusConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
             ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $statusPlayer = new Status($player, $statusConfig);
         $I->haveInRepository($statusPlayer);

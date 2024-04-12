@@ -45,16 +45,14 @@ class TransplantActionCest
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->addAction($transplantAction)
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -109,8 +107,7 @@ class TransplantActionCest
         $fruit = new GameEquipment($room);
         $fruit
             ->setEquipment($fruitConfig)
-            ->setName('fruit')
-        ;
+            ->setName('fruit');
         $I->haveInRepository($fruit);
 
         $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
@@ -120,8 +117,7 @@ class TransplantActionCest
         $hydropot = new GameEquipment($room);
         $hydropot
             ->setEquipment($hydropotConfig)
-            ->setName(ItemEnum::HYDROPOT)
-        ;
+            ->setName(ItemEnum::HYDROPOT);
         $I->haveInRepository($hydropot);
 
         $I->assertTrue($this->transplantAction->isVisible());
@@ -144,24 +140,21 @@ class TransplantActionCest
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->addAction($transplantAction)
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
 
         $plantMechanic = new Plant();
         $plantMechanic
             ->setName('plantMechanic')
             ->setFruitName('banana')
-            ->setMaturationTime([15 => 1])
-        ;
+            ->setMaturationTime([15 => 1]);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -218,8 +211,7 @@ class TransplantActionCest
         $fruit = new GameEquipment($room);
         $fruit
             ->setEquipment($fruitConfig)
-            ->setName('fruit')
-        ;
+            ->setName('fruit');
         $I->haveInRepository($fruit);
 
         $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
@@ -229,8 +221,7 @@ class TransplantActionCest
         $hydropot = new GameEquipment($room);
         $hydropot
             ->setEquipment($hydropotConfig)
-            ->setName(ItemEnum::HYDROPOT)
-        ;
+            ->setName(ItemEnum::HYDROPOT);
         $I->haveInRepository($hydropot);
 
         $I->assertTrue($this->transplantAction->isVisible());

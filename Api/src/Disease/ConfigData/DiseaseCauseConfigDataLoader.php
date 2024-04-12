@@ -31,8 +31,7 @@ class DiseaseCauseConfigDataLoader extends ConfigDataLoader
             $diseaseCauseConfig
                 ->setName($diseaseCauseConfigData['name'])
                 ->setCauseName($diseaseCauseConfigData['causeName'])
-                ->setDiseases($diseaseCauseConfigData['diseases'])
-            ;
+                ->setDiseases($diseaseCauseConfigData['diseases']);
 
             $this->entityManager->persist($diseaseCauseConfig);
         }

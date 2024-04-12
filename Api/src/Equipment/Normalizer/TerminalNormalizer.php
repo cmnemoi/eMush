@@ -102,8 +102,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $actions = $terminal->getActions()
             ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL)
-            ->filter(static fn (Action $action) => $action->getTarget() === null)
-        ;
+            ->filter(static fn (Action $action) => $action->getTarget() === null);
 
         $normalizedActions = [];
 

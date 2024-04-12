@@ -110,8 +110,7 @@ class AlertService implements AlertServiceInterface
             $hullAlert = new Alert();
             $hullAlert
                 ->setDaedalus($daedalus)
-                ->setName(AlertEnum::LOW_HULL)
-            ;
+                ->setName(AlertEnum::LOW_HULL);
 
             $this->persist($hullAlert);
         }
@@ -131,8 +130,7 @@ class AlertService implements AlertServiceInterface
             $oxygenAlert = new Alert();
             $oxygenAlert
                 ->setDaedalus($daedalus)
-                ->setName(AlertEnum::LOW_OXYGEN)
-            ;
+                ->setName(AlertEnum::LOW_OXYGEN);
 
             $this->persist($oxygenAlert);
         }
@@ -145,8 +143,7 @@ class AlertService implements AlertServiceInterface
                 $gravityAlert = new Alert();
                 $gravityAlert
                     ->setDaedalus($daedalus)
-                    ->setName(AlertEnum::NO_GRAVITY)
-                ;
+                    ->setName(AlertEnum::NO_GRAVITY);
 
                 $this->persist($gravityAlert);
 
@@ -161,8 +158,7 @@ class AlertService implements AlertServiceInterface
 
                 // create a temporary alert that will last until the end of cycle
                 $gravityAlert
-                    ->setName(AlertEnum::GRAVITY_REBOOT)
-                ;
+                    ->setName(AlertEnum::GRAVITY_REBOOT);
                 $this->persist($gravityAlert);
 
                 return;
@@ -326,8 +322,7 @@ class AlertService implements AlertServiceInterface
             $alert = new Alert();
             $alert
                 ->setDaedalus($daedalus)
-                ->setName(AlertEnum::NO_ALERT)
-            ;
+                ->setName(AlertEnum::NO_ALERT);
 
             return new ArrayCollection([$alert]);
         }
@@ -446,8 +441,7 @@ class AlertService implements AlertServiceInterface
             $alert = new Alert();
             $alert
                 ->setDaedalus($daedalus)
-                ->setName($alertName)
-            ;
+                ->setName($alertName);
         }
 
         return $alert;

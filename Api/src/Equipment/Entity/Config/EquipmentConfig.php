@@ -70,8 +70,7 @@ class EquipmentConfig
         $gameEquipment = new GameEquipment($holder);
         $gameEquipment
             ->setName($this->getEquipmentShortName())
-            ->setEquipment($this)
-        ;
+            ->setEquipment($this);
 
         return $gameEquipment;
     }

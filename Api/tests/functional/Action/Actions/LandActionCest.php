@@ -50,8 +50,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $this->pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($this->pasiphae);
 
         /** @var StatusServiceInterface $statusService */
@@ -187,8 +186,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $dynarcade = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2));
         $dynarcade
             ->setName(EquipmentEnum::DYNARCADE)
-            ->setEquipment($dynarcadeConfig)
-        ;
+            ->setEquipment($dynarcadeConfig);
         $I->haveInRepository($dynarcade);
 
         // when player lands
@@ -226,8 +224,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $pasiphaeRoom
             ->setName(RoomEnum::PASIPHAE)
             ->setType($pasiphaeRoomConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($pasiphaeRoom);
 
         $alphaBay2Config = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::ALPHA_BAY_2]);
@@ -235,8 +232,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $alphaBay2
             ->setName(RoomEnum::ALPHA_BAY_2)
             ->setType($alphaBay2Config->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($alphaBay2);
 
         $I->haveInRepository($daedalus);

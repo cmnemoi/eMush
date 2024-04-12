@@ -62,8 +62,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->pasiphae = new GameEquipment($pasiphaeRoom);
         $this->pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($this->pasiphae);
 
         /** @var StatusServiceInterface $statusService */
@@ -302,8 +301,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $asteroid = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-            ->first()
-        ;
+            ->first();
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
         $asteroid->removeStatus($truceStatus);
 
@@ -324,8 +322,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $asteroid = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-            ->first()
-        ;
+            ->first();
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
         $asteroid->removeStatus($truceStatus);
         $asteroid->setHealth(1);
@@ -366,8 +363,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $asteroid = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-            ->first()
-        ;
+            ->first();
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES));
 
         $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
@@ -390,8 +386,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
             ->setDay(5) // so asteroid can spawn
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime())
-        ;
+            ->setCycleStartedAt(new \DateTime());
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -408,15 +403,13 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $I->haveInRepository($daedalusInfo);
@@ -436,8 +429,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $asteroid = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-            ->first()
-        ;
+            ->first();
         $hunterTarget = new HunterTarget($asteroid);
         $hunterTarget->setTargetEntity($daedalus);
         $asteroid->setTarget($hunterTarget);
@@ -457,8 +449,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
             ->setDay(10) // so D1000 can spawn
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime())
-        ;
+            ->setCycleStartedAt(new \DateTime());
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -475,15 +466,13 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $I->haveInRepository($daedalusInfo);
@@ -500,8 +489,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $d1000 = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
-            ->first()
-        ;
+            ->first();
 
         $d1000->getHunterConfig()->setHitChance(100)->setDamageRange([6 => 1]);
         $d1000->setHitChance(100);

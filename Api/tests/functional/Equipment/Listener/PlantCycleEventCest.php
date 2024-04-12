@@ -50,8 +50,7 @@ class PlantCycleEventCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(8)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         /** @var DaedalusConfig $gameConfig */
@@ -86,8 +85,7 @@ class PlantCycleEventCest
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setFruitName($fruitConfig->getEquipmentName())
-            ->setName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -99,8 +97,7 @@ class PlantCycleEventCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setName(GamePlantEnum::BANANA_TREE);
 
         $I->haveInRepository($gameEquipment);
 
@@ -155,20 +152,17 @@ class PlantCycleEventCest
         $thirstyStatusConfig = new StatusConfig();
         $thirstyStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($thirstyStatusConfig);
         $dryStatusConfig = new StatusConfig();
         $dryStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dryStatusConfig);
         $diseasedStatusConfig = new StatusConfig();
         $diseasedStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseasedStatusConfig);
 
         /** @var EquipmentConfig $fruitConfig */
@@ -211,8 +205,7 @@ class PlantCycleEventCest
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setFruitName($fruitConfig->getEquipmentName())
-            ->setName('plant_name')
-        ;
+            ->setName('plant_name');
 
         $I->haveInRepository($plantMechanic);
 
@@ -222,8 +215,7 @@ class PlantCycleEventCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('plant name')
-        ;
+            ->setName('plant name');
 
         $I->haveInRepository($gameEquipment);
 
@@ -233,8 +225,7 @@ class PlantCycleEventCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(8)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $statusConfig->setStartCharge(6);
@@ -304,8 +295,7 @@ class PlantCycleEventCest
         $gameEquipment2 = new GameItem($room2);
         $gameEquipment2
             ->setEquipment($equipmentConfig)
-            ->setName('plant name')
-        ;
+            ->setName('plant name');
 
         $I->haveInRepository($gameEquipment2);
 

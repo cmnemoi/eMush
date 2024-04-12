@@ -66,8 +66,7 @@ final class CoffeeActionTest extends AbstractActionTest
         $coffeeMachine->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $gameCoffeeMachine
             ->setEquipment($coffeeMachine)
-            ->setName(EquipmentEnum::COFFEE_MACHINE)
-        ;
+            ->setName(EquipmentEnum::COFFEE_MACHINE);
 
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -78,12 +77,10 @@ final class CoffeeActionTest extends AbstractActionTest
         $gameCoffee = new GameItem(new Place());
         $coffee = new ItemConfig();
         $coffee
-            ->setEquipmentName(GameRationEnum::COFFEE)
-        ;
+            ->setEquipmentName(GameRationEnum::COFFEE);
         $gameCoffee
             ->setEquipment($coffee)
-            ->setName(GameRationEnum::COFFEE)
-        ;
+            ->setName(GameRationEnum::COFFEE);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();

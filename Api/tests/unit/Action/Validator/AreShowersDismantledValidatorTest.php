@@ -62,8 +62,7 @@ final class AreShowersDismantledValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => null,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'visibility');
@@ -82,8 +81,7 @@ final class AreShowersDismantledValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => null,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);

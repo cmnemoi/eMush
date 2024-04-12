@@ -33,7 +33,6 @@ final class NewsExtension implements QueryCollectionExtensionInterface, QueryIte
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
             ->andWhere($queryBuilder->expr()->lte($rootAlias . '.publicationDate', ':now'))
-            ->setParameter('now', new \DateTime('now'))
-        ;
+            ->setParameter('now', new \DateTime('now'));
     }
 }

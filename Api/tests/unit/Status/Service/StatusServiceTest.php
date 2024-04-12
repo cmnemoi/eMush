@@ -91,18 +91,15 @@ final class StatusServiceTest extends TestCase
 
         $hidden1 = new Status($item1, $statusConfig);
         $hidden1
-            ->setCreatedAt(new \DateTime())
-        ;
+            ->setCreatedAt(new \DateTime());
 
         $hidden2 = new Status($item3, $statusConfig);
         $hidden2
-            ->setCreatedAt(new \DateTime())
-        ;
+            ->setCreatedAt(new \DateTime());
 
         $hidden3 = new Status($item2, $statusConfig);
         $hidden3
-            ->setCreatedAt(new \DateTime())
-        ;
+            ->setCreatedAt(new \DateTime());
 
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
 
@@ -120,13 +117,11 @@ final class StatusServiceTest extends TestCase
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
-            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-        ;
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $chargeStatus = new ChargeStatus($gameEquipment, $chargeStatusConfig);
 
         $chargeStatus
-            ->setCharge(4)
-        ;
+            ->setCharge(4);
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->service->updateCharge($chargeStatus, -1, [], $time);
@@ -161,8 +156,7 @@ final class StatusServiceTest extends TestCase
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+            ->setVisibility(VisibilityEnum::MUSH);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -190,8 +184,7 @@ final class StatusServiceTest extends TestCase
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setStartCharge(3)
-            ->setMaxCharge(4)
-        ;
+            ->setMaxCharge(4);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -218,8 +211,7 @@ final class StatusServiceTest extends TestCase
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+            ->setVisibility(VisibilityEnum::MUSH);
 
         $status = new Status($gameEquipment, $statusConfig);
         $gameEquipment->addStatus($status);
@@ -281,8 +273,7 @@ final class StatusServiceTest extends TestCase
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
-            ->setCharge(3)
-        ;
+            ->setCharge(3);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -311,8 +302,7 @@ final class StatusServiceTest extends TestCase
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
-            ->setCharge(3)
-        ;
+            ->setCharge(3);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -341,8 +331,7 @@ final class StatusServiceTest extends TestCase
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
-            ->setCharge(3)
-        ;
+            ->setCharge(3);
 
         $this->entityManager->shouldReceive('remove')->with($attempt)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -361,8 +350,7 @@ final class StatusServiceTest extends TestCase
         $statusConfig = new ContentStatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::GUARDIAN)
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+            ->setVisibility(VisibilityEnum::MUSH);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();

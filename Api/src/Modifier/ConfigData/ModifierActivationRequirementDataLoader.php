@@ -31,8 +31,7 @@ class ModifierActivationRequirementDataLoader extends ConfigDataLoader
             $modifierActivationRequirement
                 ->setName($modifierActivationRequirementData['name'])
                 ->setActivationRequirement($modifierActivationRequirementData['activationRequirement'])
-                ->setValue($modifierActivationRequirementData['value'])
-            ;
+                ->setValue($modifierActivationRequirementData['value']);
 
             $this->entityManager->persist($modifierActivationRequirement);
         }

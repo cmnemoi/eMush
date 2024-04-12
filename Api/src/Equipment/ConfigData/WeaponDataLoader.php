@@ -29,8 +29,7 @@ class WeaponDataLoader extends MechanicsDataLoader
                 ->setExpeditionBonus($weaponData['expeditionBonus'])
                 ->setCriticalSuccessRate($weaponData['criticalSuccessRate'])
                 ->setCriticalFailRate($weaponData['criticalFailRate'])
-                ->setOneShotRate($weaponData['oneShotRate'])
-            ;
+                ->setOneShotRate($weaponData['oneShotRate']);
             $this->setMechanicsActions($weapon, $weaponData);
 
             $this->entityManager->persist($weapon);

@@ -44,8 +44,7 @@ class ChargedValidator extends ConstraintValidator
 
         if ($chargeStatus !== null && $chargeStatus->getCharge() <= 0) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 
@@ -72,8 +71,7 @@ class ChargedValidator extends ConstraintValidator
         $shootingEquipment = $player->getPlace()->getEquipments()
             ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
             ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
-            ->first()
-        ;
+            ->first();
 
         if (!$shootingEquipment instanceof GameEquipment) {
             throw new \Exception("Shoot hunter action : {$player->getPlace()->getName()} should have a shooting equipment (turret or patrol ship)");

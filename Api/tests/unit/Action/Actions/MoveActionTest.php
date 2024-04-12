@@ -55,8 +55,7 @@ final class MoveActionTest extends AbstractActionTest
         $door = new Door($roomStart);
         $door
             ->addRoom($roomStart)
-            ->addRoom($roomEnd)
-        ;
+            ->addRoom($roomEnd);
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
 

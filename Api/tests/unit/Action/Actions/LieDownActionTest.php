@@ -64,13 +64,11 @@ final class LieDownActionTest extends AbstractActionTest
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::BED)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
 
         $gameEquipment
             ->setEquipment($item)
-            ->setName(EquipmentEnum::BED)
-        ;
+            ->setName(EquipmentEnum::BED);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();

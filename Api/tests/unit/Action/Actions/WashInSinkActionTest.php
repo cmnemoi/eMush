@@ -56,8 +56,7 @@ final class WashInSinkActionTest extends AbstractActionTest
         $sinkConfig = new EquipmentConfig();
         $sinkEquipment
             ->setEquipment($sinkConfig)
-            ->setName('sink')
-        ;
+            ->setName('sink');
         $sinkConfig->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);

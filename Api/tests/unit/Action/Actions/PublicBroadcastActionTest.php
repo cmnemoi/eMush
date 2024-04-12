@@ -72,8 +72,7 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         $alienTVConfig->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
         $alienTVStatus = new ChargeStatus($player, $alienTVConfig);
         $alienTVStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -107,8 +106,7 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();

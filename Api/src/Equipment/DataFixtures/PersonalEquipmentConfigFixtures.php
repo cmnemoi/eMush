@@ -55,8 +55,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             // ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction, $updateTalkieAction]))
             ->setActions([$takeAction, $examineAction, $repair25, $dropAction])
             ->setIsPersonal(true)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($walkieTalkie);
 
         $iTrackie = new ItemConfig();
@@ -68,8 +67,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setActions([$takeAction, $examineAction, $repair25, $dropAction])
             // ->setInitStatuses(new ArrayCollection([$updatingStatus]))
             ->setIsPersonal(true)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($iTrackie);
 
         $tracker = new ItemConfig();
@@ -80,8 +78,7 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
             ->setIsFireBreakable(true)
             ->setActions([$takeAction, $examineAction, $repair25, $dropAction])
             ->setIsPersonal(true)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($tracker);
 
         $gameConfig->addEquipmentConfig($iTrackie)->addEquipmentConfig($tracker)->addEquipmentConfig($walkieTalkie);

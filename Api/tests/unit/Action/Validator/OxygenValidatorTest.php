@@ -54,8 +54,7 @@ final class OxygenValidatorTest extends TestCase
             ->setInitOxygen(10)
             ->setInitShield(1)
             ->setInitHull(1)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables($daedalusConfig);
@@ -67,8 +66,7 @@ final class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -87,8 +85,7 @@ final class OxygenValidatorTest extends TestCase
             ->setInitOxygen(0)
             ->setInitShield(1)
             ->setInitHull(1)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables($daedalusConfig);
@@ -100,8 +97,7 @@ final class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -121,8 +117,7 @@ final class OxygenValidatorTest extends TestCase
             ->setInitShield(1)
             ->setInitHull(1)
             ->setInitFuel(1)
-            ->setMaxOxygen(12)
-        ;
+            ->setMaxOxygen(12);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -138,8 +133,7 @@ final class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -159,8 +153,7 @@ final class OxygenValidatorTest extends TestCase
             ->setInitOxygen(12)
             ->setInitShield(1)
             ->setInitHull(1)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -176,8 +169,7 @@ final class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

@@ -32,8 +32,7 @@ final class IsPatrolShipRenovableValidator extends ConstraintValidator
 
         if ($patrolShipArmor->getCharge() === $patrolShipArmor->getThreshold() && !$patrolShip->hasStatus(EquipmentStatusEnum::BROKEN)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

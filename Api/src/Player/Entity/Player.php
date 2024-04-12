@@ -516,15 +516,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getSelfActions(): Collection
     {
         return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF)
-        ;
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
     }
 
     public function getTargetActions(): Collection
     {
         return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER)
-        ;
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
     }
 
     public function getLogName(): string

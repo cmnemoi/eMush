@@ -14,8 +14,7 @@ class TitleConfigCollection extends ArrayCollection
     {
         $title = $this
             ->filter(static fn (TitleConfig $titleConfig) => $titleConfig->getName() === $name)
-            ->first()
-        ;
+            ->first();
 
         return $title === false ? null : $title;
     }

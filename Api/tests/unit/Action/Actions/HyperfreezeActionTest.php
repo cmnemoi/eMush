@@ -72,12 +72,10 @@ final class HyperfreezeActionTest extends AbstractActionTest
         $ration = new ItemConfig();
         $ration
             ->setMechanics(new ArrayCollection([$rationType]))
-            ->setEquipmentName('fruit')
-        ;
+            ->setEquipmentName('fruit');
         $gameRation
             ->setEquipment($ration)
-            ->setName('fruit')
-        ;
+            ->setName('fruit');
 
         $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
@@ -85,8 +83,7 @@ final class HyperfreezeActionTest extends AbstractActionTest
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
@@ -116,32 +113,27 @@ final class HyperfreezeActionTest extends AbstractActionTest
         $ration = new ItemConfig();
         $ration
             ->setMechanics(new ArrayCollection([$rationType]))
-            ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
-        ;
+            ->setEquipmentName(GameRationEnum::ALIEN_STEAK);
         $gameRation
             ->setEquipment($ration)
-            ->setName(GameRationEnum::ALIEN_STEAK)
-        ;
+            ->setName(GameRationEnum::ALIEN_STEAK);
 
         $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
         $superfreezer->setEquipmentName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
             ->setEquipment($superfreezer)
-            ->setName(ToolItemEnum::SUPERFREEZER)
-        ;
+            ->setName(ToolItemEnum::SUPERFREEZER);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $gameStandardRation = new GameItem(new Place());
         $standardRation = new ItemConfig();
         $standardRation
-            ->setEquipmentName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameStandardRation
             ->setEquipment($standardRation)
-            ->setName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();

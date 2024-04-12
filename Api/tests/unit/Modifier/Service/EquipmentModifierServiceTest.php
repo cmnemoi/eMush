@@ -69,8 +69,7 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setModifierName('modifierName')
-        ;
+            ->setModifierName('modifierName');
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -78,20 +77,17 @@ final class EquipmentModifierServiceTest extends TestCase
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
             ->setEquipmentName('gear')
-            ->setMechanics(new ArrayCollection([$gear]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear]));
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getEquipmentName())
-        ;
+            ->setName($equipmentConfig->getEquipmentName());
 
         $date = new \DateTime();
         $this->modifierService
             ->shouldReceive('createModifier')
             ->with($modifierConfig1, $daedalus, [], $date, null)
-            ->once()
-        ;
+            ->once();
         $this->service->gearCreated($gameEquipment, [], $date);
 
         // with a player holding the gear
@@ -102,8 +98,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->modifierService
             ->shouldReceive('createModifier')
             ->with($modifierConfig1, $daedalus, [], $date, null)
-            ->once()
-        ;
+            ->once();
         $this->service->gearCreated($gameEquipment, [], $date);
 
         // with a charge
@@ -115,8 +110,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->modifierService
             ->shouldReceive('createModifier')
             ->with($modifierConfig1, $daedalus, [], $date, $charge)
-            ->once()
-        ;
+            ->once();
         $this->service->gearCreated($gameEquipment, [], $date);
 
         // gear with 2 modifiers
@@ -126,32 +120,27 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1, $modifierConfig2]));
 
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
             ->setEquipmentName('gear')
-            ->setMechanics(new ArrayCollection([$gear]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear]));
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getEquipmentName())
-        ;
+            ->setName($equipmentConfig->getEquipmentName());
 
         $this->modifierService
             ->shouldReceive('createModifier')
             ->with($modifierConfig1, $daedalus, [], $date, null)
-            ->once()
-        ;
+            ->once();
         $this->modifierService
             ->shouldReceive('createModifier')
             ->with($modifierConfig2, $daedalus, [], $date, null)
-            ->once()
-        ;
+            ->once();
         $this->service->gearCreated($gameEquipment, [], $date);
     }
 
@@ -168,8 +157,7 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -177,8 +165,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
             ->setEquipmentName('gear')
-            ->setMechanics(new ArrayCollection([$gear]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear]));
         $gameEquipment = new GameItem($room);
         $gameEquipment->setEquipment($equipmentConfig);
 
@@ -186,8 +173,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->modifierService
             ->shouldReceive('deleteModifier')
             ->with($modifierConfig1, $daedalus, [], $date)
-            ->once()
-        ;
+            ->once();
         $this->service->gearDestroyed($gameEquipment, [], $date);
 
         // with a player holding the gear
@@ -198,8 +184,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->modifierService
             ->shouldReceive('deleteModifier')
             ->with($modifierConfig1, $daedalus, [], $date)
-            ->once()
-        ;
+            ->once();
         $this->service->gearDestroyed($gameEquipment, [], $date);
     }
 
@@ -218,8 +203,7 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -227,13 +211,11 @@ final class EquipmentModifierServiceTest extends TestCase
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
             ->setEquipmentName('gear')
-            ->setMechanics(new ArrayCollection([$gear]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear]));
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getEquipmentName())
-        ;
+            ->setName($equipmentConfig->getEquipmentName());
 
         $date = new \DateTime();
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
@@ -246,8 +228,7 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setModifierName(ModifierNameEnum::APRON_MODIFIER)
-        ;
+            ->setModifierName(ModifierNameEnum::APRON_MODIFIER);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -255,34 +236,29 @@ final class EquipmentModifierServiceTest extends TestCase
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
             ->setEquipmentName('gear')
-            ->setMechanics(new ArrayCollection([$gear]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear]));
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getEquipmentName())
-        ;
+            ->setName($equipmentConfig->getEquipmentName());
 
         $this->modifierService
             ->shouldReceive('createModifier')
             ->with($modifierConfig1, $player, [], $date, null)
-            ->once()
-        ;
+            ->once();
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
 
         // GameModifier with a charge
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-            ->setDischargeStrategies([ModifierNameEnum::APRON_MODIFIER])
-        ;
+            ->setDischargeStrategies([ModifierNameEnum::APRON_MODIFIER]);
         $charge = new ChargeStatus($gameEquipment, $chargeConfig);
 
         $this->modifierService
             ->shouldReceive('createModifier')
             ->with($modifierConfig1, $player, [], $date, $charge)
-            ->once()
-        ;
+            ->once();
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
     }
 
@@ -301,8 +277,7 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
 
         $gear = new Gear();
         $gear->setModifierConfigs(new ArrayCollection([$modifierConfig1]));
@@ -310,8 +285,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
             ->setEquipmentName('gear')
-            ->setMechanics(new ArrayCollection([$gear]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear]));
         $gameEquipment = new GameItem($room);
         $gameEquipment->setEquipment($equipmentConfig);
 
@@ -325,8 +299,7 @@ final class EquipmentModifierServiceTest extends TestCase
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
 
         $modifier2 = new GameModifier($player, $modifierConfig2);
 
@@ -336,16 +309,14 @@ final class EquipmentModifierServiceTest extends TestCase
         $equipmentConfig = new ItemConfig();
         $equipmentConfig
             ->setEquipmentName('gear')
-            ->setMechanics(new ArrayCollection([$gear]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear]));
         $gameEquipment = new GameItem($room);
         $gameEquipment->setEquipment($equipmentConfig);
 
         $this->modifierService
             ->shouldReceive('deleteModifier')
             ->with($modifierConfig2, $player, [], $date)
-            ->once()
-        ;
+            ->once();
         $this->service->dropEquipment($gameEquipment, $player, [], $date);
     }
 }

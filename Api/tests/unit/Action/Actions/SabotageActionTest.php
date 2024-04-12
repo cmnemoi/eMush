@@ -68,8 +68,7 @@ final class SabotageActionTest extends AbstractActionTest
         $item->setIsBreakable(true);
         $gameItem
             ->setEquipment($item)
-            ->setName('item')
-        ;
+            ->setName('item');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -85,8 +84,7 @@ final class SabotageActionTest extends AbstractActionTest
         $attemptConfig->setStatusName('attempt');
         $attempt = new Attempt(new Player(), $attemptConfig);
         $attempt
-            ->setAction($this->action->getActionName())
-        ;
+            ->setAction($this->action->getActionName());
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
@@ -95,8 +93,7 @@ final class SabotageActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
 
         // Fail try
@@ -111,13 +108,11 @@ final class SabotageActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(100)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(100)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();

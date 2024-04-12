@@ -54,8 +54,7 @@ class NumberPlayersAliveInRoomValidator extends ConstraintValidator
 
         if ($buildViolation) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

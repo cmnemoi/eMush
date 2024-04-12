@@ -51,8 +51,7 @@ final class ExtractSporeActionTest extends AbstractActionTest
             ->setInitOxygen(1)
             ->setInitFuel(1)
             ->setInitHull(1)
-            ->setInitShield(1)
-        ;
+            ->setInitShield(1);
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables($daedalusConfig);
 
@@ -65,8 +64,7 @@ final class ExtractSporeActionTest extends AbstractActionTest
         $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $this->action->loadParameters($this->actionEntity, $player);
 

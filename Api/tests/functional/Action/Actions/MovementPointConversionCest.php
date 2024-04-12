@@ -58,16 +58,14 @@ class MovementPointConversionCest
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setMovementCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         $convertActionEntity = new Action();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
@@ -77,8 +75,7 @@ class MovementPointConversionCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -95,8 +92,7 @@ class MovementPointConversionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setMovementPoint(0)
-        ;
+            ->setMovementPoint(0);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -144,16 +140,14 @@ class MovementPointConversionCest
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setMovementCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         $convertActionEntity = new Action();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
@@ -163,8 +157,7 @@ class MovementPointConversionCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -181,8 +174,7 @@ class MovementPointConversionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(10)
-            ->setMovementPoint(1)
-        ;
+            ->setMovementPoint(1);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -231,16 +223,14 @@ class MovementPointConversionCest
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setMovementCost(5)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         $convertActionEntity = new Action();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
@@ -250,8 +240,7 @@ class MovementPointConversionCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -268,8 +257,7 @@ class MovementPointConversionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(10)
-            ->setMovementPoint(1)
-        ;
+            ->setMovementPoint(1);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -317,16 +305,14 @@ class MovementPointConversionCest
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setMovementCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         $convertActionEntity = new Action();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
@@ -336,8 +322,7 @@ class MovementPointConversionCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -354,8 +339,7 @@ class MovementPointConversionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(0)
-            ->setMovementPoint(0)
-        ;
+            ->setMovementPoint(0);
 
         /** @var User $user */
         $user = $I->have(User::class);

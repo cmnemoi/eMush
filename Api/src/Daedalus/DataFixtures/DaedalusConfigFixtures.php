@@ -47,8 +47,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setMaxCombustionChamberFuel(9)
             ->setNbMush(3)
             ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
-        ;
+            ->setCycleLength(3 * 60);
 
         $randomStorageItemPlaces = new RandomItemPlaces();
         $randomStorageItemPlaces
@@ -77,8 +76,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 ToolItemEnum::MEDIKIT,
                 GearItemEnum::ANTIGRAV_SCOOTER,
             ])
-            ->setPlaces(RoomEnum::getStorages())
-        ;
+            ->setPlaces(RoomEnum::getStorages());
 
         $daedalusConfig->setRandomItemPlaces($randomStorageItemPlaces);
 

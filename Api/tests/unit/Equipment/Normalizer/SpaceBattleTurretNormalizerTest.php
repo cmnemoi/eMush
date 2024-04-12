@@ -90,8 +90,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(RoomEnum::REAR_ALPHA_TURRET, [], 'room', LanguageEnum::FRENCH)
             ->andReturn('Tourelle Alpha Arrière')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -130,8 +129,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(RoomEnum::REAR_ALPHA_TURRET, [], 'room', LanguageEnum::FRENCH)
             ->andReturn('Tourelle Alpha Arrière')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -182,8 +180,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(RoomEnum::REAR_ALPHA_TURRET, [], 'room', LanguageEnum::FRENCH)
             ->andReturn('Tourelle Alpha Arrière')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,

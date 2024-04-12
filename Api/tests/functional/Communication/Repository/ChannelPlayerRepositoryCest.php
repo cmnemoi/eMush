@@ -260,8 +260,7 @@ class ChannelPlayerRepositoryCest
             $participant = new ChannelPlayer();
             $participant
                 ->setParticipant($user)
-                ->setChannel($privateChannel)
-            ;
+                ->setChannel($privateChannel);
             $this->tester->haveInRepository($participant);
         }
 

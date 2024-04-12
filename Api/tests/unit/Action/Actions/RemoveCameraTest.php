@@ -62,18 +62,15 @@ final class RemoveCameraTest extends AbstractActionTest
         $cameraItemConfig->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $cameraItem
             ->setEquipment($cameraItemConfig)
-            ->setName(ItemEnum::CAMERA_ITEM)
-        ;
+            ->setName(ItemEnum::CAMERA_ITEM);
 
         $cameraEquipment = new GameEquipment($room);
         $cameraEquipmentConfig = new ItemConfig();
         $cameraEquipmentConfig
-            ->setEquipmentName(GameRationEnum::COFFEE)
-        ;
+            ->setEquipmentName(GameRationEnum::COFFEE);
         $cameraEquipment
             ->setEquipment($cameraEquipmentConfig)
-            ->setName(GameRationEnum::COFFEE)
-        ;
+            ->setName(GameRationEnum::COFFEE);
 
         $cameraEquipmentConfig->setActions(new ArrayCollection([$this->actionEntity]));
 

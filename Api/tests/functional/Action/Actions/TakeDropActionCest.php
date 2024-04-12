@@ -71,8 +71,7 @@ class TakeDropActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -86,14 +85,12 @@ class TakeDropActionCest
         $actionTake
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $actionDrop = new Action();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
@@ -103,8 +100,7 @@ class TakeDropActionCest
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameItem);
 
         // first let's test take action
@@ -157,14 +153,12 @@ class TakeDropActionCest
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
             ->setStatusName(PlayerStatusEnum::BURDENED)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($burdenedStatusConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$burdenedStatusConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$burdenedStatusConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -188,8 +182,7 @@ class TakeDropActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -203,14 +196,12 @@ class TakeDropActionCest
         $actionTake
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $actionDrop = new Action();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
@@ -220,15 +211,13 @@ class TakeDropActionCest
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameItem);
 
         $heavyConfig = new StatusConfig();
         $heavyConfig
             ->setStatusName(EquipmentStatusEnum::HEAVY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($heavyConfig);
         $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);
@@ -285,14 +274,12 @@ class TakeDropActionCest
         $hiddenConfig = new StatusConfig();
         $hiddenConfig
             ->setStatusName(EquipmentStatusEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hiddenConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$hiddenConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$hiddenConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -316,8 +303,7 @@ class TakeDropActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(6)
-            ->setHealthPoint(2)
-        ;
+            ->setHealthPoint(2);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -331,8 +317,7 @@ class TakeDropActionCest
         $actionTake
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
 
         /** @var EquipmentConfig $itemConfig */
@@ -341,8 +326,7 @@ class TakeDropActionCest
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameItem);
 
         $hiddenStatus = new Status($gameItem, $hiddenConfig);
@@ -376,20 +360,17 @@ class TakeDropActionCest
         $hiddenStatusConfig = new StatusConfig();
         $hiddenStatusConfig
             ->setStatusName(EquipmentStatusEnum::HIDDEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hiddenStatusConfig);
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
             ->setStatusName(PlayerStatusEnum::BURDENED)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($burdenedStatusConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$hiddenStatusConfig, $burdenedStatusConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$hiddenStatusConfig, $burdenedStatusConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -413,8 +394,7 @@ class TakeDropActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -428,8 +408,7 @@ class TakeDropActionCest
         $actionHide
             ->setActionName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionHide);
 
         /** @var EquipmentConfig $itemConfig */
@@ -438,8 +417,7 @@ class TakeDropActionCest
         $gameItem = new GameItem($player);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameItem);
 
         $burdenedStatus = new Status($player, $burdenedStatusConfig);
@@ -448,8 +426,7 @@ class TakeDropActionCest
 
         $heavyConfig
             ->setStatusName(EquipmentStatusEnum::HEAVY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($heavyConfig);
         $heavyStatus = new Status($gameItem, $heavyConfig);
         $I->haveInRepository($heavyStatus);

@@ -103,8 +103,7 @@ final class DailySporesLimitValidatorTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus
             ->setDaedalusVariables($daedalusConfig)
-            ->setSpores(1)
-        ;
+            ->setSpores(1);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -120,8 +119,7 @@ final class DailySporesLimitValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -133,14 +131,12 @@ final class DailySporesLimitValidatorTest extends TestCase
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
-            ->setDailySporeNb(4)
-        ;
+            ->setDailySporeNb(4);
 
         $daedalus = new Daedalus();
         $daedalus
             ->setDaedalusVariables($daedalusConfig)
-            ->setSpores(0)
-        ;
+            ->setSpores(0);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -151,8 +147,7 @@ final class DailySporesLimitValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

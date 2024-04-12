@@ -111,8 +111,7 @@ class ChannelController extends AbstractGameController
 
         $context = new Context();
         $context
-            ->setAttribute('currentPlayer', $player)
-        ;
+            ->setAttribute('currentPlayer', $player);
 
         $channel = $this->channelService->createPrivateChannel($player);
 
@@ -243,8 +242,7 @@ class ChannelController extends AbstractGameController
             $context = new Context();
             $context
                 ->setAttribute('currentPlayer', $player)
-                ->setAttribute('piratedPlayer', $piratedPlayer)
-            ;
+                ->setAttribute('piratedPlayer', $piratedPlayer);
 
             $view = $this->view($channels, 200);
             $view->setContext($context);

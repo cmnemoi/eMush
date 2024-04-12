@@ -58,8 +58,7 @@ class ExamineActionCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -73,8 +72,7 @@ class ExamineActionCest
         $action
             ->setActionName(ActionEnum::EXAMINE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -87,8 +85,7 @@ class ExamineActionCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         $this->examine->loadParameters($action, $player, $gameEquipment);

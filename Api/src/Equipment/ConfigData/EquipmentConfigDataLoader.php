@@ -65,8 +65,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             ->setIsFireBreakable($equipmentConfigData['isFireBreakable'])
             ->setIsFireDestroyable($equipmentConfigData['isFireDestroyable'])
             ->setDismountedProducts($equipmentConfigData['dismountedProducts'])
-            ->setIsPersonal($equipmentConfigData['isPersonal'])
-        ;
+            ->setIsPersonal($equipmentConfigData['isPersonal']);
     }
 
     protected function setEquipmentConfigActions(EquipmentConfig $equipmentConfig, array $equipmentConfigData): void

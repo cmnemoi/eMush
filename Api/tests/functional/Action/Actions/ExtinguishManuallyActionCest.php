@@ -65,15 +65,13 @@ class ExtinguishManuallyActionCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setGameStatus(GameStatusEnum::CURRENT)
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -88,8 +86,7 @@ class ExtinguishManuallyActionCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(10)
-        ;
+            ->setActionPoint(10);
 
         /** @var User $user */
         $user = $I->have(User::class);

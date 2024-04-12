@@ -27,8 +27,7 @@ class MaxNestedParentValidator extends ConstraintValidator
             $this->context
                 ->buildViolation($constraint->message)
                 ->setCode(MaxNestedParent::MAXIMUM_NESTED_MESSAGE_ERROR)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

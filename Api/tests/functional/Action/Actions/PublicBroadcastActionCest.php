@@ -60,8 +60,7 @@ class PublicBroadcastActionCest
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
         $I->haveInRepository($gameItem);
 
         /** @var CharacterConfig $player1Config */
@@ -77,8 +76,7 @@ class PublicBroadcastActionCest
         $player1->setPlayerVariables($player1Config);
         $player1
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -94,8 +92,7 @@ class PublicBroadcastActionCest
         $player2->setPlayerVariables($player2Config);
         $player2
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $player2Info = new PlayerInfo($player2, $user, $player2Config);
         $I->haveInRepository($player2Info);
         $player2->setPlayerInfo($player2Info);
@@ -143,8 +140,7 @@ class PublicBroadcastActionCest
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
         $I->haveInRepository($gameItem);
 
         /** @var CharacterConfig $player1Config */
@@ -160,8 +156,7 @@ class PublicBroadcastActionCest
         $player1->setPlayerVariables($player1Config);
         $player1
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -177,8 +172,7 @@ class PublicBroadcastActionCest
         $player2->setPlayerVariables($player2Config);
         $player2
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $player2Info = new PlayerInfo($player2, $user, $player2Config);
         $I->haveInRepository($player2Info);
         $player2->setPlayerInfo($player2Info);

@@ -70,8 +70,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                 $door = new Door($place);
                 $door
                     ->setName($doorName)
-                    ->setEquipment($doorConfig)
-                ;
+                    ->setEquipment($doorConfig);
             }
 
             $door->addRoom($place);

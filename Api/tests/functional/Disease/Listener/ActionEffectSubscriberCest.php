@@ -199,15 +199,13 @@ class ActionEffectSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('someName')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-        ;
+            ->setDiseaseConfig($diseaseConfig);
         $I->haveInRepository($diseasePlayer);
 
         $event = new ApplyEffectEvent(
@@ -267,16 +265,14 @@ class ActionEffectSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('someName')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setResistancePoint(1)
-        ;
+            ->setResistancePoint(1);
         $I->haveInRepository($diseasePlayer);
 
         $event = new ApplyEffectEvent(
@@ -306,15 +302,13 @@ class ActionEffectSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName($diseaseName)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $this->tester->haveInRepository($diseaseConfig);
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
             ->setName($rationName)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $this->tester->haveInRepository($consumableDisease);
 
@@ -322,14 +316,12 @@ class ActionEffectSubscriberCest
         $consumableAttribute
             ->setRate(100)
             ->setDisease($diseaseName)
-            ->setConsumableDisease($consumableDisease)
-        ;
+            ->setConsumableDisease($consumableDisease);
 
         if ($delayed) {
             $consumableAttribute
                 ->setDelayMin(10)
-                ->setDelayLength(10)
-            ;
+                ->setDelayLength(10);
         }
 
         $this->tester->haveInRepository($consumableAttribute);
@@ -347,16 +339,14 @@ class ActionEffectSubscriberCest
         $itemConfig
             ->setEquipmentName('itemName')
             ->setMechanics(new ArrayCollection([$ration]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($itemConfig);
 
         $gameItem = new GameItem(new Place());
         $gameItem
             ->setName('itemName')
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
 
         return $gameItem;
     }

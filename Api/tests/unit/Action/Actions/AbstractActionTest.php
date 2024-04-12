@@ -42,8 +42,7 @@ abstract class AbstractActionTest extends TestCase
                 fn (AbstractGameEvent $event) => $event instanceof ActionEvent
                 && $event->getAction() === $this->actionEntity
             )
-            ->times(3)
-        ;
+            ->times(3);
 
         $this->actionService = \Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
@@ -66,8 +65,7 @@ abstract class AbstractActionTest extends TestCase
         $action
             ->setActionCost($actionPointCost)
             ->setMovementCost($movementPoint)
-            ->setActionName($name)
-        ;
+            ->setActionName($name);
 
         return $action;
     }
@@ -81,16 +79,14 @@ abstract class AbstractActionTest extends TestCase
             ->setMaxItemInInventory(3)
             ->setInitActionPoint(10)
             ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10)
-        ;
+            ->setInitMoralPoint(10);
 
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setSkills($skills)
-        ;
+            ->setSkills($skills);
 
         $playerInfo = new PlayerInfo(
             $player,

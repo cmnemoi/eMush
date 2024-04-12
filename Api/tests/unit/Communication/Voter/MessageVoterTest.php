@@ -56,8 +56,7 @@ final class MessageVoterTest extends TestCase
             ->shouldReceive('findCurrentGameByUser')
             ->with($user)
             ->andReturn($playerInfo)
-            ->once()
-        ;
+            ->once();
 
         yield 'anonymous cannot edit' => [
             MessageVoter::VIEW,
@@ -84,8 +83,7 @@ final class MessageVoterTest extends TestCase
             ->shouldReceive('findCurrentGameByUser')
             ->with($user)
             ->andReturn($playerInfo)
-            ->once()
-        ;
+            ->once();
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
@@ -97,8 +95,7 @@ final class MessageVoterTest extends TestCase
             ->shouldReceive('findCurrentGameByUser')
             ->with($user)
             ->andReturn($playerInfo)
-            ->once()
-        ;
+            ->once();
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
@@ -121,8 +118,7 @@ final class MessageVoterTest extends TestCase
             ->shouldReceive('findCurrentGameByUser')
             ->with($user)
             ->andReturn($playerInfo)
-            ->once()
-        ;
+            ->once();
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
@@ -131,16 +127,14 @@ final class MessageVoterTest extends TestCase
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($channel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $channel->addParticipant($channelPlayer);
 
         $this->playerInfoRepository
             ->shouldReceive('findCurrentGameByUser')
             ->with($user)
             ->andReturn($playerInfo)
-            ->once()
-        ;
+            ->once();
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
@@ -152,8 +146,7 @@ final class MessageVoterTest extends TestCase
             ->shouldReceive('findCurrentGameByUser')
             ->with($user)
             ->andReturn($playerInfo)
-            ->once()
-        ;
+            ->once();
         $this->channelService->shouldReceive('getPiratedPlayer')->with($player)->andReturn(null)->once();
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 

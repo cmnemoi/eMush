@@ -53,15 +53,13 @@ final class DropActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setEquipmentName('itemName')
-        ;
+            ->setEquipmentName('itemName');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $gameItem
             ->setName('itemName')
-            ->setHolder($player)
-        ;
+            ->setHolder($player);
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->eventService->shouldReceive('callEvent')->once();

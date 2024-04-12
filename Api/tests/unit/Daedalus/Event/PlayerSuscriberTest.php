@@ -73,8 +73,7 @@ final class PlayerSuscriberTest extends TestCase
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
         $player
             ->setDaedalus($daedalus)
-            ->setPlayerInfo($playerInfo)
-        ;
+            ->setPlayerInfo($playerInfo);
 
         $date = new \DateTime('tomorrow');
 
@@ -86,8 +85,7 @@ final class PlayerSuscriberTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
-            ->once()
-        ;
+            ->once();
 
         $this->playerSubscriber->onDeathPlayer($event);
     }

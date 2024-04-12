@@ -209,8 +209,7 @@ class StatusService implements StatusServiceInterface
         if ($attempt && $attempt->getAction() !== $actionName) {
             // Re-initialize attempts with new action
             $attempt
-                ->setAction($actionName)
-            ;
+                ->setAction($actionName);
             $attempt->getGameVariables()->setValueByName(0, $attempt->getName());
         } elseif ($attempt === null) { // Create Attempt
             $attempt = $this->createAttemptStatus(
@@ -233,8 +232,7 @@ class StatusService implements StatusServiceInterface
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment
     {
         $pickedEquipments = $equipments
-            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
-        ;
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null);
         if ($pickedEquipments->isEmpty()) {
             throw new \Exception("no such status ({$statusName}) in item collection");
         }

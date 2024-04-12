@@ -108,8 +108,7 @@ class CycleService implements CycleServiceInterface
         $firstDayDate
             ->setTimezone(new \DateTimeZone($timeZone))
             ->setTime(0, 0)
-            ->setTimezone(new \DateTimeZone('UTC'))
-        ;
+            ->setTimezone(new \DateTimeZone('UTC'));
 
         $gameDayLength = (int) ($daedalusConfig->getCyclePerGameDay() * $daedalusConfig->getCycleLength()); // in min
         $numberOfCompleteDay = (int) ($this->getDateIntervalAsMinutes($firstCycleDate, $firstDayDate) / $gameDayLength);

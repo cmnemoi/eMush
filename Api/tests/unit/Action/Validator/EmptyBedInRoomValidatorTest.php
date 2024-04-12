@@ -58,8 +58,7 @@ final class EmptyBedInRoomValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -79,15 +78,13 @@ final class EmptyBedInRoomValidatorTest extends TestCase
         $statusConfig->setVisibility(VisibilityEnum::PUBLIC)->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $lyingDownStatus = new Status($player, $statusConfig);
         $lyingDownStatus
-            ->setTarget($gameEquipment)
-        ;
+            ->setTarget($gameEquipment);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'execute');
@@ -104,8 +101,7 @@ final class EmptyBedInRoomValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'execute');

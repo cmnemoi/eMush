@@ -57,8 +57,7 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
 
         /** @var GameConfig $gameConfig */
@@ -114,22 +113,19 @@ class PrivateChannelAuthorizationCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo2)
-        ;
+            ->setParticipant($playerInfo2);
         $I->haveInRepository($channelPlayer2);
 
         // initialize talkies
@@ -144,16 +140,14 @@ class PrivateChannelAuthorizationCest
         $talkie1
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player)
-        ;
+            ->setOwner($player);
         $I->haveInRepository($talkie1);
 
         $talkie2 = new GameItem($player2);
         $talkie2
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player2)
-        ;
+            ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
         $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
@@ -176,15 +170,13 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var GameConfig $gameConfig */
@@ -240,22 +232,19 @@ class PrivateChannelAuthorizationCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo2)
-        ;
+            ->setParticipant($playerInfo2);
         $I->haveInRepository($channelPlayer2);
 
         // add a door
@@ -267,8 +256,7 @@ class PrivateChannelAuthorizationCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -286,16 +274,14 @@ class PrivateChannelAuthorizationCest
         $talkie1
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player)
-        ;
+            ->setOwner($player);
         $I->haveInRepository($talkie1);
 
         $talkie2 = new GameItem($player2);
         $talkie2
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player2)
-        ;
+            ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
         $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
@@ -330,15 +316,13 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var GameConfig $gameConfig */
@@ -394,22 +378,19 @@ class PrivateChannelAuthorizationCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo2)
-        ;
+            ->setParticipant($playerInfo2);
         $I->haveInRepository($channelPlayer2);
 
         // add a door
@@ -421,8 +402,7 @@ class PrivateChannelAuthorizationCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -440,16 +420,14 @@ class PrivateChannelAuthorizationCest
         $talkie1
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player)
-        ;
+            ->setOwner($player);
         $I->haveInRepository($talkie1);
 
         $talkie2 = new GameItem($player2);
         $talkie2
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player2)
-        ;
+            ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
         $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
@@ -484,8 +462,7 @@ class PrivateChannelAuthorizationCest
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
 
         /** @var GameConfig $gameConfig */
@@ -545,29 +522,25 @@ class PrivateChannelAuthorizationCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo2)
-        ;
+            ->setParticipant($playerInfo2);
         $I->haveInRepository($channelPlayer2);
 
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         // initialize talkies
@@ -582,16 +555,14 @@ class PrivateChannelAuthorizationCest
         $talkie1
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player)
-        ;
+            ->setOwner($player);
         $I->haveInRepository($talkie1);
 
         $talkie2 = new GameItem($player2);
         $talkie2
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player2)
-        ;
+            ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
         $this->dropAction->loadParameters($dropActionEntity, $player2, $talkie2);
@@ -626,8 +597,7 @@ class PrivateChannelAuthorizationCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
@@ -635,23 +605,20 @@ class PrivateChannelAuthorizationCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $dropActionEntity = new Action();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
         $moveActionEntity = new Action();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
         /** @var GameConfig $gameConfig */
@@ -719,8 +686,7 @@ class PrivateChannelAuthorizationCest
         $door = new Door($room2);
         $door
             ->setName('door name')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
         $room->addDoor($door);
         $room2->addDoor($door);
@@ -730,29 +696,25 @@ class PrivateChannelAuthorizationCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo2)
-        ;
+            ->setParticipant($playerInfo2);
         $I->haveInRepository($channelPlayer2);
 
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         // initialize talkies
@@ -767,16 +729,14 @@ class PrivateChannelAuthorizationCest
         $talkie1
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player)
-        ;
+            ->setOwner($player);
         $I->haveInRepository($talkie1);
 
         $talkie2 = new GameItem($player2);
         $talkie2
             ->setEquipment($equipmentConfig)
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setOwner($player2)
-        ;
+            ->setOwner($player2);
         $I->haveInRepository($talkie2);
 
         // start test

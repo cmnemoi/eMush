@@ -58,14 +58,12 @@ final class ChangeHolderEventCest extends AbstractFunctionalTest
         $superFreezer = new GameEquipment($player);
         $superFreezer
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setEquipment($superFreezerEquipmentConfig)
-        ;
+            ->setEquipment($superFreezerEquipmentConfig);
         $I->haveInRepository($superFreezer);
         $talkie = new GameItem($player);
         $talkie
             ->setName(ItemEnum::WALKIE_TALKIE)
-            ->setEquipment($talkieEquipmentConfig)
-        ;
+            ->setEquipment($talkieEquipmentConfig);
         $I->haveInRepository($talkie);
 
         $burdenedStatus = new Status($player, $burdenedStatusConfig);

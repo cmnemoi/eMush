@@ -31,8 +31,7 @@ class RandomItemPlacesDataLoader extends ConfigDataLoader
             $randomItemPlaces
                 ->setName($randomItemPlacesData['name'])
                 ->setItems($randomItemPlacesData['items'])
-                ->setPlaces($randomItemPlacesData['places'])
-            ;
+                ->setPlaces($randomItemPlacesData['places']);
 
             $this->entityManager->persist($randomItemPlaces);
         }

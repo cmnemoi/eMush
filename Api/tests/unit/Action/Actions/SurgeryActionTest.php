@@ -93,8 +93,7 @@ final class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
@@ -106,14 +105,12 @@ final class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::FAIL)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -157,8 +154,7 @@ final class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
@@ -170,14 +166,12 @@ final class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::SUCCESS)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -222,8 +216,7 @@ final class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
@@ -235,14 +228,12 @@ final class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::CRITICAL_SUCCESS)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 

@@ -31,8 +31,7 @@ class IsSameGenderValidator extends ConstraintValidator
 
         if ($this->isSameGenderCouple($player, $targetPlayer) && !$this->isCoupleWithAndie($player, $targetPlayer)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 

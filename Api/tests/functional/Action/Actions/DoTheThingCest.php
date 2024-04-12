@@ -81,15 +81,13 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($didTheThingStatus);
         $pregnantStatus = new StatusConfig();
         $pregnantStatus
             ->setStatusName(PlayerStatusEnum::PREGNANT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($pregnantStatus);
         $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
 
@@ -97,15 +95,13 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $diseaseConfig
             ->setDiseaseName('disease')
             ->buildName(GameConfigEnum::TEST)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setCauseName('sex')
             ->setDiseases(['disease'])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseConfig);
 
         $infectionDiseaseCauseConfig = $I->grabEntityFromRepository(DiseaseCauseConfig::class, ['causeName' => 'infection']);
@@ -130,8 +126,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST)
-            ->setOutputQuantity(2)
-        ;
+            ->setOutputQuantity(2);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -156,8 +151,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->setPlayerVariables($maleCharacterConfig);
         $player
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -175,8 +169,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $targetPlayer->setPlayerVariables($maleCharacterConfig);
         $targetPlayer
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $I->flushToDatabase($targetPlayer);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
@@ -192,8 +185,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
@@ -249,8 +241,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -274,8 +265,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->setPlayerVariables($femaleCharacterConfig);
         $player
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -293,8 +283,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $targetPlayer->setPlayerVariables($maleCharacterConfig);
         $targetPlayer
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $I->flushToDatabase($targetPlayer);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
@@ -310,8 +299,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
@@ -341,8 +329,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -366,8 +353,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->setPlayerVariables($femaleCharacterConfig);
         $player
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -384,8 +370,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $targetPlayer->setPlayerVariables($maleCharacterConfig);
         $targetPlayer
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -400,8 +385,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
@@ -441,8 +425,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -466,8 +449,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->setPlayerVariables($femaleCharacterConfig);
         $player
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -485,8 +467,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $targetPlayer->setPlayerVariables($maleCharacterConfig);
         $targetPlayer
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $I->flushToDatabase($targetPlayer);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
@@ -511,15 +492,13 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->setStartCharge(1)
             ->setAutoRemove(true)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($didTheThingStatus);
         $pregnantStatus = new StatusConfig();
         $pregnantStatus
             ->setStatusName(PlayerStatusEnum::PREGNANT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($pregnantStatus);
         $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
 
@@ -527,23 +506,20 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $diseaseConfig
             ->setDiseaseName('disease')
             ->buildName(GameConfigEnum::TEST)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setCauseName('sex')
             ->setDiseases(['disease'])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseConfig);
 
         $diseaseCauseConfig2 = new DiseaseCauseConfig();
         $diseaseCauseConfig2
             ->setCauseName('infection')
             ->setDiseases(['disease'])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseConfig);
 
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -560,8 +536,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $mushChannel = new Channel();
         $mushChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH)
-        ;
+            ->setScope(ChannelScopeEnum::MUSH);
         $I->haveInRepository($mushChannel);
 
         /** @var Place $room */
@@ -572,8 +547,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -593,15 +567,13 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $mushConfig = new ChargeStatusConfig();
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
 
         $sporesStatusConfig = new ChargeStatusConfig();
         $sporesStatusConfig
             ->setStatusName(PlayerStatusEnum::SPORES)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($sporesStatusConfig);
 
         /** @var Player $mushPlayer */
@@ -617,8 +589,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $mushPlayer
             ->setActionPoint(10)
             ->setMoralPoint(6)
-            ->setSpores(1)
-        ;
+            ->setSpores(1);
         $I->flushToDatabase($mushPlayer);
 
         /** @var User $user */
@@ -637,8 +608,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $humanPlayer
             ->setActionPoint(10)
             ->setMoralPoint(6)
-            ->setSpores(0)
-        ;
+            ->setSpores(0);
         $I->flushToDatabase($humanPlayer);
         $humanPlayerInfo = new PlayerInfo($humanPlayer, $user, $maleCharacterConfig);
 
@@ -654,8 +624,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         $humanPlayer->setFlirts(new ArrayCollection([$mushPlayer]));
@@ -688,8 +657,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::DO_THE_THING)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $femaleCharacterConfig */
@@ -713,8 +681,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->setPlayerVariables($femaleCharacterConfig);
         $player
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -731,8 +698,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $targetPlayer->setPlayerVariables($maleCharacterConfig);
         $targetPlayer
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $maleCharacterConfig);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -747,8 +713,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         $targetPlayer->setFlirts(new ArrayCollection([$player]));
@@ -785,8 +750,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $sofa = new GameEquipment($laboratory);
         $sofa
             ->setName(EquipmentEnum::SWEDISH_SOFA)
-            ->setEquipment($sofaConfig)
-        ;
+            ->setEquipment($sofaConfig);
         $I->haveInRepository($sofa);
 
         // given the sofa is broken

@@ -65,8 +65,7 @@ final class SpecialistPointCest extends AbstractFunctionalTest
         $this->turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::FRONT_ALPHA_TURRET));
         $this->turret
             ->setName('turret')
-            ->setEquipment($turretConfig)
-        ;
+            ->setEquipment($turretConfig);
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);

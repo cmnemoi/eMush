@@ -89,22 +89,19 @@ class ActionSubscriberCest
         $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie);
 
         $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
@@ -121,15 +118,13 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($publicChannel);
@@ -196,22 +191,19 @@ class ActionSubscriberCest
         $iTrackie = new GameItem($room);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie);
 
         $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
@@ -228,15 +220,13 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($publicChannel);
@@ -305,22 +295,19 @@ class ActionSubscriberCest
         $iTrackie = new GameItem($player);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie);
 
         $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
@@ -337,15 +324,13 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($publicChannel);
@@ -414,15 +399,13 @@ class ActionSubscriberCest
         $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
@@ -439,15 +422,13 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($publicChannel);
@@ -517,15 +498,13 @@ class ActionSubscriberCest
         $iTrackie2 = new GameItem($player);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
@@ -542,15 +521,13 @@ class ActionSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($publicChannel);

@@ -47,20 +47,17 @@ class StatusRepository extends ServiceEntityRepository
                     $queryBuilder->expr()->eq('equipment_place.daedalus', ':daedalus')
                 )
             )
-            ->setParameter('daedalus', $criteria->getDaedalus())
-        ;
+            ->setParameter('daedalus', $criteria->getDaedalus());
 
         if ($name = $criteria->getName()) {
             if (\is_array($name)) {
                 $queryBuilder
                     ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
-                    ->andWhere($queryBuilder->expr()->in('status_config.statusName', ':name'))
-                ;
+                    ->andWhere($queryBuilder->expr()->in('status_config.statusName', ':name'));
             } else {
                 $queryBuilder
                     ->join(StatusConfig::class, 'status_config', Join::WITH, 'status_config = status.statusConfig')
-                    ->andWhere($queryBuilder->expr()->eq('status_config.statusName', ':name'))
-                ;
+                    ->andWhere($queryBuilder->expr()->eq('status_config.statusName', ':name'));
             }
             $queryBuilder->setParameter('name', $name);
         }
@@ -82,8 +79,7 @@ class StatusRepository extends ServiceEntityRepository
             ))
             ->andWhere($queryBuilder->expr()->eq('status_config.statusName', ':name'))
             ->setParameter(':status_target', $target)
-            ->setParameter(':name', $name)
-        ;
+            ->setParameter(':name', $name);
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }

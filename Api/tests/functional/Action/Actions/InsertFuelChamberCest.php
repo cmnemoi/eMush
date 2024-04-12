@@ -170,8 +170,7 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         $combusterChamber = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ENGINE_ROOM));
         $combusterChamber
             ->setName(EquipmentEnum::COMBUSTION_CHAMBER)
-            ->setEquipment($combustionChamberConfig)
-        ;
+            ->setEquipment($combustionChamberConfig);
         $I->haveInRepository($combusterChamber);
 
         return $combusterChamber;
@@ -183,8 +182,7 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         $fuelCapsule = new GameItem($this->player);
         $fuelCapsule
             ->setName(ItemEnum::FUEL_CAPSULE)
-            ->setEquipment($fuelCapsuleConfig)
-        ;
+            ->setEquipment($fuelCapsuleConfig);
         $I->haveInRepository($fuelCapsule);
 
         return $fuelCapsule;

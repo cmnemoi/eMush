@@ -58,8 +58,7 @@ final class ReachValidatorTest extends TestCase
 
         $player = new Player();
         $player
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $target = new Player();
         $playerInfo = new PlayerInfo(
@@ -69,16 +68,14 @@ final class ReachValidatorTest extends TestCase
         );
         $target
             ->setPlace($room)
-            ->setPlayerInfo($playerInfo)
-        ;
+            ->setPlayerInfo($playerInfo);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -104,8 +101,7 @@ final class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -132,16 +128,14 @@ final class ReachValidatorTest extends TestCase
         );
         $target
             ->setPlace(new Place())
-            ->setPlayerInfo($playerInfo)
-        ;
+            ->setPlayerInfo($playerInfo);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -166,8 +160,7 @@ final class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -194,8 +187,7 @@ final class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -216,8 +208,7 @@ final class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -241,8 +232,7 @@ final class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -266,8 +256,7 @@ final class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

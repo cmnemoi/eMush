@@ -153,8 +153,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $consumeVomiting,
                 $moveVomiting,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($foodPoisoning);
 
         $acidReflux = new DiseaseConfig();
@@ -165,8 +164,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $consumeVomiting,
                 $moveVomiting,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($acidReflux);
 
         $blackBite = new DiseaseConfig();
@@ -176,8 +174,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle1ActionLostRand10,
                 $infected4HealthLoss,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blackBite);
 
         $catAllergy = new DiseaseConfig();
@@ -187,24 +184,21 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $catAllergySymptom,
                 $catSneezing,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($catAllergy);
 
         $cold = new DiseaseConfig();
         $cold
             ->setDiseaseName(DiseaseEnum::COLD)
             ->setModifierConfigs([$cycle1ActionLostRand20])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($cold);
 
         $extremeTinnitus = new DiseaseConfig();
         $extremeTinnitus
             ->setDiseaseName(DiseaseEnum::EXTREME_TINNITUS)
             ->setModifierConfigs([$cycle1ActionLostRand16, $reduceMax2MoralPoint])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($extremeTinnitus);
 
         $flu = new DiseaseConfig();
@@ -219,8 +213,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycleDirtinessRand40,
                 $moveVomiting,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($flu);
 
         $fungicInfection = new DiseaseConfig();
@@ -231,8 +224,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax2HealthPoint,
                 $cycleDirtiness,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($fungicInfection);
 
         $gastroenteritis = new DiseaseConfig();
@@ -247,23 +239,20 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycleDirtiness,
                 $moveVomiting,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($gastroenteritis);
 
         $junkbumpkinitis = new DiseaseConfig();
         $junkbumpkinitis
             ->setDiseaseName(DiseaseEnum::JUNKBUMPKINITIS)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($junkbumpkinitis);
 
         $migraine = new DiseaseConfig();
         $migraine
             ->setDiseaseName(DiseaseEnum::MIGRAINE)
             ->setModifierConfigs([$cycle1ActionLostRand20])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($migraine);
 
         $mushAllergy = new DiseaseConfig();
@@ -273,8 +262,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $infected4HealthLoss,
                 $mushSneezing,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushAllergy);
 
         $quincksOedema = new DiseaseConfig();
@@ -284,8 +272,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $moveIncreaseMovement,
                 $reduceMax4HealthPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($quincksOedema);
 
         $rejuvenation = new DiseaseConfig();
@@ -296,8 +283,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle1ActionLost,
                 $increaseCycleDiseaseChances10,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rejuvenation);
 
         $rubella = new DiseaseConfig();
@@ -308,24 +294,21 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax1HealthPoint,
                 $reduceMax1MoralPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rubella);
 
         $sepsis = new DiseaseConfig();
         $sepsis
             ->setDiseaseName(DiseaseEnum::SEPSIS)
             ->setModifierConfigs([$cycle4HealthLost])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($sepsis);
 
         $sinusStorm = new DiseaseConfig();
         $sinusStorm
             ->setDiseaseName(DiseaseEnum::SINUS_STORM)
             ->setModifierConfigs([$cycle1ActionLostRand30])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($sinusStorm);
 
         $skinInflammation = new DiseaseConfig();
@@ -334,8 +317,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $breakouts,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($skinInflammation);
 
@@ -346,8 +328,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle1SatietyIncrease,
                 $moveVomiting,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($nausea);
 
         $smallPox = new DiseaseConfig();
@@ -359,8 +340,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax2HealthPoint,
                 $reduceMax2MoralPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($smallPox);
 
         $spaceRabies = new DiseaseConfig();
@@ -372,8 +352,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $drooling,
                 $foamingMouth,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($spaceRabies);
 
         $syphilis = new DiseaseConfig();
@@ -384,8 +363,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle2ActionLostRand40,
                 $shootAction10PercentAccuracyLost,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($syphilis);
 
         $tapeworm = new DiseaseConfig();
@@ -394,8 +372,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $cycle1SatietyLost,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($tapeworm);
 
         $vitaminDeficiency = new DiseaseConfig();
@@ -404,8 +381,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $cycle1ActionLostRand10,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($vitaminDeficiency);
 
         $gameConfig
@@ -432,8 +408,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addDiseaseConfig($cold)
             ->addDiseaseConfig($catAllergy)
             ->addDiseaseConfig($blackBite)
-            ->addDiseaseConfig($acidReflux)
-        ;
+            ->addDiseaseConfig($acidReflux);
         $manager->persist($gameConfig);
 
         $manager->flush();

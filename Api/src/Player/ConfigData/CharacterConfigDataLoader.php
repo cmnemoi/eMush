@@ -74,8 +74,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             ->setInitSatiety($characterConfigData['initSatiety'])
             ->setMaxItemInInventory($characterConfigData['maxItemInInventory'])
             ->setMaxNumberPrivateChannel($characterConfigData['maxNumberPrivateChannel'])
-            ->setMaxDiscoverablePlanets($characterConfigData['maxDiscoverablePlanets'])
-        ;
+            ->setMaxDiscoverablePlanets($characterConfigData['maxDiscoverablePlanets']);
     }
 
     private function setCharacterConfigActions(CharacterConfig $characterConfig, array $characterConfigData): void

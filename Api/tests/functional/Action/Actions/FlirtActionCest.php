@@ -57,8 +57,7 @@ class FlirtActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -79,8 +78,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerVariables($characterConfig2);
         $targetPlayer
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -131,8 +129,7 @@ class FlirtActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -152,8 +149,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerVariables($characterConfig);
         $targetPlayer
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -188,8 +184,7 @@ class FlirtActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -209,8 +204,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerVariables($characterConfig);
         $targetPlayer
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -245,8 +239,7 @@ class FlirtActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -266,8 +259,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerVariables($characterConfig);
         $targetPlayer
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);
@@ -318,8 +310,7 @@ class FlirtActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -339,8 +330,7 @@ class FlirtActionCest
         $targetPlayer->setPlayerVariables($characterConfig);
         $targetPlayer
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
         $I->haveInRepository($targetPlayerInfo);

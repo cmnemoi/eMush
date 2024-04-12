@@ -109,8 +109,7 @@ final class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10)
-        ;
+            ->setOxygen(10);
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
@@ -159,8 +158,7 @@ final class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10)
-        ;
+            ->setOxygen(10);
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -199,8 +197,7 @@ final class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10)
-        ;
+            ->setOxygen(10);
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -232,8 +229,7 @@ final class PlantCycleHandlerTest extends TestCase
 
         $plant = new ItemConfig();
         $plant
-            ->setEquipmentName('plant name')
-        ;
+            ->setEquipmentName('plant name');
         $plantType = new Plant();
         $plantType->setFruitName($newFruit->getEquipmentName());
 
@@ -242,14 +238,12 @@ final class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10)
-        ;
+            ->setOxygen(10);
 
         $gamePlant = new GameItem($room);
         $gamePlant
             ->setName('plant name')
-            ->setEquipment($plant)
-        ;
+            ->setEquipment($plant);
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->gameEquipmentService->shouldReceive('persist');
@@ -261,8 +255,7 @@ final class PlantCycleHandlerTest extends TestCase
             ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
                 && $event->getRoundedQuantity() === 10)
-            ->once()
-        ;
+            ->once();
 
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
@@ -291,8 +284,7 @@ final class PlantCycleHandlerTest extends TestCase
 
         $plant = new ItemConfig();
         $plant
-            ->setEquipmentName('plant name')
-        ;
+            ->setEquipmentName('plant name');
         $plantType = new Plant();
         $plantType->setFruitName($newFruit->getEquipmentName());
 
@@ -301,15 +293,13 @@ final class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10)
-        ;
+            ->setOxygen(10);
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $gamePlant = new GameItem($room);
         $gamePlant
             ->setName('plant name')
-            ->setEquipment($plant)
-        ;
+            ->setEquipment($plant);
         $thirstyConfig = new StatusConfig();
         $thirstyConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
         $status = new Status($gamePlant, $thirstyConfig);
@@ -321,8 +311,7 @@ final class PlantCycleHandlerTest extends TestCase
             ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
                 && $event->getDaedalus() === $daedalus
                 && $event->getRoundedQuantity() === 10)
-            ->once()
-        ;
+            ->once();
 
         // Thirsty plant
         $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
@@ -351,8 +340,7 @@ final class PlantCycleHandlerTest extends TestCase
 
         $plant = new ItemConfig();
         $plant
-            ->setEquipmentName('plant name')
-        ;
+            ->setEquipmentName('plant name');
         $plantType = new Plant();
         $plantType->setFruitName($newFruit->getEquipmentName());
 
@@ -361,14 +349,12 @@ final class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10)
-        ;
+            ->setOxygen(10);
 
         $gamePlant = new GameItem($room);
         $gamePlant
             ->setName('plant name')
-            ->setEquipment($plant)
-        ;
+            ->setEquipment($plant);
 
         $dryConfig = new StatusConfig();
         $dryConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
@@ -380,8 +366,7 @@ final class PlantCycleHandlerTest extends TestCase
             ->withArgs(
                 static fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent
                 && $event->getGameEquipment() === $gamePlant
-            )->once()
-        ;
+            )->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // Dried out plant

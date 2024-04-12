@@ -213,8 +213,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $planet = new Planet($this->player);
         $planet
             ->setName($planetName)
-            ->setSize(3)
-        ;
+            ->setSize(3);
         $I->haveInRepository($planet);
 
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);

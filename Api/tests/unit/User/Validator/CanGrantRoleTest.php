@@ -35,8 +35,7 @@ final class CanGrantRoleTest extends TestCase
         $this->tokenStorage
             ->shouldReceive('getToken')
             ->andReturn(null)
-            ->byDefault()
-        ;
+            ->byDefault();
 
         $this->validator = new CanGrantRoleValidator(
             $this->roleHierarchy,
@@ -59,8 +58,7 @@ final class CanGrantRoleTest extends TestCase
         $this->roleHierarchy
             ->shouldReceive('getReachableRoleNames')
             ->andReturn([RoleEnum::MODERATOR, RoleEnum::ADMIN])
-            ->once()
-        ;
+            ->once();
 
         $this->validator->validate($roles, $constraint);
     }
@@ -74,8 +72,7 @@ final class CanGrantRoleTest extends TestCase
         $this->roleHierarchy
             ->shouldReceive('getReachableRoleNames')
             ->andReturn([RoleEnum::USER, RoleEnum::MODERATOR])
-            ->once()
-        ;
+            ->once();
 
         $this->validator->validate($roles, $constraint);
     }

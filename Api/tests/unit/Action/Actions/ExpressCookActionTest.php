@@ -70,8 +70,7 @@ final class ExpressCookActionTest extends AbstractActionTest
         $ration->setEquipmentName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setName('ration')
-        ;
+            ->setName('ration');
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
@@ -82,8 +81,7 @@ final class ExpressCookActionTest extends AbstractActionTest
         $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
-            ->setName(ToolItemEnum::MICROWAVE)
-        ;
+            ->setName(ToolItemEnum::MICROWAVE);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
@@ -111,16 +109,14 @@ final class ExpressCookActionTest extends AbstractActionTest
         $ration->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION);
 
         $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
         $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
-            ->setName(ToolItemEnum::MICROWAVE)
-        ;
+            ->setName(ToolItemEnum::MICROWAVE);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -129,12 +125,10 @@ final class ExpressCookActionTest extends AbstractActionTest
         $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
-            ->setEquipmentName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setEquipmentName(GameRationEnum::COOKED_RATION);
         $gameCookedRation
             ->setEquipment($cookedRation)
-            ->setName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setName(GameRationEnum::COOKED_RATION);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();

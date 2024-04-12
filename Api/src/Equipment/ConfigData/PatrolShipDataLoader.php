@@ -32,8 +32,7 @@ class PatrolShipDataLoader extends MechanicsDataLoader
                 ->setFailedManoeuvreDaedalusDamage($patrolShipData['failedManoeuvreDaedalusDamage'])
                 ->setFailedManoeuvrePatrolShipDamage($patrolShipData['failedManoeuvrePatrolShipDamage'])
                 ->setFailedManoeuvrePlayerDamage($patrolShipData['failedManoeuvrePlayerDamage'])
-                ->setNumberOfExplorationSteps($patrolShipData['numberOfExplorationSteps'])
-            ;
+                ->setNumberOfExplorationSteps($patrolShipData['numberOfExplorationSteps']);
             $this->setMechanicsActions($patrolShip, $patrolShipData);
 
             $this->entityManager->persist($patrolShip);

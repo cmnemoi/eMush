@@ -30,8 +30,7 @@ class TriumphConfigDataLoader extends ConfigDataLoader
                 ->setName($triumphConfigData['name'])
                 ->setTriumph($triumphConfigData['triumph'])
                 ->setIsAllCrew($triumphConfigData['is_all_crew'])
-                ->setTeam($triumphConfigData['team'])
-            ;
+                ->setTeam($triumphConfigData['team']);
 
             $this->entityManager->persist($triumphConfig);
         }

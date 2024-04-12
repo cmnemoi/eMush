@@ -71,15 +71,13 @@ final class CycleEventCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -93,16 +91,14 @@ final class CycleEventCest extends AbstractFunctionalTest
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         $characterConfig
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig);
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         $characterConfig2
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig2);
 
         /** @var Player $player */
@@ -151,8 +147,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         // let's increase the duration of the ship to increase the number of incidents
         $this->daedalus
             ->setOxygen(10)
-            ->setDay(100)
-        ;
+            ->setDay(100);
 
         $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->setMaxValue(200)->setValue(200);
         $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->setMaxValue(200)->setValue(200);

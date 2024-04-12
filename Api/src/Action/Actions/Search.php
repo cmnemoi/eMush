@@ -58,14 +58,12 @@ class Search extends AbstractAction
             ->getEquipments()
             ->filter(
                 static fn (GameEquipment $gameEquipment) => ($gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN) !== null)
-            )
-        ;
+            );
 
         if (!$hiddenItems->isEmpty()) {
             /** @var GameItem $mostRecentHiddenItem */
             $mostRecentHiddenItem = $this->statusService
-                ->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems)
-            ;
+                ->getMostRecent(EquipmentStatusEnum::HIDDEN, $hiddenItems);
 
             if (!($hiddenStatus = $mostRecentHiddenItem->getStatusByName(EquipmentStatusEnum::HIDDEN))
                 || !($hiddenBy = $hiddenStatus->getTarget())

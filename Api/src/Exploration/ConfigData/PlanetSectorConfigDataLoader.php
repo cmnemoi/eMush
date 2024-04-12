@@ -28,8 +28,7 @@ class PlanetSectorConfigDataLoader extends ConfigDataLoader
                 ->setWeightAtPlanetAnalysis($data['weightAtPlanetAnalysis'])
                 ->setWeightAtPlanetExploration($data['weightAtPlanetExploration'])
                 ->setMaxPerPlanet($data['maxPerPlanet'])
-                ->setExplorationEvents($data['explorationEvents'])
-            ;
+                ->setExplorationEvents($data['explorationEvents']);
             $this->entityManager->persist($planetSectorConfig);
         }
         $this->entityManager->flush();

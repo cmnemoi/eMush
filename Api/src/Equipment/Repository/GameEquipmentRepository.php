@@ -39,15 +39,13 @@ class GameEquipmentRepository extends ServiceEntityRepository
                     $queryBuilder->expr()->eq('equipment_place.daedalus', ':daedalus')
                 )
             )
-            ->setParameter('daedalus', $criteria->getDaedalus())
-        ;
+            ->setParameter('daedalus', $criteria->getDaedalus());
 
         if ($criteria->isBreakable() !== null) {
             $queryBuilder
                 ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
                 ->andWhere($queryBuilder->expr()->eq('equipment_config.isBreakable', ':isBreakable'))
-                ->setParameter('isBreakable', $criteria->isBreakable())
-            ;
+                ->setParameter('isBreakable', $criteria->isBreakable());
         }
 
         if (($instanceOfs = $criteria->getInstanceOf()) !== null) {
@@ -91,8 +89,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
             )
             ->andWhere($queryBuilder->expr()->eq('equipment.name', ':name'))
             ->setParameter(':daedalus', $daedalus)
-            ->setParameter(':name', $name)
-        ;
+            ->setParameter(':name', $name);
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -113,8 +110,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
                     $queryBuilder->expr()->eq('equipment_place.daedalus', ':daedalus')
                 )
             )
-            ->setParameter(':daedalus', $daedalus)
-        ;
+            ->setParameter(':daedalus', $daedalus);
 
         return $queryBuilder->getQuery()->getResult();
     }

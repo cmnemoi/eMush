@@ -134,8 +134,7 @@ final class DiseaseMessageServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
@@ -180,8 +179,7 @@ final class DiseaseMessageServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('prefix, ')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
@@ -225,8 +223,7 @@ final class DiseaseMessageServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
@@ -269,8 +266,7 @@ final class DiseaseMessageServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
@@ -296,8 +292,7 @@ final class DiseaseMessageServiceTest extends TestCase
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
 
         $gameConfig
-            ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
-        ;
+            ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]));
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -322,8 +317,7 @@ final class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('getRandomElements')
             ->with([CharacterEnum::TERRENCE], 1)
             ->andReturn([CharacterEnum::TERRENCE])
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with(
@@ -338,8 +332,7 @@ final class DiseaseMessageServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 

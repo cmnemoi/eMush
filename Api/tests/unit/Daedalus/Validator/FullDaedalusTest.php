@@ -49,8 +49,7 @@ final class FullDaedalusTest extends TestCase
         $daedalus
             ->setPlayers(new ArrayCollection([
                 new Player(),
-            ]))
-        ;
+            ]));
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
@@ -70,8 +69,7 @@ final class FullDaedalusTest extends TestCase
         $daedalus
             ->setPlayers(new ArrayCollection([
                 new Player(),
-            ]))
-        ;
+            ]));
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));

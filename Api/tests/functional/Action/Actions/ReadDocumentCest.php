@@ -55,8 +55,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         $this->postIt = new GameItem($this->room);
         $this->postIt
             ->setName(ItemEnum::POST_IT)
-            ->setEquipment($postItConfig)
-        ;
+            ->setEquipment($postItConfig);
         $I->haveInRepository($this->postIt);
 
         // given something written on the post it

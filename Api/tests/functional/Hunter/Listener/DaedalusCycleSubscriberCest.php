@@ -156,8 +156,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $asteroid = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-            ->first()
-        ;
+            ->first();
         $I->assertNotFalse($asteroid);
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
 
@@ -191,8 +190,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $asteroid = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-            ->first()
-        ;
+            ->first();
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
 
         /** @var ChargeStatusConfig $truceStatusConfig */
@@ -227,8 +225,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $d1000 = $daedalus
             ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
-            ->first()
-        ;
+            ->first();
         $d1000->getHunterConfig()->setHitChance(100)->setDamageRange([6 => 1]);
         $d1000->setHitChance(100);
 
@@ -286,8 +283,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
             ->setDay(5) // so asteroid can spawn
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime())
-        ;
+            ->setCycleStartedAt(new \DateTime());
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -304,15 +300,13 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $I->refreshEntities($daedalusInfo);
@@ -338,8 +332,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
             ->setDay(10) // so D1000 can spawn
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime())
-        ;
+            ->setCycleStartedAt(new \DateTime());
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -356,15 +349,13 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $I->haveInRepository($daedalusInfo);

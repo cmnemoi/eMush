@@ -64,8 +64,7 @@ final class RoomLogNormalizerTest extends TestCase
             ->setDay(1)
             ->setCycle(3)
             ->setType('log')
-            ->setPlace('place')
-        ;
+            ->setPlace('place');
 
         $roomLog2 = new RoomLog();
         $roomLog2
@@ -76,8 +75,7 @@ final class RoomLogNormalizerTest extends TestCase
             ->setDay(1)
             ->setCycle(4)
             ->setType('log')
-            ->setPlace('place')
-        ;
+            ->setPlace('place');
 
         $this->roomLogCollection = new RoomLogCollection([$roomLog1, $roomLog2]);
     }
@@ -96,20 +94,17 @@ final class RoomLogNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 1')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('logKey2', ['player' => 'andie'], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 2')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
             ->andReturn('translated date')
-            ->twice()
-        ;
+            ->twice();
 
         $normalizeLogs = $this->normalizer->normalize($this->roomLogCollection, null, ['currentPlayer' => $this->player]);
 

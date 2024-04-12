@@ -154,8 +154,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $parameters = ['character' => 'andie', 'quantity' => 5, 'target_character' => 'gioele'];
         $dateTime = new \DateTime();
@@ -202,8 +201,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
@@ -253,8 +251,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
@@ -263,8 +260,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo2 = new PlayerInfo($player2, new User(), $characterConfig2);
         $player2
             ->setPlayerInfo($playerInfo2)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -309,8 +305,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
@@ -361,8 +356,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
@@ -408,8 +402,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $actionResult = new Success();
         $actionResult->setVisibility(VisibilityEnum::PUBLIC);
@@ -451,8 +444,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $actionResult = new Fail();
         $actionResult->setVisibility(VisibilityEnum::PRIVATE);
@@ -494,8 +486,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $equipmentConfig = new EquipmentConfig();
         $gameEquipment = new GameEquipment(new Place());
@@ -552,8 +543,7 @@ final class RoomLogServiceTest extends TestCase
             ->setParameters([])
             ->setDay(1)
             ->setCycle(3)
-            ->setType('log')
-        ;
+            ->setType('log');
 
         $roomLog2 = new RoomLog();
         $roomLog2
@@ -563,15 +553,13 @@ final class RoomLogServiceTest extends TestCase
             ->setParameters(['player' => 'andie'])
             ->setDay(1)
             ->setCycle(4)
-            ->setType('log')
-        ;
+            ->setType('log');
 
         $this->repository
             ->shouldReceive('getPlayerRoomLog')
             ->with($playerInfo)
             ->andReturn([$roomLog1, $roomLog2])
-            ->once()
-        ;
+            ->once();
 
         $logs = $this->service->getRoomLog($player);
 
@@ -602,8 +590,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
         $player
             ->setPlayerInfo($playerInfo)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
@@ -613,8 +600,7 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo2->setGameStatus(GameStatusEnum::CLOSED);
         $player2
             ->setPlayerInfo($playerInfo2)
-            ->setPlace($place)
-        ;
+            ->setPlace($place);
 
         $this->entityManager->shouldReceive('flush')->once();
 

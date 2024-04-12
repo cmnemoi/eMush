@@ -18,8 +18,7 @@ class LocalizationConfigFixtures extends Fixture
         $frenchLocalizationConfig
             ->setName(LanguageEnum::FRENCH)
             ->setTimeZone('Europe/Paris')
-            ->setLanguage(LanguageEnum::FRENCH)
-        ;
+            ->setLanguage(LanguageEnum::FRENCH);
 
         $manager->persist($frenchLocalizationConfig);
 
@@ -27,8 +26,7 @@ class LocalizationConfigFixtures extends Fixture
         $englishLocalizationConfig
             ->setName(LanguageEnum::ENGLISH)
             ->setTimeZone('UTC')
-            ->setLanguage(LanguageEnum::ENGLISH)
-        ;
+            ->setLanguage(LanguageEnum::ENGLISH);
 
         $manager->persist($englishLocalizationConfig);
 

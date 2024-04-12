@@ -41,8 +41,7 @@ class HasDiseasesValidator extends ConstraintValidator
         }
         if (($playerDiseases->count() === 0) !== $isEmpty) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

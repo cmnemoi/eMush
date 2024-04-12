@@ -54,8 +54,7 @@ final class TakeActionTest extends AbstractActionTest
 
         $gameItem->setEquipment($item);
         $gameItem
-            ->setName('itemName')
-        ;
+            ->setName('itemName');
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -81,8 +80,7 @@ final class TakeActionTest extends AbstractActionTest
 
         $gameItem->setEquipment($item);
         $gameItem
-            ->setName('itemName')
-        ;
+            ->setName('itemName');
 
         $player = $this->createPlayer($daedalus, $room);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);

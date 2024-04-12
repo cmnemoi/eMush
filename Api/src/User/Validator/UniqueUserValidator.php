@@ -32,8 +32,7 @@ class UniqueUserValidator extends ConstraintValidator
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->setCode(UniqueUser::USER_IS_ALREADY_ON_DAEDALUS)
                 ->atPath('user')
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

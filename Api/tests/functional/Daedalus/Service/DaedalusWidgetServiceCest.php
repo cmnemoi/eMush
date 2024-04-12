@@ -44,8 +44,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $iTrackie = new GameItem($this->player1);
         $iTrackie
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie);
     }
 
@@ -55,8 +54,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $gravitySimulator = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
         $I->haveInRepository($gravitySimulator);
 
         $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->player1);

@@ -24,8 +24,7 @@ class BookDataLoader extends MechanicsDataLoader
 
             $book
                 ->setName($bookData['name'])
-                ->setSkill($bookData['skill'])
-            ;
+                ->setSkill($bookData['skill']);
             $this->setMechanicsActions($book, $bookData);
 
             $this->entityManager->persist($book);

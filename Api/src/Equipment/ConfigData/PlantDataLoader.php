@@ -26,8 +26,7 @@ class PlantDataLoader extends RationDataLoader
                 ->setName($plantData['name'])
                 ->setFruitName($plantData['fruitName'])
                 ->setMaturationTime($plantData['maturationTime'])
-                ->setOxygen($plantData['oxygen'])
-            ;
+                ->setOxygen($plantData['oxygen']);
 
             $this->setMechanicsActions($plant, $plantData);
             $this->entityManager->persist($plant);

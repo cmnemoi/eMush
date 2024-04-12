@@ -67,8 +67,7 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         $this->door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($frontCorridor)
-        ;
+            ->addRoom($frontCorridor);
         $I->haveInRepository($this->door);
     }
 

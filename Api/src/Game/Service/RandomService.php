@@ -134,8 +134,7 @@ class RandomService implements RandomServiceInterface
         $selectedHuntersIds = array_values($this->getRandomElementsFromProbaCollection($hunterProbaCollection, $number));
 
         return $hunterPool->map(static fn (Hunter $hunter) => \in_array($hunter->getId(), $selectedHuntersIds, true) ? $hunter : null)
-            ->filter(static fn (?Hunter $hunter) => $hunter instanceof Hunter)
-        ;
+            ->filter(static fn (?Hunter $hunter) => $hunter instanceof Hunter);
     }
 
     public function getPlayerInRoom(Place $place): Player

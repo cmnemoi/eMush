@@ -78,8 +78,7 @@ final class WriteTest extends AbstractActionTest
 
         $statusConfig = new ContentStatusConfig();
         $statusConfig
-            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
-        ;
+            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT);
 
         $status = new ContentStatus($gameItem, $statusConfig);
 

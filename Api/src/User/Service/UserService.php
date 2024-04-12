@@ -51,8 +51,7 @@ class UserService implements UserServiceInterface
         $user = new User();
         $user
             ->setUserId($userId)
-            ->setUsername($username)
-        ;
+            ->setUsername($username);
 
         $this->persist($user);
 

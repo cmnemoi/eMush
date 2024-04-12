@@ -46,8 +46,7 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere($queryBuilder->expr()->eq('message.message', ':failureMessage'))
             ->setParameter('neron', $daedalus->getDaedalusInfo()->getNeron()->getId())
             ->setParameter('cycleStart', $cycleStartedAt)
-            ->setParameter('failureMessage', NeronMessageEnum::CYCLE_FAILURES)
-        ;
+            ->setParameter('failureMessage', NeronMessageEnum::CYCLE_FAILURES);
 
         $results = $queryBuilder->getQuery()->getResult();
 
@@ -65,8 +64,7 @@ class MessageRepository extends ServiceEntityRepository
         $queryBuilder
             ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
             ->andWhere($queryBuilder->expr()->isNull('message.parent'))
-            ->setParameter('channel', $channel)
-        ;
+            ->setParameter('channel', $channel);
 
         if ($ageLimit !== null) {
             $timeLimit = new \DateTime();
@@ -74,8 +72,7 @@ class MessageRepository extends ServiceEntityRepository
 
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->gte('message.createdAt', ':date'))
-                ->setParameter('date', $timeLimit)
-            ;
+                ->setParameter('date', $timeLimit);
         }
 
         $queryBuilder->orderBy('message.updatedAt', 'desc');
@@ -92,8 +89,7 @@ class MessageRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
             ->andWhere($queryBuilder->expr()->isNull('message.parent'))
-            ->setParameter('channel', $channel)
-        ;
+            ->setParameter('channel', $channel);
 
         $queryBuilder->orderBy('message.updatedAt', 'desc');
 

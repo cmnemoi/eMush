@@ -10,8 +10,7 @@ trait TargetStatusTrait
     {
         $statuses = $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
-            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner())
-        ;
+            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner());
 
         // temporary filter to exclude PoC skills
         /** @var Status $status */
@@ -28,8 +27,7 @@ trait TargetStatusTrait
     {
         return $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getTarget()) && $statusOwner->getTarget() === $this)
-            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getTarget())
-        ;
+            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getTarget());
     }
 
     public function getStatusByName(string $name): ?Status
@@ -95,8 +93,7 @@ trait TargetStatusTrait
     {
         $statuses = $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
-            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner())
-        ;
+            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner());
 
         // temporary filter to get only PoC skills
         /** @var Status $status */

@@ -114,8 +114,7 @@ class RoomEventCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $time = new \DateTime();
@@ -216,8 +215,7 @@ class RoomEventCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $time = new \DateTime();
@@ -247,8 +245,7 @@ class RoomEventCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -281,22 +278,19 @@ class RoomEventCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('some other name')
-        ;
+            ->setName('some other name');
         $I->haveInRepository($gameItem);
 
         $tabulatrix = new GameEquipment($room);
         $tabulatrix
             ->setEquipment($tabulatrixConfig)
-            ->setName(EquipmentEnum::TABULATRIX)
-        ;
+            ->setName(EquipmentEnum::TABULATRIX);
 
         $I->haveInRepository($tabulatrix);
 
@@ -329,8 +323,7 @@ class RoomEventCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $time = new \DateTime();
@@ -360,8 +353,7 @@ class RoomEventCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -394,22 +386,19 @@ class RoomEventCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('some other name')
-        ;
+            ->setName('some other name');
         $I->haveInRepository($gameItem);
 
         $tabulatrix = new GameEquipment($room);
         $tabulatrix
             ->setEquipment($tabulatrixConfig)
-            ->setName(EquipmentEnum::TABULATRIX)
-        ;
+            ->setName(EquipmentEnum::TABULATRIX);
         $I->haveInRepository($tabulatrix);
 
         $equipment = new ArrayCollection([$gameEquipment, $tabulatrix]);
@@ -445,8 +434,7 @@ class RoomEventCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $time = new \DateTime();
@@ -476,8 +464,7 @@ class RoomEventCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -507,8 +494,7 @@ class RoomEventCest
         $gameEquipment = new Door($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $room->addDoor($gameEquipment);

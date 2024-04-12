@@ -87,8 +87,7 @@ final class SearchActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
         self::assertInstanceOf(Fail::class, $result);
@@ -102,16 +101,14 @@ final class SearchActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
         $hidden
-            ->setTarget($hiddenBy)
-        ;
+            ->setTarget($hiddenBy);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -140,8 +137,7 @@ final class SearchActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $hiddenBy = $this->createPlayer(new Daedalus(), new Place());
 
@@ -151,18 +147,15 @@ final class SearchActionTest extends AbstractActionTest
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
         $hidden
-            ->setTarget($hiddenBy)
-        ;
+            ->setTarget($hiddenBy);
 
         $gameItem2 = new GameItem($room);
         $gameItem2
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $hidden2 = new Status($gameItem2, $hiddenConfig);
         $hidden2
-            ->setTarget($hiddenBy)
-        ;
+            ->setTarget($hiddenBy);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 

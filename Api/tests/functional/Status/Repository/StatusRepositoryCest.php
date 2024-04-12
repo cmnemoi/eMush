@@ -53,22 +53,19 @@ class StatusRepositoryCest
         $door = new Door($room);
         $door
             ->setName('door')
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($door);
 
         $equipment = new GameEquipment($room);
         $equipment
             ->setName('equipment')
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($equipment);
 
         $item = new GameItem($player);
         $item
             ->setName('item')
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
         $I->haveInRepository($item);
 
         $criteria1 = new StatusCriteria($daedalus1);
@@ -81,8 +78,7 @@ class StatusRepositoryCest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName('name_room')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);
@@ -90,8 +86,7 @@ class StatusRepositoryCest
         $statusConfig2 = new StatusConfig();
         $statusConfig2
             ->setStatusName('name_player')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig2);
         $status2 = new Status($player, $statusConfig2);
         $I->haveInRepository($status2);
@@ -99,8 +94,7 @@ class StatusRepositoryCest
         $statusConfig3 = new StatusConfig();
         $statusConfig3
             ->setStatusName('name_equipment')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig3);
         $status3 = new Status($equipment, $statusConfig3);
         $I->haveInRepository($status3);
@@ -108,8 +102,7 @@ class StatusRepositoryCest
         $statusConfig4 = new StatusConfig();
         $statusConfig4
             ->setStatusName('name_item')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig4);
         $status4 = new Status($item, $statusConfig4);
         $I->haveInRepository($status4);
@@ -117,8 +110,7 @@ class StatusRepositoryCest
         $statusConfig5 = new StatusConfig();
         $statusConfig5
             ->setStatusName('name_door')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig5);
         $status5 = new Status($door, $statusConfig5);
         $I->haveInRepository($status5);
@@ -146,8 +138,7 @@ class StatusRepositoryCest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName('name_room')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);
@@ -155,8 +146,7 @@ class StatusRepositoryCest
         $statusConfig2 = new StatusConfig();
         $statusConfig2
             ->setStatusName('name_player')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig2);
         $status2 = new Status($room, $statusConfig2);
         $I->haveInRepository($status2);
@@ -164,8 +154,7 @@ class StatusRepositoryCest
         $statusConfig3 = new StatusConfig();
         $statusConfig3
             ->setStatusName('name_equipment')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig3);
         $status3 = new Status($room, $statusConfig3);
         $I->haveInRepository($status3);
@@ -173,8 +162,7 @@ class StatusRepositoryCest
         $statusConfig4 = new StatusConfig();
         $statusConfig4
             ->setStatusName('name_item')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig4);
         $status4 = new Status($room, $statusConfig4);
         $I->haveInRepository($status4);

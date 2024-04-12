@@ -80,8 +80,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 1
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->eventService
             ->shouldReceive('callEvent')
@@ -92,8 +91,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 5
             ))
-            ->once()
-        ;
+            ->once();
 
         $movementApplyEvent = new ActionVariableEvent(
             $action,
@@ -112,21 +110,18 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 3
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->with($movementApplyEvent, ActionVariableEvent::APPLY_COST)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn ($movementApplyEvent, $name) => (
                 $name === ActionVariableEvent::GET_OUTPUT_QUANTITY
                 && $movementApplyEvent instanceof ActionVariableEvent
             ))
-            ->once()
-        ;
+            ->once();
 
         $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
 
@@ -153,8 +148,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
-            ->once()
-        ;
+            ->once();
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (ActionVariableEvent $actionEvent, string $eventName) => (
@@ -164,8 +158,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
-            ->once()
-        ;
+            ->once();
 
         $movementApplyEvent = new ActionVariableEvent(
             $action,
@@ -184,15 +177,13 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 1
             ))
-            ->once()
-        ;
+            ->once();
 
         // Start conversion
         $this->actionRepository->shouldReceive('findOneBy')
             ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
             ->andReturn($convertActionToMovement)
-            ->once()
-        ;
+            ->once();
         $movementConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
             PlayerVariableEnum::MOVEMENT_POINT,
@@ -210,8 +201,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === -2
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
-            ->once()
-        ;
+            ->once();
 
         $actionConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
@@ -230,30 +220,25 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 1
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->with($movementConversionEvent, ActionVariableEvent::APPLY_COST)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')
             ->with($actionConversionEvent, ActionVariableEvent::APPLY_COST)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->with($movementApplyEvent, ActionVariableEvent::APPLY_COST)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn ($movementApplyEvent, $name) => (
                 $name === ActionVariableEvent::GET_OUTPUT_QUANTITY
                 && $movementApplyEvent instanceof ActionVariableEvent
             ))
-            ->once()
-        ;
+            ->once();
 
         $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
 
@@ -280,8 +265,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
-            ->once()
-        ;
+            ->once();
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (ActionVariableEvent $actionEvent, string $eventName) => (
@@ -291,8 +275,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
-            ->once()
-        ;
+            ->once();
 
         $movementApplyEvent = new ActionVariableEvent(
             $action,
@@ -311,15 +294,13 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getAction() === $action
                 && $actionEvent->getRoundedQuantity() === 1
             ))
-            ->once()
-        ;
+            ->once();
 
         // Start conversion
         $this->actionRepository->shouldReceive('findOneBy')
             ->with(['actionName' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT])
             ->andReturn($convertActionToMovement)
-            ->once()
-        ;
+            ->once();
         $movementConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
             PlayerVariableEnum::MOVEMENT_POINT,
@@ -337,8 +318,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === -2
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
-            ->once()
-        ;
+            ->once();
 
         $actionConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
@@ -357,30 +337,25 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 1
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->with($movementConversionEvent, ActionVariableEvent::APPLY_COST)
-            ->twice()
-        ;
+            ->twice();
         $this->eventService->shouldReceive('callEvent')
             ->with($actionConversionEvent, ActionVariableEvent::APPLY_COST)
-            ->twice()
-        ;
+            ->twice();
 
         $this->eventService->shouldReceive('callEvent')
             ->with($movementApplyEvent, ActionVariableEvent::APPLY_COST)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn ($movementApplyEvent, $name) => (
                 $name === ActionVariableEvent::GET_OUTPUT_QUANTITY
                 && $movementApplyEvent instanceof ActionVariableEvent
             ))
-            ->once()
-        ;
+            ->once();
 
         $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
 
@@ -409,8 +384,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 20
             ))
             ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->service->getActionModifiedActionVariable(
             $player,
@@ -437,8 +411,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 20
             ))
             ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->service->getActionModifiedActionVariable(
             $player,
@@ -472,8 +445,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 2
             ))
             ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
+            ->once();
 
         self::assertSame(3, $this->service->getActionModifiedActionVariable(
             $player,
@@ -502,8 +474,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
+            ->once();
 
         self::assertSame(0, $this->service->getActionModifiedActionVariable(
             $player,
@@ -535,8 +506,7 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
+            ->once();
 
         // Now check if action points are needed for a conversion event
         $actionModifiedEvent = new ActionVariableEvent(
@@ -582,12 +552,10 @@ final class ActionServiceTest extends TestCase
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->andReturn($actionModifiedEvent)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')
-            ->never()
-        ;
+            ->never();
 
         self::assertSame(1, $this->service->getActionModifiedActionVariable(
             $player,
@@ -606,14 +574,12 @@ final class ActionServiceTest extends TestCase
             ->setInitMoralPoint($moralPoint)
             ->setMaxMoralPoint(12)
             ->setMaxMovementPoint(12)
-            ->setInitMovementPoint($movementPoint)
-        ;
+            ->setInitMovementPoint($movementPoint);
         $daedalus = new Daedalus();
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         return $player;
     }
@@ -627,8 +593,7 @@ final class ActionServiceTest extends TestCase
             ->setMoralCost($moralPointCost)
             ->setMovementCost($movementPointCost)
             ->setSuccessRate($successRate)
-            ->setActionName(ActionEnum::TAKE)
-        ;
+            ->setActionName(ActionEnum::TAKE);
 
         return $action;
     }

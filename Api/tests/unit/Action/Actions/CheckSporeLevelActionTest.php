@@ -56,8 +56,7 @@ final class CheckSporeLevelActionTest extends AbstractActionTest
         $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment->setName('equipment');

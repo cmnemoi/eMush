@@ -39,8 +39,7 @@ class MessageService implements MessageServiceInterface
             ->setAuthor($player->getPlayerInfo())
             ->setChannel($createMessage->getChannel())
             ->setMessage($messageContent)
-            ->setParent($createMessage->getParent())
-        ;
+            ->setParent($createMessage->getParent());
 
         $rootMessage = $createMessage->getParent();
         if ($rootMessage) {
@@ -83,8 +82,7 @@ class MessageService implements MessageServiceInterface
             ->setMessage($messageKey)
             ->setTranslationParameters($parameters)
             ->setCreatedAt($dateTime)
-            ->setUpdatedAt($dateTime)
-        ;
+            ->setUpdatedAt($dateTime);
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

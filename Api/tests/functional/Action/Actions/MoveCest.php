@@ -68,8 +68,7 @@ final class MoveCest extends AbstractFunctionalTest
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY))
-        ;
+            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
         $I->haveInRepository($door);
 
         // given all 4 players except derek are in Icarus Bay
@@ -103,8 +102,7 @@ final class MoveCest extends AbstractFunctionalTest
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::LABORATORY))
-        ;
+            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $I->haveInRepository($door);
 
         // when jinsu tries to move to the laboratory
@@ -136,8 +134,7 @@ final class MoveCest extends AbstractFunctionalTest
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR))
-        ;
+            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR));
         $I->haveInRepository($door);
 
         // when derek tries to move to the front corridor
@@ -227,8 +224,7 @@ final class MoveCest extends AbstractFunctionalTest
         $door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR))
-        ;
+            ->addRoom($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR));
         $I->haveInRepository($door);
 
         return $door;

@@ -67,14 +67,12 @@ final class EquipmentEffectServiceTest extends TestCase
             ->setActionPoints([0 => 1, 1 => 0])
             ->setMovementPoints([1 => 1])
             ->setMovementPoints([1 => 1])
-            ->setExtraEffects(['break_door' => 55])
-        ;
+            ->setExtraEffects(['break_door' => 55]);
         $consumableEffectFromRepository = new ConsumableEffect();
         $this->consumableEffectRepository
             ->shouldReceive('findOneBy')
             ->andReturn($consumableEffectFromRepository)
-            ->once()
-        ;
+            ->once();
 
         $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
 
@@ -84,18 +82,15 @@ final class EquipmentEffectServiceTest extends TestCase
         $this->consumableEffectRepository
             ->shouldReceive('findOneBy')
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->consumableEffectRepository
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(2)
-            ->times(4)
-        ;
+            ->times(4);
         $consumableEffect = $this->service->getConsumableEffect($ration, $daedalus);
 
         self::assertInstanceOf(ConsumableEffect::class, $consumableEffect);
@@ -114,14 +109,12 @@ final class EquipmentEffectServiceTest extends TestCase
 
         $plant
             ->setOxygen([1 => 1])
-            ->setMaturationTime([10 => 1])
-        ;
+            ->setMaturationTime([10 => 1]);
         $plantEffectFromRepository = new PlantEffect();
         $this->plantEffectRepository
             ->shouldReceive('findOneBy')
             ->andReturn($plantEffectFromRepository)
-            ->once()
-        ;
+            ->once();
 
         $plantEffect = $this->service->getPlantEffect($plant, $daedalus);
 
@@ -131,23 +124,19 @@ final class EquipmentEffectServiceTest extends TestCase
         $this->plantEffectRepository
             ->shouldReceive('findOneBy')
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->plantEffectRepository
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(8)
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(1)
-            ->once()
-        ;
+            ->once();
         $plantEffect = $this->service->getPlantEffect($plant, $daedalus);
 
         self::assertInstanceOf(PlantEffect::class, $plantEffect);

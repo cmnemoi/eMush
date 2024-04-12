@@ -52,8 +52,7 @@ final class EventCreationServiceTest extends TestCase
             ->setMaxHealthPoint(16)
             ->setInitActionPoint(10)
             ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10)
-        ;
+            ->setInitMoralPoint(10);
 
         $player1 = new Player();
         $player1->setPlayerVariables($characterConfig);
@@ -131,8 +130,7 @@ final class EventCreationServiceTest extends TestCase
             ->setInitHull(1)
             ->setInitShield(1)
             ->setInitOxygen(1)
-            ->setInitFuel(2)
-        ;
+            ->setInitFuel(2);
 
         $player1 = new Player();
 

@@ -110,8 +110,7 @@ final class FightTest extends TestCase
         $this->randomService->shouldReceive('isSuccessful')
             ->once()
             ->with(self::DISEASE_CHANCE)
-            ->andReturn(true)
-        ;
+            ->andReturn(true);
 
         // Then the disease cause service should be called to create a disease for the explorator
         $disease = $this->createStub(PlayerDisease::class);
@@ -120,8 +119,7 @@ final class FightTest extends TestCase
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')
             ->once()
             ->withArgs([DiseaseCauseEnum::ALIEN_FIGHT, $planetSector->getPlanet()->getPlayer()])
-            ->andReturn($disease)
-        ;
+            ->andReturn($disease);
 
         // When I handle the fight event
         $this->fightEventHandler->handle($event);
@@ -140,8 +138,7 @@ final class FightTest extends TestCase
                     'is_player_mush' => 'false',
                 ],
                 $event->getTime(),
-            ])
-        ;
+            ]);
     }
 
     private function getPlanetSector(Player $explorator): PlanetSector
@@ -195,13 +192,11 @@ final class FightTest extends TestCase
     {
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->once()
-            ->andReturn(12)
-        ;
+            ->andReturn(12);
 
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->once()
-            ->andReturn(self::DISEASE_CHANCE)
-        ;
+            ->andReturn(self::DISEASE_CHANCE);
 
         $this->randomService->shouldReceive('getRandomPlayer')
             ->times(11) // one call per damage point

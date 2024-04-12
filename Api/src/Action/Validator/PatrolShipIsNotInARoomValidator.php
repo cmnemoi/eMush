@@ -31,8 +31,7 @@ final class PatrolShipIsNotInARoomValidator extends ConstraintValidator
 
         if (EquipmentEnum::getPatrolShips()->contains($actionTarget->getName()) && $actionTarget->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

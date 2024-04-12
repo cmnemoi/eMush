@@ -61,8 +61,7 @@ final class ConsumeActionTest extends AbstractActionTest
             ->setHealthPoint(2)
             ->setMoralPoint(3)
             ->setMovementPoint(4)
-            ->setSatiety(5)
-        ;
+            ->setSatiety(5);
 
         $ration = new Ration();
 
@@ -72,8 +71,7 @@ final class ConsumeActionTest extends AbstractActionTest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setName('food')
-        ;
+            ->setName('food');
 
         $this->playerService->shouldReceive('persist');
         $this->eventService->shouldReceive('callEvent')->once();

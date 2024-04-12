@@ -67,13 +67,11 @@ final class DisassembleActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setName('some name')
-        ;
+            ->setName('some name');
 
         $item
             ->setActions(new ArrayCollection([$this->actionEntity]))
-            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-        ;
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1]);
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
@@ -83,12 +81,10 @@ final class DisassembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
-            ->never()
-        ;
+            ->never();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->never();
 
@@ -108,13 +104,11 @@ final class DisassembleActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item);
         $gameItem
-            ->setName('some name')
-        ;
+            ->setName('some name');
 
         $item
             ->setActions(new ArrayCollection([$this->actionEntity]))
-            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-        ;
+            ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1]);
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
@@ -123,13 +117,11 @@ final class DisassembleActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();

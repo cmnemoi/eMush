@@ -92,8 +92,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $disease = new PlayerDisease();
         $disease
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-        ;
+            ->setDiseaseConfig($diseaseConfig);
         $player->addMedicalCondition($disease);
 
         $delayMin = $delayMin ?? $diseaseConfig->getDelayMin();
@@ -149,8 +148,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
                             $diseaseDurationMin,
                             $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()
                         )
-                    )
-                ;
+                    );
 
                 $this->persist($playerDisease);
                 $this->activateDisease($playerDisease, [DiseaseCauseEnum::INCUBATING_END], $time);

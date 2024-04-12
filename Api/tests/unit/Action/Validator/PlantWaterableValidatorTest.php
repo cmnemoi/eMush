@@ -55,8 +55,7 @@ final class PlantWaterableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY);
@@ -72,8 +71,7 @@ final class PlantWaterableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::PLANT_DRY);
@@ -93,8 +91,7 @@ final class PlantWaterableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

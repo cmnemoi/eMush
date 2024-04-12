@@ -67,8 +67,7 @@ class RoomLogRepositoryCest
             ->setDate(new \DateTime())
             ->setDay(1)
             ->setCycle(1)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
 
         $I->haveInRepository($roomLog);
 
@@ -134,8 +133,7 @@ class RoomLogRepositoryCest
             ->setDate(new \DateTime())
             ->setDay(1)
             ->setCycle(1)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
 
         $I->haveInRepository($roomLog);
 
@@ -145,8 +143,7 @@ class RoomLogRepositoryCest
 
         $roomLog
             ->setDaedalusInfo($daedalusInfo)
-            ->setPlace($place->getName())
-        ;
+            ->setPlace($place->getName());
 
         $I->haveInRepository($roomLog);
 
@@ -197,8 +194,7 @@ class RoomLogRepositoryCest
             ->setCycle(1)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setPlace($place->getName())
-            ->setDaedalusInfo($daedalusInfo)
-        ;
+            ->setDaedalusInfo($daedalusInfo);
 
         $I->haveInRepository($roomLog);
 

@@ -61,19 +61,16 @@ final class RetrieveOxygenTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE);
 
         $player = $this->createPlayer($daedalus, $room);
         $gameItem
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
 
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setMaxOxygen(32)
-            ->setInitOxygen(10)
-        ;
+            ->setInitOxygen(10);
 
         $daedalus->setDaedalusVariables($daedalusConfig);
 
@@ -84,8 +81,7 @@ final class RetrieveOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();

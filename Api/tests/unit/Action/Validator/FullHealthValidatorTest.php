@@ -54,22 +54,19 @@ final class FullHealthValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig
             ->setMaxHealthPoint(12)
-            ->setInitHealthPoint(5)
-        ;
+            ->setInitHealthPoint(5);
 
         $daedalus = new Daedalus();
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -84,22 +81,19 @@ final class FullHealthValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig
             ->setMaxHealthPoint(12)
-            ->setInitHealthPoint(12)
-        ;
+            ->setInitHealthPoint(12);
 
         $daedalus = new Daedalus();
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

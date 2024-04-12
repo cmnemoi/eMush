@@ -39,8 +39,7 @@ class CreatePlayerServiceCest
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
         /** @var LocalizationConfig $localizationConfig */
@@ -67,15 +66,13 @@ class CreatePlayerServiceCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH)
-        ;
+            ->setScope(ChannelScopeEnum::MUSH);
         $I->haveInRepository($mushChannel);
 
         /** @var Place $room */

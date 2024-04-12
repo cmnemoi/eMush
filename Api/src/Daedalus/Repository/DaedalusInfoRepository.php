@@ -32,8 +32,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->andWhere($qb->expr()->eq('daedalus_info.name', ':name'))
             ->setMaxResults(1)
             ->setParameter('name', $name)
-            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-        ;
+            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
@@ -49,8 +48,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->andWhere($qb->expr()->eq('language.name', ':language'))
             ->setMaxResults(1)
             ->setParameter('language', $language)
-            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-        ;
+            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
@@ -74,8 +72,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->setParameter('language', $language)
             ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-            ->setParameter('user_daedaluses', $userDaedaluses)
-        ;
+            ->setParameter('user_daedaluses', $userDaedaluses);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
@@ -87,8 +84,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
         $qb
             ->select('daedalus_info')
             ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
-            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-        ;
+            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
 
         return \count($qb->getQuery()->getResult()) > 0;
     }
@@ -103,8 +99,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
             ->andWhere($qb->expr()->eq('language.name', ':language'))
             ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-            ->setParameter('language', $language)
-        ;
+            ->setParameter('language', $language);
 
         return \count($qb->getQuery()->getResult()) > 0;
     }
@@ -118,8 +113,7 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
             ->andWhere($qb->expr()->eq('daedalus_info.name', ':name'))
             ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-            ->setParameter('name', $name)
-        ;
+            ->setParameter('name', $name);
 
         return \count($qb->getQuery()->getResult()) > 0;
     }

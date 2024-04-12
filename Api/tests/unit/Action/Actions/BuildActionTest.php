@@ -67,22 +67,19 @@ final class BuildActionTest extends AbstractActionTest
         $item->setEquipmentName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setName('blueprint')
-        ;
+            ->setName('blueprint');
 
         $product = new ItemConfig();
         $product->setEquipmentName('product');
         $gameProduct = new GameItem(new Place());
         $gameProduct
             ->setEquipment($product)
-            ->setName('product')
-        ;
+            ->setName('product');
 
         $blueprint = new Blueprint();
         $blueprint
             ->setIngredients(['metal_scraps' => 1])
-            ->setCraftedEquipmentName($product->getEquipmentName())
-        ;
+            ->setCraftedEquipmentName($product->getEquipmentName());
         $item->setMechanics(new ArrayCollection([$blueprint]));
 
         $gameIngredient = new GameItem($room);
@@ -90,8 +87,7 @@ final class BuildActionTest extends AbstractActionTest
         $ingredient->setEquipmentName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setName('metal_scraps')
-        ;
+            ->setName('metal_scraps');
 
         $player = $this->createPlayer($daedalus, $room);
 

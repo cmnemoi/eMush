@@ -101,13 +101,11 @@ class Build extends AbstractAction
                 if ($this->player->hasEquipmentByName($name)) {
                     /** @FIXME change to a random choice of the item */
                     $ingredient = $this->player->getEquipments()
-                        ->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->first()
-                    ;
+                        ->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
                 } else {
                     /** @FIXME change to a random choice of the equipment */
                     $ingredient = $this->player->getPlace()->getEquipments()
-                        ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first()
-                    ;
+                        ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
                 }
 
                 $interactEvent = new InteractWithEquipmentEvent(

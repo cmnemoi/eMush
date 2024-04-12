@@ -94,8 +94,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
                      && $event->getTags() === $expectedPlayerModifierEvent->getTags()
                      && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
             }), VariableEventInterface::CHANGE_VARIABLE])
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 
@@ -124,8 +123,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldIgnoreMissing();
 
         $expectedPlayerModifierEvent = new PlayerVariableEvent(
@@ -145,8 +143,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
                      && $event->getTags() === $expectedPlayerModifierEvent->getTags()
                      && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
             }), VariableEventInterface::CHANGE_VARIABLE])
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 

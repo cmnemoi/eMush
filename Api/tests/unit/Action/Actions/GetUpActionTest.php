@@ -61,19 +61,16 @@ final class GetUpActionTest extends AbstractActionTest
         $gameItem = new GameEquipment($room);
         $item = new EquipmentConfig();
         $item
-            ->setEquipmentName(EquipmentEnum::BED)
-        ;
+            ->setEquipmentName(EquipmentEnum::BED);
         $gameItem
             ->setEquipment($item)
-            ->setName(EquipmentEnum::BED)
-        ;
+            ->setName(EquipmentEnum::BED);
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $status = new Status($player, $statusConfig);
         $status
-            ->setTarget($gameItem)
-        ;
+            ->setTarget($gameItem);
 
         $this->action->loadParameters($this->actionEntity, $player);
 

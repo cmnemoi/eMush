@@ -50,8 +50,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         $name = 'test item';
@@ -117,8 +116,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         $name = 'test item';
@@ -180,15 +178,13 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::PLACE)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig);
 
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         $name = 'test name';
@@ -248,8 +244,7 @@ class CreateDestroyEquipmentSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -259,8 +254,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         $name = 'test name';
@@ -323,8 +317,7 @@ class CreateDestroyEquipmentSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -334,8 +327,7 @@ class CreateDestroyEquipmentSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         $name = 'test name';
@@ -418,8 +410,7 @@ class CreateDestroyEquipmentSubscriberCest
         $takeActionEntity
             ->setActionName(ActionEnum::DROP)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
@@ -432,22 +423,19 @@ class CreateDestroyEquipmentSubscriberCest
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig2);
 
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         $gear2 = new Gear();
         $gear2
             ->setModifierConfigs(new ArrayCollection([$modifierConfig2]))
-            ->setName('gear_test_2')
-        ;
+            ->setName('gear_test_2');
         $I->haveInRepository($gear2);
 
         /** @var ItemConfig $equipmentConfig */

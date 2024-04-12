@@ -14,8 +14,7 @@ class PlanetSectorConfigCollection extends ArrayCollection
     {
         $planetSectorConfig = $this
             ->filter(static fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName)
-            ->first()
-        ;
+            ->first();
 
         if (!$planetSectorConfig) {
             throw new \Exception("PlanetSectorConfig {$sectorName} not found");

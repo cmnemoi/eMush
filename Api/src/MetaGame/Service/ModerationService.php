@@ -139,8 +139,7 @@ final class ModerationService implements ModerationServiceInterface
             ->setReason($reason)
             ->setMessage($message)
             ->setEndDate($endDate)
-            ->setIsVisibleByUser($isVisibleByUser)
-        ;
+            ->setIsVisibleByUser($isVisibleByUser);
 
         $user->addModerationSanction($sanction);
 
@@ -191,8 +190,7 @@ final class ModerationService implements ModerationServiceInterface
         $message
             ->setAuthor(null)
             ->setNeron($message->getChannel()->getDaedalusInfo()->getNeron())
-            ->setMessage('edited_by_neron')
-        ;
+            ->setMessage('edited_by_neron');
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

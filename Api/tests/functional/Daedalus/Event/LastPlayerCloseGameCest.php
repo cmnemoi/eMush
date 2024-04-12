@@ -89,22 +89,19 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -179,22 +176,19 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -263,8 +257,7 @@ class LastPlayerCloseGameCest
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
 
         /** @var LocalizationConfig $localizationConfig */
@@ -301,22 +294,19 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -325,8 +315,7 @@ class LastPlayerCloseGameCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameEquipment);
 
         /** @var CharacterConfig $characterConfig */
@@ -411,22 +400,19 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -435,8 +421,7 @@ class LastPlayerCloseGameCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameEquipment);
 
         /** @var CharacterConfig $characterConfig */
@@ -512,22 +497,19 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -561,8 +543,7 @@ class LastPlayerCloseGameCest
         $gameEquipment
             ->setEquipment($equipmentConfig)
             ->setName('shower')
-            ->setOwner($player)
-        ;
+            ->setOwner($player);
         $I->haveInRepository($gameEquipment);
 
         $event = new PlayerEvent($player, [ActionEnum::HIT], new \DateTime());
@@ -617,22 +598,19 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -664,8 +642,7 @@ class LastPlayerCloseGameCest
         $alertFire
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::HUNGER)
-            ->addAlertElement($reportedAlert)
-        ;
+            ->addAlertElement($reportedAlert);
 
         $I->haveInRepository($alertFire);
 
@@ -722,8 +699,7 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $effect = new ConsumableEffect();
@@ -733,35 +709,30 @@ class LastPlayerCloseGameCest
             ->setMovementPoint(3)
             ->setMoralPoint(4)
             ->setHealthPoint(5)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($effect);
 
         $plantEffect = new PlantEffect();
         $plantEffect
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($plantEffect);
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
             ->setDaedalus($daedalus)
-            ->setName('test')
-        ;
+            ->setName('test');
         $I->haveInRepository($consumableDisease);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -814,8 +785,7 @@ class LastPlayerCloseGameCest
             ->setDelta(-1)
             ->setTargetEvent(ActionEnum::SHOWER)
             ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig);
 
         /** @var LocalizationConfig $localizationConfig */
@@ -851,22 +821,19 @@ class LastPlayerCloseGameCest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::FINISHED)
-        ;
+            ->setGameStatus(GameStatusEnum::FINISHED);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -875,8 +842,7 @@ class LastPlayerCloseGameCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameEquipment);
 
         /** @var CharacterConfig $characterConfig */

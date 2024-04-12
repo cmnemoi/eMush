@@ -65,8 +65,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -95,8 +94,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -125,8 +123,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -157,8 +154,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -187,8 +183,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -218,8 +213,7 @@ final class HasEquipmentValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $player2,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

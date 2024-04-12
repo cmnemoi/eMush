@@ -29,8 +29,7 @@ class EquipmentReachableValidator extends ConstraintValidator
 
         if ($this->gearToolService->getEquipmentsOnReachByName($value->getPlayer(), $constraint->name)->isEmpty()) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

@@ -57,8 +57,7 @@ final class MotivationalSpeechActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($speaker, $this->actionEntity, null, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 

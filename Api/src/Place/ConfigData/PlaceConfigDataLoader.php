@@ -34,8 +34,7 @@ class PlaceConfigDataLoader extends ConfigDataLoader
                 ->setType($placeConfigData['type'])
                 ->setDoors($placeConfigData['doors'])
                 ->setItems($placeConfigData['items'])
-                ->setEquipments($placeConfigData['equipments'])
-            ;
+                ->setEquipments($placeConfigData['equipments']);
 
             $this->entityManager->persist($placeConfig);
         }

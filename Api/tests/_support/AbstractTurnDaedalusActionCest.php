@@ -40,8 +40,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         $this->commandTerminal = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $this->commandTerminal
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
+            ->setEquipment($commandTerminalConfig);
         $I->haveInRepository($this->commandTerminal);
 
         // given there is bravo lateral reactor in engine room
@@ -49,8 +48,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         $this->bravoLateralReactor = new GameEquipment($engineRoom);
         $this->bravoLateralReactor
             ->setName(EquipmentEnum::REACTOR_LATERAL_BRAVO)
-            ->setEquipment($leftLateralReactorConfig)
-        ;
+            ->setEquipment($leftLateralReactorConfig);
         $I->haveInRepository($this->bravoLateralReactor);
 
         // given there is alpha lateral reactor in engine room
@@ -58,8 +56,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
         $this->alphaLateralReactor = new GameEquipment($engineRoom);
         $this->alphaLateralReactor
             ->setName(EquipmentEnum::REACTOR_LATERAL_ALPHA)
-            ->setEquipment($rightLateralReactorConfig)
-        ;
+            ->setEquipment($rightLateralReactorConfig);
         $I->haveInRepository($this->alphaLateralReactor);
 
         $this->statusService = $I->grabService(StatusServiceInterface::class);

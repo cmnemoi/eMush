@@ -26,8 +26,7 @@ class GameVariableLevelValidator extends ConstraintValidator
 
         if ($this->checkVariableLevel($gameVariable, $constraint->checkMode)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 

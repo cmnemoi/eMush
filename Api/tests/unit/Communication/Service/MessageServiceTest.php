@@ -88,8 +88,7 @@ final class MessageServiceTest extends TestCase
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
             ->setChannel($channel)
-            ->setMessage('some message')
-        ;
+            ->setMessage('some message');
 
         $messageEvent = new MessageEvent(new Message(), $player, [], new \DateTime());
         $messageEvent->setPriority(0);
@@ -124,8 +123,7 @@ final class MessageServiceTest extends TestCase
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
             ->setChannel($channel)
-            ->setMessage('some message')
-        ;
+            ->setMessage('some message');
         $playerMessageDto->setParent($message);
 
         $messageEvent = new MessageEvent(new Message(), $player, [], new \DateTime());
@@ -164,16 +162,14 @@ final class MessageServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent(new Message(), $player, [], new \DateTime()))
-            ->once()
-        ;
+            ->once();
         self::assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
         // event new message is prevented
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         self::assertFalse($this->service->canPlayerPostMessage($player, $channel));
     }
 
@@ -209,12 +205,10 @@ final class MessageServiceTest extends TestCase
         $this->messageRepository
             ->shouldReceive('findByChannelWithPagination')
             ->with($channel, 1, 10)
-            ->andReturn([$message1, $message2])
-        ;
+            ->andReturn([$message1, $message2]);
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
-            ->twice()
-        ;
+            ->twice();
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
@@ -238,12 +232,10 @@ final class MessageServiceTest extends TestCase
                 && $age instanceof \DateInterval
                 && (int) $age->format('%H') === 24
             )
-            ->andReturn([$message1, $message2])
-        ;
+            ->andReturn([$message1, $message2]);
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
-            ->twice()
-        ;
+            ->twice();
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
@@ -265,12 +257,10 @@ final class MessageServiceTest extends TestCase
         $this->messageRepository
             ->shouldReceive('findByChannelWithPagination')
             ->with($channel, 1, 10)
-            ->andReturn($messages->slice(0, 10))
-        ;
+            ->andReturn($messages->slice(0, 10));
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message, $player, [], new \DateTime()))
-            ->times(10)
-        ;
+            ->times(10);
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 

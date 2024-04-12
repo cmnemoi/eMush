@@ -16,8 +16,7 @@ class GameConfigFixtures extends Fixture
         $gameConfig = new GameConfig();
 
         $gameConfig
-            ->setName(GameConfigEnum::DEFAULT)
-        ;
+            ->setName(GameConfigEnum::DEFAULT);
 
         $manager->persist($gameConfig);
 

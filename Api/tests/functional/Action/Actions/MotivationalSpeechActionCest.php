@@ -62,8 +62,7 @@ class MotivationalSpeechActionCest
         $speaker->setPlayerVariables($speakerConfig);
         $speaker
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -80,8 +79,7 @@ class MotivationalSpeechActionCest
         $listener->setPlayerVariables($listenerConfig);
         $listener
             ->setActionPoint(10)
-            ->setMoralPoint(6)
-        ;
+            ->setMoralPoint(6);
         $listenerInfo = new PlayerInfo($listener, $user, $listenerConfig);
         $I->haveInRepository($listenerInfo);
         $listener->setPlayerInfo($listenerInfo);

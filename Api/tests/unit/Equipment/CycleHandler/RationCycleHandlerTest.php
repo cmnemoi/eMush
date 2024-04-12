@@ -65,8 +65,7 @@ final class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $frozenConfig = new StatusConfig();
         $frozenConfig->setStatusName(EquipmentStatusEnum::FROZEN);
@@ -94,8 +93,7 @@ final class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         // unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
@@ -119,8 +117,7 @@ final class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $unstableConfig = new StatusConfig();
         $unstableConfig->setStatusName(EquipmentStatusEnum::UNSTABLE);
@@ -147,8 +144,7 @@ final class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $hazardousConfig = new StatusConfig();
         $hazardousConfig->setStatusName(EquipmentStatusEnum::HAZARDOUS);
@@ -177,8 +173,7 @@ final class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $decomposingConfig = new StatusConfig();
         $decomposingConfig->setStatusName(EquipmentStatusEnum::DECOMPOSING);

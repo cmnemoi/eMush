@@ -24,8 +24,7 @@ class PlaceTypeValidator extends ConstraintValidator
             || ($value->getPlayer()->getPlace()->getType() === $constraint->type && !$constraint->allowIfTypeMatches)
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

@@ -32,8 +32,7 @@ final class AllPlanetSectorsVisitedValidator extends ConstraintValidator
         $daedalus = $value->getPlayer()->getDaedalus();
         if (!$daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
 
             return;
         }
@@ -48,8 +47,7 @@ final class AllPlanetSectorsVisitedValidator extends ConstraintValidator
 
         if ($planet->getSectors()->count() === $planet->getVisitedSectors()->count()) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

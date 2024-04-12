@@ -37,8 +37,7 @@ class CanGrantRoleValidator extends ConstraintValidator
                 $this->context
                     ->buildViolation($constraint->message)
                     ->setCode(CanGrantRole::CANNOT_GRANT_ROLE)
-                    ->addViolation()
-                ;
+                    ->addViolation();
 
                 return;
             }

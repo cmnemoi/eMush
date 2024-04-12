@@ -39,7 +39,6 @@ class RationDataLoader extends MechanicsDataLoader
             ->setHealthPoints($rationData['healthPoints'])
             ->setSatiety($rationData['satiety'])
             ->setExtraEffects($rationData['extraEffects'])
-            ->setIsPerishable($rationData['isPerishable'])
-        ;
+            ->setIsPerishable($rationData['isPerishable']);
     }
 }

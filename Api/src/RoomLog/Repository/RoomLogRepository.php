@@ -53,8 +53,7 @@ class RoomLogRepository extends ServiceEntityRepository
             ->setParameter('publicArray', [VisibilityEnum::PUBLIC, VisibilityEnum::REVEALED])
             ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT])
             ->setParameter('player', $playerInfo)
-            ->setParameter('date', $yesterday)
-        ;
+            ->setParameter('date', $yesterday);
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -68,8 +67,7 @@ class RoomLogRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->eq('roomLog.daedalusInfo', ':daedalusInfo'),
             ))
             ->addOrderBy('roomLog.id', 'desc')
-            ->setParameter('daedalusInfo', $daedalus)
-        ;
+            ->setParameter('daedalusInfo', $daedalus);
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -84,8 +82,7 @@ class RoomLogRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->eq('roomLog.place', ':place')
             ))
             ->setParameter('daedalusInfo', $daedalus->getDaedalusInfo())
-            ->setParameter('place', $place->getName())
-        ;
+            ->setParameter('place', $place->getName());
 
         return $queryBuilder->getQuery()->getResult();
     }

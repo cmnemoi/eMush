@@ -70,8 +70,7 @@ final class HealTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(3)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 

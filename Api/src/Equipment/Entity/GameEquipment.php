@@ -206,8 +206,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         return $this
             ->getStatuses()
-            ->exists(static fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN))
-        ;
+            ->exists(static fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN));
     }
 
     public function isOperational(): bool

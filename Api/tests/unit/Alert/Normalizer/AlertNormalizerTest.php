@@ -67,22 +67,19 @@ final class AlertNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('alerts', [], 'alerts', 'fr')
             ->andReturn('translated prefix')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('outcast.name', [], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('outcast.description', [], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
 
         $normalized = $this->normalizer->normalize($alert);
 
@@ -110,29 +107,25 @@ final class AlertNormalizerTest extends TestCase
         $alert = new Alert();
         $alert
             ->setName(AlertEnum::LOW_HULL)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('alerts', [], 'alerts', 'fr')
             ->andReturn('translated prefix')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('low_hull.name', ['quantity' => 5], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('low_hull.description', ['quantity' => 5], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
 
         $normalized = $this->normalizer->normalize($alert);
 
@@ -170,63 +163,54 @@ final class AlertNormalizerTest extends TestCase
         $fireElement1 = new AlertElement();
         $fireElement1
             ->setPlace($room1)
-            ->setPlayerInfo($playerInfo)
-        ;
+            ->setPlayerInfo($playerInfo);
 
         $fireElement2 = new AlertElement();
         $fireElement2
-            ->setPlace($room2)
-        ;
+            ->setPlace($room2);
 
         $alert = new Alert();
         $alert
             ->setName('fire')
             ->setDaedalus($daedalus)
             ->addAlertElement($fireElement1)
-            ->addAlertElement($fireElement2)
-        ;
+            ->addAlertElement($fireElement2);
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('alerts', [], 'alerts', 'fr')
             ->andReturn('translated prefix')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('fire.name', ['quantity' => 2], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('fire.description', ['quantity' => 2], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('room1', [], 'rooms', LanguageEnum::FRENCH)
             ->andReturn('translated three')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('room1.loc_prep', [], 'rooms', LanguageEnum::FRENCH)
             ->andReturn('translated four')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('fire.report', ['character' => 'andie', 'place' => 'translated three', 'loc_prep' => 'translated four'], 'alerts', LanguageEnum::FRENCH)
             ->andReturn('translated five')
-            ->once()
-        ;
+            ->once();
 
         $normalized = $this->normalizer->normalize($alert);
 

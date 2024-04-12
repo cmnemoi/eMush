@@ -65,8 +65,7 @@ final class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
@@ -84,15 +83,13 @@ final class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isFireReported')
             ->with($room)
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -106,8 +103,7 @@ final class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $playerInfo = new PlayerInfo(
             $player,
             new User(),
@@ -130,15 +126,13 @@ final class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isFireReported')
             ->with($room)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->constraint->message = 'not valid';
 
@@ -154,8 +148,7 @@ final class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment($room);
@@ -174,15 +167,13 @@ final class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameEquipment,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isEquipmentReported')
             ->with($gameEquipment)
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -196,8 +187,7 @@ final class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $playerInfo = new PlayerInfo(
             $player,
             new User(),
@@ -221,15 +211,13 @@ final class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameEquipment,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isEquipmentReported')
             ->with($gameEquipment)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->constraint->message = 'not valid';
 

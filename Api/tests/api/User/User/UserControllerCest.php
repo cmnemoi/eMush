@@ -49,8 +49,7 @@ class UserControllerCest
 
         $user
             ->setUsername('userName_' . $userId)
-            ->setUserId($userId)
-        ;
+            ->setUserId($userId);
 
         return $user;
     }

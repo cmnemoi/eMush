@@ -72,12 +72,10 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_CRITICAL)
-            ->never()
-        ;
+            ->never();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
 
         // Fail try
@@ -102,13 +100,11 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, null, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->statusService->shouldReceive('removeStatus')->once();

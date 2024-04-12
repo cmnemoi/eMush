@@ -36,8 +36,7 @@ class PlayerCanAffordPointsValidator extends ConstraintValidator
             }
 
             $this->context->buildViolation($message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

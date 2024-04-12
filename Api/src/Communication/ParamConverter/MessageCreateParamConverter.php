@@ -53,8 +53,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
             ->setMessage((string) $message)
             ->setPlayer($player)
             ->setPage((int) $page)
-            ->setLimit((int) $limit)
-        ;
+            ->setLimit((int) $limit);
 
         $request->attributes->set($configuration->getName(), $messageCreate);
 

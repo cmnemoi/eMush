@@ -266,12 +266,10 @@ final class PlaceNormalizerTest extends TestCase
 
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName($name)
-        ;
+            ->setName($name);
         $itemConfig
             ->setIsStackable($isStackable)
-            ->setEquipmentName($name)
-        ;
+            ->setEquipmentName($name);
 
         return $gameItem;
     }

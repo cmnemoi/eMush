@@ -27,8 +27,7 @@ class UserServiceCest
         $user = new User();
         $user
             ->setUserId('userId')
-            ->setUsername('Breut')
-        ;
+            ->setUsername('Breut');
 
         $this->userService->persist($user);
 

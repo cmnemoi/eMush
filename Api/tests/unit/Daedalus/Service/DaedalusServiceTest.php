@@ -120,8 +120,7 @@ final class DaedalusServiceTest extends TestCase
         $randomItem = new RandomItemPlaces();
         $randomItem
             ->setItems([$item->getEquipmentName()])
-            ->setPlaces([RoomEnum::LABORATORY])
-        ;
+            ->setPlaces([RoomEnum::LABORATORY]);
 
         $daedalusConfig
             ->setInitShield(1)
@@ -130,19 +129,16 @@ final class DaedalusServiceTest extends TestCase
             ->setInitHull(4)
             ->setDailySporeNb(4)
             ->setPlaceConfigs(new ArrayCollection([$roomConfig]))
-            ->setRandomItemPlaces($randomItem)
-        ;
+            ->setRandomItemPlaces($randomItem);
         $gameConfig
             ->setDaedalusConfig($daedalusConfig)
-            ->setEquipmentsConfig(new ArrayCollection([$item]))
-        ;
+            ->setEquipmentsConfig(new ArrayCollection([$item]));
 
         $this->localizationConfigRepository
             ->shouldReceive('findByLanguage')
             ->with(LanguageEnum::FRENCH)
             ->once()
-            ->andReturn(new LocalizationConfig())
-        ;
+            ->andReturn(new LocalizationConfig());
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(
@@ -150,16 +146,13 @@ final class DaedalusServiceTest extends TestCase
                     $event->getDaedalusConfig() === $daedalusConfig
                 )
             )
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $daedalus = $this->service->createDaedalus($gameConfig, 'name', LanguageEnum::FRENCH);
 
@@ -187,13 +180,11 @@ final class DaedalusServiceTest extends TestCase
         $this->cycleService
             ->shouldReceive('getInDayCycleFromDate')
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->cycleService
             ->shouldReceive('getDaedalusStartingCycleDate')
             ->andReturn(new \DateTime('today midnight'))
-            ->once()
-        ;
+            ->once();
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -263,30 +254,24 @@ final class DaedalusServiceTest extends TestCase
 
         $oxCapsule1
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule2
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule3
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule4
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule5
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
 
         // one player with no capsule
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($noCapsulePlayer)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
@@ -298,8 +283,7 @@ final class DaedalusServiceTest extends TestCase
         $this->eventService->shouldReceive('callEvent')->once();
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($twoCapsulePlayer)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
@@ -313,8 +297,7 @@ final class DaedalusServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
-            ->setNbMush(2)
-        ;
+            ->setNbMush(2);
 
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
@@ -350,8 +333,7 @@ final class DaedalusServiceTest extends TestCase
                 && $number === 2
             ))
             ->andReturn(['player1', 'player3'])
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->twice();
 
@@ -373,8 +355,7 @@ final class DaedalusServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::FINISH_DAEDALUS))
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
 
@@ -457,8 +438,7 @@ final class DaedalusServiceTest extends TestCase
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
         $player->setPlayerInfo($playerInfo);

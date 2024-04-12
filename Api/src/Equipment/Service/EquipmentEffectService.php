@@ -44,8 +44,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
     public function getConsumableEffect(Ration $ration, Daedalus $daedalus): ConsumableEffect
     {
         $consumableEffect = $this->consumableEffectRepository
-            ->findOneBy(['ration' => $ration, 'daedalus' => $daedalus])
-        ;
+            ->findOneBy(['ration' => $ration, 'daedalus' => $daedalus]);
         $consumableEffect = $consumableEffect instanceof ConsumableEffect ? $consumableEffect : null;
 
         if ($consumableEffect === null) {
@@ -59,8 +58,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
     public function getPlantEffect(Plant $plant, Daedalus $daedalus): PlantEffect
     {
         $plantEffect = $this->plantEffectRepository
-            ->findOneBy(['plant' => $plant, 'daedalus' => $daedalus])
-        ;
+            ->findOneBy(['plant' => $plant, 'daedalus' => $daedalus]);
 
         $plantEffect = $plantEffect instanceof PlantEffect ? $plantEffect : null;
 
@@ -74,8 +72,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                         $plant->getMaturationTime()
                     )
                 )
-                ->setOxygen((int) $this->randomService->getSingleRandomElementFromProbaCollection($plant->getOxygen()))
-            ;
+                ->setOxygen((int) $this->randomService->getSingleRandomElementFromProbaCollection($plant->getOxygen()));
 
             $this->plantEffectRepository->persist($plantEffect);
         }
@@ -90,8 +87,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
         $consumableEffect
             ->setDaedalus($daedalus)
             ->setRation($ration)
-            ->setSatiety($ration->getSatiety())
-        ;
+            ->setSatiety($ration->getSatiety());
 
         if ($ration instanceof Drug) {
             $consumableEffect = $this->createDrugEffects($consumableEffect, $ration);
@@ -108,8 +104,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 )
                 ->setMoralPoint(
                     (int) $this->randomService->getSingleRandomElementFromProbaCollection($ration->getMoralPoints())
-                )
-            ;
+                );
         }
 
         return $consumableEffect;
@@ -122,8 +117,7 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
             $consumableEffect
                 ->setActionPoint(
                     (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getActionPoints())
-                )
-            ;
+                );
         } else {
             $consumableEffect->setMovementPoint(
                 (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getMovementPoints())

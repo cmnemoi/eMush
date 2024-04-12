@@ -54,8 +54,7 @@ class HunterConfigDataLoader extends ConfigDataLoader
                 ->setScrapDropTable(new ProbaCollection($hunterConfigData['scrapDropTable']))
                 ->setNumberOfDroppedScrap($hunterConfigData['numberOfDroppedScrap'])
                 ->setTargetProbabilities($hunterConfigData['targetProbabilities'])
-                ->setBonusAfterFailedShot($hunterConfigData['bonusAfterFailedShot'])
-            ;
+                ->setBonusAfterFailedShot($hunterConfigData['bonusAfterFailedShot']);
             $this->setHunterConfigInitialStatuses($hunterConfig, $hunterConfigData);
 
             $this->entityManager->persist($hunterConfig);

@@ -70,8 +70,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::FRONT_ALPHA_TURRET));
         $this->turret
             ->setName('turret')
-            ->setEquipment($turretConfig)
-        ;
+            ->setEquipment($turretConfig);
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);
@@ -127,8 +126,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $turret
             ->setName('turret')
-            ->setEquipment($turretConfig)
-        ;
+            ->setEquipment($turretConfig);
         $I->haveInRepository($turret);
 
         /** @var Hunter $hunter */
@@ -238,8 +236,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $lenses = new GameEquipment($this->player1);
         $lenses
             ->setName(GearItemEnum::NCC_LENS)
-            ->setEquipment($lensesConfig)
-        ;
+            ->setEquipment($lensesConfig);
         $I->haveInRepository($lenses);
 
         /** @var VariableEventModifierConfig $lensesModifierConfig */

@@ -197,8 +197,7 @@ final class HackCest extends AbstractFunctionalTest
         $commandTerminal = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::BRIDGE));
         $commandTerminal
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
+            ->setEquipment($commandTerminalConfig);
         $I->haveInRepository($commandTerminal);
 
         return $commandTerminal;
@@ -210,8 +209,7 @@ final class HackCest extends AbstractFunctionalTest
         $hackerKit = new GameItem($this->player);
         $hackerKit
             ->setName(ToolItemEnum::HACKER_KIT)
-            ->setEquipment($hackerKitConfig)
-        ;
+            ->setEquipment($hackerKitConfig);
         $I->haveInRepository($hackerKit);
 
         return $hackerKit;

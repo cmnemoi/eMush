@@ -27,8 +27,7 @@ class MechanicValidator extends ConstraintValidator
 
         if ($actionTarget->getEquipment()->getMechanicByName($constraint->mechanic) === null) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

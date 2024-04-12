@@ -58,8 +58,7 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
         $planet = new Planet($this->player);
         $planet
             ->setName($planetName)
-            ->setSize(\count($sectors))
-        ;
+            ->setSize(\count($sectors));
         $functionalTester->haveInRepository($planet);
 
         foreach ($sectors as $sector) {

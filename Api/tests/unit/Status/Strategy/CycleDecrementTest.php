@@ -58,8 +58,7 @@ final class CycleDecrementTest extends TestCase
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setMaxCharge(10)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
 
         $status = new ChargeStatus(new Player(), $statusConfig);
         $status->getVariableByName($status->getName())->setValue(10);

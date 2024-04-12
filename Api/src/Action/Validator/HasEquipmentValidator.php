@@ -49,8 +49,7 @@ class HasEquipmentValidator extends ConstraintValidator
             ) !== $constraint->contains
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 

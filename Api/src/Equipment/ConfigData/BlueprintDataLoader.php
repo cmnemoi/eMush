@@ -25,8 +25,7 @@ class BlueprintDataLoader extends MechanicsDataLoader
             $blueprint
                 ->setName($blueprintData['name'])
                 ->setCraftedEquipmentName($blueprintData['craftedEquipmentName'])
-                ->setIngredients($blueprintData['ingredients'])
-            ;
+                ->setIngredients($blueprintData['ingredients']);
             $this->setMechanicsActions($blueprint, $blueprintData);
 
             $this->entityManager->persist($blueprint);

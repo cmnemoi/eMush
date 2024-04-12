@@ -64,13 +64,11 @@ final class RepairActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item
-            ->setIsBreakable(true)
-        ;
+            ->setIsBreakable(true);
 
         $gameItem
             ->setEquipment($item)
-            ->setName('item')
-        ;
+            ->setName('item');
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
@@ -82,8 +80,7 @@ final class RepairActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
 
         // Fail try
@@ -99,13 +96,11 @@ final class RepairActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item
-            ->setIsBreakable(true)
-        ;
+            ->setIsBreakable(true);
 
         $gameItem
             ->setEquipment($item)
-            ->setName('item')
-        ;
+            ->setName('item');
 
         $player = $this->createPlayer($daedalus, $room, [SkillEnum::TECHNICIAN]);
 
@@ -117,13 +112,11 @@ final class RepairActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(100)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 

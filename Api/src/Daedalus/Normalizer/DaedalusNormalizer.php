@@ -196,8 +196,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $exploratorNames = $exploration->getAliveExplorators()
             ->filter(static fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
             ->map(fn (Player $player) => $this->translateExploratorName($player))
-            ->toArray()
-        ;
+            ->toArray();
 
         return implode(', ', $exploratorNames);
     }

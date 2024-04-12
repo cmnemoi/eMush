@@ -56,8 +56,7 @@ class ReachValidator extends ConstraintValidator
 
         if (!$canReach) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 

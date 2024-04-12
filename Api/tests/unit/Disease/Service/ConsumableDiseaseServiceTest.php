@@ -79,20 +79,17 @@ final class ConsumableDiseaseServiceTest extends TestCase
         $consumableDiseaseConfig = new ConsumableDiseaseConfig();
         $consumableDiseaseConfig
             ->setCauseName('name')
-            ->setAttributes(new ArrayCollection([$disease1, $disease2]))
-        ;
+            ->setAttributes(new ArrayCollection([$disease1, $disease2]));
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->times(3)
-        ;
+            ->times(3);
 
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
@@ -114,8 +111,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
             ->setCuresChances([30 => 1, 45 => 2])
             ->setDiseasesChances([20 => 1, 25 => 2])
             ->setDiseasesDelayMin([0 => 1])
-            ->setCauseName('name')
-        ;
+            ->setCauseName('name');
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
@@ -129,16 +125,14 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[2] === 10
             ))
             ->andReturn(2)
-            ->times(1)
-        ;
+            ->times(1);
 
         // One cure and one disease
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->with(range(1, 3), 2)
             ->andReturn([1, 3])
-            ->once()
-        ;
+            ->once();
 
         // first the service chose and design the cure
         $this->randomService
@@ -150,8 +144,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $number === 1
             ))
             ->andReturn(['Disease 1'])
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -162,8 +155,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[45] === 2
             ))
             ->andReturn(45)
-            ->once()
-        ;
+            ->once();
 
         // then the disease
         $this->randomService
@@ -177,8 +169,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $number === 1
             ))
             ->andReturn(['Disease 1'])
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -189,8 +180,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[25] === 2
             ))
             ->andReturn(45)
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -199,18 +189,15 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[0] === 1
             ))
             ->andReturn(0)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->times(3)
-        ;
+            ->times(3);
 
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
@@ -234,8 +221,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([20 => 1])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
-            ->setCauseName('name')
-        ;
+            ->setCauseName('name');
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
@@ -247,16 +233,14 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
-            ->times(1)
-        ;
+            ->times(1);
 
         // One cure and one disease
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->with(range(1, 1), 1)
             ->andReturn([1])
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
@@ -267,8 +251,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $number === 1
             ))
             ->andReturn(['Disease 1'])
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -277,8 +260,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[20] === 1
             ))
             ->andReturn(20)
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -287,8 +269,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -300,18 +281,15 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[8] === 5
             ))
             ->andReturn(8)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
-        ;
+            ->twice();
 
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
@@ -340,8 +318,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([100 => 1])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
-            ->setCauseName('name')
-        ;
+            ->setCauseName('name');
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
@@ -353,16 +330,14 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
-            ->times(1)
-        ;
+            ->times(1);
 
         // One cure and one disease
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->with(range(1, 1), 1)
             ->andReturn([1])
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
@@ -373,8 +348,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $number === 1
             ))
             ->andReturn(['Disease 1'])
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -383,8 +357,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[100] === 1
             ))
             ->andReturn(100)
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -393,18 +366,15 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(0)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
-        ;
+            ->twice();
 
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 
@@ -434,8 +404,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
             ->setDiseasesChances([])
             ->setDiseasesDelayMin([1 => 1])
             ->setDiseasesDelayLength([5 => 1, 8 => 5])
-            ->setCauseName('name')
-        ;
+            ->setCauseName('name');
 
         $gameConfig->addConsumableDiseaseConfig($consumableDiseaseConfig);
 
@@ -447,16 +416,14 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[1] === 1
             ))
             ->andReturn(1)
-            ->times(1)
-        ;
+            ->times(1);
 
         // One cure and one disease
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->with(range(1, 1), 1)
             ->andReturn([1])
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomElementsFromProbaCollection')
@@ -467,8 +434,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $number === 1
             ))
             ->andReturn(['Disease 1'])
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->withArgs(static fn ($probaCollection) => (
@@ -477,18 +443,15 @@ final class ConsumableDiseaseServiceTest extends TestCase
                 && $probaCollection->toArray()[30] === 1
             ))
             ->andReturn(30)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->twice()
-        ;
+            ->twice();
 
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $consumableDisease = $this->consumableDiseaseService->createConsumableDiseases('name', $daedalus);
 

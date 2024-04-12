@@ -73,8 +73,7 @@ class EquipmentEventCest
         $equipment = new GameItem($room);
         $equipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getEquipmentName())
-        ;
+            ->setName($equipmentConfig->getEquipmentName());
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(
@@ -163,8 +162,7 @@ class EquipmentEventCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $equipmentEvent = new EquipmentEvent(

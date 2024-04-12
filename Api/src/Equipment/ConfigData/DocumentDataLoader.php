@@ -26,8 +26,7 @@ class DocumentDataLoader extends MechanicsDataLoader
                 ->setName($documentData['name'])
                 ->setContent($documentData['content'])
                 ->setIsTranslated($documentData['isTranslated'])
-                ->setCanShred($documentData['canShred'])
-            ;
+                ->setCanShred($documentData['canShred']);
             $this->setMechanicsActions($document, $documentData);
 
             $this->entityManager->persist($document);

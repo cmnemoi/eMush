@@ -59,8 +59,7 @@ final class ReadBookActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)
-            ->setName('name')
-        ;
+            ->setName('name');
 
         $this->eventService->shouldReceive('callEvent');
 

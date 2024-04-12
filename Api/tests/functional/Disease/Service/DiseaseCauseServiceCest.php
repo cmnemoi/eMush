@@ -50,8 +50,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
@@ -60,8 +59,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $diseaseCause2 = new DiseaseCauseConfig();
@@ -70,8 +68,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
             ->setDiseases(
                 [DiseaseEnum::MUSH_ALLERGY => 1]
             )
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause2);
 
         /** @var GameConfig $gameConfig */

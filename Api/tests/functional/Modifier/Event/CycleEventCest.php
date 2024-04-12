@@ -119,8 +119,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
         $patrolShip
             ->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
-            ->setEquipment($patrolShipConfig)
-        ;
+            ->setEquipment($patrolShipConfig);
         $I->haveInRepository($patrolShip);
 
         $electricChargesConfig = $I->grabEntityFromRepository(
@@ -155,8 +154,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
         $patrolShip
             ->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
-            ->setEquipment($patrolShipConfig)
-        ;
+            ->setEquipment($patrolShipConfig);
         $I->haveInRepository($patrolShip);
 
         $electricChargesConfig = $I->grabEntityFromRepository(

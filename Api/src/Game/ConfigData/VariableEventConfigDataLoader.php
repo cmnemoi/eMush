@@ -37,8 +37,7 @@ class VariableEventConfigDataLoader extends ConfigDataLoader
                 ->setTargetVariable($variableEventConfigData['targetVariable'])
                 ->setVariableHolderClass($variableEventConfigData['variableHolderClass'])
                 ->setEventName($variableEventConfigData['eventName'])
-                ->setName($variableEventConfigData['name'])
-            ;
+                ->setName($variableEventConfigData['name']);
 
             $this->entityManager->persist($variableEventConfig);
         }

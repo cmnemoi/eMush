@@ -44,15 +44,13 @@ class PlayerContaminationCest
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
@@ -61,8 +59,7 @@ class PlayerContaminationCest
             ->setDiseases([
                 DiseaseEnum::FUNGIC_INFECTION => 1,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         /** @var LocalizationConfig $localizationConfig */
@@ -93,8 +90,7 @@ class PlayerContaminationCest
         $mushChannel = new Channel();
         $mushChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH)
-        ;
+            ->setScope(ChannelScopeEnum::MUSH);
         $I->haveInRepository($mushChannel);
 
         /** @var Place $room */
@@ -149,15 +145,13 @@ class PlayerContaminationCest
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
@@ -166,8 +160,7 @@ class PlayerContaminationCest
             ->setDiseases([
                 DiseaseEnum::FUNGIC_INFECTION => 1,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         /** @var LocalizationConfig $localizationConfig */
@@ -198,8 +191,7 @@ class PlayerContaminationCest
         $mushChannel = new Channel();
         $mushChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH)
-        ;
+            ->setScope(ChannelScopeEnum::MUSH);
         $I->haveInRepository($mushChannel);
 
         /** @var Place $room */

@@ -23,8 +23,7 @@ class FullDaedalusValidator extends ConstraintValidator
             $this->context
                 ->buildViolation($constraint->message)
                 ->setCode(FullDaedalus::FULL_DAEDALUS_ERROR)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

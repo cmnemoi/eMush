@@ -72,8 +72,7 @@ final class CookActionTest extends AbstractActionTest
         $ration->setEquipmentName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setName('ration')
-        ;
+            ->setName('ration');
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
@@ -84,8 +83,7 @@ final class CookActionTest extends AbstractActionTest
         $kitchen->setEquipmentName(EquipmentEnum::KITCHEN);
         $gameKitchen
             ->setEquipment($kitchen)
-            ->setName(EquipmentEnum::KITCHEN)
-        ;
+            ->setName(EquipmentEnum::KITCHEN);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
@@ -114,16 +112,14 @@ final class CookActionTest extends AbstractActionTest
         $ration->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION);
 
         $gameKitchen = new GameEquipment($room);
         $kitchen = new EquipmentConfig();
         $kitchen->setEquipmentName(EquipmentEnum::KITCHEN);
         $gameKitchen
             ->setEquipment($kitchen)
-            ->setName(EquipmentEnum::KITCHEN)
-        ;
+            ->setName(EquipmentEnum::KITCHEN);
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -131,12 +127,10 @@ final class CookActionTest extends AbstractActionTest
         $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
-            ->setEquipmentName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setEquipmentName(GameRationEnum::COOKED_RATION);
         $gameCookedRation
             ->setEquipment($cookedRation)
-            ->setName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setName(GameRationEnum::COOKED_RATION);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();

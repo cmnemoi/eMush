@@ -90,17 +90,14 @@ final class PlaceServiceTest extends TestCase
                     $event->getPlaceConfig() === $roomConfig
                 )
             )
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $result = $this->placeService->createPlace($roomConfig, $daedalus, ['daedalus_start'], new \DateTime());
 
@@ -114,8 +111,7 @@ final class PlaceServiceTest extends TestCase
         $equipmentConfig = new EquipmentConfig();
 
         $equipmentConfig
-            ->setEquipmentName($name)
-        ;
+            ->setEquipmentName($name);
 
         return $equipmentConfig;
     }
@@ -136,8 +132,7 @@ final class PlaceServiceTest extends TestCase
             ])
             ->setItems([
                 ItemEnum::BLASTER,
-            ])
-        ;
+            ]);
 
         return $roomConfig;
     }

@@ -84,8 +84,7 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
         $combustionChamber = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ENGINE_ROOM));
         $combustionChamber
             ->setName(EquipmentEnum::COMBUSTION_CHAMBER)
-            ->setEquipment($combustionChamberConfig)
-        ;
+            ->setEquipment($combustionChamberConfig);
         $I->haveInRepository($combustionChamber);
 
         return $combustionChamber;

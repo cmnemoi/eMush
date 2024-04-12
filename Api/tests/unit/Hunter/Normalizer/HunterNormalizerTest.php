@@ -103,8 +103,7 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Astéroïde')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
@@ -118,15 +117,13 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn(self::ASTEROID_DESCRIPTION)
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -170,8 +167,7 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Hunter')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
@@ -185,15 +181,13 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn(self::HUNTER_DESCRIPTION)
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,

@@ -92,8 +92,7 @@ class MessageModifierService implements MessageModifierServiceInterface
         }
 
         $message
-            ->setMessage($messageContent)
-        ;
+            ->setMessage($messageContent);
 
         return $message;
     }
@@ -165,8 +164,7 @@ class MessageModifierService implements MessageModifierServiceInterface
                 ->setTranslationParameters([
                     DiseaseMessagesEnum::ORIGINAL_MESSAGE => $message->getMessage(),
                     DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
-                ])
-            ;
+                ]);
         }
 
         $message->setMessage($messageContent);

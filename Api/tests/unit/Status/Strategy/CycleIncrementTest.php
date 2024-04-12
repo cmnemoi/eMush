@@ -72,8 +72,7 @@ final class CycleIncrementTest extends TestCase
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(10)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
         $status = new ChargeStatus($player, $statusConfig);
         $status->getVariableByName($status->getName())->setValue(0);
 

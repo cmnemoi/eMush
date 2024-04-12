@@ -100,8 +100,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $fourPeopleOneMovementIncrease,
                 $noPilotingActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($agoraphobia);
 
         $ailurophobia = new DiseaseConfig();
@@ -113,8 +112,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $catInRoomNotMove2ActionIncrease,
                 $fearOfCats,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($ailurophobia);
 
         $chronicMigraine = new DiseaseConfig();
@@ -126,8 +124,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $cycle1ActionLostRand16,
             ])
             ->setOverride([DiseaseEnum::MIGRAINE])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($chronicMigraine);
 
         $chronicVertigo = new DiseaseConfig();
@@ -137,8 +134,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $noPilotingActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($chronicVertigo);
 
         $coprolalia = new DiseaseConfig();
@@ -149,8 +145,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $reduceMax4MoralPoint,
                 $coprolaliaSymptom,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($coprolalia);
 
         $crabism = new DiseaseConfig();
@@ -163,8 +158,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $cycle1HealthLostRand16WithWallHeadBang,
                 $cycle2MovementLostRand16WithRunInCircles,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($crabism);
 
         $depression = new DiseaseConfig();
@@ -175,8 +169,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $reduceMax2MoralPoint,
                 $reduceMax2ActionPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($depression);
 
         $paranoia = new DiseaseConfig();
@@ -188,8 +181,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $paranoiaSymptom,
                 $paranoiaDenial,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($paranoia);
 
         $psychoticEpisode = new DiseaseConfig();
@@ -200,8 +192,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $biting,
                 $psychoticAttacks,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($psychoticEpisode);
 
         $spleen = new DiseaseConfig();
@@ -211,8 +202,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $cycle1MoralLostRand70,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($spleen);
 
         $vertigo = new DiseaseConfig();
@@ -222,8 +212,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $noPilotingActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($vertigo);
 
         $weaponPhobia = new DiseaseConfig();
@@ -234,8 +223,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $noAttackActions,
                 $noShootActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($weaponPhobia);
 
         $gameConfig
@@ -250,8 +238,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->addDiseaseConfig($psychoticEpisode)
             ->addDiseaseConfig($spleen)
             ->addDiseaseConfig($vertigo)
-            ->addDiseaseConfig($weaponPhobia)
-        ;
+            ->addDiseaseConfig($weaponPhobia);
         $manager->persist($gameConfig);
 
         $manager->flush();

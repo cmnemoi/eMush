@@ -71,8 +71,7 @@ final class ReadDocumentTest extends AbstractActionTest
 
         $statusConfig = new ContentStatusConfig();
         $statusConfig
-            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
-        ;
+            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT);
 
         $status = new ContentStatus($gameItem, $statusConfig);
         $status->setContent('test content');

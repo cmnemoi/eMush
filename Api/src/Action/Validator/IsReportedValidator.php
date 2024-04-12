@@ -30,8 +30,7 @@ class IsReportedValidator extends ConstraintValidator
 
         if ($this->isFireAlertReported($value) || $this->isEquipmentAlertReported($value)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 

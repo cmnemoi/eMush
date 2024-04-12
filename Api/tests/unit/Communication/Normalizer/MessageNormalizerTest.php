@@ -81,27 +81,23 @@ final class MessageNormalizerTest extends TestCase
         $message
             ->setAuthor($playerInfo)
             ->setMessage('message')
-            ->setCreatedAt($createdAt)
-        ;
+            ->setCreatedAt($createdAt);
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
             ->andReturn('translated date')
-            ->once()
-        ;
+            ->once();
 
         $currentPlayer = new Player();
         $currentPlayer
             ->setDaedalus($daedalus)
-            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
-        ;
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()));
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -141,31 +137,26 @@ final class MessageNormalizerTest extends TestCase
                 'player' => CharacterEnum::ANDIE,
                 'cause' => EndCauseEnum::ABANDONED,
                 'targetEquipment' => EquipmentEnum::ANTENNA,
-            ])
-        ;
+            ]);
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('message', $message->getTranslationParameters(), 'neron', LanguageEnum::FRENCH)
-            ->andReturn('translatedMessage')
-        ;
+            ->andReturn('translatedMessage');
         $this->translationService
             ->shouldReceive('translate')
             ->with(CharacterEnum::NERON . '.name', [], 'characters', LanguageEnum::FRENCH)
-            ->andReturn('translatedName')
-        ;
+            ->andReturn('translatedName');
         $this->translationService
             ->shouldReceive('translate')
             ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
             ->andReturn('translated date')
-            ->once()
-        ;
+            ->once();
 
         $currentPlayer = new Player();
         $currentPlayer
             ->setDaedalus($daedalus)
-            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
-        ;
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()));
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($message, null, $context);
@@ -206,47 +197,40 @@ final class MessageNormalizerTest extends TestCase
         $playerMessage
             ->setAuthor($playerInfo)
             ->setMessage('message child')
-            ->setCreatedAt($createdAt)
-        ;
+            ->setCreatedAt($createdAt);
 
         $neronMessage = new Message();
         $neronMessage
             ->setNeron($neron)
             ->setMessage('message parent')
             ->setCreatedAt($createdAt)
-            ->setChild(new ArrayCollection([$playerMessage]))
-        ;
+            ->setChild(new ArrayCollection([$playerMessage]));
 
         $this->translationService
             ->shouldReceive('translate')
             ->with(CharacterEnum::NERON . '.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translatedName')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated player name')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('message parent', [], 'neron', LanguageEnum::FRENCH)
             ->andReturn('translated message parent')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
             ->andReturn('translated date')
-            ->twice()
-        ;
+            ->twice();
 
         $currentPlayer = new Player();
         $currentPlayer
             ->setDaedalus($daedalus)
-            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()))
-        ;
+            ->setPlayerInfo(new PlayerInfo($currentPlayer, new User(), new CharacterConfig()));
 
         $context = ['currentPlayer' => $currentPlayer];
         $normalizedData = $this->normalizer->normalize($neronMessage, null, $context);
@@ -281,8 +265,7 @@ final class MessageNormalizerTest extends TestCase
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
-            ->setPlayerInfo(new PlayerInfo($player, new User(), new CharacterConfig()))
-        ;
+            ->setPlayerInfo(new PlayerInfo($player, new User(), new CharacterConfig()));
 
         $otherPlayer = new Player();
         $otherPlayerInfo = new PlayerInfo($otherPlayer, new User(), $playerConfig);
@@ -293,8 +276,7 @@ final class MessageNormalizerTest extends TestCase
         $playerDisease = new PlayerDisease();
         $playerDisease
             ->setDiseaseConfig($diseaseConfig)
-            ->setStatus(DiseaseStatusEnum::ACTIVE)
-        ;
+            ->setStatus(DiseaseStatusEnum::ACTIVE);
 
         $player->addMedicalCondition($playerDisease);
 
@@ -308,20 +290,17 @@ final class MessageNormalizerTest extends TestCase
             ->setTranslationParameters([
                 DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'original message',
-            ])
-        ;
+            ]);
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('name.name', [], 'characters', LanguageEnum::FRENCH)
-            ->andReturn('translatedName')
-        ;
+            ->andReturn('translatedName');
         $this->translationService
             ->shouldReceive('translate')
             ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
             ->andReturn('translated date')
-            ->once()
-        ;
+            ->once();
 
         $context = ['currentPlayer' => $player];
         $normalizedData = $this->normalizer->normalize($message, null, $context);

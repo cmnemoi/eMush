@@ -79,8 +79,7 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(0)
-        ;
+            ->setStartCharge(0);
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */
@@ -106,8 +105,7 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(1)
-        ;
+            ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */
@@ -133,8 +131,7 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(1)
-        ;
+            ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */

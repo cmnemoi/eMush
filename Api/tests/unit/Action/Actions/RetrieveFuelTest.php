@@ -69,8 +69,7 @@ final class RetrieveFuelTest extends AbstractActionTest
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setMaxFuel(32)
-            ->setInitFuel(10)
-        ;
+            ->setInitFuel(10);
 
         $daedalus->setDaedalusVariables($daedalusConfig);
 

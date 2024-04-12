@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Tests;
 
+use Codeception\Actor;
+
 /**
- * Inherited Methods
+ * Inherited Methods.
+ *
  * @method void wantTo($text)
  * @method void wantToTest($text)
  * @method void execute($callable)
@@ -18,12 +21,10 @@ namespace Mush\Tests;
  * @method void pause($vars = [])
  *
  * @SuppressWarnings(PHPMD)
-*/
-class UnitTester extends \Codeception\Actor
+ */
+class UnitTester extends Actor
 {
     use _generated\UnitTesterActions;
 
-    /**
-     * Define custom actions here
-     */
+    // Define custom actions here
 }

@@ -66,8 +66,7 @@ final class ParameterHasActionValidatorTest extends TestCase
                 'getAction' => $actionEntity,
                 'getTarget' => $gameItem,
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -90,8 +89,7 @@ final class ParameterHasActionValidatorTest extends TestCase
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
 
@@ -116,8 +114,7 @@ final class ParameterHasActionValidatorTest extends TestCase
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new GameEquipment(new Place()));
 
@@ -142,8 +139,7 @@ final class ParameterHasActionValidatorTest extends TestCase
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
 

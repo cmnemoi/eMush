@@ -80,8 +80,7 @@ class NeronMessageService implements NeronMessageServiceInterface
             ->setTranslationParameters($parameters)
             ->setCreatedAt($dateTime)
             ->setUpdatedAt($dateTime)
-            ->setParent($parent)
-        ;
+            ->setParent($parent);
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

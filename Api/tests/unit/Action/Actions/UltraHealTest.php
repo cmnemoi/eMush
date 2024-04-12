@@ -64,14 +64,12 @@ final class UltraHealTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
         $player = $this->createPlayer($daedalus, $room);
 
         $this->playerVariableService
             ->shouldReceive('setPlayerVariableToMax')
-            ->with($player, PlayerVariableEnum::HEALTH_POINT)
-        ;
+            ->with($player, PlayerVariableEnum::HEALTH_POINT);
         $this->playerService->shouldReceive('persist');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

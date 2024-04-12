@@ -4,7 +4,8 @@ $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
     ->exclude('var')
     ->exclude('_data')
-    ->exclude('_generated');
+    ->exclude('_generated')
+;
 
 return (new PhpCsFixer\Config())
     ->setRules([
@@ -13,6 +14,7 @@ return (new PhpCsFixer\Config())
         'yoda_style' => false,
         'concat_space' => ['spacing' => 'one'],
         'array_syntax' => ['syntax' => 'short'],
+        'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder);

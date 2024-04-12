@@ -24,8 +24,7 @@ final class AvailableScrapToCollectValidator extends ConstraintValidator
         $spaceContent = $value->getPlayer()->getDaedalus()->getSpace()->getEquipments();
         if ($spaceContent->isEmpty()) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

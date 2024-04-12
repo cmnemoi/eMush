@@ -104,8 +104,7 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->andReturn([$room1])
-            ->once()
-        ;
+            ->once();
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
@@ -131,14 +130,12 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->andReturn([$room1])
-            ->once()
-        ;
+            ->once();
 
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
-            ->once()
-        ;
+            ->once();
 
         $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
 
@@ -162,14 +159,12 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->andReturn([$room1])
-            ->once()
-        ;
+            ->once();
 
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
-            ->once()
-        ;
+            ->once();
 
         $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
 
@@ -206,8 +201,7 @@ final class DaedalusIncidentServiceTest extends TestCase
             ->shouldReceive('findByNameAndDaedalus')
             ->withArgs(['communication_center', $daedalus])
             ->andReturn([$equipment])
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
@@ -218,8 +212,7 @@ final class DaedalusIncidentServiceTest extends TestCase
                 && $funcDaedalus === $daedalus
             ))
             ->andReturn([$equipment])
-            ->once()
-        ;
+            ->once();
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
@@ -254,14 +247,12 @@ final class DaedalusIncidentServiceTest extends TestCase
             ->shouldReceive('findByNameAndDaedalus')
             ->withArgs(['communication_center', $daedalus])
             ->andReturn([$equipment])
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
             ->andReturn([$equipment])
-            ->never()
-        ;
+            ->never();
 
         $this->statusService->shouldReceive('createStatusFromName')->never();
 
@@ -299,8 +290,7 @@ final class DaedalusIncidentServiceTest extends TestCase
             ->shouldReceive('findByNameAndDaedalus')
             ->withArgs(['communication_center', $daedalus])
             ->andReturn([$equipment])
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
@@ -311,8 +301,7 @@ final class DaedalusIncidentServiceTest extends TestCase
                 && $funcDaedalus === $daedalus
             ))
             ->andReturn([$equipment])
-            ->once()
-        ;
+            ->once();
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
@@ -341,14 +330,12 @@ final class DaedalusIncidentServiceTest extends TestCase
             ->shouldReceive('findByCriteria')
             ->withArgs(static fn (GameEquipmentCriteria $criteria) => $criteria->getInstanceOf() === [Door::class])
             ->andReturn([$door])
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->andReturn([$door])
-            ->once()
-        ;
+            ->once();
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
@@ -376,14 +363,12 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->andReturn([$player])
-            ->once()
-        ;
+            ->once();
 
         $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
@@ -413,15 +398,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->withArgs(static fn (array $humans, int $pick) => \count($humans) === 1 && \in_array($player, $humans, true))
             ->andReturn([$player])
-            ->once()
-        ;
+            ->once();
 
         $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
@@ -445,14 +428,12 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getRandomElements')
             ->andReturn([$player])
-            ->once()
-        ;
+            ->once();
 
         $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
 

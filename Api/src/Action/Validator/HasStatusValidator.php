@@ -52,18 +52,15 @@ class HasStatusValidator extends ConstraintValidator
     {
         if ($constraint->ownerSide && $target->hasStatus($constraint->status) !== $constraint->contain) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
         if (!$constraint->ownerSide && $target->hasTargetingStatus($constraint->status) !== $constraint->contain) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
         if ($constraint->statusTargetName !== null && $target->getStatusByName($constraint->status)?->getTarget()?->getName() !== $constraint->statusTargetName) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

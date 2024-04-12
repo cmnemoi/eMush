@@ -87,14 +87,12 @@ final class MushTrapTest extends TestCase
         // Given universe is in a state in which the explorator is trapped
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->once()
-            ->andReturn(50)
-        ;
+            ->andReturn(50);
 
         $this->randomService->shouldReceive('isSuccessful')
             ->once()
             ->with(50)
-            ->andReturn(true)
-        ;
+            ->andReturn(true);
 
         // When I handle the mushTrap event
         $this->mushTrapEventHandler->handle($planetSectorEvent);

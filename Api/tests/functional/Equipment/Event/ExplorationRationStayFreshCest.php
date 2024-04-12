@@ -64,8 +64,7 @@ final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
         $this->icarus = new GameEquipment($this->icarusBay);
         $this->icarus
             ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig)
-        ;
+            ->setEquipment($icarusConfig);
         $I->haveInRepository($this->icarus);
 
         // given a planet with oxygen is found
@@ -77,8 +76,7 @@ final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
         $this->planet = new Planet($this->player);
         $this->planet
             ->setName($planetName)
-            ->setSize(2)
-        ;
+            ->setSize(2);
         $I->haveInRepository($this->planet);
 
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);

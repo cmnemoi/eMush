@@ -71,8 +71,7 @@ final class ScrewTalkieActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig->setStatusName('mush');
@@ -106,8 +105,7 @@ final class ScrewTalkieActionTest extends AbstractActionTest
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($item)
-            ->setHolder($targetPlayer)
-        ;
+            ->setHolder($targetPlayer);
 
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);

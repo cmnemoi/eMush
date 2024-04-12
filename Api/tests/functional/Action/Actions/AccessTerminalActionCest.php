@@ -44,8 +44,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $this->astroTerminal = new GameEquipment($bridge);
         $this->astroTerminal
             ->setName(EquipmentEnum::ASTRO_TERMINAL)
-            ->setEquipment($astroTerminalConfig)
-        ;
+            ->setEquipment($astroTerminalConfig);
         $I->haveInRepository($this->astroTerminal);
 
         // given there is a command terminal on the bridge
@@ -53,8 +52,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $this->commandTerminal = new GameEquipment($bridge);
         $this->commandTerminal
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
+            ->setEquipment($commandTerminalConfig);
         $I->haveInRepository($this->commandTerminal);
 
         // given player is on the bridge

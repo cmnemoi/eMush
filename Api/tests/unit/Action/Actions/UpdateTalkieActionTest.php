@@ -59,19 +59,16 @@ final class UpdateTalkieActionTest extends AbstractActionTest
 
         $talkie = new GameItem($player);
         $talkie
-            ->setName(ItemEnum::WALKIE_TALKIE)
-        ;
+            ->setName(ItemEnum::WALKIE_TALKIE);
 
         $tracker = new GameItem($player);
         $tracker
-            ->setName(ItemEnum::TRACKER)
-        ;
+            ->setName(ItemEnum::TRACKER);
 
         $neronCore = new GameEquipment($room);
         $neronCore
             ->setName(EquipmentEnum::NERON_CORE)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->action->loadParameters($this->actionEntity, $player, $talkie);
 

@@ -6,7 +6,7 @@
 /public/bundles/
 /var/
 /vendor/
-/tests/_support/
+/tests/_support/_generated
 ###< symfony/framework-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###

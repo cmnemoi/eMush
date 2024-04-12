@@ -730,7 +730,7 @@ h2 {
         }
 
         :deep(em) { 
-            color: #cf1830; 
+            color: $red;
         }
     }
 

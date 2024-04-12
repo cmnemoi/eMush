@@ -13,9 +13,14 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class GagActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class GagActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before

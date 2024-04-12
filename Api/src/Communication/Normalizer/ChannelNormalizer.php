@@ -48,6 +48,7 @@ class ChannelNormalizer implements NormalizerInterface
         }
 
         $participants = [];
+
         /** @var ChannelPlayer $participant */
         foreach ($channel->getParticipants() as $participant) {
             /** @var \DateTime $joinDate */

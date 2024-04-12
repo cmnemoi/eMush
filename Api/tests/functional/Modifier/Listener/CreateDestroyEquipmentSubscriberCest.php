@@ -70,6 +70,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -80,8 +81,10 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 1]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -132,6 +135,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -142,8 +146,10 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 0]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -186,6 +192,7 @@ class CreateDestroyEquipmentSubscriberCest
         $I->haveInRepository($gear);
 
         $name = 'test name';
+
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear]),
@@ -200,6 +207,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -210,6 +218,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 1]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 
@@ -270,6 +279,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -280,6 +290,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 
@@ -343,6 +354,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -353,6 +365,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -443,6 +456,7 @@ class CreateDestroyEquipmentSubscriberCest
             'name' => ItemEnum::OXYGEN_CAPSULE,
             'equipmentName' => ItemEnum::OXYGEN_CAPSULE,
         ]);
+
         /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$gear2]),
@@ -457,6 +471,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -467,6 +482,7 @@ class CreateDestroyEquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,

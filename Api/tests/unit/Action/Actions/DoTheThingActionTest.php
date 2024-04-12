@@ -23,15 +23,20 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class DoTheThingActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DoTheThingActionTest extends AbstractActionTest
 {
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
-    private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
-    private PlayerVariableServiceInterface|Mockery\Mock $playerVariableService;
-    private RandomServiceInterface|Mockery\Mock $randomService;
-    private RoomLogServiceInterface|Mockery\Mock $roomLogService;
+    private Mockery\Mock|PlayerDiseaseServiceInterface $playerDiseaseService;
+    private Mockery\Mock|PlayerVariableServiceInterface $playerVariableService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
+    private Mockery\Mock|RoomLogServiceInterface $roomLogService;
 
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before

@@ -95,6 +95,7 @@ class SearchActionCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -208,6 +209,7 @@ class SearchActionCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

@@ -13,9 +13,14 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class WashInSinkActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class WashInSinkActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before

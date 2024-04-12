@@ -104,37 +104,6 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this->checkTagConstraint($event);
     }
 
-    private function checkTagConstraint(AbstractGameEvent $event): bool
-    {
-        $anyConstraint = null;
-
-        foreach ($this->tagConstraints as $tag => $constraint) {
-            switch ($constraint) {
-                case ModifierRequirementEnum::ANY_TAGS:
-                    $anyConstraint = $anyConstraint || $event->hasTag($tag);
-                    break;
-                case ModifierRequirementEnum::ALL_TAGS:
-                    if (!$event->hasTag($tag)) {
-                        return false;
-                    }
-                    break;
-                case ModifierRequirementEnum::NONE_TAGS:
-                    if ($event->hasTag($tag)) {
-                        return false;
-                    }
-                    break;
-                default:
-                    throw new \LogicException('unexpected constraint type');
-            }
-        }
-
-        if ($anyConstraint === null) {
-            return true;
-        }
-
-        return $anyConstraint;
-    }
-
     public function getTranslationKey(): ?string
     {
         $name = $this->modifierName ?: $this->name;
@@ -157,5 +126,42 @@ class EventModifierConfig extends AbstractModifierConfig
         }
 
         return $parameters;
+    }
+
+    private function checkTagConstraint(AbstractGameEvent $event): bool
+    {
+        $anyConstraint = null;
+
+        foreach ($this->tagConstraints as $tag => $constraint) {
+            switch ($constraint) {
+                case ModifierRequirementEnum::ANY_TAGS:
+                    $anyConstraint = $anyConstraint || $event->hasTag($tag);
+
+                    break;
+
+                case ModifierRequirementEnum::ALL_TAGS:
+                    if (!$event->hasTag($tag)) {
+                        return false;
+                    }
+
+                    break;
+
+                case ModifierRequirementEnum::NONE_TAGS:
+                    if ($event->hasTag($tag)) {
+                        return false;
+                    }
+
+                    break;
+
+                default:
+                    throw new \LogicException('unexpected constraint type');
+            }
+        }
+
+        if ($anyConstraint === null) {
+            return true;
+        }
+
+        return $anyConstraint;
     }
 }

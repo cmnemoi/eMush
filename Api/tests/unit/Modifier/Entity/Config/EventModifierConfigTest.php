@@ -19,7 +19,12 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
 
-class EventModifierConfigTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EventModifierConfigTest extends TestCase
 {
     public function testDoModifierApplyTriggerModifier()
     {

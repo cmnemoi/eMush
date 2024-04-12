@@ -41,6 +41,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+
         /** @var Hunter $hunter */
         $hunter = $object;
         $context['hunter'] = $hunter;
@@ -94,8 +95,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         }
 
         $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
-        return $actions;
+        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 }

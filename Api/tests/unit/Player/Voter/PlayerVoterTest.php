@@ -13,7 +13,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PlayerVoterTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerVoterTest extends TestCase
 {
     private Voter $voter;
 
@@ -75,7 +80,9 @@ class PlayerVoterTest extends TestCase
         $expectedVote
     ) {
         $token = new UsernamePasswordToken(
-            $user, 'credentials', []
+            $user,
+            'credentials',
+            []
         );
 
         self::assertSame(

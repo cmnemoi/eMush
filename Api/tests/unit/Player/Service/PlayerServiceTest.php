@@ -30,21 +30,32 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var PlayerRepository|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlayerRepository */
     private PlayerRepository $repository;
-    /** @var RoomLogServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RoomLogServiceInterface */
     private RoomLogServiceInterface $roomLogService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
-    /** @var PlayerInfoRepository|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlayerInfoRepository */
     private PlayerInfoRepository $playerInfoRepository;
 
     private CharacterConfigCollection $charactersConfigs;

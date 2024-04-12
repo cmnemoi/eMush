@@ -33,10 +33,13 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -45,13 +48,16 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
         /** @var Action $repair50 */
         $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
         /** @var Action $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
 

@@ -28,9 +28,14 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class MessageNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class MessageNormalizerTest extends TestCase
 {
-    /** @var TranslationServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     private MessageNormalizer $normalizer;

@@ -62,8 +62,10 @@ class PlantCycleEventCest
             'daedalusConfig' => $daedalusConfig,
             'statusConfigs' => new ArrayCollection([$statusConfig]),
         ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -103,6 +105,7 @@ class PlantCycleEventCest
         $I->haveInRepository($gameEquipment);
 
         $statusConfig->setStartCharge(6);
+
         /** @var ChargeStatus $youngStatus */
         $youngStatus = $this->statusService->createStatusFromConfig(
             $statusConfig,
@@ -173,6 +176,7 @@ class PlantCycleEventCest
             'name' => 'fruit',
             'equipmentName' => 'fruit',
         ]);
+
         /** @var EquipmentConfig $equipmentConfig */
         $hydropotConfig = $I->have(EquipmentConfig::class, [
             'name' => ItemEnum::HYDROPOT,
@@ -188,10 +192,12 @@ class PlantCycleEventCest
             'statusConfigs' => new ArrayCollection([$thirstyStatusConfig, $dryStatusConfig, $diseasedStatusConfig]),
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $hydropotConfig]),
         ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycle' => 8]);
         $daedalus->setDaedalusVariables($daedalusConfig);
         $daedalus->setOxygen(10);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -232,6 +238,7 @@ class PlantCycleEventCest
         $I->haveInRepository($statusConfig);
 
         $statusConfig->setStartCharge(6);
+
         /** @var ChargeStatus $youngStatus */
         $youngStatus = $this->statusService->createStatusFromConfig(
             $statusConfig,

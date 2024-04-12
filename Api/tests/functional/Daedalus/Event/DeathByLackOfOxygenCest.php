@@ -70,9 +70,11 @@ class DeathByLackOfOxygenCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -119,6 +121,7 @@ class DeathByLackOfOxygenCest
             ->setMaxHealthPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         $characterConfig2
@@ -129,7 +132,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -143,7 +147,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -193,9 +198,11 @@ class DeathByLackOfOxygenCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -242,6 +249,7 @@ class DeathByLackOfOxygenCest
             ->setMaxHealthPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::ANDIE, 'name' => 'andie_test']);
         $characterConfig2
@@ -252,7 +260,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -266,7 +275,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -322,9 +332,11 @@ class DeathByLackOfOxygenCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -371,6 +383,7 @@ class DeathByLackOfOxygenCest
             ->setMaxHealthPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::ANDIE, 'name' => 'andie_test']);
         $characterConfig2
@@ -381,7 +394,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -395,7 +409,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]

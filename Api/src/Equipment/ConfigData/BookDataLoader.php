@@ -17,7 +17,7 @@ class BookDataLoader extends MechanicsDataLoader
 
             if ($book === null) {
                 $book = new Book();
-            } elseif (!($book instanceof Book)) {
+            } elseif (!$book instanceof Book) {
                 $this->entityManager->remove($book);
                 $book = new Book();
             }

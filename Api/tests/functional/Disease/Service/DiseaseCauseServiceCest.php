@@ -26,6 +26,11 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 {
     private DiseaseCauseServiceInterface $diseaseCauseService;
@@ -77,6 +82,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -87,12 +93,14 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

@@ -24,7 +24,8 @@ class HasRoleValidator extends ConstraintValidator
 
         if (array_intersect($constraint->roles, $userRoles) === []) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

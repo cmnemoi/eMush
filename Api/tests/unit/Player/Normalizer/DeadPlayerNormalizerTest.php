@@ -20,11 +20,16 @@ use Mush\Player\Normalizer\DeadPlayerNormalizer;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class DeadPlayerNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DeadPlayerNormalizerTest extends TestCase
 {
     private DeadPlayerNormalizer $normalizer;
 
-    /** @var TranslationServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**

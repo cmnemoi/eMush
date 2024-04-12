@@ -107,6 +107,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function normalizePlayers(Place $room, Player $currentPlayer, ?string $format, array $context): array
     {
         $players = [];
+
         /** @var Player $player */
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             if ($currentPlayer !== $player) {
@@ -120,6 +121,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function normalizeStatuses(Place $room, ?string $format, array $context): array
     {
         $statuses = [];
+
         /** @var Status $status */
         foreach ($room->getStatuses() as $status) {
             if ($status->getVisibility() === VisibilityEnum::PUBLIC) {
@@ -133,6 +135,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function normalizeDoors(Place $room, ?string $format, array $context): array
     {
         $doors = [];
+
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
             $normedDoor = $this->normalizer->normalize($door, $format, $context);
@@ -159,6 +162,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         array $context
     ): array {
         $normalizedEquipments = [];
+
         /** @var GameEquipment $equipment */
         foreach ($equipments as $equipment) {
             if (!($equipment->getEquipment()->isPersonal() && $equipment->getOwner() !== $currentPlayer)) {
@@ -292,6 +296,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
                 if (!isset($itemsGroup[$name])) {
                     $itemsGroup[$name] = new ArrayCollection();
                 }
+
                 /** @var Collection $currentCollection */
                 $currentCollection = $itemsGroup[$name];
                 $currentCollection->add($item);
@@ -307,6 +312,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function groupByStatus(Collection $itemsGroup, Player $currentPlayer): array
     {
         $pile = [];
+
         /** @var GameItem $item */
         foreach ($itemsGroup as $item) {
             $pileName = $this->getPileName($item, $currentPlayer);

@@ -194,9 +194,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
             return $hiddenStatus->getTarget() === $this;
-        } else {
-            return $this->items->contains($gameEquipment) || $this->getPlace()->getEquipments()->contains($gameEquipment);
         }
+
+        return $this->items->contains($gameEquipment) || $this->getPlace()->getEquipments()->contains($gameEquipment);
     }
 
     public function getEquipments(): Collection
@@ -240,7 +240,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name
+        return !$this->getEquipments()->filter(
+            static fn (GameItem $gameItem) => $gameItem->getName() === $name
             && $gameItem->isOperational()
         )->isEmpty();
     }
@@ -515,13 +516,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getSelfActions(): Collection
     {
         return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF)
+        ;
     }
 
     public function getTargetActions(): Collection
     {
         return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER)
+        ;
     }
 
     public function getLogName(): string
@@ -572,9 +575,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getFocusedTerminal(): ?GameEquipment
     {
         /** @var ?GameEquipment $terminal */
-        $terminal = $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
-
-        return $terminal;
+        return $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
     }
 
     public function addTitle(string $title): static

@@ -14,9 +14,6 @@ use Mush\Game\Enum\VisibilityEnum;
 
 class TriumphConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    /**
-     * @return void
-     */
     public function load(ObjectManager $manager)
     {
         /** @var GameConfig $gameConfig */

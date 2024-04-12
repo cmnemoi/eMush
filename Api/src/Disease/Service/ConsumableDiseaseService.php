@@ -52,18 +52,6 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         return $consumableDisease;
     }
 
-    private function findConsumableDiseaseConfigByNameAndDaedalus(string $name, Daedalus $daedalus): ?ConsumableDiseaseConfig
-    {
-        $consumableDiseaseConfigs = $daedalus->getGameConfig()
-            ->getConsumableDiseaseConfig()->filter(static fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getCauseName() === $name);
-
-        if ($consumableDiseaseConfigs->count() === 0) {
-            return null;
-        }
-
-        return $consumableDiseaseConfigs->first();
-    }
-
     public function createConsumableDiseases(string $name, Daedalus $daedalus): ?ConsumableDisease
     {
         $consumableDiseaseConfig = $this->findConsumableDiseaseConfigByNameAndDaedalus($name, $daedalus);
@@ -95,7 +83,8 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             $pickedEffects = $this->randomService->getRandomElements(
                 range(
                     1,
-                    $diseasesNumberPossible + $curesNumberPossible),
+                    $diseasesNumberPossible + $curesNumberPossible
+                ),
                 $effectsNumber
             );
 
@@ -130,6 +119,19 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
         $this->entityManager->flush();
 
         return $consumableDisease;
+    }
+
+    private function findConsumableDiseaseConfigByNameAndDaedalus(string $name, Daedalus $daedalus): ?ConsumableDiseaseConfig
+    {
+        $consumableDiseaseConfigs = $daedalus->getGameConfig()
+            ->getConsumableDiseaseConfig()->filter(static fn (ConsumableDiseaseConfig $consumableDiseaseConfig) => $consumableDiseaseConfig->getCauseName() === $name)
+        ;
+
+        if ($consumableDiseaseConfigs->count() === 0) {
+            return null;
+        }
+
+        return $consumableDiseaseConfigs->first();
     }
 
     private function createMedicinalEffectFromConfigForConsumableDisease(
@@ -168,7 +170,8 @@ class ConsumableDiseaseService implements ConsumableDiseaseServiceInterface
             if ($delay > 0) {
                 $ConsumableDiseaseAttribute
                     ->setDelayMin($delay)
-                    ->setDelayLength((int) $this->randomService->getSingleRandomElementFromProbaCollection($config->getDiseasesDelayLength()));
+                    ->setDelayLength((int) $this->randomService->getSingleRandomElementFromProbaCollection($config->getDiseasesDelayLength()))
+                ;
             }
         }
 

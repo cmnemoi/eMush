@@ -378,6 +378,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setActivationRequirement(ItemEnum::SCHRODINGER)
         ;
         $manager->persist($catRequirement);
+
         /** @var ModifierActivationRequirement $random50 */
         $random50 = $this->getReference(DiseaseModifierConfigFixtures::RANDOM_50);
         $fearOfCat = new EventModifierConfig('fear_of_cat_modifier');

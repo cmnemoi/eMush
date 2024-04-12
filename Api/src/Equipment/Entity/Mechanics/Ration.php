@@ -10,6 +10,11 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 #[ORM\Entity]
 class Ration extends EquipmentMechanic
 {
+    #[ORM\Column(type: 'integer', nullable: true)]
+    protected ?int $satiety = null;
+
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    protected bool $isPerishable = true;
     #[ORM\Column(type: 'array', nullable: false)]
     private array $moralPoints;
     // possibilities are stored as key, array value represent the probability to get the key value
@@ -24,15 +29,9 @@ class Ration extends EquipmentMechanic
     #[ORM\Column(type: 'array', nullable: false)]
     private array $healthPoints;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    protected ?int $satiety = null;
-
     // Store any extra effect the food has as key with the chance to get it as value
     #[ORM\Column(type: 'array', nullable: false)]
     private array $extraEffects;
-
-    #[ORM\Column(type: 'boolean', nullable: false)]
-    protected bool $isPerishable = true;
 
     public function __construct()
     {

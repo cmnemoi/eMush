@@ -26,14 +26,19 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class EventModifierServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EventModifierServiceTest extends TestCase
 {
     private EventModifierService $service;
 
-    /** @var ModifierHandlerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|ModifierHandlerServiceInterface */
     private ModifierHandlerServiceInterface $modifierHandlerService;
 
-    /** @var ModifierRequirementServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|ModifierRequirementServiceInterface */
     private ModifierRequirementServiceInterface $modifierRequirementService;
 
     /**

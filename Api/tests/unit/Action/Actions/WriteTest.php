@@ -19,10 +19,15 @@ use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class WriteTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class WriteTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before

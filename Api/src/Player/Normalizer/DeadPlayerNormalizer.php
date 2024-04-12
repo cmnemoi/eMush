@@ -29,8 +29,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
 
         return $data instanceof Player
             && $data === $currentPlayer
-            && $data->getPlayerInfo()->getGameStatus() === GameStatusEnum::FINISHED
-        ;
+            && $data->getPlayerInfo()->getGameStatus() === GameStatusEnum::FINISHED;
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array

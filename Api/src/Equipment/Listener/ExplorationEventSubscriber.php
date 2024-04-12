@@ -34,6 +34,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     public function onExplorationStarted(ExplorationEvent $event): void
     {
         $exploration = $event->getExploration();
+
         /** @var Player $explorator */
         $explorator = $exploration->getExplorators()->first();
         if (!$explorator) {

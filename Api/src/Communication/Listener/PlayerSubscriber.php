@@ -74,6 +74,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $daedalusInfo = $event->getPlayer()->getDaedalus()->getDaedalusInfo();
+
         /** @var Channel $mushChannel */
         $mushChannel = $this->channelService->getMushChannel($daedalusInfo);
         $time = $event->getTime();
@@ -84,6 +85,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onConversionPlayer(PlayerEvent $event): void
     {
         $daedalusInfo = $event->getPlayer()->getDaedalus()->getDaedalusInfo();
+
         /** @var Channel $mushChannel */
         $mushChannel = $this->channelService->getMushChannel($daedalusInfo);
         $time = $event->getTime();

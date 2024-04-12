@@ -26,12 +26,14 @@ final class IsPatrolShipRenovableValidator extends ConstraintValidator
 
         /** @var GameEquipment $patrolShip */
         $patrolShip = $value->getTarget();
+
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         if ($patrolShipArmor->getCharge() === $patrolShipArmor->getThreshold() && !$patrolShip->hasStatus(EquipmentStatusEnum::BROKEN)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

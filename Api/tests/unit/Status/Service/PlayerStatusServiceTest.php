@@ -17,7 +17,12 @@ use Mush\Status\Service\PlayerStatusServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class PlayerStatusServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerStatusServiceTest extends TestCase
 {
     private Mockery\Mock|StatusServiceInterface $statusService;
 

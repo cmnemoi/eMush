@@ -29,9 +29,7 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->statusService = $statusService;
     }
 
-    public function handleNewCycle($object, \DateTime $dateTime): void
-    {
-    }
+    public function handleNewCycle($object, \DateTime $dateTime): void {}
 
     public function handleNewDay($object, \DateTime $dateTime): void
     {

@@ -48,7 +48,12 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class DoTheThingCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DoTheThingCest extends AbstractFunctionalTest
 {
     private Action $doTheThingConfig;
     private DoTheThing $doTheThingAction;
@@ -92,7 +97,7 @@ class DoTheThingCest extends AbstractFunctionalTest
         $diseaseConfig
             ->setDiseaseName('disease')
             ->buildName(GameConfigEnum::TEST)
-                ->buildName(GameConfigEnum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
         $diseaseCauseConfig = new DiseaseCauseConfig();
@@ -154,6 +159,7 @@ class DoTheThingCest extends AbstractFunctionalTest
             ->setMoralPoint(6)
         ;
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -234,6 +240,7 @@ class DoTheThingCest extends AbstractFunctionalTest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -270,6 +277,7 @@ class DoTheThingCest extends AbstractFunctionalTest
             ->setMoralPoint(6)
         ;
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -309,7 +317,8 @@ class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
         $I->assertTrue($this->doTheThingAction->isVisible());
-        $I->assertEquals(ActionImpossibleCauseEnum::DO_THE_THING_NOT_INTERESTED,
+        $I->assertEquals(
+            ActionImpossibleCauseEnum::DO_THE_THING_NOT_INTERESTED,
             $this->doTheThingAction->cannotExecuteReason()
         );
     }
@@ -317,11 +326,13 @@ class DoTheThingCest extends AbstractFunctionalTest
     public function testWitness(FunctionalTester $I)
     {
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -357,6 +368,7 @@ class DoTheThingCest extends AbstractFunctionalTest
             ->setActionPoint(10)
             ->setMoralPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -408,7 +420,8 @@ class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction->loadParameters($action, $player, $targetPlayer);
 
         $I->assertTrue($this->doTheThingAction->isVisible());
-        $I->assertEquals(ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
+        $I->assertEquals(
+            ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
             $this->doTheThingAction->cannotExecuteReason()
         );
     }
@@ -416,6 +429,7 @@ class DoTheThingCest extends AbstractFunctionalTest
     public function testRoomHasBed(FunctionalTester $I)
     {
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 
@@ -455,6 +469,7 @@ class DoTheThingCest extends AbstractFunctionalTest
             ->setMoralPoint(6)
         ;
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);
@@ -512,7 +527,7 @@ class DoTheThingCest extends AbstractFunctionalTest
         $diseaseConfig
             ->setDiseaseName('disease')
             ->buildName(GameConfigEnum::TEST)
-                ->buildName(GameConfigEnum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
         $diseaseCauseConfig = new DiseaseCauseConfig();
@@ -605,6 +620,7 @@ class DoTheThingCest extends AbstractFunctionalTest
             ->setSpores(1)
         ;
         $I->flushToDatabase($mushPlayer);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $femaleCharacterConfig);
@@ -657,11 +673,13 @@ class DoTheThingCest extends AbstractFunctionalTest
     public function testDeadWitness(FunctionalTester $I)
     {
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -697,6 +715,7 @@ class DoTheThingCest extends AbstractFunctionalTest
             ->setActionPoint(10)
             ->setMoralPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $femaleCharacterConfig);

@@ -15,7 +15,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class MechanicValidatorTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class MechanicValidatorTest extends TestCase
 {
     private MechanicValidator $validator;
     private Mechanic $constraint;
@@ -102,7 +107,7 @@ class MechanicValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

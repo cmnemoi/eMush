@@ -49,6 +49,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -58,6 +59,7 @@ class FlirtActionCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -68,6 +70,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::PAOLA]);
+
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -120,6 +123,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -129,6 +133,7 @@ class FlirtActionCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -139,6 +144,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
+
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -174,6 +180,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::PAOLA]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -183,6 +190,7 @@ class FlirtActionCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -193,6 +201,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
+
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -228,6 +237,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -237,6 +247,7 @@ class FlirtActionCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -247,6 +258,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
+
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -298,6 +310,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -307,6 +320,7 @@ class FlirtActionCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -317,6 +331,7 @@ class FlirtActionCest
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
+
         /** @var Player $targetPlayer */
         $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,

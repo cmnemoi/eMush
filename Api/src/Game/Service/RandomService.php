@@ -84,7 +84,7 @@ class RandomService implements RandomServiceInterface
         if ($criticalFailRate > $successRate || 100 - $criticalSuccessRate < $successRate) {
             throw new \Exception("criticalFailRate ({$criticalFailRate})
             must be lower than successRate ({$successRate}) and
-            100-criticalSuccessRate ({100 - $criticalSuccessRate}) higher than successRate ({$successRate})");
+            100-criticalSuccessRate ({100 - {$criticalSuccessRate}}) higher than successRate ({$successRate})");
         }
 
         if ($chance <= $criticalFailRate) {
@@ -134,7 +134,8 @@ class RandomService implements RandomServiceInterface
         $selectedHuntersIds = array_values($this->getRandomElementsFromProbaCollection($hunterProbaCollection, $number));
 
         return $hunterPool->map(static fn (Hunter $hunter) => \in_array($hunter->getId(), $selectedHuntersIds, true) ? $hunter : null)
-            ->filter(static fn (?Hunter $hunter) => $hunter instanceof Hunter);
+            ->filter(static fn (?Hunter $hunter) => $hunter instanceof Hunter)
+        ;
     }
 
     public function getPlayerInRoom(Place $place): Player
@@ -192,8 +193,8 @@ class RandomService implements RandomServiceInterface
 
     /** This function takes an array [element => proba%] as input and send back an array
      * Instead of proba relative weight also work.
-     **/
-    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null
+     */
+    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): null|int|string
     {
         if (\count($array) < 1) {
             return null;
@@ -298,7 +299,7 @@ class RandomService implements RandomServiceInterface
         foreach ($sectorIds as $sectorId) {
             $sector = $this->entityManager->find(PlanetSector::class, $sectorId);
             if (!$sector) {
-                throw new \RuntimeException("Sector $sectorId not found");
+                throw new \RuntimeException("Sector {$sectorId} not found");
             }
             $sectors->add($sector);
         }

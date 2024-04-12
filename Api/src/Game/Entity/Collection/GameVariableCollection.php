@@ -24,13 +24,12 @@ use Mush\Status\Entity\ChargeVariable;
 ])]
 abstract class GameVariableCollection
 {
+    #[ORM\OneToMany(mappedBy: 'gameVariableCollection', targetEntity: GameVariable::class, cascade: ['ALL'])]
+    protected Collection $gameVariables;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
-
-    #[ORM\OneToMany(mappedBy: 'gameVariableCollection', targetEntity: GameVariable::class, cascade: ['ALL'])]
-    protected Collection $gameVariables;
 
     public function __construct(array $variables)
     {

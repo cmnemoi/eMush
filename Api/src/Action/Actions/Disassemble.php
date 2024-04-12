@@ -40,11 +40,6 @@ class Disassemble extends AttemptAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         // @TODO add validator on technician skill ?
@@ -56,6 +51,11 @@ class Disassemble extends AttemptAction
             'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void

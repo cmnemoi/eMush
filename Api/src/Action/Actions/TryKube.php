@@ -40,15 +40,15 @@ class TryKube extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult

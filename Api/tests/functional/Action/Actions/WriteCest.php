@@ -18,6 +18,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class WriteCest extends AbstractFunctionalTest
 {
     private Action $writeActionConfig;

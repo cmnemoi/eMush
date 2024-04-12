@@ -30,13 +30,16 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
     {
         /** @var ItemConfig $talkieConfig */
         $talkieConfig = $this->getReference(PersonalEquipmentConfigFixtures::WALKIE_TALKIE);
+
         /** @var ItemConfig $trackerConfig */
         $trackerConfig = $this->getReference(PersonalEquipmentConfigFixtures::TRACKER);
+
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $this->getReference(PersonalEquipmentConfigFixtures::ITRACKIE);
 
         /** @var ArrayCollection $iTrackieCollection */
         $iTrackieCollection = new ArrayCollection([$iTrackieConfig]);
+
         /** @var ArrayCollection $trackerTalkieCollection */
         $trackerTalkieCollection = new ArrayCollection([$trackerConfig, $talkieConfig]);
 
@@ -67,7 +70,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 SkillEnum::TORTURER,
                 SkillEnum::WRESTLER,
             ])
-        ->setStartingItems($trackerTalkieCollection)
+            ->setStartingItems($trackerTalkieCollection)
         ;
         $manager->persist($chao);
 
@@ -353,6 +356,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $andie, $chun, $derek, $eleesha, $frieda, $gioele, $hua, $ian,
             $janice, $jinSu, $kuanTi, $paola, $raluca, $roland, $stephen, $terrence,
         ]);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
         $gameConfig
@@ -362,47 +366,73 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->flush();
     }
 
+    public function getDependencies(): array
+    {
+        return [
+            DaedalusConfigFixtures::class,
+            ActionsFixtures::class,
+            MushActionFixtures::class,
+            StatusFixtures::class,
+            PersonalEquipmentConfigFixtures::class,
+            DisorderConfigFixtures::class,
+        ];
+    }
+
     private function buildDefaultCharacterConfig(): CharacterConfig
     {
         // ADMIN ONLY
         /** @var Action $suicideAction */
         $suicideAction = $this->getReference(ActionsFixtures::SUICIDE);
+
         /** @var Action $autoDestroyAction */
         $autoDestroyAction = $this->getReference(ActionsFixtures::AUTO_DESTROY);
+
         /** @var Action $killPlayerAction */
         $killPlayerAction = $this->getReference(ActionsFixtures::KILL_PLAYER);
 
         // @TODO: remove when the game is ready
         /** @var Action $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
+
         /** @var Action $fakeDiseaseAction */
         $fakeDiseaseAction = $this->getReference(MushActionFixtures::FAKE_DISEASE);
 
         /** @var Action $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $searchAction */
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
+
         /** @var Action $phagocyteAction */
         $phagocyteAction = $this->getReference(MushActionFixtures::PHAGOCYTE);
+
         /** @var Action $reportFireAction */
         $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
+
         /** @var Action $getUpAction */
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
+
         /** @var Action $flirtAction */
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
+
         /** @var Action $doTheThingAction */
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
+
         /** @var Action $ungag */
         $ungag = $this->getReference(ActionsFixtures::UNGAG_DEFAULT);
+
         /** @var Action $healAction */
         $healAction = $this->getReference(ActionsFixtures::HEAL);
+
         /** @var Action $selfHealAction */
         $selfHealAction = $this->getReference(ActionsFixtures::SELF_HEAL);
 
         /** @var Action $extractSporeAction */
         $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
+
         /** @var Action $infectAction */
         $infectAction = $this->getReference(MushActionFixtures::SPREAD_FIRE);
 
@@ -410,19 +440,25 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         // @TODO: after skill implementation, action will be given by skills
         /** @var Action $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
+
         /** @var Action $motivationalSpeechAction */
         $motivationalSpeechAction = $this->getReference(ActionsFixtures::MOTIVATIONAL_SPEECH);
+
         /** @var Action $boringSpeechAction */
         $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
+
         /** @var Action $extinguishManuallyAction */
         $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
+
         /** @var Action $surgeryAction */
         $surgeryAction = $this->getReference(ActionsFixtures::SURGERY);
 
         /** @var Action $makeSickAction */
         $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
+
         /** @var Action $spreadFireAction */
         $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
+
         /** @var Action $screwTalkieAction */
         $screwTalkieAction = $this->getReference(MushActionFixtures::SCREW_TALKIE);
 
@@ -475,17 +511,5 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         ;
 
         return $characterConfig;
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            DaedalusConfigFixtures::class,
-            ActionsFixtures::class,
-            MushActionFixtures::class,
-            StatusFixtures::class,
-            PersonalEquipmentConfigFixtures::class,
-            DisorderConfigFixtures::class,
-        ];
     }
 }

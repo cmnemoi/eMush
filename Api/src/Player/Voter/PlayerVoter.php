@@ -41,10 +41,13 @@ class PlayerVoter extends Voter
         switch ($attribute) {
             case self::PLAYER_VIEW:
                 return $this->canViewPlayer($user, $subject);
+
             case self::PLAYER_CREATE:
                 return $this->canCreatePlayer($user);
+
             case self::PLAYER_END:
                 return $this->canPlayerEnd($user, $subject);
+
             case self::PLAYER_QUARANTINE:
                 return $this->canQuarantinePlayer($user, $subject);
         }

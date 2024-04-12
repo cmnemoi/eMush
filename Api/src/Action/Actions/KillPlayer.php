@@ -44,15 +44,15 @@ class KillPlayer extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasRole(['roles' => [RoleEnum::SUPER_ADMIN], 'groups' => ['visibility']]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
     }
 
     protected function checkResult(): ActionResult

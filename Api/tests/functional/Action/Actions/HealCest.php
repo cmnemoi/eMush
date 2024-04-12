@@ -30,7 +30,12 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class HealCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HealCest extends AbstractFunctionalTest
 {
     private Action $healConfig;
     private Heal $healAction;
@@ -74,7 +79,8 @@ class HealCest extends AbstractFunctionalTest
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActions(new ArrayCollection([$action]))
+        ;
 
         $I->haveInRepository($itemConfig);
 
@@ -91,6 +97,7 @@ class HealCest extends AbstractFunctionalTest
         $healerPlayer
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
@@ -147,7 +154,7 @@ class HealCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
-           ->buildName(GameConfigEnum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
@@ -155,7 +162,8 @@ class HealCest extends AbstractFunctionalTest
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActions(new ArrayCollection([$action]))
+        ;
 
         $I->haveInRepository($itemConfig);
 
@@ -172,6 +180,7 @@ class HealCest extends AbstractFunctionalTest
         $healerPlayer
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);

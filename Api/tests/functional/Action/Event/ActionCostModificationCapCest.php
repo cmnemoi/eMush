@@ -17,7 +17,12 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ActionCostModificationCapCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ActionCostModificationCapCest extends AbstractFunctionalTest
 {
     private Shower $showerAction;
     private Action $action;

@@ -14,7 +14,12 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class ReadBookActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ReadBookActionTest extends AbstractActionTest
 {
     /**
      * @before

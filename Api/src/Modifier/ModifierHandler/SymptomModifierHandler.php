@@ -22,6 +22,7 @@ class SymptomModifierHandler extends AbstractModifierHandler
     ): EventChain {
         $modifierName = $modifier->getModifierConfig()->getModifierName();
         $initialEvent = $events->getInitialEvent();
+
         /** @var EventModifierConfig $modifierConfig */
         $modifierConfig = $modifier->getModifierConfig();
 
@@ -34,7 +35,7 @@ class SymptomModifierHandler extends AbstractModifierHandler
         }
 
         $player = $modifier->getModifierHolder();
-        if (!($player instanceof Player)) {
+        if (!$player instanceof Player) {
             return $events;
         }
 

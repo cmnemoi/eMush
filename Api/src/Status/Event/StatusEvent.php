@@ -93,9 +93,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     {
         if ($this->holder instanceof Place) {
             return $this->holder;
-        } elseif ($this->holder instanceof Player) {
+        }
+        if ($this->holder instanceof Player) {
             return $this->holder->getPlace();
-        } elseif ($this->holder instanceof GameEquipment) {
+        }
+        if ($this->holder instanceof GameEquipment) {
             return $this->holder->getPlace();
         }
 

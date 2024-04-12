@@ -11,7 +11,12 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 
-class UseBandageTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class UseBandageTest extends AbstractActionTest
 {
     /**
      * @before

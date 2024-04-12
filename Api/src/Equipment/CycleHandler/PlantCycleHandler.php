@@ -74,7 +74,7 @@ class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay($object, \DateTime $dateTime): void
     {
-        if (!($object instanceof GameEquipment)) {
+        if (!$object instanceof GameEquipment) {
             return;
         }
 

@@ -106,6 +106,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         ;
 
         $normalizedActions = [];
+
         /** @var Action $action */
         foreach ($actions as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
@@ -219,8 +220,10 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+
         /** @var GameEquipment $terminal */
         $terminal = $context['terminal'];
+
         /** @var Daedalus $daedalus */
         $daedalus = $terminal->getDaedalus();
 

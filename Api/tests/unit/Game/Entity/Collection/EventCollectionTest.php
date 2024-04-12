@@ -6,7 +6,12 @@ use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
 use PHPUnit\Framework\TestCase;
 
-class EventCollectionTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EventCollectionTest extends TestCase
 {
     public function testMergeEventChains()
     {

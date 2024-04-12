@@ -57,36 +57,6 @@ class EventService implements EventServiceInterface
         return $postEvents;
     }
 
-    private function dispatchEventChain(EventChain $eventChain, bool $dispatchInitialEvent): ?AbstractGameEvent
-    {
-        foreach ($eventChain as $modifierEvent) {
-            // the initial event have already been dispatched
-            if ($modifierEvent->getPriority() !== 0) {
-                // store event priority as it is going to be set to 0 when computing modifiers
-                $priority = $modifierEvent->getPriority();
-
-                $this->callEvent($modifierEvent, $modifierEvent->getEventName());
-
-                // reset the priority to its previous value
-                $modifierEvent->setPriority($priority);
-            } elseif ($dispatchInitialEvent) {
-                $this->eventDispatcher->dispatch($modifierEvent, $modifierEvent->getEventName());
-            }
-        }
-
-        return $eventChain->getInitialEvent();
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function applyModifiers(AbstractGameEvent $event, array $priorities): EventChain
-    {
-        $event->setPriority(0);
-
-        return $this->modifierService->applyModifiers($event, $priorities);
-    }
-
     /**
      * @throws \Exception
      */
@@ -130,5 +100,35 @@ class EventService implements EventServiceInterface
         $modifierConfig = $preventEvent->getModifier()->getModifierConfig();
 
         return $modifierConfig->getModifierName() ?: $modifierConfig->getName();
+    }
+
+    private function dispatchEventChain(EventChain $eventChain, bool $dispatchInitialEvent): ?AbstractGameEvent
+    {
+        foreach ($eventChain as $modifierEvent) {
+            // the initial event have already been dispatched
+            if ($modifierEvent->getPriority() !== 0) {
+                // store event priority as it is going to be set to 0 when computing modifiers
+                $priority = $modifierEvent->getPriority();
+
+                $this->callEvent($modifierEvent, $modifierEvent->getEventName());
+
+                // reset the priority to its previous value
+                $modifierEvent->setPriority($priority);
+            } elseif ($dispatchInitialEvent) {
+                $this->eventDispatcher->dispatch($modifierEvent, $modifierEvent->getEventName());
+            }
+        }
+
+        return $eventChain->getInitialEvent();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function applyModifiers(AbstractGameEvent $event, array $priorities): EventChain
+    {
+        $event->setPriority(0);
+
+        return $this->modifierService->applyModifiers($event, $priorities);
     }
 }

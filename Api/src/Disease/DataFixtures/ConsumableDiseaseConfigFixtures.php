@@ -134,7 +134,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
                 ->setCuresChances([100 => 1])
                 ->setEffectNumber([1 => 60, 2 => 30, 3 => 8, 4 => 1])
                 ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
-
             ;
             $manager->persist($drugDiseaseConfig);
             $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
@@ -148,7 +147,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             ->setCuresChances([100 => 1])
             ->setEffectNumber([1 => 1])
             ->appendConfigKeyToName(GameConfigEnum::TEST)
-
         ;
         $manager->persist($drugDiseaseConfig);
         $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
@@ -160,7 +158,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             ->setCuresChances([100 => 1])
             ->setEffectNumber([1 => 1])
             ->appendConfigKeyToName(GameConfigEnum::TEST)
-
         ;
         $manager->persist($fluHealerDiseaseConfig);
         $gameConfig->addConsumableDiseaseConfig($fluHealerDiseaseConfig);

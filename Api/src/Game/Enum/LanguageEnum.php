@@ -65,18 +65,6 @@ class LanguageEnum
         LogDeclinationEnum::WORD_COPROLALIA => self::DISEASE_MESSAGE,
     ];
 
-    public static function convertParameterKeyToTranslationKey(string $key): string
-    {
-        switch ($key) {
-            case self::ITEM:
-                return self::EQUIPMENT;
-            case self::TARGET_ITEM:
-                return self::TARGET_EQUIPMENT;
-            default:
-                return $key;
-        }
-    }
-
     public const TRANSLATE_PARAMETERS = [
         self::FRENCH => [
             self::EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural_name'],
@@ -131,4 +119,18 @@ class LanguageEnum
             ],
         ],
     ];
+
+    public static function convertParameterKeyToTranslationKey(string $key): string
+    {
+        switch ($key) {
+            case self::ITEM:
+                return self::EQUIPMENT;
+
+            case self::TARGET_ITEM:
+                return self::TARGET_EQUIPMENT;
+
+            default:
+                return $key;
+        }
+    }
 }

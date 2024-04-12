@@ -17,11 +17,17 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class LandActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class LandActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /**

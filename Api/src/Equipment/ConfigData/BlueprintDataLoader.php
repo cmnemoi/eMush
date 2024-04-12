@@ -17,7 +17,7 @@ class BlueprintDataLoader extends MechanicsDataLoader
 
             if ($blueprint === null) {
                 $blueprint = new Blueprint();
-            } elseif (!($blueprint instanceof Blueprint)) {
+            } elseif (!$blueprint instanceof Blueprint) {
                 $this->entityManager->remove($blueprint);
                 $blueprint = new Blueprint();
             }

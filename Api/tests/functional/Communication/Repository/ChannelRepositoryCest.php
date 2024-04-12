@@ -32,8 +32,10 @@ class ChannelRepositoryCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -58,6 +60,7 @@ class ChannelRepositoryCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -101,6 +104,7 @@ class ChannelRepositoryCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -111,12 +115,14 @@ class ChannelRepositoryCest
 
         /** @var ChargeStatusConfig $mushStatusConfig */
         $mushStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]);
+
         /** @var ChargeStatus $mushStatus */
         $mushStatus = new ChargeStatus($player, $mushStatusConfig);
         $I->haveInRepository($mushStatus);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -181,8 +187,10 @@ class ChannelRepositoryCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -225,6 +233,7 @@ class ChannelRepositoryCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
 

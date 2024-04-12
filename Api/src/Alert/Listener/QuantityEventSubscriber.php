@@ -52,6 +52,7 @@ class QuantityEventSubscriber implements EventSubscriberInterface
                 $this->alertService->hullAlert($daedalus);
 
                 return;
+
             case DaedalusVariableEnum::OXYGEN:
                 $this->alertService->oxygenAlert($daedalus);
 

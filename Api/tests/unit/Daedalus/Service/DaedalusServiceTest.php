@@ -40,22 +40,34 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class DaedalusServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DaedalusServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var DaedalusRepository|Mockery\Mock */
     private DaedalusRepository $repository;
+
     /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
+
     /** @var LocalizationConfigRepository|Mockery\Mock */
     private LocalizationConfigRepository $localizationConfigRepository;
+
     /** @var DaedalusInfoRepository|Mockery\Mock */
     private DaedalusInfoRepository $daedalusInfoRepository;
+
     /** @var DaedalusRepository|Mockery\Mock */
     private DaedalusRepository $daedalusRepository;
 
@@ -133,14 +145,17 @@ class DaedalusServiceTest extends TestCase
         ;
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (DaedalusInitEvent $event) => (
-                $event->getDaedalusConfig() === $daedalusConfig)
+            ->withArgs(
+                static fn (DaedalusInitEvent $event) => (
+                    $event->getDaedalusConfig() === $daedalusConfig
+                )
             )
             ->once()
         ;
         $this->entityManager
             ->shouldReceive('persist')
-            ->once();
+            ->once()
+        ;
         $this->entityManager
             ->shouldReceive('flush')
             ->once()

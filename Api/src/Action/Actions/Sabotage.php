@@ -46,11 +46,6 @@ class Sabotage extends AttemptAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -65,6 +60,11 @@ class Sabotage extends AttemptAction
             'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void

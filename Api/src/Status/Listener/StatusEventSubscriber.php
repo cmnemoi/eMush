@@ -73,11 +73,15 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                     $event->getTime()
                 );
                 $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
                 break;
+
             case EquipmentStatusEnum::BROKEN:
                 $this->repairScrewedTalkie($event->getStatus(), $event->getTags(), $event->getTime());
                 $this->handleRepairGravity($statusHolder, $event->getTags(), $event->getTime());
+
                 break;
+
             default:
         }
     }

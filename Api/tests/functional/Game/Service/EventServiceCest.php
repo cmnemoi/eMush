@@ -15,7 +15,12 @@ use Mush\Modifier\Event\ModifierEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class EventServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EventServiceCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 

@@ -16,8 +16,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DiseaseEventSubscriber implements EventSubscriberInterface
 {
-    private RoomLogServiceInterface $roomLogService;
-
     private const array CURE_LOG_MAP = [
         ActionEnum::HEAL => LogEnum::DISEASE_CURED_PLAYER,
         ActionEnum::SELF_HEAL => LogEnum::DISEASE_CURED_PLAYER,
@@ -38,6 +36,7 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
         ActionEnum::CONSUME => LogEnum::DISEASE_TREATED_DRUG,
         ActionEnum::CONSUME_DRUG => LogEnum::DISEASE_TREATED_DRUG,
     ];
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(RoomLogServiceInterface $roomLogService)
     {

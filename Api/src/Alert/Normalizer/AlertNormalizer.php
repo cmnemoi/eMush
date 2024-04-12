@@ -61,7 +61,8 @@ class AlertNormalizer implements NormalizerInterface
         } else {
             $normalizedAlert['name'] = $this->translationService->translate(
                 $alert->getName() .
-                '.name', [],
+                '.name',
+                [],
                 'alerts',
                 $language
             );
@@ -167,6 +168,7 @@ class AlertNormalizer implements NormalizerInterface
         );
 
         $playerPlaceCount = [];
+
         /** @var AlertElement $element */
         foreach ($reportedAlertElements as $element) {
             $reporterName = $element->getPlayerInfo()->getName();

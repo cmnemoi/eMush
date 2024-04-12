@@ -39,6 +39,11 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class FightTest extends TestCase
 {
     private const int DISEASE_CHANCE = 5;
@@ -54,13 +59,13 @@ final class FightTest extends TestCase
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    /** @var RoomLogServiceInterface|Mockery\Spy */
+    /** @var Mockery\Spy|RoomLogServiceInterface */
     private RoomLogServiceInterface $roomLogService;
 
-    /** @var TranslationServiceInterface|Mockery\Spy */
+    /** @var Mockery\Spy|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /** @before */
@@ -105,7 +110,8 @@ final class FightTest extends TestCase
         $this->randomService->shouldReceive('isSuccessful')
             ->once()
             ->with(self::DISEASE_CHANCE)
-            ->andReturn(true);
+            ->andReturn(true)
+        ;
 
         // Then the disease cause service should be called to create a disease for the explorator
         $disease = $this->createStub(PlayerDisease::class);
@@ -114,7 +120,8 @@ final class FightTest extends TestCase
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')
             ->once()
             ->withArgs([DiseaseCauseEnum::ALIEN_FIGHT, $planetSector->getPlanet()->getPlayer()])
-            ->andReturn($disease);
+            ->andReturn($disease)
+        ;
 
         // When I handle the fight event
         $this->fightEventHandler->handle($event);
@@ -133,7 +140,8 @@ final class FightTest extends TestCase
                     'is_player_mush' => 'false',
                 ],
                 $event->getTime(),
-            ]);
+            ])
+        ;
     }
 
     private function getPlanetSector(Player $explorator): PlanetSector
@@ -152,9 +160,7 @@ final class FightTest extends TestCase
         $exploration->setExplorators(new PlayerCollection([$explorator]));
         $explorator->method('getPlace')->willReturn($planetPlace);
 
-        $planetSector = new PlanetSector($planetSectorConfig, $planet);
-
-        return $planetSector;
+        return new PlanetSector($planetSectorConfig, $planet);
     }
 
     private function getExplorator(): Player

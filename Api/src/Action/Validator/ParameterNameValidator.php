@@ -27,7 +27,8 @@ class ParameterNameValidator extends ConstraintValidator
 
         if (!\in_array($actionTarget->getEquipment()->getEquipmentName(), $constraint->names, true)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

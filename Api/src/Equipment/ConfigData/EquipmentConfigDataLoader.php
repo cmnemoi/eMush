@@ -24,8 +24,8 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
         EquipmentConfigRepository $equipmentConfigRepository,
         ActionRepository $actionRepository,
         MechanicsRepository $mechanicsRepository,
-        StatusConfigRepository $statusConfigRepository)
-    {
+        StatusConfigRepository $statusConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->equipmentConfigRepository = $equipmentConfigRepository;
         $this->actionRepository = $actionRepository;

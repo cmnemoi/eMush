@@ -16,7 +16,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class StatusValidatorTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class StatusValidatorTest extends TestCase
 {
     private HasStatusValidator $validator;
     private HasStatus $constraint;
@@ -275,7 +280,7 @@ class StatusValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

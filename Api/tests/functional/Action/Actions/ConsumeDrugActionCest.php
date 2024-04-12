@@ -41,7 +41,12 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ConsumeDrugActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ConsumeDrugActionCest extends AbstractFunctionalTest
 {
     private Action $consumeConfig;
     private ConsumeDrug $consumeAction;
@@ -101,6 +106,7 @@ class ConsumeDrugActionCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,

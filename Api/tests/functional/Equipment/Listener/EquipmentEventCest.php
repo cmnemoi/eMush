@@ -40,6 +40,7 @@ class EquipmentEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -50,8 +51,10 @@ class EquipmentEventCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 1]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -70,7 +73,8 @@ class EquipmentEventCest
         $equipment = new GameItem($room);
         $equipment
             ->setEquipment($equipmentConfig)
-            ->setName($equipmentConfig->getEquipmentName());
+            ->setName($equipmentConfig->getEquipmentName())
+        ;
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(
@@ -143,6 +147,7 @@ class EquipmentEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);

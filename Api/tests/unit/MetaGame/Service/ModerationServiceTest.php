@@ -13,13 +13,20 @@ use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ModerationServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ModerationServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EntityManager|Mockery\Mock */
     private EntityManager $entityManager;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     private ModerationServiceInterface $service;

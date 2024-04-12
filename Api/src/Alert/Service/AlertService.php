@@ -19,14 +19,13 @@ use Psr\Log\LoggerInterface;
 
 class AlertService implements AlertServiceInterface
 {
+    public const OXYGEN_ALERT = 8;
+    public const HULL_ALERT = 33;
+    public const FAMINE_ALERT = -24;
     private EntityManagerInterface $entityManager;
     private AlertElementRepository $alertElementRepository;
     private AlertRepository $repository;
     private LoggerInterface $logger;
-
-    public const OXYGEN_ALERT = 8;
-    public const HULL_ALERT = 33;
-    public const FAMINE_ALERT = -24;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -152,6 +151,7 @@ class AlertService implements AlertServiceInterface
                 $this->persist($gravityAlert);
 
                 return;
+
             case AlertEnum::REPAIR:
                 $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $daedalus);
 
@@ -209,7 +209,8 @@ class AlertService implements AlertServiceInterface
         // GameItem don't generate alerts
         if ($equipment instanceof GameItem) {
             return;
-        } elseif ($equipment instanceof Door) {
+        }
+        if ($equipment instanceof Door) {
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
@@ -236,6 +237,7 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $equipment->getDaedalus()->getId(),
                 'equipment' => $equipment->getId(),
             ]);
+
             throw $exception;
         }
 
@@ -253,6 +255,7 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $equipment->getDaedalus()->getId(),
                 'equipment' => $equipment->getId(),
             ]);
+
             throw $exception;
         }
 
@@ -308,25 +311,11 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $place->getDaedalus()->getId(),
                 'place' => $place->getId(),
             ]);
+
             throw $exception;
         }
 
         return $fireAlert;
-    }
-
-    private function getAlert(Daedalus $daedalus, string $alertName): Alert
-    {
-        $alert = $this->findByNameAndDaedalus($alertName, $daedalus);
-
-        if ($alert === null) {
-            $alert = new Alert();
-            $alert
-                ->setDaedalus($daedalus)
-                ->setName($alertName)
-            ;
-        }
-
-        return $alert;
     }
 
     public function getAlerts(Daedalus $daedalus): ArrayCollection
@@ -341,9 +330,9 @@ class AlertService implements AlertServiceInterface
             ;
 
             return new ArrayCollection([$alert]);
-        } else {
-            return $alerts;
         }
+
+        return $alerts;
     }
 
     public function handleHunterArrival(Daedalus $daedalus): void
@@ -412,6 +401,7 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $equipment->getDaedalus()->getId(),
                 'equipment' => $equipment->getId(),
             ]);
+
             throw $exception;
         }
 
@@ -446,6 +436,21 @@ class AlertService implements AlertServiceInterface
         if ($daedalus->getLostPlayers()->isEmpty()) {
             $this->delete($alert);
         }
+    }
+
+    private function getAlert(Daedalus $daedalus, string $alertName): Alert
+    {
+        $alert = $this->findByNameAndDaedalus($alertName, $daedalus);
+
+        if ($alert === null) {
+            $alert = new Alert();
+            $alert
+                ->setDaedalus($daedalus)
+                ->setName($alertName)
+            ;
+        }
+
+        return $alert;
     }
 
     private function createEquipmentAlertElement(GameEquipment $equipment, Alert $alert): AlertElement

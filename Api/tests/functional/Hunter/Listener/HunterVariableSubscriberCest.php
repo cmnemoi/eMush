@@ -11,7 +11,12 @@ use Mush\Hunter\Listener\HunterVariableSubscriber;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class HunterVariableSubscriberCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HunterVariableSubscriberCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private HunterVariableSubscriber $hunterVariableSubscriber;

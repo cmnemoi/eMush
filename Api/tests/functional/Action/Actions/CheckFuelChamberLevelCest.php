@@ -19,6 +19,11 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
 {
     private Action $checkFuelChamberLevelActionConfig;

@@ -16,13 +16,17 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 
-class BuildActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class BuildActionTest extends AbstractActionTest
 {
+    protected AbstractAction $action;
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-
-    protected AbstractAction $action;
 
     /**
      * @before

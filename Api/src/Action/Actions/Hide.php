@@ -41,17 +41,17 @@ class Hide extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameItem;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::HIDDEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameItem;
     }
 
     protected function checkResult(): ActionResult

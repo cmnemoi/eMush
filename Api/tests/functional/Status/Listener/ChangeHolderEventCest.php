@@ -18,7 +18,12 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ChangeHolderEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ChangeHolderEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -52,14 +57,14 @@ class ChangeHolderEventCest extends AbstractFunctionalTest
         );
         $superFreezer = new GameEquipment($player);
         $superFreezer
-             ->setName(ToolItemEnum::SUPERFREEZER)
-             ->setEquipment($superFreezerEquipmentConfig)
+            ->setName(ToolItemEnum::SUPERFREEZER)
+            ->setEquipment($superFreezerEquipmentConfig)
         ;
         $I->haveInRepository($superFreezer);
         $talkie = new GameItem($player);
         $talkie
-             ->setName(ItemEnum::WALKIE_TALKIE)
-             ->setEquipment($talkieEquipmentConfig)
+            ->setName(ItemEnum::WALKIE_TALKIE)
+            ->setEquipment($talkieEquipmentConfig)
         ;
         $I->haveInRepository($talkie);
 

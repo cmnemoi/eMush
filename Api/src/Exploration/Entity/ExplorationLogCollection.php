@@ -18,8 +18,6 @@ final class ExplorationLogCollection extends ArrayCollection
         $criteria = Criteria::create()->orderBy([$criteriaName => $sortingMode]);
 
         /** @var ExplorationLogCollection $result */
-        $result = $this->matching($criteria);
-
-        return $result;
+        return $this->matching($criteria);
     }
 }

@@ -35,18 +35,26 @@ use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-class DaedalusIncidentServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DaedalusIncidentServiceTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
+
     /** @var LoggerInterface|Mockery\Mock */
     private LoggerInterface $logger;
 
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private DaedalusIncidentServiceInterface $service;

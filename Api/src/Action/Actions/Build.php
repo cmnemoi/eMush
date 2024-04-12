@@ -50,11 +50,6 @@ class Build extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment && !$target instanceof Door;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -67,6 +62,7 @@ class Build extends AbstractAction
         /** @TODO use validator */
         /** @var GameEquipment $target */
         $target = $this->target;
+
         /** @var Blueprint $blueprintMechanic */
         $blueprintMechanic = $target->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
 
@@ -78,6 +74,11 @@ class Build extends AbstractAction
         }
 
         return parent::cannotExecuteReason();
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment && !$target instanceof Door;
     }
 
     protected function checkResult(): ActionResult
@@ -100,11 +101,13 @@ class Build extends AbstractAction
                 if ($this->player->hasEquipmentByName($name)) {
                     /** @FIXME change to a random choice of the item */
                     $ingredient = $this->player->getEquipments()
-                        ->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
+                        ->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->first()
+                    ;
                 } else {
                     /** @FIXME change to a random choice of the equipment */
                     $ingredient = $this->player->getPlace()->getEquipments()
-                        ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
+                        ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first()
+                    ;
                 }
 
                 $interactEvent = new InteractWithEquipmentEvent(

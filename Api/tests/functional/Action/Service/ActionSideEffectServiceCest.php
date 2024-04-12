@@ -20,7 +20,12 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ActionSideEffectServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ActionSideEffectServiceCest extends AbstractFunctionalTest
 {
     private Search $searchAction;
     private Action $action;

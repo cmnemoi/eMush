@@ -292,9 +292,9 @@ class DaedalusService implements DaedalusServiceInterface
         /** @var CharacterConfig $characterConfig */
         foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
             if ($characterConfig
-                    ->getInitStatuses()
-                    ->map(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName())
-                    ->contains(PlayerStatusEnum::IMMUNIZED)
+                ->getInitStatuses()
+                ->map(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName())
+                ->contains(PlayerStatusEnum::IMMUNIZED)
             ) {
                 continue;
             }
@@ -363,39 +363,6 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
-    private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player
-    {
-        $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
-
-        if ($playersAlive->isEmpty()) {
-            return null;
-        }
-
-        $playersWithLessOxygen = new PlayerCollection();
-        $lessOxygenCount = 0;
-
-        foreach ($playersAlive as $player) {
-            $playerOxygenCount = $this->getOxygenCapsuleCount($player);
-
-            if ($playersWithLessOxygen->isEmpty()) {
-                $playersWithLessOxygen->add($player);
-                $lessOxygenCount = $playerOxygenCount;
-            } elseif ($playerOxygenCount === $lessOxygenCount) {
-                $playersWithLessOxygen->add($player);
-            } elseif ($playerOxygenCount < $lessOxygenCount) {
-                $playersWithLessOxygen = new PlayerCollection([$player]);
-                $lessOxygenCount = $playerOxygenCount;
-            }
-        }
-
-        return $this->randomService->getRandomPlayer($playersWithLessOxygen);
-    }
-
-    private function getOxygenCapsuleCount(Player $player): int
-    {
-        return $player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
-    }
-
     public function killRemainingPlayers(Daedalus $daedalus, array $reasons, \DateTime $date): Daedalus
     {
         $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
@@ -434,6 +401,7 @@ class DaedalusService implements DaedalusServiceInterface
 
                     $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
                 }
+
                 break;
         }
 
@@ -460,17 +428,6 @@ class DaedalusService implements DaedalusServiceInterface
     public function findAllDaedalusesOnCycleChange(): DaedalusCollection
     {
         return $this->daedalusRepository->findAllDaedalusesOnCycleChange();
-    }
-
-    private function getValueInInterval(int $value, ?int $min, ?int $max): int
-    {
-        if ($max !== null && $value > $max) {
-            return $max;
-        } elseif ($min !== null && $value < $min) {
-            return $min;
-        }
-
-        return $value;
     }
 
     /**
@@ -527,5 +484,50 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $daedalus;
+    }
+
+    private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player
+    {
+        $playersAlive = $daedalus->getPlayers()->getPlayerAlive();
+
+        if ($playersAlive->isEmpty()) {
+            return null;
+        }
+
+        $playersWithLessOxygen = new PlayerCollection();
+        $lessOxygenCount = 0;
+
+        foreach ($playersAlive as $player) {
+            $playerOxygenCount = $this->getOxygenCapsuleCount($player);
+
+            if ($playersWithLessOxygen->isEmpty()) {
+                $playersWithLessOxygen->add($player);
+                $lessOxygenCount = $playerOxygenCount;
+            } elseif ($playerOxygenCount === $lessOxygenCount) {
+                $playersWithLessOxygen->add($player);
+            } elseif ($playerOxygenCount < $lessOxygenCount) {
+                $playersWithLessOxygen = new PlayerCollection([$player]);
+                $lessOxygenCount = $playerOxygenCount;
+            }
+        }
+
+        return $this->randomService->getRandomPlayer($playersWithLessOxygen);
+    }
+
+    private function getOxygenCapsuleCount(Player $player): int
+    {
+        return $player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
+    }
+
+    private function getValueInInterval(int $value, ?int $min, ?int $max): int
+    {
+        if ($max !== null && $value > $max) {
+            return $max;
+        }
+        if ($min !== null && $value < $min) {
+            return $min;
+        }
+
+        return $value;
     }
 }

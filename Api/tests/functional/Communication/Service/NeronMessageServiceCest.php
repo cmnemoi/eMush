@@ -33,6 +33,7 @@ class NeronMessageServiceCest
         $gameConfig = $I->have(GameConfig::class);
 
         $time = new \DateTime();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => $time]);
 

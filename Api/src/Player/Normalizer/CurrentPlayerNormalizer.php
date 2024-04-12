@@ -81,8 +81,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         return $data instanceof Player
             && $data === $currentPlayer
-            && $data->isAlive()
-        ;
+            && $data->isAlive();
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array
@@ -95,6 +94,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         /** @var array<string, mixed> $items */
         $items = [];
+
         /** @var GameItem $item */
         foreach ($player->getEquipments() as $item) {
             $items[] = $this->normalizer->normalize($item, $format, $context);
@@ -185,18 +185,22 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $gameVariable = $player->getVariableByName($variable);
 
         $name = $this->translationService->translate(
-            $variable . '.name', [
+            $variable . '.name',
+            [
                 'quantityHealth' => $player->getHealthPoint(),
                 'quantityMoral' => $player->getMoralPoint(),
-            ], 'player',
+            ],
+            'player',
             $language
         );
 
         $description = $this->translationService->translate(
-            $variable . '.description', [
+            $variable . '.description',
+            [
                 'quantityAction' => $player->getActionPoint(),
                 'quantityMovement' => $player->getMovementPoint(),
-            ], 'player',
+            ],
+            'player',
             $language
         );
 
@@ -226,9 +230,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
-        return $actions;
+        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 
     private function getContextActions(Player $player): Collection

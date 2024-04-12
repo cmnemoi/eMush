@@ -14,7 +14,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class ShredableValidatorTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ShredableValidatorTest extends TestCase
 {
     private ShredableValidator $validator;
     private Shredable $constraint;
@@ -99,7 +104,7 @@ class ShredableValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

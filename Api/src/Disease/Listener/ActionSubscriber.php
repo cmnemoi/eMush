@@ -67,7 +67,8 @@ class ActionSubscriber implements EventSubscriberInterface
         $contactDiseases = array_keys(
             $this->diseaseCauseService->findCauseConfigByDaedalus(
                 DiseaseCauseEnum::CONTACT,
-                $player->getDaedalus())
+                $player->getDaedalus()
+            )
                 ->getDiseases()
                 ->toArray()
         );

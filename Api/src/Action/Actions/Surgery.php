@@ -38,10 +38,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class Surgery extends AbstractAction
 {
-    protected string $name = ActionEnum::SURGERY;
-
     private const FAIL_CHANCES = 10;
     private const CRITICAL_SUCCESS_CHANCES = 15;
+    protected string $name = ActionEnum::SURGERY;
 
     private RandomServiceInterface $randomService;
 
@@ -58,11 +57,6 @@ class Surgery extends AbstractAction
         );
 
         $this->randomService = $randomService;
-    }
-
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -84,6 +78,11 @@ class Surgery extends AbstractAction
         ]));
     }
 
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
+    }
+
     protected function checkResult(): ActionResult
     {
         $result = $this->randomService->outputCriticalChances(
@@ -94,9 +93,11 @@ class Surgery extends AbstractAction
 
         if ($result === ActionOutputEnum::FAIL) {
             return new Fail();
-        } elseif ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
+        }
+        if ($result === ActionOutputEnum::CRITICAL_SUCCESS) {
             return new CriticalSuccess();
-        } elseif ($result === ActionOutputEnum::SUCCESS) {
+        }
+        if ($result === ActionOutputEnum::SUCCESS) {
             return new Success();
         }
 

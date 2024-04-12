@@ -56,113 +56,6 @@ class CycleService implements CycleServiceInterface
         return new CycleChangeResult($daedalusCyclesElapsed, $explorationCyclesElapsed);
     }
 
-    private function handleDaedalusCycleChange(\DateTime $dateTime, Daedalus $daedalus): int
-    {
-        $daedalusInfo = $daedalus->getDaedalusInfo();
-        $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
-
-        if (!\in_array($daedalusInfo->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT], true)) {
-            return 0;
-        }
-
-        $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
-        if ($dateDaedalusLastCycle === null) {
-            throw new \LogicException('Daedalus should have a CycleStartedAt Value');
-        } else {
-            $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
-        }
-
-        $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
-
-        if ($cycleElapsed > 0) {
-            $daedalus->setIsCycleChange(true);
-            $this->entityManager->persist($daedalus);
-            $this->entityManager->flush();
-
-            try {
-                for ($i = 0; $i < $cycleElapsed; ++$i) {
-                    $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
-                    $cycleEvent = new DaedalusCycleEvent(
-                        $daedalus,
-                        [EventEnum::NEW_CYCLE],
-                        $dateDaedalusLastCycle
-                    );
-                    $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-
-                    // Do not continue make cycle if Daedalus is finished
-                    if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
-                        break;
-                    }
-                }
-            } catch (\Throwable $e) {
-                $this->logger->error('Error during cycle change', [
-                    'daedalus' => $daedalus->getId(),
-                    'error' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString(),
-                ]);
-            } finally {
-                $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
-                $daedalus->setIsCycleChange(false);
-                $this->entityManager->persist($daedalus);
-                $this->entityManager->flush();
-            }
-        }
-
-        return $cycleElapsed;
-    }
-
-    private function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
-    {
-        $closedExploration = $exploration->getClosedExploration();
-        if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
-            return 0;
-        }
-
-        $dateExplorationLastCycle = $exploration->getUpdatedAt();
-        if ($dateExplorationLastCycle === null) {
-            throw new \LogicException('Exploration should have an UpdatedAt Value');
-        } else {
-            $dateExplorationLastCycle = clone $dateExplorationLastCycle;
-        }
-
-        $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
-
-        if ($cycleElapsed > 0 && !$exploration->isChangingCycle()) {
-            $exploration->setIsChangingCycle(true);
-            $this->entityManager->persist($exploration);
-            $this->entityManager->flush();
-
-            try {
-                for ($i = 0; $i < $cycleElapsed; ++$i) {
-                    $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
-                    $cycleEvent = new ExplorationEvent(
-                        $exploration,
-                        [EventEnum::NEW_CYCLE],
-                        $dateExplorationLastCycle
-                    );
-                    $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
-
-                    // Do not continue make cycle if Daedalus or exploration is finished
-                    if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
-                        break;
-                    }
-                }
-            } catch (\Throwable $e) {
-                $this->logger->error('Error during exploration cycle change', [
-                    'exploration' => $exploration->getId(),
-                    'error' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString(),
-                ]);
-            } finally {
-                $exploration->setIsChangingCycle(false);
-                $this->entityManager->persist($exploration);
-                $this->entityManager->flush();
-            }
-        }
-
-        return $cycleElapsed;
-    }
-
     public function getDateStartNextCycle(Daedalus $daedalus): \DateTime
     {
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
@@ -231,6 +124,7 @@ class CycleService implements CycleServiceInterface
         $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
         $start = clone $start;
         $end = clone $end;
+
         /** @var non-empty-string $timeZone */
         $timeZone = $localizationConfig->getTimeZone();
         $end->setTimezone(new \DateTimeZone($timeZone));
@@ -252,10 +146,116 @@ class CycleService implements CycleServiceInterface
         return $nextCycleStartAt->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
     }
 
+    private function handleDaedalusCycleChange(\DateTime $dateTime, Daedalus $daedalus): int
+    {
+        $daedalusInfo = $daedalus->getDaedalusInfo();
+        $daedalusConfig = $daedalusInfo->getGameConfig()->getDaedalusConfig();
+
+        if (!\in_array($daedalusInfo->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::CURRENT], true)) {
+            return 0;
+        }
+
+        $dateDaedalusLastCycle = $daedalus->getCycleStartedAt();
+        if ($dateDaedalusLastCycle === null) {
+            throw new \LogicException('Daedalus should have a CycleStartedAt Value');
+        }
+        $dateDaedalusLastCycle = clone $dateDaedalusLastCycle;
+
+        $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
+
+        if ($cycleElapsed > 0) {
+            $daedalus->setIsCycleChange(true);
+            $this->entityManager->persist($daedalus);
+            $this->entityManager->flush();
+
+            try {
+                for ($i = 0; $i < $cycleElapsed; ++$i) {
+                    $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
+                    $cycleEvent = new DaedalusCycleEvent(
+                        $daedalus,
+                        [EventEnum::NEW_CYCLE],
+                        $dateDaedalusLastCycle
+                    );
+                    $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+                    // Do not continue make cycle if Daedalus is finished
+                    if ($daedalusInfo->getGameStatus() === GameStatusEnum::FINISHED) {
+                        break;
+                    }
+                }
+            } catch (\Throwable $e) {
+                $this->logger->error('Error during cycle change', [
+                    'daedalus' => $daedalus->getId(),
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+            } finally {
+                $daedalus->setCycleStartedAt($dateDaedalusLastCycle);
+                $daedalus->setIsCycleChange(false);
+                $this->entityManager->persist($daedalus);
+                $this->entityManager->flush();
+            }
+        }
+
+        return $cycleElapsed;
+    }
+
+    private function handleExplorationCycleChange(\DateTime $dateTime, Exploration $exploration): int
+    {
+        $closedExploration = $exploration->getClosedExploration();
+        if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
+            return 0;
+        }
+
+        $dateExplorationLastCycle = $exploration->getUpdatedAt();
+        if ($dateExplorationLastCycle === null) {
+            throw new \LogicException('Exploration should have an UpdatedAt Value');
+        }
+        $dateExplorationLastCycle = clone $dateExplorationLastCycle;
+
+        $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
+
+        if ($cycleElapsed > 0 && !$exploration->isChangingCycle()) {
+            $exploration->setIsChangingCycle(true);
+            $this->entityManager->persist($exploration);
+            $this->entityManager->flush();
+
+            try {
+                for ($i = 0; $i < $cycleElapsed; ++$i) {
+                    $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
+                    $cycleEvent = new ExplorationEvent(
+                        $exploration,
+                        [EventEnum::NEW_CYCLE],
+                        $dateExplorationLastCycle
+                    );
+                    $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+
+                    // Do not continue make cycle if Daedalus or exploration is finished
+                    if ($this->isDaedalusOrExplorationFinished($closedExploration)) {
+                        break;
+                    }
+                }
+            } catch (\Throwable $e) {
+                $this->logger->error('Error during exploration cycle change', [
+                    'exploration' => $exploration->getId(),
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+            } finally {
+                $exploration->setIsChangingCycle(false);
+                $this->entityManager->persist($exploration);
+                $this->entityManager->flush();
+            }
+        }
+
+        return $cycleElapsed;
+    }
+
     private function getNumberOfExplorationCycleElapsed(\DateTime $start, \DateTime $end, Exploration $exploration): int
     {
         $start = clone $start;
         $end = clone $end;
+
         /** @var non-empty-string $timeZone */
         $timeZone = $exploration->getDaedalus()->getDaedalusInfo()->getLocalizationConfig()->getTimeZone();
         $end->setTimezone(new \DateTimeZone($timeZone));

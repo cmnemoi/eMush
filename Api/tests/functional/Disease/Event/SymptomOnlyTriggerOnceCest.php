@@ -16,6 +16,11 @@ use Mush\RoomLog\Enum\SymptomLogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class SymptomOnlyTriggerOnceCest extends AbstractFunctionalTest
 {
     private PlayerDiseaseServiceInterface $playerDiseaseService;

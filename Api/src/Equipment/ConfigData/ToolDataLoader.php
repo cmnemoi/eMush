@@ -17,7 +17,7 @@ class ToolDataLoader extends MechanicsDataLoader
 
             if ($tool === null) {
                 $tool = new Tool();
-            } elseif (!($tool instanceof Tool)) {
+            } elseif (!$tool instanceof Tool) {
                 $this->entityManager->remove($tool);
                 $tool = new Tool();
             }

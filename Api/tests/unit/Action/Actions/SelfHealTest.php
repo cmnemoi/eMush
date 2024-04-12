@@ -11,9 +11,14 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class SelfHealTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class SelfHealTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
     /**

@@ -17,11 +17,16 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class RationCycleHandlerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RationCycleHandlerTest extends TestCase
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private RationCycleHandler $rationCycleHandler;
 

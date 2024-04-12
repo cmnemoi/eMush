@@ -9,7 +9,12 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 
-class ReportEquipmentActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ReportEquipmentActionTest extends AbstractActionTest
 {
     /**
      * @before

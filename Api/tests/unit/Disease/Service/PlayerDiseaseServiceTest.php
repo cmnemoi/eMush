@@ -21,14 +21,19 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
-class PlayerDiseaseServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerDiseaseServiceTest extends TestCase
 {
     private PlayerDiseaseService $playerDiseaseService;
 
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var EventServiceInterface|Mockery\Mock */
@@ -113,7 +118,8 @@ class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('random')
             ->withArgs([10, 15])
             ->andReturn(4)
-            ->once();
+            ->once()
+        ;
         $this->eventService->shouldReceive('callEvent')->once();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, ['cause'], 10, 5);
@@ -144,7 +150,8 @@ class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('random')
             ->withArgs([$diseaseConfig->getDiseasePointMin(), $diseaseConfig->getDiseasePointMin() + $diseaseConfig->getDiseasePointLength()])
             ->andReturn(4)
-            ->once();
+            ->once()
+        ;
         $this->eventService->shouldReceive('callEvent')->twice();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, ['reason']);
@@ -266,7 +273,8 @@ class PlayerDiseaseServiceTest extends TestCase
                 )
                     && \in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags(), true)
             )
-            ->once();
+            ->once()
+        ;
 
         $this->randomService->shouldReceive('random')->andReturn(10);
 
@@ -277,7 +285,8 @@ class PlayerDiseaseServiceTest extends TestCase
                     $event->getPlayerDisease() === $diseasePlayer2
                 )
                     && \in_array(DiseaseCauseEnum::OVERRODE, $event->getTags(), true)
-            )->once();
+            )->once()
+        ;
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();

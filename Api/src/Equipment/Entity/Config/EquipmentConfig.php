@@ -90,7 +90,8 @@ class EquipmentConfig
     {
         if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
             return ItemEnum::BLUEPRINT;
-        } elseif ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
+        }
+        if ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
             return ItemEnum::APPRENTON;
         }
 
@@ -131,7 +132,7 @@ class EquipmentConfig
     /**
      * @psalm-param array<array-key, EquipmentMechanic>|ArrayCollection<array-key, EquipmentMechanic> $mechanics
      */
-    public function setMechanics(Collection|array $mechanics): static
+    public function setMechanics(array|Collection $mechanics): static
     {
         if (\is_array($mechanics)) {
             $mechanics = new ArrayCollection($mechanics);
@@ -204,9 +205,9 @@ class EquipmentConfig
     }
 
     /**
-     * @param Collection<int<0, max>, Action>|array<int, Action> $actions
+     * @param array<int, Action>|Collection<int<0, max>, Action> $actions
      */
-    public function setActions(Collection|array $actions): static
+    public function setActions(array|Collection $actions): static
     {
         if (\is_array($actions)) {
             $actions = new ArrayCollection($actions);
@@ -232,7 +233,7 @@ class EquipmentConfig
     /**
      * @psalm-param ArrayCollection<array-key, StatusConfig>| array<array-key, StatusConfig> $initStatuses
      */
-    public function setInitStatuses(ArrayCollection|array $initStatuses): static
+    public function setInitStatuses(array|ArrayCollection $initStatuses): static
     {
         if (\is_array($initStatuses)) {
             $initStatuses = new ArrayCollection($initStatuses);

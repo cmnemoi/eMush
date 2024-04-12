@@ -13,7 +13,12 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class HunterDeathEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HunterDeathEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private Hunter $hunter;
@@ -51,14 +56,16 @@ class HunterDeathEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($hunterDeathEvent, HunterEvent::HUNTER_DEATH);
 
         // then there is a log about this hunter death
-        $I->seeInRepository(RoomLog::class,
+        $I->seeInRepository(
+            RoomLog::class,
             [
                 'place' => $this->player1->getPlace()->getName(),
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
                 'playerInfo' => $this->player1->getPlayerInfo(),
                 'log' => $hunterDeathEvent->mapLog(LogEnum::HUNTER_DEATH_LOG_ENUM),
                 'visibility' => VisibilityEnum::PUBLIC,
-            ]);
+            ]
+        );
     }
 
     public function testHunterDeathEventDropsScrapInSpace(FunctionalTester $I): void

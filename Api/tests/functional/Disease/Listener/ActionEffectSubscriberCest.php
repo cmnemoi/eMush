@@ -45,8 +45,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -56,6 +58,7 @@ class ActionEffectSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -64,6 +67,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -99,8 +103,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -110,6 +116,7 @@ class ActionEffectSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -119,6 +126,7 @@ class ActionEffectSubscriberCest
             'place' => $place,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -154,8 +162,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -166,6 +176,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -175,6 +186,7 @@ class ActionEffectSubscriberCest
             'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -219,8 +231,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -231,6 +245,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -239,6 +254,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

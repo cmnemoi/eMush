@@ -18,10 +18,16 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class SpaceBattlePatrolShipNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class SpaceBattlePatrolShipNormalizerTest extends TestCase
 {
     private SpaceBattlePatrolShipNormalizer $normalizer;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     protected function setUp(): void

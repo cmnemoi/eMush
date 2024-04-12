@@ -17,9 +17,14 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class WaterPlantActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class WaterPlantActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -54,7 +59,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
-              ->setEquipment($item)
+            ->setEquipment($item)
             ->setName('plant')
         ;
 

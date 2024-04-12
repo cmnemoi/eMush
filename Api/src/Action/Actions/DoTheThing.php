@@ -74,11 +74,6 @@ class DoTheThing extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -125,6 +120,11 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
     }
 
     protected function checkResult(): ActionResult

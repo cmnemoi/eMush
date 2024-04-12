@@ -23,6 +23,7 @@ class PlayerCreateRequest
      * @Assert\NotBlank
      */
     private ?string $character = null;
+
     /**
      * @Assert\NotNull
      *
@@ -31,6 +32,7 @@ class PlayerCreateRequest
      * @FullDaedalus
      */
     private ?Daedalus $daedalus = null;
+
     /**
      * @Assert\NotNull
      */

@@ -28,7 +28,12 @@ use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-class AlertServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class AlertServiceTest extends TestCase
 {
     private AlertServiceInterface $alertService;
 

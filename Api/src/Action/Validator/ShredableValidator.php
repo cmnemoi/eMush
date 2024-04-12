@@ -32,7 +32,8 @@ class ShredableValidator extends ConstraintValidator
 
         if (!$document || !$document->canShred()) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

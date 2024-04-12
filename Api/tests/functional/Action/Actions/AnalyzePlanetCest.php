@@ -26,6 +26,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class AnalyzePlanetCest extends AbstractFunctionalTest
 {
     private Action $analyzePlanetConfig;

@@ -64,6 +64,7 @@ class NeronMessageCycleCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -73,17 +74,22 @@ class NeronMessageCycleCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
         $I->haveInRepository($channel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
+
         /** @var Place $room3 */
         $room3 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room4 */
         $room4 = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -94,12 +100,14 @@ class NeronMessageCycleCest
             ->setInitHealthPoint(99)
         ;
         $I->refreshEntities($characterConfig);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -113,12 +121,14 @@ class NeronMessageCycleCest
 
         $doorConfig
             ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false);
+            ->setIsFireDestroyable(false)
+        ;
 
         $door1 = new Door($room);
         $door1
             ->setName('door name')
-            ->setEquipment($doorConfig);
+            ->setEquipment($doorConfig)
+        ;
 
         $room->addDoor($door1);
         $room2->addDoor($door1);
@@ -126,7 +136,8 @@ class NeronMessageCycleCest
         $door2 = new Door($room);
         $door2
             ->setName('door name')
-            ->setEquipment($doorConfig);
+            ->setEquipment($doorConfig)
+        ;
 
         $room->addDoor($door2);
         $room3->addDoor($door2);
@@ -134,7 +145,8 @@ class NeronMessageCycleCest
         $door3 = new Door($room4);
         $door3
             ->setName('door name')
-            ->setEquipment($doorConfig);
+            ->setEquipment($doorConfig)
+        ;
 
         $room->addDoor($door3);
         $room4->addDoor($door3);

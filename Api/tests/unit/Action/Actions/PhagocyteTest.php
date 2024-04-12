@@ -13,9 +13,14 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class PhagocyteTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PhagocyteTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before

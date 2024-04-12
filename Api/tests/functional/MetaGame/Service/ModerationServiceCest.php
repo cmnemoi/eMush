@@ -6,7 +6,12 @@ use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ModerationServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ModerationServiceCest extends AbstractFunctionalTest
 {
     private ModerationServiceInterface $moderationService;
 

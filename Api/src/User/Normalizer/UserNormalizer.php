@@ -35,6 +35,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
         if ($user->isInGame()) {
             /** @var PlayerInfo $playerInfo */
             $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+
             /** @var Player $player */
             $player = $playerInfo->getPlayer();
 

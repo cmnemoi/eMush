@@ -49,6 +49,7 @@ class AttemptActionChangeCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]));
         $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
@@ -58,8 +59,10 @@ class AttemptActionChangeCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -156,6 +159,7 @@ class AttemptActionChangeCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]));
         $I->flushToDatabase();
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
@@ -165,8 +169,10 @@ class AttemptActionChangeCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -261,8 +267,10 @@ class AttemptActionChangeCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
 

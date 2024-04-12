@@ -56,9 +56,9 @@ abstract class AttemptAction extends AbstractAction
 
         if ($this->randomService->isActionSuccessful($successChance)) {
             return $this->drawCriticalSuccess();
-        } else {
-            return new Fail();
         }
+
+        return new Fail();
     }
 
     private function drawCriticalSuccess(): ActionResult

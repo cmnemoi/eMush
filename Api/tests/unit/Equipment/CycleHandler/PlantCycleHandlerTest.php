@@ -32,16 +32,21 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class PlantCycleHandlerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlantCycleHandlerTest extends TestCase
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     private EventServiceInterface|Mockery\Mock $eventService;
 
     private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private PlantCycleHandler $plantCycleHandler;
 
@@ -104,7 +109,8 @@ class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10);
+            ->setOxygen(10)
+        ;
 
         $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
 
@@ -153,7 +159,8 @@ class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10);
+            ->setOxygen(10)
+        ;
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -192,7 +199,8 @@ class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10);
+            ->setOxygen(10)
+        ;
 
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -224,7 +232,8 @@ class PlantCycleHandlerTest extends TestCase
 
         $plant = new ItemConfig();
         $plant
-            ->setEquipmentName('plant name');
+            ->setEquipmentName('plant name')
+        ;
         $plantType = new Plant();
         $plantType->setFruitName($newFruit->getEquipmentName());
 
@@ -233,7 +242,8 @@ class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10);
+            ->setOxygen(10)
+        ;
 
         $gamePlant = new GameItem($room);
         $gamePlant
@@ -281,7 +291,8 @@ class PlantCycleHandlerTest extends TestCase
 
         $plant = new ItemConfig();
         $plant
-            ->setEquipmentName('plant name');
+            ->setEquipmentName('plant name')
+        ;
         $plantType = new Plant();
         $plantType->setFruitName($newFruit->getEquipmentName());
 
@@ -290,7 +301,8 @@ class PlantCycleHandlerTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect
             ->setMaturationTime(10)
-            ->setOxygen(10);
+            ->setOxygen(10)
+        ;
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $gamePlant = new GameItem($room);
@@ -365,7 +377,8 @@ class PlantCycleHandlerTest extends TestCase
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent
+            ->withArgs(
+                static fn (AbstractGameEvent $event) => $event instanceof EquipmentEvent
                 && $event->getGameEquipment() === $gamePlant
             )->once()
         ;

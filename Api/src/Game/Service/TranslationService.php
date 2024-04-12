@@ -96,11 +96,12 @@ class TranslationService implements TranslationServiceInterface
     {
         if ($additionalInfoKey === 'name' || $additionalInfoKey === 'short_name') {
             return $parameterKey;
-        } elseif (\in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS, true)) {
-            return $additionalInfoKey;
-        } else {
-            return $parameterKey . '_' . $additionalInfoKey;
         }
+        if (\in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS, true)) {
+            return $additionalInfoKey;
+        }
+
+        return $parameterKey . '_' . $additionalInfoKey;
     }
 
     private function getParameterTranslationId(
@@ -110,8 +111,8 @@ class TranslationService implements TranslationServiceInterface
     ): string {
         if (\in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS, true)) {
             return $additionalInfoKey;
-        } else {
-            return $parameterTranslationId . '.' . $additionalInfoKey;
         }
+
+        return $parameterTranslationId . '.' . $additionalInfoKey;
     }
 }

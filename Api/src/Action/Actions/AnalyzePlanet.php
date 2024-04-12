@@ -38,11 +38,6 @@ final class AnalyzePlanet extends AbstractAction
         $this->planetService = $planetService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Planet;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -67,6 +62,11 @@ final class AnalyzePlanet extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Planet;
     }
 
     protected function checkResult(): ActionResult

@@ -27,7 +27,12 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class BuildActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class BuildActionCest extends AbstractFunctionalTest
 {
     private Action $buildConfig;
     private Build $buildAction;

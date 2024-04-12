@@ -19,15 +19,15 @@ class ReadDocument extends AbstractAction
 {
     protected string $name = ActionEnum::READ_DOCUMENT;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameItem;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT, 'groups' => ['visibility']]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameItem;
     }
 
     protected function checkResult(): ActionResult
@@ -46,7 +46,5 @@ class ReadDocument extends AbstractAction
         return $success;
     }
 
-    protected function applyEffect(ActionResult $result): void
-    {
-    }
+    protected function applyEffect(ActionResult $result): void {}
 }

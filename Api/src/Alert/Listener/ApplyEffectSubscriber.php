@@ -57,7 +57,8 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             throw new UnexpectedTypeException($equipment, GameEquipment::class);
         }
         if ($equipment instanceof GameItem) {
-            $this->logger->info('GameItem should not be reported',
+            $this->logger->info(
+                'GameItem should not be reported',
                 [
                     'player' => $player->getId(),
                     'equipment' => $equipment->getName(),

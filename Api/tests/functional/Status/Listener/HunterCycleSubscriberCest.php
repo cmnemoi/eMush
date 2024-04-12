@@ -7,7 +7,12 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class HunterCycleSubscriberCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HunterCycleSubscriberCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 

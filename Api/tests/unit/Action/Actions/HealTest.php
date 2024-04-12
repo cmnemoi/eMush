@@ -14,9 +14,14 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 
-class HealTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HealTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
     /**

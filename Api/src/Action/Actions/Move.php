@@ -41,17 +41,17 @@ class Move extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Door;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
         $metadata->addConstraint(new CanGoToIcarusBay(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Door;
     }
 
     protected function checkResult(): ActionResult

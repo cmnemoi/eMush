@@ -82,7 +82,8 @@ class PlayDynarcadeCest
         $dynarcade = new GameEquipment($alphaBay2);
         $dynarcade
             ->setName(EquipmentEnum::DYNARCADE)
-            ->setEquipment($equipmentConfig);
+            ->setEquipment($equipmentConfig)
+        ;
         $I->haveInRepository($dynarcade);
 
         $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
@@ -181,7 +182,9 @@ class PlayDynarcadeCest
         $gamerPlayer
             ->setActionPoint(3)
             ->setHealthPoint(6)
-            ->setMoralPoint(7);
+            ->setMoralPoint(7)
+        ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($gamerPlayer, $user, $characterConfig);
@@ -192,7 +195,8 @@ class PlayDynarcadeCest
 
         $dynarcade = new GameEquipment($alphaBay2);
         $dynarcade->setName(EquipmentEnum::DYNARCADE)
-            ->setEquipment($equipmentConfig);
+            ->setEquipment($equipmentConfig)
+        ;
         $I->haveInRepository($dynarcade);
 
         $this->playDynarcadeAction->loadParameters($this->action, $gamerPlayer, $dynarcade);
@@ -243,7 +247,9 @@ class PlayDynarcadeCest
         $gamerPlayer
             ->setActionPoint(3)
             ->setHealthPoint(6)
-            ->setMoralPoint(7);
+            ->setMoralPoint(7)
+        ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($gamerPlayer, $user, $characterConfig);
@@ -255,7 +261,8 @@ class PlayDynarcadeCest
         $dynarcade = new GameEquipment($alphaBay2);
         $dynarcade
             ->setName(EquipmentEnum::DYNARCADE)
-            ->setEquipment($equipmentConfig);
+            ->setEquipment($equipmentConfig)
+        ;
         $I->haveInRepository($dynarcade);
 
         $this->action->setSuccessRate(0);

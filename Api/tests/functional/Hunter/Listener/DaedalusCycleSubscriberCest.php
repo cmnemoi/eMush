@@ -26,7 +26,12 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Uid\Uuid;
 
-class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -149,12 +154,13 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
-                            ->getAttackingHunters()
-                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-                            ->first()
+            ->getAttackingHunters()
+            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+            ->first()
         ;
         $I->assertNotFalse($asteroid);
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
+
         /** @var ChargeStatusConfig $truceStatusConfig */
         $truceStatusConfig = $truceStatus->getStatusConfig();
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES));
@@ -183,11 +189,12 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
-                            ->getAttackingHunters()
-                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
-                            ->first()
+            ->getAttackingHunters()
+            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
+            ->first()
         ;
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
+
         /** @var ChargeStatusConfig $truceStatusConfig */
         $truceStatusConfig = $truceStatus?->getStatusConfig();
 
@@ -218,9 +225,9 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         // given D1000 has no truce status, 100% hit chance and 6 damage
         /** @var Hunter $d1000 */
         $d1000 = $daedalus
-                            ->getAttackingHunters()
-                            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
-                            ->first()
+            ->getAttackingHunters()
+            ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
+            ->first()
         ;
         $d1000->getHunterConfig()->setHitChance(100)->setDamageRange([6 => 1]);
         $d1000->setHitChance(100);
@@ -272,6 +279,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
     {
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
         $daedalus = new Daedalus();
         $daedalus
@@ -323,6 +331,7 @@ class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
     {
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
         $daedalus = new Daedalus();
         $daedalus

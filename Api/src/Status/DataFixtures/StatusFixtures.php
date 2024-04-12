@@ -248,6 +248,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $disabledConversionModifier */
         $disabledConversionModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_CONVERSION_MODIFIER);
+
         /** @var VariableEventModifierConfig $disabledNotAloneModifier */
         $disabledNotAloneModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_NOT_ALONE_MODIFIER);
         $disabled = new StatusConfig();
@@ -447,6 +448,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $gravityConversionModifier */
         $gravityConversionModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER);
+
         /** @var VariableEventModifierConfig $gravityCycleModifier */
         $gravityCycleModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER);
         $noGravity = new StatusConfig();
@@ -475,6 +477,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierPlus1Section */
         $astronavigationNeronCpuPriorityModifierPlus1Section = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION);
+
         /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierMinus1ActionPoint */
         $astronavigationNeronCpuPriorityModifierMinus1ActionPoint = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT);
 
@@ -495,6 +498,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $increasedMaxCharge */
         $increasedMaxCharge = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE);
+
         /** @var VariableEventModifierConfig $increasedRechargeRate */
         $increasedRechargeRate = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE);
 

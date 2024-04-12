@@ -21,11 +21,16 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class AlertNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class AlertNormalizerTest extends TestCase
 {
     private AlertNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
 
     /**

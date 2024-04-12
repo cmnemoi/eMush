@@ -33,15 +33,20 @@ use Mush\RoomLog\Service\RoomLogService;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class RoomLogServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RoomLogServiceTest extends TestCase
 {
     private EntityManagerInterface|Mockery\Mock $entityManager;
 
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
-    private RoomLogRepository|Mockery\Mock $repository;
+    private Mockery\Mock|RoomLogRepository $repository;
 
-    private TranslationServiceInterface|Mockery\Mock $translationService;
+    private Mockery\Mock|TranslationServiceInterface $translationService;
 
     private RoomLogService $service;
 

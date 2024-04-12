@@ -69,6 +69,7 @@ class DaedalusCycleChangeCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class, [
             'initOxygen' => 2000,
@@ -131,7 +132,8 @@ class DaedalusCycleChangeCest
         $I->haveInRepository($characterConfig);
 
         $this->player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $this->daedalus,
                 'place' => $room,
             ]

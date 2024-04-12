@@ -160,6 +160,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         /** @var GameEquipment $patrolShip */
         $patrolShip = $event->getActionTarget();
+
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -181,6 +182,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         /** @var GameEquipment $patrolShip */
         $patrolShip = $event->getActionTarget();
+
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         if ($patrolShipMechanic === null) {
@@ -223,6 +225,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         /** @var GameEquipment $patrolShip */
         $patrolShip = $event->getActionTarget();
+
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
@@ -247,6 +250,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $player = $event->getAuthor();
         $daedalus = $player->getDaedalus();
+
         /** @var GameEquipment $patrolShip */
         $patrolShip = $event->getActionTarget();
 

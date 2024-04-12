@@ -2,6 +2,4 @@
 
 namespace Mush\Daedalus\Entity\Criteria;
 
-class DaedalusCriteria
-{
-}
+class DaedalusCriteria {}

@@ -29,6 +29,7 @@ class RoomLogRepositoryCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 
@@ -39,13 +40,16 @@ class RoomLogRepositoryCest
 
         /** @var Place $place */
         $place = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -93,6 +97,7 @@ class RoomLogRepositoryCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 
@@ -109,8 +114,10 @@ class RoomLogRepositoryCest
             'place' => $place,
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -152,6 +159,7 @@ class RoomLogRepositoryCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 
@@ -168,8 +176,10 @@ class RoomLogRepositoryCest
             'place' => $place,
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

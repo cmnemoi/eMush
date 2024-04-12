@@ -24,9 +24,14 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
-class AttackActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class AttackActionTest extends AbstractActionTest
 {
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
 

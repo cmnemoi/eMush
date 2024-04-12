@@ -50,6 +50,7 @@ class ExamineActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -59,6 +60,7 @@ class ExamineActionCest
         $player
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

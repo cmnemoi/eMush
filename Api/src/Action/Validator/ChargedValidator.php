@@ -44,7 +44,8 @@ class ChargedValidator extends ConstraintValidator
 
         if ($chargeStatus !== null && $chargeStatus->getCharge() <= 0) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 
@@ -57,11 +58,12 @@ class ChargedValidator extends ConstraintValidator
 
         if ($charges->count() > 0) {
             return $charges->first();
-        } elseif ($charges->count() === 0) {
-            return null;
-        } else {
-            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
         }
+        if ($charges->count() === 0) {
+            return null;
+        }
+
+        throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
     }
 
     private function getShootingEquipment(Player $player): GameEquipment
@@ -70,7 +72,8 @@ class ChargedValidator extends ConstraintValidator
         $shootingEquipment = $player->getPlace()->getEquipments()
             ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
             ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
-            ->first();
+            ->first()
+        ;
 
         if (!$shootingEquipment instanceof GameEquipment) {
             throw new \Exception("Shoot hunter action : {$player->getPlace()->getName()} should have a shooting equipment (turret or patrol ship)");

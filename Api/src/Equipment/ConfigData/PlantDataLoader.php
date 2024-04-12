@@ -17,7 +17,7 @@ class PlantDataLoader extends RationDataLoader
 
             if ($plant === null) {
                 $plant = new Plant();
-            } elseif (!($plant instanceof Plant)) {
+            } elseif (!$plant instanceof Plant) {
                 $this->entityManager->remove($plant);
                 $plant = new Plant();
             }

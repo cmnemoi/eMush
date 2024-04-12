@@ -18,9 +18,14 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class OpenCapsuleActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class OpenCapsuleActionTest extends AbstractActionTest
 {
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -79,7 +84,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
             ->setEquipmentName(ItemEnum::METAL_SCRAPS)
         ;
         $gameMetalScrap
-        ->setEquipment($metalScrap)
+            ->setEquipment($metalScrap)
             ->setName(ItemEnum::METAL_SCRAPS)
         ;
 

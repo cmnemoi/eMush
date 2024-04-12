@@ -176,6 +176,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
     {
         $language = $daedalus->getLanguage();
+
         /** @var Ration $ration */
         $ration = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
         if ($ration === null) {
@@ -303,7 +304,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                     'items',
                     $language
                 );
-                $description = "$description//$ingredientTranslation";
+                $description = "{$description}//{$ingredientTranslation}";
             }
         }
 

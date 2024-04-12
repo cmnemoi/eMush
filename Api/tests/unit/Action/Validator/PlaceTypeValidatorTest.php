@@ -12,7 +12,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class PlaceTypeValidatorTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlaceTypeValidatorTest extends TestCase
 {
     private PlaceTypeValidator $validator;
     private PlaceType $constraint;
@@ -90,7 +95,7 @@ class PlaceTypeValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

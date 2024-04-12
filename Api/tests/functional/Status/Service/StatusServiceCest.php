@@ -39,6 +39,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class StatusServiceCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -285,6 +290,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         /** @var Action $sabotageConfig */
         $sabotageConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SABOTAGE . '_percent_12']);
         $sabotageConfig->setSuccessRate(101);
+
         /** @var Sabotage $sabotageAction */
         $sabotageAction = $I->grabService(Sabotage::class);
 
@@ -295,6 +301,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         /** @var Action $reportConfig */
         $reportConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPORT_EQUIPMENT]);
         $reportConfig->setSuccessRate(101);
+
         /** @var ReportEquipment $reportAction */
         $reportAction = $I->grabService(ReportEquipment::class);
 

@@ -16,6 +16,11 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class PlayerNormalizerCest extends AbstractFunctionalTest
 {
     private CurrentPlayerNormalizer $currentPlayerNormalizer;

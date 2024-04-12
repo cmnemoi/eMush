@@ -59,6 +59,7 @@ class MessageVoter extends Voter
         switch ($attribute) {
             case self::VIEW:
                 return $this->canView($channel, $playerInfo);
+
             case self::CREATE:
                 return $this->canCreate($channel, $playerInfo);
         }
@@ -87,7 +88,8 @@ class MessageVoter extends Voter
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
         return $this->channelService->canPlayerCommunicate($player) && $playerInfo->isAlive()
-            && ($channel->isPublic()
+            && (
+                $channel->isPublic()
                 || $channel->isPlayerParticipant($playerInfo)
                 || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
             );

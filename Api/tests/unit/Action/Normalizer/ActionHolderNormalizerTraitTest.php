@@ -7,6 +7,11 @@ namespace Mush\Tests\unit\Action\Normalizer;
 use Codeception\PHPUnit\TestCase;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class ActionHolderNormalizerTraitTest extends TestCase
 {
     use ActionHolderNormalizerTrait;
@@ -27,13 +32,13 @@ final class ActionHolderNormalizerTraitTest extends TestCase
                 'canExecute' => true],
             ['id' => 2,
                 'key' => 'auto_destroy',
-                'name' => "D\u00e9truire le vaisseau",
+                'name' => 'D\\u00e9truire le vaisseau',
                 'actionPointCost' => 0,
                 'movementPointCost' => 0,
                 'moralPointCost' => 0,
                 'successRate' => 100,
-                'description' => "Ce vaisseau est rempli d'anomalies g\u00e9n\u00e9tiques => une solution drastique s'impose.\n        \/\/\n        **Attention**,
-         cette action d\u00e9truira le vaisseau **sur le champ** !",
+                'description' => "Ce vaisseau est rempli d'anomalies g\\u00e9n\\u00e9tiques => une solution drastique s'impose.\n        \\/\\/\n        **Attention**,
+         cette action d\\u00e9truira le vaisseau **sur le champ** !",
                 'canExecute' => true],
             ['id' => 4,
                 'key' => 'rejuvenate',
@@ -44,7 +49,7 @@ final class ActionHolderNormalizerTraitTest extends TestCase
                 'successRate' => 100,
                 'description' => "Permet de retrouver tout ses =>pa=>,
          =>pm=>,
-         =>hp=> et =>pmo=>.\n\/\/\nUniquement valable pendant l'alpha.\n\/\/\nMerci de nous aider !",
+         =>hp=> et =>pmo=>.\n\\/\\/\nUniquement valable pendant l'alpha.\n\\/\\/\nMerci de nous aider !",
                 'canExecute' => true],
             ['id' => 7,
                 'key' => 'search',
@@ -53,16 +58,16 @@ final class ActionHolderNormalizerTraitTest extends TestCase
                 'movementPointCost' => 0,
                 'moralPointCost' => 0,
                 'successRate' => 100,
-                'description' => "Permet de retrouver un objet cach\u00e9 \u00e0 l'endroit o\u00f9 vous vous trouvez.",
+                'description' => "Permet de retrouver un objet cach\\u00e9 \\u00e0 l'endroit o\\u00f9 vous vous trouvez.",
                 'canExecute' => true],
             ['id' => 59,
                 'key' => 'motivational_speech',
-                'name' => "Discours enflamm\u00e9",
+                'name' => 'Discours enflamm\\u00e9',
                 'actionPointCost' => 2,
                 'movementPointCost' => 0,
                 'moralPointCost' => 0,
                 'successRate' => 100,
-                'description' => "Chaque autre \u00e9quipier pr\u00e9sent dans la salle regagne 2 =>pmo=>.",
+                'description' => 'Chaque autre \\u00e9quipier pr\\u00e9sent dans la salle regagne 2 =>pmo=>.',
                 'canExecute' => true],
             ['id' => 60,
                 'key' => 'boring_speech',
@@ -71,7 +76,7 @@ final class ActionHolderNormalizerTraitTest extends TestCase
                 'movementPointCost' => 0,
                 'moralPointCost' => 0,
                 'successRate' => 100,
-                'description' => "Chaque autre \u00e9quipier pr\u00e9sent dans la salle regagne 3 =>pm=>.",
+                'description' => 'Chaque autre \\u00e9quipier pr\\u00e9sent dans la salle regagne 3 =>pm=>.',
                 'canExecute' => true]];
 
         // when I get the actions sorted by name and then by actionPointCost

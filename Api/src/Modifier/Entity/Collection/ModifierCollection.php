@@ -52,8 +52,10 @@ class ModifierCollection extends ArrayCollection
 
     public function getDirectModifiers(): self
     {
-        return $this->filter(static fn (GameModifier $modifier) => (
-            $modifier->getModifierConfig()) instanceof DirectModifierConfig
+        return $this->filter(
+            static fn (GameModifier $modifier) => (
+                $modifier->getModifierConfig()
+            ) instanceof DirectModifierConfig
         );
     }
 

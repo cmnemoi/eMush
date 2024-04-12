@@ -8,7 +8,12 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 
-class ReportFireActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ReportFireActionTest extends AbstractActionTest
 {
     /**
      * @before

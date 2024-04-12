@@ -12,7 +12,12 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Place\Entity\Place;
 
-class ShredActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ShredActionTest extends AbstractActionTest
 {
     /**
      * @before

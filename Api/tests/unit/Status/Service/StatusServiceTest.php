@@ -36,10 +36,15 @@ use Mush\Status\Service\StatusService;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class StatusServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class StatusServiceTest extends TestCase
 {
-    private Mockery\Mock|EntityManagerInterface $entityManager;
-    protected Mockery\Mock|EventServiceInterface $eventService;
+    protected EventServiceInterface|Mockery\Mock $eventService;
+    private EntityManagerInterface|Mockery\Mock $entityManager;
     private Mockery\Mock|StatusRepository $repository;
 
     private StatusService $service;
@@ -86,15 +91,18 @@ class StatusServiceTest extends TestCase
 
         $hidden1 = new Status($item1, $statusConfig);
         $hidden1
-            ->setCreatedAt(new \DateTime());
+            ->setCreatedAt(new \DateTime())
+        ;
 
         $hidden2 = new Status($item3, $statusConfig);
         $hidden2
-            ->setCreatedAt(new \DateTime());
+            ->setCreatedAt(new \DateTime())
+        ;
 
         $hidden3 = new Status($item2, $statusConfig);
         $hidden3
-            ->setCreatedAt(new \DateTime());
+            ->setCreatedAt(new \DateTime())
+        ;
 
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
 

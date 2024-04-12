@@ -108,7 +108,8 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
                 )
                 ->setMoralPoint(
                     (int) $this->randomService->getSingleRandomElementFromProbaCollection($ration->getMoralPoints())
-                );
+                )
+            ;
         }
 
         return $consumableEffect;
@@ -121,7 +122,8 @@ class EquipmentEffectService implements EquipmentEffectServiceInterface
             $consumableEffect
                 ->setActionPoint(
                     (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getActionPoints())
-                );
+                )
+            ;
         } else {
             $consumableEffect->setMovementPoint(
                 (int) $this->randomService->getSingleRandomElementFromProbaCollection($drug->getMovementPoints())

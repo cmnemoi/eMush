@@ -14,11 +14,6 @@ class ConsumeDrug extends Consume
 {
     protected string $name = ActionEnum::CONSUME_DRUG;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameItem;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus([
@@ -28,5 +23,10 @@ class ConsumeDrug extends Consume
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::CONSUME_DRUG_TWICE,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameItem;
     }
 }

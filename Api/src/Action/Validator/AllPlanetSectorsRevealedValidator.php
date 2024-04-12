@@ -27,7 +27,8 @@ final class AllPlanetSectorsRevealedValidator extends ConstraintValidator
 
         if ($planet->getSectors()->count() === $planet->getRevealedSectors()->count()) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

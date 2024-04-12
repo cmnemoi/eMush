@@ -27,7 +27,8 @@ class BreakableValidator extends ConstraintValidator
 
         if (!$actionTarget->isBreakable()) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

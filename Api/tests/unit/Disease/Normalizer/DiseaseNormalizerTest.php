@@ -23,11 +23,16 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
 
-class DiseaseNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DiseaseNormalizerTest extends TestCase
 {
     private DiseaseNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
 
     /**

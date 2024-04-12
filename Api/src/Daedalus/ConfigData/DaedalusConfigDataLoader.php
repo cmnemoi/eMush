@@ -19,8 +19,8 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         DaedalusConfigRepository $daedalusConfigRepository,
         PlaceConfigRepository $placeConfigRepository,
-        RandomItemPlacesRepository $randomItemPlacesRepository)
-    {
+        RandomItemPlacesRepository $randomItemPlacesRepository
+    ) {
         parent::__construct($entityManager);
         $this->daedalusConfigRepository = $daedalusConfigRepository;
         $this->placeConfigRepository = $placeConfigRepository;

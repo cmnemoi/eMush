@@ -54,6 +54,13 @@ final class Land extends AbstractAction
         $this->randomService = $randomService;
     }
 
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => PlaceTypeEnum::PATROL_SHIP]));
+    }
+
     protected function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
@@ -73,22 +80,17 @@ final class Land extends AbstractAction
         return $isSuccessCritical ? new CriticalSuccess() : new Success();
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus(['status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => PlaceTypeEnum::PATROL_SHIP]));
-    }
-
     protected function applyEffect(ActionResult $result): void
     {
         /** @var GameEquipment $patrolShip */
         $patrolShip = $this->target;
+
         /** @var PatrolShip $patrolShipMechanic */
         $patrolShipMechanic = $patrolShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
         if (!$patrolShipMechanic instanceof PatrolShip) {
             throw new \RuntimeException("Patrol ship {$patrolShip->getName()} should have a patrol ship mechanic");
         }
+
         /** @var Place $patrolShipDockingPlace */
         $patrolShipDockingPlace = $this->player->getDaedalus()->getPlaceByName($patrolShipMechanic->getDockingPlace());
         if (!$patrolShipDockingPlace instanceof Place) {

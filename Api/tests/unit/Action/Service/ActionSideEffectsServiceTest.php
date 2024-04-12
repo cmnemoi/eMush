@@ -17,10 +17,16 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class ActionSideEffectsServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ActionSideEffectsServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EventModifierServiceInterface|Mockery\Mock */
     private EventModifierServiceInterface $modifierService;
 

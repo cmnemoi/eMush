@@ -64,11 +64,6 @@ final class CollectScrap extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -76,6 +71,11 @@ final class CollectScrap extends AbstractAction
         $metadata->addConstraint(new AvailableScrapToCollect(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::PATROL_SHIP, 'groups' => ['visibility']]));
         $metadata->addConstraint(new IsPasiphaeDestroyed(['groups' => ['visibility']]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -146,8 +146,7 @@ final class CollectScrap extends AbstractAction
         $damage = (int)
             $this->randomService->getSingleRandomElementFromProbaCollection(
                 $patrolShipMechanic->getCollectScrapPatrolShipDamage()
-            )
-        ;
+            );
 
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,

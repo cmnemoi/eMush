@@ -15,10 +15,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionVariableSubscriber implements EventSubscriberInterface
 {
+    public const ACTION_CLUMSINESS_DAMAGE = -2;
     private EventServiceInterface $eventService;
     private RandomServiceInterface $randomService;
-
-    public const ACTION_CLUMSINESS_DAMAGE = -2;
 
     public function __construct(
         EventServiceInterface $eventService,

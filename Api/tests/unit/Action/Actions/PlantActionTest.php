@@ -16,7 +16,12 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 
-class PlantActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlantActionTest extends AbstractActionTest
 {
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
@@ -58,8 +63,8 @@ class PlantActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
-                    ->setEquipment($item)
-                    ->setName('toto')
+            ->setEquipment($item)
+            ->setName('toto')
         ;
 
         $fruit = new Fruit();
@@ -80,8 +85,8 @@ class PlantActionTest extends AbstractActionTest
         $hydropot = new ItemConfig();
         $hydropot->setEquipmentName(ItemEnum::HYDROPOT);
         $gameHydropot
-                    ->setEquipment($hydropot)
-                    ->setName(ItemEnum::HYDROPOT)
+            ->setEquipment($hydropot)
+            ->setName(ItemEnum::HYDROPOT)
         ;
 
         $player = $this->createPlayer($daedalus, $room);

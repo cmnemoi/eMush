@@ -24,14 +24,22 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class MessageServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
+
     /** @var MessageModifierServiceInterface|Mockery\mock */
     private MessageModifierServiceInterface $diseaseMessageService;
+
     /** @var EventServiceInterface|Mockery\mock */
     private EventServiceInterface $eventService;
+
     /** @var MessageRepository|Mockery\mock */
     private MessageRepository $messageRepository;
 
@@ -80,7 +88,8 @@ class MessageServiceTest extends TestCase
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
             ->setChannel($channel)
-            ->setMessage('some message');
+            ->setMessage('some message')
+        ;
 
         $messageEvent = new MessageEvent(new Message(), $player, [], new \DateTime());
         $messageEvent->setPriority(0);
@@ -224,7 +233,8 @@ class MessageServiceTest extends TestCase
 
         $this->messageRepository
             ->shouldReceive('findByChannel')
-            ->withArgs(static fn ($channelTest, $age) => $channelTest === $channel
+            ->withArgs(
+                static fn ($channelTest, $age) => $channelTest === $channel
                 && $age instanceof \DateInterval
                 && (int) $age->format('%H') === 24
             )

@@ -130,31 +130,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $equipment;
     }
 
-    private function getEquipmentFromConfig(
-        EquipmentConfig $config,
-        EquipmentHolderInterface $holder,
-        array $reasons
-    ): GameEquipment {
-        if ($config instanceof ItemConfig) {
-            $gameEquipment = $config->createGameItem($holder);
-        } else {
-            $gameEquipment = $config->createGameEquipment($holder->getPlace());
-        }
-
-        if ($config->isPersonal()) {
-            if (!($holder instanceof Player)) {
-                throw new \Exception("holder of this gameEquipment {$gameEquipment->getName()} should be a player");
-            }
-            $gameEquipment->setOwner($holder);
-        }
-
-        $this->persist($gameEquipment);
-
-        $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reasons);
-
-        return $gameEquipment;
-    }
-
     public function transformGameEquipmentToEquipmentWithName(
         string $resultName,
         GameEquipment $input,
@@ -240,10 +215,36 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->movePatrolShipContentToSpace($patrolShip, $player, $tags);
     }
 
+    private function getEquipmentFromConfig(
+        EquipmentConfig $config,
+        EquipmentHolderInterface $holder,
+        array $reasons
+    ): GameEquipment {
+        if ($config instanceof ItemConfig) {
+            $gameEquipment = $config->createGameItem($holder);
+        } else {
+            $gameEquipment = $config->createGameEquipment($holder->getPlace());
+        }
+
+        if ($config->isPersonal()) {
+            if (!$holder instanceof Player) {
+                throw new \Exception("holder of this gameEquipment {$gameEquipment->getName()} should be a player");
+            }
+            $gameEquipment->setOwner($holder);
+        }
+
+        $this->persist($gameEquipment);
+
+        $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reasons);
+
+        return $gameEquipment;
+    }
+
     private function movePatrolShipContentToSpace(GameEquipment $patrolShip, ?Player $player, array $tags): void
     {
         /** @var Daedalus $daedalus */
         $daedalus = $patrolShip->getDaedalus();
+
         /** @var Place $patrolShipPlace */
         $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
         if (!$patrolShipPlace instanceof Place) {

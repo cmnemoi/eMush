@@ -20,10 +20,16 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerSuscriberTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerSuscriberTest extends TestCase
 {
     /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
@@ -80,7 +86,8 @@ class PlayerSuscriberTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
-            ->once();
+            ->once()
+        ;
 
         $this->playerSubscriber->onDeathPlayer($event);
     }

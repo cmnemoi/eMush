@@ -16,9 +16,9 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
 {
     use NormalizerAwareTrait;
 
-    private TranslationServiceInterface $translationService;
-
     private const ALREADY_CALLED = 'CLOSED_EXPLORATION_NORMALIZER_ALREADY_CALLED';
+
+    private TranslationServiceInterface $translationService;
 
     public function __construct(TranslationServiceInterface $translationService)
     {

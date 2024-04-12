@@ -29,16 +29,24 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class EquipmentNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EquipmentNormalizerTest extends TestCase
 {
     private EquipmentNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
+
     /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
+
     /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+
     /** @var EquipmentEffectServiceInterface|Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
 

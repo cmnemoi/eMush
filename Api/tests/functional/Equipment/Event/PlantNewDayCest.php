@@ -112,12 +112,14 @@ class PlantNewDayCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
             'equipmentName' => GameFruitEnum::BANANA,
         ]);
+
         /** @var EquipmentConfig $plantConfig */
         $plantConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
@@ -127,8 +129,10 @@ class PlantNewDayCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
@@ -171,6 +175,7 @@ class PlantNewDayCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
@@ -178,9 +183,11 @@ class PlantNewDayCest
             ->setMaxHealthPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -280,12 +287,14 @@ class PlantNewDayCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
             'equipmentName' => GameFruitEnum::BANANA,
         ]);
+
         /** @var EquipmentConfig $plantConfig */
         $plantConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
@@ -295,11 +304,14 @@ class PlantNewDayCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -338,6 +350,7 @@ class PlantNewDayCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
@@ -347,9 +360,11 @@ class PlantNewDayCest
             ->setMaxMoralPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -452,12 +467,14 @@ class PlantNewDayCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
             'equipmentName' => GameFruitEnum::BANANA,
         ]);
+
         /** @var EquipmentConfig $plantConfig */
         $plantConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
@@ -467,11 +484,14 @@ class PlantNewDayCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -510,6 +530,7 @@ class PlantNewDayCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
@@ -519,9 +540,11 @@ class PlantNewDayCest
             ->setMaxMoralPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -623,12 +646,14 @@ class PlantNewDayCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
             'equipmentName' => GameFruitEnum::BANANA,
         ]);
+
         /** @var EquipmentConfig $plantConfig */
         $plantConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
@@ -638,8 +663,10 @@ class PlantNewDayCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
@@ -682,6 +709,7 @@ class PlantNewDayCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
         $characterConfig
@@ -691,9 +719,11 @@ class PlantNewDayCest
             ->setMaxMoralPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -708,6 +738,7 @@ class PlantNewDayCest
         $I->haveInRepository($plant);
 
         $plantYoung->setStartCharge(0);
+
         /** @var ChargeStatus $status */
         $status = $this->statusService->createStatusFromConfig(
             $plantYoung,
@@ -804,12 +835,14 @@ class PlantNewDayCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
             'equipmentName' => GameFruitEnum::BANANA,
         ]);
+
         /** @var EquipmentConfig $plantConfig */
         $plantConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
@@ -819,11 +852,14 @@ class PlantNewDayCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -862,6 +898,7 @@ class PlantNewDayCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['name' => CharacterEnum::CHUN . '_test']);
         $characterConfig
@@ -869,9 +906,11 @@ class PlantNewDayCest
             ->setMaxHealthPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -886,6 +925,7 @@ class PlantNewDayCest
         $I->haveInRepository($plant);
 
         $plantYoung->setStartCharge(10);
+
         /** @var ChargeStatus $status */
         $status = $this->statusService->createStatusFromConfig(
             $plantYoung,

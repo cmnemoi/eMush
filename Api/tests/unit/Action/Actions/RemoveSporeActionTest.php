@@ -11,7 +11,12 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 
-class RemoveSporeActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RemoveSporeActionTest extends AbstractActionTest
 {
     /**
      * @before

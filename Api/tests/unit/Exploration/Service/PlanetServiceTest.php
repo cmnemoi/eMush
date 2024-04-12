@@ -22,13 +22,20 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlanetServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlanetServiceTest extends TestCase
 {
-    /** @var PlanetRepository|Mockery\Mock */
+    /** @var Mockery\Mock|PlanetRepository */
     private PlanetRepository $planetRepository;
+
     /** @var EntityManager|Mockery\Mock */
     private EntityManager $entityManager;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     private PlanetService $service;

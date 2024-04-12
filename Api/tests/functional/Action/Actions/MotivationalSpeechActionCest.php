@@ -64,6 +64,7 @@ class MotivationalSpeechActionCest
             ->setActionPoint(10)
             ->setMoralPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $speakerInfo = new PlayerInfo($speaker, $user, $speakerConfig);

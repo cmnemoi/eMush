@@ -17,6 +17,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class CycleServiceCest extends AbstractFunctionalTest
 {
     private CycleServiceInterface $cycleService;

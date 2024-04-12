@@ -18,13 +18,19 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerModifierSubscriberTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerModifierSubscriberTest extends TestCase
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
-    /** @var PlayerVariableServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerVariableServiceInterface */
     private PlayerVariableServiceInterface $playerVariableService;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 

@@ -22,11 +22,6 @@ class Comfort extends AbstractAction
 {
     protected string $name = ActionEnum::COMFORT;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         // @TODO add validator on shrink skill ?
@@ -39,6 +34,11 @@ class Comfort extends AbstractAction
             'message' => ActionImpossibleCauseEnum::GAGGED_PREVENT_SPOKEN_ACTION,
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
     }
 
     protected function checkResult(): ActionResult

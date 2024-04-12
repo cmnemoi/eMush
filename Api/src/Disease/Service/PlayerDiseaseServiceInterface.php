@@ -16,7 +16,8 @@ interface PlayerDiseaseServiceInterface
         array $causes,
         \DateTime $time,
         string $visibility,
-        ?Player $author = null): bool;
+        ?Player $author = null
+    ): bool;
 
     public function createDiseaseFromName(
         string $diseaseName,

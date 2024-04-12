@@ -46,8 +46,10 @@ class MoveSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -55,8 +57,10 @@ class MoveSubscriberCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
+
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
@@ -85,12 +89,14 @@ class MoveSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -119,6 +125,7 @@ class MoveSubscriberCest
             ->setName('gear_test')
         ;
         $I->haveInRepository($gear);
+
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => 'test_1',
@@ -155,6 +162,7 @@ class MoveSubscriberCest
             ->setName('gear_test_2')
         ;
         $I->haveInRepository($gear2);
+
         /** @var ItemConfig $equipmentConfig2 */
         $equipmentConfig2 = $I->have(ItemConfig::class, [
             'name' => 'test_2',

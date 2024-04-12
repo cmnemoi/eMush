@@ -26,11 +26,6 @@ use Mush\Game\Event\AbstractGameEvent;
 ])]
 abstract class AbstractModifierConfig
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $id;
-
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     protected string $name;
 
@@ -45,6 +40,10 @@ abstract class AbstractModifierConfig
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $modifierActivationRequirements;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $id;
 
     public function __construct(string $name)
     {

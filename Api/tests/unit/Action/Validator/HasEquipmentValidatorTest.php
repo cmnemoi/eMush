@@ -16,7 +16,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class HasEquipmentValidatorTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HasEquipmentValidatorTest extends TestCase
 {
     private HasEquipmentValidator $validator;
     private HasEquipment $constraint;
@@ -232,7 +237,7 @@ class HasEquipmentValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

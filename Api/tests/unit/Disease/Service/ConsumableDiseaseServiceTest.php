@@ -20,9 +20,14 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class ConsumableDiseaseServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ConsumableDiseaseServiceTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var EntityManagerInterface|Mockery\Mock */
@@ -312,6 +317,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
         self::assertCount(1, $consumableDisease->getDiseases());
+
         /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
         self::assertSame('Disease 1', $disease->getDisease());
@@ -404,6 +410,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
         self::assertCount(1, $consumableDisease->getDiseases());
+
         /** @var ConsumableDiseaseAttribute $disease */
         $disease = $consumableDisease->getDiseases()->first();
         self::assertSame('Disease 1', $disease->getDisease());
@@ -487,6 +494,7 @@ class ConsumableDiseaseServiceTest extends TestCase
 
         self::assertInstanceOf(ConsumableDisease::class, $consumableDisease);
         self::assertCount(1, $consumableDisease->getCures());
+
         /** @var ConsumableDiseaseAttribute $cure */
         $cure = $consumableDisease->getCures()->first();
         self::assertSame('Disease 1', $cure->getDisease());

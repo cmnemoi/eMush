@@ -33,7 +33,12 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class CycleEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -51,6 +56,7 @@ class CycleEventCest extends AbstractFunctionalTest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
@@ -90,6 +96,7 @@ class CycleEventCest extends AbstractFunctionalTest
             ->setMaxHealthPoint(99)
         ;
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         $characterConfig2
@@ -100,7 +107,8 @@ class CycleEventCest extends AbstractFunctionalTest
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -114,7 +122,8 @@ class CycleEventCest extends AbstractFunctionalTest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -184,6 +193,7 @@ class CycleEventCest extends AbstractFunctionalTest
         // given those players in the daedalus
         /** @var Player $jinSu */
         $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
         /** @var Player $gioele */
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
 

@@ -19,17 +19,26 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class NeronMessageServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class NeronMessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
+
     /** @var ChannelServiceInterface|Mockery\Mock */
     private ChannelServiceInterface $channelService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
+
     /** @var MessageRepository|Mockery\Mock */
     private MessageRepository $repository;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     private NeronMessageServiceInterface $service;

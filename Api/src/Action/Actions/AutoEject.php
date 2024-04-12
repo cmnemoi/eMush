@@ -41,11 +41,6 @@ final class AutoEject extends AbstractAction
         $this->playerService = $playerService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -56,6 +51,11 @@ final class AutoEject extends AbstractAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new PlaceType(['type' => PlaceTypeEnum::PATROL_SHIP, 'groups' => ['visibility']]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult

@@ -26,65 +26,94 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
+
         /** @var VariableEventModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
+
         /** @var VariableEventModifierConfig $cycle2HealthLost */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
+
         /** @var VariableEventModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
+
         /** @var VariableEventModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
+
         /** @var VariableEventModifierConfig $notMoveAction1Increase */
         $notMoveAction1Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_1_INCREASE);
+
         /** @var VariableEventModifierConfig $notMoveAction2Increase */
         $notMoveAction2Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_2_INCREASE);
+
         /** @var VariableEventModifierConfig $notMoveAction3Increase */
         $notMoveAction3Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_3_INCREASE);
+
         /** @var VariableEventModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax2HealthPoint */
         $reduceMax2HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_HEALTH_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax1MoralPoint */
         $reduceMax1MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax3MoralPoint */
         $reduceMax3MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_3_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax3MovementPoint */
         $reduceMax3MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_3_MOVEMENT_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax5MovementPoint */
         $reduceMax5MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_5_MOVEMENT_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax12MovementPoint */
         $reduceMax12MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_12_MOVEMENT_POINT);
+
         /** @var VariableEventModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
+
         /** @var VariableEventModifierConfig $shootAction20PercentAccuracyLost */
         $shootAction20PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_20_PERCENT_ACCURACY_LOST);
+
         /** @var VariableEventModifierConfig $shootAction40PercentAccuracyLost */
         $shootAction40PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_40_PERCENT_ACCURACY_LOST);
+
         /** @var EventModifierConfig $deafListen */
         $deafListen = $this->getReference(InjuryModifierConfigFixtures::DEAF_LISTEN_MODIFIER);
+
         /** @var EventModifierConfig $deafSpeak */
         $deafSpeak = $this->getReference(InjuryModifierConfigFixtures::DEAF_SPEAK_MODIFIER);
 
         /** @var EventModifierConfig $cantMove */
         $cantMove = $this->getReference(InjuryModifierConfigFixtures::CANNOT_MOVE);
+
         /** @var EventModifierConfig $cantPickUpHeavyItems */
         $cantPickUpHeavyItems = $this->getReference(InjuryModifierConfigFixtures::PREVENT_PICK_HEAVY_ITEMS);
+
         /** @var EventModifierConfig $consumeVomiting */
         $consumeVomiting = $this->getReference(InjuryModifierConfigFixtures::CONSUME_VOMITING);
+
         /** @var EventModifierConfig $drooling */
         $drooling = $this->getReference(InjuryModifierConfigFixtures::DROOLING);
+
         /** @var EventModifierConfig $moveVomiting */
         $moveVomiting = $this->getReference(InjuryModifierConfigFixtures::MOVE_VOMITING);
+
         /** @var EventModifierConfig $mute */
         $mute = $this->getReference(InjuryModifierConfigFixtures::MUTE_MODIFIER);
+
         /** @var EventModifierConfig $noPilotingActions */
         $noPilotingActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_PILOTING);
+
         /** @var EventModifierConfig $septicemiaOnCycleChange */
         $septicemiaOnCycleChange = $this->getReference(InjuryModifierConfigFixtures::SEPTICEMIA_ON_CYCLE_CHANGE);
+
         /** @var EventModifierConfig $septicemiaOnDirtyEvent */
         $septicemiaOnDirtyEvent = $this->getReference(InjuryModifierConfigFixtures::SEPTICEMIA_ON_DIRTY_EVENT);
+
         /** @var EventModifierConfig $septicemiaOnPostAction */
         $septicemiaOnPostAction = $this->getReference(InjuryModifierConfigFixtures::SEPTICEMIA_ON_POST_ACTION);
 

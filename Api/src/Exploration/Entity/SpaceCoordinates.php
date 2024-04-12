@@ -12,6 +12,12 @@ final class SpaceCoordinates
     private string $orientation;
     private int $distance;
 
+    public function __construct(string $orientation, int $distance)
+    {
+        $this->orientation = $orientation;
+        $this->distance = $distance;
+    }
+
     public static function getAll(): ArrayCollection
     {
         return new ArrayCollection([
@@ -48,12 +54,6 @@ final class SpaceCoordinates
             new self(SpaceOrientationEnum::EAST, 8),
             new self(SpaceOrientationEnum::EAST, 9),
         ]);
-    }
-
-    public function __construct(string $orientation, int $distance)
-    {
-        $this->orientation = $orientation;
-        $this->distance = $distance;
     }
 
     public function getOrientation(): string

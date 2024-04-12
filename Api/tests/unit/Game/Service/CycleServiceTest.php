@@ -17,14 +17,22 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\LockInterface;
 
-class CycleServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CycleServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var LockFactory|Mockery\Spy */
     private LockFactory $lockFactory;
+
     /** @var LoggerInterface|Mockery\Mock */
     private LoggerInterface $logger;
 

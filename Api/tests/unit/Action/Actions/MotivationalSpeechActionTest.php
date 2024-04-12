@@ -9,7 +9,12 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 
-class MotivationalSpeechActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class MotivationalSpeechActionTest extends AbstractActionTest
 {
     /**
      * @before

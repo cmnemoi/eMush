@@ -27,6 +27,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class LandActionCest extends AbstractFunctionalTest
 {
     private Land $landAction;
@@ -51,6 +56,7 @@ final class LandActionCest extends AbstractFunctionalTest
 
         /** @var StatusServiceInterface $statusService */
         $statusService = $I->grabService(StatusServiceInterface::class);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmor = $statusService->createStatusFromName(
             EquipmentStatusEnum::PATROL_SHIP_ARMOR,

@@ -23,7 +23,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class CycleEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
@@ -123,6 +128,7 @@ class CycleEventCest extends AbstractFunctionalTest
             ['name' => EquipmentStatusEnum::ELECTRIC_CHARGES . '_patrol_ship_default']
         );
         $electricChargesConfig->setStartCharge(9);
+
         /** @var ChargeStatus $electricCharges */
         $electricCharges = $this->statusService->createStatusFromConfig(
             $electricChargesConfig,
@@ -159,6 +165,7 @@ class CycleEventCest extends AbstractFunctionalTest
         );
 
         $electricChargesConfig->setStartCharge(9);
+
         /** @var ChargeStatus $electricCharges */
         $electricCharges = $this->statusService->createStatusFromConfig(
             $electricChargesConfig,

@@ -37,10 +37,13 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -49,30 +52,40 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+
         /** @var Action $repair1 */
         $repair1 = $this->getReference(TechnicianFixtures::REPAIR_1);
+
         /** @var Action $repair6 */
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+
         /** @var Action $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
         /** @var Action $sabotage1 */
         $sabotage1 = $this->getReference(TechnicianFixtures::SABOTAGE_1);
+
         /** @var Action $sabotage6 */
         $sabotage6 = $this->getReference(TechnicianFixtures::SABOTAGE_6);
+
         /** @var Action $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
         /** @var Action $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
         /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+
         /** @var StatusConfig $alienArtifactStatus */
         $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
+
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
@@ -267,6 +280,7 @@ class GearConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $dismantle6 */
         $dismantle6 = $this->getReference(TechnicianFixtures::DISMANTLE_4_6);
+
         /** @var ArrayCollection $oscilloscopeActions */
         $oscilloscopeActions = clone $actions;
         $oscilloscopeActions->add($sabotage6);

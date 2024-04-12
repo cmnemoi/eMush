@@ -31,17 +31,22 @@ class StatusRepositoryCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus1 */
         $daedalus1 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_1']);
+
         /** @var Daedalus $daedalus2 */
         $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_2']);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus1]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus1]);
+
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
@@ -131,6 +136,7 @@ class StatusRepositoryCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
 

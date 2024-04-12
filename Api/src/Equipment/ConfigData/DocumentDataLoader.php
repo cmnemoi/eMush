@@ -17,7 +17,7 @@ class DocumentDataLoader extends MechanicsDataLoader
 
             if ($document === null) {
                 $document = new Document();
-            } elseif (!($document instanceof Document)) {
+            } elseif (!$document instanceof Document) {
                 $this->entityManager->remove($document);
                 $document = new Document();
             }

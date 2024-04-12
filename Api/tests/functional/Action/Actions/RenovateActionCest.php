@@ -28,6 +28,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class RenovateActionCest extends AbstractFunctionalTest
 {
     private Renovate $renovateAction;
@@ -67,6 +72,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
 
         $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorStatusConfig,
@@ -137,6 +143,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorStatusConfig,
@@ -196,6 +203,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorStatusConfig,
@@ -298,6 +306,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
 
         $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
+
         /** @var ChargeStatus $pasiphaeArmorStatus */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorStatusConfig,

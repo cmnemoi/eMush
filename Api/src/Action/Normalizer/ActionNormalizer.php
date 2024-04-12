@@ -22,16 +22,15 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
 {
-    private TranslationServiceInterface $translationService;
-    private ActionStrategyServiceInterface $actionStrategyService;
-    private ActionServiceInterface $actionService;
-    private PlanetServiceInterface $planetService;
-
     private const ACTION_TYPE_DESCRIPTION_MAP = [
         ActionTypeEnum::ACTION_AGGRESSIVE => ActionTypeEnum::ACTION_AGGRESSIVE,
         VisibilityEnum::COVERT => VisibilityEnum::COVERT,
         VisibilityEnum::SECRET => VisibilityEnum::SECRET,
     ];
+    private TranslationServiceInterface $translationService;
+    private ActionStrategyServiceInterface $actionStrategyService;
+    private ActionServiceInterface $actionService;
+    private PlanetServiceInterface $planetService;
 
     public function __construct(
         TranslationServiceInterface $translationService,
@@ -65,6 +64,7 @@ class ActionNormalizer implements NormalizerInterface
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
         $parameters = $this->loadParameters($context);
+
         /** @var ?LogParameterInterface $actionTarget */
         $actionTarget = $parameters['actionTarget'];
 
@@ -227,9 +227,9 @@ class ActionNormalizer implements NormalizerInterface
         $shooterSkill = $currentPlayer->getSkillByName(PlayerStatusEnum::POC_SHOOTER_SKILL);
         if ($shooterSkill?->getCharge() > 0) {
             return 1;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     private function isShootAction(Action $action): bool

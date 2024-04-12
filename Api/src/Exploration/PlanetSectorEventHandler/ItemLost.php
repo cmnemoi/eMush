@@ -33,6 +33,7 @@ final class ItemLost extends AbstractPlanetSectorEventHandler
 
         /** @var GameItem $itemToDestroy */
         $itemToDestroy = $this->randomService->getRandomElement($availableItemsToDestroy);
+
         /** @var Player $itemOwner */
         $itemOwner = $itemToDestroy->getHolder();
 
@@ -55,6 +56,7 @@ final class ItemLost extends AbstractPlanetSectorEventHandler
     private function getAvailableItemsToDestroy(PlayerCollection $explorators): array
     {
         $availableItems = [];
+
         /** @var Player $explorator */
         foreach ($explorators as $explorator) {
             /** @var GameItem $item */

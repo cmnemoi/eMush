@@ -28,15 +28,20 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class GameEquipmentServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class GameEquipmentServiceTest extends TestCase
 {
-    private Mockery\Mock|EventServiceInterface $eventService;
+    private EventServiceInterface|Mockery\Mock $eventService;
     private EntityManagerInterface|Mockery\Mock $entityManager;
     private GameEquipmentRepository|Mockery\Mock $repository;
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
     private EquipmentServiceInterface|Mockery\Mock $equipmentService;
     private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private GameEquipmentService $service;
 
@@ -82,14 +87,17 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setEquipmentName('some Name')
-            ->setMechanics(new ArrayCollection([]));
+            ->setMechanics(new ArrayCollection([]))
+        ;
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once();
+            ->once()
+        ;
         $this->entityManager
             ->shouldReceive('flush')
-            ->once();
+            ->once()
+        ;
 
         $this->eventService->shouldReceive('callEvent')->once();
         $gameItem = $this->service->createGameEquipment(

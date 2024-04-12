@@ -23,7 +23,7 @@ class AreShowersDismantledValidator extends ConstraintValidator
 
         $rooms = $value->getPlayer()->getDaedalus()->getRooms();
 
-        /** @var $room Place */
+        /** @var Place $room */
         $numberOfShowers = $rooms->filter(static function ($room) {
             return $room->hasEquipmentByName(EquipmentEnum::SHOWER)
                 || $room->hasEquipmentByName(EquipmentEnum::THALASSO);

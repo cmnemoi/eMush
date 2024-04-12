@@ -11,9 +11,14 @@ use Mush\Equipment\Entity\Door;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class MoveActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class MoveActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
     /**

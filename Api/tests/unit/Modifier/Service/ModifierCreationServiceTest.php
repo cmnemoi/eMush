@@ -25,15 +25,23 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use PHPUnit\Framework\TestCase;
 
-class ModifierCreationServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ModifierCreationServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var EventCreationServiceInterface|Mockery\Mock */
     private EventCreationServiceInterface $eventCreationService;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var ModifierRequirementServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|ModifierRequirementServiceInterface */
     private ModifierRequirementServiceInterface $modifierRequirementService;
 
     private ModifierCreationService $service;
@@ -95,7 +103,8 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager
             ->shouldReceive('persist')
             ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
-            ->once();
+            ->once()
+        ;
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $daedalus, [], new \DateTime(), null);
@@ -170,7 +179,8 @@ class ModifierCreationServiceTest extends TestCase
         $this->entityManager
             ->shouldReceive('persist')
             ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
-            ->once();
+            ->once()
+        ;
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $equipment, [], new \DateTime(), null);

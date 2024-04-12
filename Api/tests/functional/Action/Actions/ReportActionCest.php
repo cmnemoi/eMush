@@ -77,6 +77,7 @@ class ReportActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -86,6 +87,7 @@ class ReportActionCest
         $player
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -191,6 +193,7 @@ class ReportActionCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         $characterConfig->setActions(new ArrayCollection([$action]));
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -200,6 +203,7 @@ class ReportActionCest
         $player
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

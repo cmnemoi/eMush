@@ -32,7 +32,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class DaedalusServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DaedalusServiceCest extends AbstractFunctionalTest
 {
     private DaedalusService $daedalusService;
     private ExplorationServiceInterface $explorationService;
@@ -93,8 +98,10 @@ class DaedalusServiceCest extends AbstractFunctionalTest
     {
         /** @var Player $chun */
         $chun = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::CHUN);
+
         /** @var Player $kuanTi */
         $kuanTi = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::KUAN_TI);
+
         /** @var Player $gioele */
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
 

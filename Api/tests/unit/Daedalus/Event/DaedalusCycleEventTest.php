@@ -26,16 +26,25 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\LockInterface;
 
-class DaedalusCycleEventTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DaedalusCycleEventTest extends TestCase
 {
     /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
+
     /** @var DaedalusIncidentServiceInterface|Mockery\Mock */
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
+
     /** @var DifficultyServiceInterface|Mockery\Mock */
     private DifficultyServiceInterface $difficultyService;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var LockFactory|Mockery\Spy */
     private LockFactory $lockFactory;
 

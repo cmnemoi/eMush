@@ -27,7 +27,12 @@ use Mush\Status\Entity\Status;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
 {
     private Drop $dropAction;
     private Move $moveAction;

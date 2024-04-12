@@ -28,14 +28,19 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class DiseaseCauseServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DiseaseCauseServiceTest extends TestCase
 {
     private DiseaseCauseService $diseaseCauseService;
 
-    /** @var PlayerDiseaseService|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerDiseaseService */
     private PlayerDiseaseService $playerDiseaseService;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
@@ -113,9 +118,11 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(static fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection
-                && \array_key_exists('name', $probaCollection->toArray()))
+            ->withArgs(
+                static fn ($probaCollection) => (
+                    $probaCollection instanceof ProbaCollection
+                    && \array_key_exists('name', $probaCollection->toArray())
+                )
                 && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
@@ -179,9 +186,11 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(static fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection
-                && \array_key_exists('name', $probaCollection->toArray()))
+            ->withArgs(
+                static fn ($probaCollection) => (
+                    $probaCollection instanceof ProbaCollection
+                    && \array_key_exists('name', $probaCollection->toArray())
+                )
                 && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
@@ -341,9 +350,11 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(static fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection
-                && \array_key_exists('name', $probaCollection->toArray()))
+            ->withArgs(
+                static fn ($probaCollection) => (
+                    $probaCollection instanceof ProbaCollection
+                    && \array_key_exists('name', $probaCollection->toArray())
+                )
                 && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)

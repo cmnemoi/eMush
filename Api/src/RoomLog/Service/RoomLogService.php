@@ -240,9 +240,10 @@ class RoomLogService implements RoomLogServiceInterface
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
-        /** @var ChargeStatus|null $electricCharges * */
+        /** @var null|ChargeStatus $electricCharges * */
         $electricCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        /** @var ChargeStatus|null $patrolShipArmor * */
+
+        /** @var null|ChargeStatus $patrolShipArmor * */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         return [

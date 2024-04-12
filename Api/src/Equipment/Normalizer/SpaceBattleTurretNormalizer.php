@@ -32,12 +32,14 @@ final class SpaceBattleTurretNormalizer implements NormalizerInterface
     {
         /** @var GameEquipment $turret */
         $turret = $object;
+
         /** @var Place $turretPlace */
         $turretPlace = $turret->getPlace();
         $turretPlaceName = $turretPlace->getName();
 
         /** @var ChargeStatus $turretCharges */
         $turretCharges = $turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+
         /** @var ArrayCollection<int, Player> $turretOccupiers */
         $turretOccupiers = $turretPlace->getPlayers()->getPlayerAlive();
 

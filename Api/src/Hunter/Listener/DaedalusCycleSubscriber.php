@@ -33,6 +33,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $lock = $this->lockFactory->createLock('daedalus_cycle');
         $lock->acquire(true);
+
         try {
             $this->handleHuntersNewCycle($event);
         } finally {

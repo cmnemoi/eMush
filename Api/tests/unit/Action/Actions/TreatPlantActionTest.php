@@ -16,13 +16,20 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 
-class TreatPlantActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class TreatPlantActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     /**

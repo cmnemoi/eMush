@@ -18,14 +18,14 @@ class AutoDestroy extends AbstractAction
 {
     protected string $name = ActionEnum::AUTO_DESTROY;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target === null;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasRole(['roles' => [RoleEnum::SUPER_ADMIN], 'groups' => ['visibility']]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target === null;
     }
 
     protected function checkResult(): ActionResult

@@ -33,9 +33,7 @@ class HunterCollection extends ArrayCollection
         $criteria = Criteria::create()->orderBy([$criteriaName => $sortingMode]);
 
         /** @var HunterCollection $result */
-        $result = $this->matching($criteria);
-
-        return $result;
+        return $this->matching($criteria);
     }
 
     public function getAttackingHunters(): self

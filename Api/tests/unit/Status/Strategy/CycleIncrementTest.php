@@ -19,9 +19,14 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class CycleIncrementTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CycleIncrementTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 

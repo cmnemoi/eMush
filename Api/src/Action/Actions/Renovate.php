@@ -36,7 +36,8 @@ final class Renovate extends AttemptAction
 
     private StatusServiceInterface $statusService;
 
-    public function __construct(EventServiceInterface $eventService,
+    public function __construct(
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
@@ -44,11 +45,6 @@ final class Renovate extends AttemptAction
     ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
         $this->statusService = $statusService;
-    }
-
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -62,6 +58,11 @@ final class Renovate extends AttemptAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void

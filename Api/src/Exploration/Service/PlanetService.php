@@ -189,7 +189,8 @@ final class PlanetService implements PlanetServiceInterface
     {
         if ($dadalus->isInHardMode()) {
             return 4 + $this->randomService->random(0, 6) * 2;
-        } elseif ($dadalus->isInVeryHardMode()) {
+        }
+        if ($dadalus->isInVeryHardMode()) {
             return 6 + $this->randomService->random(0, 7) * 2;
         }
 

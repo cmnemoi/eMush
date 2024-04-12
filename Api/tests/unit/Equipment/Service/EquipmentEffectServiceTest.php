@@ -14,13 +14,20 @@ use Mush\Equipment\Service\EquipmentEffectService;
 use Mush\Game\Service\RandomServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class EquipmentEffectServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EquipmentEffectServiceTest extends TestCase
 {
     /** @var ConsumableEffectRepository|Mockery\Mock */
     private ConsumableEffectRepository $consumableEffectRepository;
-    /** @var PlantEffectRepository|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlantEffectRepository */
     private PlantEffectRepository $plantEffectRepository;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     private EquipmentEffectService $service;

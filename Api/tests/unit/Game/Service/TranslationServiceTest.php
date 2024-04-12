@@ -13,9 +13,14 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class TranslationServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class TranslationServiceTest extends TestCase
 {
-    /** @var TranslatorInterface|Mockery\Mock */
+    /** @var Mockery\Mock|TranslatorInterface */
     private TranslatorInterface $translator;
 
     private TranslationService $translationService;
@@ -436,7 +441,8 @@ class TranslationServiceTest extends TestCase
             ->once()
         ;
 
-        $this->translationService->translate(DiseaseMessagesEnum::REPLACE_COPROLALIA,
+        $this->translationService->translate(
+            DiseaseMessagesEnum::REPLACE_COPROLALIA,
             $initParameters,
             'domain',
             LanguageEnum::FRENCH

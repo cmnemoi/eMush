@@ -67,6 +67,7 @@ class PlayerContaminationCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
@@ -76,8 +77,10 @@ class PlayerContaminationCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['characterName' => 'andie', 'name' => 'communication_conversion_test_andie']);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => 'ian', 'name' => 'communication_conversion_test_ian']);
 
@@ -169,6 +172,7 @@ class PlayerContaminationCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
@@ -178,8 +182,10 @@ class PlayerContaminationCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['characterName' => 'andie', 'name' => 'communication_conversion_test_andie']);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => 'ian', 'name' => 'communication_conversion_test_ian']);
 

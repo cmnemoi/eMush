@@ -40,7 +40,8 @@ class PsychoticAttack extends AbstractSymptomHandler
         // check if those events are possible. If both, randomly pick one
         if ($attackEvent === null && $shootEvent === null) {
             return;
-        } elseif (
+        }
+        if (
             $attackEvent !== null
             && ($shootEvent === null || $this->randomService->isSuccessful(50))
         ) {
@@ -61,9 +62,8 @@ class PsychoticAttack extends AbstractSymptomHandler
         }
 
         $draw = $this->randomService->getRandomElements($otherPlayersInRoom, 1);
-        $drawnPlayer = reset($draw);
 
-        return $drawnPlayer;
+        return reset($draw);
     }
 
     private function getPlayerWeapon(Player $player, string $weapon): ?EquipmentConfig

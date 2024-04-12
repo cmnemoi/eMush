@@ -17,7 +17,7 @@ class WeaponDataLoader extends MechanicsDataLoader
 
             if ($weapon === null) {
                 $weapon = new Weapon();
-            } elseif (!($weapon instanceof Weapon)) {
+            } elseif (!$weapon instanceof Weapon) {
                 $this->entityManager->remove($weapon);
                 $weapon = new Weapon();
             }

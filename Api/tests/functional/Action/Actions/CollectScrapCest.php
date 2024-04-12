@@ -33,6 +33,11 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class CollectScrapCest extends AbstractFunctionalTest
 {
     private Action $collectScrapActionConfig;
@@ -284,7 +289,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->daedalus->getGameConfig()->setHunterConfigs(
             $this->daedalus->getGameConfig()->getHunterConfigs()->filter(
                 static fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
-            ));
+            )
+        );
         // given it's day 10 so asteroids can spawn
         $this->daedalus->setDay(10);
 

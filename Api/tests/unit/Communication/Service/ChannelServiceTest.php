@@ -34,7 +34,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ChannelServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ChannelServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
@@ -48,7 +53,7 @@ class ChannelServiceTest extends TestCase
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    /** @var StatusServiceInterface|Mockery\mock */
+    /** @var Mockery\mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private ChannelServiceInterface $service;
@@ -763,7 +768,8 @@ class ChannelServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel
+            ->withArgs(
+                static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel
                 && $channelPlayer->getParticipant() === $playerInfo
             )
             ->once()

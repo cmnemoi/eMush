@@ -9,7 +9,12 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use PHPUnit\Framework\TestCase;
 
-class PlayerDiseaseCollectTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerDiseaseCollectTest extends TestCase
 {
     public function testGetActiveDisease()
     {

@@ -41,6 +41,7 @@ class UserVoter extends Voter
         switch ($attribute) {
             case self::USER_IN_GAME:
                 return $user->isInGame();
+
             case self::EDIT_USER_ROLE:
                 return $this->canEditUserRole($subject, $token);
         }

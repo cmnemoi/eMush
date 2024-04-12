@@ -18,7 +18,12 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class RetrieveFuelTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RetrieveFuelTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 

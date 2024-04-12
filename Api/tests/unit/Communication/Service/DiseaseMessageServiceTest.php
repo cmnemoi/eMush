@@ -25,13 +25,19 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class DiseaseMessageServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DiseaseMessageServiceTest extends TestCase
 {
     private MessageModifierServiceInterface $service;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**
@@ -115,7 +121,8 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::REPLACE_COPROLALIA, [
+                DiseaseMessagesEnum::REPLACE_COPROLALIA,
+                [
                     LogDeclinationEnum::VERSION => 1,
                     LogDeclinationEnum::WORD_COPROLALIA => 1,
                     LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
@@ -160,7 +167,8 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::PRE_COPROLALIA, [
+                DiseaseMessagesEnum::PRE_COPROLALIA,
+                [
                     LogDeclinationEnum::VERSION => 1,
                     LogDeclinationEnum::WORD_COPROLALIA => 1,
                     LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
@@ -207,7 +215,8 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::REPLACE_PARANOIA, [
+                DiseaseMessagesEnum::REPLACE_PARANOIA,
+                [
                     LogDeclinationEnum::VERSION => 1,
                     LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
                     LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
@@ -250,7 +259,8 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::REPLACE_PARANOIA, [
+                DiseaseMessagesEnum::REPLACE_PARANOIA,
+                [
                     LogDeclinationEnum::VERSION => 1,
                     LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
                     LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
@@ -269,7 +279,8 @@ class DiseaseMessageServiceTest extends TestCase
             [
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'Some message',
                 DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
-            ], $modifiedMessage->getTranslationParameters()
+            ],
+            $modifiedMessage->getTranslationParameters()
         );
     }
 
@@ -316,7 +327,8 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::ACCUSE_PARANOIA, [
+                DiseaseMessagesEnum::ACCUSE_PARANOIA,
+                [
                     'character' => CharacterEnum::TERRENCE,
                     LogDeclinationEnum::VERSION => 1,
                     LogDeclinationEnum::PARANOIA_VERSION_4 => 1,

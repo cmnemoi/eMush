@@ -52,6 +52,7 @@ class MessageRepositoryCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -150,6 +151,7 @@ class MessageRepositoryCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -181,7 +183,6 @@ class MessageRepositoryCest
             ->setChannel($channel1)
             ->setMessage('message2')
             ->setParent($message1)
-
         ;
         $I->haveInRepository($message2);
 

@@ -254,10 +254,13 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $showerModifier */
         $showerModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_SHOWER_MODIFIER);
+
         /** @var VariableEventModifierConfig $consumeSatietyModifier */
         $consumeSatietyModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_SATIETY_MODIFIER);
+
         /** @var VariableEventModifierConfig $consumeModifier */
         $consumeModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_MODIFIER);
+
         /** @var VariableEventModifierConfig $moraleModifier */
         $moraleModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_MORALE_MODIFIER);
 
@@ -409,6 +412,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $gravityConversionModifier */
         $gravityConversionModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER);
+
         /** @var VariableEventModifierConfig $gravityCycleModifier */
         $gravityCycleModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER);
         $noGravityRepaired = new ChargeStatusConfig();

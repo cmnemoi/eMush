@@ -99,13 +99,15 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'mushPlayerDead' => $mushDead,
             'crewPlayer' => [
                 'name' => $this->translationService->translate('crewPlayer.name', [], 'daedalus', $language),
-                'description' => $this->translationService->translate('crewPlayer.description',
+                'description' => $this->translationService->translate(
+                    'crewPlayer.description',
                     ['cryogenizedPlayers' => $cryoPlayers,
                         'playerAlive' => $daedalus->getPlayers()->getPlayerAlive()->count(),
                         'playerDead' => $daedalus->getPlayers()->getPlayerDead()->count(),
                         'mushAlive' => $mushAlive,
                         'mushDead' => $mushDead,
-                    ], 'daedalus',
+                    ],
+                    'daedalus',
                     $language
                 ), ],
             'inOrbitPlanet' => $planet,
@@ -124,7 +126,8 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         return [
             'quantity' => $quantity,
             'name' => $this->translationService->translate(
-                $variable . '.name', ['maximum' => $maxValue, 'quantity' => $quantity],
+                $variable . '.name',
+                ['maximum' => $maxValue, 'quantity' => $quantity],
                 'daedalus',
                 $language
             ),
@@ -191,9 +194,10 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         /** @var array<int, string> $exploratorNames */
         $exploratorNames = $exploration->getAliveExplorators()
-                                        ->filter(static fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
-                                        ->map(fn (Player $player) => $this->translateExploratorName($player))
-                                        ->toArray();
+            ->filter(static fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
+            ->map(fn (Player $player) => $this->translateExploratorName($player))
+            ->toArray()
+        ;
 
         return implode(', ', $exploratorNames);
     }

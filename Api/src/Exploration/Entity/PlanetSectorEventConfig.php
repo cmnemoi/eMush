@@ -22,7 +22,7 @@ class PlanetSectorEventConfig extends AbstractEventConfig
         return new ProbaCollection($this->outputQuantity);
     }
 
-    public function setOutputQuantity(ProbaCollection|array $outputQuantity): self
+    public function setOutputQuantity(array|ProbaCollection $outputQuantity): self
     {
         if ($outputQuantity instanceof ProbaCollection) {
             $outputQuantity = $outputQuantity->toArray();
@@ -38,7 +38,7 @@ class PlanetSectorEventConfig extends AbstractEventConfig
         return new ProbaCollection($this->outputTable);
     }
 
-    public function setOutputTable(ProbaCollection|array $outputTable): self
+    public function setOutputTable(array|ProbaCollection $outputTable): self
     {
         if ($outputTable instanceof ProbaCollection) {
             $outputTable = $outputTable->toArray();

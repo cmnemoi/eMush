@@ -38,6 +38,12 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     use TargetStatusTrait;
     use TimestampableEntity;
 
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'equipments')]
+    protected ?Place $place = null;
+
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
+    protected EquipmentConfig $equipment;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -45,12 +51,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;
-
-    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'equipments')]
-    protected ?Place $place = null;
-
-    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
-    protected EquipmentConfig $equipment;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;

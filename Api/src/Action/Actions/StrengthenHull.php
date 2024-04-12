@@ -24,11 +24,6 @@ class StrengthenHull extends AttemptAction
 {
     protected string $name = ActionEnum::STRENGTHEN_HULL;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameItem;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -40,6 +35,11 @@ class StrengthenHull extends AttemptAction
             'message' => ActionImpossibleCauseEnum::DAEDALUS_ALREADY_FULL_HULL,
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameItem;
     }
 
     protected function applyEffect(ActionResult $result): void

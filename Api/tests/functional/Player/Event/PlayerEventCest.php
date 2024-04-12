@@ -58,6 +58,7 @@ class PlayerEventCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
 
@@ -143,6 +144,7 @@ class PlayerEventCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$mushConfig])]);
 
@@ -228,7 +230,7 @@ class PlayerEventCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
-                ->buildName(GameConfigEnum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($diseaseConfig);
 
@@ -244,6 +246,7 @@ class PlayerEventCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
@@ -253,6 +256,7 @@ class PlayerEventCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -320,6 +324,7 @@ class PlayerEventCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
@@ -327,6 +332,7 @@ class PlayerEventCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 

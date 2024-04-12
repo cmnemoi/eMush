@@ -60,6 +60,7 @@ class RemoveSporeActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -71,6 +72,7 @@ class RemoveSporeActionCest
             ->setHealthPoint(9)
             ->setSpores(1)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

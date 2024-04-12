@@ -30,14 +30,19 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
+
         /** @var Action $shootAction */
         $shootAction = $this->getReference(ActionsFixtures::SHOOT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -46,18 +51,22 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+
         /** @var Action $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
         /** @var Action $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
         /** @var Action $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
         /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
 

@@ -11,9 +11,14 @@ use Mush\Modifier\ModifierRequirementHandler\RequirementRandom;
 use Mush\Place\Entity\Place;
 use PHPUnit\Framework\TestCase;
 
-class RandomRequirementTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RandomRequirementTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     private RequirementRandom $service;

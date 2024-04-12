@@ -41,14 +41,14 @@ class Search extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target === null;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target === null;
     }
 
     protected function checkResult(): ActionResult
@@ -79,9 +79,9 @@ class Search extends AbstractAction
             $success = new Success();
 
             return $success->setEquipment($itemFound);
-        } else {
-            return new Fail();
         }
+
+        return new Fail();
     }
 
     protected function applyEffect(ActionResult $result): void

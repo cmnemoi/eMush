@@ -138,11 +138,12 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
         if ($charges->count() > 0) {
             return $charges->first();
-        } elseif ($charges->count() === 0) {
-            return null;
-        } else {
-            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
         }
+        if ($charges->count() === 0) {
+            return null;
+        }
+
+        throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
     }
 
     private function createGearModifiers(
@@ -265,10 +266,13 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         switch ($modifierConfig->getModifierRange()) {
             case ModifierHolderClassEnum::DAEDALUS:
                 return $gameEquipment->getDaedalus();
+
             case ModifierHolderClassEnum::PLACE:
                 return $gameEquipment->getPlace();
+
             case ModifierHolderClassEnum::EQUIPMENT:
                 return $gameEquipment;
+
             case ModifierHolderClassEnum::PLAYER:
             case ModifierHolderClassEnum::TARGET_PLAYER:
                 $player = $player ?: $gameEquipment->getHolder();

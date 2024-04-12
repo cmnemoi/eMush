@@ -27,12 +27,16 @@ final class SpaceOrientationEnum
         switch ($orientation) {
             case self::NORTH:
                 return self::EAST;
+
             case self::SOUTH:
                 return self::WEST;
+
             case self::EAST:
                 return self::SOUTH;
+
             case self::WEST:
                 return self::NORTH;
+
             default:
                 throw new \Exception('Unknown orientation');
         }
@@ -43,12 +47,16 @@ final class SpaceOrientationEnum
         switch ($orientation) {
             case self::NORTH:
                 return self::WEST;
+
             case self::SOUTH:
                 return self::EAST;
+
             case self::EAST:
                 return self::NORTH;
+
             case self::WEST:
                 return self::SOUTH;
+
             default:
                 throw new \Exception('Unknown orientation');
         }

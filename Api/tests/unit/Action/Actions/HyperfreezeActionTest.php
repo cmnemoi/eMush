@@ -17,9 +17,14 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class HyperfreezeActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HyperfreezeActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -66,8 +71,8 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
-             ->setMechanics(new ArrayCollection([$rationType]))
-             ->setEquipmentName('fruit')
+            ->setMechanics(new ArrayCollection([$rationType]))
+            ->setEquipmentName('fruit')
         ;
         $gameRation
             ->setEquipment($ration)
@@ -110,8 +115,8 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
-             ->setMechanics(new ArrayCollection([$rationType]))
-             ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
+            ->setMechanics(new ArrayCollection([$rationType]))
+            ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
         ;
         $gameRation
             ->setEquipment($ration)
@@ -131,7 +136,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameStandardRation = new GameItem(new Place());
         $standardRation = new ItemConfig();
         $standardRation
-             ->setEquipmentName(GameRationEnum::STANDARD_RATION)
+            ->setEquipmentName(GameRationEnum::STANDARD_RATION)
         ;
         $gameStandardRation
             ->setEquipment($standardRation)

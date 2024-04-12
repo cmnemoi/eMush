@@ -21,8 +21,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
 {
-    private RoomLogServiceInterface $roomLogService;
-
     private const CREATION_LOG_MAP = [
         EventEnum::PLANT_PRODUCTION => PlantLogEnum::PLANT_NEW_FRUIT,
         ActionEnum::BUILD => ActionLogEnum::BUILD_SUCCESS,
@@ -42,6 +40,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private const MOVE_EQUIPMENT_LOG_MAP = [
         ActionEnum::COLLECT_SCRAP => LogEnum::SCRAP_COLLECTED,
     ];
+    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(RoomLogServiceInterface $roomLogService)
     {
@@ -110,7 +109,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     private function createEventLog(string $logKey, EquipmentEvent $event, string $visibility): void
     {
-        /* @var Player|null $player */
+        // @var Player|null $player
         if ($event->getAuthor() instanceof Player) {
             $player = $event->getAuthor();
         } elseif ($event->isCreated()) {

@@ -20,15 +20,22 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
-class DaedalusNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DaedalusNormalizerTest extends TestCase
 {
     private DaedalusNormalizer $normalizer;
 
     /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
-    /** @var PlanetServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlanetServiceInterface */
     private PlanetServiceInterface $planetService;
 
     /**
@@ -195,13 +202,17 @@ class DaedalusNormalizerTest extends TestCase
         ;
         $this->translationService
             ->shouldReceive('translate')
-            ->with('crewPlayer.description', [
-                'cryogenizedPlayers' => 0,
-                'playerAlive' => 0,
-                'playerDead' => 0,
-                'mushAlive' => 0,
-                'mushDead' => 0, ],
-                'daedalus', LanguageEnum::FRENCH)
+            ->with(
+                'crewPlayer.description',
+                [
+                    'cryogenizedPlayers' => 0,
+                    'playerAlive' => 0,
+                    'playerDead' => 0,
+                    'mushAlive' => 0,
+                    'mushDead' => 0, ],
+                'daedalus',
+                LanguageEnum::FRENCH
+            )
             ->andReturn('translated two')
             ->once()
         ;

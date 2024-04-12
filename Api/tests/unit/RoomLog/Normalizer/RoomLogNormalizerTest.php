@@ -17,11 +17,16 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Normalizer\RoomLogNormalizer;
 use PHPUnit\Framework\TestCase;
 
-class RoomLogNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RoomLogNormalizerTest extends TestCase
 {
     private RoomLogNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
 
     private RoomLogCollection $roomLogCollection;

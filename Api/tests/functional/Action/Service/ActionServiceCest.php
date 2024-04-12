@@ -57,6 +57,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
@@ -109,6 +110,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
@@ -164,6 +166,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
@@ -174,6 +177,7 @@ class ActionServiceCest
             ->setActionPoint(10)
             ->setMovementPoint(0)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -218,6 +222,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,

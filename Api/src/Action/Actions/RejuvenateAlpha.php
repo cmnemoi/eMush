@@ -36,11 +36,6 @@ class RejuvenateAlpha extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target === null;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus([
@@ -51,6 +46,11 @@ class RejuvenateAlpha extends AbstractAction
             'bypassIfUserIsAdmin' => true,
             'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target === null;
     }
 
     protected function checkResult(): ActionResult

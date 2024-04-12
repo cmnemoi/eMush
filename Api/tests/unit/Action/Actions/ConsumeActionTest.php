@@ -15,9 +15,14 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class ConsumeActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ConsumeActionTest extends AbstractActionTest
 {
-    private PlayerServiceInterface|Mockery\Mock $playerService;
+    private Mockery\Mock|PlayerServiceInterface $playerService;
 
     /**
      * @before

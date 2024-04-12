@@ -484,6 +484,7 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
+
         /** @var PlayerInfo $currentPlayerInfo */
         $currentPlayerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 

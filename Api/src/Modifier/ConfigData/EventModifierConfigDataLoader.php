@@ -21,7 +21,7 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
 
             if ($modifierConfig === null) {
                 $modifierConfig = new EventModifierConfig($configName);
-            } elseif (!($modifierConfig instanceof EventModifierConfig)) {
+            } elseif (!$modifierConfig instanceof EventModifierConfig) {
                 $this->entityManager->remove($modifierConfig);
                 $this->entityManager->flush();
                 $modifierConfig = new EventModifierConfig($configName);

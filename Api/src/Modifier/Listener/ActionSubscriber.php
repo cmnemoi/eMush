@@ -46,6 +46,7 @@ class ActionSubscriber implements EventSubscriberInterface
         // move player and player equipment modifiers to their new place
         if (ActionEnum::getChangingRoomActions()->contains($actionName)) {
             $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
+
             /** @var GameEquipment $equipment */
             foreach ($player->getEquipments() as $equipment) {
                 $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
@@ -69,6 +70,7 @@ class ActionSubscriber implements EventSubscriberInterface
         // delete player and player equipment modifiers from their old place
         if (ActionEnum::getChangingRoomActions()->contains($actionName)) {
             $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
+
             /** @var GameEquipment $equipment */
             foreach ($player->getEquipments() as $equipment) {
                 $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());

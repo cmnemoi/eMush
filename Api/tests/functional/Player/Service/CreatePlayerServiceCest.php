@@ -45,6 +45,7 @@ class CreatePlayerServiceCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
@@ -52,6 +53,7 @@ class CreatePlayerServiceCest
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
+
         /** @var $andieCharacterConfig $characterConfig */
         $andieCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
@@ -92,7 +94,9 @@ class CreatePlayerServiceCest
         $gameConfig->setCharactersConfig($charactersConfig);
         $daedalusInfo->setGameConfig($gameConfig);
 
-        $I->expectThrowable(\LogicException::class, fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
+        $I->expectThrowable(
+            \LogicException::class,
+            fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
         );
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);

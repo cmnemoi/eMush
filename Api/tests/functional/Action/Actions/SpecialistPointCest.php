@@ -22,7 +22,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class SpecialistPointCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class SpecialistPointCest extends AbstractFunctionalTest
 {
     private ShootHunter $shootHunterAction;
     private Action $action;
@@ -65,6 +70,7 @@ class SpecialistPointCest extends AbstractFunctionalTest
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);
+
         /** @var StatusServiceInterface $statusService */
         $statusService = $I->grabService(StatusServiceInterface::class);
         $statusService->createStatusFromConfig(
@@ -101,6 +107,7 @@ class SpecialistPointCest extends AbstractFunctionalTest
         $this->shootHunterAction->loadParameters($this->action, $this->player1, $hunter);
         $I->assertTrue($this->shootHunterAction->isVisible());
         $I->assertEquals(0, $this->shootHunterAction->getActionPointCost());
+
         /** @var ChargeStatus $shooterStatus */
         $shooterStatus = $this->player1->getSkills()[0];
         $I->assertEquals(
@@ -119,6 +126,7 @@ class SpecialistPointCest extends AbstractFunctionalTest
             $this->player1->getActionPoint(),
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint()
         );
+
         /** @var ChargeStatus $shooterStatus */
         $shooterStatus = $this->player1->getSkills()[0];
         $I->assertEquals(

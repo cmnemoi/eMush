@@ -41,6 +41,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class TravelEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
@@ -225,7 +230,8 @@ final class TravelEventCest extends AbstractFunctionalTest
                 ->getHunterConfigs()
                 ->filter(
                     static fn (
-                        HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::TRAX
+                        HunterConfig $hunterConfig
+                    ) => $hunterConfig->getHunterName() === HunterEnum::TRAX
                         || $hunterConfig->getHunterName() === HunterEnum::HUNTER
                 )
         );
@@ -448,7 +454,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         /** @var HunterConfig $hunterConfig */
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
         if (!$hunterConfig) {
-            throw new \Exception("Hunter config not found for hunter name $hunterName");
+            throw new \Exception("Hunter config not found for hunter name {$hunterName}");
         }
 
         $hunter = new Hunter($hunterConfig, $daedalus);

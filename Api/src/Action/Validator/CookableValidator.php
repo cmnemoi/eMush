@@ -31,7 +31,8 @@ class CookableValidator extends ConstraintValidator
             && !$actionTarget->hasStatus(EquipmentStatusEnum::FROZEN)
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

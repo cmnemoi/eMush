@@ -56,6 +56,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         if ($daedalus->isDaedalusFinished()) {
             /** @var \DateTime $createdAt */
             $createdAt = $closedPlayer->getCreatedAt();
+
             /** @var \DateTime $finishedAt */
             $finishedAt = $closedPlayer->getFinishedAt();
 

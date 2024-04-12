@@ -87,15 +87,15 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
                     tags: $event->getTags(),
                     time: $event->getTime()
                 );
+
                 continue;
-            } else {
-                $this->statusService->createStatusFromName(
-                    statusName: HunterStatusEnum::TRUCE_CYCLES,
-                    holder: $hunter,
-                    tags: $event->getTags(),
-                    time: $event->getTime()
-                );
             }
+            $this->statusService->createStatusFromName(
+                statusName: HunterStatusEnum::TRUCE_CYCLES,
+                holder: $hunter,
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
         }
     }
 

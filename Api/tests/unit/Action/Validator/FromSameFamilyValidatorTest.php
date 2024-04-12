@@ -14,7 +14,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FromSameFamilyValidatorTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class FromSameFamilyValidatorTest extends TestCase
 {
     private ForbiddenLoveValidator $validator;
     private ForbiddenLove $constraint;
@@ -117,7 +122,7 @@ class FromSameFamilyValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

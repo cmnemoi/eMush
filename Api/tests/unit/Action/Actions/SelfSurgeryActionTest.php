@@ -24,9 +24,14 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 
-class SelfSurgeryActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class SelfSurgeryActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var EventModifierServiceInterface|Mockery\Mock */

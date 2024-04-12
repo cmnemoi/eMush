@@ -34,42 +34,55 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+
         /** @var Action $repair3 */
         $repair3 = $this->getReference(TechnicianFixtures::REPAIR_3);
+
         /** @var Action $repair6 */
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
         /** @var Action $repair50 */
         $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
         /** @var Action $sabotage3 */
         $sabotage3 = $this->getReference(TechnicianFixtures::SABOTAGE_3);
+
         /** @var Action $sabotage6 */
         $sabotage6 = $this->getReference(TechnicianFixtures::SABOTAGE_6);
+
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
         /** @var Action $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
 
         /** @var StatusConfig $alienArtifactStatus */
         $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
+
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
         /** @var Action $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
         /** @var Action $dismantle325 */
         $dismantle325 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
+
         /** @var Action $dismantle425 */
         $dismantle425 = $this->getReference(TechnicianFixtures::DISMANTLE_4_25);
 
@@ -101,6 +114,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $writeAction */
         $writeAction = $this->getReference(ActionsFixtures::WRITE);
+
         /** @var Action $exitTerminalAction */
         $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
 
@@ -315,6 +329,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $ultraHealAction = $this->getReference(ActionsFixtures::HEAL_ULTRA);
 
         $alienModifierGear = new Gear();
+
         /** @var AbstractModifierConfig $alienOilModifier */
         $alienOilModifier = $this->getReference(GearModifierConfigFixtures::ALIEN_OIL_INCREASE_FUEL_INJECTED);
         $alienModifierGear

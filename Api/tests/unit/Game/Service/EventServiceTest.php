@@ -31,13 +31,20 @@ use Mush\Status\Event\StatusEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class EventServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EventServiceTest extends TestCase
 {
     /** @var EventDispatcherInterface|Mockery\Mock */
     private EventDispatcherInterface $eventDispatcherService;
+
     /** @var EventModifierServiceInterface|Mockery\Mock */
     private EventModifierServiceInterface $eventModifierService;
-    /** @var ModifierRequirementServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|ModifierRequirementServiceInterface */
     private EventServiceInterface $service;
 
     /**

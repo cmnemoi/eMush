@@ -16,11 +16,16 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 
-class StrengthenActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class StrengthenActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /**

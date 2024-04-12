@@ -12,6 +12,11 @@ use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class HunterNormalizerHelperCest extends AbstractFunctionalTest
 {
     private HunterNormalizerHelperInterface $hunterNormalizerHelper;
@@ -173,7 +178,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
         /** @var HunterConfig $hunterConfig */
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
         if (!$hunterConfig) {
-            throw new \Exception("Hunter config not found for hunter name $hunterName");
+            throw new \Exception("Hunter config not found for hunter name {$hunterName}");
         }
 
         $hunter = new Hunter($hunterConfig, $daedalus);

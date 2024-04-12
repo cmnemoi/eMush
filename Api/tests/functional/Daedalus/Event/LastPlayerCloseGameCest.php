@@ -58,8 +58,10 @@ class LastPlayerCloseGameCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -110,6 +112,7 @@ class LastPlayerCloseGameCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,
@@ -145,8 +148,10 @@ class LastPlayerCloseGameCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -197,6 +202,7 @@ class LastPlayerCloseGameCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,
@@ -216,6 +222,7 @@ class LastPlayerCloseGameCest
         $characterConfig2 = $I->have(CharacterConfig::class, [
             'name' => 'other_character',
         ]);
+
         /** @var Player $player2 */
         $player2 = $I->have(
             Player::class,
@@ -262,8 +269,10 @@ class LastPlayerCloseGameCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -322,6 +331,7 @@ class LastPlayerCloseGameCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,
@@ -370,8 +380,10 @@ class LastPlayerCloseGameCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -429,6 +441,7 @@ class LastPlayerCloseGameCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,
@@ -468,8 +481,10 @@ class LastPlayerCloseGameCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -517,13 +532,16 @@ class LastPlayerCloseGameCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,
@@ -568,8 +586,10 @@ class LastPlayerCloseGameCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -620,6 +640,7 @@ class LastPlayerCloseGameCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,
@@ -670,8 +691,10 @@ class LastPlayerCloseGameCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -746,6 +769,7 @@ class LastPlayerCloseGameCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,
@@ -796,8 +820,10 @@ class LastPlayerCloseGameCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -855,6 +881,7 @@ class LastPlayerCloseGameCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(
             Player::class,

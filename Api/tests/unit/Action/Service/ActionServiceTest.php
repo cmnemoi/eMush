@@ -19,18 +19,24 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ActionServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ActionServiceTest extends TestCase
 {
-    /** @var EventServiceInterface|Mockery\Mock */
-    private EventServiceInterface $eventService;
-    /** @var ActionRepository|Mockery\Mock */
-    private ActionRepository $actionRepository;
-
-    /** @var ValidatorInterface|Mockery\Mock */
+    /** @var Mockery\Mock|ValidatorInterface */
     protected ValidatorInterface $validator;
 
     /** @var ActionServiceInterface|Mockery\Mock */
     protected ActionServiceInterface $actionService;
+
+    /** @var EventServiceInterface|Mockery\Mock */
+    private EventServiceInterface $eventService;
+
+    /** @var ActionRepository|Mockery\Mock */
+    private ActionRepository $actionRepository;
 
     private ActionServiceInterface $service;
 

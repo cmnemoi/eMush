@@ -40,6 +40,7 @@ class PlayerEventSubscriber implements EventSubscriberInterface
 
         // delete modifiers from old place
         $this->playerModifierService->playerEnterRoom($player, $event->getTags(), $event->getTime());
+
         /** @var GameEquipment $equipment */
         foreach ($player->getEquipments() as $equipment) {
             $this->equipmentModifierService->equipmentEnterRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());
@@ -47,6 +48,7 @@ class PlayerEventSubscriber implements EventSubscriberInterface
 
         // add modifiers to new place
         $this->playerModifierService->playerLeaveRoom($player, $event->getTags(), $event->getTime());
+
         /** @var GameEquipment $equipment */
         foreach ($player->getEquipments() as $equipment) {
             $this->equipmentModifierService->equipmentLeaveRoom($equipment, $player->getPlace(), $event->getTags(), $event->getTime());

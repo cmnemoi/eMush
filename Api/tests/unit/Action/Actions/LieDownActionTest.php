@@ -15,9 +15,14 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class LieDownActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class LieDownActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before

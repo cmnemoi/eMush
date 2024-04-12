@@ -13,9 +13,14 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class CycleDecrementTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CycleDecrementTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 

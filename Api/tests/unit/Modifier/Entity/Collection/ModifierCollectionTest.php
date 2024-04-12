@@ -19,7 +19,12 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class ModifierCollectionTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ModifierCollectionTest extends TestCase
 {
     public function testAddModifiers()
     {

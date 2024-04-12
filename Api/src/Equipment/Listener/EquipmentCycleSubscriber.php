@@ -29,7 +29,7 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
 
-        /* @var EquipmentMechanic $mechanic */
+        // @var EquipmentMechanic $mechanic
         foreach ($equipment->getEquipment()->getMechanics() as $mechanics) {
             foreach ($mechanics->getMechanics() as $mechanicName) {
                 if ($cycleHandler = $this->equipmentCycleHandler->getEquipmentCycleHandler($mechanicName)) {

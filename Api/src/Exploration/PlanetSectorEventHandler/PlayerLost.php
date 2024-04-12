@@ -108,8 +108,6 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
             ->getBySectorName(PlanetSectorEnum::LOST)
         ;
 
-        $lostPlanetSector = new PlanetSector($lostPlanetSectorConfig, $event->getExploration()->getPlanet());
-
-        return $lostPlanetSector;
+        return new PlanetSector($lostPlanetSectorConfig, $event->getExploration()->getPlanet());
     }
 }

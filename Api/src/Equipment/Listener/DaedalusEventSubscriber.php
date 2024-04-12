@@ -52,6 +52,7 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
     private function destroyPatrolShipsInBattle(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+
         /** @var ArrayCollection<int, GameEquipment> $patrolShips */
         $patrolShips = new ArrayCollection();
 

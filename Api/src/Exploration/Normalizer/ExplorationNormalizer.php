@@ -39,6 +39,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+
         /** @var Exploration $exploration */
         $exploration = $object;
 
@@ -70,6 +71,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
     private function normalizeExplorators(PlayerCollection $explorators): array
     {
         $normalizedExplorators = [];
+
         /** @var Player $explorator */
         foreach ($explorators as $explorator) {
             $normalizedExplorators[] = [

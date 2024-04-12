@@ -95,7 +95,7 @@ class ClosedExploration
         return new ArrayCollection($this->closedExplorators->toArray());
     }
 
-    public function setClosedExplorators(Collection|array $closedExplorators): void
+    public function setClosedExplorators(array|Collection $closedExplorators): void
     {
         if (\is_array($closedExplorators)) {
             $closedExplorators = new ArrayCollection($closedExplorators);

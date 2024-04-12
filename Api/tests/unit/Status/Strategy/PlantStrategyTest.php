@@ -13,9 +13,14 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class PlantStrategyTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlantStrategyTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 

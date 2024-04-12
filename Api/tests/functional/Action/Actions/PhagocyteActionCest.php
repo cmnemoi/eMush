@@ -73,6 +73,7 @@ class PhagocyteActionCest
             ->setHealthPoint(1)
             ->setSpores(1)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -85,7 +86,7 @@ class PhagocyteActionCest
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
-           ->buildName(GameConfigEnum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($mushConfig);
 

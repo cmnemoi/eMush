@@ -80,6 +80,7 @@ class ForceGetUpCest
             'name' => 'testForceGetUp',
             'actions' => new ArrayCollection([$action]),
         ]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -89,6 +90,7 @@ class ForceGetUpCest
             ->setActionPoint(2)
             ->setHealthPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -99,6 +101,7 @@ class ForceGetUpCest
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$action])]);
+
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,

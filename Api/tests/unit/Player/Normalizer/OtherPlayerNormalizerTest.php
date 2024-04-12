@@ -16,13 +16,19 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Normalizer\OtherPlayerNormalizer;
 use PHPUnit\Framework\TestCase;
 
-class OtherPlayerNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class OtherPlayerNormalizerTest extends TestCase
 {
     private OtherPlayerNormalizer $normalizer;
 
     /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**

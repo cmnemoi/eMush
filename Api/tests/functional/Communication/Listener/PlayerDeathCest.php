@@ -34,6 +34,7 @@ class PlayerDeathCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 

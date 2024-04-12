@@ -146,6 +146,7 @@ class MessageService implements MessageServiceInterface
             [],
             new \DateTime()
         );
+
         /** @var MessageEvent $event */
         $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::READ_MESSAGE);
 

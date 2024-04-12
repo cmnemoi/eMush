@@ -9,6 +9,11 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class PlanetServiceCest extends AbstractFunctionalTest
 {
     private PlanetServiceInterface $planetService;

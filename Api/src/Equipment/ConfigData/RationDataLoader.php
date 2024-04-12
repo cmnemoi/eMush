@@ -17,7 +17,7 @@ class RationDataLoader extends MechanicsDataLoader
 
             if ($ration === null) {
                 $ration = new Ration();
-            } elseif (!($ration instanceof Ration)) {
+            } elseif (!$ration instanceof Ration) {
                 $this->entityManager->remove($ration);
                 $ration = new Ration();
             }

@@ -39,11 +39,6 @@ class WashInSink extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach([
@@ -63,6 +58,11 @@ class WashInSink extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult

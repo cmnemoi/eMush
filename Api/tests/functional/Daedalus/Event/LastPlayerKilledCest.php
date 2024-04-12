@@ -35,8 +35,10 @@ class LastPlayerKilledCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $gameConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig, 'localizationConfig' => $localizationConfig]);
 

@@ -58,6 +58,7 @@ class BreakRepairEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);

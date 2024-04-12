@@ -18,11 +18,16 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class ExpressCookActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ExpressCookActionTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -124,7 +129,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
-             ->setEquipmentName(GameRationEnum::COOKED_RATION)
+            ->setEquipmentName(GameRationEnum::COOKED_RATION)
         ;
         $gameCookedRation
             ->setEquipment($cookedRation)

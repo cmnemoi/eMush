@@ -48,6 +48,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onTravelLaunched(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+
         /** @var Exploration $exploration */
         $exploration = $daedalus->getExploration();
 

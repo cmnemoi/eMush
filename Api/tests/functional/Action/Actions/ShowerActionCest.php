@@ -25,7 +25,12 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ShowerActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ShowerActionCest extends AbstractFunctionalTest
 {
     private Shower $showerAction;
     private Action $action;

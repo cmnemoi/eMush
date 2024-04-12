@@ -18,9 +18,14 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class DisassembleActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DisassembleActionTest extends AbstractActionTest
 {
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 

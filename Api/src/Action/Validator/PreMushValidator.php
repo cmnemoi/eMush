@@ -22,7 +22,8 @@ class PreMushValidator extends ConstraintValidator
 
         if ($value->getPlayer()->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

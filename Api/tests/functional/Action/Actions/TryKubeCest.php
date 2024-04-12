@@ -54,12 +54,13 @@ class TryKubeCest
             ->setActionName(ActionEnum::TRY_KUBE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-           ->buildName(GameConfigEnum::TEST)
+            ->buildName(GameConfigEnum::TEST)
         ;
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -68,6 +69,7 @@ class TryKubeCest
         $player
             ->setActionPoint(10)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

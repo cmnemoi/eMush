@@ -14,6 +14,11 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class SabotageCest extends AbstractFunctionalTest
 {
     private Action $sabotageActionConfig;

@@ -12,8 +12,8 @@ class TitleConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        TitleConfigRepository $titleConfigRepository)
-    {
+        TitleConfigRepository $titleConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->titleConfigRepository = $titleConfigRepository;
     }

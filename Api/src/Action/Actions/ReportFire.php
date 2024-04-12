@@ -17,15 +17,15 @@ class ReportFire extends AbstractAction
 {
     protected string $name = ActionEnum::REPORT_FIRE;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target === null;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus(['status' => StatusEnum::FIRE, 'target' => HasStatus::PLAYER_ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new IsReported(['groups' => ['visibility']]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target === null;
     }
 
     protected function checkResult(): ActionResult

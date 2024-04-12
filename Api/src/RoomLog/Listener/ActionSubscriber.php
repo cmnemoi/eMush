@@ -52,6 +52,7 @@ class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $actionSupport = $event->getActionTarget();
         $player = $event->getAuthor();
+
         /** @var ActionResult $actionResult */
         $actionResult = $event->getActionResult();
 

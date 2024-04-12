@@ -689,11 +689,13 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then one of the explorators has a disease
         if ($this->player->getMedicalConditions()->isEmpty()) {
             $diseasedPlayer = $this->player2;
+
             /** @var PlayerDisease $caughtDisease */
             $caughtDisease = $this->player2->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->first() ?: null;
             $I->assertNotNull($caughtDisease);
         } else {
             $diseasedPlayer = $this->player;
+
             /** @var PlayerDisease $caughtDisease */
             $caughtDisease = $this->player->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->first() ?: null;
             $I->assertNotNull($caughtDisease);

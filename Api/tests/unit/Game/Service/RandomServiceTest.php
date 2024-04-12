@@ -25,10 +25,16 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class RandomServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RandomServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
 

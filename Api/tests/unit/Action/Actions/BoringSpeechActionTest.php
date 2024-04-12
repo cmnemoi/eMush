@@ -11,9 +11,14 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class BoringSpeechActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class BoringSpeechActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before

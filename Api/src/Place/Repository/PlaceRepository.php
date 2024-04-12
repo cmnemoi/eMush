@@ -24,7 +24,8 @@ class PlaceRepository extends ServiceEntityRepository
             ->andWhere('p.daedalus = :daedalus')
             ->setParameter('name', $name)
             ->setParameter('daedalus', $daedalus)
-            ->getQuery();
+            ->getQuery()
+        ;
 
         return $query->getOneOrNullResult();
     }

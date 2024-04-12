@@ -13,6 +13,11 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class BitingCest extends AbstractFunctionalTest
 {
     private Biting $bitingSymptom;

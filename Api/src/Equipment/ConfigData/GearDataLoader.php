@@ -35,7 +35,7 @@ class GearDataLoader extends MechanicsDataLoader
 
             if ($gear === null) {
                 $gear = new Gear();
-            } elseif (!($gear instanceof Gear)) {
+            } elseif (!$gear instanceof Gear) {
                 $this->entityManager->remove($gear);
                 $gear = new Gear();
             }

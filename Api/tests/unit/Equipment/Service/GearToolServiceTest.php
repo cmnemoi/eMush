@@ -28,11 +28,17 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class GearToolServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class GearToolServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var StatusServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private GearToolService $service;

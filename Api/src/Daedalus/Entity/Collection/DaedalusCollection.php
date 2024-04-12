@@ -8,6 +8,4 @@ use Mush\Daedalus\Entity\Daedalus;
 /**
  * @template-extends ArrayCollection<int, Daedalus>
  */
-class DaedalusCollection extends ArrayCollection
-{
-}
+class DaedalusCollection extends ArrayCollection {}

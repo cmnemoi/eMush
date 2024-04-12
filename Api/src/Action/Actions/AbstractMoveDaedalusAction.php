@@ -72,11 +72,6 @@ abstract class AbstractMoveDaedalusAction extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -121,17 +116,21 @@ abstract class AbstractMoveDaedalusAction extends AbstractAction
         return self::OK;
     }
 
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
+    }
+
     protected function checkResult(): ActionResult
     {
         $actionStatus = self::getActionStatus($this->player->getDaedalus(), $this->gameEquipmentService);
-        $result = match ($actionStatus) {
+
+        return match ($actionStatus) {
             self::ARACK_PREVENTS_TRAVEL => new ArackPreventsTravel(),
             self::EMERGENCY_REACTOR_BROKEN => new Fail(),
             self::NO_FUEL => new NoFuel(),
             default => new Success(),
         };
-
-        return $result;
     }
 
     protected function applyEffect(ActionResult $result): void

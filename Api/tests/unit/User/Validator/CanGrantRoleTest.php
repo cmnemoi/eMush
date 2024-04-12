@@ -12,11 +12,17 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class CanGrantRoleTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CanGrantRoleTest extends TestCase
 {
-    /** @var RoleHierarchyInterface|Mockery\MockInterface */
+    /** @var Mockery\MockInterface|RoleHierarchyInterface */
     private RoleHierarchyInterface $roleHierarchy;
-    /** @var TokenStorageInterface|Mockery\MockInterface */
+
+    /** @var Mockery\MockInterface|TokenStorageInterface */
     private TokenStorageInterface $tokenStorage;
 
     private CanGrantRoleValidator $validator;
@@ -87,7 +93,7 @@ class CanGrantRoleTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

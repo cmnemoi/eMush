@@ -13,7 +13,12 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class DirectModifierWithRequirementCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DirectModifierWithRequirementCest extends AbstractFunctionalTest
 {
     private ModifierCreationServiceInterface $modifierCreationService;
 

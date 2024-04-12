@@ -15,7 +15,12 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 
-class InsertFuelTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class InsertFuelTest extends AbstractActionTest
 {
     /**
      * @before

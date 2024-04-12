@@ -23,9 +23,9 @@ class MessageParentValidator extends ConstraintValidator
         $channel = $value->getChannel();
         if ($channel->getScope() !== ChannelScopeEnum::PUBLIC && $value->getParent()) {
             $this->context
-                    ->buildViolation($constraint->message)
-                    ->setCode(MessageParent::PARENT_CANNOT_BE_SET)
-                    ->addViolation()
+                ->buildViolation($constraint->message)
+                ->setCode(MessageParent::PARENT_CANNOT_BE_SET)
+                ->addViolation()
             ;
         }
     }

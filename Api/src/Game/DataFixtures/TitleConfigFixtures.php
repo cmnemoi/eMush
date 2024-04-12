@@ -12,9 +12,6 @@ use Mush\Game\Enum\TitleEnum;
 
 class TitleConfigFixtures extends Fixture
 {
-    /**
-     * @return void
-     */
     public function load(ObjectManager $manager)
     {
         /** @var GameConfig $gameConfig */

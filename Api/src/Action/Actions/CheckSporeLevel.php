@@ -19,11 +19,6 @@ class CheckSporeLevel extends AbstractAction
 {
     protected string $name = ActionEnum::CHECK_SPORE_LEVEL;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -33,6 +28,11 @@ class CheckSporeLevel extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -50,7 +50,5 @@ class CheckSporeLevel extends AbstractAction
         return $success->setQuantity($nbSpores);
     }
 
-    protected function applyEffect(ActionResult $result): void
-    {
-    }
+    protected function applyEffect(ActionResult $result): void {}
 }

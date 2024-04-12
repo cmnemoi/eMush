@@ -7,7 +7,12 @@ use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class UserTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class UserTest extends TestCase
 {
     public function testUserNotBannedOtherSanction()
     {

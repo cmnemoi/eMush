@@ -14,9 +14,14 @@ use Mush\Player\Service\PlayerVariableService;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerVariableServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerVariableServiceTest extends TestCase
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
     private PlayerVariableService $service;

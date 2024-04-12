@@ -23,9 +23,14 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class EquipmentModifierServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EquipmentModifierServiceTest extends TestCase
 {
-    /** @var ModifierCreationServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|ModifierCreationServiceInterface */
     private ModifierCreationServiceInterface $modifierService;
 
     private EquipmentModifierService $service;

@@ -19,7 +19,12 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class PlayerServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerServiceCest extends AbstractFunctionalTest
 {
     private PlayerService $playerService;
 

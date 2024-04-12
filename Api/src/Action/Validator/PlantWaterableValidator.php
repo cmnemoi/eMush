@@ -31,7 +31,8 @@ class PlantWaterableValidator extends ConstraintValidator
             && $actionTarget->getStatusByName(EquipmentStatusEnum::PLANT_DRY) === null
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

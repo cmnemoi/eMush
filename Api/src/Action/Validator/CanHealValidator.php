@@ -74,7 +74,8 @@ class CanHealValidator extends ConstraintValidator
         // if there is no medical supplies on reach
         if (!$isMedlabRoom && !$player->hasEquipmentByName(ToolItemEnum::MEDIKIT)) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
 
             return;
         }
@@ -85,7 +86,8 @@ class CanHealValidator extends ConstraintValidator
             && $this->isPlayerHealthy($targetPlayer)
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
 
             return;
         }
@@ -95,7 +97,8 @@ class CanHealValidator extends ConstraintValidator
             && $this->isPlayerMaxHealth($targetPlayer)
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

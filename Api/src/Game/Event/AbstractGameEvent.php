@@ -8,12 +8,12 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class AbstractGameEvent extends Event
 {
-    private string $eventName;
-    private bool $isModified = false;
-    private int $priority = 0;
     protected ?Player $author = null;
     protected \DateTime $time;
     protected array $tags;
+    private string $eventName;
+    private bool $isModified = false;
+    private int $priority = 0;
 
     public function __construct(array $tags, \DateTime $time)
     {

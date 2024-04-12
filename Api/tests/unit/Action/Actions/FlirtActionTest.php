@@ -13,9 +13,14 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 
-class FlirtActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class FlirtActionTest extends AbstractActionTest
 {
-    private PlayerServiceInterface|Mockery\Mock $playerService;
+    private Mockery\Mock|PlayerServiceInterface $playerService;
 
     /**
      * @before

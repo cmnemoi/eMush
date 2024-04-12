@@ -19,11 +19,17 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class MessageVoterTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class MessageVoterTest extends TestCase
 {
     /** @var ChannelServiceInterface|Mockery\mock */
     private ChannelServiceInterface $channelService;
-    /** @var PlayerInfoRepository|Mockery\mock */
+
+    /** @var Mockery\mock|PlayerInfoRepository */
     private PlayerInfoRepository $playerInfoRepository;
 
     private Voter $voter;
@@ -161,7 +167,9 @@ class MessageVoterTest extends TestCase
         $expectedVote
     ) {
         $token = new UsernamePasswordToken(
-            $user, 'credentials', []
+            $user,
+            'credentials',
+            []
         );
 
         self::assertSame(

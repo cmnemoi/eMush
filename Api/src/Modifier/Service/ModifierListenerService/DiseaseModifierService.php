@@ -48,8 +48,10 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
         switch ($modifierConfig->getModifierRange()) {
             case ModifierHolderClassEnum::DAEDALUS:
                 return $player->getDaedalus();
+
             case ModifierHolderClassEnum::PLACE:
                 return $player->getPlace();
+
             case ModifierHolderClassEnum::PLAYER:
             case ModifierHolderClassEnum::TARGET_PLAYER:
                 return $player;

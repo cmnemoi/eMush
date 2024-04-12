@@ -33,7 +33,8 @@ class FlirtedAlreadyValidator extends ConstraintValidator
 
         if ($initiator->HasFlirtedWith($target) !== $constraint->expectedValue) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

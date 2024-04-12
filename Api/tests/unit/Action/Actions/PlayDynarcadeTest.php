@@ -19,9 +19,14 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 
-class PlayDynarcadeTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayDynarcadeTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /**
@@ -82,14 +87,15 @@ class PlayDynarcadeTest extends AbstractActionTest
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventService->shouldReceive('callEvent')
-        ->withArgs([\Mockery::on(static function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
-            return $event->getAuthor() === $expectedPlayerModifierEvent->getAuthor()
-                 && $event->getVariableName() === $expectedPlayerModifierEvent->getVariableName()
-                 && $event->getRoundedQuantity() === $expectedPlayerModifierEvent->getRoundedQuantity()
-                 && $event->getTags() === $expectedPlayerModifierEvent->getTags()
-                 && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
-        }), VariableEventInterface::CHANGE_VARIABLE])
-        ->once();
+            ->withArgs([\Mockery::on(static function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
+                return $event->getAuthor() === $expectedPlayerModifierEvent->getAuthor()
+                     && $event->getVariableName() === $expectedPlayerModifierEvent->getVariableName()
+                     && $event->getRoundedQuantity() === $expectedPlayerModifierEvent->getRoundedQuantity()
+                     && $event->getTags() === $expectedPlayerModifierEvent->getTags()
+                     && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
+            }), VariableEventInterface::CHANGE_VARIABLE])
+            ->once()
+        ;
 
         $result = $this->action->execute();
 
@@ -132,14 +138,15 @@ class PlayDynarcadeTest extends AbstractActionTest
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
 
         $this->eventService->shouldReceive('callEvent')
-        ->withArgs([\Mockery::on(static function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
-            return $event->getAuthor() === $expectedPlayerModifierEvent->getAuthor()
-                 && $event->getVariableName() === $expectedPlayerModifierEvent->getVariableName()
-                 && $event->getRoundedQuantity() === $expectedPlayerModifierEvent->getRoundedQuantity()
-                 && $event->getTags() === $expectedPlayerModifierEvent->getTags()
-                 && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
-        }), VariableEventInterface::CHANGE_VARIABLE])
-        ->once();
+            ->withArgs([\Mockery::on(static function (PlayerVariableEvent $event) use ($expectedPlayerModifierEvent) {
+                return $event->getAuthor() === $expectedPlayerModifierEvent->getAuthor()
+                     && $event->getVariableName() === $expectedPlayerModifierEvent->getVariableName()
+                     && $event->getRoundedQuantity() === $expectedPlayerModifierEvent->getRoundedQuantity()
+                     && $event->getTags() === $expectedPlayerModifierEvent->getTags()
+                     && $event->getVisibility() === $expectedPlayerModifierEvent->getVisibility();
+            }), VariableEventInterface::CHANGE_VARIABLE])
+            ->once()
+        ;
 
         $result = $this->action->execute();
 

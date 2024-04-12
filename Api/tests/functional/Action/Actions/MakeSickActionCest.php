@@ -105,6 +105,7 @@ class MakeSickActionCest
         $mushPlayer
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $characterConfig);

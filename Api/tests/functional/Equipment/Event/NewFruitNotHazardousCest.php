@@ -11,7 +11,12 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class NewFruitNotHazardousCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class NewFruitNotHazardousCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 

@@ -13,8 +13,8 @@ class PlaceConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        PlaceConfigRepository $placeConfigRepository)
-    {
+        PlaceConfigRepository $placeConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->placeConfigRepository = $placeConfigRepository;
     }

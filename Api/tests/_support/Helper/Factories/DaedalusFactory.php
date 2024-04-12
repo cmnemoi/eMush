@@ -5,6 +5,7 @@ namespace Mush\Tests\Helper\Factories;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
+use Codeception\Module;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Game\Entity\DifficultyConfig;
@@ -13,7 +14,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 
-class DaedalusFactory extends \Codeception\Module
+class DaedalusFactory extends Module
 {
     public function _beforeSuite($settings = [])
     {

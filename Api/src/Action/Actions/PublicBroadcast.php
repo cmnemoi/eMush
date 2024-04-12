@@ -52,11 +52,6 @@ class PublicBroadcast extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameItem;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -69,28 +64,9 @@ class PublicBroadcast extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
     }
 
-    private function addMoralPoints(Player $player, int $morale_points): void
+    protected function support(?LogParameterInterface $target, array $parameters): bool
     {
-        $playerModifierEvent = new PlayerVariableEvent(
-            $player,
-            PlayerVariableEnum::MORAL_POINT,
-            $morale_points,
-            $this->getAction()->getActionTags(),
-            new \DateTime(),
-        );
-
-        $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    private function addWatchedPublicBroadcastStatus(Player $player): void
-    {
-        $this->statusService->createStatusFromName(
-            PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST,
-            $player,
-            $this->getAction()->getActionTags(),
-            new \DateTime(),
-        );
+        return $target instanceof GameItem;
     }
 
     protected function checkResult(): ActionResult
@@ -115,5 +91,29 @@ class PublicBroadcast extends AbstractAction
             $this->addMoralPoints($player, $this->getOutputQuantity());
             $this->addWatchedPublicBroadcastStatus($player);
         }
+    }
+
+    private function addMoralPoints(Player $player, int $morale_points): void
+    {
+        $playerModifierEvent = new PlayerVariableEvent(
+            $player,
+            PlayerVariableEnum::MORAL_POINT,
+            $morale_points,
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
+        );
+
+        $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function addWatchedPublicBroadcastStatus(Player $player): void
+    {
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST,
+            $player,
+            $this->getAction()->getActionTags(),
+            new \DateTime(),
+        );
     }
 }

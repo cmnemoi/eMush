@@ -72,7 +72,8 @@ class ExtinguishManuallyActionCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
+            ->setScope(ChannelScopeEnum::PUBLIC)
+        ;
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -82,12 +83,14 @@ class ExtinguishManuallyActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(10)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

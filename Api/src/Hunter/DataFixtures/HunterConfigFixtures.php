@@ -23,13 +23,11 @@ use Mush\Status\Entity\Config\StatusConfig;
 
 class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    /**
-     * @return void
-     */
     public function load(ObjectManager $manager)
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $this->getReference(DifficultyConfigFixtures::DEFAULT_DIFFICULTY_CONFIG);
 

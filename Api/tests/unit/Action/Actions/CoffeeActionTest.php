@@ -18,9 +18,14 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class CoffeeActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CoffeeActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -73,7 +78,7 @@ class CoffeeActionTest extends AbstractActionTest
         $gameCoffee = new GameItem(new Place());
         $coffee = new ItemConfig();
         $coffee
-             ->setEquipmentName(GameRationEnum::COFFEE)
+            ->setEquipmentName(GameRationEnum::COFFEE)
         ;
         $gameCoffee
             ->setEquipment($coffee)

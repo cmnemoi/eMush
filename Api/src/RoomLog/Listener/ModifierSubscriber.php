@@ -54,13 +54,19 @@ class ModifierSubscriber implements EventSubscriberInterface
             case $holder instanceof Player:
                 $player = $holder;
                 $place = $player->getPlace();
+
                 break;
+
             case $holder instanceof Place:
                 $place = $holder;
+
                 break;
+
             case $holder instanceof GameEquipment:
                 $place = $holder->getPlace();
+
                 break;
+
             case $holder instanceof Daedalus:
             default:
                 return;

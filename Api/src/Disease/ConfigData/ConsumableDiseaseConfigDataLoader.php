@@ -13,8 +13,8 @@ class ConsumableDiseaseConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ConsumableDiseaseConfigRepository $diseaseCauseConfigRepository)
-    {
+        ConsumableDiseaseConfigRepository $diseaseCauseConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;
     }

@@ -135,7 +135,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                     $workingEquipmentBreakRateDistribution,
                     $numberOfEquipmentBroken,
                     $daedalus
-                );
+                )
+            ;
 
             foreach ($brokenEquipments as $gameEquipment) {
                 if (!$gameEquipment->isBroken()) {
@@ -205,9 +206,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             }
 
             return $numberOfPanicCrisis;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
@@ -230,9 +231,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             }
 
             return $numberOfMetalPlates;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int
@@ -255,9 +256,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             }
 
             return $numberOfDiseasedPlayers;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
@@ -287,6 +288,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         ;
 
         $absentEquipments = [];
+
         /** @var string $equipmentName */
         foreach ($equipmentBreakRateDistribution as $equipmentName => $probability) {
             // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
@@ -295,6 +297,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
                 if ($equipment === null || $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;
+
                     continue;
                 }
             } catch (\Exception $e) {
@@ -303,6 +306,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
                     'daedalus' => $daedalus->getId(),
                     'trace' => $e->getTraceAsString(),
                 ]);
+
                 continue;
             }
         }

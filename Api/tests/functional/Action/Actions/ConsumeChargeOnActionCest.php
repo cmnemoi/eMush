@@ -405,6 +405,7 @@ class ConsumeChargeOnActionCest
             ->setMovementPoint(0)
         ;
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

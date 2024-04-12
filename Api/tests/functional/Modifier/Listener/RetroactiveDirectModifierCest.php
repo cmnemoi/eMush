@@ -20,7 +20,12 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class RetroactiveDirectModifierCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;

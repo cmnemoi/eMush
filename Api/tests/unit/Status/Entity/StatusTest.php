@@ -13,7 +13,12 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use PHPUnit\Framework\TestCase;
 
-class StatusTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class StatusTest extends TestCase
 {
     public function testAddStatus()
     {

@@ -14,7 +14,12 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class UpdateTalkieActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class UpdateTalkieActionTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 

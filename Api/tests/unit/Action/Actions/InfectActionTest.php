@@ -16,9 +16,14 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class InfectActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class InfectActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     /**

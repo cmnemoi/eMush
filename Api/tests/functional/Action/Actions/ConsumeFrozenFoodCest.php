@@ -19,7 +19,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ConsumeFrozenFoodCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 {
     private Consume $consumeAction;
     private StatusServiceInterface $statusService;

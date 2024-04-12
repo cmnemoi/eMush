@@ -6,11 +6,12 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 final class ExplorationAlreadyOngoingValidator extends ConstraintValidator
 {
-    public function validate($value, \Symfony\Component\Validator\Constraint $constraint): void
+    public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
             throw new UnexpectedTypeException($value, AbstractAction::class);

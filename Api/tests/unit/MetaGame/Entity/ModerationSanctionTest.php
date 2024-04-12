@@ -6,7 +6,12 @@ use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ModerationSanctionTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ModerationSanctionTest extends TestCase
 {
     public function testIsSanctionActive()
     {

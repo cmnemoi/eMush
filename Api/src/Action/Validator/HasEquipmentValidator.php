@@ -49,7 +49,8 @@ class HasEquipmentValidator extends ConstraintValidator
             ) !== $constraint->contains
         ) {
             $this->context->buildViolation($constraint->message)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 
@@ -63,16 +64,17 @@ class HasEquipmentValidator extends ConstraintValidator
         foreach ($equipmentsName as $equipmentName) {
             if ($all && !$this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
                 return false;
-            } elseif (!$all && $this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
+            }
+            if (!$all && $this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
                 return true;
             }
         }
 
         if ($all) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     private function canReachEquipment(

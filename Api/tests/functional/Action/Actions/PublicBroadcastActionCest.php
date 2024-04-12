@@ -66,6 +66,7 @@ class PublicBroadcastActionCest
 
         /** @var CharacterConfig $player1Config */
         $player1Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+
         /** @var CharacterConfig $player2Config */
         $player2Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
@@ -78,6 +79,7 @@ class PublicBroadcastActionCest
             ->setActionPoint(10)
             ->setMoralPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $player1Info = new PlayerInfo($player1, $user, $player1Config);
@@ -147,6 +149,7 @@ class PublicBroadcastActionCest
 
         /** @var CharacterConfig $player1Config */
         $player1Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
+
         /** @var CharacterConfig $player2Config */
         $player2Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
@@ -159,6 +162,7 @@ class PublicBroadcastActionCest
             ->setActionPoint(10)
             ->setMoralPoint(6)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $player1Info = new PlayerInfo($player1, $user, $player1Config);

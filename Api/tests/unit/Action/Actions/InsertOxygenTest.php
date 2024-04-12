@@ -18,7 +18,12 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Place\Entity\Place;
 
-class InsertOxygenTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class InsertOxygenTest extends AbstractActionTest
 {
     /**
      * @before

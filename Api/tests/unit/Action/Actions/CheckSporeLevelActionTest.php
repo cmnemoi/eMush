@@ -12,7 +12,12 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-class CheckSporeLevelActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CheckSporeLevelActionTest extends AbstractActionTest
 {
     /**
      * @before

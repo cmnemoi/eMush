@@ -12,7 +12,12 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
-class MakeSickActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class MakeSickActionTest extends AbstractActionTest
 {
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
 

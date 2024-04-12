@@ -15,6 +15,11 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class ChannelServiceCest extends AbstractFunctionalTest
 {
     private ChannelServiceInterface $channelService;

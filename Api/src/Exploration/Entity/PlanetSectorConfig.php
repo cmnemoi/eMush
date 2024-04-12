@@ -119,7 +119,7 @@ class PlanetSectorConfig
         return new ProbaCollection($this->explorationEvents);
     }
 
-    public function setExplorationEvents(ProbaCollection|array $explorationEvents): self
+    public function setExplorationEvents(array|ProbaCollection $explorationEvents): self
     {
         if ($explorationEvents instanceof ProbaCollection) {
             $explorationEvents = $explorationEvents->toArray();

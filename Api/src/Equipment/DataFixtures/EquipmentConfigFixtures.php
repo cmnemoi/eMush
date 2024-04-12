@@ -43,21 +43,28 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+
         /** @var Action $repair3 */
         $repair3 = $this->getReference(TechnicianFixtures::REPAIR_3);
+
         /** @var Action $repair6 */
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
+
         /** @var Action $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
         /** @var Action $sabotage3 */
         $sabotage3 = $this->getReference(TechnicianFixtures::SABOTAGE_3);
+
         /** @var Action $sabotage6 */
         $sabotage6 = $this->getReference(TechnicianFixtures::SABOTAGE_6);
+
         /** @var Action $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
@@ -66,6 +73,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $exitTerminalAction */
         $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
+
         /** @var Action $takeoffToPlanetAction */
         $takeoffToPlanetAction = $this->getReference(ActionsFixtures::TAKEOFF_TO_PLANET);
 
@@ -109,8 +117,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $scanAction */
         $scanAction = $this->getReference(ActionsFixtures::SCAN);
+
         /** @var Action $analyzePlanetAction */
         $analyzePlanetAction = $this->getReference(ActionsFixtures::ANALYZE_PLANET);
+
         /** @var Action $deletePlanetAction */
         $deletePlanetAction = $this->getReference(ActionsFixtures::DELETE_PLANET);
 
@@ -176,12 +186,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $hackAction */
         $hackAction = $this->getReference(ActionsFixtures::HACK);
+
         /** @var Action $advanceDaedalusAction */
         $advanceDaedalusAction = $this->getReference(ActionsFixtures::ADVANCE_DAEDALUS);
+
         /** @var Action $turnDaedalusLeftAction */
         $turnDaedalusLeftAction = $this->getReference(ActionsFixtures::TURN_DAEDALUS_LEFT);
+
         /** @var Action $turnDaedalusRightAction */
         $turnDaedalusRightAction = $this->getReference(ActionsFixtures::TURN_DAEDALUS_RIGHT);
+
         /** @var Action $leaveOrbitAction */
         $leaveOrbitAction = $this->getReference(ActionsFixtures::LEAVE_ORBIT);
 
@@ -312,12 +326,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @TODO ships */
         /** @var Action $takeoffAction */
         $takeoffAction = $this->getReference(ActionsFixtures::TAKEOFF);
+
         /** @var Action $landAction */
         $landAction = $this->getReference(ActionsFixtures::LAND);
+
         /** @var Action $shootHunterPatrolShipAction */
         $shootHunterPatrolShipAction = $this->getReference(ActionsFixtures::SHOOT_HUNTER_PATROL_SHIP);
+
         /** @var Action $renovateAction */
         $renovateAction = $this->getReference(ActionsFixtures::RENOVATE);
+
         /** @var Action $collectScrap */
         $collectScrap = $this->getReference(ActionsFixtures::COLLECT_SCRAP);
 
@@ -481,10 +499,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $fuelInjectAction */
         $fuelInjectAction = $this->getReference(ActionsFixtures::FUEL_INJECT);
+
         /** @var Action $fuelRetrieveAction */
         $fuelRetrieveAction = $this->getReference(ActionsFixtures::FUEL_RETRIEVE);
+
         /** @var Action $retrieveFuelChamberAction */
         $retrieveFuelChamberAction = $this->getReference(ActionsFixtures::RETRIEVE_FUEL_CHAMBER);
+
         /** @var Action $checkFuelChamberLevelAction */
         $checkFuelChamberLevelAction = $this->getReference(ActionsFixtures::CHECK_FUEL_CHAMBER_LEVEL);
 
@@ -502,6 +523,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $cookAction */
         $cookAction = $this->getReference(ActionsFixtures::COOK_DEFAULT);
+
         /** @var Action $washAction */
         $washAction = $this->getReference(ActionsFixtures::WASH_IN_SINK);
 
@@ -531,6 +553,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $dispenseAction */
         $dispenseAction = $this->getReference(ActionsFixtures::DISPENSE_DRUG);
+
         /** @var ChargeStatusConfig $dispenserCharge */
         $dispenserCharge = $this->getReference(ChargeStatusFixtures::DISPENSER_CHARGE);
 
@@ -601,6 +624,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $coffeeAction */
         $coffeeAction = $this->getReference(ActionsFixtures::COFFEE_DEFAULT);
+
         /** @var ChargeStatusConfig $coffeeCharge */
         $coffeeCharge = $this->getReference(ChargeStatusFixtures::COFFEE_CHARGE);
 
@@ -645,8 +669,10 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ChargeStatusConfig $turretCharge */
         $turretCharge = $this->getReference(ChargeStatusFixtures::TURRET_CHARGE);
+
         /** @var Action $shootHunterTurret */
         $shootHunterTurret = $this->getReference(ActionsFixtures::SHOOT_HUNTER_TURRET);
+
         /** @var Action $shootRandomHunterTurret */
         $shootRandomHunterTurret = $this->getReference(ActionsFixtures::SHOOT_RANDOM_HUNTER_TURRET);
 
@@ -709,6 +735,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var Action $oxygenInjectAction */
         $oxygenInjectAction = $this->getReference(ActionsFixtures::OXYGEN_INJECT);
+
         /** @var Action $oxygenRetrieveAction */
         $oxygenRetrieveAction = $this->getReference(ActionsFixtures::OXYGEN_RETRIEVE);
 

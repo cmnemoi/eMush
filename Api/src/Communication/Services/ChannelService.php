@@ -92,7 +92,8 @@ class ChannelService implements ChannelServiceInterface
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
+            ->setScope(ChannelScopeEnum::MUSH)
+        ;
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
@@ -198,20 +199,6 @@ class ChannelService implements ChannelServiceInterface
             && !$otherPlayer->hasStatus(PlayerStatusEnum::LOST);
     }
 
-    private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool
-    {
-        /** @var ChannelPlayer $participant */
-        foreach ($channel->getParticipants() as $participant) {
-            /** @var Player $player */
-            $player = $participant->getParticipant()->getPlayer();
-            if ($player->getPlace() !== $place) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function canPlayerWhisperInChannel(Channel $channel, Player $player): bool
     {
         // all Mush players can post in mush channel, whatever the conditions
@@ -249,36 +236,13 @@ class ChannelService implements ChannelServiceInterface
         }
     }
 
-    private function updatePrivateChannel(Channel $channel, string $reason, \DateTime $time): void
-    {
-        /** @var ChannelPlayer $channelParticipant */
-        foreach ($channel->getParticipants() as $channelParticipant) {
-            /** @var Player $participant */
-            $participant = $channelParticipant->getParticipant()->getPlayer();
-
-            $piratePlayer = $this->getPiratePlayer($participant);
-            if ($piratePlayer === null) {
-                $pirateAccess = false;
-            } else {
-                $pirateAccess = $this->canPlayerCommunicate($piratePlayer);
-            }
-
-            if (
-                !$this->canPlayerCommunicate($participant)
-                && !$this->canPlayerSeePrivateChannel($participant, $channel)
-                && !$pirateAccess
-            ) {
-                $this->exitChannel($participant, $channel, $time, $reason);
-            }
-        }
-    }
-
     public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
     {
         $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
 
         if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
-            return $channels->filter(static fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE)
+            return $channels->filter(
+                static fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE)
                 || $channel->isScope(ChannelScopeEnum::MUSH)
             );
         }
@@ -294,17 +258,17 @@ class ChannelService implements ChannelServiceInterface
 
         /** @var Status $talkieScrewedStatus */
         $talkieScrewedStatus = $player->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
-        /** @var Player $piratedPlayer */
-        $piratedPlayer = $talkieScrewedStatus->getTarget();
 
-        return $piratedPlayer;
+        /** @var Player $piratedPlayer */
+        return $talkieScrewedStatus->getTarget();
     }
 
     public function getPiratedChannels(Player $piratedPlayer): Collection
     {
         $channels = $this->channelRepository->findByPlayer($piratedPlayer->getPlayerInfo());
 
-        return $channels->filter(fn (Channel $channel) => !$this->isChannelWhisperOnly($channel)
+        return $channels->filter(
+            fn (Channel $channel) => !$this->isChannelWhisperOnly($channel)
             && !$channel->isScope(ChannelScopeEnum::MUSH)
         );
     }
@@ -315,61 +279,10 @@ class ChannelService implements ChannelServiceInterface
 
         if ($screwedTalkieStatus) {
             /** @var Player $player */
-            $player = $screwedTalkieStatus->getOwner();
-
-            return $player;
+            return $screwedTalkieStatus->getOwner();
         }
 
         return null;
-    }
-
-    private function canPlayerSeePrivateChannel(Player $player, Channel $channel): bool
-    {
-        $playerIsAloneInTheirChannel = $channel->getParticipants()->count() === 1
-            && $channel->getParticipants()->first()->getParticipant()->getPlayer() === $player;
-
-        if ($this->canPlayerCommunicate($player)) {
-            return true;
-        } elseif ($playerIsAloneInTheirChannel) {
-            return true;
-        } else {
-            // can whisper with at least one channel participant
-            $otherParticipants = $channel->getParticipants()
-                ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
-                ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player)
-            ;
-
-            /** @var Player $participant */
-            foreach ($otherParticipants as $participant) {
-                if ($this->canPlayerWhisper($player, $participant)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private function isChannelWhisperOnly(Channel $channel): bool
-    {
-        if ($channel->isPublic() || $channel->isScope(ChannelScopeEnum::MUSH)) {
-            return false;
-        }
-
-        /** @var Player $firstParticipant */
-        $firstParticipant = $channel->getParticipants()->first()->getParticipant()->getPlayer();
-
-        /** @var ChannelPlayer $channelParticipant */
-        foreach ($channel->getParticipants() as $channelParticipant) {
-            /** @var Player $participant */
-            $participant = $channelParticipant->getParticipant()->getPlayer();
-
-            if (!$this->canPlayerWhisper($participant, $firstParticipant)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer
@@ -399,6 +312,93 @@ class ChannelService implements ChannelServiceInterface
 
         $this->entityManager->remove($channelParticipant->first());
         $this->entityManager->flush();
+
+        return true;
+    }
+
+    private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool
+    {
+        /** @var ChannelPlayer $participant */
+        foreach ($channel->getParticipants() as $participant) {
+            /** @var Player $player */
+            $player = $participant->getParticipant()->getPlayer();
+            if ($player->getPlace() !== $place) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function updatePrivateChannel(Channel $channel, string $reason, \DateTime $time): void
+    {
+        /** @var ChannelPlayer $channelParticipant */
+        foreach ($channel->getParticipants() as $channelParticipant) {
+            /** @var Player $participant */
+            $participant = $channelParticipant->getParticipant()->getPlayer();
+
+            $piratePlayer = $this->getPiratePlayer($participant);
+            if ($piratePlayer === null) {
+                $pirateAccess = false;
+            } else {
+                $pirateAccess = $this->canPlayerCommunicate($piratePlayer);
+            }
+
+            if (
+                !$this->canPlayerCommunicate($participant)
+                && !$this->canPlayerSeePrivateChannel($participant, $channel)
+                && !$pirateAccess
+            ) {
+                $this->exitChannel($participant, $channel, $time, $reason);
+            }
+        }
+    }
+
+    private function canPlayerSeePrivateChannel(Player $player, Channel $channel): bool
+    {
+        $playerIsAloneInTheirChannel = $channel->getParticipants()->count() === 1
+            && $channel->getParticipants()->first()->getParticipant()->getPlayer() === $player;
+
+        if ($this->canPlayerCommunicate($player)) {
+            return true;
+        }
+        if ($playerIsAloneInTheirChannel) {
+            return true;
+        }
+        // can whisper with at least one channel participant
+        $otherParticipants = $channel->getParticipants()
+            ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
+            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player)
+        ;
+
+        /** @var Player $participant */
+        foreach ($otherParticipants as $participant) {
+            if ($this->canPlayerWhisper($player, $participant)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function isChannelWhisperOnly(Channel $channel): bool
+    {
+        if ($channel->isPublic() || $channel->isScope(ChannelScopeEnum::MUSH)) {
+            return false;
+        }
+
+        /** @var Player $firstParticipant */
+        $firstParticipant = $channel->getParticipants()->first()->getParticipant()->getPlayer();
+
+        /** @var ChannelPlayer $channelParticipant */
+        foreach ($channel->getParticipants() as $channelParticipant) {
+            /** @var Player $participant */
+            $participant = $channelParticipant->getParticipant()->getPlayer();
+
+            if (!$this->canPlayerWhisper($participant, $firstParticipant)) {
+                return false;
+            }
+        }
 
         return true;
     }

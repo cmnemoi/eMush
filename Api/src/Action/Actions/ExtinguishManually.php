@@ -46,11 +46,6 @@ class ExtinguishManually extends AttemptAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target === null;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new HasStatus([
@@ -59,6 +54,11 @@ class ExtinguishManually extends AttemptAction
             'groups' => ['visibility'],
         ]));
         // @TODO validator on Firefighter skill
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target === null;
     }
 
     protected function applyEffect(ActionResult $result): void

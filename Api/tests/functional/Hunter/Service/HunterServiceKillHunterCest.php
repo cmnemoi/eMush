@@ -14,6 +14,11 @@ use Mush\Hunter\Service\HunterService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class HunterServiceKillHunterCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;

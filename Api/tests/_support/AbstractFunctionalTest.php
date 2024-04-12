@@ -53,6 +53,7 @@ class AbstractFunctionalTest
     {
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
         $daedalus = new Daedalus();
         $daedalus
@@ -63,6 +64,7 @@ class AbstractFunctionalTest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
         $neron = new Neron();

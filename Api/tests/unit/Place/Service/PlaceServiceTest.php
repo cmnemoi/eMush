@@ -23,15 +23,22 @@ use Mush\Place\Service\PlaceService;
 use Mush\Place\Service\PlaceServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class PlaceServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlaceServiceTest extends TestCase
 {
     private PlaceServiceInterface $placeService;
 
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var PlaceRepository|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlaceRepository */
     private PlaceRepository $repository;
 
     /**
@@ -78,8 +85,10 @@ class PlaceServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (PlaceInitEvent $event) => (
-                $event->getPlaceConfig() === $roomConfig)
+            ->withArgs(
+                static fn (PlaceInitEvent $event) => (
+                    $event->getPlaceConfig() === $roomConfig
+                )
             )
             ->once()
         ;
@@ -98,6 +107,17 @@ class PlaceServiceTest extends TestCase
         self::assertInstanceOf(Place::class, $result);
         self::assertCount(0, $result->getDoors());
         self::assertCount(0, $result->getEquipments());
+    }
+
+    protected function createEquipmentConfig(string $name): EquipmentConfig
+    {
+        $equipmentConfig = new EquipmentConfig();
+
+        $equipmentConfig
+            ->setEquipmentName($name)
+        ;
+
+        return $equipmentConfig;
     }
 
     private function createRoomConfig(string $name, DaedalusConfig $daedalusConfig): PlaceConfig
@@ -120,16 +140,5 @@ class PlaceServiceTest extends TestCase
         ;
 
         return $roomConfig;
-    }
-
-    protected function createEquipmentConfig(string $name): EquipmentConfig
-    {
-        $equipmentConfig = new EquipmentConfig();
-
-        $equipmentConfig
-            ->setEquipmentName($name)
-        ;
-
-        return $equipmentConfig;
     }
 }

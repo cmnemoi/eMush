@@ -29,10 +29,10 @@ abstract class AbstractChargeStrategy
         return $this->apply($status, $reasons, $time);
     }
 
-    abstract protected function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus;
-
     public function getName(): string
     {
         return $this->name;
     }
+
+    abstract protected function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus;
 }

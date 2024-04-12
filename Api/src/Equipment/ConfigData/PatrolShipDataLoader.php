@@ -17,7 +17,7 @@ class PatrolShipDataLoader extends MechanicsDataLoader
 
             if ($patrolShip === null) {
                 $patrolShip = new PatrolShip();
-            } elseif (!($patrolShip instanceof PatrolShip)) {
+            } elseif (!$patrolShip instanceof PatrolShip) {
                 $this->entityManager->remove($patrolShip);
                 $this->entityManager->flush();
                 $patrolShip = new PatrolShip();

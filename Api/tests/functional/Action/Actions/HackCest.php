@@ -26,6 +26,11 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class HackCest extends AbstractFunctionalTest
 {
     private Action $hackActionConfig;

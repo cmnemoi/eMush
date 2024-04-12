@@ -12,7 +12,12 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class FilledDaedalusCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class FilledDaedalusCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 

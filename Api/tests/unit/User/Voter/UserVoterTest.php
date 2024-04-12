@@ -11,11 +11,16 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class UserVoterTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class UserVoterTest extends TestCase
 {
     private Voter $voter;
 
-    /** @var RoleHierarchyInterface|Mockery\MockInterface */
+    /** @var Mockery\MockInterface|RoleHierarchyInterface */
     private RoleHierarchyInterface $roleHierarchy;
 
     protected function setUp(): void
@@ -61,7 +66,9 @@ class UserVoterTest extends TestCase
         $expectedVote
     ) {
         $token = new UsernamePasswordToken(
-            $user, 'credentials', []
+            $user,
+            'credentials',
+            []
         );
 
         self::assertSame(

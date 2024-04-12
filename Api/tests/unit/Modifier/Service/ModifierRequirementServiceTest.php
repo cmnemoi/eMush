@@ -22,9 +22,14 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ModifierRequirementServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ModifierRequirementServiceTest extends TestCase
 {
-    /** @var ModifierRequirementHandlerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|ModifierRequirementHandlerServiceInterface */
     private ModifierRequirementHandlerServiceInterface $modifierRequirementHandlerService;
 
     private ModifierRequirementService $service;

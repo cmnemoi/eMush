@@ -26,6 +26,7 @@ class RoomLogNormalizer implements NormalizerInterface
     {
         /** @var RoomLogCollection $roomLogCollection */
         $logCollection = $object;
+
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
         $language = $currentPlayer->getDaedalus()->getLanguage();
@@ -59,12 +60,14 @@ class RoomLogNormalizer implements NormalizerInterface
 
         if ($days > 0) {
             return $this->translationService->translate('message_date.more_day', ['quantity' => $days], 'chat', $language);
-        } elseif ($hours > 0) {
-            return $this->translationService->translate('message_date.more_hour', ['quantity' => $hours], 'chat', $language);
-        } elseif ($minutes > 0) {
-            return $this->translationService->translate('message_date.more_minute', ['quantity' => $minutes], 'chat', $language);
-        } else {
-            return $this->translationService->translate('message_date.less_minute', [], 'chat', $language);
         }
+        if ($hours > 0) {
+            return $this->translationService->translate('message_date.more_hour', ['quantity' => $hours], 'chat', $language);
+        }
+        if ($minutes > 0) {
+            return $this->translationService->translate('message_date.more_minute', ['quantity' => $minutes], 'chat', $language);
+        }
+
+        return $this->translationService->translate('message_date.less_minute', [], 'chat', $language);
     }
 }

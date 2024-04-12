@@ -32,6 +32,7 @@ class ModerationChannelNormalizer implements NormalizerInterface
     {
         $language = LanguageEnum::FRENCH;
         $participants = [];
+
         /** @var ChannelPlayer $participant */
         foreach ($channel->getParticipants() as $participant) {
             /** @var \DateTime $joinDate */

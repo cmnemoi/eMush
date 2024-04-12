@@ -26,9 +26,7 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
     public function getStatus(): ChargeStatus
     {
         /** @var ChargeStatus $status */
-        $status = $this->status;
-
-        return $status;
+        return $this->status;
     }
 
     public function getRoundedQuantity(): int

@@ -18,7 +18,7 @@ class PlanetSectorConfigCollection extends ArrayCollection
         ;
 
         if (!$planetSectorConfig) {
-            throw new \Exception("PlanetSectorConfig $sectorName not found");
+            throw new \Exception("PlanetSectorConfig {$sectorName} not found");
         }
 
         return $planetSectorConfig;

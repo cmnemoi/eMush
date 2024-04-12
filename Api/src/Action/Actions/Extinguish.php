@@ -42,11 +42,6 @@ class Extinguish extends AttemptAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -57,6 +52,11 @@ class Extinguish extends AttemptAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void

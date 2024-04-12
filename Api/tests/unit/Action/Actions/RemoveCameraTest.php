@@ -17,7 +17,12 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class RemoveCameraTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class RemoveCameraTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 

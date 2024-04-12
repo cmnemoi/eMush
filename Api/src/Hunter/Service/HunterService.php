@@ -100,6 +100,7 @@ class HunterService implements HunterServiceInterface
             for ($i = 0; $i < $numberOfActions; ++$i) {
                 if (!$hunter->hasSelectedATarget()) {
                     $this->selectHunterTarget($hunter);
+
                     continue;
                 }
 
@@ -110,6 +111,7 @@ class HunterService implements HunterServiceInterface
                 $successRate = $hunter->getHitChance();
                 if (!$this->randomService->isSuccessful($successRate)) {
                     $this->addBonusToHunterHitChance($hunter);
+
                     continue;
                 }
 
@@ -177,6 +179,7 @@ class HunterService implements HunterServiceInterface
             if ($maxPerWave && $wave->getAllHuntersByType($hunter->getName())->count() === $maxPerWave) {
                 $hunterTypes->removeElement($hunterNameToCreate);
                 $this->delete([$hunter]);
+
                 continue;
             }
 
@@ -223,7 +226,7 @@ class HunterService implements HunterServiceInterface
         /** @var HunterConfig $hunterConfig */
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
         if (!$hunterConfig) {
-            throw new \Exception("Hunter config not found for hunter name $hunterName");
+            throw new \Exception("Hunter config not found for hunter name {$hunterName}");
         }
 
         $hunter = new Hunter($hunterConfig, $daedalus);
@@ -275,9 +278,10 @@ class HunterService implements HunterServiceInterface
         foreach ($hunterTypes as $hunterType) {
             $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
             if (!$hunterConfig) {
-                $this->logger->error("Hunter config not found for hunter name $hunterType", [
+                $this->logger->error("Hunter config not found for hunter name {$hunterType}", [
                     'daedalus' => $daedalus->getId(),
                 ]);
+
                 continue;
             }
 
@@ -296,9 +300,10 @@ class HunterService implements HunterServiceInterface
         foreach ($hunterTypes as $hunterType) {
             $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterType);
             if (!$hunterConfig) {
-                $this->logger->error("Hunter config not found for hunter name $hunterType", [
+                $this->logger->error("Hunter config not found for hunter name {$hunterType}", [
                     'daedalus' => $daedalus->getId(),
                 ]);
+
                 continue;
             }
 
@@ -337,13 +342,19 @@ class HunterService implements HunterServiceInterface
         switch ($hunterTarget) {
             case $hunterTarget instanceof Daedalus:
                 $this->shootAtDaedalus($hunterTarget, $damage);
+
                 break;
+
             case $hunterTarget instanceof GameEquipment:
                 $this->shootAtPatrolShip($hunterTarget, $damage, $hunter);
+
                 break;
+
             case $hunterTarget instanceof Player:
                 $this->shootAtPlayer($hunterTarget, $damage);
+
                 break;
+
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()?->getType()}");
         }

@@ -62,11 +62,13 @@ class TransplantActionCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
         ]);
+
         /** @var ItemConfig $plantConfig */
         $plantConfig = $I->have(ItemConfig::class, [
             'name' => 'banana_test',
@@ -90,11 +92,13 @@ class TransplantActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player->setActionPoint(2)->setHealthPoint(6);
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -165,11 +169,13 @@ class TransplantActionCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
         ]);
+
         /** @var EquipmentConfig $plantConfig */
         $plantConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
@@ -195,11 +201,13 @@ class TransplantActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player->setActionPoint(2)->setHealthPoint(6);
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

@@ -10,7 +10,12 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class HunterPoolEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class HunterPoolEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 

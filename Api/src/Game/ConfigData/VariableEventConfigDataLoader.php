@@ -12,8 +12,8 @@ class VariableEventConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EventConfigRepository $variableEventConfigRepository)
-    {
+        EventConfigRepository $variableEventConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->variableEventConfigRepository = $variableEventConfigRepository;
     }

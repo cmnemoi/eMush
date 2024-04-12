@@ -12,12 +12,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 final class ProbaCollection extends ArrayCollection
 {
-    public function getElementProbability(string|int $key): ?int
+    public function getElementProbability(int|string $key): ?int
     {
         return $this->get($key);
     }
 
-    public function setElementProbability(string|int $key, int $value): self
+    public function setElementProbability(int|string $key, int $value): self
     {
         $this->set($key, $value);
 
@@ -50,7 +50,7 @@ final class ProbaCollection extends ArrayCollection
     /**
      * Returns an element from a random int between 0 and total Weight.
      */
-    public function getElementFromDrawnProba(int $value): string|int
+    public function getElementFromDrawnProba(int $value): int|string
     {
         $cumuProba = 0;
         foreach ($this as $element => $probability) {
@@ -60,7 +60,7 @@ final class ProbaCollection extends ArrayCollection
             }
         }
 
-        throw new \RuntimeException("random value ($value) should be comprised between 0 and total Weight ($cumuProba)");
+        throw new \RuntimeException("random value ({$value}) should be comprised between 0 and total Weight ({$cumuProba})");
     }
 
     public function getProbabilities(): array

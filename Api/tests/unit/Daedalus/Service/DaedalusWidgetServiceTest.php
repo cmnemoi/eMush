@@ -20,7 +20,12 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class DaedalusWidgetServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DaedalusWidgetServiceTest extends TestCase
 {
     /** @var AlertServiceInterface|Mockery\Mock */
     private AlertServiceInterface $alertService;

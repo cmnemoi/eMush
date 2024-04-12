@@ -14,9 +14,14 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 
-class ComfortActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ComfortActionTest extends AbstractActionTest
 {
-    private PlayerServiceInterface|Mockery\Mock $playerService;
+    private Mockery\Mock|PlayerServiceInterface $playerService;
 
     /**
      * @before

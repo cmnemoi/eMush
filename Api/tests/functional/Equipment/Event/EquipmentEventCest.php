@@ -48,12 +48,14 @@ class EquipmentEventCest
         $I->haveInRepository($burdenedStatusConfig);
 
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class,
+        $gameConfig = $I->have(
+            GameConfig::class,
             ['statusConfigs' => new ArrayCollection([$burdenedStatusConfig, $heavyStatusConfig])]
         );
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -61,10 +63,13 @@ class EquipmentEventCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['maxItemInInventory' => 0]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

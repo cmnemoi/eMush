@@ -13,7 +13,12 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerInRoomTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlayerInRoomTest extends TestCase
 {
     private RequirementPlayerInRoom $service;
 

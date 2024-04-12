@@ -125,9 +125,8 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         }
 
         $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
-        return $actions;
+        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 
     private function getContextActions(Player $currentPlayer): Collection

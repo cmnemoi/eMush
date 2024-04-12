@@ -29,7 +29,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ShootHunterActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ShootHunterActionCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private ShootHunter $shootHunterAction;
@@ -70,6 +75,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);
+
         /** @var StatusServiceInterface $statusService */
         $statusService = $I->grabService(StatusServiceInterface::class);
         $statusService->createStatusFromConfig(

@@ -14,7 +14,12 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class EventCreationServiceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class EventCreationServiceTest extends TestCase
 {
     private EventCreationService $service;
 

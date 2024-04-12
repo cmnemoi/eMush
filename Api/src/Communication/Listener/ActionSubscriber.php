@@ -38,7 +38,7 @@ class ActionSubscriber implements EventSubscriberInterface
 
         switch ($actionName) {
             case ActionEnum::DROP:
-                if (!($target instanceof GameEquipment)) {
+                if (!$target instanceof GameEquipment) {
                     throw new \LogicException('a game equipment should be given');
                 }
 

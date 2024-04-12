@@ -19,6 +19,7 @@ class RequirementHasStatus extends AbstractModifierRequirementHandler
         if (!$holder instanceof StatusHolderInterface) {
             throw new \LogicException('STATUS activationRequirement can only be applied on a statusHolder');
         }
+
         /** @var Player $player */
         $player = $holder;
         $expectedStatus = $modifierRequirement->getActivationRequirement();

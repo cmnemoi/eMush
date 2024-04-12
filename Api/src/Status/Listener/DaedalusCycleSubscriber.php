@@ -45,6 +45,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     private function handleStatusesNewCycle(DaedalusCycleEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+
         /** @var Status $status */
         foreach ($daedalus->getStatuses() as $status) {
             $statusNewCycle = new StatusCycleEvent(

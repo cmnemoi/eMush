@@ -20,11 +20,16 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class PlaceNormalizerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class PlaceNormalizerTest extends TestCase
 {
     private PlaceNormalizer $normalizer;
 
-    /** @var TranslationServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**

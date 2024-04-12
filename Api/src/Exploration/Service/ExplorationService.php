@@ -154,6 +154,7 @@ final class ExplorationService implements ExplorationServiceInterface
     {
         /** @var Daedalus $daedalus */
         $daedalus = $closedExploration->getDaedalusInfo()->getDaedalus();
+
         /** @var Planet $planet */
         $planet = $this->planetService->findPlanetInDaedalusOrbit($daedalus);
 

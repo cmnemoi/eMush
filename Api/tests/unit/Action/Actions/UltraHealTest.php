@@ -14,12 +14,17 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 
-class UltraHealTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class UltraHealTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
-    /** @var PlayerVariableServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerVariableServiceInterface */
     private PlayerVariableServiceInterface $playerVariableService;
 
     /**
@@ -65,7 +70,8 @@ class UltraHealTest extends AbstractActionTest
 
         $this->playerVariableService
             ->shouldReceive('setPlayerVariableToMax')
-            ->with($player, PlayerVariableEnum::HEALTH_POINT);
+            ->with($player, PlayerVariableEnum::HEALTH_POINT)
+        ;
         $this->playerService->shouldReceive('persist');
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);

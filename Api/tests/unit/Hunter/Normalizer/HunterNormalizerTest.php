@@ -18,6 +18,11 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class HunterNormalizerTest extends TestCase
 {
     private const ASTEROID_DESCRIPTION = 'Un gros caillou qui se rapproche dangereusement du Daedalus
@@ -26,9 +31,11 @@ final class HunterNormalizerTest extends TestCase
     private const HUNTER_DESCRIPTION = 'Chasseur standard de la FDS';
 
     private HunterNormalizer $normalizer;
+
     /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**

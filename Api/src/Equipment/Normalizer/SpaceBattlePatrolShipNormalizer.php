@@ -34,6 +34,7 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
 
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+
         /** @var ChargeStatus $patrolShipCharges */
         $patrolShipCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
 

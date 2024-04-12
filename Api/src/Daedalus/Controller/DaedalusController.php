@@ -109,6 +109,7 @@ class DaedalusController extends AbstractGameController
 
         $availableCharacters = $this->randomService->getRandomElements($availableCharacters->toArray(), $nbCharactersToReturn);
         $characters = [];
+
         /** @var CharacterConfig $character */
         foreach ($availableCharacters as $character) {
             $characters[] = [

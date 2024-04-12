@@ -28,6 +28,11 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class AutoEjectActionCest extends AbstractFunctionalTest
 {
     private AutoEject $autoEjectAction;

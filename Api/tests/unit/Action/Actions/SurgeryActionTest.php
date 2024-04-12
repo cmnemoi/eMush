@@ -22,9 +22,14 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
-class SurgeryActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class SurgeryActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var EventModifierServiceInterface|Mockery\Mock */

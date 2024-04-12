@@ -46,7 +46,12 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ActionSubscriberCest extends AbstractFunctionalTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ActionSubscriberCest extends AbstractFunctionalTest
 {
     private ActionSubscriber $actionSubscriber;
 
@@ -76,12 +81,14 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -140,6 +147,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -149,6 +157,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $player
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -208,6 +217,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -217,6 +227,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $player
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -262,6 +273,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -271,6 +283,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $player
             ->setActionPoint(2)
         ;
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -330,6 +343,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorConfig->setStartCharge(1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -353,6 +367,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         ]);
         $I->assertEquals($this->daedalus->getSpace()->getName(), $this->player1->getPlace()->getName());
         $I->assertFalse($this->player1->isAlive());
+
         /** @var RoomLog $deathLog */
         $deathLog = $I->grabEntityFromRepository(RoomLog::class, [
             'log' => LogEnum::DEATH,
@@ -386,6 +401,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorConfig->setStartCharge(1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -443,6 +459,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorConfig->setStartCharge(1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -483,6 +500,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -502,6 +520,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $this->actionSubscriber->onPostAction($actionEvent);
 
         $I->assertFalse($this->player1->isAlive());
+
         /** @var RoomLog $deathLog */
         $deathLog = $I->grabEntityFromRepository(RoomLog::class, [
             'log' => LogEnum::DEATH,

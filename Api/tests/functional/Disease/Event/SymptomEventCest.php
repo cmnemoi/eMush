@@ -13,6 +13,11 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class SymptomEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;

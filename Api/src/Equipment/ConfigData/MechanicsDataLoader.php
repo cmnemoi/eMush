@@ -18,8 +18,8 @@ abstract class MechanicsDataLoader extends ConfigDataLoader
     public function __construct(
         EntityManagerInterface $entityManager,
         MechanicsRepository $mechanicsRepository,
-        ActionRepository $actionRepository)
-    {
+        ActionRepository $actionRepository
+    ) {
         parent::__construct($entityManager);
         $this->mechanicsRepository = $mechanicsRepository;
         $this->actionRepository = $actionRepository;

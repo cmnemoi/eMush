@@ -18,9 +18,14 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class DispenseActionTest extends AbstractActionTest
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class DispenseActionTest extends AbstractActionTest
 {
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -76,10 +81,12 @@ class DispenseActionTest extends AbstractActionTest
         $gameDrug = new GameItem(new Place());
         $drug = new ItemConfig();
         $drug
-            ->setEquipmentName(GameDrugEnum::PHUXX);
+            ->setEquipmentName(GameDrugEnum::PHUXX)
+        ;
         $gameDrug
             ->setEquipment($drug)
-            ->setName(GameDrugEnum::PHUXX);
+            ->setName(GameDrugEnum::PHUXX)
+        ;
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();

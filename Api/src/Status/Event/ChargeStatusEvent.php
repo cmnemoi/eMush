@@ -19,14 +19,9 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
         \DateTime $time
     ) {
         parent::__construct($status, $holder, $tags, $time);
+
         $this->setQuantity($quantity);
         $this->setVisibility($status->getChargeVisibility());
-    }
-
-    public function getStatus(): ChargeStatus
-    {
-        /** @var ChargeStatus $status */
-        return $this->status;
     }
 
     public function getRoundedQuantity(): int
@@ -64,6 +59,9 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
         return $this;
     }
 
+    /**
+     * @psalm-suppress UndefinedMethod
+     */
     public function getVariable(): GameVariable
     {
         return $this->getStatus()->getVariableByName($this->getStatusName());

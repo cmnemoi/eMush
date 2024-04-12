@@ -572,9 +572,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->isInAPatrolShip() || $this->isInSpace();
     }
 
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
     public function getFocusedTerminal(): ?GameEquipment
     {
-        /** @var ?GameEquipment $terminal */
+        // @var ?GameEquipment $terminal
         return $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
     }
 

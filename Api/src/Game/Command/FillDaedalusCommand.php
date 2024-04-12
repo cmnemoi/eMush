@@ -28,11 +28,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class FillDaedalusCommand extends Command
 {
-    private const OPTION_NUMBER = 'number';
-    private const OPTION_CHAO_FINOLA = 'chao_finola';
-    private const OPTION_ANDIE_DEREK = 'andie_derek';
-    private const OPTION_DAEDALUS_ID = 'daedalus_id';
-    private const OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
+    private const string OPTION_NUMBER = 'number';
+    private const string OPTION_CHAO_FINOLA = 'chao_finola';
+    private const string OPTION_ANDIE_DEREK = 'andie_derek';
+    private const string OPTION_DAEDALUS_ID = 'daedalus_id';
+    private const string OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
     private HttpClientInterface $httpClient;
     private CharacterConfigRepository $characterConfigRepository;
     private DaedalusRepository $daedalusRepository;
@@ -78,6 +78,9 @@ class FillDaedalusCommand extends Command
         $this->addOption($this::OPTION_DAEDALUS_LOCALE, null, InputOption::VALUE_REQUIRED, 'Daedalus locale ?', 'fr');
     }
 
+    /**
+     * @psalm-suppress TypeDoesNotContainNull
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

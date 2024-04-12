@@ -4,6 +4,7 @@ namespace Mush\Hunter\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 /**
@@ -27,12 +28,16 @@ class HunterCollection extends ArrayCollection
         return $this->filter(static fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
     }
 
+    /**
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     */
     public function getAllHuntersSortedBy(string $criteriaName, bool $descending = false): self
     {
-        $sortingMode = $descending ? Criteria::DESC : Criteria::ASC;
+        $sortingMode = $descending ? Order::Descending : Order::Ascending;
         $criteria = Criteria::create()->orderBy([$criteriaName => $sortingMode]);
 
-        /** @var HunterCollection $result */
+        // @var HunterCollection $result
         return $this->matching($criteria);
     }
 

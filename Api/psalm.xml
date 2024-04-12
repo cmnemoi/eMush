@@ -9,13 +9,13 @@
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
-            <file name="vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php"/>
+            <file name="vendor/doctrine/orm/src/EntityRepository.php"/>
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
         <InvalidDocblock>
             <errorLevel type="suppress">
-                <file name="vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php"/>
+                <file name="vendor/doctrine/orm/src/EntityRepository.php"/>
             </errorLevel>
         </InvalidDocblock>
     </issueHandlers>

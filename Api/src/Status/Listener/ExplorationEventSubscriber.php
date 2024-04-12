@@ -171,7 +171,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     holder: $explorator,
                     tags: $event->getTags(),
                     time: $event->getTime(),
-                    visibility: VisibilityEnum::HIDDEN,
+                    visibility: VisibilityEnum::PRIVATE,
                 );
             }
         }

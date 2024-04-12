@@ -41,13 +41,9 @@ use PHPUnit\Framework\TestCase;
 final class RoomLogServiceTest extends TestCase
 {
     private EntityManagerInterface|Mockery\Mock $entityManager;
-
     private Mockery\Mock|RandomServiceInterface $randomService;
-
     private Mockery\Mock|RoomLogRepository $repository;
-
     private Mockery\Mock|TranslationServiceInterface $translationService;
-
     private RoomLogService $service;
 
     /**
@@ -523,11 +519,9 @@ final class RoomLogServiceTest extends TestCase
         $gameConfig = new GameConfig();
 
         $daedalus = new Daedalus();
-        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $place = new Place();
-
         $player = new Player();
         $player->setPlace($place)->setDaedalus($daedalus);
 
@@ -562,10 +556,9 @@ final class RoomLogServiceTest extends TestCase
             ->once();
 
         $logs = $this->service->getRoomLog($player);
-
         $expectedLogs = new RoomLogCollection([$roomLog1, $roomLog2]);
 
-        self::assertSame($expectedLogs, $logs);
+        self::assertEquals($expectedLogs, $logs);
     }
 
     public function testCreateSecretLogDeadPlayerInRoom()

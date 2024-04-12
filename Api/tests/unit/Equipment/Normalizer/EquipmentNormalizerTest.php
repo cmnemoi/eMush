@@ -329,12 +329,12 @@ final class EquipmentNormalizerTest extends TestCase
         $expected = [
             'id' => 1,
             'key' => GamePlantEnum::BANANA_TREE,
-            'updatedAt' => $time,
             'name' => 'Bananier',
             'description' => 'Un bananier',
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'updatedAt' => $time,
         ];
 
         self::assertIsArray($data);

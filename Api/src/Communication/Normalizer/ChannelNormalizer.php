@@ -39,7 +39,7 @@ class ChannelNormalizer implements NormalizerInterface
 
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if (key_exists('piratedPlayer', $context)) {
+        if (array_key_exists('piratedPlayer', $context)) {
             /** @var Player $piratedPlayer */
             $piratedPlayer = $context['piratedPlayer'];
             $piratedPlayerId = $piratedPlayer->getId();

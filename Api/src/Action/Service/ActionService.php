@@ -135,7 +135,7 @@ class ActionService implements ActionServiceInterface
         ?LogParameterInterface $actionTarget,
         string $variableName
     ): int {
-        if (key_exists($variableName, ActionVariableEvent::VARIABLE_TO_EVENT_MAP)) {
+        if (array_key_exists($variableName, ActionVariableEvent::VARIABLE_TO_EVENT_MAP)) {
             $eventName = ActionVariableEvent::VARIABLE_TO_EVENT_MAP[$variableName];
         } else {
             throw new \Exception('this key do not exist in this map');

@@ -9,9 +9,10 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
+        '@PhpCsFixer:risky' => true,
         'yoda_style' => false,
         'concat_space' => ['spacing' => 'one'],
         'array_syntax' => ['syntax' => 'short'],
-        'no_alias_functions' => ['sets' => ['@all']]
     ])
+    ->setRiskyAllowed(true)
     ->setFinder($finder);

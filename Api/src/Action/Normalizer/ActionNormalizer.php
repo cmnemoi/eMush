@@ -179,7 +179,7 @@ class ActionNormalizer implements NormalizerInterface
     private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
     {
         foreach ($types as $type) {
-            if (key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
+            if (array_key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
                 $key = self::ACTION_TYPE_DESCRIPTION_MAP[$type];
                 $description = $description . '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
             }

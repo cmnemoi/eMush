@@ -262,7 +262,7 @@ class Action implements GameVariableHolderInterface
 
     public function getVisibility(string $actionOutput): string
     {
-        if (key_exists($actionOutput, $this->visibilities)) {
+        if (array_key_exists($actionOutput, $this->visibilities)) {
             return $this->visibilities[$actionOutput];
         }
 

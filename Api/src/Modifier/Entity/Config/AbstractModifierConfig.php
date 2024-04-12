@@ -141,7 +141,7 @@ abstract class AbstractModifierConfig
             $parameters = array_merge($parameters, $requirement->getTranslationParameters());
         }
 
-        if (!key_exists('chance', $parameters)) {
+        if (!array_key_exists('chance', $parameters)) {
             $parameters['chance'] = 100;
         }
 

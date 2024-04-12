@@ -390,6 +390,7 @@ class GameConfigData
                 'electric_charges_coffee_machine_default',
                 'electric_charges_narcotic_distiller_default',
                 'electric_charges_blaster_default',
+                'sink_charge_default',
                 'fire_default',
                 'plant_young_default',
                 'eureka_moment_default',

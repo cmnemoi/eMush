@@ -1,133 +1,115 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\WashInSink;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-class WashInSinkActionCest
+final class WashInSinkActionCest extends AbstractFunctionalTest
 {
-    /* @var WashInSink */
+    private Action $actionConfig;
     private WashInSink $washInSinkAction;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
+        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::WASH_IN_SINK]);
         $this->washInSinkAction = $I->grabService(WashInSink::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testHumanWashInSink(FunctionalTester $I)
     {
-        $alreadyWashedInTheSink = new ChargeStatusConfig();
-        $alreadyWashedInTheSink
-            ->setStatusName(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStartCharge(1)
-            ->setAutoRemove(true)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($alreadyWashedInTheSink);
+        // given Chun has 6 action points
+        $this->chun->setActionPoint(6);
 
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$alreadyWashedInTheSink]))
-        ;
-        $I->flushToDatabase();
+        // given Chun is dirty
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::DIRTY,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        // given I have a kitchen in Chun' room
+        $kitchen = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::KITCHEN,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
 
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(3)
-        ;
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::WASH_IN_SINK)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost(3)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
-        $I->haveInRepository($action);
-
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['actions' => new ArrayCollection([$action])]);
-        $I->haveInRepository($equipmentConfig);
-
-        $gameEquipment = new GameEquipment($room);
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::KITCHEN)
-        ;
-        $I->haveInRepository($gameEquipment);
-
-        $this->washInSinkAction->loadParameters($action, $player, $gameEquipment);
+        // when Chun washes in the sink
+        $this->washInSinkAction->loadParameters($this->actionConfig, $this->chun, $kitchen);
         $this->washInSinkAction->execute();
 
-        $I->assertEquals(0, $player->getActionPoint());
-        $I->assertTrue($player->hasStatus(PlayerStatusEnum::ALREADY_WASHED_IN_THE_SINK));
+        // then Chun has 3 action points
+        $I->assertEquals(3, $this->chun->getActionPoint());
 
+        // then Chun has no dirty status
+        $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::DIRTY));
+
+        // then I should see a private room log telling that Chun washed in the sink
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'place' => $this->chun->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->chun->getPlayerInfo(),
             'log' => ActionLogEnum::WASH_IN_SINK_HUMAN,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
 
-        $I->assertEquals($this->washInSinkAction->cannotExecuteReason(), ActionImpossibleCauseEnum::ALREADY_WASHED_IN_SINK_TODAY);
+        // then Wash in the sink action is not available anymore
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
+            actual: $this->washInSinkAction->cannotExecuteReason()
+        );
     }
 
-    // @TODO MORE TEST BUT I DON'T UNDERSTAND WHAT HAPPEN TO THE SOAP
+    public function testWashInSinkIsAvailableOncePerDayForAllPlayers(FunctionalTester $I): void
+    {
+        // given I have a kitchen in players' room
+        $kitchen = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::KITCHEN,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when Chun takes a shower
+        $this->washInSinkAction->loadParameters($this->actionConfig, $this->chun, $kitchen);
+        $this->washInSinkAction->execute();
+
+        // then Chun cannot take a shower again
+        $this->washInSinkAction->loadParameters($this->actionConfig, $this->chun, $kitchen);
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
+            actual: $this->washInSinkAction->cannotExecuteReason()
+        );
+
+        // then Kuan Ti cannot take a shower
+        $this->washInSinkAction->loadParameters($this->actionConfig, $this->kuanTi, $kitchen);
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
+            actual: $this->washInSinkAction->cannotExecuteReason()
+        );
+    }
 }

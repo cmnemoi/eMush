@@ -2567,6 +2567,7 @@ class MechanicsData
             'oneShotRate' => null,
             'actions' => [
                 'cook',
+                'wash_in_sink',
             ],
             'modifierConfigs' => [],
         ],

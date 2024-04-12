@@ -753,8 +753,6 @@ h2 {
         .nova { font-size: 1.1em; }
 
         ul li { margin: 0 0 1.2em 1em; }
-
-        
     }
 }
 

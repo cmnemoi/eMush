@@ -160,7 +160,7 @@ export default defineComponent ({
             readMessage: 'communication/readMessage',
             releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
             unfavoriteMessage: 'communication/unfavoriteMessage',
-            openReportPopup: 'moderation/openReportPopup'
+            openReportPopup: 'popup/openReportPopup'
         }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });

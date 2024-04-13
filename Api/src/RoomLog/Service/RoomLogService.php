@@ -250,21 +250,8 @@ class RoomLogService implements RoomLogServiceInterface
         $roomLog
           ->addReader($player)
           ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
+
         $this->entityManager->persist($roomLog);
-        $this->entityManager->flush();
-    }
-
-    public function markAllRoomLogsAsReadForPlayer(Player $player): void
-    {
-        $roomLogs = $this->getRoomLog($player);
-
-        foreach ($roomLogs as $roomLog) {
-            $roomLog
-              ->addReader($player)
-              ->cancelTimestampable();
-            $this->entityManager->persist($roomLog);
-        }
-
         $this->entityManager->flush();
     }
 

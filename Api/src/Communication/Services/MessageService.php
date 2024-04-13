@@ -197,26 +197,6 @@ class MessageService implements MessageServiceInterface
         $this->entityManager->flush();
     }
 
-    public function markChannelAsReadForPlayer(Channel $channel, Player $player): void
-    {
-        $messages = $this->messageRepository->findByChannel($channel);
-        foreach ($messages as $message) {
-            $message
-              ->addReader($player)
-              ->cancelTimestampable();
-
-            foreach ($message->getChild() as $child) {
-                $child
-                  ->addReader($player)
-                  ->cancelTimestampable();
-            }
-
-            $this->entityManager->persist($message);
-        }
-
-        $this->entityManager->flush();
-    }
-
     private function getByChannelWithTimeLimit(Channel $channel, \DateInterval $timeLimit): Collection
     {
         return new ArrayCollection($this->messageRepository->findByChannel($channel, $timeLimit));

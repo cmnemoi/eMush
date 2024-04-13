@@ -27,9 +27,6 @@
         <button class="action-button" @click="loadMoreMessages()" v-if="currentChannel.isChannelWithPagination()">
             {{ $t('game.communications.loadMoreMessages') }}
         </button>
-        <button class="action-button" @click="markAsRead">
-            {{ $t('game.communications.markChannelAsRead') }}
-        </button>
     </div>
 </template>
 
@@ -118,8 +115,6 @@ export default defineComponent ({
                 this.currentChannel.piratedPlayer === channel.piratedPlayer;
         },
         async markAsRead(): Promise<void> {
-            if (this.currentChannelNumberOfNewMessages === 0) return;
-
             if (this.currentChannel.scope === ChannelType.ROOM_LOG) {
                 await this.markAllRoomLogsAsRead(this.currentChannel);
             } else {

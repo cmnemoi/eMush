@@ -174,30 +174,4 @@ class RoomLogController extends AbstractGameController
 
         return $this->view(['detail' => 'Room log marked as read successfully'], Response::HTTP_OK);
     }
-
-    /**
-     * Mark room log channel as read.
-     *
-     * @OA\Tag(name="RoomLog")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Patch (path="/read-all")
-     */
-    public function readRoomLogChannel(): View
-    {
-        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
-            return $maintenanceView;
-        }
-        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
-
-        /** @var User $user */
-        $user = $this->getUser();
-        /** @var Player $player */
-        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
-
-        $this->roomLogService->markAllRoomLogsAsReadForPlayer($player);
-
-        return $this->view(['detail' => 'Room log marked as read successfully'], Response::HTTP_OK);
-    }
 }

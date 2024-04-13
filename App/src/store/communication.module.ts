@@ -217,16 +217,6 @@ const actions: ActionTree<any, any> = {
         await dispatch('loadChannels');
     },
 
-    async markAllRoomLogsAsRead({ commit }, channel) {
-        await CommunicationService.markAllRoomLogsAsRead();
-        commit('setCurrentChannelNumberOfNewMessages', { channel, numberOfNewMessages: 0 });
-    },
-
-    async markChannelAsRead({ commit }, channel) {
-        await CommunicationService.markChannelAsRead(channel);
-        commit('setCurrentChannelNumberOfNewMessages', { channel, numberOfNewMessages: 0 });
-    },
-
     async readMessage({ commit }, message) {
         await CommunicationService.readMessage(message);
         // @FIXME: if you reload the page by clicking on eMush logo, the number of new messages is not updated...

@@ -156,14 +156,6 @@ const CommunicationService = {
         });
     },
 
-    markChannelAsRead: async (channel: Channel): Promise<void> => {
-        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read', String(channel.id)));
-    },
-
-    markAllRoomLogsAsRead: async (): Promise<void> => {
-        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read-all'));
-    },
-
     putMessageInFavorite: async (message: Message): Promise<void> => {
         await ApiService.post(urlJoin(CHANNELS_ENDPOINT, 'favorite-message', String(message.id)));
     },

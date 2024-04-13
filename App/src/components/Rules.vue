@@ -1,4 +1,5 @@
 <template>
+    <NewRulesPopUp />
     <div class="box-container">
         <div class="paragraph">
             <h1 class="mainTitle">{{ $t("rules.title") }}</h1>
@@ -55,17 +56,33 @@
 <script lang="ts">
 import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
+import NewRulesPopUp from "./Utils/NewRulesPopUp.vue";
 
 export default defineComponent ({
     name: 'Rules',
+    components: {
+        NewRulesPopUp
+    },
     props: {
         error: {
             type: Object,
             default: null
         }
     },
+    computed: {
+        ...mapGetters({
+            hasAcceptedRules: 'auth/hasAcceptedRules'
+        })
+    },
     methods: {
+        ...mapActions({
+            'openNewRulesPopUp': 'popup/openNewRulesPopUp',
+        }),
         getImgUrl
+    },
+    beforeMount() {
+        this.openNewRulesPopUp();
     }
 });
 

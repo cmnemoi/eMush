@@ -9,14 +9,16 @@ export interface AuthState {
     userInfo: User | null
     accessToken: null | string
     refreshTokenPromise: null | string
-    loading: boolean
+    loading: boolean,
+    hasAcceptedRules: boolean
 }
 
 const state =  {
     userInfo: TokenService.getUserInfo(),
     accessToken: TokenService.getToken(),
     refreshTokenPromise: null,
-    loading: false
+    loading: false,
+    hasAcceptedRules: false
 };
 
 const getters = {
@@ -51,6 +53,10 @@ const getters = {
 
     isModerator: (state: AuthState): boolean => {
         return state.userInfo ? state.userInfo.isModerator() : false;
+    },
+
+    hasAcceptedRules: (state: AuthState): boolean => {
+        return state.userInfo ? state.userInfo.hasAcceptedRules : false;
     }
 };
 
@@ -120,6 +126,15 @@ const actions: ActionTree<any, any> = {
     logout({ commit }) {
         UserService.logout();
         commit('resetToken');
+    },
+
+    async acceptRules({ commit }): Promise<void> {
+        try {
+            // TODO await UserService.acceptRules();
+            commit('setHasAcceptedRules', true);
+        } catch (e) {
+            console.error(e);
+        }
     }
 };
 
@@ -144,6 +159,10 @@ const mutations = {
 
     setRefreshTokenPromise(state: AuthState, promise:string): void {
         state.refreshTokenPromise = promise;
+    },
+
+    setHasAcceptedRules(state: AuthState, hasAcceptedRules: boolean): void {
+        state.hasAcceptedRules = hasAcceptedRules;
     }
 };
 

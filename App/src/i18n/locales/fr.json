@@ -811,6 +811,11 @@
 			"spokenLanguage":"<strong>Tolérance sur la langue parlée</strong> : Durant les phases de développement, la fréquentation des différents serveurs peut être inégale. Dans ce contexte, il est toléré que les joueurs n’ayant pas une bonne maîtrise du français rejoignent les parties du serveur français. Il est alors recommandé de le signaler et de faire des efforts particuliers pour communiquer avec les équipiers.",
 			"cooperation":"<strong>Tolérance sur la coopération entre les humains et les mushs</strong> : À des fins de tests des fonctionnalités, il n’est pas attendu que la partie “enquête” du jeu Mush soit respectée. En particulier, il est toléré pour les mushs et les humains de collaborer pour tester les mécaniques du jeu.",
 			"endText":"Notez que toutes les règles non marquées par une icône restent pleinement applicables durant la période de l’alpha."
+		},
+		"newRulesPopUp": {
+			"title": "Information",
+			"message": "Le règlement du jeu a été mis à jour : veuillez l'accepter pour continuer à jouer.",
+			"ok": "J'ai compris !"
 		}
 	}
 }

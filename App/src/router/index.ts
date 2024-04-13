@@ -272,6 +272,11 @@ router.beforeEach((to, from, next) => {
             return next({ path: '/', query: { returnUrl: to.path } });
         }
 
+        // check if user has accepted rules, if not redirect to rules page
+        if (!currentUser.hasAcceptedRules && to.name !== 'Rules') {
+            return next({ name: 'Rules' });
+        }
+
         // check if route is restricted by role
         if (authorize.length && is_granted(authorize, currentUser)) {
             // role not authorised so redirect to home page

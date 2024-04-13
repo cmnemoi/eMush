@@ -801,7 +801,7 @@
 		"sanctionsAppeal": {
 			"title":"Sanctions et appel",
 			"sanctionText":"Tous les manquements au présent règlement concernant la communication ou le comportement peuvent faire l’objet d’une sanction allant d’un avertissement à un bannissement du jeu avec effet immédiat, pendant une durée temporaire ou non.",
-			"appealText":"Les joueurs sont notifiés de leur sanction via un message sur la page principale du jeu. Dès lors, ils ont la possibilité de faire appel de leur sanction en ouvrant un billet sur le <a href='https://discord.gg/ERc3svy'>serveur Discord EternalTwin</a> et en expliquant leur cas. Les modérateurs disposent d’outils particuliers et d’un accès à tous les messages et détails des parties.",
+			"appealText":"Les joueurs sont notifiés de leur sanction via un message sur la page principale du jeu. Dès lors, ils ont la possibilité de faire appel de leur sanction en ouvrant un billet sur le <a href='https://discord.gg/ERc3svy'>serveur Discord Eternaltwin</a> et en expliquant leur cas. Les modérateurs disposent d’outils particuliers et d’un accès à tous les messages et détails des parties.",
 			"allPlatformText":"En cas de récidive ou de comportement jugé suffisamment grave, les sanctions peuvent s’appliquer à l’ensemble des jeux et fonctionnalités du réseau Eternaltwin."
 		},
 		"alphaRules": {

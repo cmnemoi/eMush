@@ -120,7 +120,7 @@ export default defineComponent ({
 .alpha {
     width:20px;
     display:inline;
-    margin-right:20px;
+    margin-right:5px;
 }
 
 </style>

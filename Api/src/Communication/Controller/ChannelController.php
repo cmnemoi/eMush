@@ -490,7 +490,7 @@ class ChannelController extends AbstractGameController
 
         $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         if ($channel->isFavorites()) {
-            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer);
+            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer, $messageCreate->getPage(), $messageCreate->getLimit());
         } else {
             $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getPage(), $messageCreate->getLimit());
         }

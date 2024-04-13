@@ -18,6 +18,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
+use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Psr\Log\LoggerInterface;
@@ -86,6 +87,7 @@ class PlayerController extends AbstractGameController
             return $maintenanceView;
         }
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
@@ -149,6 +151,7 @@ class PlayerController extends AbstractGameController
         }
 
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_CREATE);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         $daedalus = $playerCreateRequest->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -230,6 +233,7 @@ class PlayerController extends AbstractGameController
         }
 
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_END, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         if ($player->getPlayerInfo()->getGameStatus() !== GameStatusEnum::FINISHED) {
             return $this->view(['message' => 'Player cannot end game'], Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -268,6 +272,7 @@ class PlayerController extends AbstractGameController
             return $maintenanceView;
         }
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         $result = $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $player->getDaedalus());
 
@@ -305,6 +310,7 @@ class PlayerController extends AbstractGameController
             return $maintenanceView;
         }
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         if (!$player->isExploring()) {
             return $this->view(['message' => 'You have to be in an exploration to do that!'], Response::HTTP_UNPROCESSABLE_ENTITY);

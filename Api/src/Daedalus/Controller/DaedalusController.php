@@ -21,6 +21,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
+use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -90,9 +91,9 @@ class DaedalusController extends AbstractGameController
         /** @var User $user */
         $user = $this->getUser();
 
-        if ($user->isBanned()) {
-            throw new AccessDeniedException('You have been banned!');
-        }
+        $this->denyAccessUnlessGranted(UserVoter::NOT_IN_GAME, message: "You are already in game!");
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: "You must accept the rules to play!");
+        $this->denyAccessUnlessGranted(UserVoter::IS_BANNED, message: "You have been banned!");
 
         $language = $request->get('language', '');
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $user);

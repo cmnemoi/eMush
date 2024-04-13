@@ -727,7 +727,7 @@
 		"introduction": {
 			"textIntro":"eMush is a community game offering numerous ways of communication and means of acting. The aim of these rules is to allow games to run smoothly and to ensure a pleasant game experience to all the players. The rules stated here are not meant to be exhaustive and are likely to evolve along with the development of the game. Players will be informed of each update via a notification on the Eternaltwin Discord server.",
 			"alphaLeeway":"The rules marked by this icon signal that a certain leeway is applied during the period of open alpha tests (see last paragraph).",
-			"lastUpdated":"<em>Last updated : April, 4th 2024</em>"
+			"lastUpdated":"<em>Last updated : April, 13th 2024</em>"
 		},
 		"communication": {
 			"title":"Communication",
@@ -751,7 +751,7 @@
 		"alphaRules": {
 			"title":"Rules specific to the open alpha",
 			"introText":"In the aim of contributing actively to the development and testing of the game, allowances are made to the rules marked by this icon in the preceding rules. These allowances are applicable until the opening of the game in a new phase, and players will be notified of any modification.",
-			"tests":"<strong>Testing facilitation</strong> : The aim of the alpha phase is to involve the community in the development of the game, to obtain feedback and bug reports. To this end, any bugs must be reported immediately to the development team without being exploited, and it remains forbidden to behave in a way that seriously harms the game experience of other players. To find out what features are available, please consult the <a href='https://discord.com/channels/693082011484684348/693144970433003540/1079173112848994304'>roadmap</a>.",
+			"tests":"<strong>Testing facilitation</strong> : The aim of the alpha phase is to involve the community in the development of the game, to obtain feedback and bug reports. To this end, any bug must be reported immediately to the development team without being exploited, and it remains forbidden to behave in a way that seriously harms the game experience of other players. To find out what features are available, please consult the <a href='https://discord.com/channels/693082011484684348/693144970433003540/1079173112848994304'>roadmap</a>.",
 			"spokenLanguage":"<strong>Allowances on the spoken language</strong>: During the development phases, the frequentation of the various servers can be unequal. In that context, players not having knowledge of the French language are allowed to join games on the French server. It is then recommended to notify the crew and to make particular efforts to communicate with them.",
 			"cooperation":"<strong>Allowances on the cooperation between humans and Mush</strong>: In order to test the game’s functionalities, the “investigation” part of the Mush game is not expected to be respected. In particular, cooperation between humans and Mush is tolerated in order to test game mechanisms.",
 			"endText":"Note that all rules not marked by the icon remain fully applicable during the alpha period."

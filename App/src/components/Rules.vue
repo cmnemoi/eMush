@@ -95,6 +95,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             'acceptRules': 'auth/acceptRules',
+            'loadHasAcceptedRules': 'auth/loadHasAcceptedRules',
             'openSuccessToast': 'toast/openSuccessToast',
             'openNewRulesPopUp': 'popup/openNewRulesPopUp'
         }),
@@ -105,7 +106,8 @@ export default defineComponent ({
         },
         getImgUrl
     },
-    beforeMount() {
+    async beforeMount() {
+        await this.loadHasAcceptedRules();
         if (this.userConnected && !this.hasAcceptedRules) {
             this.openNewRulesPopUp();
         }

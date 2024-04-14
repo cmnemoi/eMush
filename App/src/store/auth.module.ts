@@ -17,7 +17,7 @@ const state =  {
     accessToken: TokenService.getToken(),
     refreshTokenPromise: null,
     loading: false,
-    hasAcceptedRules: TokenService.getUserInfo()?.hasAcceptedRules || false
+    hasAcceptedRules: false,
 };
 
 const getters = {
@@ -55,7 +55,7 @@ const getters = {
     },
 
     hasAcceptedRules: (state: AuthState): boolean => {
-        return state.userInfo ? state.userInfo.hasAcceptedRules : false;
+        return state.hasAcceptedRules;
     }
 };
 
@@ -125,6 +125,17 @@ const actions: ActionTree<any, any> = {
     logout({ commit }) {
         UserService.logout();
         commit('resetToken');
+    },
+
+    async loadHasAcceptedRules({ commit }): Promise<void> {
+        try {
+            const hasAcceptedRules = await UserService.userInfo().then((user: User) => {
+                return user.hasAcceptedRules;
+            });
+            commit('setHasAcceptedRules', hasAcceptedRules);
+        } catch (error) {
+            console.error(error);
+        }
     },
 
     async acceptRules({ commit }): Promise<void> {

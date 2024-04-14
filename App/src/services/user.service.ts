@@ -81,7 +81,7 @@ const UserService = {
     userInfo: async function(): Promise<User> {
         try {
             const currentUserId = store.getters["auth/userId"];
-            const response = await ApiService.get(urlJoin(userEndPoint,currentUserId));
+            const response = await ApiService.get(urlJoin(userEndPoint, currentUserId));
             const user = new User();
             TokenService.saveUserInfo(user.load(response.data));
 
@@ -143,8 +143,8 @@ const UserService = {
     },
 
     acceptRules: async function(): Promise<void> {
-        const user = store.getters["auth/user"];
-        if (user === null) {
+        const user = TokenService.getUserInfo();
+        if (!user) {
             return;
         }
 

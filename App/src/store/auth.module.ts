@@ -55,7 +55,7 @@ const getters = {
     },
 
     hasAcceptedRules: (state: AuthState): boolean => {
-        return state.userInfo ? state.userInfo.hasAcceptedRules : false;
+        return state.hasAcceptedRules;
     }
 };
 

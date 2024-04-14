@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Status\Listener;
 
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -11,6 +12,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -20,12 +22,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ExplorationEventSubscriber implements EventSubscriberInterface
 {
+    public const int DIRTY_RATE = 15;
+
     private EventServiceInterface $eventService;
+    private RandomServiceInterface $randomService;
     private StatusServiceInterface $statusService;
 
-    public function __construct(EventServiceInterface $eventService, StatusServiceInterface $statusService)
-    {
+    public function __construct(
+        EventServiceInterface $eventService,
+        RandomServiceInterface $randomService,
+        StatusServiceInterface $statusService
+    ) {
         $this->eventService = $eventService;
+        $this->randomService = $randomService;
         $this->statusService = $statusService;
     }
 
@@ -85,6 +94,8 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
         $this->deleteExplorationOxygenStatus($event);
         $this->deleteExplorationFuelStatus($event);
+
+        $this->makeExploratorsDirty($event);
     }
 
     private function addLootedOxygenToDaedalus(ExplorationEvent $event): void
@@ -143,6 +154,27 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             tags: $event->getTags(),
             time: $event->getTime(),
         );
+    }
+
+    private function makeExploratorsDirty(ExplorationEvent $event): void
+    {
+        $explorators = $event->getExploration()->getActiveExplorators();
+
+        // Dirtiness should not be prevented by stainproof apron
+        $event->addTag(ActionTypeEnum::ACTION_SUPER_DIRTY);
+
+        /** @var Player $explorator */
+        foreach ($explorators as $explorator) {
+            if ($this->randomService->isSuccessful(self::DIRTY_RATE)) {
+                $this->statusService->createStatusFromName(
+                    statusName: PlayerStatusEnum::DIRTY,
+                    holder: $explorator,
+                    tags: $event->getTags(),
+                    time: $event->getTime(),
+                    visibility: VisibilityEnum::PRIVATE,
+                );
+            }
+        }
     }
 
     private function removeStuckInTheShipStatusToExplorators(ExplorationEvent $event): void

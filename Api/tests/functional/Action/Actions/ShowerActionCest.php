@@ -133,7 +133,7 @@ class ShowerActionCest extends AbstractFunctionalTest
             'place' => $room->getName(),
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo()->getId(),
-            'log' => LogEnum::SHOWER_MUSH,
+            'log' => ActionLogEnum::SHOWER_MUSH,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
         $I->assertCount(1, $logs);

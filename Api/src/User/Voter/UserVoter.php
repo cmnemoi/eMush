@@ -27,12 +27,12 @@ class UserVoter extends Voter
     {
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [
-            self::USER_IN_GAME, 
-            self::EDIT_USER_ROLE, 
-            self::HAS_ACCEPTED_RULES, 
-            self::IS_BANNED, 
-            self::NOT_IN_GAME, 
-            self::IS_CONNECTED
+            self::USER_IN_GAME,
+            self::EDIT_USER_ROLE,
+            self::HAS_ACCEPTED_RULES,
+            self::IS_BANNED,
+            self::NOT_IN_GAME,
+            self::IS_CONNECTED,
         ])) {
             return false;
         }

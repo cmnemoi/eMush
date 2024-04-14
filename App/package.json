@@ -29,7 +29,7 @@
     "vue-class-component": "^8.0.0-rc.1",
     "vue-i18n": "^9.11.0",
     "vue-router": "^4.3.0",
-    "vue-tippy": "^6.4.1",
+    "vue-tippy": "~6.3.1",
     "vue3-uuid": "^1.0.0",
     "vuex": "^4.1.0"
   },

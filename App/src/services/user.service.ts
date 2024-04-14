@@ -152,6 +152,9 @@ const UserService = {
 
         store.dispatch('gameConfig/setLoading', { loading: true });
         await ApiService.patch(uri)
+            .then(() => {
+                store.dispatch('auth/userInfo');
+            })
             .catch((error) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw error;

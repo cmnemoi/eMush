@@ -1,47 +1,10 @@
 <template>
     <div class="toast-container">
-        <Toast :is-open="true" title="This is an error !" type="error">
-            <div class="message">
-                <div>
-                    <p>{{ $t('errors.reportToDevs') }}</p>
-                    <div class="code">
-                        <span>method: GET</span>
-                        <span>url: http://localhost:8080/api/v1/news</span>
-                    </div>
-                    <p v-html="$t('errors.consultCommunity')"></p>
-                </div>
-            </div>
-        </Toast>
-        <Toast :is-open="true" title="This is a warning !" type="warning">
-            <div class="message">
-                <div>
-                    <p>{{ $t('errors.reportToDevs') }}</p>
-                    <div class="code">
-                        <span>url: http://localhost:8080/api/v1/news</span>
-                    </div>
-                </div>
-            </div>
-        </Toast>
-        <Toast :is-open="true" title="This is an information !" type="info">
-            <div class="message">
-                <div>
-                    <p>Hey, how are you ?</p>
-                </div>
-            </div>
-        </Toast>
-        <Toast :is-open="true" title="This is a success !" type="success">
-            <div class="message">
-                <div>
-                    <p>Hey, how are you ?</p>
-                </div>
-            </div>
-        </Toast>
+        <Toast />
     </div>
-    <div style="display: none;" class="toast-background"></div>
 </template>
 
 <script lang="ts">
-import { mapState, mapActions } from "vuex";
 import Toast from "@/components/Utils/Toast.vue";
 import { defineComponent } from "vue";
 
@@ -49,18 +12,6 @@ export default defineComponent ({
     components: {
         Toast
     },
-    computed: {
-        ...mapState('error', [
-            'error'
-        ]),
-        errorStatus(): string {
-            return (! this.error.status || ! this.error.statusText)
-                ? this.error.message
-                : this.error.status;
-        }
-    },
-    methods: {
-    }
 });
 </script>
 

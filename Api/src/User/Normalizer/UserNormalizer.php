@@ -50,6 +50,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'playerInfo' => $currentPlayer,
             'roles' => $user->getRoles(),
             'isBanned' => $user->isBanned(),
+            'hasAcceptedRules' => $user->hasAcceptedRules(),
         ];
     }
 }

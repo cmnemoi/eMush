@@ -1,11 +1,11 @@
 <template>
     <div class="main-container">
         <Spinner :loading="userLoading || playerLoading || configLoading" />
+        <ToastContainer />
         <Banner />
         <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
         <router-view v-else/>
         <ErrorPopup />
-        <!-- <Toasts /> -->
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
@@ -18,7 +18,6 @@
 
 import Banner from "@/components/Banner.vue";
 import ErrorPopup from "@/components/ErrorPopup.vue";
-import Toasts from "@/components/ToastContainer.vue";
 import ConfirmPopup from "@/components/ConfirmPopup.vue";
 import ReportPopup from "@/components/ReportPopup.vue";
 import Spinner from "@/components/Utils/Spinner.vue";
@@ -28,6 +27,7 @@ import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
 import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
 import { defineComponent } from "vue";
+import ToastContainer from "./components/ToastContainer.vue";
 
 export default defineComponent({
     name: 'App',
@@ -51,7 +51,8 @@ export default defineComponent({
         ReportPopup,
         LocaleChange,
         Thanks,
-        MaintenancePage
+        MaintenancePage,
+        ToastContainer,
     },
     computed: {
         ...mapGetters({

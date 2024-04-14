@@ -41,7 +41,6 @@ export default defineComponent ({
     .modal-box {
         min-width: 400px;
         max-width: 940px;
-        min-height: 200px;
         max-height: 900px;
         position: absolute;
         top: 50%;

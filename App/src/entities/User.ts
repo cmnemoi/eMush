@@ -6,6 +6,7 @@ export class User {
     public username : string|null;
     public playerInfo : number|null;
     public roles : UserRole[];
+    public hasAcceptedRules! : boolean;
 
     constructor() {
         this.id = null;
@@ -21,6 +22,7 @@ export class User {
             this.username = object.username;
             this.playerInfo = object.playerInfo ? object.playerInfo : null;
             this.roles = object.roles;
+            this.hasAcceptedRules = object.hasAcceptedRules;
         }
         return this;
     }
@@ -35,6 +37,7 @@ export class User {
             this.username = object.username;
             this.playerInfo = object.playerInfo ?? null;
             this.roles = object.roles;
+            this.hasAcceptedRules = object.hasAcceptedRules;
         }
 
         return this;

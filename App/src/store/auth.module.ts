@@ -4,19 +4,20 @@ import ApiService from "@/services/api.service";
 import { User } from "@/entities/User";
 import { ActionTree } from "vuex";
 
-
 export interface AuthState {
     userInfo: User | null
     accessToken: null | string
     refreshTokenPromise: null | string
-    loading: boolean
+    loading: boolean,
+    hasAcceptedRules: boolean
 }
 
 const state =  {
     userInfo: TokenService.getUserInfo(),
     accessToken: TokenService.getToken(),
     refreshTokenPromise: null,
-    loading: false
+    loading: false,
+    hasAcceptedRules: false,
 };
 
 const getters = {
@@ -51,6 +52,10 @@ const getters = {
 
     isModerator: (state: AuthState): boolean => {
         return state.userInfo ? state.userInfo.isModerator() : false;
+    },
+
+    hasAcceptedRules: (state: AuthState): boolean => {
+        return state.hasAcceptedRules;
     }
 };
 
@@ -120,6 +125,26 @@ const actions: ActionTree<any, any> = {
     logout({ commit }) {
         UserService.logout();
         commit('resetToken');
+    },
+
+    async loadHasAcceptedRules({ commit }): Promise<void> {
+        try {
+            const hasAcceptedRules = await UserService.userInfo().then((user: User) => {
+                return user.hasAcceptedRules;
+            });
+            commit('setHasAcceptedRules', hasAcceptedRules);
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async acceptRules({ commit }): Promise<void> {
+        try {
+            await UserService.acceptRules();
+            commit('setHasAcceptedRules', true);
+        } catch (error) {
+            console.error(error);
+        }
     }
 };
 
@@ -144,6 +169,10 @@ const mutations = {
 
     setRefreshTokenPromise(state: AuthState, promise:string): void {
         state.refreshTokenPromise = promise;
+    },
+
+    setHasAcceptedRules(state: AuthState, hasAcceptedRules: boolean): void {
+        state.hasAcceptedRules = hasAcceptedRules;
     }
 };
 

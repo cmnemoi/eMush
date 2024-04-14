@@ -44,6 +44,9 @@ class User implements UserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ModerationSanction::class)]
     private Collection $moderationSanctions;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $hasAcceptedRules = false;
+
     public function __construct()
     {
         $this->moderationSanctions = new ArrayCollection();
@@ -177,6 +180,18 @@ class User implements UserInterface
     public function removeModerationSanction(ModerationSanction $moderationAction): self
     {
         $this->moderationSanctions->removeElement($moderationAction);
+
+        return $this;
+    }
+
+    public function hasAcceptedRules(): bool
+    {
+        return $this->hasAcceptedRules;
+    }
+
+    public function acceptRules(): self
+    {
+        $this->hasAcceptedRules = true;
 
         return $this;
     }

@@ -108,6 +108,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
         $this->planets = new ArrayCollection();
+        $this->favoriteMessages = new ArrayCollection();
     }
 
     public function getId(): int

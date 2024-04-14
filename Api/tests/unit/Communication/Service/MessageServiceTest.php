@@ -278,4 +278,71 @@ class MessageServiceTest extends TestCase
 
         $this->assertCount(10, $messages);
     }
+
+    public function testGetNumberOfNewMessagesForPlayer(): void
+    {
+        $player = new Player();
+        $channel = new Channel();
+        $channel->setScope(ChannelScopeEnum::PUBLIC);
+
+        $messages = new ArrayCollection();
+        for ($i = 0; $i < 10; ++$i) {
+            $message = new Message();
+            $messages[] = $message;
+            $message->addReader($player);
+        }
+        for ($i = 0; $i < 15; ++$i) {
+            $message = new Message();
+            $messages[] = $message;
+        }
+
+        $this->channelRepository
+            ->shouldReceive('findFavoritesChannelForPlayer')
+            ->andReturn(null)
+        ;
+        $this->messageRepository
+            ->shouldReceive('findByChannelWithPagination')
+            ->with($channel, 1, 20)
+            ->andReturn($messages->slice(10, 25))
+        ;
+        $this->eventService->shouldReceive('computeEventModifications')
+            ->andReturn(new MessageEvent($message, $player, [], new \DateTime()))
+            ->times(15)
+        ;
+
+        $nbNewMessages = $this->service->getNumberOfNewMessagesForPlayer($player, $channel);
+
+        $this->assertEquals(15, $nbNewMessages);
+    }
+
+    public function testMarkMessagesAsRead(): void
+    {
+        $player = new Player();
+        $message = new Message();
+
+        $this->service->markMessageAsReadForPlayer($message, $player);
+
+        $this->assertFalse($message->isUnreadBy($player));
+    }
+
+    public function testPutMessageInFavoritesForPlayer(): void
+    {
+        $player = new Player();
+        $message = new Message();
+
+        $this->service->putMessageInFavoritesForPlayer($message, $player);
+
+        $this->assertTrue($message->isFavoriteFor($player));
+    }
+
+    public function testRemoveMessageFromFavoritesForPlayer(): void
+    {
+        $player = new Player();
+        $message = new Message();
+        $message->addFavorite($player);
+
+        $this->service->removeMessageFromFavoritesForPlayer($message, $player);
+
+        $this->assertFalse($message->isFavoriteFor($player));
+    }
 }

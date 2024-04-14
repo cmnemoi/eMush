@@ -50,6 +50,17 @@
             </ul>
             <p class="text"> {{ $t("rules.alphaRules.endText") }} </p>
         </div>
+        <div class="flex-row" v-if="!hasAcceptedRules">
+            <input type="checkbox" v-model="hasReadRules" class="checkbox" />
+            <label for="hasReadRules" class="text" @click="hasReadRules = !hasReadRules">
+                {{ $t("rules.iHaveReadRules") }}
+            </label>
+        </div>
+        <div class="flex-row">
+            <button class="action-button" @click="acceptRulesAndRedirectToHomePage" v-if="hasReadRules">
+                {{ $t("rules.accept") }}
+            </button>
+        </div>
     </div>
 </template>
 
@@ -70,6 +81,11 @@ export default defineComponent ({
             default: null
         }
     },
+    data() {
+        return {
+            hasReadRules: false
+        }
+    },
     computed: {
         ...mapGetters({
             hasAcceptedRules: 'auth/hasAcceptedRules'
@@ -77,12 +93,19 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
+            'acceptRules': 'auth/acceptRules',
             'openNewRulesPopUp': 'popup/openNewRulesPopUp',
         }),
+        acceptRulesAndRedirectToHomePage() {
+            this.acceptRules();
+            this.$router.push({ name: 'HomePage' });
+        },
         getImgUrl
     },
     beforeMount() {
-        this.openNewRulesPopUp();
+        if (!this.hasAcceptedRules) {
+            this.openNewRulesPopUp();
+        }
     }
 });
 
@@ -144,4 +167,17 @@ export default defineComponent ({
     margin-right:5px;
 }
 
+.flex-row {
+    input {
+        margin-right: 0;
+    }
+    
+    label {
+        margin-left: 0;
+    }
+}
+
+.action-button {
+    margin : 0 auto;
+}
 </style>

@@ -4,7 +4,6 @@ import ApiService from "@/services/api.service";
 import { User } from "@/entities/User";
 import { ActionTree } from "vuex";
 
-
 export interface AuthState {
     userInfo: User | null
     accessToken: null | string
@@ -18,7 +17,7 @@ const state =  {
     accessToken: TokenService.getToken(),
     refreshTokenPromise: null,
     loading: false,
-    hasAcceptedRules: false
+    hasAcceptedRules: TokenService.getUserInfo()?.hasAcceptedRules || false
 };
 
 const getters = {
@@ -130,10 +129,10 @@ const actions: ActionTree<any, any> = {
 
     async acceptRules({ commit }): Promise<void> {
         try {
-            // TODO await UserService.acceptRules();
+            await UserService.acceptRules();
             commit('setHasAcceptedRules', true);
-        } catch (e) {
-            console.error(e);
+        } catch (error) {
+            console.error(error);
         }
     }
 };

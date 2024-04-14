@@ -816,6 +816,8 @@
 			"title": "Information",
 			"message": "Le règlement du jeu a été mis à jour : veuillez l'accepter pour continuer à jouer.",
 			"ok": "J'ai compris !"
-		}
+		},
+		"iHaveReadRules": "Je confirme avoir pris connaissance du règlement",
+		"accept": "Accepter le règlement"
 	}
 }

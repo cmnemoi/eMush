@@ -20,4 +20,6 @@ interface UserServiceInterface
     public function findUserDaedaluses(User $user): array;
 
     public function findUserClosedPlayers(User $user): ArrayCollection;
+
+    public function acceptRules(User $user): void;
 }

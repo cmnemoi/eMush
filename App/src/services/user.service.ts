@@ -3,16 +3,14 @@ import { TokenService } from './storage.service';
 import { User } from "@/entities/User";
 import urlJoin from "url-join";
 import store from "@/store";
-import axios from "axios";
 
-// @ts-ignore
-const authorizationUrl = urlJoin(import.meta.env.VITE_APP_OAUTH_URL, "authorize");
-// @ts-ignore
-const tokenUrl = urlJoin(import.meta.env.VITE_APP_OAUTH_URL, "token");
-// @ts-ignore
-const callBackUrl = urlJoin(import.meta.env.VITE_APP_URL, "token");
-// @ts-ignore
-const userEndPoint = urlJoin(import.meta.env.VITE_APP_API_URL+'users');
+const API_URL = import.meta.env.VITE_APP_API_URL;
+const OAUTH_URL = import.meta.env.VITE_APP_OAUTH_URL;
+
+const authorizationUrl = urlJoin(OAUTH_URL, "authorize");
+const tokenUrl = urlJoin(OAUTH_URL, "token");
+const callBackUrl = urlJoin(import.meta.env.VITE_APP_URL as string, "token");
+const userEndPoint = urlJoin(API_URL, "users");
 
 class AuthenticationError extends Error {
     public errorCode: number;
@@ -126,7 +124,7 @@ const UserService = {
 
     updateUser: async function(user: any): Promise<User> {
         if (user.userId != null) {
-            const uri = urlJoin(userEndPoint, user.userId + '?XDEBUG_SESSION_START=PHPSTORM');
+            const uri = urlJoin(userEndPoint, user.userId);
 
             store.dispatch('gameConfig/setLoading', { loading: true });
             const response = await ApiService.patch(uri, { roles: user.roles } )
@@ -142,6 +140,24 @@ const UserService = {
         }
 
         return user;
+    },
+
+    acceptRules: async function(): Promise<void> {
+        const user = store.getters["auth/user"];
+        if (user === null) {
+            return;
+        }
+
+        const uri = urlJoin(userEndPoint, 'accept-rules');
+
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        await ApiService.patch(uri)
+            .catch((error) => {
+                store.dispatch('gameConfig/setLoading', { loading: false });
+                throw error;
+            });
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
     }
 };
 

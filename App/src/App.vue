@@ -9,7 +9,6 @@
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
-        <ModerationWarningBanner :user-warnings="userWarnings" />
         <LocaleChange />
     </div>
 </template>
@@ -25,7 +24,6 @@ import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
-import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
 import { defineComponent } from "vue";
 import ToastContainer from "./components/ToastContainer.vue";
 
@@ -43,7 +41,6 @@ export default defineComponent({
         };
     },
     components: {
-        ModerationWarningBanner,
         Spinner,
         Banner,
         ErrorPopup,
@@ -71,14 +68,10 @@ export default defineComponent({
     methods: {
         ...mapActions({
             loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
-            loadUserWarnings: 'moderation/loadUserWarnings'
         })
     },
     beforeMount() {
         this.loadGameMaintenanceStatus();
-        if (this.userId) {
-            this.loadUserWarnings(this.userId);
-        }
     }
 });
 </script>

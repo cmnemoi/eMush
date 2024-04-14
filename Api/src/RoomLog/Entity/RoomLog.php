@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -57,6 +58,11 @@ class RoomLog implements TimestampableCancelInterface
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $timestampableCanceled = false;
+
+    public function __construct()
+    {
+        $this->readers = new ArrayCollection();
+    }
 
     public function getId(): int
     {

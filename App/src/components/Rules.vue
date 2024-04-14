@@ -21,7 +21,7 @@
                 <li class="rule"><img class="alpha" :src="getImgUrl('pa_core.png')"> <span v-html="$t('rules.communication.spokenLanguage')"></span></li>
             </ul>
         </div>
-       
+
         <div class="paragraph">
             <h2 class="subtitle">{{ $t("rules.behaviour.title") }}</h2>
             <p class="text"> {{ $t("rules.behaviour.introText") }} </p>
@@ -32,7 +32,7 @@
                 <li class="rule"><img class="alpha" :src="getImgUrl('pa_core.png')"> <span  v-html="$t('rules.behaviour.spoilingMush')"></span></li>
             </ul>
         </div>
-       
+
         <div class="paragraph sanctionsAppeal">
             <h2 class="subtitle">{{ $t("rules.sanctionsAppeal.title") }}</h2>
             <p class="text"> {{ $t("rules.sanctionsAppeal.sanctionText") }} </p>
@@ -84,7 +84,7 @@ export default defineComponent ({
     data() {
         return {
             hasReadRules: false
-        }
+        };
     },
     computed: {
         ...mapGetters({
@@ -96,7 +96,7 @@ export default defineComponent ({
         ...mapActions({
             'acceptRules': 'auth/acceptRules',
             'openSuccessToast': 'toast/openSuccessToast',
-            'openNewRulesPopUp': 'popup/openNewRulesPopUp',
+            'openNewRulesPopUp': 'popup/openNewRulesPopUp'
         }),
         acceptRulesAndRedirectToHomePage() {
             this.acceptRules();
@@ -174,7 +174,7 @@ export default defineComponent ({
     input {
         margin-right: 0;
     }
-    
+
     label {
         margin-left: 0;
     }

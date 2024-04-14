@@ -1,4 +1,4 @@
- <template>
+<template>
     <div class="toast-container">
         <Toast />
     </div>

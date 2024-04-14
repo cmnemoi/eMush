@@ -818,6 +818,7 @@
 			"ok": "J'ai compris !"
 		},
 		"iHaveReadRules": "Je confirme avoir pris connaissance du règlement",
-		"accept": "Accepter le règlement"
+		"accept": "Accepter le règlement",
+		"thanks": "Merci d'avoir accepté le règlement de eMush !"
 	}
 }

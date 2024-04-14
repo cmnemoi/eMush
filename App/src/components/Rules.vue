@@ -94,11 +94,13 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             'acceptRules': 'auth/acceptRules',
+            'openSuccessToast': 'toast/openSuccessToast',
             'openNewRulesPopUp': 'popup/openNewRulesPopUp',
         }),
         acceptRulesAndRedirectToHomePage() {
             this.acceptRules();
             this.$router.push({ name: 'HomePage' });
+            this.openSuccessToast(this.$t('rules.thanks'));
         },
         getImgUrl
     },

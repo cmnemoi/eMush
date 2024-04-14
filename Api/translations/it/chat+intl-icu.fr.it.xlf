@@ -61,6 +61,16 @@
         <target>new.description</target>
       </segment>
     </unit>
+    <unit id="favorites">
+      <segment id="name" state="initial">
+        <source>favorites.name</source>
+        <target>favorites.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>favorites.description</source>
+        <target>favorites.description</target>
+      </segment>
+    </unit>
     <unit id="message_date">
       <segment id="message_date.less_minute" state="initial">
         <source>message_date.less_minute</source>

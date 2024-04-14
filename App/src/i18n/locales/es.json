@@ -583,7 +583,8 @@
 			"refresh": "Rafr.",
 			"reply": "Répondre",
 			"report": "Plainte",
-			"loadMoreMessages": "Charger plus de messages"
+			"loadMoreMessages": "Charger plus de messages",
+			"markChannelAsRead": "Marquer le canal comme lu"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

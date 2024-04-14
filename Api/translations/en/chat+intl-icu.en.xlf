@@ -65,6 +65,16 @@ To participate you must have a :talkie: walkie-talkie.</target>
 **Please note that private channels are a part of the game and are therefore subject to the same confidentiality constraints as eMush.**</target>
       </segment>
     </unit>
+    <unit id="favorites">
+      <segment id="name" state="translated">
+        <source>favorites.name</source>
+        <target>Favorites</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>favorites.description</source>
+        <target>Your chosen favorites topics.</target>
+      </segment>
+    </unit>
     <unit id="message_date">
       <segment id="message_date.less_minute" state="translated">
         <source>message_date.less_minute</source>

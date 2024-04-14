@@ -66,11 +66,11 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
     </unit>
     <unit id="favorites">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>favorites.name</source>
         <target>Favoris</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>favorites.description</source>
         <target>Votre sélection de sujets favoris.</target>
       </segment>
@@ -93,6 +93,5 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
         <target>~{quantity}j</target>
       </segment>
     </unit>
-    
   </file>
 </xliff>

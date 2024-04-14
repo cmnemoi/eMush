@@ -583,7 +583,8 @@
 			"refresh": "Refresh",
 			"reply": "Reply",
 			"report": "Report",
-			"loadMoreMessages": "Load more messages"
+			"loadMoreMessages": "Load more messages",
+			"markChannelAsRead": "Mark channel as read"
 		},
 		"exploration": {
 			"newStep": "New step"

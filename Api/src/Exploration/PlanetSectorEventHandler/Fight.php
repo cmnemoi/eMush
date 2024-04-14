@@ -16,6 +16,7 @@ use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -57,14 +58,14 @@ final class Fight extends AbstractPlanetSectorEventHandler
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         if ($event->getExploration()->hasAWhiteFlag() && $event->getPlanetSector()->getName() === PlanetSectorEnum::INTELLIGENT) {
-            $sectorEvents = clone $event->getPlanetSector()->getExplorationEvents();
-            $sectorEvents->remove($event->getKey());
-
-            $newEventToDispatch = (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);
-
-            $newEventConfig = $this->getPlanetSectorEventConfigByKey($newEventToDispatch);
             $event->addTag(ItemEnum::WHITE_FLAG);
-            $this->dispatchPlanetSectorEvent($newEventConfig, $event);
+
+            $newPlanetSectorEvents = $this->getPlanetSectorEventsWithoutFightOne($event);
+            $eventConfigToDispatch = $this->drawPlanetSectorEventConfigToDispatch($newPlanetSectorEvents);
+
+            $this->dispatchPlanetSectorEvent($eventConfigToDispatch, $event);
+
+            return new ExplorationLog($event->getExploration()->getClosedExploration());
         }
 
         $creatureStrength = $this->drawEventOutputQuantity($event->getOutputTable());
@@ -215,6 +216,21 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 );
             }
         }
+    }
+
+    private function getPlanetSectorEventsWithoutFightOne(PlanetSectorEvent $event): ProbaCollection
+    {
+        $sectorEvents = clone $event->getPlanetSector()->getExplorationEvents();
+        $sectorEvents->remove($event->getKey());
+
+        return $sectorEvents;
+    }
+
+    private function drawPlanetSectorEventConfigToDispatch(ProbaCollection $events): PlanetSectorEventConfig
+    {
+        $newEventKey = (string) $this->randomService->getSingleRandomElementFromProbaCollection($events);
+
+        return $this->getPlanetSectorEventConfigByKey($newEventKey);
     }
 
     private function getPlanetSectorEventConfigByKey(string $key): PlanetSectorEventConfig

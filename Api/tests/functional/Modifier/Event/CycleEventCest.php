@@ -52,7 +52,15 @@ class CycleEventCest extends AbstractFunctionalTest
         $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
+        // then player gains 2 action points
         $I->assertEquals($actionPointBefore + 2, $this->player1->getActionPoint());
+
+        // then I should not see any log for this modifier
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => $this->player1->getPlace()->getLogName(),
+            'playerInfo' => $this->player1->getPlayerInfo(),
+            'log' => 'lying_down',
+        ]);
     }
 
     public function testAntisocialStatusCycleSubscriber(FunctionalTester $I): void

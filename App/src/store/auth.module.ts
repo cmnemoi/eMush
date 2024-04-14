@@ -17,7 +17,7 @@ const state =  {
     accessToken: TokenService.getToken(),
     refreshTokenPromise: null,
     loading: false,
-    hasAcceptedRules: false,
+    hasAcceptedRules: TokenService.getUserInfo()?.hasAcceptedRules || false
 };
 
 const getters = {
@@ -55,7 +55,7 @@ const getters = {
     },
 
     hasAcceptedRules: (state: AuthState): boolean => {
-        return state.hasAcceptedRules;
+        return state.userInfo ? state.userInfo.hasAcceptedRules : false;
     }
 };
 

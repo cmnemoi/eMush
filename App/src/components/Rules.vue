@@ -50,7 +50,7 @@
             </ul>
             <p class="text"> {{ $t("rules.alphaRules.endText") }} </p>
         </div>
-        <div class="flex-row" v-if="!hasAcceptedRules">
+        <div class="flex-row" v-if="userConnected && !hasAcceptedRules">
             <input type="checkbox" v-model="hasReadRules" class="checkbox" />
             <label for="hasReadRules" class="text" @click="hasReadRules = !hasReadRules">
                 {{ $t("rules.iHaveReadRules") }}
@@ -88,6 +88,7 @@ export default defineComponent ({
     },
     computed: {
         ...mapGetters({
+            userConnected: 'auth/getUserInfo',
             hasAcceptedRules: 'auth/hasAcceptedRules'
         })
     },
@@ -105,7 +106,7 @@ export default defineComponent ({
         getImgUrl
     },
     beforeMount() {
-        if (!this.hasAcceptedRules) {
+        if (this.userConnected && !this.hasAcceptedRules) {
             this.openNewRulesPopUp();
         }
     }

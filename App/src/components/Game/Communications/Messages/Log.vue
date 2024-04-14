@@ -1,7 +1,11 @@
 <template>
-    <section :class="'log ' + roomLog.visibility">
-        <p class="text-log">
-            <span v-html="formatLog(roomLog.message)"></span>
+    <section
+        v-if="roomLog"
+        :class="[`log ${roomLog.visibility}`, { unread: roomLog.isUnread }]"
+        @mouseover="read(roomLog)"
+    >
+        <p class='text-log'>
+            <span v-html="formatText(roomLog.message)"></span>
             <span class="room" v-if="roomLog?.place"> - {{ roomLog.place }}</span>
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
@@ -12,20 +16,37 @@
 import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
 import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent ({
     name: "Log",
+    computed: {
+        ...mapGetters({
+            isReadingLog: "communication/readMessageMutex",
+            roomLogChannel: 'communication/currentChannel'
+        })
+    },
     props: {
         roomLog: RoomLog
     },
     methods: {
-        formatLog(value: string): string {
-            if (! value) return '';
-            return formatText(value.toString());
+        ...mapActions({
+            acquireReadLogMutex: "communication/acquireReadMessageMutex",
+            loadChannels: "communication/loadChannels",
+            releaseReadLogMutex: "communication/releaseReadMessageMutex",
+            readRoomLog: "communication/readRoomLog"
+        }),
+        formatText,
+        async read(roomLog: RoomLog) {
+            if (!this.isReadingLog && roomLog.isUnread) {
+                this.acquireReadLogMutex();
+                await this.readRoomLog(roomLog);
+                this.releaseReadLogMutex();
+            }
         }
     }
 });
-</script>return
+</script>
 
 <style lang="scss" scoped>
 
@@ -108,6 +129,21 @@ export default defineComponent ({
         width: 20px;
         height: 16px;
         background: url('/src/assets/images/comms/spotted.png') center no-repeat;
+    }
+
+    &.unread { // unread messages styling
+        border-left: 2px solid #ea9104;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -6px;
+            min-height: 11px;
+            width: 11px;
+            background: transparent url('/src/assets/images/comms/thinklinked.png') center no-repeat;
+        }
     }
 }
 

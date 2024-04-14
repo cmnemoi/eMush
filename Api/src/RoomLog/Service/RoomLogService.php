@@ -238,6 +238,23 @@ class RoomLogService implements RoomLogServiceInterface
         throw new \LogicException('examine action is not implemented for this type of entity');
     }
 
+    public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int
+    {
+        return $this->getRoomLog($player)->filter(
+            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
+        )->count();
+    }
+
+    public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void
+    {
+        $roomLog
+          ->addReader($player)
+          ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
+
+        $this->entityManager->persist($roomLog);
+        $this->entityManager->flush();
+    }
+
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
         /** @var ChargeStatus|null $electricCharges * */

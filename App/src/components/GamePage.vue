@@ -30,8 +30,8 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            loadUserWarnings: 'moderation/loadUserWarnings',
-        }),
+            loadUserWarnings: 'moderation/loadUserWarnings'
+        })
     },
     beforeMount(): void {
         if (this.userId) {

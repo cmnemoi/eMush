@@ -2,14 +2,17 @@
 
 namespace Mush\RoomLog\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\TimestampableCancelInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Repository\RoomLogRepository;
 
 #[ORM\Entity(repositoryClass: RoomLogRepository::class)]
-class RoomLog
+class RoomLog implements TimestampableCancelInterface
 {
     use TimestampableEntity;
 
@@ -47,6 +50,13 @@ class RoomLog
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycle;
+
+    #[ORM\ManyToMany(targetEntity: Player::class)]
+    #[ORM\JoinTable(name: 'room_log_readers')]
+    private Collection $readers;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $timestampableCanceled = false;
 
     public function getId(): int
     {
@@ -171,5 +181,29 @@ class RoomLog
         $this->cycle = $cycle;
 
         return $this;
+    }
+
+    public function addReader(Player $reader): static
+    {
+        if (!$this->readers->contains($reader)) {
+            $this->readers->add($reader);
+        }
+
+        return $this;
+    }
+
+    public function isUnreadBy(Player $player): bool
+    {
+        return !$this->readers->contains($player);
+    }
+
+    public function isTimestampableCanceled(): bool
+    {
+        return $this->timestampableCanceled;
+    }
+
+    public function cancelTimestampable(): void
+    {
+        $this->timestampableCanceled = true;
     }
 }

@@ -21,4 +21,11 @@ class RoomLogCollection extends ArrayCollection
             return (array_key_exists('character', $logParameters) && ($logParameters['character'] === $playerName)) || (array_key_exists('target_character', $logParameters) && ($logParameters['target_character'] === $playerName));
         });
     }
+
+    public function getNumberOfUnreadLogsForPlayer(Player $player): int
+    {
+        return $this->filter(static function (RoomLog $roomLog) use ($player) {
+            return $roomLog->isUnreadBy($player);
+        })->count();
+    }
 }

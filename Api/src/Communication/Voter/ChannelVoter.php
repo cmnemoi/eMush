@@ -3,10 +3,13 @@
 namespace Mush\Communication\Voter;
 
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
+use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -14,22 +17,26 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class ChannelVoter extends Voter
 {
     public const VIEW = 'view';
+    public const POST = 'post';
 
     private ChannelServiceInterface $channelService;
+    private MessageServiceInterface $messageService;
     private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
         ChannelServiceInterface $channelService,
+        MessageServiceInterface $messageService,
         PlayerInfoRepository $playerInfoRepository
     ) {
         $this->channelService = $channelService;
+        $this->messageService = $messageService;
         $this->playerInfoRepository = $playerInfoRepository;
     }
 
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if ($attribute != self::VIEW) {
+        if (!in_array($attribute, [self::VIEW, self::POST])) {
             return false;
         }
 
@@ -45,6 +52,11 @@ class ChannelVoter extends Voter
         /** @var User $user */
         $user = $token->getUser();
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
+        $player = $playerInfo?->getPlayer();
+
+        if (!$player) {
+            return false;
+        }
 
         // you know $subject is a Post object, thanks to `supports()`
         /** @var Channel $channel */
@@ -54,6 +66,8 @@ class ChannelVoter extends Voter
             case self::VIEW:
                 // @TODO : in the future, do not allow moderators to see channels of their own games
                 return $user->isModerator() || $playerInfo && $this->canView($channel, $playerInfo);
+            case self::POST:
+                return $this->canPost($channel, $player);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -69,5 +83,35 @@ class ChannelVoter extends Voter
 
         return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo)
             || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
+    }
+
+    private function canPost(Channel $channel, Player $player): bool
+    {
+        return $this->playerCanPostMessage($player, $channel)
+            || $channel->getDaedalusInfo()->getDaedalus() === $player->getDaedalus();
+    }
+
+    public function playerCanPostMessage(Player $player, Channel $channel): bool
+    {
+        // all Mush players can post in mush channel, whatever the conditions
+        if ($channel->getScope() === ChannelScopeEnum::MUSH && $player->hasStatus(PlayerStatusEnum::MUSH)) {
+            return true;
+        }
+
+        $cannotPostInPrivateChannel = !$this->messageService->canPlayerPostMessage($player, $channel)
+        || !$this->channelService->canPlayerWhisperInChannel($channel, $player);
+
+        $cannotPostInPublicChannel = !$this->messageService->canPlayerPostMessage($player, $channel)
+        || !$this->channelService->canPlayerCommunicate($player);
+
+        if (!$channel->isPublic() && $cannotPostInPrivateChannel) {
+            return false;
+        }
+
+        if ($channel->isPublic() && $cannotPostInPublicChannel) {
+            return false;
+        }
+
+        return true;
     }
 }

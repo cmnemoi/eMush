@@ -323,6 +323,33 @@ class ChannelService implements ChannelServiceInterface
         return null;
     }
 
+    public function getPlayerFavoritesChannel(Player $player): Channel
+    {
+        $channel = $this->channelRepository->findFavoritesChannelByPlayer($player);
+
+        if (!$channel) {
+            $channel = $this->createPlayerFavoritesChannel($player);
+        }
+
+        return $channel;
+    }
+
+    private function createPlayerFavoritesChannel(Player $player): Channel
+    {
+        $channel = new Channel();
+        $channel
+            ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
+            ->setScope(ChannelScopeEnum::FAVORITES)
+        ;
+
+        $this->entityManager->persist($channel);
+        $this->entityManager->flush();
+
+        $this->addPlayer($player->getPlayerInfo(), $channel);
+
+        return $channel;
+    }
+
     private function canPlayerSeePrivateChannel(Player $player, Channel $channel): bool
     {
         $playerIsAloneInTheirChannel = $channel->getParticipants()->count() === 1

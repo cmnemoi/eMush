@@ -23,7 +23,7 @@ class MessageService implements MessageServiceInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -40,6 +40,7 @@ class MessageService implements MessageServiceInterface
             ->setChannel($createMessage->getChannel())
             ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
+            ->addReader($player)
         ;
 
         $rootMessage = $createMessage->getParent();
@@ -95,18 +96,25 @@ class MessageService implements MessageServiceInterface
     public function getChannelMessages(?Player $player, Channel $channel, int $page, int $limit): Collection
     {
         if ($channel->getScope() === ChannelScopeEnum::MUSH) {
-            $messages = new ArrayCollection(
-                $this->messageRepository->findByChannel($channel, ageLimit: new \DateInterval('PT24H'))
-            );
+            $messages = $this->getByChannelWithTimeLimit($channel, new \DateInterval('PT24H'));
         } else {
-            $messages = new ArrayCollection(
-                $this->messageRepository->findByChannelWithPagination($channel, $page, $limit)
-            );
+            $messages = $this->getByChannelWithPagination($channel, $page, $limit);
+            // if a message has been put in favorite, remove it from the public channel messages for the player
+            if ($player && $channel->isPublic()) {
+                $messages = $messages->filter(static fn (Message $message) => !$message->isFavoriteFor($player));
+            }
         }
 
-        if ($player === null) {
+        if (!$player) {
             return $messages;
         }
+
+        return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
+    }
+
+    public function getPlayerFavoritesChannelMessages(Player $player, int $page, int $limit): Collection
+    {
+        $messages = new ArrayCollection($player->getFavoriteMessages()->slice(($page - 1) * $limit, $limit));
 
         return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
     }
@@ -136,6 +144,67 @@ class MessageService implements MessageServiceInterface
     public function getMessageById(int $messageId): ?Message
     {
         return $this->entityManager->getRepository(Message::class)->find($messageId);
+    }
+
+    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int
+    {
+        $messages = $channel->isFavorites() ? $player->getFavoriteMessages() : $this->getChannelMessages($player, $channel, page: 1, limit: 20);
+
+        $nbNewMessages = 0;
+        foreach ($messages as $message) {
+            if ($message->isUnreadBy($player)) {
+                ++$nbNewMessages;
+            }
+            foreach ($message->getChild() as $child) {
+                if ($child->isUnreadBy($player)) {
+                    ++$nbNewMessages;
+                }
+            }
+        }
+
+        return $nbNewMessages;
+    }
+
+    public function markMessageAsReadForPlayer(Message $message, Player $player): void
+    {
+        $message
+          ->addReader($player)
+          ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
+
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
+    }
+
+    public function putMessageInFavoritesForPlayer(Message $message, Player $player): void
+    {
+        /** @var Message $rootMessage */
+        $rootMessage = $message->isRoot() ? $message : $message->getParent();
+
+        $rootMessage->addFavorite($player);
+
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
+    }
+
+    public function removeMessageFromFavoritesForPlayer(Message $message, Player $player): void
+    {
+        /** @var Message $rootMessage */
+        $rootMessage = $message->isRoot() ? $message : $message->getParent();
+
+        $rootMessage->removeFavorite($player);
+
+        $this->entityManager->persist($message);
+        $this->entityManager->flush();
+    }
+
+    private function getByChannelWithTimeLimit(Channel $channel, \DateInterval $timeLimit): Collection
+    {
+        return new ArrayCollection($this->messageRepository->findByChannel($channel, $timeLimit));
+    }
+
+    private function getByChannelWithPagination(Channel $channel, int $page, int $limit): Collection
+    {
+        return new ArrayCollection($this->messageRepository->findByChannelWithPagination($channel, $page, $limit));
     }
 
     private function getModifiedMessage(Message $message, Player $player): Message

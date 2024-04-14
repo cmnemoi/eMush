@@ -130,7 +130,9 @@
                         </li>
                     </TransitionGroup>
                 </ul>
-                {{ $t('footer.alpha-testers') }}
+                <span class="love">
+                    {{ $t('footer.translatorsAndAlphaTesters') }}
+                </span>
             </div>
         </div>
     </footer>
@@ -331,7 +333,14 @@ footer {
     padding: 0.3% 0;
 }
 
-.contributors ul { white-space: nowrap; }
+.contributors {
+    
+    ul { white-space: nowrap; }
+
+    .love {
+        margin-top: 0.5em;
+    }
+}
 
 @media only screen and (min-width: 768px) { //desktop breakpoint
 

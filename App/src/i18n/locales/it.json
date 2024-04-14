@@ -582,7 +582,8 @@
 			"leave": "Quitter",
 			"refresh": "Rafr.",
 			"reply": "Répondre",
-			"report": "Plainte"
+			"report": "Plainte",
+			"loadMoreMessages": "Charger plus de messages"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"
@@ -695,10 +696,64 @@
 			"userId": "Identifiant de l'utilisateur",
 			"roles": "Rôles"
 		},
+		"sanction": {
+			"delete": "Supprimer",
+			"ban_user": "Bannir",
+			"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
+			"quarantineAndBan": "Mettre en quarantaine et bannir",
+			"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
+			"quarantine_player": "Mettre en quarantaine",
+			"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
+			"warning": "Avertissement",
+			"warningDescription": "Donner un avertissement à cet utilisateur.",
+			"delete_message": "Supprimer le message",
+			"deleteDescription": "Cette action supprime le message et le remplace par un message de NERON",
+			"delete_end_message": "Supprimer le message de fin",
+			"hide_end_message": "Cacher le message de fin",
+			"allTypes": "Toutes les sanctions",
+			"until": "jusqu'au"
+		},
+		"reason": {
+			"multi_account": "Multicompte",
+			"mush_play_against_team": "Anti-jeu Mush",
+			"killing_spree": "Massacre",
+			"foul_play": "Anti-jeu Humain",
+			"suicide": "Suicides",
+			"hate_speech": "Insultes",
+			"flood": "Flood",
+			"wrong_language": "Langue étrangère",
+			"exploit": "Exploitation de bugs",
+			"exploit_incentive": "Incitation à exploiter des bugs",
+			"leaking_private_information": "Diffusion d'info personnelles",
+			"allReasons": "Toutes les raisons"
+		},
+		"durations": {
+			"permanent": "Permanent",
+			"1_day": "1 jour",
+			"2_day": "2 jours",
+			"3_day": "3 jours",
+			"1_week": "1 semaine",
+			"2_week": "2 semaines",
+			"3_week": "3 semaines",
+			"1_month": "1 mois",
+			"2_month": "2 mois",
+			"3_month": "3 mois"
+		},
+		"reduce": "Réduire",
+		"showAll": "Montrer toutes les sanctions",
+		"sanctionsFor": "Liste des sanctions de {username}",
+		"isSanctionActive": "Sanctions en cours",
+		"sanctionType": "Type de sanction",
+		"sanctionReason": "Raison",
+		"adminMessage": "Message de la modération",
+		"startDate": "Date de début",
+		"endDate": "Date de fin",
+		"duration": "Durée",
+		"sanctionList": "Liste des sanctions",
+		"confirmSanction": "Confirmer",
+		"chooseReason": "Choisir une raison",
 		"alivePlayersFilter": "Status du joueur :",
 		"mushPlayersFilter": "Afficher uniquement les joueurs Mush",
-		"ban": "Bannir",
-		"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
 		"generalChannel": "Canal général",
 		"goToPlayerDetails": "Voir les détails du joueur",
 		"goToUserProfile": "Voir le profil de l'utilisateur",
@@ -711,15 +766,60 @@
 		"privateChannel": "Canal privé",
 		"unban": "Débannir",
 		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
-		"quarantineAndBan": "Mettre en quarantaine et bannir",
-		"quarantineAndBanDescription": "Mettre ce joueur en quarantaine et le bannir. Il quittera la partie et ne pourra pas en rejoindre d'autres.",
-		"quarantine": "Mettre en quarantaine",
-		"quarantineDescription": "Mettre en quarantaine ce joueur, qui quittera la partie.",
 		"reloadData": "Recharger les données",
 		"reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
 		"searchByCharacter": "Rechercher un personnage :",
 		"searchByDaedalusId": "Rechercher un Daedalus par ID :",
 		"searchByUsername": "Rechercher un utilisateur :",
-		"delete": "Supprimer"
+		"suspendSanction": "Suspendre la sanction",
+		"suspendSanctionDescription": "Suspendre la sanction. La date de fin est définie à la date courante. La sanction reste dans l'historique de l'utilisateur",
+		"removeSanction": "Supprimer la sanction",
+		"removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur",
+		"report": "Plainte",
+		"reportDescription": "Faire remonter un message problématique à la modération."
+	},
+	"rules": {
+		"title": "Règlement de eMush",
+		"introduction": {
+			"textIntro": "eMush est un jeu communautaire présentant de nombreuses façons de communiquer et de se comporter. L’objectif de ce règlement est de permettre le bon déroulement des parties et d’assurer une expérience de jeu agréable pour tous les joueurs. Les règles énoncées ne se veulent pas exhaustives et sont amenées à évoluer au fur et à mesure du développement du jeu. Les joueurs seront informés lors de toute mise à jour par une notification sur le serveur Discord d’Eternaltwin.",
+			"alphaLeeway": "Les règles signalées par cette icône indiquent qu’une tolérance durant la période d’alpha ouverte s’applique (voir dernier paragraphe).",
+			"lastUpdated": "<em>Dernière mise à jour : 13 avril 2024</em>"
+		},
+		"communication": {
+			"title": "Communication",
+			"introText": "Les règles concernant la communication s’appliquent à tous les espaces permettant au joueur de s’exprimer par messages : canal général, canaux privés, canal Mush, missions, annonces générales, messages de fin de jeu. Ces messages peuvent tous faire l’objet d’une modération a posteriori à la discrétion des administrateurs et modérateurs du jeu selon les lignes directrices qui suivent.",
+			"courtesy": "<strong>Courtoisie</strong> : La communication étant le pilier majeur du jeu, les joueurs bénéficient d’une grande tolérance quant aux propos tenus et il n’est pas l’objectif de faire ici une liste exhaustive des propos interdits. Cependant, afin de garantir une atmosphère de jeu saine et inclusive pour tous les joueurs, toute forme de propos vulgaires, d’intolérance, de haine, de discrimination, d’harcèlement, ou de violence, est strictement interdite.",
+			"spokenLanguage": "<strong>Langue parlée</strong> : Le joueur doit pouvoir communiquer facilement dans la langue du serveur."
+		},
+		"behaviour": {
+			"title": "Comportement",
+			"introText": "Cette section n’a pas vocation à constituer une liste exhaustive des comportements tolérés ou interdits, mais donne une idée des comportements contraires à l’esprit du jeu.",
+			"multiAccounts": "<strong>Multicompte</strong> : Il est interdit de posséder plus d’un compte par personne sur le jeu eMush. Le prêt, don ou partage de compte est également interdit.",
+			"spoilingHuman": "<strong>Anti-jeu Humain</strong> : En tant qu’humain, il est interdit de nuire gravement à l’expérience de jeu des autres joueurs en effectuant volontairement et en pleine conscience des actions menaçant l’atteinte de l’objectif du camp humain.",
+			"spoilingMush": "<strong>Anti-jeu Mush</strong> : En tant que Mush, il est interdit de nuire volontairement à son camp. Cela inclut, sans s’y limiter, de dévoiler son appartenance au camp Mush ou de divulguer l’identité des autres Mushs. Une tolérance s’applique dans le cas d’un Mush redevenu humain grâce à l’utilisation du sérum mais il convient de faire preuve de bon sens.",
+			"suicide": "<strong>Suicide</strong> : Il est interdit de quitter volontairement une partie, que ce soit activement ou passivement, en exploitant les mécanismes du jeu."
+		},
+		"sanctionsAppeal": {
+			"title": "Sanctions et appel",
+			"sanctionText": "Tous les manquements au présent règlement concernant la communication ou le comportement peuvent faire l’objet d’une sanction allant d’un avertissement à un bannissement du jeu avec effet immédiat, pendant une durée temporaire ou non.",
+			"appealText": "Les joueurs sont notifiés de leur sanction via un message sur la page principale du jeu. Dès lors, ils ont la possibilité de faire appel de leur sanction en ouvrant un billet sur le <a href='https://discord.gg/ERc3svy'>serveur Discord Eternaltwin</a> et en expliquant leur cas. Les modérateurs disposent d’outils particuliers et d’un accès à tous les messages et détails des parties.",
+			"allPlatformText": "En cas de récidive ou de comportement jugé suffisamment grave, les sanctions peuvent s’appliquer à l’ensemble des jeux et fonctionnalités du réseau Eternaltwin."
+		},
+		"alphaRules": {
+			"title": "Règles spécifiques à l’alpha ouverte",
+			"introText": "Dans le but de contribuer activement au développement et au test du jeu, des tolérances s’appliquent aux règles signalées par cette icône dans les points précédents. Ces tolérances sont valables jusqu’à la sortie du jeu dans une nouvelle phase, et les joueurs seront notifiés de tout changement.",
+			"tests": "<strong>Bon déroulement des tests</strong> : Le but de cette période d’alpha est d’impliquer la communauté dans le développement du jeu, d’obtenir des retours d’expérience ainsi que des rapports de bugs. A cet effet, tout bug doit être reporté immédiatement à l’équipe de développement sans être exploité, et il reste interdit d’avoir des comportements nuisant gravement à l’expérience de jeu des autres joueurs. Pour connaître les fonctionnalités disponibles, consultez la <a href='https://discord.com/channels/693082011484684348/693144970433003540/1079173112848994304'>feuille de route</a>.",
+			"spokenLanguage": "<strong>Tolérance sur la langue parlée</strong> : Durant les phases de développement, la fréquentation des différents serveurs peut être inégale. Dans ce contexte, il est toléré que les joueurs n’ayant pas une bonne maîtrise du français rejoignent les parties du serveur français. Il est alors recommandé de le signaler et de faire des efforts particuliers pour communiquer avec les équipiers.",
+			"cooperation": "<strong>Tolérance sur la coopération entre les humains et les mushs</strong> : À des fins de tests des fonctionnalités, il n’est pas attendu que la partie “enquête” du jeu Mush soit respectée. En particulier, il est toléré pour les mushs et les humains de collaborer pour tester les mécaniques du jeu.",
+			"endText": "Notez que toutes les règles non marquées par une icône restent pleinement applicables durant la période de l’alpha."
+		},
+		"newRulesPopUp": {
+			"title": "Information",
+			"message": "Le règlement du jeu a été mis à jour : veuillez l'accepter pour continuer à jouer.",
+			"ok": "J'ai compris !"
+		},
+		"iHaveReadRules": "Je confirme avoir pris connaissance du règlement",
+		"accept": "Accepter le règlement",
+		"thanks": "Merci d'avoir accepté le règlement de eMush !"
 	}
 }

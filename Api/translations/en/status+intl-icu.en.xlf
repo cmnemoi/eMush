@@ -1499,6 +1499,16 @@
         <target>starving.examine</target>
       </segment>
     </unit>
+    <unit id="starving_warning">
+      <segment id="name" state="translated">
+        <source>starving_warning.name</source>
+        <target>Starving</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>starving_warning.description</source>
+        <target>The crew is seriously **hungry**. You must find something to eat.</target>
+      </segment>
+    </unit>
     <unit id="stuck_in_the_ship">
       <segment id="name" state="translated">
         <source>stuck_in_the_ship.name</source>

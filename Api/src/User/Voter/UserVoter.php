@@ -12,7 +12,7 @@ class UserVoter extends Voter
     public const string EDIT_USER_ROLE = 'EDIT_USER_ROLE';
     public const string HAS_ACCEPTED_RULES = 'HAS_ACCEPTED_RULES';
     public const string NOT_IN_GAME = 'NOT_IN_GAME';
-    public const string IS_BANNED = 'IS_BANNED';
+    public const string IS_NOT_BANNED = 'IS_NOT_BANNED';
     public const string IS_CONNECTED = 'IS_CONNECTED';
     public const string USER_IN_GAME = 'user_in_game';
 
@@ -30,7 +30,7 @@ class UserVoter extends Voter
             self::USER_IN_GAME,
             self::EDIT_USER_ROLE,
             self::HAS_ACCEPTED_RULES,
-            self::IS_BANNED,
+            self::IS_NOT_BANNED,
             self::NOT_IN_GAME,
             self::IS_CONNECTED,
         ])) {
@@ -58,8 +58,8 @@ class UserVoter extends Voter
                 return !$user->isInGame();
             case self::HAS_ACCEPTED_RULES:
                 return $user->hasAcceptedRules();
-            case self::IS_BANNED:
-                return $user->isBanned();
+            case self::IS_NOT_BANNED:
+                return !$user->isBanned();
             case self::IS_CONNECTED:
                 return $user instanceof User;
         }

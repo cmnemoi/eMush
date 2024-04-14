@@ -93,7 +93,7 @@ class DaedalusController extends AbstractGameController
 
         $this->denyAccessUnlessGranted(UserVoter::NOT_IN_GAME, message: 'You are already in game!');
         $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You must accept the rules to play!');
-        $this->denyAccessUnlessGranted(UserVoter::IS_BANNED, message: 'You have been banned!');
+        $this->denyAccessUnlessGranted(UserVoter::IS_NOT_BANNED, message: 'You have been banned!');
 
         $language = $request->get('language', '');
         $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $user);

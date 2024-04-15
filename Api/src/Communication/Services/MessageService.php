@@ -179,7 +179,10 @@ class MessageService implements MessageServiceInterface
         /** @var Message $rootMessage */
         $rootMessage = $message->isRoot() ? $message : $message->getParent();
 
-        $rootMessage->addFavorite($player);
+        $rootMessage
+            ->addFavorite($player)
+            ->cancelTimestampable()
+        ;
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();
@@ -190,7 +193,10 @@ class MessageService implements MessageServiceInterface
         /** @var Message $rootMessage */
         $rootMessage = $message->isRoot() ? $message : $message->getParent();
 
-        $rootMessage->removeFavorite($player);
+        $rootMessage
+            ->removeFavorite($player)
+            ->cancelTimestampable()
+        ;
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();

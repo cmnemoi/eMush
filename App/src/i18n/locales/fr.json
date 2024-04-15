@@ -578,13 +578,17 @@
 			"newCycle": "Nouveau cycle",
 			"myMessageHere": "Mon message ici !",
 			"bookmark": "Favori",
+			"bookmarkDescription": "Mettre ce fil de discussion en favori.",
 			"invite": "Inviter",
+			"inviteDescription": "Inviter des joueurs dans ce canal.",
 			"leave": "Quitter",
+			"leaveDescription": "Quitter le canal.",
 			"refresh": "Rafr.",
+			"refreshDescription": "Rafraîchir le canal.",
 			"reply": "Répondre",
+			"replyDescription": "Répondre à ce message.",
 			"report": "Plainte",
-			"loadMoreMessages": "Charger plus de messages",
-			"markChannelAsRead": "Marquer le canal comme lu"
+			"loadMoreMessages": "Charger plus de messages"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

@@ -688,16 +688,14 @@ class ChannelController extends AbstractGameController
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
-        if ($player->getFavoriteMessages()->isEmpty()) {
+        if ($player->getFavoriteMessages()->isEmpty() || !$this->channelService->canPlayerCommunicate($player)) {
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
 
         $favoritesChannel = $this->channelService->getPlayerFavoritesChannel($player);
 
         $context = new Context();
-        $context
-            ->setAttribute('currentPlayer', $player)
-        ;
+        $context->setAttribute('currentPlayer', $player);
 
         $view = $this->view($favoritesChannel, Response::HTTP_OK);
         $view->setContext($context);

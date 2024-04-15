@@ -125,7 +125,7 @@ export default defineComponent ({
             } else {
                 await this.markChannelAsRead(this.currentChannel);
             }
-        },
+        }
     }
 });
 </script>

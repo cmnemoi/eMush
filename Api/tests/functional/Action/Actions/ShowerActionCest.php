@@ -16,7 +16,6 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -129,15 +128,14 @@ class ShowerActionCest extends AbstractFunctionalTest
             $this->player1->getActionPoint()
         );
 
-        $I->seeInRepository(RoomLog::class, [
+        $logs = $I->grabEntitiesFromRepository(RoomLog::class, [
             'place' => $room->getName(),
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player1->getPlayerInfo()->getId(),
-            'log' => LogEnum::SHOWER_MUSH,
+            'log' => ActionLogEnum::SHOWER_MUSH,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
-
-        // @TODO test skill water resistance
+        $I->assertCount(1, $logs);
     }
 
     public function testShowerWithSoap(FunctionalTester $I): void

@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
 use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\MessageEvent;
 use Mush\Communication\Repository\MessageRepository;
 use Mush\Game\Service\EventServiceInterface;
@@ -95,7 +94,7 @@ class MessageService implements MessageServiceInterface
 
     public function getChannelMessages(?Player $player, Channel $channel, int $page, int $limit): Collection
     {
-        if ($channel->getScope() === ChannelScopeEnum::MUSH) {
+        if ($channel->isMushChannel()) {
             $messages = $this->getByChannelWithTimeLimit($channel, new \DateInterval('PT24H'));
         } else {
             $messages = $this->getByChannelWithPagination($channel, $page, $limit);

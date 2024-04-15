@@ -3,21 +3,19 @@
 namespace Mush\Communication\Voter;
 
 use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Communication\Services\MessageServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
 {
-    public const VIEW = 'view';
-    public const POST = 'post';
+    public const string VIEW = 'view';
+    public const string POST = 'post';
 
     private ChannelServiceInterface $channelService;
     private MessageServiceInterface $messageService;
@@ -88,13 +86,13 @@ class ChannelVoter extends Voter
     private function canPost(Channel $channel, Player $player): bool
     {
         return $this->playerCanPostMessage($player, $channel)
-            || $channel->getDaedalusInfo()->getDaedalus() === $player->getDaedalus();
+            && $channel->getDaedalusInfo()->getDaedalus() === $player->getDaedalus();
     }
 
     public function playerCanPostMessage(Player $player, Channel $channel): bool
     {
         // all Mush players can post in mush channel, whatever the conditions
-        if ($channel->getScope() === ChannelScopeEnum::MUSH && $player->hasStatus(PlayerStatusEnum::MUSH)) {
+        if ($channel->isMushChannel() && $player->isMush()) {
             return true;
         }
 
@@ -104,11 +102,11 @@ class ChannelVoter extends Voter
         $cannotPostInPublicChannel = !$this->messageService->canPlayerPostMessage($player, $channel)
         || !$this->channelService->canPlayerCommunicate($player);
 
-        if (!$channel->isPublic() && $cannotPostInPrivateChannel) {
+        if ($channel->isPrivate() && $cannotPostInPrivateChannel) {
             return false;
         }
 
-        if ($channel->isPublic() && $cannotPostInPublicChannel) {
+        if ($channel->isPublicOrFavorites() && $cannotPostInPublicChannel) {
             return false;
         }
 

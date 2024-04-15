@@ -83,6 +83,31 @@ class Channel
         return $scope === $this->getScope();
     }
 
+    public function isPublicOrFavorites(): bool
+    {
+        return $this->isPublic() || $this->isFavorites();
+    }
+
+    public function isMushChannel(): bool
+    {
+        return ChannelScopeEnum::MUSH === $this->getScope();
+    }
+
+    public function isPrivate(): bool
+    {
+        return ChannelScopeEnum::PRIVATE === $this->getScope();
+    }
+
+    public function isPrivateOrMush(): bool
+    {
+        return $this->isPrivate() || $this->isMushChannel();
+    }
+
+    public function isPublicOrMush(): bool
+    {
+        return $this->isPublic() || $this->isMushChannel();
+    }
+
     public function getParticipants(): Collection
     {
         return $this->participants;

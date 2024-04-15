@@ -215,7 +215,7 @@ class ChannelService implements ChannelServiceInterface
     public function canPlayerWhisperInChannel(Channel $channel, Player $player): bool
     {
         // all Mush players can post in mush channel, whatever the conditions
-        if ($channel->getScope() === ChannelScopeEnum::MUSH && $player->hasStatus(PlayerStatusEnum::MUSH)) {
+        if ($channel->isMushChannel() && $player->isMush()) {
             return true;
         }
 
@@ -278,9 +278,7 @@ class ChannelService implements ChannelServiceInterface
         $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
 
         if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
-            return $channels->filter(fn (Channel $channel) => $channel->isScope(ChannelScopeEnum::PRIVATE)
-                || $channel->isScope(ChannelScopeEnum::MUSH)
-            );
+            return $channels->filter(fn (Channel $channel) => $channel->isPrivateOrMush());
         }
 
         return $channels;
@@ -326,7 +324,6 @@ class ChannelService implements ChannelServiceInterface
     public function getPlayerFavoritesChannel(Player $player): Channel
     {
         $channel = $this->channelRepository->findFavoritesChannelByPlayer($player);
-
         if (!$channel) {
             $channel = $this->createPlayerFavoritesChannel($player);
         }
@@ -379,7 +376,7 @@ class ChannelService implements ChannelServiceInterface
 
     private function isChannelWhisperOnly(Channel $channel): bool
     {
-        if ($channel->isPublic() || $channel->isScope(ChannelScopeEnum::MUSH)) {
+        if (!$channel->isPrivate()) {
             return false;
         }
 

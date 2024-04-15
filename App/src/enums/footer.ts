@@ -13,7 +13,7 @@ export const team: (Contributor)[] = [
     { name: 'zasfree', role: 'admin', active: true, coreTeam: true },
     { name: 'Simpkin', role: 'admin', active: true, coreTeam: true },
     { name: 'rackhaml', role: 'helper', active: false, coreTeam: false },
-    { name: 'Romain', role: 'developer', active: false, coreTeam: false },
+    { name: 'RSickenberg', role: 'developer', active: true, coreTeam: false },
     { name: 'Demurgos', role: 'developer', active: false, coreTeam: false },
     { name: 'Biosha', role: 'developer', active: false, coreTeam: false },
     { name: 'Tishwa', role: 'developer', active: false, coreTeam: false },

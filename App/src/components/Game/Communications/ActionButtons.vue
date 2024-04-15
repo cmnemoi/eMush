@@ -23,6 +23,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 
 const availableActions: {[index: string]: any} = {
     favorite: { icon: getImgUrl('comms/fav.png'), wording: 'game.communications.bookmark', description: 'game.communications.bookmarkDescription' },
+    unfavorite: { icon: getImgUrl('comms/fav.png'), wording: 'game.communications.unbookmark', description: 'game.communications.unbookmarkDescription' },
     invite: { icon: getImgUrl('comms/invite.png'), wording: 'game.communications.invite', description: 'game.communications.inviteDescription' },
     leave: { icon: getImgUrl('comms/close.png'), wording: 'game.communications.leave', description: 'game.communications.leaveDescription' },
     refresh: { icon: getImgUrl('comms/refresh.gif'), wording: 'game.communications.refresh', description: 'game.communications.refreshDescription' },

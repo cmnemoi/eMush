@@ -19,13 +19,15 @@
         </p>
         <div class="actions">
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable"
-                :actions="['reply', 'favorite']"
-                @favorite="toggleFavorite(message)"
+                v-if="isPlayerAlive && isReplyable && !channel.isFavorite()"
+                :actions="['reply', 'favorite', 'report']"
+                @favorite="favorite(message)"
+                @report="openReportPopup()"
             />
             <ActionButtons
-                v-if="isPlayerAlive || adminMode"
-                :actions="['report']"
+                v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
+                :actions="['reply', 'unfavorite', 'report']"
+                @unfavorite="unfavorite(message)"
                 @report="openReportPopup()"
             />
             <ActionButtons
@@ -59,13 +61,15 @@
         </p>
         <div class="actions">
             <ActionButtons
-                v-if="isPlayerAlive && isReplyable"
-                :actions="['reply', 'favorite']"
-                @favorite="toggleFavorite(message)"
+                v-if="isPlayerAlive && isReplyable && !channel.isFavorite()"
+                :actions="['reply', 'favorite', 'report']"
+                @favorite="favorite(message)"
+                @report="openReportPopup()"
             />
             <ActionButtons
-                v-if="isPlayerAlive"
-                :actions="['report']"
+                v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
+                :actions="['reply', 'unfavorite', 'report']"
+                @unfavorite="unfavorite(message)"
                 @report="openReportPopup()"
             />
             <ActionButtons
@@ -184,17 +188,16 @@ export default defineComponent ({
         },
         async read(message: Message) {
             if (message.isUnread && !this.readMessageMutex) {
-                this.acquireReadMessageMutex();
+                await this.acquireReadMessageMutex();
                 await this.readMessage(message);
-                this.releaseReadMessageMutex();
+                await this.releaseReadMessageMutex();
             }
         },
-        async toggleFavorite(message: Message) {
-            if (this.channel.scope === ChannelType.FAVORITES) {
-                await this.unfavoriteMessage(message);
-            } else {
-                await this.favoriteMessage(message);
-            }
+        async favorite(message: Message) {
+            await this.favoriteMessage(message);
+        },
+        async unfavorite(message: Message) {
+            await this.unfavoriteMessage(message);
         }
     }
 });

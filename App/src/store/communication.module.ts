@@ -88,12 +88,16 @@ const actions: ActionTree<any, any> = {
 
             commit('setChannels', sortedChannels);
 
-            // if the channel is no longer available, reset currentChannel
+            // if public channel is no longer available, reset currentChannel to room log
             if (
                 state.currentChannel.scope === undefined
                 || sortedChannels.filter((channel: Channel) => channel.id === state.currentChannel.id).length === 0
             ) {
-                commit('setCurrentChannel', getters.publicChannel);
+                if (getters.publicChannel) {
+                    commit('setCurrentChannel', getters.publicChannel);
+                } else {
+                    commit('setCurrentChannel', getters.roomChannel);
+                }
             }
 
             await dispatch('loadMessages', { channel: state.currentChannel });

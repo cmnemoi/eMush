@@ -46,6 +46,14 @@ final class ChannelVoterTest extends TestCase
         $this->channelVoter = new ChannelVoter($this->channelService, $this->messageService, $this->playerInfoRepository);
     }
 
+    /**
+     * @after
+     */
+    public function after(): void
+    {
+        \Mockery::close();
+    }
+
     public function testCanViewFavoritesChannel(): void
     {
         // given an in-game player
@@ -54,9 +62,6 @@ final class ChannelVoterTest extends TestCase
 
         // given a favorites channel
         $channel = $this->setUpChannel($player->getDaedalus(), ChannelScopeEnum::FAVORITES);
-
-        // given the player can communicate
-        $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         // then the player can view the channel
         $this->testVote(ChannelVoter::VIEW, $channel, $user, ChannelVoter::ACCESS_GRANTED);
@@ -75,7 +80,7 @@ final class ChannelVoterTest extends TestCase
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(true)->once();
 
         // given the player has no disease preventing them from posting
-        $this->messageService->shouldReceive('canPlayerPostMessage')->with($player, $channel)->andReturn(true)->once();
+        $this->messageService->shouldReceive('canPlayerPostMessage')->with($player, $channel)->andReturn(true)->twice();
 
         // then the player can post in the channel
         $this->testVote(ChannelVoter::POST, $channel, $user, ChannelVoter::ACCESS_GRANTED);
@@ -94,7 +99,7 @@ final class ChannelVoterTest extends TestCase
         $this->channelService->shouldReceive('canPlayerCommunicate')->with($player)->andReturn(false)->once();
 
         // given the player has no disease preventing them from posting
-        $this->messageService->shouldReceive('canPlayerPostMessage')->with($player, $channel)->andReturn(true)->once();
+        $this->messageService->shouldReceive('canPlayerPostMessage')->with($player, $channel)->andReturn(true)->twice();
 
         // then the player cannot post in the channel
         $this->testVote(ChannelVoter::POST, $channel, $user, ChannelVoter::ACCESS_DENIED);

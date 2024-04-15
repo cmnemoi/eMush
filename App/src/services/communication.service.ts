@@ -28,8 +28,8 @@ const CommunicationService = {
         if (channelsData.data) {
             // If there is only one channel available, the API returns an object instead of an array.
             // We need to handle this case to avoid not being able to load the channels.
-            const dataArray = Array.isArray(channelsData.data) ? channelsData.data : Object.values(channelsData.data);
-            dataArray.forEach((data: any) => {
+            const channelsDataArray = Array.isArray(channelsData.data) ? channelsData.data : Object.values(channelsData.data);
+            channelsDataArray.forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -41,7 +41,8 @@ const CommunicationService = {
 
         const piratedChannelsData = await ApiService.get(PIRATED_CHANNELS_ENDPOINT);
         if (piratedChannelsData.data) {
-            Object.values(piratedChannelsData.data).forEach((data: any) => {
+            const piratedChannelsDataArray = Array.isArray(piratedChannelsData.data) ? piratedChannelsData.data : Object.values(piratedChannelsData.data);
+            piratedChannelsDataArray.forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -192,7 +193,8 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            messagesData.data.forEach((data: any) => {
+            const messagesDataArray = Array.isArray(messagesData.data) ? messagesData.data : Object.values(messagesData.data);
+            messagesDataArray.forEach((data: any) => {
                 messages.push((new Message()).load(data));
             });
         }

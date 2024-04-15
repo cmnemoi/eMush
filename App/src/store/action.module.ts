@@ -70,13 +70,6 @@ export const action = {
     mutations
 };
 
-interface ActionReponse {
-    axiosResponse: AxiosResponse<any, any>;
-    action: Action;
-    commit: Commit;
-    dispatch: Dispatch;
-}
-
 async function handleActionExecution(actionExecution: ActionExecution): Promise<void> {
     const { commit, dispatch, target, action, params } = actionExecution;
 
@@ -90,7 +83,9 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
 
     const response = await ActionService.executeTargetAction(target, action, params);
 
-    handleActionResponse({ axiosResponse: response, action , commit, dispatch });
+    if (action.isShootHunterAction()) {
+        await handleShootHunterAction(response, commit);
+    }
 
     await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
     await dispatch("communication/loadRoomLogs", null, { root: true });
@@ -99,19 +94,11 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
     } else {
         await dispatch("communication/loadAlivePlayerChannels", null, { root: true });
     }
+    await dispatch("player/reloadPlayer", null, { root: true });
 }
 
-async function handleActionResponse(actionReponse: ActionReponse): Promise<void> {
-    const { axiosResponse, action, commit, dispatch } = actionReponse;
-
+async function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit: Commit): Promise<void> {
     const actionIsSuccessful = axiosResponse.data.actionResult === "success";
-    const actionIsShootHunter = Object.values(ShootHunterActionsEnum).includes(action?.key as ShootHunterActionsEnum);
-
-    // if the action is not a shoot hunter action we want reload player data right away
-    // else, we will do that later to allow hunter hit/death animations to be played
-    if (!actionIsShootHunter || !actionIsSuccessful) {
-        await dispatch("player/reloadPlayer", null, { root: true });
-    }
     const hunterIsDead = !axiosResponse.data.actionDetails.hunterIsAlive;
     const targetedHunterId = axiosResponse.data.actionDetails.targetedHunterId;
 

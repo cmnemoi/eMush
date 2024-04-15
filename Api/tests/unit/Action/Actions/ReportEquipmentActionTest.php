@@ -11,8 +11,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ReportEquipmentActionTest extends AbstractActionTest
 {

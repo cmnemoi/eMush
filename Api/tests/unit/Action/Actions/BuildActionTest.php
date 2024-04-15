@@ -18,8 +18,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class BuildActionTest extends AbstractActionTest
 {

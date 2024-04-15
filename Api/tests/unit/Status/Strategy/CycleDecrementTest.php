@@ -15,8 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class CycleDecrementTest extends TestCase
 {

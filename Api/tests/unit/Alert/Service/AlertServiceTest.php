@@ -30,8 +30,6 @@ use Psr\Log\LoggerInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class AlertServiceTest extends TestCase
 {

@@ -9,8 +9,6 @@ use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ActionHolderNormalizerTraitTest extends TestCase
 {

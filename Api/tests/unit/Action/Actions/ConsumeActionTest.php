@@ -17,8 +17,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ConsumeActionTest extends AbstractActionTest
 {

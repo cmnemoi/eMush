@@ -17,8 +17,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class LieDownActionTest extends AbstractActionTest
 {

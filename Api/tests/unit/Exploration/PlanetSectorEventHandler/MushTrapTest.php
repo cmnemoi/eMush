@@ -34,8 +34,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class MushTrapTest extends TestCase
 {

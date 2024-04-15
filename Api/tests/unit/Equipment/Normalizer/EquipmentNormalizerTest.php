@@ -31,8 +31,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class EquipmentNormalizerTest extends TestCase
 {

@@ -41,8 +41,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class FightTest extends TestCase
 {

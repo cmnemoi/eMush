@@ -9,8 +9,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class HunterCycleSubscriberCest extends AbstractFunctionalTest
 {

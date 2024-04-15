@@ -16,8 +16,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ChargeModifierCest extends AbstractFunctionalTest
 {

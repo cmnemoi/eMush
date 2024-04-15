@@ -48,8 +48,6 @@ use Mush\User\Entity\User;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ActionSubscriberCest extends AbstractFunctionalTest
 {

@@ -21,8 +21,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ActionServiceTest extends TestCase
 {

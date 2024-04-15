@@ -25,8 +25,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class DiseaseNormalizerTest extends TestCase
 {

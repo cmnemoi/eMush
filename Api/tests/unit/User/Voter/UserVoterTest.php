@@ -13,8 +13,6 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class UserVoterTest extends TestCase
 {

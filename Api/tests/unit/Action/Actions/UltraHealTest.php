@@ -16,8 +16,6 @@ use Mush\Player\Service\PlayerVariableServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class UltraHealTest extends AbstractActionTest
 {

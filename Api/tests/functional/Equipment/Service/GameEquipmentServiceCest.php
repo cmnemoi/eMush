@@ -17,8 +17,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class GameEquipmentServiceCest extends AbstractFunctionalTest
 {

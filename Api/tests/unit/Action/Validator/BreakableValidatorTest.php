@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class BreakableValidatorTest extends TestCase
 {

@@ -16,8 +16,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ReadBookActionTest extends AbstractActionTest
 {

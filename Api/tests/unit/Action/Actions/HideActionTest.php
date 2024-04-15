@@ -21,8 +21,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class HideActionTest extends AbstractActionTest
 {

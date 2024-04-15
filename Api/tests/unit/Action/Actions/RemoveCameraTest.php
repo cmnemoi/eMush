@@ -19,8 +19,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RemoveCameraTest extends AbstractActionTest
 {

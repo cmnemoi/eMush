@@ -30,8 +30,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RenovateActionCest extends AbstractFunctionalTest
 {

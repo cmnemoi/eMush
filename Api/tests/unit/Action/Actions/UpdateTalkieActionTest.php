@@ -16,8 +16,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class UpdateTalkieActionTest extends AbstractActionTest
 {

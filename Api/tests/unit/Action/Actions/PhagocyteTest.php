@@ -15,8 +15,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PhagocyteTest extends AbstractActionTest
 {

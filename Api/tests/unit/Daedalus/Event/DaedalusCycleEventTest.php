@@ -28,8 +28,6 @@ use Symfony\Component\Lock\LockInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class DaedalusCycleEventTest extends TestCase
 {

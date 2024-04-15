@@ -26,8 +26,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class SelfSurgeryActionTest extends AbstractActionTest
 {

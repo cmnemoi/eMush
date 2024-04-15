@@ -36,8 +36,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ChannelServiceTest extends TestCase
 {

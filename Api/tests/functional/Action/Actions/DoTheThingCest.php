@@ -50,8 +50,6 @@ use Mush\User\Entity\User;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class DoTheThingCest extends AbstractFunctionalTest
 {

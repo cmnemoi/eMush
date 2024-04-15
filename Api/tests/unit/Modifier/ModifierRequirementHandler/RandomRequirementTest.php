@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RandomRequirementTest extends TestCase
 {

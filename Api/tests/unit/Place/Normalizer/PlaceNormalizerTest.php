@@ -22,8 +22,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PlaceNormalizerTest extends TestCase
 {

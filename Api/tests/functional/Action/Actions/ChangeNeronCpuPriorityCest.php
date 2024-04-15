@@ -26,8 +26,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 {

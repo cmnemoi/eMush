@@ -19,8 +19,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class LandActionTest extends AbstractActionTest
 {

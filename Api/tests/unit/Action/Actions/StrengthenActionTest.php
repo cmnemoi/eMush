@@ -18,8 +18,6 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class StrengthenActionTest extends AbstractActionTest
 {

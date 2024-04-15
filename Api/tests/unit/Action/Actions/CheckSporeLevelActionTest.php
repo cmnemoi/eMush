@@ -14,8 +14,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class CheckSporeLevelActionTest extends AbstractActionTest
 {

@@ -13,8 +13,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class SelfHealTest extends AbstractActionTest
 {

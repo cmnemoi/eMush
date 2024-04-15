@@ -31,8 +31,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ShootHunterActionCest extends AbstractFunctionalTest
 {

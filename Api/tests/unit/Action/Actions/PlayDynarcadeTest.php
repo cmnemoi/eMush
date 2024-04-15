@@ -21,8 +21,6 @@ use Mush\Player\Event\PlayerVariableEvent;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PlayDynarcadeTest extends AbstractActionTest
 {

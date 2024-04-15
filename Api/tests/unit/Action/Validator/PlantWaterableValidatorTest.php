@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PlantWaterableValidatorTest extends TestCase
 {

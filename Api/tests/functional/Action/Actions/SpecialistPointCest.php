@@ -24,8 +24,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class SpecialistPointCest extends AbstractFunctionalTest
 {

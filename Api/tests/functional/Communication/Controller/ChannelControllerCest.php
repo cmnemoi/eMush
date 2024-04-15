@@ -14,8 +14,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ChannelControllerCest extends AbstractFunctionalTest
 {

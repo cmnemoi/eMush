@@ -20,8 +20,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ParameterHasActionValidatorTest extends TestCase
 {

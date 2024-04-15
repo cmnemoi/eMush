@@ -41,8 +41,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class StatusServiceCest extends AbstractFunctionalTest
 {

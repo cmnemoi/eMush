@@ -37,8 +37,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class FireTest extends TestCase
 {

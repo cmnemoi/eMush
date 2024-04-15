@@ -21,8 +21,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class MessageVoterTest extends TestCase
 {

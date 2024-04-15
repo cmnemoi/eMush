@@ -12,8 +12,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class FlirtedAlreadyValidatorTest extends TestCase
 {

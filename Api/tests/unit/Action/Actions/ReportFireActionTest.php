@@ -10,8 +10,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ReportFireActionTest extends AbstractActionTest
 {

@@ -35,8 +35,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RoomLogServiceTest extends TestCase
 {

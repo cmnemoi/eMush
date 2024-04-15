@@ -18,8 +18,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PlayerNormalizerCest extends AbstractFunctionalTest
 {

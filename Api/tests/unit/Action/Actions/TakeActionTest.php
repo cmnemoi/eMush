@@ -13,8 +13,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class TakeActionTest extends AbstractActionTest
 {

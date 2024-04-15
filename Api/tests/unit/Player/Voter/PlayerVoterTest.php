@@ -15,8 +15,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PlayerVoterTest extends TestCase
 {

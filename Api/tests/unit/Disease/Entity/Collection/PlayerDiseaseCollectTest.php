@@ -11,8 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PlayerDiseaseCollectTest extends TestCase
 {

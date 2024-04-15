@@ -33,8 +33,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class EventServiceTest extends TestCase
 {

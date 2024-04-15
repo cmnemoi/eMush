@@ -20,8 +20,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class DispenseActionTest extends AbstractActionTest
 {

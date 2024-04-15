@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PerishableValidatorTest extends TestCase
 {

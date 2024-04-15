@@ -24,8 +24,6 @@ use Mush\User\Entity\User;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class SurgeryActionTest extends AbstractActionTest
 {

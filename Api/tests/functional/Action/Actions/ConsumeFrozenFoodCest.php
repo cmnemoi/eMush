@@ -21,8 +21,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 {

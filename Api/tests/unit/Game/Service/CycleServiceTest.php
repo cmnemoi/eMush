@@ -19,8 +19,6 @@ use Symfony\Component\Lock\LockInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class CycleServiceTest extends TestCase
 {

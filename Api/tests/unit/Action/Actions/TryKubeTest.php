@@ -15,8 +15,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class TryKubeTest extends AbstractActionTest
 {

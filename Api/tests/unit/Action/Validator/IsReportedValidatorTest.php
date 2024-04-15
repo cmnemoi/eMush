@@ -27,8 +27,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class IsReportedValidatorTest extends TestCase
 {

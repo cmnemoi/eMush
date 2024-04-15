@@ -17,8 +17,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class InsertFuelTest extends AbstractActionTest
 {

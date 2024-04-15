@@ -37,8 +37,6 @@ use Psr\Log\LoggerInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class DaedalusIncidentServiceTest extends TestCase
 {

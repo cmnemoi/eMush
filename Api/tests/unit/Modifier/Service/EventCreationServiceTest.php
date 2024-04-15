@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class EventCreationServiceTest extends TestCase
 {

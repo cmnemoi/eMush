@@ -15,8 +15,6 @@ use Mush\User\Entity\User;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class FlirtActionTest extends AbstractActionTest
 {

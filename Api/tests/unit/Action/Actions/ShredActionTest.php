@@ -14,8 +14,6 @@ use Mush\Place\Entity\Place;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ShredActionTest extends AbstractActionTest
 {

@@ -12,8 +12,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class SpreadFireActionTest extends AbstractActionTest
 {

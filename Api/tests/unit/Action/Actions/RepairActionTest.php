@@ -18,8 +18,6 @@ use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RepairActionTest extends AbstractActionTest
 {

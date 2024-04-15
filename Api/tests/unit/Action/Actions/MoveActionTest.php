@@ -13,8 +13,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class MoveActionTest extends AbstractActionTest
 {

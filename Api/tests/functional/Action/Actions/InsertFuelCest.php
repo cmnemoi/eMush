@@ -22,8 +22,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class InsertFuelCest extends AbstractFunctionalTest
 {

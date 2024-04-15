@@ -29,8 +29,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class LandActionCest extends AbstractFunctionalTest
 {

@@ -32,8 +32,6 @@ use Mush\User\Entity\User;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class HealCest extends AbstractFunctionalTest
 {

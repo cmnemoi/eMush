@@ -25,8 +25,6 @@ use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class MoveCest extends AbstractFunctionalTest
 {

@@ -3,12 +3,19 @@
 namespace Mush\Tests\functional\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Enum\DiseaseCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
@@ -410,6 +417,76 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
             expected: $this->player->getLogName(),
             actual: $roomLog->getParameters()['target_character']
         );
+    }
+
+    public function testDiseaseSymptomIsNotTriggeredAtDiseaseApparition(FunctionalTester $I): void
+    {
+        $this->chun->changePlace($this->daedalus->getPlaceByName('space'));
+
+        // given Daedalus is Day 1000 so a disease will appear at cycle change
+        $this->daedalus->setDay(1000);
+
+        // given Daedalus has a 100% disease apparition rate at cycle change
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setCycleDiseaseRate(100);
+
+        // given Chun has a lot of HP and morale to survive cycle incidents
+        $chunConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN]);
+        $chunConfig
+            ->setInitHealthPoint(1000)
+            ->setInitMoralPoint(1000)
+            ->setMaxHealthPoint(1000)
+            ->setMaxMoralPoint(1000)
+        ;
+        $this->chun->setPlayerVariables($chunConfig);
+
+        // given only flu can appear on this Daedalus
+        $fluConfig = $I->grabEntityFromRepository(DiseaseConfig::class, ['diseaseName' => DiseaseEnum::FLU]);
+        $this->daedalus->getGameConfig()->setDiseaseConfig([$fluConfig]);
+
+        $cycleDiseaseCauseConfig = $this->daedalus->getGameConfig()->getDiseaseCauseConfig()->filter(
+            fn (DiseaseCauseConfig $causeConfig) => $causeConfig->getCauseName() === DiseaseCauseEnum::CYCLE
+        )->first();
+        $cycleDiseaseCauseConfig->setDiseases(['flu' => 1]);
+        $this->daedalus->getGameConfig()->setDiseaseCauseConfig([$cycleDiseaseCauseConfig]);
+
+        // given flu only has one symptom which remove 1 AP at cycle change
+        $symptom = $I->grabEntityFromRepository(TriggerEventModifierConfig::class, ['name' => 'cycle1ActionLostRand20']);
+        $symptom->setModifierActivationRequirements([]);
+        $fluConfig->setModifierConfigs([$symptom]);
+
+        // given Chun has 1 AP
+        $this->chun->setActionPoint(1);
+
+        // when cycle change is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $playerEvent = new PlayerCycleEvent(
+            $this->chun,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then Chun should have the flu
+        $flu = $this->chun->getMedicalConditionByName(DiseaseEnum::FLU);
+        $I->assertNotNull($flu);
+
+        $I->cantSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => PlayerModifierLogEnum::LOSS_ACTION_POINT,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+
+        // then Chun should have 2 AP
+        $I->assertEquals(2, $this->chun->getActionPoint());
     }
 
     private function getPanicCrisisPlayerDamage(): int

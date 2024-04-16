@@ -15,6 +15,12 @@ const PIRATED_CHANNELS_ENDPOINT = urlJoin(API_URL, "channel/pirated");
 const ROOM_LOGS_ENDPOINT = urlJoin(API_URL, "room-log");
 const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(API_URL, "room-log/channel");
 
+// If there is only one element found, the API returns an object instead of an array.
+// We need to handle this case to avoid not being able to load the channels / messages.
+function toArray(data: any): any[] {
+    return Array.isArray(data) ? data : Object.values(data);
+}
+
 const CommunicationService = {
     loadChannels: async(): Promise<Channel[]> => {
         const channels = [];
@@ -26,10 +32,7 @@ const CommunicationService = {
 
         const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
         if (channelsData.data) {
-            // If there is only one channel available, the API returns an object instead of an array.
-            // We need to handle this case to avoid not being able to load the channels.
-            const dataArray = Array.isArray(channelsData.data) ? channelsData.data : Object.values(channelsData.data);
-            dataArray.forEach((data: any) => {
+            toArray(channelsData.data).forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -41,7 +44,7 @@ const CommunicationService = {
 
         const piratedChannelsData = await ApiService.get(PIRATED_CHANNELS_ENDPOINT);
         if (piratedChannelsData.data) {
-            Object.values(piratedChannelsData.data).forEach((data: any) => {
+            toArray(piratedChannelsData.data).forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -111,8 +114,7 @@ const CommunicationService = {
 
             const messages: Message[] = [];
             if (messagesData.data) {
-                const messagesDataArray = Array.isArray(messagesData.data) ? messagesData.data : Object.values(messagesData.data);
-                messagesDataArray.forEach((data: any) => {
+                toArray(messagesData.data).forEach((data: any) => {
                     messages.push((new Message()).load(data));
                 });
             }
@@ -130,8 +132,7 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            const messagesDataArray = Array.isArray(messagesData.data) ? messagesData.data : Object.values(messagesData.data);
-            messagesDataArray.forEach((data: any) => {
+            toArray(messagesData.data).forEach((data: any) => {
                 messages.push((new Message()).load(data));
             });
         }
@@ -143,7 +144,7 @@ const CommunicationService = {
 
         const players:Player[] = [];
         if (playersData.data) {
-            playersData.data.forEach((data: any) => {
+            toArray(playersData.data).forEach((data: any) => {
                 players.push((new Player()).load(data));
             });
         }
@@ -192,7 +193,7 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            messagesData.data.forEach((data: any) => {
+            toArray(messagesData.data).forEach((data: any) => {
                 messages.push((new Message()).load(data));
             });
         }

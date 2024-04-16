@@ -22,20 +22,10 @@ function toArray(data: any): any[] {
 }
 
 const CommunicationService = {
-    loadChannels: async(): Promise<Channel[]> => {
-        const channels = [];
-
-        const roomLogChannelData = await ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
-        if (roomLogChannelData.data) {
-            channels.push((new Channel()).load(roomLogChannelData.data));
-        }
-
-        const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
-        if (channelsData.data) {
-            toArray(channelsData.data).forEach((data: any) => {
-                channels.push((new Channel()).load(data));
-            });
-        }
+    loadAlivePlayerChannels: async(): Promise<Channel[]> => {
+        const channels = await CommunicationService.loadDeadPlayerChannels().then((channels: Channel[]) => {
+            return channels;
+        });
 
         const favoritesChannelData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites'));
         if (favoritesChannelData.data) {
@@ -57,6 +47,24 @@ const CommunicationService = {
                 name: newChannelData.data['name'],
                 description: newChannelData.data['description']
             }));
+        }
+
+        return channels;
+    },
+
+    loadDeadPlayerChannels: async (): Promise<Channel[]> => {
+        const channels = [];
+
+        const roomLogChannelData = await ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
+        if (roomLogChannelData.data) {
+            channels.push((new Channel()).load(roomLogChannelData.data));
+        }
+
+        const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
+        if (channelsData.data) {
+            toArray(channelsData.data).forEach((data: any) => {
+                channels.push((new Channel()).load(data));
+            });
         }
 
         return channels;

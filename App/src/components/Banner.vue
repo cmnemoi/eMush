@@ -48,16 +48,21 @@ export default defineComponent ({
     },
     methods: {
         ...mapActions({
-            loadChannels: 'communication/loadChannels',
+            loadAlivePlayerChannels: 'communication/loadAlivePlayerChannels',
+            loadDeadPlayerChannels: 'communication/loadDeadPlayerChannels',
             loadRoomLogs: 'communication/loadRoomLogs',
             reloadPlayer: 'player/reloadPlayer'
         }),
         getImgUrl,
-        reloadData() {
+        async reloadData() {
             if (this.route !== 'GamePage' || this.player === null) return;
-            this.reloadPlayer();
-            this.loadChannels();
-            this.loadRoomLogs();
+            await this.reloadPlayer();
+            if (this.player.isDead()) {
+                await this.loadDeadPlayerChannels();
+            } else {
+                await this.loadAlivePlayerChannels();
+            }
+            await this.loadRoomLogs();
         }
     }
 });

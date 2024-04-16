@@ -45,16 +45,16 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             clearError: 'error/clearError',
-            loadChannels: 'communication/loadChannels',
+            loadChannels: 'communication/loadAlivePlayerChannels',
             loadRoomLogs: 'communication/loadRoomLogs',
             reloadPlayer: 'player/reloadPlayer'
         }),
-        clearErrorAndReloadData() {
+        async clearErrorAndReloadData() {
             this.clearError();
-            if (this.player.gameStatus === 'in_game') {
-                this.reloadPlayer();
-                this.loadChannels();
-                this.loadRoomLogs();
+            if (this.player.isAlive()) {
+                await this.reloadPlayer();
+                await this.loadChannels();
+                await this.loadRoomLogs();
             }
         },
         getImgUrl,

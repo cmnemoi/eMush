@@ -94,7 +94,11 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
 
     await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
     await dispatch("communication/loadRoomLogs", null, { root: true });
-    await dispatch("communication/loadChannels", null, { root: true });
+    if (store.getters["player/player"].isDead()) {
+        await dispatch("communication/loadDeadPlayerChannels", null, { root: true });
+    } else {
+        await dispatch("communication/loadAlivePlayerChannels", null, { root: true });
+    }
 }
 
 async function handleActionResponse(actionReponse: ActionReponse): Promise<void> {

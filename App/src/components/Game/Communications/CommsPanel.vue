@@ -65,14 +65,13 @@ export default defineComponent ({
         calendar: GameCalendar
     },
     computed: {
-        ...mapState('communication', [
-            'currentChannel'
-        ]),
-        ...mapGetters('communication', [
-            'channels',
-            'messages',
-            'currentChannelNumberOfNewMessages'
-        ]),
+        ...mapGetters({
+            currentChannel: 'communication/currentChannel',
+            channels: 'communication/channels',
+            messages: 'communication/messages',
+            currentChannelNumberOfNewMessages: 'communication/currentChannelNumberOfNewMessages',
+            player: 'player/player'
+        }),
         currentTabComponent(): Component {
             if (this.currentChannel instanceof Channel) {
                 switch (this.currentChannel.scope) {
@@ -96,17 +95,22 @@ export default defineComponent ({
             return DiscussionTab;
         }
     },
-    beforeMount(): void {
-        this.loadChannels();
+    async beforeMount(): Promise<void> {
+        if (this.player.isDead()) {
+            await this.loadDeadPlayerChannels();
+        } else {
+            await this.loadAlivePlayerChannels();
+        }
     },
     methods: {
-        ...mapActions('communication', [
-            'loadChannels',
-            'changeChannel',
-            'loadMoreMessages',
-            'markAllRoomLogsAsRead',
-            'markCurrentChannelAsRead'
-        ]),
+        ...mapActions({
+            changeChannel: 'communication/changeChannel',
+            loadAlivePlayerChannels: 'communication/loadAlivePlayerChannels',
+            loadDeadPlayerChannels: 'communication/loadDeadPlayerChannels',
+            loadMoreMessages: 'communication/loadMoreMessages',
+            markAllRoomLogsAsRead: 'communication/markAllRoomLogsAsRead',
+            markCurrentChannelAsRead: 'communication/markCurrentChannelAsRead',
+        }),
         canLoadMoreMessages(): boolean {
             return this.currentChannel.isChannelWithPagination() &&
                 this.messages.length % Channel.MESSAGE_LIMIT === 0;

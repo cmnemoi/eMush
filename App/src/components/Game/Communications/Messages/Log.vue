@@ -32,7 +32,6 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             acquireReadLogMutex: "communication/acquireReadMessageMutex",
-            loadChannels: "communication/loadChannels",
             releaseReadLogMutex: "communication/releaseReadMessageMutex",
             readRoomLog: "communication/readRoomLog"
         }),

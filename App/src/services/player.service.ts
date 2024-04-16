@@ -4,7 +4,6 @@ import store from "@/store/index";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
 import urlJoin from "url-join";
-import { el } from "date-fns/locale";
 
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");

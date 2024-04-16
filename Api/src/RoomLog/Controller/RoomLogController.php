@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class UsersController.
+ * Class RoomLogController
  *
  * @Route(path="/room-log")
  */
@@ -172,5 +172,32 @@ class RoomLogController extends AbstractGameController
         $this->roomLogService->markRoomLogAsReadForPlayer($roomLog, $player);
 
         return $this->view(['detail' => 'Room log marked as read successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Mark all room logs as read.
+     *
+     * @OA\Tag(name="RoomLog")
+     *
+     * @Security(name="Bearer")
+     * 
+     * @Rest\Patch(path="/all/read")
+     */
+    public function markAllRoomLogsAsReadAction(): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        /** @var Player $player */
+        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
+
+        $this->roomLogService->markAllRoomLogsAsReadForPlayer($player);
+
+        return $this->view(['detail' => 'All room logs marked as read successfully'], Response::HTTP_OK);
     }
 }

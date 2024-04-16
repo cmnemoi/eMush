@@ -164,6 +164,11 @@ class Message implements TimestampableCancelInterface
         return !$this->readers->contains($player);
     }
 
+    public function isReadBy(Player $player): bool
+    {
+        return $this->readers->contains($player);
+    }
+
     public function addFavorite(Player $player): static
     {
         if (!$this->favorites->contains($player)) {

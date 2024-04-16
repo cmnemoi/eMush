@@ -203,6 +203,11 @@ class RoomLog implements TimestampableCancelInterface
         return !$this->readers->contains($player);
     }
 
+    public function isReadBy(Player $player): bool
+    {
+        return $this->readers->contains($player);
+    }
+
     public function isTimestampableCanceled(): bool
     {
         return $this->timestampableCanceled;

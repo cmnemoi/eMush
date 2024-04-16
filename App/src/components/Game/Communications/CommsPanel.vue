@@ -27,6 +27,9 @@
         <button class="action-button" @click="loadMoreMessages()" v-if="canLoadMoreMessages()">
             {{ $t('game.communications.loadMoreMessages') }}
         </button>
+        <button class="action-button" @click="markAsRead()" v-if="currentChannelNumberOfNewMessages > 0">
+            {{ $t('game.communications.markChannelAsRead') }}
+        </button>
     </div>
 </template>
 
@@ -102,7 +105,7 @@ export default defineComponent ({
             'changeChannel',
             'loadMoreMessages',
             'markAllRoomLogsAsRead',
-            'markChannelAsRead'
+            'markCurrentChannelAsRead'
         ]),
         canLoadMoreMessages(): boolean {
             return this.currentChannel.isChannelWithPagination() &&
@@ -123,7 +126,7 @@ export default defineComponent ({
             if (this.currentChannel.scope === ChannelType.ROOM_LOG) {
                 await this.markAllRoomLogsAsRead(this.currentChannel);
             } else {
-                await this.markChannelAsRead(this.currentChannel);
+                await this.markCurrentChannelAsRead(this.currentChannel);
             }
         }
     }

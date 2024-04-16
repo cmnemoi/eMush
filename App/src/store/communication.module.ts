@@ -2,6 +2,7 @@ import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { ChannelType } from "@/enums/communication.enum";
+import { Message } from "@/entities/Message";
 
 
 const state =  {
@@ -231,6 +232,15 @@ const actions: ActionTree<any, any> = {
         await CommunicationService.readRoomLog(roomLog);
         // @FIXME: if you do an action, the number of new messages is not updated...
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 });
+    },
+
+    async markCurrentChannelAsRead({ getters, commit }) {
+        await CommunicationService.markChannelAsRead(state.currentChannel);
+        getters.messages.forEach((message: Message) => {
+            message.isUnread = false;
+        });
+
+        commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });
     }
 };
 

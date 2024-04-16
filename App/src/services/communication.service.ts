@@ -157,6 +157,10 @@ const CommunicationService = {
         });
     },
 
+    markChannelAsRead: async (channel: Channel): Promise<void> => {
+        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, String(channel.id), 'read'));
+    },
+
     putMessageInFavorite: async (message: Message): Promise<void> => {
         await ApiService.post(urlJoin(CHANNELS_ENDPOINT, 'favorite-message', String(message.id)));
     },

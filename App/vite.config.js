@@ -14,7 +14,6 @@ export default defineConfig({
     typescript(),
     vue()
   ],
-  base: "./",
   define: {
     global: 'globalThis'
   },

@@ -157,6 +157,10 @@ const CommunicationService = {
         });
     },
 
+    markAllRoomLogsAsRead: async (): Promise<void> => {
+        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'all', 'read'));
+    },
+
     markChannelAsRead: async (channel: Channel): Promise<void> => {
         await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, String(channel.id), 'read'));
     },

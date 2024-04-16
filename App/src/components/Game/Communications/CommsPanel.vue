@@ -27,7 +27,7 @@
         <button class="action-button" @click="loadMoreMessages()" v-if="canLoadMoreMessages()">
             {{ $t('game.communications.loadMoreMessages') }}
         </button>
-        <button class="action-button" @click="markAsRead()" v-if="currentChannelNumberOfNewMessages > 0">
+        <button class="action-button" @click="markAsRead()">
             {{ $t('game.communications.markChannelAsRead') }}
         </button>
     </div>

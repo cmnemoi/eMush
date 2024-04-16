@@ -8,6 +8,7 @@ use Mockery;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Event\ChannelEvent;
 use Mush\Communication\Repository\ChannelPlayerRepository;
@@ -777,5 +778,60 @@ final class ChannelServiceTest extends TestCase
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->removePlayer($playerInfo, $channel);
+    }
+
+    public function testMarkChannelAsRead(): void
+    {
+        // given a channel
+        $channel = new Channel();
+
+        // given a player
+        $player = new Player();
+
+        // given 10 messages in the channel
+        $messages = $this->getMessagesForChannel($channel, 10);
+
+        // given 10 children messages for each message
+        $messages = $this->addChildrenToMessages($messages, 1);
+
+        // setup universe state
+        $this->entityManager->shouldReceive('persist')->times(20);
+        $this->entityManager->shouldReceive('flush')->once();
+
+        // when player mark the channel as read
+        $this->service->markChannelAsReadForPlayer($channel, $player);
+
+        // then all messages in the channel should be marked as read by the player
+        foreach ($messages as $message) {
+            $this->assertTrue($message->isReadBy($player));
+        }
+    }
+
+    private function getMessagesForChannel(Channel $channel, int $count): array
+    {
+        $messages = [];
+        for ($i = 0; $i < $count; ++$i) {
+            $message = new Message();
+            $message->setChannel($channel);
+            $messages[] = $message;
+        }
+
+        return $messages;
+    }
+
+    private function addChildrenToMessages(array $messages, int $count): array
+    {
+        foreach ($messages as $message) {
+            for ($i = 0; $i < $count; ++$i) {
+                $childMessage = new Message();
+                $childMessage
+                    ->setChannel($message->getChannel())
+                    ->setParent($message)
+                ;
+                $messages[] = $childMessage;
+            }
+        }
+
+        return $messages;
     }
 }

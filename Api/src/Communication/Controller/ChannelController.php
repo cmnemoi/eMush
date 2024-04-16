@@ -741,6 +741,28 @@ class ChannelController extends AbstractGameController
         return $view;
     }
 
+    /**
+     * Mark a channel as read.
+     *
+     * @OA\Tag(name="Channel")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch (path="/{id}/read", requirements={"id"="\d+"})
+     */
+    public function markChannelAsReadForPlayerAction(Channel $channel): View
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $this->getUserPlayer($user);
+
+        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+
+        $this->channelService->markChannelAsReadForPlayer($channel, $player);
+
+        return $this->view(['detail' => 'Channel marked as read successfully'], Response::HTTP_OK);
+    }
+
     private function getUserPlayer(User $user): Player
     {
         $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();

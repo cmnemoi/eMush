@@ -790,9 +790,9 @@ final class ChannelServiceTest extends TestCase
 
         // given 10 messages in the channel
         $messages = $this->getMessagesForChannel($channel, 10);
-
         // given 10 children messages for each message
-        $messages = $this->addChildrenToMessages($messages, 1);
+        $messages = $this->addChildrenToMessages($messages);
+        $channel->setMessages(new ArrayCollection($messages));
 
         // setup universe state
         $this->entityManager->shouldReceive('persist')->times(20);
@@ -819,17 +819,15 @@ final class ChannelServiceTest extends TestCase
         return $messages;
     }
 
-    private function addChildrenToMessages(array $messages, int $count): array
+    private function addChildrenToMessages(array $messages): array
     {
         foreach ($messages as $message) {
-            for ($i = 0; $i < $count; ++$i) {
-                $childMessage = new Message();
-                $childMessage
-                    ->setChannel($message->getChannel())
-                    ->setParent($message)
-                ;
-                $messages[] = $childMessage;
-            }
+            $childMessage = new Message();
+            $childMessage
+                ->setChannel($message->getChannel())
+                ->setParent($message)
+            ;
+            $messages[] = $childMessage;
         }
 
         return $messages;

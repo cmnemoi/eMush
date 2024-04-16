@@ -2,20 +2,18 @@
 
 namespace Mush\Tests\functional\Player\Event;
 
+use Mush\Action\Actions\Consume;
+use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Disease\Entity\Config\DiseaseCauseConfig;
-use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
@@ -421,49 +419,35 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
 
     public function testDiseaseSymptomIsNotTriggeredAtDiseaseApparition(FunctionalTester $I): void
     {
-        $this->chun->changePlace($this->daedalus->getPlaceByName('space'));
+        // given a fruit which gives flu after 1 cycle
+        $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: 'flu_dealer_after_1_cycle_test',
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
 
-        // given Daedalus is Day 1000 so a disease will appear at cycle change
-        $this->daedalus->setDay(1000);
+        // given Chun eats this fruit
+        /** @var Consume $consumeAction */
+        $consumeAction = $I->grabService(Consume::class);
+        $consumeActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::CONSUME]);
+        $consumeAction->loadParameters($consumeActionConfig, $this->chun, $fruit);
+        $consumeAction->execute();
 
-        // given Daedalus has a 100% disease apparition rate at cycle change
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setCycleDiseaseRate(100);
+        // given flu is incubating
+        $flu = $this->chun->getMedicalConditionByName(DiseaseEnum::FLU);
+        $I->assertFalse($flu->isActive());
 
-        // given Chun has a lot of HP and morale to survive cycle incidents
-        $chunConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN]);
-        $chunConfig
-            ->setInitHealthPoint(1000)
-            ->setInitMoralPoint(1000)
-            ->setMaxHealthPoint(1000)
-            ->setMaxMoralPoint(1000)
-        ;
-        $this->chun->setPlayerVariables($chunConfig);
-
-        // given only flu can appear on this Daedalus
-        $fluConfig = $I->grabEntityFromRepository(DiseaseConfig::class, ['diseaseName' => DiseaseEnum::FLU]);
-        $this->daedalus->getGameConfig()->setDiseaseConfig([$fluConfig]);
-
-        $cycleDiseaseCauseConfig = $this->daedalus->getGameConfig()->getDiseaseCauseConfig()->filter(
-            fn (DiseaseCauseConfig $causeConfig) => $causeConfig->getCauseName() === DiseaseCauseEnum::CYCLE
-        )->first();
-        $cycleDiseaseCauseConfig->setDiseases(['flu' => 1]);
-        $this->daedalus->getGameConfig()->setDiseaseCauseConfig([$cycleDiseaseCauseConfig]);
-
-        // given flu only has one symptom which remove 1 AP at cycle change
+        // given flu only has one symptom which removes 1 AP at cycle change
         $symptom = $I->grabEntityFromRepository(TriggerEventModifierConfig::class, ['name' => 'cycle1ActionLostRand20']);
         $symptom->setModifierActivationRequirements([]);
-        $fluConfig->setModifierConfigs([$symptom]);
+        $flu->getDiseaseConfig()->setModifierConfigs([$symptom]);
 
         // given Chun has 1 AP
         $this->chun->setActionPoint(1);
 
         // when cycle change is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
         $playerEvent = new PlayerCycleEvent(
             $this->chun,
             [EventEnum::NEW_CYCLE],
@@ -471,10 +455,10 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
-        // then Chun should have the flu
-        $flu = $this->chun->getMedicalConditionByName(DiseaseEnum::FLU);
-        $I->assertNotNull($flu);
+        // then the flu should be active
+        $I->assertTrue($flu->isActive());
 
+        // then I should not see a room log telling Chun lost 1 AP
         $I->cantSeeInRepository(
             entity: RoomLog::class,
             params: [

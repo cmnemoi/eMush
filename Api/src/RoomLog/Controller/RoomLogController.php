@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class RoomLogController
+ * Class RoomLogController.
  *
  * @Route(path="/room-log")
  */
@@ -180,7 +180,7 @@ class RoomLogController extends AbstractGameController
      * @OA\Tag(name="RoomLog")
      *
      * @Security(name="Bearer")
-     * 
+     *
      * @Rest\Patch(path="/all/read")
      */
     public function markAllRoomLogsAsReadAction(): View

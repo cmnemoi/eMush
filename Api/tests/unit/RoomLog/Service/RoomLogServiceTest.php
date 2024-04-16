@@ -624,7 +624,11 @@ final class RoomLogServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         // given some unread room logs
-        $roomLogs = $this->roomLogFactory($playerInfo, number: 3);
+        $roomLogs = $this->roomLogFactory($playerInfo, number: 5);
+
+        // given two of them are already read
+        $roomLogs->get(0)->addReader($player);
+        $roomLogs->get(1)->addReader($player);
 
         // given universe is setup so that everything works
         $this->repository->shouldReceive('getPlayerRoomLog')->with($playerInfo)->andReturn($roomLogs->toArray())->once();

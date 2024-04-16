@@ -322,12 +322,20 @@ class ChannelService implements ChannelServiceInterface
 
     public function markChannelAsReadForPlayer(Channel $channel, Player $player): void
     {
+        $unreadMessages = $channel->getMessages()->filter(
+            fn (Message $message) => $message->isUnreadBy($player)
+        );
+
         /** @var Message $message */
-        foreach ($channel->getMessages() as $message) {
+        foreach ($unreadMessages as $message) {
             $message->addReader($player);
             $this->entityManager->persist($message);
 
-            foreach ($message->getChild() as $reader) {
+            $unreadChildren = $message->getChild()->filter(
+                fn (Message $child) => $child->isUnreadBy($player)
+            );
+
+            foreach ($unreadChildren as $reader) {
                 $reader->addReader($player);
                 $this->entityManager->persist($reader);
             }

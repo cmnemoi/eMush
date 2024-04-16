@@ -273,7 +273,11 @@ class RoomLogService implements RoomLogServiceInterface
 
     public function markAllRoomLogsAsReadForPlayer(Player $player): void
     {
-        foreach ($this->getRoomLog($player) as $roomLog) {
+        $unreadLogs = $this->getRoomLog($player)->filter(
+            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
+        );
+
+        foreach ($unreadLogs as $roomLog) {
             $roomLog
                 ->addReader($player)
                 ->cancelTimestampable();

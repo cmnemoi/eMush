@@ -790,12 +790,20 @@ final class ChannelServiceTest extends TestCase
 
         // given 10 messages in the channel
         $messages = $this->getMessagesForChannel($channel, 10);
+        // given 2 of them are already read by the player
+        $messages[0]->addReader($player);
+        $messages[1]->addReader($player);
+
         // given 10 children messages for each message
         $messages = $this->addChildrenToMessages($messages);
+        // given 2 of them are already read by the player
+        $messages[10]->addReader($player);
+        $messages[11]->addReader($player);
+
         $channel->setMessages(new ArrayCollection($messages));
 
         // setup universe state
-        $this->entityManager->shouldReceive('persist')->times(20);
+        $this->entityManager->shouldReceive('persist')->times(16);
         $this->entityManager->shouldReceive('flush')->once();
 
         // when player mark the channel as read

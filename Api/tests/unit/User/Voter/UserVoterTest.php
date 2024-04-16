@@ -3,6 +3,8 @@
 namespace Mush\Tests\unit\User\Voter;
 
 use Mockery;
+use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Voter\UserVoter;
@@ -53,6 +55,54 @@ final class UserVoterTest extends TestCase
             ->andReturn([RoleEnum::MODERATOR])
             ->once();
         $this->testVote(UserVoter::EDIT_USER_ROLE, $editedUser, $loggedUser, Voter::ACCESS_DENIED);
+    }
+
+    public function testIsNotBanned(): void
+    {
+        $user = new User();
+        $this->banUser($user);
+
+        $this->assertTrue($user->isBanned());
+
+        $this->testVote(UserVoter::IS_NOT_BANNED, $user, $user, Voter::ACCESS_DENIED);
+    }
+
+    public function testUserInGame(): void
+    {
+        $user = new User();
+        $user->startGame();
+
+        $this->testVote(UserVoter::USER_IN_GAME, $user, $user, Voter::ACCESS_GRANTED);
+    }
+
+    public function testUserNotInGame(): void
+    {
+        $user = new User();
+
+        $this->testVote(UserVoter::NOT_IN_GAME, $user, $user, Voter::ACCESS_GRANTED);
+    }
+
+    public function testHasAcceptedRules(): void
+    {
+        $user = new User();
+
+        $this->testVote(UserVoter::HAS_ACCEPTED_RULES, $user, $user, Voter::ACCESS_DENIED);
+    }
+
+    public function testIsConnected(): void
+    {
+        $user = new User();
+
+        $this->testVote(UserVoter::IS_CONNECTED, $user, $user, Voter::ACCESS_GRANTED);
+    }
+
+    private function banUser(User $user): void
+    {
+        $sanction = new ModerationSanction($user, new \DateTime());
+        $sanction->setModerationAction(ModerationSanctionEnum::BAN_USER);
+        $sanction->setReason(ModerationSanctionEnum::MULTI_ACCOUNT);
+        $sanction->setEndDate(new \DateTime('+1 day'));
+        $user->addModerationSanction($sanction);
     }
 
     private function testVote(

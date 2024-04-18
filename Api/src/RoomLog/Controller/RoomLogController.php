@@ -188,6 +188,7 @@ class RoomLogController extends AbstractGameController
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
         }
+
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
 
         /** @var User $user */

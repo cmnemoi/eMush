@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\Entity;
 
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\Enum\ProjectType;
 
 class Project
 {
@@ -17,7 +18,7 @@ class Project
         return $this->config->getName();
     }
 
-    public function getType(): string
+    public function getType(): ProjectType
     {
         return $this->config->getType();
     }

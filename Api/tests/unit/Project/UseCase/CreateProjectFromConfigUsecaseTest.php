@@ -7,6 +7,7 @@ namespace Api\Tests\Unit\Project\UseCase;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\Enum\ProjectType;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigUseCase;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +22,7 @@ final class CreateProjectFromConfigUsecaseTest extends TestCase
         // given I have a ProjectConfig
         $projectConfig = new ProjectConfig(
             name: ProjectName::PLASMA_SHIELD,
-            type: 'NERON_PROJECT',
+            type: ProjectType::RESEARCH,
             efficiency: 1,
             bonusSkills: ['physicist', 'engineer'],
         );

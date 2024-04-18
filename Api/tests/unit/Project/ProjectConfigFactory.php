@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\functional\Project\Factory;
+namespace Mush\Tests\unit\Project;
 
 use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\ProjectConfig;

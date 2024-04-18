@@ -811,7 +811,7 @@ final class ChannelServiceTest extends TestCase
 
         // then all messages in the channel should be marked as read by the player
         foreach ($messages as $message) {
-            $this->assertTrue($message->isReadBy($player));
+            self::assertTrue($message->isReadBy($player));
         }
     }
 
@@ -833,8 +833,7 @@ final class ChannelServiceTest extends TestCase
             $childMessage = new Message();
             $childMessage
                 ->setChannel($message->getChannel())
-                ->setParent($message)
-            ;
+                ->setParent($message);
             $messages[] = $childMessage;
         }
 

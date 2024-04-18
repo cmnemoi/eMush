@@ -658,8 +658,7 @@ final class RoomLogServiceTest extends TestCase
                 ->setParameters([])
                 ->setDay(1)
                 ->setCycle(1)
-                ->setType('log')
-            ;
+                ->setType('log');
 
             $roomLogs->add($roomLog);
         }

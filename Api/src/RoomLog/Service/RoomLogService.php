@@ -165,6 +165,23 @@ class RoomLogService implements RoomLogServiceInterface
         $this->entityManager->flush();
     }
 
+    public function markAllRoomLogsAsReadForPlayer(Player $player): void
+    {
+        $unreadLogs = $this->getRoomLog($player)->filter(
+            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
+        );
+
+        foreach ($unreadLogs as $roomLog) {
+            $roomLog
+                ->addReader($player)
+                ->cancelTimestampable();
+
+            $this->entityManager->persist($roomLog);
+        }
+
+        $this->entityManager->flush();
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {
@@ -252,40 +269,6 @@ class RoomLogService implements RoomLogServiceInterface
         }
 
         throw new \LogicException('examine action is not implemented for this type of entity');
-    }
-
-    public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int
-    {
-        return $this->getRoomLog($player)->filter(
-            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
-        )->count();
-    }
-
-    public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void
-    {
-        $roomLog
-          ->addReader($player)
-          ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
-
-        $this->entityManager->persist($roomLog);
-        $this->entityManager->flush();
-    }
-
-    public function markAllRoomLogsAsReadForPlayer(Player $player): void
-    {
-        $unreadLogs = $this->getRoomLog($player)->filter(
-            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
-        );
-
-        foreach ($unreadLogs as $roomLog) {
-            $roomLog
-                ->addReader($player)
-                ->cancelTimestampable();
-
-            $this->entityManager->persist($roomLog);
-        }
-
-        $this->entityManager->flush();
     }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array

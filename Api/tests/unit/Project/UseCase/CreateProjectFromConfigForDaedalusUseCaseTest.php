@@ -2,23 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Api\Tests\Unit\Project\UseCase;
+namespace Mush\Tests\Unit\Project\UseCase;
 
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
-use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Repository\InMemoryProjectRepository;
-use Mush\Project\UseCase\CreateProjectFromConfigUseCase;
-use Mush\Tests\functional\Project\Factory\ProjectConfigFactory;
+use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
+use Mush\Tests\unit\Daedalus\InMemoryDaedalusRepository;
+use Mush\Tests\unit\Project\ProjectConfigFactory;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  */
-final class CreateProjectFromConfigUseCaseTest extends TestCase
+final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
 {
+    private InMemoryDaedalusRepository $daedalusRepository;
     private InMemoryProjectRepository $projectRepository;
 
     /**
@@ -26,6 +31,7 @@ final class CreateProjectFromConfigUseCaseTest extends TestCase
      */
     public function before(): void
     {
+        $this->daedalusRepository = new InMemoryDaedalusRepository();
         $this->projectRepository = new InMemoryProjectRepository();
     }
 
@@ -34,6 +40,7 @@ final class CreateProjectFromConfigUseCaseTest extends TestCase
      */
     public function after(): void
     {
+        $this->daedalusRepository->clear();
         $this->projectRepository->clear();
     }
 
@@ -42,14 +49,24 @@ final class CreateProjectFromConfigUseCaseTest extends TestCase
         // given I have a ProjectConfig
         $projectConfig = ProjectConfigFactory::createPlasmaShieldConfig();
 
+        // given I have a Daedalus
+        $daedalus = new Daedalus();
+        new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+
         // when I execute the usecase
-        $usecase = new CreateProjectFromConfigUseCase($this->projectRepository);
-        $usecase->execute($projectConfig);
+        $createProjectFromConfigForDaedalusUseCase = new CreateProjectFromConfigForDaedalusUseCase(
+            $this->daedalusRepository,
+            $this->projectRepository
+        );
+        $createProjectFromConfigForDaedalusUseCase->execute($projectConfig, $daedalus);
 
         // then the project should be created as expected
         $project = $this->projectRepository->findByName(ProjectName::PLASMA_SHIELD);
         self::assertNotNull($project);
         self::assertProjectIsAsExpected($project, $projectConfig);
+
+        // then Daedalus should have the project
+        self::assertNotEmpty($daedalus->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD));
     }
 
     private static function assertProjectIsAsExpected(Project $project): void

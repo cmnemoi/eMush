@@ -27,6 +27,7 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -90,12 +91,15 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OneToOne(targetEntity: Exploration::class)]
     private ?Exploration $exploration = null;
 
+    private Collection $projects;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
         $this->places = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
         $this->statuses = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): int
@@ -613,5 +617,21 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getLostPlayers(): PlayerCollection
     {
         return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::LOST));
+    }
+
+    public function getAvailableProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): static
+    {
+        if ($this->projects->contains($project)) {
+            return $this;
+        }
+
+        $this->projects->add($project);
+
+        return $this;
     }
 }

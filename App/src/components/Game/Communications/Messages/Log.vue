@@ -39,9 +39,9 @@ export default defineComponent ({
         formatText,
         async read(roomLog: RoomLog) {
             if (!this.isReadingLog && roomLog.isUnread) {
-                this.acquireReadLogMutex();
+                await this.acquireReadLogMutex();
                 await this.readRoomLog(roomLog);
-                this.releaseReadLogMutex();
+                await this.releaseReadLogMutex();
             }
         }
     }

@@ -588,7 +588,9 @@
 			"reply": "Répondre",
 			"replyDescription": "Répondre à ce message.",
 			"report": "Plainte",
-			"loadMoreMessages": "Charger plus de messages"
+			"loadMoreMessages": "Charger plus de messages",
+			"unbookmark": "Plus favori",
+			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

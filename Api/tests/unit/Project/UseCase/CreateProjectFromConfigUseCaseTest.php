@@ -41,11 +41,11 @@ final class CreateProjectFromConfigUseCaseTest extends TestCase
         self::assertProjectIsAsExpected($project, $projectConfig);
     }
 
-    private static function assertProjectIsAsExpected(Project $project, ProjectConfig $projectConfig): void
+    private static function assertProjectIsAsExpected(Project $project): void
     {
-        self::assertEquals($projectConfig->getName(), $project->getName());
-        self::assertEquals($projectConfig->getType(), $project->getType());
-        self::assertEquals($projectConfig->getEfficiency(), $project->getEfficiency());
-        self::assertEquals($projectConfig->getBonusSkills(), $project->getBonusSkills());
+        self::assertEquals(expected: ProjectName::PLASMA_SHIELD, actual: $project->getName());
+        self::assertEquals(expected: ProjectType::RESEARCH, actual: $project->getType());
+        self::assertEquals(expected: 1, actual: $project->getEfficiency());
+        self::assertEquals(expected: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN], actual: $project->getBonusSkills());
     }
 }

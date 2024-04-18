@@ -616,4 +616,53 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(4, $test->getCycle());
         self::assertSame(2, $test->getDay());
     }
+
+    public function testMarkAllRoomLogsAsReadForPlayer()
+    {
+        // given a player
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        // given some unread room logs
+        $roomLogs = $this->roomLogFactory($playerInfo, number: 5);
+
+        // given two of them are already read
+        $roomLogs->get(0)->addReader($player);
+        $roomLogs->get(1)->addReader($player);
+
+        // given universe is setup so that everything works
+        $this->repository->shouldReceive('getPlayerRoomLog')->with($playerInfo)->andReturn($roomLogs->toArray())->once();
+        $this->entityManager->shouldReceive('persist')->times(3);
+        $this->entityManager->shouldReceive('flush')->once();
+
+        // when I call markAllRoomLogsAsReadForPlayer
+        $this->service->markAllRoomLogsAsReadForPlayer($player);
+
+        // then all player room logs should be marked as read
+        $roomLogs->map(function (RoomLog $roomLog) use ($player) {
+            $this->assertTrue($roomLog->isReadBy($player));
+        });
+    }
+
+    private function roomLogFactory(PlayerInfo $playerInfo, int $number = 1): RoomLogCollection
+    {
+        $roomLogs = new RoomLogCollection();
+
+        for ($i = 0; $i < $number; ++$i) {
+            $roomLog = new RoomLog();
+            $roomLog
+                ->setPlayerInfo($playerInfo)
+                ->setLog('logKey')
+                ->setVisibility(VisibilityEnum::PUBLIC)
+                ->setDate(new \DateTime())
+                ->setParameters([])
+                ->setDay(1)
+                ->setCycle(1)
+                ->setType('log');
+
+            $roomLogs->add($roomLog);
+        }
+
+        return $roomLogs;
+    }
 }

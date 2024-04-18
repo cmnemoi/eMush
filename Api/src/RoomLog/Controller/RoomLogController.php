@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class UsersController.
+ * Class RoomLogController.
  *
  * @Route(path="/room-log")
  */
@@ -65,16 +65,7 @@ class RoomLogController extends AbstractGameController
         }
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
 
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-
-        if ($playerInfo === null
-            || !($player = $playerInfo->getPlayer())
-        ) {
-            throw new AccessDeniedException();
-        }
+        $player = $this->getUserPlayer();
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -110,16 +101,7 @@ class RoomLogController extends AbstractGameController
         }
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
 
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-
-        if ($playerInfo === null
-            || !($player = $playerInfo->getPlayer())
-        ) {
-            throw new AccessDeniedException();
-        }
+        $player = $this->getUserPlayer();
 
         $daedalus = $player->getDaedalus();
         if ($daedalus->isCycleChange()) {
@@ -160,11 +142,8 @@ class RoomLogController extends AbstractGameController
         }
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
 
-        /** @var User $user */
-        $user = $this->getUser();
+        $player = $this->getUserPlayer();
 
-        /** @var Player $player */
-        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
         if ($player->getDaedalus() !== $roomLog->getDaedalusInfo()->getDaedalus()) {
             return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
         }
@@ -172,5 +151,41 @@ class RoomLogController extends AbstractGameController
         $this->roomLogService->markRoomLogAsReadForPlayer($roomLog, $player);
 
         return $this->view(['detail' => 'Room log marked as read successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Mark all room logs as read.
+     *
+     * @OA\Tag(name="RoomLog")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Patch(path="/all/read")
+     */
+    public function markAllRoomLogsAsReadAction(): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME);
+
+        $this->roomLogService->markAllRoomLogsAsReadForPlayer($this->getUserPlayer());
+
+        return $this->view(['detail' => 'All room logs marked as read successfully'], Response::HTTP_OK);
+    }
+
+    private function getUserPlayer(): Player
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $player = $this->playerInfoRepository->findCurrentGameByUser($user)?->getPlayer();
+
+        if (!$player) {
+            throw new AccessDeniedException();
+        }
+
+        return $player;
     }
 }

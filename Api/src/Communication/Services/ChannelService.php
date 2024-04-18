@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\CommunicationActionEnum;
 use Mush\Communication\Event\ChannelEvent;
@@ -317,6 +318,30 @@ class ChannelService implements ChannelServiceInterface
         $this->entityManager->flush();
 
         return true;
+    }
+
+    public function markChannelAsReadForPlayer(Channel $channel, Player $player): void
+    {
+        $unreadMessages = $channel->getMessages()->filter(
+            static fn (Message $message) => $message->isUnreadBy($player)
+        );
+
+        /** @var Message $message */
+        foreach ($unreadMessages as $message) {
+            $message->addReader($player);
+            $this->entityManager->persist($message);
+
+            $unreadChildren = $message->getChild()->filter(
+                static fn (Message $child) => $child->isUnreadBy($player)
+            );
+
+            foreach ($unreadChildren as $reader) {
+                $reader->addReader($player);
+                $this->entityManager->persist($reader);
+            }
+        }
+
+        $this->entityManager->flush();
     }
 
     private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool

@@ -165,6 +165,23 @@ class RoomLogService implements RoomLogServiceInterface
         $this->entityManager->flush();
     }
 
+    public function markAllRoomLogsAsReadForPlayer(Player $player): void
+    {
+        $unreadLogs = $this->getRoomLog($player)->filter(
+            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
+        );
+
+        foreach ($unreadLogs as $roomLog) {
+            $roomLog
+                ->addReader($player)
+                ->cancelTimestampable();
+
+            $this->entityManager->persist($roomLog);
+        }
+
+        $this->entityManager->flush();
+    }
+
     private function getVisibility(?Player $player, string $visibility): string
     {
         if ($player === null) {

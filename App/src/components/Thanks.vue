@@ -130,7 +130,9 @@
                         </li>
                     </TransitionGroup>
                 </ul>
-                {{ $t('footer.alpha-testers') }}
+                <span class="love">
+                    {{ $t('footer.translatorsAndAlphaTesters') }}
+                </span>
             </div>
         </div>
     </footer>
@@ -158,7 +160,10 @@ export default defineComponent({
             version: version as string,
             release: import.meta.env.VITE_APP_API_RELEASE_COMMIT as string,
             channel: import.meta.env.VITE_APP_API_RELEASE_CHANNEL as string,
-            displayedContributors: team.filter((member) => !member.coreTeam).slice(0,6)
+            displayedContributors: team
+                .filter((member) => !member.coreTeam) 
+                .sort(() => 0.5 - Math.random()) // shuffle the list
+                .slice(0, 6),
         };
     },
     mounted() {
@@ -328,7 +333,14 @@ footer {
     padding: 0.3% 0;
 }
 
-.contributors ul { white-space: nowrap; }
+.contributors {
+    
+    ul { white-space: nowrap; }
+
+    .love {
+        margin-top: 0.5em;
+    }
+}
 
 @media only screen and (min-width: 768px) { //desktop breakpoint
 

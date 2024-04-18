@@ -27,6 +27,7 @@ import ModerationHomePage from "@/components/Moderation/ModerationHomePage.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
 import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
+import Rules from "@/components/Rules.vue";
 
 const routes = [
     {
@@ -97,6 +98,11 @@ const routes = [
 
             }
         ]
+    },
+    {
+        path: "/rules",
+        name: "Rules",
+        component: Rules
     },
     {
         path: "/admin",
@@ -264,6 +270,11 @@ router.beforeEach((to, from, next) => {
         if (!currentUser) {
             // not logged in so redirect to login page with the return url
             return next({ path: '/', query: { returnUrl: to.path } });
+        }
+
+        // check if user has accepted rules, if not redirect to rules page
+        if (!currentUser.hasAcceptedRules && to.name !== 'Rules') {
+            return next({ name: 'Rules' });
         }
 
         // check if route is restricted by role

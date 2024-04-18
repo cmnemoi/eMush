@@ -3,10 +3,11 @@
         <h2>{{ $t(action.key) }}</h2>
         <label>{{ $t("moderation.sanctionReason") }}:
             <select v-model="moderationReason" required>
-                <option value="" 
-                        selected 
-                        disabled 
-                        hidden
+                <option
+                    value=""
+                    selected
+                    disabled
+                    hidden
                 >
                     {{ $t("moderation.chooseReason") }}
                 </option>

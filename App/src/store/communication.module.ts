@@ -13,7 +13,9 @@ const state =  {
     loadingChannels: false,
     loadingByChannelId: {},
     messagesByChannelId: {},
-    typedMessage: ''
+    typedMessage: '',
+    readMessageMutex: false,
+    currentChannelNumberOfNewMessages: 0
 };
 
 const getters: GetterTree<any, any> = {
@@ -40,6 +42,21 @@ const getters: GetterTree<any, any> = {
     },
     typedMessage(state) {
         return state.typedMessage;
+    },
+    readMessageMutex(state) {
+        return state.readMessageMutex;
+    },
+    currentChannel(state) {
+        return state.currentChannel;
+    },
+    currentChannelNumberOfNewMessages(state) {
+        return state.currentChannel.numberOfNewMessages;
+    },
+    favoritesChannel(state) {
+        return state.channels.find((channel: Channel) => channel.scope === ChannelType.FAVORITES);
+    },
+    publicChannel(state) {
+        return state.channels.find((channel: Channel) => channel.scope === ChannelType.PUBLIC);
     }
 };
 
@@ -71,12 +88,16 @@ const actions: ActionTree<any, any> = {
 
             commit('setChannels', sortedChannels);
 
-            // if the channel is no longer available, reset currentChannel
+            // if public channel is no longer available, reset currentChannel to room log
             if (
                 state.currentChannel.scope === undefined
                 || sortedChannels.filter((channel: Channel) => channel.id === state.currentChannel.id).length === 0
             ) {
-                commit('setCurrentChannel', getters.roomChannel);
+                if (getters.publicChannel) {
+                    commit('setCurrentChannel', getters.publicChannel);
+                } else {
+                    commit('setCurrentChannel', getters.roomChannel);
+                }
             }
 
             await dispatch('loadMessages', { channel: state.currentChannel });
@@ -180,6 +201,36 @@ const actions: ActionTree<any, any> = {
 
     updateTypedMessage({ commit }, message) {
         commit('setTypedMessage', message);
+    },
+
+    acquireReadMessageMutex({ commit }) {
+        commit('setReadMessageMutex', true);
+    },
+
+    releaseReadMessageMutex({ commit }) {
+        commit('setReadMessageMutex', false);
+    },
+
+    async favoriteMessage({ dispatch }, message) {
+        await CommunicationService.putMessageInFavorite(message);
+        await dispatch('loadChannels');
+    },
+
+    async unfavoriteMessage({ dispatch }, message) {
+        await CommunicationService.removeMessageFromFavorite(message);
+        await dispatch('loadChannels');
+    },
+
+    async readMessage({ commit }, message) {
+        await CommunicationService.readMessage(message);
+        // @FIXME: if you reload the page by clicking on eMush logo, the number of new messages is not updated...
+        commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 });
+    },
+
+    async readRoomLog({ commit }, roomLog) {
+        await CommunicationService.readRoomLog(roomLog);
+        // @FIXME: if you do an action, the number of new messages is not updated...
+        commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 });
     }
 };
 
@@ -233,6 +284,19 @@ const mutations: MutationTree<any> = {
         state.loadingByChannelId = {};
         state.messagesByChannelId = {};
         state.channels = [];
+        state.readMessageMutex = false;
+        state.currentChannelNumberOfNewMessages = 0;
+        state.typedMessage = '';
+    },
+
+    setReadMessageMutex(state: any, mutex: boolean): void {
+        state.readMessageMutex = mutex;
+    },
+
+    setCurrentChannelNumberOfNewMessages(state: any, { channel, numberOfNewMessages }): void {
+        if (channel.id === state.currentChannel.id) {
+            state.currentChannel.numberOfNewMessages = Math.max(0, numberOfNewMessages);
+        }
     }
 };
 
@@ -240,10 +304,10 @@ export function sortChannels(channels: Channel[]): Channel[] {
     const channelOrderValue = {
         // TODO: not implemented yet
         // [ChannelType.TIPS] : 0,
-        [ChannelType.FAVORITES] : 1,
-        [ChannelType.MUSH] : 2,
-        [ChannelType.ROOM_LOG] : 3,
-        [ChannelType.PUBLIC] : 4,
+        [ChannelType.MUSH] : 1,
+        [ChannelType.ROOM_LOG] : 2,
+        [ChannelType.PUBLIC] : 3,
+        [ChannelType.FAVORITES] : 4,
         [ChannelType.PRIVATE] : 5,
         [ChannelType.NEW_CHANNEL] : 6
     };

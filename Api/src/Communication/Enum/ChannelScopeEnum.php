@@ -2,10 +2,11 @@
 
 namespace Mush\Communication\Enum;
 
-class ChannelScopeEnum
+final class ChannelScopeEnum
 {
-    public const PUBLIC = 'public';
-    public const PRIVATE = 'private';
-    public const MUSH = 'mush';
-    public const ROOM_LOG = 'room_log';
+    public const string PUBLIC = 'public';
+    public const string PRIVATE = 'private';
+    public const string MUSH = 'mush';
+    public const string ROOM_LOG = 'room_log';
+    public const string FAVORITES = 'favorites';
 }

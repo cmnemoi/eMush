@@ -82,6 +82,7 @@ const SPACESUIT = "spacesuit";
 const THERMOSENSOR = "thermosensor";
 const OLD_T_SHIRT = "old_t_shirt";
 const BABEL_MODULE = "babel_module";
+const WHITE_FLAG = "white_flag";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -424,5 +425,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [BABEL_MODULE]: {
         'image': getImgUrl('items/trad_module.jpg')
+    },
+    [WHITE_FLAG]: {
+        'image': getImgUrl('items/white_flag.jpg')
     },
 };

@@ -2,9 +2,9 @@
     <template v-if="isOpen">
         <div class="toast" :class="type">
             <div class="icon">
-                <img v-if="type == 'warning'" :src="getImgUrl('att.png')" alt="warning" />
-                <img v-else-if="type == 'error'" :src="getImgUrl('neron_eye.gif')" alt="error" />
-                <img v-else-if="type == 'success'" :src="getImgUrl('ready.png')" alt="warning" />
+                <img v-if="type === 'warning'" :src="getImgUrl('att.png')" alt="warning" />
+                <img v-else-if="type === 'error'" :src="getImgUrl('neron_eye.gif')" alt="error" />
+                <img v-else-if="type === 'success'" :src="getImgUrl('ready.png')" alt="success" />
                 <img v-else :src="getImgUrl('info.png')" alt="info" />
             </div>
             <div class="content">
@@ -12,7 +12,7 @@
                     {{ title }}
                 </h1>
                 <button class="modal-close" @click="close">
-                    Close
+                    {{ $t('game.popUp.close') }}
                 </button>
                 <slot />
             </div>
@@ -23,21 +23,22 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent ({
-    props: {
-        isOpen: Boolean,
-        title: String,
-        type: String
+    name: 'Toast',
+    computed: {
+        ...mapGetters({
+            isOpen: 'toast/isOpen',
+            title: 'toast/title',
+            type: 'toast/type',
+        })
     },
-    emits: [
-        "close"
-    ],
     methods: {
-        close() {
-            this.$emit("close");
-        },
-        getImgUrl,
+        ...mapActions({
+            close: 'toast/closeToast'
+        }),
+        getImgUrl
     }
 });
 </script>
@@ -62,8 +63,8 @@ $error-color: #e72719;
     animation: appear 0.8s ease-out 1;
     animation-fill-mode: both;
 
-    ::v-deep(p) { margin: 0.4em 0 0; }
-    ::v-deep(a) { color: $green; }
+    :deep(p) { margin: 0.4em 0 0; }
+    :deep(a) { color: $green; }
 
     .icon {
         align-items: center;

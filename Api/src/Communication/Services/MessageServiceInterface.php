@@ -23,5 +23,15 @@ interface MessageServiceInterface
 
     public function getChannelMessages(?Player $player, Channel $channel, int $page, int $limit): Collection;
 
+    public function getPlayerFavoritesChannelMessages(Player $player, int $page, int $limit): Collection;
+
     public function canPlayerPostMessage(Player $player, Channel $channel): bool;
+
+    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int;
+
+    public function markMessageAsReadForPlayer(Message $message, Player $player): void;
+
+    public function putMessageInFavoritesForPlayer(Message $message, Player $player): void;
+
+    public function removeMessageFromFavoritesForPlayer(Message $message, Player $player): void;
 }

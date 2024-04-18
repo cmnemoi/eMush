@@ -3,7 +3,7 @@ import ModerationSanctionService from "@/services/moderation_sanction.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 const state = {
-    userWarnings: [] as ModerationSanction[],
+    userWarnings: [] as ModerationSanction[]
 };
 
 const getters: GetterTree<any, any> = {

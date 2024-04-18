@@ -145,9 +145,9 @@
         <source>accident.name</source>
         <target>Accident</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>accident.description</source>
-        <target>A team member sustains {min_quantity} to {max_quantity} points of damage.{fight_prevented_by_item}</target>
+        <target>A team member sustains {min_quantity} to {max_quantity} points of damage.{rope_worked, select, true {////Dodged Rope} other {}}{fight_prevented_by_item}</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>accident.predator_description</source>

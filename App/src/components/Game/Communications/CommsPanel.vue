@@ -10,18 +10,21 @@
                 :name="channel.name"
                 :description="channel.description"
                 :selected="isChannelSelected(channel)"
+                :number-of-new-messages="channel.numberOfNewMessages"
                 @select="changeChannel({ channel })"
             />
         </ul>
         <Tippy tag="div" class="cycle-time">
-            <img :src="getImgUrl('comms/calendar.png')"><span>{{ calendar?.dayName }} {{ calendar.day }} - <br />{{ calendar?.cycleName }} {{ calendar.cycle }}</span><span class="mobile">{{ calendar.day }}-{{ calendar.cycle }}</span>
+            <img :src="getImgUrl('comms/calendar.png')">
+            <span>{{ calendar?.dayName }} {{ calendar?.day }} - <br />{{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
+            <span class="mobile">{{ calendar?.day }}-{{ calendar?.cycle }}</span>
             <template #content>
                 <h1 v-html="formatContent(calendar.name)" />
                 <p v-html="formatContent(calendar.description)" />
             </template>
         </Tippy>
         <component :is="currentTabComponent" :channel="currentChannel" :calendar="calendar" />
-        <button class="action-button" @click="loadMoreMessages()" v-if="currentChannel.isChannelWithPagination()">
+        <button class="action-button" @click="loadMoreMessages()" v-if="canLoadMoreMessages()">
             {{ $t('game.communications.loadMoreMessages') }}
         </button>
     </div>
@@ -43,7 +46,6 @@ import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { getImgUrl } from "@/utils/getImgUrl";
 
-
 export default defineComponent ({
     name: "CommsPanel",
     components: {
@@ -64,7 +66,9 @@ export default defineComponent ({
             'currentChannel'
         ]),
         ...mapGetters('communication', [
-            'channels'
+            'channels',
+            'messages',
+            'currentChannelNumberOfNewMessages'
         ]),
         currentTabComponent(): Component {
             if (this.currentChannel instanceof Channel) {
@@ -78,6 +82,8 @@ export default defineComponent ({
                     return MushTab;
                 case ChannelType.PRIVATE:
                     return PrivateTab;
+                case ChannelType.FAVORITES:
+                    return FavouritesTab;
 
                 case ChannelType.PUBLIC:
                 default:
@@ -94,8 +100,14 @@ export default defineComponent ({
         ...mapActions('communication', [
             'loadChannels',
             'changeChannel',
-            'loadMoreMessages'
+            'loadMoreMessages',
+            'markAllRoomLogsAsRead',
+            'markChannelAsRead'
         ]),
+        canLoadMoreMessages(): boolean {
+            return this.currentChannel.isChannelWithPagination() &&
+                this.messages.length % Channel.MESSAGE_LIMIT === 0;
+        },
         getImgUrl,
         isChannelPirated(channel: Channel): boolean
         {
@@ -106,6 +118,13 @@ export default defineComponent ({
             return (this.currentChannel.scope === channel.scope &&
                 this.currentChannel.id === channel.id) &&
                 this.currentChannel.piratedPlayer === channel.piratedPlayer;
+        },
+        async markAsRead(): Promise<void> {
+            if (this.currentChannel.scope === ChannelType.ROOM_LOG) {
+                await this.markAllRoomLogsAsRead(this.currentChannel);
+            } else {
+                await this.markChannelAsRead(this.currentChannel);
+            }
         }
     }
 });

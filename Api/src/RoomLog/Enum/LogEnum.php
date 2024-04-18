@@ -58,13 +58,11 @@ abstract class LogEnum
     public const string INVERTEBRATE_SHELL_EXPLOSION = 'invertebrate_shell_explosion';
     public const string LOST_ITEM_IN_EXPLORATION = 'lost_item_in_exploration';
     public const string VISIBILITY = 'visibility';
-    public const string SHOWER_MUSH = 'shower_mush';
     public const string SCREAMING = 'screaming';
     public const string WALL_HEAD_BANG = 'wall_head_bang';
     public const string RUN_IN_CIRCLES = 'run_in_circles';
     public const string LOST_ON_PLANET = 'lost_on_planet';
     public const string FITFUL_SLEEP = 'fitful_sleep';
-    public const string LYING_DOWN = 'lying_down';
     public const string ANTISOCIAL_MORALE_LOSS = 'antisocial_morale_loss';
 
     public const string VALUE = 'value';
@@ -86,7 +84,6 @@ abstract class LogEnum
             ModifierNameEnum::LIQUID_MAP_MODIFIER => VisibilityEnum::PUBLIC,
             ModifierNameEnum::FITFUL_SLEEP => VisibilityEnum::PRIVATE,
             ModifierNameEnum::LYING_DOWN_MODIFIER => VisibilityEnum::PRIVATE,
-            ModifierNameEnum::MUSH_SHOWER_MALUS => VisibilityEnum::PRIVATE,
             ModifierNameEnum::SCREAMING => VisibilityEnum::PUBLIC,
             ModifierNameEnum::WALL_HEAD_BANG => VisibilityEnum::PUBLIC,
             ModifierNameEnum::RUN_IN_CIRCLES => VisibilityEnum::PUBLIC,
@@ -109,8 +106,6 @@ abstract class LogEnum
             SymptomEnum::VOMITING => SymptomEnum::VOMITING,
             ModifierNameEnum::LIQUID_MAP_MODIFIER => self::LIQUID_MAP_HELPED,
             ModifierNameEnum::FITFUL_SLEEP => self::FITFUL_SLEEP,
-            ModifierNameEnum::LYING_DOWN_MODIFIER => self::LYING_DOWN,
-            ModifierNameEnum::MUSH_SHOWER_MALUS => self::SHOWER_MUSH,
             ModifierNameEnum::SCREAMING => self::SCREAMING,
             ModifierNameEnum::WALL_HEAD_BANG => self::WALL_HEAD_BANG,
             ModifierNameEnum::RUN_IN_CIRCLES => self::RUN_IN_CIRCLES,

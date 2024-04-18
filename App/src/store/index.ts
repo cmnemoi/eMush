@@ -10,6 +10,7 @@ import { daedalus } from "@/store/daedalus.module";
 import { admin } from "@/store/admin.module";
 import { popup } from "@/store/popup.module";
 import { moderation } from "@/store/moderation.module";
+import { toast } from "@/store/toast.module";
 
 export default createStore({
     modules: {
@@ -24,6 +25,7 @@ export default createStore({
         admin,
         popup,
         moderation,
+        toast
     }
 })
 ;

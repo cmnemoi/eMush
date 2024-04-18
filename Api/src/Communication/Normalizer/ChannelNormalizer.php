@@ -74,6 +74,7 @@ class ChannelNormalizer implements NormalizerInterface
             'createdAt' => $channel->getCreatedAt()?->format(\DateTimeInterface::ATOM),
             'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $channel),
             'piratedPlayer' => $piratedPlayerId,
+            'numberOfNewMessages' => $this->messageService->getNumberOfNewMessagesForPlayer($currentPlayer, $channel),
         ];
     }
 }

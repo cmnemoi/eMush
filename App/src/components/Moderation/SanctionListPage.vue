@@ -235,7 +235,7 @@ export default defineComponent({
 
             params.params['user.userId'] = this.userId;
 
-            ApiService.get(urlJoin(process.env.VUE_APP_API_URL + 'moderation_sanctions'), params)
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
                 .then((result) => {
                     return result.data;
                 })

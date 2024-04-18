@@ -39,4 +39,8 @@ interface RoomLogServiceInterface
     public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection;
 
     public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection;
+
+    public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int;
+
+    public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void;
 }

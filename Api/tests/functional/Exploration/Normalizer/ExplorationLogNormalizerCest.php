@@ -466,6 +466,12 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
+        // then I should see only one log for intelligent sector
+        $I->grabEntityFromRepository(
+            entity: ExplorationLog::class,
+            params: ['planetSectorName' => PlanetSectorEnum::INTELLIGENT],
+        );
+
         // then exploration log is normalized as expected : provision event as Chun has a white flag which prevents the fight event
         $I->assertEquals(
             expected: [

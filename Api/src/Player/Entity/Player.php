@@ -4,10 +4,13 @@ namespace Mush\Player\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
@@ -96,6 +99,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\ManyToOne(targetEntity: Exploration::class, inversedBy: 'explorators')]
     private ?Exploration $exploration = null;
 
+    #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'favorites')]
+    #[OrderBy(['updatedAt' => Criteria::DESC])]
+    private Collection $favoriteMessages;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -104,6 +111,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->flirts = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
         $this->planets = new ArrayCollection();
+        $this->favoriteMessages = new ArrayCollection();
     }
 
     public function getId(): int
@@ -628,5 +636,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isExploringOrIsLostOnPlanet(): bool
     {
         return $this->exploration !== null || $this->hasStatus(PlayerStatusEnum::LOST);
+    }
+
+    public function getFavoriteMessages(): Collection
+    {
+        return $this->favoriteMessages;
     }
 }

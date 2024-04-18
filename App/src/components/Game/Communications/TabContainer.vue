@@ -1,7 +1,7 @@
 <template>
     <div class="tab-content">
         <div class="chatbox-container" :class="{ 'pirated': isChannelPirated() }">
-            <MessageInput v-if="newMessageAllowed && ! loadingChannels" :channel="channel" />
+            <MessageInput v-if="newMessageAllowed && !loadingChannels && channel?.scope !== ChannelType.FAVORITES" :channel="channel" />
             <div class="chatbox">
                 <slot />
                 <span v-if="loading" class="loading">{{ $t('loading') }}</span>
@@ -15,6 +15,7 @@ import { mapGetters, mapState } from "vuex";
 import { Channel } from "@/entities/Channel";
 import MessageInput from "@/components/Game/Communications/Messages/MessageInput.vue";
 import { defineComponent } from "vue";
+import { ChannelType } from "@/enums/communication.enum";
 
 export default defineComponent ({
     name: "DiscussionTab",
@@ -38,6 +39,11 @@ export default defineComponent ({
         {
             return (this.channel?.piratedPlayer != null) ? 'pirated' : '';
         }
+    },
+    data() {
+        return {
+            ChannelType
+        };
     }
 });
 </script>

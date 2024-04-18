@@ -57,4 +57,6 @@ interface ChannelServiceInterface
     public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer;
 
     public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool;
+
+    public function getPlayerFavoritesChannel(Player $player): Channel;
 }

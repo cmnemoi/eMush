@@ -8,16 +8,21 @@
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
         @click="$emit('click')"
+        @mouseover="read(message)"
     >
         <div class="character-body">
             <img :src="characterPortrait">
         </div>
-        <p class="text">
+        <p :class="['text', { unread: message.isUnread }]">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
         <div class="actions">
-            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons
+                v-if="isPlayerAlive && isReplyable"
+                :actions="['reply', 'favorite']"
+                @favorite="toggleFavorite(message)"
+            />
             <ActionButtons
                 v-if="isPlayerAlive || adminMode"
                 :actions="['report']"
@@ -34,8 +39,9 @@
         v-if="isRoot && isSystemMessage"
         class="log"
         @click="$emit('click')"
+        @mouseover="readMessage(message);"
     >
-        <p class="text">
+        <p :class="['text', { unread: message.isUnread }]">
             <span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
@@ -44,14 +50,19 @@
         v-else-if="!isRoot"
         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
         @click="$emit('click')"
+        @mouseover="read(message)"
     >
-        <p class="text">
+        <p :class="['text', { unread: message.isUnread }]">
             <img class="character-head" :src="characterPortrait">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
         <div class="actions">
-            <ActionButtons v-if="isPlayerAlive && isReplyable" :actions="['reply']" />
+            <ActionButtons
+                v-if="isPlayerAlive && isReplyable"
+                :actions="['reply', 'favorite']"
+                @favorite="toggleFavorite(message)"
+            />
             <ActionButtons
                 v-if="isPlayerAlive"
                 :actions="['report']"
@@ -77,6 +88,7 @@ import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+import { ChannelType } from "@/enums/communication.enum";
 
 export default defineComponent ({
     name: "Message",
@@ -113,9 +125,11 @@ export default defineComponent ({
         report: null
     },
     computed: {
-        ...mapGetters('player', [
-            'player'
-        ]),
+        ...mapGetters({
+            channel: 'communication/currentChannel',
+            player: 'player/player',
+            readMessageMutex: 'communication/readMessageMutex'
+        }),
         characterPortrait: function(): string| null {
             if (this.message.character.key !== null) {
                 const images = characterEnum[this.message.character.key];
@@ -140,9 +154,14 @@ export default defineComponent ({
         }
     },
     methods: {
-        ...mapActions('popup', [
-            'openReportPopup'
-        ]),
+        ...mapActions({
+            acquireReadMessageMutex: 'communication/acquireReadMessageMutex',
+            favoriteMessage: 'communication/favoriteMessage',
+            readMessage: 'communication/readMessage',
+            releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
+            unfavoriteMessage: 'communication/unfavoriteMessage',
+            openReportPopup: 'popup/openReportPopup'
+        }),
         formatDate: (date: Date): string => {
             return formatDistanceToNow(date, { locale : fr });
         },
@@ -162,6 +181,20 @@ export default defineComponent ({
         },
         closeModerationDialog() {
             this.moderationDialogVisible = false;
+        },
+        async read(message: Message) {
+            if (message.isUnread && !this.readMessageMutex) {
+                this.acquireReadMessageMutex();
+                await this.readMessage(message);
+                this.releaseReadMessageMutex();
+            }
+        },
+        async toggleFavorite(message: Message) {
+            if (this.channel.scope === ChannelType.FAVORITES) {
+                await this.unfavoriteMessage(message);
+            } else {
+                await this.favoriteMessage(message);
+            }
         }
     }
 });

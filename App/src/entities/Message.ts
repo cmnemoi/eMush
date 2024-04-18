@@ -1,16 +1,16 @@
 import { Character } from "@/entities/Character";
 
 export class Message {
-    public id : number|null;
+    public id!: number;
     public message : string|null;
     public character : Character;
     public children : Array<Message>;
     public date : string|null;
+    public isUnread!: boolean;
     public isHidden = false;
     public nbChildrenToDisplay = 2;
 
     constructor() {
-        this.id = null;
         this.message = null;
         this.character = new Character();
         this.children = [];
@@ -29,6 +29,7 @@ export class Message {
             });
             this.hideFirstChildren();
             this.date = object.date;
+            this.isUnread = object.isUnread;
         }
         return this;
     }

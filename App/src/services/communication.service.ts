@@ -15,6 +15,12 @@ const PIRATED_CHANNELS_ENDPOINT = urlJoin(API_URL, "channel/pirated");
 const ROOM_LOGS_ENDPOINT = urlJoin(API_URL, "room-log");
 const ROOM_LOGS_CHANNEL_ENDPOINT = urlJoin(API_URL, "room-log/channel");
 
+// If there is only one element found, the API returns an object instead of an array.
+// We need to handle this case to avoid not being able to load the channels / messages.
+function toArray(data: any): any[] {
+    return Array.isArray(data) ? data : Object.values(data);
+}
+
 const CommunicationService = {
     loadChannels: async(): Promise<Channel[]> => {
         const channels = [];
@@ -26,17 +32,19 @@ const CommunicationService = {
 
         const channelsData = await ApiService.get(CHANNELS_ENDPOINT);
         if (channelsData.data) {
-            // If there is only one channel available, the API returns an object instead of an array.
-            // We need to handle this case to avoid not being able to load the channels.
-            const dataArray = Array.isArray(channelsData.data) ? channelsData.data : Object.values(channelsData.data);
-            dataArray.forEach((data: any) => {
+            toArray(channelsData.data).forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
 
+        const favoritesChannelData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites'));
+        if (favoritesChannelData.data) {
+            channels.push((new Channel()).load(favoritesChannelData.data));
+        }
+
         const piratedChannelsData = await ApiService.get(PIRATED_CHANNELS_ENDPOINT);
         if (piratedChannelsData.data) {
-            Object.values(piratedChannelsData.data).forEach((data: any) => {
+            toArray(piratedChannelsData.data).forEach((data: any) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -64,15 +72,12 @@ const CommunicationService = {
     },
 
     loadMessages: async (channel: Channel, page: integer = 1, limit: integer = Channel.MESSAGE_LIMIT): Promise<Array<Message|Record<string, unknown>>> => {
-        switch (channel.scope) {
-        case ChannelType.PRIVATE:
-        case ChannelType.PUBLIC:
-        case ChannelType.MUSH:
-            return CommunicationService.loadChannelMessages(channel, page, limit);
-        case ChannelType.ROOM_LOG:
-            return loadRoomLogs();
-        default:
-            return [];
+        if (channel.scope === ChannelType.ROOM_LOG) {
+            return await loadRoomLogs();
+        } else if (channel.scope === ChannelType.FAVORITES) {
+            return await loadFavoritesChannelMessages(page, limit);
+        } else {
+            return await CommunicationService.loadChannelMessages(channel, page, limit);
         }
 
         async function loadRoomLogs(): Promise<Record<string, unknown>[]> {
@@ -98,6 +103,23 @@ const CommunicationService = {
             }
             return logs;
         }
+
+        async function loadFavoritesChannelMessages(page: integer, limit: integer): Promise<Message[]> {
+            const messagesData = await ApiService.get(urlJoin(CHANNELS_ENDPOINT, 'favorites', 'messages'), {
+                params: {
+                    'page': page,
+                    'limit': limit
+                }
+            });
+
+            const messages: Message[] = [];
+            if (messagesData.data) {
+                toArray(messagesData.data).forEach((data: any) => {
+                    messages.push((new Message()).load(data));
+                });
+            }
+            return messages;
+        }
     },
 
     loadChannelMessages: async (channel: Channel, page: integer, limit: integer): Promise<Message[]> => {
@@ -110,7 +132,7 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            messagesData.data.forEach((data: any) => {
+            toArray(messagesData.data).forEach((data: any) => {
                 messages.push((new Message()).load(data));
             });
         }
@@ -122,7 +144,7 @@ const CommunicationService = {
 
         const players:Player[] = [];
         if (playersData.data) {
-            playersData.data.forEach((data: any) => {
+            toArray(playersData.data).forEach((data: any) => {
                 players.push((new Player()).load(data));
             });
         }
@@ -133,6 +155,25 @@ const CommunicationService = {
         await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/invite', {
             player: player.id
         });
+    },
+
+    putMessageInFavorite: async (message: Message): Promise<void> => {
+        await ApiService.post(urlJoin(CHANNELS_ENDPOINT, 'favorite-message', String(message.id)));
+    },
+
+
+    readMessage: async (message: Message): Promise<void> => {
+        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read-message', String(message.id)));
+        message.isUnread = false;
+    },
+
+    readRoomLog: async (roomLog: RoomLog): Promise<void> => {
+        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read', String(roomLog.id)));
+        roomLog.isUnread = false;
+    },
+
+    removeMessageFromFavorite: async (message: Message): Promise<void> => {
+        await ApiService.delete(urlJoin(CHANNELS_ENDPOINT, 'unfavorite-message', String(message.id)));
     },
 
     sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {
@@ -152,7 +193,7 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            messagesData.data.forEach((data: any) => {
+            toArray(messagesData.data).forEach((data: any) => {
                 messages.push((new Message()).load(data));
             });
         }

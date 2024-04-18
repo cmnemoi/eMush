@@ -20,7 +20,7 @@ const ModerationSanctionService = {
                 }
             }
         });
-        
+
         const sanctions = response.data['hydra:member'].map((sanctionData: object) => {
             return (new ModerationSanction()).load(sanctionData);
         });

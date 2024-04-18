@@ -113,6 +113,7 @@
                     </div>
                 </div>
                 <div class="serious-stuff">
+                    <router-link :to="{ name: 'Rules' }">{{ $t("rules.title") }}</router-link>
                     <a href="https://eternal-twin.net/legal" target="_blank">{{
                         $t('footer.legal')
                     }}</a>

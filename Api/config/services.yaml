@@ -34,7 +34,7 @@ services:
 
 
     gedmo.listener.timestampable:
-        class: Gedmo\Timestampable\TimestampableListener
+        class: Mush\Game\Listener\TimestampableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:

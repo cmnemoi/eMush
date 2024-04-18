@@ -67,4 +67,11 @@ class UserService implements UserServiceInterface
     {
         return new ArrayCollection($this->repository->findUserClosedPlayers($user));
     }
+
+    public function acceptRules(User $user): void
+    {
+        $user->acceptRules();
+
+        $this->persist($user);
+    }
 }

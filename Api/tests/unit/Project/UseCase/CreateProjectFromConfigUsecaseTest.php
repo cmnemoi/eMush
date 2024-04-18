@@ -6,6 +6,7 @@ namespace Api\Tests\Unit\Project\UseCase;
 
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigUseCase;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ final class CreateProjectFromConfigUsecaseTest extends TestCase
     {
         // given I have a ProjectConfig
         $projectConfig = new ProjectConfig(
-            name: 'plasma_shield',
+            name: ProjectName::PLASMA_SHIELD,
             type: 'NERON_PROJECT',
             efficiency: 1,
             bonusSkills: ['physicist', 'engineer'],
@@ -33,7 +34,7 @@ final class CreateProjectFromConfigUsecaseTest extends TestCase
         $usecase->execute($projectConfig);
 
         // then the project should be created as expected
-        $project = $projectRepository->findByName('plasma_shield');
+        $project = $projectRepository->findByName(ProjectName::PLASMA_SHIELD);
         self::assertNotNull($project);
         self::assertProjectIsAsExpected($project, $projectConfig);
     }

@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Mush\Project\Entity;
 
+use Mush\Project\Enum\ProjectName;
+
 class ProjectConfig
 {
     public function __construct(
-        private string $name,
+        private ProjectName $name,
         private string $type,
         private int $efficiency,
         private array $bonusSkills,
     ) {}
 
-    public function getName(): string
+    public function getName(): ProjectName
     {
         return $this->name;
     }

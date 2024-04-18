@@ -17,6 +17,11 @@ final class InMemoryProjectRepository implements ProjectRepositoryInterface
         $this->projects = new ArrayCollection();
     }
 
+    public function clear(): void
+    {
+        $this->projects->clear();
+    }
+
     public function findByName(ProjectName $name): ?Project
     {
         return $this->projects->filter(static fn (Project $project) => $project->getName() === $name)->first() ?: null;

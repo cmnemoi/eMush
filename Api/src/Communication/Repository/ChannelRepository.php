@@ -71,8 +71,7 @@ class ChannelRepository extends ServiceEntityRepository
             ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
             ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
             ->setParameter('playerInfo', $player->getPlayerInfo()->getId())
-            ->setParameter('scope', ChannelScopeEnum::FAVORITES)
-        ;
+            ->setParameter('scope', ChannelScopeEnum::FAVORITES);
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }

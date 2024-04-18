@@ -21,13 +21,18 @@ use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+/**
+ * @internal
+ */
 final class ChannelVoterTest extends TestCase
 {
     /** @var ChannelServiceInterface|Mockery\mock */
     private ChannelServiceInterface $channelService;
+
     /** @var MessageServiceInterface|Mockery\mock */
     private MessageServiceInterface $messageService;
-    /** @var PlayerInfoRepository|Mockery\mock */
+
+    /** @var Mockery\mock|PlayerInfoRepository */
     private PlayerInfoRepository $playerInfoRepository;
 
     private ChannelVoter $channelVoter;
@@ -117,8 +122,7 @@ final class ChannelVoterTest extends TestCase
             ->shouldReceive('findCurrentGameByUser')
             ->with($user)
             ->andReturn($playerInfo)
-            ->once()
-        ;
+            ->once();
 
         return $player;
     }
@@ -139,10 +143,12 @@ final class ChannelVoterTest extends TestCase
         $expectedVote
     ) {
         $token = new UsernamePasswordToken(
-            $user, 'credentials', []
+            $user,
+            'credentials',
+            []
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedVote,
             $this->channelVoter->vote($token, $channel, [$attribute]),
             'Voter should return ' . $expectedVote . ' for ' . $attribute . ' attribute'

@@ -17,11 +17,14 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Normalizer\RoomLogNormalizer;
 use PHPUnit\Framework\TestCase;
 
-class RoomLogNormalizerTest extends TestCase
+/**
+ * @internal
+ */
+final class RoomLogNormalizerTest extends TestCase
 {
     private RoomLogNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
 
     private RoomLogCollection $roomLogCollection;
@@ -89,20 +92,17 @@ class RoomLogNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('logKey1', [], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 1')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('logKey2', ['player' => 'andie'], 'log', LanguageEnum::FRENCH)
             ->andReturn('translated log 2')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
             ->andReturn('translated date')
-            ->twice()
-        ;
+            ->twice();
 
         $normalizeLogs = $this->normalizer->normalize($this->roomLogCollection, null, ['currentPlayer' => $this->player]);
 
@@ -111,6 +111,6 @@ class RoomLogNormalizerTest extends TestCase
             4 => [['id' => 2, 'log' => 'translated log 2', 'visibility' => VisibilityEnum::PUBLIC, 'date' => 'translated date', 'isUnread' => false]],
         ]];
 
-        $this->assertEquals($expectedLogs, $normalizeLogs);
+        self::assertEquals($expectedLogs, $normalizeLogs);
     }
 }

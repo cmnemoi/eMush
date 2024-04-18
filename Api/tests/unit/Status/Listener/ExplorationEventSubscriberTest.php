@@ -26,6 +26,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class ExplorationEventSubscriberTest extends TestCase
 {
     private ExplorationEventSubscriber $explorationEventSubscriber;
@@ -33,10 +36,10 @@ final class ExplorationEventSubscriberTest extends TestCase
     /** @var EventServiceInterface|Mockery\Spy */
     private EventServiceInterface $eventService;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    /** @var StatusServiceInterface|Mockery\Spy */
+    /** @var Mockery\Spy|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private Exploration $exploration;
@@ -97,8 +100,7 @@ final class ExplorationEventSubscriberTest extends TestCase
             ->shouldReceive('isSuccessful')
             ->with(ExplorationEventSubscriber::DIRTY_RATE)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         // when I listen to the exploration finished event
         $this->explorationEventSubscriber->onExplorationFinished($explorationEvent);
@@ -106,7 +108,6 @@ final class ExplorationEventSubscriberTest extends TestCase
         // then the player should get dirty
         $this->statusService
             ->shouldHaveReceived('createStatusFromName')
-            ->once()
-        ;
+            ->once();
     }
 }

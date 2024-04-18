@@ -62,7 +62,7 @@ final class UserVoterTest extends TestCase
         $user = new User();
         $this->banUser($user);
 
-        $this->assertTrue($user->isBanned());
+        self::assertTrue($user->isBanned());
 
         $this->testVote(UserVoter::IS_NOT_BANNED, $user, $user, Voter::ACCESS_DENIED);
     }

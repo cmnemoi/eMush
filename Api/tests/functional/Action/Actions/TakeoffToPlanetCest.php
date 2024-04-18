@@ -38,6 +38,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class TakeoffToPlanetCest extends AbstractFunctionalTest
 {
     private Action $takeoffToPlanetConfig;
@@ -72,8 +75,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $this->icarus = new GameEquipment($icarusBay);
         $this->icarus
             ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig)
-        ;
+            ->setEquipment($icarusConfig);
         $I->haveInRepository($this->icarus);
 
         $this->createPlanetForTest($I);
@@ -119,7 +121,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     public function testTakeoffToPlanetNotExectableIfAllPlanetSectorsHasBeenVisited(FunctionalTester $I): void
     {
         // given all planet sectors have been visited
-        $planetSectors = $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->visit());
+        $planetSectors = $this->planet->getSectors()->map(static fn (PlanetSector $sector) => $sector->visit());
         $this->planet->setSectors($planetSectors);
         $I->haveInRepository($this->planet);
 
@@ -140,14 +142,12 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
         $spacesuit2 = new GameItem($this->player2);
         $spacesuit2
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit2);
 
         // given players are exploring the planet
@@ -160,8 +160,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $patrolShip = new GameEquipment($patrolShipAlphaTamarinPlace);
         $patrolShip
             ->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
-            ->setEquipment($patrolShipConfig)
-        ;
+            ->setEquipment($patrolShipConfig);
         $I->haveInRepository($patrolShip);
 
         $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
@@ -184,14 +183,12 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
         $spacesuit2 = new GameItem($this->player2);
         $spacesuit2
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit2);
 
         // given there is no exploration entity
@@ -222,14 +219,12 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
         $spacesuit2 = new GameItem($this->player2);
         $spacesuit2
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
@@ -260,14 +255,12 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
         $spacesuit2 = new GameItem($this->player2);
         $spacesuit2
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
@@ -288,14 +281,12 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
         $spacesuit2 = new GameItem($this->player2);
         $spacesuit2
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
@@ -353,8 +344,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
 
         // when player tries to takeoff to planet
@@ -382,14 +372,12 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
         $spacesuit2 = new GameItem($this->player2);
         $spacesuit2
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit2);
 
         // when player tries to takeoff to planet
@@ -493,8 +481,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $this->planet = new Planet($this->player);
         $this->planet
             ->setName($planetName)
-            ->setSize(1)
-        ;
+            ->setSize(1);
         $I->haveInRepository($this->planet);
 
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);

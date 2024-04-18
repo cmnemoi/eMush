@@ -47,7 +47,7 @@ class ActionSubscriber implements EventSubscriberInterface
         }
 
         $player = $event->getAuthor();
-        $otherPlayersInRoom = $player->getPlace()->getPlayers()->filter(function ($otherPlayer) use ($player) {
+        $otherPlayersInRoom = $player->getPlace()->getPlayers()->filter(static function ($otherPlayer) use ($player) {
             return $otherPlayer->getId() !== $player->getId();
         });
 
@@ -56,23 +56,24 @@ class ActionSubscriber implements EventSubscriberInterface
         }
 
         $playerDiseases = $player->getMedicalConditions()->getActiveDiseases();
-        $playerDiseases = $playerDiseases->map(function ($disease) {
+        $playerDiseases = $playerDiseases->map(static function ($disease) {
             return $disease->getDiseaseConfig()->getName();
         })->toArray();
 
-        if (count($playerDiseases) === 0) {
+        if (\count($playerDiseases) === 0) {
             return;
         }
 
         $contactDiseases = array_keys(
             $this->diseaseCauseService->findCauseConfigByDaedalus(
                 DiseaseCauseEnum::CONTACT,
-                $player->getDaedalus())
+                $player->getDaedalus()
+            )
                 ->getDiseases()
                 ->toArray()
         );
 
-        if (count(array_intersect($playerDiseases, $contactDiseases)) === 0) {
+        if (\count(array_intersect($playerDiseases, $contactDiseases)) === 0) {
             return;
         }
 

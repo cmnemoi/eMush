@@ -42,8 +42,7 @@ class NewDiseaseOnCycleCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
@@ -51,8 +50,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
         $diseaseCauseLowMorale = new DiseaseCauseConfig();
         $diseaseCauseLowMorale
@@ -60,8 +58,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FLU => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseLowMorale);
 
         /** @var DifficultyConfig $difficultyConfig */
@@ -76,6 +73,7 @@ class NewDiseaseOnCycleCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -86,9 +84,11 @@ class NewDiseaseOnCycleCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -115,8 +115,7 @@ class NewDiseaseOnCycleCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FLU)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
@@ -124,8 +123,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
         $diseaseCauseLowMorale = new DiseaseCauseConfig();
         $diseaseCauseLowMorale
@@ -133,8 +131,7 @@ class NewDiseaseOnCycleCest
             ->setDiseases([
                 DiseaseEnum::FLU => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseLowMorale);
 
         /** @var DifficultyConfig $difficultyConfig */
@@ -149,6 +146,7 @@ class NewDiseaseOnCycleCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -159,9 +157,11 @@ class NewDiseaseOnCycleCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -174,8 +174,7 @@ class NewDiseaseOnCycleCest
         $statusConfig
             ->setStatusName(PlayerStatusEnum::DEMORALIZED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);

@@ -43,8 +43,9 @@ class GearToolService implements GearToolServiceInterface
             case ReachEnum::SHELVE_NOT_HIDDEN:
                 return new ArrayCollection(array_merge(
                     $player->getEquipments()->toArray(),
-                    array_filter($player->getPlace()->getEquipments()->toArray(),
-                        function (GameEquipment $gameEquipment) use ($player) {
+                    array_filter(
+                        $player->getPlace()->getEquipments()->toArray(),
+                        static function (GameEquipment $gameEquipment) use ($player) {
                             return ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) === null
                             || $hiddenStatus->getTarget() === $player;
                         }
@@ -54,7 +55,9 @@ class GearToolService implements GearToolServiceInterface
             case $reach === ReachEnum::SHELVE:
                 return new ArrayCollection(array_merge(
                     $player->getEquipments()->toArray(),
-                    $player->getPlace()->getEquipments()->toArray()));
+                    $player->getPlace()->getEquipments()->toArray()
+                ));
+
             default:
                 $room = $player->getDaedalus()->getPlaceByName($reach);
                 if ($room === null) {
@@ -68,10 +71,10 @@ class GearToolService implements GearToolServiceInterface
 
     public function getEquipmentsOnReachByName(Player $player, string $equipmentName, string $reach = ReachEnum::SHELVE_NOT_HIDDEN): Collection
     {
-        return $this->getEquipmentsOnReach($player, $reach)->filter(fn (GameEquipment $equipment) => $equipment->getName() === $equipmentName);
+        return $this->getEquipmentsOnReach($player, $reach)->filter(static fn (GameEquipment $equipment) => $equipment->getName() === $equipmentName);
     }
 
-    public function getActionsTools(Player $player, array $scopes, string $target = null): Collection
+    public function getActionsTools(Player $player, array $scopes, ?string $target = null): Collection
     {
         /** @var Collection $actions */
         $grantedActions = new ArrayCollection();
@@ -83,7 +86,7 @@ class GearToolService implements GearToolServiceInterface
             $actions = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActions();
 
             foreach ($actions as $action) {
-                if (in_array($action->getScope(), $scopes)
+                if (\in_array($action->getScope(), $scopes, true)
                     && ($action->getTarget() === null || $action->getTarget() === $target)
                 ) {
                     $grantedActions->add($action);
@@ -92,15 +95,6 @@ class GearToolService implements GearToolServiceInterface
         }
 
         return $grantedActions;
-    }
-
-    private function getToolsOnReach(Player $player): Collection
-    {
-        $equipments = $this->getEquipmentsOnReach($player);
-
-        return $equipments->filter(fn (GameEquipment $equipment) => $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null
-            && !$equipment->isBroken()
-        );
     }
 
     public function getUsedTool(Player $player, string $actionName): ?GameEquipment
@@ -114,14 +108,15 @@ class GearToolService implements GearToolServiceInterface
             $toolMechanic = $tool->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
 
             if ($toolMechanic
-                && !$toolMechanic->getActions()->filter(fn (Action $action) => $action->getActionName() === $actionName)->isEmpty()
+                && !$toolMechanic->getActions()->filter(static fn (Action $action) => $action->getActionName() === $actionName)->isEmpty()
             ) {
                 $chargeStatus = $this->getChargeStatus($actionName, $tool);
 
                 // if one tool provide this action for free prioritize it
                 if ($chargeStatus === null) {
                     return $tool;
-                } elseif ($chargeStatus->getCharge() > 0) {
+                }
+                if ($chargeStatus->getCharge() > 0) {
                     $tools->add($tool);
                 }
             }
@@ -142,6 +137,16 @@ class GearToolService implements GearToolServiceInterface
         if ($tool) {
             $this->removeCharge($tool, $actionName, $types, new \DateTime());
         }
+    }
+
+    private function getToolsOnReach(Player $player): Collection
+    {
+        $equipments = $this->getEquipmentsOnReach($player);
+
+        return $equipments->filter(
+            static fn (GameEquipment $equipment) => $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL) !== null
+            && !$equipment->isBroken()
+        );
     }
 
     private function removeCharge(GameEquipment $equipment, string $actionName, array $tags, \DateTime $time): void
@@ -166,16 +171,17 @@ class GearToolService implements GearToolServiceInterface
 
     private function getChargeStatus(string $actionName, GameEquipment $equipment): ?ChargeStatus
     {
-        $charges = $equipment->getStatuses()->filter(function (Status $status) use ($actionName) {
+        $charges = $equipment->getStatuses()->filter(static function (Status $status) use ($actionName) {
             return $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName);
         });
 
         if ($charges->count() > 0) {
             return $charges->first();
-        } elseif ($charges->count() === 0) {
-            return null;
-        } else {
-            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
         }
+        if ($charges->count() === 0) {
+            return null;
+        }
+
+        throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
     }
 }

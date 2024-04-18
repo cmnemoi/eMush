@@ -16,9 +16,12 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class InfectActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class InfectActionTest extends AbstractActionTest
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     /**
@@ -65,8 +68,7 @@ class InfectActionTest extends AbstractActionTest
         $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
 
@@ -76,7 +78,7 @@ class InfectActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $player->getStatuses());
     }
 }

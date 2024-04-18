@@ -51,12 +51,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $this->equipmentEffectService = $equipmentEffectService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -79,7 +79,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $statuses = [];
         foreach ($object->getStatuses() as $status) {
             $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['equipment' => $object]));
-            if (is_array($normedStatus) && count($normedStatus) > 0) {
+            if (\is_array($normedStatus) && \count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
         }
@@ -140,15 +140,14 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $contextActions = $this->getContextActions($gameEquipment, $currentPlayer);
         $currentScopeActions = $gameEquipment->getEquipment()->getActions()
-            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT)
-        ;
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT);
 
         $actionsToNormalize = array_merge($contextActions->toArray(), $currentScopeActions->toArray());
 
         /** @var Action $action */
         foreach ($actionsToNormalize as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }
@@ -176,6 +175,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array
     {
         $language = $daedalus->getLanguage();
+
         /** @var Ration $ration */
         $ration = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::RATION);
         if ($ration === null) {
@@ -303,7 +303,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                     'items',
                     $language
                 );
-                $description = "$description//$ingredientTranslation";
+                $description = "{$description}//{$ingredientTranslation}";
             }
         }
 

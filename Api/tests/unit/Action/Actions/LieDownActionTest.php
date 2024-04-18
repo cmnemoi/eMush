@@ -15,10 +15,12 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class LieDownActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class LieDownActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -60,13 +62,11 @@ class LieDownActionTest extends AbstractActionTest
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::BED)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
 
         $gameEquipment
             ->setEquipment($item)
-            ->setName(EquipmentEnum::BED)
-        ;
+            ->setName(EquipmentEnum::BED);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
@@ -74,10 +74,10 @@ class LieDownActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getStatuses());
-        $this->assertCount(0, $gameEquipment->getTargetingStatuses());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $player->getStatuses());
+        self::assertCount(0, $gameEquipment->getTargetingStatuses());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

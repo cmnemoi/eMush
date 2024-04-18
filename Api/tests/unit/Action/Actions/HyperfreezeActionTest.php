@@ -17,10 +17,12 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class HyperfreezeActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class HyperfreezeActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -67,13 +69,11 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
-             ->setMechanics(new ArrayCollection([$rationType]))
-             ->setEquipmentName('fruit')
-        ;
+            ->setMechanics(new ArrayCollection([$rationType]))
+            ->setEquipmentName('fruit');
         $gameRation
             ->setEquipment($ration)
-            ->setName('fruit')
-        ;
+            ->setName('fruit');
 
         $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
@@ -81,8 +81,7 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameSuperfreezer
             ->setEquipment($superfreezer)
             ->setName(ToolItemEnum::SUPERFREEZER)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
@@ -91,11 +90,11 @@ class HyperfreezeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $player->getEquipments());
-        $this->assertEquals($gameRation->getName(), $room->getEquipments()->first()->getName());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
+        self::assertCount(0, $player->getEquipments());
+        self::assertSame($gameRation->getName(), $room->getEquipments()->first()->getName());
+        self::assertCount(0, $player->getStatuses());
     }
 
     public function testExecuteSteak()
@@ -111,42 +110,37 @@ class HyperfreezeActionTest extends AbstractActionTest
         $gameRation = new GameItem($room);
         $ration = new ItemConfig();
         $ration
-             ->setMechanics(new ArrayCollection([$rationType]))
-             ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
-        ;
+            ->setMechanics(new ArrayCollection([$rationType]))
+            ->setEquipmentName(GameRationEnum::ALIEN_STEAK);
         $gameRation
             ->setEquipment($ration)
-            ->setName(GameRationEnum::ALIEN_STEAK)
-        ;
+            ->setName(GameRationEnum::ALIEN_STEAK);
 
         $gameSuperfreezer = new GameItem($room);
         $superfreezer = new ItemConfig();
         $superfreezer->setEquipmentName(ToolItemEnum::SUPERFREEZER);
         $gameSuperfreezer
             ->setEquipment($superfreezer)
-            ->setName(ToolItemEnum::SUPERFREEZER)
-        ;
+            ->setName(ToolItemEnum::SUPERFREEZER);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
         $gameStandardRation = new GameItem(new Place());
         $standardRation = new ItemConfig();
         $standardRation
-             ->setEquipmentName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameStandardRation
             ->setEquipment($standardRation)
-            ->setName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $gameSuperfreezer->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
+        self::assertCount(0, $gameSuperfreezer->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 }

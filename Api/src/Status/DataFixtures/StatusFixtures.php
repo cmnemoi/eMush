@@ -78,64 +78,56 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $alienArtefact
             ->setStatusName(EquipmentStatusEnum::ALIEN_ARTEFACT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($alienArtefact);
 
         $heavy = new StatusConfig();
         $heavy
             ->setStatusName(EquipmentStatusEnum::HEAVY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($heavy);
 
         $moduleAccess = new StatusConfig();
         $moduleAccess
             ->setStatusName(EquipmentStatusEnum::MODULE_ACCESS)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($moduleAccess);
 
         $hidden = new StatusConfig();
         $hidden
             ->setStatusName(EquipmentStatusEnum::HIDDEN)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($hidden);
 
         $broken = new StatusConfig();
         $broken
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($broken);
 
         $unstable = new StatusConfig();
         $unstable
             ->setStatusName(EquipmentStatusEnum::UNSTABLE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($unstable);
 
         $hazardous = new StatusConfig();
         $hazardous
             ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($hazardous);
 
         $decomposing = new StatusConfig();
         $decomposing
             ->setStatusName(EquipmentStatusEnum::DECOMPOSING)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($decomposing);
 
         /** @var VariableEventModifierConfig $frozenModifier */
@@ -146,48 +138,42 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(EquipmentStatusEnum::FROZEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setModifierConfigs([$frozenModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($frozen);
 
         $plantThirsty = new StatusConfig();
         $plantThirsty
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($plantThirsty);
 
         $plantDry = new StatusConfig();
         $plantDry
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($plantDry);
 
         $plantDiseased = new StatusConfig();
         $plantDiseased
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($plantDiseased);
 
         $documentContent = new ContentStatusConfig();
         $documentContent
             ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($documentContent);
 
         $reinforced = new StatusConfig();
         $reinforced
             ->setStatusName(EquipmentStatusEnum::REINFORCED)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($reinforced);
 
         /** @var VariableEventModifierConfig $antisocialModifier */
@@ -198,24 +184,21 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::ANTISOCIAL)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setModifierConfigs([$antisocialModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($antisocial);
 
         $berzerk = new StatusConfig();
         $berzerk
             ->setStatusName(PlayerStatusEnum::BERZERK)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($berzerk);
 
         $brainsync = new StatusConfig();
         $brainsync
             ->setStatusName(PlayerStatusEnum::BRAINSYNC)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($brainsync);
 
         /** @var VariableEventModifierConfig $burdenedModifier */
@@ -225,8 +208,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::BURDENED)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setModifierConfigs([$burdenedModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($burdened);
 
         $demoralized = new StatusConfig();
@@ -234,20 +216,19 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::DEMORALIZED)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setModifierConfigs([$increaseCycleDiseaseChances30])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($demoralized);
 
         $dirty = new StatusConfig();
         $dirty
             ->setStatusName(PlayerStatusEnum::DIRTY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($dirty);
 
         /** @var VariableEventModifierConfig $disabledConversionModifier */
         $disabledConversionModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_CONVERSION_MODIFIER);
+
         /** @var VariableEventModifierConfig $disabledNotAloneModifier */
         $disabledNotAloneModifier = $this->getReference(StatusModifierConfigFixtures::DISABLED_NOT_ALONE_MODIFIER);
         $disabled = new StatusConfig();
@@ -255,64 +236,56 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::DISABLED)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setModifierConfigs([$disabledNotAloneModifier, $disabledConversionModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($disabled);
 
         $focused = new StatusConfig();
         $focused
             ->setStatusName(PlayerStatusEnum::FOCUSED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($focused);
 
         $fullStomach = new StatusConfig();
         $fullStomach
             ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($fullStomach);
 
         $gagged = new StatusConfig();
         $gagged
             ->setStatusName(PlayerStatusEnum::GAGGED)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($gagged);
 
         $germaphobe = new StatusConfig();
         $germaphobe
             ->setStatusName(PlayerStatusEnum::GERMAPHOBE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($germaphobe);
 
         $guardian = new StatusConfig();
         $guardian
             ->setStatusName(PlayerStatusEnum::GUARDIAN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($guardian);
 
         $highlyInactive = new StatusConfig();
         $highlyInactive
             ->setStatusName(PlayerStatusEnum::HIGHLY_INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($highlyInactive);
 
         $hyperactive = new StatusConfig();
         $hyperactive
             ->setStatusName(PlayerStatusEnum::HYPERACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($hyperactive);
 
         /** @var VariableEventModifierConfig $immunizedModifierSet0SporesOnChangeVariable */
@@ -323,16 +296,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::IMMUNIZED)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setModifierConfigs([$immunizedModifierSet0SporesOnChangeVariable])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($immunized);
 
         $inactive = new StatusConfig();
         $inactive
             ->setStatusName(PlayerStatusEnum::INACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($inactive);
 
         /** @var VariableEventModifierConfig $lostModifier */
@@ -343,8 +314,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::LOST)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setModifierConfigs([$lostModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($lost);
 
         /** @var VariableEventModifierConfig $lyingDownModifier */
@@ -354,24 +324,21 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setModifierConfigs([$lyingDownModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($lyingDown);
 
         $multiTeamster = new StatusConfig();
         $multiTeamster
             ->setStatusName(PlayerStatusEnum::MULTI_TEAMSTER)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($multiTeamster);
 
         $outcast = new StatusConfig();
         $outcast
             ->setStatusName(PlayerStatusEnum::OUTCAST)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($outcast);
 
         /** @var VariableEventModifierConfig $pacifistModifier */
@@ -381,24 +348,21 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::PACIFIST)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setModifierConfigs([$pacifistModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pacifist);
 
         $pregnant = new StatusConfig();
         $pregnant
             ->setStatusName(PlayerStatusEnum::PREGNANT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pregnant);
 
         $starvingWarning = new StatusConfig();
         $starvingWarning
             ->setStatusName(PlayerStatusEnum::STARVING_WARNING)
             ->setVisibility(VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($starvingWarning);
 
         /** @var VariableEventModifierConfig $starvingModifier */
@@ -408,16 +372,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::STARVING)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setModifierConfigs([$starvingModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($starving);
 
         $stuckInTheShip = new StatusConfig();
         $stuckInTheShip
             ->setStatusName(PlayerStatusEnum::STUCK_IN_THE_SHIP)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($stuckInTheShip);
 
         $suicidal = new StatusConfig();
@@ -425,56 +387,52 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(PlayerStatusEnum::SUICIDAL)
             ->setVisibility(VisibilityEnum::PRIVATE)
             ->setModifierConfigs([$increaseCycleDiseaseChances30])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($suicidal);
 
         $watched_public_broadcast = new StatusConfig();
         $watched_public_broadcast
             ->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($watched_public_broadcast);
 
         $screwedTalkie = new StatusConfig();
         $screwedTalkie
             ->setStatusName(PlayerStatusEnum::TALKIE_SCREWED)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($screwedTalkie);
 
         /** @var VariableEventModifierConfig $gravityConversionModifier */
         $gravityConversionModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CONVERSION_MODIFIER);
+
         /** @var VariableEventModifierConfig $gravityCycleModifier */
         $gravityCycleModifier = $this->getReference(GearModifierConfigFixtures::GRAVITY_CYCLE_MODIFIER);
         $noGravity = new StatusConfig();
         $noGravity
             ->setStatusName(DaedalusStatusEnum::NO_GRAVITY)
             ->setModifierConfigs([$gravityConversionModifier, $gravityCycleModifier])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($noGravity);
 
         $inOrbit = new StatusConfig();
         $inOrbit
             ->setStatusName(DaedalusStatusEnum::IN_ORBIT)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($inOrbit);
 
         $pocPilotSkill = new StatusConfig();
         $pocPilotSkill
             ->setStatusName(PlayerStatusEnum::POC_PILOT_SKILL)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pocPilotSkill);
 
         /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierPlus1Section */
         $astronavigationNeronCpuPriorityModifierPlus1Section = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION);
+
         /** @var VariableEventModifierConfig $astronavigatioNeronCpuPriorityModifierMinus1ActionPoint */
         $astronavigationNeronCpuPriorityModifierMinus1ActionPoint = $this->getReference(StatusModifierConfigFixtures::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT);
 
@@ -489,12 +447,12 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY)
             ->setModifierConfigs($modifierConfigs)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($astronavigationNeronCpuPriority);
 
         /** @var VariableEventModifierConfig $increasedMaxCharge */
         $increasedMaxCharge = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE);
+
         /** @var VariableEventModifierConfig $increasedRechargeRate */
         $increasedRechargeRate = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE);
 
@@ -508,8 +466,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY)
             ->setModifierConfigs($defenceModifierConfigs)
             ->setVisibility(VisibilityEnum::HIDDEN)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($defenceCpuPriority);
 
         $gameConfig
@@ -559,8 +516,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($inOrbit)
             ->addStatusConfig($pocPilotSkill)
             ->addStatusConfig($astronavigationNeronCpuPriority)
-            ->addStatusConfig($defenceCpuPriority)
-        ;
+            ->addStatusConfig($defenceCpuPriority);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);

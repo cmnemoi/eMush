@@ -24,8 +24,7 @@ class LocalizationConfigRepository extends ServiceEntityRepository
             ->where(
                 $queryBuilder->expr()->eq('localization_config.language', ':language')
             )
-            ->setParameter('language', $language)
-        ;
+            ->setParameter('language', $language);
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }

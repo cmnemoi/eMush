@@ -12,7 +12,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class BreakableValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class BreakableValidatorTest extends TestCase
 {
     private BreakableValidator $validator;
     private Breakable $constraint;
@@ -46,8 +49,7 @@ class BreakableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -65,14 +67,13 @@ class BreakableValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'visibility');
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -84,7 +85,7 @@ class BreakableValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

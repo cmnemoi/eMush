@@ -39,6 +39,9 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class FightTest extends TestCase
 {
     private const int DISEASE_CHANCE = 5;
@@ -54,13 +57,13 @@ final class FightTest extends TestCase
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    /** @var RoomLogServiceInterface|Mockery\Spy */
+    /** @var Mockery\Spy|RoomLogServiceInterface */
     private RoomLogServiceInterface $roomLogService;
 
-    /** @var TranslationServiceInterface|Mockery\Spy */
+    /** @var Mockery\Spy|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /** @before */
@@ -152,9 +155,7 @@ final class FightTest extends TestCase
         $exploration->setExplorators(new PlayerCollection([$explorator]));
         $explorator->method('getPlace')->willReturn($planetPlace);
 
-        $planetSector = new PlanetSector($planetSectorConfig, $planet);
-
-        return $planetSector;
+        return new PlanetSector($planetSectorConfig, $planet);
     }
 
     private function getExplorator(): Player
@@ -189,13 +190,11 @@ final class FightTest extends TestCase
     {
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->once()
-            ->andReturn(12)
-        ;
+            ->andReturn(12);
 
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->once()
-            ->andReturn(self::DISEASE_CHANCE)
-        ;
+            ->andReturn(self::DISEASE_CHANCE);
 
         $this->randomService->shouldReceive('getRandomPlayer')
             ->times(11) // one call per damage point

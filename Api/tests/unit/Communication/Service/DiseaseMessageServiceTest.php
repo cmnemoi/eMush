@@ -25,13 +25,17 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class DiseaseMessageServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class DiseaseMessageServiceTest extends TestCase
 {
     private MessageModifierServiceInterface $service;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**
@@ -66,7 +70,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::DEAF_SPEAK);
 
-        $this->assertEquals('SOME MESSAGE', $modifiedMessage->getMessage());
+        self::assertSame('SOME MESSAGE', $modifiedMessage->getMessage());
     }
 
     public function testCoprolaliaPlayerNoTrigger()
@@ -89,7 +93,7 @@ class DiseaseMessageServiceTest extends TestCase
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
-        $this->assertEquals($message, $modifiedMessage);
+        self::assertSame($message, $modifiedMessage);
     }
 
     public function testCoprolaliaPlayerTriggerReplace()
@@ -115,25 +119,25 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::REPLACE_COPROLALIA, [
+                DiseaseMessagesEnum::REPLACE_COPROLALIA,
+                [
                     LogDeclinationEnum::VERSION => 1,
                     LogDeclinationEnum::WORD_COPROLALIA => 1,
                     LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
                     LogDeclinationEnum::PREFIX_COPROLALIA => 1,
                     LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
                     LogDeclinationEnum::BALLS_COPROLALIA => 1,
-                    ],
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
     public function testCoprolaliaPlayerTriggerPre()
@@ -160,25 +164,25 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::PRE_COPROLALIA, [
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::WORD_COPROLALIA => 1,
-                LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
-                LogDeclinationEnum::PREFIX_COPROLALIA => 1,
-                LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
-                LogDeclinationEnum::BALLS_COPROLALIA => 1,
-            ],
+                DiseaseMessagesEnum::PRE_COPROLALIA,
+                [
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::WORD_COPROLALIA => 1,
+                    LogDeclinationEnum::ANIMAL_COPROLALIA => 1,
+                    LogDeclinationEnum::PREFIX_COPROLALIA => 1,
+                    LogDeclinationEnum::ADJECTIVE_COPROLALIA => 1,
+                    LogDeclinationEnum::BALLS_COPROLALIA => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
             ->andReturn('prefix, ')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::COPROLALIA_MESSAGES);
 
-        $this->assertEquals('prefix, some message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('prefix, some message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
     public function testParanoiaPlayerTriggerReplaceAware()
@@ -207,22 +211,22 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::REPLACE_PARANOIA, [
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
-            ],
+                DiseaseMessagesEnum::REPLACE_PARANOIA,
+                [
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
     public function testParanoiaPlayerTriggerReplaceNotAware()
@@ -250,26 +254,27 @@ class DiseaseMessageServiceTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::REPLACE_PARANOIA, [
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
-            ],
+                DiseaseMessagesEnum::REPLACE_PARANOIA,
+                [
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals(
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame(
             [
                 DiseaseMessagesEnum::ORIGINAL_MESSAGE => 'Some message',
                 DiseaseMessagesEnum::MODIFICATION_CAUSE => MessageModificationEnum::PARANOIA_MESSAGES,
-            ], $modifiedMessage->getTranslationParameters()
+            ],
+            $modifiedMessage->getTranslationParameters()
         );
     }
 
@@ -285,8 +290,7 @@ class DiseaseMessageServiceTest extends TestCase
         $localizationConfig->setLanguage(LanguageEnum::FRENCH);
 
         $gameConfig
-            ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]))
-        ;
+            ->setCharactersConfig(new CharacterConfigCollection([$characterConfig1, $characterConfig2]));
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -311,27 +315,26 @@ class DiseaseMessageServiceTest extends TestCase
             ->shouldReceive('getRandomElements')
             ->with([CharacterEnum::TERRENCE], 1)
             ->andReturn([CharacterEnum::TERRENCE])
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                DiseaseMessagesEnum::ACCUSE_PARANOIA, [
-                'character' => CharacterEnum::TERRENCE,
-                LogDeclinationEnum::VERSION => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
-                LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
-            ],
+                DiseaseMessagesEnum::ACCUSE_PARANOIA,
+                [
+                    'character' => CharacterEnum::TERRENCE,
+                    LogDeclinationEnum::VERSION => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_4 => 1,
+                    LogDeclinationEnum::PARANOIA_VERSION_6 => 1,
+                ],
                 'disease_message',
                 LanguageEnum::FRENCH
             )
             ->andReturn('modified message')
-            ->once()
-        ;
+            ->once();
 
         $modifiedMessage = $this->service->applyModifierEffects($message, $player, MessageModificationEnum::PARANOIA_MESSAGES);
 
-        $this->assertEquals('modified message', $modifiedMessage->getMessage());
-        $this->assertEquals([], $modifiedMessage->getTranslationParameters());
+        self::assertSame('modified message', $modifiedMessage->getMessage());
+        self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 }

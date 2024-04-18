@@ -14,12 +14,15 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 
-class UltraHealTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class UltraHealTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
-    /** @var PlayerVariableServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerVariableServiceInterface */
     private PlayerVariableServiceInterface $playerVariableService;
 
     /**
@@ -59,8 +62,7 @@ class UltraHealTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
         $player = $this->createPlayer($daedalus, $room);
 
         $this->playerVariableService
@@ -75,6 +77,6 @@ class UltraHealTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

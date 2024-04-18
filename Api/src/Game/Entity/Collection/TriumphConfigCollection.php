@@ -13,9 +13,8 @@ class TriumphConfigCollection extends ArrayCollection
     public function getTriumph(string $name): ?TriumphConfig
     {
         $triumph = $this
-            ->filter(fn (TriumphConfig $triumphConfig) => $triumphConfig->getName() === $name)
-            ->first()
-        ;
+            ->filter(static fn (TriumphConfig $triumphConfig) => $triumphConfig->getName() === $name)
+            ->first();
 
         return $triumph === false ? null : $triumph;
     }

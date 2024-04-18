@@ -32,6 +32,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class TakeoffActionCest extends AbstractFunctionalTest
 {
     private StatusServiceInterface $statusService;
@@ -58,8 +61,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         $pasiphaeArmor = $this->statusService->createStatusFromName(
@@ -121,8 +123,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatus $pasiphaeArmor */
@@ -180,8 +181,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         $pasiphaeArmor = $this->statusService->createStatusFromName(
@@ -215,8 +215,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         $pasiphaeArmor = $this->statusService->createStatusFromName(
@@ -233,8 +232,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $extinguisher = new GameItem($this->player);
         $extinguisher
             ->setName(ToolItemEnum::EXTINGUISHER)
-            ->setEquipment($extinguisherConfig)
-        ;
+            ->setEquipment($extinguisherConfig);
         $I->haveInRepository($extinguisher);
 
         // when player tries to take off
@@ -252,8 +250,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         $pasiphaeArmor = $this->statusService->createStatusFromName(
@@ -270,16 +267,14 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $extinguisher = new GameItem($this->player);
         $extinguisher
             ->setName(ToolItemEnum::EXTINGUISHER)
-            ->setEquipment($extinguisherConfig)
-        ;
+            ->setEquipment($extinguisherConfig);
         $I->haveInRepository($extinguisher);
 
         $hackerKitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::HACKER_KIT]);
         $hackerKit = new GameItem($this->player);
         $hackerKit
             ->setName(ToolItemEnum::HACKER_KIT)
-            ->setEquipment($hackerKitConfig)
-        ;
+            ->setEquipment($hackerKitConfig);
         $I->haveInRepository($hackerKit);
 
         // given player is Mush
@@ -307,8 +302,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $pasiphaeRoom
             ->setName(RoomEnum::PASIPHAE)
             ->setType($pasiphaeRoomConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($pasiphaeRoom);
 
         $I->haveInRepository($daedalus);

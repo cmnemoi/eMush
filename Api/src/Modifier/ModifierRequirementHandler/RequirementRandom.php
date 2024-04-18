@@ -23,6 +23,6 @@ class RequirementRandom extends AbstractModifierRequirementHandler
         ModifierActivationRequirement $modifierRequirement,
         ModifierHolderInterface $holder
     ): bool {
-        return $this->randomService->isSuccessful(intval($modifierRequirement->getValue()));
+        return $this->randomService->isSuccessful((int) $modifierRequirement->getValue());
     }
 }

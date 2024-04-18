@@ -12,7 +12,10 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Place\Entity\Place;
 
-class ShredActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ShredActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -50,8 +53,7 @@ class ShredActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$document]));
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $this->eventService->shouldReceive('callEvent');
 
@@ -62,7 +64,7 @@ class ShredActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertEmpty($player->getEquipments());
     }
 }

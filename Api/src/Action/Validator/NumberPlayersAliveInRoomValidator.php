@@ -34,15 +34,21 @@ class NumberPlayersAliveInRoomValidator extends ConstraintValidator
         $playersInRoom = $place->getPlayers()->getPlayerAlive()->count();
 
         $buildViolation = false;
+
         switch ($constraint->mode) {
             case self::GREATER_THAN:
                 $buildViolation = $playersInRoom > $constraint->number;
+
                 break;
+
             case self::LESS_THAN:
                 $buildViolation = $playersInRoom < $constraint->number;
+
                 break;
+
             case self::EQUAL:
                 $buildViolation = $playersInRoom === $constraint->number;
+
                 break;
         }
 

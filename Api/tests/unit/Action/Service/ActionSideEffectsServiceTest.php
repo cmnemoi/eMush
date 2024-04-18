@@ -17,10 +17,14 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class ActionSideEffectsServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class ActionSideEffectsServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EventModifierServiceInterface|Mockery\Mock */
     private EventModifierServiceInterface $modifierService;
 
@@ -57,14 +61,13 @@ class ActionSideEffectsServiceTest extends TestCase
         $room->setDaedalus($player->getDaedalus());
 
         $action
-            ->setActionName(ActionEnum::DROP)
-        ;
+            ->setActionName(ActionEnum::DROP);
 
         $this->eventService->shouldReceive('callEvent')->twice();
 
         $player = $this->actionService->handleActionSideEffect($action, $player, null);
 
-        $this->assertCount(0, $player->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 
     public function testHandleActionSideEffectAlreadyDirty()
@@ -77,8 +80,7 @@ class ActionSideEffectsServiceTest extends TestCase
         $room->setDaedalus($player->getDaedalus());
 
         $action
-            ->setActionName(ActionEnum::DROP)
-        ;
+            ->setActionName(ActionEnum::DROP);
         $dirtyConfig = new StatusConfig();
         $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY);
         new Status($player, $dirtyConfig);
@@ -87,6 +89,6 @@ class ActionSideEffectsServiceTest extends TestCase
 
         $player = $this->actionService->handleActionSideEffect($action, $player, null);
 
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
     }
 }

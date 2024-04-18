@@ -58,8 +58,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setItems([
                 GearItemEnum::MAGELLAN_LIQUID_MAP,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($bridge);
 
@@ -78,8 +77,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::PATROL_SHIP,
                 EquipmentEnum::PATROL_SHIP,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($alphaBay);
 
@@ -98,8 +96,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::PATROL_SHIP,
                 EquipmentEnum::PATROL_SHIP,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bravoBay);
 
         $alphaBay2 = new PlaceConfig();
@@ -136,8 +133,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 ToolItemEnum::SPACE_CAPSULE,
                 ToolItemEnum::SPACE_CAPSULE,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($alphaBay2);
 
         $nexus = new PlaceConfig();
@@ -151,8 +147,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::BIOS_TERMINAL,
                 EquipmentEnum::CALCULATOR,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($nexus);
 
         $medLab = new PlaceConfig();
@@ -186,8 +181,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 ToolItemEnum::JAR_OF_ALIEN_OIL,
                 ToolItemEnum::SPORE_SUCKER,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($medLab);
 
         $laboratory = new PlaceConfig();
@@ -218,8 +212,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::CRYO_MODULE,
                 EquipmentEnum::MYCOSCAN,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($laboratory);
 
         $refectory = new PlaceConfig();
@@ -269,8 +262,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::KITCHEN,
                 EquipmentEnum::COFFEE_MACHINE,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($refectory);
 
         $garden = new PlaceConfig();
@@ -285,8 +277,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 GamePlantEnum::BANANA_TREE,
                 GamePlantEnum::BANANA_TREE,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($garden);
 
         $engineRoom = new PlaceConfig();
@@ -309,8 +300,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::EMERGENCY_REACTOR,
                 EquipmentEnum::COMBUSTION_CHAMBER,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($engineRoom);
 
         $frontAlphaTurret = new PlaceConfig();
@@ -323,8 +313,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($frontAlphaTurret);
 
         $centerAlphaTurret = new PlaceConfig();
@@ -337,8 +326,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($centerAlphaTurret);
 
         $rearAlphaTurret = new PlaceConfig();
@@ -351,8 +339,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rearAlphaTurret);
 
         $frontBravoTurret = new PlaceConfig();
@@ -365,8 +352,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($frontBravoTurret);
 
         $centreBravoTurret = new PlaceConfig();
@@ -379,8 +365,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($centreBravoTurret);
 
         $rearBravoTurret = new PlaceConfig();
@@ -393,8 +378,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::TURRET_COMMAND,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rearBravoTurret);
 
         $frontCorridor = new PlaceConfig();
@@ -410,8 +394,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
                 DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($frontCorridor);
 
         $centralCorridor = new PlaceConfig();
@@ -423,8 +406,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::ALPHA_BAY_CENTRAL_CORRIDOR,
                 DoorEnum::BRAVO_BAY_CENTRAL_CORRIDOR,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($centralCorridor);
 
         $rearCorridor = new PlaceConfig();
@@ -440,8 +422,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::REAR_CORRIDOR_REAR_BRAVO_STORAGE,
                 DoorEnum::BRAVO_BAY_REAR_CORRIDOR,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rearCorridor);
 
         $icarusBay = new PlaceConfig();
@@ -455,8 +436,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::ICARUS,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($icarusBay);
 
         $alphaDorm = new PlaceConfig();
@@ -472,8 +452,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::BED,
                 EquipmentEnum::SHOWER,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($alphaDorm);
 
         $bravoDorm = new PlaceConfig();
@@ -489,8 +468,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 EquipmentEnum::BED,
                 EquipmentEnum::THALASSO,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bravoDorm);
 
         $frontStorage = new PlaceConfig();
@@ -501,8 +479,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_STORAGE_GARDEN,
                 DoorEnum::FRONT_CORRIDOR_FRONT_STORAGE,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($frontStorage);
 
         $centerAlphaStorage = new PlaceConfig();
@@ -514,8 +491,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::OXYGEN_TANK,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($centerAlphaStorage);
 
         $centreBravoStorage = new PlaceConfig();
@@ -527,8 +503,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::OXYGEN_TANK,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($centreBravoStorage);
 
         $rearAlphaStorage = new PlaceConfig();
@@ -541,8 +516,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::FUEL_TANK,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rearAlphaStorage);
 
         $rearBravoStorage = new PlaceConfig();
@@ -555,88 +529,77 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::FUEL_TANK,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rearBravoStorage);
 
         $space = new PlaceConfig();
         $space
             ->setPlaceName(RoomEnum::SPACE)
             ->setType(PlaceTypeEnum::SPACE)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($space);
 
         $patrolship_alpha_2_wallis = new PlaceConfig();
         $patrolship_alpha_2_wallis
             ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_2_WALLIS)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolship_alpha_2_wallis);
 
         $patrolship_alpha_longane = new PlaceConfig();
         $patrolship_alpha_longane
             ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_LONGANE)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolship_alpha_longane);
 
         $patrolship_alpha_jujube = new PlaceConfig();
         $patrolship_alpha_jujube
             ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolship_alpha_jujube);
 
         $patrolship_alpha_tamarin = new PlaceConfig();
         $patrolship_alpha_tamarin
             ->setPlaceName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolship_alpha_tamarin);
 
         $patrolship_bravo_socrate = new PlaceConfig();
         $patrolship_bravo_socrate
             ->setPlaceName(RoomEnum::PATROL_SHIP_BRAVO_SOCRATE)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolship_bravo_socrate);
 
         $patrolship_bravo_planton = new PlaceConfig();
         $patrolship_bravo_planton
             ->setPlaceName(RoomEnum::PATROL_SHIP_BRAVO_PLANTON)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolship_bravo_planton);
 
         $patrolship_bravo_epicure = new PlaceConfig();
         $patrolship_bravo_epicure
             ->setPlaceName(RoomEnum::PATROL_SHIP_BRAVO_EPICURE)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($patrolship_bravo_epicure);
 
         $pasiphae = new PlaceConfig();
         $pasiphae
             ->setPlaceName(RoomEnum::PASIPHAE)
             ->setType(PlaceTypeEnum::PATROL_SHIP)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pasiphae);
 
         $planet = new PlaceConfig();
         $planet
             ->setPlaceName(RoomEnum::PLANET)
             ->setType(PlaceTypeEnum::PLANET)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($planet);
 
         /** @var ArrayCollection $placeCollection */

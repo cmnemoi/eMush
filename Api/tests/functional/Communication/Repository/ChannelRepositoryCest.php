@@ -32,8 +32,10 @@ class ChannelRepositoryCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -42,15 +44,13 @@ class ChannelRepositoryCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         /** @var Player $player */
@@ -58,6 +58,7 @@ class ChannelRepositoryCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -73,8 +74,7 @@ class ChannelRepositoryCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channels = $this->channelRepository->findByPlayer($playerInfo);
@@ -84,8 +84,7 @@ class ChannelRepositoryCest
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channels = $this->channelRepository->findByPlayer($playerInfo);
@@ -101,6 +100,7 @@ class ChannelRepositoryCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -111,12 +111,14 @@ class ChannelRepositoryCest
 
         /** @var ChargeStatusConfig $mushStatusConfig */
         $mushStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]);
+
         /** @var ChargeStatus $mushStatus */
         $mushStatus = new ChargeStatus($player, $mushStatusConfig);
         $I->haveInRepository($mushStatus);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -130,15 +132,13 @@ class ChannelRepositoryCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $channels = $this->channelRepository->findByPlayer($playerInfo, true);
@@ -147,22 +147,19 @@ class ChannelRepositoryCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $privateChannelPlayer = new ChannelPlayer();
         $privateChannelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($privateChannelPlayer);
 
         $mushChannelPlayer = new ChannelPlayer();
         $mushChannelPlayer
             ->setChannel($mushChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($mushChannelPlayer);
 
         $allChannels = $this->channelRepository->findByPlayer($playerInfo);
@@ -181,8 +178,10 @@ class ChannelRepositoryCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -198,33 +197,30 @@ class ChannelRepositoryCest
         $publicChannel1 = new Channel();
         $publicChannel1
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel1);
 
         $mushChannel1 = new Channel();
         $mushChannel1
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel1);
 
         $publicChannel2 = new Channel();
         $publicChannel2
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalus2Info)
-        ;
+            ->setDaedalus($daedalus2Info);
         $I->haveInRepository($publicChannel2);
 
         $mushChannel2 = new Channel();
         $mushChannel2
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalus2Info)
-        ;
+            ->setDaedalus($daedalus2Info);
         $I->haveInRepository($mushChannel2);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
 
@@ -251,15 +247,13 @@ class ChannelRepositoryCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalus2Info)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($player2Info)
-        ;
+            ->setParticipant($player2Info);
         $I->haveInRepository($channelPlayer);
 
         $channels = $this->channelRepository->findByPlayer($playerInfo);

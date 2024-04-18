@@ -11,7 +11,10 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class BuildGearCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class BuildGearCest extends AbstractFunctionalTest
 {
     private Build $buildAction;
     private GameEquipmentServiceInterface $gameEquipmentService;

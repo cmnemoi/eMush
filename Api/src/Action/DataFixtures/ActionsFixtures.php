@@ -113,13 +113,12 @@ class ActionsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // @TODO remove this after alpha
+        /** @TODO remove this after alpha */
         $suicide = new Action();
         $suicide
             ->setName(ActionEnum::SUICIDE)
             ->setActionName(ActionEnum::SUICIDE)
-            ->setScope(ActionScopeEnum::SELF)
-        ;
+            ->setScope(ActionScopeEnum::SELF);
         $manager->persist($suicide);
 
         $autoDestroy = new Action();
@@ -127,24 +126,21 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::AUTO_DESTROY)
             ->setActionName(ActionEnum::AUTO_DESTROY)
             ->setScope(ActionScopeEnum::SELF)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
         $manager->persist($autoDestroy);
 
         $killPlayer = new Action();
         $killPlayer
             ->setName(ActionEnum::KILL_PLAYER)
             ->setActionName(ActionEnum::KILL_PLAYER)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
-        ;
+            ->setScope(ActionScopeEnum::OTHER_PLAYER);
         $manager->persist($killPlayer);
 
         $rejuvenateAlpha = new Action();
         $rejuvenateAlpha
             ->setActionName(ActionEnum::REJUVENATE)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::ALPHA)
-        ;
+            ->buildName(GameConfigEnum::ALPHA);
         $manager->persist($rejuvenateAlpha);
 
         $updatingTalkie = new Action();
@@ -154,8 +150,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
             ->setInjuryRate(10)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($updatingTalkie);
 
@@ -164,8 +159,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::MOVE)
             ->setActionName(ActionEnum::MOVE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setMovementCost(1)
-        ;
+            ->setMovementCost(1);
         $manager->persist($moveAction);
 
         $searchAction = new Action();
@@ -173,8 +167,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::SEARCH)
             ->setActionName(ActionEnum::SEARCH)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost(1)
-        ;
+            ->setActionCost(1);
         $manager->persist($searchAction);
 
         $hitAction = new Action();
@@ -187,8 +180,7 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(60)
             ->setDirtyRate(15)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC);
         $manager->persist($hitAction);
 
         $hideAction = new Action();
@@ -197,8 +189,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
         $manager->persist($hideAction);
 
         $takeItemAction = new Action();
@@ -206,8 +197,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::TAKE)
             ->setActionName(ActionEnum::TAKE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setInjuryRate(1)
-        ;
+            ->setInjuryRate(1);
 
         $manager->persist($takeItemAction);
 
@@ -215,8 +205,7 @@ class ActionsFixtures extends Fixture
         $dropItemAction
             ->setName(ActionEnum::DROP)
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($dropItemAction);
 
@@ -226,8 +215,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::CONSUME)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($rationConsumeAction);
 
@@ -238,8 +226,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(15)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-            ->setTypes([ActionEnum::CONSUME])
-        ;
+            ->setTypes([ActionEnum::CONSUME]);
 
         $manager->persist($drugConsumeAction);
 
@@ -250,8 +237,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(3)
             ->setDirtyRate(25)
-            ->setInjuryRate(5)
-        ;
+            ->setInjuryRate(5);
 
         $manager->persist($buildAction);
 
@@ -260,8 +246,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::READ_BOOK)
             ->setActionName(ActionEnum::READ_BOOK)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost(2)
-        ;
+            ->setActionCost(2);
 
         $manager->persist($readAction);
 
@@ -269,8 +254,7 @@ class ActionsFixtures extends Fixture
         $readDocument
             ->setName(ActionEnum::READ_DOCUMENT)
             ->setActionName(ActionEnum::READ_DOCUMENT)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($readDocument);
 
@@ -286,8 +270,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC);
 
         $manager->persist($attackAction);
 
@@ -298,8 +281,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
             ->setInjuryRate(1)
-            ->setSuccessRate(50)
-        ;
+            ->setSuccessRate(50);
 
         $manager->persist($extinguishAction);
 
@@ -308,8 +290,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::TRY_KUBE)
             ->setActionName(ActionEnum::TRY_KUBE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setActionCost(1)
-        ;
+            ->setActionCost(1);
 
         $manager->persist($tryKubeAction);
 
@@ -319,8 +300,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::OPEN)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-            ->setInjuryRate(1)
-        ;
+            ->setInjuryRate(1);
 
         $manager->persist($openSpaceCapsuleAction);
 
@@ -329,8 +309,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::CURE)
             ->setActionName(ActionEnum::CURE)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-        ;
+            ->setActionCost(1);
 
         $manager->persist($injectSerumAction);
 
@@ -342,8 +321,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(5)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setOutputQuantity(2)
-        ;
+            ->setOutputQuantity(2);
 
         $manager->persist($bandageAction);
 
@@ -353,8 +331,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::EXPRESS_COOK)
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
-            ->setDirtyRate(20)
-        ;
+            ->setDirtyRate(20);
 
         $manager->persist($expressCookAction);
 
@@ -365,8 +342,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setActionCost(1)
-            ->setDirtyRate(20)
-        ;
+            ->setDirtyRate(20);
 
         $manager->persist($cookAction);
 
@@ -378,8 +354,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
 
         $manager->persist($selfHealAction);
 
@@ -390,8 +365,7 @@ class ActionsFixtures extends Fixture
             // ->setTypes([ActionTypeEnum::ACTION_HEAL])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
 
         $manager->persist($healAction);
 
@@ -402,8 +376,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost(1)
-            ->setOutputQuantity(2)
-        ;
+            ->setOutputQuantity(2);
 
         $manager->persist($comfortAction);
 
@@ -411,8 +384,7 @@ class ActionsFixtures extends Fixture
         $ultraHealAction
             ->setName(ActionEnum::ULTRAHEAL)
             ->setActionName(ActionEnum::ULTRAHEAL)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($ultraHealAction);
 
@@ -420,8 +392,7 @@ class ActionsFixtures extends Fixture
         $writeAction
             ->setName(ActionEnum::WRITE)
             ->setActionName(ActionEnum::WRITE)
-            ->setScope(ActionScopeEnum::TERMINAL)
-        ;
+            ->setScope(ActionScopeEnum::TERMINAL);
 
         $manager->persist($writeAction);
 
@@ -429,8 +400,7 @@ class ActionsFixtures extends Fixture
         $shredAction
             ->setName(ActionEnum::SHRED)
             ->setActionName(ActionEnum::SHRED)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($shredAction);
 
@@ -441,8 +411,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::ROOM)
             ->setTarget(GameItem::class)
             ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($hyperfreezeAction);
 
@@ -451,8 +420,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::GAG)
             ->setActionName(ActionEnum::GAG)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-        ;
+            ->setActionCost(1);
 
         $manager->persist($gagAction);
 
@@ -461,8 +429,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::UNGAG)
             ->setActionName(ActionEnum::UNGAG)
             ->setScope(ActionScopeEnum::SELF)
-            ->setActionCost(1)
-        ;
+            ->setActionCost(1);
 
         $manager->persist($ungagAction);
 
@@ -473,8 +440,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
             ->setInjuryRate(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($showerAction);
 
@@ -484,8 +450,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::WASH_IN_SINK)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(3)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($sinkAction);
 
@@ -497,8 +462,7 @@ class ActionsFixtures extends Fixture
             ->setTarget(GameItem::class)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setOutputQuantity(1) // amount of fuel inserted
-        ;
+            ->setOutputQuantity(1); // amount of fuel inserted
 
         $manager->persist($fuelInjectAction);
 
@@ -509,8 +473,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($retrieveFuelAction);
 
@@ -522,8 +485,7 @@ class ActionsFixtures extends Fixture
             ->setTarget(GameItem::class)
             ->setInjuryRate(1)
             ->setOutputQuantity(1) // amount of fuel inserted
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($oxygenInjectAction);
 
@@ -533,8 +495,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::RETRIEVE_OXYGEN)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($retrieveOxygenAction);
 
@@ -549,8 +510,7 @@ class ActionsFixtures extends Fixture
             ->setDirtyRate(50)
             ->setInjuryRate(5)
             ->setSuccessRate(25)
-            ->setOutputQuantity(5)
-        ;
+            ->setOutputQuantity(5);
 
         $manager->persist($strengthenHullAction);
 
@@ -558,8 +518,7 @@ class ActionsFixtures extends Fixture
         $lieDownActon
             ->setName(ActionEnum::LIE_DOWN)
             ->setActionName(ActionEnum::LIE_DOWN)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($lieDownActon);
 
@@ -567,8 +526,7 @@ class ActionsFixtures extends Fixture
         $getUpAction
             ->setName(ActionEnum::GET_UP)
             ->setActionName(ActionEnum::GET_UP)
-            ->setScope(ActionScopeEnum::SELF)
-        ;
+            ->setScope(ActionScopeEnum::SELF);
 
         $manager->persist($getUpAction);
 
@@ -577,8 +535,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::COFFEE)
             ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setDirtyRate(3)
-        ;
+            ->setDirtyRate(3);
 
         $manager->persist($coffeeAction);
 
@@ -586,8 +543,7 @@ class ActionsFixtures extends Fixture
         $dispenseAction
             ->setName(ActionEnum::DISPENSE)
             ->setActionName(ActionEnum::DISPENSE)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($dispenseAction);
 
@@ -597,8 +553,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::TRANSPLANT)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
-            ->setDirtyRate(15)
-        ;
+            ->setDirtyRate(15);
 
         $manager->persist($transplantAction);
 
@@ -610,8 +565,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($treatPlantAction);
 
@@ -622,8 +576,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
             ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($waterPlantAction);
 
@@ -631,8 +584,7 @@ class ActionsFixtures extends Fixture
         $reportEquipmentAction
             ->setName(ActionEnum::REPORT_EQUIPMENT)
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($reportEquipmentAction);
 
@@ -640,8 +592,7 @@ class ActionsFixtures extends Fixture
         $reportFireAction
             ->setName(ActionEnum::REPORT_FIRE)
             ->setActionName(ActionEnum::REPORT_FIRE)
-            ->setScope(ActionScopeEnum::SELF)
-        ;
+            ->setScope(ActionScopeEnum::SELF);
 
         $manager->persist($reportFireAction);
 
@@ -651,8 +602,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::INSTALL_CAMERA)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
-            ->setDirtyRate(15)
-        ;
+            ->setDirtyRate(15);
 
         $manager->persist($installCameraAction);
 
@@ -662,8 +612,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::REMOVE_CAMERA)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-            ->setDirtyRate(5)
-        ;
+            ->setDirtyRate(5);
 
         $manager->persist($removeCameraAction);
 
@@ -671,8 +620,7 @@ class ActionsFixtures extends Fixture
         $examineEquipmentAction
             ->setName(ActionEnum::EXAMINE)
             ->setActionName(ActionEnum::EXAMINE)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $manager->persist($examineEquipmentAction);
 
@@ -681,8 +629,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::CHECK_SPORE_LEVEL)
             ->setActionName(ActionEnum::CHECK_SPORE_LEVEL)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($checkSporeLevelAction);
 
@@ -692,8 +639,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::FLIRT)
             ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-        ;
+            ->setActionCost(1);
 
         $manager->persist($flirtAction);
 
@@ -705,8 +651,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setOutputQuantity(2)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC);
 
         $manager->persist($doTheThingAction);
 
@@ -716,8 +661,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::REMOVE_SPORE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($removeSporeAction);
 
@@ -727,8 +671,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::PUBLIC_BROADCAST)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
 
         $manager->persist($publicBroadcastAction);
 
@@ -740,8 +683,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(1)
             ->setDirtyRate(50)
             ->setInjuryRate(5)
-            ->setSuccessRate(10)
-        ;
+            ->setSuccessRate(10);
 
         $manager->persist($extinguishManuallyAction);
 
@@ -752,8 +694,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost(2)
-            ->setOutputQuantity(2)
-        ;
+            ->setOutputQuantity(2);
 
         $manager->persist($motivationalSpeechAction);
 
@@ -764,8 +705,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
             ->setActionCost(2)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
 
         $manager->persist($boringSpeechAction);
 
@@ -776,8 +716,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
             ->setDirtyRate(80)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC);
 
         $manager->persist($surgeryAction);
 
@@ -788,8 +727,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(4)
             ->setDirtyRate(100)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC);
 
         $manager->persist($selfSurgeryAction);
 
@@ -804,8 +742,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC);
         $manager->persist($shootAction);
 
         $playArcade = new Action();
@@ -816,8 +753,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
             ->setSuccessRate(33)
-            ->setOutputQuantity(2)
-        ;
+            ->setOutputQuantity(2);
         $manager->persist($playArcade);
 
         $shootHunterTurret = new Action();
@@ -829,8 +765,7 @@ class ActionsFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
             ->setActionCost(1)
             ->setSuccessRate(30)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
         $manager->persist($shootHunterTurret);
 
         $shootRandomHunterTurret = new Action();
@@ -841,8 +776,7 @@ class ActionsFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
             ->setActionCost(1)
             ->setSuccessRate(30)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
         $manager->persist($shootRandomHunterTurret);
 
         $takeoff = new Action();
@@ -854,16 +788,14 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(100)
             ->setCriticalRate(20)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC);
         $manager->persist($takeoff);
 
         $accessTerminal = new Action();
         $accessTerminal
             ->setName(ActionEnum::ACCESS_TERMINAL)
             ->setActionName(ActionEnum::ACCESS_TERMINAL)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
         $manager->persist($accessTerminal);
 
         $land = new Action();
@@ -875,8 +807,7 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(100)
             ->setCriticalRate(20)
             ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
         $manager->persist($land);
 
         $shootHunterPatrolShip = new Action();
@@ -888,8 +819,7 @@ class ActionsFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
             ->setActionCost(1)
             ->setSuccessRate(40)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
         $manager->persist($shootHunterPatrolShip);
 
         $shootRandomHunterPatrolShip = new Action();
@@ -900,8 +830,7 @@ class ActionsFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
             ->setActionCost(1)
             ->setSuccessRate(40)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
         $manager->persist($shootRandomHunterPatrolShip);
 
         $collectScrap = new Action();
@@ -913,8 +842,7 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(100)
             ->setCriticalRate(50)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($collectScrap);
 
         $renovate = new Action();
@@ -926,16 +854,14 @@ class ActionsFixtures extends Fixture
             ->setActionCost(2)
             ->setSuccessRate(12)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PRIVATE);
         $manager->persist($renovate);
 
         $convertActionToMovement = new Action();
         $convertActionToMovement
             ->setName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
-        ;
+            ->setScope(ActionScopeEnum::SELF);
         $convertActionToMovement->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionToMovement->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $manager->persist($convertActionToMovement);
@@ -948,8 +874,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::ROOM)
             ->setActionCost(1)
             ->setInjuryRate(25)
-            ->setDirtyRate(25)
-        ;
+            ->setDirtyRate(25);
         $manager->persist($autoEject);
 
         $insertFuelChamber = new Action();
@@ -959,8 +884,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setOutputQuantity(1) // amount of oxygen inserted
-        ;
+            ->setOutputQuantity(1); // amount of oxygen inserted
         $manager->persist($insertFuelChamber);
 
         $retrieveFuelChamber = new Action();
@@ -970,8 +894,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(15)
             ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
         $manager->persist($retrieveFuelChamber);
 
         $checkFuelChamberLevel = new Action();
@@ -981,8 +904,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setDirtyRate(5)
             ->setInjuryRate(0)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
         $manager->persist($checkFuelChamberLevel);
 
         $hack = new Action();
@@ -991,8 +913,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::HACK)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
         $manager->persist($hack);
 
         $exitTerminal = new Action();
@@ -1001,8 +922,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::EXIT_TERMINAL)
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($exitTerminal);
 
         $advanceDaedalus = new Action();
@@ -1013,8 +933,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC);
         $manager->persist($advanceDaedalus);
 
         $scan = new Action();
@@ -1024,8 +943,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->setActionCost(3)
-            ->setSuccessRate(50)
-        ;
+            ->setSuccessRate(50);
         $manager->persist($scan);
 
         $analyzePlanet = new Action();
@@ -1037,8 +955,7 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
             ->setActionCost(2)
             ->setSuccessRate(100)
-            ->setOutputQuantity(1) // number of sectors revealed
-        ;
+            ->setOutputQuantity(1); // number of sectors revealed
         $manager->persist($analyzePlanet);
 
         $turnDaedalusLeft = new Action();
@@ -1047,8 +964,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::TURN_DAEDALUS_LEFT)
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($turnDaedalusLeft);
 
         $turnDaedalusRight = new Action();
@@ -1057,8 +973,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::TURN_DAEDALUS_RIGHT)
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($turnDaedalusRight);
 
         $deletePlanet = new Action();
@@ -1069,8 +984,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setTarget(Planet::class)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($deletePlanet);
 
         $leaveOrbit = new Action();
@@ -1081,8 +995,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC);
         $manager->persist($leaveOrbit);
 
         $takeoffToPlanet = new Action();
@@ -1093,8 +1006,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-            ->setOutputQuantity(4) // max number of explorators allowed
-        ;
+            ->setOutputQuantity(4); // max number of explorators allowed
         $manager->persist($takeoffToPlanet);
 
         $takeoffToPlanetPatrolShip = new Action();
@@ -1105,8 +1017,7 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-            ->setOutputQuantity(1) // max number of explorators allowed
-        ;
+            ->setOutputQuantity(1); // max number of explorators allowed
         $manager->persist($takeoffToPlanetPatrolShip);
 
         $changeNeronCpuPriority = new Action();
@@ -1115,8 +1026,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::CHANGE_NERON_CPU_PRIORITY)
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-        ;
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($changeNeronCpuPriority);
 
         $manager->flush();

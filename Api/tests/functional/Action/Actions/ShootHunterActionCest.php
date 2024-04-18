@@ -29,7 +29,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ShootHunterActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class ShootHunterActionCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private ShootHunter $shootHunterAction;
@@ -65,11 +68,11 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $this->turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::FRONT_ALPHA_TURRET));
         $this->turret
             ->setName('turret')
-            ->setEquipment($turretConfig)
-        ;
+            ->setEquipment($turretConfig);
         $I->haveInRepository($this->turret);
 
         $turretChargeStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => 'electric_charges_turret_command_default']);
+
         /** @var StatusServiceInterface $statusService */
         $statusService = $I->grabService(StatusServiceInterface::class);
         $statusService->createStatusFromConfig(
@@ -121,8 +124,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $turret = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $turret
             ->setName('turret')
-            ->setEquipment($turretConfig)
-        ;
+            ->setEquipment($turretConfig);
         $I->haveInRepository($turret);
 
         /** @var Hunter $hunter */
@@ -232,8 +234,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
         $lenses = new GameEquipment($this->player1);
         $lenses
             ->setName(GearItemEnum::NCC_LENS)
-            ->setEquipment($lensesConfig)
-        ;
+            ->setEquipment($lensesConfig);
         $I->haveInRepository($lenses);
 
         /** @var VariableEventModifierConfig $lensesModifierConfig */
@@ -245,7 +246,7 @@ class ShootHunterActionCest extends AbstractFunctionalTest
 
         $I->assertTrue($this->shootHunterAction->isVisible());
 
-        $I->assertEquals(intval(40 * 1.1), $this->shootHunterAction->getSuccessRate());
+        $I->assertEquals((int) (40 * 1.1), $this->shootHunterAction->getSuccessRate());
     }
 
     public function testShootHunterWithInvertebrateShellDoublesDamage(FunctionalTester $I): void

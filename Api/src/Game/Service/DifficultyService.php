@@ -21,6 +21,7 @@ class DifficultyService implements DifficultyServiceInterface
         switch ($pointsType) {
             case DaedalusVariableEnum::HUNTER_POINTS:
                 $this->updateHunterPoints($daedalus);
+
                 break;
         }
     }
@@ -51,7 +52,7 @@ class DifficultyService implements DifficultyServiceInterface
         if ($daedalus->isInVeryHardMode()) {
             $pointsToAdd += 2;
         }
-        $pointsToAdd = intval($pointsToAdd * $this->getExtraPoints($daedalus) + 0.5);
+        $pointsToAdd = (int) ($pointsToAdd * $this->getExtraPoints($daedalus) + 0.5);
 
         $daedalus->addHunterPoints($pointsToAdd);
         $this->persist([$daedalus]);

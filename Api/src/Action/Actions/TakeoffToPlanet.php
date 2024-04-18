@@ -45,11 +45,6 @@ class TakeoffToPlanet extends AbstractAction
         $this->randomService = $randomService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -74,6 +69,11 @@ class TakeoffToPlanet extends AbstractAction
             'message' => ActionImpossibleCauseEnum::EXPLORATION_ALREADY_ONGOING,
             'groups' => ['execute'],
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult

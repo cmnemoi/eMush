@@ -36,10 +36,13 @@ use Mush\Status\Service\StatusService;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class StatusServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class StatusServiceTest extends TestCase
 {
-    private Mockery\Mock|EntityManagerInterface $entityManager;
-    protected Mockery\Mock|EventServiceInterface $eventService;
+    protected EventServiceInterface|Mockery\Mock $eventService;
+    private EntityManagerInterface|Mockery\Mock $entityManager;
     private Mockery\Mock|StatusRepository $repository;
 
     private StatusService $service;
@@ -98,7 +101,7 @@ class StatusServiceTest extends TestCase
 
         $mostRecent = $this->service->getMostRecent('hidden', new ArrayCollection([$item1, $item2, $item3]));
 
-        $this->assertEquals('item 2', $mostRecent->getName());
+        self::assertSame('item 2', $mostRecent->getName());
     }
 
     public function testChangeCharge()
@@ -112,13 +115,11 @@ class StatusServiceTest extends TestCase
         $chargeStatusConfig = new ChargeStatusConfig();
         $chargeStatusConfig
             ->setMaxCharge(6)
-            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
-        ;
+            ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $chargeStatus = new ChargeStatus($gameEquipment, $chargeStatusConfig);
 
         $chargeStatus
-            ->setCharge(4)
-        ;
+            ->setCharge(4);
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->service->updateCharge($chargeStatus, -1, [], $time);
@@ -141,7 +142,7 @@ class StatusServiceTest extends TestCase
         $this->eventService->shouldReceive('callEvent')->once();
         $result = $this->service->updateCharge($chargeStatus, -7, [], $time);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testCreateStatusFromConfig()
@@ -153,8 +154,7 @@ class StatusServiceTest extends TestCase
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+            ->setVisibility(VisibilityEnum::MUSH);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -163,9 +163,9 @@ class StatusServiceTest extends TestCase
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
-        $this->assertEquals($result->getOwner(), $gameEquipment);
-        $this->assertEquals($result->getName(), PlayerStatusEnum::EUREKA_MOMENT);
-        $this->assertEquals($result->getVisibility(), VisibilityEnum::MUSH);
+        self::assertSame($result->getOwner(), $gameEquipment);
+        self::assertSame($result->getName(), PlayerStatusEnum::EUREKA_MOMENT);
+        self::assertSame($result->getVisibility(), VisibilityEnum::MUSH);
     }
 
     public function testCreateChargeStatusFromConfig()
@@ -182,8 +182,7 @@ class StatusServiceTest extends TestCase
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setStartCharge(3)
-            ->setMaxCharge(4)
-        ;
+            ->setMaxCharge(4);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -192,14 +191,14 @@ class StatusServiceTest extends TestCase
 
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
-        $this->assertEquals($result->getOwner(), $gameEquipment);
-        $this->assertEquals($result->getName(), PlayerStatusEnum::GUARDIAN);
-        $this->assertEquals($result->getVisibility(), VisibilityEnum::MUSH);
-        $this->assertEquals($result->getThreshold(), 4);
-        $this->assertEquals($result->getCharge(), 3);
-        $this->assertEquals($result->getChargeVisibility(), VisibilityEnum::PUBLIC);
-        $this->assertEquals($result->getStrategy(), ChargeStrategyTypeEnum::CYCLE_INCREMENT);
-        $this->assertTrue($result->isAutoRemove());
+        self::assertSame($result->getOwner(), $gameEquipment);
+        self::assertSame($result->getName(), PlayerStatusEnum::GUARDIAN);
+        self::assertSame($result->getVisibility(), VisibilityEnum::MUSH);
+        self::assertSame($result->getThreshold(), 4);
+        self::assertSame($result->getCharge(), 3);
+        self::assertSame($result->getChargeVisibility(), VisibilityEnum::PUBLIC);
+        self::assertSame($result->getStrategy(), ChargeStrategyTypeEnum::CYCLE_INCREMENT);
+        self::assertTrue($result->isAutoRemove());
     }
 
     public function testCreateStatusAlreadyHaveStatus()
@@ -210,8 +209,7 @@ class StatusServiceTest extends TestCase
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::EUREKA_MOMENT)
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+            ->setVisibility(VisibilityEnum::MUSH);
 
         $status = new Status($gameEquipment, $statusConfig);
         $gameEquipment->addStatus($status);
@@ -223,7 +221,7 @@ class StatusServiceTest extends TestCase
 
         $newStatus = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
-        $this->assertEquals($newStatus, $status);
+        self::assertSame($newStatus, $status);
     }
 
     public function testHandleAttemptStatusOnFail()
@@ -251,10 +249,10 @@ class StatusServiceTest extends TestCase
         $this->eventService->shouldReceive('callEvent')->once();
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
 
-        $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
-        $this->assertEquals($player->getStatuses()->first()->getCharge(), 0);
-        $this->assertEquals($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
+        self::assertCount(1, $player->getStatuses());
+        self::assertSame($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
+        self::assertSame($player->getStatuses()->first()->getCharge(), 0);
+        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
     public function testHandleAttemptStatusSameAction()
@@ -273,8 +271,7 @@ class StatusServiceTest extends TestCase
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
-            ->setCharge(3)
-        ;
+            ->setCharge(3);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -282,10 +279,10 @@ class StatusServiceTest extends TestCase
 
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
 
-        $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
-        $this->assertEquals($player->getStatuses()->first()->getCharge(), 3);
-        $this->assertEquals($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
+        self::assertCount(1, $player->getStatuses());
+        self::assertSame($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
+        self::assertSame($player->getStatuses()->first()->getCharge(), 3);
+        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
     public function testHandleAttemptStatusNewAction()
@@ -303,8 +300,7 @@ class StatusServiceTest extends TestCase
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
-            ->setCharge(3)
-        ;
+            ->setCharge(3);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -312,10 +308,10 @@ class StatusServiceTest extends TestCase
 
         $this->service->handleAttempt($player, ActionEnum::INSTALL_CAMERA, $actionResult, [], new \DateTime());
 
-        $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
-        $this->assertEquals($player->getStatuses()->first()->getCharge(), 0);
-        $this->assertEquals($player->getStatuses()->first()->getAction(), ActionEnum::INSTALL_CAMERA);
+        self::assertCount(1, $player->getStatuses());
+        self::assertSame($player->getStatuses()->first()->getName(), StatusEnum::ATTEMPT);
+        self::assertSame($player->getStatuses()->first()->getCharge(), 0);
+        self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::INSTALL_CAMERA);
     }
 
     public function testHandleAttemptStatusSuccess()
@@ -333,14 +329,13 @@ class StatusServiceTest extends TestCase
         $attempt = new Attempt($player, $attemptConfig);
         $attempt
             ->setAction(ActionEnum::DISASSEMBLE)
-            ->setCharge(3)
-        ;
+            ->setCharge(3);
 
         $this->entityManager->shouldReceive('remove')->with($attempt)->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE, $actionResult, [], new \DateTime());
 
-        $this->assertCount(0, $player->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 
     public function testCreateContentStatusFromConfig()
@@ -353,8 +348,7 @@ class StatusServiceTest extends TestCase
         $statusConfig = new ContentStatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::GUARDIAN)
-            ->setVisibility(VisibilityEnum::MUSH)
-        ;
+            ->setVisibility(VisibilityEnum::MUSH);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -364,9 +358,9 @@ class StatusServiceTest extends TestCase
         $result = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
         $result->setContent('test content');
 
-        $this->assertEquals($result->getOwner(), $gameEquipment);
-        $this->assertEquals($result->getName(), PlayerStatusEnum::GUARDIAN);
-        $this->assertEquals($result->getVisibility(), VisibilityEnum::MUSH);
-        $this->assertEquals($result->getContent(), 'test content');
+        self::assertSame($result->getOwner(), $gameEquipment);
+        self::assertSame($result->getName(), PlayerStatusEnum::GUARDIAN);
+        self::assertSame($result->getVisibility(), VisibilityEnum::MUSH);
+        self::assertSame($result->getContent(), 'test content');
     }
 }

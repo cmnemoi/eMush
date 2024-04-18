@@ -14,7 +14,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class HasDiseasesValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class HasDiseasesValidatorTest extends TestCase
 {
     private HasDiseasesValidator $validator;
     private HasDiseases $constraint;
@@ -50,8 +53,7 @@ class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -78,8 +80,7 @@ class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->message = 'not valid';
 
@@ -107,8 +108,7 @@ class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -128,8 +128,7 @@ class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->message = 'not valid';
 
@@ -158,8 +157,7 @@ class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -186,8 +184,7 @@ class HasDiseasesValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->message = 'not valid';
 
@@ -219,14 +216,13 @@ class HasDiseasesValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $targetPlayer,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -238,7 +234,7 @@ class HasDiseasesValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

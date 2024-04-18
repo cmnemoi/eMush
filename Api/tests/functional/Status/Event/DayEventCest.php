@@ -49,8 +49,10 @@ class DayEventCest
         $daedalus->setCycle(1);
 
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => 'decomposing']);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$statusConfig]),
@@ -63,6 +65,7 @@ class DayEventCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -76,8 +79,7 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(0)
-        ;
+            ->setStartCharge(0);
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */
@@ -103,8 +105,7 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(1)
-        ;
+            ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */
@@ -130,8 +131,7 @@ class DayEventCest
             ->setAutoRemove(false)
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_RESET)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(1)
-        ;
+            ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */
@@ -151,6 +151,7 @@ class DayEventCest
         // Specialist point increment
         /** @var ChargeStatusConfig $statusConfig */
         $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::POC_SHOOTER_SKILL]);
+
         /** @var ChargeStatus $status */
         $status = $this->statusService->createStatusFromConfig(
             $statusConfig,

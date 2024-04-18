@@ -40,22 +40,32 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class DaedalusServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class DaedalusServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var DaedalusRepository|Mockery\Mock */
     private DaedalusRepository $repository;
+
     /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
+
     /** @var LocalizationConfigRepository|Mockery\Mock */
     private LocalizationConfigRepository $localizationConfigRepository;
+
     /** @var DaedalusInfoRepository|Mockery\Mock */
     private DaedalusInfoRepository $daedalusInfoRepository;
+
     /** @var DaedalusRepository|Mockery\Mock */
     private DaedalusRepository $daedalusRepository;
 
@@ -108,8 +118,7 @@ class DaedalusServiceTest extends TestCase
         $randomItem = new RandomItemPlaces();
         $randomItem
             ->setItems([$item->getEquipmentName()])
-            ->setPlaces([RoomEnum::LABORATORY])
-        ;
+            ->setPlaces([RoomEnum::LABORATORY]);
 
         $daedalusConfig
             ->setInitShield(1)
@@ -118,45 +127,42 @@ class DaedalusServiceTest extends TestCase
             ->setInitHull(4)
             ->setDailySporeNb(4)
             ->setPlaceConfigs(new ArrayCollection([$roomConfig]))
-            ->setRandomItemPlaces($randomItem)
-        ;
+            ->setRandomItemPlaces($randomItem);
         $gameConfig
             ->setDaedalusConfig($daedalusConfig)
-            ->setEquipmentsConfig(new ArrayCollection([$item]))
-        ;
+            ->setEquipmentsConfig(new ArrayCollection([$item]));
 
         $this->localizationConfigRepository
             ->shouldReceive('findByLanguage')
             ->with(LanguageEnum::FRENCH)
             ->once()
-            ->andReturn(new LocalizationConfig())
-        ;
+            ->andReturn(new LocalizationConfig());
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (DaedalusInitEvent $event) => (
-                $event->getDaedalusConfig() === $daedalusConfig)
+            ->withArgs(
+                static fn (DaedalusInitEvent $event) => (
+                    $event->getDaedalusConfig() === $daedalusConfig
+                )
             )
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('persist')
             ->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $daedalus = $this->service->createDaedalus($gameConfig, 'name', LanguageEnum::FRENCH);
 
-        $this->assertInstanceOf(Daedalus::class, $daedalus);
-        $this->assertEquals($daedalusConfig->getInitFuel(), $daedalus->getFuel());
-        $this->assertEquals($daedalusConfig->getInitOxygen(), $daedalus->getOxygen());
-        $this->assertEquals($daedalusConfig->getInitHull(), $daedalus->getHull());
-        $this->assertEquals($daedalusConfig->getInitShield(), $daedalus->getShield());
-        $this->assertEquals(0, $daedalus->getCycle());
-        $this->assertEquals(GameStatusEnum::STANDBY, $daedalus->getGameStatus());
-        $this->assertNull($daedalus->getCycleStartedAt());
-        $this->assertEquals('name', $daedalus->getDaedalusInfo()->getName());
+        self::assertInstanceOf(Daedalus::class, $daedalus);
+        self::assertSame($daedalusConfig->getInitFuel(), $daedalus->getFuel());
+        self::assertSame($daedalusConfig->getInitOxygen(), $daedalus->getOxygen());
+        self::assertSame($daedalusConfig->getInitHull(), $daedalus->getHull());
+        self::assertSame($daedalusConfig->getInitShield(), $daedalus->getShield());
+        self::assertSame(0, $daedalus->getCycle());
+        self::assertSame(GameStatusEnum::STANDBY, $daedalus->getGameStatus());
+        self::assertNull($daedalus->getCycleStartedAt());
+        self::assertSame('name', $daedalus->getDaedalusInfo()->getName());
     }
 
     public function testStartDaedalus()
@@ -172,21 +178,19 @@ class DaedalusServiceTest extends TestCase
         $this->cycleService
             ->shouldReceive('getInDayCycleFromDate')
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->cycleService
             ->shouldReceive('getDaedalusStartingCycleDate')
             ->andReturn(new \DateTime('today midnight'))
-            ->once()
-        ;
+            ->once();
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $daedalus = $this->service->startDaedalus($daedalus);
 
-        $this->assertEquals(GameStatusEnum::STARTING, $daedalus->getGameStatus());
-        $this->assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
-        $this->assertEquals(2, $daedalus->getCycle());
+        self::assertSame(GameStatusEnum::STARTING, $daedalus->getGameStatus());
+        self::assertEquals(new \DateTime('today midnight'), $daedalus->getCycleStartedAt());
+        self::assertSame(2, $daedalus->getCycle());
     }
 
     public function testFindAvailableCharacterForDaedalus()
@@ -205,8 +209,8 @@ class DaedalusServiceTest extends TestCase
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
 
-        $this->assertCount(1, $result);
-        $this->assertEquals($characterConfig, $result->first());
+        self::assertCount(1, $result);
+        self::assertSame($characterConfig, $result->first());
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
@@ -215,7 +219,7 @@ class DaedalusServiceTest extends TestCase
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
 
-        $this->assertCount(0, $result);
+        self::assertCount(0, $result);
     }
 
     public function testGetRandomAsphyxia()
@@ -248,48 +252,41 @@ class DaedalusServiceTest extends TestCase
 
         $oxCapsule1
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule2
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule3
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule4
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
         $oxCapsule5
             ->setEquipment($oxCapsuleConfig)
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
 
         // one player with no capsule
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($noCapsulePlayer)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
-        $this->assertCount(2, $twoCapsulePlayer->getEquipments());
-        $this->assertCount(3, $threeCapsulePlayer->getEquipments());
+        self::assertCount(2, $twoCapsulePlayer->getEquipments());
+        self::assertCount(3, $threeCapsulePlayer->getEquipments());
 
         // 2 players with capsules
         $this->eventService->shouldReceive('callEvent')->once();
         $this->randomService->shouldReceive('getRandomPlayer')
             ->andReturn($twoCapsulePlayer)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->service->getRandomAsphyxia($daedalus, new \DateTime());
 
-        $this->assertCount(2, $twoCapsulePlayer->getEquipments());
-        $this->assertCount(3, $threeCapsulePlayer->getEquipments());
+        self::assertCount(2, $twoCapsulePlayer->getEquipments());
+        self::assertCount(3, $threeCapsulePlayer->getEquipments());
     }
 
     public function testSelectAlphaMush()
@@ -298,8 +295,7 @@ class DaedalusServiceTest extends TestCase
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
-            ->setNbMush(2)
-        ;
+            ->setNbMush(2);
 
         $gameConfig->setDaedalusConfig($daedalusConfig);
 
@@ -329,14 +325,13 @@ class DaedalusServiceTest extends TestCase
         $characterConfigCollection->add($characterConfigImunized);
 
         $this->randomService->shouldReceive('getRandomElementsFromProbaCollection')
-            ->withArgs(fn ($probaCollection, $number) => (
+            ->withArgs(static fn ($probaCollection, $number) => (
                 $probaCollection instanceof ProbaCollection
                 && $probaCollection->toArray() === ['player1' => 1, 'player2' => 1, 'player3' => 1]
                 && $number === 2
             ))
             ->andReturn(['player1', 'player3'])
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->twice();
 
@@ -357,21 +352,20 @@ class DaedalusServiceTest extends TestCase
         $time = new \DateTime('yesterday');
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::FINISH_DAEDALUS))
-            ->once()
-        ;
+            ->withArgs(static fn (DaedalusEvent $daedalusEvent, $eventName) => ($daedalusEvent->getTime() === $time && $eventName === DaedalusEvent::FINISH_DAEDALUS))
+            ->once();
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
 
         $this->service->changeVariable(DaedalusVariableEnum::HULL, $daedalus, -20, $time);
 
-        $this->assertEquals(0, $daedalus->getHull());
+        self::assertSame(0, $daedalus->getHull());
 
         $daedalusConfig->setMaxHull(20);
         $daedalus->setDaedalusVariables($daedalusConfig);
         $this->service->changeVariable(DaedalusVariableEnum::HULL, $daedalus, 100, $time);
 
-        $this->assertEquals(20, $daedalus->getHull());
+        self::assertSame(20, $daedalus->getHull());
     }
 
     public function testAttributeTitlesGivesTitle()
@@ -442,8 +436,7 @@ class DaedalusServiceTest extends TestCase
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
         $player->setPlayerInfo($playerInfo);

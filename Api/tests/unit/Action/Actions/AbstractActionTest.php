@@ -21,11 +21,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractActionTest extends TestCase
 {
-    protected Mockery\Mock|EventServiceInterface $eventService;
+    protected EventServiceInterface|Mockery\Mock $eventService;
 
     protected ActionServiceInterface|Mockery\Mock $actionService;
 
-    protected ValidatorInterface|Mockery\Mock $validator;
+    protected Mockery\Mock|ValidatorInterface $validator;
 
     protected AbstractAction $action;
     protected Action $actionEntity;
@@ -38,11 +38,11 @@ abstract class AbstractActionTest extends TestCase
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof ActionEvent
+            ->withArgs(
+                fn (AbstractGameEvent $event) => $event instanceof ActionEvent
                 && $event->getAction() === $this->actionEntity
             )
-            ->times(3)
-        ;
+            ->times(3);
 
         $this->actionService = \Mockery::mock(ActionServiceInterface::class);
         $this->actionService->shouldReceive('canPlayerDoAction')->andReturn(true);
@@ -65,8 +65,7 @@ abstract class AbstractActionTest extends TestCase
         $action
             ->setActionCost($actionPointCost)
             ->setMovementCost($movementPoint)
-            ->setActionName($name)
-        ;
+            ->setActionName($name);
 
         return $action;
     }
@@ -80,16 +79,14 @@ abstract class AbstractActionTest extends TestCase
             ->setMaxItemInInventory(3)
             ->setInitActionPoint(10)
             ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10)
-        ;
+            ->setInitMoralPoint(10);
 
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
             ->setPlace($room)
-            ->setSkills($skills)
-        ;
+            ->setSkills($skills);
 
         $playerInfo = new PlayerInfo(
             $player,

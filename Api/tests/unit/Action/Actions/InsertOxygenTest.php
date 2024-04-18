@@ -18,7 +18,10 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Place\Entity\Place;
 
-class InsertOxygenTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class InsertOxygenTest extends AbstractActionTest
 {
     /**
      * @before
@@ -55,8 +58,7 @@ class InsertOxygenTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE);
 
         $gameItem->setName(ItemEnum::OXYGEN_CAPSULE);
 
@@ -77,8 +79,7 @@ class InsertOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')->andReturn(1);
@@ -89,8 +90,8 @@ class InsertOxygenTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

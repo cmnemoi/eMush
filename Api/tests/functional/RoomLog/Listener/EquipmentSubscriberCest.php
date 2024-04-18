@@ -36,6 +36,7 @@ class EquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -46,6 +47,7 @@ class EquipmentSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room, 'characterConfig' => $characterConfig]);
 
@@ -55,8 +57,7 @@ class EquipmentSubscriberCest
         $equipment = new GameItem($room);
         $equipment
             ->setName($equipmentConfig->getEquipmentName())
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($equipment);
 
         $equipmentEvent = new EquipmentEvent(

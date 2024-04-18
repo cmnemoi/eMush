@@ -18,11 +18,6 @@ final class CheckFuelChamberLevel extends AbstractAction
 {
     protected string $name = ActionEnum::CHECK_FUEL_CHAMBER_LEVEL;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
@@ -36,6 +31,11 @@ final class CheckFuelChamberLevel extends AbstractAction
         ]);
     }
 
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
+    }
+
     protected function checkResult(): ActionResult
     {
         // Send the current amount of fuel in the combustion chamber for it to be used in the success log
@@ -45,7 +45,5 @@ final class CheckFuelChamberLevel extends AbstractAction
         return $result;
     }
 
-    protected function applyEffect(ActionResult $result): void
-    {
-    }
+    protected function applyEffect(ActionResult $result): void {}
 }

@@ -89,8 +89,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
             ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($notMoveAction1Increase);
 
         $notMoveAction2Increase = new VariableEventModifierConfig('increaseActionCost2Action');
@@ -108,8 +107,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
             ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($notMoveAction2Increase);
 
         $notMoveAction3Increase = new VariableEventModifierConfig('increaseActionCost3Action');
@@ -127,8 +125,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::SELF_SURGERY => ModifierRequirementEnum::NONE_TAGS,
                 ActionTypeEnum::ACTION_ADMIN => ModifierRequirementEnum::NONE_TAGS,
             ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($notMoveAction3Increase);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -136,8 +133,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $reduceMax3MovementPoint = new DirectModifierConfig('reduceMax3MovementPoint');
         $reduceMax3MovementPoint
             ->setTriggeredEvent($eventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($reduceMax3MovementPoint);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -145,8 +141,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $reduceMax5MovementPoint = new DirectModifierConfig('reduceMax5MovementPoint');
         $reduceMax5MovementPoint
             ->setTriggeredEvent($eventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($reduceMax5MovementPoint);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -154,8 +149,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $reduceMax12MovementPoint = new DirectModifierConfig('reduceMax12MovementPoint');
         $reduceMax12MovementPoint
             ->setTriggeredEvent($eventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($reduceMax12MovementPoint);
 
         $shootAction15PercentAccuracyLost = new VariableEventModifierConfig('reduceShootPercentage15Percents');
@@ -166,8 +160,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($shootAction15PercentAccuracyLost);
 
         $shootAction20PercentAccuracyLost = new VariableEventModifierConfig('reduceShootPercentage20Percents');
@@ -177,8 +170,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $shootAction20PercentAccuracyLost->buildName();
         $manager->persist($shootAction20PercentAccuracyLost);
 
@@ -190,8 +182,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $shootAction40PercentAccuracyLost->buildName();
         $manager->persist($shootAction40PercentAccuracyLost);
 
@@ -201,8 +192,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('deaf_speak_modifier_fixture')
-        ;
+            ->setName('deaf_speak_modifier_fixture');
         $manager->persist($deafSpeak);
 
         $deafListen = new EventModifierConfig(MessageModificationEnum::DEAF_LISTEN);
@@ -211,8 +201,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('deaf_listen__modifier_fixture')
-        ;
+            ->setName('deaf_listen__modifier_fixture');
         $manager->persist($deafListen);
 
         $paranoia = new EventModifierConfig(MessageModificationEnum::PARANOIA_MESSAGES);
@@ -221,8 +210,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('paranoia_modifier_fixture')
-        ;
+            ->setName('paranoia_modifier_fixture');
         $manager->persist($paranoia);
 
         $paranoiaDenial = new EventModifierConfig(MessageModificationEnum::PARANOIA_DENIAL);
@@ -231,8 +219,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('paranoia_denial_fixture')
-        ;
+            ->setName('paranoia_denial_fixture');
         $manager->persist($paranoiaDenial);
 
         $coprolalia = new EventModifierConfig(MessageModificationEnum::COPROLALIA_MESSAGES);
@@ -241,8 +228,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('coprolalia_modifier_fixture')
-        ;
+            ->setName('coprolalia_modifier_fixture');
         $manager->persist($coprolalia);
 
         $cannotMoveModifier = new EventModifierConfig('prevent_move');
@@ -254,16 +240,14 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($cannotMoveModifier);
 
         $heavyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $heavyRequirement
             ->setValue(10)
             ->setName('heavy_status_requirement_fixtures')
-            ->setActivationRequirement(EquipmentStatusEnum::HEAVY)
-        ;
+            ->setActivationRequirement(EquipmentStatusEnum::HEAVY);
         $preventTakeHeavy = new EventModifierConfig('prevent_pick_heavy_item');
         $preventTakeHeavy
             ->setTargetEvent(ActionEvent::PRE_ACTION)
@@ -274,8 +258,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierActivationRequirements([$heavyRequirement])
-        ;
+            ->setModifierActivationRequirements([$heavyRequirement]);
         $manager->persist($heavyRequirement);
         $manager->persist($preventTakeHeavy);
 
@@ -288,8 +271,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($preventAttackActions);
 
         $preventPiloting = new EventModifierConfig('prevent_piloting_actions');
@@ -301,8 +283,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($preventPiloting);
 
         $preventShoot = new EventModifierConfig('prevent_shooting');
@@ -314,8 +295,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($preventShoot);
 
         $muteModifier = new EventModifierConfig('mute_modifier');
@@ -324,16 +304,14 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(false)
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($muteModifier);
 
         $dirtyRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $dirtyRequirement
             ->setValue(100)
             ->setName('player_dirty_status_requirement_fixtures')
-            ->setActivationRequirement(PlayerStatusEnum::DIRTY)
-        ;
+            ->setActivationRequirement(PlayerStatusEnum::DIRTY);
         $manager->persist($dirtyRequirement);
         $septicemiaCycleChange = new EventModifierConfig('septicemia_cycle_change');
         $septicemiaCycleChange
@@ -343,8 +321,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->addModifierRequirement($dirtyRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::SEPTICEMIA)
-        ;
+            ->setModifierName(SymptomEnum::SEPTICEMIA);
         $manager->persist($septicemiaCycleChange);
 
         $septicemiaPostAction = new EventModifierConfig('septicemia_post_action');
@@ -355,8 +332,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->addModifierRequirement($dirtyRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::SEPTICEMIA)
-        ;
+            ->setModifierName(SymptomEnum::SEPTICEMIA);
         $manager->persist($septicemiaPostAction);
 
         $septicemiaOnDirty = new EventModifierConfig('septicemia_on_dirty');
@@ -367,17 +343,16 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::SEPTICEMIA)
-        ;
+            ->setModifierName(SymptomEnum::SEPTICEMIA);
         $manager->persist($septicemiaOnDirty);
 
         $catRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::ITEM_IN_ROOM);
         $catRequirement
             ->setValue(100)
             ->setName('cat_in_room_requirement_fixtures')
-            ->setActivationRequirement(ItemEnum::SCHRODINGER)
-        ;
+            ->setActivationRequirement(ItemEnum::SCHRODINGER);
         $manager->persist($catRequirement);
+
         /** @var ModifierActivationRequirement $random50 */
         $random50 = $this->getReference(DiseaseModifierConfigFixtures::RANDOM_50);
         $fearOfCat = new EventModifierConfig('fear_of_cat_modifier');
@@ -389,8 +364,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random50, $catRequirement])
-            ->setModifierName(SymptomEnum::FEAR_OF_CATS)
-        ;
+            ->setModifierName(SymptomEnum::FEAR_OF_CATS);
         $manager->persist($fearOfCat);
 
         /** @var ModifierActivationRequirement $random16 */
@@ -404,8 +378,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
-            ->setModifierName(SymptomEnum::PSYCHOTIC_ATTACKS)
-        ;
+            ->setModifierName(SymptomEnum::PSYCHOTIC_ATTACKS);
         $manager->persist($psychoticAttack);
 
         $bitingModifier = new EventModifierConfig('biting_modifier');
@@ -416,8 +389,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
-            ->setModifierName(SymptomEnum::BITING)
-        ;
+            ->setModifierName(SymptomEnum::BITING);
         $manager->persist($bitingModifier);
 
         $breakoutsModifier = new EventModifierConfig('breakouts_modifier');
@@ -429,8 +401,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierActivationRequirements([$random16])
-            ->setModifierName(SymptomEnum::BREAKOUTS)
-        ;
+            ->setModifierName(SymptomEnum::BREAKOUTS);
         $manager->persist($breakoutsModifier);
 
         $catAllergySymptom = new EventModifierConfig('cat_allergy');
@@ -445,8 +416,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierActivationRequirements([$random16])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::CAT_ALLERGY)
-        ;
+            ->setModifierName(SymptomEnum::CAT_ALLERGY);
         $manager->persist($catAllergySymptom);
 
         $catSneezing = new EventModifierConfig('cat_sneezing');
@@ -463,8 +433,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 $catRequirement,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::SNEEZING)
-        ;
+            ->setModifierName(SymptomEnum::SNEEZING);
         $manager->persist($catSneezing);
 
         $vomitingConsume = new EventModifierConfig('vomiting_consume');
@@ -479,8 +448,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::VOMITING)
-        ;
+            ->setModifierName(SymptomEnum::VOMITING);
         $manager->persist($vomitingConsume);
 
         /** @var ModifierActivationRequirement $random40 */
@@ -496,8 +464,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($random40)
-            ->setModifierName(SymptomEnum::VOMITING)
-        ;
+            ->setModifierName(SymptomEnum::VOMITING);
         $manager->persist($vomitingMove);
 
         $cycleDirtiness = new EventModifierConfig('cycle_dirtiness');
@@ -507,8 +474,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::DIRTINESS)
-        ;
+            ->setModifierName(SymptomEnum::DIRTINESS);
         $manager->persist($cycleDirtiness);
 
         $cycleDirtinessRandom = new EventModifierConfig('cycle_dirtiness_random_40');
@@ -519,8 +485,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($random40)
-            ->setModifierName(SymptomEnum::DIRTINESS)
-        ;
+            ->setModifierName(SymptomEnum::DIRTINESS);
         $manager->persist($cycleDirtinessRandom);
 
         $drooling = new EventModifierConfig('drooling_on_move');
@@ -534,8 +499,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($random16)
-            ->setModifierName(SymptomEnum::DROOLING)
-        ;
+            ->setModifierName(SymptomEnum::DROOLING);
         $manager->persist($drooling);
 
         $foamingMouth = new EventModifierConfig('foaming_mouth');
@@ -549,15 +513,13 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->addModifierRequirement($random16)
-            ->setModifierName(SymptomEnum::FOAMING_MOUTH)
-        ;
+            ->setModifierName(SymptomEnum::FOAMING_MOUTH);
         $manager->persist($foamingMouth);
 
         $mushInRoomRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
         $mushInRoomRequirement
             ->setActivationRequirement(ModifierRequirementEnum::MUSH_IN_ROOM)
-            ->setName('mush_in_room_requirement_fixture')
-        ;
+            ->setName('mush_in_room_requirement_fixture');
         $manager->persist($mushInRoomRequirement);
         $mushSneezing = new EventModifierConfig('mush_sneezing');
         $mushSneezing
@@ -573,8 +535,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 $random16,
                 $mushInRoomRequirement,
             ])
-            ->setModifierName(SymptomEnum::SNEEZING)
-        ;
+            ->setModifierName(SymptomEnum::SNEEZING);
         $manager->persist($mushSneezing);
 
         $manager->flush();

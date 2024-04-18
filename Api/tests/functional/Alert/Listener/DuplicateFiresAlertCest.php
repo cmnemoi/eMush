@@ -29,7 +29,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class DuplicateFiresAlertCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class DuplicateFiresAlertCest extends AbstractFunctionalTest
 {
     private ReportEquipment $reportAction;
     private StatusServiceInterface $statusService;
@@ -56,23 +59,23 @@ class DuplicateFiresAlertCest extends AbstractFunctionalTest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'otherRoom']);
 
@@ -111,14 +114,15 @@ class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $reportAction
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, [
-            'name' => EquipmentEnum::GRAVITY_SIMULATOR,
-            'actions' => new ArrayCollection([$reportAction])]
+        $gravitySimulatorConfig = $I->have(
+            EquipmentConfig::class,
+            [
+                'name' => EquipmentEnum::GRAVITY_SIMULATOR,
+                'actions' => new ArrayCollection([$reportAction])]
         );
 
         $room = $this->player->getPlace();
@@ -126,8 +130,7 @@ class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
 
         $I->haveInRepository($gameEquipment);
 

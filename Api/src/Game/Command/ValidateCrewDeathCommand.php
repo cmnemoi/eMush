@@ -26,11 +26,12 @@ class ValidateCrewDeathCommand extends Command
     private PlayerInfoRepository $playerInfoRepository;
     private UserRepository $userRepository;
 
-    public function __construct(CharacterConfigRepository $characterConfigRepository,
+    public function __construct(
+        CharacterConfigRepository $characterConfigRepository,
         PlayerServiceInterface $playerService,
         PlayerInfoRepository $playerInfoRepository,
-        UserRepository $userRepository)
-    {
+        UserRepository $userRepository
+    ) {
         parent::__construct();
         $this->characterConfigRepository = $characterConfigRepository;
         $this->playerService = $playerService;
@@ -50,26 +51,29 @@ class ValidateCrewDeathCommand extends Command
 
             try {
                 $user = $this->userRepository->loadUserByUsername($name);
-                if ($user == null) {
-                    $io->warning("$name does not have an account. Skipping ...");
+                if ($user === null) {
+                    $io->warning("{$name} does not have an account. Skipping ...");
+
                     continue;
                 }
                 $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
-                if ($playerInfo == null) {
-                    $io->warning("$name has already validated his death, nothing to do. Skipping ...");
+                if ($playerInfo === null) {
+                    $io->warning("{$name} has already validated his death, nothing to do. Skipping ...");
+
                     continue;
                 }
                 $player = $playerInfo->getPlayer();
-                if ($player == null) {
-                    $io->warning("Player can't be found for $name. Skipping ...");
+                if ($player === null) {
+                    $io->warning("Player can't be found for {$name}. Skipping ...");
+
                     continue;
                 }
                 $this->playerService->endPlayer($player, 'Validated by command', []);
-                $io->info("$name as validated his death. Ready to board !");
+                $io->info("{$name} as validated his death. Ready to board !");
             } catch (\Exception $e) {
                 $message = $e->getMessage();
                 $trace = $e->getTraceAsString();
-                $io->warning("$name cannot validate his death : $message -> $trace");
+                $io->warning("{$name} cannot validate his death : {$message} -> {$trace}");
             }
         }
 

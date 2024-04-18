@@ -33,10 +33,13 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -45,13 +48,16 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
+
         /** @var Action $repair50 */
         $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
+
         /** @var Action $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
 
@@ -65,8 +71,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($compass);
 
         $ropeGear = $this->createGear([GearModifierConfigFixtures::ROPE_MODIFIER], GearItemEnum::ROPE);
@@ -78,8 +83,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireBreakable(false)
             ->setActions($actions)
             ->setMechanics([$ropeGear])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rope);
 
         $drillActions = clone $actions;
@@ -97,8 +101,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsBreakable(true)
             ->setActions($drillActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($drill);
 
@@ -109,8 +112,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($babelModule);
 
         $echolocator = new ItemConfig();
@@ -120,8 +122,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($echolocator);
 
         $thermosensorActions = clone $actions;
@@ -139,8 +140,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsBreakable(true)
             ->setActions($thermosensorActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($thermosensor);
 
         $whiteFlag = new ItemConfig();
@@ -150,8 +150,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($whiteFlag);
 
         $gameConfig
@@ -161,8 +160,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->addEquipmentConfig($babelModule)
             ->addEquipmentConfig($echolocator)
             ->addEquipmentConfig($thermosensor)
-            ->addEquipmentConfig($whiteFlag)
-        ;
+            ->addEquipmentConfig($whiteFlag);
         $manager->persist($gameConfig);
 
         $manager->flush();
@@ -196,8 +194,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
 
         $gear
             ->setModifierConfigs($modifierConfigs)
-            ->buildName(EquipmentMechanicEnum::GEAR . '_' . $name, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::GEAR . '_' . $name, GameConfigEnum::DEFAULT);
 
         $this->manager->persist($gear);
 

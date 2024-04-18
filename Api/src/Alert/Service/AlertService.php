@@ -19,14 +19,13 @@ use Psr\Log\LoggerInterface;
 
 class AlertService implements AlertServiceInterface
 {
+    public const OXYGEN_ALERT = 8;
+    public const HULL_ALERT = 33;
+    public const FAMINE_ALERT = -24;
     private EntityManagerInterface $entityManager;
     private AlertElementRepository $alertElementRepository;
     private AlertRepository $repository;
     private LoggerInterface $logger;
-
-    public const OXYGEN_ALERT = 8;
-    public const HULL_ALERT = 33;
-    public const FAMINE_ALERT = -24;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -111,8 +110,7 @@ class AlertService implements AlertServiceInterface
             $hullAlert = new Alert();
             $hullAlert
                 ->setDaedalus($daedalus)
-                ->setName(AlertEnum::LOW_HULL)
-            ;
+                ->setName(AlertEnum::LOW_HULL);
 
             $this->persist($hullAlert);
         }
@@ -132,8 +130,7 @@ class AlertService implements AlertServiceInterface
             $oxygenAlert = new Alert();
             $oxygenAlert
                 ->setDaedalus($daedalus)
-                ->setName(AlertEnum::LOW_OXYGEN)
-            ;
+                ->setName(AlertEnum::LOW_OXYGEN);
 
             $this->persist($oxygenAlert);
         }
@@ -146,12 +143,12 @@ class AlertService implements AlertServiceInterface
                 $gravityAlert = new Alert();
                 $gravityAlert
                     ->setDaedalus($daedalus)
-                    ->setName(AlertEnum::NO_GRAVITY)
-                ;
+                    ->setName(AlertEnum::NO_GRAVITY);
 
                 $this->persist($gravityAlert);
 
                 return;
+
             case AlertEnum::REPAIR:
                 $gravityAlert = $this->findByNameAndDaedalus(AlertEnum::NO_GRAVITY, $daedalus);
 
@@ -161,8 +158,7 @@ class AlertService implements AlertServiceInterface
 
                 // create a temporary alert that will last until the end of cycle
                 $gravityAlert
-                    ->setName(AlertEnum::GRAVITY_REBOOT)
-                ;
+                    ->setName(AlertEnum::GRAVITY_REBOOT);
                 $this->persist($gravityAlert);
 
                 return;
@@ -209,7 +205,8 @@ class AlertService implements AlertServiceInterface
         // GameItem don't generate alerts
         if ($equipment instanceof GameItem) {
             return;
-        } elseif ($equipment instanceof Door) {
+        }
+        if ($equipment instanceof Door) {
             $daedalus = $equipment->getRooms()->first()->getDaedalus();
             $brokenAlert = $this->findByNameAndDaedalus(AlertEnum::BROKEN_DOORS, $daedalus);
         } else {
@@ -236,10 +233,11 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $equipment->getDaedalus()->getId(),
                 'equipment' => $equipment->getId(),
             ]);
+
             throw $exception;
         }
 
-        $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getEquipment() === $equipment);
+        $filteredList = $alert->getAlertElements()->filter(static fn (AlertElement $element) => $element->getEquipment() === $equipment);
         $alertEquipment = $filteredList->first();
 
         if (!$alertEquipment) {
@@ -253,6 +251,7 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $equipment->getDaedalus()->getId(),
                 'equipment' => $equipment->getId(),
             ]);
+
             throw $exception;
         }
 
@@ -294,7 +293,7 @@ class AlertService implements AlertServiceInterface
 
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement
     {
-        $filteredList = $alert->getAlertElements()->filter(fn (AlertElement $element) => $element->getPlace() === $place);
+        $filteredList = $alert->getAlertElements()->filter(static fn (AlertElement $element) => $element->getPlace() === $place);
         $fireAlert = $filteredList->first();
 
         if (!$fireAlert) {
@@ -308,25 +307,11 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $place->getDaedalus()->getId(),
                 'place' => $place->getId(),
             ]);
+
             throw $exception;
         }
 
         return $fireAlert;
-    }
-
-    private function getAlert(Daedalus $daedalus, string $alertName): Alert
-    {
-        $alert = $this->findByNameAndDaedalus($alertName, $daedalus);
-
-        if ($alert === null) {
-            $alert = new Alert();
-            $alert
-                ->setDaedalus($daedalus)
-                ->setName($alertName)
-            ;
-        }
-
-        return $alert;
     }
 
     public function getAlerts(Daedalus $daedalus): ArrayCollection
@@ -337,13 +322,12 @@ class AlertService implements AlertServiceInterface
             $alert = new Alert();
             $alert
                 ->setDaedalus($daedalus)
-                ->setName(AlertEnum::NO_ALERT)
-            ;
+                ->setName(AlertEnum::NO_ALERT);
 
             return new ArrayCollection([$alert]);
-        } else {
-            return $alerts;
         }
+
+        return $alerts;
     }
 
     public function handleHunterArrival(Daedalus $daedalus): void
@@ -412,6 +396,7 @@ class AlertService implements AlertServiceInterface
                 'daedalus' => $equipment->getDaedalus()->getId(),
                 'equipment' => $equipment->getId(),
             ]);
+
             throw $exception;
         }
 
@@ -446,6 +431,20 @@ class AlertService implements AlertServiceInterface
         if ($daedalus->getLostPlayers()->isEmpty()) {
             $this->delete($alert);
         }
+    }
+
+    private function getAlert(Daedalus $daedalus, string $alertName): Alert
+    {
+        $alert = $this->findByNameAndDaedalus($alertName, $daedalus);
+
+        if ($alert === null) {
+            $alert = new Alert();
+            $alert
+                ->setDaedalus($daedalus)
+                ->setName($alertName);
+        }
+
+        return $alert;
     }
 
     private function createEquipmentAlertElement(GameEquipment $equipment, Alert $alert): AlertElement

@@ -18,17 +18,22 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class HunterNormalizerTest extends TestCase
 {
     private const ASTEROID_DESCRIPTION = 'Un gros caillou qui se rapproche dangereusement du Daedalus
-    Pas de poursuite. 
+    Pas de poursuite.
     Dans 6 cycles, va collisionner le Daedalus infligeant 20 points de dégâts.';
     private const HUNTER_DESCRIPTION = 'Chasseur standard de la FDS';
 
     private HunterNormalizer $normalizer;
+
     /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**
@@ -54,7 +59,7 @@ final class HunterNormalizerTest extends TestCase
         $hunter = $this->createMock(Hunter::class);
         $hunter->method('isInPool')->willReturn(false);
 
-        $this->assertTrue($this->normalizer->supportsNormalization($hunter));
+        self::assertTrue($this->normalizer->supportsNormalization($hunter));
     }
 
     public function testSupportsNormalizationReturnsFalseForHunterInPool(): void
@@ -62,7 +67,7 @@ final class HunterNormalizerTest extends TestCase
         $hunter = $this->createMock(Hunter::class);
         $hunter->method('isInPool')->willReturn(true);
 
-        $this->assertFalse($this->normalizer->supportsNormalization($hunter));
+        self::assertFalse($this->normalizer->supportsNormalization($hunter));
     }
 
     public function testNormalizeReturnsExpectedArray(): void
@@ -96,8 +101,7 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Astéroïde')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
@@ -111,15 +115,13 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn(self::ASTEROID_DESCRIPTION)
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -131,7 +133,7 @@ final class HunterNormalizerTest extends TestCase
             'actions' => [],
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($hunter, context: $context));
+        self::assertSame($expected, $this->normalizer->normalize($hunter, context: $context));
     }
 
     public function testNormalizeReturnsNullChargesForNonAsteroidHunter(): void
@@ -163,8 +165,7 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('Hunter')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
@@ -178,15 +179,13 @@ final class HunterNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn(self::HUNTER_DESCRIPTION)
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($currentPlayer, [ActionScopeEnum::ROOM], Hunter::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -198,6 +197,6 @@ final class HunterNormalizerTest extends TestCase
             'actions' => [],
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($hunter, context: $context));
+        self::assertSame($expected, $this->normalizer->normalize($hunter, context: $context));
     }
 }

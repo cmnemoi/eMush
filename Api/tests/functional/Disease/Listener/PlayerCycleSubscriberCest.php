@@ -46,8 +46,10 @@ class PlayerCycleSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -57,13 +59,16 @@ class PlayerCycleSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -75,8 +80,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -84,8 +88,7 @@ class PlayerCycleSubscriberCest
         $playerDisease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
 
         $I->haveInRepository($playerDisease);
 
@@ -113,6 +116,7 @@ class PlayerCycleSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -122,13 +126,16 @@ class PlayerCycleSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -140,8 +147,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -149,8 +155,7 @@ class PlayerCycleSubscriberCest
         $playerDisease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
@@ -175,8 +180,10 @@ class PlayerCycleSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -186,14 +193,17 @@ class PlayerCycleSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -205,8 +215,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -215,8 +224,7 @@ class PlayerCycleSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $I->haveInRepository($playerDisease);
 
@@ -246,8 +254,10 @@ class PlayerCycleSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -257,6 +267,7 @@ class PlayerCycleSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -266,6 +277,7 @@ class PlayerCycleSubscriberCest
             'place' => $place,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -292,8 +304,7 @@ class PlayerCycleSubscriberCest
             ->setApplyOnTarget(true)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(SymptomEnum::BITING)
-        ;
+            ->setModifierName(SymptomEnum::BITING);
 
         $I->haveInRepository($symptomConfig);
 
@@ -301,8 +312,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -311,8 +321,7 @@ class PlayerCycleSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
@@ -336,10 +345,13 @@ class PlayerCycleSubscriberCest
     {
         /** @var StatusConfig $dirtyStatus */
         $dirtyStatus = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::DIRTY]);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyStatus])]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -349,6 +361,7 @@ class PlayerCycleSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -358,6 +371,7 @@ class PlayerCycleSubscriberCest
             'place' => $place,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -372,8 +386,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig
             ->setDiseaseName('Name')
             ->setModifierConfigs([$symptomConfig])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
 
@@ -382,8 +395,7 @@ class PlayerCycleSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());

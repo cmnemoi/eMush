@@ -21,7 +21,7 @@ class CanGrantRoleValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             throw new \InvalidArgumentException();
         }
 
@@ -33,12 +33,11 @@ class CanGrantRoleValidator extends ConstraintValidator
         $reachableRoles = $this->roleHierarchy->getReachableRoleNames($loggedInUserRoles);
 
         foreach ($value as $role) {
-            if (!in_array($role, $reachableRoles)) {
+            if (!\in_array($role, $reachableRoles, true)) {
                 $this->context
                     ->buildViolation($constraint->message)
                     ->setCode(CanGrantRole::CANNOT_GRANT_ROLE)
-                    ->addViolation()
-                ;
+                    ->addViolation();
 
                 return;
             }

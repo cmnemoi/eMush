@@ -19,7 +19,10 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
 
-class EventModifierConfigTest extends TestCase
+/**
+ * @internal
+ */
+final class EventModifierConfigTest extends TestCase
 {
     public function testDoModifierApplyTriggerModifier()
     {
@@ -32,28 +35,27 @@ class EventModifierConfigTest extends TestCase
                 ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS,
                 ModifierNameEnum::APRON_MODIFIER => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
-            ])
-        ;
+            ]);
 
         $event = new AbstractGameEvent([], new \DateTime());
 
         $event->setEventName(VariableEventInterface::ROLL_PERCENTAGE);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->addTag(ModifierNameEnum::APRON_MODIFIER);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::CONVERT_ACTION_TO_MOVEMENT);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::ANATHEMA);
-        $this->assertTrue($modifier->doModifierApplies($event));
+        self::assertTrue($modifier->doModifierApplies($event));
 
         $event->addTag(ActionEnum::CHECK_INFECTION);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
     }
 
     public function testDoModifierApplyVariableModifier()
@@ -61,8 +63,7 @@ class EventModifierConfigTest extends TestCase
         $modifier = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTargetVariable(DaedalusVariableEnum::FUEL)
-        ;
+            ->setTargetVariable(DaedalusVariableEnum::FUEL);
         $action = new Action();
         $action->setActionName('test');
         $player = new Player();
@@ -71,34 +72,32 @@ class EventModifierConfigTest extends TestCase
         $event = new AbstractGameEvent([], new \DateTime());
 
         $event->setEventName(VariableEventInterface::ROLL_PERCENTAGE);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event = new ActionVariableEvent($action, PlayerVariableEnum::ACTION_POINT, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertFalse($modifier->doModifierApplies($event));
+        self::assertFalse($modifier->doModifierApplies($event));
 
         $event = new ActionVariableEvent($action, DaedalusVariableEnum::FUEL, 2, $player, null);
         $event->setEventName(ActionVariableEvent::APPLY_COST);
-        $this->assertTrue($modifier->doModifierApplies($event));
+        self::assertTrue($modifier->doModifierApplies($event));
     }
 
     public function testGetPriority()
     {
         $modifier = new EventModifierConfig('unitTestVariableEventModifier');
         $modifier
-            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT)
-        ;
+            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT);
 
-        $this->assertEquals(ModifierPriorityEnum::PRIORITY_MAP[ModifierPriorityEnum::BEFORE_INITIAL_EVENT], $modifier->getPriorityAsInteger());
-        $this->assertEquals(ModifierPriorityEnum::BEFORE_INITIAL_EVENT, $modifier->getPriority());
+        self::assertSame(ModifierPriorityEnum::PRIORITY_MAP[ModifierPriorityEnum::BEFORE_INITIAL_EVENT], $modifier->getPriorityAsInteger());
+        self::assertSame(ModifierPriorityEnum::BEFORE_INITIAL_EVENT, $modifier->getPriority());
 
         $modifier
-            ->setPriority('4')
-        ;
-        $this->assertEquals(4, $modifier->getPriorityAsInteger());
-        $this->assertEquals('4', $modifier->getPriority());
+            ->setPriority('4');
+        self::assertSame(4, $modifier->getPriorityAsInteger());
+        self::assertSame('4', $modifier->getPriority());
     }
 }

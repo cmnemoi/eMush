@@ -26,14 +26,19 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $readDocument */
         $readDocument = $this->getReference(ActionsFixtures::READ_DOCUMENT);
+
         /** @var Action $readBook */
         $readBook = $this->getReference(ActionsFixtures::READ_BOOK);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -63,8 +68,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             $apprentonMechanic
                 ->setSkill($skillName)
                 ->addAction($readBook)
-                ->buildName(ItemEnum::APPRENTON . '_' . $skillName, GameConfigEnum::DEFAULT)
-            ;
+                ->buildName(ItemEnum::APPRENTON . '_' . $skillName, GameConfigEnum::DEFAULT);
 
             $apprenton = new ItemConfig();
             $apprenton
@@ -74,8 +78,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsFireBreakable(false)
                 ->setMechanics([$apprentonMechanic])
                 ->setActions($actions)
-                ->buildName(GameConfigEnum::DEFAULT)
-            ;
+                ->buildName(GameConfigEnum::DEFAULT);
 
             $manager->persist($apprentonMechanic);
             $manager->persist($apprenton);
@@ -89,8 +92,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(true)
             ->setCanShred(true)
             ->addAction($readDocument)
-            ->buildName(ItemEnum::DOCUMENT, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(ItemEnum::DOCUMENT, GameConfigEnum::DEFAULT);
 
         $document = new ItemConfig();
         $document
@@ -100,8 +102,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setMechanics([$documentMechanic])
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($documentMechanic);
         $manager->persist($document);
@@ -111,8 +112,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(true)
             ->setContent(DocumentContentEnum::COMMANDERS_MANUAL)
             ->addAction($readDocument)
-            ->buildName(ItemEnum::COMMANDERS_MANUAL, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(ItemEnum::COMMANDERS_MANUAL, GameConfigEnum::DEFAULT);
 
         $commandersManual = new ItemConfig();
         $commandersManual
@@ -122,8 +122,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setMechanics([$commandersManualMechanic])
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($commandersManualMechanic);
         $manager->persist($commandersManual);
@@ -133,8 +132,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(true)
             ->setContent(DocumentContentEnum::MUSH_RESEARCH_REVIEW)
             ->addAction($readDocument)
-            ->buildName(ItemEnum::MUSH_RESEARCH_REVIEW, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(ItemEnum::MUSH_RESEARCH_REVIEW, GameConfigEnum::DEFAULT);
 
         $mushResearch = new ItemConfig();
         $mushResearch
@@ -144,8 +142,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setMechanics([$mushResearchMechanic])
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($mushResearchMechanic);
         $manager->persist($mushResearch);
@@ -155,8 +152,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsTranslated(false)
             ->setCanShred(true)
             ->addAction($readDocument)
-            ->buildName(ItemEnum::POST_IT, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(ItemEnum::POST_IT, GameConfigEnum::DEFAULT);
 
         $postIt = new ItemConfig();
         $postIt
@@ -166,8 +162,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setMechanics([$postItMechanic])
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($postItMechanic);
         $manager->persist($postIt);
@@ -176,8 +171,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($document)
             ->addEquipmentConfig($mushResearch)
             ->addEquipmentConfig($commandersManual)
-            ->addEquipmentConfig($postIt)
-        ;
+            ->addEquipmentConfig($postIt);
         $manager->persist($gameConfig);
 
         $manager->flush();

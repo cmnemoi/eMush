@@ -26,6 +26,7 @@ final class IsPatrolShipRenovableValidator extends ConstraintValidator
 
         /** @var GameEquipment $patrolShip */
         $patrolShip = $value->getTarget();
+
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 

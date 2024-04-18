@@ -93,6 +93,7 @@ class RoomSubscriber implements EventSubscriberInterface
     {
         foreach ($event->getPlace()->getPlayers() as $player) {
             $gameEquipments = $this->gameEquipmentService->findByOwner($player);
+
             /** @var GameEquipment $gameEquipment */
             foreach ($gameEquipments as $gameEquipment) {
                 $this->gameEquipmentService->delete($gameEquipment);

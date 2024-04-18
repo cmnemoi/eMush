@@ -24,14 +24,20 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class MessageServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class MessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
+
     /** @var EventServiceInterface|Mockery\mock */
     private EventServiceInterface $eventService;
+
     /** @var MessageRepository|Mockery\mock */
     private MessageRepository $messageRepository;
+
     /** @var ChannelRepository|Mockery\mock */
     private ChannelRepository $channelRepository;
 
@@ -98,7 +104,7 @@ class MessageServiceTest extends TestCase
 
         $message = $this->service->createPlayerMessage($player, $playerMessageDto);
 
-        $this->assertInstanceOf(Message::class, $message);
+        self::assertInstanceOf(Message::class, $message);
     }
 
     public function testCreatePlayerMessageWithParent()
@@ -117,8 +123,7 @@ class MessageServiceTest extends TestCase
         $playerMessageDto = new CreateMessage();
         $playerMessageDto
             ->setChannel($channel)
-            ->setMessage('some message')
-        ;
+            ->setMessage('some message');
         $playerMessageDto->setParent($message);
 
         $messageEvent = new MessageEvent(new Message(), $player, [], new \DateTime());
@@ -137,7 +142,7 @@ class MessageServiceTest extends TestCase
 
         $messageWithParent = $this->service->createPlayerMessage($player, $playerMessageDto);
 
-        $this->assertInstanceOf(Message::class, $messageWithParent);
+        self::assertInstanceOf(Message::class, $messageWithParent);
     }
 
     public function testCanPlayerPostMessage()
@@ -149,7 +154,7 @@ class MessageServiceTest extends TestCase
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::FINISHED);
         $player->setPlayerInfo($playerInfo);
-        $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
+        self::assertFalse($this->service->canPlayerPostMessage($player, $channel));
 
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
@@ -157,17 +162,15 @@ class MessageServiceTest extends TestCase
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent(new Message(), $player, [], new \DateTime()))
-            ->once()
-        ;
-        $this->assertTrue($this->service->canPlayerPostMessage($player, $channel));
+            ->once();
+        self::assertTrue($this->service->canPlayerPostMessage($player, $channel));
 
         // event new message is prevented
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn(null)
-            ->once()
-        ;
-        $this->assertFalse($this->service->canPlayerPostMessage($player, $channel));
+            ->once();
+        self::assertFalse($this->service->canPlayerPostMessage($player, $channel));
     }
 
     public function testCreateSystemMessage()
@@ -182,12 +185,12 @@ class MessageServiceTest extends TestCase
             $time
         );
 
-        $this->assertInstanceOf(Message::class, $message);
-        $this->assertEquals('key', $message->getMessage());
-        $this->assertEquals(null, $message->getAuthor());
-        $this->assertEquals($time, $message->getCreatedAt());
-        $this->assertEquals($time, $message->getUpdatedAt());
-        $this->assertEquals($channel, $message->getChannel());
+        self::assertInstanceOf(Message::class, $message);
+        self::assertEquals('key', $message->getMessage());
+        self::assertNull($message->getAuthor());
+        self::assertEquals($time, $message->getCreatedAt());
+        self::assertEquals($time, $message->getUpdatedAt());
+        self::assertEquals($channel, $message->getChannel());
     }
 
     public function testGetMessage()
@@ -203,20 +206,17 @@ class MessageServiceTest extends TestCase
         $this->messageRepository
             ->shouldReceive('findByChannelWithPagination')
             ->with($channel, 1, 10)
-            ->andReturn([$message1, $message2])
-        ;
+            ->andReturn([$message1, $message2]);
         $this->channelRepository
             ->shouldReceive('findFavoritesChannelForPlayer')
-            ->andReturn(null)
-        ;
+            ->andReturn(null);
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
-            ->twice()
-        ;
+            ->twice();
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
-        $this->assertCount(2, $messages);
+        self::assertCount(2, $messages);
     }
 
     public function testGetMessageMush()
@@ -232,24 +232,22 @@ class MessageServiceTest extends TestCase
 
         $this->messageRepository
             ->shouldReceive('findByChannel')
-            ->withArgs(fn ($channelTest, $age) => $channelTest === $channel
+            ->withArgs(
+                static fn ($channelTest, $age) => $channelTest === $channel
                 && $age instanceof \DateInterval
-                && intval($age->format('%H')) === 24
+                && (int) $age->format('%H') === 24
             )
-            ->andReturn([$message1, $message2])
-        ;
+            ->andReturn([$message1, $message2]);
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message1, $player, [], new \DateTime()))
-            ->twice()
-        ;
+            ->twice();
         $this->channelRepository
             ->shouldReceive('findFavoritesChannelForPlayer')
-            ->andReturn(null)
-        ;
+            ->andReturn(null);
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
-        $this->assertCount(2, $messages);
+        self::assertCount(2, $messages);
     }
 
     public function testGetMessageWithLimit(): void
@@ -267,16 +265,14 @@ class MessageServiceTest extends TestCase
         $this->messageRepository
             ->shouldReceive('findByChannelWithPagination')
             ->with($channel, 1, 10)
-            ->andReturn($messages->slice(0, 10))
-        ;
+            ->andReturn($messages->slice(0, 10));
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message, $player, [], new \DateTime()))
-            ->times(10)
-        ;
+            ->times(10);
 
         $messages = $this->service->getChannelMessages($player, $channel, 1, 10);
 
-        $this->assertCount(10, $messages);
+        self::assertCount(10, $messages);
     }
 
     public function testGetNumberOfNewMessagesForPlayer(): void
@@ -298,21 +294,18 @@ class MessageServiceTest extends TestCase
 
         $this->channelRepository
             ->shouldReceive('findFavoritesChannelForPlayer')
-            ->andReturn(null)
-        ;
+            ->andReturn(null);
         $this->messageRepository
             ->shouldReceive('findByChannelWithPagination')
             ->with($channel, 1, 20)
-            ->andReturn($messages->slice(10, 25))
-        ;
+            ->andReturn($messages->slice(10, 25));
         $this->eventService->shouldReceive('computeEventModifications')
             ->andReturn(new MessageEvent($message, $player, [], new \DateTime()))
-            ->times(15)
-        ;
+            ->times(15);
 
         $nbNewMessages = $this->service->getNumberOfNewMessagesForPlayer($player, $channel);
 
-        $this->assertEquals(15, $nbNewMessages);
+        self::assertEquals(15, $nbNewMessages);
     }
 
     public function testMarkMessagesAsRead(): void
@@ -322,7 +315,7 @@ class MessageServiceTest extends TestCase
 
         $this->service->markMessageAsReadForPlayer($message, $player);
 
-        $this->assertFalse($message->isUnreadBy($player));
+        self::assertFalse($message->isUnreadBy($player));
     }
 
     public function testPutMessageInFavoritesForPlayer(): void
@@ -332,7 +325,7 @@ class MessageServiceTest extends TestCase
 
         $this->service->putMessageInFavoritesForPlayer($message, $player);
 
-        $this->assertTrue($message->isFavoriteFor($player));
+        self::assertTrue($message->isFavoriteFor($player));
     }
 
     public function testRemoveMessageFromFavoritesForPlayer(): void
@@ -343,6 +336,6 @@ class MessageServiceTest extends TestCase
 
         $this->service->removeMessageFromFavoritesForPlayer($message, $player);
 
-        $this->assertFalse($message->isFavoriteFor($player));
+        self::assertFalse($message->isFavoriteFor($player));
     }
 }

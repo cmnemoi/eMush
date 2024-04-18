@@ -16,6 +16,9 @@ use Mush\Hunter\Service\HunterServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class HunterNewCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
@@ -36,13 +39,12 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         // given those hunters are aiming at the daedalus
-        $this->daedalus->getAttackingHunters()->map(fn (Hunter $hunter) => $hunter->setTarget(new HunterTarget($hunter)));
+        $this->daedalus->getAttackingHunters()->map(static fn (Hunter $hunter) => $hunter->setTarget(new HunterTarget($hunter)));
 
         // given they have a 100% chance to hit
         $this->daedalus->getAttackingHunters()
-                        ->map(fn (Hunter $hunter) => $hunter->setHitChance(100))
-                        ->map(fn (Hunter $hunter) => $I->haveInRepository($hunter))
-        ;
+            ->map(static fn (Hunter $hunter) => $hunter->setHitChance(100))
+            ->map(static fn (Hunter $hunter) => $I->haveInRepository($hunter));
 
         $hunter = $this->daedalus->getAttackingHunters()->first();
 
@@ -134,7 +136,7 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         /** @var HunterConfig $hunterConfig */
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
         if (!$hunterConfig) {
-            throw new \Exception("Hunter config not found for hunter name $hunterName");
+            throw new \Exception("Hunter config not found for hunter name {$hunterName}");
         }
 
         // create hunter

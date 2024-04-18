@@ -18,7 +18,7 @@ final class AvailableScrapToCollectValidator extends ConstraintValidator
         }
 
         if (!$constraint instanceof AvailableScrapToCollect) {
-            throw new UnexpectedTypeException($constraint, AvailableScrapToCollectValidator::class);
+            throw new UnexpectedTypeException($constraint, self::class);
         }
 
         $spaceContent = $value->getPlayer()->getDaedalus()->getSpace()->getEquipments();

@@ -16,5 +16,5 @@ interface DiseaseCauseServiceInterface
 
     public function findCauseConfigByDaedalus(string $causeName, Daedalus $daedalus): DiseaseCauseConfig;
 
-    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = null, int $delayLength = null): PlayerDisease;
+    public function handleDiseaseForCause(string $cause, Player $player, ?int $delayMin = null, ?int $delayLength = null): PlayerDisease;
 }

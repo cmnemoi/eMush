@@ -17,7 +17,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class InstallCameraTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class InstallCameraTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -56,8 +59,7 @@ class InstallCameraTest extends AbstractActionTest
         $cameraItemConfig->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $cameraItem
             ->setEquipment($cameraItemConfig)
-            ->setName(ItemEnum::CAMERA_ITEM)
-        ;
+            ->setName(ItemEnum::CAMERA_ITEM);
 
         $cameraItemConfig->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -68,18 +70,16 @@ class InstallCameraTest extends AbstractActionTest
         $cameraEquipment = new GameEquipment(new Place());
         $cameraEquipmentConfig = new ItemConfig();
         $cameraEquipmentConfig
-            ->setEquipmentName(GameRationEnum::COFFEE)
-        ;
+            ->setEquipmentName(GameRationEnum::COFFEE);
         $cameraEquipment
             ->setEquipment($cameraEquipmentConfig)
-            ->setName(GameRationEnum::COFFEE)
-        ;
+            ->setName(GameRationEnum::COFFEE);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

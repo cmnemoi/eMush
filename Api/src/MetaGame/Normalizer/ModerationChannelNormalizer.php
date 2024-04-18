@@ -18,12 +18,12 @@ class ModerationChannelNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Channel && in_array('moderation_read', $context['groups'] ?? []);
+        return $data instanceof Channel && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         return $this->normalizeForModerators($object);
     }
@@ -32,6 +32,7 @@ class ModerationChannelNormalizer implements NormalizerInterface
     {
         $language = LanguageEnum::FRENCH;
         $participants = [];
+
         /** @var ChannelPlayer $participant */
         foreach ($channel->getParticipants() as $participant) {
             /** @var \DateTime $joinDate */

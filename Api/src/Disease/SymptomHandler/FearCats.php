@@ -41,11 +41,11 @@ class FearCats extends AbstractSymptomHandler
     private function makePlayerRandomlyMoving(Player $player): void
     {
         // get non-broken doors
-        $availableDoors = $player->getPlace()->getDoors()->filter(function (GameEquipment $door) {
+        $availableDoors = $player->getPlace()->getDoors()->filter(static function (GameEquipment $door) {
             return !$door->isBroken();
         })->toArray();
 
-        if (count($availableDoors) === 0) {
+        if (\count($availableDoors) === 0) {
             return;
         }
 
@@ -54,7 +54,7 @@ class FearCats extends AbstractSymptomHandler
         $randomDoor = reset($selectedDoor);
 
         /** @var Action $moveActionEntity */
-        $moveActionEntity = $randomDoor->getActions()->filter(function (Action $action) {
+        $moveActionEntity = $randomDoor->getActions()->filter(static function (Action $action) {
             return $action->getActionName() === ActionEnum::MOVE;
         })->first();
 

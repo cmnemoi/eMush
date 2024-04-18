@@ -68,8 +68,7 @@ class ReportActionCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -77,6 +76,7 @@ class ReportActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -84,8 +84,8 @@ class ReportActionCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -98,8 +98,7 @@ class ReportActionCest
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -111,16 +110,14 @@ class ReportActionCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::NARCOTIC_DISTILLER)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
@@ -133,8 +130,7 @@ class ReportActionCest
         $alertBroken
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::BROKEN_EQUIPMENTS)
-            ->addAlertElement($reportedAlert)
-        ;
+            ->addAlertElement($reportedAlert);
 
         $I->haveInRepository($alertBroken);
 
@@ -173,8 +169,7 @@ class ReportActionCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -184,13 +179,13 @@ class ReportActionCest
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
         $characterConfig->setActions(new ArrayCollection([$action]));
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -198,8 +193,8 @@ class ReportActionCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -212,8 +207,7 @@ class ReportActionCest
         $statusConfig
             ->setStatusName(StatusEnum::FIRE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($room, $statusConfig);
         $I->haveInRepository($status);
@@ -226,8 +220,7 @@ class ReportActionCest
         $alertFire
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::FIRES)
-            ->addAlertElement($reportedAlert)
-        ;
+            ->addAlertElement($reportedAlert);
 
         $I->haveInRepository($alertFire);
 

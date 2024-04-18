@@ -17,12 +17,12 @@ class MessageNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Message && !in_array('moderation_read', $context['groups'] ?? []);
+        return $data instanceof Message && !\in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         $child = [];
 
@@ -85,18 +85,20 @@ class MessageNormalizer implements NormalizerInterface
     {
         $dateInterval = $dateTime->diff(new \DateTime());
 
-        $days = intval($dateInterval->format('%a'));
-        $hours = intval($dateInterval->format('%H'));
-        $minutes = intval($dateInterval->format('%i'));
+        $days = (int) $dateInterval->format('%a');
+        $hours = (int) $dateInterval->format('%H');
+        $minutes = (int) $dateInterval->format('%i');
 
         if ($days > 0) {
             return $this->translationService->translate('message_date.more_day', ['quantity' => $days], 'chat', $language);
-        } elseif ($hours > 0) {
-            return $this->translationService->translate('message_date.more_hour', ['quantity' => $hours], 'chat', $language);
-        } elseif ($minutes > 0) {
-            return $this->translationService->translate('message_date.more_minute', ['quantity' => $minutes], 'chat', $language);
-        } else {
-            return $this->translationService->translate('message_date.less_minute', [], 'chat', $language);
         }
+        if ($hours > 0) {
+            return $this->translationService->translate('message_date.more_hour', ['quantity' => $hours], 'chat', $language);
+        }
+        if ($minutes > 0) {
+            return $this->translationService->translate('message_date.more_minute', ['quantity' => $minutes], 'chat', $language);
+        }
+
+        return $this->translationService->translate('message_date.less_minute', [], 'chat', $language);
     }
 }

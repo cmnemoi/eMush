@@ -30,7 +30,10 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class HealCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class HealCest extends AbstractFunctionalTest
 {
     private Action $healConfig;
     private Heal $healAction;
@@ -66,8 +69,7 @@ class HealCest extends AbstractFunctionalTest
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
@@ -89,8 +91,8 @@ class HealCest extends AbstractFunctionalTest
         ]);
         $healerPlayer->setPlayerVariables($characterConfig);
         $healerPlayer
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
@@ -104,8 +106,7 @@ class HealCest extends AbstractFunctionalTest
         ]);
         $healedPlayer->setPlayerVariables($characterConfig);
         $healedPlayer
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
         $I->haveInRepository($healedPlayerInfo);
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
@@ -147,8 +148,7 @@ class HealCest extends AbstractFunctionalTest
             ->setActionName(ActionEnum::HEAL)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(2)
-           ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
@@ -170,8 +170,8 @@ class HealCest extends AbstractFunctionalTest
         ]);
         $healerPlayer->setPlayerVariables($characterConfig);
         $healerPlayer
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
@@ -185,8 +185,7 @@ class HealCest extends AbstractFunctionalTest
         ]);
         $healedPlayer->setPlayerVariables($characterConfig);
         $healedPlayer
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
         $I->haveInRepository($healedPlayerInfo);
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
@@ -201,7 +200,7 @@ class HealCest extends AbstractFunctionalTest
     {
         // given players are in medlab
         $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
-        $this->players->map(function (Player $player) use ($medlab) {
+        $this->players->map(static function (Player $player) use ($medlab) {
             $player->changePlace($medlab);
         });
 

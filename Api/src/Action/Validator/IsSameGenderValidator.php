@@ -11,19 +11,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class IsSameGenderValidator extends ConstraintValidator
 {
-    private function isSameGenderCouple(string $player, string $targetPlayer): bool
-    {
-        $twoMen = CharacterEnum::isMale($player) && CharacterEnum::isMale($targetPlayer);
-        $twoWomen = !CharacterEnum::isMale($player) && !CharacterEnum::isMale($targetPlayer);
-
-        return $twoMen || $twoWomen;
-    }
-
-    private function isCoupleWithAndie(string $player, string $targetPlayer): bool
-    {
-        return $player == CharacterEnum::ANDIE || $targetPlayer == CharacterEnum::ANDIE;
-    }
-
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
@@ -46,5 +33,18 @@ class IsSameGenderValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
+    }
+
+    private function isSameGenderCouple(string $player, string $targetPlayer): bool
+    {
+        $twoMen = CharacterEnum::isMale($player) && CharacterEnum::isMale($targetPlayer);
+        $twoWomen = !CharacterEnum::isMale($player) && !CharacterEnum::isMale($targetPlayer);
+
+        return $twoMen || $twoWomen;
+    }
+
+    private function isCoupleWithAndie(string $player, string $targetPlayer): bool
+    {
+        return $player === CharacterEnum::ANDIE || $targetPlayer === CharacterEnum::ANDIE;
     }
 }

@@ -50,26 +50,27 @@ class ChargedValidator extends ConstraintValidator
 
     private function getChargeStatus(string $actionName, StatusHolderInterface $actionTarget): ?ChargeStatus
     {
-        $charges = $actionTarget->getStatuses()->filter(function (Status $status) use ($actionName) {
+        $charges = $actionTarget->getStatuses()->filter(static function (Status $status) use ($actionName) {
             return $status instanceof ChargeStatus
                 && $status->hasDischargeStrategy($actionName);
         });
 
         if ($charges->count() > 0) {
             return $charges->first();
-        } elseif ($charges->count() === 0) {
-            return null;
-        } else {
-            throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
         }
+        if ($charges->count() === 0) {
+            return null;
+        }
+
+        throw new LogicException('there should be maximum 1 chargeStatus with this dischargeStrategy on this statusHolder');
     }
 
     private function getShootingEquipment(Player $player): GameEquipment
     {
         /** @var GameEquipment $shootingEquipment */
         $shootingEquipment = $player->getPlace()->getEquipments()
-            ->filter(fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
-            ->filter(fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
+            ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
+            ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (EquipmentMechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
             ->first();
 
         if (!$shootingEquipment instanceof GameEquipment) {

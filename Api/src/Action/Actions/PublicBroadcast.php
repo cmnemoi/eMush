@@ -52,11 +52,6 @@ class PublicBroadcast extends AbstractAction
         $this->statusService = $statusService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameItem;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -67,6 +62,34 @@ class PublicBroadcast extends AbstractAction
             'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameItem;
+    }
+
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        $playersInTheRoom = $this->player
+            ->getPlace()
+            ->getPlayers();
+
+        foreach ($playersInTheRoom as $player) {
+            $alreadyWatchedPublicBroadcast = $player->getStatusbyName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
+
+            if ($alreadyWatchedPublicBroadcast) {
+                continue;
+            }
+
+            $this->addMoralPoints($player, $this->getOutputQuantity());
+            $this->addWatchedPublicBroadcastStatus($player);
+        }
     }
 
     private function addMoralPoints(Player $player, int $morale_points): void
@@ -91,29 +114,5 @@ class PublicBroadcast extends AbstractAction
             $this->getAction()->getActionTags(),
             new \DateTime(),
         );
-    }
-
-    protected function checkResult(): ActionResult
-    {
-        return new Success();
-    }
-
-    protected function applyEffect(ActionResult $result): void
-    {
-        $playersInTheRoom = $this->player
-            ->getPlace()
-            ->getPlayers()
-        ;
-
-        foreach ($playersInTheRoom as $player) {
-            $alreadyWatchedPublicBroadcast = $player->getStatusbyName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
-
-            if ($alreadyWatchedPublicBroadcast) {
-                continue;
-            }
-
-            $this->addMoralPoints($player, $this->getOutputQuantity());
-            $this->addWatchedPublicBroadcastStatus($player);
-        }
     }
 }

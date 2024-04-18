@@ -70,7 +70,7 @@ class ModifierActivationRequirement
         return $this;
     }
 
-    public function setActivationRequirement(string|null $activationRequirement): self
+    public function setActivationRequirement(?string $activationRequirement): self
     {
         $this->activationRequirement = $activationRequirement;
 

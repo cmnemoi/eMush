@@ -55,8 +55,7 @@ class PhagocyteActionCest
             ->setActionName(ActionEnum::PHAGOCYTE)
             ->setScope(ActionScopeEnum::SELF)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($phagocyteActionEntity);
 
         /** @var CharacterConfig $characterConfig */
@@ -71,8 +70,8 @@ class PhagocyteActionCest
         $player
             ->setActionPoint(1)
             ->setHealthPoint(1)
-            ->setSpores(1)
-        ;
+            ->setSpores(1);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -85,8 +84,7 @@ class PhagocyteActionCest
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
-           ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
 
         $mushStatus = new Status($player, $mushConfig);

@@ -18,7 +18,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class RetrieveOxygenTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class RetrieveOxygenTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -56,19 +59,16 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE);
 
         $player = $this->createPlayer($daedalus, $room);
         $gameItem
-            ->setName(ItemEnum::OXYGEN_CAPSULE)
-        ;
+            ->setName(ItemEnum::OXYGEN_CAPSULE);
 
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setMaxOxygen(32)
-            ->setInitOxygen(10)
-        ;
+            ->setInitOxygen(10);
 
         $daedalus->setDaedalusVariables($daedalusConfig);
 
@@ -79,8 +79,7 @@ class RetrieveOxygenTest extends AbstractActionTest
         $gameTank
             ->setEquipment($tank)
             ->setName(EquipmentEnum::OXYGEN_TANK)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
@@ -90,8 +89,8 @@ class RetrieveOxygenTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

@@ -131,8 +131,7 @@ class PlayDynarcadeCest
         $dynarcade = new GameEquipment($alphaBay2);
         $dynarcade
             ->setName(EquipmentEnum::DYNARCADE)
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($dynarcade);
 
         $brokenStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
@@ -182,6 +181,7 @@ class PlayDynarcadeCest
             ->setActionPoint(3)
             ->setHealthPoint(6)
             ->setMoralPoint(7);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($gamerPlayer, $user, $characterConfig);
@@ -244,6 +244,7 @@ class PlayDynarcadeCest
             ->setActionPoint(3)
             ->setHealthPoint(6)
             ->setMoralPoint(7);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($gamerPlayer, $user, $characterConfig);

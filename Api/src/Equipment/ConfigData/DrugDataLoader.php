@@ -17,7 +17,7 @@ class DrugDataLoader extends RationDataLoader
 
             if ($drug === null) {
                 $drug = new Drug();
-            } elseif (!($drug instanceof Drug)) {
+            } elseif (!$drug instanceof Drug) {
                 $this->entityManager->remove($drug);
                 $drug = new Drug();
             }

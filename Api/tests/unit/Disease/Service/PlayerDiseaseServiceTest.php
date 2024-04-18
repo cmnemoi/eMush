@@ -21,14 +21,17 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
-class PlayerDiseaseServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class PlayerDiseaseServiceTest extends TestCase
 {
     private PlayerDiseaseService $playerDiseaseService;
 
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var EventServiceInterface|Mockery\Mock */
@@ -63,8 +66,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDelayMin(4)->setDelayLength(4)
-            ->setDiseaseName('name')
-        ;
+            ->setDiseaseName('name');
 
         $gameConfig = new GameConfig();
         $gameConfig->addDiseaseConfig($diseaseConfig);
@@ -82,17 +84,16 @@ class PlayerDiseaseServiceTest extends TestCase
             ->shouldReceive('random')
             ->withArgs([$diseaseConfig->getDelayMin(), $diseaseConfig->getDelayMin() + $diseaseConfig->getDelayLength()])
             ->andReturn(4)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, [DiseaseCauseEnum::INCUBATING_END]);
 
-        $this->assertInstanceOf(PlayerDisease::class, $disease);
-        $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
-        $this->assertEquals($player, $disease->getPlayer());
-        $this->assertEquals(4, $disease->getDiseasePoint());
-        $this->assertEquals(DiseaseStatusEnum::INCUBATING, $disease->getStatus());
+        self::assertInstanceOf(PlayerDisease::class, $disease);
+        self::assertSame($diseaseConfig, $disease->getDiseaseConfig());
+        self::assertSame($player, $disease->getPlayer());
+        self::assertSame(4, $disease->getDiseasePoint());
+        self::assertSame(DiseaseStatusEnum::INCUBATING, $disease->getStatus());
     }
 
     public function testCreateDiseaseFromNameAndWithArgumentsDelay()
@@ -118,11 +119,11 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, ['cause'], 10, 5);
 
-        $this->assertInstanceOf(PlayerDisease::class, $disease);
-        $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
-        $this->assertEquals($player, $disease->getPlayer());
-        $this->assertEquals(4, $disease->getDiseasePoint());
-        $this->assertEquals(DiseaseStatusEnum::INCUBATING, $disease->getStatus());
+        self::assertInstanceOf(PlayerDisease::class, $disease);
+        self::assertSame($diseaseConfig, $disease->getDiseaseConfig());
+        self::assertSame($player, $disease->getPlayer());
+        self::assertSame(4, $disease->getDiseasePoint());
+        self::assertSame(DiseaseStatusEnum::INCUBATING, $disease->getStatus());
     }
 
     public function testCreateDiseaseFromNameAndWithoutDelay()
@@ -149,11 +150,11 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, ['reason']);
 
-        $this->assertInstanceOf(PlayerDisease::class, $disease);
-        $this->assertEquals($diseaseConfig, $disease->getDiseaseConfig());
-        $this->assertEquals($player, $disease->getPlayer());
-        $this->assertEquals(4, $disease->getDiseasePoint());
-        $this->assertEquals(DiseaseStatusEnum::ACTIVE, $disease->getStatus());
+        self::assertInstanceOf(PlayerDisease::class, $disease);
+        self::assertSame($diseaseConfig, $disease->getDiseaseConfig());
+        self::assertSame($player, $disease->getPlayer());
+        self::assertSame(4, $disease->getDiseasePoint());
+        self::assertSame(DiseaseStatusEnum::ACTIVE, $disease->getStatus());
     }
 
     public function testHandleNewCycle()
@@ -168,14 +169,13 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(10)
-        ;
+            ->setDiseasePoint(10);
 
         $this->entityManager->shouldReceive(['persist' => null, 'flush' => null]);
 
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 
-        $this->assertEquals(9, $diseasePlayer->getDiseasePoint());
+        self::assertSame(9, $diseasePlayer->getDiseasePoint());
     }
 
     public function testHandleNewCycleSpontaneousCure()
@@ -190,8 +190,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -199,7 +198,7 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 
-        $this->assertEquals(0, $diseasePlayer->getDiseasePoint());
+        self::assertSame(0, $diseasePlayer->getDiseasePoint());
     }
 
     public function testHandleNewCycleIncubatedDiseaseAppear()
@@ -214,8 +213,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -225,8 +223,8 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 
-        $this->assertEquals(10, $diseasePlayer->getDiseasePoint());
-        $this->assertEquals(DiseaseStatusEnum::ACTIVE, $diseasePlayer->getStatus());
+        self::assertSame(10, $diseasePlayer->getDiseasePoint());
+        self::assertSame(DiseaseStatusEnum::ACTIVE, $diseasePlayer->getStatus());
     }
 
     public function testHandleNewCycleIncubatedDiseaseAppearAndOverrodeDisease()
@@ -242,8 +240,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
 
         $diseaseConfig2 = new DiseaseConfig();
         $diseaseConfig2->setDiseaseName(InjuryEnum::BROKEN_SHOULDER);
@@ -252,8 +249,7 @@ class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseaseConfig($diseaseConfig2)
-            ->setDiseasePoint(1)
-        ;
+            ->setDiseasePoint(1);
         $player->addMedicalCondition($diseasePlayer2);
 
         $this->entityManager->shouldReceive('persist')->once();
@@ -264,7 +260,7 @@ class PlayerDiseaseServiceTest extends TestCase
                 static fn (DiseaseEvent $event) => (
                     $event->getPlayerDisease() === $diseasePlayer
                 )
-                    && in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags(), true)
+                    && \in_array(DiseaseCauseEnum::INCUBATING_END, $event->getTags(), true)
             )
             ->once();
 
@@ -276,7 +272,7 @@ class PlayerDiseaseServiceTest extends TestCase
                 static fn (DiseaseEvent $event) => (
                     $event->getPlayerDisease() === $diseasePlayer2
                 )
-                    && in_array(DiseaseCauseEnum::OVERRODE, $event->getTags(), true)
+                    && \in_array(DiseaseCauseEnum::OVERRODE, $event->getTags(), true)
             )->once();
 
         $this->entityManager->shouldReceive('remove')->once();
@@ -284,8 +280,8 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 
-        $this->assertEquals(10, $diseasePlayer->getDiseasePoint());
-        $this->assertEquals(DiseaseStatusEnum::ACTIVE, $diseasePlayer->getStatus());
+        self::assertSame(10, $diseasePlayer->getDiseasePoint());
+        self::assertSame(DiseaseStatusEnum::ACTIVE, $diseasePlayer->getStatus());
     }
 
     public function testHealDisease()
@@ -298,8 +294,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setResistancePoint(0)
-        ;
+            ->setResistancePoint(0);
 
         $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -318,8 +313,7 @@ class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setResistancePoint(1)
-        ;
+            ->setResistancePoint(1);
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -327,6 +321,6 @@ class PlayerDiseaseServiceTest extends TestCase
 
         $this->playerDiseaseService->healDisease($player, $diseasePlayer, ['reason'], new \DateTime(), VisibilityEnum::PUBLIC);
 
-        $this->assertEquals(0, $diseasePlayer->getResistancePoint());
+        self::assertSame(0, $diseasePlayer->getResistancePoint());
     }
 }

@@ -13,12 +13,11 @@ class PlanetSectorConfigCollection extends ArrayCollection
     public function getBySectorName(string $sectorName): PlanetSectorConfig
     {
         $planetSectorConfig = $this
-            ->filter(fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName)
-            ->first()
-        ;
+            ->filter(static fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName)
+            ->first();
 
         if (!$planetSectorConfig) {
-            throw new \Exception("PlanetSectorConfig $sectorName not found");
+            throw new \Exception("PlanetSectorConfig {$sectorName} not found");
         }
 
         return $planetSectorConfig;

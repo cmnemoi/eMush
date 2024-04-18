@@ -35,7 +35,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipmentName = $event->getGameEquipment()->getName();
 
-        if (in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO])) {
+        if (\in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO], true)) {
             $holder = $event->getGameEquipment()->getHolder();
 
             $daedalus = $holder->getPlace()->getDaedalus();

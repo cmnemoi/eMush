@@ -77,17 +77,21 @@ class GameModifier
     {
         if ($this->player) {
             return $this->player;
-        } elseif ($this->place) {
-            return $this->place;
-        } elseif ($this->daedalus) {
-            return $this->daedalus;
-        } elseif ($this->gameEquipment) {
-            return $this->gameEquipment;
-        } elseif ($this->hunter) {
-            return $this->hunter;
-        } else {
-            throw new LogicException("this modifier don't have any valid holder");
         }
+        if ($this->place) {
+            return $this->place;
+        }
+        if ($this->daedalus) {
+            return $this->daedalus;
+        }
+        if ($this->gameEquipment) {
+            return $this->gameEquipment;
+        }
+        if ($this->hunter) {
+            return $this->hunter;
+        }
+
+        throw new LogicException("this modifier don't have any valid holder");
     }
 
     public function getCharge(): ?ChargeStatus

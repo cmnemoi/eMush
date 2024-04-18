@@ -19,10 +19,13 @@ use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class ReadDocumentTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ReadDocumentTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -66,8 +69,7 @@ class ReadDocumentTest extends AbstractActionTest
 
         $statusConfig = new ContentStatusConfig();
         $statusConfig
-            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
-        ;
+            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT);
 
         $status = new ContentStatus($gameItem, $statusConfig);
         $status->setContent('test content');
@@ -78,7 +80,7 @@ class ReadDocumentTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals('test content', $result->getContent());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertSame('test content', $result->getContent());
     }
 }

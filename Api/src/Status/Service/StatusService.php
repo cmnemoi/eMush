@@ -101,7 +101,7 @@ class StatusService implements StatusServiceInterface
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
     {
-        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
+        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
 
         if ($statusConfigs->count() < 1) {
             throw new \LogicException("there should be at least 1 statusConfig with this name ({$name}). There are currently {$statusConfigs->count()}");
@@ -115,7 +115,7 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null,
+        ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
         // if holder already have this status, abort and return existing status
@@ -161,7 +161,7 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null,
+        ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
         // if holder already have this status, abort and return existing status
@@ -180,17 +180,6 @@ class StatusService implements StatusServiceInterface
             $target,
             $visibility
         );
-    }
-
-    private function createAttemptStatus(string $action, Player $player): Attempt
-    {
-        /** @var ChargeStatusConfig $attemptConfig */
-        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $player->getDaedalus());
-
-        $attempt = new Attempt($player, $attemptConfig);
-        $attempt->setAction($action);
-
-        return $attempt;
     }
 
     public function handleAttempt(
@@ -220,8 +209,7 @@ class StatusService implements StatusServiceInterface
         if ($attempt && $attempt->getAction() !== $actionName) {
             // Re-initialize attempts with new action
             $attempt
-                ->setAction($actionName)
-            ;
+                ->setAction($actionName);
             $attempt->getGameVariables()->setValueByName(0, $attempt->getName());
         } elseif ($attempt === null) { // Create Attempt
             $attempt = $this->createAttemptStatus(
@@ -244,23 +232,22 @@ class StatusService implements StatusServiceInterface
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment
     {
         $pickedEquipments = $equipments
-            ->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null)
-        ;
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getStatusByName($statusName) !== null);
         if ($pickedEquipments->isEmpty()) {
             throw new \Exception("no such status ({$statusName}) in item collection");
-        } else {
-            /** @var GameEquipment $pickedEquipment */
-            $pickedEquipment = $pickedEquipments->first();
-            if ($pickedEquipments->count() > 1) {
-                /** @var GameEquipment $equipment */
-                foreach ($pickedEquipments as $equipment) {
-                    $pickedEquipmentsStatus = $pickedEquipment->getStatusByName($statusName);
-                    $equipmentsStatus = $equipment->getStatusByName($statusName);
-                    if ($pickedEquipmentsStatus
-                        && $equipmentsStatus
-                        && $pickedEquipmentsStatus->getCreatedAt() < $equipmentsStatus->getCreatedAt()) {
-                        $pickedEquipment = $equipment;
-                    }
+        }
+
+        /** @var GameEquipment $pickedEquipment */
+        $pickedEquipment = $pickedEquipments->first();
+        if ($pickedEquipments->count() > 1) {
+            /** @var GameEquipment $equipment */
+            foreach ($pickedEquipments as $equipment) {
+                $pickedEquipmentsStatus = $pickedEquipment->getStatusByName($statusName);
+                $equipmentsStatus = $equipment->getStatusByName($statusName);
+                if ($pickedEquipmentsStatus
+                    && $equipmentsStatus
+                    && $pickedEquipmentsStatus->getCreatedAt() < $equipmentsStatus->getCreatedAt()) {
+                    $pickedEquipment = $equipment;
                 }
             }
         }
@@ -303,6 +290,17 @@ class StatusService implements StatusServiceInterface
         }
 
         return $chargeStatus;
+    }
+
+    private function createAttemptStatus(string $action, Player $player): Attempt
+    {
+        /** @var ChargeStatusConfig $attemptConfig */
+        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $player->getDaedalus());
+
+        $attempt = new Attempt($player, $attemptConfig);
+        $attempt->setAction($action);
+
+        return $attempt;
     }
 
     private function delete(Status $status): void

@@ -31,8 +31,10 @@ class EventCreationService implements EventCreationServiceInterface
                 $daedalus = $holder->getDaedalus();
 
                 return [$daedalus];
+
             case ModifierHolderClassEnum::PLAYER:
                 return $this->getPlayersFromModifierHolder($holder)->toArray();
+
             case ModifierHolderClassEnum::EQUIPMENT:
                 return $this->getEquipmentsFromModifierHolder($holder);
 
@@ -58,12 +60,13 @@ class EventCreationService implements EventCreationServiceInterface
 
             if ($holder instanceof Player) {
                 return new PlayerCollection([$holder]);
-            } else {
-                return new PlayerCollection([]);
             }
+
+            return new PlayerCollection([]);
         }
 
         $className = $modifierHolder::class;
+
         throw new \Exception("This eventConfig ({$className}) class is not supported");
     }
 
@@ -81,6 +84,7 @@ class EventCreationService implements EventCreationServiceInterface
         }
 
         $className = $modifierHolder::class;
+
         throw new \Exception("This eventConfig ({$className}) class is not supported");
     }
 }

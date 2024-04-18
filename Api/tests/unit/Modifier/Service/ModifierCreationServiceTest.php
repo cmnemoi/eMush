@@ -25,15 +25,21 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use PHPUnit\Framework\TestCase;
 
-class ModifierCreationServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class ModifierCreationServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var EventCreationServiceInterface|Mockery\Mock */
     private EventCreationServiceInterface $eventCreationService;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var ModifierRequirementServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|ModifierRequirementServiceInterface */
     private ModifierRequirementServiceInterface $modifierRequirementService;
 
     private ModifierCreationService $service;
@@ -94,7 +100,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -110,9 +116,8 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Place)
-            ->once()
-        ;
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Place)
+            ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $room, [], new \DateTime(), null);
@@ -127,9 +132,8 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Player)
-            ->once()
-        ;
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Player)
+            ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $player, [], new \DateTime(), null);
@@ -148,13 +152,12 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => (
+            ->withArgs(static fn (GameModifier $modifier) => (
                 $modifier->getModifierHolder() === $player
                 && $modifier->getModifierConfig() === $modifierConfig
                 && $modifier->getCharge() === $charge
             ))
-            ->once()
-        ;
+            ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $player, [], new \DateTime(), $charge);
@@ -169,7 +172,7 @@ class ModifierCreationServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof GameEquipment)
             ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -202,15 +205,13 @@ class ModifierCreationServiceTest extends TestCase
             ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS)
             ->setQuantity(1)
             ->setTargetVariable(DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL)
-            ->setEventName(VariableEventInterface::SET_VALUE)
-        ;
+            ->setEventName(VariableEventInterface::SET_VALUE);
 
         $modifierConfig = new DirectModifierConfig('unitTestDirectModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-        ;
+            ->setRevertOnRemove(true);
         $time = new \DateTime();
         $tags = [];
 
@@ -218,21 +219,18 @@ class ModifierCreationServiceTest extends TestCase
             ->shouldReceive('getEventTargetsFromModifierHolder')
             ->with($eventConfig->getVariableHolderClass(), $daedalus)
             ->andReturn([$daedalus])
-            ->once()
-        ;
+            ->once();
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
             ->with($modifierConfig, $daedalus)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
-            ->once()
-        ;
+            ->withArgs(static fn (GameModifier $modifier) => $modifier->getModifierHolder() instanceof Daedalus)
+            ->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createModifier($modifierConfig, $daedalus, $tags, $time, null);
@@ -248,15 +246,13 @@ class ModifierCreationServiceTest extends TestCase
             ->setEventName('eventName')
             ->setTargetVariable(DaedalusVariableEnum::FUEL)
             ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setQuantity(1)
-        ;
+            ->setQuantity(1);
 
         $modifierConfig = new DirectModifierConfig('unitTestDirectModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-        ;
+            ->setRevertOnRemove(true);
         $time = new \DateTime();
         $tags = [];
 
@@ -267,14 +263,12 @@ class ModifierCreationServiceTest extends TestCase
             ->shouldReceive('getEventTargetsFromModifierHolder')
             ->with($eventConfig->getVariableHolderClass(), $daedalus)
             ->andReturn([$daedalus])
-            ->once()
-        ;
+            ->once();
         $this->modifierRequirementService
             ->shouldReceive('checkModifier')
             ->with($modifierConfig, $daedalus)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -290,23 +284,20 @@ class ModifierCreationServiceTest extends TestCase
             ->setEventName('eventName')
             ->setTargetVariable('variable')
             ->setVariableHolderClass('holder')
-            ->setQuantity(1)
-        ;
+            ->setQuantity(1);
 
         $modifierConfig = new DirectModifierConfig('unitTestDirectModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(false)
-        ;
+            ->setRevertOnRemove(false);
         $time = new \DateTime();
         $tags = [];
 
         $this->eventCreationService
             ->shouldReceive('createEvents')
             ->with($eventConfig, $daedalus, null, $tags, $time, true)
-            ->never()
-        ;
+            ->never();
 
         $this->eventService->shouldReceive('callEvent')->never();
 

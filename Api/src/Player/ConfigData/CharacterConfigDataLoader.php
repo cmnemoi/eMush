@@ -27,8 +27,8 @@ class CharacterConfigDataLoader extends ConfigDataLoader
         ActionRepository $actionRepository,
         DiseaseConfigRepository $diseaseConfigRepository,
         EquipmentConfigRepository $itemConfigRepository,
-        StatusConfigRepository $statusConfigRepository)
-    {
+        StatusConfigRepository $statusConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->characterConfigRepository = $characterConfigRepository;
         $this->actionRepository = $actionRepository;
@@ -74,8 +74,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             ->setInitSatiety($characterConfigData['initSatiety'])
             ->setMaxItemInInventory($characterConfigData['maxItemInInventory'])
             ->setMaxNumberPrivateChannel($characterConfigData['maxNumberPrivateChannel'])
-            ->setMaxDiscoverablePlanets($characterConfigData['maxDiscoverablePlanets'])
-        ;
+            ->setMaxDiscoverablePlanets($characterConfigData['maxDiscoverablePlanets']);
     }
 
     private function setCharacterConfigActions(CharacterConfig $characterConfig, array $characterConfigData): void

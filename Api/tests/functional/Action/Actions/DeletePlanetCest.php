@@ -24,6 +24,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class DeletePlanetCest extends AbstractFunctionalTest
 {
     private Action $deletePlanetConfig;
@@ -46,8 +49,7 @@ final class DeletePlanetCest extends AbstractFunctionalTest
         $this->astroTerminal = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $this->astroTerminal
             ->setName(EquipmentEnum::ASTRO_TERMINAL)
-            ->setEquipment($astroTerminalConfig)
-        ;
+            ->setEquipment($astroTerminalConfig);
         $I->haveInRepository($this->astroTerminal);
 
         // given player has found a planet

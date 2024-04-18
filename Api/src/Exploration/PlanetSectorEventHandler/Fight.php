@@ -111,10 +111,9 @@ final class Fight extends AbstractPlanetSectorEventHandler
         foreach ($fighters as $fighter) {
             /** @var ArrayCollection<int, GameItem> $fighterWeapons */
             $fighterWeapons = $fighter->getEquipments()
-                ->filter(fn (GameItem $item) => ItemEnum::getWeapons()->contains($item->getName()))
-                ->filter(fn (GameItem $item) => $item->isOperational())
-                ->filter(fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades)
-            ;
+                ->filter(static fn (GameItem $item) => ItemEnum::getWeapons()->contains($item->getName()))
+                ->filter(static fn (GameItem $item) => $item->isOperational())
+                ->filter(static fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades);
 
             // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
             foreach ($fighterWeapons as $weapon) {
@@ -126,7 +125,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
             // If fighter is also a Shooter, add 1 point to the expedition strength if they have a loaded gun
             if (
                 $fighter->hasSkill(PlayerStatusEnum::POC_SHOOTER_SKILL)
-                && $fighterWeapons->filter(fn (GameItem $weapon) => ItemEnum::getGuns()->contains($weapon->getName()))->count() > 0
+                && $fighterWeapons->filter(static fn (GameItem $weapon) => ItemEnum::getGuns()->contains($weapon->getName()))->count() > 0
             ) {
                 ++$expeditionStrength;
             }
@@ -139,7 +138,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
     {
         $fighters = $event->getExploration()->getNotLostActiveExplorators();
         foreach ($fighters as $fighter) {
-            $fighterGrenades = $fighter->getEquipments()->filter(fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
+            $fighterGrenades = $fighter->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
 
             // We are removing grenades from the fighter until we have enough damage to kill the creature
             // or until we run out of grenades

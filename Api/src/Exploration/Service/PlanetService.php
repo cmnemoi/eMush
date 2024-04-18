@@ -20,6 +20,8 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 
 final class PlanetService implements PlanetServiceInterface
 {
+    public const int MAX_PLANET_DISTANCE = 7;
+
     private EntityManagerInterface $entityManager;
     private PlanetRepository $planetRepository;
     private RandomServiceInterface $randomService;
@@ -45,8 +47,7 @@ final class PlanetService implements PlanetServiceInterface
         $planet = new Planet($player);
         $planet
             ->setName($this->getPlanetName())
-            ->setSize($this->getPlanetSize($daedalus))
-        ;
+            ->setSize($this->getPlanetSize($daedalus));
 
         $planet->setCoordinates($this->getCoordinatesForPlanet($planet));
 
@@ -61,7 +62,7 @@ final class PlanetService implements PlanetServiceInterface
     {
         $sectorsToReveal = $this->randomService->getRandomPlanetSectorsToReveal($planet, $number);
 
-        $revealedSectors = $sectorsToReveal->map(fn (PlanetSector $sector) => $sector->reveal());
+        $revealedSectors = $sectorsToReveal->map(static fn (PlanetSector $sector) => $sector->reveal());
 
         $this->persist($revealedSectors->toArray());
 
@@ -108,13 +109,15 @@ final class PlanetService implements PlanetServiceInterface
      * 1) Generate all planets within a distance between 2 and 7. To get the distance, roll 2 dices [2-7] and take the average of the two rolls
      * 2) If no planet is available, generate planets with a distance of 8
      * 3) If no planet is available, generate planets with a distance of 9
+     *
+     * @psalm-suppress ReservedWord
      */
     private function getCoordinatesForPlanet(Planet $planet): SpaceCoordinates
     {
         // Find available coordinates for a planet. First, we try to find coordinates with a distance between 2 and 7
         // Then planets of distance 8, then planets of distance 9
         $availableCoordinates = new ArrayCollection();
-        $maxDistance = 7;
+        $maxDistance = self::MAX_PLANET_DISTANCE;
         for ($maxDistance; $maxDistance <= 9; ++$maxDistance) {
             // we don't want two planets to have the same coordinates, so we have to check if the coordinates are available
             // under the max distance given
@@ -126,7 +129,7 @@ final class PlanetService implements PlanetServiceInterface
 
         // Determine the range for the double roll. If the max distance is 7, the range is 2-7.
         // Otherwise, the range is a unique value (8 or 9)
-        $minDistance = $maxDistance <= 7 ? 2 : $maxDistance;
+        $minDistance = $maxDistance <= self::MAX_PLANET_DISTANCE ? 2 : $maxDistance;
 
         // Draw the planet distance with a subtlety : if no coordinates for the drawn distance are available,
         // roll again until a valid distance is drawn
@@ -134,7 +137,7 @@ final class PlanetService implements PlanetServiceInterface
         while (!$drawnCoordinates) {
             $chosenDistance = $this->randomService->rollTwiceAndAverage($minDistance, $maxDistance);
             $coordinatesAtDistance = $availableCoordinates->filter(
-                fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() === $chosenDistance
+                static fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() === $chosenDistance
             )->toArray();
             $drawnCoordinates = $this->randomService->getRandomElement($coordinatesAtDistance);
         }
@@ -142,10 +145,13 @@ final class PlanetService implements PlanetServiceInterface
         return $drawnCoordinates;
     }
 
+    /**
+     * @psalm-suppress ReservedWord
+     */
     private function getAvailableCoordinatesForPlanetUnderDistance(Planet $planet, int $distance): ArrayCollection
     {
         $availableCoordinates = SpaceCoordinates::getAll()->filter(
-            fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() <= $distance
+            static fn (SpaceCoordinates $coordinates) => $coordinates->getDistance() <= $distance
         );
 
         $existingPlanets = $this->planetRepository->findAllByDaedalus($planet->getDaedalus());
@@ -189,7 +195,8 @@ final class PlanetService implements PlanetServiceInterface
     {
         if ($dadalus->isInHardMode()) {
             return 4 + $this->randomService->random(0, 6) * 2;
-        } elseif ($dadalus->isInVeryHardMode()) {
+        }
+        if ($dadalus->isInVeryHardMode()) {
             return 6 + $this->randomService->random(0, 7) * 2;
         }
 

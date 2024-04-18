@@ -11,9 +11,12 @@ use Mush\Modifier\ModifierRequirementHandler\RequirementRandom;
 use Mush\Place\Entity\Place;
 use PHPUnit\Framework\TestCase;
 
-class RandomRequirementTest extends TestCase
+/**
+ * @internal
+ */
+final class RandomRequirementTest extends TestCase
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     private RequirementRandom $service;
@@ -49,10 +52,10 @@ class RandomRequirementTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(true);
         $result = $this->service->checkRequirement($modifierActivationRequirement, $room);
-        $this->assertTrue($result);
+        self::assertTrue($result);
 
         $this->randomService->shouldReceive('isSuccessful')->with(50)->once()->andReturn(false);
         $result = $this->service->checkRequirement($modifierActivationRequirement, $room);
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 }

@@ -15,7 +15,10 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class AlertServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class AlertServiceCest extends AbstractFunctionalTest
 {
     private AlertServiceInterface $alertService;
     private GameEquipment $mycoscan;
@@ -71,6 +74,7 @@ class AlertServiceCest extends AbstractFunctionalTest
     {
         // given a mycoscan, break it and get the alert
         $this->alertService->handleEquipmentBreak($this->mycoscan);
+
         /** @var Alert $alert */
         $alert = $I->grabEntityFromRepository(Alert::class);
 
@@ -85,6 +89,7 @@ class AlertServiceCest extends AbstractFunctionalTest
     {
         // given a mycoscan, break it and get the alert. remove alert element
         $this->alertService->handleEquipmentBreak($this->mycoscan);
+
         /** @var Alert $alert */
         $alert = $I->grabEntityFromRepository(Alert::class);
 

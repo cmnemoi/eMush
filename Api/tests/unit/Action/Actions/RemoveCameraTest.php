@@ -17,7 +17,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class RemoveCameraTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class RemoveCameraTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -57,18 +60,15 @@ class RemoveCameraTest extends AbstractActionTest
         $cameraItemConfig->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $cameraItem
             ->setEquipment($cameraItemConfig)
-            ->setName(ItemEnum::CAMERA_ITEM)
-        ;
+            ->setName(ItemEnum::CAMERA_ITEM);
 
         $cameraEquipment = new GameEquipment($room);
         $cameraEquipmentConfig = new ItemConfig();
         $cameraEquipmentConfig
-            ->setEquipmentName(GameRationEnum::COFFEE)
-        ;
+            ->setEquipmentName(GameRationEnum::COFFEE);
         $cameraEquipment
             ->setEquipment($cameraEquipmentConfig)
-            ->setName(GameRationEnum::COFFEE)
-        ;
+            ->setName(GameRationEnum::COFFEE);
 
         $cameraEquipmentConfig->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -80,6 +80,6 @@ class RemoveCameraTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

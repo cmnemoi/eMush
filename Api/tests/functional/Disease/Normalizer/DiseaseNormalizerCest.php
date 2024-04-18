@@ -13,6 +13,9 @@ use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class DiseaseNormalizerCest extends AbstractFunctionalTest
 {
     private DiseaseNormalizer $diseaseNormalizer;

@@ -108,9 +108,9 @@ class GameConfig
         return new CharacterConfigCollection($this->charactersConfig->toArray());
     }
 
-    public function setCharactersConfig(ArrayCollection|array $charactersConfig): static
+    public function setCharactersConfig(array|ArrayCollection $charactersConfig): static
     {
-        if (is_array($charactersConfig)) {
+        if (\is_array($charactersConfig)) {
             $charactersConfig = new ArrayCollection($charactersConfig);
         }
 
@@ -136,9 +136,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setTriumphConfig(ArrayCollection|array $triumphConfig): self
+    public function setTriumphConfig(array|ArrayCollection $triumphConfig): self
     {
-        if (is_array($triumphConfig)) {
+        if (\is_array($triumphConfig)) {
             $triumphConfig = new ArrayCollection($triumphConfig);
         }
 
@@ -164,9 +164,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setEquipmentsConfig(ArrayCollection|array $equipmentsConfig): static
+    public function setEquipmentsConfig(array|ArrayCollection $equipmentsConfig): static
     {
-        if (is_array($equipmentsConfig)) {
+        if (\is_array($equipmentsConfig)) {
             $equipmentsConfig = new ArrayCollection($equipmentsConfig);
         }
 
@@ -192,9 +192,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setDiseaseCauseConfig(ArrayCollection|array $diseaseCauseConfig): static
+    public function setDiseaseCauseConfig(array|ArrayCollection $diseaseCauseConfig): static
     {
-        if (is_array($diseaseCauseConfig)) {
+        if (\is_array($diseaseCauseConfig)) {
             $diseaseCauseConfig = new ArrayCollection($diseaseCauseConfig);
         }
 
@@ -220,9 +220,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setDiseaseConfig(ArrayCollection|array $diseaseConfig): static
+    public function setDiseaseConfig(array|ArrayCollection $diseaseConfig): static
     {
-        if (is_array($diseaseConfig)) {
+        if (\is_array($diseaseConfig)) {
             $diseaseConfig = new ArrayCollection($diseaseConfig);
         }
 
@@ -248,9 +248,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setConsumableDiseaseConfig(ArrayCollection|array $consumableDiseaseConfig): static
+    public function setConsumableDiseaseConfig(array|ArrayCollection $consumableDiseaseConfig): static
     {
-        if (is_array($consumableDiseaseConfig)) {
+        if (\is_array($consumableDiseaseConfig)) {
             $consumableDiseaseConfig = new ArrayCollection($consumableDiseaseConfig);
         }
 
@@ -295,9 +295,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setStatusConfigs(ArrayCollection|array $statusConfigs): static
+    public function setStatusConfigs(array|ArrayCollection $statusConfigs): static
     {
-        if (is_array($statusConfigs)) {
+        if (\is_array($statusConfigs)) {
             $statusConfigs = new ArrayCollection($statusConfigs);
         }
 
@@ -316,9 +316,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setHunterConfigs(ArrayCollection|array $hunterConfigs): static
+    public function setHunterConfigs(array|ArrayCollection $hunterConfigs): static
     {
-        if (is_array($hunterConfigs)) {
+        if (\is_array($hunterConfigs)) {
             $hunterConfigs = new ArrayCollection($hunterConfigs);
         }
 
@@ -344,9 +344,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setPlanetSectorConfigs(ArrayCollection|array $planetSectorConfigs): static
+    public function setPlanetSectorConfigs(array|ArrayCollection $planetSectorConfigs): static
     {
-        if (is_array($planetSectorConfigs)) {
+        if (\is_array($planetSectorConfigs)) {
             $planetSectorConfigs = new ArrayCollection($planetSectorConfigs);
         }
 
@@ -372,9 +372,9 @@ class GameConfig
      *
      * @psalm-suppress NoValue
      */
-    public function setTitleConfigs(ArrayCollection|array $titleConfigs): self
+    public function setTitleConfigs(array|ArrayCollection $titleConfigs): self
     {
-        if (is_array($titleConfigs)) {
+        if (\is_array($titleConfigs)) {
             $titleConfigs = new ArrayCollection($titleConfigs);
         }
 

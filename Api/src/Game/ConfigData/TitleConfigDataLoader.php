@@ -12,8 +12,8 @@ class TitleConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        TitleConfigRepository $titleConfigRepository)
-    {
+        TitleConfigRepository $titleConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->titleConfigRepository = $titleConfigRepository;
     }
@@ -28,8 +28,7 @@ class TitleConfigDataLoader extends ConfigDataLoader
             }
             $titleConfig
                 ->setName($titleConfigData['name'])
-                ->setPriority($titleConfigData['priority'])
-            ;
+                ->setPriority($titleConfigData['priority']);
 
             $this->entityManager->persist($titleConfig);
         }

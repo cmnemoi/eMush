@@ -45,8 +45,7 @@ class BreakRepairEquipmentSubscriberCest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -58,6 +57,7 @@ class BreakRepairEquipmentSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'neron' => $neron]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -67,8 +67,7 @@ class BreakRepairEquipmentSubscriberCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -82,8 +81,7 @@ class BreakRepairEquipmentSubscriberCest
         $user = new User();
         $user
             ->setUserId('blabla')
-            ->setUsername('blabla')
-        ;
+            ->setUsername('blabla');
         $I->haveInRepository($user);
 
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -96,8 +94,7 @@ class BreakRepairEquipmentSubscriberCest
             ->setDelta(-1)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->buildName()
-        ;
+            ->buildName();
         $I->haveInRepository($modifierConfig);
 
         $modifier = new GameModifier($daedalus, $modifierConfig);
@@ -106,8 +103,7 @@ class BreakRepairEquipmentSubscriberCest
         $gear = new Gear();
         $gear
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName('gear_test')
-        ;
+            ->setName('gear_test');
         $I->haveInRepository($gear);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -117,8 +113,7 @@ class BreakRepairEquipmentSubscriberCest
         $gameEquipment = new GameItem($player);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $this->statusService->createStatusFromName(

@@ -64,8 +64,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $this->icarus = new GameEquipment($icarusBay);
         $this->icarus
             ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig)
-        ;
+            ->setEquipment($icarusConfig);
         $I->haveInRepository($this->icarus);
 
         // given a planet with oxygen is found
@@ -77,8 +76,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $this->planet = new Planet($this->player);
         $this->planet
             ->setName($planetName)
-            ->setSize(2)
-        ;
+            ->setSize(2);
         $I->haveInRepository($this->planet);
 
         /** @var PlanetSectorConfig $desertSectorConfig */

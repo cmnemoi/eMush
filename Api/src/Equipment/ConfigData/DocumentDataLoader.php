@@ -17,7 +17,7 @@ class DocumentDataLoader extends MechanicsDataLoader
 
             if ($document === null) {
                 $document = new Document();
-            } elseif (!($document instanceof Document)) {
+            } elseif (!$document instanceof Document) {
                 $this->entityManager->remove($document);
                 $document = new Document();
             }
@@ -26,8 +26,7 @@ class DocumentDataLoader extends MechanicsDataLoader
                 ->setName($documentData['name'])
                 ->setContent($documentData['content'])
                 ->setIsTranslated($documentData['isTranslated'])
-                ->setCanShred($documentData['canShred'])
-            ;
+                ->setCanShred($documentData['canShred']);
             $this->setMechanicsActions($document, $documentData);
 
             $this->entityManager->persist($document);

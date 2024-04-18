@@ -10,10 +10,12 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class SpreadFireActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class SpreadFireActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -57,6 +59,6 @@ class SpreadFireActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

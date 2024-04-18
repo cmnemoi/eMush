@@ -25,15 +25,14 @@ class UniqueUserValidator extends ConstraintValidator
 
         if ($daedalus !== null
             && $user !== null
-            && $daedalus->getPlayers()->filter(fn (Player $player) => $player->getUser() === $user)->count() > 0
+            && $daedalus->getPlayers()->filter(static fn (Player $player) => $player->getUser() === $user)->count() > 0
         ) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->setCode(UniqueUser::USER_IS_ALREADY_ON_DAEDALUS)
                 ->atPath('user')
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

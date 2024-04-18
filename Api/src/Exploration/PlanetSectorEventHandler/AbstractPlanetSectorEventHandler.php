@@ -59,7 +59,7 @@ abstract class AbstractPlanetSectorEventHandler
         }
 
         $quantity = $this->randomService->getSingleRandomElementFromProbaCollection($outputTable);
-        if (!is_int($quantity)) {
+        if (!\is_int($quantity)) {
             throw new \RuntimeException('Quantity should be an int');
         }
 

@@ -39,12 +39,12 @@ class CreatePlayerServiceCest
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
@@ -52,6 +52,7 @@ class CreatePlayerServiceCest
 
         /** @var CharacterConfig $gioeleCharacterConfig */
         $gioeleCharacterConfig = $I->have(CharacterConfig::class);
+
         /** @var $andieCharacterConfig $characterConfig */
         $andieCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
@@ -65,15 +66,13 @@ class CreatePlayerServiceCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH)
-        ;
+            ->setScope(ChannelScopeEnum::MUSH);
         $I->haveInRepository($mushChannel);
 
         /** @var Place $room */
@@ -92,7 +91,9 @@ class CreatePlayerServiceCest
         $gameConfig->setCharactersConfig($charactersConfig);
         $daedalusInfo->setGameConfig($gameConfig);
 
-        $I->expectThrowable(\LogicException::class, fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
+        $I->expectThrowable(
+            \LogicException::class,
+            fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
         );
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);

@@ -40,7 +40,8 @@ class PsychoticAttack extends AbstractSymptomHandler
         // check if those events are possible. If both, randomly pick one
         if ($attackEvent === null && $shootEvent === null) {
             return;
-        } elseif (
+        }
+        if (
             $attackEvent !== null
             && ($shootEvent === null || $this->randomService->isSuccessful(50))
         ) {
@@ -52,24 +53,23 @@ class PsychoticAttack extends AbstractSymptomHandler
 
     private function drawRandomPlayerInRoom(Player $player): ?Player
     {
-        $otherPlayersInRoom = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(function (Player $p) use ($player) {
+        $otherPlayersInRoom = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(static function (Player $p) use ($player) {
             return $p !== $player;
         })->toArray();
 
-        if (count($otherPlayersInRoom) === 0) {
+        if (\count($otherPlayersInRoom) === 0) {
             return null;
         }
 
         $draw = $this->randomService->getRandomElements($otherPlayersInRoom, 1);
-        $drawnPlayer = reset($draw);
 
-        return $drawnPlayer;
+        return reset($draw);
     }
 
     private function getPlayerWeapon(Player $player, string $weapon): ?EquipmentConfig
     {
         $weapon = $player->getEquipments()->filter(
-            fn (GameItem $gameItem) => $gameItem->getName() === $weapon && $gameItem->isOperational()
+            static fn (GameItem $gameItem) => $gameItem->getName() === $weapon && $gameItem->isOperational()
         )->first();
 
         return $weapon ? $weapon->getEquipment() : null;
@@ -93,7 +93,7 @@ class PsychoticAttack extends AbstractSymptomHandler
 
         /** @var Action $attackActionEntity */
         $attackActionEntity = $knife->getActions()->filter(
-            fn (Action $action) => $action->getActionName() === ActionEnum::ATTACK
+            static fn (Action $action) => $action->getActionName() === ActionEnum::ATTACK
         )->first();
 
         if (!$attackActionEntity instanceof Action) {
@@ -124,7 +124,7 @@ class PsychoticAttack extends AbstractSymptomHandler
 
         /** @var Action $shootActionEntity */
         $shootActionEntity = $blaster->getActions()->filter(
-            fn (Action $action) => $action->getActionName() === ActionEnum::SHOOT
+            static fn (Action $action) => $action->getActionName() === ActionEnum::SHOOT
         )->first();
 
         if (!$shootActionEntity instanceof Action) {

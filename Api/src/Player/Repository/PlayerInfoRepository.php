@@ -30,8 +30,7 @@ class PlayerInfoRepository extends ServiceEntityRepository
             ))
             ->setParameter('user', $user)
             ->setParameter('game_status_current', GameStatusEnum::CURRENT)
-            ->setParameter('game_status_finished', GameStatusEnum::FINISHED)
-        ;
+            ->setParameter('game_status_finished', GameStatusEnum::FINISHED);
 
         $playerInfo = $qb->getQuery()->getOneOrNullResult();
 
@@ -46,8 +45,7 @@ class PlayerInfoRepository extends ServiceEntityRepository
             ->where($qb->expr()->eq('player_info.user', ':user'))
             ->andWhere($qb->expr()->eq('player_info.gameStatus', ':game_status_closed'))
             ->setParameter('user', $user)
-            ->setParameter('game_status_closed', GameStatusEnum::CLOSED)
-        ;
+            ->setParameter('game_status_closed', GameStatusEnum::CLOSED);
 
         return $qb->getQuery()->getResult();
     }

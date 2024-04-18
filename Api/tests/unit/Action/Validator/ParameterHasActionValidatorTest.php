@@ -18,7 +18,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class ParameterHasActionValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class ParameterHasActionValidatorTest extends TestCase
 {
     private HasActionValidator $validator;
     private HasAction $constraint;
@@ -61,13 +64,12 @@ class ParameterHasActionValidatorTest extends TestCase
                 'getAction' => $actionEntity,
                 'getTarget' => $gameItem,
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -85,15 +87,14 @@ class ParameterHasActionValidatorTest extends TestCase
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidTool()
@@ -111,15 +112,14 @@ class ParameterHasActionValidatorTest extends TestCase
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new GameEquipment(new Place()));
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidTool()
@@ -137,8 +137,7 @@ class ParameterHasActionValidatorTest extends TestCase
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
-            ])
-        ;
+            ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
 
@@ -146,7 +145,7 @@ class ParameterHasActionValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -158,7 +157,7 @@ class ParameterHasActionValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

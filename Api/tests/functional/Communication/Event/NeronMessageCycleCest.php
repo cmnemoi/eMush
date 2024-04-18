@@ -50,7 +50,7 @@ class NeronMessageCycleCest
             'propagatingFireRate' => 100,
             'hullFireDamageRate' => 0,
             'maximumAllowedSpreadingFires' => 2,
-            ]);
+        ]);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
@@ -64,6 +64,7 @@ class NeronMessageCycleCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -78,12 +79,16 @@ class NeronMessageCycleCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
+
         /** @var Place $room3 */
         $room3 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room4 */
         $room4 = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -91,15 +96,16 @@ class NeronMessageCycleCest
         $characterConfig = $I->have(CharacterConfig::class);
         $characterConfig
             ->setMaxHealthPoint(99)
-            ->setInitHealthPoint(99)
-        ;
+            ->setInitHealthPoint(99);
         $I->refreshEntities($characterConfig);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -143,8 +149,7 @@ class NeronMessageCycleCest
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setStatusName(StatusEnum::FIRE)
-            ->setName('otherFireStatus')
-        ;
+            ->setName('otherFireStatus');
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $status */
@@ -167,7 +172,7 @@ class NeronMessageCycleCest
         $message = $I->grabEntityFromRepository(Message::class, ['message' => NeronMessageEnum::CYCLE_FAILURES]);
 
         $I->refreshEntities($channel);
-        $fireMessages = $channel->getMessages()->filter(fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);
+        $fireMessages = $channel->getMessages()->filter(static fn (Message $message) => $message->getMessage() === NeronMessageEnum::NEW_FIRE);
         $I->assertCount(3, $channel->getMessages());
         $I->assertCount(2, $fireMessages);
         $I->assertEquals($fireMessages->first()->getParent(), $message);

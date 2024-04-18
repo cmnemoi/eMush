@@ -11,7 +11,10 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class HitActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class HitActionCest extends AbstractFunctionalTest
 {
     private Hit $hitAction;
     private Action $action;
@@ -70,7 +73,8 @@ class HitActionCest extends AbstractFunctionalTest
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
         $armorModifierConfig = $I->grabEntityFromRepository(
-            VariableEventModifierConfig::class, ['name' => 'armorReduceDamage']
+            VariableEventModifierConfig::class,
+            ['name' => 'armorReduceDamage']
         );
         $armorModifierConfig->setDelta(5);
         $modifier = new GameModifier($this->player2, $armorModifierConfig);

@@ -13,10 +13,12 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class PhagocyteTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class PhagocyteTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -67,7 +69,7 @@ class PhagocyteTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $player->getStatuses());
     }
 }

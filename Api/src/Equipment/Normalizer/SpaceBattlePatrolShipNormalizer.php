@@ -21,12 +21,12 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment && EquipmentEnum::getPatrolShips()->contains($data->getName());
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var GameEquipment $patrolShip */
         $patrolShip = $object;
@@ -34,6 +34,7 @@ final class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
 
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+
         /** @var ChargeStatus $patrolShipCharges */
         $patrolShipCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
 

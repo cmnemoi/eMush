@@ -8,11 +8,11 @@ modules:
             app_path: 'src'
             environment: 'test'
             kernel_class: 'Mush\Kernel'
-        - Doctrine2:
+        - Doctrine:
             depends: Symfony
             cleanup: true
         - DataFactory:
-              depends: Doctrine2
+              depends: Doctrine
         - \Mush\Tests\Helper\Factories\DaedalusFactory
         - \Mush\Tests\Helper\Factories\PlayerFactory
         - \Mush\Tests\Helper\Factories\RoomFactory

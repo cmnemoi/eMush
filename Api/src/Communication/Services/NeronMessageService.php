@@ -48,7 +48,7 @@ class NeronMessageService implements NeronMessageServiceInterface
         Daedalus $daedalus,
         array $parameters,
         \DateTime $dateTime,
-        Message $parent = null
+        ?Message $parent = null
     ): Message {
         $daedalusInfo = $daedalus->getDaedalusInfo();
         $publicChannel = $this->channelService->getPublicChannel($daedalusInfo);
@@ -66,7 +66,7 @@ class NeronMessageService implements NeronMessageServiceInterface
             $parameters['neronMood'] = NeronPersonalitiesEnum::NEUTRAL;
         }
 
-        if (array_key_exists($messageKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+        if (\array_key_exists($messageKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$messageKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
@@ -80,8 +80,7 @@ class NeronMessageService implements NeronMessageServiceInterface
             ->setTranslationParameters($parameters)
             ->setCreatedAt($dateTime)
             ->setUpdatedAt($dateTime)
-            ->setParent($parent)
-        ;
+            ->setParent($parent);
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();
@@ -106,16 +105,21 @@ class NeronMessageService implements NeronMessageServiceInterface
         switch ($playerName) {
             case CharacterEnum::RALUCA:
                 $message = NeronMessageEnum::RALUCA_DEATH;
+
                 break;
+
             case CharacterEnum::JANICE:
                 $message = NeronMessageEnum::JANICE_DEATH;
+
                 break;
+
             default:
                 if ($cause === EndCauseEnum::ASPHYXIA) {
                     $message = NeronMessageEnum::ASPHYXIA_DEATH;
                 } else {
                     $message = NeronMessageEnum::PLAYER_DEATH;
                 }
+
                 break;
         }
 
@@ -138,12 +142,17 @@ class NeronMessageService implements NeronMessageServiceInterface
         switch ($equipmentName) {
             case EquipmentEnum::OXYGEN_TANK:
                 $message = NeronMessageEnum::BROKEN_OXYGEN;
+
                 break;
+
             case EquipmentEnum::FUEL_TANK:
                 $message = NeronMessageEnum::BROKEN_FUEL;
+
                 break;
+
             default:
                 $message = NeronMessageEnum::BROKEN_EQUIPMENT;
+
                 break;
         }
 
@@ -151,7 +160,7 @@ class NeronMessageService implements NeronMessageServiceInterface
 
         if ($equipment instanceof GameItem) {
             $this->createNeronMessage($message, $daedalus, ['target_item' => $equipmentName], $time, $parentMessage);
-        } elseif (!($equipment instanceof Door)) {
+        } elseif (!$equipment instanceof Door) {
             $this->createNeronMessage($message, $daedalus, ['target_equipment' => $equipmentName], $time, $parentMessage);
         }
     }

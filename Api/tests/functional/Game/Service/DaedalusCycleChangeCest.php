@@ -46,8 +46,7 @@ class DaedalusCycleChangeCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
@@ -55,8 +54,7 @@ class DaedalusCycleChangeCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $fullStomachConfig = new StatusConfig();
@@ -69,6 +67,7 @@ class DaedalusCycleChangeCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class, [
             'initOxygen' => 2000,
@@ -102,15 +101,13 @@ class DaedalusCycleChangeCest
         $daedalusInfo = new DaedalusInfo($this->daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -126,12 +123,12 @@ class DaedalusCycleChangeCest
             ->setInitHealthPoint(20000)
             ->setInitMoralPoint(20000)
             ->setMaxHealthPoint(20000)
-            ->setMaxMoralPoint(20000)
-        ;
+            ->setMaxMoralPoint(20000);
         $I->haveInRepository($characterConfig);
 
         $this->player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $this->daedalus,
                 'place' => $room,
             ]

@@ -16,7 +16,10 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 
-class PlantActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class PlantActionTest extends AbstractActionTest
 {
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
@@ -58,9 +61,8 @@ class PlantActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
-                    ->setEquipment($item)
-                    ->setName('toto')
-        ;
+            ->setEquipment($item)
+            ->setName('toto');
 
         $fruit = new Fruit();
         $fruit->addAction($this->actionEntity);
@@ -73,16 +75,14 @@ class PlantActionTest extends AbstractActionTest
         $gamePlant = new GameItem(new Place());
         $gamePlant
             ->setEquipment($plant)
-            ->setName('banana_tree')
-        ;
+            ->setName('banana_tree');
 
         $gameHydropot = new GameItem($room);
         $hydropot = new ItemConfig();
         $hydropot->setEquipmentName(ItemEnum::HYDROPOT);
         $gameHydropot
-                    ->setEquipment($hydropot)
-                    ->setName(ItemEnum::HYDROPOT)
-        ;
+            ->setEquipment($hydropot)
+            ->setName(ItemEnum::HYDROPOT);
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -95,7 +95,7 @@ class PlantActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertEmpty($player->getEquipments());
     }
 }

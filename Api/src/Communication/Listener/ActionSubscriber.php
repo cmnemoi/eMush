@@ -38,11 +38,11 @@ class ActionSubscriber implements EventSubscriberInterface
 
         switch ($actionName) {
             case ActionEnum::DROP:
-                if (!($target instanceof GameEquipment)) {
+                if (!$target instanceof GameEquipment) {
                     throw new \LogicException('a game equipment should be given');
                 }
 
-                if (in_array($target->getName(), self::COMMUNICATION_ITEMS)) {
+                if (\in_array($target->getName(), self::COMMUNICATION_ITEMS, true)) {
                     $this->channelService->updatePlayerPrivateChannels($player, $actionName, $time);
                 }
 

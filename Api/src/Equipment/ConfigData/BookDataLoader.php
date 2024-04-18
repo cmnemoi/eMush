@@ -17,15 +17,14 @@ class BookDataLoader extends MechanicsDataLoader
 
             if ($book === null) {
                 $book = new Book();
-            } elseif (!($book instanceof Book)) {
+            } elseif (!$book instanceof Book) {
                 $this->entityManager->remove($book);
                 $book = new Book();
             }
 
             $book
                 ->setName($bookData['name'])
-                ->setSkill($bookData['skill'])
-            ;
+                ->setSkill($bookData['skill']);
             $this->setMechanicsActions($book, $bookData);
 
             $this->entityManager->persist($book);

@@ -15,14 +15,14 @@ class Examine extends AbstractAction
 {
     protected string $name = ActionEnum::EXAMINE;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -30,7 +30,5 @@ class Examine extends AbstractAction
         return new Success();
     }
 
-    protected function applyEffect(ActionResult $result): void
-    {
-    }
+    protected function applyEffect(ActionResult $result): void {}
 }

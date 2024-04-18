@@ -19,7 +19,10 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class PlayerServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class PlayerServiceCest extends AbstractFunctionalTest
 {
     private PlayerService $playerService;
 
@@ -40,8 +43,7 @@ class PlayerServiceCest extends AbstractFunctionalTest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
@@ -68,8 +70,7 @@ class PlayerServiceCest extends AbstractFunctionalTest
         $mushConfig = new ChargeStatusConfig();
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $I->haveInRepository($mushStatus);
@@ -77,8 +78,7 @@ class PlayerServiceCest extends AbstractFunctionalTest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(PlayerStatusEnum::FULL_STOMACH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
@@ -108,8 +108,7 @@ class PlayerServiceCest extends AbstractFunctionalTest
         $mushConfig = new ChargeStatusConfig();
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
         $mushStatus = new ChargeStatus($mushPlayer, $mushConfig);
         $I->haveInRepository($mushStatus);
@@ -134,8 +133,7 @@ class PlayerServiceCest extends AbstractFunctionalTest
         $gameItem = new GameItem($player);
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $player->addEquipment($gameItem);
 

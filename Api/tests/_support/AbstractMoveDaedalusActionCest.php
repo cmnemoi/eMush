@@ -59,8 +59,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->commandTerminal = new GameEquipment($this->bridge);
         $this->commandTerminal
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
+            ->setEquipment($commandTerminalConfig);
         $I->haveInRepository($this->commandTerminal);
 
         // given there is an emergency reactor in the engine room
@@ -69,8 +68,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $this->emergencyReactor = new GameEquipment($engineRoom);
         $this->emergencyReactor
             ->setName(EquipmentEnum::EMERGENCY_REACTOR)
-            ->setEquipment($emergencyReactorConfig)
-        ;
+            ->setEquipment($emergencyReactorConfig);
         $I->haveInRepository($this->emergencyReactor);
 
         // given the player is on the bridge
@@ -151,8 +149,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($pasiphaePlace);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
         $this->player2->changePlace($pasiphaePlace);
 
@@ -185,8 +182,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($pasiphaePlace);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         // when player moves daedalus
@@ -207,8 +203,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->bridge);
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         // when player moves daedalus
@@ -229,8 +224,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         $metalScrap = new GameEquipment($this->daedalus->getSpace());
         $metalScrap
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig)
-        ;
+            ->setEquipment($metalScrapConfig);
         $I->haveInRepository($metalScrap);
 
         // when player moves daedalus

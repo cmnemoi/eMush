@@ -51,8 +51,7 @@ class DeathByLackOfOxygenCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
@@ -60,8 +59,7 @@ class DeathByLackOfOxygenCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $fireStatusConfig = new ChargeStatusConfig();
@@ -70,9 +68,11 @@ class DeathByLackOfOxygenCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -94,15 +94,13 @@ class DeathByLackOfOxygenCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -116,20 +114,20 @@ class DeathByLackOfOxygenCest
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         $characterConfig
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         $characterConfig2
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig2);
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -143,7 +141,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -171,8 +170,7 @@ class DeathByLackOfOxygenCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
@@ -180,8 +178,7 @@ class DeathByLackOfOxygenCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $fireStatusConfig = new ChargeStatusConfig();
@@ -193,9 +190,11 @@ class DeathByLackOfOxygenCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -217,15 +216,13 @@ class DeathByLackOfOxygenCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -239,20 +236,20 @@ class DeathByLackOfOxygenCest
         $characterConfig = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN, 'name' => 'chun_test']);
         $characterConfig
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::ANDIE, 'name' => 'andie_test']);
         $characterConfig2
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig2);
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -266,7 +263,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -300,8 +298,7 @@ class DeathByLackOfOxygenCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
@@ -309,8 +306,7 @@ class DeathByLackOfOxygenCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $fireStatusConfig = new ChargeStatusConfig();
@@ -322,9 +318,11 @@ class DeathByLackOfOxygenCest
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
@@ -346,15 +344,13 @@ class DeathByLackOfOxygenCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -368,20 +364,20 @@ class DeathByLackOfOxygenCest
         $characterConfig = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN, 'name' => 'chun_test']);
         $characterConfig
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::ANDIE, 'name' => 'andie_test']);
         $characterConfig2
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig2);
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -395,7 +391,8 @@ class DeathByLackOfOxygenCest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]

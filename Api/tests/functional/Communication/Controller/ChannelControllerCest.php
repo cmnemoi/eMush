@@ -13,6 +13,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class ChannelControllerCest extends AbstractFunctionalTest
 {
     private ChannelVoter $channelVoter;

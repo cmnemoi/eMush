@@ -58,7 +58,6 @@ class HasActionValidator extends ConstraintValidator
     private function isActionSupportAction(?LogParameterInterface $actionTarget, Action $action): bool
     {
         return ($actionTarget instanceof Player && !$actionTarget->getTargetActions()->contains($action))
-            || ($actionTarget instanceof GameEquipment && !$actionTarget->getActions()->contains($action))
-        ;
+            || ($actionTarget instanceof GameEquipment && !$actionTarget->getActions()->contains($action));
     }
 }

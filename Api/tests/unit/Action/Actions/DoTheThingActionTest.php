@@ -23,21 +23,18 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class DoTheThingActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class DoTheThingActionTest extends AbstractActionTest
 {
-    /* @var DiseaseCauseServiceInterface|Mockery\Mock */
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
-    /* @var PlayerDiseaseServiceInterface|Mockery\Mock */
-    private PlayerDiseaseServiceInterface|Mockery\Mock $playerDiseaseService;
-    /* @var PlayerVariableServiceInterface|Mockery\Mock */
-    private PlayerVariableServiceInterface|Mockery\Mock $playerVariableService;
-    /* @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface|Mockery\Mock $randomService;
-    /* @var RoomLogServiceInterface|Mockery\Mock */
-    private RoomLogServiceInterface|Mockery\Mock $roomLogService;
+    private Mockery\Mock|PlayerDiseaseServiceInterface $playerDiseaseService;
+    private Mockery\Mock|PlayerVariableServiceInterface $playerVariableService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
+    private Mockery\Mock|RoomLogServiceInterface $roomLogService;
 
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -97,12 +94,11 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 
     public function testDoTheThingWithAndieDoesNotMakeMaleCharacterPregnant(): void
@@ -148,7 +144,6 @@ class DoTheThingActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
     }
 }

@@ -23,15 +23,20 @@ use Mush\Place\Service\PlaceService;
 use Mush\Place\Service\PlaceServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class PlaceServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class PlaceServiceTest extends TestCase
 {
     private PlaceServiceInterface $placeService;
 
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var PlaceRepository|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlaceRepository */
     private PlaceRepository $repository;
 
     /**
@@ -78,26 +83,35 @@ class PlaceServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (PlaceInitEvent $event) => (
-                $event->getPlaceConfig() === $roomConfig)
+            ->withArgs(
+                static fn (PlaceInitEvent $event) => (
+                    $event->getPlaceConfig() === $roomConfig
+                )
             )
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $result = $this->placeService->createPlace($roomConfig, $daedalus, ['daedalus_start'], new \DateTime());
 
-        $this->assertInstanceOf(Place::class, $result);
-        $this->assertCount(0, $result->getDoors());
-        $this->assertCount(0, $result->getEquipments());
+        self::assertInstanceOf(Place::class, $result);
+        self::assertCount(0, $result->getDoors());
+        self::assertCount(0, $result->getEquipments());
+    }
+
+    protected function createEquipmentConfig(string $name): EquipmentConfig
+    {
+        $equipmentConfig = new EquipmentConfig();
+
+        $equipmentConfig
+            ->setEquipmentName($name);
+
+        return $equipmentConfig;
     }
 
     private function createRoomConfig(string $name, DaedalusConfig $daedalusConfig): PlaceConfig
@@ -116,20 +130,8 @@ class PlaceServiceTest extends TestCase
             ])
             ->setItems([
                 ItemEnum::BLASTER,
-            ])
-        ;
+            ]);
 
         return $roomConfig;
-    }
-
-    protected function createEquipmentConfig(string $name): EquipmentConfig
-    {
-        $equipmentConfig = new EquipmentConfig();
-
-        $equipmentConfig
-            ->setEquipmentName($name)
-        ;
-
-        return $equipmentConfig;
     }
 }

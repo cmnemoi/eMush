@@ -21,12 +21,12 @@ class AlertNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Alert;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Alert $alert */
         $alert = $object;
@@ -61,7 +61,8 @@ class AlertNormalizer implements NormalizerInterface
         } else {
             $normalizedAlert['name'] = $this->translationService->translate(
                 $alert->getName() .
-                '.name', [],
+                '.name',
+                [],
                 'alerts',
                 $language
             );
@@ -163,10 +164,11 @@ class AlertNormalizer implements NormalizerInterface
     private function handleBrokenEquipmentsAlertsReports(Alert $alert, string $language): array
     {
         $reportedAlertElements = $alert->getAlertElements()->filter(
-            fn (AlertElement $element) => $element->getPlayerInfo() !== null && $element->getPlace() !== null
+            static fn (AlertElement $element) => $element->getPlayerInfo() !== null && $element->getPlace() !== null
         );
 
         $playerPlaceCount = [];
+
         /** @var AlertElement $element */
         foreach ($reportedAlertElements as $element) {
             $reporterName = $element->getPlayerInfo()->getName();

@@ -46,7 +46,10 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class ActionSubscriberCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class ActionSubscriberCest extends AbstractFunctionalTest
 {
     private ActionSubscriber $actionSubscriber;
 
@@ -76,12 +79,13 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -94,8 +98,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action
             ->setInjuryRate(100)
             ->setActionName(ActionEnum::TAKE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $actionEvent = new ActionEvent($action, $player, null);
 
@@ -118,14 +121,12 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
             ->setStatusName(PlayerStatusEnum::DIRTY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dirtyConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$dirtyConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$dirtyConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -140,6 +141,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -147,8 +149,8 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -161,8 +163,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $actionEvent = new ActionEvent($action, $player, null);
 
@@ -186,14 +187,12 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $dirtyConfig = new StatusConfig();
         $dirtyConfig
             ->setStatusName(PlayerStatusEnum::DIRTY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dirtyConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$dirtyConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$dirtyConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -208,6 +207,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -215,8 +215,8 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -229,8 +229,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $dirty = new Status($player, $dirtyConfig);
         $I->haveInRepository($dirty);
@@ -262,6 +261,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -269,8 +269,8 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -282,8 +282,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action = new Action();
         $action
             ->setDirtyRate(100)
-            ->setActionName(ActionEnum::TAKE)
-        ;
+            ->setActionName(ActionEnum::TAKE);
 
         $actionEvent = new ActionEvent($action, $player, null);
 
@@ -323,13 +322,13 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorConfig->setStartCharge(1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -341,8 +340,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action = new Action();
         $action
             ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100)
-        ;
+            ->setCriticalRate(100);
         $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
         $actionEvent->setActionResult(new Fail());
 
@@ -353,6 +351,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         ]);
         $I->assertEquals($this->daedalus->getSpace()->getName(), $this->player1->getPlace()->getName());
         $I->assertFalse($this->player1->isAlive());
+
         /** @var RoomLog $deathLog */
         $deathLog = $I->grabEntityFromRepository(RoomLog::class, [
             'log' => LogEnum::DEATH,
@@ -371,21 +370,20 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $spacesuit = new GameItem($this->player1);
         $spacesuit
             ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig)
-        ;
+            ->setEquipment($spacesuitConfig);
         $I->haveInRepository($spacesuit);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorConfig->setStartCharge(1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -397,8 +395,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action = new Action();
         $action
             ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100)
-        ;
+            ->setCriticalRate(100);
         $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
         $actionEvent->setActionResult(new Fail());
 
@@ -421,28 +418,26 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $playerShirt = new GameItem($this->player1);
         $playerShirt
             ->setName(ItemEnum::OLD_T_SHIRT)
-            ->setEquipment($oldShirtConfig)
-        ;
+            ->setEquipment($oldShirtConfig);
         $I->haveInRepository($playerShirt);
 
         $pasiphaeShirt = new GameItem($pasiphaeRoom);
         $pasiphaeShirt
             ->setName(ItemEnum::OLD_T_SHIRT)
-            ->setEquipment($oldShirtConfig)
-        ;
+            ->setEquipment($oldShirtConfig);
         $I->haveInRepository($pasiphaeShirt);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $pasiphaeArmorConfig->setStartCharge(1);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -454,8 +449,7 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action = new Action();
         $action
             ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100)
-        ;
+            ->setCriticalRate(100);
         $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
         $actionEvent->setActionResult(new Fail());
 
@@ -477,12 +471,12 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+
         /** @var ChargeStatus $pasiphaeArmor */
         $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
             $pasiphaeArmorConfig,
@@ -494,14 +488,14 @@ class ActionSubscriberCest extends AbstractFunctionalTest
         $action = new Action();
         $action
             ->setActionName(ActionEnum::LAND)
-            ->setCriticalRate(100)
-        ;
+            ->setCriticalRate(100);
         $actionEvent = new ActionEvent($action, $this->player1, $pasiphae);
         $actionEvent->setActionResult(new Fail());
 
         $this->actionSubscriber->onPostAction($actionEvent);
 
         $I->assertFalse($this->player1->isAlive());
+
         /** @var RoomLog $deathLog */
         $deathLog = $I->grabEntityFromRepository(RoomLog::class, [
             'log' => LogEnum::DEATH,

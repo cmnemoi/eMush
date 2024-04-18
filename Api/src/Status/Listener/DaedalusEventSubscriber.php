@@ -87,15 +87,15 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
                     tags: $event->getTags(),
                     time: $event->getTime()
                 );
+
                 continue;
-            } else {
-                $this->statusService->createStatusFromName(
-                    statusName: HunterStatusEnum::TRUCE_CYCLES,
-                    holder: $hunter,
-                    tags: $event->getTags(),
-                    time: $event->getTime()
-                );
             }
+            $this->statusService->createStatusFromName(
+                statusName: HunterStatusEnum::TRUCE_CYCLES,
+                holder: $hunter,
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
         }
     }
 
@@ -113,10 +113,10 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         // by default, spawn half of the attacking hunters after travel
         // if there are no attacking hunters, spawn a wave with half of the hunter points the daedalus has
         // if there are not enough hunter points, spawn at least one hunter
-        $numberOfCatchingUpHunters = intval(ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2));
+        $numberOfCatchingUpHunters = (int) ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2);
         if ($numberOfCatchingUpHunters <= 0) {
             $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
-            $numberOfCatchingUpHunters = intval(ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
+            $numberOfCatchingUpHunters = (int) (ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
         }
 
         $this->statusService->updateCharge(

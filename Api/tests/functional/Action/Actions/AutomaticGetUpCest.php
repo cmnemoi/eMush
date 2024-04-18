@@ -47,8 +47,7 @@ class AutomaticGetUpCest
         $statusConfig
             ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $dirtyConfig = new StatusConfig();
@@ -69,15 +68,13 @@ class AutomaticGetUpCest
 
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -87,12 +84,12 @@ class AutomaticGetUpCest
         $getUpAction
             ->setActionName(ActionEnum::GET_UP)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($getUpAction);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$getUpAction])]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
@@ -115,8 +112,7 @@ class AutomaticGetUpCest
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -126,8 +122,7 @@ class AutomaticGetUpCest
 
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('shower')
-        ;
+            ->setName('shower');
         $I->haveInRepository($gameEquipment);
 
         $this->disassembleAction->loadParameters($action, $player, $gameEquipment);

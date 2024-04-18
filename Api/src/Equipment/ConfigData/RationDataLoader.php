@@ -17,7 +17,7 @@ class RationDataLoader extends MechanicsDataLoader
 
             if ($ration === null) {
                 $ration = new Ration();
-            } elseif (!($ration instanceof Ration)) {
+            } elseif (!$ration instanceof Ration) {
                 $this->entityManager->remove($ration);
                 $ration = new Ration();
             }
@@ -39,7 +39,6 @@ class RationDataLoader extends MechanicsDataLoader
             ->setHealthPoints($rationData['healthPoints'])
             ->setSatiety($rationData['satiety'])
             ->setExtraEffects($rationData['extraEffects'])
-            ->setIsPerishable($rationData['isPerishable'])
-        ;
+            ->setIsPerishable($rationData['isPerishable']);
     }
 }

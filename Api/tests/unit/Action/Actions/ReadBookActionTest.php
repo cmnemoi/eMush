@@ -14,7 +14,10 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class ReadBookActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ReadBookActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -54,8 +57,7 @@ class ReadBookActionTest extends AbstractActionTest
         $item->setMechanics(new ArrayCollection([$book]));
         $gameItem
             ->setEquipment($item)
-            ->setName('name')
-        ;
+            ->setName('name');
 
         $this->eventService->shouldReceive('callEvent');
 
@@ -66,7 +68,7 @@ class ReadBookActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEmpty($player->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertEmpty($player->getEquipments());
     }
 }

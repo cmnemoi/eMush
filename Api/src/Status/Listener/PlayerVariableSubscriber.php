@@ -43,6 +43,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
                 }
 
                 return;
+
             case PlayerVariableEnum::SATIETY:
                 $this->playerStatus->handleSatietyStatus($player, $date);
 

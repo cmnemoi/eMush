@@ -7,7 +7,10 @@ use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class UserTest extends TestCase
+/**
+ * @internal
+ */
+final class UserTest extends TestCase
 {
     public function testUserNotBannedOtherSanction()
     {
@@ -24,7 +27,7 @@ class UserTest extends TestCase
         $user->addModerationSanction($sanction);
 
         // the sanction is not a ban
-        $this->assertFalse($user->isBanned());
+        self::assertFalse($user->isBanned());
     }
 
     public function testIsUserBannedTemporary()
@@ -44,6 +47,6 @@ class UserTest extends TestCase
         // given sanction ends tomorrow
         $sanction->setEndDate($endSanction);
         // then the sanction is active
-        $this->assertTrue($user->isBanned());
+        self::assertTrue($user->isBanned());
     }
 }

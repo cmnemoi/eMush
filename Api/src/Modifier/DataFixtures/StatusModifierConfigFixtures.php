@@ -71,8 +71,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS])
             ->setApplyOnTarget(true)
-            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($frozenModifier);
 
         $disabledConversionModifier = new VariableEventModifierConfig('disabledConversionModifier');
@@ -83,15 +82,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($disabledConversionModifier);
 
         $notAloneActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
         $notAloneActivationRequirement
             ->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE)
-            ->buildName()
-        ;
+            ->buildName();
         $manager->persist($notAloneActivationRequirement);
 
         $disabledNotAloneModifier = new VariableEventModifierConfig('disabledDecreaseMoveCost1MovementIfNotAlone');
@@ -103,8 +100,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
             ->addModifierRequirement($notAloneActivationRequirement)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $disabledNotAloneModifier->buildName();
         $manager->persist($disabledNotAloneModifier);
 
@@ -116,8 +112,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionTypeEnum::ACTION_AGGRESSIVE => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLACE)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLACE);
         $manager->persist($pacifistModifier);
 
         $burdenedModifier = new VariableEventModifierConfig('burdenedIncreaseMoveCost1Action');
@@ -128,8 +123,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $burdenedModifier->buildName();
         $manager->persist($burdenedModifier);
 
@@ -151,8 +145,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->addModifierRequirement($notAloneActivationRequirement)
             ->addModifierRequirement($modifierRequirementNotMush)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER)
-        ;
+            ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $manager->persist($antisocialModifier);
 
         /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
@@ -164,8 +157,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierName(ModifierNameEnum::LOST_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lostModifier);
 
         $lyingDownModifier = new VariableEventModifierConfig(ModifierNameEnum::LYING_DOWN_MODIFIER);
@@ -177,8 +169,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyOnTarget(true)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints(['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $lyingDownModifier->buildName();
         $manager->persist($lyingDownModifier);
 
@@ -191,8 +182,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::STARVING)
-        ;
+            ->setModifierName(ModifierNameEnum::STARVING);
         $manager->persist($starvingModifier);
 
         $increaseCycleDiseaseChances30 = new VariableEventModifierConfig('increaseCycleDiseaseChances30Percents');
@@ -204,8 +194,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setApplyOnTarget(false)
             ->setTagConstraints([PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($increaseCycleDiseaseChances30);
 
         /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
@@ -220,8 +209,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::WASH_IN_SINK => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($mushShowerModifier);
 
         $mushConsumeSatietyModifier = new VariableEventModifierConfig('mushConsumeSatietyModifier');
@@ -237,8 +225,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::MUSH_CONSUME)
-        ;
+            ->setModifierName(ModifierNameEnum::MUSH_CONSUME);
         $manager->persist($mushConsumeSatietyModifier);
 
         $mushConsumeModifier = new EventModifierConfig('mushConsumeModifier');
@@ -254,8 +241,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 PlayerVariableEnum::ACTION_POINT => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($mushConsumeModifier);
 
         $shooterSpecialist = new VariableEventModifierConfig('modifier_shooter_specialist_point');
@@ -271,8 +257,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::SHOOTER_SPECIALIST_POINT)
-        ;
+            ->setModifierName(ModifierNameEnum::SHOOTER_SPECIALIST_POINT);
         $manager->persist($shooterSpecialist);
 
         $mushMoraleModifier = new VariableEventModifierConfig('mushMoraleModifier');
@@ -287,8 +272,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ALL_TAGS,
                 VariableEventInterface::LOSS => ModifierRequirementEnum::ALL_TAGS,
             ])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($mushMoraleModifier);
 
         $astronavigationNeronCpuPriorityModifierPlus1Section = new VariableEventModifierConfig('astronavigationNeronCpuPriorityModifierPlus1Section');
@@ -299,8 +283,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($astronavigationNeronCpuPriorityModifierPlus1Section);
 
         $astronavigationNeronCpuPriorityModifierMinus1ActionPoint = new VariableEventModifierConfig('astronavigationNeronCpuPriorityModifierMinus1ActionPoint');
@@ -311,8 +294,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
 
         $eventConfigIncreaseMaxCharge = new VariableEventConfig();
@@ -321,15 +303,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setVariableHolderClass(ModifierHolderClassEnum::EQUIPMENT)
             ->setQuantity(2)
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
-            ->setName('increase_turret_max_charges_event_config_test')
-        ;
+            ->setName('increase_turret_max_charges_event_config_test');
         $manager->persist($eventConfigIncreaseMaxCharge);
 
         $modifierRequirementNameTurret = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_NAME);
         $modifierRequirementNameTurret
             ->setActivationRequirement(EquipmentEnum::TURRET_COMMAND)
-            ->setName('modifier_requirement_name_turret_test')
-        ;
+            ->setName('modifier_requirement_name_turret_test');
         $manager->persist($modifierRequirementNameTurret);
 
         $defenceCpuPriorityIncreaseTurretMaxCharge = new DirectModifierConfig('defenceCpuPriorityIncreaseTurretMaxCharge');
@@ -337,8 +317,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
             ->setRevertOnRemove(true)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([$modifierRequirementNameTurret])
-        ;
+            ->setModifierActivationRequirements([$modifierRequirementNameTurret]);
         $manager->persist($defenceCpuPriorityIncreaseTurretMaxCharge);
 
         $defenceCpuPriorityIncreaseTurretRecharge = new VariableEventModifierConfig('defenceCpuPriorityIncreaseTurretRecharge');
@@ -351,8 +330,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([
                 EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
             ])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($defenceCpuPriorityIncreaseTurretRecharge);
 
         $immunizedModifierSet0SporesOnChangeVariable = new VariableEventModifierConfig('immunizedModifierSet0SporesOnChangeVariable');
@@ -363,8 +341,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
         $manager->flush();

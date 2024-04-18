@@ -31,11 +31,11 @@ class ClosedExplorationVoter extends Voter
     {
         // if the attribute isn't one we support, return false
         if (
-            !in_array($attribute, [
-            self::DAEDALUS_IS_FINISHED,
-            self::IS_AN_EXPLORATOR,
-            self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED,
-        ])) {
+            !\in_array($attribute, [
+                self::DAEDALUS_IS_FINISHED,
+                self::IS_AN_EXPLORATOR,
+                self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED,
+            ], true)) {
             return false;
         }
 
@@ -59,10 +59,12 @@ class ClosedExplorationVoter extends Voter
         switch ($attribute) {
             case self::DAEDALUS_IS_FINISHED:
                 return $closedExploration->getDaedalusInfo()->isDaedalusFinished();
+
             case self::IS_AN_EXPLORATOR:
                 return $closedExploration->getClosedExplorators()->exists(
-                    fn ($key, ClosedPlayer $closedPlayer) => $userClosedPlayers->contains($closedPlayer)
+                    static fn ($key, ClosedPlayer $closedPlayer) => $userClosedPlayers->contains($closedPlayer)
                 );
+
             case self::IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED:
                 return $userPlayer?->getDaedalus() === $closedExploration->getDaedalusInfo()->getDaedalus()
                     && $closedExploration->isExplorationFinished();

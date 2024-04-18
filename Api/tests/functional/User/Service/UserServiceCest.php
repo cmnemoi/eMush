@@ -27,8 +27,7 @@ class UserServiceCest
         $user = new User();
         $user
             ->setUserId('userId')
-            ->setUsername('Breut')
-        ;
+            ->setUsername('Breut');
 
         $this->userService->persist($user);
 
@@ -39,6 +38,7 @@ class UserServiceCest
     {
         /** @var User $user1 */
         $user1 = $I->have(User::class, ['username' => 'Breut', 'userId' => 'userId1']);
+
         /** @var User $user2 */
         $user2 = $I->have(User::class, ['username' => 'Evian', 'userId' => 'userId2']);
 
@@ -55,6 +55,7 @@ class UserServiceCest
     {
         /** @var User $user1 */
         $user1 = $I->have(User::class, ['username' => 'Breut', 'userId' => 'userId1']);
+
         /** @var User $user2 */
         $user2 = $I->have(User::class, ['username' => 'Evian', 'userId' => 'userId2']);
 
@@ -78,11 +79,13 @@ class UserServiceCest
     {
         /** @var User $user1 */
         $user1 = $I->have(User::class, ['username' => 'Breut', 'userId' => 'userId1']);
+
         /** @var User $user2 */
         $user2 = $I->have(User::class, ['username' => 'Evian', 'userId' => 'userId2']);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
@@ -90,6 +93,7 @@ class UserServiceCest
         $daedalus1 = $I->have(Daedalus::class);
         $daedalusInfo1 = new DaedalusInfo($daedalus1, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo1);
+
         /** @var Daedalus $daedalus2 */
         $daedalus2 = $I->have(Daedalus::class, ['name' => 'daedalus_test_2']);
         $daedalusInfo2 = new DaedalusInfo($daedalus2, $gameConfig, $localizationConfig);
@@ -99,6 +103,7 @@ class UserServiceCest
         // Create players
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus1,

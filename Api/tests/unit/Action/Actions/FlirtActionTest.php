@@ -13,9 +13,12 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 
-class FlirtActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class FlirtActionTest extends AbstractActionTest
 {
-    private PlayerServiceInterface|Mockery\Mock $playerService;
+    private Mockery\Mock|PlayerServiceInterface $playerService;
 
     /**
      * @before
@@ -64,7 +67,7 @@ class FlirtActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertTrue($player->HasFlirtedWith($targetPlayer));
+        self::assertInstanceOf(Success::class, $result);
+        self::assertTrue($player->HasFlirtedWith($targetPlayer));
     }
 }

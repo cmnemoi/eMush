@@ -18,7 +18,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class ReachValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class ReachValidatorTest extends TestCase
 {
     private ReachValidator $validator;
     private Reach $constraint;
@@ -53,8 +56,7 @@ class ReachValidatorTest extends TestCase
 
         $player = new Player();
         $player
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $target = new Player();
         $playerInfo = new PlayerInfo(
@@ -64,20 +66,18 @@ class ReachValidatorTest extends TestCase
         );
         $target
             ->setPlace($room)
-            ->setPlayerInfo($playerInfo)
-        ;
+            ->setPlayerInfo($playerInfo);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForEquipment()
@@ -99,8 +99,7 @@ class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
@@ -108,7 +107,7 @@ class ReachValidatorTest extends TestCase
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayer()
@@ -127,20 +126,18 @@ class ReachValidatorTest extends TestCase
         );
         $target
             ->setPlace(new Place())
-            ->setPlayerInfo($playerInfo)
-        ;
+            ->setPlayerInfo($playerInfo);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForEquipment()
@@ -161,8 +158,7 @@ class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -172,7 +168,7 @@ class ReachValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForInventory()
@@ -189,13 +185,12 @@ class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForInventory()
@@ -211,13 +206,12 @@ class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForShelve()
@@ -236,13 +230,12 @@ class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForShelve()
@@ -261,16 +254,15 @@ class ReachValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameItem,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -282,7 +274,7 @@ class ReachValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

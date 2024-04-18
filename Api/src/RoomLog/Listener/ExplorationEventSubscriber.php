@@ -68,7 +68,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     type: 'event_log',
                     player: $explorator,
                     parameters: [
-                        'exploration_link' => "<a href='$explorationUrl'>" . strtoupper($here) . '</a>',
+                        'exploration_link' => "<a href='{$explorationUrl}'>" . strtoupper($here) . '</a>',
                     ]
                 );
             }
@@ -81,7 +81,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     type: 'event_log',
                     player: $explorator,
                     parameters: [
-                        'exploration_link' => "<a href='$explorationUrl'>" . strtoupper($here) . '</a>',
+                        'exploration_link' => "<a href='{$explorationUrl}'>" . strtoupper($here) . '</a>',
                     ]
                 );
             }

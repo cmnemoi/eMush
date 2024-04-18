@@ -23,12 +23,11 @@ class MessageParentValidator extends ConstraintValidator
         }
 
         $channel = $value->getChannel();
-        if ($value->getParent() && !in_array($channel->getScope(), self::ALLOWED_SCOPES)) {
+        if ($value->getParent() && !\in_array($channel->getScope(), self::ALLOWED_SCOPES, true)) {
             $this->context
-                    ->buildViolation($constraint->message)
-                    ->setCode(MessageParent::PARENT_CANNOT_BE_SET)
-                    ->addViolation()
-            ;
+                ->buildViolation($constraint->message)
+                ->setCode(MessageParent::PARENT_CANNOT_BE_SET)
+                ->addViolation();
         }
     }
 }

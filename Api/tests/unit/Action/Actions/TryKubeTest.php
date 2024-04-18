@@ -13,9 +13,12 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class TryKubeTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class TryKubeTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /**
@@ -66,7 +69,7 @@ class TryKubeTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 
     public function testSuccessful()
@@ -90,6 +93,6 @@ class TryKubeTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

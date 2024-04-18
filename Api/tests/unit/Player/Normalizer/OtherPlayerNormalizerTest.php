@@ -16,13 +16,17 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Normalizer\OtherPlayerNormalizer;
 use PHPUnit\Framework\TestCase;
 
-class OtherPlayerNormalizerTest extends TestCase
+/**
+ * @internal
+ */
+final class OtherPlayerNormalizerTest extends TestCase
 {
     private OtherPlayerNormalizer $normalizer;
 
     /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**
@@ -66,14 +70,12 @@ class OtherPlayerNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('eleesha.name', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated eleesha')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('eleesha.description', [], 'characters', LanguageEnum::FRENCH)
             ->andReturn('translated eleesha description')
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService->shouldReceive('getActionsTools')->once()->andReturn(new ArrayCollection([]));
 
@@ -88,11 +90,11 @@ class OtherPlayerNormalizerTest extends TestCase
             ],
             'skills' => [],
             'statuses' => [],
-            'actions' => [],
             'titles' => [],
+            'actions' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 }

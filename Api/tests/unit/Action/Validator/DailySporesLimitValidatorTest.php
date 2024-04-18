@@ -15,7 +15,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class DailySporesLimitValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class DailySporesLimitValidatorTest extends TestCase
 {
     private DailySporesLimitValidator $validator;
     private DailySporesLimit $constraint;
@@ -37,7 +40,7 @@ class DailySporesLimitValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    // @TODO once spore status is totaly replaced by the spore variable on player, rework this test using GameVariableLevel validator
+    /** @TODO once spore status is totaly replaced by the spore variable on player, rework this test using GameVariableLevel validator */
     /*public function testValidForDaedalus()
     {
         $daedalusConfig = new DaedalusConfig();
@@ -98,8 +101,7 @@ class DailySporesLimitValidatorTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus
             ->setDaedalusVariables($daedalusConfig)
-            ->setSpores(1)
-        ;
+            ->setSpores(1);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -115,27 +117,24 @@ class DailySporesLimitValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayer()
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
-            ->setDailySporeNb(4)
-        ;
+            ->setDailySporeNb(4);
 
         $daedalus = new Daedalus();
         $daedalus
             ->setDaedalusVariables($daedalusConfig)
-            ->setSpores(0)
-        ;
+            ->setSpores(0);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -146,8 +145,7 @@ class DailySporesLimitValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
@@ -160,10 +158,10 @@ class DailySporesLimitValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -175,7 +173,7 @@ class DailySporesLimitValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

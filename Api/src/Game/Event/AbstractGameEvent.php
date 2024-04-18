@@ -8,12 +8,12 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class AbstractGameEvent extends Event
 {
-    private string $eventName;
-    private bool $isModified = false;
-    private int $priority = 0;
     protected ?Player $author = null;
     protected \DateTime $time;
     protected array $tags;
+    private string $eventName;
+    private bool $isModified = false;
+    private int $priority = 0;
 
     public function __construct(array $tags, \DateTime $time)
     {
@@ -106,24 +106,24 @@ class AbstractGameEvent extends Event
 
     public function hasTag(string $tag): bool
     {
-        return in_array($tag, $this->tags);
+        return \in_array($tag, $this->tags, true);
     }
 
     public function hasAnyTag(array $tags): bool
     {
-        return count(array_intersect($tags, $this->tags)) > 0;
+        return \count(array_intersect($tags, $this->tags)) > 0;
     }
 
     public function hasAllTags(array $tags): bool
     {
-        return count(array_intersect($tags, $this->tags)) === count($tags);
+        return \count(array_intersect($tags, $this->tags)) === \count($tags);
     }
 
     public function mapLog(array $map): ?string
     {
         $logs = array_intersect_key($map, array_flip($this->tags));
 
-        if (count($logs) > 0) {
+        if (\count($logs) > 0) {
             return reset($logs);
         }
 

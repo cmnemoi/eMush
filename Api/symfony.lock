@@ -6,12 +6,12 @@
         "version": "v1.8.0"
     },
     "api-platform/core": {
-        "version": "2.6",
+        "version": "2.7",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.5",
-            "ref": "05b57782a78c21a664a42055dc11cf1954ca36bb"
+            "ref": "b86557ce5677fa855b1b2608f4a4bc4a8fed8be7"
         },
         "files": [
             "config/packages/api_platform.yaml",
@@ -29,30 +29,28 @@
         "version": "0.9.1"
     },
     "codeception/codeception": {
-        "version": "2.3",
+        "version": "5.1",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "2.3",
-            "ref": "5d3fec49d4a7ecb411c417fc51cf48b06a86946d"
+            "branch": "main",
+            "version": "5.0",
+            "ref": "0d213956834c5652a34e4bf9456ef26119132a8a"
         },
         "files": [
             "codeception.yml",
-            "tests/_data/.gitignore",
-            "tests/_output/.gitignore",
-            "tests/_support/AcceptanceTester.php",
-            "tests/_support/FunctionalTester.php",
-            "tests/_support/Helper/Acceptance.php",
-            "tests/_support/Helper/Functional.php",
-            "tests/_support/Helper/Unit.php",
-            "tests/_support/UnitTester.php",
-            "tests/_support/_generated/.gitignore",
-            "tests/acceptance/.gitignore",
-            "tests/functional/.gitignore",
-            "tests/unit/.gitignore",
-            "tests/acceptance.suite.yml",
-            "tests/functional.suite.yml",
-            "tests/unit.suite.yml"
+            "tests/Acceptance.suite.yml",
+            "tests/Acceptance/.gitignore",
+            "tests/Functional.suite.yml",
+            "tests/Functional/.gitignore",
+            "tests/Support/AcceptanceTester.php",
+            "tests/Support/Data/.gitignore",
+            "tests/Support/FunctionalTester.php",
+            "tests/Support/Helper/.gitignore",
+            "tests/Support/UnitTester.php",
+            "tests/Support/_generated/.gitignore",
+            "tests/Unit.suite.yml",
+            "tests/Unit/.gitignore",
+            "tests/_output/.gitignore"
         ]
     },
     "codeception/lib-asserts": {
@@ -66,9 +64,6 @@
     },
     "codeception/module-datafactory": {
         "version": "1.0.1"
-    },
-    "codeception/module-doctrine2": {
-        "version": "1.1.1"
     },
     "codeception/module-symfony": {
         "version": "1.6.0"
@@ -204,15 +199,15 @@
         "version": "v1.5.0"
     },
     "friendsofphp/php-cs-fixer": {
-        "version": "2.2",
+        "version": "3.53",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.2",
-            "ref": "cc05ab6abf6894bddb9bbd6a252459010ebe040b"
+            "branch": "main",
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
         },
         "files": [
-            ".php_cs.dist"
+            ".php-cs-fixer.dist.php"
         ]
     },
     "friendsofphp/proxy-manager-lts": {

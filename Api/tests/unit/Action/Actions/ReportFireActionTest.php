@@ -8,7 +8,10 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 
-class ReportFireActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ReportFireActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -48,6 +51,6 @@ class ReportFireActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

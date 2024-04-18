@@ -12,6 +12,9 @@ use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class HunterNormalizerHelperCest extends AbstractFunctionalTest
 {
     private HunterNormalizerHelperInterface $hunterNormalizerHelper;
@@ -156,7 +159,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
 
         // then all hunters are distinct
         foreach ($hunters as $hunter) {
-            $I->assertEquals(1, $hunters->filter(fn (Hunter $h) => $h === $hunter)->count());
+            $I->assertEquals(1, $hunters->filter(static fn (Hunter $h) => $h === $hunter)->count());
         }
 
         // then I get at least one hunter of each type
@@ -173,7 +176,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
         /** @var HunterConfig $hunterConfig */
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
         if (!$hunterConfig) {
-            throw new \Exception("Hunter config not found for hunter name $hunterName");
+            throw new \Exception("Hunter config not found for hunter name {$hunterName}");
         }
 
         $hunter = new Hunter($hunterConfig, $daedalus);

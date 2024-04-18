@@ -52,6 +52,7 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
     private function destroyPatrolShipsInBattle(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
+
         /** @var ArrayCollection<int, GameEquipment> $patrolShips */
         $patrolShips = new ArrayCollection();
 
@@ -62,7 +63,7 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
             }
         }
 
-        $patrolShipsInSpaceBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
+        $patrolShipsInSpaceBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         foreach ($patrolShipsInSpaceBattle as $patrolShip) {
             $destroyEquipmentEvent = new InteractWithEquipmentEvent(

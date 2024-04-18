@@ -54,6 +54,7 @@ class HunterVariableSubscriber implements EventSubscriberInterface
                 }
 
                 return;
+
             default:
                 return;
         }

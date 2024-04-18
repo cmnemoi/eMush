@@ -11,23 +11,23 @@ use Mush\Equipment\Entity\Door;
  */
 class AlertElementCollection extends ArrayCollection
 {
-    public function getBrokenDoors(): AlertElementCollection
+    public function getBrokenDoors(): self
     {
-        return $this->filter(fn (AlertElement $alert) => $alert->getEquipment() instanceof Door);
+        return $this->filter(static fn (AlertElement $alert) => $alert->getEquipment() instanceof Door);
     }
 
-    public function getBrokenEquipments(): AlertElementCollection
+    public function getBrokenEquipments(): self
     {
-        return $this->filter(fn (AlertElement $alert) => (($equipment = $alert->getEquipment()) !== null && !$equipment instanceof Door));
+        return $this->filter(static fn (AlertElement $alert) => (($equipment = $alert->getEquipment()) !== null && !$equipment instanceof Door));
     }
 
-    public function getFires(): AlertElementCollection
+    public function getFires(): self
     {
-        return $this->filter(fn (AlertElement $alert) => $alert->getEquipment() !== null);
+        return $this->filter(static fn (AlertElement $alert) => $alert->getEquipment() !== null);
     }
 
-    public function getReportedAlert(): AlertElementCollection
+    public function getReportedAlert(): self
     {
-        return $this->filter(fn (AlertElement $alert) => $alert->getPlayerInfo() !== null);
+        return $this->filter(static fn (AlertElement $alert) => $alert->getPlayerInfo() !== null);
     }
 }

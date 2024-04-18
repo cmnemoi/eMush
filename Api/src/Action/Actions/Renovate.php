@@ -36,7 +36,8 @@ final class Renovate extends AttemptAction
 
     private StatusServiceInterface $statusService;
 
-    public function __construct(EventServiceInterface $eventService,
+    public function __construct(
+        EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
@@ -44,11 +45,6 @@ final class Renovate extends AttemptAction
     ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
         $this->statusService = $statusService;
-    }
-
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -62,6 +58,11 @@ final class Renovate extends AttemptAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -97,14 +98,14 @@ final class Renovate extends AttemptAction
 
     private function getPieceOfScrapMetal(): GameEquipment
     {
-        $playerScrapMetal = $this->player->getEquipments()->filter(function (GameItem $item) {
+        $playerScrapMetal = $this->player->getEquipments()->filter(static function (GameItem $item) {
             return $item->getName() === ItemEnum::METAL_SCRAPS;
         });
         if ($playerScrapMetal->count() >= 1) {
             return $playerScrapMetal->first();
         }
 
-        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(function (GameEquipment $equipment) {
+        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(static function (GameEquipment $equipment) {
             return $equipment->getName() === ItemEnum::METAL_SCRAPS;
         });
         if ($roomScrapMetal->isEmpty()) {

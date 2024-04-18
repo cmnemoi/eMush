@@ -117,11 +117,11 @@ class HunterConfig
     }
 
     /**
-     * @param Collection<int, StatusConfig>|array<int, StatusConfig> $initialStatuses
+     * @param array<int, StatusConfig>|Collection<int, StatusConfig> $initialStatuses
      */
-    public function setInitialStatuses(Collection|array $initialStatuses): static
+    public function setInitialStatuses(array|Collection $initialStatuses): static
     {
-        if (is_array($initialStatuses)) {
+        if (\is_array($initialStatuses)) {
             $initialStatuses = new ArrayCollection($initialStatuses);
         }
 

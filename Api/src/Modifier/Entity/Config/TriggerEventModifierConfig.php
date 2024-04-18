@@ -62,25 +62,12 @@ class TriggerEventModifierConfig extends EventModifierConfig
         return $this;
     }
 
-    public function setModifierName(string|null $modifierName): self
+    public function setModifierName(?string $modifierName): self
     {
         parent::setModifierName($modifierName);
         $this->addNoneTagName();
 
         return $this;
-    }
-
-    // this prevents infinite loop where triggeredEvent can trigger itself
-    private function addNoneTagName(): void
-    {
-        $modifierName = $this->modifierName;
-
-        if ($modifierName === null) {
-            $modifierName = $this->name;
-            $this->modifierName = $modifierName;
-        }
-
-        $this->tagConstraints[$modifierName] = ModifierRequirementEnum::NONE_TAGS;
     }
 
     public function setTagConstraints(array $tagConstraints): self
@@ -126,5 +113,18 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $parameters = parent::getTranslationParameters();
 
         return array_merge($parameters, $this->triggeredEvent->getTranslationParameters());
+    }
+
+    // this prevents infinite loop where triggeredEvent can trigger itself
+    private function addNoneTagName(): void
+    {
+        $modifierName = $this->modifierName;
+
+        if ($modifierName === null) {
+            $modifierName = $this->name;
+            $this->modifierName = $modifierName;
+        }
+
+        $this->tagConstraints[$modifierName] = ModifierRequirementEnum::NONE_TAGS;
     }
 }

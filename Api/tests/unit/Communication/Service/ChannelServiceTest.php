@@ -34,7 +34,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ChannelServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class ChannelServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
@@ -48,7 +51,7 @@ class ChannelServiceTest extends TestCase
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    /** @var StatusServiceInterface|Mockery\mock */
+    /** @var Mockery\mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private ChannelServiceInterface $service;
@@ -90,13 +93,12 @@ class ChannelServiceTest extends TestCase
                 'persist' => null,
                 'flush' => null,
             ])
-            ->once()
-        ;
+            ->once();
 
         $publicChannel = $this->service->createPublicChannel($daedalusInfo);
 
-        $this->assertEquals(ChannelScopeEnum::PUBLIC, $publicChannel->getScope());
-        $this->assertEquals($daedalusInfo, $publicChannel->getDaedalusInfo());
+        self::assertSame(ChannelScopeEnum::PUBLIC, $publicChannel->getScope());
+        self::assertSame($daedalusInfo, $publicChannel->getDaedalusInfo());
     }
 
     public function testCreatePrivateChannel()
@@ -113,19 +115,17 @@ class ChannelServiceTest extends TestCase
                 'persist' => null,
                 'flush' => null,
             ])
-            ->once()
-        ;
+            ->once();
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (ChannelEvent $event) => ($event->getAuthor() === $player))
-            ->once()
-        ;
+            ->withArgs(static fn (ChannelEvent $event) => ($event->getAuthor() === $player))
+            ->once();
 
         $privateChannel = $this->service->createPrivateChannel($player);
 
-        $this->assertEquals(ChannelScopeEnum::PRIVATE, $privateChannel->getScope());
-        $this->assertEquals($daedalusInfo, $privateChannel->getDaedalusInfo());
+        self::assertSame(ChannelScopeEnum::PRIVATE, $privateChannel->getScope());
+        self::assertSame($daedalusInfo, $privateChannel->getDaedalusInfo());
     }
 
     public function testInvitePlayerToChannel()
@@ -137,11 +137,10 @@ class ChannelServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (ChannelEvent $event) => ($event->getAuthor() === $player && $event->getChannel() === $channel))
-            ->once()
-        ;
+            ->withArgs(static fn (ChannelEvent $event) => ($event->getAuthor() === $player && $event->getChannel() === $channel))
+            ->once();
 
-        $this->assertEquals($channel, $this->service->invitePlayer($player, $channel));
+        self::assertSame($channel, $this->service->invitePlayer($player, $channel));
     }
 
     public function testExitChannel()
@@ -153,11 +152,10 @@ class ChannelServiceTest extends TestCase
 
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (ChannelEvent $event) => ($event->getAuthor() === $player && $event->getChannel() === $channel))
-            ->once()
-        ;
+            ->withArgs(static fn (ChannelEvent $event) => ($event->getAuthor() === $player && $event->getChannel() === $channel))
+            ->once();
 
-        $this->assertTrue($this->service->exitChannel($player, $channel));
+        self::assertTrue($this->service->exitChannel($player, $channel));
     }
 
     public function testCanPlayerCommunicateWithTalkie()
@@ -174,7 +172,7 @@ class ChannelServiceTest extends TestCase
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
-        $this->assertTrue($canPlayerCommunicate);
+        self::assertTrue($canPlayerCommunicate);
     }
 
     public function testPlayerCannotCommunicate()
@@ -191,7 +189,7 @@ class ChannelServiceTest extends TestCase
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
-        $this->assertFalse($canPlayerCommunicate);
+        self::assertFalse($canPlayerCommunicate);
     }
 
     public function testPlayerCanCommunicateWithCommCenter()
@@ -208,7 +206,7 @@ class ChannelServiceTest extends TestCase
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
-        $this->assertTrue($canPlayerCommunicate);
+        self::assertTrue($canPlayerCommunicate);
     }
 
     public function testPlayerCanCommunicateWithBrainSync()
@@ -227,7 +225,7 @@ class ChannelServiceTest extends TestCase
 
         $canPlayerCommunicate = $this->service->canPlayerCommunicate($player);
 
-        $this->assertTrue($canPlayerCommunicate);
+        self::assertTrue($canPlayerCommunicate);
     }
 
     public function testCanPlayerWhisperInChannel()
@@ -252,7 +250,7 @@ class ChannelServiceTest extends TestCase
 
         $canPlayerWhisper = $this->service->canPlayerWhisperInChannel($channel, $player);
 
-        $this->assertTrue($canPlayerWhisper);
+        self::assertTrue($canPlayerWhisper);
     }
 
     public function testPlayerCanWhisperInChannelThroughOtherPlayer()
@@ -287,7 +285,7 @@ class ChannelServiceTest extends TestCase
 
         $canPlayerWhisper = $this->service->canPlayerWhisperInChannel($channel, $player);
 
-        $this->assertTrue($canPlayerWhisper);
+        self::assertTrue($canPlayerWhisper);
     }
 
     public function testPlayerCannotWhisperInChannel()
@@ -322,7 +320,7 @@ class ChannelServiceTest extends TestCase
 
         $canPlayerWhisper = $this->service->canPlayerWhisperInChannel($channel, $player);
 
-        $this->assertFalse($canPlayerWhisper);
+        self::assertFalse($canPlayerWhisper);
     }
 
     public function testPlayerCanWhisper()
@@ -340,8 +338,8 @@ class ChannelServiceTest extends TestCase
         $player3 = new Player();
         $player3->setPlace(new Place());
 
-        $this->assertTrue($this->service->canPlayerWhisper($player, $player2));
-        $this->assertFalse($this->service->canPlayerWhisper($player, $player3));
+        self::assertTrue($this->service->canPlayerWhisper($player, $player2));
+        self::assertFalse($this->service->canPlayerWhisper($player, $player3));
     }
 
     public function testUpdatePlayerPrivateChannelPlayerDoNotLeaveChannel()
@@ -377,19 +375,16 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]))
-        ;
+            ->andReturn(new ArrayCollection([$channel]));
 
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->never();
 
@@ -426,19 +421,16 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]))
-        ;
+            ->andReturn(new ArrayCollection([$channel]));
 
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->never();
 
@@ -475,19 +467,16 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]))
-        ;
+            ->andReturn(new ArrayCollection([$channel]));
 
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -533,19 +522,16 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]))
-        ;
+            ->andReturn(new ArrayCollection([$channel]));
 
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn($piratedStatus)
-            ->once()
-        ;
+            ->once();
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->never();
 
@@ -567,8 +553,7 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([]))
-        ;
+            ->andReturn(new ArrayCollection([]));
 
         $this->eventService->shouldReceive('callEvent')->never();
 
@@ -590,12 +575,11 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, true)
-            ->andReturn(new ArrayCollection([$channel]))
-        ;
+            ->andReturn(new ArrayCollection([$channel]));
 
         $result = $this->service->getPlayerChannels($player, true);
 
-        $this->assertCount(1, $result);
+        self::assertCount(1, $result);
     }
 
     public function testGetPlayerChannelsUnableToCommunicate()
@@ -615,12 +599,11 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, false)
-            ->andReturn(new ArrayCollection([$channel, $channel2]))
-        ;
+            ->andReturn(new ArrayCollection([$channel, $channel2]));
 
         $result = $this->service->getPlayerChannels($player);
 
-        $this->assertCount(1, $result);
+        self::assertCount(1, $result);
     }
 
     public function testGetPlayerChannelsAbleToCommunicate()
@@ -642,12 +625,11 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo, false)
-            ->andReturn(new ArrayCollection([$channel, $channel2]))
-        ;
+            ->andReturn(new ArrayCollection([$channel, $channel2]));
 
         $result = $this->service->getPlayerChannels($player);
 
-        $this->assertCount(2, $result);
+        self::assertCount(2, $result);
     }
 
     public function testGetPiratePlayer()
@@ -665,19 +647,17 @@ class ChannelServiceTest extends TestCase
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn($piratedStatus)
-            ->once()
-        ;
+            ->once();
 
         $test = $this->service->getPiratePlayer($player);
-        $this->assertEquals($player2, $test);
+        self::assertSame($player2, $test);
 
         $this->statusService->shouldReceive('getByTargetAndName')
             ->with($player2, PlayerStatusEnum::TALKIE_SCREWED)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $test2 = $this->service->getPiratePlayer($player2);
-        $this->assertEquals(null, $test2);
+        self::assertNull($test2);
     }
 
     public function testGetPiratedPlayer()
@@ -694,10 +674,10 @@ class ChannelServiceTest extends TestCase
         $piratedStatus->setTarget($player);
 
         $test = $this->service->getPiratedPlayer($player2);
-        $this->assertEquals($player, $test);
+        self::assertSame($player, $test);
 
         $test = $this->service->getPiratedPlayer($player);
-        $this->assertEquals(null, $test);
+        self::assertNull($test);
     }
 
     public function testGetPiratedChannels()
@@ -719,12 +699,11 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo)
-            ->andReturn(new ArrayCollection([$channel]))
-        ;
+            ->andReturn(new ArrayCollection([$channel]));
 
         $result = $this->service->getPiratedChannels($player);
 
-        $this->assertCount(1, $result);
+        self::assertCount(1, $result);
     }
 
     // pirate do not have access to private channel where all participant are in the same room
@@ -747,12 +726,11 @@ class ChannelServiceTest extends TestCase
         $this->channelRepository
             ->shouldReceive('findByPlayer')
             ->with($playerInfo)
-            ->andReturn(new ArrayCollection([$channel]))
-        ;
+            ->andReturn(new ArrayCollection([$channel]));
 
         $result = $this->service->getPiratedChannels($player);
 
-        $this->assertCount(0, $result);
+        self::assertCount(0, $result);
     }
 
     public function testAddPlayer()
@@ -763,11 +741,11 @@ class ChannelServiceTest extends TestCase
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->withArgs(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel
+            ->withArgs(
+                static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getChannel() === $channel
                 && $channelPlayer->getParticipant() === $playerInfo
             )
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('flush')->once();
 
@@ -794,8 +772,7 @@ class ChannelServiceTest extends TestCase
         $this->entityManager
             ->shouldReceive('remove')
             ->with($channelPlayer)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('flush')->once();
 

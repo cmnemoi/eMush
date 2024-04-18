@@ -32,6 +32,9 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class MushTrapTest extends TestCase
 {
     private MushTrap $mushTrapEventHandler;
@@ -42,10 +45,10 @@ final class MushTrapTest extends TestCase
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    /** @var TranslationServiceInterface|Mockery\Spy */
+    /** @var Mockery\Spy|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /** @before */
@@ -82,14 +85,12 @@ final class MushTrapTest extends TestCase
         // Given universe is in a state in which the explorator is trapped
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->once()
-            ->andReturn(50)
-        ;
+            ->andReturn(50);
 
         $this->randomService->shouldReceive('isSuccessful')
             ->once()
             ->with(50)
-            ->andReturn(true)
-        ;
+            ->andReturn(true);
 
         // When I handle the mushTrap event
         $this->mushTrapEventHandler->handle($planetSectorEvent);
@@ -114,9 +115,7 @@ final class MushTrapTest extends TestCase
         $exploration->setExplorators(new PlayerCollection([$explorator]));
         $explorator->method('getPlace')->willReturn($planetPlace);
 
-        $planetSector = new PlanetSector($planetSectorConfig, $planet);
-
-        return $planetSector;
+        return new PlanetSector($planetSectorConfig, $planet);
     }
 
     private function getExplorator(): Player

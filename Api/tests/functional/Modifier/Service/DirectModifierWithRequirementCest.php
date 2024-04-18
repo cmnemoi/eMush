@@ -13,7 +13,10 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class DirectModifierWithRequirementCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class DirectModifierWithRequirementCest extends AbstractFunctionalTest
 {
     private ModifierCreationServiceInterface $modifierCreationService;
 
@@ -36,8 +39,7 @@ class DirectModifierWithRequirementCest extends AbstractFunctionalTest
             ->setQuantity(-3)
             ->setVariableHolderClass(ModifierHolderClassEnum::PLAYER)
             ->setEventName(VariableEventInterface::CHANGE_VARIABLE)
-            ->setName('test_direct_modifier')
-        ;
+            ->setName('test_direct_modifier');
         $I->haveInRepository($eventConfig);
 
         $modifier = new DirectModifierConfig('test_direct_modifier_with_requirement');
@@ -45,8 +47,7 @@ class DirectModifierWithRequirementCest extends AbstractFunctionalTest
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTriggeredEvent($eventConfig)
             ->setRevertOnRemove(false)
-            ->addModifierRequirement($modifierRequirement)
-        ;
+            ->addModifierRequirement($modifierRequirement);
 
         $I->haveInRepository($modifier);
 

@@ -80,7 +80,7 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
             return false;
         }
 
-        return in_array($strategy, $dischargeStrategies, strict: true);
+        return \in_array($strategy, $dischargeStrategies, strict: true);
     }
 
     public function getThreshold(): ?int

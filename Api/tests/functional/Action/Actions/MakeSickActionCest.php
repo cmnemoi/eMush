@@ -48,8 +48,7 @@ class MakeSickActionCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
@@ -58,8 +57,7 @@ class MakeSickActionCest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -67,8 +65,7 @@ class MakeSickActionCest
         $gameConfig
             ->setDiseaseCauseConfig(new ArrayCollection([$diseaseCause]))
             ->setDiseaseConfig(new ArrayCollection([$diseaseConfig]))
-            ->setDaedalusConfig($daedalusConfig)
-        ;
+            ->setDaedalusConfig($daedalusConfig);
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -88,8 +85,7 @@ class MakeSickActionCest
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
@@ -103,8 +99,8 @@ class MakeSickActionCest
         ]);
         $mushPlayer->setPlayerVariables($characterConfig);
         $mushPlayer
-            ->setActionPoint(2)
-        ;
+            ->setActionPoint(2);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $mushPlayerInfo = new PlayerInfo($mushPlayer, $user, $characterConfig);
@@ -117,8 +113,7 @@ class MakeSickActionCest
         $mushConfig
             ->setStatusName(PlayerStatusEnum::MUSH)
             ->setVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
         $mushStatus = new Status($mushPlayer, $mushConfig);
         $I->haveInRepository($mushStatus);

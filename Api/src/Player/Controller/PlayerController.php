@@ -146,7 +146,7 @@ class PlayerController extends AbstractGameController
             return $maintenanceView;
         }
 
-        if (count($violations = $this->validator->validate($playerCreateRequest))) {
+        if (\count($violations = $this->validator->validate($playerCreateRequest))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -228,7 +228,7 @@ class PlayerController extends AbstractGameController
             return $maintenanceView;
         }
 
-        if (count($violations = $this->validator->validate($request))) {
+        if (\count($violations = $this->validator->validate($request))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -278,9 +278,11 @@ class PlayerController extends AbstractGameController
 
         if ($result->noCycleElapsed()) {
             return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_OK);
-        } elseif ($result->hasDaedalusCycleElapsed()) {
+        }
+        if ($result->hasDaedalusCycleElapsed()) {
             return $this->view(['message' => 'Daedalus cycle change(s) triggered successfully (' . $result->daedalusCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
-        } elseif ($result->hasExplorationCycleElapsed()) {
+        }
+        if ($result->hasExplorationCycleElapsed()) {
             return $this->view(['message' => 'Exploration cycle change(s) triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         }
     }
@@ -323,8 +325,8 @@ class PlayerController extends AbstractGameController
 
         if ($result->noCycleElapsed()) {
             return $this->view(['message' => 'No cycle change triggered'], Response::HTTP_OK);
-        } else {
-            return $this->view(['message' => 'Exploration cycle change(s) triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
         }
+
+        return $this->view(['message' => 'Exploration cycle change(s) triggered successfully (' . $result->explorationCyclesElapsed . ' cycle(s) elapsed)'], Response::HTTP_OK);
     }
 }

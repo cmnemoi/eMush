@@ -97,7 +97,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -155,7 +155,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -222,7 +222,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -244,7 +244,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertFalse($this->chun->hasEquipmentByName(ItemEnum::GRENADE));
 
         // then Kuan-Ti should have one grenade left
-        $I->assertCount(1, $this->kuanTi->getEquipments()->filter(fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
+        $I->assertCount(1, $this->kuanTi->getEquipments()->filter(static fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
 
         // then Raluca should still have her grenade
         $I->assertTrue($raluca->hasEquipmentByName(ItemEnum::GRENADE));
@@ -288,7 +288,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 1
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_2']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -323,7 +323,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -378,7 +378,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -417,7 +417,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -456,7 +456,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $mankarogPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::MANKAROG)->first();
+        $mankarogPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::MANKAROG)->first();
         $event = new PlanetSectorEvent(
             planetSector: $mankarogPlanetSector,
             config: $fightEventConfig,
@@ -495,7 +495,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_' . Fight::MANKAROG_STRENGTH]);
-        $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::WRECK)->first();
+        $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::WRECK)->first();
         $event = new PlanetSectorEvent(
             planetSector: $wreckPlanetSector,
             config: $fightEventConfig,
@@ -531,7 +531,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given the team fights again a creature of strength 2
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_2']);
-        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,

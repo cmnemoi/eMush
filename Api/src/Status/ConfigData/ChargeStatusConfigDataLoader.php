@@ -16,7 +16,7 @@ class ChargeStatusConfigDataLoader extends StatusConfigDataLoader
 
             if ($statusConfig === null) {
                 $statusConfig = new ChargeStatusConfig();
-            } elseif (!($statusConfig instanceof ChargeStatusConfig)) {
+            } elseif (!$statusConfig instanceof ChargeStatusConfig) {
                 $this->entityManager->remove($statusConfig);
                 $statusConfig = new ChargeStatusConfig();
             }
@@ -30,8 +30,7 @@ class ChargeStatusConfigDataLoader extends StatusConfigDataLoader
                 ->setMaxCharge($statusConfigData['maxCharge'])
                 ->setStartCharge($statusConfigData['startCharge'])
                 ->setDischargeStrategies($statusConfigData['dischargeStrategies'])
-                ->setAutoRemove($statusConfigData['autoRemove'])
-            ;
+                ->setAutoRemove($statusConfigData['autoRemove']);
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);
 
             $this->entityManager->persist($statusConfig);

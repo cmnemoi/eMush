@@ -8,13 +8,14 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 trait ErrorHandlerTrait
 {
     /**
-     * @return (\Stringable|string)[]
+     * @return (string|\Stringable)[]
      *
      * @psalm-return array<string, \Stringable|string>
      */
     public function handleErrors(ConstraintViolationListInterface $violationList): array
     {
         $errors = [];
+
         /** @var ConstraintViolationInterface $violation */
         foreach ($violationList as $violation) {
             $errors[$violation->getPropertyPath()] = $violation->getMessage();

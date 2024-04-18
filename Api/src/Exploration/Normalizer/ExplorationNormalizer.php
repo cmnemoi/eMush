@@ -30,15 +30,16 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Exploration;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): ?array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): ?array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+
         /** @var Exploration $exploration */
         $exploration = $object;
 
@@ -70,6 +71,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
     private function normalizeExplorators(PlayerCollection $explorators): array
     {
         $normalizedExplorators = [];
+
         /** @var Player $explorator */
         foreach ($explorators as $explorator) {
             $normalizedExplorators[] = [

@@ -86,8 +86,7 @@ class RoomLogController extends AbstractGameController
 
         $context = new Context();
         $context
-            ->setAttribute('currentPlayer', $player)
-        ;
+            ->setAttribute('currentPlayer', $player);
 
         $view = $this->view($logs);
         $view->setContext($context);

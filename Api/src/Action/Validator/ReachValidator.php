@@ -81,17 +81,24 @@ class ReachValidator extends ConstraintValidator
         switch ($reach) {
             case ReachEnum::INVENTORY:
                 return $this->canReachItemInInventory($player, $actionTarget);
+
                 break;
+
             case ReachEnum::SHELVE:
                 return $this->canReachItemInShelf($player, $actionTarget);
+
                 break;
+
             case ReachEnum::ROOM:
                 if (!$player->canReachEquipment($actionTarget)) {
                     return false;
                 }
+
                 break;
+
             case ReachEnum::SPACE_BATTLE:
                 return $this->canReachSpaceBattle($player, $actionTarget);
+
                 break;
         }
 

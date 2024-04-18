@@ -21,7 +21,7 @@ final class NeronService implements NeronServiceInterface
         $this->eventService = $eventService;
     }
 
-    public function changeCpuPriority(Neron $neron, string $cpuPriority, array $reasons = [], Player $author = null): void
+    public function changeCpuPriority(Neron $neron, string $cpuPriority, array $reasons = [], ?Player $author = null): void
     {
         $reasons['oldCpuPriority'] = $neron->getCpuPriority();
 

@@ -75,17 +75,16 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->explorationService = $explorationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
         return $data instanceof Player
             && $data === $currentPlayer
-            && $data->isAlive()
-        ;
+            && $data->isAlive();
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $player */
         $player = $object;
@@ -95,15 +94,16 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         /** @var array<string, mixed> $items */
         $items = [];
+
         /** @var GameItem $item */
         foreach ($player->getEquipments() as $item) {
             $items[] = $this->normalizer->normalize($item, $format, $context);
         }
 
         // Sort items in a stack fashion in player's inventory : last in, first out
-        usort($items, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+        usort($items, static fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
         // remove updatedAt from the items because it's not needed in the response
-        $items = array_map(fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $items);
+        $items = array_map(static fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $items);
 
         $character = $player->getName();
 
@@ -132,7 +132,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $diseases = [];
         foreach ($player->getMedicalConditions()->getActiveDiseases() as $disease) {
             $normedDisease = $this->normalizer->normalize($disease, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedDisease) && count($normedDisease) > 0) {
+            if (\is_array($normedDisease) && \count($normedDisease) > 0) {
                 $diseases[] = $normedDisease;
             }
         }
@@ -185,26 +185,30 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $gameVariable = $player->getVariableByName($variable);
 
         $name = $this->translationService->translate(
-            $variable . '.name', [
-            'quantityHealth' => $player->getHealthPoint(),
-            'quantityMoral' => $player->getMoralPoint(),
-        ], 'player',
+            $variable . '.name',
+            [
+                'quantityHealth' => $player->getHealthPoint(),
+                'quantityMoral' => $player->getMoralPoint(),
+            ],
+            'player',
             $language
         );
 
         $description = $this->translationService->translate(
-            $variable . '.description', [
-            'quantityAction' => $player->getActionPoint(),
-            'quantityMovement' => $player->getMovementPoint(),
-        ], 'player',
+            $variable . '.description',
+            [
+                'quantityAction' => $player->getActionPoint(),
+                'quantityMovement' => $player->getMovementPoint(),
+            ],
+            'player',
             $language
         );
 
         return [
-                'quantity' => $gameVariable->getValue(),
-                'max' => $gameVariable->getMaxValue(),
-                'name' => $name,
-                'description' => $description,
+            'quantity' => $gameVariable->getValue(),
+            'max' => $gameVariable->getMaxValue(),
+            'name' => $name,
+            'description' => $description,
         ];
     }
 
@@ -220,15 +224,14 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         /** @var Action $action */
         foreach ($actionsToNormalize as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }
 
         $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
-        return $actions;
+        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 
     private function getContextActions(Player $player): Collection
@@ -238,7 +241,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $this->gearToolService->getActionsTools($player, $scope);
     }
 
-    private function normalizeSpaceBattle(Player $player, string $format = null, array $context = []): ?array
+    private function normalizeSpaceBattle(Player $player, ?string $format = null, array $context = []): ?array
     {
         if (!$player->canSeeSpaceBattle()) {
             return null;
@@ -265,19 +268,18 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         $patrolShips = RoomEnum::getPatrolShips()
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $daedalus)->first())
-            ->filter(fn ($patrolShip) => $patrolShip instanceof GameEquipment)
-        ;
-        $patrolShipsInBattle = $patrolShips->filter(fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
+            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
+        $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));
     }
 
-    private function getNormalizedPlayerStatuses(Player $player, string $format = null, array $context = []): array
+    private function getNormalizedPlayerStatuses(Player $player, ?string $format = null, array $context = []): array
     {
         $statuses = [];
         foreach ($player->getStatuses() as $status) {
             $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedStatus) && count($normedStatus) > 0) {
+            if (\is_array($normedStatus) && \count($normedStatus) > 0) {
                 $statuses[] = $normedStatus;
             }
         }
@@ -285,12 +287,12 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $statuses;
     }
 
-    private function getNormalizedPlayerSkills(Player $player, string $format = null, array $context = []): array
+    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {
             $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedSkill) && count($normedSkill) > 0) {
+            if (\is_array($normedSkill) && \count($normedSkill) > 0) {
                 $skills[] = $normedSkill;
             }
         }

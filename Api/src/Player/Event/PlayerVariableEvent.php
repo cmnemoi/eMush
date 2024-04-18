@@ -40,19 +40,19 @@ class PlayerVariableEvent extends PlayerEvent implements VariableEventInterface
         $this->quantity = $quantity;
 
         if ($quantity < 0) {
-            $key = array_search(VariableEventInterface::GAIN, $this->tags);
+            $key = array_search(VariableEventInterface::GAIN, $this->tags, true);
 
             if ($key === false) {
                 $this->addTag(VariableEventInterface::LOSS);
-            } elseif (!in_array(VariableEventInterface::LOSS, $this->tags)) {
+            } elseif (!\in_array(VariableEventInterface::LOSS, $this->tags, true)) {
                 $this->tags[$key] = VariableEventInterface::LOSS;
             }
         } elseif ($quantity > 0) {
-            $key = array_search(VariableEventInterface::LOSS, $this->tags);
+            $key = array_search(VariableEventInterface::LOSS, $this->tags, true);
 
             if ($key === false) {
                 $this->addTag(VariableEventInterface::GAIN);
-            } elseif (!in_array(VariableEventInterface::GAIN, $this->tags)) {
+            } elseif (!\in_array(VariableEventInterface::GAIN, $this->tags, true)) {
                 $this->tags[$key] = VariableEventInterface::GAIN;
             }
         }

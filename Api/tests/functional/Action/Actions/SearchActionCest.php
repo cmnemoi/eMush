@@ -53,8 +53,7 @@ class SearchActionCest
             ->setActionName(ActionEnum::SEARCH)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
         $hideAction = new Action();
@@ -62,14 +61,12 @@ class SearchActionCest
             ->setActionName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $hiddenConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $hiddenConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -93,8 +90,8 @@ class SearchActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -109,8 +106,7 @@ class SearchActionCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(16)
-        ;
+            ->setActionPoint(16);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
@@ -124,8 +120,7 @@ class SearchActionCest
         $gameEquipment1 = new GameItem($room);
         $gameEquipment1
             ->setEquipment($equipmentConfig)
-            ->setName('equipment1')
-        ;
+            ->setName('equipment1');
         $I->haveInRepository($gameEquipment1);
 
         // first search an room without any hidden equipment
@@ -166,8 +161,7 @@ class SearchActionCest
             ->setActionName(ActionEnum::SEARCH)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
         $hideAction = new Action();
@@ -175,14 +169,12 @@ class SearchActionCest
             ->setActionName(ActionEnum::HIDE)
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $hiddenConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $hiddenConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -206,8 +198,8 @@ class SearchActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -222,8 +214,7 @@ class SearchActionCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(16)
-        ;
+            ->setActionPoint(16);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
@@ -236,8 +227,7 @@ class SearchActionCest
         ]);
         $player2->setPlayerVariables($characterConfig);
         $player2
-            ->setActionPoint(16)
-        ;
+            ->setActionPoint(16);
         $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig);
         $I->haveInRepository($playerInfo2);
         $player2->setPlayerInfo($playerInfo2);
@@ -251,20 +241,17 @@ class SearchActionCest
         $gameEquipment1 = new GameItem($room);
         $gameEquipment1
             ->setEquipment($equipmentConfig)
-            ->setName('equipment1')
-        ;
+            ->setName('equipment1');
         $I->haveInRepository($gameEquipment1);
         $gameEquipment2 = new GameItem($room);
         $gameEquipment2
             ->setEquipment($equipmentConfig)
-            ->setName('equipment2')
-        ;
+            ->setName('equipment2');
         $I->haveInRepository($gameEquipment2);
         $gameEquipment3 = new GameItem($room);
         $gameEquipment3
             ->setEquipment($equipmentConfig)
-            ->setName('equipment3')
-        ;
+            ->setName('equipment3');
         $I->haveInRepository($gameEquipment3);
 
         // Now hide equipments

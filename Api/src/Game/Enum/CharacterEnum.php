@@ -48,7 +48,7 @@ class CharacterEnum
 
     public static function isMale(string $character): bool
     {
-        return in_array($character, [
+        return \in_array($character, [
             self::ANDIE,
             self::TERRENCE,
             self::DEREK,
@@ -59,14 +59,14 @@ class CharacterEnum
             self::KUAN_TI,
             self::ROLAND,
             self::STEPHEN,
-        ]);
+        ], true);
     }
 
     public static function isFromRinaldoFamily(string $character): bool
     {
-        return in_array($character, [
+        return \in_array($character, [
             self::PAOLA,
             self::GIOELE,
-        ]);
+        ], true);
     }
 }

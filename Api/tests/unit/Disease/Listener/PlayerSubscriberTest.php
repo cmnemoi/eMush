@@ -21,20 +21,23 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class PlayerSubscriberTest extends TestCase
 {
     private PlayerSubscriber $playerSubscriber;
 
-    /** @var PlayerDiseaseServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerDiseaseServiceInterface */
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
     /** @var DiseaseCauseServiceInterface|Mockery\Spy */
     private DiseaseCauseServiceInterface $diseaseCauseService;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    /** @var RoomLogServiceInterface|Mockery\Spy */
+    /** @var Mockery\Spy|RoomLogServiceInterface */
     private RoomLogServiceInterface $roomLogService;
 
     /** @var EventServiceInterface|Mockery\Mock */

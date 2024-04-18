@@ -14,7 +14,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ChargeModifierCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class ChargeModifierCest extends AbstractFunctionalTest
 {
     private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
@@ -49,6 +52,7 @@ class ChargeModifierCest extends AbstractFunctionalTest
         // Given they both lost 2 charges
         /** @var ChargeStatus $turretCharge */
         $turretCharge = $turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
+
         /** @var ChargeStatus $patrolCharge */
         $patrolCharge = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
 

@@ -45,16 +45,14 @@ class TransplantActionCest
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->addAction($transplantAction)
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -62,11 +60,13 @@ class TransplantActionCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
         ]);
+
         /** @var ItemConfig $plantConfig */
         $plantConfig = $I->have(ItemConfig::class, [
             'name' => 'banana_test',
@@ -90,11 +90,13 @@ class TransplantActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player->setActionPoint(2)->setHealthPoint(6);
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -105,8 +107,7 @@ class TransplantActionCest
         $fruit = new GameEquipment($room);
         $fruit
             ->setEquipment($fruitConfig)
-            ->setName('fruit')
-        ;
+            ->setName('fruit');
         $I->haveInRepository($fruit);
 
         $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
@@ -116,8 +117,7 @@ class TransplantActionCest
         $hydropot = new GameEquipment($room);
         $hydropot
             ->setEquipment($hydropotConfig)
-            ->setName(ItemEnum::HYDROPOT)
-        ;
+            ->setName(ItemEnum::HYDROPOT);
         $I->haveInRepository($hydropot);
 
         $I->assertTrue($this->transplantAction->isVisible());
@@ -140,24 +140,21 @@ class TransplantActionCest
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
         $fruitMechanic
             ->addAction($transplantAction)
             ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
 
         $plantMechanic = new Plant();
         $plantMechanic
             ->setName('plantMechanic')
             ->setFruitName('banana')
-            ->setMaturationTime([15 => 1])
-        ;
+            ->setMaturationTime([15 => 1]);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $hydropotConfig */
@@ -165,11 +162,13 @@ class TransplantActionCest
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
+
         /** @var EquipmentConfig $fruitConfig */
         $fruitConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
         ]);
+
         /** @var EquipmentConfig $plantConfig */
         $plantConfig = $I->have(EquipmentConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
@@ -195,11 +194,13 @@ class TransplantActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player->setActionPoint(2)->setHealthPoint(6);
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -210,8 +211,7 @@ class TransplantActionCest
         $fruit = new GameEquipment($room);
         $fruit
             ->setEquipment($fruitConfig)
-            ->setName('fruit')
-        ;
+            ->setName('fruit');
         $I->haveInRepository($fruit);
 
         $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
@@ -221,8 +221,7 @@ class TransplantActionCest
         $hydropot = new GameEquipment($room);
         $hydropot
             ->setEquipment($hydropotConfig)
-            ->setName(ItemEnum::HYDROPOT)
-        ;
+            ->setName(ItemEnum::HYDROPOT);
         $I->haveInRepository($hydropot);
 
         $I->assertTrue($this->transplantAction->isVisible());

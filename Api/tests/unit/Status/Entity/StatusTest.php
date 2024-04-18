@@ -13,7 +13,10 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use PHPUnit\Framework\TestCase;
 
-class StatusTest extends TestCase
+/**
+ * @internal
+ */
+final class StatusTest extends TestCase
 {
     public function testAddStatus()
     {
@@ -23,17 +26,17 @@ class StatusTest extends TestCase
         $statusConfig->setStatusName('status');
         $status = new Status($player, $statusConfig);
 
-        $this->assertEquals($player, $status->getOwner());
-        $this->assertEquals(1, $player->getStatuses()->count());
+        self::assertSame($player, $status->getOwner());
+        self::assertSame(1, $player->getStatuses()->count());
 
         $player->addStatus($status);
 
-        $this->assertEquals($player, $status->getOwner());
-        $this->assertEquals(1, $player->getStatuses()->count());
+        self::assertSame($player, $status->getOwner());
+        self::assertSame(1, $player->getStatuses()->count());
 
         $player->removeStatus($status);
 
-        $this->assertEquals(0, $player->getStatuses()->count());
+        self::assertSame(0, $player->getStatuses()->count());
     }
 
     public function testAddStatusWithTarget()
@@ -47,15 +50,15 @@ class StatusTest extends TestCase
 
         $status->setTarget($player);
 
-        $this->assertEquals($equipment, $status->getOwner());
-        $this->assertEquals($player, $status->getTarget());
-        $this->assertEquals(1, $equipment->getStatuses()->count());
-        $this->assertEquals(1, $player->getTargetingStatuses()->count());
+        self::assertSame($equipment, $status->getOwner());
+        self::assertSame($player, $status->getTarget());
+        self::assertSame(1, $equipment->getStatuses()->count());
+        self::assertSame(1, $player->getTargetingStatuses()->count());
 
         $equipment->removeStatus($status);
 
-        $this->assertNull($status->getStatusTargetTarget());
-        $this->assertEquals(0, $player->getStatuses()->count());
+        self::assertNull($status->getStatusTargetTarget());
+        self::assertSame(0, $player->getStatuses()->count());
     }
 
     public function testAddRoomStatus()
@@ -68,20 +71,18 @@ class StatusTest extends TestCase
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PUBLIC)
             ->setAutoRemove(false)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
         $status = new ChargeStatus($room, $statusConfig);
         $status
-            ->setCharge(0)
-        ;
+            ->setCharge(0);
 
         $status->getOwner();
 
-        $this->assertEquals($room, $status->getOwner());
-        $this->assertEquals(1, $room->getStatuses()->count());
+        self::assertSame($room, $status->getOwner());
+        self::assertSame(1, $room->getStatuses()->count());
 
         $room->removeStatus($status);
 
-        $this->assertEquals(0, $room->getStatuses()->count());
+        self::assertSame(0, $room->getStatuses()->count());
     }
 }

@@ -12,8 +12,8 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        DifficultyConfigRepository $difficultyConfigRepository)
-    {
+        DifficultyConfigRepository $difficultyConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->difficultyConfigRepository = $difficultyConfigRepository;
     }
@@ -53,8 +53,7 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
                 ->setHunterSpawnRate($difficultyConfigData['hunterSpawnRate'])
                 ->setHunterSafeCycles($difficultyConfigData['hunterSafeCycles'])
                 ->setStartingHuntersNumberOfTruceCycles($difficultyConfigData['startingHuntersNumberOfTruceCycles'])
-                ->setMaximumAllowedSpreadingFires($difficultyConfigData['maximumAllowedSpreadingFires'])
-            ;
+                ->setMaximumAllowedSpreadingFires($difficultyConfigData['maximumAllowedSpreadingFires']);
 
             $this->entityManager->persist($difficultyConfig);
         }

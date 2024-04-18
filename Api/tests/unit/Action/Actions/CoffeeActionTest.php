@@ -18,9 +18,12 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class CoffeeActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class CoffeeActionTest extends AbstractActionTest
 {
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -61,8 +64,7 @@ class CoffeeActionTest extends AbstractActionTest
         $coffeeMachine->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $gameCoffeeMachine
             ->setEquipment($coffeeMachine)
-            ->setName(EquipmentEnum::COFFEE_MACHINE)
-        ;
+            ->setName(EquipmentEnum::COFFEE_MACHINE);
 
         $coffeeMachine->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -73,21 +75,19 @@ class CoffeeActionTest extends AbstractActionTest
         $gameCoffee = new GameItem(new Place());
         $coffee = new ItemConfig();
         $coffee
-             ->setEquipmentName(GameRationEnum::COFFEE)
-        ;
+            ->setEquipmentName(GameRationEnum::COFFEE);
         $gameCoffee
             ->setEquipment($coffee)
-            ->setName(GameRationEnum::COFFEE)
-        ;
+            ->setName(GameRationEnum::COFFEE);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $player->getStatuses());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

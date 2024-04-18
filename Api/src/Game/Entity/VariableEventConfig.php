@@ -99,6 +99,42 @@ class VariableEventConfig extends AbstractEventConfig
         return $event?->setEventName($this->eventName)?->setPriority($priority);
     }
 
+    public function revertEvent(): ?AbstractEventConfig
+    {
+        $reverseEvent = new self();
+        $reverseEvent
+            ->setTargetVariable($this->targetVariable)
+            ->setVariableHolderClass($this->variableHolderClass)
+            ->setQuantity(-$this->quantity)
+            ->setEventName($this->eventName);
+
+        return $reverseEvent;
+    }
+
+    public function getTranslationKey(): ?string
+    {
+        if ($this->quantity < 0) {
+            return $this->eventName . '.decrease';
+        }
+
+        return $this->eventName . '.increase';
+    }
+
+    public function getTranslationParameters(): array
+    {
+        $parameters = [
+            'quantity' => abs($this->quantity),
+            'target_variable' => $this->targetVariable,
+        ];
+
+        $emoteMap = PlayerVariableEnum::getEmoteMap();
+        if (isset($emoteMap[$this->targetVariable])) {
+            $parameters['emote'] = $emoteMap[$this->targetVariable];
+        }
+
+        return $parameters;
+    }
+
     private function createDaedalusVariableEvent(
         array $tags,
         \DateTime $date,
@@ -110,7 +146,8 @@ class VariableEventConfig extends AbstractEventConfig
 
         if ($variableHolder->hasVariable($this->targetVariable)) {
             return new DaedalusVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-        } elseif ($variableHolder->hasStatus($this->targetVariable)) {
+        }
+        if ($variableHolder->hasStatus($this->targetVariable)) {
             return $this->createStatusVariableEvent($tags, $date, $variableHolder);
         }
 
@@ -128,7 +165,8 @@ class VariableEventConfig extends AbstractEventConfig
 
         if ($variableHolder->hasVariable($this->targetVariable)) {
             return new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
-        } elseif ($variableHolder->hasStatus($this->targetVariable)) {
+        }
+        if ($variableHolder->hasStatus($this->targetVariable)) {
             return $this->createStatusVariableEvent($tags, $date, $variableHolder);
         }
 
@@ -162,42 +200,5 @@ class VariableEventConfig extends AbstractEventConfig
         }
 
         return new ChargeStatusEvent($status, $variableHolder, $this->quantity, $tags, $date);
-    }
-
-    public function revertEvent(): ?AbstractEventConfig
-    {
-        $reverseEvent = new VariableEventConfig();
-        $reverseEvent
-            ->setTargetVariable($this->targetVariable)
-            ->setVariableHolderClass($this->variableHolderClass)
-            ->setQuantity(-$this->quantity)
-            ->setEventName($this->eventName)
-        ;
-
-        return $reverseEvent;
-    }
-
-    public function getTranslationKey(): ?string
-    {
-        if ($this->quantity < 0) {
-            return $this->eventName . '.decrease';
-        } else {
-            return $this->eventName . '.increase';
-        }
-    }
-
-    public function getTranslationParameters(): array
-    {
-        $parameters = [
-            'quantity' => abs($this->quantity),
-            'target_variable' => $this->targetVariable,
-        ];
-
-        $emoteMap = PlayerVariableEnum::getEmoteMap();
-        if (isset($emoteMap[$this->targetVariable])) {
-            $parameters['emote'] = $emoteMap[$this->targetVariable];
-        }
-
-        return $parameters;
     }
 }

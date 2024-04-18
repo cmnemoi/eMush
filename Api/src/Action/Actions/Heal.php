@@ -34,11 +34,6 @@ class Heal extends AbstractAction
 {
     protected string $name = ActionEnum::HEAL;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new CanHeal([
@@ -51,6 +46,11 @@ class Heal extends AbstractAction
             'allowIfTypeMatches' => false,
             'message' => ActionImpossibleCauseEnum::ON_PLANET,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
     }
 
     protected function checkResult(): ActionResult

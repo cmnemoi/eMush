@@ -42,9 +42,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Attack extends AttemptAction
 {
     protected string $name = ActionEnum::ATTACK;
+    protected RandomServiceInterface $randomService;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
-    protected RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -63,11 +63,6 @@ class Attack extends AttemptAction
         $this->diseaseCauseService = $diseaseCauseService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -81,6 +76,11 @@ class Attack extends AttemptAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => 'room']));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
     }
 
     // Special checkResult for Attack action waiting for a refactor
@@ -99,25 +99,25 @@ class Attack extends AttemptAction
             }
 
             return new Success();
-        } else {
-            if ($this->rollCriticalChances($knife->getCriticalFailRate())) {
-                return new CriticalFail();
-            }
-
-            return new Fail();
         }
+        if ($this->rollCriticalChances($knife->getCriticalFailRate())) {
+            return new CriticalFail();
+        }
+
+        return new Fail();
     }
 
     protected function applyEffect(ActionResult $result): void
     {
         $player = $this->player;
+
         /** @var Player $target */
         $target = $this->target;
 
         $knife = $this->getPlayerKnife();
 
         if ($result instanceof Success) {
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($knife->getBaseDamageRange()));
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($knife->getBaseDamageRange());
             $damageEvent = $this->createDamageEvent($damage, $target, $player);
 
             if ($result instanceof OneShot) {
@@ -133,7 +133,8 @@ class Attack extends AttemptAction
                 $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
-            } elseif ($result instanceof CriticalSuccess) {
+            }
+            if ($result instanceof CriticalSuccess) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
                 $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
             }
@@ -151,7 +152,7 @@ class Attack extends AttemptAction
     {
         /** @var GameItem $knifeItem */
         $knifeItem = $this->player->getEquipments()->filter(
-            fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::KNIFE && $gameItem->isOperational()
+            static fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::KNIFE && $gameItem->isOperational()
         )->first();
 
         if (!$knifeItem instanceof GameItem) {

@@ -35,8 +35,14 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 ])]
 class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface
 {
-    use TimestampableEntity;
     use TargetStatusTrait;
+    use TimestampableEntity;
+
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'equipments')]
+    protected ?Place $place = null;
+
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
+    protected EquipmentConfig $equipment;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -45,12 +51,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;
-
-    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'equipments')]
-    protected ?Place $place = null;
-
-    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
-    protected EquipmentConfig $equipment;
 
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
@@ -80,7 +80,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getClassName(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function getActions(): Collection
@@ -206,15 +206,14 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     {
         return $this
             ->getStatuses()
-            ->exists(fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN))
-        ;
+            ->exists(static fn (int $key, Status $status) => ($status->getName() === EquipmentStatusEnum::BROKEN));
     }
 
     public function isOperational(): bool
     {
         /** @var Status $status */
         foreach ($this->getStatuses() as $status) {
-            if (in_array($status->getStatusConfig()->getStatusName(), EquipmentStatusEnum::getOutOfOrderStatuses())) {
+            if (\in_array($status->getStatusConfig()->getStatusName(), EquipmentStatusEnum::getOutOfOrderStatuses(), true)) {
                 return false;
             }
             if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES)
@@ -248,7 +247,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return LogParameterKeyEnum::EQUIPMENT;
     }
 
-    public function getGameEquipment(): ?GameEquipment
+    public function getGameEquipment(): ?self
     {
         return $this;
     }

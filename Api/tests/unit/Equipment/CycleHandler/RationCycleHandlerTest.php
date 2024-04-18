@@ -17,11 +17,14 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class RationCycleHandlerTest extends TestCase
+/**
+ * @internal
+ */
+final class RationCycleHandlerTest extends TestCase
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private RationCycleHandler $rationCycleHandler;
 
@@ -60,8 +63,7 @@ class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $frozenConfig = new StatusConfig();
         $frozenConfig->setStatusName(EquipmentStatusEnum::FROZEN);
@@ -73,7 +75,7 @@ class RationCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('persist')->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(1, $gameFruit->getStatuses());
+        self::assertCount(1, $gameFruit->getStatuses());
     }
 
     public function testNewDayFresh()
@@ -89,8 +91,7 @@ class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         // unfrozen day 1
         $this->gameEquipmentService->shouldReceive('persist')->once();
@@ -98,7 +99,7 @@ class RationCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(0, $gameFruit->getStatuses());
+        self::assertCount(0, $gameFruit->getStatuses());
     }
 
     public function testNewDayUnstable()
@@ -114,8 +115,7 @@ class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $unstableConfig = new StatusConfig();
         $unstableConfig->setStatusName(EquipmentStatusEnum::UNSTABLE);
@@ -142,8 +142,7 @@ class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $hazardousConfig = new StatusConfig();
         $hazardousConfig->setStatusName(EquipmentStatusEnum::HAZARDOUS);
@@ -156,7 +155,7 @@ class RationCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(1, $gameFruit->getStatuses());
+        self::assertCount(1, $gameFruit->getStatuses());
     }
 
     public function testNewDayDecomposing()
@@ -172,8 +171,7 @@ class RationCycleHandlerTest extends TestCase
         $place->setDaedalus($daedalus);
         $gameFruit = new GameItem($place);
         $gameFruit
-            ->setEquipment($fruit)
-        ;
+            ->setEquipment($fruit);
 
         $decomposingConfig = new StatusConfig();
         $decomposingConfig->setStatusName(EquipmentStatusEnum::DECOMPOSING);
@@ -183,6 +181,6 @@ class RationCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('createStatusFromName')->never();
         $this->statusService->shouldReceive('removeStatus')->never();
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
-        $this->assertCount(1, $gameFruit->getStatuses());
+        self::assertCount(1, $gameFruit->getStatuses());
     }
 }

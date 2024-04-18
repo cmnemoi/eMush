@@ -25,15 +25,17 @@ class MessageRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('message');
 
-        // @HACK : add a big tolerance to the cycle start to avoid taking the previous cycle report
-        // Yes, this is an embarassing and not mastered way to do this, but I am a bad programmer doing my best
-        $cycleChange = in_array(EventEnum::NEW_CYCLE, $eventTags, true);
-        $propagatingFire = in_array(RoomEventEnum::PROPAGATING_FIRE, $eventTags, true);
+        /**
+         * @HACK : add a big tolerance to the cycle start to avoid taking the previous cycle report
+         * Yes, this is an embarassing and not mastered way to do this, but I am a bad programmer doing my best
+         */
+        $cycleChange = \in_array(EventEnum::NEW_CYCLE, $eventTags, true);
+        $propagatingFire = \in_array(RoomEventEnum::PROPAGATING_FIRE, $eventTags, true);
 
         if ($cycleChange || $propagatingFire) {
             $cycleStartedAt = clone $daedalus->getCycleStartedAt();
-            $offset = intval($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() * 60 - 1);
-            $cycleStartedAt->modify("+$offset seconds");
+            $offset = (int) ($daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength() * 60 - 1);
+            $cycleStartedAt->modify("+{$offset} seconds");
         } else {
             $cycleStartedAt = $daedalus->getCycleStartedAt();
         }
@@ -44,27 +46,25 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere($queryBuilder->expr()->eq('message.message', ':failureMessage'))
             ->setParameter('neron', $daedalus->getDaedalusInfo()->getNeron()->getId())
             ->setParameter('cycleStart', $cycleStartedAt)
-            ->setParameter('failureMessage', NeronMessageEnum::CYCLE_FAILURES)
-        ;
+            ->setParameter('failureMessage', NeronMessageEnum::CYCLE_FAILURES);
 
         $results = $queryBuilder->getQuery()->getResult();
 
-        if (count($results) === 0) {
+        if (\count($results) === 0) {
             return null;
         }
 
         return current($results);
     }
 
-    public function findByChannel(Channel $channel, \DateInterval $ageLimit = null): array
+    public function findByChannel(Channel $channel, ?\DateInterval $ageLimit = null): array
     {
         $queryBuilder = $this->createQueryBuilder('message');
 
         $queryBuilder
             ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
             ->andWhere($queryBuilder->expr()->isNull('message.parent'))
-            ->setParameter('channel', $channel)
-        ;
+            ->setParameter('channel', $channel);
 
         if ($ageLimit !== null) {
             $timeLimit = new \DateTime();
@@ -72,8 +72,7 @@ class MessageRepository extends ServiceEntityRepository
 
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->gte('message.createdAt', ':date'))
-                ->setParameter('date', $timeLimit)
-            ;
+                ->setParameter('date', $timeLimit);
         }
 
         $queryBuilder->orderBy('message.updatedAt', 'desc');
@@ -90,8 +89,7 @@ class MessageRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->where($queryBuilder->expr()->eq('message.channel', ':channel'))
             ->andWhere($queryBuilder->expr()->isNull('message.parent'))
-            ->setParameter('channel', $channel)
-        ;
+            ->setParameter('channel', $channel);
 
         $queryBuilder->orderBy('message.updatedAt', 'desc');
 

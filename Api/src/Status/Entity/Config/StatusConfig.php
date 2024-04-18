@@ -69,7 +69,7 @@ class StatusConfig
         return $this;
     }
 
-    public function buildName(string $configName, string $details = null): static
+    public function buildName(string $configName, ?string $details = null): static
     {
         if ($details === null) {
             $this->name = $this->statusName . '_' . $configName;
@@ -102,7 +102,7 @@ class StatusConfig
      */
     public function setModifierConfigs(array|Collection $modifierConfigs): static
     {
-        if (is_array($modifierConfigs)) {
+        if (\is_array($modifierConfigs)) {
             $modifierConfigs = new ArrayCollection($modifierConfigs);
         }
 

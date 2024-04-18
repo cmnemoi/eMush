@@ -12,8 +12,7 @@ class EquipmentService implements EquipmentServiceInterface
         $items = $daedalus
             ->getGameConfig()
             ->getEquipmentsConfig()
-            ->filter(fn (EquipmentConfig $item) => $item->getEquipmentName() === $name)
-        ;
+            ->filter(static fn (EquipmentConfig $item) => $item->getEquipmentName() === $name);
 
         if ($items->count() !== 1) {
             throw new \Exception("there should be exactly one equipmentConfig with this name {$name}");

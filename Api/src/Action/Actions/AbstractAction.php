@@ -44,9 +44,7 @@ abstract class AbstractAction
         $this->validator = $validator;
     }
 
-    abstract protected function support(?LogParameterInterface $target, array $parameters): bool;
-
-    public function loadParameters(Action $action, Player $player, LogParameterInterface $target = null, array $parameters = []): void
+    public function loadParameters(Action $action, Player $player, ?LogParameterInterface $target = null, array $parameters = []): void
     {
         if (!$this->support($target, $parameters)) {
             throw new \InvalidArgumentException('Invalid action parameters : one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');
@@ -84,6 +82,7 @@ abstract class AbstractAction
         foreach ($executeViolations as $violation) {
             return (string) $violation->getMessage();
         }
+
         /** @var ConstraintViolationInterface $violation */
         foreach ($visibilityViolations as $violation) {
             return (string) $violation->getMessage();
@@ -91,10 +90,6 @@ abstract class AbstractAction
 
         return null;
     }
-
-    abstract protected function checkResult(): ActionResult;
-
-    abstract protected function applyEffect(ActionResult $result): void;
 
     public function execute(): ActionResult
     {
@@ -189,4 +184,10 @@ abstract class AbstractAction
     {
         return $this->action;
     }
+
+    abstract protected function support(?LogParameterInterface $target, array $parameters): bool;
+
+    abstract protected function checkResult(): ActionResult;
+
+    abstract protected function applyEffect(ActionResult $result): void;
 }

@@ -35,12 +35,12 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Place;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Place $room */
         $room = $object;
@@ -69,14 +69,14 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         );
 
         // Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
+        $partition = $room->getEquipments()->partition(static fn (int $key, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class
             && !EquipmentEnum::equipmentToNormalizeAsItems()->contains($gameEquipment->getName())));
 
         $equipments = $partition[0];
         $items = $partition[1];
 
         // do not normalize doors
-        $items = $items->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
+        $items = $items->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
 
         $normalizedEquipments = $this->normalizeEquipments(
             $currentPlayer,
@@ -107,6 +107,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function normalizePlayers(Place $room, Player $currentPlayer, ?string $format, array $context): array
     {
         $players = [];
+
         /** @var Player $player */
         foreach ($room->getPlayers()->getPlayerAlive() as $player) {
             if ($currentPlayer !== $player) {
@@ -120,6 +121,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function normalizeStatuses(Place $room, ?string $format, array $context): array
     {
         $statuses = [];
+
         /** @var Status $status */
         foreach ($room->getStatuses() as $status) {
             if ($status->getVisibility() === VisibilityEnum::PUBLIC) {
@@ -133,15 +135,16 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function normalizeDoors(Place $room, ?string $format, array $context): array
     {
         $doors = [];
+
         /** @var Door $door */
         foreach ($room->getDoors() as $door) {
             $normedDoor = $this->normalizer->normalize($door, $format, $context);
-            if (is_array($normedDoor)) {
+            if (\is_array($normedDoor)) {
                 $doors[] = array_merge(
                     $normedDoor,
                     ['direction' => $door
                         ->getRooms()
-                        ->filter(fn (Place $doorRoom) => $doorRoom !== $room)
+                        ->filter(static fn (Place $doorRoom) => $doorRoom !== $room)
                         ->first()
                         ->getName(),
                     ]
@@ -159,6 +162,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         array $context
     ): array {
         $normalizedEquipments = [];
+
         /** @var GameEquipment $equipment */
         foreach ($equipments as $equipment) {
             if (!($equipment->getEquipment()->isPersonal() && $equipment->getOwner() !== $currentPlayer)) {
@@ -211,10 +215,10 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         }
 
         // Sort items in a stack fashion in shelves : last in, first out
-        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+        usort($piles, static fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
 
         // remove updatedAt from the normalized items because it's not needed in the response
-        return array_map(fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $piles);
+        return array_map(static fn (array $item) => array_diff_key($item, ['updatedAt' => null]), $piles);
     }
 
     private function handleNonStackableItem(
@@ -231,7 +235,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         }
 
         // Sort items in a stack fashion in shelves : last in, first out
-        usort($piles, fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
+        usort($piles, static fn (array $a, array $b) => $a['updatedAt'] <=> $b['updatedAt']);
 
         return $piles;
     }
@@ -257,7 +261,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $normalizedItem = $this->normalizer->normalize($item, $format, $context);
             $normalizedItem['updatedAt'] = $oldestItemUpdatedDate;
 
-            $countItem = count($statusesPile);
+            $countItem = \count($statusesPile);
             if ($countItem > 1) {
                 $normalizedItem['number'] = $countItem;
             }
@@ -292,6 +296,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
                 if (!isset($itemsGroup[$name])) {
                     $itemsGroup[$name] = new ArrayCollection();
                 }
+
                 /** @var Collection $currentCollection */
                 $currentCollection = $itemsGroup[$name];
                 $currentCollection->add($item);
@@ -307,6 +312,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function groupByStatus(Collection $itemsGroup, Player $currentPlayer): array
     {
         $pile = [];
+
         /** @var GameItem $item */
         foreach ($itemsGroup as $item) {
             $pileName = $this->getPileName($item, $currentPlayer);
@@ -333,7 +339,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $statusesFilter[] = EquipmentStatusEnum::CONTAMINATED;
         }
 
-        $statusesName = $itemStatuses->filter(fn (Status $status) => in_array($status->getName(), $statusesFilter));
+        $statusesName = $itemStatuses->filter(static fn (Status $status) => \in_array($status->getName(), $statusesFilter, true));
 
         if (!$statusesName->isEmpty()) {
             /** @var Status $status */

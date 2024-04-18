@@ -12,9 +12,8 @@ class HunterConfigCollection extends ArrayCollection
     public function getHunter(string $name): ?HunterConfig
     {
         $hunter = $this
-            ->filter(fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === $name)
-            ->first()
-        ;
+            ->filter(static fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === $name)
+            ->first();
 
         return $hunter === false ? null : $hunter;
     }

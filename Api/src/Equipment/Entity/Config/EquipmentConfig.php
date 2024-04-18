@@ -70,8 +70,7 @@ class EquipmentConfig
         $gameEquipment = new GameEquipment($holder);
         $gameEquipment
             ->setName($this->getEquipmentShortName())
-            ->setEquipment($this)
-        ;
+            ->setEquipment($this);
 
         return $gameEquipment;
     }
@@ -90,7 +89,8 @@ class EquipmentConfig
     {
         if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
             return ItemEnum::BLUEPRINT;
-        } elseif ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
+        }
+        if ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {
             return ItemEnum::APPRENTON;
         }
 
@@ -131,9 +131,9 @@ class EquipmentConfig
     /**
      * @psalm-param array<array-key, EquipmentMechanic>|ArrayCollection<array-key, EquipmentMechanic> $mechanics
      */
-    public function setMechanics(Collection|array $mechanics): static
+    public function setMechanics(array|Collection $mechanics): static
     {
-        if (is_array($mechanics)) {
+        if (\is_array($mechanics)) {
             $mechanics = new ArrayCollection($mechanics);
         }
 
@@ -144,7 +144,7 @@ class EquipmentConfig
 
     public function getMechanicByName(string $mechanic): ?EquipmentMechanic
     {
-        $equipmentMechanics = $this->mechanics->filter(fn (EquipmentMechanic $equipmentMechanic) => in_array($mechanic, $equipmentMechanic->getMechanics()));
+        $equipmentMechanics = $this->mechanics->filter(static fn (EquipmentMechanic $equipmentMechanic) => \in_array($mechanic, $equipmentMechanic->getMechanics(), true));
 
         return $equipmentMechanics->first() ?: null;
     }
@@ -204,11 +204,11 @@ class EquipmentConfig
     }
 
     /**
-     * @param Collection<int<0, max>, Action>|array<int, Action> $actions
+     * @param array<int, Action>|Collection<int<0, max>, Action> $actions
      */
-    public function setActions(Collection|array $actions): static
+    public function setActions(array|Collection $actions): static
     {
-        if (is_array($actions)) {
+        if (\is_array($actions)) {
             $actions = new ArrayCollection($actions);
         }
 
@@ -232,9 +232,9 @@ class EquipmentConfig
     /**
      * @psalm-param ArrayCollection<array-key, StatusConfig>| array<array-key, StatusConfig> $initStatuses
      */
-    public function setInitStatuses(ArrayCollection|array $initStatuses): static
+    public function setInitStatuses(array|ArrayCollection $initStatuses): static
     {
-        if (is_array($initStatuses)) {
+        if (\is_array($initStatuses)) {
             $initStatuses = new ArrayCollection($initStatuses);
         }
 
@@ -250,7 +250,7 @@ class EquipmentConfig
 
     public function hasAction(string $actionName): bool
     {
-        return $this->getActions()->exists(fn (int $id, Action $action) => $action->getActionName() === $actionName);
+        return $this->getActions()->exists(static fn (int $id, Action $action) => $action->getActionName() === $actionName);
     }
 
     public function getDismountedProducts(): array

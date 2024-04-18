@@ -13,8 +13,8 @@ class PlaceConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        PlaceConfigRepository $placeConfigRepository)
-    {
+        PlaceConfigRepository $placeConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->placeConfigRepository = $placeConfigRepository;
     }
@@ -34,8 +34,7 @@ class PlaceConfigDataLoader extends ConfigDataLoader
                 ->setType($placeConfigData['type'])
                 ->setDoors($placeConfigData['doors'])
                 ->setItems($placeConfigData['items'])
-                ->setEquipments($placeConfigData['equipments'])
-            ;
+                ->setEquipments($placeConfigData['equipments']);
 
             $this->entityManager->persist($placeConfig);
         }

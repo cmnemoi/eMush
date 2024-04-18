@@ -18,11 +18,13 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class DispenseActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class DispenseActionTest extends AbstractActionTest
 {
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -63,8 +65,7 @@ class DispenseActionTest extends AbstractActionTest
         $distillerMachine->setEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER);
         $gameDistillerMachine
             ->setEquipment($distillerMachine)
-            ->setName(EquipmentEnum::COFFEE_MACHINE)
-        ;
+            ->setName(EquipmentEnum::COFFEE_MACHINE);
 
         $distillerMachine->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -88,9 +89,9 @@ class DispenseActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $player->getStatuses());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $player->getStatuses());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

@@ -27,7 +27,7 @@ class PlanetSectorEventConfigDataLoader extends ConfigDataLoader
                 continue;
             }
 
-            /** @var PlanetSectorEventConfig|null $planetSectorEventConfig */
+            /** @var null|PlanetSectorEventConfig $planetSectorEventConfig */
             $planetSectorEventConfig = $this->planetSectorEventConfigRepository->findOneBy(['name' => $planetSectorEventConfigData['name']]);
             if ($planetSectorEventConfig === null) {
                 $planetSectorEventConfig = new PlanetSectorEventConfig();

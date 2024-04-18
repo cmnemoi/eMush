@@ -48,8 +48,7 @@ class StatusSubscriberCest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -61,6 +60,7 @@ class StatusSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -69,15 +69,19 @@ class StatusSubscriberCest
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -96,28 +100,26 @@ class StatusSubscriberCest
 
         /** @var ItemConfig $iTrackieConfig */
         $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $gameConfig]);
+
         /** @var EquipmentConfig $commsCenterConfig */
         $commsCenterConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::COMMUNICATION_CENTER, 'gameConfig' => $gameConfig]);
 
         $communicationCenter = new GameEquipment($room);
         $communicationCenter
             ->setName(EquipmentEnum::COMMUNICATION_CENTER)
-            ->setEquipment($commsCenterConfig)
-        ;
+            ->setEquipment($commsCenterConfig);
         $I->haveInRepository($communicationCenter);
 
         $iTrackie2 = new GameItem($player2);
         $iTrackie2
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig)
-        ;
+            ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie2);
 
         $privateChannel = new Channel();
         $privateChannel
             ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($privateChannel);
 
         $privateChannelParticipant = new ChannelPlayer();
@@ -134,15 +136,13 @@ class StatusSubscriberCest
         $publicChannel = new Channel();
         $publicChannel
             ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($publicChannel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo)
-        ;
+            ->setDaedalus($daedalusInfo);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($publicChannel);

@@ -15,7 +15,7 @@ class PlayerVariableService implements PlayerVariableServiceInterface
         $this->playerService = $playerService;
     }
 
-    public function setPlayerVariableToMax(Player $player, string $variableName, \DateTime $date = null): Player
+    public function setPlayerVariableToMax(Player $player, string $variableName, ?\DateTime $date = null): Player
     {
         $maxAmount = $player->getVariableByName($variableName)->getMaxValue();
         $delta = $maxAmount - $player->getVariableValueByName($variableName);
@@ -48,16 +48,17 @@ class PlayerVariableService implements PlayerVariableServiceInterface
             && $player->getSatiety() < 0
         ) {
             return $delta;
-        } else {
-            return $player->getSatiety() + $delta;
         }
+
+        return $player->getSatiety() + $delta;
     }
 
     private function getValueInInterval(int $value, ?int $min, ?int $max): int
     {
         if ($max !== null && $value > $max) {
             return $max;
-        } elseif ($min !== null && $value < $min) {
+        }
+        if ($min !== null && $value < $min) {
             return $min;
         }
 

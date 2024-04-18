@@ -29,10 +29,8 @@ final readonly class Fire extends AbstractStatusCycleHandler
         private GameEquipmentServiceInterface $gameEquipmentService,
         private DaedalusServiceInterface $daedalusService,
         private StatusServiceInterface $statusService,
-
         protected string $name = StatusEnum::FIRE,
-    ) {
-    }
+    ) {}
 
     /**
      * @param Status                $status       apparently the status of the fire
@@ -60,9 +58,7 @@ final readonly class Fire extends AbstractStatusCycleHandler
         $this->propagateFire($statusHolder, $dateTime);
     }
 
-    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void
-    {
-    }
+    public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void {}
 
     private function propagateFire(Place $room, \DateTime $date): void
     {
@@ -85,7 +81,7 @@ final readonly class Fire extends AbstractStatusCycleHandler
                 // The filter only remove the doors who have the other room not in fire.
                 ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
                 // So I ask to have the other room in the array.
-                ->map(fn (Door $door) => $door->getOtherRoom($roomToPropagate));
+                ->map(static fn (Door $door) => $door->getOtherRoom($roomToPropagate));
 
             // No luck for this loop, check for another fire.
             if ($adjacentCleanRooms->isEmpty()) {

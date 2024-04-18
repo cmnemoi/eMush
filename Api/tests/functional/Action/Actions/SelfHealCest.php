@@ -29,7 +29,10 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class SelfHealCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class SelfHealCest extends AbstractFunctionalTest
 {
     private Action $selfHealConfig;
     private SelfHeal $selfHealAction;
@@ -66,8 +69,7 @@ class SelfHealCest extends AbstractFunctionalTest
             ->setActionCost(3)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST)
-            ->setOutputQuantity(3)
-        ;
+            ->setOutputQuantity(3);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
@@ -82,8 +84,8 @@ class SelfHealCest extends AbstractFunctionalTest
         $healerPlayer->setPlayerVariables($characterConfig);
         $healerPlayer
             ->setActionPoint(3)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);

@@ -13,9 +13,8 @@ class TitleConfigCollection extends ArrayCollection
     public function getTitle(string $name): ?TitleConfig
     {
         $title = $this
-            ->filter(fn (TitleConfig $titleConfig) => $titleConfig->getName() === $name)
-            ->first()
-        ;
+            ->filter(static fn (TitleConfig $titleConfig) => $titleConfig->getName() === $name)
+            ->first();
 
         return $title === false ? null : $title;
     }

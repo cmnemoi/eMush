@@ -11,7 +11,10 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 
-class TakeActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class TakeActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -49,8 +52,7 @@ class TakeActionTest extends AbstractActionTest
 
         $gameItem->setEquipment($item);
         $gameItem
-            ->setName('itemName')
-        ;
+            ->setName('itemName');
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -61,7 +63,7 @@ class TakeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 
     public function testTakeHeavyObject()
@@ -76,8 +78,7 @@ class TakeActionTest extends AbstractActionTest
 
         $gameItem->setEquipment($item);
         $gameItem
-            ->setName('itemName')
-        ;
+            ->setName('itemName');
 
         $player = $this->createPlayer($daedalus, $room);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
@@ -88,6 +89,6 @@ class TakeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

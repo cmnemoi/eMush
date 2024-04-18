@@ -17,7 +17,7 @@ class PlayerVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::PLAYER_VIEW, self::PLAYER_CREATE, self::PLAYER_END, self::PLAYER_QUARANTINE])) {
+        if (!\in_array($attribute, [self::PLAYER_VIEW, self::PLAYER_CREATE, self::PLAYER_END, self::PLAYER_QUARANTINE], true)) {
             return false;
         }
 
@@ -41,10 +41,13 @@ class PlayerVoter extends Voter
         switch ($attribute) {
             case self::PLAYER_VIEW:
                 return $this->canViewPlayer($user, $subject);
+
             case self::PLAYER_CREATE:
                 return $this->canCreatePlayer($user);
+
             case self::PLAYER_END:
                 return $this->canPlayerEnd($user, $subject);
+
             case self::PLAYER_QUARANTINE:
                 return $this->canQuarantinePlayer($user, $subject);
         }

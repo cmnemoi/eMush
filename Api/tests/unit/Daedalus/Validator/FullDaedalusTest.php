@@ -15,7 +15,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FullDaedalusTest extends TestCase
+/**
+ * @internal
+ */
+final class FullDaedalusTest extends TestCase
 {
     private FullDaedalusValidator $validator;
 
@@ -43,8 +46,8 @@ class FullDaedalusTest extends TestCase
 
         $daedalus
             ->setPlayers(new ArrayCollection([
-                    new Player(),
-                ]));
+                new Player(),
+            ]));
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
@@ -52,7 +55,7 @@ class FullDaedalusTest extends TestCase
 
         $this->validator->validate($daedalus, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -63,8 +66,8 @@ class FullDaedalusTest extends TestCase
 
         $daedalus
             ->setPlayers(new ArrayCollection([
-                    new Player(),
-                ]));
+                new Player(),
+            ]));
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
@@ -73,10 +76,10 @@ class FullDaedalusTest extends TestCase
 
         $this->validator->validate($daedalus, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -89,7 +92,7 @@ class FullDaedalusTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

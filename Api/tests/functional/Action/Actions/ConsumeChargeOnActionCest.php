@@ -65,8 +65,7 @@ class ConsumeChargeOnActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(2)
-        ;
+            ->setStartCharge(2);
         $I->haveInRepository($statusConfig);
 
         $actionEntity = new Action();
@@ -74,8 +73,7 @@ class ConsumeChargeOnActionCest
             ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
 
         $tool = new Tool();
@@ -86,21 +84,18 @@ class ConsumeChargeOnActionCest
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setMechanics(new ArrayCollection([$tool]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipment);
         $equipmentCoffee = new ItemConfig();
         $equipmentCoffee
             ->setEquipmentName(GameRationEnum::COFFEE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipmentCoffee);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]))
-            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee]))
-        ;
+            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -124,8 +119,7 @@ class ConsumeChargeOnActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(10)
-            ->setHealthPoint(10)
-        ;
+            ->setHealthPoint(10);
         $I->flushToDatabase($player);
 
         /** @var User $user */
@@ -139,8 +133,7 @@ class ConsumeChargeOnActionCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setName(ItemEnum::FUEL_CAPSULE)
-        ;
+            ->setName(ItemEnum::FUEL_CAPSULE);
         $I->haveInRepository($gameEquipment);
 
         /** @var ChargeStatus $chargeStatus */
@@ -167,8 +160,7 @@ class ConsumeChargeOnActionCest
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
             ->setEquipmentName(GameRationEnum::COFFEE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipmentCoffee);
 
         $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
@@ -178,16 +170,14 @@ class ConsumeChargeOnActionCest
             ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
 
         $equipment = new EquipmentConfig();
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setActions(new ArrayCollection([$actionEntity]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipment);
         $modifierConfig = new VariableEventModifierConfig('modifierForTestConsumeChargeOnAction');
         $modifierConfig
@@ -195,19 +185,16 @@ class ConsumeChargeOnActionCest
             ->setDelta(-1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
         $gearMechanic = new Gear();
         $gearMechanic
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->buildName(EquipmentMechanicEnum::GEAR, GameConfigEnum::TEST)
-        ;
+            ->buildName(EquipmentMechanicEnum::GEAR, GameConfigEnum::TEST);
         $gearConfig = new ItemConfig();
         $gearConfig
             ->setEquipmentName(GearItemEnum::SOAP)
             ->setMechanics(new ArrayCollection([$gearMechanic]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($modifierConfig);
         $I->haveInRepository($gearMechanic);
         $I->haveInRepository($gearConfig);
@@ -215,8 +202,7 @@ class ConsumeChargeOnActionCest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$attemptConfig]))
-            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
-        ;
+            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -240,8 +226,7 @@ class ConsumeChargeOnActionCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(10)
-            ->setHealthPoint(10)
-        ;
+            ->setHealthPoint(10);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -254,8 +239,7 @@ class ConsumeChargeOnActionCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setName(ItemEnum::FUEL_CAPSULE)
-        ;
+            ->setName(ItemEnum::FUEL_CAPSULE);
         $I->haveInRepository($gameEquipment);
 
         $I->refreshEntities($room);
@@ -263,8 +247,7 @@ class ConsumeChargeOnActionCest
         $gameGear = new GameItem($player);
         $gameGear
             ->setName(GearItemEnum::SOAP)
-            ->setEquipment($gearConfig)
-        ;
+            ->setEquipment($gearConfig);
         $I->haveInRepository($gameGear);
 
         $I->refreshEntities($player);
@@ -275,8 +258,7 @@ class ConsumeChargeOnActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(1)
-        ;
+            ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
 
         /** @var ChargeStatus $chargeStatus */
@@ -311,16 +293,14 @@ class ConsumeChargeOnActionCest
             ->setActionName(ActionEnum::COFFEE)
             ->setScope(ActionScopeEnum::SELF)
             ->setMovementCost(1)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
 
         $convertActionEntity = new Action();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
@@ -328,15 +308,13 @@ class ConsumeChargeOnActionCest
         $equipmentCoffee = new EquipmentConfig();
         $equipmentCoffee
             ->setEquipmentName(GameRationEnum::COFFEE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipmentCoffee);
         $equipment = new EquipmentConfig();
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setActions(new ArrayCollection([$actionEntity]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipment);
         $modifierConfig = new VariableEventModifierConfig('modifierForTestConsumeChargeOnAction');
         $modifierConfig
@@ -345,20 +323,17 @@ class ConsumeChargeOnActionCest
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
 
         $gearMechanic = new Gear();
         $gearMechanic
             ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-            ->setName(EquipmentMechanicEnum::GEAR)
-        ;
+            ->setName(EquipmentMechanicEnum::GEAR);
         $gearConfig = new ItemConfig();
         $gearConfig
             ->setEquipmentName(GearItemEnum::SOAP)
             ->setMechanics(new ArrayCollection([$gearMechanic]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($modifierConfig);
         $I->haveInRepository($gearMechanic);
         $I->haveInRepository($gearConfig);
@@ -369,15 +344,13 @@ class ConsumeChargeOnActionCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setDischargeStrategies([ActionEnum::COFFEE])
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(1)
-        ;
+            ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$statusConfig]))
-            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]))
-        ;
+            ->setEquipmentsConfig(new ArrayCollection([$equipment, $equipmentCoffee, $gearConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -402,9 +375,9 @@ class ConsumeChargeOnActionCest
         $player
             ->setActionPoint(10)
             ->setHealthPoint(10)
-            ->setMovementPoint(0)
-        ;
+            ->setMovementPoint(0);
         $I->flushToDatabase($player);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -416,8 +389,7 @@ class ConsumeChargeOnActionCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setName(ItemEnum::FUEL_CAPSULE)
-        ;
+            ->setName(ItemEnum::FUEL_CAPSULE);
 
         $I->haveInRepository($gameEquipment);
 
@@ -426,8 +398,7 @@ class ConsumeChargeOnActionCest
         $gameGear = new GameItem($player);
         $gameGear
             ->setName(GearItemEnum::SOAP)
-            ->setEquipment($gearConfig)
-        ;
+            ->setEquipment($gearConfig);
         $I->haveInRepository($gameGear);
 
         $I->refreshEntities($player);

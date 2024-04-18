@@ -31,7 +31,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->security = $security;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // Make sure we're not called twice
         if (isset($context[self::ALREADY_CALLED])) {
@@ -41,7 +41,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         return $data instanceof ClosedPlayer;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var ClosedPlayer $closedPlayer */
         $closedPlayer = $object;
@@ -56,6 +56,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         if ($daedalus->isDaedalusFinished()) {
             /** @var \DateTime $createdAt */
             $createdAt = $closedPlayer->getCreatedAt();
+
             /** @var \DateTime $finishedAt */
             $finishedAt = $closedPlayer->getFinishedAt();
 
@@ -64,7 +65,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
                 end: $finishedAt,
                 daedalusInfo: $closedPlayer->getClosedDaedalus()->getDaedalusInfo()
             );
-            $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
 
             // Tell moderators if closed player end message is hidden
             /** @var ?User $user */

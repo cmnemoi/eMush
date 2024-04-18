@@ -44,8 +44,7 @@ class RemoveSporeActionCest
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig]))
-        ;
+            ->setStatusConfigs(new ArrayCollection([$attemptConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -60,6 +59,7 @@ class RemoveSporeActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -69,8 +69,8 @@ class RemoveSporeActionCest
         $player
             ->setActionPoint(2)
             ->setHealthPoint(9)
-            ->setSpores(1)
-        ;
+            ->setSpores(1);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -85,8 +85,7 @@ class RemoveSporeActionCest
             ->setScope(ActionScopeEnum::CURRENT)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var ItemConfig $itemConfig */
@@ -94,15 +93,13 @@ class RemoveSporeActionCest
 
         $itemConfig
             ->setEquipmentName(ToolItemEnum::SPORE_SUCKER)
-            ->setActions(new ArrayCollection([$action]))
-        ;
+            ->setActions(new ArrayCollection([$action]));
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ToolItemEnum::SPORE_SUCKER)
             ->setEquipment($itemConfig)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
         $I->haveInRepository($gameItem);
 
         $this->removeSpore->loadParameters($action, $player, $gameItem);

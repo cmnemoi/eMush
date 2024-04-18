@@ -25,7 +25,7 @@ class VariableModifier extends AbstractModifierHandler
         $initialEvent = $events->getInitialEvent();
 
         // if the initial event do not exist anymore
-        if (!($initialEvent instanceof VariableEventInterface)) {
+        if (!$initialEvent instanceof VariableEventInterface) {
             return $events;
         }
 
@@ -37,16 +37,23 @@ class VariableModifier extends AbstractModifierHandler
         $mode = $modifierConfig->getMode();
         $modifierQuantity = $modifierConfig->getDelta();
         $eventQuantity = $initialEvent->getQuantity();
+
         switch ($mode) {
             case VariableModifierModeEnum::SET_VALUE:
                 $initialEvent->setQuantity($modifierConfig->getDelta());
+
                 break;
+
             case VariableModifierModeEnum::ADDITIVE:
                 $initialEvent->setQuantity($modifierQuantity + $eventQuantity);
+
                 break;
+
             case VariableModifierModeEnum::MULTIPLICATIVE:
                 $initialEvent->setQuantity($modifierQuantity * $eventQuantity);
+
                 break;
+
             default:
                 throw new \LogicException("This variableModifierMode is not handled {$mode}");
         }

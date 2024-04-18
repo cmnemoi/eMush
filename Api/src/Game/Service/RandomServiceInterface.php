@@ -50,7 +50,7 @@ interface RandomServiceInterface
 
     public function getRandomElement(array $array): mixed;
 
-    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null;
+    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): null|int|string;
 
     public function getRandomElementsFromProbaCollection(ProbaCollection $array, int $number): array;
 

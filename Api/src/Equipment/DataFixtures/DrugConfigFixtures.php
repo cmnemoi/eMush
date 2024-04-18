@@ -20,14 +20,19 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
+
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $consumeDrugAction */
         $consumeDrugAction = $this->getReference(ActionsFixtures::DRUG_CONSUME);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -40,8 +45,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActionPoints([0 => 98, 1 => 1, 3 => 1])
             ->setMovementPoints([0 => 98, 2 => 1, 4 => 1])
             ->addAction($consumeDrugAction)
-            ->buildName('drug', GameConfigEnum::DEFAULT)
-        ;
+            ->buildName('drug', GameConfigEnum::DEFAULT);
 
         foreach (GameDrugEnum::getAll() as $drugName) {
             $drug = new ItemConfig();
@@ -52,8 +56,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsFireBreakable(false)
                 ->setMechanics([$drugMechanic])
                 ->setActions($actions)
-                ->buildName(GameConfigEnum::DEFAULT)
-            ;
+                ->buildName(GameConfigEnum::DEFAULT);
             $manager->persist($drug);
             $gameConfig->addEquipmentConfig($drug);
         }
@@ -69,8 +72,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setMechanics([$drugMechanic])
             ->setActions($actions)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $manager->persist($prozacTest);
         $gameConfig->addEquipmentConfig($prozacTest);
 

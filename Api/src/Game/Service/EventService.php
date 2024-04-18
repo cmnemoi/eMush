@@ -26,7 +26,7 @@ class EventService implements EventServiceInterface
     /**
      * @throws \Exception
      */
-    public function callEvent(AbstractGameEvent $event, string $name, AbstractGameEvent $caller = null): EventChain
+    public function callEvent(AbstractGameEvent $event, string $name, ?AbstractGameEvent $caller = null): EventChain
     {
         if ($caller !== null) {
             $event->addTags($caller->getTags());
@@ -55,36 +55,6 @@ class EventService implements EventServiceInterface
         $this->dispatchEventChain($postEvents, false);
 
         return $postEvents;
-    }
-
-    private function dispatchEventChain(EventChain $eventChain, bool $dispatchInitialEvent): ?AbstractGameEvent
-    {
-        foreach ($eventChain as $modifierEvent) {
-            // the initial event have already been dispatched
-            if ($modifierEvent->getPriority() !== 0) {
-                // store event priority as it is going to be set to 0 when computing modifiers
-                $priority = $modifierEvent->getPriority();
-
-                $this->callEvent($modifierEvent, $modifierEvent->getEventName());
-
-                // reset the priority to its previous value
-                $modifierEvent->setPriority($priority);
-            } elseif ($dispatchInitialEvent) {
-                $this->eventDispatcher->dispatch($modifierEvent, $modifierEvent->getEventName());
-            }
-        }
-
-        return $eventChain->getInitialEvent();
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function applyModifiers(AbstractGameEvent $event, array $priorities): EventChain
-    {
-        $event->setPriority(0);
-
-        return $this->modifierService->applyModifiers($event, $priorities);
     }
 
     /**
@@ -121,7 +91,7 @@ class EventService implements EventServiceInterface
         $lastEvent = $events->last();
 
         /** @var ModifierEvent $preventEvent */
-        $preventEvent = $events->filter(fn (AbstractGameEvent $event) => (
+        $preventEvent = $events->filter(static fn (AbstractGameEvent $event) => (
             $event->getPriority() === $lastEvent->getPriority()
             && $event instanceof ModifierEvent
             && $event->getModifier()->getModifierConfig()->getModifierStrategy() === ModifierStrategyEnum::PREVENT_EVENT
@@ -130,5 +100,35 @@ class EventService implements EventServiceInterface
         $modifierConfig = $preventEvent->getModifier()->getModifierConfig();
 
         return $modifierConfig->getModifierName() ?: $modifierConfig->getName();
+    }
+
+    private function dispatchEventChain(EventChain $eventChain, bool $dispatchInitialEvent): ?AbstractGameEvent
+    {
+        foreach ($eventChain as $modifierEvent) {
+            // the initial event have already been dispatched
+            if ($modifierEvent->getPriority() !== 0) {
+                // store event priority as it is going to be set to 0 when computing modifiers
+                $priority = $modifierEvent->getPriority();
+
+                $this->callEvent($modifierEvent, $modifierEvent->getEventName());
+
+                // reset the priority to its previous value
+                $modifierEvent->setPriority($priority);
+            } elseif ($dispatchInitialEvent) {
+                $this->eventDispatcher->dispatch($modifierEvent, $modifierEvent->getEventName());
+            }
+        }
+
+        return $eventChain->getInitialEvent();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function applyModifiers(AbstractGameEvent $event, array $priorities): EventChain
+    {
+        $event->setPriority(0);
+
+        return $this->modifierService->applyModifiers($event, $priorities);
     }
 }

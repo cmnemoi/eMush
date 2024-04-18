@@ -11,10 +11,12 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class BoringSpeechActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class BoringSpeechActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -61,11 +63,10 @@ class BoringSpeechActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($speaker, $this->actionEntity, null, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(3)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

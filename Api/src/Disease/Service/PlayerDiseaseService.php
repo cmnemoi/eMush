@@ -51,7 +51,7 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         array $causes,
         \DateTime $time,
         string $visibility,
-        Player $author = null
+        ?Player $author = null
     ): bool {
         $event = new DiseaseEvent(
             $playerDisease,
@@ -70,8 +70,8 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         string $diseaseName,
         Player $player,
         array $reasons,
-        int $delayMin = null,
-        int $delayLength = null
+        ?int $delayMin = null,
+        ?int $delayLength = null
     ): PlayerDisease {
         $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
@@ -120,49 +120,6 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
 
         return $disease;
-    }
-
-    private function findDiseaseConfigByNameAndDaedalus(string $diseaseName, Daedalus $daedalus): DiseaseConfig
-    {
-        $diseaseConfigs = $daedalus->getGameConfig()->getDiseaseConfig()->filter(fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getDiseaseName() === $diseaseName);
-
-        if ($diseaseConfigs->count() !== 1) {
-            throw new \Exception("there should be exactly 1 diseaseConfig with this name {$diseaseName}, found {$diseaseConfigs->count()}");
-        }
-
-        return $diseaseConfigs->first();
-    }
-
-    private function activateDisease(PlayerDisease $disease, array $causes, \DateTime $time): void
-    {
-        $event = new DiseaseEvent(
-            $disease,
-            $causes,
-            $time
-        );
-
-        $event->setVisibility(VisibilityEnum::PRIVATE);
-        $this->eventService->callEvent($event, DiseaseEvent::APPEAR_DISEASE);
-
-        $this->removeOverrodeDiseases($disease, $time);
-    }
-
-    private function removeOverrodeDiseases(PlayerDisease $disease, \DateTime $time): void
-    {
-        $player = $disease->getPlayer();
-        $diseaseConfig = $disease->getDiseaseConfig();
-
-        foreach ($diseaseConfig->getOverride() as $diseaseName) {
-            $overrodeDisease = $player->getMedicalConditionByName($diseaseName);
-            if ($overrodeDisease !== null) {
-                $this->removePlayerDisease(
-                    $overrodeDisease,
-                    [DiseaseCauseEnum::OVERRODE],
-                    $time,
-                    VisibilityEnum::PRIVATE
-                );
-            }
-        }
     }
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
@@ -222,11 +179,54 @@ class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         }
     }
 
+    private function findDiseaseConfigByNameAndDaedalus(string $diseaseName, Daedalus $daedalus): DiseaseConfig
+    {
+        $diseaseConfigs = $daedalus->getGameConfig()->getDiseaseConfig()->filter(static fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getDiseaseName() === $diseaseName);
+
+        if ($diseaseConfigs->count() !== 1) {
+            throw new \Exception("there should be exactly 1 diseaseConfig with this name {$diseaseName}, found {$diseaseConfigs->count()}");
+        }
+
+        return $diseaseConfigs->first();
+    }
+
+    private function activateDisease(PlayerDisease $disease, array $causes, \DateTime $time): void
+    {
+        $event = new DiseaseEvent(
+            $disease,
+            $causes,
+            $time
+        );
+
+        $event->setVisibility(VisibilityEnum::PRIVATE);
+        $this->eventService->callEvent($event, DiseaseEvent::APPEAR_DISEASE);
+
+        $this->removeOverrodeDiseases($disease, $time);
+    }
+
+    private function removeOverrodeDiseases(PlayerDisease $disease, \DateTime $time): void
+    {
+        $player = $disease->getPlayer();
+        $diseaseConfig = $disease->getDiseaseConfig();
+
+        foreach ($diseaseConfig->getOverride() as $diseaseName) {
+            $overrodeDisease = $player->getMedicalConditionByName($diseaseName);
+            if ($overrodeDisease !== null) {
+                $this->removePlayerDisease(
+                    $overrodeDisease,
+                    [DiseaseCauseEnum::OVERRODE],
+                    $time,
+                    VisibilityEnum::PRIVATE
+                );
+            }
+        }
+    }
+
     private function diseaseHealsAtCycleChange(PlayerDisease $playerDisease): bool
     {
         $spontaneousHealingDisorders = [DisorderEnum::VERTIGO, DisorderEnum::SPLEEN];
 
         return $playerDisease->getDiseaseConfig()->getType() === MedicalConditionTypeEnum::DISEASE
-            || in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders);
+            || \in_array($playerDisease->getDiseaseConfig()->getDiseaseName(), $spontaneousHealingDisorders, true);
     }
 }

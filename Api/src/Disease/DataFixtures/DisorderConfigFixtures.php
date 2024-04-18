@@ -27,47 +27,67 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
 
         /** @var VariableEventModifierConfig $catInRoomMove2MovementIncrease */
         $catInRoomMove2MovementIncrease = $this->getReference(DisorderModifierConfigFixtures::CAT_IN_ROOM_MOVE_2_MOVEMENT_INCREASE);
+
         /** @var VariableEventModifierConfig $catInRoomNotMove2ActionIncrease */
         $catInRoomNotMove2ActionIncrease = $this->getReference(DisorderModifierConfigFixtures::CAT_IN_ROOM_NOT_MOVE_2_ACTION_INCREASE);
+
         /** @var VariableEventModifierConfig $cycle1ActionLostRand16 */
         $cycle1ActionLostRand16 = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16);
+
         /** @var VariableEventModifierConfig $cycle1ActionLostRand16WithScreaming */
         $cycle1ActionLostRand16WithScreaming = $this->getReference(DisorderModifierConfigFixtures::CYCLE_1_ACTION_LOST_RAND_16_WITH_SCREAMING);
+
         /** @var VariableEventModifierConfig $cycle1HealthLostRand16WithWallHeadBang */
         $cycle1HealthLostRand16WithWallHeadBang = $this->getReference(DisorderModifierConfigFixtures::CYCLE_1_HEALTH_LOST_RAND_16_WITH_WALL_HEAD_BANG);
+
         /** @var VariableEventModifierConfig $cycle1MoralLostRand70 */
         $cycle1MoralLostRand70 = $this->getReference(DisorderModifierConfigFixtures::CYCLE_1_MORAL_LOST_RAND_70);
+
         /** @var VariableEventModifierConfig $cycle2MovementLostRand16WithRunInCircles */
         $cycle2MovementLostRand16WithRunInCircles = $this->getReference(DisorderModifierConfigFixtures::CYCLE_2_MOVEMENT_LOST_RAND_16_WITH_RUN_IN_CIRCLES);
+
         /** @var VariableEventModifierConfig $fourPeopleOneActionIncrease */
         $fourPeopleOneActionIncrease = $this->getReference(DisorderModifierConfigFixtures::FOUR_PEOPLE_ONE_ACTION_INCREASE);
+
         /** @var VariableEventModifierConfig $fourPeopleOneMovementIncrease */
         $fourPeopleOneMovementIncrease = $this->getReference(DisorderModifierConfigFixtures::FOUR_PEOPLE_ONE_MOVEMENT_INCREASE);
+
         /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax2ActionPoint */
         $reduceMax2ActionPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_2_ACTION_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax3MoralPoint */
         $reduceMax3MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_3_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax4MoralPoint */
         $reduceMax4MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_4_MORAL_POINT);
 
         /** @var EventModifierConfig $coprolaliaSymptom */
         $coprolaliaSymptom = $this->getReference(InjuryModifierConfigFixtures::COPROLALIA_MODIFIER);
+
         /** @var EventModifierConfig $paranoiaSymptom */
         $paranoiaSymptom = $this->getReference(InjuryModifierConfigFixtures::PARANOIA_MODIFIER);
+
         /** @var EventModifierConfig $paranoiaDenial */
         $paranoiaDenial = $this->getReference(InjuryModifierConfigFixtures::PARANOIA_DENIAL_MODIFIER);
+
         /** @var EventModifierConfig $biting */
         $biting = $this->getReference(InjuryModifierConfigFixtures::BITING);
+
         /** @var EventModifierConfig $fearOfCats */
         $fearOfCats = $this->getReference(InjuryModifierConfigFixtures::FEAR_OF_CATS);
+
         /** @var EventModifierConfig $noAttackActions */
         $noAttackActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_ATTACK_ACTION);
+
         /** @var EventModifierConfig $noPilotingActions */
         $noPilotingActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_PILOTING);
+
         /** @var EventModifierConfig $noShootActions */
         $noShootActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_SHOOT_ACTION);
+
         /** @var EventModifierConfig $psychoticAttacks */
         $psychoticAttacks = $this->getReference(InjuryModifierConfigFixtures::PSYCHOTIC_ATTACKS);
 
@@ -80,8 +100,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $fourPeopleOneMovementIncrease,
                 $noPilotingActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($agoraphobia);
 
         $ailurophobia = new DiseaseConfig();
@@ -93,8 +112,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $catInRoomNotMove2ActionIncrease,
                 $fearOfCats,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($ailurophobia);
 
         $chronicMigraine = new DiseaseConfig();
@@ -106,8 +124,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $cycle1ActionLostRand16,
             ])
             ->setOverride([DiseaseEnum::MIGRAINE])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($chronicMigraine);
 
         $chronicVertigo = new DiseaseConfig();
@@ -117,8 +134,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $noPilotingActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($chronicVertigo);
 
         $coprolalia = new DiseaseConfig();
@@ -129,8 +145,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $reduceMax4MoralPoint,
                 $coprolaliaSymptom,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($coprolalia);
 
         $crabism = new DiseaseConfig();
@@ -143,8 +158,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $cycle1HealthLostRand16WithWallHeadBang,
                 $cycle2MovementLostRand16WithRunInCircles,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($crabism);
 
         $depression = new DiseaseConfig();
@@ -155,8 +169,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $reduceMax2MoralPoint,
                 $reduceMax2ActionPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($depression);
 
         $paranoia = new DiseaseConfig();
@@ -168,8 +181,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $paranoiaSymptom,
                 $paranoiaDenial,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($paranoia);
 
         $psychoticEpisode = new DiseaseConfig();
@@ -180,8 +192,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $biting,
                 $psychoticAttacks,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($psychoticEpisode);
 
         $spleen = new DiseaseConfig();
@@ -191,8 +202,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $cycle1MoralLostRand70,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($spleen);
 
         $vertigo = new DiseaseConfig();
@@ -202,8 +212,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setModifierConfigs([
                 $noPilotingActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($vertigo);
 
         $weaponPhobia = new DiseaseConfig();
@@ -214,8 +223,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
                 $noAttackActions,
                 $noShootActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($weaponPhobia);
 
         $gameConfig
@@ -230,8 +238,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->addDiseaseConfig($psychoticEpisode)
             ->addDiseaseConfig($spleen)
             ->addDiseaseConfig($vertigo)
-            ->addDiseaseConfig($weaponPhobia)
-        ;
+            ->addDiseaseConfig($weaponPhobia);
         $manager->persist($gameConfig);
 
         $manager->flush();

@@ -9,6 +9,9 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class PlanetServiceCest extends AbstractFunctionalTest
 {
     private PlanetServiceInterface $planetService;
@@ -74,7 +77,7 @@ final class PlanetServiceCest extends AbstractFunctionalTest
     {
         // given only oxygen sector may be created
         $availableSectorConfigs = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
-            fn (PlanetSectorConfig $planetSectorConfig) => PlanetSectorEnum::OXYGEN === $planetSectorConfig->getSectorName()
+            static fn (PlanetSectorConfig $planetSectorConfig) => PlanetSectorEnum::OXYGEN === $planetSectorConfig->getSectorName()
         );
         $this->daedalus->getGameConfig()->setPlanetSectorConfigs($availableSectorConfigs);
 

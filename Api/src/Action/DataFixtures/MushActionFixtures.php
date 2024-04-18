@@ -31,8 +31,7 @@ class MushActionFixtures extends Fixture
             ->setActionCost(2)
             ->setDirtyRate(100)
             ->makeSuperDirty()
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($extractSporeAction);
 
@@ -43,8 +42,7 @@ class MushActionFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT);
 
         $manager->persist($infectAction);
 
@@ -54,8 +52,7 @@ class MushActionFixtures extends Fixture
             ->setActionName(ActionEnum::SPREAD_FIRE)
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(4)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($spreadFireAction);
 
@@ -66,8 +63,7 @@ class MushActionFixtures extends Fixture
             ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE])
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT);
 
         $manager->persist($makeSickAction);
 
@@ -78,8 +74,7 @@ class MushActionFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->setActionCost(1)
             ->setDirtyRate(60)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
 
         $manager->persist($fakeDiseaseAction);
 
@@ -89,8 +84,7 @@ class MushActionFixtures extends Fixture
             ->setActionName(ActionEnum::SCREW_TALKIE)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
             ->setActionCost(3)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT);
 
         $manager->persist($screwTalkieAction);
 
@@ -99,8 +93,7 @@ class MushActionFixtures extends Fixture
             ->setName(ActionEnum::PHAGOCYTE)
             ->setActionName(ActionEnum::PHAGOCYTE)
             ->setScope(ActionScopeEnum::SELF)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-        ;
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($phagocyteAction);
 

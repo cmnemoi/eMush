@@ -23,7 +23,7 @@ class PlayerAliveValidator extends ConstraintValidator
 
         if (!$player->isAlive()) {
             $this->context->buildViolation($constraint->message)
-                    ->addViolation();
+                ->addViolation();
         }
     }
 }

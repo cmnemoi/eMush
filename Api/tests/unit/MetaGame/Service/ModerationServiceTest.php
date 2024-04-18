@@ -13,13 +13,18 @@ use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ModerationServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class ModerationServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EntityManager|Mockery\Mock */
     private EntityManager $entityManager;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     private ModerationServiceInterface $service;
@@ -49,8 +54,8 @@ class ModerationServiceTest extends TestCase
 
         $this->service->banUser($user, new \DateInterval('P1D'), 'reason', 'adminMessage');
 
-        $this->assertCount(1, $user->getModerationSanctions());
-        $this->assertTrue($user->isBanned());
+        self::assertCount(1, $user->getModerationSanctions());
+        self::assertTrue($user->isBanned());
     }
 
     public function testPermanentBan()
@@ -62,13 +67,13 @@ class ModerationServiceTest extends TestCase
 
         $this->service->banUser($user, null, 'reason', 'adminMessage');
 
-        $this->assertCount(1, $user->getModerationSanctions());
-        $this->assertTrue($user->isBanned());
+        self::assertCount(1, $user->getModerationSanctions());
+        self::assertTrue($user->isBanned());
         $sanction = $user->getModerationSanctions()->first();
-        $this->assertInstanceOf(ModerationSanction::class, $sanction);
-        $this->assertEquals($sanction->getEndDate(), new \DateTime('99999/12/31'));
-        $this->assertEquals($sanction->getModerationAction(), ModerationSanctionEnum::BAN_USER);
-        $this->assertEquals($sanction->getReason(), 'reason');
-        $this->assertEquals($sanction->getMessage(), 'adminMessage');
+        self::assertInstanceOf(ModerationSanction::class, $sanction);
+        self::assertEquals($sanction->getEndDate(), new \DateTime('99999/12/31'));
+        self::assertSame($sanction->getModerationAction(), ModerationSanctionEnum::BAN_USER);
+        self::assertSame($sanction->getReason(), 'reason');
+        self::assertSame($sanction->getMessage(), 'adminMessage');
     }
 }

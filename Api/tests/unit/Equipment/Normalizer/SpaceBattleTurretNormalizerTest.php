@@ -19,10 +19,14 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class SpaceBattleTurretNormalizerTest extends TestCase
 {
     private SpaceBattleTurretNormalizer $normalizer;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     protected function setUp(): void
@@ -37,7 +41,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turret->method('getName')->willReturn(EquipmentEnum::TURRET_COMMAND);
 
-        $this->assertTrue($this->normalizer->supportsNormalization($turret));
+        self::assertTrue($this->normalizer->supportsNormalization($turret));
     }
 
     public function testSupportsNormalizationReturnsFalseForNonTurretCommand(): void
@@ -45,7 +49,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turret->method('getName')->willReturn(EquipmentEnum::DOOR);
 
-        $this->assertFalse($this->normalizer->supportsNormalization($turret));
+        self::assertFalse($this->normalizer->supportsNormalization($turret));
     }
 
     public function testNormalizeReturnsExpectedArray(): void
@@ -84,8 +88,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(RoomEnum::REAR_ALPHA_TURRET, [], 'room', LanguageEnum::FRENCH)
             ->andReturn('Tourelle Alpha Arrière')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -96,7 +99,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             'isBroken' => false,
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($turret));
+        self::assertSame($expected, $this->normalizer->normalize($turret));
     }
 
     public function testNormalizeReturnsNullOccupiersForEmptyCollection(): void
@@ -124,8 +127,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(RoomEnum::REAR_ALPHA_TURRET, [], 'room', LanguageEnum::FRENCH)
             ->andReturn('Tourelle Alpha Arrière')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -136,7 +138,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             'isBroken' => false,
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($turret));
+        self::assertSame($expected, $this->normalizer->normalize($turret));
     }
 
     public function testNormalizeWithBrokenTurret(): void
@@ -176,8 +178,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with(RoomEnum::REAR_ALPHA_TURRET, [], 'room', LanguageEnum::FRENCH)
             ->andReturn('Tourelle Alpha Arrière')
-            ->once()
-        ;
+            ->once();
 
         $expected = [
             'id' => 1,
@@ -188,6 +189,6 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
             'isBroken' => true,
         ];
 
-        $this->assertEquals($expected, $this->normalizer->normalize($turret));
+        self::assertSame($expected, $this->normalizer->normalize($turret));
     }
 }

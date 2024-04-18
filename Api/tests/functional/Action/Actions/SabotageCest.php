@@ -14,6 +14,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class SabotageCest extends AbstractFunctionalTest
 {
     private Action $sabotageActionConfig;
@@ -35,8 +38,7 @@ final class SabotageCest extends AbstractFunctionalTest
         $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
 
         // given player is in pasiphae room

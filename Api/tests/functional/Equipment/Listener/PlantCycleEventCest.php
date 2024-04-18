@@ -50,8 +50,7 @@ class PlantCycleEventCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(8)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         /** @var DaedalusConfig $gameConfig */
@@ -62,8 +61,10 @@ class PlantCycleEventCest
             'daedalusConfig' => $daedalusConfig,
             'statusConfigs' => new ArrayCollection([$statusConfig]),
         ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -77,15 +78,14 @@ class PlantCycleEventCest
             'gameConfig' => $gameConfig,
             'name' => 'fruit_test',
             'equipmentName' => 'fruit',
-            ]);
+        ]);
 
         $plantMechanic = new Plant();
         $plantMechanic
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setFruitName($fruitConfig->getEquipmentName())
-            ->setName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($plantMechanic);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -97,12 +97,12 @@ class PlantCycleEventCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(GamePlantEnum::BANANA_TREE)
-        ;
+            ->setName(GamePlantEnum::BANANA_TREE);
 
         $I->haveInRepository($gameEquipment);
 
         $statusConfig->setStartCharge(6);
+
         /** @var ChargeStatus $youngStatus */
         $youngStatus = $this->statusService->createStatusFromConfig(
             $statusConfig,
@@ -152,20 +152,17 @@ class PlantCycleEventCest
         $thirstyStatusConfig = new StatusConfig();
         $thirstyStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($thirstyStatusConfig);
         $dryStatusConfig = new StatusConfig();
         $dryStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dryStatusConfig);
         $diseasedStatusConfig = new StatusConfig();
         $diseasedStatusConfig
             ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseasedStatusConfig);
 
         /** @var EquipmentConfig $fruitConfig */
@@ -173,7 +170,8 @@ class PlantCycleEventCest
             'name' => 'fruit',
             'equipmentName' => 'fruit',
         ]);
-        /* @var EquipmentConfig $equipmentConfig */
+
+        /** @var EquipmentConfig $equipmentConfig */
         $hydropotConfig = $I->have(EquipmentConfig::class, [
             'name' => ItemEnum::HYDROPOT,
             'equipmentName' => ItemEnum::HYDROPOT,
@@ -188,10 +186,12 @@ class PlantCycleEventCest
             'statusConfigs' => new ArrayCollection([$thirstyStatusConfig, $dryStatusConfig, $diseasedStatusConfig]),
             'equipmentsConfig' => new ArrayCollection([$fruitConfig, $hydropotConfig]),
         ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['cycle' => 8]);
         $daedalus->setDaedalusVariables($daedalusConfig);
         $daedalus->setOxygen(10);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -205,8 +205,7 @@ class PlantCycleEventCest
             ->setMaturationTime([8 => 1])
             ->setOxygen([1 => 1])
             ->setFruitName($fruitConfig->getEquipmentName())
-            ->setName('plant_name')
-        ;
+            ->setName('plant_name');
 
         $I->haveInRepository($plantMechanic);
 
@@ -216,8 +215,7 @@ class PlantCycleEventCest
         $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('plant name')
-        ;
+            ->setName('plant name');
 
         $I->haveInRepository($gameEquipment);
 
@@ -227,11 +225,11 @@ class PlantCycleEventCest
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(8)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $statusConfig->setStartCharge(6);
+
         /** @var ChargeStatus $youngStatus */
         $youngStatus = $this->statusService->createStatusFromConfig(
             $statusConfig,
@@ -249,7 +247,7 @@ class PlantCycleEventCest
 
         $I->assertCount(2, $gameEquipment->getStatuses());
         $I->assertCount(1, $room->getEquipments());
-        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_THIRSTY));
+        $I->assertTrue($gameEquipment->getStatuses()->exists(static fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_THIRSTY));
         $I->assertEquals(10, $daedalus->getOxygen());
 
         // Plant is diseased
@@ -265,7 +263,7 @@ class PlantCycleEventCest
         $I->assertCount(0, $room->getStatuses());
         $I->assertCount(1, $room->getEquipments());
         $I->assertCount(2, $gameEquipment->getStatuses());
-        $I->assertTrue($gameEquipment->getStatuses()->exists(fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRY));
+        $I->assertTrue($gameEquipment->getStatuses()->exists(static fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRY));
         $I->assertEquals(10, $daedalus->getOxygen());
 
         // Plant is totally healthy
@@ -281,7 +279,7 @@ class PlantCycleEventCest
 
         $I->assertCount(2, $room->getEquipments());
         $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $I->assertTrue($room->getEquipments()->exists(fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
+        $I->assertTrue($room->getEquipments()->exists(static fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
         $I->assertEquals(11, $daedalus->getOxygen());
         $I->seeInRepository(RoomLog::class, [
             'place' => $room->getName(),
@@ -297,8 +295,7 @@ class PlantCycleEventCest
         $gameEquipment2 = new GameItem($room2);
         $gameEquipment2
             ->setEquipment($equipmentConfig)
-            ->setName('plant name')
-        ;
+            ->setName('plant name');
 
         $I->haveInRepository($gameEquipment2);
 

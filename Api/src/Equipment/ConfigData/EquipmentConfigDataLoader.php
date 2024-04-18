@@ -24,8 +24,8 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
         EquipmentConfigRepository $equipmentConfigRepository,
         ActionRepository $actionRepository,
         MechanicsRepository $mechanicsRepository,
-        StatusConfigRepository $statusConfigRepository)
-    {
+        StatusConfigRepository $statusConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->equipmentConfigRepository = $equipmentConfigRepository;
         $this->actionRepository = $actionRepository;
@@ -65,8 +65,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             ->setIsFireBreakable($equipmentConfigData['isFireBreakable'])
             ->setIsFireDestroyable($equipmentConfigData['isFireDestroyable'])
             ->setDismountedProducts($equipmentConfigData['dismountedProducts'])
-            ->setIsPersonal($equipmentConfigData['isPersonal'])
-        ;
+            ->setIsPersonal($equipmentConfigData['isPersonal']);
     }
 
     protected function setEquipmentConfigActions(EquipmentConfig $equipmentConfig, array $equipmentConfigData): void

@@ -43,8 +43,7 @@ class CoffeeActionCest
 
         $coffeeActionEntity = new Action();
         $coffeeActionEntity
-            ->setActionName(ActionEnum::COFFEE)
-        ;
+            ->setActionName(ActionEnum::COFFEE);
 
         $gameEquipment->getEquipment()->setActions(new ArrayCollection([$coffeeActionEntity]));
 
@@ -97,8 +96,7 @@ class CoffeeActionCest
         $statusConfig = new StatusConfig();
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
         $status = new Status($gameEquipment, $statusConfig);
 
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->coffeeAction->cannotExecuteReason());
@@ -125,13 +123,11 @@ class CoffeeActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::HEAVY)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies([ActionEnum::COFFEE])
-        ;
+            ->setDischargeStrategies([ActionEnum::COFFEE]);
 
         $chargeStatus = new ChargeStatus($gameEquipment, $statusConfig);
         $chargeStatus
-            ->setCharge(0)
-        ;
+            ->setCharge(0);
 
         $I->assertEquals(ActionImpossibleCauseEnum::DAILY_LIMIT, $this->coffeeAction->cannotExecuteReason());
     }
@@ -143,15 +139,13 @@ class CoffeeActionCest
             ->setName('character name')
             ->setInitActionPoint(10)
             ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10)
-        ;
+            ->setInitMoralPoint(10);
 
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
         $player->setPlayerInfo($playerInfo);
@@ -166,8 +160,7 @@ class CoffeeActionCest
         $equipment->setEquipmentName($name);
         $gameEquipment
             ->setEquipment($equipment)
-            ->setName($name)
-        ;
+            ->setName($name);
 
         return $gameEquipment;
     }

@@ -40,6 +40,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 ])]
 abstract class EquipmentMechanic
 {
+    protected array $mechanics = [];
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -47,8 +48,6 @@ abstract class EquipmentMechanic
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $name;
-
-    protected array $mechanics = [];
 
     #[ORM\ManyToMany(targetEntity: Action::class)]
     private Collection $actions;
@@ -98,11 +97,11 @@ abstract class EquipmentMechanic
     }
 
     /**
-     * @param Collection<int<0, max>, Action>|array<int, Action> $actions
+     * @param array<int, Action>|Collection<int<0, max>, Action> $actions
      */
-    public function setActions(Collection|array $actions): static
+    public function setActions(array|Collection $actions): static
     {
-        if (is_array($actions)) {
+        if (\is_array($actions)) {
             $actions = new ArrayCollection($actions);
         }
 

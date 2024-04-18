@@ -22,9 +22,12 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class ModifierRequirementServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class ModifierRequirementServiceTest extends TestCase
 {
-    /** @var ModifierRequirementHandlerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|ModifierRequirementHandlerServiceInterface */
     private ModifierRequirementHandlerServiceInterface $modifierRequirementHandlerService;
 
     private ModifierRequirementService $service;
@@ -69,8 +72,7 @@ class ModifierRequirementServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->addModifierRequirement($modifierActivationRequirement)
-        ;
+            ->addModifierRequirement($modifierActivationRequirement);
         $modifier = new GameModifier($room, $modifierConfig1);
         $modifierCollection = new ModifierCollection([$modifier]);
 
@@ -80,12 +82,11 @@ class ModifierRequirementServiceTest extends TestCase
         $this->modifierRequirementHandlerService
             ->shouldReceive('getModifierRequirementHandler')
             ->once()
-            ->andReturn($requirementHandler)
-        ;
+            ->andReturn($requirementHandler);
         $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(false);
 
         $result = $this->service->getActiveModifiers($modifierCollection);
-        $this->assertEmpty($result);
+        self::assertEmpty($result);
     }
 
     public function testCheckRequirementsMet()
@@ -108,8 +109,7 @@ class ModifierRequirementServiceTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->addModifierRequirement($modifierActivationRequirement)
-        ;
+            ->addModifierRequirement($modifierActivationRequirement);
         $modifier = new GameModifier($room, $modifierConfig1);
         $modifierCollection = new ModifierCollection([$modifier]);
 
@@ -118,11 +118,10 @@ class ModifierRequirementServiceTest extends TestCase
         $this->modifierRequirementHandlerService
             ->shouldReceive('getModifierRequirementHandler')
             ->once()
-            ->andReturn($requirementHandler)
-        ;
+            ->andReturn($requirementHandler);
         $requirementHandler->shouldReceive('checkRequirement')->once()->andReturn(true);
 
         $result = $this->service->getActiveModifiers($modifierCollection);
-        $this->assertEquals($result, $modifierCollection);
+        self::assertEquals($result, $modifierCollection);
     }
 }

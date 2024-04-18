@@ -12,8 +12,8 @@ class TriumphConfigDataLoader extends ConfigDataLoader
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        TriumphConfigRepository $triumphConfigRepository)
-    {
+        TriumphConfigRepository $triumphConfigRepository
+    ) {
         parent::__construct($entityManager);
         $this->triumphConfigRepository = $triumphConfigRepository;
     }
@@ -30,8 +30,7 @@ class TriumphConfigDataLoader extends ConfigDataLoader
                 ->setName($triumphConfigData['name'])
                 ->setTriumph($triumphConfigData['triumph'])
                 ->setIsAllCrew($triumphConfigData['is_all_crew'])
-                ->setTeam($triumphConfigData['team'])
-            ;
+                ->setTeam($triumphConfigData['team']);
 
             $this->entityManager->persist($triumphConfig);
         }

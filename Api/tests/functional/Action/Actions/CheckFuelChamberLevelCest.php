@@ -19,6 +19,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
 {
     private Action $checkFuelChamberLevelActionConfig;
@@ -79,8 +82,7 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
         $combustionChamber = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ENGINE_ROOM));
         $combustionChamber
             ->setName(EquipmentEnum::COMBUSTION_CHAMBER)
-            ->setEquipment($combustionChamberConfig)
-        ;
+            ->setEquipment($combustionChamberConfig);
         $I->haveInRepository($combustionChamber);
 
         return $combustionChamber;

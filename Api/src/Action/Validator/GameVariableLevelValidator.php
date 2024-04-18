@@ -35,15 +35,21 @@ class GameVariableLevelValidator extends ConstraintValidator
         switch ($target) {
             case GameVariableLevel::DAEDALUS:
                 $targetVariables = $value->getPlayer()->getDaedalus()->getGameVariables();
+
                 break;
+
             case GameVariableLevel::PLAYER:
                 $targetVariables = $value->getPlayer()->getGameVariables();
+
                 break;
+
             case GameVariableLevel::TARGET_PLAYER:
                 /** @var Player $targetPlayer */
                 $targetPlayer = $value->getTarget();
                 $targetVariables = $targetPlayer->getGameVariables();
+
                 break;
+
             default:
                 throw new LogicException('unsupported target');
         }
@@ -56,10 +62,13 @@ class GameVariableLevelValidator extends ConstraintValidator
         switch ($checkMode) {
             case GameVariableLevel::IS_MAX:
                 return $this->checkMaxVariableLevel($gameVariable);
+
             case GameVariableLevel::IS_MIN:
                 return $this->checkMinVariableLevel($gameVariable);
+
             case GameVariableLevel::IS_IN_RANGE:
                 return $this->checkInRangeVariableLevel($gameVariable);
+
             default:
                 throw new LogicException('unsupported checkMode');
         }

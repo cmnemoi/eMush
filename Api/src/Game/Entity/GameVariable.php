@@ -8,11 +8,6 @@ use Mush\Game\Entity\Collection\GameVariableCollection;
 #[ORM\Entity]
 class GameVariable
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private ?int $id = null;
-
     #[ORM\ManyToOne(targetEntity: GameVariableCollection::class, inversedBy: 'gameVariable')]
     protected ?GameVariableCollection $gameVariableCollection;
 
@@ -27,12 +22,16 @@ class GameVariable
 
     #[ORM\Column(type: 'integer', length: 255, nullable: true)]
     protected ?int $minValue;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private ?int $id = null;
 
     public function __construct(
         ?GameVariableCollection $variableCollection,
         string $name,
         int $initValue,
-        int $maxValue = null,
+        ?int $maxValue = null,
         ?int $minValue = 0
     ) {
         $this->name = $name;
@@ -186,10 +185,12 @@ class GameVariable
                 }
 
                 return $this;
+
             case 'max_value':
                 $this->maxValue = $value;
 
                 return $this;
+
             case 'min_value':
                 $this->minValue = $value;
 

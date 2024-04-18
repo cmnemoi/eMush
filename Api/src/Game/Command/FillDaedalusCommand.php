@@ -28,6 +28,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class FillDaedalusCommand extends Command
 {
+    private const string OPTION_NUMBER = 'number';
+    private const string OPTION_CHAO_FINOLA = 'chao_finola';
+    private const string OPTION_ANDIE_DEREK = 'andie_derek';
+    private const string OPTION_DAEDALUS_ID = 'daedalus_id';
+    private const string OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
     private HttpClientInterface $httpClient;
     private CharacterConfigRepository $characterConfigRepository;
     private DaedalusRepository $daedalusRepository;
@@ -35,19 +40,15 @@ class FillDaedalusCommand extends Command
     private LoginService $loginService;
     private PlayerServiceInterface $playerService;
     private string $identityServerUri;
-    private const OPTION_NUMBER = 'number';
-    private const OPTION_CHAO_FINOLA = 'chao_finola';
-    private const OPTION_ANDIE_DEREK = 'andie_derek';
-    private const OPTION_DAEDALUS_ID = 'daedalus_id';
-    private const OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
 
-    public function __construct(HttpClientInterface $httpClient,
+    public function __construct(
+        HttpClientInterface $httpClient,
         CharacterConfigRepository $characterConfigRepository,
         DaedalusRepository $daedalusRepository,
         DaedalusServiceInterface $daedalusService,
         LoginService $loginService,
-        PlayerServiceInterface $playerService)
-    {
+        PlayerServiceInterface $playerService
+    ) {
         parent::__construct();
         $this->httpClient = $httpClient;
         $this->characterConfigRepository = $characterConfigRepository;
@@ -56,6 +57,16 @@ class FillDaedalusCommand extends Command
         $this->loginService = $loginService;
         $this->playerService = $playerService;
         $this->identityServerUri = $_ENV['IDENTITY_SERVER_URI'];
+    }
+
+    public function isAndieOrDerek(string $name): bool
+    {
+        return $name === 'andie' || $name === 'derek';
+    }
+
+    public function isChaoOrFinola(string $name): bool
+    {
+        return $name === 'chao' || $name === 'finola';
     }
 
     protected function configure(): void
@@ -67,6 +78,9 @@ class FillDaedalusCommand extends Command
         $this->addOption($this::OPTION_DAEDALUS_LOCALE, null, InputOption::VALUE_REQUIRED, 'Daedalus locale ?', 'fr');
     }
 
+    /**
+     * @psalm-suppress TypeDoesNotContainNull
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -80,7 +94,7 @@ class FillDaedalusCommand extends Command
         $locale = $input->getOption($this::OPTION_DAEDALUS_LOCALE);
         $daedalusId = $input->getOption($this::OPTION_DAEDALUS_ID);
 
-        $io->info("$numberOfMemberToBoard character will be added to daedalus $daedalusId");
+        $io->info("{$numberOfMemberToBoard} character will be added to daedalus {$daedalusId}");
 
         $isChaoAndFinola = $input->getOption($this::OPTION_CHAO_FINOLA) === null;
         $isAndieAndDerek = $input->getOption($this::OPTION_ANDIE_DEREK) === null;
@@ -109,22 +123,25 @@ class FillDaedalusCommand extends Command
             $io->info($name . ' on boarding ...');
 
             if ($isAndieAndDerek && $this->isChaoOrFinola($name)) {
-                $io->info("$name not allowed on daedalus, skipping ...");
+                $io->info("{$name} not allowed on daedalus, skipping ...");
+
                 continue;
             }
             if ($isChaoAndFinola && $this->isAndieOrDerek($name)) {
-                $io->info("$name not allowed on daedalus, skipping ...");
+                $io->info("{$name} not allowed on daedalus, skipping ...");
+
                 continue;
             }
 
             try {
                 $tryToLoginRequest = $this->httpClient->request(
                     'PUT',
-                    "$this->identityServerUri/api/v1/auth/self",
+                    "{$this->identityServerUri}/api/v1/auth/self",
                     ['json' => ['login' => $name, 'password' => '31323334353637383931']]
                 );
                 $result = [];
                 parse_str($tryToLoginRequest->getHeaders()['set-cookie'][0], $result);
+
                 /** @var string $allCharacter */
                 $sid = explode(';', $result['sid'])[0];
 
@@ -135,20 +152,22 @@ class FillDaedalusCommand extends Command
                 ]);
                 $getTokenETResponse = $client->request(
                     'GET',
-                    "$this->identityServerUri/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush@clients&scope=base&state=http://localhost:8081/token",
+                    "{$this->identityServerUri}/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush@clients&scope=base&state=http://localhost:8081/token",
                     ['max_redirects' => 0]
                 );
                 $location = $getTokenETResponse->getHeaders(false)['location'];
                 $queryResult = [];
 
                 $url = parse_url($location[0]);
-                if ($url == null) {
-                    $io->warning("$name cannot join Daedalus : Cannot retrieve url or redirect from ET response for authorization token. Skipping ...");
+                if ($url === null) {
+                    $io->warning("{$name} cannot join Daedalus : Cannot retrieve url or redirect from ET response for authorization token. Skipping ...");
+
                     continue;
                 }
                 $query = $url['query'] ?? null;
-                if ($query == null) {
-                    $io->warning("$name cannot join Daedalus. : Cannot retrieve query part from url from ET response for authorization token. Skipping ...");
+                if ($query === null) {
+                    $io->warning("{$name} cannot join Daedalus. : Cannot retrieve query part from url from ET response for authorization token. Skipping ...");
+
                     continue;
                 }
                 parse_str($query, $queryResult);
@@ -158,22 +177,23 @@ class FillDaedalusCommand extends Command
 
                 $user = $this->loginService->login($fistTokenApi);
 
-                if ($daedalusId == null) {
-                    if ($locale != 'fr' && $locale != 'en') {
-                        $io->error("locale must be fr or en. Found : $locale");
+                if ($daedalusId === null) {
+                    if ($locale !== 'fr' && $locale !== 'en') {
+                        $io->error("locale must be fr or en. Found : {$locale}");
 
                         return Command::FAILURE;
                     }
                     $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($locale, $user);
-                    if ($daedalus == null) {
-                        $io->error("Can't find any available daedalus for $locale / $name. Skipping ...");
+                    if ($daedalus === null) {
+                        $io->error("Can't find any available daedalus for {$locale} / {$name}. Skipping ...");
+
                         continue;
                     }
                     $daedalusId = $daedalus->getId();
                 } else {
                     $daedalus = $this->daedalusRepository->find($daedalusId);
-                    if ($daedalus == null) {
-                        $io->error("Can't fin daedalus with id $daedalusId !");
+                    if ($daedalus === null) {
+                        $io->error("Can't fin daedalus with id {$daedalusId} !");
 
                         return Command::FAILURE;
                     }
@@ -184,7 +204,8 @@ class FillDaedalusCommand extends Command
             } catch (\Exception $e) {
                 $trace = $e->getTraceAsString();
                 $message = $e->getMessage();
-                $io->warning("$name cannot join Daedalus. Error while joining daedalus : $message -> $trace");
+                $io->warning("{$name} cannot join Daedalus. Error while joining daedalus : {$message} -> {$trace}");
+
                 continue;
             }
 
@@ -195,22 +216,12 @@ class FillDaedalusCommand extends Command
                 $isChaoAndFinola = true;
             }
 
-            if ($count == $numberOfMemberToBoard) {
+            if ($count === $numberOfMemberToBoard) {
                 break;
             }
         }
-        $io->info("$count member joined the Daedalus.");
+        $io->info("{$count} member joined the Daedalus.");
 
         return Command::SUCCESS;
-    }
-
-    public function isAndieOrDerek(string $name): bool
-    {
-        return $name == 'andie' || $name == 'derek';
-    }
-
-    public function isChaoOrFinola(string $name): bool
-    {
-        return $name == 'chao' || $name == 'finola';
     }
 }

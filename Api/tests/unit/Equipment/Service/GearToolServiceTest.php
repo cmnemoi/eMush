@@ -28,11 +28,15 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class GearToolServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class GearToolServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
-    /** @var StatusServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private GearToolService $service;
@@ -70,8 +74,7 @@ class GearToolServiceTest extends TestCase
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $item2 = new ItemConfig();
         $item2->setEquipmentName(ItemEnum::PLASTIC_SCRAPS);
@@ -79,19 +82,17 @@ class GearToolServiceTest extends TestCase
         $gameItem2 = new GameItem($player);
         $gameItem2
             ->setName(ItemEnum::PLASTIC_SCRAPS)
-            ->setEquipment($item2)
-        ;
+            ->setEquipment($item2);
 
         $room
-            ->addPlayer($player)
-        ;
+            ->addPlayer($player);
 
         $items = $this->service->getEquipmentsOnReach($player, ReachEnum::SHELVE);
-        $this->assertCount(2, $items);
+        self::assertCount(2, $items);
 
         $items = $this->service->getEquipmentsOnReach($player, ReachEnum::INVENTORY);
-        $this->assertCount(1, $items);
-        $this->assertEquals($gameItem2, $items->first());
+        self::assertCount(1, $items);
+        self::assertSame($gameItem2, $items->first());
     }
 
     public function testGetEquipmentsOnReachByName()
@@ -106,49 +107,45 @@ class GearToolServiceTest extends TestCase
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $room
-            ->addPlayer($player)
-        ;
+            ->addPlayer($player);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::PLASTIC_SCRAPS, ReachEnum::SHELVE);
 
-        $this->assertEmpty($items);
+        self::assertEmpty($items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
 
-        $this->assertEmpty($items);
+        self::assertEmpty($items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
 
-        $this->assertNotEmpty($items);
+        self::assertNotEmpty($items);
 
         $hiddenConfig = new StatusConfig();
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN);
         $hidden = new Status($gameItem, $hiddenConfig);
         $hidden
-            ->setTarget(new Player())
-        ;
+            ->setTarget(new Player());
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE_NOT_HIDDEN);
-        $this->assertEmpty($items);
+        self::assertEmpty($items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
-        $this->assertNotEmpty($items);
+        self::assertNotEmpty($items);
 
         $gameItem2 = new GameItem($player);
         $gameItem2
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::INVENTORY);
-        $this->assertCount(1, $items);
+        self::assertCount(1, $items);
 
         $items = $this->service->getEquipmentsOnReachByName($player, ItemEnum::METAL_SCRAPS, ReachEnum::SHELVE);
-        $this->assertCount(2, $items);
+        self::assertCount(2, $items);
     }
 
     public function testGetActionsTool()
@@ -159,8 +156,7 @@ class GearToolServiceTest extends TestCase
         $action = new Action();
         $action
             ->setActionName(ActionEnum::SHOWER)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$action]));
@@ -168,39 +164,36 @@ class GearToolServiceTest extends TestCase
         $item = new ItemConfig();
         $item
             ->setEquipmentName(ItemEnum::METAL_SCRAPS)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $room
-            ->addPlayer($player)
-        ;
+            ->addPlayer($player);
 
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
-        $this->assertEmpty($actions);
+        self::assertEmpty($actions);
 
         $action->setScope(ActionScopeEnum::ROOM);
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
-        $this->assertNotEmpty($actions);
+        self::assertNotEmpty($actions);
 
         $action->setScope(ActionScopeEnum::INVENTORY);
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
-        $this->assertEmpty($actions);
+        self::assertEmpty($actions);
 
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
-        $this->assertNotEmpty($actions);
+        self::assertNotEmpty($actions);
 
         $action->setTarget(GameItem::class);
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
-        $this->assertEmpty($actions);
+        self::assertEmpty($actions);
 
         $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY], GameItem::class);
-        $this->assertNotEmpty($actions);
+        self::assertNotEmpty($actions);
     }
 
     public function testUsedTool()
@@ -211,8 +204,7 @@ class GearToolServiceTest extends TestCase
         $action = new Action();
         $action
             ->setActionName(ActionEnum::SHOWER)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$action]));
@@ -220,24 +212,20 @@ class GearToolServiceTest extends TestCase
         $item = new ItemConfig();
         $item
             ->setEquipmentName(ItemEnum::METAL_SCRAPS)
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $room
-            ->addPlayer($player)
-        ;
+            ->addPlayer($player);
 
         $action2 = new Action();
         $action2
             ->setActionName(ActionEnum::REPAIR)
-            ->setScope(ActionScopeEnum::ROOM)
-        ;
+            ->setScope(ActionScopeEnum::ROOM);
 
         $tool2 = new Tool();
         $tool2->setActions(new ArrayCollection([$action2]));
@@ -245,42 +233,38 @@ class GearToolServiceTest extends TestCase
         $item2 = new ItemConfig();
         $item2
             ->setEquipmentName(ItemEnum::PLASTIC_SCRAPS)
-            ->setMechanics(new ArrayCollection([$tool2]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool2]));
 
         $gameItem2 = new GameItem($room);
         $gameItem2
             ->setName(ItemEnum::PLASTIC_SCRAPS)
-            ->setEquipment($item2)
-        ;
+            ->setEquipment($item2);
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::TAKE);
-        $this->assertNull($usedTool);
+        self::assertNull($usedTool);
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
-        $this->assertEquals($gameItem2, $usedTool);
+        self::assertSame($gameItem2, $usedTool);
 
         // Two tool with the same action but 1 with charges
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setDischargeStrategies([ActionEnum::REPAIR]);
         $chargeStatus = new ChargeStatus($gameItem, $chargeConfig);
         $chargeStatus
-            ->setCharge(3)
-        ;
+            ->setCharge(3);
 
         $action->setActionName(ActionEnum::REPAIR);
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
-        $this->assertEquals($gameItem2, $usedTool);
+        self::assertSame($gameItem2, $usedTool);
 
         // Two tool with the same action but 1 is charged and the other have no charge left
         $chargeStatus2 = new ChargeStatus($gameItem2, $chargeConfig);
         $chargeStatus2
-            ->setCharge(0)
-        ;
+            ->setCharge(0);
 
         $usedTool = $this->service->getUsedTool($player, ActionEnum::REPAIR);
-        $this->assertEquals($gameItem, $usedTool);
+        self::assertSame($gameItem, $usedTool);
     }
 
     public function testApplyChargeCost()
@@ -291,108 +275,91 @@ class GearToolServiceTest extends TestCase
         $action = new Action();
         $action
             ->setActionName(ActionEnum::REPAIR)
-            ->setScope(ActionScopeEnum::CURRENT)
-        ;
+            ->setScope(ActionScopeEnum::CURRENT);
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$action]));
         $toolConfig = new ItemConfig();
         $toolConfig
             ->setEquipmentName('tool')
-            ->setMechanics(new ArrayCollection([$tool]))
-        ;
+            ->setMechanics(new ArrayCollection([$tool]));
         $gameTool = new GameItem($room);
         $gameTool
             ->setName('tool')
-            ->setEquipment($toolConfig)
-        ;
+            ->setEquipment($toolConfig);
 
         $chargeConfig = new ChargeStatusConfig();
         $chargeConfig->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setDischargeStrategies([ActionEnum::REPAIR]);
         $chargeStatus1 = new ChargeStatus($gameTool, $chargeConfig);
         $chargeStatus1
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $modifier1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier1
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setTargetEvent(ActionEnum::REPAIR)
-            ->setModifierRange(ReachEnum::INVENTORY)
-        ;
+            ->setModifierRange(ReachEnum::INVENTORY);
         $gear1 = new Gear();
         $gear1->setModifierConfigs(new ArrayCollection([$modifier1]));
         $gearConfig1 = new ItemConfig();
         $gearConfig1
             ->setEquipmentName('gear1')
-            ->setMechanics(new ArrayCollection([$gear1]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear1]));
         $gameGear1 = new GameItem($room);
         $gameGear1
             ->setName('gear1')
-            ->setEquipment($gearConfig1)
-        ;
+            ->setEquipment($gearConfig1);
 
         $modifier2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier2
             ->setTargetVariable(ModifierTargetEnum::PERCENTAGE)
             ->setDelta(1.5)
             ->setTargetEvent(ActionEnum::REPAIR)
-            ->setModifierRange(ReachEnum::INVENTORY)
-        ;
+            ->setModifierRange(ReachEnum::INVENTORY);
         $gear2 = new Gear();
         $gear2->setModifierConfigs(new ArrayCollection([$modifier2]));
         $gearConfig2 = new ItemConfig();
         $gearConfig2
             ->setEquipmentName('gear2')
-            ->setMechanics(new ArrayCollection([$gear2]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear2]));
         $gameGear2 = new GameItem($room);
         $gameGear2
             ->setName('gear2')
-            ->setEquipment($gearConfig2)
-        ;
+            ->setEquipment($gearConfig2);
         $chargeStatus2 = new ChargeStatus($gameGear2, $chargeConfig);
         $chargeStatus2
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $modifier3 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier3
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
             ->setDelta(1)
             ->setTargetEvent(ActionEnum::REPAIR)
-            ->setModifierRange(ReachEnum::INVENTORY)
-        ;
+            ->setModifierRange(ReachEnum::INVENTORY);
         $gear3 = new Gear();
         $gear3->setModifierConfigs(new ArrayCollection([$modifier3]));
         $gearConfig3 = new ItemConfig();
         $gearConfig3
             ->setEquipmentName('gear3')
-            ->setMechanics(new ArrayCollection([$gear3]))
-        ;
+            ->setMechanics(new ArrayCollection([$gear3]));
         $gameGear3 = new GameItem($room);
         $gameGear3
             ->setName('gear3')
-            ->setEquipment($gearConfig1)
-        ;
+            ->setEquipment($gearConfig1);
         $chargeStatus3 = new ChargeStatus($gameGear3, $chargeConfig);
         $chargeStatus3
-            ->setCharge(0)
-        ;
+            ->setCharge(0);
 
         $room->addPlayer($player);
 
         $this->statusService->shouldReceive('updateCharge')
             ->andReturn($chargeStatus1)
-            ->once()
-        ;
+            ->once();
         $this->service->applyChargeCost($player, ActionEnum::REPAIR);
 
         $this->statusService->shouldReceive('updateCharge')
             ->andReturn($chargeStatus1)
-            ->once()
-        ;
+            ->once();
         $this->service->applyChargeCost($player, ActionEnum::REPAIR);
     }
 }

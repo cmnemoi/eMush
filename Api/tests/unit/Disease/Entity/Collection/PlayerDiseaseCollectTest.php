@@ -9,7 +9,10 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use PHPUnit\Framework\TestCase;
 
-class PlayerDiseaseCollectTest extends TestCase
+/**
+ * @internal
+ */
+final class PlayerDiseaseCollectTest extends TestCase
 {
     public function testGetActiveDisease()
     {
@@ -22,16 +25,16 @@ class PlayerDiseaseCollectTest extends TestCase
 
         $diseaseCollection = new PlayerDiseaseCollection();
 
-        $this->assertEmpty($diseaseCollection->getActiveDiseases());
+        self::assertEmpty($diseaseCollection->getActiveDiseases());
 
         $diseaseCollection->add($incubatingPlayerDisease);
         $diseaseCollection->add($otherPlayerDisease);
 
-        $this->assertEmpty($diseaseCollection->getActiveDiseases());
+        self::assertEmpty($diseaseCollection->getActiveDiseases());
 
         $diseaseCollection->add($activePlayerDisease);
 
-        $this->assertCount(1, $diseaseCollection->getActiveDiseases());
+        self::assertCount(1, $diseaseCollection->getActiveDiseases());
     }
 
     public function testByDiseaseType()
@@ -54,15 +57,15 @@ class PlayerDiseaseCollectTest extends TestCase
             $diseaseType, $disorderType, $otherType,
         ]);
 
-        $this->assertEmpty($diseaseCollection->getByDiseaseType('something'));
+        self::assertEmpty($diseaseCollection->getByDiseaseType('something'));
 
-        $this->assertCount(1, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISEASE));
-        $this->assertContains($diseaseType, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISEASE));
+        self::assertCount(1, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISEASE));
+        self::assertContains($diseaseType, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISEASE));
 
-        $this->assertCount(1, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISORDER));
-        $this->assertContains($disorderType, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISORDER));
+        self::assertCount(1, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISORDER));
+        self::assertContains($disorderType, $diseaseCollection->getByDiseaseType(MedicalConditionTypeEnum::DISORDER));
 
-        $this->assertCount(1, $diseaseCollection->getByDiseaseType('other'));
-        $this->assertContains($otherType, $diseaseCollection->getByDiseaseType('other'));
+        self::assertCount(1, $diseaseCollection->getByDiseaseType('other'));
+        self::assertContains($otherType, $diseaseCollection->getByDiseaseType('other'));
     }
 }

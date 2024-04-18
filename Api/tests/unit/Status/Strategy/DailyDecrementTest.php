@@ -13,9 +13,12 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class DailyDecrementTest extends TestCase
+/**
+ * @internal
+ */
+final class DailyDecrementTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private AbstractChargeStrategy $strategy;
@@ -45,8 +48,7 @@ class DailyDecrementTest extends TestCase
 
         $player = new Player();
         $player
-            ->addStatus($status)
-        ;
+            ->addStatus($status);
 
         $this->statusService->shouldReceive('updateCharge')->with($status, -1, [EventEnum::NEW_DAY], $time)->once();
 
@@ -60,8 +62,7 @@ class DailyDecrementTest extends TestCase
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_DECREMENT)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
         $status = new ChargeStatus(new Player(), $statusConfig);
 
         $status->getVariableByName($status->getName())->setValue(10);

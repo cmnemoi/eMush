@@ -22,13 +22,18 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlanetServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class PlanetServiceTest extends TestCase
 {
-    /** @var PlanetRepository|Mockery\Mock */
+    /** @var Mockery\Mock|PlanetRepository */
     private PlanetRepository $planetRepository;
+
     /** @var EntityManager|Mockery\Mock */
     private EntityManager $entityManager;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     private PlanetService $service;
@@ -86,8 +91,7 @@ class PlanetServiceTest extends TestCase
             ->setWeightAtPlanetAnalysis(1)
             ->setWeightAtPlanetExploration(1)
             ->setMaxPerPlanet(4)
-            ->setExplorationEvents([])
-        ;
+            ->setExplorationEvents([]);
         $this->gameConfig->setPlanetSectorConfigs([$planetSectorConfig1]);
 
         // when creating a planet
@@ -110,8 +114,8 @@ class PlanetServiceTest extends TestCase
 
         $planet = $this->service->createPlanet($this->player);
 
-        $this->assertEquals(4, $planet->getSize());
-        $this->assertCount(4, $planet->getSectors());
+        self::assertSame(4, $planet->getSize());
+        self::assertCount(4, $planet->getSectors());
     }
 
     public function testMaxSectorPerPlanetTest()
@@ -125,8 +129,7 @@ class PlanetServiceTest extends TestCase
             ->setWeightAtPlanetAnalysis(1)
             ->setWeightAtPlanetExploration(1)
             ->setMaxPerPlanet(4)
-            ->setExplorationEvents([])
-        ;
+            ->setExplorationEvents([]);
         $planetSectorConfig2 = new PlanetSectorConfig();
         $planetSectorConfig2
             ->setName('sector2_test')
@@ -135,8 +138,7 @@ class PlanetServiceTest extends TestCase
             ->setWeightAtPlanetAnalysis(1)
             ->setWeightAtPlanetExploration(1)
             ->setMaxPerPlanet(1)
-            ->setExplorationEvents([])
-        ;
+            ->setExplorationEvents([]);
         $this->gameConfig->setPlanetSectorConfigs([$planetSectorConfig1, $planetSectorConfig2]);
 
         // when creating a planet
@@ -160,8 +162,8 @@ class PlanetServiceTest extends TestCase
 
         $planet = $this->service->createPlanet($this->player);
 
-        $this->assertEquals(4, $planet->getSize());
-        $this->assertCount(4, $planet->getSectors());
+        self::assertSame(4, $planet->getSize());
+        self::assertCount(4, $planet->getSectors());
     }
 
     private function randomPlanetNameGenerationExpectations(): void
@@ -185,18 +187,15 @@ class PlanetServiceTest extends TestCase
             ->shouldReceive('findAllByDaedalus')
             ->with($this->daedalus)
             ->andReturn([])
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('rollTwiceAndAverage')
             ->with(2, 7)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->randomService
             ->shouldReceive('getRandomElement')
             ->andReturn(new SpaceCoordinates(SpaceOrientationEnum::NORTH, 2))
-            ->once()
-        ;
+            ->once();
     }
 }

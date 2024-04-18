@@ -35,7 +35,7 @@ class ModifierSubscriber implements EventSubscriberInterface
         $modifierName = $event->getModifier()->getModifierConfig()->getModifierName();
         $logMap = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VALUE];
 
-        if ($modifierName !== null && array_key_exists($modifierName, $logMap)) {
+        if ($modifierName !== null && \array_key_exists($modifierName, $logMap)) {
             $logKey = $logMap[$modifierName];
             $logVisibility = LogEnum::MODIFIER_LOG_ENUM[LogEnum::VISIBILITY][$modifierName];
 
@@ -54,13 +54,19 @@ class ModifierSubscriber implements EventSubscriberInterface
             case $holder instanceof Player:
                 $player = $holder;
                 $place = $player->getPlace();
+
                 break;
+
             case $holder instanceof Place:
                 $place = $holder;
+
                 break;
+
             case $holder instanceof GameEquipment:
                 $place = $holder->getPlace();
+
                 break;
+
             case $holder instanceof Daedalus:
             default:
                 return;

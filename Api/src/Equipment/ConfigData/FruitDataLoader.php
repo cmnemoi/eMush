@@ -17,7 +17,7 @@ class FruitDataLoader extends RationDataLoader
 
             if ($fruit === null) {
                 $fruit = new Fruit();
-            } elseif (!($fruit instanceof Fruit)) {
+            } elseif (!$fruit instanceof Fruit) {
                 $this->entityManager->remove($fruit);
                 $fruit = new Fruit();
             }

@@ -22,9 +22,12 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
-class SurgeryActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class SurgeryActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var EventModifierServiceInterface|Mockery\Mock */
@@ -88,8 +91,7 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
@@ -101,14 +103,12 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::FAIL)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -118,7 +118,7 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
+        self::assertInstanceOf(Fail::class, $result);
     }
 
     public function testExecuteSuccess()
@@ -152,8 +152,7 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
@@ -165,14 +164,12 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::SUCCESS)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -182,8 +179,8 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertNotInstanceOf(CriticalSuccess::class, $result);
+        self::assertInstanceOf(Success::class, $result);
+        self::assertNotInstanceOf(CriticalSuccess::class, $result);
     }
 
     public function testExecuteCriticalSuccess()
@@ -217,8 +214,7 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEvent)
-            ->once()
-        ;
+            ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
             $this->actionEntity,
@@ -230,14 +226,12 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService
             ->shouldReceive('computeEventModifications')
             ->andReturn($actionVariableEventCritical)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService->shouldReceive('outputCriticalChances')
             ->with(10, 0, 15)
             ->andReturn(ActionOutputEnum::CRITICAL_SUCCESS)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -247,6 +241,6 @@ class SurgeryActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(CriticalSuccess::class, $result);
+        self::assertInstanceOf(CriticalSuccess::class, $result);
     }
 }

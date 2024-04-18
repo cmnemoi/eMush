@@ -17,7 +17,10 @@ use Mush\Status\Service\PlayerStatusServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class PlayerStatusServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class PlayerStatusServiceTest extends TestCase
 {
     private Mockery\Mock|StatusServiceInterface $statusService;
 
@@ -90,7 +93,7 @@ class PlayerStatusServiceTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
-        $this->assertNotEmpty($player->getStatuses());
+        self::assertNotEmpty($player->getStatuses());
 
         // Player Already suicidal, improvement of mental
         $player = $this->createPlayer(0, 0, 0, 0, 0);
@@ -124,7 +127,7 @@ class PlayerStatusServiceTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->playerStatusService->handleMoralStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
 
         // Player was demoralized
         $player = $this->createPlayer(0, 0, 0, 0, 0);
@@ -172,8 +175,7 @@ class PlayerStatusServiceTest extends TestCase
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player
             ->setSatiety(-40)
-            ->setPlace(new Place())
-        ;
+            ->setPlace(new Place());
 
         $this->statusService->shouldReceive('removeStatus')->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();
@@ -205,8 +207,7 @@ class PlayerStatusServiceTest extends TestCase
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player
             ->setSatiety(-40)
-            ->setPlace(new Place())
-        ;
+            ->setPlace(new Place());
         $fullStomachConfig = new StatusConfig();
         $fullStomachConfig->setStatusName(PlayerStatusEnum::FULL_STOMACH);
         new Status($player, $fullStomachConfig);
@@ -274,14 +275,14 @@ class PlayerStatusServiceTest extends TestCase
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
 
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player->setSatiety(-26);
         $mushStatus = new Status($player, $mushConfig);
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
-        $this->assertCount(1, $player->getStatuses());
+        self::assertCount(1, $player->getStatuses());
     }
 
     protected function createPlayer(int $health, int $moral, int $movement, int $action, int $satiety): Player
@@ -296,14 +297,12 @@ class PlayerStatusServiceTest extends TestCase
             ->setInitMovementPoint($movement)
             ->setInitMoralPoint($moral)
             ->setInitSatiety($satiety)
-            ->setInitHealthPoint($health)
-        ;
+            ->setInitHealthPoint($health);
 
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus(new Daedalus())
-        ;
+            ->setDaedalus(new Daedalus());
 
         $playerInfo = new PlayerInfo(
             $player,

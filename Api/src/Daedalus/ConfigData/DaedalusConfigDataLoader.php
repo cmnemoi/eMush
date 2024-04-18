@@ -19,8 +19,8 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
         EntityManagerInterface $entityManager,
         DaedalusConfigRepository $daedalusConfigRepository,
         PlaceConfigRepository $placeConfigRepository,
-        RandomItemPlacesRepository $randomItemPlacesRepository)
-    {
+        RandomItemPlacesRepository $randomItemPlacesRepository
+    ) {
         parent::__construct($entityManager);
         $this->daedalusConfigRepository = $daedalusConfigRepository;
         $this->placeConfigRepository = $placeConfigRepository;
@@ -52,8 +52,7 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setDailySporeNb($daedalusConfigData['dailySporeNb'])
                 ->setNbMush($daedalusConfigData['nbMush'])
                 ->setCyclePerGameDay($daedalusConfigData['cyclePerGameDay'])
-                ->setCycleLength($daedalusConfigData['cycleLength'])
-            ;
+                ->setCycleLength($daedalusConfigData['cycleLength']);
 
             $this->setDaedalusConfigRandomItemPlaces($daedalusConfig, $daedalusConfigData);
             $this->setDaedalusConfigPlaceConfigs($daedalusConfig, $daedalusConfigData);

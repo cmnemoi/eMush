@@ -62,6 +62,7 @@ class RoomEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -75,14 +76,18 @@ class RoomEventCest
 
         $roomEvent = new RoomEvent($room, [RoomEvent::ELECTRIC_ARC], $time);
 
-        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
-        }
+        $I->expectThrowable(
+            \LogicException::class,
+            function () use ($roomEvent) {
+                $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
+            }
         );
 
-        $I->expectThrowable(\LogicException::class, function () use ($roomEvent) {
-            $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
-        }
+        $I->expectThrowable(
+            \LogicException::class,
+            function () use ($roomEvent) {
+                $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
+            }
         );
     }
 
@@ -99,6 +104,7 @@ class RoomEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -112,6 +118,7 @@ class RoomEventCest
         $I->haveInRepository($channel);
 
         $time = new \DateTime();
+
         /** @var Place $room */
         $room = $I->have(Place::class);
 
@@ -142,10 +149,13 @@ class RoomEventCest
     public function testTremor(FunctionalTester $I)
     {
         $time = new \DateTime();
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['difficultyConfig' => $difficultyConfig]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
 
@@ -156,6 +166,7 @@ class RoomEventCest
 
         /** @var Place $roomWithPlayers */
         $roomWithPlayers = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ALPHA_BAY]);
+
         /** @var Place $roomWithoutPlayers */
         $roomWithoutPlayers = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::BRAVO_BAY]);
 
@@ -163,9 +174,11 @@ class RoomEventCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $roomWithPlayers]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -175,7 +188,7 @@ class RoomEventCest
         $I->refreshEntities($player);
 
         // filter rooms with players
-        $rooms = $rooms->filter(function (Place $room) {
+        $rooms = $rooms->filter(static function (Place $room) {
             return $room->getPlayers()->getPlayerAlive()->count() > 0;
         });
 
@@ -202,13 +215,14 @@ class RoomEventCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $time = new \DateTime();
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'difficultyConfig' => $difficultyConfig,
@@ -221,6 +235,7 @@ class RoomEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -230,8 +245,7 @@ class RoomEventCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -239,9 +253,11 @@ class RoomEventCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -252,30 +268,29 @@ class RoomEventCest
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
+
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+
         /** @var EquipmentConfig $tabulatrix */
         $tabulatrixConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig, 'name' => EquipmentEnum::TABULATRIX]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('some other name')
-        ;
+            ->setName('some other name');
         $I->haveInRepository($gameItem);
 
         $tabulatrix = new GameEquipment($room);
         $tabulatrix
             ->setEquipment($tabulatrixConfig)
-            ->setName(EquipmentEnum::TABULATRIX)
-        ;
+            ->setName(EquipmentEnum::TABULATRIX);
 
         $I->haveInRepository($tabulatrix);
 
@@ -308,13 +323,14 @@ class RoomEventCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $time = new \DateTime();
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'difficultyConfig' => $difficultyConfig,
@@ -327,6 +343,7 @@ class RoomEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -336,8 +353,7 @@ class RoomEventCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -345,9 +361,11 @@ class RoomEventCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -358,30 +376,29 @@ class RoomEventCest
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
+
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
+
         /** @var EquipmentConfig $tabulatrix */
         $tabulatrixConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig, 'name' => EquipmentEnum::TABULATRIX]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $gameItem = new GameItem($room);
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName('some other name')
-        ;
+            ->setName('some other name');
         $I->haveInRepository($gameItem);
 
         $tabulatrix = new GameEquipment($room);
         $tabulatrix
             ->setEquipment($tabulatrixConfig)
-            ->setName(EquipmentEnum::TABULATRIX)
-        ;
+            ->setName(EquipmentEnum::TABULATRIX);
         $I->haveInRepository($tabulatrix);
 
         $equipment = new ArrayCollection([$gameEquipment, $tabulatrix]);
@@ -417,13 +434,14 @@ class RoomEventCest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $time = new \DateTime();
+
         /** @var DifficultyConfig $difficultyConfig */
         $difficultyConfig = $I->have(DifficultyConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'difficultyConfig' => $difficultyConfig,
@@ -436,6 +454,7 @@ class RoomEventCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -445,20 +464,22 @@ class RoomEventCest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'room2']);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -473,8 +494,7 @@ class RoomEventCest
         $gameEquipment = new Door($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $room->addDoor($gameEquipment);

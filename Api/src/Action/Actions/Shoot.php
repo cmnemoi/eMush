@@ -62,11 +62,6 @@ class Shoot extends AttemptAction
         $this->diseaseCauseService = $diseaseCauseService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -91,6 +86,11 @@ class Shoot extends AttemptAction
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
+    }
+
     // Special checkResult for Shoot action waiting for a refactor
     protected function checkResult(): ActionResult
     {
@@ -107,25 +107,25 @@ class Shoot extends AttemptAction
             }
 
             return new Success();
-        } else {
-            if ($this->rollCriticalChances($blaster->getCriticalFailRate())) {
-                return new CriticalFail();
-            }
-
-            return new Fail();
         }
+        if ($this->rollCriticalChances($blaster->getCriticalFailRate())) {
+            return new CriticalFail();
+        }
+
+        return new Fail();
     }
 
     protected function applyEffect(ActionResult $result): void
     {
         $player = $this->player;
+
         /** @var Player $target */
         $target = $this->target;
 
         $blaster = $this->getPlayerBlaster();
 
         if ($result instanceof Success) {
-            $damage = intval($this->randomService->getSingleRandomElementFromProbaCollection($blaster->getBaseDamageRange()));
+            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($blaster->getBaseDamageRange());
             $damageEvent = $this->createDamageEvent($damage, $target);
 
             if ($result instanceof OneShot) {
@@ -141,7 +141,8 @@ class Shoot extends AttemptAction
                 $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
 
                 return;
-            } elseif ($result instanceof CriticalSuccess) {
+            }
+            if ($result instanceof CriticalSuccess) {
                 $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::CRITICAL_SUCCESS_KNIFE, $target);
                 $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
             }
@@ -158,7 +159,7 @@ class Shoot extends AttemptAction
     {
         /** @var GameItem $blasterItem */
         $blasterItem = $this->player->getEquipments()->filter(
-            fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::BLASTER && $gameItem->isOperational()
+            static fn (GameItem $gameItem) => $gameItem->getName() === ItemEnum::BLASTER && $gameItem->isOperational()
         )->first();
 
         if (!$blasterItem instanceof GameItem) {

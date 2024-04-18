@@ -20,11 +20,14 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class PlaceNormalizerTest extends TestCase
+/**
+ * @internal
+ */
+final class PlaceNormalizerTest extends TestCase
 {
     private PlaceNormalizer $normalizer;
 
-    /** @var TranslationServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     /**
@@ -73,8 +76,8 @@ class PlaceNormalizerTest extends TestCase
             'type' => PlaceTypeEnum::ROOM,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testRoomWithDoorsNormalizer()
@@ -118,8 +121,8 @@ class PlaceNormalizerTest extends TestCase
             'type' => PlaceTypeEnum::ROOM,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testRoomWithItemsNonStackedNormalizer()
@@ -159,8 +162,8 @@ class PlaceNormalizerTest extends TestCase
             'type' => PlaceTypeEnum::ROOM,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testRoomWithItemsStackedNormalizer()
@@ -202,8 +205,8 @@ class PlaceNormalizerTest extends TestCase
             'type' => PlaceTypeEnum::ROOM,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testRoomWithItemsStackedDifferentStatusNormalizer()
@@ -250,8 +253,8 @@ class PlaceNormalizerTest extends TestCase
             'type' => PlaceTypeEnum::ROOM,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     private function createGameItem(string $name, $isStackable = false): GameItem
@@ -261,12 +264,10 @@ class PlaceNormalizerTest extends TestCase
 
         $gameItem
             ->setEquipment($itemConfig)
-            ->setName($name)
-        ;
+            ->setName($name);
         $itemConfig
             ->setIsStackable($isStackable)
-            ->setEquipmentName($name)
-        ;
+            ->setEquipmentName($name);
 
         return $gameItem;
     }

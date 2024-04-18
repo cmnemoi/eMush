@@ -63,15 +63,21 @@ class ModifierEvent extends AbstractGameEvent
                 $place = $modifierHolder->getPlace();
                 $logParameters[$place->getLogKey()] = $place->getLogName();
                 $logParameters['target_' . $modifierHolder->getLogKey()] = $modifierHolder->getLogName();
+
                 break;
+
             case $modifierHolder instanceof Place:
                 $logParameters[$modifierHolder->getLogKey()] = $modifierHolder->getLogName();
+
                 break;
+
             case $modifierHolder instanceof GameEquipment:
                 $place = $modifierHolder->getPlace();
                 $logParameters[$place->getLogKey()] = $place->getLogName();
                 $logParameters['target_' . $modifierHolder->getLogKey()] = $modifierHolder->getLogName();
+
                 break;
+
             default:
                 return $logParameters;
         }

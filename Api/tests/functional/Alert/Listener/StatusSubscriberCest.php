@@ -62,19 +62,18 @@ class StatusSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -86,8 +85,7 @@ class StatusSubscriberCest
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
 
         $I->haveInRepository($gravitySimulator);
 
@@ -121,19 +119,18 @@ class StatusSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -145,8 +142,7 @@ class StatusSubscriberCest
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
             ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
         $I->haveInRepository($gravitySimulator);
 
         $broken = new Status($gravitySimulator, $statusConfig);
@@ -165,8 +161,7 @@ class StatusSubscriberCest
         $alertBroken
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::BROKEN_EQUIPMENTS)
-            ->addAlertElement($reportedAlert)
-        ;
+            ->addAlertElement($reportedAlert);
 
         $I->haveInRepository($alertBroken);
 
@@ -203,19 +198,18 @@ class StatusSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -227,8 +221,7 @@ class StatusSubscriberCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
 
         $I->haveInRepository($gameEquipment);
 
@@ -258,19 +251,18 @@ class StatusSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -282,8 +274,7 @@ class StatusSubscriberCest
         $gameEquipment = new Door($room);
         $gameEquipment
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
 
         $I->haveInRepository($gameEquipment);
 
@@ -313,19 +304,18 @@ class StatusSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -337,8 +327,7 @@ class StatusSubscriberCest
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
             ->setName(EquipmentEnum::BED)
-            ->setEquipment($gravitySimulatorConfig)
-        ;
+            ->setEquipment($gravitySimulatorConfig);
 
         $I->haveInRepository($gravitySimulator);
 
@@ -350,8 +339,7 @@ class StatusSubscriberCest
         $alertBroken
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::BROKEN_EQUIPMENTS)
-            ->addAlertElement($reportedAlert)
-        ;
+            ->addAlertElement($reportedAlert);
 
         $I->haveInRepository($alertBroken);
 
@@ -378,19 +366,18 @@ class StatusSubscriberCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -402,8 +389,7 @@ class StatusSubscriberCest
         $gameItem = new GameItem($room);
         $gameItem
             ->setName(ItemEnum::DRILL)
-            ->setEquipment($drillConfig)
-        ;
+            ->setEquipment($drillConfig);
 
         $I->haveInRepository($gameItem);
 

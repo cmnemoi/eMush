@@ -17,7 +17,7 @@ class PatrolShipDataLoader extends MechanicsDataLoader
 
             if ($patrolShip === null) {
                 $patrolShip = new PatrolShip();
-            } elseif (!($patrolShip instanceof PatrolShip)) {
+            } elseif (!$patrolShip instanceof PatrolShip) {
                 $this->entityManager->remove($patrolShip);
                 $this->entityManager->flush();
                 $patrolShip = new PatrolShip();
@@ -32,8 +32,7 @@ class PatrolShipDataLoader extends MechanicsDataLoader
                 ->setFailedManoeuvreDaedalusDamage($patrolShipData['failedManoeuvreDaedalusDamage'])
                 ->setFailedManoeuvrePatrolShipDamage($patrolShipData['failedManoeuvrePatrolShipDamage'])
                 ->setFailedManoeuvrePlayerDamage($patrolShipData['failedManoeuvrePlayerDamage'])
-                ->setNumberOfExplorationSteps($patrolShipData['numberOfExplorationSteps'])
-            ;
+                ->setNumberOfExplorationSteps($patrolShipData['numberOfExplorationSteps']);
             $this->setMechanicsActions($patrolShip, $patrolShipData);
 
             $this->entityManager->persist($patrolShip);

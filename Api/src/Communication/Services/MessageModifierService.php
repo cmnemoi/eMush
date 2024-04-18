@@ -13,13 +13,13 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 
 class MessageModifierService implements MessageModifierServiceInterface
 {
+    public const PARANOIA_DENIAL = 50;
     private const COPROLALIA_TRIGGER_CHANCE = 33;
     private const COPROLALIA_REPLACE_CHANCE = 50;
 
     private const PARANOIA_TRIGGER_CHANCE = 33;
     private const PARANOIA_REPLACE_CHANCE = 60;
     private const PARANOIA_ACCUSE_CHANCE = 50;
-    public const PARANOIA_DENIAL = 50;
 
     private RandomServiceInterface $randomService;
     private TranslationServiceInterface $translationService;
@@ -92,8 +92,7 @@ class MessageModifierService implements MessageModifierServiceInterface
         }
 
         $message
-            ->setMessage($messageContent)
-        ;
+            ->setMessage($messageContent);
 
         return $message;
     }
@@ -182,7 +181,7 @@ class MessageModifierService implements MessageModifierServiceInterface
         $translationParameters = $message->getTranslationParameters();
         if (
             $message->getAuthor() === $player->getPlayerInfo()
-            && array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters)
+            && \array_key_exists(DiseaseMessagesEnum::ORIGINAL_MESSAGE, $translationParameters)
             && $translationParameters[DiseaseMessagesEnum::MODIFICATION_CAUSE] === MessageModificationEnum::PARANOIA_MESSAGES
         ) {
             $message->setMessage($translationParameters[DiseaseMessagesEnum::ORIGINAL_MESSAGE]);
@@ -196,6 +195,7 @@ class MessageModifierService implements MessageModifierServiceInterface
         $characterConfigs = $player->getDaedalus()->getGameConfig()->getCharactersConfig();
 
         $characters = [];
+
         /** @var CharacterConfig $characterConfig */
         foreach ($characterConfigs as $characterConfig) {
             $characterName = $characterConfig->getCharacterName();
@@ -211,7 +211,7 @@ class MessageModifierService implements MessageModifierServiceInterface
 
     private function getVersionParameter(array $parameters, string $versionKey): array
     {
-        if (array_key_exists($versionKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+        if (\array_key_exists($versionKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$versionKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }

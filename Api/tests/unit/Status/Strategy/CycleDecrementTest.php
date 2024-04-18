@@ -13,9 +13,12 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class CycleDecrementTest extends TestCase
+/**
+ * @internal
+ */
+final class CycleDecrementTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 
@@ -53,8 +56,7 @@ class CycleDecrementTest extends TestCase
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_DECREMENT)
             ->setMaxCharge(10)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
 
         $status = new ChargeStatus(new Player(), $statusConfig);
         $status->getVariableByName($status->getName())->setValue(10);

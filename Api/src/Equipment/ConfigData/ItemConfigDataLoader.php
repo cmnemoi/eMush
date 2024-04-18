@@ -17,7 +17,7 @@ class ItemConfigDataLoader extends EquipmentConfigDataLoader
 
             if ($itemConfig === null) {
                 $itemConfig = new ItemConfig();
-            } elseif (!($itemConfig instanceof ItemConfig)) {
+            } elseif (!$itemConfig instanceof ItemConfig) {
                 $this->entityManager->remove($itemConfig);
                 $itemConfig = new ItemConfig();
             }

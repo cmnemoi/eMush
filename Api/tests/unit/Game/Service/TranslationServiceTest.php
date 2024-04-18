@@ -13,9 +13,12 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class TranslationServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class TranslationServiceTest extends TestCase
 {
-    /** @var TranslatorInterface|Mockery\Mock */
+    /** @var Mockery\Mock|TranslatorInterface */
     private TranslatorInterface $translator;
 
     private TranslationService $translationService;
@@ -46,8 +49,7 @@ class TranslationServiceTest extends TestCase
         $this->translator->shouldReceive('trans')
             ->with('key', ['quantity' => 1], 'domain', LanguageEnum::FRENCH)
             ->andReturn('translated message')
-            ->once()
-        ;
+            ->once();
         $this->translationService->translate('key', ['quantity' => 1], 'domain', LanguageEnum::FRENCH);
     }
 
@@ -58,15 +60,13 @@ class TranslationServiceTest extends TestCase
             ->shouldReceive('trans')
             ->with(CharacterEnum::PAOLA . '.name', ['character' => 'paola'], 'characters', LanguageEnum::FRENCH)
             ->andReturn('Andie')
-            ->once()
-        ;
+            ->once();
 
         $this->translator
             ->shouldReceive('trans')
             ->with('key', ['character' => 'Andie', 'character_gender' => 'female'], 'someOtherDomain', LanguageEnum::FRENCH)
             ->andReturn('translated message')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService->translate('key', ['character' => CharacterEnum::PAOLA], 'someOtherDomain', LanguageEnum::FRENCH);
     }
@@ -77,14 +77,12 @@ class TranslationServiceTest extends TestCase
         $this->translator
             ->shouldReceive('trans')
             ->with(CharacterEnum::PAOLA . '.name', ['target_character' => 'paola'], 'characters', LanguageEnum::FRENCH)
-            ->andReturn('Andie')
-        ;
+            ->andReturn('Andie');
 
         $this->translator->shouldReceive('trans')
             ->with('key', ['target_character' => 'Andie', 'target_character_gender' => 'female'], 'someOtherDomain', LanguageEnum::FRENCH)
             ->andReturn('translated message')
-            ->once()
-        ;
+            ->once();
         $this->translationService->translate('key', ['target_character' => CharacterEnum::PAOLA], 'someOtherDomain', LanguageEnum::FRENCH);
     }
 
@@ -95,8 +93,7 @@ class TranslationServiceTest extends TestCase
         $this->translator
             ->shouldReceive('trans')
             ->with(EquipmentEnum::ANTENNA . '.short_name', ['target_equipment' => EquipmentEnum::ANTENNA], 'equipments', LanguageEnum::FRENCH)
-            ->andReturn('Antenne')
-        ;
+            ->andReturn('Antenne');
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -105,8 +102,7 @@ class TranslationServiceTest extends TestCase
                 'equipments',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('female')
-        ;
+            ->andReturn('female');
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -115,8 +111,7 @@ class TranslationServiceTest extends TestCase
                 'equipments',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('vowel')
-        ;
+            ->andReturn('vowel');
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -129,8 +124,7 @@ class TranslationServiceTest extends TestCase
                 'equipments',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('Antennes')
-        ;
+            ->andReturn('Antennes');
 
         $this->translator->shouldReceive('trans')
             ->with(
@@ -145,8 +139,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated message')
-            ->once()
-        ;
+            ->once();
         $this->translationService->translate('key', ['target_equipment' => EquipmentEnum::ANTENNA], 'domain', LanguageEnum::FRENCH);
     }
 
@@ -160,8 +153,7 @@ class TranslationServiceTest extends TestCase
                 'items',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('Antenne')
-        ;
+            ->andReturn('Antenne');
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -174,8 +166,7 @@ class TranslationServiceTest extends TestCase
                 'items',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('female')
-        ;
+            ->andReturn('female');
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -189,8 +180,7 @@ class TranslationServiceTest extends TestCase
                 'items',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('vowel')
-        ;
+            ->andReturn('vowel');
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -205,8 +195,7 @@ class TranslationServiceTest extends TestCase
                 'items',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('Antennes')
-        ;
+            ->andReturn('Antennes');
 
         $this->translator
             ->shouldReceive('trans')
@@ -223,8 +212,7 @@ class TranslationServiceTest extends TestCase
                 'end_cause',
                 LanguageEnum::FRENCH
             )
-            ->andReturn('Pas infirmerie')
-        ;
+            ->andReturn('Pas infirmerie');
 
         $translatedParameters = [
             'target_item' => EquipmentEnum::ANTENNA,
@@ -243,8 +231,7 @@ class TranslationServiceTest extends TestCase
         $this->translator->shouldReceive('trans')
             ->with('key', $translatedParameters, 'domain', LanguageEnum::FRENCH)
             ->andReturn('translated message')
-            ->once()
-        ;
+            ->once();
         $this->translationService->translate('key', $initialParameters, 'domain', LanguageEnum::FRENCH);
     }
 
@@ -262,8 +249,7 @@ class TranslationServiceTest extends TestCase
             ->shouldReceive('trans')
             ->with('balls_coprolalia', $initParameters, 'disease_message', LanguageEnum::FRENCH)
             ->andReturn('baloches')
-            ->once()
-        ;
+            ->once();
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -280,8 +266,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated_prefix')
-            ->once()
-        ;
+            ->once();
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -299,8 +284,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated_adjective_male_single')
-            ->once()
-        ;
+            ->once();
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -319,8 +303,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated_adjective_male_plural')
-            ->once()
-        ;
+            ->once();
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -340,8 +323,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated_adjective_female_single')
-            ->once()
-        ;
+            ->once();
         $this->translator
             ->shouldReceive('trans')
             ->with(
@@ -362,8 +344,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated_adjective_female_plural')
-            ->once()
-        ;
+            ->once();
 
         $this->translator
             ->shouldReceive('trans')
@@ -386,8 +367,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('mot')
-            ->once()
-        ;
+            ->once();
 
         $this->translator
             ->shouldReceive('trans')
@@ -411,8 +391,7 @@ class TranslationServiceTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('mots')
-            ->once()
-        ;
+            ->once();
 
         $translatedParameters = [
             LogDeclinationEnum::VERSION => 1,
@@ -433,10 +412,10 @@ class TranslationServiceTest extends TestCase
         $this->translator->shouldReceive('trans')
             ->with(DiseaseMessagesEnum::REPLACE_COPROLALIA, $translatedParameters, 'domain', LanguageEnum::FRENCH)
             ->andReturn('translated message')
-            ->once()
-        ;
+            ->once();
 
-        $this->translationService->translate(DiseaseMessagesEnum::REPLACE_COPROLALIA,
+        $this->translationService->translate(
+            DiseaseMessagesEnum::REPLACE_COPROLALIA,
             $initParameters,
             'domain',
             LanguageEnum::FRENCH

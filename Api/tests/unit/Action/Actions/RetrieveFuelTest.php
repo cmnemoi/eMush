@@ -18,7 +18,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class RetrieveFuelTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class RetrieveFuelTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -64,8 +67,7 @@ class RetrieveFuelTest extends AbstractActionTest
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig
             ->setMaxFuel(32)
-            ->setInitFuel(10)
-        ;
+            ->setInitFuel(10);
 
         $daedalus->setDaedalusVariables($daedalusConfig);
 
@@ -85,6 +87,6 @@ class RetrieveFuelTest extends AbstractActionTest
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());
-        self::assertEquals(10, $player->getActionPoint());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

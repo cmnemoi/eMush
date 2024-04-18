@@ -189,9 +189,9 @@ class ConsumableDiseaseConfig
     /**
      * @psalm-param ArrayCollection<int, ConsumableDiseaseAttribute>|array<int, ConsumableDiseaseAttribute> $diseases
      */
-    public function setAttributes(Collection|array $diseases): self
+    public function setAttributes(array|Collection $diseases): self
     {
-        if (is_array($diseases)) {
+        if (\is_array($diseases)) {
             $this->consumableAttributes = new ArrayCollection($diseases);
 
             return $this;

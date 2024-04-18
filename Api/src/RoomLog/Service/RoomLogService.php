@@ -106,12 +106,12 @@ class RoomLogService implements RoomLogServiceInterface
         Place $place,
         string $visibility,
         string $type,
-        Player $player = null,
+        ?Player $player = null,
         array $parameters = [],
-        \DateTime $dateTime = null
+        ?\DateTime $dateTime = null
     ): RoomLog {
         // if there is several version of the log
-        if (array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
+        if (\array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
                 $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
@@ -128,8 +128,7 @@ class RoomLogService implements RoomLogServiceInterface
             ->setVisibility($this->getVisibility($player, $visibility))
             ->setDate($dateTime ?? new \DateTime('now'))
             ->setCycle($place->getDaedalus()->getCycle())
-            ->setDay($place->getDaedalus()->getDay())
-        ;
+            ->setDay($place->getDaedalus()->getDay());
 
         return $this->persist($roomLog);
     }
@@ -147,6 +146,23 @@ class RoomLogService implements RoomLogServiceInterface
     public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection
     {
         return new RoomLogCollection($this->repository->findAllByDaedalusAndPlace($daedalus, $place));
+    }
+
+    public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int
+    {
+        return $this->getRoomLog($player)->filter(
+            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
+        )->count();
+    }
+
+    public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void
+    {
+        $roomLog
+            ->addReader($player)
+            ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
+
+        $this->entityManager->persist($roomLog);
+        $this->entityManager->flush();
     }
 
     private function getVisibility(?Player $player, string $visibility): string
@@ -238,28 +254,12 @@ class RoomLogService implements RoomLogServiceInterface
         throw new \LogicException('examine action is not implemented for this type of entity');
     }
 
-    public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int
-    {
-        return $this->getRoomLog($player)->filter(
-            static fn (RoomLog $roomLog) => $roomLog->isUnreadBy($player)
-        )->count();
-    }
-
-    public function markRoomLogAsReadForPlayer(RoomLog $roomLog, Player $player): void
-    {
-        $roomLog
-          ->addReader($player)
-          ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
-
-        $this->entityManager->persist($roomLog);
-        $this->entityManager->flush();
-    }
-
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {
-        /** @var ChargeStatus|null $electricCharges * */
+        /** @var null|ChargeStatus $electricCharges * */
         $electricCharges = $patrolShip->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        /** @var ChargeStatus|null $patrolShipArmor * */
+
+        /** @var null|ChargeStatus $patrolShipArmor * */
         $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         return [

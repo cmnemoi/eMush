@@ -19,13 +19,15 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 
-class SabotageActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class SabotageActionTest extends AbstractActionTest
 {
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -64,8 +66,7 @@ class SabotageActionTest extends AbstractActionTest
         $item->setIsBreakable(true);
         $gameItem
             ->setEquipment($item)
-            ->setName('item')
-        ;
+            ->setName('item');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -81,8 +82,7 @@ class SabotageActionTest extends AbstractActionTest
         $attemptConfig->setStatusName('attempt');
         $attempt = new Attempt(new Player(), $attemptConfig);
         $attempt
-            ->setAction($this->action->getActionName())
-        ;
+            ->setAction($this->action->getActionName());
         $this->actionService->shouldReceive('getAttempt')->andReturn($attempt);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
@@ -91,29 +91,26 @@ class SabotageActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
 
         // Fail try
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(1, $player->getStatuses());
-        $this->assertEquals(0, $attempt->getCharge());
+        self::assertInstanceOf(Fail::class, $result);
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertCount(1, $player->getStatuses());
+        self::assertSame(0, $attempt->getCharge());
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(100)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(100)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();
@@ -122,9 +119,9 @@ class SabotageActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(1, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertCount(1, $player->getStatuses());
     }
 }

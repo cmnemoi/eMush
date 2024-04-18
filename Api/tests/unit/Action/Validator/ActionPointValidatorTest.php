@@ -14,7 +14,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class ActionPointValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class ActionPointValidatorTest extends TestCase
 {
     private PlayerCanAffordPointsValidator $validator;
     private PlayerCanAffordPoints $constraint;
@@ -50,29 +53,24 @@ class ActionPointValidatorTest extends TestCase
             ->setInitMoralPoint(5)
             ->setMaxMoralPoint(12)
             ->setMaxMovementPoint(12)
-            ->setInitMovementPoint(5)
-        ;
+            ->setInitMovementPoint(5);
         $player = new Player();
         $player
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(true);
 
@@ -89,29 +87,24 @@ class ActionPointValidatorTest extends TestCase
             ->setInitMoralPoint(5)
             ->setMaxMoralPoint(12)
             ->setMaxMovementPoint(12)
-            ->setInitMovementPoint(5)
-        ;
+            ->setInitMovementPoint(5);
         $player = new Player();
         $player
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getAction' => new Action(),
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(false);
 
@@ -119,7 +112,7 @@ class ActionPointValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -131,7 +124,7 @@ class ActionPointValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

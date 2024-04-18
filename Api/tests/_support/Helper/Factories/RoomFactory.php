@@ -5,11 +5,12 @@ namespace Mush\Tests\Helper\Factories;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
+use Codeception\Module;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 
-class RoomFactory extends \Codeception\Module
+class RoomFactory extends Module
 {
     public function _beforeSuite($settings = [])
     {

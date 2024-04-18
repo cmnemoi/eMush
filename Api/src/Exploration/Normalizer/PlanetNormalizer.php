@@ -30,12 +30,12 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Planet;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -45,7 +45,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         $daedalus = $planet->getDaedalus();
 
         // integer seed from planet name to get always the same image for the same planet
-        $planetImageId = intval(hash('crc32', $planet->getName()->toString()), 16) % self::NUMBER_OF_PLANET_IMAGES;
+        $planetImageId = \intval(hash('crc32', $planet->getName()->toString()), 16) % self::NUMBER_OF_PLANET_IMAGES;
 
         // Normalize full planet only under those conditions to avoid leaking information
         // because the planet has to be normalized to be displayed in Phaser scene too
@@ -79,7 +79,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         ];
     }
 
-    private function normalizePlanetActions(Planet $planet, string $format = null, array $context = []): array
+    private function normalizePlanetActions(Planet $planet, ?string $format = null, array $context = []): array
     {
         $actions = [];
         $currentPlayer = $context['currentPlayer'];
@@ -93,7 +93,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         foreach ($toolsActions as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }

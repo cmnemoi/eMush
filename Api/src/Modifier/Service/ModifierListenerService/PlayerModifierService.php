@@ -23,6 +23,7 @@ class PlayerModifierService implements PlayerModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
+
             /** @var AbstractModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {
@@ -38,6 +39,7 @@ class PlayerModifierService implements PlayerModifierServiceInterface
 
         foreach ($player->getStatuses() as $status) {
             $statusConfig = $status->getStatusConfig();
+
             /** @var AbstractModifierConfig $modifierConfig */
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if ($modifierConfig->getModifierRange() === ModifierHolderClassEnum::PLACE) {

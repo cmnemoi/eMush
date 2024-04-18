@@ -32,15 +32,16 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Hunter && !$data->isInPool();
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+
         /** @var Hunter $hunter */
         $hunter = $object;
         $context['hunter'] = $hunter;
@@ -88,14 +89,13 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         foreach ($toolsActions as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }
 
         $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
-        return $actions;
+        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 }

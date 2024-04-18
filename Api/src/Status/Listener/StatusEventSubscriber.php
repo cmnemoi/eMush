@@ -73,11 +73,15 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                     $event->getTime()
                 );
                 $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+
                 break;
+
             case EquipmentStatusEnum::BROKEN:
                 $this->repairScrewedTalkie($event->getStatus(), $event->getTags(), $event->getTime());
                 $this->handleRepairGravity($statusHolder, $event->getTags(), $event->getTime());
+
                 break;
+
             default:
         }
     }
@@ -153,7 +157,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         $brokenStatusHolder = $brokenStatus->getOwner();
         // If so, remove the screwed talkie status from the pirate
         if ($brokenStatusHolder instanceof GameItem
-            && in_array($brokenStatusHolder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE])
+            && \in_array($brokenStatusHolder->getName(), [ItemEnum::ITRACKIE, ItemEnum::WALKIE_TALKIE], true)
         ) {
             /** @var Player $player */
             foreach ($brokenStatusHolder->getDaedalus()->getPlayers()->getPlayerAlive() as $player) {

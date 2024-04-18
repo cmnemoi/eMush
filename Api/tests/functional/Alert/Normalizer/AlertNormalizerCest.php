@@ -21,6 +21,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class AlertNormalizerCest extends AbstractFunctionalTest
 {
     private AlertNormalizer $alertNormalizer;

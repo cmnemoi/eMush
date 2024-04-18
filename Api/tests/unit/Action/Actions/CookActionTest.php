@@ -20,12 +20,13 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class CookActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class CookActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
     /**
@@ -69,8 +70,7 @@ class CookActionTest extends AbstractActionTest
         $ration->setEquipmentName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setName('ration')
-        ;
+            ->setName('ration');
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
@@ -81,8 +81,7 @@ class CookActionTest extends AbstractActionTest
         $kitchen->setEquipmentName(EquipmentEnum::KITCHEN);
         $gameKitchen
             ->setEquipment($kitchen)
-            ->setName(EquipmentEnum::KITCHEN)
-        ;
+            ->setName(EquipmentEnum::KITCHEN);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
@@ -92,11 +91,11 @@ class CookActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getEquipments());
-        $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(1, $player->getEquipments());
+        self::assertSame($gameRation->getName(), $player->getEquipments()->first()->getName());
+        self::assertCount(0, $player->getStatuses());
 
         $room = new Place();
     }
@@ -111,16 +110,14 @@ class CookActionTest extends AbstractActionTest
         $ration->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION);
 
         $gameKitchen = new GameEquipment($room);
         $kitchen = new EquipmentConfig();
         $kitchen->setEquipmentName(EquipmentEnum::KITCHEN);
         $gameKitchen
             ->setEquipment($kitchen)
-            ->setName(EquipmentEnum::KITCHEN)
-        ;
+            ->setName(EquipmentEnum::KITCHEN);
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
@@ -128,21 +125,19 @@ class CookActionTest extends AbstractActionTest
         $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
-             ->setEquipmentName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setEquipmentName(GameRationEnum::COOKED_RATION);
         $gameCookedRation
             ->setEquipment($cookedRation)
-            ->setName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setName(GameRationEnum::COOKED_RATION);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 }

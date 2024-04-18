@@ -15,7 +15,10 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class AgoraphobiaActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class AgoraphobiaActionCest extends AbstractFunctionalTest
 {
     private Action $searchConfig;
     private Search $searchAction;
@@ -62,8 +65,7 @@ class AgoraphobiaActionCest extends AbstractFunctionalTest
         $this->door
             ->setName('door_default')
             ->setEquipment($doorConfig)
-            ->addRoom($frontCorridor)
-        ;
+            ->addRoom($frontCorridor);
         $I->haveInRepository($this->door);
     }
 

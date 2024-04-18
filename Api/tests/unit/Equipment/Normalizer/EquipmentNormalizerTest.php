@@ -29,16 +29,22 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class EquipmentNormalizerTest extends TestCase
+/**
+ * @internal
+ */
+final class EquipmentNormalizerTest extends TestCase
 {
     private EquipmentNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
+
     /** @var GearToolServiceInterface|Mockery\Mock */
     private GearToolServiceInterface $gearToolService;
+
     /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+
     /** @var EquipmentEffectServiceInterface|Mockery\Mock */
     private EquipmentEffectServiceInterface $equipmentEffectService;
 
@@ -90,29 +96,25 @@ class EquipmentNormalizerTest extends TestCase
 
         $equipment
             ->setEquipment($equipmentConfig)
-            ->setName('equipment')
-        ;
+            ->setName('equipment');
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('equipment.name', [], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated name')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('equipment.description', [], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated description')
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameEquipment::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $data = $this->normalizer->normalize($equipment, null, ['currentPlayer' => $player]);
 
@@ -126,8 +128,8 @@ class EquipmentNormalizerTest extends TestCase
             'effects' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testItemNormalizer()
@@ -154,45 +156,41 @@ class EquipmentNormalizerTest extends TestCase
 
         $equipment
             ->setEquipment($equipmentConfig)
-            ->setName('equipment')
-        ;
+            ->setName('equipment');
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('equipment.name', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('translated name')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('equipment.description', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('translated description')
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $data = $this->normalizer->normalize($equipment, null, ['currentPlayer' => $player]);
 
         $expected = [
             'id' => 2,
             'key' => 'equipment',
-            'updatedAt' => $time,
             'name' => 'translated name',
             'description' => 'translated description',
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'updatedAt' => $time,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testBlueprintNormalizer()
@@ -212,8 +210,7 @@ class EquipmentNormalizerTest extends TestCase
         $blueprint = new Blueprint();
         $blueprint
             ->setCraftedEquipmentName($itemConfig->getEquipmentName())
-            ->setIngredients([ItemEnum::BLASTER => 1, ItemEnum::ECHOLOCATOR => 2])
-        ;
+            ->setIngredients([ItemEnum::BLASTER => 1, ItemEnum::ECHOLOCATOR => 2]);
 
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig->setMechanics(new ArrayCollection([$blueprint]));
@@ -226,43 +223,37 @@ class EquipmentNormalizerTest extends TestCase
 
         $equipment
             ->setEquipment($equipmentConfig)
-            ->setName('equipment')
-        ;
+            ->setName('equipment');
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('blueprint.name', ['item' => ItemEnum::NATAMY_RIFLE], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated name')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('blueprint.description', [], 'equipments', LanguageEnum::FRENCH)
             ->andReturn('translated description')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('blueprint_ingredient.description', ['item' => ItemEnum::BLASTER, 'quantity' => 1], 'items', LanguageEnum::FRENCH)
             ->andReturn('ingredient 1')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('blueprint_ingredient.description', ['item' => ItemEnum::ECHOLOCATOR, 'quantity' => 2], 'items', LanguageEnum::FRENCH)
             ->andReturn('ingredient 2')
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameEquipment::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $data = $this->normalizer->normalize($equipment, null, ['currentPlayer' => $player]);
 
@@ -276,8 +267,8 @@ class EquipmentNormalizerTest extends TestCase
             'effects' => [],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testPlantNormalizer(): void
@@ -317,38 +308,35 @@ class EquipmentNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('banana_tree.name', ['age' => ''], 'items', LanguageEnum::FRENCH)
             ->andReturn('Bananier')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('banana_tree.description', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('Un bananier')
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $data = $this->normalizer->normalize($bananaTree, null, ['currentPlayer' => $player]);
 
         $expected = [
             'id' => 1,
             'key' => GamePlantEnum::BANANA_TREE,
-            'updatedAt' => $time,
             'name' => 'Bananier',
             'description' => 'Un bananier',
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'updatedAt' => $time,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 
     public function testYoungPlantNormalizer(): void
@@ -388,37 +376,34 @@ class EquipmentNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('banana_tree.name', ['age' => 'young'], 'items', LanguageEnum::FRENCH)
             ->andReturn('Jeune Bananier')
-            ->once()
-        ;
+            ->once();
 
         $this->translationService
             ->shouldReceive('translate')
             ->with('banana_tree.description', [], 'items', LanguageEnum::FRENCH)
             ->andReturn('Un bananier')
-            ->once()
-        ;
+            ->once();
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
             ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
             ->andReturn(new ArrayCollection([]))
-            ->once()
-        ;
+            ->once();
 
         $data = $this->normalizer->normalize($bananaTree, null, ['currentPlayer' => $player]);
 
         $expected = [
             'id' => 1,
             'key' => GamePlantEnum::BANANA_TREE,
-            'updatedAt' => $time,
             'name' => 'Jeune Bananier',
             'description' => 'Un bananier',
             'statuses' => [],
             'actions' => [],
             'effects' => [],
+            'updatedAt' => $time,
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 }

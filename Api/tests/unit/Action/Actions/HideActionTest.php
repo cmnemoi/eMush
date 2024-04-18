@@ -19,10 +19,12 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class HideActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class HideActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -66,12 +68,10 @@ class HideActionTest extends AbstractActionTest
 
         $item = new ItemConfig();
         $item
-            ->setActions(new ArrayCollection([$this->actionEntity]))
-        ;
+            ->setActions(new ArrayCollection([$this->actionEntity]));
         $gameItem
             ->setName('itemName')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -80,16 +80,16 @@ class HideActionTest extends AbstractActionTest
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent
+            ->withArgs(
+                static fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent
                 && $event->getGameEquipment() === $gameItem
                 && $event->getAuthor() === $player
                 && $event->getTags() === [ActionEnum::HIDE]
             )
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

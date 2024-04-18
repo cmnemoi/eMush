@@ -45,8 +45,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -56,6 +58,7 @@ class ActionEffectSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -64,6 +67,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -99,8 +103,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -110,6 +116,7 @@ class ActionEffectSubscriberCest
         $place = $I->have(Place::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -119,6 +126,7 @@ class ActionEffectSubscriberCest
             'place' => $place,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -154,8 +162,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -166,6 +176,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -175,6 +186,7 @@ class ActionEffectSubscriberCest
             'characterConfig' => $characterConfig,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -187,15 +199,13 @@ class ActionEffectSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('someName')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-        ;
+            ->setDiseaseConfig($diseaseConfig);
         $I->haveInRepository($diseasePlayer);
 
         $event = new ApplyEffectEvent(
@@ -219,8 +229,10 @@ class ActionEffectSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -231,6 +243,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'name' => RoomEnum::MEDLAB,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -239,6 +252,7 @@ class ActionEffectSubscriberCest
             'daedalus' => $daedalus,
             'place' => $place,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -251,16 +265,14 @@ class ActionEffectSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('someName')
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setResistancePoint(1)
-        ;
+            ->setResistancePoint(1);
         $I->haveInRepository($diseasePlayer);
 
         $event = new ApplyEffectEvent(
@@ -290,15 +302,13 @@ class ActionEffectSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName($diseaseName)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $this->tester->haveInRepository($diseaseConfig);
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
             ->setName($rationName)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $this->tester->haveInRepository($consumableDisease);
 
@@ -306,14 +316,12 @@ class ActionEffectSubscriberCest
         $consumableAttribute
             ->setRate(100)
             ->setDisease($diseaseName)
-            ->setConsumableDisease($consumableDisease)
-        ;
+            ->setConsumableDisease($consumableDisease);
 
         if ($delayed) {
             $consumableAttribute
                 ->setDelayMin(10)
-                ->setDelayLength(10)
-            ;
+                ->setDelayLength(10);
         }
 
         $this->tester->haveInRepository($consumableAttribute);
@@ -331,16 +339,14 @@ class ActionEffectSubscriberCest
         $itemConfig
             ->setEquipmentName('itemName')
             ->setMechanics(new ArrayCollection([$ration]))
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($itemConfig);
 
         $gameItem = new GameItem(new Place());
         $gameItem
             ->setName('itemName')
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
 
         return $gameItem;
     }

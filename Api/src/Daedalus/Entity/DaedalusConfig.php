@@ -178,11 +178,11 @@ class DaedalusConfig
     }
 
     /**
-     * @param Collection<array-key, PlaceConfig>|array<array-key, PlaceConfig> $placeConfigs
+     * @param array<array-key, PlaceConfig>|Collection<array-key, PlaceConfig> $placeConfigs
      */
-    public function setPlaceConfigs(Collection|array $placeConfigs): static
+    public function setPlaceConfigs(array|Collection $placeConfigs): static
     {
-        if (is_array($placeConfigs)) {
+        if (\is_array($placeConfigs)) {
             $placeConfigs = new ArrayCollection($placeConfigs);
         }
 
@@ -268,16 +268,22 @@ class DaedalusConfig
         switch ($variableName) {
             case DaedalusVariableEnum::OXYGEN:
                 return $this->maxOxygen;
+
             case DaedalusVariableEnum::FUEL:
                 return $this->maxFuel;
+
             case DaedalusVariableEnum::HULL:
                 return $this->maxHull;
+
             case DaedalusVariableEnum::SHIELD:
                 return $this->maxShield;
+
             case DaedalusVariableEnum::HUNTER_POINTS:
                 return $this->initHunterPoints;
+
             case DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL:
                 return $this->maxCombustionChamberFuel;
+
             default:
                 throw new \LogicException('this is not a valid daedalusVariable');
         }

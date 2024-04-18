@@ -47,25 +47,25 @@ class EventConfigFixtures extends Fixture
                     $eventConfig
                         ->setQuantity($rawEventConfig['quantity'])
                         ->setTargetVariable($rawEventConfig['targetVariable'])
-                        ->setVariableHolderClass($rawEventConfig['variableHolderClass'])
-                    ;
+                        ->setVariableHolderClass($rawEventConfig['variableHolderClass']);
+
                     break;
+
                 case 'planet_sector_event_config':
                     $eventConfig = new PlanetSectorEventConfig();
                     $eventConfig
                         ->setOutputTable($rawEventConfig['outputTable'])
-                        ->setOutputQuantity($rawEventConfig['outputQuantity'])
-                    ;
+                        ->setOutputQuantity($rawEventConfig['outputQuantity']);
 
                     break;
+
                 default:
                     throw new \Exception('Unknown event config type');
             }
 
             $eventConfig
                 ->setEventName($rawEventConfig['eventName'])
-                ->setName($rawEventConfig['name'])
-            ;
+                ->setName($rawEventConfig['name']);
 
             $this->addReference($eventConfig->getName(), $eventConfig);
 

@@ -124,7 +124,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when tired event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::DESERT,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::DESERT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -168,7 +168,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // when artefact event exploration log is normalized
         /** @var ExplorationLog $explorationLog */
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -227,7 +227,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // when artefact event exploration log is normalized
         /** @var ExplorationLog $explorationLog */
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::ARTEFACT,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::ARTEFACT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -280,7 +280,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // when artefact event exploration log is normalized
         /** @var ExplorationLog $explorationLog */
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::RUINS,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::RUINS,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -325,7 +325,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when kill random event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -366,7 +366,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when kill all event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::VOLCANIC_ACTIVITY,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::VOLCANIC_ACTIVITY,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -405,7 +405,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when fight exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIGHT,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIGHT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -462,7 +462,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when intelligent sector event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -516,7 +516,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when fight exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIGHT,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIGHT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -555,7 +555,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when kill all event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -594,7 +594,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when kill all event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -633,7 +633,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when harvest event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -672,7 +672,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when harvest event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -711,7 +711,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when disease event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::DISEASE,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::DISEASE,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -750,7 +750,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when starmap event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::STARMAP
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::STARMAP
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -789,7 +789,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when mush trap event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::MUSH_TRAP
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::MUSH_TRAP
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -836,7 +836,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when kill all event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::AGAIN
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::AGAIN
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -883,7 +883,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when item lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::ITEM_LOST
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::ITEM_LOST
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -922,7 +922,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when intelligent sector event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::INTELLIGENT,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -963,7 +963,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when back event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::BACK
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::BACK
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -1016,7 +1016,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when player lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PLAYER_LOST
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PLAYER_LOST
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -1063,7 +1063,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when find lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIND_LOST
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIND_LOST
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -1109,7 +1109,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when kill lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::KILL_LOST
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::KILL_LOST
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -1163,7 +1163,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when accident exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getPlanetSectorName() === PlanetSectorEnum::SISMIC_ACTIVITY,
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 
@@ -1216,7 +1216,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // when fuel event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
-            fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FUEL
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FUEL
         )->first();
         $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
 

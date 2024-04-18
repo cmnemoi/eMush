@@ -21,20 +21,20 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Hit extends AttemptAction
 {
-    protected string $name = ActionEnum::HIT;
     private const MIN_DAMAGE = 1;
     private const MAX_DAMAGE = 3;
-
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Player;
-    }
+    protected string $name = ActionEnum::HIT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Player;
     }
 
     protected function applyEffect(ActionResult $result): void

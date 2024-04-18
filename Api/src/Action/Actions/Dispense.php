@@ -46,11 +46,6 @@ class Dispense extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -60,6 +55,11 @@ class Dispense extends AbstractAction
         $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT]));
     }
 
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
+    }
+
     protected function checkResult(): ActionResult
     {
         return new Success();
@@ -67,7 +67,7 @@ class Dispense extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /* @var string $drugName */
+        /** @var string $drugName */
         $drugName = current($this->randomService->getRandomElements(GameDrugEnum::getAll()));
         $time = new \DateTime();
 

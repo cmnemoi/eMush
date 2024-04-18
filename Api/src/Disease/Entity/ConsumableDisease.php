@@ -62,12 +62,12 @@ class ConsumableDisease
 
     public function getDiseases(): Collection
     {
-        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === MedicalConditionTypeEnum::DISEASE);
+        return $this->diseaseAttributes->filter(static fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === MedicalConditionTypeEnum::DISEASE);
     }
 
     public function getCures(): Collection
     {
-        return $this->diseaseAttributes->filter(fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === MedicalConditionTypeEnum::CURE);
+        return $this->diseaseAttributes->filter(static fn (ConsumableDiseaseAttribute $attribute) => $attribute->getType() === MedicalConditionTypeEnum::CURE);
     }
 
     public function setDiseasesAttribute(Collection $diseaseAttributes): self

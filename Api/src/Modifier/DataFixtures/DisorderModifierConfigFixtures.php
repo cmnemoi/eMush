@@ -43,15 +43,13 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $catInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::ITEM_IN_ROOM);
         $catInRoomActivationRequirement
             ->setActivationRequirement(ItemEnum::SCHRODINGER)
-            ->buildName()
-        ;
+            ->buildName();
         $manager->persist($catInRoomActivationRequirement);
 
         $fourPeopleInRoomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::PLAYER_IN_ROOM);
         $fourPeopleInRoomActivationRequirement
             ->setActivationRequirement(ModifierRequirementEnum::FOUR_PEOPLE)
-            ->buildName()
-        ;
+            ->buildName();
         $manager->persist($fourPeopleInRoomActivationRequirement);
 
         /** @var ModifierActivationRequirement $randActivationRequirement16 */
@@ -60,8 +58,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $randActivationRequirement70 = new ModifierActivationRequirement(ModifierRequirementEnum::RANDOM);
         $randActivationRequirement70
             ->setValue(70)
-            ->buildName()
-        ;
+            ->buildName();
         $manager->persist($randActivationRequirement70);
 
         $catInRoomMove2MovementIncrease = new VariableEventModifierConfig('increaseMoveCost2MovementIfCatInRoom');
@@ -72,8 +69,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionEnum::MOVE)
             ->addModifierRequirement($catInRoomActivationRequirement)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($catInRoomMove2MovementIncrease);
 
         $catInRoomNotMove2ActionIncrease = new VariableEventModifierConfig('increaseActionCost2ActionIfCatInRoom');
@@ -85,8 +81,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::NONE_TAGS])
             ->addModifierRequirement($catInRoomActivationRequirement)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($catInRoomNotMove2ActionIncrease);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -98,8 +93,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::SCREAMING)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($cycle1ActionLostRand16WithScreaming);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -111,8 +105,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::WALL_HEAD_BANG)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($cycle1HealthLostRand16WithWallHeadBang);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -123,8 +116,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement70)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($cycle1MoralLostRand70);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -136,8 +128,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->addModifierRequirement($randActivationRequirement16)
             ->setModifierName(ModifierNameEnum::RUN_IN_CIRCLES)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($cycle2MovementLostRand16WithRunInCircles);
 
         $fourPeopleOneActionIncrease = new VariableEventModifierConfig('increaseActionCost1ActionIfMore4PeopleInRoom');
@@ -153,8 +144,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ])
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
-        ;
+            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER);
         $manager->persist($fourPeopleOneActionIncrease);
 
         $fourPeopleOneMovementIncrease = new VariableEventModifierConfig('increaseMoveCost1MovementIfMore4PeopleInRoom');
@@ -167,8 +157,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
             ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ANY_TAGS])
             ->addModifierRequirement($fourPeopleInRoomActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER)
-        ;
+            ->setModifierStrategy(ModifierStrategyEnum::VARIABLE_MODIFIER);
         $fourPeopleOneMovementIncrease->buildName();
         $manager->persist($fourPeopleOneMovementIncrease);
 
@@ -177,8 +166,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $reduceMax2ActionPoint = new DirectModifierConfig('reduceMaxAction2');
         $reduceMax2ActionPoint
             ->setTriggeredEvent($eventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($reduceMax2ActionPoint);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -186,8 +174,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $reduceMax3MoralPoint = new DirectModifierConfig('reduceMaxMorale3');
         $reduceMax3MoralPoint
             ->setTriggeredEvent($eventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($reduceMax3MoralPoint);
 
         /** @var AbstractEventConfig $eventConfig */
@@ -195,8 +182,7 @@ class DisorderModifierConfigFixtures extends Fixture implements DependentFixture
         $reduceMax4MoralPoint = new DirectModifierConfig('reduceMaxMorale4');
         $reduceMax4MoralPoint
             ->setTriggeredEvent($eventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($reduceMax4MoralPoint);
 
         $manager->flush();

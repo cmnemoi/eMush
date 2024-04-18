@@ -41,6 +41,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class TravelEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
@@ -139,7 +142,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->createExploration($I);
 
         // given there is an oxygen sector with an oxygen event
-        $oxygenSector = $this->planet->getSectors()->filter(fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
+        $oxygenSector = $this->planet->getSectors()->filter(static fn (PlanetSector $sector) => $sector->getName() === PlanetSectorEnum::OXYGEN)->first();
 
         /** @var PlanetSectorEventConfig $oxygenEventConfig */
         $oxygenEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::OXYGEN . '_8']);
@@ -224,8 +227,9 @@ final class TravelEventCest extends AbstractFunctionalTest
                 ->getGameConfig()
                 ->getHunterConfigs()
                 ->filter(
-                    fn (
-                        HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::TRAX
+                    static fn (
+                        HunterConfig $hunterConfig
+                    ) => $hunterConfig->getHunterName() === HunterEnum::TRAX
                         || $hunterConfig->getHunterName() === HunterEnum::HUNTER
                 )
         );
@@ -391,8 +395,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->icarus = new GameEquipment($icarusBay);
         $this->icarus
             ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig)
-        ;
+            ->setEquipment($icarusConfig);
         $I->haveInRepository($this->icarus);
 
         // given a planet with oxygen is found
@@ -404,8 +407,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->planet = new Planet($this->player);
         $this->planet
             ->setName($planetName)
-            ->setSize(3)
-        ;
+            ->setSize(3);
         $I->haveInRepository($this->planet);
 
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
@@ -448,7 +450,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         /** @var HunterConfig $hunterConfig */
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
         if (!$hunterConfig) {
-            throw new \Exception("Hunter config not found for hunter name $hunterName");
+            throw new \Exception("Hunter config not found for hunter name {$hunterName}");
         }
 
         $hunter = new Hunter($hunterConfig, $daedalus);

@@ -13,10 +13,10 @@ final class SpecialistPointsIncrement extends AbstractChargeStrategy
     public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
         // Only applied on cycle 1
-        if (!in_array(EventEnum::NEW_DAY, $reasons)) {
+        if (!\in_array(EventEnum::NEW_DAY, $reasons, true)) {
             return $status;
         }
 
-        return $this->statusService->updateCharge($status, intval($status->getThreshold() / 2), $reasons, $time);
+        return $this->statusService->updateCharge($status, (int) ($status->getThreshold() / 2), $reasons, $time);
     }
 }

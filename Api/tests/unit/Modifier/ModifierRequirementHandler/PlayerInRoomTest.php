@@ -13,7 +13,10 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerInRoomTest extends TestCase
+/**
+ * @internal
+ */
+final class PlayerInRoomTest extends TestCase
 {
     private RequirementPlayerInRoom $service;
 
@@ -47,13 +50,13 @@ class PlayerInRoomTest extends TestCase
         $modifierActivationRequirement->setActivationRequirement(ModifierRequirementEnum::NOT_ALONE);
 
         $result = $this->service->checkRequirement($modifierActivationRequirement, $player1);
-        $this->assertFalse($result);
+        self::assertFalse($result);
 
         $player2 = new Player();
         $player2->setPlace($room);
         $playerInfo = new PlayerInfo($player2, new User(), new CharacterConfig());
 
         $result = $this->service->checkRequirement($modifierActivationRequirement, $player1);
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 }

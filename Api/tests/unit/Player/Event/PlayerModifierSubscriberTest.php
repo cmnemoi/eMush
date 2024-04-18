@@ -18,13 +18,17 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerModifierSubscriberTest extends TestCase
+/**
+ * @internal
+ */
+final class PlayerModifierSubscriberTest extends TestCase
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
-    /** @var PlayerVariableServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerVariableServiceInterface */
     private PlayerVariableServiceInterface $playerVariableService;
+
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
@@ -70,8 +74,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::MOVEMENT_POINT, 3, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
@@ -92,8 +95,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::ACTION_POINT, 1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
@@ -116,8 +118,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::MORAL_POINT, -1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
 
@@ -128,8 +129,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::MORAL_POINT, -1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
@@ -151,8 +151,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::HEALTH_POINT, 1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
 
@@ -163,8 +162,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::HEALTH_POINT, 1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -187,8 +185,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::SATIETY, 1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
@@ -209,8 +206,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::SPORE, 1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
@@ -237,8 +233,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::SPORE, 1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->never();
 
         $this->playerModifierSubscriber->onChangeVariable($event);
@@ -261,8 +256,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::SPORE, 1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->twice();
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
@@ -282,8 +276,7 @@ class PlayerModifierSubscriberTest extends TestCase
             ->shouldReceive('handleGameVariableChange')
             ->with(PlayerVariableEnum::SPORE, -1, $player)
             ->andReturn($player)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->never();
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
@@ -300,13 +293,11 @@ class PlayerModifierSubscriberTest extends TestCase
             ->setInitMovementPoint($movement)
             ->setInitMoralPoint($moral)
             ->setInitSatiety($satiety)
-            ->setInitHealthPoint($health)
-        ;
+            ->setInitHealthPoint($health);
 
         $player = new Player();
         $player
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
 
         $playerInfo = new PlayerInfo(
             $player,

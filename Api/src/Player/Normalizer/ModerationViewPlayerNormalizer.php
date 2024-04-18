@@ -21,14 +21,14 @@ final class ModerationViewPlayerNormalizer implements NormalizerInterface, Norma
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Player
                && isset($context['groups']) // only moderators can recover this data
-               && in_array('moderation_view', $context['groups'], true);
+               && \in_array('moderation_view', $context['groups'], true);
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = [])
+    public function normalize(mixed $object, ?string $format = null, array $context = [])
     {
         /** @var Player $player */
         $player = $object;

@@ -26,11 +26,6 @@ use Mush\Game\Event\AbstractGameEvent;
 ])]
 abstract class AbstractModifierConfig
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $id;
-
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     protected string $name;
 
@@ -45,6 +40,10 @@ abstract class AbstractModifierConfig
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $modifierActivationRequirements;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $id;
 
     public function __construct(string $name)
     {
@@ -69,7 +68,7 @@ abstract class AbstractModifierConfig
         return $this->name;
     }
 
-    public function setModifierName(string|null $modifierName): self
+    public function setModifierName(?string $modifierName): self
     {
         $this->modifierName = $modifierName;
 
@@ -119,7 +118,7 @@ abstract class AbstractModifierConfig
 
     public function setModifierActivationRequirements(array|Collection $modifierActivationRequirements): self
     {
-        if (is_array($modifierActivationRequirements)) {
+        if (\is_array($modifierActivationRequirements)) {
             $modifierActivationRequirements = new ArrayCollection($modifierActivationRequirements);
         }
 
@@ -141,7 +140,7 @@ abstract class AbstractModifierConfig
             $parameters = array_merge($parameters, $requirement->getTranslationParameters());
         }
 
-        if (!key_exists('chance', $parameters)) {
+        if (!\array_key_exists('chance', $parameters)) {
             $parameters['chance'] = 100;
         }
 

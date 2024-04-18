@@ -13,9 +13,12 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class PlantStrategyTest extends TestCase
+/**
+ * @internal
+ */
+final class PlantStrategyTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 
@@ -45,8 +48,7 @@ class PlantStrategyTest extends TestCase
         $this->statusService->shouldReceive('updateCharge')
             ->with($status, 1, [EventEnum::NEW_CYCLE], $time)
             ->andReturn($status)
-            ->once()
-        ;
+            ->once();
 
         $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
     }
@@ -60,8 +62,7 @@ class PlantStrategyTest extends TestCase
         $this->statusService->shouldReceive('updateCharge')
             ->with($status, 1, [EventEnum::NEW_CYCLE], $time)
             ->andReturn($status)
-            ->once()
-        ;
+            ->once();
         $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->strategy->execute($status, [EventEnum::NEW_CYCLE], $time);
@@ -73,8 +74,7 @@ class PlantStrategyTest extends TestCase
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
             ->setMaxCharge(10)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
         $status = new ChargeStatus(new Player(), $statusConfig);
         $status->getVariableByName($status->getName())->setValue(0);
         $status->getVariableByName($status->getName())->setMaxValue(10);

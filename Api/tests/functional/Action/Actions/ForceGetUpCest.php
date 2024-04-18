@@ -43,16 +43,14 @@ class ForceGetUpCest
         $statusConfig
             ->setStatusName(PlayerStatusEnum::LYING_DOWN)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $gameConfig
             ->setStatusConfigs(new ArrayCollection([$statusConfig]))
-            ->setDaedalusConfig($daedalusConfig)
-        ;
+            ->setDaedalusConfig($daedalusConfig);
 
         $I->flushToDatabase();
 
@@ -71,8 +69,7 @@ class ForceGetUpCest
         $action
             ->setActionName(ActionEnum::HIT)
             ->setScope(ActionScopeEnum::OTHER_PLAYER)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
@@ -80,6 +77,7 @@ class ForceGetUpCest
             'name' => 'testForceGetUp',
             'actions' => new ArrayCollection([$action]),
         ]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -87,8 +85,8 @@ class ForceGetUpCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -99,6 +97,7 @@ class ForceGetUpCest
 
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->have(CharacterConfig::class, ['actions' => new ArrayCollection([$action])]);
+
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
@@ -106,8 +105,7 @@ class ForceGetUpCest
         $player2->setPlayerVariables($characterConfig);
         $player2
             ->setActionPoint(2)
-            ->setHealthPoint(6)
-        ;
+            ->setHealthPoint(6);
         $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig2);
         $I->haveInRepository($playerInfo2);
         $player2->setPlayerInfo($playerInfo2);

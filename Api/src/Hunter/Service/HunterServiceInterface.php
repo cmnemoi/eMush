@@ -15,7 +15,7 @@ interface HunterServiceInterface
 
     public function makeHuntersShoot(HunterCollection $attackingHunters): void;
 
-    public function killHunter(Hunter $hunter, array $reasons, Player $author = null): void;
+    public function killHunter(Hunter $hunter, array $reasons, ?Player $author = null): void;
 
     public function persist(array $entities): void;
 

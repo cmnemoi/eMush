@@ -31,13 +31,16 @@ class GameEquipmentRepositoryCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_1']);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var Daedalus $daedalus2 */
         $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_2']);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus2]);
 
@@ -49,8 +52,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
@@ -61,8 +63,7 @@ class GameEquipmentRepositoryCest
         $door = new Door($room);
         $door
             ->setName('equipment 1')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
@@ -71,8 +72,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setName('item 2')
-            ->setEquipment($equipmentConfig2)
-        ;
+            ->setEquipment($equipmentConfig2);
         $I->haveInRepository($gameEquipment2);
 
         /** @var EquipmentConfig $equipmentConfig3 */
@@ -81,8 +81,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment3 = new GameEquipment($room2);
         $gameEquipment3
             ->setName('equipment 3')
-            ->setEquipment($equipmentConfig3)
-        ;
+            ->setEquipment($equipmentConfig3);
         $I->haveInRepository($gameEquipment3);
 
         $criteria = new GameEquipmentCriteria($daedalus);
@@ -116,8 +115,10 @@ class GameEquipmentRepositoryCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
@@ -130,15 +131,13 @@ class GameEquipmentRepositoryCest
         $breakableEquipment = new GameEquipment($room);
         $breakableEquipment
             ->setName('equipment 1')
-            ->setEquipment($breakableConfig)
-        ;
+            ->setEquipment($breakableConfig);
         $I->haveInRepository($breakableEquipment);
 
         $unbreakableItem = new GameItem($player);
         $unbreakableItem
             ->setName('item 2')
-            ->setEquipment($unbreakableConfig)
-        ;
+            ->setEquipment($unbreakableConfig);
         $I->haveInRepository($unbreakableItem);
 
         $criteria = new GameEquipmentCriteria($daedalus);
@@ -164,6 +163,7 @@ class GameEquipmentRepositoryCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -174,8 +174,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
@@ -184,8 +183,7 @@ class GameEquipmentRepositoryCest
         $door = new Door($room);
         $door
             ->setName('door 1')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
@@ -194,8 +192,7 @@ class GameEquipmentRepositoryCest
         $item = new GameItem($room);
         $item
             ->setName('item 2')
-            ->setEquipment($equipmentConfig2)
-        ;
+            ->setEquipment($equipmentConfig2);
         $I->haveInRepository($item);
 
         $criteria = new GameEquipmentCriteria($daedalus);
@@ -232,6 +229,7 @@ class GameEquipmentRepositoryCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
@@ -241,8 +239,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment 1')
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
@@ -252,8 +249,7 @@ class GameEquipmentRepositoryCest
         $door = new Door($room);
         $door
             ->setName('door 1')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
@@ -262,8 +258,7 @@ class GameEquipmentRepositoryCest
         $item = new GameItem($room);
         $item
             ->setName('item 2')
-            ->setEquipment($equipmentConfig2)
-        ;
+            ->setEquipment($equipmentConfig2);
         $I->haveInRepository($item);
 
         $criteria = new GameEquipmentCriteria($daedalus);
@@ -301,13 +296,16 @@ class GameEquipmentRepositoryCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_1']);
+
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var Daedalus $daedalus2 */
         $daedalus2 = $I->have(Daedalus::class, ['gameConfig' => $gameConfig, 'name' => 'daedalus_2']);
+
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus2]);
 
@@ -317,8 +315,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setName('equipment1')
-            ->setEquipment($equipmentConfig)
-        ;
+            ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
         /** @var EquipmentConfig $doorConfig */
@@ -327,8 +324,7 @@ class GameEquipmentRepositoryCest
         $door = new Door($room);
         $door
             ->setName('equipment1')
-            ->setEquipment($doorConfig)
-        ;
+            ->setEquipment($doorConfig);
         $I->haveInRepository($door);
 
         /** @var EquipmentConfig $equipmentConfig2 */
@@ -337,8 +333,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment2 = new GameItem($player);
         $gameEquipment2
             ->setName('equipment2')
-            ->setEquipment($equipmentConfig2)
-        ;
+            ->setEquipment($equipmentConfig2);
         $I->haveInRepository($gameEquipment2);
 
         /** @var EquipmentConfig $equipmentConfig3 */
@@ -347,8 +342,7 @@ class GameEquipmentRepositoryCest
         $gameEquipment3 = new GameEquipment($room2);
         $gameEquipment3
             ->setName('equipment1')
-            ->setEquipment($equipmentConfig3)
-        ;
+            ->setEquipment($equipmentConfig3);
         $I->haveInRepository($gameEquipment3);
 
         // Now test the method

@@ -19,12 +19,12 @@ class DiseaseNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof PlayerDisease;
     }
 
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, ?string $format = null, array $context = [])
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -53,7 +53,7 @@ class DiseaseNormalizer implements NormalizerInterface
             ),
             'type' => $diseaseConfig->getType(),
             'description' => $description,
-       ];
+        ];
     }
 
     private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
@@ -72,7 +72,7 @@ class DiseaseNormalizer implements NormalizerInterface
                 $language
             );
 
-            if (!in_array($effect, $effects)) {
+            if (!\in_array($effect, $effects, true)) {
                 $effects[] = $effect;
                 $description = $description . '//' . $effect;
             }

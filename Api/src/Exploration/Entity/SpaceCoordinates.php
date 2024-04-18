@@ -12,6 +12,12 @@ final class SpaceCoordinates
     private string $orientation;
     private int $distance;
 
+    public function __construct(string $orientation, int $distance)
+    {
+        $this->orientation = $orientation;
+        $this->distance = $distance;
+    }
+
     public static function getAll(): ArrayCollection
     {
         return new ArrayCollection([
@@ -50,12 +56,6 @@ final class SpaceCoordinates
         ]);
     }
 
-    public function __construct(string $orientation, int $distance)
-    {
-        $this->orientation = $orientation;
-        $this->distance = $distance;
-    }
-
     public function getOrientation(): string
     {
         return $this->orientation;
@@ -66,7 +66,7 @@ final class SpaceCoordinates
         return $this->distance;
     }
 
-    public function equals(SpaceCoordinates $spaceCoordinates): bool
+    public function equals(self $spaceCoordinates): bool
     {
         return $this->orientation === $spaceCoordinates->orientation && $this->distance === $spaceCoordinates->distance;
     }

@@ -45,15 +45,13 @@ class DirectModifierCreationCest
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setVariableHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setQuantity(-4)
-        ;
+            ->setQuantity(-4);
 
         $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-        ;
+            ->setRevertOnRemove(true);
         $I->haveInRepository($eventConfig);
         $I->haveInRepository($modifierConfig);
 
@@ -61,8 +59,7 @@ class DirectModifierCreationCest
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
             ->buildName(GameConfigEnum::TEST)
-            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-        ;
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($diseaseConfig);
 
         /** @var GameConfig $gameConfig */
@@ -70,6 +67,7 @@ class DirectModifierCreationCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -80,9 +78,11 @@ class DirectModifierCreationCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -149,14 +149,12 @@ class DirectModifierCreationCest
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setVariableHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setQuantity(-4)
-        ;
+            ->setQuantity(-4);
 
         $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setTriggeredEvent($eventConfig)
-        ;
+            ->setTriggeredEvent($eventConfig);
         $I->haveInRepository($eventConfig);
         $I->haveInRepository($modifierConfig);
 
@@ -164,8 +162,7 @@ class DirectModifierCreationCest
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
             ->buildName(GameConfigEnum::TEST)
-            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-        ;
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($diseaseConfig);
 
         /** @var GameConfig $gameConfig */
@@ -173,6 +170,7 @@ class DirectModifierCreationCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -183,9 +181,11 @@ class DirectModifierCreationCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -231,14 +231,12 @@ class DirectModifierCreationCest
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
             ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS)
-            ->setQuantity(-4)
-        ;
+            ->setQuantity(-4);
 
         $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setTriggeredEvent($eventConfig)
-        ;
+            ->setTriggeredEvent($eventConfig);
         $I->haveInRepository($eventConfig);
         $I->haveInRepository($modifierConfig);
 
@@ -246,17 +244,19 @@ class DirectModifierCreationCest
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
             ->buildName(GameConfigEnum::TEST)
-            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-        ;
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($diseaseConfig);
 
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         $daedalus->setDaedalusVariables($daedalusConfig);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -268,9 +268,11 @@ class DirectModifierCreationCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -303,15 +305,13 @@ class DirectModifierCreationCest
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setVariableHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setQuantity(-4)
-        ;
+            ->setQuantity(-4);
 
         $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(false)
-        ;
+            ->setRevertOnRemove(false);
         $I->haveInRepository($eventConfig);
         $I->haveInRepository($modifierConfig);
 
@@ -319,8 +319,7 @@ class DirectModifierCreationCest
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
             ->buildName(GameConfigEnum::TEST)
-            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-        ;
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($diseaseConfig);
 
         /** @var GameConfig $gameConfig */
@@ -328,6 +327,7 @@ class DirectModifierCreationCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -338,9 +338,11 @@ class DirectModifierCreationCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -374,15 +376,13 @@ class DirectModifierCreationCest
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setVariableHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setQuantity(-4)
-        ;
+            ->setQuantity(-4);
 
         $directModifierConfig = new DirectModifierConfig('directModifier');
         $directModifierConfig
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-        ;
+            ->setRevertOnRemove(true);
         $I->haveInRepository($eventConfig);
         $I->haveInRepository($directModifierConfig);
 
@@ -390,16 +390,14 @@ class DirectModifierCreationCest
         $eventModifierConfig
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent('targetEvent')
-            ->setTriggeredEvent($eventConfig)
-        ;
+            ->setTriggeredEvent($eventConfig);
         $I->haveInRepository($eventModifierConfig);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
             ->buildName(GameConfigEnum::TEST)
-            ->setModifierConfigs(new ArrayCollection([$directModifierConfig, $eventModifierConfig]))
-        ;
+            ->setModifierConfigs(new ArrayCollection([$directModifierConfig, $eventModifierConfig]));
         $I->haveInRepository($diseaseConfig);
 
         /** @var GameConfig $gameConfig */
@@ -407,6 +405,7 @@ class DirectModifierCreationCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -417,9 +416,11 @@ class DirectModifierCreationCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

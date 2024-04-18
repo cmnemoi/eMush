@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests;
 
+use Codeception\Actor;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Entity\User;
@@ -25,23 +26,27 @@ use Mush\User\Enum\RoleEnum;
  *
  * @SuppressWarnings(PHPMD)
  */
-class ApiTester extends \Codeception\Actor
+class ApiTester extends Actor
 {
     use _generated\ApiTesterActions;
 
     public const USER = 'user';
     public const ADMIN = 'admin';
 
-    public function loginUser(User|string $user)
+    public function loginUser(string|User $user)
     {
         if (!$user instanceof User) {
             switch ($user) {
-                case ApiTester::USER:
+                case self::USER:
                     $user = $this->have(User::class, ['roles' => [RoleEnum::USER]]);
+
                     break;
-                case ApiTester::ADMIN:
+
+                case self::ADMIN:
                     $user = $this->have(User::class, ['roles' => [RoleEnum::ADMIN]]);
+
                     break;
+
                 default:
                     $user = $this->have(User::class);
             }

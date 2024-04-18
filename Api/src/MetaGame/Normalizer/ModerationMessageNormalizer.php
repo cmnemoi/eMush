@@ -16,12 +16,12 @@ class ModerationMessageNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Message && in_array('moderation_read', $context['groups'] ?? []);
+        return $data instanceof Message && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Message $message */
         $message = $object;
@@ -72,7 +72,7 @@ class ModerationMessageNormalizer implements NormalizerInterface
                     $language
                 ),
             ],
-            'message' => $translatedMessage != $message->getMessage() ? $translatedMessage . " ({$message->getMessage()})" : $translatedMessage,
+            'message' => $translatedMessage !== $message->getMessage() ? $translatedMessage . " ({$message->getMessage()})" : $translatedMessage,
             'date' => $message->getCreatedAt()?->format('d/m/Y H:i'),
             'child' => $messageChildren,
         ];

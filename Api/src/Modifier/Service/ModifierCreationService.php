@@ -49,7 +49,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         ModifierHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        ChargeStatus $chargeStatus = null
+        ?ChargeStatus $chargeStatus = null
     ): void {
         if ($modifierConfig instanceof DirectModifierConfig) {
             $this->createDirectModifier($modifierConfig, $holder, $tags, $time, false);
@@ -63,20 +63,6 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         }
     }
 
-    private function createGameEventModifier(
-        AbstractModifierConfig $modifierConfig,
-        ModifierHolderInterface $holder,
-        ChargeStatus $chargeStatus = null
-    ): void {
-        $modifier = new GameModifier($holder, $modifierConfig);
-
-        if ($chargeStatus) {
-            $modifier->setCharge($chargeStatus);
-        }
-
-        $this->persist($modifier);
-    }
-
     public function deleteModifier(
         AbstractModifierConfig $modifierConfig,
         ModifierHolderInterface $holder,
@@ -88,17 +74,6 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         } elseif ($modifierConfig->getRevertOnRemove()) {
             $this->createDirectModifier($modifierConfig, $holder, $tags, $time, true);
             $this->deleteGameEventModifier($modifierConfig, $holder);
-        }
-    }
-
-    private function deleteGameEventModifier(
-        AbstractModifierConfig $modifierConfig,
-        ModifierHolderInterface $holder,
-    ): void {
-        $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
-
-        if ($modifier) {
-            $this->delete($modifier);
         }
     }
 
@@ -147,6 +122,31 @@ class ModifierCreationService implements ModifierCreationServiceInterface
                     $this->eventService->callEvent($event, $event->getEventName());
                 }
             }
+        }
+    }
+
+    private function createGameEventModifier(
+        AbstractModifierConfig $modifierConfig,
+        ModifierHolderInterface $holder,
+        ?ChargeStatus $chargeStatus = null
+    ): void {
+        $modifier = new GameModifier($holder, $modifierConfig);
+
+        if ($chargeStatus) {
+            $modifier->setCharge($chargeStatus);
+        }
+
+        $this->persist($modifier);
+    }
+
+    private function deleteGameEventModifier(
+        AbstractModifierConfig $modifierConfig,
+        ModifierHolderInterface $holder,
+    ): void {
+        $modifier = $holder->getModifiers()->getModifierFromConfig($modifierConfig);
+
+        if ($modifier) {
+            $this->delete($modifier);
         }
     }
 }

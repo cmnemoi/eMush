@@ -41,30 +41,31 @@ class CreateCrewEternalTwinAccountCommand extends Command
         foreach ($allCharacter as $character) {
             $name = $character->getName();
 
-            $io->info("Create account for $name ...");
+            $io->info("Create account for {$name} ...");
 
             try {
                 $tryToLoginRequest = $this->httpClient->request(
                     'PUT',
-                    "$this->identityServerUrl/api/v1/auth/self",
+                    "{$this->identityServerUrl}/api/v1/auth/self",
                     ['json' => ['login' => $name, 'password' => '31323334353637383931']]
                 );
                 $result = [];
                 parse_str($tryToLoginRequest->getHeaders()['set-cookie'][0], $result);
                 $sid = explode(';', $result['sid'])[0];
-                $io->warning("$name as already an account !");
+                $io->warning("{$name} as already an account !");
+
                 continue;
             } catch (\Exception $e) {
                 $createETUserResponse = $this->httpClient->request(
                     'POST',
-                    "$this->identityServerUrl/api/v1/users",
-                    ['json' => ['username' => "$name", 'display_name' => "$name", 'password' => '31323334353637383931']]
+                    "{$this->identityServerUrl}/api/v1/users",
+                    ['json' => ['username' => "{$name}", 'display_name' => "{$name}", 'password' => '31323334353637383931']]
                 );
                 $statusCode = $createETUserResponse->getStatusCode();
-                if ($statusCode == 200) {
-                    $io->info("Account created for $name");
+                if ($statusCode === 200) {
+                    $io->info("Account created for {$name}");
                 } else {
-                    $io->error("Error while creating account for $name");
+                    $io->error("Error while creating account for {$name}");
                 }
             }
         }

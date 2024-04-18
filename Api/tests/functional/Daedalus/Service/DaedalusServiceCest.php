@@ -32,7 +32,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class DaedalusServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class DaedalusServiceCest extends AbstractFunctionalTest
 {
     private DaedalusService $daedalusService;
     private ExplorationServiceInterface $explorationService;
@@ -93,8 +96,10 @@ class DaedalusServiceCest extends AbstractFunctionalTest
     {
         /** @var Player $chun */
         $chun = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::CHUN);
+
         /** @var Player $kuanTi */
         $kuanTi = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::KUAN_TI);
+
         /** @var Player $gioele */
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
 
@@ -206,8 +211,7 @@ class DaedalusServiceCest extends AbstractFunctionalTest
         $planet = new Planet($this->player);
         $planet
             ->setName($planetName)
-            ->setSize(3)
-        ;
+            ->setSize(3);
         $I->haveInRepository($planet);
 
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);

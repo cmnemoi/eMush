@@ -30,8 +30,7 @@ class PlayerRepository extends ServiceEntityRepository
             ->where($qb->expr()->eq('character_config.name', ':name'))
             ->andWhere($qb->expr()->eq('player.daedalus', ':daedalus'))
             ->setParameter('name', $name)
-            ->setParameter('daedalus', $daedalus)
-        ;
+            ->setParameter('daedalus', $daedalus);
 
         $player = $qb->getQuery()->getOneOrNullResult();
 

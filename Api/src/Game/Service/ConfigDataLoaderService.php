@@ -47,7 +47,8 @@ class ConfigDataLoaderService
 {
     private ArrayCollection $dataLoaders;
 
-    public function __construct(ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader,
+    public function __construct(
+        ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader,
         EventModifierConfigDataLoader $eventModifierConfigDataLoader,
         VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader,
         TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader,
@@ -141,7 +142,7 @@ class ConfigDataLoaderService
         }
     }
 
-    /** @psalm-param ArrayCollection<int, ConfigDataLoader> $dataLoaders **/
+    /** @psalm-param ArrayCollection<int, ConfigDataLoader> $dataLoaders */
     private function setDataLoaders(ArrayCollection $dataLoaders): void
     {
         $this->dataLoaders = $dataLoaders;

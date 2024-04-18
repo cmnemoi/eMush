@@ -43,8 +43,7 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
                 ->setDelayLength($diseaseConfigData['delayLength'])
                 ->setDiseasePointMin($diseaseConfigData['diseasePointMin'])
                 ->setDiseasePointLength($diseaseConfigData['diseasePointLength'])
-                ->setOverride($diseaseConfigData['override'])
-            ;
+                ->setOverride($diseaseConfigData['override']);
             $this->setDiseaseConfigModifierConfigs($diseaseConfig, $diseaseConfigData);
 
             $this->entityManager->persist($diseaseConfig);

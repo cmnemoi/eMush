@@ -6,7 +6,10 @@ use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Event\AbstractGameEvent;
 use PHPUnit\Framework\TestCase;
 
-class EventCollectionTest extends TestCase
+/**
+ * @internal
+ */
+final class EventCollectionTest extends TestCase
 {
     public function testMergeEventChains()
     {
@@ -30,12 +33,12 @@ class EventCollectionTest extends TestCase
 
         $mergedCollection = $eventCollection1->addEvents($eventCollection2);
 
-        $this->assertCount(5, $mergedCollection);
-        $this->assertEquals($event1, $mergedCollection->first());
-        $this->assertEquals($event3, $mergedCollection->next());
-        $this->assertEquals($event2, $mergedCollection->next());
-        $this->assertEquals($event4, $mergedCollection->next());
-        $this->assertEquals($event5, $mergedCollection->next());
+        self::assertCount(5, $mergedCollection);
+        self::assertSame($event1, $mergedCollection->first());
+        self::assertSame($event3, $mergedCollection->next());
+        self::assertSame($event2, $mergedCollection->next());
+        self::assertSame($event4, $mergedCollection->next());
+        self::assertSame($event5, $mergedCollection->next());
     }
 
     public function testAddEvent()
@@ -58,30 +61,30 @@ class EventCollectionTest extends TestCase
         $eventCollection = new EventChain([$event4]);
 
         $eventCollection = $eventCollection->addEvent($event3);
-        $this->assertCount(2, $eventCollection);
-        $this->assertEquals($event3, $eventCollection->first());
-        $this->assertEquals($event4, $eventCollection->next());
+        self::assertCount(2, $eventCollection);
+        self::assertSame($event3, $eventCollection->first());
+        self::assertSame($event4, $eventCollection->next());
 
         $eventCollection = $eventCollection->addEvent($event2);
-        $this->assertCount(3, $eventCollection);
-        $this->assertEquals($event2, $eventCollection->first());
-        $this->assertEquals($event3, $eventCollection->next());
-        $this->assertEquals($event4, $eventCollection->next());
+        self::assertCount(3, $eventCollection);
+        self::assertSame($event2, $eventCollection->first());
+        self::assertSame($event3, $eventCollection->next());
+        self::assertSame($event4, $eventCollection->next());
 
         $eventCollection = $eventCollection->addEvent($event5);
-        $this->assertCount(4, $eventCollection);
-        $this->assertEquals($event2, $eventCollection->first());
-        $this->assertEquals($event3, $eventCollection->next());
-        $this->assertEquals($event4, $eventCollection->next());
-        $this->assertEquals($event5, $eventCollection->next());
+        self::assertCount(4, $eventCollection);
+        self::assertSame($event2, $eventCollection->first());
+        self::assertSame($event3, $eventCollection->next());
+        self::assertSame($event4, $eventCollection->next());
+        self::assertSame($event5, $eventCollection->next());
 
         $eventCollection = $eventCollection->addEvent($event1);
-        $this->assertCount(5, $eventCollection);
-        $this->assertEquals($event1, $eventCollection->first());
-        $this->assertEquals($event2, $eventCollection->next());
-        $this->assertEquals($event3, $eventCollection->next());
-        $this->assertEquals($event4, $eventCollection->next());
-        $this->assertEquals($event5, $eventCollection->next());
+        self::assertCount(5, $eventCollection);
+        self::assertSame($event1, $eventCollection->first());
+        self::assertSame($event2, $eventCollection->next());
+        self::assertSame($event3, $eventCollection->next());
+        self::assertSame($event4, $eventCollection->next());
+        self::assertSame($event5, $eventCollection->next());
     }
 
     public function testGetInitialEvent()
@@ -105,7 +108,7 @@ class EventCollectionTest extends TestCase
 
         $initialEvent = $eventCollection->getInitialEvent();
 
-        $this->assertEquals($event4, $initialEvent);
+        self::assertSame($event4, $initialEvent);
     }
 
     public function testUpdateInitialEvent()
@@ -129,17 +132,17 @@ class EventCollectionTest extends TestCase
 
         $updatedEvents = $eventCollection->updateInitialEvent($event2);
 
-        $this->assertCount(4, $updatedEvents);
+        self::assertCount(4, $updatedEvents);
 
-        $this->assertEquals($event1, $updatedEvents->first());
-        $this->assertEquals($event3, $updatedEvents->next());
+        self::assertSame($event1, $updatedEvents->first());
+        self::assertSame($event3, $updatedEvents->next());
 
         $eventTest = $updatedEvents->next();
-        $this->assertEquals($event2, $eventTest);
-        $this->assertInstanceOf(AbstractGameEvent::class, $eventTest);
-        $this->assertEquals(0, $eventTest->getPriority());
+        self::assertSame($event2, $eventTest);
+        self::assertInstanceOf(AbstractGameEvent::class, $eventTest);
+        self::assertSame(0, $eventTest->getPriority());
 
-        $this->assertEquals($event5, $updatedEvents->next());
+        self::assertSame($event5, $updatedEvents->next());
     }
 
     public function testStopEvent()
@@ -164,35 +167,35 @@ class EventCollectionTest extends TestCase
         ]);
 
         $updatedEvents = $eventCollection->stopEvents(-10);
-        $this->assertEmpty($updatedEvents);
-        $this->assertNotContains($event1, $updatedEvents);
-        $this->assertNotContains($event2, $updatedEvents);
-        $this->assertNotContains($event3, $updatedEvents);
-        $this->assertNotContains($event4, $updatedEvents);
-        $this->assertNotContains($event5, $updatedEvents);
+        self::assertEmpty($updatedEvents);
+        self::assertNotContains($event1, $updatedEvents);
+        self::assertNotContains($event2, $updatedEvents);
+        self::assertNotContains($event3, $updatedEvents);
+        self::assertNotContains($event4, $updatedEvents);
+        self::assertNotContains($event5, $updatedEvents);
 
         $updatedEvents = $eventCollection->stopEvents(0);
-        $this->assertCount(4, $updatedEvents);
-        $this->assertContains($event1, $updatedEvents);
-        $this->assertContains($event2, $updatedEvents);
-        $this->assertContains($event3, $updatedEvents);
-        $this->assertContains($event4, $updatedEvents);
-        $this->assertNotContains($event5, $updatedEvents);
+        self::assertCount(4, $updatedEvents);
+        self::assertContains($event1, $updatedEvents);
+        self::assertContains($event2, $updatedEvents);
+        self::assertContains($event3, $updatedEvents);
+        self::assertContains($event4, $updatedEvents);
+        self::assertNotContains($event5, $updatedEvents);
 
         $updatedEvents = $eventCollection->stopEvents(-1);
-        $this->assertCount(3, $updatedEvents);
-        $this->assertContains($event1, $updatedEvents);
-        $this->assertContains($event2, $updatedEvents);
-        $this->assertContains($event3, $updatedEvents);
-        $this->assertNotContains($event4, $updatedEvents);
-        $this->assertNotContains($event5, $updatedEvents);
+        self::assertCount(3, $updatedEvents);
+        self::assertContains($event1, $updatedEvents);
+        self::assertContains($event2, $updatedEvents);
+        self::assertContains($event3, $updatedEvents);
+        self::assertNotContains($event4, $updatedEvents);
+        self::assertNotContains($event5, $updatedEvents);
 
         $updatedEvents = $eventCollection->stopEvents(10);
-        $this->assertCount(5, $updatedEvents);
-        $this->assertContains($event1, $updatedEvents);
-        $this->assertContains($event2, $updatedEvents);
-        $this->assertContains($event3, $updatedEvents);
-        $this->assertContains($event4, $updatedEvents);
-        $this->assertContains($event5, $updatedEvents);
+        self::assertCount(5, $updatedEvents);
+        self::assertContains($event1, $updatedEvents);
+        self::assertContains($event2, $updatedEvents);
+        self::assertContains($event3, $updatedEvents);
+        self::assertContains($event4, $updatedEvents);
+        self::assertContains($event5, $updatedEvents);
     }
 }

@@ -25,17 +25,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class OpenCapsule extends AbstractAction
 {
+    protected string $name = ActionEnum::OPEN;
+
+    protected RandomServiceInterface $randomService;
+    protected GameEquipmentServiceInterface $gameEquipmentService;
     private static array $capsuleContent = [
         ItemEnum::FUEL_CAPSULE => 1,
         ItemEnum::OXYGEN_CAPSULE => 1,
         ItemEnum::METAL_SCRAPS => 1,
         ItemEnum::PLASTIC_SCRAPS => 1,
     ];
-
-    protected string $name = ActionEnum::OPEN;
-
-    protected RandomServiceInterface $randomService;
-    protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -54,15 +53,15 @@ class OpenCapsule extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -89,7 +88,7 @@ class OpenCapsule extends AbstractAction
         // Get the content
         $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(self::$capsuleContent));
 
-        if (!is_string($contentName)) {
+        if (!\is_string($contentName)) {
             throw new \Exception('capsule content should not be empty');
         }
 

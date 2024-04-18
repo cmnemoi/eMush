@@ -38,6 +38,7 @@ class ActionService implements ActionServiceInterface
 
         // Movement points : need to handle conversion events
         $movementPointCostEvent = $this->getActionEvent($player, $action, $actionTarget, PlayerVariableEnum::MOVEMENT_POINT);
+
         /** @var ActionVariableEvent $movementPointCostEvent */
         $movementPointCostEvent = $this->eventService->computeEventModifications($movementPointCostEvent, ActionVariableEvent::APPLY_COST);
 
@@ -54,6 +55,57 @@ class ActionService implements ActionServiceInterface
         $this->eventService->callEvent($actionPointCostEvent, ActionVariableEvent::GET_OUTPUT_QUANTITY);
 
         return $player;
+    }
+
+    public function getActionModifiedActionVariable(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $actionTarget,
+        string $variableName
+    ): int {
+        if (\array_key_exists($variableName, ActionVariableEvent::VARIABLE_TO_EVENT_MAP)) {
+            $eventName = ActionVariableEvent::VARIABLE_TO_EVENT_MAP[$variableName];
+        } else {
+            throw new \Exception('this key do not exist in this map');
+        }
+        $variable = $action->getVariableByName($variableName);
+
+        $actionVariableEvent = $this->getActionEvent($player, $action, $actionTarget, $variableName);
+
+        /** @var ActionVariableEvent $actionVariableEvent */
+        $actionVariableEvent = $this->eventService->computeEventModifications($actionVariableEvent, $eventName);
+
+        $value = $actionVariableEvent->getRoundedQuantity();
+
+        return $variable->getValueInRange($value);
+    }
+
+    public function playerCanAffordPoints(
+        Player $player,
+        Action $action,
+        ?LogParameterInterface $actionTarget
+    ): bool {
+        $playerAction = $player->getActionPoint();
+        $playerMovement = $player->getMovementPoint();
+        $playerMorale = $player->getMoralPoint();
+
+        $moraleCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::MORAL_POINT);
+        $actionCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::ACTION_POINT);
+        $movementCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::MOVEMENT_POINT);
+        $extraActionPoints = 0;
+
+        if ($playerMorale < $moraleCost) {
+            return false;
+        }
+
+        if ($playerMovement < $movementCost) {
+            $extraActionPoints = $this->handleConversionEvents($player, $movementCost - $playerMovement, false);
+        }
+        if ($playerAction < $extraActionPoints + $actionCost) {
+            return false;
+        }
+
+        return true;
     }
 
     private function handleConversionEvents(
@@ -95,6 +147,7 @@ class ActionService implements ActionServiceInterface
             $player,
             null
         );
+
         /** @var ActionVariableEvent $conversionCostEvent */
         $conversionCostEvent = $this->eventService->computeEventModifications($conversionCostEvent, ActionVariableEvent::APPLY_COST);
 
@@ -113,7 +166,7 @@ class ActionService implements ActionServiceInterface
         Action $action,
         ?LogParameterInterface $actionTarget,
         string $variable,
-        ActionResult $result = null
+        ?ActionResult $result = null
     ): ActionVariableEvent {
         $event = new ActionVariableEvent(
             $action,
@@ -127,55 +180,5 @@ class ActionService implements ActionServiceInterface
         }
 
         return $event;
-    }
-
-    public function getActionModifiedActionVariable(
-        Player $player,
-        Action $action,
-        ?LogParameterInterface $actionTarget,
-        string $variableName
-    ): int {
-        if (key_exists($variableName, ActionVariableEvent::VARIABLE_TO_EVENT_MAP)) {
-            $eventName = ActionVariableEvent::VARIABLE_TO_EVENT_MAP[$variableName];
-        } else {
-            throw new \Exception('this key do not exist in this map');
-        }
-        $variable = $action->getVariableByName($variableName);
-
-        $actionVariableEvent = $this->getActionEvent($player, $action, $actionTarget, $variableName);
-        /** @var ActionVariableEvent $actionVariableEvent */
-        $actionVariableEvent = $this->eventService->computeEventModifications($actionVariableEvent, $eventName);
-
-        $value = $actionVariableEvent->getRoundedQuantity();
-
-        return $variable->getValueInRange($value);
-    }
-
-    public function playerCanAffordPoints(
-        Player $player,
-        Action $action,
-        ?LogParameterInterface $actionTarget
-    ): bool {
-        $playerAction = $player->getActionPoint();
-        $playerMovement = $player->getMovementPoint();
-        $playerMorale = $player->getMoralPoint();
-
-        $moraleCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::MORAL_POINT);
-        $actionCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::ACTION_POINT);
-        $movementCost = $this->getActionModifiedActionVariable($player, $action, $actionTarget, PlayerVariableEnum::MOVEMENT_POINT);
-        $extraActionPoints = 0;
-
-        if ($playerMorale < $moraleCost) {
-            return false;
-        }
-
-        if ($playerMovement < $movementCost) {
-            $extraActionPoints = $this->handleConversionEvents($player, $movementCost - $playerMovement, false);
-        }
-        if ($playerAction < $extraActionPoints + $actionCost) {
-            return false;
-        }
-
-        return true;
     }
 }

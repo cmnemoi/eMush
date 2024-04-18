@@ -18,7 +18,7 @@ class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoade
 
             if ($modifierConfig === null) {
                 $modifierConfig = new VariableEventModifierConfig($configName);
-            } elseif (!($modifierConfig instanceof VariableEventModifierConfig)) {
+            } elseif (!$modifierConfig instanceof VariableEventModifierConfig) {
                 $this->entityManager->remove($modifierConfig);
                 $this->entityManager->flush();
                 $modifierConfig = new VariableEventModifierConfig($configName);
@@ -27,8 +27,7 @@ class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoade
             $modifierConfig
                 ->setMode($modifierConfigData['mode'])
                 ->setDelta($modifierConfigData['delta'])
-                ->setTargetVariable($modifierConfigData['targetVariable'])
-            ;
+                ->setTargetVariable($modifierConfigData['targetVariable']);
             $this->loadEventModifierData($modifierConfig, $modifierConfigData);
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);
 

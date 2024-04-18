@@ -108,8 +108,7 @@ class ChannelController extends AbstractGameController
 
         $context = new Context();
         $context
-            ->setAttribute('currentPlayer', $player)
-        ;
+            ->setAttribute('currentPlayer', $player);
 
         $channel = $this->channelService->createPrivateChannel($player);
 
@@ -234,8 +233,7 @@ class ChannelController extends AbstractGameController
             $context = new Context();
             $context
                 ->setAttribute('currentPlayer', $player)
-                ->setAttribute('piratedPlayer', $piratedPlayer)
-            ;
+                ->setAttribute('piratedPlayer', $piratedPlayer);
 
             $view = $this->view($channels, 200);
             $view->setContext($context);
@@ -461,7 +459,7 @@ class ChannelController extends AbstractGameController
 
         $this->denyAccessUnlessGranted(ChannelVoter::POST, $channel);
 
-        if (count($violations = $this->validator->validate($messageCreate))) {
+        if (\count($violations = $this->validator->validate($messageCreate))) {
             return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -476,6 +474,7 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
+
         /** @var PlayerInfo $currentPlayerInfo */
         $currentPlayerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 

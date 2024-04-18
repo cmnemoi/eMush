@@ -9,7 +9,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 
-class ReportEquipmentActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ReportEquipmentActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -52,6 +55,6 @@ class ReportEquipmentActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

@@ -19,21 +19,14 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
         \DateTime $time
     ) {
         parent::__construct($status, $holder, $tags, $time);
+
         $this->setQuantity($quantity);
         $this->setVisibility($status->getChargeVisibility());
     }
 
-    public function getStatus(): ChargeStatus
-    {
-        /** @var ChargeStatus $status */
-        $status = $this->status;
-
-        return $status;
-    }
-
     public function getRoundedQuantity(): int
     {
-        return intval($this->quantity);
+        return (int) $this->quantity;
     }
 
     public function getQuantity(): float
@@ -46,19 +39,19 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
         $this->quantity = $quantity;
 
         if ($quantity < 0) {
-            $key = array_search(VariableEventInterface::GAIN, $this->tags);
+            $key = array_search(VariableEventInterface::GAIN, $this->tags, true);
 
             if ($key === false) {
                 $this->addTag(VariableEventInterface::LOSS);
-            } elseif (!in_array(VariableEventInterface::LOSS, $this->tags)) {
+            } elseif (!\in_array(VariableEventInterface::LOSS, $this->tags, true)) {
                 $this->tags[$key] = VariableEventInterface::LOSS;
             }
         } elseif ($quantity > 0) {
-            $key = array_search(VariableEventInterface::LOSS, $this->tags);
+            $key = array_search(VariableEventInterface::LOSS, $this->tags, true);
 
             if ($key === false) {
                 $this->addTag(VariableEventInterface::GAIN);
-            } elseif (!in_array(VariableEventInterface::GAIN, $this->tags)) {
+            } elseif (!\in_array(VariableEventInterface::GAIN, $this->tags, true)) {
                 $this->tags[$key] = VariableEventInterface::GAIN;
             }
         }
@@ -66,6 +59,9 @@ class ChargeStatusEvent extends StatusEvent implements VariableEventInterface
         return $this;
     }
 
+    /**
+     * @psalm-suppress UndefinedMethod
+     */
     public function getVariable(): GameVariable
     {
         return $this->getStatus()->getVariableByName($this->getStatusName());

@@ -46,9 +46,9 @@ class RemoveSpore extends AbstractAction
 
         if ($nbSpores > 0) {
             return new Success();
-        } else {
-            return new Fail();
         }
+
+        return new Fail();
     }
 
     protected function applyEffect(ActionResult $result): void

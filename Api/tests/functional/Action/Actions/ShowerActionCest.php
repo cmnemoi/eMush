@@ -24,7 +24,10 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ShowerActionCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class ShowerActionCest extends AbstractFunctionalTest
 {
     private Shower $showerAction;
     private Action $action;
@@ -49,8 +52,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         $dirtyStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::DIRTY]);
@@ -98,7 +100,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(
             TriggerEventModifierConfig::class,
             [
-            'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
+                'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
         ));
         $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
         $I->haveInRepository($mushShowerModifier);
@@ -111,8 +113,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         $this->showerAction->loadParameters($this->action, $this->player1, $gameEquipment);
@@ -148,8 +149,7 @@ class ShowerActionCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         /** @var VariableEventModifierConfig $soapModifierConfig */

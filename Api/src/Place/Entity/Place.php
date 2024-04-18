@@ -30,8 +30,8 @@ use Mush\Status\Entity\TargetStatusTrait;
 #[ORM\Table(name: 'room')]
 class Place implements StatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface
 {
-    use TimestampableEntity;
     use TargetStatusTrait;
+    use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -209,19 +209,20 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
 
     public function hasEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
+        return !$this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
     }
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name
+        return !$this->getEquipments()->filter(
+            static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name
             && $gameEquipment->isOperational()
         )->isEmpty();
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment
     {
-        return $this->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first() ?: null;
+        return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first() ?: null;
     }
 
     /**
@@ -326,7 +327,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
 
     public function getClassName(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function getGameEquipment(): null

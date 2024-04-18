@@ -15,7 +15,10 @@ use Mush\Modifier\Event\ModifierEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class EventServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class EventServiceCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -34,16 +37,14 @@ class EventServiceCest extends AbstractFunctionalTest
             ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setQuantity(-3)
             ->setName('event_config_test_infinite_loop')
-            ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS)
-        ;
+            ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS);
 
         $triggerModifierConfig = new TriggerEventModifierConfig('trigger_event_modifier_test_infinite_loop');
         $triggerModifierConfig
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTriggeredEvent($variableEventConfig)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT)
-        ;
+            ->setPriority(ModifierPriorityEnum::BEFORE_INITIAL_EVENT);
 
         $I->haveInRepository($variableEventConfig);
         $I->haveInRepository($triggerModifierConfig);
@@ -68,23 +69,20 @@ class EventServiceCest extends AbstractFunctionalTest
             ->setTargetVariable(DaedalusVariableEnum::HULL)
             ->setQuantity(-3)
             ->setName('event_config_test_infinite_loop')
-            ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS)
-        ;
+            ->setVariableHolderClass(ModifierHolderClassEnum::DAEDALUS);
 
         $triggerModifierConfig = new TriggerEventModifierConfig('trigger_event_modifier_test_infinite_loop');
         $triggerModifierConfig
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTriggeredEvent($variableEventConfig)
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-        ;
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT);
 
         $triggerModifierConfig2 = new TriggerEventModifierConfig('trigger_event_modifier_test_infinite_loop_bis');
         $triggerModifierConfig2
             ->setTargetEvent(ModifierEvent::APPLY_MODIFIER)
             ->setTriggeredEvent($variableEventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-        ;
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
         $I->haveInRepository($variableEventConfig);
         $I->haveInRepository($triggerModifierConfig);

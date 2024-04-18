@@ -14,7 +14,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 
-class UpdateTalkieActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class UpdateTalkieActionTest extends AbstractActionTest
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -54,19 +57,16 @@ class UpdateTalkieActionTest extends AbstractActionTest
 
         $talkie = new GameItem($player);
         $talkie
-            ->setName(ItemEnum::WALKIE_TALKIE)
-        ;
+            ->setName(ItemEnum::WALKIE_TALKIE);
 
         $tracker = new GameItem($player);
         $tracker
-            ->setName(ItemEnum::TRACKER)
-        ;
+            ->setName(ItemEnum::TRACKER);
 
         $neronCore = new GameEquipment($room);
         $neronCore
             ->setName(EquipmentEnum::NERON_CORE)
-            ->setHolder($room)
-        ;
+            ->setHolder($room);
 
         $this->action->loadParameters($this->actionEntity, $player, $talkie);
 
@@ -76,6 +76,6 @@ class UpdateTalkieActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

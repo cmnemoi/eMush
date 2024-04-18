@@ -15,12 +15,15 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FullHealthValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class FullHealthValidatorTest extends TestCase
 {
     private GameVariableLevelValidator $validator;
     private GameVariableLevel $constraint;
 
-    /** @var PlayerVariableServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerVariableServiceInterface */
     private PlayerVariableServiceInterface $gearToolService;
 
     /**
@@ -49,22 +52,19 @@ class FullHealthValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig
             ->setMaxHealthPoint(12)
-            ->setInitHealthPoint(5)
-        ;
+            ->setInitHealthPoint(5);
 
         $daedalus = new Daedalus();
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -79,15 +79,13 @@ class FullHealthValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $characterConfig
             ->setMaxHealthPoint(12)
-            ->setInitHealthPoint(12)
-        ;
+            ->setInitHealthPoint(12);
 
         $daedalus = new Daedalus();
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -99,7 +97,7 @@ class FullHealthValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -111,7 +109,7 @@ class FullHealthValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

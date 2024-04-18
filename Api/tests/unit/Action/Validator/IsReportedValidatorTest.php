@@ -25,7 +25,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class IsReportedValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class IsReportedValidatorTest extends TestCase
 {
     private IsReportedValidator $validator;
     private IsReported $constraint;
@@ -60,8 +63,7 @@ class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
@@ -79,15 +81,13 @@ class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isFireReported')
             ->with($room)
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -101,8 +101,7 @@ class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $playerInfo = new PlayerInfo(
             $player,
             new User(),
@@ -125,15 +124,13 @@ class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => null,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isFireReported')
             ->with($room)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->constraint->message = 'not valid';
 
@@ -149,8 +146,7 @@ class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment($room);
@@ -169,15 +165,13 @@ class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameEquipment,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isEquipmentReported')
             ->with($gameEquipment)
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -191,8 +185,7 @@ class IsReportedValidatorTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $playerInfo = new PlayerInfo(
             $player,
             new User(),
@@ -216,15 +209,13 @@ class IsReportedValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $gameEquipment,
-            ])
-        ;
+            ]);
 
         $this->alertService
             ->shouldReceive('isEquipmentReported')
             ->with($gameEquipment)
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->constraint->message = 'not valid';
 
@@ -232,7 +223,7 @@ class IsReportedValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -244,7 +235,7 @@ class IsReportedValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

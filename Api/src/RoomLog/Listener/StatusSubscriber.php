@@ -106,13 +106,13 @@ class StatusSubscriber implements EventSubscriberInterface
         $gainOrLoss = $delta > 0 ? StatusEventLogEnum::GAIN : StatusEventLogEnum::LOSS;
         $logMap = StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS[$gainOrLoss];
 
-        if (key_exists($event->getStatusName(), $logMap)) {
+        if (\array_key_exists($event->getStatusName(), $logMap)) {
             $logKey = $logMap[$event->getStatusName()];
             $this->createEventLog($logKey, $event, $event->getVisibility());
         }
     }
 
-    private function createEventLog(string $logKey, StatusEvent $event, string $visibility = null): void
+    private function createEventLog(string $logKey, StatusEvent $event, ?string $visibility = null): void
     {
         $player = $event->getStatusHolder();
         $place = $event->getPlace();

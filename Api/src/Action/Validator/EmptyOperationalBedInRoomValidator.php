@@ -25,9 +25,9 @@ class EmptyOperationalBedInRoomValidator extends ConstraintValidator
 
         $player = $value->getPlayer();
 
-        $bedsInRoom = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => in_array($gameEquipment->getName(), EquipmentEnum::getBeds()));
-        $bedIsNotOccupied = fn (GameEquipment $gameEquipment) => !$gameEquipment->hasTargetingStatus(PlayerStatusEnum::LYING_DOWN);
-        $bedIsNotBroken = fn (GameEquipment $gameEquipment) => !$gameEquipment->hasStatus(EquipmentStatusEnum::BROKEN);
+        $bedsInRoom = $player->getPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => \in_array($gameEquipment->getName(), EquipmentEnum::getBeds(), true));
+        $bedIsNotOccupied = static fn (GameEquipment $gameEquipment) => !$gameEquipment->hasTargetingStatus(PlayerStatusEnum::LYING_DOWN);
+        $bedIsNotBroken = static fn (GameEquipment $gameEquipment) => !$gameEquipment->hasStatus(EquipmentStatusEnum::BROKEN);
 
         if ($bedsInRoom->filter($bedIsNotOccupied)->filter($bedIsNotBroken)->isEmpty()) {
             $this->context->buildViolation($constraint->message)->addViolation();

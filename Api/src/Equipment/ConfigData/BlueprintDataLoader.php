@@ -17,7 +17,7 @@ class BlueprintDataLoader extends MechanicsDataLoader
 
             if ($blueprint === null) {
                 $blueprint = new Blueprint();
-            } elseif (!($blueprint instanceof Blueprint)) {
+            } elseif (!$blueprint instanceof Blueprint) {
                 $this->entityManager->remove($blueprint);
                 $blueprint = new Blueprint();
             }
@@ -25,8 +25,7 @@ class BlueprintDataLoader extends MechanicsDataLoader
             $blueprint
                 ->setName($blueprintData['name'])
                 ->setCraftedEquipmentName($blueprintData['craftedEquipmentName'])
-                ->setIngredients($blueprintData['ingredients'])
-            ;
+                ->setIngredients($blueprintData['ingredients']);
             $this->setMechanicsActions($blueprint, $blueprintData);
 
             $this->entityManager->persist($blueprint);

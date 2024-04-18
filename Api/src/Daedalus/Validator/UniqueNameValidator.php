@@ -34,8 +34,7 @@ class UniqueNameValidator extends ConstraintValidator
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->setCode(UniqueName::DAEDALUS_NAME_ALREADY_USED)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 }

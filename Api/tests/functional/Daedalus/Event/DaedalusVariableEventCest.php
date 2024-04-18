@@ -30,6 +30,7 @@ class DaedalusVariableEventCest
     {
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
 
@@ -37,6 +38,7 @@ class DaedalusVariableEventCest
         $daedalus = $I->have(Daedalus::class);
         $daedalus->setDaedalusVariables($daedalusConfig);
         $daedalus->setOxygen(32);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);

@@ -14,6 +14,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class InsertOxygenCest extends AbstractFunctionalTest
 {
     private InsertOxygen $insertOxygenAction;

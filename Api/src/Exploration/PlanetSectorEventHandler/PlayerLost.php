@@ -46,8 +46,7 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
 
         $exploratorsWithoutACompass = $exploration
             ->getNotLostActiveExplorators()
-            ->filter(fn (Player $player) => !$player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS))
-        ;
+            ->filter(static fn (Player $player) => !$player->hasEquipmentByName(ItemEnum::QUADRIMETRIC_COMPASS));
 
         if ($exploratorsWithoutACompass->isEmpty()) {
             $this->dispatchNothingToReportEvent($event);
@@ -105,11 +104,8 @@ final class PlayerLost extends AbstractPlanetSectorEventHandler
             ->getDaedalus()
             ->getGameConfig()
             ->getPlanetSectorConfigs()
-            ->getBySectorName(PlanetSectorEnum::LOST)
-        ;
+            ->getBySectorName(PlanetSectorEnum::LOST);
 
-        $lostPlanetSector = new PlanetSector($lostPlanetSectorConfig, $event->getExploration()->getPlanet());
-
-        return $lostPlanetSector;
+        return new PlanetSector($lostPlanetSectorConfig, $event->getExploration()->getPlanet());
     }
 }

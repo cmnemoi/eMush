@@ -154,7 +154,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
         $closedExploration = $exploration->getClosedExploration();
         // given all explorators are dead
         $exploration->getExplorators()->map(
-            fn (Player $player) => $player->getPlayerInfo()->setGameStatus(GameStatusEnum::FINISHED),
+            static fn (Player $player) => $player->getPlayerInfo()->setGameStatus(GameStatusEnum::FINISHED),
         );
 
         // when I have a cycle change
@@ -191,7 +191,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
             explorators: new PlayerCollection([$this->chun]),
         );
         $closedExploration = $exploration->getClosedExploration();
-        $desertPlanetSector = $exploration->getPlanet()->getSectors()->filter(fn ($sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
+        $desertPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::DESERT)->first();
 
         // given only again event can happen in desert sector
         $this->setupPlanetSectorEvents(

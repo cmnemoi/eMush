@@ -19,13 +19,14 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Service\StatusServiceInterface;
 
-class ExtinguishActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ExtinguishActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
-    /* @var RandomServiceInterface|Mockery\Mock */
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     /**
      * @before
@@ -82,20 +83,18 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
-            ->never()
-        ;
+            ->never();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(false)->once();
 
         // Fail try
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Fail::class, $result);
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(1, $room->getStatuses());
+        self::assertInstanceOf(Fail::class, $result);
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertCount(1, $room->getStatuses());
     }
 
     public function testExecuteSuccess()
@@ -122,13 +121,11 @@ class ExtinguishActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_SUCCESS)
             ->andReturn(10)
-            ->once()
-        ;
+            ->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::PERCENTAGE_CRITICAL)
             ->andReturn(0)
-            ->once()
-        ;
+            ->once();
         $this->randomService->shouldReceive('isActionSuccessful')->with(10)->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->with(0)->andReturn(false)->once();
         $this->statusService->shouldReceive('removeStatus')->once();
@@ -136,8 +133,8 @@ class ExtinguishActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
     }
 }

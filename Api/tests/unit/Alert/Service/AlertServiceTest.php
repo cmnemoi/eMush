@@ -28,7 +28,10 @@ use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-class AlertServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class AlertServiceTest extends TestCase
 {
     private AlertServiceInterface $alertService;
 
@@ -109,8 +112,7 @@ class AlertServiceTest extends TestCase
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -164,8 +166,7 @@ class AlertServiceTest extends TestCase
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
         $this->entityManager->shouldReceive('flush')->once();
@@ -194,8 +195,7 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
@@ -214,8 +214,7 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::GRAVITY_REBOOT])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->with($alert)->once();
@@ -234,8 +233,7 @@ class AlertServiceTest extends TestCase
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->alertElementRepository->shouldReceive('findOneBy')->once();
 
         $this->entityManager->shouldReceive('persist')->twice();
@@ -259,13 +257,11 @@ class AlertServiceTest extends TestCase
         $alert
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::BROKEN_DOORS)
-            ->addAlertElement($doorElement)
-        ;
+            ->addAlertElement($doorElement);
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
         $this->alertElementRepository->shouldReceive('findOneBy')->once();
 
         $this->entityManager->shouldReceive('persist')->twice();
@@ -274,7 +270,7 @@ class AlertServiceTest extends TestCase
 
         $this->alertService->handleEquipmentBreak($gameEquipment);
 
-        $this->assertCount(2, $alert->getAlertElements());
+        self::assertCount(2, $alert->getAlertElements());
     }
 
     public function testRepairEquipment()
@@ -293,14 +289,12 @@ class AlertServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::BROKEN_EQUIPMENTS)
             ->addAlertElement($equipmentElement1)
-            ->addAlertElement($equipmentElement2)
-        ;
+            ->addAlertElement($equipmentElement2);
 
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->with($equipmentElement1)->once();
@@ -308,7 +302,7 @@ class AlertServiceTest extends TestCase
 
         $this->alertService->handleEquipmentRepair($gameEquipment);
 
-        $this->assertCount(1, $alert->getAlertElements());
+        self::assertCount(1, $alert->getAlertElements());
     }
 
     public function testRepairAllEquipment()
@@ -325,14 +319,12 @@ class AlertServiceTest extends TestCase
         $alert
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::BROKEN_EQUIPMENTS)
-            ->addAlertElement($equipmentElement1)
-        ;
+            ->addAlertElement($equipmentElement1);
 
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->with($equipmentElement1)->once();
@@ -351,8 +343,7 @@ class AlertServiceTest extends TestCase
 
         $this->repository->shouldReceive('findOneBy')
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
         $this->alertElementRepository->shouldReceive('findOneBy')->once();
 
         $this->entityManager->shouldReceive('persist')->once();
@@ -377,14 +368,12 @@ class AlertServiceTest extends TestCase
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::FIRES)
             ->addAlertElement($alertElement1)
-            ->addAlertElement($alertElement2)
-        ;
+            ->addAlertElement($alertElement2);
 
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->with($alertElement1)->once();
@@ -392,7 +381,7 @@ class AlertServiceTest extends TestCase
 
         $this->alertService->handleFireStop($room);
 
-        $this->assertCount(1, $alert->getAlertElements());
+        self::assertCount(1, $alert->getAlertElements());
     }
 
     public function testStopAllFire()
@@ -408,14 +397,12 @@ class AlertServiceTest extends TestCase
         $alert
             ->setDaedalus($daedalus)
             ->setName(AlertEnum::FIRES)
-            ->addAlertElement($alertElement1)
-        ;
+            ->addAlertElement($alertElement1);
 
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->with($alertElement1)->once();
@@ -435,24 +422,21 @@ class AlertServiceTest extends TestCase
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
         $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
         $player1->setPlayerInfo($playerInfo1);
 
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
         $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
         $player2->setPlayerInfo($playerInfo2);
 
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('remove')->never();
@@ -471,16 +455,14 @@ class AlertServiceTest extends TestCase
         $player1 = new Player();
         $player1
             ->setDaedalus($daedalus)
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
         $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
         $player1->setPlayerInfo($playerInfo1);
 
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
         $playerInfo2 = new PlayerInfo($player1, new User(), new CharacterConfig());
         $player2->setPlayerInfo($playerInfo2);
 
@@ -490,8 +472,7 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->never();
@@ -511,16 +492,14 @@ class AlertServiceTest extends TestCase
         $player1
             ->setDaedalus($daedalus)
             ->setPlayerVariables($characterConfig)
-            ->setSatiety(-22)
-        ;
+            ->setSatiety(-22);
         $playerInfo1 = new PlayerInfo($player1, new User(), new CharacterConfig());
         $player1->setPlayerInfo($playerInfo1);
 
         $player2 = new Player();
         $player2
             ->setDaedalus($daedalus)
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
         $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
         $player2->setPlayerInfo($playerInfo2);
 
@@ -530,8 +509,7 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::HUNGER])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
         $this->entityManager->shouldReceive('persist')->never();
         $this->entityManager->shouldReceive('remove')->once();
@@ -547,15 +525,14 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findBy')
             ->with(['daedalus' => $daedalus])
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $alerts = $this->alertService->getAlerts($daedalus);
 
         $noAlert = new Alert();
         $noAlert->setDaedalus($daedalus)->setName(AlertEnum::NO_ALERT);
 
-        $this->assertEquals(new ArrayCollection([$noAlert]), $alerts);
+        self::assertSame(new ArrayCollection([$noAlert]), $alerts);
     }
 
     public function getAlertsTest()
@@ -570,12 +547,11 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findBy')
             ->with(['daedalus' => $daedalus])
             ->andReturn([$alert, $alert2])
-            ->once()
-        ;
+            ->once();
 
         $alerts = $this->alertService->getAlerts($daedalus);
 
-        $this->assertEquals(new ArrayCollection([$alert, $alert2]), $alerts);
+        self::assertSame(new ArrayCollection([$alert, $alert2]), $alerts);
     }
 
     public function testFireNorReported()
@@ -586,8 +562,7 @@ class AlertServiceTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $room->setDaedalus($daedalus);
 
         $fireConfig = new StatusConfig();
@@ -603,10 +578,9 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
-        $this->assertFalse($this->alertService->isFireReported($room));
+        self::assertFalse($this->alertService->isFireReported($room));
     }
 
     public function testNotValidFire()
@@ -617,8 +591,7 @@ class AlertServiceTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
 
@@ -637,10 +610,9 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::FIRES])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
-        $this->assertTrue($this->alertService->isFireReported($room));
+        self::assertTrue($this->alertService->isFireReported($room));
     }
 
     public function testValidEquipment()
@@ -651,8 +623,7 @@ class AlertServiceTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $room->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment($room);
@@ -669,10 +640,9 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
-        $this->assertFalse($this->alertService->isEquipmentReported($gameEquipment));
+        self::assertFalse($this->alertService->isEquipmentReported($gameEquipment));
     }
 
     public function testNotValidEquipment()
@@ -683,8 +653,7 @@ class AlertServiceTest extends TestCase
 
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
 
@@ -704,9 +673,8 @@ class AlertServiceTest extends TestCase
         $this->repository->shouldReceive('findOneBy')
             ->with(['daedalus' => $daedalus, 'name' => AlertEnum::BROKEN_EQUIPMENTS])
             ->andReturn($alert)
-            ->once()
-        ;
+            ->once();
 
-        $this->assertTrue($this->alertService->isEquipmentReported($gameEquipment));
+        self::assertTrue($this->alertService->isEquipmentReported($gameEquipment));
     }
 }

@@ -10,7 +10,10 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class HunterPoolEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class HunterPoolEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -56,7 +59,7 @@ class HunterPoolEventCest extends AbstractFunctionalTest
         // given D1000s are the only hunters available
         $gameConfig = $this->daedalus->getGameConfig();
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
 
         // given Daedalus is Day 9
@@ -77,7 +80,7 @@ class HunterPoolEventCest extends AbstractFunctionalTest
         // given D1000s are the only hunters available
         $gameConfig = $this->daedalus->getGameConfig();
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
 
         // given Daedalus is Day 10

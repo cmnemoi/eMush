@@ -23,17 +23,16 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
         return $data instanceof Player
             && $data === $currentPlayer
-            && $data->getPlayerInfo()->getGameStatus() === GameStatusEnum::FINISHED
-        ;
+            && $data->getPlayerInfo()->getGameStatus() === GameStatusEnum::FINISHED;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $player */
         $player = $object;

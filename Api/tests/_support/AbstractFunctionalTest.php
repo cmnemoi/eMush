@@ -53,16 +53,17 @@ class AbstractFunctionalTest
     {
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var Daedalus $daedalus */
         $daedalus = new Daedalus();
         $daedalus
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime())
-        ;
+            ->setCycleStartedAt(new \DateTime());
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
         $neron = new Neron();
@@ -71,22 +72,19 @@ class AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron)
-        ;
+            ->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         $mushChannel = new Channel();
         $mushChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH)
-        ;
+            ->setScope(ChannelScopeEnum::MUSH);
         $I->haveInRepository($mushChannel);
 
         $I->refreshEntities($daedalusInfo);
@@ -122,8 +120,7 @@ class AbstractFunctionalTest
         $laboratory
             ->setName(RoomEnum::LABORATORY)
             ->setType($laboratoryConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($laboratory);
 
         /** @var PlaceConfig $spaceConfig */
@@ -132,8 +129,7 @@ class AbstractFunctionalTest
         $space
             ->setName(RoomEnum::SPACE)
             ->setType($spaceConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($space);
 
         /** @var PlaceConfig $planetConfig */
@@ -142,8 +138,7 @@ class AbstractFunctionalTest
         $planet
             ->setName(RoomEnum::PLANET)
             ->setType($planetConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($planet);
 
         return new ArrayCollection([$laboratory, $space, $planet]);
@@ -157,8 +152,7 @@ class AbstractFunctionalTest
         $extraRoom
             ->setName($placeName)
             ->setType($extraRoomConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($extraRoom);
         $I->haveInRepository($daedalus);
 
@@ -174,8 +168,7 @@ class AbstractFunctionalTest
         $user = new User();
         $user
             ->setUserId('user' . Uuid::v4()->toRfc4122())
-            ->setUserName('user' . Uuid::v4()->toRfc4122())
-        ;
+            ->setUserName('user' . Uuid::v4()->toRfc4122());
         $I->haveInRepository($user);
 
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

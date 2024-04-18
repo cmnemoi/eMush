@@ -19,9 +19,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class CycleIncrementTest extends TestCase
+/**
+ * @internal
+ */
+final class CycleIncrementTest extends TestCase
 {
-    /** @var StatusServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
     private AbstractChargeStrategy $strategy;
 
@@ -67,8 +70,7 @@ class CycleIncrementTest extends TestCase
         $statusConfig
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->setMaxCharge(10)
-            ->setStatusName('status')
-        ;
+            ->setStatusName('status');
         $status = new ChargeStatus($player, $statusConfig);
         $status->getVariableByName($status->getName())->setValue(0);
 

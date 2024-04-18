@@ -20,15 +20,20 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
-class DaedalusNormalizerTest extends TestCase
+/**
+ * @internal
+ */
+final class DaedalusNormalizerTest extends TestCase
 {
     private DaedalusNormalizer $normalizer;
 
     /** @var CycleServiceInterface|Mockery\Mock */
     private CycleServiceInterface $cycleService;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
-    /** @var PlanetServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlanetServiceInterface */
     private PlanetServiceInterface $planetService;
 
     /**
@@ -79,16 +84,14 @@ class DaedalusNormalizerTest extends TestCase
             ->setInitFuel(24)
             ->setInitHull(100)
             ->setInitOxygen(24)
-            ->setInitShield(100)
-        ;
+            ->setInitShield(100);
 
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 
         $daedalus
             ->setCycle(4)
             ->setDay(4)
-            ->setDaedalusVariables($daedalusConfig)
-        ;
+            ->setDaedalusVariables($daedalusConfig);
 
         $explorator = $this->createStub(Player::class);
         $explorator->method('getLogName')->willReturn('roland');
@@ -107,153 +110,160 @@ class DaedalusNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('oxygen.name', ['quantity' => 24, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('oxygen.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('fuel.name', ['quantity' => 24, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('fuel.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('hull.name', ['quantity' => 100, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('hull.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('shield.name', ['quantity' => 100, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('shield.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('currentCycle.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('currentCycle.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated current cycle description')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('crewPlayer.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('calendar.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated calendar name')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('calendar.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated calendar description')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('cycle.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated cycle name')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('day.name', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated day name')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
-            ->with('crewPlayer.description', [
-                'cryogenizedPlayers' => 0,
-                'playerAlive' => 0,
-                'playerDead' => 0,
-                'mushAlive' => 0,
-                'mushDead' => 0, ],
-                'daedalus', LanguageEnum::FRENCH)
+            ->with(
+                'crewPlayer.description',
+                [
+                    'cryogenizedPlayers' => 0,
+                    'playerAlive' => 0,
+                    'playerDead' => 0,
+                    'mushAlive' => 0,
+                    'mushDead' => 0,
+                ],
+                'daedalus',
+                LanguageEnum::FRENCH
+            )
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('planet_name', [], 'planet', 'fr')
             ->andReturn('translated planet name')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('exploration_pop_up.planet', ['planetName' => 'translated planet name'], 'misc', 'fr')
             ->andReturn('Planète : translated planet name')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('exploration_pop_up.explorators', ['explorators' => 'Roland'], 'misc', 'fr')
             ->andReturn('Équipe : Roland')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('exploration_pop_up.estimated_duration', ['estimatedDuration' => 10], 'misc', 'fr')
             ->andReturn('Retour estimé : 10 minutes')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('exploration_pop_up.title', [], 'misc', 'fr')
             ->andReturn('Expédition en cours')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('roland.name', [], 'characters', 'fr')
             ->andReturn('Roland')
-            ->once()
-        ;
+            ->once();
 
         $this->planetService
             ->shouldReceive('findPlanetInDaedalusOrbit')
             ->with($daedalus)
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $data = $this->normalizer->normalize($daedalus);
 
         $expected = [
             'id' => 2,
             'game_config' => null,
+            'oxygen' => [
+                'quantity' => 24,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'fuel' => [
+                'quantity' => 24,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'hull' => [
+                'quantity' => 100,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'shield' => [
+                'quantity' => 100,
+                'name' => 'translated one',
+                'description' => 'translated two',
+            ],
+            'timer' => [
+                'name' => 'translated one',
+                'description' => 'translated current cycle description',
+                'timerCycle' => $nextCycle->format(\DateTimeInterface::ATOM),
+            ],
             'calendar' => [
                 'name' => 'translated calendar name',
                 'description' => 'translated calendar description',
@@ -262,46 +272,27 @@ class DaedalusNormalizerTest extends TestCase
                 'day' => 4,
                 'dayName' => 'translated day name',
             ],
-            'oxygen' => [
-                'quantity' => 24,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
-            'fuel' => [
-                'quantity' => 24,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
-            'hull' => [
-                'quantity' => 100,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
-            'shield' => [
-                'quantity' => 100,
-                'name' => 'translated one',
-                'description' => 'translated two', ],
             'cryogenizedPlayers' => 0,
             'humanPlayerAlive' => 0,
             'humanPlayerDead' => 0,
             'mushPlayerAlive' => 0,
             'mushPlayerDead' => 0,
-            'timer' => [
-                'timerCycle' => $nextCycle->format(\DateTime::ATOM),
-                'name' => 'translated one',
-                'description' => 'translated current cycle description', ],
             'crewPlayer' => [
                 'name' => 'translated one',
-                'description' => 'translated two', ],
+                'description' => 'translated two',
+            ],
             'inOrbitPlanet' => null,
             'isDaedalusTravelling' => false,
             'attackingHunters' => 0,
             'onGoingExploration' => [
+                'title' => 'Expédition en cours',
                 'planet' => 'Planète : translated planet name',
                 'explorators' => 'Équipe : Roland',
                 'estimatedDuration' => 'Retour estimé : 10 minutes',
-                'title' => 'Expédition en cours',
             ],
         ];
 
-        $this->assertIsArray($data);
-        $this->assertEquals($expected, $data);
+        self::assertIsArray($data);
+        self::assertSame($expected, $data);
     }
 }

@@ -13,7 +13,7 @@ final class ClosedExplorationService implements ClosedExplorationServiceInterfac
     public function getMostRecentForPlayer(Player $player): ClosedExploration
     {
         $daedalusExplorations = $player->getDaedalus()->getDaedalusInfo()->getClosedExplorations();
-        $playerExplorations = $daedalusExplorations->filter(function (ClosedExploration $closedExploration) use ($player) {
+        $playerExplorations = $daedalusExplorations->filter(static function (ClosedExploration $closedExploration) use ($player) {
             return $closedExploration->getClosedExplorators()->contains($player->getPlayerInfo()->getClosedPlayer());
         });
 

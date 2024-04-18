@@ -16,13 +16,18 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 
-class TreatPlantActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class TreatPlantActionTest extends AbstractActionTest
 {
     /** @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var PlayerServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
-    /** @var StatusServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     /**
@@ -62,8 +67,7 @@ class TreatPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setName('plant')
-        ;
+            ->setName('plant');
 
         $plant = new Plant();
         $plant->addAction($this->actionEntity);
@@ -80,9 +84,9 @@ class TreatPlantActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(0, $room->getEquipments()->first()->getStatuses());
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(0, $room->getEquipments()->first()->getStatuses());
+        self::assertCount(0, $player->getStatuses());
     }
 }

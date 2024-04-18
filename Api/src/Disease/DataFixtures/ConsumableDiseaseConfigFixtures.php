@@ -44,23 +44,20 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
                     6 => 1, 7 => 1, 8 => 1, 9 => 1, 10 => 1, 11 => 1, ])
                 ->setDiseasesDelayLength([0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1, 6 => 1, 7 => 1, 8 => 1])
                 ->setEffectNumber([0 => 35, 1 => 40, 2 => 15, 3 => 9, 4 => 1])
-                ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
-            ;
+                ->appendConfigKeyToName(GameConfigEnum::DEFAULT);
             $manager->persist($alienFruitDiseasesConfig);
             $gameConfig->addConsumableDiseaseConfig($alienFruitDiseasesConfig);
         }
 
         $junkbumpkinitis = new ConsumableDiseaseAttribute();
         $junkbumpkinitis
-            ->setDisease(DiseaseEnum::JUNKBUMPKINITIS)
-        ;
+            ->setDisease(DiseaseEnum::JUNKBUMPKINITIS);
 
         $jumpkinDiseasesConfig = new ConsumableDiseaseConfig();
         $jumpkinDiseasesConfig
             ->setCauseName(GameFruitEnum::JUMPKIN)
             ->setAttributes(new ArrayCollection([$junkbumpkinitis]))
-            ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
-        ;
+            ->appendConfigKeyToName(GameConfigEnum::DEFAULT);
         $junkbumpkinitis->setConsumableDiseaseConfig($jumpkinDiseasesConfig);
 
         $manager->persist($jumpkinDiseasesConfig);
@@ -71,23 +68,20 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             ->setDisease(DiseaseEnum::ACID_REFLUX)
             ->setRate(50)
             ->setDelayMin(4)
-            ->setDelayLength(4)
-        ;
+            ->setDelayLength(4);
 
         $tapeworm = new ConsumableDiseaseAttribute();
         $tapeworm
             ->setDisease(DiseaseEnum::TAPEWORM)
             ->setRate(25)
             ->setDelayMin(4)
-            ->setDelayLength(4)
-        ;
+            ->setDelayLength(4);
 
         $alienSteak = new ConsumableDiseaseConfig();
         $alienSteak
             ->setCauseName(GameRationEnum::ALIEN_STEAK)
             ->setAttributes([$acidReflux, $tapeworm])
-            ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
-        ;
+            ->appendConfigKeyToName(GameConfigEnum::DEFAULT);
         $acidReflux->setConsumableDiseaseConfig($alienSteak);
         $tapeworm->setConsumableDiseaseConfig($alienSteak);
         $manager->persist($alienSteak);
@@ -96,16 +90,14 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
         $nausea = new ConsumableDiseaseAttribute();
         $nausea
             ->setDisease(DiseaseEnum::SLIGHT_NAUSEA)
-            ->setRate(55)
-        ;
+            ->setRate(55);
         $manager->persist($nausea);
 
         $vitaminBar = new ConsumableDiseaseConfig();
         $vitaminBar
             ->setCauseName(GameRationEnum::SUPERVITAMIN_BAR)
             ->setAttributes(new ArrayCollection([$nausea]))
-            ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
-        ;
+            ->appendConfigKeyToName(GameConfigEnum::DEFAULT);
 
         $nausea->setConsumableDiseaseConfig($vitaminBar);
         $manager->persist($vitaminBar);
@@ -133,9 +125,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
                 ->setCuresName($cures)
                 ->setCuresChances([100 => 1])
                 ->setEffectNumber([1 => 60, 2 => 30, 3 => 8, 4 => 1])
-                ->appendConfigKeyToName(GameConfigEnum::DEFAULT)
-
-            ;
+                ->appendConfigKeyToName(GameConfigEnum::DEFAULT);
             $manager->persist($drugDiseaseConfig);
             $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
         }
@@ -147,9 +137,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             ->setCuresName([DisorderEnum::DEPRESSION => 1])
             ->setCuresChances([100 => 1])
             ->setEffectNumber([1 => 1])
-            ->appendConfigKeyToName(GameConfigEnum::TEST)
-
-        ;
+            ->appendConfigKeyToName(GameConfigEnum::TEST);
         $manager->persist($drugDiseaseConfig);
         $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
 
@@ -159,9 +147,7 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             ->setCuresName([DiseaseEnum::FLU => 1])
             ->setCuresChances([100 => 1])
             ->setEffectNumber([1 => 1])
-            ->appendConfigKeyToName(GameConfigEnum::TEST)
-
-        ;
+            ->appendConfigKeyToName(GameConfigEnum::TEST);
         $manager->persist($fluHealerDiseaseConfig);
         $gameConfig->addConsumableDiseaseConfig($fluHealerDiseaseConfig);
 

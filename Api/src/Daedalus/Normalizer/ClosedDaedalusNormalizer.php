@@ -13,8 +13,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 {
     use NormalizerAwareTrait;
 
-    private const ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
-
+    private const string ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
     private CycleServiceInterface $cycleService;
     private TranslationServiceInterface $translationService;
 
@@ -26,7 +25,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // Make sure we're not called twice
         if (isset($context[self::ALREADY_CALLED])) {
@@ -45,7 +44,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
-        if (!is_array($data)) {
+        if (!\is_array($data)) {
             throw new \Exception('normalized closedDaedalus should be an array');
         }
 
@@ -64,7 +63,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                 end: $finishedAt,
                 daedalusInfo: $daedalus->getDaedalusInfo()
             );
-            $data['daysSurvived'] = intval($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
         }
 
         return $data;

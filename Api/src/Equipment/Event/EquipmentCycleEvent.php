@@ -17,8 +17,8 @@ class EquipmentCycleEvent extends DaedalusCycleEvent
         GameEquipment $gameEquipment,
         Daedalus $daedalus,
         array $tags,
-        \DateTime $time)
-    {
+        \DateTime $time
+    ) {
         parent::__construct($daedalus, $tags, $time);
 
         $this->gameEquipment = $gameEquipment;

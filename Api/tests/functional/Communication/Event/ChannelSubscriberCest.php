@@ -33,8 +33,10 @@ class ChannelSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -42,10 +44,12 @@ class ChannelSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -57,8 +61,7 @@ class ChannelSubscriberCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
@@ -79,8 +82,10 @@ class ChannelSubscriberCest
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -88,6 +93,7 @@ class ChannelSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'daedalus' => $daedalus,
@@ -95,6 +101,7 @@ class ChannelSubscriberCest
         $player2 = $I->have(Player::class, [
             'daedalus' => $daedalus,
         ]);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -110,22 +117,19 @@ class ChannelSubscriberCest
         $privateChannel = new Channel();
         $privateChannel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
         $I->haveInRepository($privateChannel);
 
         $channelPlayer = new ChannelPlayer();
         $channelPlayer
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo)
-        ;
+            ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
         $channelPlayer2 = new ChannelPlayer();
         $channelPlayer2
             ->setChannel($privateChannel)
-            ->setParticipant($playerInfo2)
-        ;
+            ->setParticipant($playerInfo2);
         $I->haveInRepository($channelPlayer2);
 
         $event = new ChannelEvent($privateChannel, [CommunicationActionEnum::EXIT], new \DateTime(), $player);

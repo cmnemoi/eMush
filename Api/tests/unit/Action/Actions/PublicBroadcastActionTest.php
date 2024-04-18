@@ -17,10 +17,12 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class PublicBroadcastActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class PublicBroadcastActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -68,8 +70,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
         $alienTVConfig->setStatusName(PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST);
         $alienTVStatus = new ChargeStatus($player, $alienTVConfig);
         $alienTVStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
@@ -79,7 +80,7 @@ class PublicBroadcastActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 
     public function testExecute()
@@ -103,12 +104,11 @@ class PublicBroadcastActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

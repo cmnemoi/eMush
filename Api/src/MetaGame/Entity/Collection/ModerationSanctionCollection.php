@@ -12,14 +12,20 @@ use Mush\Player\Entity\Player;
  */
 class ModerationSanctionCollection extends ArrayCollection
 {
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function getActiveSanction(): self
     {
-        return $this->filter(fn (ModerationSanction $moderationAction) => $moderationAction->getIsActive());
+        return $this->filter(static fn (ModerationSanction $moderationAction) => $moderationAction->getIsActive());
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function isBanned(): bool
     {
-        $activeBans = $this->filter(fn (ModerationSanction $moderationAction) => (
+        $activeBans = $this->filter(static fn (ModerationSanction $moderationAction) => (
             $moderationAction->getIsActive()
             && $moderationAction->getModerationAction() === ModerationSanctionEnum::BAN_USER
         ));
@@ -27,9 +33,12 @@ class ModerationSanctionCollection extends ArrayCollection
         return $activeBans->count() > 0;
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function getWarnings(): self
     {
-        return $this->filter(fn (ModerationSanction $moderationAction) => (
+        return $this->filter(static fn (ModerationSanction $moderationAction) => (
             $moderationAction->getIsActive()
             && $moderationAction->getModerationAction() === ModerationSanctionEnum::WARNING
         ));

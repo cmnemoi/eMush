@@ -88,7 +88,7 @@ class Action implements GameVariableHolderInterface
     {
         $types = $this->types;
 
-        if (in_array($this->visibilities[ActionOutputEnum::SUCCESS], [VisibilityEnum::SECRET, VisibilityEnum::COVERT])) {
+        if (\in_array($this->visibilities[ActionOutputEnum::SUCCESS], [VisibilityEnum::SECRET, VisibilityEnum::COVERT], true)) {
             $types[] = $this->visibilities[ActionOutputEnum::SUCCESS];
         }
 
@@ -262,7 +262,7 @@ class Action implements GameVariableHolderInterface
 
     public function getVisibility(string $actionOutput): string
     {
-        if (key_exists($actionOutput, $this->visibilities)) {
+        if (\array_key_exists($actionOutput, $this->visibilities)) {
             return $this->visibilities[$actionOutput];
         }
 

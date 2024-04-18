@@ -23,11 +23,14 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
 
-class DiseaseNormalizerTest extends TestCase
+/**
+ * @internal
+ */
+final class DiseaseNormalizerTest extends TestCase
 {
     private DiseaseNormalizer $normalizer;
 
-    /** @var TranslationService|Mockery\Mock */
+    /** @var Mockery\Mock|TranslationService */
     private TranslationService $translationService;
 
     /**
@@ -70,18 +73,16 @@ class DiseaseNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('name.name', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('name.description', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
 
         $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
-        $this->assertEquals([
+        self::assertSame([
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),
@@ -104,13 +105,11 @@ class DiseaseNormalizerTest extends TestCase
         $modifierConfig
             ->setDelta(-6)
             ->setTargetEvent(ActionEvent::PRE_ACTION)
-            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT)
-        ;
+            ->setTargetVariable(PlayerVariableEnum::MORAL_POINT);
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('name')
-            ->setModifierConfigs(new ModifierCollection([$modifierConfig]))
-        ;
+            ->setModifierConfigs(new ModifierCollection([$modifierConfig]));
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setDiseaseConfig($diseaseConfig);
@@ -119,14 +118,12 @@ class DiseaseNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('name.name', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('name.description', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with(
@@ -136,12 +133,11 @@ class DiseaseNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated three')
-            ->once()
-        ;
+            ->once();
 
         $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
-        $this->assertEquals([
+        self::assertSame([
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),
@@ -167,14 +163,12 @@ class DiseaseNormalizerTest extends TestCase
         $symptomConfig = new EventModifierConfig(SymptomEnum::BITING);
         $symptomConfig
             ->addModifierRequirement($symptomActivationRequirement)
-            ->setTargetEvent(ActionEvent::POST_ACTION)
-        ;
+            ->setTargetEvent(ActionEvent::POST_ACTION);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('name')
-            ->setModifierConfigs([$symptomConfig])
-        ;
+            ->setModifierConfigs([$symptomConfig]);
 
         $playerDisease = new PlayerDisease();
         $playerDisease->setDiseaseConfig($diseaseConfig);
@@ -183,14 +177,12 @@ class DiseaseNormalizerTest extends TestCase
             ->shouldReceive('translate')
             ->with('name.name', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated one')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with('name.description', [], 'disease', LanguageEnum::FRENCH)
             ->andReturn('translated two')
-            ->once()
-        ;
+            ->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with(
@@ -200,12 +192,11 @@ class DiseaseNormalizerTest extends TestCase
                 LanguageEnum::FRENCH
             )
             ->andReturn('translated three')
-            ->once()
-        ;
+            ->once();
 
         $normalized = $this->normalizer->normalize($playerDisease, null, ['currentPlayer' => $player]);
 
-        $this->assertEquals([
+        self::assertSame([
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),

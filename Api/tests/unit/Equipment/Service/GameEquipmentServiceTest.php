@@ -28,15 +28,18 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class GameEquipmentServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class GameEquipmentServiceTest extends TestCase
 {
-    private Mockery\Mock|EventServiceInterface $eventService;
+    private EventServiceInterface|Mockery\Mock $eventService;
     private EntityManagerInterface|Mockery\Mock $entityManager;
     private GameEquipmentRepository|Mockery\Mock $repository;
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
     private EquipmentServiceInterface|Mockery\Mock $equipmentService;
     private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     private GameEquipmentService $service;
 
@@ -99,8 +102,8 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertEquals('some Name', $gameItem->getName());
+        self::assertInstanceOf(GameItem::class, $gameItem);
+        self::assertSame('some Name', $gameItem->getName());
     }
 
     public function testCreateBasicEquipment()
@@ -113,17 +116,14 @@ class GameEquipmentServiceTest extends TestCase
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig
             ->setEquipmentName('equipment Name')
-            ->setMechanics(new ArrayCollection([]))
-        ;
+            ->setMechanics(new ArrayCollection([]));
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
         $gameEquipment = $this->service->createGameEquipment(
@@ -133,8 +133,8 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameEquipment::class, $gameEquipment);
-        $this->assertEquals('equipment Name', $gameEquipment->getName());
+        self::assertInstanceOf(GameEquipment::class, $gameEquipment);
+        self::assertSame('equipment Name', $gameEquipment->getName());
     }
 
     public function testCreatePlant()
@@ -148,33 +148,28 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setEquipmentName('some plant')
-            ->setMechanics(new ArrayCollection([$plantMechanic]))
-        ;
+            ->setMechanics(new ArrayCollection([$plantMechanic]));
 
         $plantEffect = new PlantEffect();
         $plantEffect->setMaturationTime(8);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
         $this->equipmentEffectService
             ->shouldReceive('getPlantEffect')
             ->with($plantMechanic, $daedalus)
             ->andReturn($plantEffect)
-            ->once()
-        ;
+            ->once();
 
         $status = \Mockery::mock(ChargeStatus::class);
         $this->statusService
             ->shouldReceive('createStatusFromName')
             ->andReturn($status)
-            ->once()
-        ;
+            ->once();
         $chargeVariable = \Mockery::mock(GameVariable::class);
         $status->shouldReceive('getVariableByName')->andReturn($chargeVariable);
         $chargeVariable->shouldReceive('setMaxValue')->with(8);
@@ -188,8 +183,8 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertEquals('some plant', $gameItem->getName());
+        self::assertInstanceOf(GameItem::class, $gameItem);
+        self::assertSame('some plant', $gameItem->getName());
     }
 
     public function testCreateDocument()
@@ -204,36 +199,30 @@ class GameEquipmentServiceTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig
             ->setEquipmentName('some document')
-            ->setMechanics(new ArrayCollection([$documentMechanic]))
-        ;
+            ->setMechanics(new ArrayCollection([$documentMechanic]));
 
         $gameEquipment = new GameItem($place);
         $gameEquipment
             ->setName('some document')
-            ->setEquipment($itemConfig)
-        ;
+            ->setEquipment($itemConfig);
 
         $statusConfig = new ContentStatusConfig();
         $statusConfig
-            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT)
-        ;
+            ->setStatusName(EquipmentStatusEnum::DOCUMENT_CONTENT);
 
         $status = new ContentStatus($gameEquipment, $statusConfig);
         $status->setContent($documentMechanic->getContent());
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
         $this->statusService
-            ->shouldReceive('createStatusFromName')->andReturn($status)->once()
-        ;
+            ->shouldReceive('createStatusFromName')->andReturn($status)->once();
 
         $gameItem = $this->service->createGameEquipment(
             $itemConfig,
@@ -242,7 +231,7 @@ class GameEquipmentServiceTest extends TestCase
             new \DateTime()
         );
 
-        $this->assertInstanceOf(GameItem::class, $gameItem);
-        $this->assertEquals('some document', $gameItem->getName());
+        self::assertInstanceOf(GameItem::class, $gameItem);
+        self::assertSame('some document', $gameItem->getName());
     }
 }

@@ -13,11 +13,11 @@ class PlayerDiseaseCollection extends ArrayCollection
 {
     public function getActiveDiseases(): self
     {
-        return $this->filter(fn (PlayerDisease $disease) => ($disease->getStatus() === DiseaseStatusEnum::ACTIVE));
+        return $this->filter(static fn (PlayerDisease $disease) => ($disease->getStatus() === DiseaseStatusEnum::ACTIVE));
     }
 
     public function getByDiseaseType(string $type): self
     {
-        return $this->filter(fn (PlayerDisease $disease) => ($disease->getDiseaseConfig()->getType() === $type));
+        return $this->filter(static fn (PlayerDisease $disease) => ($disease->getDiseaseConfig()->getType() === $type));
     }
 }

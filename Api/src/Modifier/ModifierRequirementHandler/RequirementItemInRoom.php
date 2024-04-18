@@ -25,7 +25,7 @@ class RequirementItemInRoom extends AbstractModifierRequirementHandler
             throw new \LogicException('invalid ModifierHolderInterface for item_in_room activationRequirement');
         }
 
-        return $room->getEquipments()->filter(function (GameEquipment $equipment) use ($modifierRequirement) {
+        return $room->getEquipments()->filter(static function (GameEquipment $equipment) use ($modifierRequirement) {
             return $equipment->getName() === $modifierRequirement->getActivationRequirement();
         })->count() > 0;
     }

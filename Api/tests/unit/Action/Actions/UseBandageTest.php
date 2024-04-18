@@ -11,7 +11,10 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 
-class UseBandageTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class UseBandageTest extends AbstractActionTest
 {
     /**
      * @before
@@ -47,8 +50,7 @@ class UseBandageTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName('item')
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $this->eventService->shouldReceive('callEvent');
 
@@ -60,12 +62,11 @@ class UseBandageTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $this->eventService->shouldReceive('callEvent');
         $this->eventService->shouldReceive('callEvent');
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

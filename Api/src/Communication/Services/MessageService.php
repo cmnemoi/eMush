@@ -39,8 +39,7 @@ class MessageService implements MessageServiceInterface
             ->setChannel($createMessage->getChannel())
             ->setMessage($messageContent)
             ->setParent($createMessage->getParent())
-            ->addReader($player)
-        ;
+            ->addReader($player);
 
         $rootMessage = $createMessage->getParent();
         if ($rootMessage) {
@@ -83,8 +82,7 @@ class MessageService implements MessageServiceInterface
             ->setMessage($messageKey)
             ->setTranslationParameters($parameters)
             ->setCreatedAt($dateTime)
-            ->setUpdatedAt($dateTime)
-        ;
+            ->setUpdatedAt($dateTime);
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();
@@ -167,8 +165,8 @@ class MessageService implements MessageServiceInterface
     public function markMessageAsReadForPlayer(Message $message, Player $player): void
     {
         $message
-          ->addReader($player)
-          ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
+            ->addReader($player)
+            ->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the message because this would change the order of the messages
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();
@@ -181,8 +179,7 @@ class MessageService implements MessageServiceInterface
 
         $rootMessage
             ->addFavorite($player)
-            ->cancelTimestampable()
-        ;
+            ->cancelTimestampable();
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();
@@ -195,8 +192,7 @@ class MessageService implements MessageServiceInterface
 
         $rootMessage
             ->removeFavorite($player)
-            ->cancelTimestampable()
-        ;
+            ->cancelTimestampable();
 
         $this->entityManager->persist($message);
         $this->entityManager->flush();
@@ -220,6 +216,7 @@ class MessageService implements MessageServiceInterface
             [],
             new \DateTime()
         );
+
         /** @var MessageEvent $event */
         $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::READ_MESSAGE);
 

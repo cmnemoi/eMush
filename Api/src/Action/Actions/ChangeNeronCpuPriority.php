@@ -38,11 +38,6 @@ final class ChangeNeronCpuPriority extends AbstractAction
         $this->neronService = $neronService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
@@ -65,6 +60,11 @@ final class ChangeNeronCpuPriority extends AbstractAction
         );
     }
 
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof GameEquipment;
+    }
+
     protected function checkResult(): ActionResult
     {
         return new Success();
@@ -73,7 +73,7 @@ final class ChangeNeronCpuPriority extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $params = $this->getParameters();
-        $cpuPriority = ($params && array_key_exists('cpuPriority', $params)) ? $params['cpuPriority'] : NeronCpuPriorityEnum::NONE;
+        $cpuPriority = ($params && \array_key_exists('cpuPriority', $params)) ? $params['cpuPriority'] : NeronCpuPriorityEnum::NONE;
 
         $neron = $this->player->getDaedalus()->getDaedalusInfo()->getNeron();
 

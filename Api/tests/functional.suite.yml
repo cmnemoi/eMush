@@ -14,12 +14,12 @@ modules:
         kernel_class: 'Mush\Kernel'
         app_path: 'src'
         environment: 'test'
-    - Doctrine2:
+    - Doctrine:
         depends: Symfony
         cleanup: true
     - \Mush\Tests\Helper\Functional
     - DataFactory:
-        depends: Doctrine2
+        depends: Doctrine
     - \Mush\Tests\Helper\Factories\DaedalusFactory
     - \Mush\Tests\Helper\Factories\PlayerFactory
     - \Mush\Tests\Helper\Factories\RoomFactory

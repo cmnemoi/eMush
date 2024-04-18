@@ -29,6 +29,7 @@ class RoomLogRepositoryCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 
@@ -39,13 +40,16 @@ class RoomLogRepositoryCest
 
         /** @var Place $place */
         $place = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $place,
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -63,8 +67,7 @@ class RoomLogRepositoryCest
             ->setDate(new \DateTime())
             ->setDay(1)
             ->setCycle(1)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
 
         $I->haveInRepository($roomLog);
 
@@ -93,6 +96,7 @@ class RoomLogRepositoryCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 
@@ -109,8 +113,10 @@ class RoomLogRepositoryCest
             'place' => $place,
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -127,8 +133,7 @@ class RoomLogRepositoryCest
             ->setDate(new \DateTime())
             ->setDay(1)
             ->setCycle(1)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
 
         $I->haveInRepository($roomLog);
 
@@ -138,8 +143,7 @@ class RoomLogRepositoryCest
 
         $roomLog
             ->setDaedalusInfo($daedalusInfo)
-            ->setPlace($place->getName())
-        ;
+            ->setPlace($place->getName());
 
         $I->haveInRepository($roomLog);
 
@@ -152,6 +156,7 @@ class RoomLogRepositoryCest
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
 
@@ -168,8 +173,10 @@ class RoomLogRepositoryCest
             'place' => $place,
             'daedalus' => $daedalus,
         ]);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -187,8 +194,7 @@ class RoomLogRepositoryCest
             ->setCycle(1)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setPlace($place->getName())
-            ->setDaedalusInfo($daedalusInfo)
-        ;
+            ->setDaedalusInfo($daedalusInfo);
 
         $I->haveInRepository($roomLog);
 

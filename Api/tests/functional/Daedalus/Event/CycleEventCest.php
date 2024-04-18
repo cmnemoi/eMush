@@ -33,7 +33,10 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class CycleEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -51,6 +54,7 @@ class CycleEventCest extends AbstractFunctionalTest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
@@ -65,15 +69,13 @@ class CycleEventCest extends AbstractFunctionalTest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT)
-        ;
+            ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
 
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -87,20 +89,20 @@ class CycleEventCest extends AbstractFunctionalTest
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
         $characterConfig
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig);
+
         /** @var CharacterConfig $characterConfig2 */
         $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
         $characterConfig2
             ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99)
-        ;
+            ->setMaxHealthPoint(99);
         $I->haveInRepository($characterConfig2);
 
         /** @var Player $player */
         $player = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -114,7 +116,8 @@ class CycleEventCest extends AbstractFunctionalTest
 
         /** @var Player $player2 */
         $player2 = $I->have(
-            Player::class, [
+            Player::class,
+            [
                 'daedalus' => $daedalus,
                 'place' => $room,
             ]
@@ -142,8 +145,7 @@ class CycleEventCest extends AbstractFunctionalTest
         // let's increase the duration of the ship to increase the number of incidents
         $this->daedalus
             ->setOxygen(10)
-            ->setDay(100)
-        ;
+            ->setDay(100);
 
         $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->setMaxValue(200)->setValue(200);
         $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->setMaxValue(200)->setValue(200);
@@ -184,6 +186,7 @@ class CycleEventCest extends AbstractFunctionalTest
         // given those players in the daedalus
         /** @var Player $jinSu */
         $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
         /** @var Player $gioele */
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
 

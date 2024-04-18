@@ -9,7 +9,7 @@ class HasDiseases extends ClassConstraint
 
     public string $message = 'character has already all fake diseases';
 
-    public string|null $type = null;
+    public ?string $type = null;
 
     public bool $isEmpty = true;
 

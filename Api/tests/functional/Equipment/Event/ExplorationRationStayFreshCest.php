@@ -29,7 +29,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ExplorationRationStayFreshCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -59,8 +62,7 @@ class ExplorationRationStayFreshCest extends AbstractFunctionalTest
         $this->icarus = new GameEquipment($this->icarusBay);
         $this->icarus
             ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig)
-        ;
+            ->setEquipment($icarusConfig);
         $I->haveInRepository($this->icarus);
 
         // given a planet with oxygen is found
@@ -72,8 +74,7 @@ class ExplorationRationStayFreshCest extends AbstractFunctionalTest
         $this->planet = new Planet($this->player);
         $this->planet
             ->setName($planetName)
-            ->setSize(2)
-        ;
+            ->setSize(2);
         $I->haveInRepository($this->planet);
 
         $desertSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::DESERT . '_default']);
@@ -99,6 +100,7 @@ class ExplorationRationStayFreshCest extends AbstractFunctionalTest
     public function testSteakStayFresh(FunctionalTester $I)
     {
         $alienSTeakConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GameRationEnum::ALIEN_STEAK]);
+
         /** @var GameEquipmentServiceInterface $equipmentService */
         $equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 

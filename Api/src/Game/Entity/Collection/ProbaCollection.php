@@ -12,32 +12,32 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 final class ProbaCollection extends ArrayCollection
 {
-    public function getElementProbability(string|int $key): ?int
+    public function getElementProbability(int|string $key): ?int
     {
         return $this->get($key);
     }
 
-    public function setElementProbability(string|int $key, int $value): ProbaCollection
+    public function setElementProbability(int|string $key, int $value): self
     {
         $this->set($key, $value);
 
         return $this;
     }
 
-    public function withdrawElements(array $elements): ProbaCollection
+    public function withdrawElements(array $elements): self
     {
-        if (count($elements) === 0) {
+        if (\count($elements) === 0) {
             return $this;
         }
 
-        return new ProbaCollection(array_diff_key($this->toArray(), array_flip($elements)));
+        return new self(array_diff_key($this->toArray(), array_flip($elements)));
     }
 
     public function getTotalWeight(): int
     {
         $cumuProba = 0;
         foreach ($this as $probability) {
-            if (!is_int($probability)) {
+            if (!\is_int($probability)) {
                 throw new \RuntimeException('Probability weight should be provided as integers');
             }
 
@@ -50,7 +50,7 @@ final class ProbaCollection extends ArrayCollection
     /**
      * Returns an element from a random int between 0 and total Weight.
      */
-    public function getElementFromDrawnProba(int $value): string|int
+    public function getElementFromDrawnProba(int $value): int|string
     {
         $cumuProba = 0;
         foreach ($this as $element => $probability) {
@@ -60,7 +60,7 @@ final class ProbaCollection extends ArrayCollection
             }
         }
 
-        throw new \RuntimeException("random value ($value) should be comprised between 0 and total Weight ($cumuProba)");
+        throw new \RuntimeException("random value ({$value}) should be comprised between 0 and total Weight ({$cumuProba})");
     }
 
     public function getProbabilities(): array
@@ -75,7 +75,7 @@ final class ProbaCollection extends ArrayCollection
     {
         $probaCollectionAsArray = $this->getProbabilities();
         $keys = array_keys($probaCollectionAsArray);
-        if (is_int($keys[0])) {
+        if (\is_int($keys[0])) {
             return min($keys);
         }
 
@@ -89,7 +89,7 @@ final class ProbaCollection extends ArrayCollection
     {
         $probaCollectionAsArray = $this->getProbabilities();
         $keys = array_keys($probaCollectionAsArray);
-        if (is_int($keys[0])) {
+        if (\is_int($keys[0])) {
             return max($keys);
         }
 

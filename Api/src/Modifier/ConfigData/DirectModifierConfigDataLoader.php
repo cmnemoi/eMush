@@ -19,7 +19,7 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
 
             if ($modifierConfig === null) {
                 $modifierConfig = new DirectModifierConfig($configName);
-            } elseif (!($modifierConfig instanceof DirectModifierConfig)) {
+            } elseif (!$modifierConfig instanceof DirectModifierConfig) {
                 $this->entityManager->remove($modifierConfig);
                 $this->entityManager->flush();
                 $modifierConfig = new DirectModifierConfig($configName);
@@ -29,8 +29,7 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
                 ->setRevertOnRemove($modifierConfigData['revertOnRemove'])
                 ->setModifierName($modifierConfigData['modifierName'])
                 ->setModifierRange($modifierConfigData['modifierRange'])
-                ->setModifierStrategy($modifierConfigData['strategy'])
-            ;
+                ->setModifierStrategy($modifierConfigData['strategy']);
 
             $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);
             $this->setModifierConfigActivationRequirements($modifierConfig, $modifierConfigData);

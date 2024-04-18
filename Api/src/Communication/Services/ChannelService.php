@@ -61,8 +61,7 @@ class ChannelService implements ChannelServiceInterface
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
@@ -75,8 +74,7 @@ class ChannelService implements ChannelServiceInterface
         $channel = new Channel();
         $channel
             ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
-            ->setScope(ChannelScopeEnum::PRIVATE)
-        ;
+            ->setScope(ChannelScopeEnum::PRIVATE);
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
@@ -153,7 +151,7 @@ class ChannelService implements ChannelServiceInterface
     public function exitChannel(
         Player $player,
         Channel $channel,
-        \DateTime $time = null,
+        ?\DateTime $time = null,
         string $reason = CommunicationActionEnum::EXIT
     ): bool {
         if ($time === null) {
@@ -198,20 +196,6 @@ class ChannelService implements ChannelServiceInterface
             && !$otherPlayer->hasStatus(PlayerStatusEnum::LOST);
     }
 
-    private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool
-    {
-        /** @var ChannelPlayer $participant */
-        foreach ($channel->getParticipants() as $participant) {
-            /** @var Player $player */
-            $player = $participant->getParticipant()->getPlayer();
-            if ($player->getPlace() !== $place) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function canPlayerWhisperInChannel(Channel $channel, Player $player): bool
     {
         // all Mush players can post in mush channel, whatever the conditions
@@ -226,9 +210,8 @@ class ChannelService implements ChannelServiceInterface
 
         // or at least one member of the conversation in each room can communicate
         $otherParticipants = $channel->getParticipants()
-            ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
-            ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)
-        ;
+            ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
+            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player);
 
         /** @var Player $participant */
         foreach ($otherParticipants as $participant) {
@@ -247,6 +230,107 @@ class ChannelService implements ChannelServiceInterface
         foreach ($channels as $channel) {
             $this->updatePrivateChannel($channel, $reason, $time);
         }
+    }
+
+    public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
+    {
+        $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
+
+        if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
+            return $channels->filter(static fn (Channel $channel) => $channel->isPrivateOrMush());
+        }
+
+        return $channels;
+    }
+
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
+    public function getPiratedPlayer(Player $player): ?Player
+    {
+        if (!$player->hasStatus(PlayerStatusEnum::TALKIE_SCREWED)) {
+            return null;
+        }
+
+        /** @var Status $talkieScrewedStatus */
+        $talkieScrewedStatus = $player->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
+
+        return $talkieScrewedStatus->getTarget();
+    }
+
+    public function getPiratedChannels(Player $piratedPlayer): Collection
+    {
+        $channels = $this->channelRepository->findByPlayer($piratedPlayer->getPlayerInfo());
+
+        return $channels->filter(
+            fn (Channel $channel) => !$this->isChannelWhisperOnly($channel)
+            && !$channel->isScope(ChannelScopeEnum::MUSH)
+        );
+    }
+
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
+    public function getPiratePlayer(Player $player): ?Player
+    {
+        $screwedTalkieStatus = $this->statusService->getByTargetAndName($player, PlayerStatusEnum::TALKIE_SCREWED);
+
+        return $screwedTalkieStatus?->getOwner();
+    }
+
+    public function getPlayerFavoritesChannel(Player $player): Channel
+    {
+        $channel = $this->channelRepository->findFavoritesChannelByPlayer($player);
+        if (!$channel) {
+            $channel = $this->createPlayerFavoritesChannel($player);
+        }
+
+        return $channel;
+    }
+
+    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer
+    {
+        $channelPlayer = new ChannelPlayer();
+
+        $channelPlayer
+            ->setChannel($channel)
+            ->setParticipant($playerInfo);
+
+        $this->entityManager->persist($channelPlayer);
+        $this->entityManager->flush();
+
+        return $channelPlayer;
+    }
+
+    public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool
+    {
+        $channelParticipant = $channel->getParticipants()
+            ->filter(static fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo));
+
+        if ($channelParticipant->isEmpty()) {
+            return false;
+        }
+
+        $this->entityManager->remove($channelParticipant->first());
+        $this->entityManager->flush();
+
+        return true;
+    }
+
+    private function isChannelOnSeveralRoom(Channel $channel, Place $place): bool
+    {
+        /** @var ChannelPlayer $participant */
+        foreach ($channel->getParticipants() as $participant) {
+            /** @var Player $player */
+            $player = $participant->getParticipant()->getPlayer();
+            if ($player->getPlace() !== $place) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function updatePrivateChannel(Channel $channel, string $reason, \DateTime $time): void
@@ -273,71 +357,12 @@ class ChannelService implements ChannelServiceInterface
         }
     }
 
-    public function getPlayerChannels(Player $player, bool $privateOnly = false): Collection
-    {
-        $channels = $this->channelRepository->findByPlayer($player->getPlayerInfo(), $privateOnly);
-
-        if ($player->isAlive() && !$this->canPlayerCommunicate($player) && !$privateOnly) {
-            return $channels->filter(fn (Channel $channel) => $channel->isPrivateOrMush());
-        }
-
-        return $channels;
-    }
-
-    public function getPiratedPlayer(Player $player): ?Player
-    {
-        if (!$player->hasStatus(PlayerStatusEnum::TALKIE_SCREWED)) {
-            return null;
-        }
-
-        /** @var Status $talkieScrewedStatus */
-        $talkieScrewedStatus = $player->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
-        /** @var Player $piratedPlayer */
-        $piratedPlayer = $talkieScrewedStatus->getTarget();
-
-        return $piratedPlayer;
-    }
-
-    public function getPiratedChannels(Player $piratedPlayer): Collection
-    {
-        $channels = $this->channelRepository->findByPlayer($piratedPlayer->getPlayerInfo());
-
-        return $channels->filter(fn (Channel $channel) => !$this->isChannelWhisperOnly($channel)
-            && !$channel->isScope(ChannelScopeEnum::MUSH)
-        );
-    }
-
-    public function getPiratePlayer(Player $player): ?Player
-    {
-        $screwedTalkieStatus = $this->statusService->getByTargetAndName($player, PlayerStatusEnum::TALKIE_SCREWED);
-
-        if ($screwedTalkieStatus) {
-            /** @var Player $player */
-            $player = $screwedTalkieStatus->getOwner();
-
-            return $player;
-        }
-
-        return null;
-    }
-
-    public function getPlayerFavoritesChannel(Player $player): Channel
-    {
-        $channel = $this->channelRepository->findFavoritesChannelByPlayer($player);
-        if (!$channel) {
-            $channel = $this->createPlayerFavoritesChannel($player);
-        }
-
-        return $channel;
-    }
-
     private function createPlayerFavoritesChannel(Player $player): Channel
     {
         $channel = new Channel();
         $channel
             ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
-            ->setScope(ChannelScopeEnum::FAVORITES)
-        ;
+            ->setScope(ChannelScopeEnum::FAVORITES);
 
         $this->entityManager->persist($channel);
         $this->entityManager->flush();
@@ -354,20 +379,19 @@ class ChannelService implements ChannelServiceInterface
 
         if ($this->canPlayerCommunicate($player)) {
             return true;
-        } elseif ($playerIsAloneInTheirChannel) {
+        }
+        if ($playerIsAloneInTheirChannel) {
             return true;
-        } else {
-            // can whisper with at least one channel participant
-            $otherParticipants = $channel->getParticipants()
-                ->map(fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
-                ->filter(fn (?Player $participant) => $participant !== null && $participant !== $player)
-            ;
+        }
+        // can whisper with at least one channel participant
+        $otherParticipants = $channel->getParticipants()
+            ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
+            ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player);
 
-            /** @var Player $participant */
-            foreach ($otherParticipants as $participant) {
-                if ($this->canPlayerWhisper($player, $participant)) {
-                    return true;
-                }
+        /** @var Player $participant */
+        foreach ($otherParticipants as $participant) {
+            if ($this->canPlayerWhisper($player, $participant)) {
+                return true;
             }
         }
 
@@ -392,37 +416,6 @@ class ChannelService implements ChannelServiceInterface
                 return false;
             }
         }
-
-        return true;
-    }
-
-    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer
-    {
-        $channelPlayer = new ChannelPlayer();
-
-        $channelPlayer
-            ->setChannel($channel)
-            ->setParticipant($playerInfo)
-        ;
-
-        $this->entityManager->persist($channelPlayer);
-        $this->entityManager->flush();
-
-        return $channelPlayer;
-    }
-
-    public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool
-    {
-        $channelParticipant = $channel->getParticipants()
-            ->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))
-        ;
-
-        if ($channelParticipant->isEmpty()) {
-            return false;
-        }
-
-        $this->entityManager->remove($channelParticipant->first());
-        $this->entityManager->flush();
 
         return true;
     }

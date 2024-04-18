@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Entity\Exploration;
@@ -34,7 +35,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $this->planetService = $planetService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         // This group is used to differentiate the normalizer for in-game Daedalus and Daedalus in the admin panel
         // Do not remove it
@@ -43,20 +44,22 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         return $data instanceof Daedalus && $group === false;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Daedalus $daedalus */
         $daedalus = $object;
 
         $gameConfig = $daedalus->getGameConfig();
         $players = $daedalus->getPlayers();
-        $closedPlayers = $players->map(fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
+
+        /** @var ArrayCollection<array-key, ClosedPlayer> $closedPlayers */
+        $closedPlayers = $players->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
 
         $cryoPlayers = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
         $humanAlive = $daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->count();
         $mushAlive = $daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count();
-        $humanDead = $closedPlayers->filter(fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && !$player->isMush())->count();
-        $mushDead = $closedPlayers->filter(fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && $player->isMush())->count();
+        $humanDead = $closedPlayers->filter(static fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && !$player->isMush())->count();
+        $mushDead = $closedPlayers->filter(static fn (ClosedPlayer $player) => !$player->getPlayerInfo()->isAlive() && $player->isMush())->count();
 
         $language = $daedalus->getLanguage();
 
@@ -68,51 +71,53 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $attackingHunters = $daedalus->getAttackingHunters()->count();
 
         return [
-                'id' => $object->getId(),
-                'game_config' => $object->getGameConfig()->getId(),
-                'oxygen' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::OXYGEN, $language),
-                'fuel' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::FUEL, $language),
-                'hull' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::HULL, $language),
-                'shield' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::SHIELD, $language),
-                'timer' => [
-                    'name' => $this->translationService->translate('currentCycle.name', [], 'daedalus', $language),
-                    'description' => $this->translationService->translate(
-                        'currentCycle.description',
-                        [],
-                        'daedalus',
-                        $language
-                    ),
-                    'timerCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
-                ],
-                'calendar' => [
-                    'name' => $this->translationService->translate('calendar.name', [], 'daedalus', $language),
-                    'description' => $this->translationService->translate('calendar.description', [], 'daedalus', $language),
-                    'cycle' => $object->getCycle(),
-                    'cycleName' => $this->translationService->translate('cycle.name', [], 'daedalus', $language),
-                    'day' => $object->getDay(),
-                    'dayName' => $this->translationService->translate('day.name', [], 'daedalus', $language),
-                ],
-                'cryogenizedPlayers' => $cryoPlayers,
-                'humanPlayerAlive' => $humanAlive,
-                'humanPlayerDead' => $humanDead,
-                'mushPlayerAlive' => $mushAlive,
-                'mushPlayerDead' => $mushDead,
-                'crewPlayer' => [
-                    'name' => $this->translationService->translate('crewPlayer.name', [], 'daedalus', $language),
-                    'description' => $this->translationService->translate('crewPlayer.description',
-                        ['cryogenizedPlayers' => $cryoPlayers,
-                            'playerAlive' => $daedalus->getPlayers()->getPlayerAlive()->count(),
-                            'playerDead' => $daedalus->getPlayers()->getPlayerDead()->count(),
-                            'mushAlive' => $mushAlive,
-                            'mushDead' => $mushDead,
-                        ], 'daedalus',
-                        $language
-                    ), ],
-                'inOrbitPlanet' => $planet,
-                'isDaedalusTravelling' => $daedalus->hasStatus(DaedalusStatusEnum::TRAVELING),
-                'attackingHunters' => $attackingHunters,
-                'onGoingExploration' => $this->normalizeOnGoingExploration($daedalus),
-            ];
+            'id' => $object->getId(),
+            'game_config' => $object->getGameConfig()->getId(),
+            'oxygen' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::OXYGEN, $language),
+            'fuel' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::FUEL, $language),
+            'hull' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::HULL, $language),
+            'shield' => $this->normalizeDaedalusVariable($object, DaedalusVariableEnum::SHIELD, $language),
+            'timer' => [
+                'name' => $this->translationService->translate('currentCycle.name', [], 'daedalus', $language),
+                'description' => $this->translationService->translate(
+                    'currentCycle.description',
+                    [],
+                    'daedalus',
+                    $language
+                ),
+                'timerCycle' => $this->cycleService->getDateStartNextCycle($object)->format(\DateTimeInterface::ATOM),
+            ],
+            'calendar' => [
+                'name' => $this->translationService->translate('calendar.name', [], 'daedalus', $language),
+                'description' => $this->translationService->translate('calendar.description', [], 'daedalus', $language),
+                'cycle' => $object->getCycle(),
+                'cycleName' => $this->translationService->translate('cycle.name', [], 'daedalus', $language),
+                'day' => $object->getDay(),
+                'dayName' => $this->translationService->translate('day.name', [], 'daedalus', $language),
+            ],
+            'cryogenizedPlayers' => $cryoPlayers,
+            'humanPlayerAlive' => $humanAlive,
+            'humanPlayerDead' => $humanDead,
+            'mushPlayerAlive' => $mushAlive,
+            'mushPlayerDead' => $mushDead,
+            'crewPlayer' => [
+                'name' => $this->translationService->translate('crewPlayer.name', [], 'daedalus', $language),
+                'description' => $this->translationService->translate(
+                    'crewPlayer.description',
+                    ['cryogenizedPlayers' => $cryoPlayers,
+                        'playerAlive' => $daedalus->getPlayers()->getPlayerAlive()->count(),
+                        'playerDead' => $daedalus->getPlayers()->getPlayerDead()->count(),
+                        'mushAlive' => $mushAlive,
+                        'mushDead' => $mushDead,
+                    ],
+                    'daedalus',
+                    $language
+                ), ],
+            'inOrbitPlanet' => $planet,
+            'isDaedalusTravelling' => $daedalus->hasStatus(DaedalusStatusEnum::TRAVELING),
+            'attackingHunters' => $attackingHunters,
+            'onGoingExploration' => $this->normalizeOnGoingExploration($daedalus),
+        ];
     }
 
     private function normalizeDaedalusVariable(Daedalus $daedalus, string $variable, string $language): array
@@ -124,7 +129,8 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         return [
             'quantity' => $quantity,
             'name' => $this->translationService->translate(
-                $variable . '.name', ['maximum' => $maxValue, 'quantity' => $quantity],
+                $variable . '.name',
+                ['maximum' => $maxValue, 'quantity' => $quantity],
                 'daedalus',
                 $language
             ),
@@ -191,11 +197,11 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         /** @var array<int, string> $exploratorNames */
         $exploratorNames = $exploration->getAliveExplorators()
-                                        ->filter(fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
-                                        ->map(fn (Player $player) => $this->translateExploratorName($player))
-                                        ->toArray();
+            ->filter(static fn (Player $player) => !$player->hasStatus(PlayerStatusEnum::LOST))
+            ->map(fn (Player $player) => $this->translateExploratorName($player))
+            ->toArray();
 
-        return join(', ', $exploratorNames);
+        return implode(', ', $exploratorNames);
     }
 
     private function translateExploratorName(Player $player): string

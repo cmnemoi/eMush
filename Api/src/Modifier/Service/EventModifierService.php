@@ -38,7 +38,7 @@ class EventModifierService implements EventModifierServiceInterface
 
         // @TODO add a new modifier strategy to handle the increase due to attempts (require a better handling of the modifier "origin")
         // if the event is an action, we need to apply the increase due to successive attempts
-        if ($initialEvent instanceof VariableEventInterface && in_array(ModifierPriorityEnum::ATTEMPT_INCREASE, $priorities)) {
+        if ($initialEvent instanceof VariableEventInterface && \in_array(ModifierPriorityEnum::ATTEMPT_INCREASE, $priorities, true)) {
             $initialValue = $this->getInitValue($initialEvent);
             $initialEvent->setQuantity($initialValue);
         }

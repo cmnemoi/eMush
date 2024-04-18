@@ -14,9 +14,12 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 
-class ComfortActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ComfortActionTest extends AbstractActionTest
 {
-    private PlayerServiceInterface|Mockery\Mock $playerService;
+    private Mockery\Mock|PlayerServiceInterface $playerService;
 
     /**
      * @before
@@ -65,10 +68,9 @@ class ComfortActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($player, $this->actionEntity, $targetPlayer, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

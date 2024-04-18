@@ -18,9 +18,13 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class StartingDaedalusTest extends TestCase
+/**
+ * @internal
+ */
+final class StartingDaedalusTest extends TestCase
 {
     private StartingDaedalusValidator $validator;
+
     /** @var GameConfigService|Mockery\Mock */
     private GameConfigService $gameConfigService;
 
@@ -56,7 +60,7 @@ class StartingDaedalusTest extends TestCase
 
         $this->validator->validate($daedalus, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -74,10 +78,10 @@ class StartingDaedalusTest extends TestCase
 
         $this->validator->validate($daedalus, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -90,7 +94,7 @@ class StartingDaedalusTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

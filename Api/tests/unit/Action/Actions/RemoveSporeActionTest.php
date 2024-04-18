@@ -11,7 +11,10 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 
-class RemoveSporeActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class RemoveSporeActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -59,6 +62,6 @@ class RemoveSporeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

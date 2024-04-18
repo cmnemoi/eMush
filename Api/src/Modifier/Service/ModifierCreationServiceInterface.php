@@ -19,7 +19,7 @@ interface ModifierCreationServiceInterface
         ModifierHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        ChargeStatus $chargeStatus = null
+        ?ChargeStatus $chargeStatus = null
     ): void;
 
     public function deleteModifier(

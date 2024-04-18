@@ -56,22 +56,21 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         foreach ($placeConfig->getDoors() as $doorName) {
             if (
                 $roomDoor = $daedalus->getRooms()->filter( // If door already exist
-                    function (Place $room) use ($doorName) {
-                        return $room->getDoors()->exists(function ($key, Door $door) use ($doorName) {
+                    static function (Place $room) use ($doorName) {
+                        return $room->getDoors()->exists(static function ($key, Door $door) use ($doorName) {
                             return $door->getName() === $doorName;
                         });
                     }
                 )->first()
             ) {
-                $door = $roomDoor->getDoors()->filter(function (Door $door) use ($doorName) {
+                $door = $roomDoor->getDoors()->filter(static function (Door $door) use ($doorName) {
                     return $door->getName() === $doorName;
                 })->first();
             } else { // else create new door
                 $door = new Door($place);
                 $door
                     ->setName($doorName)
-                    ->setEquipment($doorConfig)
-                ;
+                    ->setEquipment($doorConfig);
             }
 
             $door->addRoom($place);

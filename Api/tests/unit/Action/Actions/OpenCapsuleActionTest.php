@@ -18,9 +18,12 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 
-class OpenCapsuleActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class OpenCapsuleActionTest extends AbstractActionTest
 {
-    private RandomServiceInterface|Mockery\Mock $randomService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
@@ -64,8 +67,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $spaceCapsule->setEquipmentName(EquipmentEnum::COFFEE_MACHINE);
         $gameSpaceCapsule
             ->setEquipment($spaceCapsule)
-            ->setName(EquipmentEnum::COFFEE_MACHINE)
-        ;
+            ->setName(EquipmentEnum::COFFEE_MACHINE);
 
         $spaceCapsule->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -76,18 +78,15 @@ class OpenCapsuleActionTest extends AbstractActionTest
         $gameMetalScrap = new GameItem(new Place());
         $metalScrap = new ItemConfig();
         $metalScrap
-            ->setEquipmentName(ItemEnum::METAL_SCRAPS)
-        ;
+            ->setEquipmentName(ItemEnum::METAL_SCRAPS);
         $gameMetalScrap
-        ->setEquipment($metalScrap)
-            ->setName(ItemEnum::METAL_SCRAPS)
-        ;
+            ->setEquipment($metalScrap)
+            ->setName(ItemEnum::METAL_SCRAPS);
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
             ->andReturn(ItemEnum::METAL_SCRAPS)
-            ->once()
-        ;
+            ->once();
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
@@ -95,7 +94,7 @@ class OpenCapsuleActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(0, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(0, $player->getStatuses());
     }
 }

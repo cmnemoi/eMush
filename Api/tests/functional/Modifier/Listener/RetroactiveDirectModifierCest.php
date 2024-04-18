@@ -20,7 +20,10 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class RetroactiveDirectModifierCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
@@ -39,15 +42,13 @@ class RetroactiveDirectModifierCest extends AbstractFunctionalTest
             ->setEventName(VariableEventInterface::CHANGE_VALUE_MAX)
             ->setTargetVariable(PlayerVariableEnum::HEALTH_POINT)
             ->setVariableHolderClass(ModifierHolderClassEnum::PLAYER)
-            ->setQuantity(-4)
-        ;
+            ->setQuantity(-4);
 
         $modifierConfig = new DirectModifierConfig('directModifier');
         $modifierConfig
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
             ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-        ;
+            ->setRevertOnRemove(true);
         $I->haveInRepository($eventConfig);
         $I->haveInRepository($modifierConfig);
 
@@ -55,8 +56,7 @@ class RetroactiveDirectModifierCest extends AbstractFunctionalTest
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
             ->buildName(GameConfigEnum::TEST)
-            ->setModifierConfigs(new ArrayCollection([$modifierConfig]))
-        ;
+            ->setModifierConfigs(new ArrayCollection([$modifierConfig]));
         $I->haveInRepository($diseaseConfig);
 
         $this->playerDisease = new PlayerDisease();

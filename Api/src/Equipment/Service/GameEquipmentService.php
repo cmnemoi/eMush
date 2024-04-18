@@ -100,7 +100,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN,
-        Player $author = null
+        ?Player $author = null
     ): GameEquipment {
         $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
@@ -113,7 +113,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN,
-        Player $author = null
+        ?Player $author = null
     ): GameEquipment {
         $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reasons);
 
@@ -128,31 +128,6 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_CREATED);
 
         return $equipment;
-    }
-
-    private function getEquipmentFromConfig(
-        EquipmentConfig $config,
-        EquipmentHolderInterface $holder,
-        array $reasons
-    ): GameEquipment {
-        if ($config instanceof ItemConfig) {
-            $gameEquipment = $config->createGameItem($holder);
-        } else {
-            $gameEquipment = $config->createGameEquipment($holder->getPlace());
-        }
-
-        if ($config->isPersonal()) {
-            if (!($holder instanceof Player)) {
-                throw new \Exception("holder of this gameEquipment {$gameEquipment->getName()} should be a player");
-            }
-            $gameEquipment->setOwner($holder);
-        }
-
-        $this->persist($gameEquipment);
-
-        $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reasons);
-
-        return $gameEquipment;
     }
 
     public function transformGameEquipmentToEquipmentWithName(
@@ -240,10 +215,36 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->movePatrolShipContentToSpace($patrolShip, $player, $tags);
     }
 
+    private function getEquipmentFromConfig(
+        EquipmentConfig $config,
+        EquipmentHolderInterface $holder,
+        array $reasons
+    ): GameEquipment {
+        if ($config instanceof ItemConfig) {
+            $gameEquipment = $config->createGameItem($holder);
+        } else {
+            $gameEquipment = $config->createGameEquipment($holder->getPlace());
+        }
+
+        if ($config->isPersonal()) {
+            if (!$holder instanceof Player) {
+                throw new \Exception("holder of this gameEquipment {$gameEquipment->getName()} should be a player");
+            }
+            $gameEquipment->setOwner($holder);
+        }
+
+        $this->persist($gameEquipment);
+
+        $this->initMechanics($gameEquipment, $holder->getPlace()->getDaedalus(), $reasons);
+
+        return $gameEquipment;
+    }
+
     private function movePatrolShipContentToSpace(GameEquipment $patrolShip, ?Player $player, array $tags): void
     {
         /** @var Daedalus $daedalus */
         $daedalus = $patrolShip->getDaedalus();
+
         /** @var Place $patrolShipPlace */
         $patrolShipPlace = $daedalus->getPlaceByName($patrolShip->getName());
         if (!$patrolShipPlace instanceof Place) {
@@ -269,7 +270,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         /** @var EquipmentMechanic $mechanic */
         foreach ($gameEquipment->getEquipment()->getMechanics() as $mechanic) {
             if ($mechanic instanceof Plant) {
-                if (!in_array(EventEnum::CREATE_DAEDALUS, $reasons)) {
+                if (!\in_array(EventEnum::CREATE_DAEDALUS, $reasons, true)) {
                     $this->initPlant($gameEquipment, $mechanic, $daedalus);
                 }
             } elseif ($mechanic instanceof Document && $mechanic->getContent()) {

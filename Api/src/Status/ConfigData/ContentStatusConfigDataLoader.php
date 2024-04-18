@@ -16,16 +16,15 @@ class ContentStatusConfigDataLoader extends StatusConfigDataLoader
 
             if ($statusConfig === null) {
                 $statusConfig = new ContentStatusConfig();
-            } elseif (!($statusConfig instanceof ContentStatusConfig)) {
+            } elseif (!$statusConfig instanceof ContentStatusConfig) {
                 $this->entityManager->remove($statusConfig);
                 $statusConfig = new ContentStatusConfig();
             }
 
             $statusConfig
-            ->setName($statusConfigData['name'])
-            ->setStatusName($statusConfigData['statusName'])
-            ->setVisibility($statusConfigData['visibility'])
-            ;
+                ->setName($statusConfigData['name'])
+                ->setStatusName($statusConfigData['statusName'])
+                ->setVisibility($statusConfigData['visibility']);
             $this->setStatusConfigModifierConfigs($statusConfig, $statusConfigData['modifierConfigs']);
 
             $this->entityManager->persist($statusConfig);

@@ -58,6 +58,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         }
 
         $exploratorsWithoutSpaceSuit = $exploration->getExploratorsWithoutSpacesuit();
+
         /** @var Player $explorator */
         foreach ($exploratorsWithoutSpaceSuit as $explorator) {
             $this->statusService->createStatusFromName(
@@ -101,6 +102,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     private function addLootedOxygenToDaedalus(ExplorationEvent $event): void
     {
         $daedalus = $event->getExploration()->getDaedalus();
+
         /** @var ChargeStatus $oxygenStatus */
         $oxygenStatus = $daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_OXYGEN);
         if ($oxygenStatus === null) {
@@ -120,6 +122,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     private function addLootedFuelToDaedalus(ExplorationEvent $event): void
     {
         $daedalus = $event->getExploration()->getDaedalus();
+
         /** @var ChargeStatus $fuelStatus */
         $fuelStatus = $daedalus->getStatusByName(DaedalusStatusEnum::EXPLORATION_FUEL);
         if ($fuelStatus === null) {

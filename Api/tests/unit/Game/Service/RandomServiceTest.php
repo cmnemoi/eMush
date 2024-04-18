@@ -25,10 +25,14 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class RandomServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class RandomServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
+
     /** @var GameEquipmentRepository|Mockery\Mock */
     private GameEquipmentRepository $gameEquipmentRepository;
 
@@ -56,27 +60,27 @@ class RandomServiceTest extends TestCase
     public function testRandom()
     {
         for ($i = 1; $i <= 50; ++$i) {
-            $this->assertGreaterThan(-1, $this->service->random(0, 10));
-            $this->assertLessThan(11, $this->service->random(0, 10));
+            self::assertGreaterThan(-1, $this->service->random(0, 10));
+            self::assertLessThan(11, $this->service->random(0, 10));
         }
-        $this->assertIsInt($this->service->random(0, 10));
-        $this->assertEquals(10, $this->service->random(10, 10));
+        self::assertIsInt($this->service->random(0, 10));
+        self::assertSame(10, $this->service->random(10, 10));
     }
 
     public function testRandomPercent()
     {
         for ($i = 1; $i <= 50; ++$i) {
-            $this->assertGreaterThan(0, $this->service->randomPercent());
-            $this->assertLessThan(101, $this->service->randomPercent());
+            self::assertGreaterThan(0, $this->service->randomPercent());
+            self::assertLessThan(101, $this->service->randomPercent());
         }
-        $this->assertIsInt($this->service->randomPercent());
+        self::assertIsInt($this->service->randomPercent());
     }
 
     public function testIsSuccessfull()
     {
-        $this->assertIsBool($this->service->isSuccessful(50));
-        $this->assertTrue($this->service->isSuccessful(100));
-        $this->assertFalse($this->service->isSuccessful(0));
+        self::assertIsBool($this->service->isSuccessful(50));
+        self::assertTrue($this->service->isSuccessful(100));
+        self::assertFalse($this->service->isSuccessful(0));
     }
 
     public function testGetRandomPlayer()
@@ -89,7 +93,7 @@ class RandomServiceTest extends TestCase
 
         $playerCollection->add($player1);
 
-        $this->assertEquals($player1, $this->service->getRandomPlayer($playerCollection));
+        self::assertSame($player1, $this->service->getRandomPlayer($playerCollection));
     }
 
     public function testGetPlayerInRoom()
@@ -105,10 +109,9 @@ class RandomServiceTest extends TestCase
 
         $room
             ->addPlayer($player1)
-            ->addPlayer($player2)
-        ;
+            ->addPlayer($player2);
 
-        $this->assertInstanceOf(Player::class, $this->service->getPlayerInRoom($room));
+        self::assertInstanceOf(Player::class, $this->service->getPlayerInRoom($room));
     }
 
     public function testGetAlivePlayerInDaedalus()
@@ -125,11 +128,10 @@ class RandomServiceTest extends TestCase
         $daedalus = new Daedalus();
         $daedalus
             ->addPlayer($player2)
-            ->addPlayer($player1)
-        ;
+            ->addPlayer($player1);
 
         for ($i = 1; $i <= 10; ++$i) {
-            $this->assertEquals($player1, $this->service->getAlivePlayerInDaedalus($daedalus));
+            self::assertSame($player1, $this->service->getAlivePlayerInDaedalus($daedalus));
         }
     }
 
@@ -140,45 +142,44 @@ class RandomServiceTest extends TestCase
         $item = new GameItem($room);
         $room
             ->addEquipment($equipment)
-            ->addEquipment($item)
-        ;
+            ->addEquipment($item);
 
         for ($i = 1; $i <= 10; ++$i) {
-            $this->assertInstanceOf(GameItem::class, $this->service->getItemInRoom($room));
-            $this->assertEquals($item, $this->service->getItemInRoom($room));
+            self::assertInstanceOf(GameItem::class, $this->service->getItemInRoom($room));
+            self::assertSame($item, $this->service->getItemInRoom($room));
         }
     }
 
     public function testGetRandomElements()
     {
         $players = ['player1'];
-        $this->assertEquals(['player1'], $this->service->getRandomElements($players));
+        self::assertSame(['player1'], $this->service->getRandomElements($players));
 
         $players = ['player1', 'player2'];
         $result = $this->service->getRandomElements($players, 2);
-        $this->assertContains('player1', $result);
-        $this->assertContains('player2', $result);
+        self::assertContains('player1', $result);
+        self::assertContains('player2', $result);
     }
 
     public function testGetSingleRandomElementFromProbaArray()
     {
         $players = new ProbaCollection(['player1' => 1]);
-        $this->assertEquals('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
+        self::assertSame('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
 
         $players = new ProbaCollection(['player1' => 1, 'player2' => 0]);
-        $this->assertEquals('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
+        self::assertSame('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
     }
 
     public function testGetRandomElementsFromProbaArray()
     {
         $players = new ProbaCollection(['player1' => 1]);
-        $this->assertEquals(['player1'], $this->service->getRandomElementsFromProbaCollection($players, 1));
+        self::assertSame(['player1'], $this->service->getRandomElementsFromProbaCollection($players, 1));
 
         $players = new ProbaCollection(['player1' => 25, 'player2' => 5, 'player3' => 10, 'player4' => 10, 'player5' => 0]);
 
         for ($i = 1; $i <= 10; ++$i) {
             $randomPlayer = $this->service->getRandomElementsFromProbaCollection($players, 2);
-            $this->assertNotContains('player5', $randomPlayer);
+            self::assertNotContains('player5', $randomPlayer);
         }
     }
 
@@ -186,19 +187,19 @@ class RandomServiceTest extends TestCase
     {
         // critical Fail
         $output = $this->service->outputCriticalChances(100, 100, 0);
-        $this->assertEquals($output, ActionOutputEnum::CRITICAL_FAIL);
+        self::assertSame($output, ActionOutputEnum::CRITICAL_FAIL);
 
         // fail
         $output = $this->service->outputCriticalChances(100, 0, 0);
-        $this->assertEquals($output, ActionOutputEnum::FAIL);
+        self::assertSame($output, ActionOutputEnum::FAIL);
 
         // success
         $output = $this->service->outputCriticalChances(0, 0, 0);
-        $this->assertEquals($output, ActionOutputEnum::SUCCESS);
+        self::assertSame($output, ActionOutputEnum::SUCCESS);
 
         // critical success
         $output = $this->service->outputCriticalChances(0, 0, 100);
-        $this->assertEquals($output, ActionOutputEnum::CRITICAL_SUCCESS);
+        self::assertSame($output, ActionOutputEnum::CRITICAL_SUCCESS);
     }
 
     public function testGetRandomDaedalusEquipmentFromProbaArray()
@@ -219,8 +220,7 @@ class RandomServiceTest extends TestCase
         $this->gameEquipmentRepository
             ->shouldReceive('findByNameAndDaedalus')
             ->withArgs(['equipment', $daedalus])
-            ->andReturn([$equipment])
-        ;
+            ->andReturn([$equipment]);
 
         $draw = $this->service->getRandomDaedalusEquipmentFromProbaCollection(
             new ProbaCollection(['equipment' => 1]),
@@ -228,7 +228,7 @@ class RandomServiceTest extends TestCase
             $daedalus
         )[0];
 
-        $this->assertEquals(
+        self::assertSame(
             $equipment,
             $draw
         );
@@ -257,9 +257,9 @@ class RandomServiceTest extends TestCase
         // then each item is drawn approximately 25 000 times given a 7 sigma margin of error.
         // The probability of a false positive is then 1 in 10^12
         foreach ($items as $expectedItem => $proba) {
-            $this->assertEqualsWithDelta(
+            self::assertEqualsWithDelta(
                 expected: 25000,
-                actual: $content->filter(fn ($item) => $item === $expectedItem)->count(),
+                actual: $content->filter(static fn ($item) => $item === $expectedItem)->count(),
                 delta: 7 * $sigma
             );
         }

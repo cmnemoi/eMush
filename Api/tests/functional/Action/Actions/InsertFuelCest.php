@@ -20,7 +20,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class InsertFuelCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class InsertFuelCest extends AbstractFunctionalTest
 {
     private InsertFuel $insertFuelAction;
     private GameEquipmentServiceInterface $gameEquipmentService;

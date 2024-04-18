@@ -31,9 +31,9 @@ class Gear extends EquipmentMechanic
     /**
      * @param array<int, AbstractModifierConfig>|Collection<int, AbstractModifierConfig> $modifierConfigs
      */
-    public function setModifierConfigs(Collection|array $modifierConfigs): static
+    public function setModifierConfigs(array|Collection $modifierConfigs): static
     {
-        if (is_array($modifierConfigs)) {
+        if (\is_array($modifierConfigs)) {
             $modifierConfigs = new ArrayCollection($modifierConfigs);
         }
 

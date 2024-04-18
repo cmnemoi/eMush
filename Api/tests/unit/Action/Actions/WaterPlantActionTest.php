@@ -17,10 +17,12 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class WaterPlantActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class WaterPlantActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -55,9 +57,8 @@ class WaterPlantActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $gameItem
-              ->setEquipment($item)
-            ->setName('plant')
-        ;
+            ->setEquipment($item)
+            ->setName('plant');
 
         $plant = new Plant();
         $plant->addAction($this->actionEntity);
@@ -78,8 +79,8 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
     }
 
     public function testExecuteDried()
@@ -90,8 +91,7 @@ class WaterPlantActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setEquipment($item)
-            ->setName('plant')
-        ;
+            ->setName('plant');
 
         $plant = new Plant();
         $plant->addAction($this->actionEntity);
@@ -112,7 +112,7 @@ class WaterPlantActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
     }
 }

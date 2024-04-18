@@ -52,6 +52,7 @@ class MessageRepositoryCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -86,8 +87,7 @@ class MessageRepositoryCest
         $message1
             ->setCreatedAt($time1)
             ->setChannel($channel1)
-            ->setMessage('message')
-        ;
+            ->setMessage('message');
         $I->haveInRepository($message1);
 
         $time2 = new \DateTime();
@@ -96,16 +96,14 @@ class MessageRepositoryCest
         $message2
             ->setCreatedAt($time2)
             ->setChannel($channel1)
-            ->setMessage('message')
-        ;
+            ->setMessage('message');
         $I->haveInRepository($message2);
 
         $message3 = new Message();
         $message3
             ->setCreatedAt($time2)
             ->setChannel($channel2)
-            ->setMessage('message')
-        ;
+            ->setMessage('message');
         $I->haveInRepository($message3);
 
         // No time constraint
@@ -150,6 +148,7 @@ class MessageRepositoryCest
 
         /** @var User $user */
         $user = $I->have(User::class);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -171,8 +170,7 @@ class MessageRepositoryCest
         $message1
             ->setCreatedAt($currentTime)
             ->setChannel($channel1)
-            ->setMessage('message1')
-        ;
+            ->setMessage('message1');
         $I->haveInRepository($message1);
 
         $message2 = new Message();
@@ -180,9 +178,7 @@ class MessageRepositoryCest
             ->setCreatedAt($currentTime)
             ->setChannel($channel1)
             ->setMessage('message2')
-            ->setParent($message1)
-
-        ;
+            ->setParent($message1);
         $I->haveInRepository($message2);
 
         $result = $this->messageRepository->findByChannel($channel1);
@@ -209,8 +205,7 @@ class MessageRepositoryCest
             $participant = new ChannelPlayer();
             $participant
                 ->setParticipant($user)
-                ->setChannel($privateChannel)
-            ;
+                ->setChannel($privateChannel);
             $this->tester->haveInRepository($participant);
         }
 

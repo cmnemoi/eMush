@@ -30,21 +30,30 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-class PlayerServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class PlayerServiceTest extends TestCase
 {
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
+
     /** @var EntityManagerInterface|Mockery\Mock */
     private EntityManagerInterface $entityManager;
-    /** @var PlayerRepository|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlayerRepository */
     private PlayerRepository $repository;
-    /** @var RoomLogServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RoomLogServiceInterface */
     private RoomLogServiceInterface $roomLogService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private GameEquipmentServiceInterface $gameEquipmentService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
-    /** @var PlayerInfoRepository|Mockery\Mock */
+
+    /** @var Mockery\Mock|PlayerInfoRepository */
     private PlayerInfoRepository $playerInfoRepository;
 
     private CharacterConfigCollection $charactersConfigs;
@@ -109,38 +118,33 @@ class PlayerServiceTest extends TestCase
             ->setInitActionPoint(1)
             ->setInitSatiety(2)
             ->setInitMoralPoint(3)
-            ->setInitHealthPoint(4)
-        ;
+            ->setInitHealthPoint(4);
         $this->charactersConfigs->add($characterConfig);
 
         $gameConfig
-            ->setCharactersConfig($this->charactersConfigs)
-        ;
+            ->setCharactersConfig($this->charactersConfigs);
 
         $this->entityManager
             ->shouldReceive('persist')
-            ->times(2)
-        ;
+            ->times(2);
         $this->entityManager
             ->shouldReceive('flush')
-            ->times(2)
-        ;
+            ->times(2);
         $this->eventService
             ->shouldReceive('callEvent')
-            ->once()
-        ;
+            ->once();
 
         $player = $this->service->createPlayer($daedalus, $user, 'character');
 
-        $this->assertInstanceOf(Player::class, $player);
-        $this->assertEquals('character', $player->getPlayerInfo()->getCharacterConfig()->getCharacterName());
-        $this->assertEquals($characterConfig->getInitActionPoint(), $player->getActionPoint());
-        $this->assertEquals($characterConfig->getInitMovementPoint(), $player->getMovementPoint());
-        $this->assertEquals($characterConfig->getInitHealthPoint(), $player->getHealthPoint());
-        $this->assertEquals($characterConfig->getInitMoralPoint(), $player->getMoralPoint());
-        $this->assertEquals($characterConfig->getInitSatiety(), $player->getSatiety());
-        $this->assertCount(0, $player->getEquipments());
-        $this->assertCount(0, $player->getSkills());
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame('character', $player->getPlayerInfo()->getCharacterConfig()->getCharacterName());
+        self::assertSame($characterConfig->getInitActionPoint(), $player->getActionPoint());
+        self::assertSame($characterConfig->getInitMovementPoint(), $player->getMovementPoint());
+        self::assertSame($characterConfig->getInitHealthPoint(), $player->getHealthPoint());
+        self::assertSame($characterConfig->getInitMoralPoint(), $player->getMoralPoint());
+        self::assertSame($characterConfig->getInitSatiety(), $player->getSatiety());
+        self::assertCount(0, $player->getEquipments());
+        self::assertCount(0, $player->getSkills());
     }
 
     public function testPlayerDeath()
@@ -153,8 +157,7 @@ class PlayerServiceTest extends TestCase
         $daedalus
             ->setCycle(3)
             ->setDay(5)
-            ->addPlace($room)
-        ;
+            ->addPlace($room);
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $characterConfig = new CharacterConfig();
@@ -163,8 +166,7 @@ class PlayerServiceTest extends TestCase
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $gameItem = new GameItem($player);
 
@@ -176,21 +178,19 @@ class PlayerServiceTest extends TestCase
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once()
-        ;
+            ->once();
         $this->gameEquipmentService
             ->shouldReceive('persist')
-            ->once()
-        ;
+            ->once();
 
         $reason = 'bled';
 
         $player = $this->service->playerDeath($player, $reason, new \DateTime());
 
-        $this->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
-        $this->assertCount(0, $player->getEquipments());
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $room->getPlayers());
+        self::assertSame(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
+        self::assertCount(0, $player->getEquipments());
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(1, $room->getPlayers());
     }
 
     public function testEndPlayer()
@@ -217,7 +217,7 @@ class PlayerServiceTest extends TestCase
 
         $player = $this->service->endPlayer($player, $message, []);
 
-        $this->assertEquals(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
-        $this->assertEquals($closedPlayer->getMessage(), $message);
+        self::assertSame(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
+        self::assertSame($closedPlayer->getMessage(), $message);
     }
 }

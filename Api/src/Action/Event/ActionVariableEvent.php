@@ -20,10 +20,10 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         PlayerVariableEnum::ACTION_POINT => self::APPLY_COST,
         PlayerVariableEnum::MORAL_POINT => self::APPLY_COST,
         PlayerVariableEnum::MOVEMENT_POINT => self::APPLY_COST,
-        ActionVariableEnum::PERCENTAGE_SUCCESS => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
-        ActionVariableEnum::PERCENTAGE_CRITICAL => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
-        ActionVariableEnum::PERCENTAGE_DIRTINESS => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
-        ActionVariableEnum::PERCENTAGE_INJURY => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_SUCCESS => self::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_CRITICAL => self::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_DIRTINESS => self::ROLL_ACTION_PERCENTAGE,
+        ActionVariableEnum::PERCENTAGE_INJURY => self::ROLL_ACTION_PERCENTAGE,
         ActionVariableEnum::OUTPUT_QUANTITY => self::GET_OUTPUT_QUANTITY,
     ];
 
@@ -51,7 +51,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
     {
         $variable = $this->getVariable();
 
-        return $variable->getValueInRange(intval($this->quantity));
+        return $variable->getValueInRange((int) $this->quantity);
     }
 
     public function getQuantity(): float

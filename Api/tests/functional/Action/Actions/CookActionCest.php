@@ -112,15 +112,13 @@ class CookActionCest
             ->setName('character name')
             ->setInitActionPoint(10)
             ->setInitMovementPoint(10)
-            ->setInitMoralPoint(10)
-        ;
+            ->setInitMoralPoint(10);
 
         $player = new Player();
         $player
             ->setPlayerVariables($characterConfig)
             ->setDaedalus($daedalus)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
         $player->setPlayerInfo($playerInfo);
@@ -136,8 +134,7 @@ class CookActionCest
         $gameEquipment
             ->setEquipment($equipment)
             ->setHolder($place)
-            ->setName($name)
-        ;
+            ->setName($name);
 
         return $gameEquipment;
     }

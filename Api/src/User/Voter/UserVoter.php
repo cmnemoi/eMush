@@ -26,14 +26,14 @@ class UserVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [
+        if (!\in_array($attribute, [
             self::USER_IN_GAME,
             self::EDIT_USER_ROLE,
             self::HAS_ACCEPTED_RULES,
             self::IS_NOT_BANNED,
             self::NOT_IN_GAME,
             self::IS_CONNECTED,
-        ])) {
+        ], true)) {
             return false;
         }
 
@@ -52,14 +52,19 @@ class UserVoter extends Voter
         switch ($attribute) {
             case self::USER_IN_GAME:
                 return $user->isInGame();
+
             case self::EDIT_USER_ROLE:
                 return $this->canEditUserRole($subject, $token);
+
             case self::NOT_IN_GAME:
                 return !$user->isInGame();
+
             case self::HAS_ACCEPTED_RULES:
                 return $user->hasAcceptedRules();
+
             case self::IS_NOT_BANNED:
                 return !$user->isBanned();
+
             case self::IS_CONNECTED:
                 return $user instanceof User;
         }
@@ -71,7 +76,7 @@ class UserVoter extends Voter
     {
         $roles = $this->roleHierarchy->getReachableRoleNames($token->getRoleNames());
         foreach ($editedUser->getRoles() as $editedUserRole) {
-            if (!in_array($editedUserRole, $roles)) {
+            if (!\in_array($editedUserRole, $roles, true)) {
                 return false;
             }
         }

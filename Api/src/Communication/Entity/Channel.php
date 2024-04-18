@@ -122,7 +122,7 @@ class Channel
 
     public function isPlayerParticipant(PlayerInfo $playerInfo): bool
     {
-        return !$this->getParticipants()->filter(fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))->isEmpty();
+        return !$this->getParticipants()->filter(static fn (ChannelPlayer $channelPlayer) => ($channelPlayer->getParticipant() === $playerInfo))->isEmpty();
     }
 
     public function getMessages(): Collection

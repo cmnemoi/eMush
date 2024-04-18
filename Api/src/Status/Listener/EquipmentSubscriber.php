@@ -101,7 +101,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if ($player instanceof Player
             && $player->hasStatus(PlayerStatusEnum::BURDENED)
             && $equipment->hasStatus(EquipmentStatusEnum::HEAVY)
-            && $player->getEquipments()->filter(function (GameItem $item) {
+            && $player->getEquipments()->filter(static function (GameItem $item) {
                 return $item->hasStatus(EquipmentStatusEnum::HEAVY);
             })->count() >= 1
         ) {
@@ -113,7 +113,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     {
         $place = $event->getGameEquipment()->getPlace();
 
-        $breakablePlaceEquipment = $place->getEquipments()->filter(function (GameEquipment $equipment) {
+        $breakablePlaceEquipment = $place->getEquipments()->filter(static function (GameEquipment $equipment) {
             return $equipment->getEquipment()->isBreakable();
         });
 

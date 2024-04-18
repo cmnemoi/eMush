@@ -58,8 +58,7 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
         $planet = new Planet($this->player);
         $planet
             ->setName($planetName)
-            ->setSize(count($sectors))
-        ;
+            ->setSize(\count($sectors));
         $functionalTester->haveInRepository($planet);
 
         foreach ($sectors as $sector) {
@@ -98,7 +97,7 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
     {
         /** @var PlanetSectorConfig $sectorConfig */
         $sectorConfig = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
-            fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName,
+            static fn (PlanetSectorConfig $planetSectorConfig) => $planetSectorConfig->getSectorName() === $sectorName,
         )->first();
         $sectorConfig->setExplorationEvents($events);
 

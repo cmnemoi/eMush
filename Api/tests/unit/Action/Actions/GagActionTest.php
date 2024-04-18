@@ -13,10 +13,12 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class GagActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class GagActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -64,6 +66,6 @@ class GagActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

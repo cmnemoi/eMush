@@ -10,7 +10,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FlirtedAlreadyValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class FlirtedAlreadyValidatorTest extends TestCase
 {
     private FlirtedAlreadyValidator $validator;
     private FlirtedAlready $constraint;
@@ -43,8 +46,7 @@ class FlirtedAlreadyValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -68,8 +70,7 @@ class FlirtedAlreadyValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -88,14 +89,13 @@ class FlirtedAlreadyValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'execute');
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -107,7 +107,7 @@ class FlirtedAlreadyValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

@@ -11,7 +11,10 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
 
-class DropActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class DropActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -48,21 +51,19 @@ class DropActionTest extends AbstractActionTest
         $gameItem->setEquipment($item);
 
         $item
-            ->setEquipmentName('itemName')
-        ;
+            ->setEquipmentName('itemName');
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
         $gameItem
             ->setName('itemName')
-            ->setHolder($player)
-        ;
+            ->setHolder($player);
         $this->action->loadParameters($this->actionEntity, $player, $gameItem);
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

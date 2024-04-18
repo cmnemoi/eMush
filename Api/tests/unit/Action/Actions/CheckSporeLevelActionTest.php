@@ -12,7 +12,10 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-class CheckSporeLevelActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class CheckSporeLevelActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -51,8 +54,7 @@ class CheckSporeLevelActionTest extends AbstractActionTest
         $sporeConfig->setStatusName(PlayerStatusEnum::SPORES);
         $sporeStatus = new ChargeStatus($player, $sporeConfig);
         $sporeStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment->setName('equipment');
@@ -63,6 +65,6 @@ class CheckSporeLevelActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

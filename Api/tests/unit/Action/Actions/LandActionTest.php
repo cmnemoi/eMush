@@ -17,11 +17,15 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class LandActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class LandActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /**
@@ -91,9 +95,9 @@ class LandActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertNotInstanceOf(CriticalSuccess::class, $result);
-        $this->assertEquals($player->getPlace(), $roomEnd);
+        self::assertInstanceOf(Success::class, $result);
+        self::assertNotInstanceOf(CriticalSuccess::class, $result);
+        self::assertSame($player->getPlace(), $roomEnd);
     }
 
     public function testExecuteSuccess()
@@ -138,7 +142,7 @@ class LandActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(CriticalSuccess::class, $result);
-        $this->assertEquals($player->getPlace(), $roomEnd);
+        self::assertInstanceOf(CriticalSuccess::class, $result);
+        self::assertSame($player->getPlace(), $roomEnd);
     }
 }

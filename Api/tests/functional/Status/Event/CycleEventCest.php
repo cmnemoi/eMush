@@ -38,6 +38,9 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
+/**
+ * @internal
+ */
 final class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
@@ -64,16 +67,17 @@ final class CycleEventCest extends AbstractFunctionalTest
             ->setAutoRemove(true)
             ->setChargeStrategy(ChargeStrategyTypeEnum::CYCLE_INCREMENT)
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(0)
-        ;
+            ->setStartCharge(0);
         $I->haveInRepository($statusConfig);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$statusConfig]),
         ]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -91,6 +95,7 @@ final class CycleEventCest extends AbstractFunctionalTest
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -125,8 +130,7 @@ final class CycleEventCest extends AbstractFunctionalTest
             ->setStatusName(StatusEnum::FIRE)
             ->setModifierConfigs(new ArrayCollection([]))
             ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(0)
-        ;
+            ->setStartCharge(0);
         $I->haveInRepository($statusConfig);
 
         /** @var DifficultyConfig $difficultyConfig */
@@ -148,6 +152,7 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         /** @var DaedalusConfig $daedalusConfig */
         $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => GameConfigEnum::TEST]);
+
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
         $daedalus->setDaedalusVariables($daedalusConfig);
@@ -161,8 +166,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -170,14 +174,17 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         /** @var Place $room2 */
         $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
+
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -195,14 +202,12 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         $doorConfig
             ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false)
-        ;
+            ->setIsFireDestroyable(false);
 
         $door = new Door($room);
         $door
-             ->setName('door name')
-             ->setEquipment($doorConfig)
-        ;
+            ->setName('door name')
+            ->setEquipment($doorConfig);
 
         $room->addDoor($door);
         $room2->addDoor($door);

@@ -60,7 +60,7 @@ class StatusSubscriber implements EventSubscriberInterface
             $charge = null;
             if (
                 $statusConfig instanceof ChargeStatusConfig
-                && in_array($modifierConfig->getModifierName(), $statusConfig->getDischargeStrategies())
+                && \in_array($modifierConfig->getModifierName(), $statusConfig->getDischargeStrategies(), true)
             ) {
                 /** @var ChargeStatus $charge */
                 $charge = $event->getStatus();
@@ -111,55 +111,6 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface
-    {
-        return match ($modifierConfig->getModifierRange()) {
-            ModifierHolderClassEnum::DAEDALUS => $this->getDaedalus($statusHolder),
-            ModifierHolderClassEnum::PLACE => $this->getPlace($statusHolder),
-            ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $this->getPlayer($statusHolder),
-            ModifierHolderClassEnum::EQUIPMENT => $this->getEquipment($statusHolder),
-            default => null,
-        };
-    }
-
-    private function getDaedalus(StatusHolderInterface $statusHolder): Daedalus
-    {
-        return $statusHolder->getDaedalus();
-    }
-
-    private function getPlace(StatusHolderInterface $statusHolder): ?Place
-    {
-        if ($statusHolder instanceof Place) {
-            return $statusHolder;
-        } elseif ($statusHolder instanceof Player) {
-            return $statusHolder->getPlace();
-        } elseif ($statusHolder instanceof GameEquipment) {
-            return $statusHolder->getPlace();
-        }
-
-        return null;
-    }
-
-    private function getPlayer(StatusHolderInterface $statusHolder): ?Player
-    {
-        if ($statusHolder instanceof Player) {
-            return $statusHolder;
-        } elseif ($statusHolder instanceof GameEquipment) {
-            return $statusHolder->getPlayer();
-        }
-
-        return null;
-    }
-
-    private function getEquipment(StatusHolderInterface $statusHolder): ?GameEquipment
-    {
-        if ($statusHolder instanceof GameEquipment) {
-            return $statusHolder;
-        }
-
-        return null;
-    }
-
     // Applies direct modifiers already present to the newly created charge status
     public function appliesDirectModifiers(StatusEvent $event): void
     {
@@ -187,5 +138,57 @@ class StatusSubscriber implements EventSubscriberInterface
                 false
             );
         }
+    }
+
+    private function getModifierHolderFromConfig(StatusHolderInterface $statusHolder, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface
+    {
+        return match ($modifierConfig->getModifierRange()) {
+            ModifierHolderClassEnum::DAEDALUS => $this->getDaedalus($statusHolder),
+            ModifierHolderClassEnum::PLACE => $this->getPlace($statusHolder),
+            ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $this->getPlayer($statusHolder),
+            ModifierHolderClassEnum::EQUIPMENT => $this->getEquipment($statusHolder),
+            default => null,
+        };
+    }
+
+    private function getDaedalus(StatusHolderInterface $statusHolder): Daedalus
+    {
+        return $statusHolder->getDaedalus();
+    }
+
+    private function getPlace(StatusHolderInterface $statusHolder): ?Place
+    {
+        if ($statusHolder instanceof Place) {
+            return $statusHolder;
+        }
+        if ($statusHolder instanceof Player) {
+            return $statusHolder->getPlace();
+        }
+        if ($statusHolder instanceof GameEquipment) {
+            return $statusHolder->getPlace();
+        }
+
+        return null;
+    }
+
+    private function getPlayer(StatusHolderInterface $statusHolder): ?Player
+    {
+        if ($statusHolder instanceof Player) {
+            return $statusHolder;
+        }
+        if ($statusHolder instanceof GameEquipment) {
+            return $statusHolder->getPlayer();
+        }
+
+        return null;
+    }
+
+    private function getEquipment(StatusHolderInterface $statusHolder): ?GameEquipment
+    {
+        if ($statusHolder instanceof GameEquipment) {
+            return $statusHolder;
+        }
+
+        return null;
     }
 }

@@ -89,27 +89,6 @@ class Status
         throw new \LogicException('There should always be a target on a status target');
     }
 
-    private function setOwner(StatusHolderInterface $owner): self
-    {
-        $statusOwner = new StatusTarget();
-        $statusOwner->setOwner($this);
-        if ($owner instanceof Player) {
-            $statusOwner->setPlayer($owner);
-        } elseif ($owner instanceof GameEquipment) {
-            $statusOwner->setGameEquipment($owner);
-        } elseif ($owner instanceof Place) {
-            $statusOwner->setPlace($owner);
-        } elseif ($owner instanceof Hunter) {
-            $statusOwner->setHunter($owner);
-        } elseif ($owner instanceof Daedalus) {
-            $statusOwner->setDaedalus($owner);
-        }
-
-        $this->owner = $statusOwner;
-
-        return $this;
-    }
-
     public function setTargetOwner(StatusTarget $owner): self
     {
         $this->owner = $owner;
@@ -187,7 +166,7 @@ class Status
         return $this->target;
     }
 
-    public function delete(): Status
+    public function delete(): self
     {
         if ($this->owner !== null) {
             $this->owner->removeStatusLinksTarget();
@@ -197,6 +176,27 @@ class Status
             $this->target->removeStatusLinksTarget();
             $this->target = null;
         }
+
+        return $this;
+    }
+
+    private function setOwner(StatusHolderInterface $owner): self
+    {
+        $statusOwner = new StatusTarget();
+        $statusOwner->setOwner($this);
+        if ($owner instanceof Player) {
+            $statusOwner->setPlayer($owner);
+        } elseif ($owner instanceof GameEquipment) {
+            $statusOwner->setGameEquipment($owner);
+        } elseif ($owner instanceof Place) {
+            $statusOwner->setPlace($owner);
+        } elseif ($owner instanceof Hunter) {
+            $statusOwner->setHunter($owner);
+        } elseif ($owner instanceof Daedalus) {
+            $statusOwner->setDaedalus($owner);
+        }
+
+        $this->owner = $statusOwner;
 
         return $this;
     }

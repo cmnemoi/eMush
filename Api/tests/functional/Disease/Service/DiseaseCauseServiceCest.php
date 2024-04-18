@@ -26,6 +26,9 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
+/**
+ * @internal
+ */
 final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 {
     private DiseaseCauseServiceInterface $diseaseCauseService;
@@ -45,8 +48,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
         $diseaseCause = new DiseaseCauseConfig();
@@ -55,8 +57,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
             ->setDiseases([
                 DiseaseEnum::FOOD_POISONING => 2,
             ])
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
         $diseaseCause2 = new DiseaseCauseConfig();
@@ -65,8 +66,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
             ->setDiseases(
                 [DiseaseEnum::MUSH_ALLERGY => 1]
             )
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause2);
 
         /** @var GameConfig $gameConfig */
@@ -77,6 +77,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
@@ -87,12 +88,14 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
             'daedalus' => $daedalus,
         ]);
         $player->setPlayerVariables($characterConfig);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);

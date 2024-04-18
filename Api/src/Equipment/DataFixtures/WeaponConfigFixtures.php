@@ -30,14 +30,19 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
+
         /** @var Action $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
+
         /** @var Action $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
+
         /** @var Action $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
+
         /** @var Action $shootAction */
         $shootAction = $this->getReference(ActionsFixtures::SHOOT);
+
         /** @var Action $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
@@ -46,18 +51,22 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var Action $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
+
         /** @var Action $repair12 */
         $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
+
         /** @var Action $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
         /** @var Action $sabotage12 */
         $sabotage12 = $this->getReference(TechnicianFixtures::SABOTAGE_12);
+
         /** @var Action $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
         /** @var Action $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
+
         /** @var Action $dismantle25 */
         $dismantle25 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
 
@@ -71,7 +80,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions25->add($sabotage25);
         $actions25->add($reportAction);
 
-        // @TODO more details are needed on the output of each weapon
+        /** @TODO more details are needed on the output of each weapon */
         $blasterMechanic = new Weapon();
         $blasterMechanic
             ->setBaseAccuracy(50)
@@ -86,8 +95,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setCriticalFailRate(1)
             ->setOneShotRate(1)
             ->addAction($shootAction)
-            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BLASTER, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BLASTER, GameConfigEnum::DEFAULT);
 
         /** @var ChargeStatusConfig $blasterCharge */
         $blasterCharge = $this->getReference(ChargeStatusFixtures::BLASTER_CHARGE);
@@ -103,8 +111,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setInitStatuses([$blasterCharge])
             ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($blasterMechanic);
         $manager->persist($blaster);
@@ -118,14 +125,13 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
                 3 => 25,
                 4 => 12,
                 5 => 12,
-                ])
+            ])
             ->setExpeditionBonus(1)
             ->setCriticalSuccessRate(25)
             ->setCriticalFailRate(20)
             ->setOneShotRate(2)
             ->addAction($attackAction)
-            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::KNIFE, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::KNIFE, GameConfigEnum::DEFAULT);
 
         $knife = new ItemConfig();
         $knife
@@ -137,8 +143,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setMechanics([$knifeMechanic])
             ->setActions($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($knife);
         $manager->persist($knifeMechanic);
@@ -149,8 +154,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([0 => 10])
             ->setExpeditionBonus(3)
             ->addAction($attackAction)
-            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::GRENADE, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::GRENADE, GameConfigEnum::DEFAULT);
 
         $grenade = new ItemConfig();
         $grenade
@@ -160,8 +164,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setMechanics([$grenadeMechanic])
             ->setActions($actions)
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($grenade);
         $manager->persist($grenadeMechanic);
@@ -179,8 +182,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([2 => 12])
             ->setExpeditionBonus(1)
             ->addAction($attackAction)
-            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::NATAMY_RIFLE, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::NATAMY_RIFLE, GameConfigEnum::DEFAULT);
 
         $natamy = new ItemConfig();
         $natamy
@@ -193,8 +195,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setInitStatuses([$blasterCharge])
             ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($natamy);
         $manager->persist($natamyMechanic);
@@ -215,8 +216,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([2 => 3])
             ->setExpeditionBonus(2)
             ->addAction($attackAction)
-            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::OLD_FAITHFUL, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::OLD_FAITHFUL, GameConfigEnum::DEFAULT);
 
         /** @var ChargeStatusConfig $oldFaithfulCharge */
         $oldFaithfulCharge = $this->getReference(ChargeStatusFixtures::OLDFAITHFUL_CHARGE);
@@ -232,8 +232,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setActions($oldFaithfulActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setInitStatuses([$heavyStatus, $oldFaithfulCharge])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($oldFaithful);
         $manager->persist($oldFaithfulMechanic);
@@ -247,8 +246,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([3 => 5])
             ->setExpeditionBonus(1)
             ->addAction($attackAction)
-            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::LIZARO_JUNGLE, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::LIZARO_JUNGLE, GameConfigEnum::DEFAULT);
 
         $lizaroJungle = new ItemConfig();
         $lizaroJungle
@@ -261,8 +259,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setInitStatuses([$bigWeaponCharge])
             ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($lizaroJungle);
         $manager->persist($lizaroJungleMechanic);
@@ -273,8 +270,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setBaseDamageRange([0 => 8])
             ->setExpeditionBonus(3)
             ->addAction($attackAction)
-            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::ROCKET_LAUNCHER, GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::ROCKET_LAUNCHER, GameConfigEnum::DEFAULT);
 
         $rocketLauncher = new ItemConfig();
         $rocketLauncher
@@ -287,8 +283,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setActions($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($rocketLauncher);
         $manager->persist($rocketLauncherMechanic);
@@ -305,8 +300,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($grenade)
             ->addEquipmentConfig($oldFaithful)
             ->addEquipmentConfig($rocketLauncher)
-            ->addEquipmentConfig($natamy)
-        ;
+            ->addEquipmentConfig($natamy);
         $manager->persist($gameConfig);
 
         $manager->flush();

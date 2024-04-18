@@ -11,9 +11,12 @@ use Mush\Equipment\Entity\Door;
 use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 
-class MoveActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class MoveActionTest extends AbstractActionTest
 {
-    /** @var PlayerServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
     /**
@@ -50,8 +53,7 @@ class MoveActionTest extends AbstractActionTest
         $door = new Door($roomStart);
         $door
             ->addRoom($roomStart)
-            ->addRoom($roomEnd)
-        ;
+            ->addRoom($roomEnd);
         $roomStart->addDoor($door);
         $roomEnd->addDoor($door);
 
@@ -64,15 +66,15 @@ class MoveActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals($player->getPlace(), $roomEnd);
+        self::assertInstanceOf(Success::class, $result);
+        self::assertSame($player->getPlace(), $roomEnd);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
         $this->eventService->shouldReceive('callEvent')->times(3);
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertEquals($player->getPlace(), $roomStart);
+        self::assertInstanceOf(Success::class, $result);
+        self::assertSame($player->getPlace(), $roomStart);
     }
 }

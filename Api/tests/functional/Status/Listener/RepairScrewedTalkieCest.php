@@ -13,7 +13,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class RepairScrewedTalkieCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class RepairScrewedTalkieCest extends AbstractFunctionalTest
 {
     private Action $repairConfig;
     private Repair $repairAction;

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Game\Listener;
 
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Gedmo\Timestampable\Mapping\Event\TimestampableAdapter;
 use Mush\Game\Entity\TimestampableCancelInterface;
 
 /**
@@ -16,10 +18,10 @@ class TimestampableListener extends \Gedmo\Timestampable\TimestampableListener
 {
     protected function updateField($object, $eventAdapter, $meta, $field)
     {
-        /** @var \Gedmo\Timestampable\Mapping\Event\TimestampableAdapter $eventAdapter */
+        /** @var TimestampableAdapter $eventAdapter */
         $eventAdapter = $eventAdapter;
 
-        /** @var \Doctrine\ORM\Mapping\ClassMetadata $meta */
+        /** @var ClassMetadata $meta */
         $property = $meta->getReflectionProperty($field);
         $newValue = $this->getFieldValue($meta, $field, $eventAdapter);
 

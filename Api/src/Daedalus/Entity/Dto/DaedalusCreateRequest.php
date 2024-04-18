@@ -14,10 +14,12 @@ class DaedalusCreateRequest
      * @Assert\NotBlank
      */
     private ?string $name = null;
+
     /**
      * @Assert\NotNull
      */
     private ?GameConfig $config = null;
+
     /**
      * @Assert\NotBlank
      */

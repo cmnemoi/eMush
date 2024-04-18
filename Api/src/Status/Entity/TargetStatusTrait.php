@@ -10,8 +10,7 @@ trait TargetStatusTrait
     {
         $statuses = $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
-            ->map(fn (StatusTarget $statusTarget) => $statusTarget->getOwner())
-        ;
+            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner());
 
         // temporary filter to exclude PoC skills
         /** @var Status $status */
@@ -28,25 +27,24 @@ trait TargetStatusTrait
     {
         return $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getTarget()) && $statusOwner->getTarget() === $this)
-            ->map(fn (StatusTarget $statusTarget) => $statusTarget->getTarget())
-        ;
+            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getTarget());
     }
 
     public function getStatusByName(string $name): ?Status
     {
-        $status = $this->getStatuses()->filter(fn (Status $status) => ($status->getName() === $name))->first();
+        $status = $this->getStatuses()->filter(static fn (Status $status) => ($status->getName() === $name))->first();
 
         return $status ?: null;
     }
 
     public function hasStatus(string $statusName): bool
     {
-        return $this->getStatuses()->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
+        return $this->getStatuses()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
     public function hasTargetingStatus(string $statusName): bool
     {
-        return $this->getTargetingStatuses()->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
+        return $this->getTargetingStatuses()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 
     /**
@@ -95,8 +93,7 @@ trait TargetStatusTrait
     {
         $statuses = $this->statuses
             ->filter(fn (StatusTarget $statusTarget) => ($statusOwner = $statusTarget->getOwner()) && $statusOwner->getOwner() === $this)
-            ->map(fn (StatusTarget $statusTarget) => $statusTarget->getOwner())
-        ;
+            ->map(static fn (StatusTarget $statusTarget) => $statusTarget->getOwner());
 
         // temporary filter to get only PoC skills
         /** @var Status $status */
@@ -114,7 +111,7 @@ trait TargetStatusTrait
      */
     public function getSkillByName(string $name): ?Status
     {
-        $status = $this->getSkills()->filter(fn (Status $status) => ($status->getName() === $name))->first();
+        $status = $this->getSkills()->filter(static fn (Status $status) => ($status->getName() === $name))->first();
 
         return $status ?: null;
     }
@@ -124,6 +121,6 @@ trait TargetStatusTrait
      */
     public function hasSkill(string $statusName): bool
     {
-        return $this->getSkills()->exists(fn ($key, Status $status) => ($status->getName() === $statusName));
+        return $this->getSkills()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));
     }
 }

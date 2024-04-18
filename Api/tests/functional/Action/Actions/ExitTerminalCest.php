@@ -16,6 +16,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class ExitTerminalCest extends AbstractFunctionalTest
 {
     private Action $exitTerminalConfig;
@@ -37,8 +40,7 @@ final class ExitTerminalCest extends AbstractFunctionalTest
         $this->commandTerminal = new GameEquipment($bridge);
         $this->commandTerminal
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
+            ->setEquipment($commandTerminalConfig);
         $I->haveInRepository($this->commandTerminal);
 
         // given player is on the bridge

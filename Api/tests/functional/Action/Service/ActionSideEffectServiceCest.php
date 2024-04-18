@@ -20,7 +20,10 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ActionSideEffectServiceCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class ActionSideEffectServiceCest extends AbstractFunctionalTest
 {
     private Search $searchAction;
     private Action $action;
@@ -56,8 +59,7 @@ class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $apron = new GameItem($this->player1);
         $apron
             ->setName('apron_test')
-            ->setEquipment($apronConfig)
-        ;
+            ->setEquipment($apronConfig);
         $I->haveInRepository($apron);
 
         $event = new EquipmentInitEvent($apron, $apronConfig, [], new \DateTime());
@@ -96,8 +98,7 @@ class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $apron = new GameItem($this->player1);
         $apron
             ->setName('apron_test')
-            ->setEquipment($apronConfig)
-        ;
+            ->setEquipment($apronConfig);
         $I->haveInRepository($apron);
 
         $event = new EquipmentInitEvent($apron, $apronConfig, [], new \DateTime());
@@ -138,8 +139,7 @@ class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $gloves = new GameItem($this->player1);
         $gloves
             ->setName('apron_test')
-            ->setEquipment($gloveConfig)
-        ;
+            ->setEquipment($gloveConfig);
         $I->haveInRepository($gloves);
 
         $event = new EquipmentInitEvent($gloves, $gloveConfig, [], new \DateTime());

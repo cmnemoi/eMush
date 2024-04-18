@@ -68,8 +68,7 @@ class LoginService
 
         $user
             ->setNonceCode(null)
-            ->setNonceExpiryDate(null)
-        ;
+            ->setNonceExpiryDate(null);
         if ($user->getUserId() === $this->admin) {
             $user->setRoles([RoleEnum::SUPER_ADMIN]);
         }
@@ -114,13 +113,13 @@ class LoginService
 
         $user
             ->setNonceCode($nonce)
-            ->setNonceExpiryDate((new \DateTime())->setTimestamp($expiryTime))
-        ;
+            ->setNonceExpiryDate((new \DateTime())->setTimestamp($expiryTime));
 
         $this->userService->persist($user);
 
         return $this->jwtEncoder
-            ->encode([
+            ->encode(
+                [
                     'code' => $nonce,
                     'exp' => $expiryTime,
                 ]

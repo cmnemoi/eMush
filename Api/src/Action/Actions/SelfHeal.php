@@ -31,11 +31,6 @@ class SelfHeal extends AbstractAction
 {
     protected string $name = ActionEnum::SELF_HEAL;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target === null;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new CanHeal([
@@ -48,6 +43,11 @@ class SelfHeal extends AbstractAction
             'allowIfTypeMatches' => false,
             'message' => ActionImpossibleCauseEnum::ON_PLANET,
         ]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target === null;
     }
 
     protected function checkResult(): ActionResult

@@ -22,7 +22,10 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class PlayerCycleEventCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class PlayerCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;

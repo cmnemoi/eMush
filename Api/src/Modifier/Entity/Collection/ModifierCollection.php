@@ -16,7 +16,7 @@ class ModifierCollection extends ArrayCollection
 {
     public function addModifiers(self $modifierCollection): self
     {
-        return new ModifierCollection(array_merge($this->toArray(), $modifierCollection->toArray()));
+        return new self(array_merge($this->toArray(), $modifierCollection->toArray()));
     }
 
     /**
@@ -26,25 +26,25 @@ class ModifierCollection extends ArrayCollection
     {
         $array = $this->toArray();
 
-        usort($array, function ($a, $b) {
+        usort($array, static function ($a, $b) {
             return ($a->getModifierConfig()->getPriority() < $b->getModifierConfig()->getPriority()) ? -1 : 1;
         });
 
-        return new ModifierCollection($array);
+        return new self($array);
     }
 
     public function getModifierFromConfig(AbstractModifierConfig $modifierConfig): ?GameModifier
     {
-        $modifierConfig = $this->filter(fn (GameModifier $modifier) => $modifier->getModifierConfig() === $modifierConfig)->first();
+        $modifierConfig = $this->filter(static fn (GameModifier $modifier) => $modifier->getModifierConfig() === $modifierConfig)->first();
 
         return $modifierConfig ?: null;
     }
 
     public function getEventModifiers(AbstractGameEvent $event, array $priorities): self
     {
-        return $this->filter(fn (GameModifier $modifier) => (
+        return $this->filter(static fn (GameModifier $modifier) => (
             ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
-            && in_array($modifierConfig->getPriority(), $priorities)
+            && \in_array($modifierConfig->getPriority(), $priorities, true)
             && $modifierConfig->doModifierApplies($event)
             && (($charge = $modifier->getCharge()) === null || $charge->getCharge() > 0)
         ));
@@ -52,14 +52,16 @@ class ModifierCollection extends ArrayCollection
 
     public function getDirectModifiers(): self
     {
-        return $this->filter(fn (GameModifier $modifier) => (
-            $modifier->getModifierConfig()) instanceof DirectModifierConfig
+        return $this->filter(
+            static fn (GameModifier $modifier) => (
+                $modifier->getModifierConfig()
+            ) instanceof DirectModifierConfig
         );
     }
 
     public function getTargetModifiers(bool $condition): self
     {
-        return $this->filter(fn (GameModifier $modifier) => (
+        return $this->filter(static fn (GameModifier $modifier) => (
             ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
             && $modifierConfig->getApplyOnTarget() === $condition
         ));

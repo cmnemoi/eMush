@@ -18,6 +18,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class WriteCest extends AbstractFunctionalTest
 {
     private Action $writeActionConfig;
@@ -46,8 +49,7 @@ final class WriteCest extends AbstractFunctionalTest
         $this->blockOfPostIt = new GameItem($this->room);
         $this->blockOfPostIt
             ->setName(ToolItemEnum::BLOCK_OF_POST_IT)
-            ->setEquipment($blockOfPostItConfig)
-        ;
+            ->setEquipment($blockOfPostItConfig);
         $I->haveInRepository($this->blockOfPostIt);
     }
 

@@ -12,7 +12,10 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 
-class ExtractSporeActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ExtractSporeActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -46,8 +49,7 @@ class ExtractSporeActionTest extends AbstractActionTest
             ->setInitOxygen(1)
             ->setInitFuel(1)
             ->setInitHull(1)
-            ->setInitShield(1)
-        ;
+            ->setInitShield(1);
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables($daedalusConfig);
 
@@ -60,8 +62,7 @@ class ExtractSporeActionTest extends AbstractActionTest
         $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
         $mushStatus = new ChargeStatus($player, $mushConfig);
         $mushStatus
-            ->setCharge(1)
-        ;
+            ->setCharge(1);
 
         $this->action->loadParameters($this->actionEntity, $player);
 
@@ -70,7 +71,7 @@ class ExtractSporeActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $player->getStatuses());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $player->getStatuses());
     }
 }

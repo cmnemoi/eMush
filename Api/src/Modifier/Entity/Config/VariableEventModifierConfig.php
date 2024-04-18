@@ -58,6 +58,7 @@ class VariableEventModifierConfig extends EventModifierConfig
         $mode = $this->mode;
         $delta = $this->delta;
         $targetVariable = $this->targetVariable;
+
         switch ($mode) {
             case VariableModifierModeEnum::ADDITIVE:
                 if ($delta > 0) {
@@ -65,12 +66,17 @@ class VariableEventModifierConfig extends EventModifierConfig
                 } elseif ($delta < 0) {
                     $name = $name . '_-' . -$delta . $targetVariable;
                 }
+
                 break;
+
             case VariableModifierModeEnum::SET_VALUE:
                 $name = $name . '_set_' . $delta . $targetVariable;
+
                 break;
+
             case VariableModifierModeEnum::MULTIPLICATIVE:
                 $name = $name . '_x' . $delta . $targetVariable;
+
                 break;
         }
 
@@ -100,14 +106,14 @@ class VariableEventModifierConfig extends EventModifierConfig
 
     public function setFloatDelta(string $delta): self
     {
-        $this->delta = floatval($delta);
+        $this->delta = (float) $delta;
 
         return $this;
     }
 
     public function getFloatDelta(): string
     {
-        return strval($this->delta);
+        return (string) $this->delta;
     }
 
     public function getTargetVariable(): string

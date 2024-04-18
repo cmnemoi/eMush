@@ -16,7 +16,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class ChargedValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class ChargedValidatorTest extends TestCase
 {
     private ChargedValidator $validator;
     private Charged $constraint;
@@ -56,18 +59,16 @@ class ChargedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getActionName' => ActionEnum::EXPRESS_COOK,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -82,28 +83,25 @@ class ChargedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
         $action
             ->shouldReceive([
                 'getActionName' => ActionEnum::EXPRESS_COOK,
-            ])
-        ;
+            ]);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK]);
         $chargeStatus = new ChargeStatus($target, $statusConfig);
         $chargeStatus
-            ->setCharge(0)
-        ;
+            ->setCharge(0);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -115,7 +113,7 @@ class ChargedValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

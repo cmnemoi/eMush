@@ -22,12 +22,12 @@ class ChannelNormalizer implements NormalizerInterface
         $this->messageService = $messageService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Channel && !in_array('moderation_read', $context['groups'] ?? []);
+        return $data instanceof Channel && !\in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         return $this->normalizeForCurrentPlayer($object, $context);
     }
@@ -39,7 +39,7 @@ class ChannelNormalizer implements NormalizerInterface
 
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
-        if (key_exists('piratedPlayer', $context)) {
+        if (\array_key_exists('piratedPlayer', $context)) {
             /** @var Player $piratedPlayer */
             $piratedPlayer = $context['piratedPlayer'];
             $piratedPlayerId = $piratedPlayer->getId();
@@ -48,6 +48,7 @@ class ChannelNormalizer implements NormalizerInterface
         }
 
         $participants = [];
+
         /** @var ChannelPlayer $participant */
         foreach ($channel->getParticipants() as $participant) {
             /** @var \DateTime $joinDate */

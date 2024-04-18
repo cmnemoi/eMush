@@ -28,14 +28,17 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class DiseaseCauseServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class DiseaseCauseServiceTest extends TestCase
 {
     private DiseaseCauseService $diseaseCauseService;
 
-    /** @var PlayerDiseaseService|Mockery\Mock */
+    /** @var Mockery\Mock|PlayerDiseaseService */
     private PlayerDiseaseService $playerDiseaseService;
 
-    /** @var RandomServiceInterface|Mockery\Mock */
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
     /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
@@ -72,8 +75,7 @@ class DiseaseCauseServiceTest extends TestCase
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases([$diseaseName => 1])
-            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
-        ;
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD);
 
         $gameConfig = new GameConfig();
         $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
@@ -88,8 +90,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
-            ->never()
-        ;
+            ->never();
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
@@ -100,33 +101,31 @@ class DiseaseCauseServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('isSuccessful')
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection
-                && key_exists('name', $probaCollection->toArray()))
+            ->withArgs(
+                static fn ($probaCollection) => (
+                    $probaCollection instanceof ProbaCollection
+                    && \array_key_exists('name', $probaCollection->toArray())
+                )
                 && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
-            ->once()
-        ;
+            ->once();
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
             ->with($diseaseName, $player, [DiseaseCauseEnum::PERISHED_FOOD], null, null)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
     }
@@ -138,8 +137,7 @@ class DiseaseCauseServiceTest extends TestCase
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases([$diseaseName => 1])
-            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
-        ;
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD);
 
         $gameConfig = new GameConfig();
         $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
@@ -154,8 +152,7 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
-            ->never()
-        ;
+            ->never();
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
@@ -166,33 +163,31 @@ class DiseaseCauseServiceTest extends TestCase
         $this->randomService
             ->shouldReceive('isSuccessful')
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection
-                && key_exists('name', $probaCollection->toArray()))
+            ->withArgs(
+                static fn ($probaCollection) => (
+                    $probaCollection instanceof ProbaCollection
+                    && \array_key_exists('name', $probaCollection->toArray())
+                )
                 && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
-            ->once()
-        ;
+            ->once();
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
             ->with($diseaseName, $player, [DiseaseCauseEnum::PERISHED_FOOD], null, null)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
     }
@@ -210,8 +205,7 @@ class DiseaseCauseServiceTest extends TestCase
         $this->consumableDiseaseService
             ->shouldReceive('findConsumableDiseases')
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
@@ -220,40 +214,34 @@ class DiseaseCauseServiceTest extends TestCase
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
-            ->setDiseasesAttribute(new ArrayCollection([$disease]))
-        ;
+            ->setDiseasesAttribute(new ArrayCollection([$disease]));
 
         $this->consumableDiseaseService
             ->shouldReceive('findConsumableDiseases')
             ->andReturn($consumableDisease)
-            ->twice()
-        ;
+            ->twice();
 
         $this->randomService
             ->shouldReceive('isSuccessful')
             ->andReturn(false)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $playerDisease = new PlayerDisease();
         $playerDisease
             ->setPlayer($player)
-            ->setDiseaseConfig(new DiseaseConfig())
-        ;
+            ->setDiseaseConfig(new DiseaseConfig());
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
             ->andReturn($playerDisease)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
     }
@@ -272,35 +260,30 @@ class DiseaseCauseServiceTest extends TestCase
         $this->consumableDiseaseService
             ->shouldReceive('findConsumableDiseases')
             ->andReturn(null)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
         $cure = new ConsumableDiseaseAttribute();
         $cure
             ->setType(MedicalConditionTypeEnum::CURE)
-            ->setDisease($diseaseName)
-        ;
+            ->setDisease($diseaseName);
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
-            ->setDiseasesAttribute(new ArrayCollection([$cure]))
-        ;
+            ->setDiseasesAttribute(new ArrayCollection([$cure]));
 
         $this->consumableDiseaseService
             ->shouldReceive('findConsumableDiseases')
             ->andReturn($consumableDisease)
-            ->twice()
-        ;
+            ->twice();
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
         $this->randomService
             ->shouldReceive('isSuccessful')
             ->andReturn(true)
-            ->once()
-        ;
+            ->once();
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setDiseaseName($diseaseName);
@@ -308,15 +291,13 @@ class DiseaseCauseServiceTest extends TestCase
         $playerDisease = new PlayerDisease();
         $playerDisease
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-        ;
+            ->setDiseaseConfig($diseaseConfig);
 
         $player->addMedicalCondition($playerDisease);
 
         $this->playerDiseaseService
             ->shouldReceive('removePlayerDisease')
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
     }
@@ -328,8 +309,7 @@ class DiseaseCauseServiceTest extends TestCase
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
             ->setDiseases([$diseaseName => 1])
-            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
-        ;
+            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD);
 
         $gameConfig = new GameConfig();
         $gameConfig->addDiseaseCauseConfig($diseaseCauseConfig);
@@ -341,20 +321,20 @@ class DiseaseCauseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->withArgs(fn ($probaCollection) => (
-                $probaCollection instanceof ProbaCollection
-                && key_exists('name', $probaCollection->toArray()))
+            ->withArgs(
+                static fn ($probaCollection) => (
+                    $probaCollection instanceof ProbaCollection
+                    && \array_key_exists('name', $probaCollection->toArray())
+                )
                 && $probaCollection->toArray()['name'] === 1
             )
             ->andReturn($diseaseName)
-            ->once()
-        ;
+            ->once();
 
         $this->playerDiseaseService
             ->shouldReceive('createDiseaseFromName')
             ->with($diseaseName, $player, [DiseaseCauseEnum::PERISHED_FOOD], null, null)
-            ->once()
-        ;
+            ->once();
 
         $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
     }

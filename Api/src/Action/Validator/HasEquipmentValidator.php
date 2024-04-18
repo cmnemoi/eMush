@@ -63,16 +63,17 @@ class HasEquipmentValidator extends ConstraintValidator
         foreach ($equipmentsName as $equipmentName) {
             if ($all && !$this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
                 return false;
-            } elseif (!$all && $this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
+            }
+            if (!$all && $this->canReachEquipment($player, $equipmentName, $reach, $checkIfOperational)) {
                 return true;
             }
         }
 
         if ($all) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     private function canReachEquipment(
@@ -100,9 +101,9 @@ class HasEquipmentValidator extends ConstraintValidator
 
     private function canReachEquipmentInInventory(Player $player, string $equipmentName, bool $checkIfOperational): bool
     {
-        $equipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+        $equipments = $player->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
         if ($checkIfOperational) {
-            return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+            return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
         }
 
         return !$equipments->isEmpty();
@@ -110,9 +111,9 @@ class HasEquipmentValidator extends ConstraintValidator
 
     private function canReachEquipmentInShelf(Player $player, string $equipmentName, bool $checkIfOperational): bool
     {
-        $equipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+        $equipments = $player->getPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
         if ($checkIfOperational) {
-            return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+            return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
         }
 
         return !$equipments->isEmpty();
@@ -120,12 +121,12 @@ class HasEquipmentValidator extends ConstraintValidator
 
     private function canReachEquipmentInRoom(Player $player, string $equipmentName, bool $checkIfOperational): bool
     {
-        $shelfEquipments = $player->getPlace()->getEquipments()->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
-        $playerEquipments = $player->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
+        $shelfEquipments = $player->getPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
+        $playerEquipments = $player->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
 
         if ($checkIfOperational) {
-            return !($playerEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty()
-            && $shelfEquipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
+            return !($playerEquipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty()
+            && $shelfEquipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
         }
 
         return !($shelfEquipments->isEmpty() && $playerEquipments->isEmpty());
@@ -135,7 +136,7 @@ class HasEquipmentValidator extends ConstraintValidator
     {
         $equipments = $this->gameEquipmentService->findByNameAndDaedalus($equipmentName, $player->getDaedalus());
         if ($checkIfOperational) {
-            return !$equipments->filter(fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+            return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
         }
 
         return !$equipments->isEmpty();

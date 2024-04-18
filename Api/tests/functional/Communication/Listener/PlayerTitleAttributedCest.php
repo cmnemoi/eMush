@@ -9,7 +9,10 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class PlayerTitleAttributedCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class PlayerTitleAttributedCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private ChannelServiceInterface $channelService;

@@ -29,6 +29,30 @@ class PlayerStatusService implements PlayerStatusServiceInterface
         $this->handleHungerStatus($player, $dateTime);
     }
 
+    public function handleMoralStatus(Player $player, \DateTime $dateTime): void
+    {
+        $demoralizedStatus = $player->getStatusByName(PlayerStatusEnum::DEMORALIZED);
+        $suicidalStatus = $player->getStatusByName(PlayerStatusEnum::SUICIDAL);
+
+        $playerMoralPoint = $player->getMoralPoint();
+
+        if ($this->isPlayerSuicidal($playerMoralPoint) && !$suicidalStatus) {
+            $this->statusService->createStatusFromName(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
+        }
+
+        if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
+            $this->statusService->removeStatus(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
+        }
+
+        if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
+            $this->statusService->createStatusFromName(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
+        }
+
+        if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {
+            $this->statusService->removeStatus(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
+        }
+    }
+
     private function handleFullBellyStatus(Player $player, \DateTime $dateTime): void
     {
         $fullStatus = $player->getStatusByName(PlayerStatusEnum::FULL_STOMACH);
@@ -104,30 +128,6 @@ class PlayerStatusService implements PlayerStatusServiceInterface
                 $dateTime,
                 VisibilityEnum::PRIVATE
             );
-        }
-    }
-
-    public function handleMoralStatus(Player $player, \DateTime $dateTime): void
-    {
-        $demoralizedStatus = $player->getStatusByName(PlayerStatusEnum::DEMORALIZED);
-        $suicidalStatus = $player->getStatusByName(PlayerStatusEnum::SUICIDAL);
-
-        $playerMoralPoint = $player->getMoralPoint();
-
-        if ($this->isPlayerSuicidal($playerMoralPoint) && !$suicidalStatus) {
-            $this->statusService->createStatusFromName(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
-        }
-
-        if ($suicidalStatus && !$this->isPlayerSuicidal($playerMoralPoint)) {
-            $this->statusService->removeStatus(PlayerStatusEnum::SUICIDAL, $player, [EventEnum::NEW_CYCLE], $dateTime);
-        }
-
-        if (!$demoralizedStatus && $this->isPlayerDemoralized($playerMoralPoint)) {
-            $this->statusService->createStatusFromName(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
-        }
-
-        if ($demoralizedStatus && !$this->isPlayerDemoralized($playerMoralPoint)) {
-            $this->statusService->removeStatus(PlayerStatusEnum::DEMORALIZED, $player, [EventEnum::NEW_CYCLE], $dateTime);
         }
     }
 

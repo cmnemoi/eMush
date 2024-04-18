@@ -120,11 +120,11 @@ class CharacterConfig
     }
 
     /**
-     * @param Collection<int, StatusConfig>|array<int, StatusConfig> $initStatuses
+     * @param array<int, StatusConfig>|Collection<int, StatusConfig> $initStatuses
      */
-    public function setInitStatuses(Collection|array $initStatuses): static
+    public function setInitStatuses(array|Collection $initStatuses): static
     {
-        if (is_array($initStatuses)) {
+        if (\is_array($initStatuses)) {
             $initStatuses = new ArrayCollection($initStatuses);
         }
 
@@ -140,17 +140,17 @@ class CharacterConfig
 
     public function getActionByName(string $name): ?Action
     {
-        $actions = $this->actions->filter(fn (Action $action) => $action->getActionName() === $name);
+        $actions = $this->actions->filter(static fn (Action $action) => $action->getActionName() === $name);
 
         return $actions->isEmpty() ? null : $actions->first();
     }
 
     /**
-     * @param Collection<array-key, Action>|array<int, Action> $actions
+     * @param array<int, Action>|Collection<array-key, Action> $actions
      */
-    public function setActions(Collection|array $actions): static
+    public function setActions(array|Collection $actions): static
     {
-        if (is_array($actions)) {
+        if (\is_array($actions)) {
             $actions = new ArrayCollection($actions);
         }
 
@@ -177,11 +177,11 @@ class CharacterConfig
     }
 
     /**
-     * @param Collection<int, ItemConfig>|array<int, ItemConfig> $items
+     * @param array<int, ItemConfig>|Collection<int, ItemConfig> $items
      */
-    public function setStartingItems(Collection|array $items): static
+    public function setStartingItems(array|Collection $items): static
     {
-        if (is_array($items)) {
+        if (\is_array($items)) {
             $items = new ArrayCollection($items);
         }
 
@@ -196,11 +196,11 @@ class CharacterConfig
     }
 
     /**
-     * @param Collection<int, DiseaseConfig>|array<int, DiseaseConfig> $initDiseases
+     * @param array<int, DiseaseConfig>|Collection<int, DiseaseConfig> $initDiseases
      */
-    public function setInitDiseases(Collection|array $initDiseases): static
+    public function setInitDiseases(array|Collection $initDiseases): static
     {
-        if (is_array($initDiseases)) {
+        if (\is_array($initDiseases)) {
             $initDiseases = new ArrayCollection($initDiseases);
         }
 

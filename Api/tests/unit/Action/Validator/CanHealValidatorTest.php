@@ -19,7 +19,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class CanHealValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class CanHealValidatorTest extends TestCase
 {
     private CanHealValidator $validator;
     private CanHeal $constraint;
@@ -50,24 +53,21 @@ class CanHealValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $player = new Player();
         $player
-            ->setPlace($medlab)
-        ;
+            ->setPlace($medlab);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setMaxHealthPoint(12)->setInitHealthPoint(8);
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($medlab)
-        ;
+            ->setPlace($medlab);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // valid
         $this->initValidator();
@@ -83,16 +83,14 @@ class CanHealValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $player = new Player();
         $player
-            ->setPlace($medlab)
-        ;
+            ->setPlace($medlab);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setMaxHealthPoint(12)->setInitHealthPoint(12);
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($medlab)
-        ;
+            ->setPlace($medlab);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
@@ -102,8 +100,7 @@ class CanHealValidatorTest extends TestCase
             ->setPlayer($target)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseaseConfig($diseaseConfig)
-            ->setResistancePoint(0)
-        ;
+            ->setResistancePoint(0);
 
         $target->addMedicalCondition($targetDisease);
 
@@ -112,8 +109,7 @@ class CanHealValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // valid
         $this->initValidator();
@@ -129,24 +125,21 @@ class CanHealValidatorTest extends TestCase
         $characterConfig = new CharacterConfig();
         $player = new Player();
         $player
-            ->setPlace($medlab)
-        ;
+            ->setPlace($medlab);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setMaxHealthPoint(12)->setInitHealthPoint(12);
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($medlab)
-        ;
+            ->setPlace($medlab);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // not valid
         $this->initValidator($this->constraint->message);
@@ -172,16 +165,14 @@ class CanHealValidatorTest extends TestCase
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // valid
         $this->initValidator();
@@ -211,16 +202,14 @@ class CanHealValidatorTest extends TestCase
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // not valid
         $this->initValidator($this->constraint->message);
@@ -246,8 +235,7 @@ class CanHealValidatorTest extends TestCase
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);
@@ -257,8 +245,7 @@ class CanHealValidatorTest extends TestCase
             ->setPlayer($target)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseaseConfig($diseaseConfig)
-            ->setResistancePoint(0)
-        ;
+            ->setResistancePoint(0);
 
         $target->addMedicalCondition($targetDisease);
 
@@ -267,8 +254,7 @@ class CanHealValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // not valid
         $this->initValidator($this->constraint->message);
@@ -294,16 +280,14 @@ class CanHealValidatorTest extends TestCase
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($room)
-        ;
+            ->setPlace($room);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // not valid
         $this->initValidator($this->constraint->message);
@@ -327,23 +311,21 @@ class CanHealValidatorTest extends TestCase
         $target = new Player();
         $target
             ->setPlayerVariables($targetPlayerConfig)
-            ->setPlace($laboratory)
-        ;
+            ->setPlace($laboratory);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         // not valid
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'visibility');
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -355,7 +337,7 @@ class CanHealValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

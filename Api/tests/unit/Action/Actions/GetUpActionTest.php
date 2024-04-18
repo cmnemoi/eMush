@@ -16,10 +16,12 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class GetUpActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class GetUpActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -57,19 +59,16 @@ class GetUpActionTest extends AbstractActionTest
         $gameItem = new GameEquipment($room);
         $item = new EquipmentConfig();
         $item
-            ->setEquipmentName(EquipmentEnum::BED)
-        ;
+            ->setEquipmentName(EquipmentEnum::BED);
         $gameItem
             ->setEquipment($item)
-            ->setName(EquipmentEnum::BED)
-        ;
+            ->setName(EquipmentEnum::BED);
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $status = new Status($player, $statusConfig);
         $status
-            ->setTarget($gameItem)
-        ;
+            ->setTarget($gameItem);
 
         $this->action->loadParameters($this->actionEntity, $player);
 
@@ -78,8 +77,8 @@ class GetUpActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

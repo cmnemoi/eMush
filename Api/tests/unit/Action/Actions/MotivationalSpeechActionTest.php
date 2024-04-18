@@ -9,7 +9,10 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 
-class MotivationalSpeechActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class MotivationalSpeechActionTest extends AbstractActionTest
 {
     /**
      * @before
@@ -52,11 +55,10 @@ class MotivationalSpeechActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
             ->with($speaker, $this->actionEntity, null, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
-            ->once()
-        ;
+            ->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

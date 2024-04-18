@@ -48,8 +48,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface
 {
-    use TimestampableEntity;
     use TargetStatusTrait;
+    use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -74,7 +74,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerDisease::class)]
     private Collection $medicalConditions;
 
-    #[ORM\ManyToMany(targetEntity: Player::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: self::class, cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
@@ -202,9 +202,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
         if ($hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN)) {
             return $hiddenStatus->getTarget() === $this;
-        } else {
-            return $this->items->contains($gameEquipment) || $this->getPlace()->getEquipments()->contains($gameEquipment);
         }
+
+        return $this->items->contains($gameEquipment) || $this->getPlace()->getEquipments()->contains($gameEquipment);
     }
 
     public function getEquipments(): Collection
@@ -243,19 +243,20 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
+        return !$this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
     }
 
     public function hasOperationalEquipmentByName(string $name): bool
     {
-        return !$this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name
+        return !$this->getEquipments()->filter(
+            static fn (GameItem $gameItem) => $gameItem->getName() === $name
             && $gameItem->isOperational()
         )->isEmpty();
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment
     {
-        $equipment = $this->getEquipments()->filter(fn (GameItem $gameItem) => $gameItem->getName() === $name);
+        $equipment = $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name);
 
         return $equipment->isEmpty() ? null : $equipment->first();
     }
@@ -290,7 +291,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getMedicalConditionByName(string $diseaseName): ?PlayerDisease
     {
-        $disease = $this->medicalConditions->filter(fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getDiseaseName() === $diseaseName));
+        $disease = $this->medicalConditions->filter(static fn (PlayerDisease $playerDisease) => ($playerDisease->getDiseaseConfig()->getDiseaseName() === $diseaseName));
 
         return $disease->isEmpty() ? null : $disease->first();
     }
@@ -345,16 +346,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function addFlirt(Player $playerFlirt): static
+    public function addFlirt(self $playerFlirt): static
     {
         $this->flirts->add($playerFlirt);
 
         return $this;
     }
 
-    public function HasFlirtedWith(Player $playerTarget): bool
+    public function HasFlirtedWith(self $playerTarget): bool
     {
-        return $this->getFlirts()->exists(fn (int $id, Player $player) => $player === $playerTarget);
+        return $this->getFlirts()->exists(static fn (int $id, Player $player) => $player === $playerTarget);
     }
 
     public function addSkill(string $skill): static
@@ -517,19 +518,19 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getClassName(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function getSelfActions(): Collection
     {
         return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
     }
 
     public function getTargetActions(): Collection
     {
         return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
     }
 
     public function getLogName(): string
@@ -559,7 +560,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             RoomEnum::getTurrets()->toArray(),
         );
 
-        return in_array($this->getPlace()->getName(), $spaceBattleRooms, true);
+        return \in_array($this->getPlace()->getName(), $spaceBattleRooms, true);
     }
 
     public function isInAPatrolShip(): bool
@@ -577,12 +578,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->isInAPatrolShip() || $this->isInSpace();
     }
 
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
     public function getFocusedTerminal(): ?GameEquipment
     {
-        /** @var ?GameEquipment $terminal */
-        $terminal = $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
-
-        return $terminal;
+        // @var ?GameEquipment $terminal
+        return $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
     }
 
     public function addTitle(string $title): static
@@ -594,7 +597,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function removeTitle(string $title): static
     {
-        if (in_array($title, $this->titles)) {
+        if (\in_array($title, $this->titles, true)) {
             $this->titles = array_diff($this->titles, [$title]);
         }
 
@@ -615,7 +618,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasTitle(string $title): bool
     {
-        return in_array($title, $this->getTitles());
+        return \in_array($title, $this->getTitles(), true);
     }
 
     public function setExploration(?Exploration $exploration): static

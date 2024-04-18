@@ -32,16 +32,14 @@ class ChannelPlayerRepository extends ServiceEntityRepository
             ->join('sub_query.channel', 'channel')
             ->where($subQuery->expr()->eq('channel.scope', ':private'))
             ->andHaving($subQuery->expr()->gte('COUNT(channel.id)', ':maxChannel'))
-            ->groupBy('sub_query.participant')
-        ;
+            ->groupBy('sub_query.participant');
 
         // Sub-query2 that gets all players that are already in this channel
         $subQuery2 = $this->createQueryBuilder('sub_query_2');
         $subQuery2
             ->select('sub_2_player.id')
             ->join('sub_query_2.participant', 'sub_2_player')
-            ->where($subQuery2->expr()->eq('sub_query_2.channel', ':currentChannel'))
-        ;
+            ->where($subQuery2->expr()->eq('sub_query_2.channel', ':currentChannel'));
 
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -63,8 +61,7 @@ class ChannelPlayerRepository extends ServiceEntityRepository
             ->setParameter('currentChannel', $channel)
             ->setParameter('maxChannel', $maxChannel)
             ->setParameter('daedalus', $daedalus)
-            ->setParameter('gameStatus', GameStatusEnum::CURRENT) // only alive players should be able to join a channel
-        ;
+            ->setParameter('gameStatus', GameStatusEnum::CURRENT); // only alive players should be able to join a channel
 
         return $queryBuilder->getQuery()->getResult();
     }

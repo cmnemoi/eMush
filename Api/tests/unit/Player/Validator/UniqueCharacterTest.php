@@ -17,9 +17,13 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class UniqueCharacterTest extends TestCase
+/**
+ * @internal
+ */
+final class UniqueCharacterTest extends TestCase
 {
     private UniqueCharacterValidator $validator;
+
     /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
 
@@ -59,13 +63,12 @@ class UniqueCharacterTest extends TestCase
 
         $playerRequest
             ->setCharacter('character')
-            ->setDaedalus(new Daedalus())
-        ;
+            ->setDaedalus(new Daedalus());
         $this->daedalusService->shouldReceive('findOneByCharacter')->andReturn(null);
 
         $this->validator->validate($playerRequest, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValid()
@@ -84,15 +87,14 @@ class UniqueCharacterTest extends TestCase
         $daedalus->addPlayer($player);
         $playerRequest
             ->setCharacter(CharacterEnum::CHUN)
-            ->setDaedalus(new Daedalus())
-        ;
+            ->setDaedalus(new Daedalus());
 
         $this->validator->validate($playerRequest, $constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -107,7 +109,7 @@ class UniqueCharacterTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

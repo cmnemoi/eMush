@@ -17,9 +17,9 @@ use Mush\Status\Entity\StatusHolderInterface;
 
 class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
 {
-    public const STATUS_APPLIED = 'status.applied';
-    public const STATUS_DELETED = 'status.deleted';
-    public const STATUS_REMOVED = 'status.removed';
+    public const string STATUS_APPLIED = 'status.applied';
+    public const string STATUS_DELETED = 'status.deleted';
+    public const string STATUS_REMOVED = 'status.removed';
 
     protected Status $status;
     protected StatusHolderInterface $holder;
@@ -33,7 +33,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        StatusHolderInterface $target = null
+        ?StatusHolderInterface $target = null
     ) {
         $this->status = $status;
         $this->holder = $holder;
@@ -93,9 +93,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     {
         if ($this->holder instanceof Place) {
             return $this->holder;
-        } elseif ($this->holder instanceof Player) {
+        }
+        if ($this->holder instanceof Player) {
             return $this->holder->getPlace();
-        } elseif ($this->holder instanceof GameEquipment) {
+        }
+        if ($this->holder instanceof GameEquipment) {
             return $this->holder->getPlace();
         }
 

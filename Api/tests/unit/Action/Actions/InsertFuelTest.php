@@ -15,7 +15,10 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 
-class InsertFuelTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class InsertFuelTest extends AbstractActionTest
 {
     /**
      * @before
@@ -77,6 +80,6 @@ class InsertFuelTest extends AbstractActionTest
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());
-        self::assertEquals(10, $player->getActionPoint());
+        self::assertSame(10, $player->getActionPoint());
     }
 }

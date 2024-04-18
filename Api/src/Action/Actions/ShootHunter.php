@@ -33,14 +33,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ShootHunter extends AttemptAction
 {
-    protected string $name = ActionEnum::SHOOT_HUNTER;
-
     private const SHOOT_HUNTER_LOG_MAP = [
         ActionEnum::SHOOT_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
         ActionEnum::SHOOT_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
         ActionEnum::SHOOT_RANDOM_HUNTER => ActionLogEnum::SHOOT_HUNTER_SUCCESS,
         ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
     ];
+    protected string $name = ActionEnum::SHOOT_HUNTER;
     private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
@@ -54,11 +53,6 @@ class ShootHunter extends AttemptAction
         $this->roomLogService = $roomLogService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
-    {
-        return $target instanceof Hunter || $target instanceof GameEquipment;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::SPACE_BATTLE, 'groups' => ['visibility']]));
@@ -70,6 +64,11 @@ class ShootHunter extends AttemptAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+    }
+
+    protected function support(?LogParameterInterface $target, array $parameters): bool
+    {
+        return $target instanceof Hunter || $target instanceof GameEquipment;
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -115,8 +114,8 @@ class ShootHunter extends AttemptAction
     {
         /** @var GameEquipment $shootingEquipment */
         $shootingEquipment = $this->player->getPlace()->getEquipments()
-            ->filter(fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
-            ->filter(fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
+            ->filter(static fn (GameEquipment $shootingEquipment) => !$shootingEquipment instanceof GameItem) // filter items to avoid recover PvP weapons
+            ->filter(static fn (GameEquipment $shootingEquipment) => $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->count() > 0)
             ->first();
 
         if (!$shootingEquipment instanceof GameEquipment) {
@@ -129,7 +128,7 @@ class ShootHunter extends AttemptAction
     private function getWeaponMechanic(GameEquipment $shootingEquipment): Weapon
     {
         /** @var Weapon $weapon */
-        $weapon = $shootingEquipment->getEquipment()->getMechanics()->filter(fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
+        $weapon = $shootingEquipment->getEquipment()->getMechanics()->filter(static fn (Mechanic $mechanic) => $mechanic instanceof Weapon)->first();
         if (!$weapon instanceof Weapon) {
             throw new \Exception("Shoot hunter action : {$shootingEquipment->getName()} should have a weapon mechanic");
         }

@@ -12,7 +12,10 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 
-class MakeSickActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class MakeSickActionTest extends AbstractActionTest
 {
     private DiseaseCauseServiceInterface|Mockery\Mock $diseaseCauseService;
 
@@ -60,6 +63,6 @@ class MakeSickActionTest extends AbstractActionTest
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause');
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

@@ -17,7 +17,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class EmptyOperationalBedInRoomValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class EmptyBedInRoomValidatorTest extends TestCase
 {
     private EmptyOperationalBedInRoomValidator $validator;
     private EmptyOperationalBedInRoom $constraint;
@@ -53,8 +56,7 @@ class EmptyOperationalBedInRoomValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -74,15 +76,13 @@ class EmptyOperationalBedInRoomValidatorTest extends TestCase
         $statusConfig->setVisibility(VisibilityEnum::PUBLIC)->setStatusName(PlayerStatusEnum::LYING_DOWN);
         $lyingDownStatus = new Status($player, $statusConfig);
         $lyingDownStatus
-            ->setTarget($gameEquipment)
-        ;
+            ->setTarget($gameEquipment);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'execute');
@@ -99,14 +99,13 @@ class EmptyOperationalBedInRoomValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'execute');
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -118,7 +117,7 @@ class EmptyOperationalBedInRoomValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

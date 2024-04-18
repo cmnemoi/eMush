@@ -12,11 +12,15 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class CanGrantRoleTest extends TestCase
+/**
+ * @internal
+ */
+final class CanGrantRoleTest extends TestCase
 {
-    /** @var RoleHierarchyInterface|Mockery\MockInterface */
+    /** @var Mockery\MockInterface|RoleHierarchyInterface */
     private RoleHierarchyInterface $roleHierarchy;
-    /** @var TokenStorageInterface|Mockery\MockInterface */
+
+    /** @var Mockery\MockInterface|TokenStorageInterface */
     private TokenStorageInterface $tokenStorage;
 
     private CanGrantRoleValidator $validator;
@@ -29,8 +33,7 @@ class CanGrantRoleTest extends TestCase
         $this->tokenStorage
             ->shouldReceive('getToken')
             ->andReturn(null)
-            ->byDefault()
-        ;
+            ->byDefault();
 
         $this->validator = new CanGrantRoleValidator(
             $this->roleHierarchy,
@@ -53,8 +56,7 @@ class CanGrantRoleTest extends TestCase
         $this->roleHierarchy
             ->shouldReceive('getReachableRoleNames')
             ->andReturn([RoleEnum::MODERATOR, RoleEnum::ADMIN])
-            ->once()
-        ;
+            ->once();
 
         $this->validator->validate($roles, $constraint);
     }
@@ -68,13 +70,12 @@ class CanGrantRoleTest extends TestCase
         $this->roleHierarchy
             ->shouldReceive('getReachableRoleNames')
             ->andReturn([RoleEnum::USER, RoleEnum::MODERATOR])
-            ->once()
-        ;
+            ->once();
 
         $this->validator->validate($roles, $constraint);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -87,7 +88,7 @@ class CanGrantRoleTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

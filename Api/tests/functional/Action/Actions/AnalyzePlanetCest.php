@@ -26,6 +26,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class AnalyzePlanetCest extends AbstractFunctionalTest
 {
     private Action $analyzePlanetConfig;
@@ -55,8 +58,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->astroTerminal = new GameEquipment($this->bridge);
         $this->astroTerminal
             ->setName(EquipmentEnum::ASTRO_TERMINAL)
-            ->setEquipment($astroTerminalConfig)
-        ;
+            ->setEquipment($astroTerminalConfig);
         $I->haveInRepository($this->astroTerminal);
 
         // given player is on the bridge
@@ -109,7 +111,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     public function testAnalyzePlanetIsNotVisibleIfPlanetHasAllTheirSectionsRevealed(FunctionalTester $I): void
     {
         // given all sections of the planet are revealed
-        $this->planet->getSectors()->map(fn (PlanetSector $sector) => $sector->reveal());
+        $this->planet->getSectors()->map(static fn (PlanetSector $sector) => $sector->reveal());
 
         // when player tries to analyze planet
         $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);

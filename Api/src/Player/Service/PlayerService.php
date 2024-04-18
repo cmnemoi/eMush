@@ -166,12 +166,11 @@ class PlayerService implements PlayerServiceInterface
             ->setDaedalus($daedalus)
             ->setPlace(
                 $daedalus->getRooms()
-                    ->filter(fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
+                    ->filter(static fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
                     ->first()
             )
             ->setSkills([])
-            ->setPlayerVariables($characterConfig)
-        ;
+            ->setPlayerVariables($characterConfig);
 
         $playerInfo = new PlayerInfo(
             $player,
@@ -192,8 +191,7 @@ class PlayerService implements PlayerServiceInterface
         );
         $playerEvent
             ->setCharacterConfig($characterConfig)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-        ;
+            ->setVisibility(VisibilityEnum::PUBLIC);
         $this->eventService->callEvent($playerEvent, PlayerEvent::NEW_PLAYER);
 
         foreach ($characterConfig->getStartingItems() as $itemConfig) {
@@ -218,8 +216,7 @@ class PlayerService implements PlayerServiceInterface
         $closedPlayer = $playerInfo->getClosedPlayer();
 
         $closedPlayer
-            ->setMessage($message)
-        ;
+            ->setMessage($message);
 
         // Avoid duplicates
         $likedPlayers = array_unique($likedPlayers);
@@ -371,11 +368,10 @@ class PlayerService implements PlayerServiceInterface
             ->setEndCause($endReason)
             ->setIsMush($player->isMush())
             ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
-            ->setFinishedAt($time)
-        ;
+            ->setFinishedAt($time);
         $this->persistPlayerInfo($playerInfo);
 
-        if (!in_array($endReason, [EndCauseEnum::DEPRESSION, EndCauseEnum::QUARANTINE])) {
+        if (!\in_array($endReason, [EndCauseEnum::DEPRESSION, EndCauseEnum::QUARANTINE], true)) {
             $moraleLoss = -1;
             if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
                 $moraleLoss = -2;

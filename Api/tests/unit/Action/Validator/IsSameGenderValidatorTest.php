@@ -14,7 +14,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class IsSameGenderValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class IsSameGenderValidatorTest extends TestCase
 {
     private IsSameGenderValidator $validator;
     private IsSameGender $constraint;
@@ -63,8 +66,7 @@ class IsSameGenderValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -97,14 +99,13 @@ class IsSameGenderValidatorTest extends TestCase
             ->shouldReceive([
                 'getTarget' => $target,
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'visibility');
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -116,7 +117,7 @@ class IsSameGenderValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

@@ -26,15 +26,21 @@ class NumberOfAttackingHuntersValidator extends ConstraintValidator
         $nbAttackingHunters = $value->getPlayer()->getDaedalus()->getAttackingHunters()->count();
 
         $buildViolation = false;
+
         switch ($constraint->mode) {
             case self::GREATER_THAN:
                 $buildViolation = $nbAttackingHunters > $constraint->number;
+
                 break;
+
             case self::LESS_THAN:
                 $buildViolation = $nbAttackingHunters < $constraint->number;
+
                 break;
+
             case self::EQUAL:
                 $buildViolation = $nbAttackingHunters === $constraint->number;
+
                 break;
         }
 

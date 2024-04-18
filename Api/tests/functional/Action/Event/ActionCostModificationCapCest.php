@@ -17,7 +17,10 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class ActionCostModificationCapCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class ActionCostModificationCapCest extends AbstractFunctionalTest
 {
     private Shower $showerAction;
     private Action $action;
@@ -42,8 +45,7 @@ class ActionCostModificationCapCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER)
-        ;
+            ->setName(EquipmentEnum::SHOWER);
         $I->haveInRepository($gameEquipment);
 
         /** @var VariableEventModifierConfig $soapModifierConfig */

@@ -26,65 +26,94 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $consume2ActionLoss */
         $consume2ActionLoss = $this->getReference(DiseaseModifierConfigFixtures::CONSUME_2_ACTION_LOSS);
+
         /** @var VariableEventModifierConfig $cycle1HealthLost */
         $cycle1HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_1_HEALTH_LOST);
+
         /** @var VariableEventModifierConfig $cycle2HealthLost */
         $cycle2HealthLost = $this->getReference(DiseaseModifierConfigFixtures::CYCLE_2_HEALTH_LOST);
+
         /** @var VariableEventModifierConfig $increaseCycleDiseaseChances10 */
         $increaseCycleDiseaseChances10 = $this->getReference(DiseaseModifierConfigFixtures::INCREASE_CYCLE_DISEASE_CHANCES_10);
+
         /** @var VariableEventModifierConfig $moveIncreaseMovement */
         $moveIncreaseMovement = $this->getReference(DiseaseModifierConfigFixtures::MOVE_INCREASE_MOVEMENT);
+
         /** @var VariableEventModifierConfig $notMoveAction1Increase */
         $notMoveAction1Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_1_INCREASE);
+
         /** @var VariableEventModifierConfig $notMoveAction2Increase */
         $notMoveAction2Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_2_INCREASE);
+
         /** @var VariableEventModifierConfig $notMoveAction3Increase */
         $notMoveAction3Increase = $this->getReference(InjuryModifierConfigFixtures::NOT_MOVE_ACTION_3_INCREASE);
+
         /** @var VariableEventModifierConfig $reduceMax1HealthPoint */
         $reduceMax1HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_HEALTH_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax2HealthPoint */
         $reduceMax2HealthPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_HEALTH_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax1MoralPoint */
         $reduceMax1MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_1_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax2MoralPoint */
         $reduceMax2MoralPoint = $this->getReference(DiseaseModifierConfigFixtures::REDUCE_MAX_2_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax3MoralPoint */
         $reduceMax3MoralPoint = $this->getReference(DisorderModifierConfigFixtures::REDUCE_MAX_3_MORAL_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax3MovementPoint */
         $reduceMax3MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_3_MOVEMENT_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax5MovementPoint */
         $reduceMax5MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_5_MOVEMENT_POINT);
+
         /** @var VariableEventModifierConfig $reduceMax12MovementPoint */
         $reduceMax12MovementPoint = $this->getReference(InjuryModifierConfigFixtures::REDUCE_MAX_12_MOVEMENT_POINT);
+
         /** @var VariableEventModifierConfig $shootAction10PercentAccuracyLost */
         $shootAction10PercentAccuracyLost = $this->getReference(DiseaseModifierConfigFixtures::SHOOT_ACTION_10_PERCENT_ACCURACY_LOST);
+
         /** @var VariableEventModifierConfig $shootAction20PercentAccuracyLost */
         $shootAction20PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_20_PERCENT_ACCURACY_LOST);
+
         /** @var VariableEventModifierConfig $shootAction40PercentAccuracyLost */
         $shootAction40PercentAccuracyLost = $this->getReference(InjuryModifierConfigFixtures::SHOOT_ACTION_40_PERCENT_ACCURACY_LOST);
+
         /** @var EventModifierConfig $deafListen */
         $deafListen = $this->getReference(InjuryModifierConfigFixtures::DEAF_LISTEN_MODIFIER);
+
         /** @var EventModifierConfig $deafSpeak */
         $deafSpeak = $this->getReference(InjuryModifierConfigFixtures::DEAF_SPEAK_MODIFIER);
 
         /** @var EventModifierConfig $cantMove */
         $cantMove = $this->getReference(InjuryModifierConfigFixtures::CANNOT_MOVE);
+
         /** @var EventModifierConfig $cantPickUpHeavyItems */
         $cantPickUpHeavyItems = $this->getReference(InjuryModifierConfigFixtures::PREVENT_PICK_HEAVY_ITEMS);
+
         /** @var EventModifierConfig $consumeVomiting */
         $consumeVomiting = $this->getReference(InjuryModifierConfigFixtures::CONSUME_VOMITING);
+
         /** @var EventModifierConfig $drooling */
         $drooling = $this->getReference(InjuryModifierConfigFixtures::DROOLING);
+
         /** @var EventModifierConfig $moveVomiting */
         $moveVomiting = $this->getReference(InjuryModifierConfigFixtures::MOVE_VOMITING);
+
         /** @var EventModifierConfig $mute */
         $mute = $this->getReference(InjuryModifierConfigFixtures::MUTE_MODIFIER);
+
         /** @var EventModifierConfig $noPilotingActions */
         $noPilotingActions = $this->getReference(InjuryModifierConfigFixtures::PREVENT_PILOTING);
+
         /** @var EventModifierConfig $septicemiaOnCycleChange */
         $septicemiaOnCycleChange = $this->getReference(InjuryModifierConfigFixtures::SEPTICEMIA_ON_CYCLE_CHANGE);
+
         /** @var EventModifierConfig $septicemiaOnDirtyEvent */
         $septicemiaOnDirtyEvent = $this->getReference(InjuryModifierConfigFixtures::SEPTICEMIA_ON_DIRTY_EVENT);
+
         /** @var EventModifierConfig $septicemiaOnPostAction */
         $septicemiaOnPostAction = $this->getReference(InjuryModifierConfigFixtures::SEPTICEMIA_ON_POST_ACTION);
 
@@ -96,9 +125,8 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $notMoveAction1Increase,
                 $increaseCycleDiseaseChances10,
-                ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ])
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($burns50OfBody);
 
         $burns90OfBody = new DiseaseConfig();
@@ -110,10 +138,9 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $septicemiaOnCycleChange,
                 $septicemiaOnDirtyEvent,
                 $septicemiaOnPostAction,
-                ])
+            ])
             ->setOverride([InjuryEnum::BURNS_50_OF_BODY])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($burns90OfBody);
 
         $burstNose = new DiseaseConfig();
@@ -123,8 +150,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $reduceMax2MoralPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($burstNose);
 
         // Haemorrhage
@@ -136,8 +162,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle2HealthLost,
                 $reduceMax2HealthPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($criticalHaemorrhage);
 
         $haemorrhage = new DiseaseConfig();
@@ -148,8 +173,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cycle1HealthLost,
                 $reduceMax1HealthPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($haemorrhage);
 
         $minorHaemorrhage = new DiseaseConfig();
@@ -159,8 +183,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $cycle1HealthLost,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($minorHaemorrhage);
 
         // Ears
@@ -170,8 +193,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setType(MedicalConditionTypeEnum::INJURY)
             ->setModifierConfigs([$deafListen, $deafSpeak])
 
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($damagedEars);
 
         $destroyedEars = new DiseaseConfig();
@@ -184,8 +206,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $deafSpeak,
             ])
             ->setOverride([InjuryEnum::DAMAGED_EARS])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($destroyedEars);
 
         $headTrauma = new DiseaseConfig();
@@ -198,8 +219,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $septicemiaOnDirtyEvent,
                 $septicemiaOnPostAction,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($headTrauma);
 
         $openAirBrain = new DiseaseConfig();
@@ -213,8 +233,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $septicemiaOnPostAction,
             ])
             ->setOverride([InjuryEnum::HEAD_TRAUMA])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($openAirBrain);
 
         $implantedBullet = new DiseaseConfig();
@@ -224,8 +243,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $notMoveAction1Increase,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($implantedBullet);
 
         $innerEarDamaged = new DiseaseConfig();
@@ -237,8 +255,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $moveIncreaseMovement,
                 $noPilotingActions,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($innerEarDamaged);
 
         $tornTongue = new DiseaseConfig();
@@ -248,8 +265,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $mute,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($tornTongue);
 
         // foot and leg
@@ -260,8 +276,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $moveIncreaseMovement,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($brokenFoot);
 
         $mashedFoot = new DiseaseConfig();
@@ -273,8 +288,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax3MovementPoint,
             ])
             ->setOverride([InjuryEnum::BROKEN_FOOT])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mashedFoot);
 
         $brokenLeg = new DiseaseConfig();
@@ -285,8 +299,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax5MovementPoint,
                 $moveIncreaseMovement,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($brokenLeg);
 
         $mashedLegs = new DiseaseConfig();
@@ -298,8 +311,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cantMove,
             ])
             ->setOverride([InjuryEnum::BROKEN_LEG, InjuryEnum::BROKEN_FOOT, InjuryEnum::MASHED_FOOT])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mashedLegs);
 
         // Torso
@@ -314,8 +326,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $drooling,
                 $moveVomiting,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($disfunctionalLiver);
 
         $puncturedLung = new DiseaseConfig();
@@ -327,8 +338,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $notMoveAction2Increase,
                 $mute,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($puncturedLung);
 
         $brokenRibs = new DiseaseConfig();
@@ -338,8 +348,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $shootAction20PercentAccuracyLost,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($brokenRibs);
 
         // finger, arm and shoulder
@@ -350,8 +359,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setModifierConfigs([
                 $notMoveAction1Increase,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($brokenFinger);
 
         $missingFinger = new DiseaseConfig();
@@ -362,8 +370,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $notMoveAction1Increase,
             ])
             ->setOverride([InjuryEnum::BROKEN_FINGER])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($missingFinger);
 
         $burntHand = new DiseaseConfig();
@@ -374,8 +381,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $notMoveAction1Increase,
                 $reduceMax1HealthPoint,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($burntHand);
 
         $mashedHand = new DiseaseConfig();
@@ -387,8 +393,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $shootAction40PercentAccuracyLost,
             ])
             ->setOverride([InjuryEnum::MISSING_FINGER, InjuryEnum::BROKEN_FINGER, InjuryEnum::BURNT_HAND])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mashedHand);
 
         $burntArms = new DiseaseConfig();
@@ -400,8 +405,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $increaseCycleDiseaseChances10,
                 $shootAction20PercentAccuracyLost,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($burntArms);
 
         $bustedArmJoint = new DiseaseConfig();
@@ -413,8 +417,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $shootAction40PercentAccuracyLost,
             ])
             ->setOverride([InjuryEnum::MASHED_ARMS])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bustedArmJoint);
 
         $mashedArms = new DiseaseConfig();
@@ -432,8 +435,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 InjuryEnum::MASHED_HAND,
                 InjuryEnum::BUSTED_ARM_JOINT,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mashedArms);
 
         $bruisedShoulder = new DiseaseConfig();
@@ -444,8 +446,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $reduceMax1HealthPoint,
                 $shootAction10PercentAccuracyLost,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bruisedShoulder);
 
         $brokenShoulder = new DiseaseConfig();
@@ -458,8 +459,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 $cantPickUpHeavyItems,
             ])
             ->setOverride([InjuryEnum::BRUISED_SHOULDER])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($brokenShoulder);
 
         $bustedShoulder = new DiseaseConfig();
@@ -481,8 +481,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
                 InjuryEnum::BRUISED_SHOULDER,
                 InjuryEnum::BROKEN_SHOULDER,
             ])
-            ->buildName(GameConfigEnum::DEFAULT)
-        ;
+            ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bustedShoulder);
 
         $gameConfig
@@ -515,8 +514,7 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addDiseaseConfig($mashedArms)
             ->addDiseaseConfig($mashedLegs)
             ->addDiseaseConfig($tornTongue)
-            ->addDiseaseConfig($brokenShoulder)
-        ;
+            ->addDiseaseConfig($brokenShoulder);
         $manager->persist($gameConfig);
 
         $manager->flush();

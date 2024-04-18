@@ -21,10 +21,12 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
-class ScrewTalkieActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ScrewTalkieActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -67,8 +69,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($item)
-        ;
+            ->setEquipment($item);
 
         $mushConfig = new ChargeStatusConfig();
         $mushConfig->setStatusName('mush');
@@ -82,8 +83,8 @@ class ScrewTalkieActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $targetPlayer->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $targetPlayer->getEquipments());
     }
 
     public function testExecuteAlreadyBrokenTalkie()
@@ -102,8 +103,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         $gameItem
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($item)
-            ->setHolder($targetPlayer)
-        ;
+            ->setHolder($targetPlayer);
 
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
@@ -121,7 +121,7 @@ class ScrewTalkieActionTest extends AbstractActionTest
         // Success
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $targetPlayer->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $targetPlayer->getEquipments());
     }
 }

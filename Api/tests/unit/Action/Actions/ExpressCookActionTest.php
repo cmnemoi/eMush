@@ -18,13 +18,14 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-class ExpressCookActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ExpressCookActionTest extends AbstractActionTest
 {
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
 
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -67,8 +68,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $ration->setEquipmentName('ration');
         $gameRation
             ->setEquipment($ration)
-            ->setName('ration')
-        ;
+            ->setName('ration');
 
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::FROZEN);
@@ -79,8 +79,7 @@ class ExpressCookActionTest extends AbstractActionTest
         $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
-            ->setName(ToolItemEnum::MICROWAVE)
-        ;
+            ->setName(ToolItemEnum::MICROWAVE);
 
         $this->action->loadParameters($this->actionEntity, $player, $gameRation);
 
@@ -90,11 +89,11 @@ class ExpressCookActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
-        $this->assertCount(1, $player->getEquipments());
-        $this->assertEquals($gameRation->getName(), $player->getEquipments()->first()->getName());
-        $this->assertEquals(10, $player->getActionPoint());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
+        self::assertCount(1, $player->getEquipments());
+        self::assertSame($gameRation->getName(), $player->getEquipments()->first()->getName());
+        self::assertSame(10, $player->getActionPoint());
     }
 
     public function testExecuteRation()
@@ -108,16 +107,14 @@ class ExpressCookActionTest extends AbstractActionTest
         $ration->setEquipmentName(GameRationEnum::STANDARD_RATION);
         $gameRation
             ->setEquipment($ration)
-            ->setName(GameRationEnum::STANDARD_RATION)
-        ;
+            ->setName(GameRationEnum::STANDARD_RATION);
 
         $gameMicrowave = new GameItem($room);
         $microwave = new ItemConfig();
         $microwave->setEquipmentName(ToolItemEnum::MICROWAVE);
         $gameMicrowave
             ->setEquipment($microwave)
-            ->setName(ToolItemEnum::MICROWAVE)
-        ;
+            ->setName(ToolItemEnum::MICROWAVE);
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
@@ -126,19 +123,17 @@ class ExpressCookActionTest extends AbstractActionTest
         $gameCookedRation = new GameItem(new Place());
         $cookedRation = new ItemConfig();
         $cookedRation
-             ->setEquipmentName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setEquipmentName(GameRationEnum::COOKED_RATION);
         $gameCookedRation
             ->setEquipment($cookedRation)
-            ->setName(GameRationEnum::COOKED_RATION)
-        ;
+            ->setName(GameRationEnum::COOKED_RATION);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(2, $room->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(2, $room->getEquipments());
     }
 }

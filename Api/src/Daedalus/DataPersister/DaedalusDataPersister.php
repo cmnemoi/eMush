@@ -27,14 +27,15 @@ class DaedalusDataPersister implements ContextAwareDataPersisterInterface
     public function persist($data, array $context = [])
     {
         $config = $this->gameConfigService->getConfigByName('default');
-        // @TODO implement choice of language
+
+        /** @TODO implement choice of language */
         $language = LanguageEnum::FRENCH;
 
         return $this->daedalusService->createDaedalus($config, $data->getName(), $language);
     }
 
     /**
-     * @return void
+     * @param mixed $data
      */
     public function remove($data, array $context = [])
     {

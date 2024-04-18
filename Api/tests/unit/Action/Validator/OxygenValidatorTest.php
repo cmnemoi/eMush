@@ -16,7 +16,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class OxygenValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class OxygenValidatorTest extends TestCase
 {
     private GameVariableLevelValidator $validator;
     private GameVariableLevel $constraint;
@@ -49,8 +52,7 @@ class OxygenValidatorTest extends TestCase
             ->setInitOxygen(10)
             ->setInitShield(1)
             ->setInitHull(1)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables($daedalusConfig);
@@ -62,13 +64,12 @@ class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidRetrieve()
@@ -82,8 +83,7 @@ class OxygenValidatorTest extends TestCase
             ->setInitOxygen(0)
             ->setInitShield(1)
             ->setInitHull(1)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables($daedalusConfig);
@@ -95,13 +95,12 @@ class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidInsert()
@@ -116,8 +115,7 @@ class OxygenValidatorTest extends TestCase
             ->setInitShield(1)
             ->setInitHull(1)
             ->setInitFuel(1)
-            ->setMaxOxygen(12)
-        ;
+            ->setMaxOxygen(12);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -133,13 +131,12 @@ class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidInsert()
@@ -154,8 +151,7 @@ class OxygenValidatorTest extends TestCase
             ->setInitOxygen(12)
             ->setInitShield(1)
             ->setInitHull(1)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -171,16 +167,15 @@ class OxygenValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -192,7 +187,7 @@ class OxygenValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

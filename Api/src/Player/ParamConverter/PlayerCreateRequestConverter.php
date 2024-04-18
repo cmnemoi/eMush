@@ -40,8 +40,7 @@ class PlayerCreateRequestConverter implements ParamConverterInterface
         $playerRequest
             ->setCharacter((string) $character)
             ->setDaedalus($daedalus)
-            ->setUser($user)
-        ;
+            ->setUser($user);
 
         $request->attributes->set($configuration->getName(), $playerRequest);
 

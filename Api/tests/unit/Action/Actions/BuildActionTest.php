@@ -16,14 +16,15 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
 
-class BuildActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class BuildActionTest extends AbstractActionTest
 {
+    protected AbstractAction $action;
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
-    /* @var GameEquipmentServiceInterface|Mockery\Mock */
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-
-    protected AbstractAction $action;
 
     /**
      * @before
@@ -64,22 +65,19 @@ class BuildActionTest extends AbstractActionTest
         $item->setEquipmentName('blueprint');
         $gameItem
             ->setEquipment($item)
-            ->setName('blueprint')
-        ;
+            ->setName('blueprint');
 
         $product = new ItemConfig();
         $product->setEquipmentName('product');
         $gameProduct = new GameItem(new Place());
         $gameProduct
             ->setEquipment($product)
-            ->setName('product')
-        ;
+            ->setName('product');
 
         $blueprint = new Blueprint();
         $blueprint
             ->setIngredients(['metal_scraps' => 1])
-            ->setCraftedEquipmentName($product->getEquipmentName())
-        ;
+            ->setCraftedEquipmentName($product->getEquipmentName());
         $item->setMechanics(new ArrayCollection([$blueprint]));
 
         $gameIngredient = new GameItem($room);
@@ -87,8 +85,7 @@ class BuildActionTest extends AbstractActionTest
         $ingredient->setEquipmentName('metal_scraps');
         $gameIngredient
             ->setEquipment($ingredient)
-            ->setName('metal_scraps')
-        ;
+            ->setName('metal_scraps');
 
         $player = $this->createPlayer($daedalus, $room);
 
@@ -102,6 +99,6 @@ class BuildActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

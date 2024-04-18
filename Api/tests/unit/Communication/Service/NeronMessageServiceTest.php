@@ -19,17 +19,24 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class NeronMessageServiceTest extends TestCase
+/**
+ * @internal
+ */
+final class NeronMessageServiceTest extends TestCase
 {
     /** @var EntityManagerInterface|Mockery\mock */
     private EntityManagerInterface $entityManager;
+
     /** @var ChannelServiceInterface|Mockery\Mock */
     private ChannelServiceInterface $channelService;
-    /** @var RandomServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
+
     /** @var MessageRepository|Mockery\Mock */
     private MessageRepository $repository;
-    /** @var TranslationServiceInterface|Mockery\Mock */
+
+    /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
     private NeronMessageServiceInterface $service;
@@ -72,12 +79,12 @@ class NeronMessageServiceTest extends TestCase
 
         $message = $this->service->createNeronMessage('message', $daedalus, ['player' => 'hua'], new \DateTime());
 
-        $this->assertInstanceOf(Message::class, $message);
-        $this->assertEquals('message', $message->getMessage());
-        $this->assertEquals($neron, $message->getNeron());
-        $this->assertEquals(['player' => 'hua', 'neronMood' => 'uninhibited'], $message->getTranslationParameters());
-        $this->assertNull($message->getAuthor());
-        $this->assertNull($message->getParent());
-        $this->assertEquals($channel, $message->getChannel());
+        self::assertInstanceOf(Message::class, $message);
+        self::assertSame('message', $message->getMessage());
+        self::assertSame($neron, $message->getNeron());
+        self::assertSame(['player' => 'hua', 'neronMood' => 'uninhibited'], $message->getTranslationParameters());
+        self::assertNull($message->getAuthor());
+        self::assertNull($message->getParent());
+        self::assertSame($channel, $message->getChannel());
     }
 }

@@ -17,12 +17,12 @@ class ModerationRoomLogNormalizer implements NormalizerInterface
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof RoomLog && in_array('moderation_read', $context['groups'] ?? [], true);
+        return $data instanceof RoomLog && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var RoomLog $roomLog */
         $roomLog = $object;

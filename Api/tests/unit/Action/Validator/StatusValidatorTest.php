@@ -16,7 +16,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class StatusValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class StatusValidatorTest extends TestCase
 {
     private HasStatusValidator $validator;
     private HasStatus $constraint;
@@ -48,8 +51,7 @@ class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = false;
@@ -65,7 +67,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidParameter()
@@ -78,8 +80,7 @@ class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = true;
@@ -96,7 +97,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForPlayer()
@@ -109,8 +110,7 @@ class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = false;
@@ -126,7 +126,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayer()
@@ -139,8 +139,7 @@ class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = true;
@@ -157,7 +156,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testValidForPlayerRoom()
@@ -173,8 +172,7 @@ class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = false;
@@ -190,7 +188,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testNotValidForPlayerRoom()
@@ -206,8 +204,7 @@ class StatusValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->constraint->status = EquipmentStatusEnum::BROKEN;
         $this->constraint->contain = true;
@@ -225,7 +222,7 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testInverseSide()
@@ -241,8 +238,7 @@ class StatusValidatorTest extends TestCase
             ->shouldReceive([
                 'getPlayer' => $player,
                 'getTarget' => $target,
-            ])
-        ;
+            ]);
 
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
@@ -260,10 +256,10 @@ class StatusValidatorTest extends TestCase
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -275,7 +271,7 @@ class StatusValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

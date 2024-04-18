@@ -30,14 +30,14 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         $this->gearToolService = $gearToolService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         $currentPlayer = $context['currentPlayer'] ?? null;
 
         return $data instanceof Player && $data !== $currentPlayer;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         /** @var Player $player */
         $player = $object;
@@ -72,7 +72,7 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
             $statuses = [];
             foreach ($player->getStatuses() as $status) {
                 $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['player' => $player]));
-                if (is_array($normedStatus) && count($normedStatus) > 0) {
+                if (\is_array($normedStatus) && \count($normedStatus) > 0) {
                     $statuses[] = $normedStatus;
                 }
             }
@@ -119,15 +119,14 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         /** @var Action $action */
         foreach ($actionsToNormalize as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, array_merge($context, ['player' => $player]));
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $actions[] = $normedAction;
             }
         }
 
         $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
 
-        return $actions;
+        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 
     private function getContextActions(Player $currentPlayer): Collection
@@ -137,12 +136,12 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
         return $this->gearToolService->getActionsTools($currentPlayer, $scope);
     }
 
-    private function getNormalizedPlayerSkills(Player $player, string $format = null, array $context = []): array
+    private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
     {
         $skills = [];
         foreach ($player->getSkills() as $skill) {
             $normedSkill = $this->normalizer->normalize($skill, $format, array_merge($context, ['currentPlayer' => $player]));
-            if (is_array($normedSkill) && count($normedSkill) > 0) {
+            if (\is_array($normedSkill) && \count($normedSkill) > 0) {
                 $skills[] = $normedSkill;
             }
         }

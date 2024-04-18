@@ -16,7 +16,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class FullHullValidatorTest extends TestCase
+/**
+ * @internal
+ */
+final class FullHullValidatorTest extends TestCase
 {
     private GameVariableLevelValidator $validator;
     private GameVariableLevel $constraint;
@@ -50,8 +53,7 @@ class FullHullValidatorTest extends TestCase
             ->setInitOxygen(1)
             ->setInitShield(1)
             ->setInitHull(99)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -61,15 +63,13 @@ class FullHullValidatorTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator();
         $this->validator->validate($action, $this->constraint);
@@ -87,8 +87,7 @@ class FullHullValidatorTest extends TestCase
             ->setInitOxygen(1)
             ->setInitShield(1)
             ->setInitHull(100)
-            ->setInitFuel(1)
-        ;
+            ->setInitFuel(1);
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig($daedalusConfig);
@@ -98,21 +97,19 @@ class FullHullValidatorTest extends TestCase
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
         $player = new Player();
         $player
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ])
-        ;
+            ]);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);
     }
 
-    protected function initValidator(string $expectedMessage = null)
+    protected function initValidator(?string $expectedMessage = null)
     {
         $builder = \Mockery::mock(ConstraintViolationBuilder::class);
         $context = \Mockery::mock(ExecutionContext::class);
@@ -124,7 +121,7 @@ class FullHullValidatorTest extends TestCase
             $context->shouldReceive('buildViolation')->never();
         }
 
-        /* @var ExecutionContext $context */
+        // @var ExecutionContext $context
         $this->validator->initialize($context);
 
         return $this->validator;

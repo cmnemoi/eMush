@@ -41,12 +41,12 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         $this->translationService = $translationService;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof GameEquipment;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -101,15 +101,15 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     private function normalizeTerminalActions(GameEquipment $terminal, ?string $format, array $context = []): array
     {
         $actions = $terminal->getActions()
-            ->filter(fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL)
-            ->filter(fn (Action $action) => $action->getTarget() === null)
-        ;
+            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::TERMINAL)
+            ->filter(static fn (Action $action) => $action->getTarget() === null);
 
         $normalizedActions = [];
+
         /** @var Action $action */
         foreach ($actions as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (is_array($normedAction) && count($normedAction) > 0) {
+            if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $normalizedActions[] = $normedAction;
             }
         }
@@ -124,7 +124,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $titles = [];
         $terminalKey = $terminal->getName();
-        if (array_key_exists($terminalKey, EquipmentEnum::$terminalSectionTitlesMap)) {
+        if (\array_key_exists($terminalKey, EquipmentEnum::$terminalSectionTitlesMap)) {
             foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
                 $titles[$sectionKey] = $this->translationService->translate(
                     $terminalKey . '.' . $sectionKey,
@@ -142,7 +142,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $buttons = [];
         $terminalKey = $terminal->getName();
-        if (array_key_exists($terminalKey, EquipmentEnum::$terminalButtonsMap)) {
+        if (\array_key_exists($terminalKey, EquipmentEnum::$terminalButtonsMap)) {
             foreach (EquipmentEnum::$terminalButtonsMap[$terminalKey] as $buttonKey) {
                 $buttons[$buttonKey]['name'] = $this->translationService->translate(
                     $terminalKey . '.' . $buttonKey . '_button_name',
@@ -219,8 +219,10 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+
         /** @var GameEquipment $terminal */
         $terminal = $context['terminal'];
+
         /** @var Daedalus $daedalus */
         $daedalus = $terminal->getDaedalus();
 

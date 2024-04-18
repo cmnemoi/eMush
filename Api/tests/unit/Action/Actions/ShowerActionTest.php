@@ -13,10 +13,12 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class ShowerActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class ShowerActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -52,8 +54,7 @@ class ShowerActionTest extends AbstractActionTest
         $item = new EquipmentConfig();
         $gameItem
             ->setEquipment($item)
-            ->setName('item')
-        ;
+            ->setName('item');
 
         $item->setActions(new ArrayCollection([$this->actionEntity]));
 
@@ -66,6 +67,6 @@ class ShowerActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
+        self::assertInstanceOf(Success::class, $result);
     }
 }

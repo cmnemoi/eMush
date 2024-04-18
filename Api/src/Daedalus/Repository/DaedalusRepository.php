@@ -30,10 +30,9 @@ class DaedalusRepository extends ServiceEntityRepository
             ->groupBy('daedalus')
             ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
             ->having('count(player) < ' . 16)
-            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-        ;
+            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
 
-        return count($qb->getQuery()->getResult()) > 0;
+        return \count($qb->getQuery()->getResult()) > 0;
     }
 
     public function findAvailableDaedalus(string $name): ?Daedalus
@@ -46,8 +45,7 @@ class DaedalusRepository extends ServiceEntityRepository
             ->from(GameConfig::class, 'config')
             ->leftJoin('config.charactersConfig', 'characterConfig')
             ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
-            ->where($qb->expr()->eq('config.id', 'daedalus_info.gameConfig'))
-        ;
+            ->where($qb->expr()->eq('config.id', 'daedalus_info.gameConfig'));
 
         $qb
             ->select('daedalus')
@@ -59,8 +57,7 @@ class DaedalusRepository extends ServiceEntityRepository
             ->having('count(player.id) < (' . $daedalusConfig->getDQL() . ')')
             ->setMaxResults(1)
             ->setParameter('name', $name)
-            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
-        ;
+            ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
@@ -81,8 +78,7 @@ class DaedalusRepository extends ServiceEntityRepository
             ->select('daedalus')
             ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
             ->where($qb->expr()->in('daedalus_info.gameStatus', ':gameStatus'))
-            ->setParameter('gameStatus', $gameStatusParameter)
-        ;
+            ->setParameter('gameStatus', $gameStatusParameter);
 
         return $qb->getQuery()->getResult();
     }
@@ -95,8 +91,7 @@ class DaedalusRepository extends ServiceEntityRepository
             ->select('daedalus')
             ->leftJoin('daedalus.daedalusInfo', 'daedalus_info')
             ->where($qb->expr()->notIn('daedalus_info.gameStatus', ':gameStatus'))
-            ->setParameter('gameStatus', [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED])
-        ;
+            ->setParameter('gameStatus', [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED]);
 
         return $qb->getQuery()->getResult();
     }
@@ -112,8 +107,7 @@ class DaedalusRepository extends ServiceEntityRepository
             ->where($qb->expr()->notIn('daedalus_info.gameStatus', ':gameStatus'))
             ->andWhere($qb->expr()->eq('localization_config.language', ':language'))
             ->setParameter('gameStatus', [GameStatusEnum::FINISHED, GameStatusEnum::CLOSED])
-            ->setParameter('language', $language)
-        ;
+            ->setParameter('language', $language);
 
         return $qb->getQuery()->getResult();
     }
@@ -125,8 +119,7 @@ class DaedalusRepository extends ServiceEntityRepository
         $qb
             ->select('daedalus')
             ->where($qb->expr()->in('daedalus.isCycleChange', ':cycleChange'))
-            ->setParameter('cycleChange', [true])
-        ;
+            ->setParameter('cycleChange', [true]);
 
         return new DaedalusCollection($qb->getQuery()->getResult());
     }

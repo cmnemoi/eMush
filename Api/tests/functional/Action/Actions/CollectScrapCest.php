@@ -33,6 +33,9 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class CollectScrapCest extends AbstractFunctionalTest
 {
     private Action $collectScrapActionConfig;
@@ -64,8 +67,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $this->pasiphae
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig)
-        ;
+            ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($this->pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
@@ -77,8 +79,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
         $this->patrolShip
             ->setName(EquipmentEnum::PATROL_SHIP)
-            ->setEquipment($patrolShipConfig)
-        ;
+            ->setEquipment($patrolShipConfig);
         $I->haveInRepository($this->patrolShip);
 
         /** @var ChargeStatusConfig $patrolShipArmorConfig */
@@ -283,8 +284,9 @@ final class CollectScrapCest extends AbstractFunctionalTest
         // given only asteroids can spawn
         $this->daedalus->getGameConfig()->setHunterConfigs(
             $this->daedalus->getGameConfig()->getHunterConfigs()->filter(
-                fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
-            ));
+                static fn (HunterConfig $hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
+            )
+        );
         // given it's day 10 so asteroids can spawn
         $this->daedalus->setDay(10);
 
@@ -403,8 +405,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $pasiphaeRoom
             ->setName(RoomEnum::PASIPHAE)
             ->setType($pasiphaeRoomConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($pasiphaeRoom);
 
         $alphaBay2Config = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::ALPHA_BAY_2]);
@@ -412,8 +413,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $alphaBay2
             ->setName(RoomEnum::ALPHA_BAY_2)
             ->setType($alphaBay2Config->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($alphaBay2);
 
         $patrolShipRoomConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PATROL_SHIP_ALPHA_TAMARIN]);
@@ -421,8 +421,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $patrolShipRoom
             ->setName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN)
             ->setType($patrolShipRoomConfig->getType())
-            ->setDaedalus($daedalus)
-        ;
+            ->setDaedalus($daedalus);
         $I->haveInRepository($patrolShipRoom);
 
         $I->refreshEntities($daedalus);

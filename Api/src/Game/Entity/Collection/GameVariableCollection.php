@@ -24,13 +24,12 @@ use Mush\Status\Entity\ChargeVariable;
 ])]
 abstract class GameVariableCollection
 {
+    #[ORM\OneToMany(mappedBy: 'gameVariableCollection', targetEntity: GameVariable::class, cascade: ['ALL'])]
+    protected Collection $gameVariables;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
-
-    #[ORM\OneToMany(mappedBy: 'gameVariableCollection', targetEntity: GameVariable::class, cascade: ['ALL'])]
-    protected Collection $gameVariables;
 
     public function __construct(array $variables)
     {
@@ -56,9 +55,8 @@ abstract class GameVariableCollection
     {
         /** @var GameVariable $variable */
         $variable = $this->gameVariables
-            ->filter(fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
-            ->first()
-        ;
+            ->filter(static fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
+            ->first();
 
         return $variable->getValue();
     }
@@ -67,9 +65,8 @@ abstract class GameVariableCollection
     {
         /** @var GameVariable $variable */
         $variable = $this->gameVariables
-            ->filter(fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
-            ->first()
-        ;
+            ->filter(static fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)
+            ->first();
 
         return $variable;
     }
@@ -95,7 +92,6 @@ abstract class GameVariableCollection
     public function hasVariable(string $name): bool
     {
         return !$this->gameVariables
-            ->filter(fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)->isEmpty()
-        ;
+            ->filter(static fn (GameVariable $gameVariable) => $gameVariable->getName() === $name)->isEmpty();
     }
 }

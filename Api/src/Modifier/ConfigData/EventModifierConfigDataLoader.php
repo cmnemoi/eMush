@@ -21,7 +21,7 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
 
             if ($modifierConfig === null) {
                 $modifierConfig = new EventModifierConfig($configName);
-            } elseif (!($modifierConfig instanceof EventModifierConfig)) {
+            } elseif (!$modifierConfig instanceof EventModifierConfig) {
                 $this->entityManager->remove($modifierConfig);
                 $this->entityManager->flush();
                 $modifierConfig = new EventModifierConfig($configName);
@@ -45,7 +45,6 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
             ->setApplyOnTarget($modifierConfigData['applyOnTarget'])
             ->setTagConstraints($modifierConfigData['tagConstraints'])
             ->setModifierRange($modifierConfigData['modifierRange'])
-            ->setModifierName($modifierConfigData['modifierName'])
-        ;
+            ->setModifierName($modifierConfigData['modifierName']);
     }
 }

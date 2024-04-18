@@ -9,6 +9,8 @@ use Mush\Equipment\Entity\Mechanics\Ration;
 #[ORM\Entity]
 class ConsumableEffect
 {
+    #[ORM\Column(type: 'integer', nullable: true)]
+    protected ?int $satiety = null;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -31,9 +33,6 @@ class ConsumableEffect
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $moralPoint = null;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    protected ?int $satiety = null;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $extraEffects = [];

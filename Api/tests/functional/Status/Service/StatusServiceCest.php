@@ -39,6 +39,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class StatusServiceCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -60,8 +63,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $commandTerminal = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $commandTerminal
             ->setName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setEquipment($commandTerminalConfig)
-        ;
+            ->setEquipment($commandTerminalConfig);
         $I->haveInRepository($commandTerminal);
 
         // given player is focused on command terminal
@@ -93,8 +95,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $sofa = new GameEquipment($laboratory);
         $sofa
             ->setName(EquipmentEnum::SWEDISH_SOFA)
-            ->setEquipment($sofaConfig)
-        ;
+            ->setEquipment($sofaConfig);
         $I->haveInRepository($sofa);
 
         // given player is laid down on sofa
@@ -285,6 +286,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         /** @var Action $sabotageConfig */
         $sabotageConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SABOTAGE . '_percent_12']);
         $sabotageConfig->setSuccessRate(101);
+
         /** @var Sabotage $sabotageAction */
         $sabotageAction = $I->grabService(Sabotage::class);
 
@@ -295,6 +297,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         /** @var Action $reportConfig */
         $reportConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPORT_EQUIPMENT]);
         $reportConfig->setSuccessRate(101);
+
         /** @var ReportEquipment $reportAction */
         $reportAction = $I->grabService(ReportEquipment::class);
 
@@ -360,8 +363,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         /** @var GameConfig $gameConfig */
@@ -383,8 +385,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -397,8 +398,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         $this->statusService->createStatusFromName(
@@ -425,14 +425,12 @@ final class StatusServiceCest extends AbstractFunctionalTest
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(StatusEnum::FIRE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
         $statusConfig2 = new StatusConfig();
         $statusConfig2->setStatusName(StatusEnum::CHARGE)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig2);
 
         /** @var GameConfig $gameConfig */
@@ -454,8 +452,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $channel = new Channel();
         $channel
             ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC)
-        ;
+            ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
         /** @var Place $room */
@@ -468,8 +465,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
             ->setEquipment($equipmentConfig)
-            ->setName('some name')
-        ;
+            ->setName('some name');
         $I->haveInRepository($gameEquipment);
 
         // add a status

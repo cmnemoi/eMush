@@ -13,10 +13,12 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
-class WashInSinkActionTest extends AbstractActionTest
+/**
+ * @internal
+ */
+final class WashInSinkActionTest extends AbstractActionTest
 {
-    /* @var StatusServiceInterface|Mockery\Mock */
-    private StatusServiceInterface|Mockery\Mock $statusService;
+    private Mockery\Mock|StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -52,8 +54,7 @@ class WashInSinkActionTest extends AbstractActionTest
         $sinkConfig = new EquipmentConfig();
         $sinkEquipment
             ->setEquipment($sinkConfig)
-            ->setName('sink')
-        ;
+            ->setName('sink');
         $sinkConfig->setActions(new ArrayCollection([$this->actionEntity]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -65,7 +66,7 @@ class WashInSinkActionTest extends AbstractActionTest
 
         $result = $this->action->execute();
 
-        $this->assertInstanceOf(Success::class, $result);
-        $this->assertCount(1, $room->getEquipments());
+        self::assertInstanceOf(Success::class, $result);
+        self::assertCount(1, $room->getEquipments());
     }
 }

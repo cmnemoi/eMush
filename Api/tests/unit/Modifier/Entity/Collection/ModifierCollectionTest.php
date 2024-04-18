@@ -19,7 +19,10 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Enum\StatusEnum;
 use PHPUnit\Framework\TestCase;
 
-class ModifierCollectionTest extends TestCase
+/**
+ * @internal
+ */
+final class ModifierCollectionTest extends TestCase
 {
     public function testAddModifiers()
     {
@@ -36,7 +39,7 @@ class ModifierCollectionTest extends TestCase
 
         $newCollection = $modifierCollection1->addModifiers($modifierCollection2);
 
-        $this->assertCount(4, $newCollection);
+        self::assertCount(4, $newCollection);
     }
 
     public function testGetModifierFromConfig()
@@ -54,7 +57,7 @@ class ModifierCollectionTest extends TestCase
 
         $result = $modifierCollection1->getModifierFromConfig($modifierConfig2);
 
-        $this->assertEquals($modifier4, $result);
+        self::assertSame($modifier4, $result);
     }
 
     public function testGetEventModifiersWithoutTags()
@@ -64,21 +67,17 @@ class ModifierCollectionTest extends TestCase
         $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
             ->setTargetVariable(DaedalusVariableEnum::FUEL)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-        ;
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE);
         $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig2
             ->setTargetVariable(DaedalusVariableEnum::HULL)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-        ;
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE);
         $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-        ;
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE);
         $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig4
-            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE)
-        ;
+            ->setTargetEvent(VariableEventInterface::ROLL_PERCENTAGE);
 
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier2 = new GameModifier($player, $modifierConfig2);
@@ -93,11 +92,11 @@ class ModifierCollectionTest extends TestCase
 
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
-        $this->assertCount(1, $result);
-        $this->assertNotContains($modifier1, $result);
-        $this->assertNotContains($modifier2, $result);
-        $this->assertContains($modifier3, $result);
-        $this->assertNotContains($modifier4, $result);
+        self::assertCount(1, $result);
+        self::assertNotContains($modifier1, $result);
+        self::assertNotContains($modifier2, $result);
+        self::assertContains($modifier3, $result);
+        self::assertNotContains($modifier4, $result);
 
         // now a variableEventInterface
         $event = new DaedalusVariableEvent(new Daedalus(), DaedalusVariableEnum::FUEL, 2, [], $time);
@@ -105,11 +104,11 @@ class ModifierCollectionTest extends TestCase
 
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT, ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE]);
 
-        $this->assertCount(2, $result);
-        $this->assertContains($modifier1, $result);
-        $this->assertNotContains($modifier2, $result);
-        $this->assertContains($modifier3, $result);
-        $this->assertNotContains($modifier4, $result);
+        self::assertCount(2, $result);
+        self::assertContains($modifier1, $result);
+        self::assertNotContains($modifier2, $result);
+        self::assertContains($modifier3, $result);
+        self::assertNotContains($modifier4, $result);
     }
 
     public function testGetEventModifiersWithTags()
@@ -122,23 +121,20 @@ class ModifierCollectionTest extends TestCase
             ->setTagConstraints([
                 ActionEnum::ANATHEMA => ModifierRequirementEnum::ALL_TAGS,
                 ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ALL_TAGS,
-            ])
-        ;
+            ]);
         $modifierConfig2 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig2
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
                 ActionEnum::ANATHEMA => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::AUTO_DESTROY => ModifierRequirementEnum::ANY_TAGS,
-            ])
-        ;
+            ]);
         $modifierConfig3 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig3
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
                 ActionEnum::ANATHEMA => ModifierRequirementEnum::NONE_TAGS,
-            ])
-        ;
+            ]);
         $modifierConfig4 = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifierConfig4
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
@@ -148,8 +144,7 @@ class ModifierCollectionTest extends TestCase
                 ActionEnum::ATTACK => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::CEASEFIRE => ModifierRequirementEnum::ANY_TAGS,
                 StatusEnum::FIRE => ModifierRequirementEnum::NONE_TAGS,
-            ])
-        ;
+            ]);
 
         $modifier1 = new GameModifier($player, $modifierConfig1);
         $modifier2 = new GameModifier($player, $modifierConfig2);
@@ -163,55 +158,55 @@ class ModifierCollectionTest extends TestCase
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
-        $this->assertCount(1, $result);
-        $this->assertNotContains($modifier1, $result);
-        $this->assertNotContains($modifier2, $result);
-        $this->assertContains($modifier3, $result);
-        $this->assertNotContains($modifier4, $result);
+        self::assertCount(1, $result);
+        self::assertNotContains($modifier1, $result);
+        self::assertNotContains($modifier2, $result);
+        self::assertContains($modifier3, $result);
+        self::assertNotContains($modifier4, $result);
 
         // Anathen tag
         $event = new AbstractGameEvent([ActionEnum::ANATHEMA], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
-        $this->assertCount(1, $result);
-        $this->assertNotContains($modifier1, $result);
-        $this->assertContains($modifier2, $result);
-        $this->assertNotContains($modifier3, $result);
-        $this->assertNotContains($modifier4, $result);
+        self::assertCount(1, $result);
+        self::assertNotContains($modifier1, $result);
+        self::assertContains($modifier2, $result);
+        self::assertNotContains($modifier3, $result);
+        self::assertNotContains($modifier4, $result);
 
         // anathen and auto destroy
         $event = new AbstractGameEvent([ActionEnum::ANATHEMA, ActionEnum::AUTO_DESTROY], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
-        $this->assertCount(2, $result);
-        $this->assertContains($modifier1, $result);
-        $this->assertContains($modifier2, $result);
-        $this->assertNotContains($modifier3, $result);
-        $this->assertNotContains($modifier4, $result);
+        self::assertCount(2, $result);
+        self::assertContains($modifier1, $result);
+        self::assertContains($modifier2, $result);
+        self::assertNotContains($modifier3, $result);
+        self::assertNotContains($modifier4, $result);
 
         // Auto destroy
         $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
-        $this->assertCount(2, $result);
-        $this->assertNotContains($modifier1, $result);
-        $this->assertContains($modifier2, $result);
-        $this->assertContains($modifier3, $result);
-        $this->assertNotContains($modifier4, $result);
+        self::assertCount(2, $result);
+        self::assertNotContains($modifier1, $result);
+        self::assertContains($modifier2, $result);
+        self::assertContains($modifier3, $result);
+        self::assertNotContains($modifier4, $result);
 
         // 3 tags
         $event = new AbstractGameEvent([ActionEnum::AUTO_DESTROY, ActionEnum::ANATHEMA, ActionEnum::CEASEFIRE], $time);
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
-        $this->assertCount(3, $result);
-        $this->assertContains($modifier1, $result);
-        $this->assertContains($modifier2, $result);
-        $this->assertNotContains($modifier3, $result);
-        $this->assertContains($modifier4, $result);
+        self::assertCount(3, $result);
+        self::assertContains($modifier1, $result);
+        self::assertContains($modifier2, $result);
+        self::assertNotContains($modifier3, $result);
+        self::assertContains($modifier4, $result);
 
         // 4 tags
         $event = new AbstractGameEvent([
@@ -223,10 +218,10 @@ class ModifierCollectionTest extends TestCase
         $event->setEventName(VariableEventInterface::CHANGE_VARIABLE);
         $result = $modifierCollection->getEventModifiers($event, [ModifierPriorityEnum::BEFORE_INITIAL_EVENT]);
 
-        $this->assertCount(2, $result);
-        $this->assertContains($modifier1, $result);
-        $this->assertContains($modifier2, $result);
-        $this->assertNotContains($modifier3, $result);
-        $this->assertNotContains($modifier4, $result);
+        self::assertCount(2, $result);
+        self::assertContains($modifier1, $result);
+        self::assertContains($modifier2, $result);
+        self::assertNotContains($modifier3, $result);
+        self::assertNotContains($modifier4, $result);
     }
 }

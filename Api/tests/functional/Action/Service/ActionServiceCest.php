@@ -57,6 +57,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
@@ -64,8 +65,7 @@ class ActionServiceCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(10)
-        ;
+            ->setActionPoint(10);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -78,8 +78,7 @@ class ActionServiceCest
         $action = new Action();
         $action
             ->setActionName('some name')
-            ->setActionCost(6)
-        ;
+            ->setActionCost(6);
 
         $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
@@ -109,6 +108,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
@@ -116,8 +116,7 @@ class ActionServiceCest
         ]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(10)
-        ;
+            ->setActionPoint(10);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -130,8 +129,7 @@ class ActionServiceCest
         $action = new Action();
         $action
             ->setActionName('some name')
-            ->setActionCost(0)
-        ;
+            ->setActionCost(0);
 
         $this->actionService->applyCostToPlayer($player, $action, null, new Success());
 
@@ -148,8 +146,7 @@ class ActionServiceCest
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
@@ -164,6 +161,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
@@ -172,8 +170,8 @@ class ActionServiceCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(10)
-            ->setMovementPoint(0)
-        ;
+            ->setMovementPoint(0);
+
         /** @var User $user */
         $user = $I->have(User::class);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -202,8 +200,7 @@ class ActionServiceCest
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setScope(ActionScopeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-        ;
+            ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
@@ -218,6 +215,7 @@ class ActionServiceCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
+
         /** @var Player $player */
         $player = $I->have(Player::class, [
             'place' => $room,
@@ -226,8 +224,7 @@ class ActionServiceCest
         $player->setPlayerVariables($characterConfig);
         $player
             ->setActionPoint(10)
-            ->setMovementPoint(0)
-        ;
+            ->setMovementPoint(0);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -245,8 +242,7 @@ class ActionServiceCest
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-        ;
+            ->setMode(VariableModifierModeEnum::ADDITIVE);
         $I->haveInRepository($modifierConfig);
 
         $disabledModifier = new GameModifier($player, $modifierConfig);

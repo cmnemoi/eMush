@@ -14,6 +14,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
+use Mush\Tests\unit\Daedalus\DaedalusFactory;
 use Mush\Tests\unit\Daedalus\InMemoryDaedalusRepository;
 use Mush\Tests\unit\Project\ProjectConfigFactory;
 use PHPUnit\Framework\TestCase;
@@ -50,8 +51,7 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
         $projectConfig = ProjectConfigFactory::createPlasmaShieldConfig();
 
         // given I have a Daedalus
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+        $daedalus = DaedalusFactory::createDaedalus();
 
         // when I execute the usecase
         $createProjectFromConfigForDaedalusUseCase = new CreateProjectFromConfigForDaedalusUseCase(

@@ -243,6 +243,10 @@ class ChannelService implements ChannelServiceInterface
         return $channels;
     }
 
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
     public function getPiratedPlayer(Player $player): ?Player
     {
         if (!$player->hasStatus(PlayerStatusEnum::TALKIE_SCREWED)) {
@@ -252,7 +256,6 @@ class ChannelService implements ChannelServiceInterface
         /** @var Status $talkieScrewedStatus */
         $talkieScrewedStatus = $player->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
 
-        /** @var Player $piratedPlayer */
         return $talkieScrewedStatus->getTarget();
     }
 
@@ -266,16 +269,15 @@ class ChannelService implements ChannelServiceInterface
         );
     }
 
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
     public function getPiratePlayer(Player $player): ?Player
     {
         $screwedTalkieStatus = $this->statusService->getByTargetAndName($player, PlayerStatusEnum::TALKIE_SCREWED);
 
-        if ($screwedTalkieStatus) {
-            /** @var Player $player */
-            return $screwedTalkieStatus->getOwner();
-        }
-
-        return null;
+        return $screwedTalkieStatus?->getOwner();
     }
 
     public function getPlayerFavoritesChannel(Player $player): Channel

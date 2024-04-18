@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\Normalizer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Entity\Exploration;
@@ -50,6 +51,8 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
         $gameConfig = $daedalus->getGameConfig();
         $players = $daedalus->getPlayers();
+
+        /** @var ArrayCollection<array-key, ClosedPlayer> $closedPlayers */
         $closedPlayers = $players->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
 
         $cryoPlayers = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();

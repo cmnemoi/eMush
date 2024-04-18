@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-final class CreateProjectFromConfigUsecaseTest extends TestCase
+final class CreateProjectFromConfigUseCaseTest extends TestCase
 {
     public function testShouldCreateProject(): void
     {

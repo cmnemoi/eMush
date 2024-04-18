@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Tests\Unit\Project\UseCase;
 
+use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
@@ -24,7 +25,7 @@ final class CreateProjectFromConfigUseCaseTest extends TestCase
             name: ProjectName::PLASMA_SHIELD,
             type: ProjectType::RESEARCH,
             efficiency: 1,
-            bonusSkills: ['physicist', 'engineer'],
+            bonusSkills: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN]
         );
 
         // given I have a project repository

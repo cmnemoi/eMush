@@ -84,7 +84,7 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
     const response = await ActionService.executeTargetAction(target, action, params);
 
     if (action.isShootHunterAction()) {
-        await handleShootHunterAction(response, commit);
+        handleShootHunterAction(response, commit);
     }
 
     await dispatch("communication/changeChannel", { channel: store.getters["communication/roomChannel"] }, { root: true });
@@ -97,7 +97,7 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
     await dispatch("player/reloadPlayer", null, { root: true });
 }
 
-async function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit: Commit): Promise<void> {
+function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit: Commit): void {
     const actionIsSuccessful = axiosResponse.data.actionResult === "success";
     const hunterIsDead = !axiosResponse.data.actionDetails.hunterIsAlive;
     const targetedHunterId = axiosResponse.data.actionDetails.targetedHunterId;

@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Mush\Tests\Unit\Project\UseCase;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;

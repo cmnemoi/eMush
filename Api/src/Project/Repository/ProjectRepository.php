@@ -27,7 +27,7 @@ final class ProjectRepository extends ServiceEntityRepository implements Project
     }
 
     public function clear(): void
-    {   
+    {
         $this->entityManager->getConnection()->executeStatement('DELETE FROM project');
     }
 

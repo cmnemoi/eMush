@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\unit\Daedalus;
+namespace Mush\Daedalus\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 
 final class InMemoryDaedalusRepository implements DaedalusRepositoryInterface
 {

@@ -8,10 +8,10 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
+use Mush\Project\Factory\ProjectConfigFactory;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\Tests\unit\Project\ProjectConfigFactory;
 
 /**
  * @internal

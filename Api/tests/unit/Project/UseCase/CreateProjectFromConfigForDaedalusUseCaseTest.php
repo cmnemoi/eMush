@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Mush\Tests\Unit\Project\UseCase;
 
-use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Daedalus\Repository\InMemoryDaedalusRepository;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
+use Mush\Project\Factory\ProjectConfigFactory;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
-use Mush\Tests\unit\Daedalus\DaedalusFactory;
-use Mush\Tests\unit\Daedalus\InMemoryDaedalusRepository;
-use Mush\Tests\unit\Project\ProjectConfigFactory;
 use PHPUnit\Framework\TestCase;
 
 /**

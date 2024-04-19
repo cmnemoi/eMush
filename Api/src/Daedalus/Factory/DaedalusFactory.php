@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\unit\Daedalus;
+namespace Mush\Daedalus\Factory;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;

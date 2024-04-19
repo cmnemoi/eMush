@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Project\Repository;
 
 use Mush\Project\Entity\Project;
+use Mush\Project\Factory\ProjectConfigFactory;
 use Mush\Project\Repository\ProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\Tests\unit\Project\ProjectConfigFactory;
 
 /**
  * @internal

@@ -5,6 +5,7 @@ namespace Mush\Game\ConfigData;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -177,7 +178,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $consumableDiseaseConfigs = [];
         foreach ($gameConfigData['consumableDiseaseConfigs'] as $consumableDiseaseConfigName) {
-            $consumableDiseaseConfig = $this->entityManager->getRepository(DiseaseConfig::class)->findOneBy(['name' => $consumableDiseaseConfigName]);
+            $consumableDiseaseConfig = $this->entityManager->getRepository(ConsumableDiseaseConfig::class)->findOneBy(['name' => $consumableDiseaseConfigName]);
 
             if ($consumableDiseaseConfig === null) {
                 throw new \Exception("Consumable disease config {$consumableDiseaseConfigName} not found");

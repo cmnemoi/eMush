@@ -204,6 +204,10 @@
             "vendor/bin/codecept run tests/unit/Player",
             "vendor/bin/codecept run tests/functional/Player"
         ],
+        "test:project": [
+            "vendor/bin/codecept run tests/unit/Project",
+            "vendor/bin/codecept run tests/functional/Project"
+        ],
         "test:room-log": [
             "vendor/bin/codecept run tests/unit/RoomLog",
             "vendor/bin/codecept run tests/functional/RoomLog"

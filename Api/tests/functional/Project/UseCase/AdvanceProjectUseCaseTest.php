@@ -10,6 +10,9 @@ use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\AdvanceProjectUseCase;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class AdvanceProjectUseCaseTest extends TestCase
 {
     private AdvanceProjectUseCase $advanceProjectUseCase;
@@ -36,6 +39,6 @@ final class AdvanceProjectUseCaseTest extends TestCase
 
         // then the project progress in DB is increased by an amount in project efficiency range (here obligatory 1%)
         $project = $this->projectRepository->findByName($project->getName());
-        $this->assertEquals(expected: 1, actual: $project->getProgress());
+        self::assertEquals(expected: 1, actual: $project->getProgress());
     }
-} 
+}

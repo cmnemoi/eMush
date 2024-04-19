@@ -91,6 +91,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OneToOne(targetEntity: Exploration::class)]
     private ?Exploration $exploration = null;
 
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: Project::class, orphanRemoval: true)]
     private Collection $projects;
 
     public function __construct()

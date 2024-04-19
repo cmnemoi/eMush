@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 
@@ -18,6 +19,9 @@ class Project
 
     #[ORM\ManyToOne(targetEntity: ProjectConfig::class)]
     private ProjectConfig $config;
+
+    #[ORM\ManyToOne(inversedBy: 'projects', targetEntity: Daedalus::class)]
+    private Daedalus $daedalus;
 
     public function __construct(ProjectConfig $config)
     {

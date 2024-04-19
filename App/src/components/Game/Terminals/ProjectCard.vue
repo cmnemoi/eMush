@@ -11,8 +11,8 @@
                         :key="skill.name">
                         <img :src="skillIcons[skill.key].icon">
                         <template #content>
-                            <h1>{{ skill.name}}</h1>
-                            <p>{{ skill.description }}</p>
+                            <h1 v-html="formatText(skill.name)"></h1>
+                            <p v-html="formatText(skill.description)"></p>
                         </template>
                     </Tippy>
                 </div>
@@ -34,6 +34,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { formatText } from "@/utils/formatText";
 import { SkillIconRecord } from "@/enums/skill.enum";
 
 export default defineComponent ({
@@ -50,7 +51,8 @@ export default defineComponent ({
         }
     },
     methods: {
-        getImgUrl
+        getImgUrl,
+        formatText
     }
 });
 

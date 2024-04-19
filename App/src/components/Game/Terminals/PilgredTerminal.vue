@@ -1,6 +1,6 @@
 <template>
     <div class="project-container" v-if="terminal">
-        <ProjectCard :project="project" />
+        <ProjectCard v-for="project in terminal.projects" :key="project.key" :project="project" />
     </div>
 </template>
 
@@ -11,7 +11,7 @@ import ProjectCard from "@/components/Game/Terminals/ProjectCard.vue";
 import { Terminal } from "@/entities/Terminal";
 
 export default defineComponent ({
-    name: "PilgredTerminal",
+    name: "ProjectTerminal",
     components: {
         ProjectCard
     },
@@ -19,29 +19,6 @@ export default defineComponent ({
         terminal: {
             type: Terminal,
             required: true
-        }
-    },
-    computed: {
-        project() {
-            return {
-                key: "pilgred",
-                name: "Pilgred",
-                description: "Réparer PILGRED ouvre de nouvelles route, dont celle vers la Terre.",
-                efficiency: "Efficacité : 1-1%",
-                progress: "0%",
-                bonusSkills: [
-                    {
-                        key: "physicist",
-                        name: "Physicien",
-                        description: "Incroyable"
-                    },
-                    {
-                        key: "technician",
-                        name: "Technicien",
-                        description: "Incroyable"
-                    }
-                ]
-            };
         }
     },
     methods: {

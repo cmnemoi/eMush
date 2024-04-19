@@ -249,7 +249,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int<0, max>, ConsumableDiseaseConfig> $consumableDiseaseConfig
+     * @psalm-param array|ArrayCollection<int<0, max>, ConsumableDiseaseConfig> $consumableDiseaseConfig
      *
      * @psalm-suppress NoValue
      */

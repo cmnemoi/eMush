@@ -60,6 +60,7 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
         $project = $this->projectRepository->findByName(ProjectName::PLASMA_SHIELD);
         self::assertNotNull($project);
         self::assertProjectIsAsExpected($project, $projectConfig);
+        self::assertEquals(expected: $daedalus, actual: $project->getDaedalus());
 
         // then Daedalus should have the project
         self::assertNotEmpty($daedalus->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD));

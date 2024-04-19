@@ -23,9 +23,10 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'projects', targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    public function __construct(ProjectConfig $config)
+    public function __construct(ProjectConfig $config, Daedalus $daedalus)
     {
         $this->config = $config;
+        $this->daedalus = $daedalus;
     }
 
     public function getId(): int
@@ -51,5 +52,10 @@ class Project
     public function getBonusSkills(): array
     {
         return $this->config->getBonusSkills();
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->daedalus;
     }
 }

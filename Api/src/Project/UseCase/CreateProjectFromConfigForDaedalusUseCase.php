@@ -19,7 +19,7 @@ final class CreateProjectFromConfigForDaedalusUseCase
 
     public function execute(ProjectConfig $projectConfig, Daedalus $daedalus): void
     {
-        $project = new Project($projectConfig);
+        $project = new Project($projectConfig, $daedalus);
         $this->projectRepository->save($project);
 
         $daedalus->addProject($project);

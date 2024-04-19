@@ -51,6 +51,12 @@ export const helpers = {
             return `<img src="${getImgUrl('planet.png')}" alt="planet">`;
         case "fuel":
             return `<img src="${getImgUrl('fuel.png')}" alt="fuel">`;
+        case "point":
+            return `<img src="${getImgUrl('point.png')}" alt="point">`;
+        case "pa_pilgred":
+            return `<img src="${getImgUrl('action_points/pa_pilgred.png')}" alt="pa_pilgred">`;
+        case "pa_eng":
+            return `<img src="${getImgUrl('action_points/pa_eng.png')}" alt="pa_eng">`;
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }
@@ -127,6 +133,9 @@ export function formatText(text: string|null): string {
     formattedText = formattedText.replaceAll(/:pa_core:/g, helpers.computeImageHtml("pa_core"));
     formattedText = formattedText.replaceAll(/:planet:/g, helpers.computeImageHtml("planet"));
     formattedText = formattedText.replaceAll(/:fuel:/g, helpers.computeImageHtml("fuel"));
+    formattedText = formattedText.replaceAll(/:point:/g, helpers.computeImageHtml("point"));
+    formattedText = formattedText.replaceAll(/:pa_pilgred:/g, helpers.computeImageHtml("pa_pilgred"));
+    formattedText = formattedText.replaceAll(/:pa_eng:/g, helpers.computeImageHtml("pa_eng"));
     Object.values(CharacterEnum).forEach((character: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${character}:`, 'g'), helpers.computeCharacterImageHtmlByKey(character));
     });

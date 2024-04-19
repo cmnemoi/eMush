@@ -635,4 +635,14 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
         return $this;
     }
+
+    public function getDaedalusConfig(): DaedalusConfig
+    {
+        return $this->getGameConfig()->getDaedalusConfig();
+    }
+
+    public function getProjectConfigs(): Collection
+    {
+        return $this->getGameConfig()->getProjectConfigs();
+    }
 }

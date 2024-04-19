@@ -47,9 +47,14 @@ class Project
         return $this->config->getType();
     }
 
-    public function getEfficiency(): int
+    public function getMinEfficiency(): int
     {
         return $this->config->getEfficiency();
+    }
+
+    public function getMaxEfficiency(): int
+    {
+        return (int) ($this->getMinEfficiency() + $this->getMinEfficiency() / 2);
     }
 
     public function getBonusSkills(): array

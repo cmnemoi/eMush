@@ -42,7 +42,10 @@ final class ProjectNormalizer implements NormalizerInterface
             'progress' => "{$project->getProgress()}%",
             'efficiency' => $this->translationService->translate(
                 key: 'efficiency',
-                parameters: ['efficiency' => $project->getEfficiency()],
+                parameters: [
+                    'min_efficiency' => $project->getMinEfficiency(),
+                    'max_efficiency' => $project->getMaxEfficiency(),
+                ],
                 domain: 'project',
                 language: $language
             ),

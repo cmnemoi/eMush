@@ -5,7 +5,6 @@ import { ChannelType } from "@/enums/communication.enum";
 import { Message } from "@/entities/Message";
 import { RoomLog } from "@/entities/RoomLog";
 
-
 const state =  {
     currentChannel: new Channel(),
     invitablePlayerMenuOpen: false,
@@ -70,7 +69,7 @@ const actions: ActionTree<any, any> = {
             if (channel.scope === ChannelType.NEW_CHANNEL) {
                 const newChannel = await CommunicationService.createPrivateChannel();
                 commit('setCurrentChannel', newChannel);
-                await dispatch('loadChannels');
+                await dispatch('loadAlivePlayerChannels');
             } else {
                 commit('setCurrentChannel', channel);
                 await dispatch('loadMessages', { channel });
@@ -80,11 +79,11 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
-    async loadChannels({ getters, dispatch, commit }) {
+    async loadAlivePlayerChannels({ getters, dispatch, commit }) {
         commit('setLoadingOfChannels', true);
 
         try {
-            const channels = await CommunicationService.loadChannels();
+            const channels = await CommunicationService.loadAlivePlayerChannels();
 
             const sortedChannels = sortChannels(channels);
 
@@ -102,6 +101,22 @@ const actions: ActionTree<any, any> = {
                 }
             }
 
+            await dispatch('loadMessages', { channel: state.currentChannel });
+            commit('setLoadingOfChannels', false);
+            return true;
+        } catch (e) {
+            console.error(e);
+            commit('setLoadingOfChannels', false);
+            return false;
+        }
+    },
+    async loadDeadPlayerChannels({ commit, dispatch }) {
+        commit('setLoadingOfChannels', true);
+        try {
+            const channels = await CommunicationService.loadDeadPlayerChannels();
+            const sortedChannels = sortChannels(channels);
+            commit('setChannels', sortedChannels);
+            commit('setCurrentChannel', sortedChannels.find((channel: Channel) => channel.scope === ChannelType.PUBLIC));
             await dispatch('loadMessages', { channel: state.currentChannel });
             commit('setLoadingOfChannels', false);
             return true;
@@ -164,7 +179,7 @@ const actions: ActionTree<any, any> = {
             await CommunicationService.leaveChannel(channel);
             commit('removeChannel', channel);
             commit('setCurrentChannel', getters.roomChannel);
-            await dispatch('loadChannels');
+            await dispatch('loadAlivePlayerChannels');
             commit('setLoadingOfChannels', false);
         } catch (e) {
             console.error(e);
@@ -182,7 +197,7 @@ const actions: ActionTree<any, any> = {
     async invitePlayer({ dispatch }, { player, channel }) {
         await CommunicationService.invitePlayer(player, channel);
         await dispatch('closeInvitation');
-        await dispatch('loadChannels');
+        await dispatch('loadAlivePlayerChannels');
     },
 
     async closeInvitation({ commit }) {
@@ -215,12 +230,12 @@ const actions: ActionTree<any, any> = {
 
     async favoriteMessage({ dispatch }, message) {
         await CommunicationService.putMessageInFavorite(message);
-        await dispatch('loadChannels');
+        await dispatch('loadAlivePlayerChannels');
     },
 
     async unfavoriteMessage({ dispatch }, message) {
         await CommunicationService.removeMessageFromFavorite(message);
-        await dispatch('loadChannels');
+        await dispatch('loadAlivePlayerChannels');
     },
 
     async readMessage({ commit }, message) {

@@ -84,6 +84,9 @@ const actions: ActionTree<any, any> = {
     },
     updateSelectedItemPile({ commit }) {
         commit('updateSelectedItemPile');
+    },
+    clearRoom({ commit }) {
+        commit('setRoom', null);
     }
 };
 

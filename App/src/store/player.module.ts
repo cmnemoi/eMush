@@ -60,7 +60,7 @@ const actions: ActionTree<any, any> = {
     },
     async clearPlayer({ commit }) {
         commit("clearPlayer");
-        this.dispatch("room/setRoom", { room: null });
+        this.dispatch("room/clearRoom");
         this.dispatch("daedalus/clearDaedalus");
         this.dispatch("communication/clearRoomLogs");
         this.dispatch("communication/clearChannels");

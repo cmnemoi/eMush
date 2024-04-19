@@ -226,4 +226,12 @@ export class Player {
 
         return skill.charge;
     }
+
+    public isDead(): boolean {
+        return this.gameStatus === 'finished' || this.gameStatus === 'closed';
+    }
+
+    public isAlive(): boolean {
+        return !this.isDead();
+    }
 }

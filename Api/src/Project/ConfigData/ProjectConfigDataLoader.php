@@ -26,10 +26,11 @@ class ProjectConfigDataLoader extends ConfigDataLoader
             /** @var ProjectConfig $projectConfig */
             $projectConfig = $this->projectConfigRepository->findOneBy(['name' => $projectConfigData['name']]);
 
-            if ($projectConfig === null) {
+            if (!$projectConfig) {
                 $projectConfig = new ProjectConfig(...$projectConfigData);
+            } else {
+                $projectConfig->updateFromConfigData($projectConfigData);
             }
-            $projectConfig->updateFromConfigData($projectConfigData);
 
             $this->entityManager->persist($projectConfig);
         }

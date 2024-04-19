@@ -71,4 +71,9 @@ class Project
     {
         return $this->daedalus;
     }
+
+    public function makeProgress(int $delta): void
+    {
+        $this->progress += $delta;
+    }
 }

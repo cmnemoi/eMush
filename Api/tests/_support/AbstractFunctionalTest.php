@@ -22,6 +22,9 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -195,5 +198,15 @@ class AbstractFunctionalTest
         $eventService->callEvent($conversionEvent, PlayerEvent::CONVERSION_PLAYER);
 
         return $player;
+    }
+
+    protected function createProject(ProjectName $projectName, FunctionalTester $I): Project
+    {
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $projectName->value]);
+        $project = new Project($projectConfig, $this->daedalus);
+
+        $I->haveInRepository($project);
+
+        return $project;
     }
 }

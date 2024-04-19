@@ -8,9 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
+use Mush\RoomLog\Entity\LogParameterInterface;
 
 #[ORM\Entity]
-class Project
+class Project implements LogParameterInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -75,5 +76,20 @@ class Project
     public function makeProgress(int $delta): void
     {
         $this->progress += $delta;
+    }
+
+    public function getClassName(): string
+    {
+        return self::class;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName()->value;
+    }
+
+    public function getLogKey(): string
+    {
+        return 'project';
     }
 }

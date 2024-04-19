@@ -39,6 +39,7 @@ use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
 use Mush\Place\ConfigData\PlaceConfigDataLoader;
 use Mush\Player\ConfigData\CharacterConfigDataLoader;
+use Mush\Project\ConfigData\ProjectConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\ContentStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
@@ -84,6 +85,7 @@ class ConfigDataLoaderService
         ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader,
         HunterConfigDataLoader $hunterConfigDataLoader,
         PlanetSectorConfigDataLoader $planetSectorConfigDataLoader,
+        ProjectConfigDataLoader $projectConfigDataLoader,
         GameConfigDataLoader $gameConfigDataLoader,
         LocalizationConfigDataLoader $localizationConfigDataLoader
     ) {
@@ -127,6 +129,7 @@ class ConfigDataLoaderService
                 $consumableDiseaseConfigDataLoader,
                 $hunterConfigDataLoader,
                 $planetSectorConfigDataLoader,
+                $projectConfigDataLoader,
                 $gameConfigDataLoader,
                 $localizationConfigDataLoader,
             ]

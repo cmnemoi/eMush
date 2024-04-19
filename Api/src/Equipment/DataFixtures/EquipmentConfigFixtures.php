@@ -150,7 +150,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setEquipmentName(EquipmentEnum::PILGRED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions([$examineAction])
+            ->setActions([$examineAction, $accessTerminalAction, $exitTerminalAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pilgred);
 

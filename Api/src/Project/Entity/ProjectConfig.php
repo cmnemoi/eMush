@@ -64,4 +64,12 @@ class ProjectConfig
     {
         return $this->bonusSkills;
     }
+
+    public function updateFromConfigData(array $configData): void
+    {
+        $this->name = $configData['name'];
+        $this->type = $configData['type'];
+        $this->efficiency = $configData['efficiency'];
+        $this->bonusSkills = $configData['bonusSkills'];
+    }
 }

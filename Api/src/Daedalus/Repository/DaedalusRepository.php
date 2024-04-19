@@ -12,11 +12,16 @@ use Mush\Game\Enum\GameStatusEnum;
 /**
  * @template-extends ServiceEntityRepository<Daedalus>
  */
-class DaedalusRepository extends ServiceEntityRepository
+class DaedalusRepository extends ServiceEntityRepository implements DaedalusRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Daedalus::class);
+    }
+
+    public function clear(): void
+    {
+        $this->getEntityManager()->clear();
     }
 
     public function existAvailableDaedalus(): bool
@@ -60,6 +65,12 @@ class DaedalusRepository extends ServiceEntityRepository
             ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function save(Daedalus $daedalus): void
+    {
+        $this->getEntityManager()->persist($daedalus);
+        $this->getEntityManager()->flush();
     }
 
     /**

@@ -4,14 +4,30 @@ declare(strict_types=1);
 
 namespace Mush\Project\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 
+#[ORM\Entity]
 class Project
 {
-    public function __construct(
-        private ProjectConfig $config
-    ) {}
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $id;
+
+    #[ORM\ManyToOne(targetEntity: ProjectConfig::class)]
+    private ProjectConfig $config;
+
+    public function __construct(ProjectConfig $config)
+    {
+        $this->config = $config;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function getName(): ProjectName
     {

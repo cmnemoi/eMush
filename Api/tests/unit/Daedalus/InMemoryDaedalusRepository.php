@@ -16,11 +16,6 @@ final class InMemoryDaedalusRepository implements DaedalusRepositoryInterface
         $this->daedalus = [];
     }
 
-    public function findByName(string $name): Daedalus
-    {
-        return $this->daedalus[$name];
-    }
-
     public function save(Daedalus $daedalus): void
     {
         $this->daedalus[$daedalus->getName()] = $daedalus;

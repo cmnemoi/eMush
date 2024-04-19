@@ -21,7 +21,7 @@ class DaedalusRepository extends ServiceEntityRepository implements DaedalusRepo
 
     public function clear(): void
     {
-        $this->getEntityManager()->clear();
+        $this->getEntityManager()->getConnection()->executeStatement('DELETE FROM daedalus');
     }
 
     public function existAvailableDaedalus(): bool

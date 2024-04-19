@@ -47,4 +47,22 @@ final class ProjectRepositoryCest extends AbstractFunctionalTest
         // then the project is found
         $I->assertEquals($project, $foundProject);
     }
+
+    public function shouldClear(FunctionalTester $I)
+    {
+        // given I have a project
+        $projectConfig = ProjectConfigFactory::createPlasmaShieldConfig();
+        $I->haveInRepository($projectConfig);
+
+        $this->createProjectFromConfigForDaedalusUseCase->execute(
+            $projectConfig,
+            $this->daedalus
+        );
+
+        // when I clear the project repository
+        $this->projectRepository->clear();
+
+        // then the project cannot be found
+        $I->assertNull($this->projectRepository->findByName($projectConfig->getName()));
+    }
 }

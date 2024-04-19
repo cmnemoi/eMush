@@ -28,6 +28,8 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Exception\DaedalusShouldHaveProjectException;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -634,6 +636,16 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->projects->add($project);
 
         return $this;
+    }
+
+    public function getPilgred(): Project
+    {
+        $pilgred = $this->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PILGRED)->first();
+        if (!$pilgred) {
+            throw new DaedalusShouldHaveProjectException(ProjectName::PILGRED);
+        }
+
+        return $pilgred;
     }
 
     public function getDaedalusConfig(): DaedalusConfig

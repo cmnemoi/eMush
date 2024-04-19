@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Project\Entity\Project;
-use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 
 /**
@@ -37,7 +36,6 @@ final class ProjectRepository extends ServiceEntityRepository implements Project
 
         $rsm = new ResultSetMappingBuilder($this->entityManager);
         $rsm->addRootEntityFromClassMetadata(Project::class, 'project');
-        $rsm->addJoinedEntityFromClassMetadata(ProjectConfig::class, 'project_config', 'project', 'config', ['id' => 'config_id']);
 
         $query = $this->entityManager->createNativeQuery($sql, $rsm);
         $query->setParameter('name', $name->value);

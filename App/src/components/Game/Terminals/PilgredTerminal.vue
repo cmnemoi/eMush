@@ -1,5 +1,5 @@
 <template>
-    <div class="project-container">
+    <div class="project-container" v-if="terminal">
         <ProjectCard :project="project" />
     </div>
 </template>
@@ -8,9 +8,19 @@
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import ProjectCard from "@/components/Game/Terminals/ProjectCard.vue";
+import { Terminal } from "@/entities/Terminal";
 
 export default defineComponent ({
     name: "PilgredTerminal",
+    components: {
+        ProjectCard
+    },
+    props: {
+        terminal: {
+            type: Terminal,
+            required: true
+        }
+    },
     computed: {
         project() {
             return {
@@ -33,11 +43,6 @@ export default defineComponent ({
                 ]
             };
         }
-    },
-    components: {
-        ProjectCard
-    },
-    props: {
     },
     methods: {
         getImgUrl

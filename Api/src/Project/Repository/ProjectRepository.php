@@ -6,7 +6,7 @@ namespace Mush\Project\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
@@ -33,12 +33,14 @@ final class ProjectRepository extends ServiceEntityRepository implements Project
 
     public function findByName(ProjectName $name): ?Project
     {
-        $rsm = new ResultSetMapping();
-        $rsm->addEntityResult(Project::class, 'project');
-        $rsm->addJoinedEntityResult(ProjectConfig::class, 'project_config', 'project', 'config');
+        $sql = 'SELECT project.* FROM project INNER JOIN project_config ON project.config_id = project_config.id WHERE project_config.name = :name';
 
-        $query = $this->entityManager->createNativeQuery('SELECT * FROM project INNER JOIN project_config ON project.config_id = project_config.id WHERE project_config.name = :name', $rsm);
-        $query->setParameter('name', $name);
+        $rsm = new ResultSetMappingBuilder($this->entityManager);
+        $rsm->addRootEntityFromClassMetadata(Project::class, 'project');
+        $rsm->addJoinedEntityFromClassMetadata(ProjectConfig::class, 'project_config', 'project', 'config', ['id' => 'config_id']);
+
+        $query = $this->entityManager->createNativeQuery($sql, $rsm);
+        $query->setParameter('name', $name->value);
 
         return $query->getOneOrNullResult();
     }

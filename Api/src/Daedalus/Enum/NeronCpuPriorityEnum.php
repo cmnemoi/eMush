@@ -7,15 +7,17 @@ namespace Mush\Daedalus\Enum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 
 /** @codeCoverageIgnore */
-final class NeronCpuPriorityEnum
+abstract class NeronCpuPriorityEnum
 {
-    public const NONE = 'none';
-    public const ASTRONAVIGATION = 'astronavigation';
-    public const DEFENCE = 'defence';
+    public const string NONE = 'none';
+    public const string ASTRONAVIGATION = 'astronavigation';
+    public const string DEFENCE = 'defence';
+    public const string PROJECTS = 'projects';
 
     public static array $statusMap = [
         self::ASTRONAVIGATION => DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY,
         self::DEFENCE => DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY,
+        self::PROJECTS => DaedalusStatusEnum::PROJECTS_NERON_CPU_PRIORITY,
     ];
 
     public static function getAll(): array
@@ -24,6 +26,7 @@ final class NeronCpuPriorityEnum
             self::NONE,
             self::ASTRONAVIGATION,
             self::DEFENCE,
+            self::PROJECTS,
         ];
     }
 }

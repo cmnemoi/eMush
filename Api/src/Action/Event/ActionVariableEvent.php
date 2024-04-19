@@ -12,11 +12,11 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 
 class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 {
-    public const APPLY_COST = 'apply.cost';
-    public const ROLL_ACTION_PERCENTAGE = 'roll.action.percentage';
-    public const GET_OUTPUT_QUANTITY = 'get.output.quantity';
+    public const string APPLY_COST = 'apply.cost';
+    public const string ROLL_ACTION_PERCENTAGE = 'roll.action.percentage';
+    public const string GET_OUTPUT_QUANTITY = 'get.output.quantity';
 
-    public const VARIABLE_TO_EVENT_MAP = [
+    public const array VARIABLE_TO_EVENT_MAP = [
         PlayerVariableEnum::ACTION_POINT => self::APPLY_COST,
         PlayerVariableEnum::MORAL_POINT => self::APPLY_COST,
         PlayerVariableEnum::MOVEMENT_POINT => self::APPLY_COST,
@@ -49,9 +49,7 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 
     public function getRoundedQuantity(): int
     {
-        $variable = $this->getVariable();
-
-        return $variable->getValueInRange((int) $this->quantity);
+        return $this->getVariable()->getValueInRange((int) $this->quantity);
     }
 
     public function getQuantity(): float

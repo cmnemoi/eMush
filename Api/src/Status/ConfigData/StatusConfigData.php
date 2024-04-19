@@ -1065,6 +1065,15 @@ class StatusConfigData
             ],
         ],
         [
+            'name' => 'projects_neron_cpu_priority_default',
+            'statusName' => 'projects_neron_cpu_priority',
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                'modifier_for_daedalus_-1action_point_on_action_research_project',
+            ],
+        ],
+        [
             'name' => 'changed_cpu_priority_default',
             'statusName' => 'changed_cpu_priority',
             'visibility' => 'hidden',

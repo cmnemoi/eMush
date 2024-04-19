@@ -15,4 +15,5 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
+  Mush\Game\Service\GetRandomIntegerServiceInterface: '@Mush\Game\Service\GetRandomIntegerService'
   Mush\Game\Service\TranslationServiceInterface: '@Mush\Game\Service\TranslationService'

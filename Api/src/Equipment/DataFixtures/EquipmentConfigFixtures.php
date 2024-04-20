@@ -199,6 +199,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $leaveOrbitAction */
         $leaveOrbitAction = $this->getReference(ActionsFixtures::LEAVE_ORBIT);
 
+        /** @var Action $returnToSolAction */
+        $returnToSolAction = $this->getReference(ActionEnum::RETURN_TO_SOL);
+
         $commandTerminal = new EquipmentConfig();
         $commandTerminal
             ->setEquipmentName(EquipmentEnum::COMMAND_TERMINAL)
@@ -217,6 +220,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $turnDaedalusRightAction,
                 $leaveOrbitAction,
                 $accessTerminalAction,
+                $returnToSolAction,
             ])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($commandTerminal);

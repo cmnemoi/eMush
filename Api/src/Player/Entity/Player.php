@@ -36,8 +36,10 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Repository\PlayerRepository;
+use Mush\Project\Entity\Project;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -648,5 +650,20 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getActionTargetName(array $context): string
     {
         return ActionTargetName::PLAYER->value;
+    }
+
+    public function getMinEfficiencyForProject(Project $project): int
+    {
+        /** @var ?ChargeStatus $numberOfParticipationsStatus */
+        $numberOfParticipationsStatus = $this->getStatusByNameAndTarget('project_participations', $project);
+
+        $numberOfParticipations = $numberOfParticipationsStatus?->getCharge();
+
+        return max(0, $project->getEfficiency() - $numberOfParticipations * 2);
+    }
+
+    public function getMaxEfficiencyForProject(Project $project): int
+    {
+        return (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
     }
 }

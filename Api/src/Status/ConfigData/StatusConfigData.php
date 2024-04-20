@@ -1065,6 +1065,13 @@ class StatusConfigData
             ],
         ],
         [
+            'name' => 'projects_neron_cpu_priority_default',
+            'statusName' => 'projects_neron_cpu_priority',
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+        ],
+        [
             'name' => 'changed_cpu_priority_default',
             'statusName' => 'changed_cpu_priority',
             'visibility' => 'hidden',

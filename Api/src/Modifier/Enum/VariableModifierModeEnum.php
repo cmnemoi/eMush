@@ -9,13 +9,12 @@ namespace Mush\Modifier\Enum;
  * MULTIPLICATIVE: outputValue = inputValue * delta
  * SET_VALUE: outputValue = delta
  */
-class VariableModifierModeEnum
+abstract class VariableModifierModeEnum
 {
-    public const ADDITIVE = 'additive';
-    public const MULTIPLICATIVE = 'multiplicative';
-    public const SET_VALUE = 'set_value';
-
-    public const VALUE = 'value';
-    public const MIN = 'min';
-    public const MAX = 'max';
+    public const string ADDITIVE = 'additive';
+    public const string MULTIPLICATIVE = 'multiplicative';
+    public const string SET_VALUE = 'set_value';
+    public const string VALUE = 'value';
+    public const string MIN = 'min';
+    public const string MAX = 'max';
 }

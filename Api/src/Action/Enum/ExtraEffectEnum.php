@@ -2,8 +2,8 @@
 
 namespace Mush\Action\Enum;
 
-class ExtraEffectEnum
+abstract class ExtraEffectEnum
 {
-    public const EXTRA_PA_GAIN = 'extra_pa_gain';
-    public const BREAK_DOOR = 'break_door';
+    public const string EXTRA_PA_GAIN = 'extra_pa_gain';
+    public const string BREAK_DOOR = 'break_door';
 }

@@ -1,4 +1,6 @@
 <template>
+    <ul class="projects">
+    </ul>
     <ul class="pilgred" v-if="pilgred">
         <DaedalusProjectCard :project="pilgred" />
     </ul>

@@ -32,8 +32,12 @@ final class ProjectEvent extends AbstractGameEvent
         return $this->project;
     }
 
+    /**
+     * @psalm-suppress InvalidNullableReturnType
+     * @psalm-suppress NullableReturnStatement
+     */
     public function getAuthor(): Player
-    {   
+    {
         return $this->author;
     }
 

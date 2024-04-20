@@ -26,7 +26,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     }
 
     public function onProjectFinished(ProjectEvent $event): void
-    {   
+    {
         $author = $event->getAuthor();
         $this->neronMessageService->createNeronMessage(
             messageKey: NeronMessageEnum::REPAIRED_PILGRED,

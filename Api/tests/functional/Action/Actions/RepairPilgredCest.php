@@ -51,6 +51,15 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             time: new \DateTime(),
             target: $terminal,
         );
+
+        // given KT is focused on PILGRED terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal,
+        );
     }
 
     public function shouldNotBeExecutableIfPlayerEfficiencyIsEqualsToZero(FunctionalTester $I): void
@@ -59,7 +68,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
 
         // and Chun's efficiency is 0
-        $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject, $I);
+        $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
@@ -116,17 +125,50 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->chun->getMinEfficiencyForProject($pilgredProject));
     }
 
-    private function setPlayerProjectEfficiencyToZero(Player $player, Project $project, FunctionalTester $I): void
+    public function shouldNotReduceEfficiencyForOtherProjects(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // and I have the plasma shield project
+        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+
+        // when Chun repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+
+        // then Chun's efficiency for the plasma shield project should not be reduced
+        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($otherProject));
+    }
+
+    public function shouldResetOtherPlayersEfficiencyForProject(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // given Chun's efficiency is 0
+        $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
+
+        // when Kuan-Ti repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->kuanTi, $pilgredProject);
+        $this->repairPilgredAction->execute($this->kuanTi, $pilgredProject);
+
+        // then Chun's efficiency should be reset to 1
+        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
+    }
+
+    private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
     {
         $status = $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::PROJECT_PARTICIPATIONS,
             holder: $player,
             tags: [],
             time: new \DateTime(),
+            target: $project,
         );
         $this->statusService->updateCharge(
             chargeStatus: $status,
-            delta: PHP_INT_MAX,
+            delta: 10000,
             tags: [],
             time: new \DateTime(),
         );

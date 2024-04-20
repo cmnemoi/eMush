@@ -11,13 +11,13 @@ namespace Mush\Modifier\Enum;
  * DAEDALUS: modifier is linked to the Daedalus
  * EQUIPMENT: modifier is linked to an equipment
  */
-class ModifierHolderClassEnum
+abstract class ModifierHolderClassEnum
 {
-    public const PLAYER = 'player';
-    public const TARGET_PLAYER = 'target_player';
-    public const PLACE = 'place';
-    public const DAEDALUS = 'daedalus';
-    public const EQUIPMENT = 'equipment';
+    public const string PLAYER = 'player';
+    public const string TARGET_PLAYER = 'target_player';
+    public const string PLACE = 'place';
+    public const string DAEDALUS = 'daedalus';
+    public const string EQUIPMENT = 'equipment';
 
     public static function getAllReaches(): array
     {

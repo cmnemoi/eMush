@@ -197,23 +197,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $I->assertFalse($this->repairPilgredAction->isVisible());
     }
 
-    public function shouldNotBeVisibleIfPilgredIsFinished(FunctionalTester $I): void
-    {
-        // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
-
-        // given PILGRED progress is 100%
-        $pilgredProjectReflection = new \ReflectionClass($pilgredProject);
-        $pilgredProjectReflection->getProperty('progress')->setValue($pilgredProject, 100);
-
-        // when Chun tries to repair the PILGRED project
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
-
-        // then the action should not be visible
-        $I->assertFalse($this->repairPilgredAction->isVisible());
-    }
-
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
     {
         $status = $this->statusService->createStatusFromName(

@@ -46,7 +46,7 @@ class ReachValidator extends ConstraintValidator
         } elseif ($actionTarget instanceof Hunter) {
             $canReach = $this->canReachHunter($player, $constraint->reach);
         } elseif ($actionTarget instanceof Planet) {
-            $canReach = $player->isFocusedOnTerminalByName(EquipmentEnum::ASTRO_TERMINAL);
+            $canReach = $this->canReachPlanet($player);
         } elseif ($actionTarget instanceof Project) {
             $canReach = $this->canReachProject($player);
         } else {
@@ -148,10 +148,23 @@ class ReachValidator extends ConstraintValidator
         return $player->canSeeSpaceBattle();
     }
 
+    private function canReachPlanet(Player $player): bool
+    {
+        if ($player->isFocusedOnTerminalByName(EquipmentEnum::ASTRO_TERMINAL)
+            && $player->getPlace()->hasEquipmentByName(EquipmentEnum::ASTRO_TERMINAL)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
     private function canReachProject(Player $player): bool
     {
         foreach (EquipmentEnum::getProjectTerminals() as $terminalName) {
-            if ($player->isFocusedOnTerminalByName($terminalName)) {
+            if ($player->isFocusedOnTerminalByName($terminalName)
+                && $player->getPlace()->hasEquipmentByName($terminalName)
+            ) {
                 return true;
             }
         }

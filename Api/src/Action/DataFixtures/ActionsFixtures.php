@@ -1036,6 +1036,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::REPAIR_PILGRED)
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setTarget(Project::class)
+            ->setActionCost(2)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($repairPilgred);

@@ -648,6 +648,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $pilgred;
     }
 
+    public function isPilgredFinished(): bool
+    {
+        return $this->getPilgred()->isFinished();
+    }
+
     public function getDaedalusConfig(): DaedalusConfig
     {
         return $this->getGameConfig()->getDaedalusConfig();

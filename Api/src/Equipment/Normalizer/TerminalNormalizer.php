@@ -92,9 +92,10 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($format, $context);
         $commandTerminalInfos = $this->normalizeCommandTerminalInfos($terminal);
-        $biosTerminalInfos = $this->normalizeBiosTerminalInfos($context);
+        $biosTerminalInfos = $this->normalizeBiosTerminalInfos($terminal);
+        $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
 
-        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos);
+        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos);
 
         return $normalizedTerminal;
     }
@@ -267,11 +268,8 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         ];
     }
 
-    private function normalizeBiosTerminalInfos(array $context): array
+    private function normalizeBiosTerminalInfos(GameEquipment $terminal): array
     {
-        /** @var GameEquipment $terminal */
-        $terminal = $context['terminal'];
-
         $terminalKey = $terminal->getName();
         if ($terminalKey !== EquipmentEnum::BIOS_TERMINAL) {
             return [];
@@ -280,6 +278,25 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         return [
             'availableCpuPriorities' => $this->getTranslatedAvailableCpuPriorities($terminal),
             'currentCpuPriority' => $terminal->getDaedalus()->getDaedalusInfo()->getNeron()->getCpuPriority(),
+        ];
+    }
+
+    private function getNormalizedPilgredTerminalInfos(GameEquipment $terminal): array
+    {
+        $daedalus = $terminal->getDaedalus();
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::PILGRED) {
+            return [];
+        }
+
+        return [
+            'pilgredIsFinished' => $daedalus->isPilgredFinished(),
+            'pilgredFinishedDescription' => $this->translationService->translate(
+                key: $terminalKey . '.pilgred_finished_description',
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
+            ),
         ];
     }
 

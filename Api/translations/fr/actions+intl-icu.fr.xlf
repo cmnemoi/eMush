@@ -1093,7 +1093,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="repair_pilgred">
       <segment id="name" state="final">
         <source>repair_pilgred.name</source>
-        <target>Réparer</target>
+        <target>Participer</target>
       </segment>
       <segment id="description" state="final">
         <source>repair_pilgred.description</source>

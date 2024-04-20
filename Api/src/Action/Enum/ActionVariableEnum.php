@@ -2,11 +2,11 @@
 
 namespace Mush\Action\Enum;
 
-class ActionVariableEnum
+abstract class ActionVariableEnum
 {
-    public const PERCENTAGE_SUCCESS = 'percentageSuccess';
-    public const PERCENTAGE_CRITICAL = 'percentageCritical';
-    public const PERCENTAGE_INJURY = 'percentageInjury';
-    public const PERCENTAGE_DIRTINESS = 'percentageDirtiness';
-    public const OUTPUT_QUANTITY = 'outputQuantity';
+    public const string PERCENTAGE_SUCCESS = 'percentageSuccess';
+    public const string PERCENTAGE_CRITICAL = 'percentageCritical';
+    public const string PERCENTAGE_INJURY = 'percentageInjury';
+    public const string PERCENTAGE_DIRTINESS = 'percentageDirtiness';
+    public const string OUTPUT_QUANTITY = 'outputQuantity';
 }

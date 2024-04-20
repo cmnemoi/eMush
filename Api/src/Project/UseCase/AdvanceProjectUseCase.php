@@ -17,8 +17,8 @@ final class AdvanceProjectUseCase
 
     public function execute(Project $project): void
     {
-        $delta = $this->getRandomIntegerService->execute($project->getMinEfficiency(), $project->getMaxEfficiency());
-        $project->makeProgress($delta);
+        $progress = $this->getRandomIntegerService->execute($project->getMinEfficiency(), $project->getMaxEfficiency());
+        $project->makeProgress($progress);
 
         $this->projectRepositoryInterface->save($project);
     }

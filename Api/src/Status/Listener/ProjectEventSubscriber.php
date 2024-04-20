@@ -6,13 +6,12 @@ namespace Mush\Status\Listener;
 
 use Mush\Player\Entity\Player;
 use Mush\Project\Event\ProjectEvent;
-use Mush\Project\Exception\ProjetEventShouldHaveAnAuthorException;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class ProjetEventSubscriber implements EventSubscriberInterface
+final class ProjectEventSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
 
@@ -39,10 +38,6 @@ final class ProjetEventSubscriber implements EventSubscriberInterface
         $author = $event->getAuthor();
         $project = $event->getProject();
 
-        if (!$author) {
-            throw new ProjetEventShouldHaveAnAuthorException($project->getName());
-        }
-
         /** @var ChargeStatus $projectParticipationsStatus */
         $projectParticipationsStatus = $author->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
         if ($projectParticipationsStatus) {
@@ -66,11 +61,8 @@ final class ProjetEventSubscriber implements EventSubscriberInterface
     private function resetOtherPlayersParticipationsToProject(ProjectEvent $event): void
     {
         $author = $event->getAuthor();
-        $project = $event->getProject();
-        if (!$author) {
-            throw new ProjetEventShouldHaveAnAuthorException($project->getName());
-        }
         $daedalus = $author->getDaedalus();
+        $project = $event->getProject();
 
         /** @var Player $player */
         foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {

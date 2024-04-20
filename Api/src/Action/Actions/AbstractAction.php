@@ -47,6 +47,9 @@ abstract class AbstractAction
     public function loadParameters(Action $action, Player $player, ?LogParameterInterface $target = null, array $parameters = []): void
     {
         if (!$this->support($target, $parameters)) {
+            $parameters = [];
+            $parameters['parameters'] = json_encode($parameters);
+
             throw new \InvalidArgumentException('Invalid action parameters : one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');
         }
 

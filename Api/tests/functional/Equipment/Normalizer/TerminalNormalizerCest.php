@@ -37,11 +37,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        // given PILGRED is created on this Daedalus
-        $this->pilgredProject = $this->createProject(
-            ProjectName::PILGRED,
-            $I
-        );
+        $this->pilgredProject = $this->daedalus->getPilgred();
     }
 
     public function testShouldNormalizePilgredTerminal(FunctionalTester $I): void

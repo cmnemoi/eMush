@@ -9,25 +9,54 @@
         <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/myco_alarm.png')" alt="Myco-alarm"></li>-->
         <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/natamy_gun.png')" alt="Natamy gun"></li>-->
         <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/ncc_lens.png')" alt="NCC lens"></li>-->
-        <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/mushicide_soap.png')" alt="Mushicide soap"></li>-->
+        <!--    <li class="research"><span>Res.</span><img :src="getImgUrl('researches/mushicide_soap.png')" alt="Mushicide soap"></li> -->
+    </ul>
+    <ul class="pilgred" v-if="pilgred">
+        <DaedalusProjectCard :project="pilgred" />
     </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { PropType, defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { formatText } from "@/utils/formatText";
+import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
+
+type DaedalusProject = {
+    type: string;
+    key: string;
+    name: string;
+    description: string;
+}
+
+type DaedalusProjects = {
+    pilgred: DaedalusProject;
+}
 
 export default defineComponent ({
     name: "ProjectsPanel",
+    components: {
+        DaedalusProjectCard
+    },
+    computed: {
+        pilgred() {
+            return this.projects.pilgred;
+        }
+    },
     props: {
+        projects: {
+            type: Object as PropType<DaedalusProjects>,
+            required: true
+        }
     },
     methods: {
-        getImgUrl
+        getImgUrl,
+        formatText
     }
 });
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 .projects {
     flex-direction: row;
     flex-wrap: wrap;
@@ -47,5 +76,10 @@ export default defineComponent ({
             text-shadow: 0 0 2px rgba(27, 28, 85, 1), 0 0 2px rgba(27, 28, 85, 1), 0 0 2px rgba(27, 28, 85, 1);
         }
     }
+}
+
+.pilgred {
+    @extend .projects;
+    margin-top: 0;
 }
 </style>

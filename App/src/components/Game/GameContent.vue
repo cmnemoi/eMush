@@ -13,7 +13,7 @@
                 <ShipPanel v-else :room="player.room" :player="player" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
             </div>
-            <ProjectsPanel />
+            <ProjectsPanel :projects="player.daedalus.projects" />
             <div class="bottom-banner" />
         </div>
         <div v-else-if="['finished'].includes(player.gameStatus)" class="main">

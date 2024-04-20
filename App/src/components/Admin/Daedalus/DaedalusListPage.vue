@@ -49,8 +49,8 @@
             :row-data="rowData"
             :pagination="pagination"
             :filter="filter"
-            @paginationClick="paginationClick"
-            @sortTable="sortTable"
+            @pagination-click="paginationClick"
+            @sort-table="sortTable"
         >
             <template #header-cycle>
                 Cycle/Day
@@ -108,7 +108,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import AdminService from "@/services/admin.service";
 import DaedalusService from "@/services/daedalus.service";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 
 export default defineComponent({
@@ -176,7 +176,7 @@ export default defineComponent({
             const dateObject = new Date(date);
             return format(dateObject, 'PPPPpp', { locale: fr });
         },
-        loadData() {
+        async loadData() {
             this.loading = true;
             const params: any = {
                 params: {},
@@ -194,7 +194,7 @@ export default defineComponent({
             if (this.filter) {
                 params.params['name'] = this.filter;
             }
-            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedaluses?XDEBUG_SESSION_START=PHPSTORM'), params)
+            await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedaluses'), params)
                 .then((result) => {
                     return result.data;
                 })
@@ -292,7 +292,6 @@ export default defineComponent({
     a {
         @include button-style();
         padding: 2px 15px 4px;
-
     }
 }
 

@@ -1,4 +1,3 @@
-import { is } from "date-fns/locale";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';

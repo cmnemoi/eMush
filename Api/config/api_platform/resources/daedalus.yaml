@@ -10,6 +10,7 @@ Mush\Daedalus\Entity\Daedalus:
   collectionOperations:
     get:
       filters: [ 'daedalus.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_MODERATOR")'
     post:
       security: 'is_granted("ROLE_MODERATOR")'
   itemOperations:

@@ -18,7 +18,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Project\Factory\ProjectFactory;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
@@ -36,6 +38,9 @@ final class DaedalusNormalizerTest extends TestCase
     /** @var Mockery\Mock|PlanetServiceInterface */
     private PlanetServiceInterface $planetService;
 
+    /** @var Mockery\Mock|NormalizerInterface */
+    private NormalizerInterface $projectNormalizer;
+
     /**
      * @before
      */
@@ -45,7 +50,10 @@ final class DaedalusNormalizerTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
         $this->planetService = \Mockery::mock(PlanetServiceInterface::class);
 
+        $this->projectNormalizer = \Mockery::mock(NormalizerInterface::class);
+
         $this->normalizer = new DaedalusNormalizer($this->cycleService, $this->translationService, $this->planetService);
+        $this->normalizer->setNormalizer($this->projectNormalizer);
     }
 
     /**
@@ -65,6 +73,7 @@ final class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('hasStatus')->andReturn(false)->once();
         $daedalus->shouldReceive('getAttackingHunters')->andReturn(new HunterCollection());
         $daedalus->shouldReceive('getLanguage')->andReturn(LanguageEnum::FRENCH);
+        $daedalus->shouldReceive('isPilgredFinished')->andReturn(false);
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
@@ -290,9 +299,46 @@ final class DaedalusNormalizerTest extends TestCase
                 'explorators' => 'Équipe : Roland',
                 'estimatedDuration' => 'Retour estimé : 10 minutes',
             ],
+            'projects' => [],
         ];
 
         self::assertIsArray($data);
         self::assertSame($expected, $data);
+    }
+
+    public function testShouldNormalizeFinishedPilgred(): void
+    {
+        // given I have a PILGRED project
+        $pilgred = ProjectFactory::createPilgredProject();
+        $daedalus = $pilgred->getDaedalus();
+
+        // given PILGRED is finished
+        $pilgredReflection = new \ReflectionClass($pilgred);
+        $pilgredReflection->getProperty('progress')->setValue($pilgred, 100);
+
+        $this->planetService->shouldIgnoreMissing();
+        $this->translationService->shouldIgnoreMissing();
+        $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn(new \DateTime());
+
+        $this->projectNormalizer->shouldReceive('normalize')->andReturn([
+            'type' => 'PILGRED',
+            'key' => 'pilgred',
+            'name' => 'PILGRED',
+            'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
+        ]);
+
+        // when I normalize the daedalus
+        $data = $this->normalizer->normalize($daedalus);
+
+        // then I should have see Pilgred in the data
+        self::assertEquals(
+            expected: [
+                'type' => 'PILGRED',
+                'key' => 'pilgred',
+                'name' => 'PILGRED',
+                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
+            ],
+            actual: $data['projects']['pilgred'],
+        );
     }
 }

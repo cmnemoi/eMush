@@ -105,4 +105,27 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
             actual: $normalizedProject
         );
     }
+
+    public function shouldNormalizeProjectInDaedalusNormalizationContext(FunctionalTester $I): void
+    {
+        // given I have a project
+        $project = $this->createProject(ProjectName::PILGRED, $I);
+
+        // when I normalize the project in daedalus normalization context
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
+            'currentPlayer' => $this->chun,
+            'normalizing_daedalus' => true,
+        ]);
+
+        // then I should get the normalized project
+        $I->assertEquals(
+            expected: [
+                'type' => 'PILGRED',
+                'key' => 'pilgred',
+                'name' => 'PILGRED',
+                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
+            ],
+            actual: $normalizedProject
+        );
+    }
 }

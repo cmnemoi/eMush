@@ -5,11 +5,9 @@ namespace Mush\Player\Controller;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
@@ -21,9 +19,7 @@ use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,30 +34,20 @@ class PlayerController extends AbstractGameController
 {
     use ErrorHandlerTrait;
 
-    private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
-    private DaedalusServiceInterface $daedalusService;
     private CycleServiceInterface $cycleService;
     private ValidatorInterface $validator;
 
-    private LoggerInterface $logger;
-
     public function __construct(
         AdminServiceInterface $adminService,
-        EventServiceInterface $eventService,
         PlayerServiceInterface $playerService,
-        DaedalusServiceInterface $daedalusService,
         CycleServiceInterface $cycleService,
         ValidatorInterface $validator,
-        LoggerInterface $loggerInterface
     ) {
         parent::__construct($adminService);
-        $this->eventService = $eventService;
         $this->playerService = $playerService;
-        $this->daedalusService = $daedalusService;
         $this->cycleService = $cycleService;
         $this->validator = $validator;
-        $this->logger = $loggerInterface;
     }
 
     /**
@@ -154,6 +140,10 @@ class PlayerController extends AbstractGameController
         $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
         $daedalus = $playerCreateRequest->getDaedalus();
+        if (!$daedalus) {
+            throw new HttpException(Response::HTTP_UNPROCESSABLE_ENTITY, 'No Daedalus found.');
+        }
+
         if ($daedalus->isCycleChange()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
@@ -164,14 +154,12 @@ class PlayerController extends AbstractGameController
         }
 
         $character = $playerCreateRequest->getCharacter();
-
-        if (!$daedalus || !$character) {
+        if (!$character) {
             return $this->view(['invalid parameters'], 422);
         }
 
         /** @var User $user */
         $user = $this->getUser();
-
         $player = $this->playerService->createPlayer($daedalus, $user, $character);
 
         $context = new Context();

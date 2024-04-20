@@ -40,7 +40,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class DaedalusController extends AbstractGameController
 {
-    private const MAX_CHARACTERS_TO_RETURN = 4;
+    private const int MAX_CHARACTERS_TO_RETURN = 4;
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;

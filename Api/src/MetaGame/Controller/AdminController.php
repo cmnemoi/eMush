@@ -21,9 +21,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\User\Entity\User;
-use Mush\User\Service\UserServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,9 +44,7 @@ class AdminController extends AbstractFOSRestController
     private ExplorationServiceInterface $explorationService;
     private PlaceServiceInterface $placeService;
     private PlayerServiceInterface $playerService;
-    private UserServiceInterface $userService;
     private NeronMessageServiceInterface $neronMessageService;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         AdminServiceInterface $adminService,
@@ -57,9 +53,7 @@ class AdminController extends AbstractFOSRestController
         ExplorationServiceInterface $explorationService,
         PlaceServiceInterface $placeService,
         PlayerServiceInterface $playerService,
-        UserServiceInterface $userService,
         NeronMessageServiceInterface $neronMessageService,
-        RoomLogServiceInterface $roomLogService
     ) {
         $this->adminService = $adminService;
         $this->alertService = $alertService;
@@ -67,9 +61,7 @@ class AdminController extends AbstractFOSRestController
         $this->explorationService = $explorationService;
         $this->placeService = $placeService;
         $this->playerService = $playerService;
-        $this->userService = $userService;
         $this->neronMessageService = $neronMessageService;
-        $this->roomLogService = $roomLogService;
     }
 
     /**

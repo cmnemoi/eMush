@@ -120,4 +120,9 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 
         return $this;
     }
+
+    public function isFinished(): bool
+    {
+        return $this->progress >= 100;
+    }
 }

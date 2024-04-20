@@ -4,18 +4,25 @@ declare(strict_types=1);
 
 namespace Mush\Project\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\Status;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
+use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionTargetInterface
+class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface
 {
+    use TargetStatusTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -30,10 +37,14 @@ class Project implements LogParameterInterface, ActionTargetInterface
     #[ORM\ManyToOne(inversedBy: 'projects', targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $statuses;
+
     public function __construct(ProjectConfig $config, Daedalus $daedalus)
     {
         $this->config = $config;
         $this->daedalus = $daedalus;
+        $this->statuses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -41,9 +52,9 @@ class Project implements LogParameterInterface, ActionTargetInterface
         return $this->id;
     }
 
-    public function getName(): ProjectName
+    public function getName(): string
     {
-        return $this->config->getName();
+        return $this->config->getName()->value;
     }
 
     public function getType(): ProjectType
@@ -51,14 +62,9 @@ class Project implements LogParameterInterface, ActionTargetInterface
         return $this->config->getType();
     }
 
-    public function getMinEfficiency(): int
+    public function getEfficiency(): int
     {
         return $this->config->getEfficiency();
-    }
-
-    public function getMaxEfficiency(): int
-    {
-        return (int) ($this->getMinEfficiency() + $this->getMinEfficiency() / 2);
     }
 
     public function getBonusSkills(): array
@@ -88,7 +94,7 @@ class Project implements LogParameterInterface, ActionTargetInterface
 
     public function getLogName(): string
     {
-        return $this->getName()->value;
+        return $this->getName();
     }
 
     public function getLogKey(): string
@@ -99,5 +105,19 @@ class Project implements LogParameterInterface, ActionTargetInterface
     public function getActionTargetName(array $context): string
     {
         return ActionTargetName::PROJECT->value;
+    }
+
+    public function addStatus(Status $status): static
+    {
+        if (!$this->getStatuses()->contains($status)) {
+            if (!$statusTarget = $status->getStatusTargetTarget()) {
+                $statusTarget = new StatusTarget();
+            }
+            $statusTarget->setOwner($status);
+            $statusTarget->setProject($this);
+            $this->statuses->add($statusTarget);
+        }
+
+        return $this;
     }
 }

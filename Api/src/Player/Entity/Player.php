@@ -666,4 +666,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     {
         return (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
     }
+
+    public function isFocusedOnTerminalByName(string $terminalName): bool
+    {
+        return $this->getFocusedTerminal()?->getName() === $terminalName;
+    }
 }

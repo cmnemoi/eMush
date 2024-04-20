@@ -18,7 +18,7 @@ final class ProjectEvent extends AbstractGameEvent
 
     public function __construct(
         Project $project,
-        ?Player $author = null,
+        Player $author,
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ) {
@@ -30,6 +30,11 @@ final class ProjectEvent extends AbstractGameEvent
     public function getProject(): Project
     {
         return $this->project;
+    }
+
+    public function getAuthor(): Player
+    {   
+        return $this->author;
     }
 
     public function getDaedalus(): Daedalus

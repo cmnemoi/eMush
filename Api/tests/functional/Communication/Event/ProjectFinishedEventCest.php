@@ -38,9 +38,10 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($projectEvent, ProjectEvent::PROJECT_FINISHED);
 
         // then I should see a Neron message telling me PILGRED has been reppaired
-        $I->seeInRepository(
+        $neronAnnouncement = $I->grabEntityFromRepository(
             entity: Message::class,
             params: ['message' => NeronMessageEnum::REPAIRED_PILGRED],
         );
+        $I->assertEquals($neronAnnouncement->getTranslationParameters()['character'], 'chun');
     }
 }

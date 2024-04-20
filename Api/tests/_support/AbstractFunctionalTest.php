@@ -50,6 +50,8 @@ class AbstractFunctionalTest
         $this->player = $this->player1;
         $this->chun = $this->player1;
         $this->kuanTi = $this->player2;
+
+        $this->createProject(ProjectName::PILGRED, $I);
     }
 
     protected function createDaedalus(FunctionalTester $I): Daedalus
@@ -90,7 +92,7 @@ class AbstractFunctionalTest
             ->setScope(ChannelScopeEnum::MUSH);
         $I->haveInRepository($mushChannel);
 
-        $I->refreshEntities($daedalusInfo);
+        $I->haveInRepository($daedalusInfo);
 
         $places = $this->createPlaces($I, $daedalus);
         $daedalus->setPlaces($places);

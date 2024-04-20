@@ -149,12 +149,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var Action $repairPilgredAction */
         $repairPilgredAction = $this->getReference(ActionEnum::REPAIR_PILGRED);
 
+        $pilgredTerminalTool = $this->createTool([$repairPilgredAction], EquipmentEnum::PILGRED);
+        $manager->persist($pilgredTerminalTool);
+
         $pilgred = new EquipmentConfig();
         $pilgred
             ->setEquipmentName(EquipmentEnum::PILGRED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions([$examineAction, $accessTerminalAction, $exitTerminalAction, $repairPilgredAction])
+            ->setActions([$examineAction, $accessTerminalAction, $exitTerminalAction])
+            ->setMechanics([$pilgredTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pilgred);
 

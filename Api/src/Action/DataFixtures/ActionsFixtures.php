@@ -15,6 +15,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Project\Entity\Project;
 
 class ActionsFixtures extends Fixture
 {
@@ -1034,6 +1035,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::REPAIR_PILGRED)
             ->setActionName(ActionEnum::REPAIR_PILGRED)
             ->setScope(ActionScopeEnum::TERMINAL)
+            ->setTarget(Project::class)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($repairPilgred);

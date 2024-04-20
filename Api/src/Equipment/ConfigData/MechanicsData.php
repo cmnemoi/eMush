@@ -3622,5 +3622,12 @@ class MechanicsData
                 'rope_modifier_for_player_prevent_change.variable_if_reason_accident_and_variable_healthPoint',
             ],
         ],
+        [
+            'name' => 'tool_pilgred_terminal_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::REPAIR_PILGRED,
+            ],
+        ],
     ];
 }

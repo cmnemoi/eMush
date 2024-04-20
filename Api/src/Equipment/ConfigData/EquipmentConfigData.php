@@ -2626,9 +2626,10 @@ class EquipmentConfigData
                 'examine',
                 'access_terminal',
                 'exit_terminal',
-                'repair_pilgred',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_pilgred_terminal_default',
+            ],
             'initStatuses' => [],
         ],
         [

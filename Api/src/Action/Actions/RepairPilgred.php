@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Entity\Project;
+use Mush\Project\Event\ProjectEvent;
 use Mush\Project\UseCase\AdvanceProjectUseCase;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -51,5 +52,13 @@ final class RepairPilgred extends AbstractAction
         $project = $this->target;
 
         $this->advanceProjectUseCase->execute($this->player, $project);
+
+        $projectEvent = new ProjectEvent(
+            $project,
+            author: $this->player,
+            tags: $this->getAction()->getActionTags(),
+        );
+
+        $this->eventService->callEvent($projectEvent, ProjectEvent::PROJECT_ADVANCED);
     }
 }

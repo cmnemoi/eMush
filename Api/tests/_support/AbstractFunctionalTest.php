@@ -204,6 +204,10 @@ class AbstractFunctionalTest
 
     protected function createProject(ProjectName $projectName, FunctionalTester $I): Project
     {
+        if ($this->daedalus->getAvailableProjects()->map(static fn (Project $project) => $project->getName())->contains($projectName->value)) {
+            return $this->daedalus->getProjectByName($projectName);
+        }
+
         $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $projectName->value]);
         $project = new Project($projectConfig, $this->daedalus);
 

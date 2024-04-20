@@ -6,6 +6,7 @@ namespace Mush\Tests\unit\Player\Entity;
 
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Factory\ProjectFactory;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +20,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createPilgredProject();
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName('project_participations', $player);
+        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
         $numberOfParticipationsStatus
             ->setTarget($project)
             ->setCharge(1);
@@ -32,7 +33,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName('project_participations', $player);
+        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
         $numberOfParticipationsStatus
             ->setTarget($project)
             ->setCharge(1);
@@ -45,7 +46,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName('project_participations', $player);
+        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
         $numberOfParticipationsStatus
             ->setTarget($project)
             ->setCharge(2);
@@ -58,7 +59,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName('project_participations', $player);
+        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
         $numberOfParticipationsStatus
             ->setTarget($project)
             ->setCharge(3);
@@ -71,7 +72,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createAutoWateringProject(); // base efficiency is 3
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName('project_participations', $player);
+        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
         $numberOfParticipationsStatus
             ->setTarget($project)
             ->setCharge(1);
@@ -84,7 +85,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createAutoWateringProject(); // base efficiency is 3
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName('project_participations', $player);
+        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
         $numberOfParticipationsStatus
             ->setTarget($project)
             ->setCharge(2);

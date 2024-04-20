@@ -60,8 +60,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
 
-    public const string PROJECTS_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT = 'projects_neron_cpu_priority_modifier_minus_1_action_point';
-
     public function load(ObjectManager $manager): void
     {
         $frozenModifier = new VariableEventModifierConfig('frozenIncreaseConsumeCost1Action');
@@ -335,17 +333,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($defenceCpuPriorityIncreaseTurretRecharge);
 
-        $projectsNeronCpuPriorityModifierMinus1ActionPoint = new VariableEventModifierConfig('projectsNeronCpuPriorityModifierMinus1ActionPoint');
-        $projectsNeronCpuPriorityModifierMinus1ActionPoint
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::RESEARCH_PROJECT => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-        $manager->persist($projectsNeronCpuPriorityModifierMinus1ActionPoint);
-
         $immunizedModifierSet0SporesOnChangeVariable = new VariableEventModifierConfig('immunizedModifierSet0SporesOnChangeVariable');
         $immunizedModifierSet0SporesOnChangeVariable
             ->setTargetVariable(PlayerVariableEnum::SPORE)
@@ -380,7 +367,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT, $astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
         $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE, $defenceCpuPriorityIncreaseTurretMaxCharge);
         $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE, $defenceCpuPriorityIncreaseTurretRecharge);
-        $this->addReference(self::PROJECTS_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT, $projectsNeronCpuPriorityModifierMinus1ActionPoint);
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
     }

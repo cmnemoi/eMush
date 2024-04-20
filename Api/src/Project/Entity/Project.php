@@ -11,6 +11,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
 class Project implements LogParameterInterface, ActionTargetInterface
@@ -75,9 +76,9 @@ class Project implements LogParameterInterface, ActionTargetInterface
         return $this->daedalus;
     }
 
-    public function makeProgress(int $delta): void
+    public function makeProgress(int $progress): void
     {
-        $this->progress += $delta;
+        $this->progress += $progress;
     }
 
     public function getClassName(): string
@@ -92,7 +93,7 @@ class Project implements LogParameterInterface, ActionTargetInterface
 
     public function getLogKey(): string
     {
-        return 'project';
+        return LogParameterKeyEnum::PROJECT;
     }
 
     public function getActionTargetName(array $context): string

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Game\Service;
 
-class FakeGetRandomIntegerService implements GetRandomIntegerServiceInterface
+final class FakeGetRandomIntegerService implements GetRandomIntegerServiceInterface
 {
     public function __construct(private $result) {}
 

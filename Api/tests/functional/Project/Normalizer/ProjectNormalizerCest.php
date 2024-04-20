@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Project\Normalizer;
 
-use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
-use Mush\Project\Factory\ProjectConfigFactory;
 use Mush\Project\Normalizer\ProjectNormalizer;
-use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
@@ -18,28 +16,27 @@ use Mush\Tests\FunctionalTester;
 final class ProjectNormalizerCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
-    private CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->projectNormalizer = $I->grabService(ProjectNormalizer::class);
-
-        $this->createProjectFromConfigForDaedalusUseCase = $I->grabService(CreateProjectFromConfigForDaedalusUseCase::class);
+        $this->projectNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
     }
 
     public function shouldNormalizeProject(FunctionalTester $I): void
     {
         // given I have a project
-        $project = $this->createPilgredProject($I);
+        $project = $this->createProject(ProjectName::PILGRED, $I);
 
         // when I normalize the project
-        $normalizedProject = $this->projectNormalizer->normalize($project);
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
 
         // then I should get the normalized project
         $I->assertEquals(
             expected: [
+                'id' => $project->getId(),
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
@@ -57,23 +54,9 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                         'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
+                'actions' => [],
             ],
             actual: $normalizedProject
         );
-    }
-
-    private function createPilgredProject(FunctionalTester $I): Project
-    {
-        $config = ProjectConfigFactory::createPilgredConfig();
-        $I->haveInRepository($config);
-
-        $this->createProjectFromConfigForDaedalusUseCase->execute(
-            $config,
-            $this->daedalus
-        );
-
-        return $this->daedalus->getAvailableProjects()->filter(
-            static fn (Project $project) => $project->getName() === ProjectName::PILGRED
-        )->first();
     }
 }

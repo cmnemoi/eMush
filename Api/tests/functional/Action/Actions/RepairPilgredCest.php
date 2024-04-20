@@ -6,7 +6,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\RepairPilgred;
 use Mush\Action\Entity\Action;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -37,5 +40,23 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // then the PILGRED project should progress by 1
         $I->assertEquals(1, $pilgredProject->getProgress());
+    }
+
+    public function testShouldCreateAPublicLog(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // when Chun repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+
+        // then a public log should be created in Chun's room
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $this->chun->getPlace()->getLogName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'visibility' => VisibilityEnum::PUBLIC,
+            'log' => ActionLogEnum::REPAIR_PILGRED_SUCCESS,
+        ]);
     }
 }

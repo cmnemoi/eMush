@@ -29,11 +29,47 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
-        /** @var Player $currentPlayer */
-        $currentPlayer = $context['currentPlayer'];
-
         /** @var Project $project */
         $project = $object;
+
+        if (\array_key_exists('normalizing_daedalus', $context)) {
+            return $this->getNormalizedProjectForDaedalusContext($project);
+        }
+
+        return $this->getNormalizedProjectForTerminalContext($project, $format, $context);
+    }
+
+    private function getNormalizedProjectForDaedalusContext(Project $project): array
+    {
+        $language = $project->getDaedalus()->getLanguage();
+
+        return [
+            'type' => $this->translationService->translate(
+                key: "{$project->getName()}.type",
+                parameters: [],
+                domain: 'project',
+                language: $language
+            ),
+            'key' => $project->getName(),
+            'name' => $this->translationService->translate(
+                key: "{$project->getName()}.name",
+                parameters: [],
+                domain: 'project',
+                language: $language
+            ),
+            'description' => $this->translationService->translate(
+                key: "{$project->getName()}.description",
+                parameters: [],
+                domain: 'project',
+                language: $language
+            ),
+        ];
+    }
+
+    private function getNormalizedProjectForTerminalContext(Project $project, ?string $format, array $context): array
+    {
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
         $language = $project->getDaedalus()->getLanguage();
 
         return [

@@ -106,4 +106,5 @@ abstract class ActionImpossibleCauseEnum
     public const string EXPLORATION_ALREADY_ONGOING = 'exploration_already_ongoing';
     public const string UPDATE_TALKIE_REQUIRE_NERON = 'update_talkie_require_neron';
     public const string UPDATE_TALKIE_REQUIRE_TRACKER = 'update_talkie_require_tracker';
+    public const string NO_EFFICIENCY = 'no_efficiency';
 }

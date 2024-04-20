@@ -173,10 +173,11 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction->execute($this->chun, $pilgredProject);
 
         // then a Neron announcement should be created
-        $I->seeInRepository(
+        $neronAnnouncement = $I->grabEntityFromRepository(
             entity: Message::class,
             params: ['message' => NeronMessageEnum::REPAIRED_PILGRED],
         );
+        $I->assertEquals($neronAnnouncement->getTranslationParameters()['character'], 'chun');
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

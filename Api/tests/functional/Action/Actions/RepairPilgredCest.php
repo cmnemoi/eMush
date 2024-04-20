@@ -29,7 +29,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
     }
 
-    public function testShouldMakePilgredProgress(FunctionalTester $I): void
+    public function shouldMakePilgredProgress(FunctionalTester $I): void
     {
         // given I have the PILGRED project
         $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
@@ -42,7 +42,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $I->assertEquals(1, $pilgredProject->getProgress());
     }
 
-    public function testShouldCreateAPublicLog(FunctionalTester $I): void
+    public function shouldCreateAPublicLog(FunctionalTester $I): void
     {
         // given I have the PILGRED project
         $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
@@ -58,5 +58,18 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PUBLIC,
             'log' => ActionLogEnum::REPAIR_PILGRED_SUCCESS,
         ]);
+    }
+
+    public function shouldReducePlayerEfficiencyForProject(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // when Chun repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+
+        // then Chun's efficiency should be reduced to 0
+        $I->assertEquals(0, $this->chun->getMinEfficiencyForProject($pilgredProject));
     }
 }

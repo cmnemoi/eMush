@@ -7,6 +7,7 @@ namespace Mush\Project\Normalizer;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -28,21 +29,24 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
+        /** @var Player $currentPlayer */
+        $currentPlayer = $context['currentPlayer'];
+
         /** @var Project $project */
         $project = $object;
         $language = $project->getDaedalus()->getLanguage();
 
         return [
             'id' => $project->getId(),
-            'key' => $project->getName()->value,
+            'key' => $project->getName(),
             'name' => $this->translationService->translate(
-                key: "{$project->getName()->value}.name",
+                key: "{$project->getName()}.name",
                 parameters: [],
                 domain: 'project',
                 language: $language
             ),
             'description' => $this->translationService->translate(
-                key: "{$project->getName()->value}.description",
+                key: "{$project->getName()}.description",
                 parameters: [],
                 domain: 'project',
                 language: $language
@@ -51,8 +55,8 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
             'efficiency' => $this->translationService->translate(
                 key: 'efficiency',
                 parameters: [
-                    'min_efficiency' => $project->getMinEfficiency(),
-                    'max_efficiency' => $project->getMaxEfficiency(),
+                    'min_efficiency' => $currentPlayer->getMinEfficiencyForProject($project),
+                    'max_efficiency' => $currentPlayer->getMaxEfficiencyForProject($project),
                 ],
                 domain: 'project',
                 language: $language

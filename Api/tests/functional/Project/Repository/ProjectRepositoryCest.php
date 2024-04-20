@@ -63,6 +63,6 @@ final class ProjectRepositoryCest extends AbstractFunctionalTest
         $this->projectRepository->clear();
 
         // then the project cannot be found
-        $I->assertNull($this->projectRepository->findByName($projectConfig->getName()));
+        $I->assertNull($this->projectRepository->findByName($projectConfig->getName()->value));
     }
 }

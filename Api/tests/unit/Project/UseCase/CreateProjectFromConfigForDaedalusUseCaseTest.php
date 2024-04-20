@@ -57,22 +57,21 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
         $createProjectFromConfigForDaedalusUseCase->execute($projectConfig, $daedalus);
 
         // then the project should be created as expected
-        $project = $this->projectRepository->findByName(ProjectName::PLASMA_SHIELD);
+        $project = $this->projectRepository->findByName(ProjectName::PLASMA_SHIELD->value);
         self::assertNotNull($project);
         self::assertProjectIsAsExpected($project, $projectConfig);
         self::assertEquals(expected: $daedalus, actual: $project->getDaedalus());
 
         // then Daedalus should have the project
-        self::assertNotEmpty($daedalus->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD));
+        self::assertNotEmpty($daedalus->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD->value));
     }
 
     private static function assertProjectIsAsExpected(Project $project): void
     {
-        self::assertEquals(expected: ProjectName::PLASMA_SHIELD, actual: $project->getName());
+        self::assertEquals(expected: ProjectName::PLASMA_SHIELD->value, actual: $project->getName());
         self::assertEquals(expected: ProjectType::NERON_PROJECT, actual: $project->getType());
         self::assertEquals(expected: 0, actual: $project->getProgress());
-        self::assertEquals(expected: 1, actual: $project->getMinEfficiency());
-        self::assertEquals(expected: 1, actual: $project->getMaxEfficiency());
+        self::assertEquals(expected: 1, actual: $project->getEfficiency());
         self::assertEquals(expected: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN], actual: $project->getBonusSkills());
     }
 }

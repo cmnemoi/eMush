@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Project\Entity\Project;
-use Mush\Project\Enum\ProjectName;
 
 /**
  * @template-extends ServiceEntityRepository<Daedalus>
@@ -30,7 +29,7 @@ final class ProjectRepository extends ServiceEntityRepository implements Project
         $this->entityManager->getConnection()->executeStatement('DELETE FROM project');
     }
 
-    public function findByName(ProjectName $name): ?Project
+    public function findByName(string $name): ?Project
     {
         $sql = 'SELECT project.* FROM project INNER JOIN project_config ON project.config_id = project_config.id WHERE project_config.name = :name';
 
@@ -38,7 +37,7 @@ final class ProjectRepository extends ServiceEntityRepository implements Project
         $rsm->addRootEntityFromClassMetadata(Project::class, 'project');
 
         $query = $this->entityManager->createNativeQuery($sql, $rsm);
-        $query->setParameter('name', $name->value);
+        $query->setParameter('name', $name);
 
         return $query->getOneOrNullResult();
     }

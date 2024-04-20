@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Project\Enum\ProjectName;
 use Mush\Project\Normalizer\ProjectNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -60,7 +59,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
     public function shouldNormalizeProject(FunctionalTester $I): void
     {
         // given I have a project
-        $project = $this->createProject(ProjectName::PILGRED, $I);
+        $project = $this->daedalus->getPilgred();
 
         // when I normalize the project
         $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
@@ -109,7 +108,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
     public function shouldNormalizeProjectInDaedalusNormalizationContext(FunctionalTester $I): void
     {
         // given I have a project
-        $project = $this->createProject(ProjectName::PILGRED, $I);
+        $project = $this->daedalus->getPilgred();
 
         // when I normalize the project in daedalus normalization context
         $normalizedProject = $this->projectNormalizer->normalize($project, null, [

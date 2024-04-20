@@ -87,6 +87,18 @@ class EquipmentEnum
         ]);
     }
 
+    public static function getTerminals(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ASTRO_TERMINAL,
+            self::COMMAND_TERMINAL,
+            self::BIOS_TERMINAL,
+            self::AUXILIARY_TERMINAL,
+            self::PILGRED,
+            self::RESEARCH_LABORATORY,
+        ]);
+    }
+
     public static function equipmentToNormalizeAsItems(): ArrayCollection
     {
         return new ArrayCollection([self::TABULATRIX]);

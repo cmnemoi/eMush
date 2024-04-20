@@ -5,6 +5,8 @@ namespace Mush\Hunter\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\ActionTargetInterface;
+use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
@@ -24,7 +26,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, ModifierHolderInterface, StatusHolderInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, ModifierHolderInterface, StatusHolderInterface, ActionTargetInterface
 {
     use TargetStatusTrait;
 
@@ -268,5 +270,10 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         $this->target = null;
 
         return $this;
+    }
+
+    public function getActionTargetName(array $context): string
+    {
+        return ActionTargetName::HUNTER->value;
     }
 }

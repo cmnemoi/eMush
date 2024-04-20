@@ -655,7 +655,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getMinEfficiencyForProject(Project $project): int
     {
         /** @var ?ChargeStatus $numberOfParticipationsStatus */
-        $numberOfParticipationsStatus = $this->getStatusByNameAndTarget('project_participations', $project);
+        $numberOfParticipationsStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
 
         $numberOfParticipations = $numberOfParticipationsStatus?->getCharge();
 

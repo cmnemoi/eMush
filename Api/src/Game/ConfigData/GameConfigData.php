@@ -423,6 +423,7 @@ class GameConfigData
                 'projects_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
+                PlayerStatusEnum::PROJECT_PARTICIPATIONS . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

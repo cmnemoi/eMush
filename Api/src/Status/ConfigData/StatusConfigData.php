@@ -1084,5 +1084,18 @@ class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'project_participations_default',
+            'statusName' => 'project_participations',
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => 'none',
+            'maxCharge' => null,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+        ],
     ];
 }

@@ -37,6 +37,15 @@ trait TargetStatusTrait
         return $status ?: null;
     }
 
+    public function getStatusByNameAndTarget(string $name, StatusHolderInterface $target): ?Status
+    {
+        $status = $this->getStatuses()
+            ->filter(static fn (Status $status) => ($status->getName() === $name && $status->getTarget() === $target))
+            ->first();
+
+        return $status ?: null;
+    }
+
     public function hasStatus(string $statusName): bool
     {
         return $this->getStatuses()->exists(static fn ($key, Status $status) => ($status->getName() === $statusName));

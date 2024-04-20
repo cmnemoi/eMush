@@ -1,12 +1,16 @@
 <template>
     <div class="project-container" v-if="terminal">
-        <ProjectCard v-for="project in terminal.projects" :key="project.key" :project="project" />
+        <p v-if="terminal.infos.pilgredIsFinished">
+            {{ formatText(terminal.infos.pilgredFinishedDescription) }}
+        </p>
+        <ProjectCard v-for="project in terminal.projects" :key="project.key" :project="project" v-else />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { formatText } from "@/utils/formatText";
 import ProjectCard from "@/components/Game/Terminals/ProjectCard.vue";
 import { Terminal } from "@/entities/Terminal";
 
@@ -22,7 +26,8 @@ export default defineComponent ({
         }
     },
     methods: {
-        getImgUrl
+        getImgUrl,
+        formatText
     }
 });
 </script>

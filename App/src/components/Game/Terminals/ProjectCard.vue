@@ -25,9 +25,12 @@
         <p class="efficiency">
             {{ project.efficiency }}
         </p>
-        <button class="action-participate">
-            Participer
-        </button>
+        <div class="repair-pilgred-action" v-if="repairPilgredAction">
+            <ActionButton
+                :action="repairPilgredAction"
+                @click="executeRepairPilgredAction(project, repairPilgredAction)"
+            />
+        </div>
     </div>
 </template>
 
@@ -36,21 +39,40 @@ import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import { SkillIconRecord } from "@/enums/skill.enum";
+import { Action } from "@/entities/Action";
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { Project } from "@/entities/Project";
+import { mapActions } from "vuex";
 
 export default defineComponent ({
     name: "ProjectCard",
+    components: {
+        ActionButton
+    },
     props: {
         project: {
-            type: Object,
+            type: Project,
             required: true
         }
     },
     computed: {
+        repairPilgredAction(): Action {
+            return this.project.repairPilgredAction;
+        },
         skillIcons() {
             return SkillIconRecord;
         }
     },
     methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction'
+        }),
+        async executeRepairPilgredAction(target: Project, action: Action): Promise<void> {
+            if (!target) throw new Error(`No target found for action ${action.key}`);
+            if (action.canExecute) {
+                await this.executeAction({ target, action });
+            }
+        },
         getImgUrl,
         formatText
     }

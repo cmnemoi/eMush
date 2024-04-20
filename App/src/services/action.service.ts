@@ -10,6 +10,7 @@ import store from "@/store";
 import { Hunter } from "@/entities/Hunter";
 import { Terminal } from "@/entities/Terminal";
 import { Planet } from "@/entities/Planet";
+import { Project } from "@/entities/Project";
 
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
@@ -17,7 +18,7 @@ const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "actions");
 
 const ActionService = {
-    executeTargetAction(target: Item | Equipment | Player | Hunter | Terminal | Planet | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {
+    executeTargetAction(target: Item | Equipment | Player | Hunter | Terminal | Planet | Project | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {
         const currentPlayer = store.getters["player/player"];
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
@@ -42,6 +43,8 @@ const ActionService = {
                 return { terminal: target.id };
             } else if (target instanceof Planet) {
                 return { planet: target.id };
+            } else if (target instanceof Project) {
+                return { project: target.id };
             } else {
                 return null;
             }

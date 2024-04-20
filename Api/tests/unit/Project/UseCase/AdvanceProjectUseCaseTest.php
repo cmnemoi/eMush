@@ -15,6 +15,8 @@ use PHPUnit\Framework\TestCase;
  */
 final class AdvanceProjectUseCaseTest extends TestCase
 {
+    private const PILGRED_EFFICIENCY = 1;
+
     private AdvanceProjectUseCase $advanceProjectUseCase;
     private InMemoryProjectRepository $projectRepository;
 
@@ -25,7 +27,7 @@ final class AdvanceProjectUseCaseTest extends TestCase
     {
         $this->advanceProjectUseCase = new AdvanceProjectUseCase(
             $this->projectRepository = new InMemoryProjectRepository(),
-            new FakeGetRandomIntegerService(result: 1)
+            new FakeGetRandomIntegerService(result: self::PILGRED_EFFICIENCY)
         );
     }
 

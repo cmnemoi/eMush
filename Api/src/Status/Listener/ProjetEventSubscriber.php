@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Status\Listener;
 
+use Mush\Player\Entity\Player;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\Exception\ProjetEventShouldHaveAnAuthorException;
 use Mush\Status\Entity\ChargeStatus;
@@ -30,6 +31,7 @@ final class ProjetEventSubscriber implements EventSubscriberInterface
     public function onProjectAdvanced(ProjectEvent $event): void
     {
         $this->incrementPlayerParticipationsToProject($event);
+        $this->resetOtherPlayersParticipationsToProject($event);
     }
 
     private function incrementPlayerParticipationsToProject(ProjectEvent $event): void
@@ -58,6 +60,34 @@ final class ProjetEventSubscriber implements EventSubscriberInterface
                 time: $event->getTime(),
                 target: $project,
             );
+        }
+    }
+
+    private function resetOtherPlayersParticipationsToProject(ProjectEvent $event): void
+    {
+        $author = $event->getAuthor();
+        $project = $event->getProject();
+        if (!$author) {
+            throw new ProjetEventShouldHaveAnAuthorException($project->getName());
+        }
+        $daedalus = $author->getDaedalus();
+
+        /** @var Player $player */
+        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
+            if ($player === $author) {
+                continue;
+            }
+
+            /** @var ChargeStatus $projectParticipationsStatus */
+            $projectParticipationsStatus = $player->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
+            if ($projectParticipationsStatus) {
+                $this->statusService->updateCharge(
+                    chargeStatus: $projectParticipationsStatus,
+                    delta: -$projectParticipationsStatus->getCharge(),
+                    tags: $event->getTags(),
+                    time: $event->getTime(),
+                );
+            }
         }
     }
 }

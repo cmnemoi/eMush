@@ -30,9 +30,8 @@ abstract class AbstractGameController extends AbstractFOSRestController
 
     /**
      * Checks if the user roles are present for SuperAdmin or Admin.
-     * @param User $user
-     * @return void
-     * @throws \LogicException If the user doesn't belong to our requirements.
+     *
+     * @throws \LogicException if the user doesn't belong to our requirements
      */
     protected function denyUnlessUserAdmin(User $user): void
     {

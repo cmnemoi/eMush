@@ -7,6 +7,8 @@ namespace Mush\Exploration\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\ActionTargetInterface;
+use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -14,7 +16,7 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet')]
-class Planet implements LogParameterInterface
+class Planet implements LogParameterInterface, ActionTargetInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -186,5 +188,10 @@ class Planet implements LogParameterInterface
     public function getLogName(): string
     {
         return $this->name->toString();
+    }
+
+    public function getActionTargetName(array $context): string
+    {
+        return ActionTargetName::PLANET->value;
     }
 }

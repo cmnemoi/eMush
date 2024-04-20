@@ -6,8 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\ActionTargetInterface;
+use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -33,7 +36,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'door' => Door::class,
     'game_item' => GameItem::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionTargetInterface
 {
     use TargetStatusTrait;
     use TimestampableEntity;
@@ -217,8 +220,8 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
                 return false;
             }
             if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES)
-                 && $status instanceof ChargeStatus
-                 && $status->getCharge() === 0
+                && $status instanceof ChargeStatus
+                && $status->getCharge() === 0
             ) {
                 return false;
             }
@@ -275,5 +278,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function isInSpaceBattle(): bool
     {
         return $this->isInAPatrolShip() || $this->isInSpace();
+    }
+
+    public function getActionTargetName(array $context): string
+    {
+        if (EquipmentEnum::equipmentToNormalizeAsItems()->contains($this->name)) {
+            return ActionTargetName::ITEM->value;
+        }
+
+        if (\array_key_exists(ActionTargetName::TERMINAL->value, $context) && $context[ActionTargetName::TERMINAL->value] === $this) {
+            return ActionTargetName::TERMINAL->value;
+        }
+
+        return ActionTargetName::EQUIPMENT->value;
     }
 }

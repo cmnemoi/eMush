@@ -50,6 +50,6 @@ final class RepairPilgred extends AbstractAction
         /** @var Project $project */
         $project = $this->target;
 
-        $this->advanceProjectUseCase->execute($project);
+        $this->advanceProjectUseCase->execute($this->player, $project);
     }
 }

@@ -30,4 +30,24 @@ final class ProjectConfigFactory
             bonusSkills: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN]
         );
     }
+
+    public static function createTrailReducerConfig(): ProjectConfig
+    {
+        return new ProjectConfig(
+            name: ProjectName::TRAIL_REDUCER,
+            type: ProjectType::NERON_PROJECT,
+            efficiency: 6,
+            bonusSkills: [SkillEnum::PILOT, SkillEnum::TECHNICIAN]
+        );
+    }
+
+    public static function createAutoWateringConfig(): ProjectConfig
+    {
+        return new ProjectConfig(
+            name: ProjectName::AUTO_WATERING,
+            type: ProjectType::NERON_PROJECT,
+            efficiency: 3,
+            bonusSkills: [SkillEnum::TECHNICIAN, SkillEnum::FIREFIGHTER]
+        );
+    }
 }

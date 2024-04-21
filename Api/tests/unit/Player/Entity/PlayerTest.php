@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Player\Entity;
 
+use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Project\Entity\Project;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
@@ -20,10 +22,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createPilgredProject();
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $numberOfParticipationsStatus
-            ->setTarget($project)
-            ->setCharge(1);
+        $this->setPlayerNumberOfParticipations($player, $project, 1);
 
         self::assertEquals(0, $player->getMinEfficiencyForProject($project));
     }
@@ -33,10 +32,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $numberOfParticipationsStatus
-            ->setTarget($project)
-            ->setCharge(1);
+        $this->setPlayerNumberOfParticipations($player, $project, 1);
 
         self::assertEquals(4, $player->getMinEfficiencyForProject($project));
     }
@@ -46,10 +42,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $numberOfParticipationsStatus
-            ->setTarget($project)
-            ->setCharge(2);
+        $this->setPlayerNumberOfParticipations($player, $project, 2);
 
         self::assertEquals(2, $player->getMinEfficiencyForProject($project));
     }
@@ -59,12 +52,9 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $numberOfParticipationsStatus
-            ->setTarget($project)
-            ->setCharge(3);
+        $this->setPlayerNumberOfParticipations($player, $project, 3);
 
-        self::assertEquals(1, $player->getMinEfficiencyForProject($project));
+        self::assertEquals(0, $player->getMinEfficiencyForProject($project));
     }
 
     public function testGetMinEfficiencyForHardProject(): void
@@ -72,10 +62,7 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createAutoWateringProject(); // base efficiency is 3
 
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $numberOfParticipationsStatus
-            ->setTarget($project)
-            ->setCharge(1);
+        $this->setPlayerNumberOfParticipations($player, $project, 1);
 
         self::assertEquals(1, $player->getMinEfficiencyForProject($project));
     }
@@ -85,11 +72,34 @@ final class PlayerTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $project = ProjectFactory::createAutoWateringProject(); // base efficiency is 3
 
+        $this->setPlayerNumberOfParticipations($player, $project, 2);
+
+        self::assertEquals(0, $player->getMinEfficiencyForProject($project));
+    }
+
+    public function testGetMaxEfficiencyForMediumDifficultyProject(): void
+    {
+        $player = PlayerFactory::createPlayer();
+        $project = ProjectFactory::createTrailReducerProject(); // base min efficiency is 6
+
+        self::assertEquals(9, $player->getMaxEfficiencyForProject($project));
+    }
+
+    public function testGetMaxEfficiencyForMediumDifficultyProjectAfterOneParticipations(): void
+    {
+        $player = PlayerFactory::createPlayer();
+        $project = ProjectFactory::createTrailReducerProject(); // base min efficiency is 6
+
+        $this->setPlayerNumberOfParticipations($player, $project, 1);
+
+        self::assertEquals(6, $player->getMaxEfficiencyForProject($project));
+    }
+
+    private function setPlayerNumberOfParticipations(Player $player, Project $project, int $charge): void
+    {
         $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
         $numberOfParticipationsStatus
             ->setTarget($project)
-            ->setCharge(2);
-
-        self::assertEquals(0, $player->getMinEfficiencyForProject($project));
+            ->setCharge($charge);
     }
 }

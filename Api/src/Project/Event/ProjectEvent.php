@@ -14,7 +14,7 @@ final class ProjectEvent extends AbstractGameEvent
     public const string PROJECT_ADVANCED = 'project.advanced';
     public const string PROJECT_FINISHED = 'project.finished';
 
-    protected Project $project;
+    private Project $project;
 
     public function __construct(
         Project $project,

@@ -6,7 +6,6 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Project\Entity\ProjectEfficiencyVariable;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -615,14 +614,6 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::EQUIPMENT,
             'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
             'name' => 'change.variable_turret_max_charge_+2',
-        ],
-        [
-            'type' => 'variable_event_config',
-            'quantity' => 1,
-            'targetVariable' => ProjectEfficiencyVariable::NAME,
-            'variableHolderClass' => ModifierHolderClassEnum::PROJECT,
-            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
-            'name' => 'change.variable_project_efficiency_+1',
         ],
     ];
 }

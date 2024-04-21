@@ -31,8 +31,6 @@ use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Project\Entity\ProjectEfficiencyVariable;
-use Mush\Project\Enum\ProjectType;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -61,7 +59,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE = 'defence_neron_cpu_priority_modifier_increased_turret_max_charge';
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
-    public const string PILGRED_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_PROJECT_EFFICIENCY = 'pilgred_neron_cpu_priority_modifier_plus_1_project_efficiency';
 
     public function load(ObjectManager $manager): void
     {
@@ -347,29 +344,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
-        $eventConfig = new VariableEventConfig();
-        $eventConfig
-            ->setTargetVariable(ProjectEfficiencyVariable::NAME)
-            ->setVariableHolderClass(ModifierHolderClassEnum::PROJECT)
-            ->setQuantity(1)
-            ->setEventName(VariableEventInterface::CHANGE_VARIABLE)
-            ->setName('increase_project_efficiency_event_config_test');
-        $manager->persist($eventConfig);
-
-        $modifierRequirementPilgredProjectType = new ModifierActivationRequirement(ModifierRequirementEnum::PROJECT_TYPE);
-        $modifierRequirementPilgredProjectType
-            ->setActivationRequirement(ProjectType::PILGRED->value)
-            ->setName('modifier_requirement_project_type_test');
-        $manager->persist($modifierRequirementPilgredProjectType);
-
-        $pilgredNeronCpuModifier = new DirectModifierConfig('pilgredNeronCpuPriorityModifierPlus1ProjectEfficiency');
-        $pilgredNeronCpuModifier
-            ->setTriggeredEvent($eventConfig)
-            ->setRevertOnRemove(true)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS)
-            ->setModifierActivationRequirements([$modifierRequirementPilgredProjectType]);
-        $manager->persist($pilgredNeronCpuModifier);
-
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -395,7 +369,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE, $defenceCpuPriorityIncreaseTurretRecharge);
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
-        $this->addReference(self::PILGRED_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_PROJECT_EFFICIENCY, $pilgredNeronCpuModifier);
     }
 
     public function getDependencies(): array

@@ -457,19 +457,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($projectsNeronCpuPriority);
 
-        $pilgredNeronCpuPriorityModifierPlus1Efficiency = $this->getReference(StatusModifierConfigFixtures::PILGRED_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_PROJECT_EFFICIENCY);
-
-        /** @var array<int, VariableEventModifierConfig> $modifierConfigs */
-        $modifierConfigs = [$pilgredNeronCpuPriorityModifierPlus1Efficiency];
-
-        $pilgredNeronCpuPriority = new StatusConfig();
-        $pilgredNeronCpuPriority
-            ->setStatusName(DaedalusStatusEnum::PILGRED_NERON_CPU_PRIORITY)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setModifierConfigs($modifierConfigs)
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($pilgredNeronCpuPriority);
-
         /** @var VariableEventModifierConfig $increasedMaxCharge */
         $increasedMaxCharge = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE);
 
@@ -537,8 +524,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($pocPilotSkill)
             ->addStatusConfig($astronavigationNeronCpuPriority)
             ->addStatusConfig($defenceCpuPriority)
-            ->addStatusConfig($projectsNeronCpuPriority)
-            ->addStatusConfig($pilgredNeronCpuPriority);
+            ->addStatusConfig($projectsNeronCpuPriority);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -587,7 +573,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::POC_PILOT_SKILL_STATUS, $pocPilotSkill);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS, $astronavigationNeronCpuPriority);
         $this->addReference(DaedalusStatusEnum::PROJECTS_NERON_CPU_PRIORITY, $projectsNeronCpuPriority);
-        $this->addReference(DaedalusStatusEnum::PILGRED_NERON_CPU_PRIORITY, $pilgredNeronCpuPriority);
 
         $manager->flush();
     }

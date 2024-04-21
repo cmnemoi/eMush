@@ -212,6 +212,7 @@ class AbstractFunctionalTest
         $project = new Project($projectConfig, $this->daedalus);
 
         $I->haveInRepository($project);
+        $this->daedalus->addProject($project);
 
         return $project;
     }

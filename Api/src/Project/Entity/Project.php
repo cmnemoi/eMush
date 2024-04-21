@@ -10,7 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
+use Mush\Game\Entity\Collection\GameVariableCollection;
+use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Project\Enum\ProjectType;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -20,7 +25,7 @@ use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface
+class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface, GameVariableHolderInterface, ModifierHolderInterface
 {
     use TargetStatusTrait;
 
@@ -32,6 +37,9 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     #[ORM\ManyToOne(targetEntity: ProjectConfig::class)]
     private ProjectConfig $config;
 
+    #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
+    private ProjectEfficiencyVariable $efficiency;
+
     #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
     private int $progress = 0;
 
@@ -41,9 +49,13 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GameModifier::class, cascade: ['REMOVE'])]
+    private Collection $modifiers;
+
     public function __construct(ProjectConfig $config, Daedalus $daedalus)
     {
         $this->config = $config;
+        $this->efficiency = new ProjectEfficiencyVariable($config->getEfficiency());
         $this->daedalus = $daedalus;
         $this->statuses = new ArrayCollection();
     }
@@ -65,14 +77,14 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 
     public function getEfficiency(): int
     {
-        $efficiency = $this->config->getEfficiency();
-        if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PILGRED) && $this->isPilgred()) {
-            return ++$efficiency;
-        } else if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PROJECTS) && $this->isNeronProject()) {
-            return ++$efficiency;
-        }
+        return $this->getVariableByName(ProjectEfficiencyVariable::NAME)->getValue();
+    }
 
-        return $efficiency;
+    public function updateEfficiency(int $efficiency): static
+    {
+        $this->efficiency->getVariableByName(ProjectEfficiencyVariable::NAME)->changeValue($efficiency);
+
+        return $this;
     }
 
     public function getBonusSkills(): array
@@ -134,13 +146,41 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
         return $this->progress >= 100;
     }
 
-    private function isNeronProject(): bool
+    public function hasVariable(string $variableName): bool
     {
-        return $this->getType() === ProjectType::NERON_PROJECT;
+        return $this->efficiency->hasVariable($variableName);
     }
 
-    private function isPilgred(): bool
+    public function getVariableByName(string $variableName): GameVariable
     {
-        return $this->getType() === ProjectType::PILGRED;
+        if (!$this->hasVariable($variableName)) {
+            throw new \InvalidArgumentException("Variable with name {$variableName} not found");
+        }
+
+        return $this->efficiency->getVariableByName($variableName);
+    }
+
+    public function getGameVariables(): GameVariableCollection
+    {
+        return $this->efficiency;
+    }
+
+    public function getModifiers(): ModifierCollection
+    {
+        return new ModifierCollection($this->modifiers->toArray());
+    }
+
+    public function getAllModifiers(): ModifierCollection
+    {
+        $allModifiers = new ModifierCollection($this->modifiers->toArray());
+
+        return $allModifiers->addModifiers($this->daedalus->getModifiers());
+    }
+
+    public function addModifier(GameModifier $modifier): static
+    {
+        $this->modifiers->add($modifier);
+
+        return $this;
     }
 }

@@ -11,7 +11,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerSubscriber implements EventSubscriberInterface
+final class PlayerSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
     private TranslationServiceInterface $translationService;
@@ -24,7 +24,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->translationService = $translationService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
@@ -63,7 +63,6 @@ class PlayerSubscriber implements EventSubscriberInterface
             }
 
             $isGoodEndCause = $this->isGoodEndCause($endCause);
-
             $logParameters[LanguageEnum::END_CAUSE] = $this->translationService->translate(
                 $endCause,
                 [],

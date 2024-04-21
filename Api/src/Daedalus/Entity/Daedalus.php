@@ -672,4 +672,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this->getGameConfig()->getProjectConfigs();
     }
+
+    public function isCpuPriorityOn(string $cpuPriority): bool
+    {
+        return $this->getDaedalusInfo()->getNeron()->getCpuPriority() === $cpuPriority;
+    }
 }

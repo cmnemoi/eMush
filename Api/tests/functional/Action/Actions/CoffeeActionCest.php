@@ -8,6 +8,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -38,11 +39,10 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 {
     private Action $coffeeActionConfig;
     private Coffee $coffeeAction;
-
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -53,7 +53,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testCanReach(FunctionalTester $I)
+    public function testCanReach(FunctionalTester $I): void
     {
         $room1 = new Place();
         $room2 = new Place();
@@ -77,7 +77,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->coffeeAction->isVisible());
     }
 
-    public function testHasAction(FunctionalTester $I)
+    public function testHasAction(FunctionalTester $I): void
     {
         $room = new Place();
 
@@ -97,7 +97,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->coffeeAction->isVisible());
     }
 
-    public function testBroken(FunctionalTester $I)
+    public function testBroken(FunctionalTester $I): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -118,12 +118,12 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::BROKEN)
             ->setVisibility(VisibilityEnum::PUBLIC);
-        $status = new Status($gameEquipment, $statusConfig);
+        new Status($gameEquipment, $statusConfig);
 
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->coffeeAction->cannotExecuteReason());
     }
 
-    public function testNotCharged(FunctionalTester $I)
+    public function testNotCharged(FunctionalTester $I): void
     {
         $pilgred = ProjectFactory::createPilgredProject();
         $daedalus = $pilgred->getDaedalus();
@@ -181,7 +181,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()
         );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::DAEDALUS_NEW_CYCLE);
+        $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Chun should be able to execute the coffee action again
         $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);

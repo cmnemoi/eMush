@@ -7,7 +7,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 
 class DaedalusInitEvent extends DaedalusCycleEvent
 {
-    public const NEW_DAEDALUS = 'new.daedalus';
+    public const string NEW_DAEDALUS = 'new.daedalus';
 
     private DaedalusConfig $daedalusConfig;
 

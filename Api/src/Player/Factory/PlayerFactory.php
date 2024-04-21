@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Player\Factory;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -25,6 +26,14 @@ final class PlayerFactory
 
         $player = new Player();
         new PlayerInfo($player, $user, $characterConfig);
+
+        return $player;
+    }
+
+    public static function createPlayerWithDaedalus(Daedalus $daedmlus): Player
+    {
+        $player = self::createPlayer();
+        $player->setDaedalus($daedmlus);
 
         return $player;
     }

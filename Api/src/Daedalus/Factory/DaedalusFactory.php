@@ -7,6 +7,7 @@ namespace Mush\Daedalus\Factory;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
@@ -20,7 +21,8 @@ final class DaedalusFactory
     {
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables(new DaedalusConfig());
-        new DaedalusInfo($daedalus, new GameConfig(), self::getFrenchLocalizationConfig());
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), self::getFrenchLocalizationConfig());
+        $daedalusInfo->setNeron(new Neron());
 
         self::createSpacePlace($daedalus);
         self::setId($daedalus);

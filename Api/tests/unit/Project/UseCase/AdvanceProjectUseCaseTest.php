@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Project\UseCase;
 
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Service\FakeGetRandomIntegerService;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Factory\ProjectFactory;
@@ -35,7 +36,8 @@ final class AdvanceProjectUseCaseTest extends TestCase
     public function testShouldMakeProjectProgress(): void
     {
         // given I have a player
-        $player = PlayerFactory::createPlayer();
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
         // given I have a project at 0% progress
         $project = ProjectFactory::createPilgredProject();

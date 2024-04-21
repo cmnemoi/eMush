@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Project\Enum\ProjectType;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -65,14 +64,7 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 
     public function getEfficiency(): int
     {
-        $efficiency = $this->config->getEfficiency();
-        if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PILGRED) && $this->isPilgred()) {
-            return ++$efficiency;
-        } else if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PROJECTS) && $this->isNeronProject()) {
-            return ++$efficiency;
-        }
-
-        return $efficiency;
+        return $this->config->getEfficiency();
     }
 
     public function getBonusSkills(): array
@@ -134,12 +126,12 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
         return $this->progress >= 100;
     }
 
-    private function isNeronProject(): bool
+    public function isNeronProject(): bool
     {
         return $this->getType() === ProjectType::NERON_PROJECT;
     }
 
-    private function isPilgred(): bool
+    public function isPilgred(): bool
     {
         return $this->getType() === ProjectType::PILGRED;
     }

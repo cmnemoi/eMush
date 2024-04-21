@@ -20,6 +20,7 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -216,7 +217,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun repairs the PILGRED project with CPU priority
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject, true);
+        $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be 1
         $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
@@ -224,6 +225,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
     {
+        /** @var ChargeStatus $status */
         $status = $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::PROJECT_PARTICIPATIONS,
             holder: $player,

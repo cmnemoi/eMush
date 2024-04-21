@@ -195,14 +195,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
      */
     public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
-        if (
-            $gameEquipment instanceof Door
-            && $gameEquipment->getRooms()->contains($this->getPlace())
-        ) {
+        if ($gameEquipment instanceof Door && $gameEquipment->getRooms()->contains($this->getPlace())) {
             return true;
         }
 
-        if ($gameEquipment->getEquipment()->isPersonal() && $gameEquipment->getOwner() !== $this) {
+        if ($gameEquipment->getOwner() !== $this && $gameEquipment->getEquipment()->isPersonal()) {
             return false;
         }
 
@@ -255,8 +252,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function hasOperationalEquipmentByName(string $name): bool
     {
         return !$this->getEquipments()->filter(
-            static fn (GameItem $gameItem) => $gameItem->getName() === $name
-                && $gameItem->isOperational()
+            static fn (GameItem $gameItem) => $gameItem->getName() === $name && $gameItem->isOperational()
         )->isEmpty();
     }
 
@@ -273,6 +269,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             if (!$statusTarget = $status->getStatusTargetTarget()) {
                 $statusTarget = new StatusTarget();
             }
+
             $statusTarget->setOwner($status);
             $statusTarget->setPlayer($this);
             $this->statuses->add($statusTarget);
@@ -656,8 +653,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getMinEfficiencyForProject(Project $project): int
     {
-        $efficiency = $project->getEfficiency();
-        $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
+        $efficiency = $this->getEfficiencyWithParticipationMalus($project->getEfficiency(), $project);
 
         return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
     }
@@ -674,7 +670,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getEfficiencyWithParticipationMalus(int $efficiency, Project $project): int
     {
-        $efficiency -= $this->getNumberOfParticipationsToProject($project) * Project::PARTICIPATION_MALUS;
+        $efficiency -= $this->getNumberOfParticipationToProject($project) * Project::PARTICIPATION_MALUS;
 
         return max(0, $efficiency);
     }
@@ -691,11 +687,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $efficiency;
     }
 
-    private function getNumberOfParticipationsToProject(Project $project): int
+    private function getNumberOfParticipationToProject(Project $project): int
     {
-        /** @var ?ChargeStatus $numberOfParticipationsStatus */
-        $numberOfParticipationsStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
+        /** @var ?ChargeStatus $numberOfParticipationStatus */
+        $numberOfParticipationStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
 
-        return $numberOfParticipationsStatus?->getCharge() ?? 0;
+        return $numberOfParticipationStatus?->getCharge() ?? 0;
     }
 }

@@ -155,13 +155,10 @@ class StatusTarget
         return $this->project;
     }
 
-    public function setProject(?Project $project): self
+    public function setProject(Project $project): self
     {
         $this->project = $project;
-
-        if ($project !== null) {
-            $project->addStatusTarget($this);
-        }
+        $project->addStatusTarget($this);
 
         return $this;
     }

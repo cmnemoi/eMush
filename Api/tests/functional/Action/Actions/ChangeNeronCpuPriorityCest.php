@@ -38,7 +38,7 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 
     private GameEquipment $biosTerminal;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->changeNeronCpuPriorityConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY]);

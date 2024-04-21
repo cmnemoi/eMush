@@ -4,6 +4,7 @@ namespace Mush\Modifier\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Project\Enum\ProjectType;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -116,6 +117,12 @@ class ModifierActivationRequirementData
             'name' => 'holder_name_turret',
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
             'activationRequirement' => EquipmentEnum::TURRET_COMMAND,
+            'value' => 100,
+        ],
+        [
+            'name' => 'project_type_pilgred',
+            'activationRequirementName' => ModifierRequirementEnum::PROJECT_TYPE,
+            'activationRequirement' => ProjectType::PILGRED->value,
             'value' => 100,
         ],
     ];

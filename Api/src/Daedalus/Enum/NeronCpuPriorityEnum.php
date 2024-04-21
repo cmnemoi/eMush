@@ -18,6 +18,7 @@ abstract class NeronCpuPriorityEnum
     public static array $statusMap = [
         self::ASTRONAVIGATION => DaedalusStatusEnum::ASTRONAVIGATION_NERON_CPU_PRIORITY,
         self::DEFENCE => DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY,
+        self::PILGRED => DaedalusStatusEnum::PILGRED_NERON_CPU_PRIORITY,
         self::PROJECTS => DaedalusStatusEnum::PROJECTS_NERON_CPU_PRIORITY,
     ];
 

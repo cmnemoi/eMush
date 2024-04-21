@@ -25,6 +25,8 @@ namespace Mush\Modifier\Enum;
  *
  * HOLDER_NAME: the activation requirement is applied on the name of the holder (used mostly for equipments)
  *
+ * PROJECT_TYPE: the activation requirement is applied given the type of the project (RESEARCH, NERON_PROJECT, PILGRED)
+ *
  * The following conditions are used on EventModifiers, the tags of the event are compared with the tagConstraint of the modifier
  * ANY_TAG: The event must have at least ONE of the following tag
  * ALL_TAG: The event must have ALL the following tags
@@ -44,6 +46,7 @@ abstract class ModifierRequirementEnum
     public const string PLAYER_EQUIPMENT = 'player_equipment';
     public const string HOLDER_HAS_STATUS = 'status';
     public const string HOLDER_NAME = 'holder_name';
+    public const string PROJECT_TYPE = 'project_type';
     public const string ANY_TAGS = 'any_tags';
     public const string NONE_TAGS = 'none_tags';
     public const string ALL_TAGS = 'all_tags';

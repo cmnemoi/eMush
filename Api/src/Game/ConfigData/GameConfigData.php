@@ -6,6 +6,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -424,6 +425,7 @@ class GameConfigData
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
                 PlayerStatusEnum::PROJECT_PARTICIPATIONS . '_default',
+                DaedalusStatusEnum::PILGRED_NERON_CPU_PRIORITY . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

@@ -1097,5 +1097,14 @@ class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'pilgred_neron_cpu_priority_default',
+            'statusName' => 'pilgred_neron_cpu_priority',
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                'modifier_for_daedalus_+1_pilgred_efficiency',
+            ],
+        ],
     ];
 }

@@ -1975,5 +1975,16 @@ class ModifierConfigData
                 PlanetSectorEnum::CAVE => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_daedalus_+1_pilgred_efficiency',
+            'modifierName' => null,
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'modifierRange' => 'daedalus',
+            'type' => 'direct_modifier',
+            'triggeredEvent' => 'change.variable_project_efficiency_+1',
+            'visibility' => null,
+            'modifierActivationRequirements' => ['project_type_pilgred'],
+            'revertOnRemove' => true,
+        ],
     ];
 }

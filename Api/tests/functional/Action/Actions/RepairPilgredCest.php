@@ -10,6 +10,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
+use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -31,6 +33,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     private Action $actionConfig;
     private RepairPilgred $repairPilgredAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -41,6 +44,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun is focused on PILGRED terminal
@@ -169,8 +173,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // given PILGRED progress is 99%
-        $pilgredProjectReflection = new \ReflectionClass($pilgredProject);
-        $pilgredProjectReflection->getProperty('progress')->setValue($pilgredProject, 99);
+        $pilgredProject->makeProgress(99);
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
@@ -190,8 +193,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // given PILGRED progress is 100%
-        $pilgredProjectReflection = new \ReflectionClass($pilgredProject);
-        $pilgredProjectReflection->getProperty('progress')->setValue($pilgredProject, 100);
+        $pilgredProject->makeProgress(100);
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
@@ -199,6 +201,25 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // then the action should not be visible
         $I->assertFalse($this->repairPilgredAction->isVisible());
+    }
+
+    public function shouldPutEfficiencyToOneWithCpuPriority(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->daedalus->getPilgred();
+
+        // given CPU priority is set on the PILGRED project
+        $this->neronService->changeCpuPriority(
+            neron: $this->daedalus->getDaedalusInfo()->getNeron(),
+            cpuPriority: NeronCpuPriorityEnum::PILGRED,
+        );
+
+        // when Chun repairs the PILGRED project with CPU priority
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject, true);
+
+        // then Chun's efficiency should be 1
+        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

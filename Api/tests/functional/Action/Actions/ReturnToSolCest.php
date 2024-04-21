@@ -181,4 +181,23 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             );
         }
     }
+
+    public function shouldNotTriggerTraumaDiseases(FunctionalTester $I): void
+    {
+        // given Pilgred is finished
+        $pilgred = $this->daedalus->getPilgred();
+        $pilgred->makeProgress(100);
+
+        // when Chun executes ReturnToSol action
+        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->execute();
+
+        // then no trauma diseases should be triggered
+        $I->cantSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::TRAUMA_DISEASE,
+            ]
+        );
+    }
 }

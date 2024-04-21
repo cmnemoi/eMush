@@ -678,7 +678,7 @@ class StatusConfigData
             'visibility' => 'hidden',
             'type' => 'charge_status_config',
             'chargeVisibility' => 'hidden',
-            'chargeStrategy' => 'daily_increment',
+            'chargeStrategy' => 'coffee_machine_charge_increment',
             'maxCharge' => 1,
             'startCharge' => 1,
             'dischargeStrategies' => ['coffee'],

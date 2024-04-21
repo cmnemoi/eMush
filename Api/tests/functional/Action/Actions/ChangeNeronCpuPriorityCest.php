@@ -51,8 +51,9 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         // given I have a Nexus on this Daedalus
         $nexus = $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);
 
-        // given player is in the nexus
-        $this->player->changePlace($nexus);
+        // given Chun and KT are in the nexus
+        $this->chun->changePlace($nexus);
+        $this->kuanTi->changePlace($nexus);
 
         // given I have a BIOS terminal in the nexus
         $this->biosTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -145,5 +146,83 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 
         // then the action should be executable
         $I->assertNull($this->changeNeronCpuPriorityAction->cannotExecuteReason());
+    }
+
+    public function shouldImproveEfficiencyForPilgredProjectWithPilgredCpuPriority(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->daedalus->getPilgred();
+
+        // given Chun is focused on the bios terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->biosTerminal,
+        );
+
+        // when CPU priority is set to PILGRED
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            $this->changeNeronCpuPriorityConfig,
+            $this->chun,
+            $this->biosTerminal,
+            ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
+        );
+        $this->changeNeronCpuPriorityAction->execute();
+
+        // then Chun's min efficiency should be 2
+        $I->assertEquals(2, $this->chun->getMinEfficiencyForProject($pilgredProject));
+
+        // then Chun's max efficiency should be 3
+        $I->assertEquals(3, $this->chun->getMaxEfficiencyForProject($pilgredProject));
+    }
+
+    public function shouldResetPilgredEfficiencyWhenRemovingPilgredCpuPriority(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->daedalus->getPilgred();
+
+        // given Chun is focused on the bios terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->biosTerminal,
+        );
+
+        // given KT is focused on the bios terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->biosTerminal,
+        );
+
+        // given CPU priority is set to PILGRED
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            $this->changeNeronCpuPriorityConfig,
+            $this->chun,
+            $this->biosTerminal,
+            ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
+        );
+        $this->changeNeronCpuPriorityAction->execute();
+
+        // when CPU priority is set to None
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            $this->changeNeronCpuPriorityConfig,
+            $this->kuanTi,
+            $this->biosTerminal,
+            ['cpuPriority' => NeronCpuPriorityEnum::NONE]
+        );
+        $this->changeNeronCpuPriorityAction->execute();
+
+        // then Chun's min efficiency should be 1
+        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
+
+        // then Chun's max efficiency should be 1
+        $I->assertEquals(1, $this->chun->getMaxEfficiencyForProject($pilgredProject));
     }
 }

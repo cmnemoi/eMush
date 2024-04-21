@@ -47,12 +47,6 @@ final class ProjectConfigData
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
             ],
             [
-                'name' => ProjectName::PATROL_SHIP_EXTRA_AMMO,
-                'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
-            ],
-            [
                 'name' => ProjectName::TURRET_EXTRA_FIRE_RATE,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 12,

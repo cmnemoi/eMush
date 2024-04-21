@@ -648,6 +648,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $project;
     }
 
+    public function hasProject(ProjectName $projectName): bool
+    {
+        return $this->projects->exists(static fn ($key, Project $project) => $project->getName() === $projectName->value);
+    }
+
     public function getPilgred(): Project
     {
         return $this->getProjectByName(ProjectName::PILGRED);

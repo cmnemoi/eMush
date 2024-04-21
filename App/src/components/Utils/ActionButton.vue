@@ -55,6 +55,6 @@ export default defineComponent ({
     margin: 0.2rem;
 }
 .wide {
-    min-width: 10em;
+    min-width: 15em;
 }
 </style>

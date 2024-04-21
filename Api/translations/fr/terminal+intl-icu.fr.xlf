@@ -28,6 +28,10 @@ Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète
         <source>command_terminal.general_informations</source>
         <target>Informations générales</target>
       </segment>
+      <segment id="pilgred" state="final">
+        <source>command_terminal.pilgred</source>
+        <target>Pilgred</target>
+      </segment>
       <segment id="difficulty_normal" state="final">
         <source>command_terminal.difficulty_normal</source>
         <target>Nous voyageons actuellement dans l'**Espace proche**.</target>

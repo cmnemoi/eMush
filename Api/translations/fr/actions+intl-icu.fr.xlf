@@ -1109,6 +1109,14 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>return_to_sol.description</source>
         <target>Après tout ce temps, peut-être serait-il temps de voir ce qu'il se passe sur Sol.</target>
       </segment>
+      <segment id="description" state="final">
+        <source>return_to_sol.confirmation</source>
+        <target>{character_gender, select,
+                male {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
+                female {Cette action est lourde de conséquences. Êtes-vous sûre de vouloir continuer ?}
+                other {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
+                }</target>
+      </segment>
     </unit>
   </file>
 </xliff>

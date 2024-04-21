@@ -3,7 +3,11 @@
         <p v-if="terminal.infos.pilgredIsFinished">
             {{ formatText(terminal.infos.pilgredFinishedDescription) }}
         </p>
-        <ProjectCard v-for="project in terminal.projects" :key="project.key" :project="project" v-else />
+        <ProjectCard
+            v-for="project in terminal.projects"
+            :key="project.key"
+            :project="project"
+            v-else />
     </div>
 </template>
 

@@ -3,6 +3,7 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -12,6 +13,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
@@ -43,8 +45,8 @@ class ChargedValidator extends ConstraintValidator
         $chargeStatus = $this->getChargeStatus($value->getActionName(), $actionTarget);
 
         if ($chargeStatus !== null && $chargeStatus->getCharge() <= 0) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
+            $message = $this->getViolationMessage($chargeStatus, $constraint);
+            $this->context->buildViolation($message)->addViolation();
         }
     }
 
@@ -78,5 +80,20 @@ class ChargedValidator extends ConstraintValidator
         }
 
         return $shootingEquipment;
+    }
+
+    private function getViolationMessage(ChargeStatus $chargeStatus, Constraint $constraint): string
+    {
+        $daedalus = $chargeStatus->getOwner()->getDaedalus();
+
+        if ($chargeStatus->getStrategy() === ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT) {
+            if ($daedalus->isPilgredFinished()) {
+                return ActionImpossibleCauseEnum::CYCLE_LIMIT;
+            }
+
+            return ActionImpossibleCauseEnum::DAILY_LIMIT;
+        }
+
+        return $constraint->message;
     }
 }

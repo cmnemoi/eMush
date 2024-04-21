@@ -42,7 +42,7 @@ class Coffee extends AbstractAction
         $metadata->addConstraint(new HasStatus([
             'status' => EquipmentStatusEnum::BROKEN, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
-        $metadata->addConstraint(new Charged(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT]));
+        $metadata->addConstraint(new Charged(['groups' => ['execute']]));
     }
 
     protected function support(?LogParameterInterface $target, array $parameters): bool

@@ -6,6 +6,7 @@ use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ChargedValidator;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
@@ -76,7 +77,11 @@ final class ChargedValidatorTest extends TestCase
         $itemConfig = new ItemConfig();
         $itemConfig->setIsBreakable(false);
 
-        $target = new GameItem(new Place());
+        $daedalus = new Daedalus();
+        $place = new Place();
+        $place->setDaedalus($daedalus);
+
+        $target = new GameItem($place);
         $target->setEquipment($itemConfig);
 
         $action = \Mockery::mock(AbstractAction::class);

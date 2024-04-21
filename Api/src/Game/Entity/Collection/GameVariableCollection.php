@@ -10,7 +10,6 @@ use Mush\Daedalus\Entity\DaedalusVariables;
 use Mush\Game\Entity\GameVariable;
 use Mush\Hunter\Entity\HunterVariables;
 use Mush\Player\Entity\PlayerVariables;
-use Mush\Project\Entity\ProjectEfficiencyVariable;
 use Mush\Status\Entity\ChargeVariable;
 
 #[ORM\Entity]
@@ -22,7 +21,6 @@ use Mush\Status\Entity\ChargeVariable;
     'actionVariables' => ActionVariables::class,
     'hunterVariables' => HunterVariables::class,
     'chargeVariable' => ChargeVariable::class,
-    'projectEfficiency' => ProjectEfficiencyVariable::class,
 ])]
 abstract class GameVariableCollection
 {

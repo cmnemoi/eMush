@@ -158,7 +158,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
       </segment>
       <segment id="cpu_priority.description" state="translated">
         <source>bios_terminal.cpu_priority_description</source>
-        <target>Contrôle la répartition des tranches CPU. Soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.</target>
+        <target>Contrôle la répartition des tranches CPU. Soit elle rend les projets plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.</target>
       </segment>
       <segment id="cpu_priority.astronavigation" state="translated">
         <source>bios_terminal.cpu_priority_astronavigation</source>

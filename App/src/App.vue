@@ -31,7 +31,7 @@ export default defineComponent({
     name: 'App',
     head() {
         return {
-            title: this.$t('title'),
+            title: this.$t('title.headline'),
             meta: [
                 { name: 'description', content: this.$t('metaSeo.description') },
                 { name: 'og:title', content: this.$t('metaSeo.og:title') },

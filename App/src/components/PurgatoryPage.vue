@@ -87,7 +87,7 @@ export default defineComponent ({
     name: 'Purgatory',
     head() {
         return {
-            title: this.$t('deathpage.title')
+            title: this.deadPlayerInfo?.hasGoodEndCause() ? this.$t('title.endOfAdventure') : this.$t('title.youAreDead')
         };
     },
     components: { CommsPanel, HistoryLogs },

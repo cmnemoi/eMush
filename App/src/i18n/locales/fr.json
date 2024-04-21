@@ -1,5 +1,9 @@
 {
-	"title": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
+	"title": {
+		"endOfAdventure": "eMush - Fin de l'aventure !",
+		"headline": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
+		"youAreDead": "eMush - Vous êtes mort !"
+	},
 	"alpha": {
 		"homepage": "<em>eMush</em> n'est actuellement pas ouvert au public car le jeu n'est pas terminé et est infesté de <em class='red'>Mushs</em> <em>!!!</em><br><br>Si vous êtes intéressés par le projet, n'hésitez pas à nous rejoindre sur <a href='https://discord.gg/ERc3svy'>Discord</a> et sur les <a href='https://eternal-twin.net/forum'>forums d'Eternaltwin</a>. Toutes les informations sont disponibles sur <a href='https://eternal-twin.net'>Eternaltwin</a>.<br><br>Concernant eMush alpha, des vaisseaux privés sont lancés régulièrement avec des volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>. Pour faire partie d'un vaisseau alpha, vous aurez besoin d'un compte <a href='https://eternal-twin.net/'>Eternaltwin</a> et de rejoindre la liste de volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si vous n'êtes pas sélectionnés pour un vaisseau alpha , pas d'inquiétude !</em> La liste des personnes sélectionnées change pour chaque vaisseau afin de fournir une chance à tous.",
 		"valide": "Valider",
@@ -156,7 +160,6 @@
 	"login": "Connexion",
 	"logout": "Déconnexion",
 	"deathpage": {
-		"title": "eMush - Vous êtes mort !",
 		"name": "Nom",
 		"death": "Mort",
 		"reason": "Cause",

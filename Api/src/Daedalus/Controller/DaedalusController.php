@@ -20,7 +20,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
-use Mush\User\Enum\RoleEnum;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -29,7 +28,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -40,7 +38,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class DaedalusController extends AbstractGameController
 {
-    private const MAX_CHARACTERS_TO_RETURN = 4;
+    private const int MAX_CHARACTERS_TO_RETURN = 4;
 
     private DaedalusServiceInterface $daedalusService;
     private DaedalusWidgetServiceInterface $daedalusWidgetService;
@@ -153,7 +151,7 @@ class DaedalusController extends AbstractGameController
         $playerInfo = $this->playerInfoRepository->findCurrentGameByUser($user);
 
         if (!$playerInfo) {
-            throw new AccessDeniedException('User should be in game');
+            throw $this->createAccessDeniedException('User should be in game');
         }
 
         return $this->view($this->daedalusWidgetService->getMinimap($daedalus, $playerInfo->getPlayer()), 200);
@@ -211,12 +209,7 @@ class DaedalusController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-
-        $userRoles = $user->getRoles();
-        if (!(\in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
-            || \in_array(RoleEnum::ADMIN, $userRoles, true))) {
-            throw new AccessDeniedException('User is not an admin');
-        }
+        $this->denyUnlessUserAdmin($user);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $daedalusCreateRequest->getConfig();
@@ -243,12 +236,7 @@ class DaedalusController extends AbstractGameController
     {
         /** @var User $user */
         $user = $this->getUser();
-
-        $userRoles = $user->getRoles();
-        if (!(\in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
-            || \in_array(RoleEnum::ADMIN, $userRoles, true))) {
-            throw new AccessDeniedException('User is not an admin');
-        }
+        $this->denyUnlessUserAdmin($user);
 
         $daedalusId = $request->get('id');
 
@@ -287,12 +275,7 @@ class DaedalusController extends AbstractGameController
     {
         /** @var User $user */
         $user = $this->getUser();
-
-        $userRoles = $user->getRoles();
-        if (!(\in_array(RoleEnum::SUPER_ADMIN, $userRoles, true)
-            || \in_array(RoleEnum::ADMIN, $userRoles, true))) {
-            throw new AccessDeniedException('User is not an admin');
-        }
+        $this->denyUnlessUserAdmin($user);
 
         $daedaluses = $this->daedalusService->findAllNonFinishedDaedaluses();
         if (\count($daedaluses) === 0) {

@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import GamePage from "@/components/GamePage.vue";
 import RankingPage from "@/components/Ranking/RankingPage.vue";
 import ShipRanking from "@/components/Ranking/ShipRanking.vue";
@@ -247,7 +247,7 @@ const routes = [
     {
         path: "/expPerma/:id",
         name: "ClosedExpeditionPanel",
-        component: ClosedExpeditionPanel,
+        component: ClosedExpeditionPanel
     },
     {
         path: "/token",

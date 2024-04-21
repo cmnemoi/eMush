@@ -49,7 +49,7 @@ const ActionService = {
     },
     loadAction: async(actionId: number): Promise<Action | null> => {
         store.dispatch('action/setLoading', { loading: true });
-        const actionData = await ApiService.get(ACTION_ENDPOINT + '/' + actionId + '?XDEBUG_SESSION_START=PHPSTORM')
+        const actionData = await ApiService.get(ACTION_ENDPOINT + '/' + actionId)
             .finally(() => (store.dispatch('action/setLoading', { loading: false })));
         store.dispatch('action/setLoading', { loading: false });
         let action = null;

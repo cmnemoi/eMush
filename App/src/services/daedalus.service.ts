@@ -52,7 +52,7 @@ const DaedalusService = {
     },
     loadClosedDaedalus: async (closedDaedalusId: integer): Promise<ClosedDaedalus | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
-        const closedDaedalusData = await ApiService.get(CLOSED_DAEDALUS_ENDPOINT + '/' + closedDaedalusId + '?XDEBUG_SESSION_START=PHPSTORM')
+        const closedDaedalusData = await ApiService.get(CLOSED_DAEDALUS_ENDPOINT + '/' + closedDaedalusId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         let closedDaedalus = null;

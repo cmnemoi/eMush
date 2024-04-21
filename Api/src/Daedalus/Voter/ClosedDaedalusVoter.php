@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ClosedDaedalusVoter extends Voter
 {
-    public const DAEDALUS_IS_FINISHED = 'DAEDALUS_IS_FINISHED';
+    public const string DAEDALUS_IS_FINISHED = 'DAEDALUS_IS_FINISHED';
 
     protected function supports(string $attribute, $subject): bool
     {

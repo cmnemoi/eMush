@@ -11,6 +11,7 @@ Mush\Hunter\Entity\HunterConfig:
   collectionOperations:
     get:
       filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_ADMIN")'
     post:
       security: 'is_granted("ROLE_ADMIN")'
   itemOperations:

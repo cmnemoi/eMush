@@ -5,7 +5,7 @@ export enum UserRole {
     ADMIN = 'ROLE_ADMIN',
     MODERATOR = 'ROLE_MODERATOR',
     USER = 'ROLE_USER',
-};
+}
 
 export function is_granted(role:UserRole, user:User) : boolean
 {
@@ -18,7 +18,7 @@ export function is_granted(role:UserRole, user:User) : boolean
         return  user.roles.filter((value:UserRole) => [UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.MODERATOR].includes(value)).length > 0;
     case UserRole.USER:
         return  user.roles.filter((value:UserRole) => [UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.MODERATOR, UserRole.USER].includes(value)).length > 0;
+    default:
+        return false;
     }
-
-    return false;
 }

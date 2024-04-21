@@ -10,8 +10,8 @@ Mush\Status\Entity\Config\StatusConfig:
       groups: [ 'status_config_write' ]
   collectionOperations:
     get:
-      security: 'is_granted("ROLE_MODERATOR")'
       filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_MODERATOR")'
     post:
       security: 'is_granted("ROLE_ADMIN")'
   itemOperations:

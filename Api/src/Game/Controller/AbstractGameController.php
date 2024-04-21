@@ -7,6 +7,7 @@ namespace Mush\Game\Controller;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use Mush\MetaGame\Service\AdminServiceInterface;
+use Mush\User\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractGameController extends AbstractFOSRestController
@@ -25,5 +26,17 @@ abstract class AbstractGameController extends AbstractFOSRestController
         }
 
         return null;
+    }
+
+    /**
+     * Checks if the user roles are present for SuperAdmin or Admin.
+     *
+     * @throws \LogicException if the user doesn't belong to our requirements
+     */
+    protected function denyUnlessUserAdmin(User $user): void
+    {
+        if (!$user->isAdmin()) {
+            throw $this->createAccessDeniedException('User is not an admin');
+        }
     }
 }

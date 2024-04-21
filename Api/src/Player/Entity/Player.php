@@ -657,10 +657,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $project->getEfficiency();
-        $efficiency -= $this->getNumberOfParticipationsToProject($project) * Project::PARTICIPATION_MALUS;
-        $efficiency = max(0, $efficiency);
+        $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
+        $efficiency = $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
 
-        return $this->getEfficiencyWithCpuPriority($efficiency, $project);
+        return $efficiency;
     }
 
     public function getMaxEfficiencyForProject(Project $project): int
@@ -673,15 +673,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getFocusedTerminal()?->getName() === $terminalName;
     }
 
-    private function getNumberOfParticipationsToProject(Project $project): int
+    private function getEfficiencyWithParticipationMalus(int $efficiency, Project $project): int
     {
-        /** @var ?ChargeStatus $numberOfParticipationsStatus */
-        $numberOfParticipationsStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
+        $efficiency -= $this->getNumberOfParticipationsToProject($project) * Project::PARTICIPATION_MALUS;
+        $efficiency = max(0, $efficiency);
 
-        return $numberOfParticipationsStatus?->getCharge() ?? 0;
+        return $efficiency;
     }
 
-    private function getEfficiencyWithCpuPriority(int $efficiency, Project $project): int
+    private function getEfficiencyWithCpuPriorityBonus(int $efficiency, Project $project): int
     {
         if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PILGRED) && $project->isPilgred()) {
             return $efficiency + Project::CPU_PRIORITY_BONUS;
@@ -691,5 +691,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $efficiency;
+    }
+
+    private function getNumberOfParticipationsToProject(Project $project): int
+    {
+        /** @var ?ChargeStatus $numberOfParticipationsStatus */
+        $numberOfParticipationsStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
+
+        return $numberOfParticipationsStatus?->getCharge() ?? 0;
     }
 }

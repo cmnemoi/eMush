@@ -9,13 +9,16 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\ProjectFinished;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class ReturnToSol extends AbstractAction
-{   
+{
     protected string $name = ActionEnum::RETURN_TO_SOL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -28,11 +31,6 @@ final class ReturnToSol extends AbstractAction
         ]));
     }
 
-    public function applyEffect(ActionResult $result): void
-    {
-        // Todo
-    }
-
     protected function support(?LogParameterInterface $target, array $parameters = []): bool
     {
         return $target instanceof GameEquipment;
@@ -41,5 +39,16 @@ final class ReturnToSol extends AbstractAction
     protected function checkResult(): ActionResult
     {
         return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        $this->finishDaedalus();
+    }
+
+    private function finishDaedalus(): void
+    {   
+        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getAction()->getActionTags(), new \DateTime());
+        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
     }
 }

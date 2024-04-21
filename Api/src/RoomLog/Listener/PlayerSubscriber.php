@@ -53,6 +53,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $logParameters = $event->getLogParameters();
         $language = $player->getDaedalus()->getLanguage();
+        $isHappyEndCause = false;
 
         if ($logKey === LogEnum::DEATH) {
             $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
@@ -60,6 +61,8 @@ class PlayerSubscriber implements EventSubscriberInterface
             if ($endCause === null) {
                 throw new \LogicException('Player should die with a reason');
             }
+
+            $isHappyEndCause = EndCauseEnum::getHappyEndCauses()->contains($endCause);
 
             $logParameters[LanguageEnum::END_CAUSE] = $this->translationService->translate(
                 $endCause,
@@ -72,7 +75,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             $logKey,
             $event->getPlace(),
-            VisibilityEnum::PUBLIC,
+            $isHappyEndCause ? VisibilityEnum::HIDDEN : VisibilityEnum::PUBLIC,
             'event_log',
             $player,
             $logParameters,

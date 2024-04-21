@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Hunter\Event\HunterEvent;
@@ -104,10 +105,19 @@ class EndCauseEnum
         PlanetSectorEvent::FIGHT => self::EXPLORATION_COMBAT,
         PlanetSectorEvent::KILL_LOST => self::EXPLORATION_LOST,
         PlanetSectorEvent::PLANET_SECTOR_EVENT => self::EXPLORATION,
+        ActionEnum::RETURN_TO_SOL => self::SOL_RETURN,
     ];
 
     public static function getAll(): array
     {
         return array_keys(self::DEATH_CAUSE_MAP);
+    }
+
+    public static function getHappyEndCauses(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::SOL_RETURN,
+            self::EDEN,
+        ]);
     }
 }

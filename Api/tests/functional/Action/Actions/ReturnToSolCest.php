@@ -10,7 +10,10 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Project\Enum\ProjectName;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -55,15 +58,9 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             time: new \DateTime(),
             target: $this->commandTerminal,
         );
-
-        // given Daedalus has a PILGRED project
-        $this->createProject(
-            ProjectName::PILGRED,
-            $I
-        );
     }
 
-    public function testShouldNotBeExecutableIfPilgredIsNotFinished(FunctionalTester $I): void
+    public function shouldNotBeExecutableIfPilgredIsNotFinished(FunctionalTester $I): void
     {
         // given Pilgred is not finished (default)
 
@@ -75,5 +72,74 @@ final class ReturnToSolCest extends AbstractFunctionalTest
             expected: ActionImpossibleCauseEnum::NO_PILGRED,
             actual: $this->returnToSolAction->cannotExecuteReason(),
         );
+    }
+
+    public function shouldKillPlayers(FunctionalTester $I): void
+    {
+        // given Pilgred is finished
+        $pilgred = $this->daedalus->getPilgred();
+        $pilgred->makeProgress(100);
+
+        // when Chun executes ReturnToSol action
+        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->execute();
+
+        // then all Daedalus players should be dead
+        foreach ($this->players as $player) {
+            $I->assertFalse($player->isAlive());
+        }
+    }
+
+    public function shouldKillPlayersWithSolReturnEndCause(FunctionalTester $I): void
+    {
+        // given Pilgred is finished
+        $pilgred = $this->daedalus->getPilgred();
+        $pilgred->makeProgress(100);
+
+        // when Chun executes ReturnToSol action
+        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->execute();
+
+        // then all Daedalus players should be dead with Sol Return end cause
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: EndCauseEnum::SOL_RETURN,
+                actual: $player->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+            );
+        }
+    }
+
+    public function shouldNotPrintPublicDeathLogs(FunctionalTester $I): void
+    {
+        // given Pilgred is finished
+        $pilgred = $this->daedalus->getPilgred();
+        $pilgred->makeProgress(100);
+
+        // when Chun executes ReturnToSol action
+        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->execute();
+
+        // then no public death logs should be printed
+        $I->cantSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::DEATH,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
+    public function shouldFinishTheGame(FunctionalTester $I): void
+    {
+        // given Pilgred is finished
+        $pilgred = $this->daedalus->getPilgred();
+        $pilgred->makeProgress(100);
+
+        // when Chun executes ReturnToSol action
+        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->execute();
+
+        // then the game should be finished
+        $I->assertTrue($this->daedalus->getDaedalusInfo()->isDaedalusFinished());
     }
 }

@@ -38,6 +38,9 @@ class EventCreationService implements EventCreationServiceInterface
             case ModifierHolderClassEnum::EQUIPMENT:
                 return $this->getEquipmentsFromModifierHolder($holder);
 
+            case ModifierHolderClassEnum::PROJECT:
+                return $this->getProjectsFromModifierHolder($holder);
+
             default:
                 throw new \Exception("This variableHolderClass {$eventTarget} is not supported");
         }
@@ -86,5 +89,16 @@ class EventCreationService implements EventCreationServiceInterface
         $className = $modifierHolder::class;
 
         throw new \Exception("This eventConfig ({$className}) class is not supported");
+    }
+
+    private function getProjectsFromModifierHolder(ModifierHolderInterface $modifierHolder): array
+    {
+        if ($modifierHolder instanceof Daedalus) {
+            return $modifierHolder->getAvailableProjects()->toArray();
+        }
+
+        $className = $modifierHolder::class;
+
+        throw new \LogicException("This eventConfig ({$className}) class is not supported");
     }
 }

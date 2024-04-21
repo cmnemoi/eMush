@@ -168,6 +168,14 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>bios_terminal.cpu_priority_defence</source>
         <target>Système de défense</target>
       </segment>
+      <segment id="cpu_priority.pilgred" state="translated">
+        <source>bios_terminal.cpu_priority_pilgred</source>
+        <target>PILGRED</target>
+      </segment>
+      <segment id="cpu_priority.projects" state="translated">
+        <source>bios_terminal.cpu_priority_projects</source>
+        <target>Projets</target>
+      </segment>
       <segment id="cpu_priority.none" state="translated">
         <source>bios_terminal.cpu_priority_none</source>
         <target>Aucune</target>

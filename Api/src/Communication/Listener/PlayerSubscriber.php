@@ -49,7 +49,9 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($endCause === null) {
             throw new \LogicException('Player should die with a reason');
         }
-        $this->neronMessageService->createPlayerDeathMessage($player, $endCause, $time);
+        if ($this->isBadEndCause($endCause)) {
+            $this->neronMessageService->createPlayerDeathMessage($player, $endCause, $time);
+        }
 
         $channels = $this->channelService->getPlayerChannels($player, true);
 
@@ -107,5 +109,10 @@ class PlayerSubscriber implements EventSubscriberInterface
             throw new \LogicException('Player needs a specific title to gain');
         }
         $this->neronMessageService->createTitleAttributionMessage($player, $title, $time);
+    }
+
+    private function isBadEndCause(string $endCause): bool
+    {
+        return EndCauseEnum::getGoodEndCauses()->contains($endCause) === false;
     }
 }

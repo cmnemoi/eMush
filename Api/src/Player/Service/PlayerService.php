@@ -371,7 +371,7 @@ class PlayerService implements PlayerServiceInterface
             ->setFinishedAt($time);
         $this->persistPlayerInfo($playerInfo);
 
-        if (!\in_array($endReason, [EndCauseEnum::DEPRESSION, EndCauseEnum::QUARANTINE], true)) {
+        if ($this->isSadEndCause($endReason)) {
             $moraleLoss = -1;
             if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
                 $moraleLoss = -2;
@@ -412,5 +412,10 @@ class PlayerService implements PlayerServiceInterface
                 new \DateTime()
             );
         }
+    }
+
+    private function isSadEndCause(string $endCause): bool
+    {
+        return EndCauseEnum::getNotSadEndCauses()->contains($endCause) === false;
     }
 }

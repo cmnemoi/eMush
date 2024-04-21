@@ -113,11 +113,21 @@ class EndCauseEnum
         return array_keys(self::DEATH_CAUSE_MAP);
     }
 
-    public static function getHappyEndCauses(): ArrayCollection
+    public static function getGoodEndCauses(): ArrayCollection
     {
         return new ArrayCollection([
             self::SOL_RETURN,
             self::EDEN,
+        ]);
+    }
+
+    public static function getNotSadEndCauses(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::DEPRESSION,
+            self::EDEN,
+            self::QUARANTINE,
+            self::SOL_RETURN,
         ]);
     }
 }

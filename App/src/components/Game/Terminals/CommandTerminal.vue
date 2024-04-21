@@ -5,13 +5,11 @@
             <p class="daedalus-current-orientation" v-html="formatText(terminal.infos?.daedalusOrientation)"></p>
             <div class="action">
                 <ActionButton
-                    :css-class="'wide'"
                     :key="turnDaedalusLeftAction.key"
                     :action="turnDaedalusLeftAction"
                     @click="executeTargetAction(target, turnDaedalusLeftAction)"
                 />
                 <ActionButton
-                    :css-class="'wide'"
                     :key="turnDaedalusRightAction.key"
                     :action="turnDaedalusRightAction"
                     @click="executeTargetAction(target, turnDaedalusRightAction)"
@@ -44,16 +42,17 @@
             </div>
         </section>
 
-        <!-- Pilgred section
         <section>
-            <h3>Pilgred</h3>
+            <h3>{{ terminal.sectionTitles?.pilgred }}</h3>
             <div class="action">
-                <button>
-                    <span class="cost">1<img :src="getImgUrl('pa.png')" alt="ap"></span>
-                    <span>Retourner sur Sol</span>
-                </button>
+                <ActionButton
+                    :css-class="'wide'"
+                    :key="returnToSolAction.key"
+                    :action="returnToSolAction"
+                    @click="executeTargetAction(target, returnToSolAction)"
+                />
             </div>
-        </section> -->
+        </section>
 
         <section>
             <h3>{{ terminal.sectionTitles?.generalInformations }}</h3>
@@ -81,6 +80,11 @@ export default defineComponent ({
         },
         leaveOrbitAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.LEAVE_ORBIT);
+        },
+        returnToSolAction(): Action {
+            const action = this.terminal.getActionByKey(ActionEnum.RETURN_TO_SOL);
+            if (!action) throw new Error(`No return_to_sol action found for terminal ${this.terminal?.key}`);
+            return action;
         },
         turnDaedalusLeftAction(): Action {
             const action = this.terminal.getActionByKey(ActionEnum.TURN_DAEDALUS_LEFT);

@@ -9,7 +9,6 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Project\Entity\Project;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Validator\Exception\LogicException;
 
@@ -43,9 +42,6 @@ class GameModifier
     #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
     private ?ChargeStatus $charge = null;
 
-    #[ORM\ManyToOne(targetEntity: Project::class)]
-    private ?Project $project = null;
-
     public function __construct(ModifierHolderInterface $holder, AbstractModifierConfig $modifierConfig)
     {
         $this->modifierConfig = $modifierConfig;
@@ -60,8 +56,6 @@ class GameModifier
             $this->gameEquipment = $holder;
         } elseif ($holder instanceof Hunter) {
             $this->hunter = $holder;
-        } elseif ($holder instanceof Project) {
-            $this->project = $holder;
         } else {
             throw new LogicException("this modifier don't have any valid holder");
         }
@@ -95,9 +89,6 @@ class GameModifier
         }
         if ($this->hunter) {
             return $this->hunter;
-        }
-        if ($this->project) {
-            return $this->project;
         }
 
         throw new LogicException("this modifier don't have any valid holder");

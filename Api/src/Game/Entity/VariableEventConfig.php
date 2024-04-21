@@ -12,8 +12,6 @@ use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Project\Entity\Project;
-use Mush\Project\Event\ProjectEfficiencyVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Event\ChargeStatusEvent;
@@ -95,7 +93,6 @@ class VariableEventConfig extends AbstractEventConfig
             ModifierHolderClassEnum::PLAYER => $this->createPlayerVariableEvent($tags, $date, $variableHolder),
             ModifierHolderClassEnum::DAEDALUS => $this->createDaedalusVariableEvent($tags, $date, $variableHolder),
             ModifierHolderClassEnum::EQUIPMENT => $this->createEquipmentVariableEVent($tags, $date, $variableHolder),
-            ModifierHolderClassEnum::PROJECT => $this->createProjectVariableEvent($tags, $date, $variableHolder),
             default => throw new \Exception("unexpected variableClassHolder: {$this->variableHolderClass}"),
         };
 
@@ -203,21 +200,5 @@ class VariableEventConfig extends AbstractEventConfig
         }
 
         return new ChargeStatusEvent($status, $variableHolder, $this->quantity, $tags, $date);
-    }
-
-    private function createProjectVariableEvent(
-        array $tags,
-        \DateTime $date,
-        ModifierHolderInterface $variableHolder
-    ): ?AbstractGameEvent {
-        if (!$variableHolder instanceof Project) {
-            throw new \Exception('a project should be provided to create a projectVariableEvent');
-        }
-
-        if ($variableHolder->hasVariable($this->targetVariable)) {
-            return new ProjectEfficiencyVariableEvent($variableHolder, $this->quantity, $tags, $date);
-        }
-
-        return null;
     }
 }

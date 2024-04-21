@@ -10,7 +10,6 @@ namespace Mush\Modifier\Enum;
  * PLACE: modifier is linked to a place
  * DAEDALUS: modifier is linked to the Daedalus
  * EQUIPMENT: modifier is linked to an equipment
- * PROJECT: modifier is linked to a project
  */
 abstract class ModifierHolderClassEnum
 {
@@ -19,7 +18,6 @@ abstract class ModifierHolderClassEnum
     public const string PLACE = 'place';
     public const string DAEDALUS = 'daedalus';
     public const string EQUIPMENT = 'equipment';
-    public const string PROJECT = 'project';
 
     public static function getAllReaches(): array
     {
@@ -29,7 +27,6 @@ abstract class ModifierHolderClassEnum
             self::PLAYER,
             self::TARGET_PLAYER,
             self::EQUIPMENT,
-            self::PROJECT,
         ];
     }
 }

@@ -19,6 +19,10 @@ final class CreateProjectFromConfigForDaedalusUseCase
 
     public function execute(ProjectConfig $projectConfig, Daedalus $daedalus): void
     {
+        if ($daedalus->hasProject($projectConfig->getName())) {
+            return;
+        }
+
         $project = new Project($projectConfig, $daedalus);
         $this->projectRepository->save($project);
 

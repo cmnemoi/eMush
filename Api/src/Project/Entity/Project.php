@@ -23,6 +23,9 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 {
     use TargetStatusTrait;
 
+    public const int CPU_PRIORITY_BONUS = 1;
+    public const int PARTICIPATION_MALUS = 2;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

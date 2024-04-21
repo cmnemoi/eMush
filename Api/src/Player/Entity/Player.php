@@ -655,13 +655,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     }
 
     public function getMinEfficiencyForProject(Project $project): int
-    {   
+    {
         $efficiency = $project->getEfficiency();
-        $efficiency -= $this->getNumberOfParticipationsToProject($project) * 2;
+        $efficiency -= $this->getNumberOfParticipationsToProject($project) * Project::PARTICIPATION_MALUS;
         $efficiency = max(0, $efficiency);
-        $efficiency = $this->getEfficiencyWithCpuPriority($efficiency, $project);
 
-        return $efficiency;
+        return $this->getEfficiencyWithCpuPriority($efficiency, $project);
     }
 
     public function getMaxEfficiencyForProject(Project $project): int
@@ -685,10 +684,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private function getEfficiencyWithCpuPriority(int $efficiency, Project $project): int
     {
         if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PILGRED) && $project->isPilgred()) {
-            return ++$efficiency;
+            return $efficiency + Project::CPU_PRIORITY_BONUS;
         }
         if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PROJECTS) && $project->isNeronProject()) {
-            return ++$efficiency;
+            return $efficiency + Project::CPU_PRIORITY_BONUS;
         }
 
         return $efficiency;

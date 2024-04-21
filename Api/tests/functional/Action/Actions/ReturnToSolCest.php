@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mush\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Action\Actions\ReturnToSol;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;

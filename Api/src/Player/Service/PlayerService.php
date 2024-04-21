@@ -31,28 +31,22 @@ use Mush\User\Entity\User;
 
 class PlayerService implements PlayerServiceInterface
 {
-    public const BASE_PLAYER_CYCLE_CHANGE = 'base_player_cycle_change';
-    public const BASE_PLAYER_DAY_CHANGE = 'base_player_day_change';
-    public const CYCLE_ACTION_CHANGE = 1;
-    public const CYCLE_MOVEMENT_CHANGE = 1;
-    public const CYCLE_SATIETY_CHANGE = -1;
-    public const DAY_HEALTH_CHANGE = 1;
-    public const DAY_MORAL_CHANGE = -2;
-    public const NB_ORGANIC_WASTE_MIN = 3;
-    public const NB_ORGANIC_WASTE_MAX = 4;
+    public const string BASE_PLAYER_CYCLE_CHANGE = 'base_player_cycle_change';
+    public const string BASE_PLAYER_DAY_CHANGE = 'base_player_day_change';
+    public const int CYCLE_ACTION_CHANGE = 1;
+    public const int CYCLE_MOVEMENT_CHANGE = 1;
+    public const int CYCLE_SATIETY_CHANGE = -1;
+    public const int DAY_HEALTH_CHANGE = 1;
+    public const int DAY_MORAL_CHANGE = -2;
+    public const int NB_ORGANIC_WASTE_MIN = 3;
+    public const int NB_ORGANIC_WASTE_MAX = 4;
 
     private EntityManagerInterface $entityManager;
-
     private EventServiceInterface $eventService;
-
     private PlayerRepository $repository;
-
     private RoomLogServiceInterface $roomLogService;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
-
     private RandomServiceInterface $randomService;
-
     private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
@@ -372,10 +366,7 @@ class PlayerService implements PlayerServiceInterface
         $this->persistPlayerInfo($playerInfo);
 
         if ($this->isSadEndCause($endReason)) {
-            $moraleLoss = -1;
-            if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
-                $moraleLoss = -2;
-            }
+            $moraleLoss = $player->hasStatus(PlayerStatusEnum::PREGNANT) ? -2 : -1;
 
             /** @var Player $daedalusPlayer */
             foreach ($player->getDaedalus()->getPlayers()->getPlayerAlive() as $daedalusPlayer) {
@@ -387,6 +378,7 @@ class PlayerService implements PlayerServiceInterface
                         [EventEnum::PLAYER_DEATH],
                         $time
                     );
+
                     $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
                 }
             }
@@ -416,6 +408,6 @@ class PlayerService implements PlayerServiceInterface
 
     private function isSadEndCause(string $endCause): bool
     {
-        return EndCauseEnum::getNotSadEndCauses()->contains($endCause) === false;
+        return !EndCauseEnum::getNotSadEndCauses()->contains($endCause);
     }
 }

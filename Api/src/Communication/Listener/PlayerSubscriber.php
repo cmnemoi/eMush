@@ -63,7 +63,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onInfectionPlayer(PlayerEvent $event): void
     {
         // If the player is Mush, we want to log only mush traps in Mush channel
-        if ($event->getPlayer()->isMush() && !$event->hasTag(PlanetSectorEvent::MUSH_TRAP)) {
+        if (!$event->hasTag(PlanetSectorEvent::MUSH_TRAP) && $event->getPlayer()->isMush()) {
             return;
         }
 
@@ -94,7 +94,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         $params = $event->getLogParameters();
 
         $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_EVENT, $mushChannel, $params, $time);
-
         $this->channelService->addPlayerToMushChannel($event->getPlayer());
     }
 
@@ -108,11 +107,12 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($title === null) {
             throw new \LogicException('Player needs a specific title to gain');
         }
+
         $this->neronMessageService->createTitleAttributionMessage($player, $title, $time);
     }
 
     private function isBadEndCause(string $endCause): bool
     {
-        return EndCauseEnum::getGoodEndCauses()->contains($endCause) === false;
+        return !EndCauseEnum::getGoodEndCauses()->contains($endCause);
     }
 }

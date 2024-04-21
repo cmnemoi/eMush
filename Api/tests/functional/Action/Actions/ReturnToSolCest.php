@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communication\Entity\Message;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -141,5 +142,43 @@ final class ReturnToSolCest extends AbstractFunctionalTest
 
         // then the game should be finished
         $I->assertTrue($this->daedalus->getDaedalusInfo()->isDaedalusFinished());
+    }
+
+    public function shouldNotCreateDeathAnnouncements(FunctionalTester $I): void
+    {
+        // given Pilgred is finished
+        $pilgred = $this->daedalus->getPilgred();
+        $pilgred->makeProgress(100);
+
+        // when Chun executes ReturnToSol action
+        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->execute();
+
+        // then no death announcements should be created
+        $I->cantSeeInRepository(
+            entity: Message::class,
+            params: [
+                'message' => LogEnum::DEATH,
+            ]
+        );
+    }
+
+    public function shouldNotMakeLoseMoralePoints(FunctionalTester $I): void
+    {
+        // given Pilgred is finished
+        $pilgred = $this->daedalus->getPilgred();
+        $pilgred->makeProgress(100);
+
+        // when Chun executes ReturnToSol action
+        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->execute();
+
+        // then no player should lose morale points
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: $player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint(),
+                actual: $player->getMoralPoint(),
+            );
+        }
     }
 }

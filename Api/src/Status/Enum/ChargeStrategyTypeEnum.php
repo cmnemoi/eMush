@@ -2,8 +2,6 @@
 
 namespace Mush\Status\Enum;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * Class enumerating the different charge strategies.
  *

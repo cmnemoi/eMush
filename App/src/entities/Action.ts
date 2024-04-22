@@ -1,3 +1,5 @@
+import { ShootHunterActionsEnum } from "@/enums/action.enum";
+
 export class Action {
     public iri: string|null;
     public id: number|null;
@@ -59,5 +61,8 @@ export class Action {
         }
 
         return this;
+    }
+    isShootHunterAction() : boolean {
+        return Object.values(ShootHunterActionsEnum).includes(this?.key as ShootHunterActionsEnum);
     }
 }

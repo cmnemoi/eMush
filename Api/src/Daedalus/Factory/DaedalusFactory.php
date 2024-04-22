@@ -23,7 +23,7 @@ final class DaedalusFactory
         new DaedalusInfo($daedalus, new GameConfig(), self::getFrenchLocalizationConfig());
 
         self::createSpacePlace($daedalus);
-        self::setId($daedalus, 1);
+        self::setId($daedalus);
 
         return $daedalus;
     }
@@ -48,7 +48,7 @@ final class DaedalusFactory
         return $localizationConfig;
     }
 
-    private static function setId(Daedalus $daedalus, int $id): void
+    private static function setId(Daedalus $daedalus, int $id = 1): void
     {
         $daedalusReflection = new \ReflectionClass($daedalus);
         $daedalusReflection->getProperty('id')->setValue($daedalus, $id);

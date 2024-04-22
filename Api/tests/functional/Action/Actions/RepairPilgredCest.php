@@ -30,7 +30,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 {
     private Action $actionConfig;
     private RepairPilgred $repairPilgredAction;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -79,7 +78,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then the action should not be executable
         $I->assertEquals(
@@ -95,7 +94,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then the PILGRED project should progress by 1
         $I->assertEquals(1, $pilgredProject->getProgress());
@@ -108,7 +107,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then a public log should be created in Chun's room
         $I->seeInRepository(RoomLog::class, [
@@ -126,7 +125,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reduced to 0
         $I->assertEquals(0, $this->chun->getMinEfficiencyForProject($pilgredProject));
@@ -142,7 +141,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then Chun's efficiency for the plasma shield project should not be reduced
         $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($otherProject));
@@ -158,7 +157,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Kuan-Ti repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->kuanTi, $pilgredProject);
-        $this->repairPilgredAction->execute($this->kuanTi, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reset to 1
         $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
@@ -175,7 +174,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then a Neron announcement should be created
         $neronAnnouncement = $I->grabEntityFromRepository(
@@ -196,7 +195,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then the action should not be visible
         $I->assertFalse($this->repairPilgredAction->isVisible());

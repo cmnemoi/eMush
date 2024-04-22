@@ -10,11 +10,11 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Repository\ProjectRepositoryInterface;
 
-final class CreateProjectFromConfigForDaedalusUseCase
+final readonly class CreateProjectFromConfigForDaedalusUseCase
 {
     public function __construct(
         private DaedalusRepositoryInterface $daedalusRepository,
-        private ProjectRepositoryInterface $projectRepository
+        private ProjectRepositoryInterface  $projectRepository
     ) {}
 
     public function execute(ProjectConfig $projectConfig, Daedalus $daedalus): void

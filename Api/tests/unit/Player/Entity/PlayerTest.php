@@ -9,6 +9,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Entity\Project;
 use Mush\Project\Factory\ProjectFactory;
+use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use PHPUnit\Framework\TestCase;
@@ -18,90 +19,57 @@ use PHPUnit\Framework\TestCase;
  */
 final class PlayerTest extends TestCase
 {
-    public function testGetMinEfficiencyForPilgred(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createPilgredProject();
+    /**
+     * @dataProvider provideShouldReturnPlayerEfficiencyCases
+     */
+    public function testShouldReturnPlayerEfficiency(
+        Project $project,
+        int $numberOfParticipations,
+        PlayerEfficiency $expectedEfficiency
+    ): void {
+        // Given I have a player
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
-        $this->setPlayerNumberOfParticipations($player, $project, 1);
+        // Given this player has a certain number of participations in a project
+        $this->setPlayerNumberOfParticipations($player, $project, $numberOfParticipations);
 
-        self::assertEquals(0, $player->getMinEfficiencyForProject($project));
+        // When I ask for the player's efficiency in this project
+        $actualEfficiency = $player->getEfficiencyForProject($project);
+
+        // Then I should get the expected efficiency
+        self::assertEquals(
+            expected: $expectedEfficiency,
+            actual: $actualEfficiency
+        );
     }
 
-    public function testGetMinEfficiencyForMediumDifficultyProject(): void
+    /**
+     * Test cases for the getEfficiencyForProject method from Twinpedia: http://twin.tithom.fr/mush/stats/efficacite/.
+     *
+     * Example of a test case:
+     *
+     * [$pilgred, 0, new PlayerEfficiency(1, 1)] => For Pilgred project, with 0 participations,
+     * the efficiency should be 1%-1%.
+     */
+    public static function provideShouldReturnPlayerEfficiencyCases(): iterable
     {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
+        $pilgred = ProjectFactory::createPilgredProject();
+        $trailReducer = ProjectFactory::createTrailReducerProject();
+        $autoWatering = ProjectFactory::createAutoWateringProject();
 
-        $this->setPlayerNumberOfParticipations($player, $project, 1);
-
-        self::assertEquals(4, $player->getMinEfficiencyForProject($project));
-    }
-
-    public function testGetMinEfficiencyForMediumDifficultyProjectAfterTwoParticipations(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
-
-        $this->setPlayerNumberOfParticipations($player, $project, 2);
-
-        self::assertEquals(2, $player->getMinEfficiencyForProject($project));
-    }
-
-    public function testGetMinEfficiencyForMediumDifficultyProjectAfterThreeParticipations(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createTrailReducerProject(); // base efficiency is 6
-
-        $this->setPlayerNumberOfParticipations($player, $project, 3);
-
-        self::assertEquals(0, $player->getMinEfficiencyForProject($project));
-    }
-
-    public function testGetMinEfficiencyForHardProject(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createAutoWateringProject(); // base efficiency is 3
-
-        $this->setPlayerNumberOfParticipations($player, $project, 1);
-
-        self::assertEquals(1, $player->getMinEfficiencyForProject($project));
-    }
-
-    public function testGetMinEfficiencyForHardProjectForTwoParticipations(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createAutoWateringProject(); // base efficiency is 3
-
-        $this->setPlayerNumberOfParticipations($player, $project, 2);
-
-        self::assertEquals(0, $player->getMinEfficiencyForProject($project));
-    }
-
-    public function testGetMaxEfficiencyForMediumDifficultyProject(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createTrailReducerProject(); // base min efficiency is 6
-
-        self::assertEquals(9, $player->getMaxEfficiencyForProject($project));
-    }
-
-    public function testGetMaxEfficiencyForMediumDifficultyProjectAfterOneParticipations(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $project = ProjectFactory::createTrailReducerProject(); // base min efficiency is 6
-
-        $this->setPlayerNumberOfParticipations($player, $project, 1);
-
-        self::assertEquals(6, $player->getMaxEfficiencyForProject($project));
+        return [
+            [$pilgred, 0, new PlayerEfficiency(0, 0)],
+            [$pilgred, 1, new PlayerEfficiency(0, 0)],
+            [$pilgred, 2, new PlayerEfficiency(0, 0)],
+            [$pilgred, 3, new PlayerEfficiency(0, 0)],
+            [$trailReducer, 0, new PlayerEfficiency(6, 9)],
+            [$trailReducer, 1, new PlayerEfficiency(4, 6)],
+            [$trailReducer, 2, new PlayerEfficiency(2, 3)],
+            [$trailReducer, 3, new PlayerEfficiency(0, 0)],
+            [$autoWatering, 0, new PlayerEfficiency(3, 4)],
+            [$autoWatering, 1, new PlayerEfficiency(1, 1)],
+            [$autoWatering, 2, new PlayerEfficiency(0, 0)],
+        ];
     }
 
     private function setPlayerNumberOfParticipations(Player $player, Project $project, int $charge): void

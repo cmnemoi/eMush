@@ -30,7 +30,7 @@ final class NoEfficiencyValidator extends ConstraintValidator
             throw new UnexpectedTypeException($project, Project::class);
         }
 
-        if ($player->getMaxEfficiencyForProject($project) === 0) {
+        if ($player->efficiencyIsZeroForProject($project)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

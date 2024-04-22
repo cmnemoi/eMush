@@ -38,6 +38,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Project\Entity\Project;
+use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -651,21 +652,34 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return ActionTargetName::PLAYER->value;
     }
 
-    public function getMinEfficiencyForProject(Project $project): int
+    public function isFocusedOnTerminalByName(string $terminalName): bool
+    {
+        return $this->getFocusedTerminal()?->getName() === $terminalName;
+    }
+
+    public function getEfficiencyForProject(Project $project): PlayerEfficiency
+    {
+        return new PlayerEfficiency(
+            $this->getMinEfficiencyForProject($project),
+            $this->getMaxEfficiencyForProject($project)
+        );
+    }
+
+    public function efficiencyIsZeroForProject(Project $project): bool
+    {
+        return $this->getEfficiencyForProject($project)->max === 0;
+    }
+
+    private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithParticipationMalus($project->getEfficiency(), $project);
 
         return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
     }
 
-    public function getMaxEfficiencyForProject(Project $project): int
+    private function getMaxEfficiencyForProject(Project $project): int
     {
         return (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
-    }
-
-    public function isFocusedOnTerminalByName(string $terminalName): bool
-    {
-        return $this->getFocusedTerminal()?->getName() === $terminalName;
     }
 
     private function getEfficiencyWithParticipationMalus(int $efficiency, Project $project): int

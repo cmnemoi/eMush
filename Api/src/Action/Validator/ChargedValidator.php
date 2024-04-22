@@ -87,11 +87,7 @@ class ChargedValidator extends ConstraintValidator
         $daedalus = $chargeStatus->getOwner()->getDaedalus();
 
         if ($chargeStatus->getStrategy() === ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT) {
-            if ($daedalus->isPilgredFinished()) {
-                return ActionImpossibleCauseEnum::CYCLE_LIMIT;
-            }
-
-            return ActionImpossibleCauseEnum::DAILY_LIMIT;
+            return $daedalus->isPilgredFinished() ? ActionImpossibleCauseEnum::CYCLE_LIMIT : ActionImpossibleCauseEnum::DAILY_LIMIT;
         }
 
         return $constraint->message;

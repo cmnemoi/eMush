@@ -11,6 +11,7 @@ use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Project\Enum\ProjectType;
+use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -86,8 +87,15 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     }
 
     public function makeProgress(int $progress): void
-    {
+    {   
+        if ($progress < 0) {
+            throw new ProgressShouldBePositive($progress);
+        }
+
         $this->progress += $progress;
+        if ($this->progress > 100) {
+            $this->progress = 100;
+        }
     }
 
     public function getClassName(): string

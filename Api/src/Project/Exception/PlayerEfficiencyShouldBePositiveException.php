@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\Exception;
 
-final class PlayerEfficiencyShouldBePositiveException extends \LogicException
+final class PlayerEfficiencyShouldBePositiveException extends \InvalidArgumentException
 {
     public function __construct(int $min, int $max)
     {

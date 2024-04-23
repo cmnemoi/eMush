@@ -14,7 +14,7 @@ final readonly class CreateProjectFromConfigForDaedalusUseCase
 {
     public function __construct(
         private DaedalusRepositoryInterface $daedalusRepository,
-        private ProjectRepositoryInterface  $projectRepository
+        private ProjectRepositoryInterface $projectRepository
     ) {}
 
     public function execute(ProjectConfig $projectConfig, Daedalus $daedalus): void

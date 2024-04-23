@@ -87,7 +87,7 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     }
 
     public function makeProgress(int $progress): void
-    {   
+    {
         if ($progress < 0) {
             throw new ProgressShouldBePositive($progress);
         }

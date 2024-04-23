@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ChangeNeronCpuPriority;
 use Mush\Action\Entity\Action;
@@ -17,6 +17,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -31,11 +32,9 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 {
     private Action $changeNeronCpuPriorityConfig;
     private ChangeNeronCpuPriority $changeNeronCpuPriorityAction;
-
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-
     private GameEquipment $biosTerminal;
 
     public function _before(FunctionalTester $I): void
@@ -172,10 +171,7 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         $this->changeNeronCpuPriorityAction->execute();
 
         // then Chun's min efficiency should be 2
-        $I->assertEquals(2, $this->chun->getMinEfficiencyForProject($pilgredProject));
-
-        // then Chun's max efficiency should be 3
-        $I->assertEquals(3, $this->chun->getMaxEfficiencyForProject($pilgredProject));
+        $I->assertEquals(new PlayerEfficiency(2, 3), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
     public function shouldResetPilgredEfficiencyWhenRemovingPilgredCpuPriority(FunctionalTester $I): void
@@ -220,9 +216,6 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         $this->changeNeronCpuPriorityAction->execute();
 
         // then Chun's min efficiency should be 1
-        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
-
-        // then Chun's max efficiency should be 1
-        $I->assertEquals(1, $this->chun->getMaxEfficiencyForProject($pilgredProject));
+        $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 }

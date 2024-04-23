@@ -236,7 +236,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()
         );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::DAEDALUS_NEW_CYCLE);
+        $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Chun should not be able to execute the coffee action again
         $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);

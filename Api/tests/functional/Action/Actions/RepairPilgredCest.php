@@ -18,6 +18,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -133,7 +134,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reduced to 0
-        $I->assertEquals(0, $this->chun->getMinEfficiencyForProject($pilgredProject));
+        $I->assertEquals(new PlayerEfficiency(0, 0), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
     public function shouldNotReduceEfficiencyForOtherProjects(FunctionalTester $I): void
@@ -149,7 +150,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency for the plasma shield project should not be reduced
-        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($otherProject));
+        $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($otherProject));
     }
 
     public function shouldResetOtherPlayersEfficiencyForProject(FunctionalTester $I): void
@@ -165,7 +166,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reset to 1
-        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
+        $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
     public function shouldCreateANeronAnnouncementWhenPilgredIsFinished(FunctionalTester $I): void
@@ -220,7 +221,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be 1
-        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
+        $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

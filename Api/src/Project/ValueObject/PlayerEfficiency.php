@@ -8,9 +8,8 @@ use Mush\Project\Exception\PlayerEfficiencyShouldBePositiveException;
 
 final readonly class PlayerEfficiency
 {
-    public readonly int $min;
-
-    public readonly int $max;
+    public int $min;
+    public int $max;
 
     public function __construct(int $min, int $max)
     {

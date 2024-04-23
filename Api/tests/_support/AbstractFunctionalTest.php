@@ -38,7 +38,7 @@ class AbstractFunctionalTest
     protected Player $chun;
     protected Player $kuanTi;
 
-    public function _before(FunctionalTester $I): void
+    public function _before(FunctionalTester $I)
     {
         $this->daedalus = $this->createDaedalus($I);
         $this->players = $this->createPlayers($I, $this->daedalus);

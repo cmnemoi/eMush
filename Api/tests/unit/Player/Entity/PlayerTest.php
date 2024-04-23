@@ -58,7 +58,7 @@ final class PlayerTest extends TestCase
         $autoWatering = ProjectFactory::createAutoWateringProject();
 
         return [
-            [$pilgred, 0, new PlayerEfficiency(0, 0)],
+            [$pilgred, 0, new PlayerEfficiency(1, 1)],
             [$pilgred, 1, new PlayerEfficiency(0, 0)],
             [$pilgred, 2, new PlayerEfficiency(0, 0)],
             [$pilgred, 3, new PlayerEfficiency(0, 0)],

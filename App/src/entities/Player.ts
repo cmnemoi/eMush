@@ -33,6 +33,7 @@ export class Player {
     public exploration: Exploration|null;
     public skills: Array<Status>;
     public shootPoint: QuantityPoint|null;
+    public specialistPoints: Map<string, QuantityPoint>;
     public isSeated: boolean;
 
     public constructor() {
@@ -55,6 +56,7 @@ export class Player {
         this.exploration = null;
         this.skills = [];
         this.shootPoint = null;
+        this.specialistPoints = {};
         this.isSeated = false;
     }
 
@@ -137,6 +139,13 @@ export class Player {
             }
             if (object.shootPoint) {
                 this.shootPoint = (new QuantityPoint()).load(object.shootPoint);
+            }
+            if (object.specialistPoints) {
+                this.specialistPoints = new Map<string, QuantityPoint>();
+                object.specialistPoints.forEach((specialistPointObject: any) => {
+                    let specialistPoint = (new QuantityPoint()).load(specialistPointObject);
+                    this.specialistPoints.set(specialistPoint.name, specialistPoint);
+                });
             }
         }
 
@@ -234,6 +243,15 @@ export class Player {
         }
 
         return skill.charge;
+    }
+
+    public getSpecialistPointByKey(key: string): QuantityPoint | null {
+        if (this.specialistPoints.has(key))
+        {
+            return this.specialistPoints.get(key);
+        }
+
+        return null;
     }
 
     public isDead(): boolean {

@@ -9,7 +9,8 @@ export class Action {
     public movementPointCost: number|null;
     public successRate: number|null;
     public confirmation: string|null;
-    public shootPointCost: number|null;
+    public shootPointCost: number|null; // TODO Get rid of shootPointCost
+    public requiredSpecialistPoint: string|null;
 
     constructor() {
         this.iri = null;
@@ -24,6 +25,15 @@ export class Action {
         this.confirmation = null;
         this.shootPointCost = null;
     }
+
+    public isRequiringSpecialistPoint() : boolean {
+        return this.requiredSpecialistPoint != null;
+    }
+
+    public getRequiredSpecialistPoint(): string {
+        return this.requiredSpecialistPoint;
+    }
+
     load(object:any) : Action {
         if (typeof object !== "undefined") {
             this.iri = object["@id"];

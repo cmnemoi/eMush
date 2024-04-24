@@ -7,6 +7,7 @@
             <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap"></span>
             <span v-else-if="action.actionPointCost > 0 && action.movementPointCost > 0" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
             <span v-if="action.shootPointCost" class="cost">{{ action.shootPointCost }}<img :src="getImgUrl('pa_shoot.png')" alt="pa_shoot"></span>
+            <span v-if="action.isRequiringSpecialistPoint" class="cost">1 <img :src="specialistPointImage(action)" alt="action.getRequiredSpecialistPoint"></span>
             <span v-if="action.canExecute">{{ action.name }}</span>
             <span v-else><s>{{ action.name }}</s></span>
             <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
@@ -24,6 +25,7 @@ import { defineComponent } from "vue";
 import { Action } from "@/entities/Action";
 import { Player } from "@/entities/Player";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
+import { SpecialistPointEnum } from "@/enums/specialist_point.enum";
 import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent ({
@@ -44,6 +46,9 @@ export default defineComponent ({
         return {
             StatusPlayerNameEnum
         };
+    },
+    specialistPointImage(action: Action): string {
+        return SpecialistPointEnum[action.getRequiredSpecialistPoint].icon ?? '';
     }
 });
 </script>

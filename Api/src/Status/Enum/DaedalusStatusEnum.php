@@ -8,7 +8,6 @@ abstract class DaedalusStatusEnum
 {
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY = 'astronavigation_neron_cpu_priority';
     public const string DEFENCE_NERON_CPU_PRIORITY = 'defence_neron_cpu_priority';
-    public const string PROJECTS_NERON_CPU_PRIORITY = 'projects_neron_cpu_priority';
     public const string EXPLORATION_FUEL = 'exploration_fuel';
     public const string EXPLORATION_OXYGEN = 'exploration_oxygen';
     public const string FOLLOWING_HUNTERS = 'following_hunters';

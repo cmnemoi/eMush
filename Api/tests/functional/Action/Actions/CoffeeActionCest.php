@@ -9,7 +9,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;

@@ -176,7 +176,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->coffeeAction->execute();
 
         // when a cycle passes
-        $daedalusEvent = new DaedalusEvent(
+        $daedalusEvent = new DaedalusCycleEvent(
             $this->daedalus,
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()
@@ -231,7 +231,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->coffeeAction->execute();
 
         // when a cycle passes
-        $daedalusEvent = new DaedalusEvent(
+        $daedalusEvent = new DaedalusCycleEvent(
             $this->daedalus,
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()

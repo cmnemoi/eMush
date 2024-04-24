@@ -87,7 +87,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
     }
 
     public function onDeathPlayer(PlayerEvent $event): void
-    {   
+    {
         // Do not apply trauma diseases if player's end cause is not a "real" death
         if ($event->hasAnyTag(EndCauseEnum::getNotDeathEndCauses()->toArray())) {
             return;

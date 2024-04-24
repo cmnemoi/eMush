@@ -4,70 +4,33 @@ namespace Mush\Game\ConfigData;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Daedalus\Repository\DaedalusConfigRepository;
-use Mush\Disease\Repository\ConsumableDiseaseConfigRepository;
-use Mush\Disease\Repository\DiseaseCauseConfigRepository;
-use Mush\Disease\Repository\DiseaseConfigRepository;
-use Mush\Equipment\Repository\EquipmentConfigRepository;
+use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Repository\DifficultyConfigRepository;
-use Mush\Game\Repository\GameConfigRepository;
-use Mush\Game\Repository\TitleConfigRepository;
-use Mush\Game\Repository\TriumphConfigRepository;
-use Mush\Hunter\Repository\HunterConfigRepository;
-use Mush\Player\Repository\CharacterConfigRepository;
-use Mush\Status\Repository\StatusConfigRepository;
+use Mush\Game\Entity\TitleConfig;
+use Mush\Game\Entity\TriumphConfig;
+use Mush\Hunter\Entity\HunterConfig;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class GameConfigDataLoader extends ConfigDataLoader
 {
-    private GameConfigRepository $gameConfigRepository;
-    private DaedalusConfigRepository $daedalusConfigRepository;
-    private DifficultyConfigRepository $difficultyConfigRepository;
-    private CharacterConfigRepository $characterConfigRepository;
-    private StatusConfigRepository $statusConfigRepository;
-    private EquipmentConfigRepository $equipmentConfigRepository;
-    private TriumphConfigRepository $triumphConfigRepository;
-    private TitleConfigRepository $titleConfigRepository;
-    private DiseaseCauseConfigRepository $diseaseCauseConfigRepository;
-    private DiseaseConfigRepository $diseaseConfigRepository;
-    private ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository;
-    private HunterConfigRepository $hunterConfigRepository;
-
     public function __construct(
         EntityManagerInterface $entityManager,
-        GameConfigRepository $gameConfigRepository,
-        DaedalusConfigRepository $daedalusConfigRepository,
-        DifficultyConfigRepository $difficultyConfigRepository,
-        CharacterConfigRepository $characterConfigRepository,
-        StatusConfigRepository $statusConfigRepository,
-        EquipmentConfigRepository $equipmentConfigRepository,
-        TriumphConfigRepository $triumphConfigRepository,
-        TitleConfigRepository $titleConfigRepository,
-        DiseaseCauseConfigRepository $diseaseCauseConfigRepository,
-        DiseaseConfigRepository $diseaseConfigRepository,
-        ConsumableDiseaseConfigRepository $consumableDiseaseConfigRepository,
-        HunterConfigRepository $hunterConfigRepository
     ) {
         parent::__construct($entityManager);
-        $this->gameConfigRepository = $gameConfigRepository;
-        $this->daedalusConfigRepository = $daedalusConfigRepository;
-        $this->difficultyConfigRepository = $difficultyConfigRepository;
-        $this->characterConfigRepository = $characterConfigRepository;
-        $this->statusConfigRepository = $statusConfigRepository;
-        $this->equipmentConfigRepository = $equipmentConfigRepository;
-        $this->triumphConfigRepository = $triumphConfigRepository;
-        $this->titleConfigRepository = $titleConfigRepository;
-        $this->diseaseCauseConfigRepository = $diseaseCauseConfigRepository;
-        $this->diseaseConfigRepository = $diseaseConfigRepository;
-        $this->consumableDiseaseConfigRepository = $consumableDiseaseConfigRepository;
-        $this->hunterConfigRepository = $hunterConfigRepository;
     }
 
     public function loadConfigsData(): void
     {
         foreach (GameConfigData::$dataArray as $gameConfigData) {
-            $gameConfig = $this->gameConfigRepository->findOneBy(['name' => $gameConfigData['name']]);
+            $gameConfig = $this->entityManager->getRepository(GameConfig::class)->findOneBy(['name' => $gameConfigData['name']]);
 
             if ($gameConfig === null) {
                 $gameConfig = new GameConfig();
@@ -86,6 +49,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigHunterConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigPlanetSectorConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigTitleConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigProjectConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -94,7 +58,7 @@ class GameConfigDataLoader extends ConfigDataLoader
 
     private function setGameConfigDaedalusConfig(GameConfig $gameConfig, array $gameConfigData): void
     {
-        $daedalusConfig = $this->daedalusConfigRepository->findOneBy(['name' => $gameConfigData['daedalusConfig']]);
+        $daedalusConfig = $this->entityManager->getRepository(DaedalusConfig::class)->findOneBy(['name' => $gameConfigData['daedalusConfig']]);
 
         if ($daedalusConfig === null) {
             throw new \Exception("Daedalus config {$gameConfigData['daedalusConfig']} not found");
@@ -105,7 +69,7 @@ class GameConfigDataLoader extends ConfigDataLoader
 
     private function setGameConfigDifficultyConfig(GameConfig $gameConfig, array $gameConfigData): void
     {
-        $difficultyConfig = $this->difficultyConfigRepository->findOneBy(['name' => $gameConfigData['difficultyConfig']]);
+        $difficultyConfig = $this->entityManager->getRepository(DifficultyConfig::class)->findOneBy(['name' => $gameConfigData['difficultyConfig']]);
 
         if ($difficultyConfig === null) {
             throw new \Exception("Difficulty config {$gameConfigData['difficultyConfig']} not found");
@@ -118,7 +82,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $characterConfigs = [];
         foreach ($gameConfigData['characterConfigs'] as $characterConfigName) {
-            $characterConfig = $this->characterConfigRepository->findOneBy(['name' => $characterConfigName]);
+            $characterConfig = $this->entityManager->getRepository(CharacterConfig::class)->findOneBy(['name' => $characterConfigName]);
 
             if ($characterConfig === null) {
                 throw new \Exception("Character config {$characterConfigName} not found");
@@ -134,7 +98,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $statusConfigs = [];
         foreach ($gameConfigData['statusConfigs'] as $statusConfigName) {
-            $statusConfig = $this->statusConfigRepository->findOneBy(['name' => $statusConfigName]);
+            $statusConfig = $this->entityManager->getRepository(StatusConfig::class)->findOneBy(['name' => $statusConfigName]);
 
             if ($statusConfig === null) {
                 throw new \Exception("Status config {$statusConfigName} not found");
@@ -150,7 +114,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $equipmentConfigs = [];
         foreach ($gameConfigData['equipmentConfigs'] as $equipmentConfigName) {
-            $equipmentConfig = $this->equipmentConfigRepository->findOneBy(['name' => $equipmentConfigName]);
+            $equipmentConfig = $this->entityManager->getRepository(EquipmentConfig::class)->findOneBy(['name' => $equipmentConfigName]);
 
             if ($equipmentConfig === null) {
                 throw new \Exception("Equipment config {$equipmentConfigName} not found");
@@ -166,7 +130,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $triumphConfigs = [];
         foreach ($gameConfigData['triumphConfigs'] as $triumphConfigName) {
-            $triumphConfig = $this->triumphConfigRepository->findOneBy(['name' => $triumphConfigName]);
+            $triumphConfig = $this->entityManager->getRepository(TriumphConfig::class)->findOneBy(['name' => $triumphConfigName]);
 
             if ($triumphConfig === null) {
                 throw new \Exception("Triumph config {$triumphConfigName} not found");
@@ -182,7 +146,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $diseaseCauseConfigs = [];
         foreach ($gameConfigData['diseaseCauseConfigs'] as $diseaseCauseConfigName) {
-            $diseaseCauseConfig = $this->diseaseCauseConfigRepository->findOneBy(['name' => $diseaseCauseConfigName]);
+            $diseaseCauseConfig = $this->entityManager->getRepository(DiseaseCauseConfig::class)->findOneBy(['name' => $diseaseCauseConfigName]);
 
             if ($diseaseCauseConfig === null) {
                 throw new \Exception("Disease cause config {$diseaseCauseConfigName} not found");
@@ -198,7 +162,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $diseaseConfigs = [];
         foreach ($gameConfigData['diseaseConfigs'] as $diseaseConfigName) {
-            $diseaseConfig = $this->diseaseConfigRepository->findOneBy(['name' => $diseaseConfigName]);
+            $diseaseConfig = $this->entityManager->getRepository(DiseaseConfig::class)->findOneBy(['name' => $diseaseConfigName]);
 
             if ($diseaseConfig === null) {
                 throw new \Exception("Disease config {$diseaseConfigName} not found");
@@ -214,7 +178,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $consumableDiseaseConfigs = [];
         foreach ($gameConfigData['consumableDiseaseConfigs'] as $consumableDiseaseConfigName) {
-            $consumableDiseaseConfig = $this->consumableDiseaseConfigRepository->findOneBy(['name' => $consumableDiseaseConfigName]);
+            $consumableDiseaseConfig = $this->entityManager->getRepository(ConsumableDiseaseConfig::class)->findOneBy(['name' => $consumableDiseaseConfigName]);
 
             if ($consumableDiseaseConfig === null) {
                 throw new \Exception("Consumable disease config {$consumableDiseaseConfigName} not found");
@@ -223,14 +187,14 @@ class GameConfigDataLoader extends ConfigDataLoader
             $consumableDiseaseConfigs[] = $consumableDiseaseConfig;
         }
 
-        $gameConfig->setConsumableDiseaseConfig(new ArrayCollection($consumableDiseaseConfigs));
+        $gameConfig->setConsumableDiseaseConfig($consumableDiseaseConfigs);
     }
 
     private function setGameConfigHunterConfigs(GameConfig $gameConfig, array $gameConfigData): void
     {
         $hunterConfigs = [];
         foreach ($gameConfigData['hunterConfigs'] as $hunterConfigName) {
-            $hunterConfig = $this->hunterConfigRepository->findOneBy(['name' => $hunterConfigName]);
+            $hunterConfig = $this->entityManager->getRepository(HunterConfig::class)->findOneBy(['name' => $hunterConfigName]);
 
             if ($hunterConfig === null) {
                 throw new \Exception("Hunter config {$hunterConfigName} not found");
@@ -264,7 +228,7 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $titleConfigs = [];
         foreach ($gameConfigData['titleConfigs'] as $titleConfigName) {
-            $titleConfig = $this->titleConfigRepository->findOneBy(['name' => $titleConfigName]);
+            $titleConfig = $this->entityManager->getRepository(TitleConfig::class)->findOneBy(['name' => $titleConfigName]);
 
             if ($titleConfig === null) {
                 throw new \Exception("Title config {$titleConfigName} not found");
@@ -274,5 +238,21 @@ class GameConfigDataLoader extends ConfigDataLoader
         }
 
         $gameConfig->setTitleConfigs(new ArrayCollection($titleConfigs));
+    }
+
+    private function setGameConfigProjectConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        $projectConfigs = [];
+        foreach ($gameConfigData['projectConfigs'] as $projectConfigName) {
+            $projectConfig = $this->entityManager->getRepository(ProjectConfig::class)->findOneBy(['name' => $projectConfigName]);
+
+            if ($projectConfig === null) {
+                throw new \Exception("Project config {$projectConfigName} not found");
+            }
+
+            $projectConfigs[] = $projectConfig;
+        }
+
+        $gameConfig->setProjectConfigs(new ArrayCollection($projectConfigs));
     }
 }

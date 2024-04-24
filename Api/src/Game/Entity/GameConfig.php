@@ -20,6 +20,7 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Entity\HunterConfigCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
+use Mush\Project\Entity\ProjectConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
@@ -69,6 +70,9 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: TitleConfig::class)]
     private Collection $titleConfigs;
 
+    #[ORM\ManyToMany(targetEntity: ProjectConfig::class)]
+    private Collection $projectConfigs;
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -84,6 +88,7 @@ class GameConfig
         $this->hunterConfigs = new ArrayCollection();
         $this->planetSectorConfigs = new ArrayCollection();
         $this->titleConfigs = new ArrayCollection();
+        $this->projectConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -244,7 +249,7 @@ class GameConfig
     }
 
     /**
-     * @psalm-param ArrayCollection<int<0, max>, ConsumableDiseaseConfig> $consumableDiseaseConfig
+     * @psalm-param array|ArrayCollection<int<0, max>, ConsumableDiseaseConfig> $consumableDiseaseConfig
      *
      * @psalm-suppress NoValue
      */
@@ -386,6 +391,34 @@ class GameConfig
     public function addTitleConfig(TitleConfig $titleConfig): self
     {
         $this->titleConfigs->add($titleConfig);
+
+        return $this;
+    }
+
+    public function getProjectConfigs(): Collection
+    {
+        return $this->projectConfigs;
+    }
+
+    /**
+     * @psalm-param array|ArrayCollection<int<0, max>, ProjectConfig> $projectConfigs
+     *
+     * @psalm-suppress NoValue
+     */
+    public function setProjectConfigs(array|ArrayCollection $projectConfigs): static
+    {
+        if (\is_array($projectConfigs)) {
+            $projectConfigs = new ArrayCollection($projectConfigs);
+        }
+
+        $this->projectConfigs = $projectConfigs;
+
+        return $this;
+    }
+
+    public function addProjectConfig(ProjectConfig $projectConfig): static
+    {
+        $this->projectConfigs->add($projectConfig);
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace Mush\Game\ConfigData;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -419,8 +420,9 @@ class GameConfigData
                 PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
                 PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
                 'astronavigation_neron_cpu_priority_default',
-                'changed_cpu_priority_default',
+                'projects_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
+                'changed_cpu_priority_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -504,6 +506,49 @@ class GameConfigData
                 TitleEnum::COMMANDER,
                 TitleEnum::NERON_MANAGER,
                 TitleEnum::COM_MANAGER,
+            ],
+            'projectConfigs' => [
+                ProjectName::APERO_KITCHEN,
+                ProjectName::ARMOUR_CORRIDOR,
+                ProjectName::AUTO_RETURN_ICARUS,
+                ProjectName::AUTO_WATERING,
+                ProjectName::AUXILIARY_TERMINAL,
+                ProjectName::BAY_DOOR_XXL,
+                ProjectName::BEAT_BOX,
+                ProjectName::BRIC_BROC,
+                ProjectName::CALL_OF_DIRTY,
+                ProjectName::CHIPSET_ACCELERATION,
+                ProjectName::DISMANTLING,
+                ProjectName::DOOR_SENSOR,
+                ProjectName::EXTRA_DRONE,
+                ProjectName::EXTRA_HYDROPONPOTS,
+                ProjectName::FIRE_SENSOR,
+                ProjectName::FISSION_COFFEE_ROASTER,
+                ProjectName::FLOOR_HEATING,
+                ProjectName::FOOD_RETAILER,
+                ProjectName::HEAT_LAMP,
+                ProjectName::HYDROPONIC_INCUBATOR,
+                ProjectName::ICARUS_ANTIGRAV_PROPELLER,
+                ProjectName::ICARUS_LARGER_BAY,
+                ProjectName::ICARUS_LAVATORY,
+                ProjectName::MAGNETIC_NET,
+                ProjectName::NERON_PROJECT_THREAD,
+                ProjectName::NERON_TARGETING_ASSIST,
+                ProjectName::NOISE_REDUCER,
+                ProjectName::OXY_MORE,
+                ProjectName::PARASITE_ELM,
+                ProjectName::PATROL_SHIP_BLASTER_GUN,
+                ProjectName::PATROL_SHIP_EXTRA_AMMO,
+                ProjectName::PATROL_SHIP_LAUNCHER,
+                ProjectName::PILGRED,
+                ProjectName::PLASMA_SHIELD,
+                ProjectName::QUANTUM_SENSORS,
+                ProjectName::RADAR_TRANS_VOID,
+                ProjectName::THALASSO,
+                ProjectName::TRAIL_REDUCER,
+                ProjectName::TRASH_LOAD,
+                ProjectName::TURRET_EXTRA_FIRE_RATE,
+                ProjectName::WHOS_WHO,
             ],
         ],
     ];

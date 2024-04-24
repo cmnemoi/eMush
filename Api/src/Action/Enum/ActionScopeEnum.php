@@ -14,13 +14,13 @@ namespace Mush\Action\Enum;
  * SHELVE: the action is provided by a tool (tool effect only apply on equipment on the shelf)
  * TERMINAL: the action is provided if player is focused on a terminal
  */
-class ActionScopeEnum
+abstract class ActionScopeEnum
 {
-    public const SELF = 'self';
-    public const CURRENT = 'current';
-    public const OTHER_PLAYER = 'other_player';
-    public const INVENTORY = 'inventory';
-    public const ROOM = 'room';
-    public const SHELVE = 'shelve';
-    public const TERMINAL = 'terminal';
+    public const string SELF = 'self';
+    public const string CURRENT = 'current';
+    public const string OTHER_PLAYER = 'other_player';
+    public const string INVENTORY = 'inventory';
+    public const string ROOM = 'room';
+    public const string SHELVE = 'shelve';
+    public const string TERMINAL = 'terminal';
 }

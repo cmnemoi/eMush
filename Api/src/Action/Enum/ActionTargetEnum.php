@@ -2,11 +2,11 @@
 
 namespace Mush\Action\Enum;
 
-class ActionTargetEnum
+abstract class ActionTargetEnum
 {
-    public const EQUIPMENT = 'equipment'; // include item
-    public const ITEM = 'item';
-    public const DOOR = 'door';
-    public const TARGET_PLAYER = 'target_player';
-    public const SELF_PLAYER = 'self_player';
+    public const string EQUIPMENT = 'equipment'; // include item
+    public const string ITEM = 'item';
+    public const string DOOR = 'door';
+    public const string TARGET_PLAYER = 'target_player';
+    public const string SELF_PLAYER = 'self_player';
 }

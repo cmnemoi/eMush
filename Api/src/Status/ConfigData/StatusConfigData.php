@@ -1052,7 +1052,7 @@ class StatusConfigData
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::PRIVATE,
             'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
-            'maxCharge' => 1,
+            'maxCharge' => 2,
             'startCharge' => 1,
             'dischargeStrategies' => [ModifierNameEnum::TECHNICIAN_SPECIALIST_POINT],
             'autoRemove' => true,

@@ -84,11 +84,11 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
     <unit id="engineerPoint">
       <segment id="name" state="final">
         <source>engineerPoint.name</source>
-        <target>Point de Réparation</target>
+        <target>Point de Mécanique</target>
       </segment>
       <segment id="description" state="final">
         <source>shootPoint.description</source>
-        <target>Les points de Réparation vous donnent des *actions gratuites* pour toutes les *réparations techniques*.</target>
+        <target>Les points de Mécanique vous donnent des *actions gratuites* pour toutes les *réparations techniques*.</target>
       </segment>
     </unit>
   </file>

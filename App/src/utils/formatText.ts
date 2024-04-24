@@ -45,6 +45,8 @@ export const helpers = {
             return `<img src="${getImgUrl('alerts/hunter.png')}" alt="hunter">`;
         case "pa_shoot":
             return `<img src="${getImgUrl('pa_shoot.png')}" alt="pa_shoot">`;
+        case "pa_eng":
+            return `<img src="${getImgUrl('pa_eng.png')}" alt="pa_eng">`;
         case "pa_core":
             return `<img src="${getImgUrl('pa_core.png')}" alt="pa_core">`;
         case "planet":

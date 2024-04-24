@@ -131,7 +131,7 @@ class EndCauseEnum
         return self::getNotDeathEndCauses()->contains($endCause);
     }
 
-    public static function getEndCausesWhichRemovesMorale(): ArrayCollection
+    private static function getEndCausesWhichRemovesMorale(): ArrayCollection
     {
         return new ArrayCollection([
             self::ABANDONED,

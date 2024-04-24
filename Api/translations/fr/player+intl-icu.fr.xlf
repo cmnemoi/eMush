@@ -81,5 +81,15 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Les Points de Tir vous donnent des **actions gratuites** pour toutes les actions de tir en vol ou à bord.</target>
       </segment>
     </unit>
+    <unit id="engineerPoint">
+      <segment id="name" state="final">
+        <source>engineerPoint.name</source>
+        <target>Point de Réparation</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>shootPoint.description</source>
+        <target>Les points de Réparation vous donnent des *actions gratuites* pour toutes les *réparations techniques*.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

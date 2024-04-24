@@ -18,4 +18,4 @@ export const statusPlayerEnum: {[index: string]: any} = {
     [StatusPlayerNameEnum.ENGINEER]: {
         'icon': getImgUrl('pa_eng.png')
     },
-}
+};

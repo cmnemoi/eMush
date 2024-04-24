@@ -42,5 +42,6 @@ abstract class PlayerStatusEnum
     public const string ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
     public const string HAS_REJUVENATED = 'has_rejuvenated';
     public const string CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
+    public const string TECHNICIAN_SKILL = 'technician_skill'; // TODO MOVE IT where it should!
     public const string PROJECT_PARTICIPATIONS = 'project_participations';
 }

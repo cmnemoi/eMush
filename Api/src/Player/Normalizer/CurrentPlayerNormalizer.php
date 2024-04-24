@@ -148,6 +148,30 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             $titles[] = $normedTitle;
         }
 
+        // This is ugly right now!
+        $specialistPointRules = [
+            /*
+            [
+                'requiredSkill' => PlayerStatusEnum::POC_SHOOTER_SKILL,
+                'specialistPointId' => 'shootPoint'
+            ],
+            */
+            [
+                'requiredSkill' => PlayerStatusEnum::TECHNICIAN_SKILL,
+                'specialistPointId' => 'engineerPoint'
+            ]
+        ];
+
+        $specialistPoints = [];
+        /* TOPO REFACTOR !
+        foreach($specialistPointRules as $specialistPointRule) {
+            $normalizedSpecialistPoint = $this->getNormalizedSpecialistPoint($player, $language, $specialistPointRule['specialistPointId'], specialistPointRule['requiredSkill']);
+            if (null !== shootPoint) {
+                specialistPoints[] = $normalizedSpecialistPoint;
+            }
+        }
+        */
+
         $playerData = array_merge($playerData, [
             'room' => $this->normalizer->normalize($player->getPlace(), $format, $context),
             'skills' => $this->getNormalizedPlayerSkills($player, $format, $context),
@@ -161,6 +185,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
             'shootPoint' => $this->getNormalizedShootPoints($player, $language),
+            'specialistPoints' => $specialistPoints,
         ]);
 
         return $playerData;
@@ -302,18 +327,18 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     }
 
     /** @TODO: generalize this for all specialist points. Move to a SkillNormalizer */
-    private function getNormalizedShootPoints(Player $player, string $language): ?array
+    private function getNormalizedSpecialistPoint(Player $player, string $language, string $specialistPointIdentifier, string $requiredSkillIdentifier): ?array
     {
-        /** @var ?ChargeStatus $shooterSkill */
-        $shooterSkill = $player->getSkillByName(SkillEnum::SHOOTER);
-        if ($shooterSkill === null) {
+        /** @var ?ChargeStatus $skill */
+        $skill = $player->getSkillByName($requiredSkillIdentifier);
+        if ($skill === null) {
             return null;
         }
 
         return [
-            'name' => $this->translationService->translate('shootPoint.name', [], 'player', $language),
-            'description' => $this->translationService->translate('shootPoint.description', [], 'player', $language),
-            'quantity' => $shooterSkill->getCharge(),
+            'name' => $this->translationService->translate($specialistPointIdentifier.'.name', [], 'player', $language),
+            'description' => $this->translationService->translate($specialistPointIdentifier.'.description', [], 'player', $language),
+            'quantity' => $skill->getCharge(),
         ];
     }
 

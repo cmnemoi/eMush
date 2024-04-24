@@ -22,6 +22,7 @@ export enum StatusPlayerNameEnum {
     STUCK_IN_THE_SHIP = "stuck_in_the_ship",
     SHOOTER = "shooter",
     PILOT = "pilot",
+    TECHNICIAN = "technician",
     LOST = "lost"
 };
 
@@ -88,6 +89,9 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.SHOOTER]: {
         'icon': getImgUrl('skills/human/gunman.png')
+    },
+    [StatusPlayerNameEnum.TECHNICIAN_SKILL]: {
+        'icon': getImgUrl('skills/human/engineer.png')
     },
     [StatusPlayerNameEnum.LOST]: {
         'icon': getImgUrl('status/lost_on_planet.png')

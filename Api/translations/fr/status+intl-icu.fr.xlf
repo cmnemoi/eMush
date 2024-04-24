@@ -1591,5 +1591,15 @@
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
+    <unit id="technician_skill">
+      <segment id="name" state="translated">
+        <source>technician_skill.name</source>
+        <target>Technicien</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>technician_skill.description</source>
+        <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

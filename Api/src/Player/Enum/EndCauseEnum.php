@@ -108,7 +108,7 @@ class EndCauseEnum
         return array_keys(self::DEATH_CAUSE_MAP);
     }
 
-    public static function getGoodEndCauses(): ArrayCollection
+    public static function getNotDeathEndCauses(): ArrayCollection
     {
         return new ArrayCollection([
             self::SOL_RETURN,
@@ -116,13 +116,90 @@ class EndCauseEnum
         ]);
     }
 
-    public static function getNotSadEndCauses(): ArrayCollection
+    public static function isDeathEndCause(string $endCause): bool
+    {
+        return self::getDeathEndCauses()->contains($endCause);
+    }
+
+    public static function isEndCauseWhichRemovesMorale(string $endCause): bool
+    {
+        return self::getEndCausesWhichRemovesMorale()->contains($endCause);
+    }
+
+    public static function isNotDeathEndCause(string $endCause): bool
+    {
+        return self::getNotDeathEndCauses()->contains($endCause);
+    }
+
+    public static function getEndCausesWhichRemovesMorale(): ArrayCollection
     {
         return new ArrayCollection([
-            self::DEPRESSION,
-            self::EDEN,
+            self::ABANDONED,
+            self::ALIEN_ABDUCTED,
+            self::ALLERGY,
+            self::ASPHYXIA,
+            self::ASSASSINATED,
+            self::BEHEADED,
+            self::BLACK_BITE,
+            self::BLED,
+            self::BURNT,
+            self::CLUMSINESS,
+            self::DAEDALUS_DESTROYED,
+            self::ELECTROCUTED,
+            self::EXPLORATION_COMBAT,
+            self::EXPLORATION_LOST,
+            self::EXPLORATION,
+            self::INFECTION,
+            self::INJURY,
+            self::KILLED_BY_NERON,
+            self::MANKAROG,
+            self::METAL_PLATE,
+            self::NO_INFIRMERIE,
+            self::PATROL_SHIP_EXPLOSION,
             self::QUARANTINE,
-            self::SOL_RETURN,
+            self::ROCKETED,
+            self::SELF_EXTRACTED,
+            self::SPACE_ASPHYXIATED,
+            self::SPACE_BATTLE,
+            self::STARVATION,
+            self::SUPER_NOVA,
+        ]);
+    }
+
+    private static function getDeathEndCauses(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ABANDONED,
+            self::ALIEN_ABDUCTED,
+            self::ALLERGY,
+            self::ASPHYXIA,
+            self::ASSASSINATED,
+            self::BEHEADED,
+            self::BLACK_BITE,
+            self::BLED,
+            self::BURNT,
+            self::CLUMSINESS,
+            self::DAEDALUS_DESTROYED,
+            self::DEPRESSION,
+            self::ELECTROCUTED,
+            self::EXPLORATION_COMBAT,
+            self::EXPLORATION_LOST,
+            self::EXPLORATION,
+            self::INFECTION,
+            self::INJURY,
+            self::KILLED_BY_NERON,
+            self::MANKAROG,
+            self::METAL_PLATE,
+            self::NO_INFIRMERIE,
+            self::PATROL_SHIP_EXPLOSION,
+            self::QUARANTINE,
+            self::ROCKETED,
+            self::SELF_EXTRACTED,
+            self::SPACE_ASPHYXIATED,
+            self::SPACE_BATTLE,
+            self::STARVATION,
+            self::SUICIDE,
+            self::SUPER_NOVA,
         ]);
     }
 }

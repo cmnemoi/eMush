@@ -53,7 +53,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $logParameters = $event->getLogParameters();
         $language = $player->getDaedalus()->getLanguage();
-        $isGoodEndCause = false;
+        $isNotDeathEndCause = false;
 
         if ($logKey === LogEnum::DEATH) {
             $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
@@ -62,7 +62,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
                 throw new \LogicException('Player should die with a reason');
             }
 
-            $isGoodEndCause = $this->isGoodEndCause($endCause);
+            $isNotDeathEndCause = EndCauseEnum::isNotDeathEndCause($endCause);
             $logParameters[LanguageEnum::END_CAUSE] = $this->translationService->translate(
                 $endCause,
                 [],
@@ -74,16 +74,11 @@ final class PlayerSubscriber implements EventSubscriberInterface
         $this->roomLogService->createLog(
             $logKey,
             $event->getPlace(),
-            $isGoodEndCause ? VisibilityEnum::HIDDEN : VisibilityEnum::PUBLIC,
+            $isNotDeathEndCause ? VisibilityEnum::HIDDEN : VisibilityEnum::PUBLIC,
             'event_log',
             $player,
             $logParameters,
             $event->getTime()
         );
-    }
-
-    private function isGoodEndCause(string $endCause): bool
-    {
-        return EndCauseEnum::getGoodEndCauses()->contains($endCause);
     }
 }

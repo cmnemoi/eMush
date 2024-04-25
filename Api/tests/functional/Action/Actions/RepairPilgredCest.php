@@ -7,6 +7,8 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\RepairPilgred;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -155,6 +157,27 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // then Chun's efficiency should be reset to 1
         $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
+    }
+
+    public function shouldCreateANeronAnnouncementWhenPilgredIsFinished(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // given PILGRED progress is 99%
+        $pilgredProjectReflection = new \ReflectionClass($pilgredProject);
+        $pilgredProjectReflection->getProperty('progress')->setValue($pilgredProject, 99);
+
+        // when Chun repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+
+        // then a Neron announcement should be created
+        $neronAnnouncement = $I->grabEntityFromRepository(
+            entity: Message::class,
+            params: ['message' => NeronMessageEnum::REPAIRED_PILGRED],
+        );
+        $I->assertEquals($neronAnnouncement->getTranslationParameters()['character'], 'chun');
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

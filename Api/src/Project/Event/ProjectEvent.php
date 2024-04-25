@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
@@ -11,12 +12,13 @@ use Mush\Project\Entity\Project;
 final class ProjectEvent extends AbstractGameEvent
 {
     public const string PROJECT_ADVANCED = 'project.advanced';
+    public const string PROJECT_FINISHED = 'project.finished';
 
     private Project $project;
 
     public function __construct(
         Project $project,
-        ?Player $author = null,
+        Player $author,
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ) {
@@ -28,5 +30,24 @@ final class ProjectEvent extends AbstractGameEvent
     public function getProject(): Project
     {
         return $this->project;
+    }
+
+    /**
+     * @psalm-suppress InvalidNullableReturnType
+     * @psalm-suppress NullableReturnStatement
+     */
+    public function getAuthor(): Player
+    {
+        return $this->author;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->project->getDaedalus();
+    }
+
+    public function projectIsFinished(): bool
+    {
+        return $this->project->isFinished();
     }
 }

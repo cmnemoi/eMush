@@ -3,6 +3,32 @@ import { TokenService } from './storage.service';
 import store from '../store';
 import { uuid } from 'vue3-uuid';
 
+export type SuccessReponse = {
+    config: any;
+    data: {
+        detail: string;
+    },
+    headers: any;
+    request: any;
+    status: integer;
+    statusText: string;
+};
+
+export type ErrorResponse = {
+    config: any;
+    data: {
+        class: string|null;
+        detail: string;
+        status: integer;
+        title: string;
+        trace: string|null;
+    },
+    headers: any;
+    request: any;
+    status: integer;
+    statusText: string;
+};
+
 const ApiService = {
 
     _errorInterceptor: 0,

@@ -3820,7 +3820,7 @@ class EquipmentConfigData
             'equipmentName' => 'extinguisher_blueprint',
             'isBreakable' => false,
             'isFireDestroyable' => true,
-            'isFireBreakable' => false,
+            'isFireBreakable' => true,
             'dismountedProducts' => [],
             'isPersonal' => false,
             'type' => 'item_config',

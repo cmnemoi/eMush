@@ -109,6 +109,12 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
         $this->available = false;
     }
 
+    public function unpropose(): void
+    {
+        $this->proposed = false;
+        $this->available = false;
+    }
+
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;

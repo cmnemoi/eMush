@@ -46,9 +46,14 @@ final class ProjectEvent extends AbstractGameEvent
         return $this->project->getDaedalus();
     }
 
-    public function projectIsFinished(): bool
+    public function isNotAboutFinishedProject(): bool
     {
         return $this->project->isFinished();
+    }
+
+    public function isNotAboutNeronProject(): bool
+    {
+        return $this->project->isNeronProject() === false;
     }
 
     public function toArray(): array

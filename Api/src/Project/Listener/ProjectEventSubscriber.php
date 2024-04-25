@@ -27,13 +27,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     public function onProjectAdvanced(ProjectEvent $event): void
     {
         if ($event->projectIsFinished()) {
-            $projectEvent = new ProjectEvent(
-                $event->getProject(),
-                $event->getAuthor(),
-                $event->getTags(),
-                $event->getTime(),
-            );
-            $this->eventService->callEvent($projectEvent, ProjectEvent::PROJECT_FINISHED);
+            $this->eventService->callEvent(new ProjectEvent(...$event->toArray()),  ProjectEvent::PROJECT_FINISHED);
         }
     }
 }

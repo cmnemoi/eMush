@@ -50,4 +50,14 @@ final class ProjectEvent extends AbstractGameEvent
     {
         return $this->project->isFinished();
     }
+
+    public function toArray(): array
+    {
+        return [
+            'project' => $this->project,
+            'author' => $this->author,
+            'tags' => $this->tags,
+            'time' => $this->time,
+        ];
+    }
 }

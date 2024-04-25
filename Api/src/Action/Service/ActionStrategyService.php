@@ -12,6 +12,7 @@ use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Project\Entity\Project;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -76,25 +77,74 @@ class ActionStrategyService implements ActionStrategyServiceInterface
     private function loadActionTarget(?array $actionTarget): ?LogParameterInterface
     {
         if ($actionTarget !== null) {
-            if (($equipmentId = $actionTarget['door'] ?? null)
-                || ($equipmentId = $actionTarget['item'] ?? null)
-                || ($equipmentId = $actionTarget['equipment'] ?? null)
-                || ($equipmentId = $actionTarget['terminal'] ?? null)
-            ) {
-                return $this->equipmentService->findById($equipmentId);
+            if ($player = $this->getPlayerActionTarget($actionTarget)) {
+                return $player;
             }
 
-            if ($playerId = $actionTarget['player'] ?? null) {
-                return $this->playerService->findById($playerId);
+            if ($equipment = $this->getEquipmentActionTarget($actionTarget)) {
+                return $equipment;
             }
 
-            if ($hunterId = $actionTarget['hunter'] ?? null) {
-                return $this->hunterService->findById($hunterId);
+            if ($hunter = $this->getHunterActionTarget($actionTarget)) {
+                return $hunter;
             }
 
-            if ($planetId = $actionTarget['planet'] ?? null) {
-                return $this->planetService->findById($planetId);
+            if ($planet = $this->getPlanetActionTarget($actionTarget)) {
+                return $planet;
             }
+
+            if ($project = $this->getProjectActionTarget($actionTarget)) {
+                return $project;
+            }
+        }
+
+        return null;
+    }
+
+    private function getEquipmentActionTarget(array $actionTarget): ?LogParameterInterface
+    {
+        if (($equipmentId = $actionTarget['door'] ?? null)
+            || ($equipmentId = $actionTarget['item'] ?? null)
+            || ($equipmentId = $actionTarget['equipment'] ?? null)
+            || ($equipmentId = $actionTarget['terminal'] ?? null)
+        ) {
+            return $this->equipmentService->findById($equipmentId);
+        }
+
+        return null;
+    }
+
+    private function getPlayerActionTarget(array $actionTarget): ?LogParameterInterface
+    {
+        if ($playerId = $actionTarget['player'] ?? null) {
+            return $this->playerService->findById($playerId);
+        }
+
+        return null;
+    }
+
+    private function getHunterActionTarget(array $actionTarget): ?LogParameterInterface
+    {
+        if ($hunterId = $actionTarget['hunter'] ?? null) {
+            return $this->hunterService->findById($hunterId);
+        }
+
+        return null;
+    }
+
+    private function getPlanetActionTarget(array $actionTarget): ?LogParameterInterface
+    {
+        if ($planetId = $actionTarget['planet'] ?? null) {
+            return $this->planetService->findById($planetId);
+        }
+
+        return null;
+    }
+
+    private function getProjectActionTarget(array $actionTarget): ?LogParameterInterface
+    {
+        if ($projectId = $actionTarget['project'] ?? null) {
+            return $this->entityManager->getRepository(Project::class)->find($projectId);
         }
 
         return null;

@@ -1185,5 +1185,11 @@
         <target>Vous avez modifié un des paramètres de NERON.</target>
       </segment>
     </unit>
+    <unit id="repair_pilgred_success">
+      <segment id="repair_pilgred_success" state="translated">
+        <source>repair_pilgred_success</source>
+        <target>**{character}** a fait progresser la réparation de PILGRED.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

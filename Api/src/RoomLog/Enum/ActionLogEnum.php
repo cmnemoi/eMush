@@ -126,6 +126,7 @@ abstract class ActionLogEnum
     public const string VALUE = 'value';
     public const string PLAY_ARCADE_SUCCESS = 'play_arcade_success';
     public const string PLAY_ARCADE_FAIL = 'play_arcade_fail';
+    public const string REPAIR_PILGRED_SUCCESS = 'repair_pilgred_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE => [
@@ -426,6 +427,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::CHANGE_NERON_CPU_PRIORITY => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_CPU_PRIORITY_SUCCESS,
+        ],
+        ActionEnum::REPAIR_PILGRED => [
+            ActionOutputEnum::SUCCESS => self::REPAIR_PILGRED_SUCCESS,
         ],
     ];
 }

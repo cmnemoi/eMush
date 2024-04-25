@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
@@ -145,12 +146,19 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($researchLab);
 
+        /** @var Action $repairPilgredAction */
+        $repairPilgredAction = $this->getReference(ActionEnum::REPAIR_PILGRED);
+
+        $pilgredTerminalTool = $this->createTool([$repairPilgredAction], EquipmentEnum::PILGRED);
+        $manager->persist($pilgredTerminalTool);
+
         $pilgred = new EquipmentConfig();
         $pilgred
             ->setEquipmentName(EquipmentEnum::PILGRED)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setActions([$examineAction, $accessTerminalAction, $exitTerminalAction])
+            ->setMechanics([$pilgredTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pilgred);
 

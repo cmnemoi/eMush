@@ -5,6 +5,7 @@ export enum ActionEnum {
     DELETE_PLANET = "delete_planet",
     EXIT_TERMINAL = "exit_terminal",
     LEAVE_ORBIT = "leave_orbit",
+    REPAIR_PILGRED = "repair_pilgred",
     SCAN = "scan",
     SHOOT_HUNTER = "shoot_hunter",
     SHOOT_HUNTER_PATROL_SHIP = "shoot_hunter_patrol_ship",

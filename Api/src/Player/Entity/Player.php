@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionTargetName;
 use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
@@ -46,7 +48,7 @@ use Mush\User\Entity\User;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionTargetInterface
 {
     use TargetStatusTrait;
     use TimestampableEntity;
@@ -641,5 +643,10 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getFavoriteMessages(): Collection
     {
         return $this->favoriteMessages;
+    }
+
+    public function getActionTargetName(array $context): string
+    {
+        return ActionTargetName::PLAYER->value;
     }
 }

@@ -81,27 +81,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             expected: ['exit_terminal'],
             actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
         );
-        $I->assertEquals(
-            expected: [[
-                'key' => 'pilgred',
-                'name' => 'PILGRED',
-                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
-                'progress' => '0%',
-                'efficiency' => 'Efficacité : 1-1%',
-                'bonusSkills' => [
-                    [
-                        'key' => 'physicist',
-                        'name' => 'Physicien',
-                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                    [
-                        'key' => 'technician',
-                        'name' => 'Technicien',
-                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.',
-                    ],
-                ],
-            ]],
-            actual: $normalizedTerminal['projects']
-        );
+        $I->assertArrayHasKey('projects', $normalizedTerminal);
+        $normalizedPilgredProject = $normalizedTerminal['projects'][0];
+        $I->assertEquals(expected: 'PILGRED', actual: $normalizedPilgredProject['name']);
     }
 }

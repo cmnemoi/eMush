@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Mush\Project\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\ActionTargetInterface;
+use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
+use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
-class Project
+class Project implements LogParameterInterface, ActionTargetInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -70,5 +74,30 @@ class Project
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function makeProgress(int $progress): void
+    {
+        $this->progress += $progress;
+    }
+
+    public function getClassName(): string
+    {
+        return self::class;
+    }
+
+    public function getLogName(): string
+    {
+        return $this->getName()->value;
+    }
+
+    public function getLogKey(): string
+    {
+        return LogParameterKeyEnum::PROJECT;
+    }
+
+    public function getActionTargetName(array $context): string
+    {
+        return ActionTargetName::PROJECT->value;
     }
 }

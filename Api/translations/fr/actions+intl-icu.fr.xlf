@@ -1090,5 +1090,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
                 }</target>
       </segment>
     </unit>
+    <unit id="repair_pilgred">
+      <segment id="name" state="final">
+        <source>repair_pilgred.name</source>
+        <target>Participer</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>repair_pilgred.description</source>
+        <target>Réparer PILGRED vous permettra de revenir sur Sol.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

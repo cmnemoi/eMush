@@ -25,7 +25,7 @@ export class Terminal {
             this.sectionTitles = new TerminalSectionTitles().load(object.sectionTitles);
             this.infos = new TerminalInfos().load(object.infos);
             this.buttons = new TerminalButtons().load(object.buttons);
-            this.projects = object.projects.map((project: any) => new Project().load(project));
+            this.projects = object.projects?.map((project: any) => new Project().load(project));
         }
         return this;
     }

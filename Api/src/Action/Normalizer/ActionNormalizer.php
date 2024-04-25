@@ -9,6 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
+use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -30,17 +31,20 @@ class ActionNormalizer implements NormalizerInterface
     private TranslationServiceInterface $translationService;
     private ActionStrategyServiceInterface $actionStrategyService;
     private ActionServiceInterface $actionService;
+    private GetActionTargetFromContextService $getActionTargetFromContextService;
     private PlanetServiceInterface $planetService;
 
     public function __construct(
         TranslationServiceInterface $translationService,
         ActionStrategyServiceInterface $actionStrategyService,
         ActionServiceInterface $actionService,
+        GetActionTargetFromContextService $getActionTargetFromContextService,
         PlanetServiceInterface $planetService
     ) {
         $this->translationService = $translationService;
         $this->actionStrategyService = $actionStrategyService;
         $this->actionService = $actionService;
+        $this->getActionTargetFromContextService = $getActionTargetFromContextService;
         $this->planetService = $planetService;
     }
 
@@ -148,30 +152,7 @@ class ActionNormalizer implements NormalizerInterface
     private function loadParameters(array $context): array
     {
         $parameters = [];
-        $actionTarget = null;
-        if (\array_key_exists('player', $context)) {
-            $actionTarget = $context['player'];
-        }
-        if (\array_key_exists('door', $context)) {
-            $actionTarget = $context['door'];
-        }
-        if (\array_key_exists('item', $context)) {
-            $actionTarget = $context['item'];
-        }
-        if (\array_key_exists('equipment', $context)) {
-            $actionTarget = $context['equipment'];
-        }
-        if (\array_key_exists('hunter', $context)) {
-            $actionTarget = $context['hunter'];
-        }
-        if (\array_key_exists('terminal', $context)) {
-            $actionTarget = $context['terminal'];
-        }
-        if (\array_key_exists('planet', $context)) {
-            $actionTarget = $context['planet'];
-        }
-
-        $parameters['actionTarget'] = $actionTarget;
+        $parameters['actionTarget'] = $this->getActionTargetFromContextService->execute($context);
 
         return $parameters;
     }

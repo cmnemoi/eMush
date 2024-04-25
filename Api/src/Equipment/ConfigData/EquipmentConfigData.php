@@ -2627,7 +2627,9 @@ class EquipmentConfigData
                 'access_terminal',
                 'exit_terminal',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_pilgred_terminal_default',
+            ],
             'initStatuses' => [],
         ],
         [

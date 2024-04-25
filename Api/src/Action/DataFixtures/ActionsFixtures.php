@@ -15,6 +15,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Project\Entity\Project;
 
 class ActionsFixtures extends Fixture
 {
@@ -1029,6 +1030,17 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($changeNeronCpuPriority);
 
+        $repairPilgred = new Action();
+        $repairPilgred
+            ->setName(ActionEnum::REPAIR_PILGRED)
+            ->setActionName(ActionEnum::REPAIR_PILGRED)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setTarget(Project::class)
+            ->setActionCost(2)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $manager->persist($repairPilgred);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1123,5 +1135,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::TAKEOFF_TO_PLANET, $takeoffToPlanet);
         $this->addReference(self::TAKEOFF_TO_PLANET_PATROL_SHIP, $takeoffToPlanetPatrolShip);
         $this->addReference(self::CHANGE_NERON_CPU_PRIORITY, $changeNeronCpuPriority);
+        $this->addReference(ActionEnum::REPAIR_PILGRED, $repairPilgred);
     }
 }

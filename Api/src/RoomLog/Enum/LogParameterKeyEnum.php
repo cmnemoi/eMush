@@ -4,11 +4,12 @@ namespace Mush\RoomLog\Enum;
 
 class LogParameterKeyEnum
 {
-    public const CHARACTER = 'character';
-    public const DISEASE = 'disease';
-    public const EQUIPMENT = 'equipment';
-    public const HUNTER = 'hunter';
-    public const ITEM = 'item';
-    public const PLACE = 'place';
-    public const PLANET = 'planet';
+    public const string CHARACTER = 'character';
+    public const string DISEASE = 'disease';
+    public const string EQUIPMENT = 'equipment';
+    public const string HUNTER = 'hunter';
+    public const string ITEM = 'item';
+    public const string PLACE = 'place';
+    public const string PLANET = 'planet';
+    public const string PROJECT = 'project';
 }

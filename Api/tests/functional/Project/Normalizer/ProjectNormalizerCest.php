@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Project\Normalizer;
 
-use Mush\Project\Entity\Project;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Enum\ProjectName;
-use Mush\Project\Factory\ProjectConfigFactory;
 use Mush\Project\Normalizer\ProjectNormalizer;
-use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
@@ -18,28 +22,52 @@ use Mush\Tests\FunctionalTester;
 final class ProjectNormalizerCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
-    private CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
+    private int $repairActionId;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->projectNormalizer = $I->grabService(ProjectNormalizer::class);
+        $this->projectNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
 
-        $this->createProjectFromConfigForDaedalusUseCase = $I->grabService(CreateProjectFromConfigForDaedalusUseCase::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        // given pilgred terminal in the room
+        $pilgredTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PILGRED,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is focused on the terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        $this->repairActionId = $pilgredTerminal->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActions()->filter(static fn ($action) => $action->getName() === ActionEnum::REPAIR_PILGRED)->first()->getId();
     }
 
     public function shouldNormalizeProject(FunctionalTester $I): void
     {
         // given I have a project
-        $project = $this->createPilgredProject($I);
+        $project = $this->createProject(ProjectName::PILGRED, $I);
 
         // when I normalize the project
-        $normalizedProject = $this->projectNormalizer->normalize($project);
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
 
         // then I should get the normalized project
         $I->assertEquals(
             expected: [
+                'id' => $project->getId(),
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
@@ -57,23 +85,23 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                         'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
+                'actions' => [
+                    [
+                        'id' => $this->repairActionId,
+                        'key' => ActionEnum::REPAIR_PILGRED,
+                        'name' => 'Participer',
+                        'actionPointCost' => 2,
+                        'movementPointCost' => 0,
+                        'moralPointCost' => 0,
+                        'shootPointCost' => null,
+                        'successRate' => 100,
+                        'description' => 'Réparer PILGRED vous permettra de revenir sur Sol.',
+                        'canExecute' => true,
+                        'confirmation' => null,
+                    ],
+                ],
             ],
             actual: $normalizedProject
         );
-    }
-
-    private function createPilgredProject(FunctionalTester $I): Project
-    {
-        $config = ProjectConfigFactory::createPilgredConfig();
-        $I->haveInRepository($config);
-
-        $this->createProjectFromConfigForDaedalusUseCase->execute(
-            $config,
-            $this->daedalus
-        );
-
-        return $this->daedalus->getAvailableProjects()->filter(
-            static fn (Project $project) => $project->getName() === ProjectName::PILGRED
-        )->first();
     }
 }

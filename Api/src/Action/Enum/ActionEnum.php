@@ -166,8 +166,7 @@ abstract class ActionEnum
     public const string LEAVE_ORBIT = 'leave_orbit';
     public const string WRITE = 'write';
     public const string CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
-
-    public const string RESEARCH_PROJECT = 'research_project';
+    public const string REPAIR_PILGRED = 'repair_pilgred';
 
     public static function getPermanentItemActions(): array
     {

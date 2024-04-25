@@ -6,12 +6,11 @@ namespace Mush\Tests\Unit\Project\UseCase;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\Entity\Project;
-use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Factory\ProjectConfigFactory;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use PHPUnit\Framework\TestCase;
@@ -64,7 +63,7 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
     }
 
     public function testShouldNotCreateAlreadyExistingProject(): void
-    {   
+    {
         // given I have a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
 

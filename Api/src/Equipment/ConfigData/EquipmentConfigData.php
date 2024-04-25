@@ -2624,6 +2624,8 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'examine',
+                'access_terminal',
+                'exit_terminal',
             ],
             'mechanics' => [],
             'initStatuses' => [],

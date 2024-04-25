@@ -3,4 +3,5 @@ export enum TerminalEnum {
     BIOS_TERMINAL = "bios_terminal",
     COMMAND_TERMINAL = "command_terminal",
     BLOCK_OF_POST_IT = "block_of_post_it",
+    PILGRED_TERMINAL = "pilgred",
 };

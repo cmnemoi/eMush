@@ -536,7 +536,7 @@ class GameConfigData
                 ProjectName::NERON_TARGETING_ASSIST,
                 ProjectName::NOISE_REDUCER,
                 ProjectName::OXY_MORE,
-                ProjectName::PARASITE_ELM,
+                ProjectName::PARASITE_ELIM,
                 ProjectName::PATROL_SHIP_BLASTER_GUN,
                 ProjectName::PATROL_SHIP_EXTRA_AMMO,
                 ProjectName::PATROL_SHIP_LAUNCHER,

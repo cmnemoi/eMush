@@ -36,7 +36,7 @@ enum ProjectName: string
     case NOISE_REDUCER = 'noise_reducer';
     case NULL = '';
     case OXY_MORE = 'oxy_more';
-    case PARASITE_ELM = 'parasite_elm';
+    case PARASITE_ELIM = 'parasite_elim';
     case PATROL_SHIP_BLASTER_GUN = 'patrol_ship_blaster_gun';
     case PATROL_SHIP_EXTRA_AMMO = 'patrol_ship_extra_ammo';
     case PATROL_SHIP_LAUNCHER = 'patrol_ship_launcher';

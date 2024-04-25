@@ -257,7 +257,7 @@ final class ProjectConfigData
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::PILOT],
             ],
             [
-                'name' => ProjectName::PARASITE_ELM,
+                'name' => ProjectName::PARASITE_ELIM,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::BOTANIST, SkillEnum::BIOLOGIST],

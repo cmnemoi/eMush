@@ -35,6 +35,20 @@
             <target>Génère 5 Débris métalliques dans la Salle des Moteurs.</target>
         </segment>
     </unit>
+    <unit id="parasite_elim">
+        <segment id="parasite_elim.type" state="translated">
+            <source>parasite_elim.type</source>
+            <target>Proj.</target>
+        </segment>
+        <segment id="parasite_elim.name" state="translated">
+            <source>parasite_elim.name</source>
+            <target>Nano-Coccinnelles</target>
+        </segment>
+        <segment id="parasite_elim.description" state="translated">
+            <source>parasite_elim.description</source>
+            <target>Les jeunes plantes dans le Jardin voit leur durée de croissance diminuée de 4 cycles.</target>
+        </segment>
+    </unit>
     <unit id="pilgred">
         <segment id="pilgred.type" state="translated">
             <source>pilgred.type</source>

@@ -7,7 +7,7 @@
             <CommandTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.COMMAND_TERMINAL)" :terminal="player.terminal" />
             <BlockOfPostItTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.BLOCK_OF_POST_IT)" :terminal="player.terminal" />
             <BiosTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.BIOS_TERMINAL)" :terminal="player.terminal" />
-            <PilgredTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.PILGRED_TERMINAL)" :terminal="player.terminal" />
+            <ProjectsTerminal v-else-if="player.isFocusedOnProjectsTerminal() || player.isFocusedOnPilgredTerminal()" :terminal="player.terminal" />
         </div>
         <TerminalExitButton :terminal="player.terminal" />
     </div>
@@ -20,7 +20,7 @@ import AstroTerminal from "@/components/Game/Terminals/AstroTerminal.vue";
 import CommandTerminal from "@/components/Game/Terminals/CommandTerminal.vue";
 import BlockOfPostItTerminal from "@/components/Game/Terminals/BlockOfPostItTerminal.vue";
 import BiosTerminal from "@/components/Game/Terminals/BiosTerminal.vue";
-import PilgredTerminal from "@/components/Game/Terminals/PilgredTerminal.vue";
+import ProjectsTerminal from "@/components/Game/Terminals/ProjectsTerminal.vue";
 import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import { Player } from "@/entities/Player";
@@ -35,7 +35,7 @@ export default defineComponent ({
         CommandTerminal,
         BlockOfPostItTerminal,
         BiosTerminal,
-        PilgredTerminal
+        ProjectsTerminal
     },
     props: {
         player: {

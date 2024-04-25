@@ -47,7 +47,8 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setMaxCombustionChamberFuel(9)
             ->setNbMush(3)
             ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60);
+            ->setCycleLength(3 * 60)
+            ->setNumberOfProjectsByBatch(3);
 
         $randomStorageItemPlaces = new RandomItemPlaces();
         $randomStorageItemPlaces

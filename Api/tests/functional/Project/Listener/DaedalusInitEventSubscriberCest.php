@@ -39,6 +39,23 @@ final class DaedalusInitEventSubscriberCest extends AbstractFunctionalTest
 
         // then Daedalus should have all its projects created
         $expectedNumberOfProjects = \count(ProjectConfigData::getAll());
-        $I->assertCount($expectedNumberOfProjects, $this->daedalus->getAvailableProjects());
+        $I->assertCount($expectedNumberOfProjects, $this->daedalus->getAllAvailableProjects());
+    }
+
+    public function testShouldProposeThreeNeronProjectsOnNewDaedalusEvent(FunctionalTester $I): void
+    {
+        // given I have a new daedalus event
+        $daedalusInitEvent = new DaedalusInitEvent(
+            daedalus: $this->daedalus,
+            daedalusConfig: $this->daedalus->getDaedalusConfig(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I listen to the DaedalusInitEvent
+        $this->daedalusInitEventSubscriber->onNewDaedalus($daedalusInitEvent);
+
+        // then Daedalus should have all 3 Neron projects created
+        $I->assertCount(expectedCount: 3, haystack: $this->daedalus->getProposedNeronProjects());
     }
 }

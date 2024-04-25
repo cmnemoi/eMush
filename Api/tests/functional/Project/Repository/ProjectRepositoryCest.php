@@ -39,7 +39,7 @@ final class ProjectRepositoryCest extends AbstractFunctionalTest
         );
 
         /** @var Project $project */
-        $project = $this->daedalus->getAvailableProjects()->first();
+        $project = $this->daedalus->getAllAvailableProjects()->first();
 
         // when I find the project by name
         $foundProject = $this->projectRepository->findByName($project->getName());

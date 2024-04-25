@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Tests\Unit\Project\UseCase;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Daedalus\Repository\InMemoryDaedalusRepository;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
@@ -20,7 +19,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
 {
-    private InMemoryDaedalusRepository $daedalusRepository;
     private InMemoryProjectRepository $projectRepository;
 
     /**
@@ -28,7 +26,6 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
      */
     public function before(): void
     {
-        $this->daedalusRepository = new InMemoryDaedalusRepository();
         $this->projectRepository = new InMemoryProjectRepository();
     }
 
@@ -37,7 +34,6 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
      */
     public function after(): void
     {
-        $this->daedalusRepository->clear();
         $this->projectRepository->clear();
     }
 
@@ -51,7 +47,6 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
 
         // when I execute the usecase
         $createProjectFromConfigForDaedalusUseCase = new CreateProjectFromConfigForDaedalusUseCase(
-            $this->daedalusRepository,
             $this->projectRepository
         );
         $createProjectFromConfigForDaedalusUseCase->execute($projectConfig, $daedalus);
@@ -63,7 +58,7 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
         self::assertEquals(expected: $daedalus, actual: $project->getDaedalus());
 
         // then Daedalus should have the project
-        self::assertNotEmpty($daedalus->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD->value));
+        self::assertNotEmpty($daedalus->getAllAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD->value));
     }
 
     private static function assertProjectIsAsExpected(Project $project): void

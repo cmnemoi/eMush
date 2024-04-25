@@ -109,9 +109,19 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions([$repair6, $sabotage6, $reportAction, $examineAction])
+            ->setActions([$repair6, $sabotage6, $reportAction, $examineAction, $accessTerminalAction, $exitTerminalAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($neronCore);
+
+        $auxiliaryTerminal = new EquipmentConfig();
+        $auxiliaryTerminal
+            ->setEquipmentName(EquipmentEnum::AUXILIARY_TERMINAL)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setIsBreakable(true)
+            ->setActions([$repair6, $sabotage6, $reportAction, $examineAction, $accessTerminalAction, $exitTerminalAction])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($auxiliaryTerminal);
 
         /** @var Action $scanAction */
         $scanAction = $this->getReference(ActionsFixtures::SCAN);
@@ -806,7 +816,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addEquipmentConfig($fuelTank)
             ->addEquipmentConfig($oxygenTank)
             ->addEquipmentConfig($tabulatrix)
-            ->addEquipmentConfig($swedishSofa);
+            ->addEquipmentConfig($swedishSofa)
+            ->addEquipmentConfig($auxiliaryTerminal);
         $manager->persist($gameConfig);
 
         $manager->flush();

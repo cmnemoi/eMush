@@ -622,9 +622,19 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::LOST));
     }
 
-    public function getAvailableProjects(): Collection
+    public function getAllAvailableProjects(): Collection
     {
         return $this->projects;
+    }
+
+    public function getAvailableNeronProjects(): Collection
+    {
+        return $this->projects->filter(static fn (Project $project) => $project->isAvailableNeronProject());
+    }
+
+    public function getProposedNeronProjects(): Collection
+    {
+        return $this->projects->filter(static fn (Project $project) => $project->isProposedNeronProject());
     }
 
     public function addProject(Project $project): static
@@ -653,6 +663,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->projects->exists(static fn ($key, Project $project) => $project->getName() === $projectName->value);
     }
 
+    public function hasNoProposedNeronProjects(): bool
+    {
+        return $this->getProposedNeronProjects()->count() === 0;
+    }
+
     public function getPilgred(): Project
     {
         return $this->getProjectByName(ProjectName::PILGRED);
@@ -676,5 +691,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function isCpuPriorityOn(string $cpuPriority): bool
     {
         return $this->getDaedalusInfo()->getNeron()->getCpuPriority() === $cpuPriority;
+    }
+
+    public function getNumberOfProjectsByBatch(): int
+    {
+        return $this->getDaedalusConfig()->getNumberOfProjectsByBatch();
     }
 }

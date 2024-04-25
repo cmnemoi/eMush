@@ -3,11 +3,15 @@
         <p v-if="terminal.infos.pilgredIsFinished">
             {{ formatText(terminal.infos.pilgredFinishedDescription) }}
         </p>
+        <p v-else-if="terminal.infos.noProposedNeronProjects">
+            {{ formatText(terminal.infos.noProposedNeronProjectsDescription) }}
+        </p>
         <ProjectCard
             v-for="project in terminal.projects"
             :key="project.key"
             :project="project"
-            v-else />
+            v-else
+        />
     </div>
 </template>
 

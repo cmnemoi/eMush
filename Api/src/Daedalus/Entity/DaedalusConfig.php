@@ -17,19 +17,19 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false, options: ['default' => ''])]
     private string $name;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $initOxygen = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $initFuel = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $initHull = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $initShield = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -38,16 +38,16 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $initCombustionChamberFuel = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxOxygen = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxFuel = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxHull = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxShield = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -59,17 +59,20 @@ class DaedalusConfig
     #[ORM\ManyToMany(targetEntity: PlaceConfig::class)]
     private Collection $placeConfigs;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $dailySporeNb = 4;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $nbMush = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $cyclePerGameDay = 8;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $cycleLength = 0; // in minutes
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $numberOfProjectsByBatch = 0;
 
     public function getId(): int
     {
@@ -321,6 +324,18 @@ class DaedalusConfig
     public function setCycleLength(int $cycleLength): static
     {
         $this->cycleLength = $cycleLength;
+
+        return $this;
+    }
+
+    public function getNumberOfProjectsByBatch(): int
+    {
+        return $this->numberOfProjectsByBatch;
+    }
+
+    public function setNumberOfProjectsByBatch(int $numberOfProjectsByBatch): static
+    {
+        $this->numberOfProjectsByBatch = $numberOfProjectsByBatch;
 
         return $this;
     }

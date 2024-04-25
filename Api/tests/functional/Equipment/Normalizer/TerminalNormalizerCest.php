@@ -81,8 +81,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeExtraInfosWhenPilgredIsFinished(FunctionalTester $I): void
     {
         // given PILGRED is finished
-        $pilgredReflection = new \ReflectionClass($this->pilgredProject);
-        $pilgredReflection->getProperty('progress')->setValue($this->pilgredProject, 100);
+        $this->pilgredProject->makeProgress(100);
 
         // given I have a PILGRED terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -120,5 +119,139 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(expected: 'PILGRED', actual: $normalizedPilgredProject['name']);
 
         $I->assertEquals(expected: 'Le PILGRED est pleinement opérationnel.', actual: $normalizedTerminal['infos']['pilgredFinishedDescription']);
+    }
+
+    public function testShouldNormalizeNeronCoreTerminal(FunctionalTester $I): void
+    {
+        // given I have 3 proposed NERON projects
+        $this->createProject(ProjectName::AUTO_WATERING, $I)->propose();
+        $this->createProject(ProjectName::PLASMA_SHIELD, $I)->propose();
+        $this->createProject(ProjectName::TRAIL_REDUCER, $I)->propose();
+
+        // given I have 1 not proposed NERON project
+        $this->createProject(ProjectName::FISSION_COFFEE_ROASTER, $I);
+
+        // given I have a NERON's core terminal
+        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::NERON_CORE,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is focused on the terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal
+        );
+
+        // when I normalize the terminal for Chun
+        $normalizedTerminal = $this->terminalNormalizer->normalize($terminal, format: null, context: ['currentPlayer' => $this->chun]);
+
+        // then I should get the normalized terminal
+        $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
+        $I->assertEquals(expected: 'Coeur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(
+            expected: "Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            actual: $normalizedTerminal['tips']
+        );
+        $I->assertEquals(
+            expected: ['exit_terminal'],
+            actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
+        );
+        $I->assertArrayHasKey('projects', $normalizedTerminal);
+        $I->assertFalse($normalizedTerminal['infos']['noProposedNeronProjects']);
+        $I->assertCount(expectedCount: 3, haystack: $normalizedTerminal['projects']);
+    }
+
+    public function testShouldNormalizeWithExtraInfosIfThereAreNoProposedProjects(FunctionalTester $I): void
+    {
+        // given I have 1 not proposed NERON project
+        $this->createProject(ProjectName::FISSION_COFFEE_ROASTER, $I);
+
+        // given I have a NERON's core terminal
+        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::NERON_CORE,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is focused on the terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal
+        );
+
+        // when I normalize the terminal for Chun
+        $normalizedTerminal = $this->terminalNormalizer->normalize($terminal, format: null, context: ['currentPlayer' => $this->chun]);
+
+        // then I should get the normalized terminal
+        $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
+        $I->assertEquals(expected: 'Coeur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(
+            expected: "Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            actual: $normalizedTerminal['tips']
+        );
+        $I->assertEquals(
+            expected: ['exit_terminal'],
+            actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
+        );
+        $I->assertArrayHasKey('projects', $normalizedTerminal);
+        $I->assertCount(expectedCount: 0, haystack: $normalizedTerminal['projects']);
+        $I->assertTrue($normalizedTerminal['infos']['noProposedNeronProjects']);
+        $I->assertEquals(expected: 'Il n\'y a plus de projets à faire aboutir.', actual: $normalizedTerminal['infos']['noProposedNeronProjectsDescription']);
+    }
+
+    public function testShouldNormalizeAuxiliaryTerminal(FunctionalTester $I): void
+    {
+        // given I have 3 proposed NERON projects
+        $this->createProject(ProjectName::AUTO_WATERING, $I)->propose();
+        $this->createProject(ProjectName::PLASMA_SHIELD, $I)->propose();
+        $this->createProject(ProjectName::TRAIL_REDUCER, $I)->propose();
+
+        // given I have 1 not proposed NERON project
+        $this->createProject(ProjectName::FISSION_COFFEE_ROASTER, $I);
+
+        // given I have a NERON's core terminal
+        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::AUXILIARY_TERMINAL,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is focused on the terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal
+        );
+
+        // when I normalize the terminal for Chun
+        $normalizedTerminal = $this->terminalNormalizer->normalize($terminal, format: null, context: ['currentPlayer' => $this->chun]);
+
+        // then I should get the normalized terminal
+        $I->assertEquals(expected: EquipmentEnum::AUXILIARY_TERMINAL, actual: $normalizedTerminal['key']);
+        $I->assertEquals(expected: 'Coeur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(
+            expected: "Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            actual: $normalizedTerminal['tips']
+        );
+        $I->assertEquals(
+            expected: ['exit_terminal'],
+            actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
+        );
+        $I->assertArrayHasKey('projects', $normalizedTerminal);
+        $I->assertFalse($normalizedTerminal['infos']['noProposedNeronProjects']);
+        $I->assertCount(expectedCount: 3, haystack: $normalizedTerminal['projects']);
     }
 }

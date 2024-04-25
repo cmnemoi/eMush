@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Project\UseCase;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Repository\ProjectRepositoryInterface;
@@ -13,7 +12,6 @@ use Mush\Project\Repository\ProjectRepositoryInterface;
 final readonly class CreateProjectFromConfigForDaedalusUseCase
 {
     public function __construct(
-        private DaedalusRepositoryInterface $daedalusRepository,
         private ProjectRepositoryInterface $projectRepository
     ) {}
 
@@ -25,8 +23,5 @@ final readonly class CreateProjectFromConfigForDaedalusUseCase
 
         $project = new Project($projectConfig, $daedalus);
         $this->projectRepository->save($project);
-
-        $daedalus->addProject($project);
-        $this->daedalusRepository->save($daedalus);
     }
 }

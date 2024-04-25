@@ -47,9 +47,6 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
         $this->unproposeCurrentNeronProjectsUseCase->execute($daedalus);
 
         // then, propose new NERON projects
-        $this->proposeNewNeronProjectsUseCase->execute(
-            daedalus: $daedalus,
-            number: $daedalus->getNumberOfProjectsByBatch()
-        );
+        $this->proposeNewNeronProjectsUseCase->execute(daedalus: $daedalus, number: $daedalus->getNumberOfProjectsByBatch());
     }
 }

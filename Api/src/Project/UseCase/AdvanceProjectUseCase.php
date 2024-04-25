@@ -12,18 +12,17 @@ use Mush\Project\Repository\ProjectRepositoryInterface;
 final class AdvanceProjectUseCase
 {
     public function __construct(
-        private ProjectRepositoryInterface $projectRepositoryInterface,
+        private ProjectRepositoryInterface $projectRepository,
         private GetRandomIntegerServiceInterface $getRandomIntegerService,
     ) {}
 
     public function execute(Player $player, Project $project): void
     {
-        $minEfficiency = $player->getMinEfficiencyForProject($project);
-        $maxEfficiency = $player->getMaxEfficiencyForProject($project);
+        $efficiency = $player->getEfficiencyForProject($project);
 
-        $progress = $this->getRandomIntegerService->execute($minEfficiency, $maxEfficiency);
+        $progress = $this->getRandomIntegerService->execute($efficiency->min, $efficiency->max);
         $project->makeProgress($progress);
 
-        $this->projectRepositoryInterface->save($project);
+        $this->projectRepository->save($project);
     }
 }

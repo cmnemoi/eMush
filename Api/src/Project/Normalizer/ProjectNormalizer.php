@@ -71,6 +71,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
         $language = $project->getDaedalus()->getLanguage();
+        $playerEfficiency = $currentPlayer->getEfficiencyForProject($project);
 
         return [
             'id' => $project->getId(),
@@ -91,8 +92,8 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
             'efficiency' => $this->translationService->translate(
                 key: 'efficiency',
                 parameters: [
-                    'min_efficiency' => $currentPlayer->getMinEfficiencyForProject($project),
-                    'max_efficiency' => $currentPlayer->getMaxEfficiencyForProject($project),
+                    'min_efficiency' => $playerEfficiency->min,
+                    'max_efficiency' => $playerEfficiency->max,
                 ],
                 domain: 'project',
                 language: $language

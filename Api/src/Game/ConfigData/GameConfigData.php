@@ -420,7 +420,6 @@ class GameConfigData
                 PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
                 PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
                 'astronavigation_neron_cpu_priority_default',
-                'projects_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
                 PlayerStatusEnum::PROJECT_PARTICIPATIONS . '_default',

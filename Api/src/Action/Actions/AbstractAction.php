@@ -104,7 +104,6 @@ abstract class AbstractAction
         $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
         $result = $this->checkResult();
-
         $result->setVisibility($this->action->getVisibility($result->getName()));
 
         $this->actionService->applyCostToPlayer($this->player, $this->action, $this->target, $result);

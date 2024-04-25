@@ -6,7 +6,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
-use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
@@ -101,9 +100,10 @@ class StatusSubscriber implements EventSubscriberInterface
             $this->gearModifierService->gearCreated($statusHolder, $event->getTags(), $event->getTime());
         }
 
+        /** @var AbstractModifierConfig $modifierConfig */
         foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = $this->getModifierHolderFromConfig($statusHolder, $modifierConfig);
-            if ($modifierHolder === null || !($modifierConfig instanceof EventModifierConfig)) {
+            if ($modifierHolder === null) {
                 return;
             }
 

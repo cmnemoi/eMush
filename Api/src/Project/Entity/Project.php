@@ -11,6 +11,7 @@ use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Project\Enum\ProjectType;
+use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
@@ -22,6 +23,9 @@ use Mush\Status\Entity\TargetStatusTrait;
 class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface
 {
     use TargetStatusTrait;
+
+    public const int CPU_PRIORITY_BONUS = 1;
+    public const int PARTICIPATION_MALUS = 2;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -84,7 +88,14 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 
     public function makeProgress(int $progress): void
     {
+        if ($progress < 0) {
+            throw new ProgressShouldBePositive($progress);
+        }
+
         $this->progress += $progress;
+        if ($this->progress > 100) {
+            $this->progress = 100;
+        }
     }
 
     public function getClassName(): string
@@ -124,5 +135,15 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     public function isFinished(): bool
     {
         return $this->progress >= 100;
+    }
+
+    public function isNeronProject(): bool
+    {
+        return $this->getType() === ProjectType::NERON_PROJECT;
+    }
+
+    public function isPilgred(): bool
+    {
+        return $this->getType() === ProjectType::PILGRED;
     }
 }

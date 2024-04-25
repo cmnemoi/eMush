@@ -14,6 +14,7 @@ use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\Door;
@@ -37,6 +38,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Project\Entity\Project;
+use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -194,13 +196,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
      */
     public function canReachEquipment(GameEquipment $gameEquipment): bool
     {
-        if ($gameEquipment instanceof Door
-            && $gameEquipment->getRooms()->contains($this->getPlace())
-        ) {
+        if ($gameEquipment instanceof Door && $gameEquipment->getRooms()->contains($this->getPlace())) {
             return true;
         }
 
-        if ($gameEquipment->getEquipment()->isPersonal() && $gameEquipment->getOwner() !== $this) {
+        if ($gameEquipment->getOwner() !== $this && $gameEquipment->getEquipment()->isPersonal()) {
             return false;
         }
 
@@ -253,8 +253,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function hasOperationalEquipmentByName(string $name): bool
     {
         return !$this->getEquipments()->filter(
-            static fn (GameItem $gameItem) => $gameItem->getName() === $name
-            && $gameItem->isOperational()
+            static fn (GameItem $gameItem) => $gameItem->getName() === $name && $gameItem->isOperational()
         )->isEmpty();
     }
 
@@ -271,6 +270,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             if (!$statusTarget = $status->getStatusTargetTarget()) {
                 $statusTarget = new StatusTarget();
             }
+
             $statusTarget->setOwner($status);
             $statusTarget->setPlayer($this);
             $this->statuses->add($statusTarget);
@@ -652,23 +652,60 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return ActionTargetName::PLAYER->value;
     }
 
-    public function getMinEfficiencyForProject(Project $project): int
+    public function isFocusedOnTerminalByName(string $terminalName): bool
     {
-        /** @var ?ChargeStatus $numberOfParticipationsStatus */
-        $numberOfParticipationsStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
-
-        $numberOfParticipations = $numberOfParticipationsStatus?->getCharge();
-
-        return max(0, $project->getEfficiency() - $numberOfParticipations * 2);
+        return $this->getFocusedTerminal()?->getName() === $terminalName;
     }
 
-    public function getMaxEfficiencyForProject(Project $project): int
+    public function getEfficiencyForProject(Project $project): PlayerEfficiency
+    {
+        return new PlayerEfficiency(
+            $this->getMinEfficiencyForProject($project),
+            $this->getMaxEfficiencyForProject($project)
+        );
+    }
+
+    public function efficiencyIsZeroForProject(Project $project): bool
+    {
+        return $this->getEfficiencyForProject($project)->max === 0;
+    }
+
+    private function getMinEfficiencyForProject(Project $project): int
+    {
+        $efficiency = $this->getEfficiencyWithParticipationMalus($project->getEfficiency(), $project);
+
+        return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
+    }
+
+    private function getMaxEfficiencyForProject(Project $project): int
     {
         return (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
     }
 
-    public function isFocusedOnTerminalByName(string $terminalName): bool
+    private function getEfficiencyWithParticipationMalus(int $efficiency, Project $project): int
     {
-        return $this->getFocusedTerminal()?->getName() === $terminalName;
+        $efficiency -= $this->getNumberOfParticipationToProject($project) * Project::PARTICIPATION_MALUS;
+
+        return max(0, $efficiency);
+    }
+
+    private function getEfficiencyWithCpuPriorityBonus(int $efficiency, Project $project): int
+    {
+        if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PILGRED) && $project->isPilgred()) {
+            return $efficiency + Project::CPU_PRIORITY_BONUS;
+        }
+        if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PROJECTS) && $project->isNeronProject()) {
+            return $efficiency + Project::CPU_PRIORITY_BONUS;
+        }
+
+        return $efficiency;
+    }
+
+    private function getNumberOfParticipationToProject(Project $project): int
+    {
+        /** @var ?ChargeStatus $numberOfParticipationStatus */
+        $numberOfParticipationStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
+
+        return $numberOfParticipationStatus?->getCharge() ?? 0;
     }
 }

@@ -9,7 +9,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -236,7 +235,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()
         );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::DAEDALUS_NEW_CYCLE);
+        $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Chun should not be able to execute the coffee action again
         $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);

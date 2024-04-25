@@ -8,7 +8,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 
 class DaedalusCycleEvent extends AbstractGameEvent
 {
-    public const DAEDALUS_NEW_CYCLE = 'daedalus.new.cycle';
+    public const string DAEDALUS_NEW_CYCLE = 'daedalus.new.cycle';
 
     protected Daedalus $daedalus;
 

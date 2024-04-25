@@ -157,7 +157,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::HIDDEN)
             ->setChargeVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::DAILY_INCREMENT)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT)
             ->setMaxCharge(1)
             ->setStartCharge(1)
             ->setDischargeStrategies([ActionEnum::COFFEE])

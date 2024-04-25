@@ -6,7 +6,7 @@ use Mush\Daedalus\Entity\Neron;
 
 final class NeronEvent extends DaedalusEvent
 {
-    public const CPU_PRIORITY_CHANGED = 'cpu.priority.changed';
+    public const string CPU_PRIORITY_CHANGED = 'cpu.priority.changed';
 
     private Neron $neron;
 

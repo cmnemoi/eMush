@@ -667,5 +667,11 @@
         <target>Vous êtes complètement inefficace sur ce projet, participer à nouveau ne rimerait à rien...</target>
       </segment>
     </unit>
+    <unit id="cycle_limit">
+      <segment id="description" state="final">
+        <source>cycle_limit.description</source>
+        <target>Cette action ne peut être effectuée qu'une fois par cycle. Elle sera de nouveau disponible au prochain cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

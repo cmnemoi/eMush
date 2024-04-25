@@ -10,6 +10,8 @@ export class TerminalInfos {
     public inOrbit: string|null;
     public availableCpuPriorities: {key: string, name: string}[]|null;
     public currentCpuPriority: string|null;
+    public pilgredIsFinished: boolean|null = null;
+    public pilgredFinishedDescription: string|null = null;
 
     constructor() {
         this.difficulty = null;
@@ -32,6 +34,8 @@ export class TerminalInfos {
             this.inOrbit = object.inOrbit;
             this.availableCpuPriorities = object.availableCpuPriorities;
             this.currentCpuPriority = object.currentCpuPriority;
+            this.pilgredIsFinished = object.pilgredIsFinished;
+            this.pilgredFinishedDescription = object.pilgredFinishedDescription;
         }
         return this;
     }

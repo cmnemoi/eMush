@@ -46,6 +46,8 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
+        $context['normalizing_daedalus'] = true;
+
         /** @var Daedalus $daedalus */
         $daedalus = $object;
 
@@ -117,6 +119,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'isDaedalusTravelling' => $daedalus->hasStatus(DaedalusStatusEnum::TRAVELING),
             'attackingHunters' => $attackingHunters,
             'onGoingExploration' => $this->normalizeOnGoingExploration($daedalus),
+            'projects' => $this->getNormalizedProjects($daedalus, $format, $context),
         ];
     }
 
@@ -141,6 +144,16 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 $language
             ),
         ];
+    }
+
+    private function getNormalizedProjects(Daedalus $daedalus, ?string $format, array $context): ?array
+    {
+        $normalizedProjects = [];
+        if ($daedalus->isPilgredFinished()) {
+            $normalizedProjects['pilgred'] = $this->normalizer->normalize($daedalus->getPilgred(), format: $format, context: $context);
+        }
+
+        return $normalizedProjects;
     }
 
     private function normalizeOnGoingExploration(Daedalus $daedalus): ?array

@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\RepairPilgred;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
@@ -29,18 +30,21 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 {
     private Action $actionConfig;
     private RepairPilgred $repairPilgredAction;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => 'repair_pilgred']);
+        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR_PILGRED]);
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun is focused on PILGRED terminal
-        $terminal = $I->grabService(GameEquipmentServiceInterface::class)->createGameEquipmentFromName(
+        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::PILGRED,
             equipmentHolder: $this->chun->getPlace(),
             reasons: [],
@@ -67,14 +71,14 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldNotBeExecutableIfPlayerEfficiencyIsEqualsToZero(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // and Chun's efficiency is 0
         $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then the action should not be executable
         $I->assertEquals(
@@ -86,11 +90,11 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldMakePilgredProgress(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then the PILGRED project should progress by 1
         $I->assertEquals(1, $pilgredProject->getProgress());
@@ -99,11 +103,11 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldCreateAPublicLog(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then a public log should be created in Chun's room
         $I->seeInRepository(RoomLog::class, [
@@ -117,11 +121,11 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldReducePlayerEfficiencyForProject(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reduced to 0
         $I->assertEquals(0, $this->chun->getMinEfficiencyForProject($pilgredProject));
@@ -130,14 +134,14 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldNotReduceEfficiencyForOtherProjects(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // and I have the plasma shield project
         $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then Chun's efficiency for the plasma shield project should not be reduced
         $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($otherProject));
@@ -146,14 +150,14 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldResetOtherPlayersEfficiencyForProject(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // given Chun's efficiency is 0
         $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
 
         // when Kuan-Ti repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->kuanTi, $pilgredProject);
-        $this->repairPilgredAction->execute($this->kuanTi, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then Chun's efficiency should be reset to 1
         $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
@@ -162,7 +166,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldCreateANeronAnnouncementWhenPilgredIsFinished(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // given PILGRED progress is 99%
         $pilgredProjectReflection = new \ReflectionClass($pilgredProject);
@@ -170,7 +174,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then a Neron announcement should be created
         $neronAnnouncement = $I->grabEntityFromRepository(
@@ -183,7 +187,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     public function shouldNotBeVisibleIfPilgredIsFinished(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgredProject = $this->daedalus->getPilgred();
 
         // given PILGRED progress is 100%
         $pilgredProjectReflection = new \ReflectionClass($pilgredProject);
@@ -191,7 +195,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute();
 
         // then the action should not be visible
         $I->assertFalse($this->repairPilgredAction->isVisible());

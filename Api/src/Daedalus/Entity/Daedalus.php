@@ -638,14 +638,24 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
-    public function getPilgred(): Project
+    public function getProjectByName(ProjectName $projectName): Project
     {
-        $pilgred = $this->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PILGRED->value)->first();
-        if (!$pilgred) {
-            throw new DaedalusShouldHaveProjectException(ProjectName::PILGRED);
+        $project = $this->projects->filter(static fn (Project $project) => $project->getName() === $projectName->value)->first();
+        if (!$project) {
+            throw new DaedalusShouldHaveProjectException($projectName);
         }
 
-        return $pilgred;
+        return $project;
+    }
+
+    public function hasProject(ProjectName $projectName): bool
+    {
+        return $this->projects->exists(static fn ($key, Project $project) => $project->getName() === $projectName->value);
+    }
+
+    public function getPilgred(): Project
+    {
+        return $this->getProjectByName(ProjectName::PILGRED);
     }
 
     public function isPilgredFinished(): bool

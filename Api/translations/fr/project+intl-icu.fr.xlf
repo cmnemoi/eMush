@@ -8,6 +8,10 @@
         </segment>
     </unit>
     <unit id="pilgred">
+        <segment id="pilgred.type" state="translated">
+            <source>pilgred.type</source>
+            <target>PILGRED</target>
+        </segment>
         <segment id="pilgred.name" state="translated">
             <source>pilgred.name</source>
             <target>PILGRED</target>

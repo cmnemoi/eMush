@@ -7,7 +7,6 @@ namespace Mush\Tests\unit\Communication\Event;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -30,7 +29,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     {
         // given I have a project finished event for PILGRED
         $projectEvent = new ProjectEvent(
-            project: $this->createProject(ProjectName::PILGRED, $I),
+            project: $this->daedalus->getPilgred(),
             author: $this->chun,
         );
 

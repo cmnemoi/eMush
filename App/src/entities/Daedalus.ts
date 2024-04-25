@@ -4,6 +4,16 @@ import { GameCalendar } from "@/entities/GameCalendar";
 import { Planet } from "@/entities/Planet";
 import { DaedalusExploration } from "./DaedalusExploration";
 
+type DaedalusProject = {
+    type: string;
+    key: string;
+    name: string;
+    description: string;
+}
+
+type DaedalusProjects = {
+    pilgred: DaedalusProject;
+}
 export class Daedalus {
     public id: number|null;
     public oxygen: QuantityPoint|null;
@@ -23,6 +33,7 @@ export class Daedalus {
     public isDaedalusTravelling: boolean;
     public attackingHunters: number;
     public exploration: DaedalusExploration|null;
+    public projects!: DaedalusProjects;
 
     constructor() {
         this.id = null;
@@ -79,6 +90,7 @@ export class Daedalus {
             this.isDaedalusTravelling = object.isDaedalusTravelling;
             this.attackingHunters = object.attackingHunters;
             this.exploration = object.onGoingExploration;
+            this.projects = object.projects;
         }
         return this;
     }

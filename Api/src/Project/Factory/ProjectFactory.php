@@ -11,33 +11,49 @@ final class ProjectFactory
 {
     public static function createPlasmaShieldProject(): Project
     {
-        return new Project(
+        $daedalus = DaedalusFactory::createDaedalus();
+        $project = new Project(
             config: ProjectConfigFactory::createPlasmaShieldConfig(),
-            daedalus: DaedalusFactory::createDaedalus(),
+            daedalus: $daedalus,
         );
+        $daedalus->addProject($project);
+
+        return $project;
     }
 
     public static function createPilgredProject(): Project
     {
-        return new Project(
+        $daedalus = DaedalusFactory::createDaedalus();
+        $project = new Project(
             config: ProjectConfigFactory::createPilgredConfig(),
-            daedalus: DaedalusFactory::createDaedalus(),
+            daedalus: $daedalus,
         );
+        $daedalus->addProject($project);
+
+        return $project;
     }
 
     public static function createTrailReducerProject(): Project
     {
-        return new Project(
+        $daedalus = DaedalusFactory::createDaedalus();
+        $project = new Project(
             config: ProjectConfigFactory::createTrailReducerConfig(),
-            daedalus: DaedalusFactory::createDaedalus(),
+            daedalus: $daedalus,
         );
+        $daedalus->addProject($project);
+
+        return $project;
     }
 
     public static function createAutoWateringProject(): Project
     {
-        return new Project(
+        $daedalus = DaedalusFactory::createDaedalus();
+        $project = new Project(
             config: ProjectConfigFactory::createAutoWateringConfig(),
-            daedalus: DaedalusFactory::createDaedalus(),
+            daedalus: $daedalus,
         );
+        $daedalus->addProject($project);
+
+        return $project;
     }
 }

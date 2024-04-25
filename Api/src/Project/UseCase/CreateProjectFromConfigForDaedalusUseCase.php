@@ -10,7 +10,7 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Repository\ProjectRepositoryInterface;
 
-final class CreateProjectFromConfigForDaedalusUseCase
+final readonly class CreateProjectFromConfigForDaedalusUseCase
 {
     public function __construct(
         private DaedalusRepositoryInterface $daedalusRepository,
@@ -19,6 +19,10 @@ final class CreateProjectFromConfigForDaedalusUseCase
 
     public function execute(ProjectConfig $projectConfig, Daedalus $daedalus): void
     {
+        if ($daedalus->hasProject($projectConfig->getName())) {
+            return;
+        }
+
         $project = new Project($projectConfig, $daedalus);
         $this->projectRepository->save($project);
 

@@ -8,7 +8,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Project\Enum\ProjectName;
 use Mush\Project\Normalizer\ProjectNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -60,7 +59,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
     public function shouldNormalizeProject(FunctionalTester $I): void
     {
         // given I have a project
-        $project = $this->createProject(ProjectName::PILGRED, $I);
+        $project = $this->daedalus->getPilgred();
 
         // when I normalize the project
         $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
@@ -101,6 +100,29 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                         'confirmation' => null,
                     ],
                 ],
+            ],
+            actual: $normalizedProject
+        );
+    }
+
+    public function shouldNormalizeProjectInDaedalusNormalizationContext(FunctionalTester $I): void
+    {
+        // given I have a project
+        $project = $this->daedalus->getPilgred();
+
+        // when I normalize the project in daedalus normalization context
+        $normalizedProject = $this->projectNormalizer->normalize($project, null, [
+            'currentPlayer' => $this->chun,
+            'normalizing_daedalus' => true,
+        ]);
+
+        // then I should get the normalized project
+        $I->assertEquals(
+            expected: [
+                'type' => 'PILGRED',
+                'key' => 'pilgred',
+                'name' => 'PILGRED',
+                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
             ],
             actual: $normalizedProject
         );

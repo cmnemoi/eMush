@@ -21,7 +21,6 @@ final readonly class CreateProjectFromConfigForDaedalusUseCase
             return;
         }
 
-        $project = new Project($projectConfig, $daedalus);
-        $this->projectRepository->save($project);
+        $this->projectRepository->save(new Project($projectConfig, $daedalus));
     }
 }

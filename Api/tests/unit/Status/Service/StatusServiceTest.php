@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\GameConfig;
@@ -21,6 +22,8 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Factory\PlayerFactory;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -31,6 +34,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use Mush\User\Entity\User;
@@ -222,6 +226,37 @@ final class StatusServiceTest extends TestCase
         $newStatus = $this->service->createStatusFromConfig($statusConfig, $gameEquipment, [['reason']], new \DateTime());
 
         self::assertSame($newStatus, $status);
+    }
+
+    public function testShouldCreateStatusWithDifferentTargetIfAlreadyExists()
+    {
+        // given a player
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+
+        $autoWateringProject = ProjectFactory::createAutoWateringProject();
+        $plasmaShieldProject = ProjectFactory::createPlasmaShieldProject();
+
+        // given this player has a project participation status for Auto Watering project
+        $projectParticipationStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
+        $projectParticipationStatus->setTarget($autoWateringProject);
+
+        // setup universe state
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
+
+        // when the player participates in Plasma Shield project
+        $newStatus = $this->service->createStatusFromConfig(
+            $projectParticipationStatus->getStatusConfig(),
+            $player,
+            [],
+            new \DateTime(),
+            $plasmaShieldProject
+        );
+
+        // then a new status should be created for the Plasma Shield project
+        self::assertNotSame($newStatus, $projectParticipationStatus);
     }
 
     public function testHandleAttemptStatusOnFail()

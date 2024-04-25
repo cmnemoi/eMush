@@ -229,6 +229,21 @@ final class ParticipateCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldReduceEfficiencyWhenParticpatingToAnotherProject(FunctionalTester $I): void
+    {
+        // given Chun participates in the project
+        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->execute();
+
+        // when Chun participates in another project
+        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $otherProject);
+        $this->participateAction->execute();
+
+        // then Chun's efficiency for the other project should be reduced
+        $I->assertEquals(new PlayerEfficiency(0, 0), $this->chun->getEfficiencyForProject($otherProject));
+    }
+
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
     {
         /** @var ChargeStatus $status */

@@ -30,4 +30,6 @@ interface StatusHolderInterface
     public function getId(): int;
 
     public function getName(): string;
+
+    public function getStatusByNameAndTarget(string $name, self $target): ?Status;
 }

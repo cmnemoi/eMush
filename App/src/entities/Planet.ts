@@ -48,6 +48,35 @@ export class Planet {
 
     public toString(): string {
         const numberOfSectorsRevealed = this.sectors?.filter(sector => sector.isRevealed).length || 0;
-        return `:planet: **${this.name}** (${numberOfSectorsRevealed}/${this.sectors?.length})\n*${this?.orientation} - ${this?.distance} :fuel:*\n${this.sectors?.map(sector => sector.name).join(', ')}`;
+        const sectorCounts = this.getSectorCounts();
+        const rawSectorCountsText = this.formatSectorCounts(sectorCounts);
+        const sectorCountsText = this.putUnknownSectorsAtEnd(rawSectorCountsText);
+
+        return `:planet: **${this.name}** (${numberOfSectorsRevealed}/${this.sectors?.length})\n*${this?.orientation} - ${this?.distance} :fuel:*\n${sectorCountsText}`;
     }
+
+    private getSectorCounts(): {[key: string]: number} | undefined {
+        return this.sectors?.reduce((acc, sector) => {
+            acc[sector.name] = (acc[sector.name] || 0) + 1;
+            return acc;
+        }, {} as {[key: string]: number});
+    }
+
+    private formatSectorCounts(sectorCounts: {[key: string]: number} | undefined): string {
+        if (!sectorCounts) throw new Error('Sector counts are not defined');
+        return Object.entries(sectorCounts).map(([name, count]) => count > 1 ? `${name} (x${count})` : name).join(', ');
+    }
+
+    private putUnknownSectorsAtEnd(sectorCountsText: string): string {
+        const unknownSectorsCountRegex = / \?\?\? \(x[1-9]{1,2}\),/;
+        const match = sectorCountsText.match(unknownSectorsCountRegex);
+        if (match) {
+            const unknownSectorsCountText = match[0];
+            sectorCountsText = sectorCountsText.replace(unknownSectorsCountRegex, '');
+            sectorCountsText += ', ' + unknownSectorsCountText.replace(/,/, '').trim();
+        }
+
+        return sectorCountsText;
+    }
+
 }

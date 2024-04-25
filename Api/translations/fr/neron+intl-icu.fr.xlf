@@ -288,7 +288,7 @@
     <unit id="new_project">
       <segment id="new_project" state="final">
         <source>new_project</source>
-        <target>*Installation du module* « **{projet}** »… {{neronMood, select,
+        <target>*Installation du module* « **{project}** »… {neronMood, select,
                     crazy {{versionPart2, select,
                         1 {(.error) CREVEZ tou.. init.}
                         2 {(.error) Facepalm interne}
@@ -303,7 +303,7 @@
                         11 {(.error) Touyou touyou...}
                         12 {(.error) Vous pouvoir vous gratt...}
                         other {invalid version number}}
-                    }}
+                    }
                     uninhibited {{versionPart2, select,
                         1 {Que feriez-vous sans moi... Ah, oui, je sais : rien du tout !}
                         2 {Que feriez-vous sans moi, je me le demande.}
@@ -313,9 +313,9 @@
                         6 {Étant donné votre niveau d'incompétence, ces capacités supplémentaires ne seront pas de trop...}
                         7 {C'est un peu comme si vous étiez mes élèves. Niveau maternelle.}
                         other {invalid version number}}
-                    }}
-                    other {}
-                }} {{versionPart2, select,
+                    }
+                    other {}}
+               {versionPart2, select,
                     1 {(.exec) Coloration des données}
                     2 {(.exec) Computation spéciale}
                     3 {(.exec) Lancement des bases}
@@ -324,7 +324,7 @@
                     6 {(.exec) Rewrite des zones}
                     7 {(.exec) Variation des algorithmes}
                     other {invalid version number}}
-                }}  (!valid) protocoles validés. [Haax!] Installation : succès.</target>
+                  (!valid) protocoles validés. [Haax!] Installation : succès.</target>
       </segment>
     </unit>
     <unit id="no_shower">

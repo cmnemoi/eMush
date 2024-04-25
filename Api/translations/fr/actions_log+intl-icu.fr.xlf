@@ -1191,5 +1191,11 @@
         <target>**{character}** a fait progresser la réparation de PILGRED.</target>
       </segment>
     </unit>
+    <unit id="participate_success">
+      <segment id="participate_success" state="translated">
+        <source>participate_success</source>
+        <target>Recherches sur projet « **{target_project}** » : progression enregistrée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

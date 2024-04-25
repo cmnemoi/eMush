@@ -15,14 +15,4 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
-  # need this for tests working somehow
-  Mush\Game\ConfigData\DifficultyConfigDataLoader:
-    public: true
-  Mush\Game\ConfigData\LocalizationConfigDataLoader:
-    public: true
-  Mush\Game\ConfigData\GameConfigDataLoader:
-    public: true
-  Mush\Game\ConfigData\TriumphConfigDataLoader:
-    public: true
-  Mush\Game\ConfigData\TitleConfigDataLoader:
-    public: true
+  Mush\Game\Service\TranslationServiceInterface: '@Mush\Game\Service\TranslationService'

@@ -11,6 +11,16 @@ use Mush\Project\Enum\ProjectType;
 
 final class ProjectConfigFactory
 {
+    public static function createPilgredConfig(): ProjectConfig
+    {
+        return new ProjectConfig(
+            name: ProjectName::PILGRED,
+            type: ProjectType::NERON_PROJECT,
+            efficiency: 1,
+            bonusSkills: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN]
+        );
+    }
+
     public static function createPlasmaShieldConfig(): ProjectConfig
     {
         return new ProjectConfig(

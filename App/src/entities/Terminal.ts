@@ -2,6 +2,7 @@ import { Action } from "@/entities/Action";
 import { TerminalSectionTitles } from "@/entities/TerminalSectionTitles";
 import { TerminalInfos } from "@/entities/TerminalInfos";
 import { TerminalButtons } from "@/entities/TerminalButtons";
+import { Project } from "@/entities/Project";
 
 export class Terminal {
     public id!: number;
@@ -12,6 +13,7 @@ export class Terminal {
     public sectionTitles!: TerminalSectionTitles;
     public infos!: TerminalInfos;
     public buttons!: TerminalButtons;
+    public projects!: Project[];
 
     public load(object: any): Terminal {
         if (object) {
@@ -23,6 +25,7 @@ export class Terminal {
             this.sectionTitles = new TerminalSectionTitles().load(object.sectionTitles);
             this.infos = new TerminalInfos().load(object.infos);
             this.buttons = new TerminalButtons().load(object.buttons);
+            this.projects = object.projects.map((project: any) => new Project().load(project));
         }
         return this;
     }

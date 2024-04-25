@@ -20,6 +20,9 @@ class Project
     #[ORM\ManyToOne(targetEntity: ProjectConfig::class)]
     private ProjectConfig $config;
 
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
+    private int $progress = 0;
+
     #[ORM\ManyToOne(inversedBy: 'projects', targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
@@ -44,14 +47,24 @@ class Project
         return $this->config->getType();
     }
 
-    public function getEfficiency(): int
+    public function getMinEfficiency(): int
     {
         return $this->config->getEfficiency();
+    }
+
+    public function getMaxEfficiency(): int
+    {
+        return (int) ($this->getMinEfficiency() + $this->getMinEfficiency() / 2);
     }
 
     public function getBonusSkills(): array
     {
         return $this->config->getBonusSkills();
+    }
+
+    public function getProgress(): int
+    {
+        return $this->progress;
     }
 
     public function getDaedalus(): Daedalus

@@ -87,6 +87,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
             'actions' => $this->normalizeTerminalActions($terminal, $format, $context),
             'sectionTitles' => $this->normalizeTerminalSectionTitles($terminal),
             'buttons' => $this->getNormalizedTerminalButtons($terminal),
+            'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($format, $context);
@@ -136,6 +137,25 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $titles;
+    }
+
+    private function getNormalizedTerminalProjects(GameEquipment $terminal, ?string $format, array $context): array
+    {
+        $projects = match ($terminal->getName()) {
+            EquipmentEnum::PILGRED => [$terminal->getDaedalus()->getPilgred()],
+            default => [],
+        };
+
+        $normalizedProjects = [];
+
+        foreach ($projects as $project) {
+            $normalizedProject = $this->normalizer->normalize($project, $format, $context);
+            if (\is_array($normalizedProject) && \count($normalizedProject) > 0) {
+                $normalizedProjects[] = $normalizedProject;
+            }
+        }
+
+        return $normalizedProjects;
     }
 
     private function getNormalizedTerminalButtons(GameEquipment $terminal): array

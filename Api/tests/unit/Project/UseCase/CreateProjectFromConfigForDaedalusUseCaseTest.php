@@ -70,7 +70,9 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
     {
         self::assertEquals(expected: ProjectName::PLASMA_SHIELD, actual: $project->getName());
         self::assertEquals(expected: ProjectType::NERON_PROJECT, actual: $project->getType());
-        self::assertEquals(expected: 1, actual: $project->getEfficiency());
+        self::assertEquals(expected: 0, actual: $project->getProgress());
+        self::assertEquals(expected: 1, actual: $project->getMinEfficiency());
+        self::assertEquals(expected: 1, actual: $project->getMaxEfficiency());
         self::assertEquals(expected: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN], actual: $project->getBonusSkills());
     }
 }

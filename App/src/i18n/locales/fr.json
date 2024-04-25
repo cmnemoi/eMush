@@ -200,6 +200,13 @@
 		"rearBravoStorage": "Stockage Beta Arrière"
 	},
 	"admin": {
+		"actions": {
+			"createProjects": "Créer les projets pour les Daedalus en cours",
+			"title": "Actions administratives"
+		},
+		"banner": {
+			"actions": "Actions"
+		},
 		"user": {
 			"username": "Pseudonyme",
 			"roles": "Rôles"

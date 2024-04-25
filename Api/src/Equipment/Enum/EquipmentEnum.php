@@ -56,7 +56,7 @@ class EquipmentEnum
     public const string TABULATRIX = 'tabulatrix';
 
     public static array $terminalSectionTitlesMap = [
-        self::COMMAND_TERMINAL => ['orientate_daedalus', 'move_daedalus', 'general_informations'],
+        self::COMMAND_TERMINAL => ['orientate_daedalus', 'move_daedalus', 'general_informations', 'pilgred'],
         self::ASTRO_TERMINAL => ['orientation', 'distance'],
         self::BIOS_TERMINAL => ['cpu_priority_name', 'cpu_priority_description'],
     ];

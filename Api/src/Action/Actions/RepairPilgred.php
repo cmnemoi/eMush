@@ -15,6 +15,7 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\UseCase\AdvanceProjectUseCase;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -45,7 +46,11 @@ final class RepairPilgred extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new ProjectFinished(['groups' => ['visibility']]));
+        $metadata->addConstraint(new ProjectFinished([
+            'project' => ProjectName::PILGRED,
+            'mode' => 'prevent',
+            'groups' => ['visibility'],
+        ]));
         $metadata->addConstraint(new NoEfficiency(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_EFFICIENCY]));
     }
 

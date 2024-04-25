@@ -1041,6 +1041,16 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($repairPilgred);
 
+        $returnToSol = new Action();
+        $returnToSol
+            ->setName(ActionEnum::RETURN_TO_SOL)
+            ->setActionName(ActionEnum::RETURN_TO_SOL)
+            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $manager->persist($returnToSol);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1136,5 +1146,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::TAKEOFF_TO_PLANET_PATROL_SHIP, $takeoffToPlanetPatrolShip);
         $this->addReference(self::CHANGE_NERON_CPU_PRIORITY, $changeNeronCpuPriority);
         $this->addReference(ActionEnum::REPAIR_PILGRED, $repairPilgred);
+        $this->addReference(ActionEnum::RETURN_TO_SOL, $returnToSol);
     }
 }

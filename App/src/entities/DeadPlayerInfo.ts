@@ -62,4 +62,8 @@ export class DeadPlayerInfo {
 
         return this;
     }
+
+    hasGoodEndCause(): boolean {
+        return ['sol_return', 'eden'].includes(this.endCauseKey);
+    }
 }

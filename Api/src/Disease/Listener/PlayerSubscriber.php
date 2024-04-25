@@ -12,6 +12,7 @@ use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
@@ -19,7 +20,7 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerSubscriber implements EventSubscriberInterface
+final class PlayerSubscriber implements EventSubscriberInterface
 {
     public const TRAUMA_PROBABILTY = 33;
 
@@ -87,10 +88,13 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
+        // Do not apply trauma diseases if player's end cause is not a "real" death
+        if ($event->hasAnyTag(EndCauseEnum::getNotDeathEndCauses()->toArray())) {
+            return;
+        }
+
         $playersInRoom = $event->getPlace()->getPlayers()->getPlayerAlive()->filter(
-            static function ($player) use ($event) {
-                return $player !== $event->getPlayer();
-            }
+            static fn (Player $player) => $player !== $event->getPlayer()
         );
 
         /** @var Player $player */

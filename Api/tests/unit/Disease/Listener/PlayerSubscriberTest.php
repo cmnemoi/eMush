@@ -15,7 +15,9 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -67,7 +69,7 @@ final class PlayerSubscriberTest extends TestCase
         \Mockery::close();
     }
 
-    public function testPlayerSubscriberDoesNotCreatesTraumaOnMushPlayerOnPlayerDeath(): void
+    public function testShouldNotCreateTraumaOnMushPlayerOnPlayerDeath(): void
     {
         // given a Mush player
         $mushPlayer = \Mockery::mock(Player::class);
@@ -102,6 +104,36 @@ final class PlayerSubscriberTest extends TestCase
         $this->playerSubscriber->onDeathPlayer($playerEvent);
 
         // then no trauma is created
+        $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
+        $this->roomLogService->shouldNotHaveReceived('createLog');
+    }
+
+    public function testShouldNotCreateTraumaDiseaseIfTriggeredBySolReturnTaggedEvent(): void
+    {
+        // given a player
+        $player = PlayerFactory::createPlayer();
+
+        // given some player who will die
+        $deadPlayer = \Mockery::mock(Player::class);
+        $deadPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
+        $deadPlayer->makePartial();
+
+        $deadPlayerInfo = new PlayerInfo($deadPlayer, new User(), new CharacterConfig());
+        $deadPlayer->shouldReceive('getPlayerInfo')->andReturn($deadPlayerInfo);
+
+        // given players are in the same place
+        $place = \Mockery::mock(Place::class);
+        $place->shouldReceive('getPlayers')->andReturn(new PlayerCollection([$player, $deadPlayer]));
+        $place->makePartial();
+
+        $deadPlayer->shouldReceive('getPlace')->andReturn($place);
+
+        // when the dead player "dies" from Sol Return
+        $playerEvent = new PlayerEvent($deadPlayer, [EndCauseEnum::SOL_RETURN], new \DateTime());
+        $this->playerSubscriber->onDeathPlayer($playerEvent);
+
+        // then no trauma is created
+        $this->randomService->shouldReceive('isSuccessful')->never();
         $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
         $this->roomLogService->shouldNotHaveReceived('createLog');
     }

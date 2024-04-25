@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Hunter\Event\HunterEvent;
@@ -11,48 +12,43 @@ use Mush\Status\Enum\StatusEnum;
 
 class EndCauseEnum
 {
-    public const STILL_LIVING = 'still_living';
-
+    public const string STILL_LIVING = 'still_living';
     // admin only
-    public const SUICIDE = 'suicide';
+    public const string SUICIDE = 'suicide';
+    public const string SOL_RETURN = 'sol_return';
+    public const string EDEN = 'eden';
+    public const string DAEDALUS_DESTROYED = 'daedalus_destroyed';
+    public const string KILLED_BY_NERON = 'killed_by_neron';
+    public const string SUPER_NOVA = 'super_nova';
+    public const string ALIEN_ABDUCTED = 'alien_abducted';
+    public const string ASSASSINATED = 'assassinated';
+    public const string DEPRESSION = 'depression';
+    public const string ASPHYXIA = 'asphyxia';
+    public const string ABANDONED = 'abandoned';
+    public const string ALLERGY = 'allergy';
+    public const string SELF_EXTRACTED = 'self_extracted';
+    public const string EXPLORATION = 'exploration';
+    public const string EXPLORATION_COMBAT = 'exploration_combat';
+    public const string EXPLORATION_LOST = 'exploration_lost';
+    public const string ELECTROCUTED = 'electrocuted';
+    public const string INJURY = 'injury';
+    public const string BURNT = 'burnt';
+    public const string CLUMSINESS = 'clumsiness';
+    public const string SPACE_BATTLE = 'space_battle';
+    public const string SPACE_ASPHYXIATED = 'space_asphyxiated';
+    public const string BEHEADED = 'beheaded';
+    public const string STARVATION = 'starvation';
+    public const string QUARANTINE = 'quarantine';
+    public const string BLACK_BITE = 'black_bite';
+    public const string METAL_PLATE = 'metal_plate';
+    public const string ROCKETED = 'rocketed';
+    public const string BLED = 'bled';
+    public const string INFECTION = 'infection';
+    public const string MANKAROG = 'mankarog';
+    public const string PATROL_SHIP_EXPLOSION = 'patrol_ship_explosion';
+    public const string NO_INFIRMERIE = 'no_infirmerie'; // cause of death lost in a bug
 
-    public const SOL_RETURN = 'sol_return';
-    public const EDEN = 'eden';
-    public const DAEDALUS_DESTROYED = 'daedalus_destroyed';
-    public const KILLED_BY_NERON = 'killed_by_neron';
-    public const SUPER_NOVA = 'super_nova';
-
-    public const ALIEN_ABDUCTED = 'alien_abducted';
-
-    public const ASSASSINATED = 'assassinated';
-    public const DEPRESSION = 'depression';
-    public const ASPHYXIA = 'asphyxia';
-    public const ABANDONED = 'abandoned';
-    public const ALLERGY = 'allergy';
-    public const SELF_EXTRACTED = 'self_extracted';
-    public const EXPLORATION = 'exploration';
-    public const EXPLORATION_COMBAT = 'exploration_combat';
-    public const EXPLORATION_LOST = 'exploration_lost';
-    public const ELECTROCUTED = 'electrocuted';
-    public const INJURY = 'injury';
-    public const BURNT = 'burnt';
-    public const CLUMSINESS = 'clumsiness';
-    public const SPACE_BATTLE = 'space_battle';
-    public const SPACE_ASPHYXIATED = 'space_asphyxiated';
-    public const BEHEADED = 'beheaded';
-    public const STARVATION = 'starvation';
-    public const QUARANTINE = 'quarantine';
-    public const BLACK_BITE = 'black_bite';
-    public const METAL_PLATE = 'metal_plate';
-    public const ROCKETED = 'rocketed';
-    public const BLED = 'bled';
-    public const INFECTION = 'infection';
-    public const MANKAROG = 'mankarog';
-    public const PATROL_SHIP_EXPLOSION = 'patrol_ship_explosion';
-
-    public const NO_INFIRMERIE = 'no_infirmerie'; // cause of death lost in a bug
-
-    public const DEATH_CAUSE_MAP = [
+    public const array DEATH_CAUSE_MAP = [
         self::STILL_LIVING => self::STILL_LIVING,
         self::SUICIDE => self::SUICIDE,
         self::SOL_RETURN => self::SOL_RETURN,
@@ -104,10 +100,106 @@ class EndCauseEnum
         PlanetSectorEvent::FIGHT => self::EXPLORATION_COMBAT,
         PlanetSectorEvent::KILL_LOST => self::EXPLORATION_LOST,
         PlanetSectorEvent::PLANET_SECTOR_EVENT => self::EXPLORATION,
+        ActionEnum::RETURN_TO_SOL => self::SOL_RETURN,
     ];
 
     public static function getAll(): array
     {
         return array_keys(self::DEATH_CAUSE_MAP);
+    }
+
+    public static function getNotDeathEndCauses(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::SOL_RETURN,
+            self::EDEN,
+        ]);
+    }
+
+    public static function isDeathEndCause(string $endCause): bool
+    {
+        return self::getDeathEndCauses()->contains($endCause);
+    }
+
+    public static function isEndCauseWhichRemovesMorale(string $endCause): bool
+    {
+        return self::getEndCausesWhichRemovesMorale()->contains($endCause);
+    }
+
+    public static function isNotDeathEndCause(string $endCause): bool
+    {
+        return self::getNotDeathEndCauses()->contains($endCause);
+    }
+
+    private static function getEndCausesWhichRemovesMorale(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ABANDONED,
+            self::ALIEN_ABDUCTED,
+            self::ALLERGY,
+            self::ASPHYXIA,
+            self::ASSASSINATED,
+            self::BEHEADED,
+            self::BLACK_BITE,
+            self::BLED,
+            self::BURNT,
+            self::CLUMSINESS,
+            self::DAEDALUS_DESTROYED,
+            self::ELECTROCUTED,
+            self::EXPLORATION_COMBAT,
+            self::EXPLORATION_LOST,
+            self::EXPLORATION,
+            self::INFECTION,
+            self::INJURY,
+            self::KILLED_BY_NERON,
+            self::MANKAROG,
+            self::METAL_PLATE,
+            self::NO_INFIRMERIE,
+            self::PATROL_SHIP_EXPLOSION,
+            self::QUARANTINE,
+            self::ROCKETED,
+            self::SELF_EXTRACTED,
+            self::SPACE_ASPHYXIATED,
+            self::SPACE_BATTLE,
+            self::STARVATION,
+            self::SUPER_NOVA,
+        ]);
+    }
+
+    private static function getDeathEndCauses(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ABANDONED,
+            self::ALIEN_ABDUCTED,
+            self::ALLERGY,
+            self::ASPHYXIA,
+            self::ASSASSINATED,
+            self::BEHEADED,
+            self::BLACK_BITE,
+            self::BLED,
+            self::BURNT,
+            self::CLUMSINESS,
+            self::DAEDALUS_DESTROYED,
+            self::DEPRESSION,
+            self::ELECTROCUTED,
+            self::EXPLORATION_COMBAT,
+            self::EXPLORATION_LOST,
+            self::EXPLORATION,
+            self::INFECTION,
+            self::INJURY,
+            self::KILLED_BY_NERON,
+            self::MANKAROG,
+            self::METAL_PLATE,
+            self::NO_INFIRMERIE,
+            self::PATROL_SHIP_EXPLOSION,
+            self::QUARANTINE,
+            self::ROCKETED,
+            self::SELF_EXTRACTED,
+            self::SPACE_ASPHYXIATED,
+            self::SPACE_BATTLE,
+            self::STARVATION,
+            self::SUICIDE,
+            self::SUPER_NOVA,
+        ]);
     }
 }

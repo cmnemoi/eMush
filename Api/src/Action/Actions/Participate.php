@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NoEfficiency;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\TargetProjectFinished;
@@ -18,12 +19,13 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\UseCase\AdvanceProjectUseCase;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class RepairPilgred extends AbstractAction
+final class Participate extends AbstractAction
 {
-    protected string $name = ActionEnum::REPAIR_PILGRED;
+    protected string $name = ActionEnum::PARTICIPATE;
 
     private AdvanceProjectUseCase $advanceProjectUseCase;
 
@@ -46,6 +48,13 @@ final class RepairPilgred extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new TargetProjectFinished(['groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::DIRTY,
+            'target' => HasStatus::PLAYER,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
+        ]));
         $metadata->addConstraint(new NoEfficiency(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_EFFICIENCY]));
     }
 

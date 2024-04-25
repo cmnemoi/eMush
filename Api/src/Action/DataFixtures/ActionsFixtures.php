@@ -1051,6 +1051,17 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($returnToSol);
 
+        $participate = new Action();
+        $participate
+            ->setName(ActionEnum::PARTICIPATE)
+            ->setActionName(ActionEnum::PARTICIPATE)
+            ->setScope(ActionScopeEnum::TERMINAL)
+            ->setTarget(Project::class)
+            ->setActionCost(2)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $manager->persist($participate);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1147,5 +1158,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::CHANGE_NERON_CPU_PRIORITY, $changeNeronCpuPriority);
         $this->addReference(ActionEnum::REPAIR_PILGRED, $repairPilgred);
         $this->addReference(ActionEnum::RETURN_TO_SOL, $returnToSol);
+        $this->addReference(ActionEnum::PARTICIPATE, $participate);
     }
 }

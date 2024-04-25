@@ -28,11 +28,14 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     public function onProjectFinished(ProjectEvent $event): void
     {
         $author = $event->getAuthor();
+        $project = $event->getProject();
+
         $this->neronMessageService->createNeronMessage(
-            messageKey: NeronMessageEnum::REPAIRED_PILGRED,
+            messageKey: $project->isPilgred() ? NeronMessageEnum::REPAIRED_PILGRED : NeronMessageEnum::NEW_PROJECT,
             daedalus: $event->getDaedalus(),
             parameters: [
                 $author->getLogKey() => $author->getLogName(),
+                $project->getLogKey() => $project->getLogName(),
             ],
             dateTime: $event->getTime(),
         );

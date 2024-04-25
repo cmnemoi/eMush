@@ -127,6 +127,7 @@ abstract class ActionLogEnum
     public const string PLAY_ARCADE_SUCCESS = 'play_arcade_success';
     public const string PLAY_ARCADE_FAIL = 'play_arcade_fail';
     public const string REPAIR_PILGRED_SUCCESS = 'repair_pilgred_success';
+    public const string PARTICIPATE_SUCCESS = 'participate_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE => [
@@ -430,6 +431,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::REPAIR_PILGRED => [
             ActionOutputEnum::SUCCESS => self::REPAIR_PILGRED_SUCCESS,
+        ],
+        ActionEnum::PARTICIPATE => [
+            ActionOutputEnum::SUCCESS => self::PARTICIPATE_SUCCESS,
         ],
     ];
 }

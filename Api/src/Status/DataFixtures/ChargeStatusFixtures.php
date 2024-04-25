@@ -475,6 +475,16 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($changedCpuPriority);
 
+        $projectParticipations = new ChargeStatusConfig();
+        $projectParticipations
+            ->setStatusName(PlayerStatusEnum::PROJECT_PARTICIPATIONS)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setStartCharge(1)
+            ->setAutoRemove(true)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($projectParticipations);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -509,7 +519,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hunterTruceCycles)
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($shooterSkillPoc)
-            ->addStatusConfig($changedCpuPriority);
+            ->addStatusConfig($changedCpuPriority)
+            ->addStatusConfig($projectParticipations);
+
         $manager->persist($gameConfig);
 
         $manager->flush();
@@ -546,6 +558,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::HUNTER_TRUCE_CYCLES, $hunterTruceCycles);
         $this->addReference(self::FOLLOWING_HUNTERS_STATUS, $followingHuntersStatus);
         $this->addReference(self::SHOOTER_SKILL_POC, $shooterSkillPoc);
+        $this->addReference(self::CHANGED_CPU_PRIORITY, $changedCpuPriority);
+        $this->addReference(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $projectParticipations);
     }
 
     public function getDependencies(): array

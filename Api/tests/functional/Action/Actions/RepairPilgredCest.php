@@ -6,10 +6,17 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\RepairPilgred;
 use Mush\Action\Entity\Action;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -20,6 +27,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 {
     private Action $actionConfig;
     private RepairPilgred $repairPilgredAction;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -27,9 +35,53 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => 'repair_pilgred']);
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        // given Chun is focused on PILGRED terminal
+        $terminal = $I->grabService(GameEquipmentServiceInterface::class)->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PILGRED,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal,
+        );
+
+        // given KT is focused on PILGRED terminal
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal,
+        );
     }
 
-    public function testShouldMakePilgredProgress(FunctionalTester $I): void
+    public function shouldNotBeExecutableIfPlayerEfficiencyIsEqualsToZero(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // and Chun's efficiency is 0
+        $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
+
+        // when Chun tries to repair the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+
+        // then the action should not be executable
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::NO_EFFICIENCY,
+            actual: $this->repairPilgredAction->cannotExecuteReason(),
+        );
+    }
+
+    public function shouldMakePilgredProgress(FunctionalTester $I): void
     {
         // given I have the PILGRED project
         $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
@@ -42,7 +94,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $I->assertEquals(1, $pilgredProject->getProgress());
     }
 
-    public function testShouldCreateAPublicLog(FunctionalTester $I): void
+    public function shouldCreateAPublicLog(FunctionalTester $I): void
     {
         // given I have the PILGRED project
         $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
@@ -58,5 +110,67 @@ final class RepairPilgredCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PUBLIC,
             'log' => ActionLogEnum::REPAIR_PILGRED_SUCCESS,
         ]);
+    }
+
+    public function shouldReducePlayerEfficiencyForProject(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // when Chun repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+
+        // then Chun's efficiency should be reduced to 0
+        $I->assertEquals(0, $this->chun->getMinEfficiencyForProject($pilgredProject));
+    }
+
+    public function shouldNotReduceEfficiencyForOtherProjects(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // and I have the plasma shield project
+        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+
+        // when Chun repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
+        $this->repairPilgredAction->execute($this->chun, $pilgredProject);
+
+        // then Chun's efficiency for the plasma shield project should not be reduced
+        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($otherProject));
+    }
+
+    public function shouldResetOtherPlayersEfficiencyForProject(FunctionalTester $I): void
+    {
+        // given I have the PILGRED project
+        $pilgredProject = $this->createProject(ProjectName::PILGRED, $I);
+
+        // given Chun's efficiency is 0
+        $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
+
+        // when Kuan-Ti repairs the PILGRED project
+        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->kuanTi, $pilgredProject);
+        $this->repairPilgredAction->execute($this->kuanTi, $pilgredProject);
+
+        // then Chun's efficiency should be reset to 1
+        $I->assertEquals(1, $this->chun->getMinEfficiencyForProject($pilgredProject));
+    }
+
+    private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
+    {
+        $status = $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::PROJECT_PARTICIPATIONS,
+            holder: $player,
+            tags: [],
+            time: new \DateTime(),
+            target: $project,
+        );
+        $this->statusService->updateCharge(
+            chargeStatus: $status,
+            delta: 10000,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 }

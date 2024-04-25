@@ -50,7 +50,8 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
             statusName: PlayerStatusEnum::FOCUSED,
             holder: $this->chun,
             tags: [],
-            time: new \DateTime()
+            time: new \DateTime(),
+            target: $pilgredTerminal
         );
 
         $this->repairActionId = $pilgredTerminal->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL)->getActions()->filter(static fn ($action) => $action->getName() === ActionEnum::REPAIR_PILGRED)->first()->getId();

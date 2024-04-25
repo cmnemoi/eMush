@@ -661,5 +661,11 @@
         <target>Une expédition est déjà sur le terrain.</target>
       </segment>
     </unit>
+    <unit id="no_efficiency">
+      <segment state="translated">
+        <source>no_efficiency.description</source>
+        <target>Vous êtes complètement inefficace sur ce projet, participer à nouveau ne rimerait à rien...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

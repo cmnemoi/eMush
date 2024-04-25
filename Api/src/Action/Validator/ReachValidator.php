@@ -11,6 +11,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\LogicException;
@@ -45,11 +46,9 @@ class ReachValidator extends ConstraintValidator
         } elseif ($actionTarget instanceof Hunter) {
             $canReach = $this->canReachHunter($player, $constraint->reach);
         } elseif ($actionTarget instanceof Planet) {
-            $astroTerminal = $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::ASTRO_TERMINAL, $player->getDaedalus())->first();
-            if (!$astroTerminal) {
-                throw new LogicException('astro terminal not found');
-            }
-            $canReach = $this->canReachGameEquipment($player, $astroTerminal, $constraint->reach);
+            $canReach = $this->canReachPlanet($player);
+        } elseif ($actionTarget instanceof Project) {
+            $canReach = $this->canReachProject($player);
         } else {
             throw new LogicException('invalid parameter type');
         }
@@ -147,5 +146,29 @@ class ReachValidator extends ConstraintValidator
         }
 
         return $player->canSeeSpaceBattle();
+    }
+
+    private function canReachPlanet(Player $player): bool
+    {
+        if ($player->isFocusedOnTerminalByName(EquipmentEnum::ASTRO_TERMINAL)
+            && $player->getPlace()->hasEquipmentByName(EquipmentEnum::ASTRO_TERMINAL)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function canReachProject(Player $player): bool
+    {
+        foreach (EquipmentEnum::getProjectTerminals() as $terminalName) {
+            if ($player->isFocusedOnTerminalByName($terminalName)
+                && $player->getPlace()->hasEquipmentByName($terminalName)
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

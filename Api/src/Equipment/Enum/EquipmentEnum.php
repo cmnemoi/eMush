@@ -87,13 +87,23 @@ class EquipmentEnum
         ]);
     }
 
+    public static function getProjectTerminals(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::NERON_CORE,
+            self::PILGRED,
+            self::RESEARCH_LABORATORY,
+        ]);
+    }
+
     public static function getTerminals(): ArrayCollection
     {
         return new ArrayCollection([
             self::ASTRO_TERMINAL,
-            self::COMMAND_TERMINAL,
-            self::BIOS_TERMINAL,
             self::AUXILIARY_TERMINAL,
+            self::BIOS_TERMINAL,
+            self::COMMAND_TERMINAL,
+            self::NERON_CORE,
             self::PILGRED,
             self::RESEARCH_LABORATORY,
         ]);

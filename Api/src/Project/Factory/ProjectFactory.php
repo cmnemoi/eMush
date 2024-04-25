@@ -24,4 +24,20 @@ final class ProjectFactory
             daedalus: DaedalusFactory::createDaedalus(),
         );
     }
+
+    public static function createTrailReducerProject(): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createTrailReducerConfig(),
+            daedalus: DaedalusFactory::createDaedalus(),
+        );
+    }
+
+    public static function createAutoWateringProject(): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createAutoWateringConfig(),
+            daedalus: DaedalusFactory::createDaedalus(),
+        );
+    }
 }

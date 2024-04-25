@@ -44,4 +44,5 @@ abstract class PlayerStatusEnum
     public const string POC_PILOT_SKILL = 'poc_pilot_skill';
     public const string POC_SHOOTER_SKILL = 'poc_shooter_skill';
     public const string CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
+    public const string PROJECT_PARTICIPATIONS = 'project_participations';
 }

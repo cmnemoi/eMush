@@ -48,10 +48,9 @@ final class CreateProjectFromConfigForDaedalusUseCaseCest extends AbstractFuncti
     {
         $I->assertNotNull($project);
         $I->assertNotNull($project->getId());
-        $I->assertEquals(expected: ProjectName::PLASMA_SHIELD, actual: $project->getName());
+        $I->assertEquals(expected: ProjectName::PLASMA_SHIELD->value, actual: $project->getName());
         $I->assertEquals(expected: ProjectType::NERON_PROJECT, actual: $project->getType());
-        $I->assertEquals(expected: 1, actual: $project->getMinEfficiency());
-        $I->assertEquals(expected: 1, actual: $project->getMaxEfficiency());
+        $I->assertEquals(expected: 1, actual: $project->getEfficiency());
         $I->assertEquals(expected: 0, actual: $project->getProgress());
         $I->assertEquals(expected: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN], actual: $project->getBonusSkills());
         $I->assertEquals(expected: $this->daedalus, actual: $project->getDaedalus());

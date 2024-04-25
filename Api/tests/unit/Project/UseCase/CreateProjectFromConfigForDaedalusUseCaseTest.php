@@ -6,7 +6,9 @@ namespace Mush\Tests\Unit\Project\UseCase;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\SkillEnum;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Factory\ProjectConfigFactory;

@@ -185,7 +185,7 @@ const routes = [
             {
                 name: "AdminActionsPage",
                 path: 'actions',
-                component: AdminActionsPage,
+                component: AdminActionsPage
             }
         ]
     },

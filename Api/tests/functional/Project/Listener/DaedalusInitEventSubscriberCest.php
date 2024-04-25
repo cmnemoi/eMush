@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Project\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Project\ConfigData\ProjectConfigData;
+use Mush\Project\Entity\Project;
 use Mush\Project\Listener\DaedalusInitEventSubscriber;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -39,7 +40,7 @@ final class DaedalusInitEventSubscriberCest extends AbstractFunctionalTest
 
         // then Daedalus should have all its projects created
         $expectedNumberOfProjects = \count(ProjectConfigData::getAll());
-        $I->assertCount($expectedNumberOfProjects, $this->daedalus->getAllAvailableProjects());
+        $I->assertCount($expectedNumberOfProjects, $I->grabEntitiesFromRepository(Project::class));
     }
 
     public function testShouldProposeThreeNeronProjectsOnNewDaedalusEvent(FunctionalTester $I): void

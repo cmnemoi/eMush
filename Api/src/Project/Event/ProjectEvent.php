@@ -48,7 +48,7 @@ final class ProjectEvent extends AbstractGameEvent
 
     public function isNotAboutFinishedProject(): bool
     {
-        return $this->project->isFinished();
+        return $this->project->isFinished() === false;
     }
 
     public function isNotAboutNeronProject(): bool

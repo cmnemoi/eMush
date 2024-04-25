@@ -11,6 +11,7 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -152,6 +153,10 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         if ($daedalus->isPilgredFinished()) {
             $normalizedProjects['pilgred'] = $this->normalizer->normalize($daedalus->getPilgred(), format: $format, context: $context);
         }
+
+        $normalizedProjects['neronProjects'] = $daedalus->getFinishedNeronProjects()->map(
+            fn (Project $project) => $this->normalizer->normalize($project, $format, $context),
+        )->toArray();
 
         return $normalizedProjects;
     }

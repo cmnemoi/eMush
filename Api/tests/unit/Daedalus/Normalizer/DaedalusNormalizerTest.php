@@ -7,6 +7,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\PlanetServiceInterface;
@@ -308,13 +309,10 @@ final class DaedalusNormalizerTest extends TestCase
 
     public function testShouldNormalizeFinishedPilgred(): void
     {
-        // given I have a PILGRED project
+        // given I have a finishedPILGRED project
         $pilgred = ProjectFactory::createPilgredProject();
+        $pilgred->makeProgress(100);
         $daedalus = $pilgred->getDaedalus();
-
-        // given PILGRED is finished
-        $pilgredReflection = new \ReflectionClass($pilgred);
-        $pilgredReflection->getProperty('progress')->setValue($pilgred, 100);
 
         $this->planetService->shouldIgnoreMissing();
         $this->translationService->shouldIgnoreMissing();
@@ -339,6 +337,44 @@ final class DaedalusNormalizerTest extends TestCase
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
             ],
             actual: $data['projects']['pilgred'],
+        );
+    }
+
+    public function testShouldNormalizeFinishedNeronProjects(): void
+    {
+        // given I have 2 finished NERON projects
+        $daedalus = DaedalusFactory::createDaedalus();
+        $projects = [
+            ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
+            ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
+        ];
+        $projects = array_map(static fn ($project) => $project->makeProgress(100), $projects);
+
+        // setup
+        ProjectFactory::createPilgredProjectForDaedalus($daedalus);
+        $this->planetService->shouldIgnoreMissing();
+        $this->translationService->shouldIgnoreMissing();
+        $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn(new \DateTime());
+        $this->projectNormalizer->shouldReceive('normalize')->andReturn([
+            'type' => 'Proj.',
+            'key' => '',
+            'name' => '',
+            'description' => '',
+        ]);
+
+        // when I normalize the daedalus
+        $data = $this->normalizer->normalize($daedalus);
+
+        // then I should have 2 normalized Neron projects in the data
+        self::assertCount(2, $data['projects']['neronProjects']);
+        self::assertEquals(
+            expected: [
+                'type' => 'Proj.',
+                'key' => '',
+                'name' => '',
+                'description' => '',
+            ],
+            actual: $data['projects']['neronProjects'][0],
         );
     }
 }

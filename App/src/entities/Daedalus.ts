@@ -13,6 +13,7 @@ type DaedalusProject = {
 
 type DaedalusProjects = {
     pilgred: DaedalusProject;
+    neronProject: DaedalusProject;
 }
 export class Daedalus {
     public id: number|null;

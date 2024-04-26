@@ -40,6 +40,24 @@ final class ProjectConfigData
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::TECHNICIAN],
             ],
+            [
+                'name' => ProjectName::PLASMA_SHIELD,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 1,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
+            ],
+            [
+                'name' => ProjectName::AUTO_WATERING,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 3,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::FIREFIGHTER],
+            ],
+            [
+                'name' => ProjectName::TRAIL_REDUCER,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::PILOT, SkillEnum::TECHNICIAN],
+            ],
         ];
     }
 }

@@ -10,7 +10,17 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 
 final class ProjectConfigFactory
-{
+{   
+    public static function createNeronProjectConfigByName(ProjectName $name): ProjectConfig
+    {
+        return new ProjectConfig(
+            name: $name,
+            type: ProjectType::NERON_PROJECT,
+            efficiency: 0,
+            bonusSkills: []
+        );
+    }
+
     public static function createDummyNeronProjectConfig(): ProjectConfig
     {
         return new ProjectConfig(

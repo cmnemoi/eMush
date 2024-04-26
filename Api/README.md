@@ -141,7 +141,7 @@ Let's take the example of a new player is created:
   2. The **validator** (in src/Player/Validator) verify that there is a daedalus and a character in the request
 They also verify that the character and daedalus exist, the daedalus is not already full, etc...
   If everything is fine then:
-  3. The **ontroller** (in src/Player/Controller) receive the request, it might check that the user is authorized to access this daedalus, then it will call a **service** (in src/Player/Service) to create the Player with the argument passed in the request.
+  3. The **controller** (in src/Player/Controller) receive the request, it might check that the user is authorized to access this daedalus, then it will call a **service** (in src/Player/Service) to create the Player with the argument passed in the request.
   4. The **Service** will perform the creation of the Player, call another **Service** to get the Game and Player configs, and the Random service to perform random stuff
 It might also trigger some **events**, like a new Player is created, this event might trigger the **Event** Daedalus is complete, etc...
 This **event** will also use the **service** to create a new room log for player awaken
@@ -196,7 +196,7 @@ Obvious example:
 - `composer generate-migrations` / `composer diff` : Generate migrations by comparing the database schema with your code entities
 - `composer apply-migrations` : Run the migrations to update the database schema
 
-Please find more commands in the [composer.json](./composer.json) file.
+Please find more commands in the [composer.json](./composer.json#L95) file.
 
 Accessing database from terminal :
 

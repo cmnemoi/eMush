@@ -5,22 +5,13 @@ declare(strict_types=1);
 namespace Mush\Project\Factory;
 
 use Mush\Game\Enum\SkillEnum;
+use Mush\Project\ConfigData\ProjectConfigData;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 
 final class ProjectConfigFactory
-{   
-    public static function createNeronProjectConfigByName(ProjectName $name): ProjectConfig
-    {
-        return new ProjectConfig(
-            name: $name,
-            type: ProjectType::NERON_PROJECT,
-            efficiency: 0,
-            bonusSkills: []
-        );
-    }
-
+{  
     public static function createDummyNeronProjectConfig(): ProjectConfig
     {
         return new ProjectConfig(
@@ -39,6 +30,15 @@ final class ProjectConfigFactory
             efficiency: 0,
             bonusSkills: []
         );
+    }
+
+    public static function createNeronProjectConfigByName(ProjectName $name): ProjectConfig
+    {   
+        $projectConfigData = current(array_filter(
+            ProjectConfigData::getAll(), fn($config) => $config['name'] === $name
+        ));
+        
+        return new ProjectConfig(...$projectConfigData);
     }
 
     public static function createPilgredConfig(): ProjectConfig

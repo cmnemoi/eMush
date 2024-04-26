@@ -21,9 +21,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class TerminalNormalizerCest extends AbstractFunctionalTest
 {
     private TerminalNormalizer $terminalNormalizer;
-
     private Project $pilgredProject;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 

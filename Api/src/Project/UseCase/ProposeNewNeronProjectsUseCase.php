@@ -9,7 +9,7 @@ use Mush\Game\Service\GetRandomElementsFromArrayServiceInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Repository\ProjectRepositoryInterface;
 
-final class ProposeNewNeronProjectsUseCase
+final readonly class ProposeNewNeronProjectsUseCase
 {
     public function __construct(
         private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArrayService,

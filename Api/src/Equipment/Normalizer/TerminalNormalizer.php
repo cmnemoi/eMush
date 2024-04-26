@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Normalizer;
 
+use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
@@ -145,8 +146,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $projects = match ($terminal->getName()) {
             EquipmentEnum::PILGRED => [$terminal->getDaedalus()->getPilgred()],
-            EquipmentEnum::NERON_CORE => $terminal->getDaedalus()->getProposedNeronProjects(),
-            EquipmentEnum::AUXILIARY_TERMINAL => $terminal->getDaedalus()->getProposedNeronProjects(),
+            EquipmentEnum::NERON_CORE, EquipmentEnum::AUXILIARY_TERMINAL => $terminal->getDaedalus()->getProposedNeronProjects(),
             default => [],
         };
 
@@ -203,8 +203,8 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $advanceDaedalusStatusKey = AdvanceDaedalus::getActionStatus($daedalus, $this->gameEquipmentService);
         // we don't want to tell player that arack prevents travel
-        if ($advanceDaedalusStatusKey === AdvanceDaedalus::ARACK_PREVENTS_TRAVEL) {
-            $advanceDaedalusStatusKey = AdvanceDaedalus::OK;
+        if ($advanceDaedalusStatusKey === AbstractMoveDaedalusAction::ARACK_PREVENTS_TRAVEL) {
+            $advanceDaedalusStatusKey = AbstractMoveDaedalusAction::OK;
         }
 
         $advanceDaedalusStatus = AdvanceDaedalus::$statusMap[$advanceDaedalusStatusKey];

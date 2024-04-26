@@ -44,7 +44,7 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $proposed = false;
 
-    #[ORM\ManyToOne(inversedBy: 'projects', targetEntity: Daedalus::class)]
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'projects')]
     private Daedalus $daedalus;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]

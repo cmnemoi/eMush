@@ -11,9 +11,7 @@ use Mush\Project\Repository\ProjectRepositoryInterface;
 
 final readonly class CreateProjectFromConfigForDaedalusUseCase
 {
-    public function __construct(
-        private ProjectRepositoryInterface $projectRepository
-    ) {}
+    public function __construct(private ProjectRepositoryInterface $projectRepository) {}
 
     public function execute(ProjectConfig $projectConfig, Daedalus $daedalus): void
     {

@@ -17,16 +17,16 @@ class ProjectConfig
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, enumType: ProjectName::class, options: ['default' => ProjectName::NULL])]
-    private ProjectName $name = ProjectName::NULL;
+    private ProjectName $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, enumType: ProjectType::class, options: ['default' => ProjectType::NULL])]
-    private ProjectType $type = ProjectType::NULL;
+    private ProjectType $type;
 
     #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
-    private int $efficiency = 0;
+    private int $efficiency;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
-    private array $bonusSkills = [];
+    private array $bonusSkills;
 
     public function __construct(
         ProjectName $name,

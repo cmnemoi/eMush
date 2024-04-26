@@ -10,7 +10,7 @@ use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class DaedalusInitEventSubscriber implements EventSubscriberInterface
+final readonly class DaedalusInitEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,

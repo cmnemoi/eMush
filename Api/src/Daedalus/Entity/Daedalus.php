@@ -665,7 +665,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function hasNoProposedNeronProjects(): bool
     {
-        return $this->getProposedNeronProjects()->count() === 0;
+        return $this->getProposedNeronProjects()->isEmpty();
     }
 
     public function getPilgred(): Project

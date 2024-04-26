@@ -268,28 +268,15 @@ class DaedalusConfig
 
     public function getVariableFromName(string $variableName): int
     {
-        switch ($variableName) {
-            case DaedalusVariableEnum::OXYGEN:
-                return $this->maxOxygen;
-
-            case DaedalusVariableEnum::FUEL:
-                return $this->maxFuel;
-
-            case DaedalusVariableEnum::HULL:
-                return $this->maxHull;
-
-            case DaedalusVariableEnum::SHIELD:
-                return $this->maxShield;
-
-            case DaedalusVariableEnum::HUNTER_POINTS:
-                return $this->initHunterPoints;
-
-            case DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL:
-                return $this->maxCombustionChamberFuel;
-
-            default:
-                throw new \LogicException('this is not a valid daedalusVariable');
-        }
+        return match ($variableName) {
+            DaedalusVariableEnum::OXYGEN => $this->maxOxygen,
+            DaedalusVariableEnum::FUEL => $this->maxFuel,
+            DaedalusVariableEnum::HULL => $this->maxHull,
+            DaedalusVariableEnum::SHIELD => $this->maxShield,
+            DaedalusVariableEnum::HUNTER_POINTS => $this->initHunterPoints,
+            DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL => $this->maxCombustionChamberFuel,
+            default => throw new \LogicException('this is not a valid daedalusVariable'),
+        };
     }
 
     public function getNbMush(): int

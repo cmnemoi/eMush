@@ -6,7 +6,7 @@ namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-final class GetRandomElementsFromArrayService implements GetRandomElementsFromArrayServiceInterface
+final readonly class GetRandomElementsFromArrayService implements GetRandomElementsFromArrayServiceInterface
 {
     public function __construct(private GetRandomIntegerServiceInterface $getRandomIntegerService) {}
 

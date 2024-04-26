@@ -3629,5 +3629,19 @@ class MechanicsData
                 ActionEnum::REPAIR_PILGRED,
             ],
         ],
+        [
+            'name' => 'tool_neron_core_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::PARTICIPATE,
+            ],
+        ],
+        [
+            'name' => 'tool_auxiliary_terminal_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::PARTICIPATE,
+            ],
+        ],
     ];
 }

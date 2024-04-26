@@ -28,7 +28,13 @@
         <div class="repair-pilgred-action" v-if="repairPilgredAction">
             <ActionButton
                 :action="repairPilgredAction"
-                @click="executeRepairPilgredAction(project, repairPilgredAction)"
+                @click="executeTargetAction(project, repairPilgredAction)"
+            />
+        </div>
+        <div class="repair-pilgred-action" v-else-if="participateAction">
+            <ActionButton
+                :action="participateAction"
+                @click="executeTargetAction(project, participateAction)"
             />
         </div>
     </div>
@@ -56,7 +62,10 @@ export default defineComponent ({
         }
     },
     computed: {
-        repairPilgredAction(): Action {
+        participateAction(): Action | null {
+            return this.project.participateAction;
+        },
+        repairPilgredAction(): Action | null {
             return this.project.repairPilgredAction;
         },
         skillIcons() {
@@ -67,8 +76,8 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeRepairPilgredAction(target: Project, action: Action): Promise<void> {
-            if (!target) throw new Error(`No target found for action ${action.key}`);
+        async executeTargetAction(target: Project, action: Action): Promise<void> {
+            if (!action) throw new Error(`No action provided for project ${target.name}`);
             if (action.canExecute) {
                 await this.executeAction({ target, action });
             }

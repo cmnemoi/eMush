@@ -168,6 +168,7 @@ abstract class ActionEnum
     public const string CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
     public const string REPAIR_PILGRED = 'repair_pilgred';
     public const string RETURN_TO_SOL = 'return_to_sol';
+    public const string PARTICIPATE = 'participate';
 
     public static function getPermanentItemActions(): array
     {

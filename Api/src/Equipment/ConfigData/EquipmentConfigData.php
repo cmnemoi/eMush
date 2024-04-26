@@ -2567,7 +2567,9 @@ class EquipmentConfigData
                 'access_terminal',
                 'exit_terminal',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_neron_core_default',
+            ],
             'initStatuses' => [],
         ],
         [

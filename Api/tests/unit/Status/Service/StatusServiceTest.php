@@ -10,6 +10,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\GameConfig;
@@ -21,6 +22,8 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Factory\PlayerFactory;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -31,6 +34,7 @@ use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Repository\StatusRepository;
 use Mush\Status\Service\StatusService;
 use Mush\User\Entity\User;
@@ -44,13 +48,12 @@ final class StatusServiceTest extends TestCase
     protected EventServiceInterface|Mockery\Mock $eventService;
     private EntityManagerInterface|Mockery\Mock $entityManager;
     private Mockery\Mock|StatusRepository $repository;
-
     private StatusService $service;
 
     /**
      * @before
      */
-    public function before()
+    public function before(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
@@ -66,12 +69,12 @@ final class StatusServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    public function after(): void
     {
         \Mockery::close();
     }
 
-    public function testGetMostRecent()
+    public function testGetMostRecent(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -104,7 +107,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame('item 2', $mostRecent->getName());
     }
 
-    public function testChangeCharge()
+    public function testChangeCharge(): void
     {
         $time = new \DateTime();
         $place = new Place();
@@ -145,7 +148,7 @@ final class StatusServiceTest extends TestCase
         self::assertNull($result);
     }
 
-    public function testCreateStatusFromConfig()
+    public function testCreateStatusFromConfig(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());
@@ -168,7 +171,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($result->getVisibility(), VisibilityEnum::MUSH);
     }
 
-    public function testCreateChargeStatusFromConfig()
+    public function testCreateChargeStatusFromConfig(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());
@@ -201,7 +204,7 @@ final class StatusServiceTest extends TestCase
         self::assertTrue($result->isAutoRemove());
     }
 
-    public function testCreateStatusAlreadyHaveStatus()
+    public function testCreateStatusAlreadyHaveStatus(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());
@@ -224,7 +227,38 @@ final class StatusServiceTest extends TestCase
         self::assertSame($newStatus, $status);
     }
 
-    public function testHandleAttemptStatusOnFail()
+    public function testShouldCreateStatusWithDifferentTargetIfAlreadyExists(): void
+    {
+        // given a player
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+
+        $autoWateringProject = ProjectFactory::createAutoWateringProject();
+        $plasmaShieldProject = ProjectFactory::createPlasmaShieldProject();
+
+        // given this player has a project participation status for Auto Watering project
+        $projectParticipationStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
+        $projectParticipationStatus->setTarget($autoWateringProject);
+
+        // setup universe state
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
+
+        // when the player participates in Plasma Shield project
+        $newStatus = $this->service->createStatusFromConfig(
+            $projectParticipationStatus->getStatusConfig(),
+            $player,
+            [],
+            new \DateTime(),
+            $plasmaShieldProject
+        );
+
+        // then a new status should be created for the Plasma Shield project
+        self::assertNotSame($newStatus, $projectParticipationStatus);
+    }
+
+    public function testHandleAttemptStatusOnFail(): void
     {
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
@@ -255,7 +289,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
-    public function testHandleAttemptStatusSameAction()
+    public function testHandleAttemptStatusSameAction(): void
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -285,7 +319,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
-    public function testHandleAttemptStatusNewAction()
+    public function testHandleAttemptStatusNewAction(): void
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -314,7 +348,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::INSTALL_CAMERA);
     }
 
-    public function testHandleAttemptStatusSuccess()
+    public function testHandleAttemptStatusSuccess(): void
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -338,7 +372,7 @@ final class StatusServiceTest extends TestCase
         self::assertCount(0, $player->getStatuses());
     }
 
-    public function testCreateContentStatusFromConfig()
+    public function testCreateContentStatusFromConfig(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());

@@ -118,8 +118,8 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        // if holder already have this status, abort and return existing status
-        $status = $holder->getStatusByName($statusConfig->getStatusName());
+        // if holder already have the status targeting the same target, abort and return existing status
+        $status = $target ? $holder->getStatusByNameAndTarget($statusConfig->getStatusName(), $target) : $holder->getStatusByName($statusConfig->getStatusName());
         if ($status !== null) {
             return $status;
         }
@@ -164,8 +164,8 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        // if holder already have this status, abort and return existing status
-        $status = $holder->getStatusByName($statusName);
+        // if holder already have the status targeting the same target, abort and return existing status
+        $status = $target ? $holder->getStatusByNameAndTarget($statusName, $target) : $holder->getStatusByName($statusName);
         if ($status !== null) {
             return $status;
         }

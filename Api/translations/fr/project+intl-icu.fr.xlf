@@ -7,6 +7,34 @@
             <target>Efficacité : {min_efficiency}-{max_efficiency}%</target>
         </segment>
     </unit>
+    <unit id="auto_watering">
+        <segment id="auto_watering.type" state="translated">
+            <source>auto_watering.type</source>
+            <target>Proj.</target>
+        </segment>
+        <segment id="auto_watering.name" state="translated">
+            <source>auto_watering.name</source>
+            <target>Arroseurs automatiques</target>
+        </segment>
+        <segment id="auto_watering.description" state="translated">
+            <source>auto_watering.description</source>
+            <target>Chaque incendie a 25% de chance de s'éteindre automatiquement à chaque cycle.</target>
+        </segment>
+    </unit>
+    <unit id="dismantling">
+        <segment id="dismantling.type" state="translated">
+            <source>dismantling.type</source>
+            <target>Proj.</target>
+        </segment>
+        <segment id="dismantling.name" state="translated">
+            <source>dismantling.name</source>
+            <target>Démantèlement</target>
+        </segment>
+        <segment id="dismantling.description" state="translated">
+            <source>dismantling.description</source>
+            <target>Génère 5 Débris métalliques dans la Salle des Moteurs.</target>
+        </segment>
+    </unit>
     <unit id="pilgred">
         <segment id="pilgred.type" state="translated">
             <source>pilgred.type</source>

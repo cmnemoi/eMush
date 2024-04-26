@@ -27,6 +27,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Event\StatusCycleEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -175,12 +176,13 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->coffeeAction->execute();
 
         // when a cycle passes
-        $daedalusEvent = new DaedalusCycleEvent(
-            $this->daedalus,
+        $statusEvent = new StatusCycleEvent(
+            $coffeeMachine->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES),
+            $coffeeMachine,
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()
         );
-        $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->eventService->callEvent($statusEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
 
         // then Chun should be able to execute the coffee action again
         $this->coffeeAction->loadParameters($this->coffeeActionConfig, $this->chun, $coffeeMachine);

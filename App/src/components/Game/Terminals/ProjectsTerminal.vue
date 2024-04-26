@@ -8,7 +8,7 @@
         </p>
         <ProjectCard
             v-for="project in terminal.projects"
-            :key="project.key"
+            :key="project.id"
             :project="project"
             v-else
         />

@@ -103,6 +103,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($comsCenter);
 
+        /** @var Action $participateAction */
+        $participateAction = $this->getReference(ActionEnum::PARTICIPATE);
+
+        $neronCoreTool = $this->createTool([$participateAction], EquipmentEnum::NERON_CORE);
+        $manager->persist($neronCoreTool);
+
         $neronCore = new EquipmentConfig();
         $neronCore
             ->setEquipmentName(EquipmentEnum::NERON_CORE)
@@ -110,8 +116,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions([$repair6, $sabotage6, $reportAction, $examineAction, $accessTerminalAction, $exitTerminalAction])
+            ->setMechanics([$neronCoreTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($neronCore);
+
+        $auxiliaryTerminalTool = $this->createTool([$participateAction], EquipmentEnum::AUXILIARY_TERMINAL);
+        $manager->persist($auxiliaryTerminalTool);
 
         $auxiliaryTerminal = new EquipmentConfig();
         $auxiliaryTerminal
@@ -120,6 +130,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActions([$repair6, $sabotage6, $reportAction, $examineAction, $accessTerminalAction, $exitTerminalAction])
+            ->setMechanics([$auxiliaryTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($auxiliaryTerminal);
 

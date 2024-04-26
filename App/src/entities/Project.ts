@@ -15,7 +15,8 @@ export class Project {
     public progress!: string;
     public efficiency!: string;
     public bonusSkills!: BonusSkill[];
-    public repairPilgredAction!: Action;
+    public repairPilgredAction: Action|null = null;
+    public participateAction: Action|null = null;
 
     load(object :any): Project {
         if (object) {
@@ -27,8 +28,12 @@ export class Project {
             this.efficiency = object.efficiency;
             this.bonusSkills = object.bonusSkills;
             const repairPilgredActionData = object.actions.filter((action: any) => action.key === ActionEnum.REPAIR_PILGRED)[0];
+            const participateActionData = object.actions.filter((action: any) => action.key === ActionEnum.PARTICIPATE)[0];
             if (repairPilgredActionData) {
                 this.repairPilgredAction = new Action().load(repairPilgredActionData);
+            }
+            if (participateActionData) {
+                this.participateAction = new Action().load(participateActionData);
             }
         }
         return this;

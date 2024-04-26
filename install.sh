@@ -35,9 +35,8 @@ sudo service postgresql start
 
 # Create databases
 export POSTGRES_MULTIPLE_DATABASES="emush,etwin.dev" 
-export POSTGRES_USER="mysql" 
-export POSTGRES_PASSWORD="password" 
-sudo bash docker/Database/install.sh
+export POSTGRES_USER="postgres"
+bash docker/Database/install.sh
 
 #####################
 #                   #

@@ -10,9 +10,10 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\StatusEnum;
 
-class DaedalusWidgetService implements DaedalusWidgetServiceInterface
+final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 {
     private AlertServiceInterface $alertService;
 
@@ -24,8 +25,8 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
     public function getMinimap(Daedalus $daedalus, Player $player): array
     {
-        $equipmentsProject = false;
-        $doorsProject = false;
+        $equipmentsProject = $daedalus->getProjectByName(ProjectName::EQUIPMENT_SENSOR)->isFinished();
+        $doorsProject = $daedalus->getProjectByName(ProjectName::DOOR_SENSOR)->isFinished();
 
         $brokenEquipments = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_EQUIPMENTS, $equipmentsProject);
         $brokenDoors = $this->getDisplayedBrokenEquipments($daedalus, AlertEnum::BROKEN_DOORS, $doorsProject);
@@ -58,8 +59,6 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
                 'broken_doors' => $brokenDoorsList,
                 'broken_equipments' => $brokenEquipmentsList,
                 'name' => $roomName,
-                // 'broken_doors' => $doorsProject ? $brokenDoorsList : [],
-                // 'broken_equipments' => $equipmentsProject ? $brokenEquipmentsList : [],
             ];
         }
 
@@ -71,7 +70,11 @@ class DaedalusWidgetService implements DaedalusWidgetServiceInterface
         if ($room->getStatusByName(StatusEnum::FIRE) === null) {
             return false;
         }
-        // add fire detector project
+
+        // If fire sensor is finished, fire is displayed
+        if ($room->getDaedalus()->hasProject(ProjectName::FIRE_SENSOR)) {
+            return true;
+        }
 
         // reported fires are now displayed
         return $this->alertService->isFireReported($room);

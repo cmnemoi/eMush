@@ -12,9 +12,10 @@ type DaedalusProject = {
 }
 
 type DaedalusProjects = {
-    pilgred: DaedalusProject;
-    neronProject: DaedalusProject;
+    pilgred: DaedalusProject|undefined;
+    neronProjects: DaedalusProject[];
 }
+
 export class Daedalus {
     public id: number|null;
     public oxygen: QuantityPoint|null;

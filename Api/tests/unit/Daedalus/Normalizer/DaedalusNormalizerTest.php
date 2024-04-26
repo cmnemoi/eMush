@@ -75,6 +75,7 @@ final class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('getAttackingHunters')->andReturn(new HunterCollection());
         $daedalus->shouldReceive('getLanguage')->andReturn(LanguageEnum::FRENCH);
         $daedalus->shouldReceive('isPilgredFinished')->andReturn(false);
+        $daedalus->shouldReceive('getFinishedNeronProjects')->andReturn(new ArrayCollection());
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
         $daedalus->setPlaces(new ArrayCollection());
@@ -300,7 +301,9 @@ final class DaedalusNormalizerTest extends TestCase
                 'explorators' => 'Équipe : Roland',
                 'estimatedDuration' => 'Retour estimé : 10 minutes',
             ],
-            'projects' => [],
+            'projects' => [
+                'neronProjects' => [],
+            ],
         ];
 
         self::assertIsArray($data);

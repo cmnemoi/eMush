@@ -189,7 +189,7 @@ final class DaedalusWidgetServiceTest extends TestCase
     }
 
     private function createSensorProjectsForDaedalus(Daedalus $daedalus): array
-    {   
+    {
         $projects = [];
         $projects[] = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::FIRE_SENSOR, $daedalus);
         $projects[] = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::DOOR_SENSOR, $daedalus);

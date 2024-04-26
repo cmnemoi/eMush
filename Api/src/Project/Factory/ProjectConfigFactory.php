@@ -11,7 +11,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 
 final class ProjectConfigFactory
-{  
+{
     public static function createDummyNeronProjectConfig(): ProjectConfig
     {
         return new ProjectConfig(
@@ -33,11 +33,12 @@ final class ProjectConfigFactory
     }
 
     public static function createNeronProjectConfigByName(ProjectName $name): ProjectConfig
-    {   
+    {
         $projectConfigData = current(array_filter(
-            ProjectConfigData::getAll(), fn($config) => $config['name'] === $name
+            ProjectConfigData::getAll(),
+            static fn ($config) => $config['name'] === $name
         ));
-        
+
         return new ProjectConfig(...$projectConfigData);
     }
 

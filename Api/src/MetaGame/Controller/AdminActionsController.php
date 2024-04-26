@@ -13,6 +13,7 @@ use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,16 +25,17 @@ use Symfony\Component\Routing\Annotation\Route;
 final class AdminActionsController extends AbstractFOSRestController
 {
     public function __construct(
-        private CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
-        private DaedalusRepository $daedalusRepository,
+        private readonly CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
+        private readonly DaedalusRepository $daedalusRepository,
     ) {}
 
     /**
      * Create all projects for on-going Daedaluses.
      *
-     * @OA\Tag (name="Admin")
+     * @OA\Tag(name="Admin")
      *
-     * @Security (name="Bearer")
+     * @Security(name="Bearer")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @Rest\Post(path="/create-all-projects-for-on-going-daedaluses")
      */

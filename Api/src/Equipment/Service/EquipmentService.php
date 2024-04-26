@@ -15,7 +15,7 @@ class EquipmentService implements EquipmentServiceInterface
             ->filter(static fn (EquipmentConfig $item) => $item->getEquipmentName() === $name);
 
         if ($items->count() !== 1) {
-            throw new \Exception("there should be exactly one equipmentConfig with this name {$name}");
+            throw new \Exception("there should be exactly one equipmentConfig with this name {$name}, found {$items->count()}");
         }
 
         return $items->first();

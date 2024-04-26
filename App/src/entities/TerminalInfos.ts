@@ -12,6 +12,8 @@ export class TerminalInfos {
     public currentCpuPriority: string|null;
     public pilgredIsFinished: boolean|null = null;
     public pilgredFinishedDescription: string|null = null;
+    public noProposedNeronProjects: boolean|null = null;
+    public noProposedNeronProjectsDescription: string|null = null;
 
     constructor() {
         this.difficulty = null;
@@ -36,6 +38,8 @@ export class TerminalInfos {
             this.currentCpuPriority = object.currentCpuPriority;
             this.pilgredIsFinished = object.pilgredIsFinished;
             this.pilgredFinishedDescription = object.pilgredFinishedDescription;
+            this.noProposedNeronProjects = object.noProposedNeronProjects;
+            this.noProposedNeronProjectsDescription = object.noProposedNeronProjectsDescription;
         }
         return this;
     }

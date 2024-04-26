@@ -204,7 +204,7 @@ class AbstractFunctionalTest
 
     protected function createProject(ProjectName $projectName, FunctionalTester $I): Project
     {
-        if ($this->daedalus->getAvailableProjects()->map(static fn (Project $project) => $project->getName())->contains($projectName->value)) {
+        if ($this->daedalus->getAllAvailableProjects()->map(static fn (Project $project) => $project->getName())->contains($projectName->value)) {
             return $this->daedalus->getProjectByName($projectName);
         }
 

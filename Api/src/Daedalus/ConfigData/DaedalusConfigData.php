@@ -65,6 +65,7 @@ class DaedalusConfigData
                 RoomEnum::PASIPHAE . '_default',
                 RoomEnum::PLANET . '_default',
             ],
+            'numberOfProjectsByBatch' => 3,
         ],
     ];
 }

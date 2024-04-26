@@ -41,7 +41,7 @@ final class CreateProjectFromConfigForDaedalusUseCaseCest extends AbstractFuncti
         $this->assertProjectIsCreatedAsExpected($I, $project);
 
         // then the project is added to the Daedalus
-        $I->assertContains($project, $this->daedalus->getAvailableProjects());
+        $I->assertContains($project, $this->daedalus->getAllAvailableProjects());
     }
 
     private function assertProjectIsCreatedAsExpected(FunctionalTester $I, Project $project): void

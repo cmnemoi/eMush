@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Mush\Tests\Unit\Project\UseCase;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Daedalus\Repository\InMemoryDaedalusRepository;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Factory\ProjectConfigFactory;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
 {
-    private InMemoryDaedalusRepository $daedalusRepository;
     private InMemoryProjectRepository $projectRepository;
 
     /**
@@ -28,7 +27,6 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
      */
     public function before(): void
     {
-        $this->daedalusRepository = new InMemoryDaedalusRepository();
         $this->projectRepository = new InMemoryProjectRepository();
     }
 
@@ -37,7 +35,6 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
      */
     public function after(): void
     {
-        $this->daedalusRepository->clear();
         $this->projectRepository->clear();
     }
 
@@ -51,7 +48,6 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
 
         // when I execute the usecase
         $createProjectFromConfigForDaedalusUseCase = new CreateProjectFromConfigForDaedalusUseCase(
-            $this->daedalusRepository,
             $this->projectRepository
         );
         $createProjectFromConfigForDaedalusUseCase->execute($projectConfig, $daedalus);
@@ -63,7 +59,28 @@ final class CreateProjectFromConfigForDaedalusUseCaseTest extends TestCase
         self::assertEquals(expected: $daedalus, actual: $project->getDaedalus());
 
         // then Daedalus should have the project
-        self::assertNotEmpty($daedalus->getAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD->value));
+        self::assertNotEmpty($daedalus->getProjectByName(ProjectName::PLASMA_SHIELD));
+    }
+
+    public function testShouldNotCreateAlreadyExistingProject(): void
+    {
+        // given I have a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given I already have a created Plasma Shield project
+        $project = ProjectFactory::createPlasmaShieldProject();
+
+        // when I execute the usecase
+        $createProjectFromConfigForDaedalusUseCase = new CreateProjectFromConfigForDaedalusUseCase(
+            $this->projectRepository
+        );
+        $createProjectFromConfigForDaedalusUseCase->execute(ProjectConfigFactory::createPlasmaShieldConfig(), $daedalus);
+
+        // then the project should not be created : I should see only one Plasma Shield project
+        self::assertCount(
+            expectedCount: 1,
+            haystack: $daedalus->getAllAvailableProjects()->filter(static fn (Project $project) => $project->getName() === ProjectName::PLASMA_SHIELD->value)
+        );
     }
 
     private static function assertProjectIsAsExpected(Project $project): void

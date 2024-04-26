@@ -38,7 +38,13 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
     private int $progress = 0;
 
-    #[ORM\ManyToOne(inversedBy: 'projects', targetEntity: Daedalus::class)]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
+    private bool $available = true;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $proposed = false;
+
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'projects')]
     private Daedalus $daedalus;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
@@ -49,6 +55,12 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
         $this->config = $config;
         $this->daedalus = $daedalus;
         $this->statuses = new ArrayCollection();
+
+        $this->daedalus->addProject($this);
+
+        if ($config->getType() !== ProjectType::NERON_PROJECT) {
+            $this->proposed = true;
+        }
     }
 
     public function getId(): int
@@ -79,6 +91,22 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     public function getProgress(): int
     {
         return $this->progress;
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->available;
+    }
+
+    public function isProposed(): bool
+    {
+        return $this->proposed;
+    }
+
+    public function propose(): void
+    {
+        $this->proposed = true;
+        $this->available = false;
     }
 
     public function getDaedalus(): Daedalus
@@ -145,5 +173,15 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     public function isPilgred(): bool
     {
         return $this->getType() === ProjectType::PILGRED;
+    }
+
+    public function isAvailableNeronProject(): bool
+    {
+        return $this->isNeronProject() && $this->isAvailable();
+    }
+
+    public function isProposedNeronProject(): bool
+    {
+        return $this->isNeronProject() && $this->isProposed();
     }
 }

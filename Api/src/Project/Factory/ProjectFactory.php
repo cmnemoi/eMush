@@ -4,56 +4,89 @@ declare(strict_types=1);
 
 namespace Mush\Project\Factory;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Project\Entity\Project;
 
 final class ProjectFactory
 {
-    public static function createPlasmaShieldProject(): Project
+    public static function createAutoWateringProject(): Project
     {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $project = new Project(
-            config: ProjectConfigFactory::createPlasmaShieldConfig(),
-            daedalus: $daedalus,
+        return new Project(
+            config: ProjectConfigFactory::createAutoWateringConfig(),
+            daedalus: DaedalusFactory::createDaedalus(),
         );
-        $daedalus->addProject($project);
-
-        return $project;
     }
 
     public static function createPilgredProject(): Project
     {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $project = new Project(
+        return new Project(
             config: ProjectConfigFactory::createPilgredConfig(),
-            daedalus: $daedalus,
+            daedalus: DaedalusFactory::createDaedalus(),
         );
-        $daedalus->addProject($project);
+    }
 
-        return $project;
+    public static function createPlasmaShieldProject(): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createPlasmaShieldConfig(),
+            daedalus: DaedalusFactory::createDaedalus(),
+        );
     }
 
     public static function createTrailReducerProject(): Project
     {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $project = new Project(
+        return new Project(
             config: ProjectConfigFactory::createTrailReducerConfig(),
-            daedalus: $daedalus,
+            daedalus: DaedalusFactory::createDaedalus(),
         );
-        $daedalus->addProject($project);
-
-        return $project;
     }
 
-    public static function createAutoWateringProject(): Project
+    public static function createAutoWateringProjectWithDaedalus(Daedalus $daedalus): Project
     {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $project = new Project(
+        return new Project(
             config: ProjectConfigFactory::createAutoWateringConfig(),
             daedalus: $daedalus,
         );
-        $daedalus->addProject($project);
+    }
 
-        return $project;
+    public static function createDummyNeronProjectForDaedalus(Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createDummyNeronProjectConfig(),
+            daedalus: $daedalus,
+        );
+    }
+
+    public static function createDummyResearchForDaedalus(Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createDummyResearchConfig(),
+            daedalus: $daedalus,
+        );
+    }
+
+    public static function createPilgredProjectWithDaedalus(Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createPilgredConfig(),
+            daedalus: $daedalus,
+        );
+    }
+
+    public static function createPlasmaShieldProjectWithDaedalus(Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createPlasmaShieldConfig(),
+            daedalus: $daedalus,
+        );
+    }
+
+    public static function createTrailReducerProjectWithDaedalus(Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createTrailReducerConfig(),
+            daedalus: $daedalus,
+        );
     }
 }

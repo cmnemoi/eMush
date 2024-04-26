@@ -195,5 +195,33 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <target>Le PILGRED est pleinement opérationnel.</target>
       </segment>
     </unit>
+    <unit id="neron_core">
+      <segment id="name" state="final">
+        <source>neron_core.name</source>
+        <target>Coeur de NERON</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>neron_core.tips</source>
+        <target>Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.</target>
+      </segment>
+      <segment id="no_proposed_neron_projects_description" state="final">
+        <source>neron_core.no_proposed_neron_projects_description</source>
+        <target>Il n'y a plus de projets à faire aboutir.</target>
+      </segment>
+    </unit>
+    <unit id="auxiliary_terminal">
+      <segment id="name" state="final">
+        <source>auxiliary_terminal.name</source>
+        <target>Coeur de NERON</target>
+      </segment>
+      <segment id="tips" state="final">
+        <source>auxiliary_terminal.tips</source>
+        <target>Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.</target>
+      </segment>
+      <segment id="no_proposed_neron_projects_description" state="final">
+        <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
+        <target>Il n'y a plus de projets à faire aboutir.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

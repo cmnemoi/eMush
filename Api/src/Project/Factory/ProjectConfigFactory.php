@@ -11,6 +11,26 @@ use Mush\Project\Enum\ProjectType;
 
 final class ProjectConfigFactory
 {
+    public static function createDummyNeronProjectConfig(): ProjectConfig
+    {
+        return new ProjectConfig(
+            name: ProjectName::NULL,
+            type: ProjectType::NERON_PROJECT,
+            efficiency: 0,
+            bonusSkills: []
+        );
+    }
+
+    public static function createDummyResearchConfig(): ProjectConfig
+    {
+        return new ProjectConfig(
+            name: ProjectName::NULL,
+            type: ProjectType::RESEARCH,
+            efficiency: 0,
+            bonusSkills: []
+        );
+    }
+
     public static function createPilgredConfig(): ProjectConfig
     {
         return new ProjectConfig(

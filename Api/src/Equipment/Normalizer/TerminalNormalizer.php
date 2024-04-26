@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Normalizer;
 
+use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionScopeEnum;
@@ -94,8 +95,9 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         $commandTerminalInfos = $this->normalizeCommandTerminalInfos($terminal);
         $biosTerminalInfos = $this->normalizeBiosTerminalInfos($terminal);
         $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
+        $neronCoreInfos = $this->getNormalizedNeronCoreInfos($terminal);
 
-        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos);
+        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos);
 
         return $normalizedTerminal;
     }
@@ -144,6 +146,7 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $projects = match ($terminal->getName()) {
             EquipmentEnum::PILGRED => [$terminal->getDaedalus()->getPilgred()],
+            EquipmentEnum::NERON_CORE, EquipmentEnum::AUXILIARY_TERMINAL => $terminal->getDaedalus()->getProposedNeronProjects(),
             default => [],
         };
 
@@ -200,8 +203,8 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $advanceDaedalusStatusKey = AdvanceDaedalus::getActionStatus($daedalus, $this->gameEquipmentService);
         // we don't want to tell player that arack prevents travel
-        if ($advanceDaedalusStatusKey === AdvanceDaedalus::ARACK_PREVENTS_TRAVEL) {
-            $advanceDaedalusStatusKey = AdvanceDaedalus::OK;
+        if ($advanceDaedalusStatusKey === AbstractMoveDaedalusAction::ARACK_PREVENTS_TRAVEL) {
+            $advanceDaedalusStatusKey = AbstractMoveDaedalusAction::OK;
         }
 
         $advanceDaedalusStatus = AdvanceDaedalus::$statusMap[$advanceDaedalusStatusKey];
@@ -278,6 +281,26 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         return [
             'availableCpuPriorities' => $this->getTranslatedAvailableCpuPriorities($terminal),
             'currentCpuPriority' => $terminal->getDaedalus()->getDaedalusInfo()->getNeron()->getCpuPriority(),
+        ];
+    }
+
+    private function getNormalizedNeronCoreInfos(GameEquipment $terminal): array
+    {
+        $daedalus = $terminal->getDaedalus();
+        $language = $daedalus->getLanguage();
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::NERON_CORE && $terminalKey !== EquipmentEnum::AUXILIARY_TERMINAL) {
+            return [];
+        }
+
+        return [
+            'noProposedNeronProjects' => $daedalus->hasNoProposedNeronProjects(),
+            'noProposedNeronProjectsDescription' => $this->translationService->translate(
+                key: $terminalKey . '.no_proposed_neron_projects_description',
+                parameters: [],
+                domain: 'terminal',
+                language: $language
+            ),
         ];
     }
 

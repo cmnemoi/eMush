@@ -10,6 +10,7 @@ import { SpaceBattle } from "./SpaceBattle";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { Terminal } from "@/entities/Terminal";
 import { Exploration } from "@/entities/Exploration";
+import { TerminalEnum } from "@/enums/terminal.enum";
 
 export class Player {
     public id!: number;
@@ -188,6 +189,14 @@ export class Player {
         return this.statuses.filter((status: Status) => {
             return status.key === StatusPlayerNameEnum.FOCUSED && status.target?.key === terminal;
         }).length > 0;
+    }
+
+    public isFocusedOnProjectsTerminal(): boolean {
+        return this.isFocusedOnTerminal(TerminalEnum.NERON_CORE_TERMINAL) || this.isFocusedOnTerminal(TerminalEnum.AUXILIARY_TERMINAL);
+    }
+
+    public isFocusedOnPilgredTerminal(): boolean {
+        return this.isFocusedOnTerminal(TerminalEnum.PILGRED_TERMINAL);
     }
 
     public isExploring(): boolean {

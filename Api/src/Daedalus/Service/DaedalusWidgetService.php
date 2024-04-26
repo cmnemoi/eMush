@@ -72,7 +72,7 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
         }
 
         // If fire sensor is finished, fire is displayed
-        if ($room->getDaedalus()->hasProject(ProjectName::FIRE_SENSOR)) {
+        if ($room->getDaedalus()->getProjectByName(ProjectName::FIRE_SENSOR)->isFinished()) {
             return true;
         }
 

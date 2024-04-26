@@ -8,7 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Project\Entity\Project;
 use Mush\Project\Repository\ProjectRepositoryInterface;
 
-final class UnproposeCurrentNeronProjectsUseCase
+final readonly class UnproposeCurrentNeronProjectsUseCase
 {
     public function __construct(private ProjectRepositoryInterface $projectRepository) {}
 

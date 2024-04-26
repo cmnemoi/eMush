@@ -68,15 +68,11 @@ final class UnproposeCurrentNeronProjectsUseCaseTest extends TestCase
         return $currentProjects;
     }
 
-    private function createUnproposedProjectsForDaedalus(Daedalus $daedalus): array
+    private function createUnproposedProjectsForDaedalus(Daedalus $daedalus): void
     {
-        $projects = [];
         for ($i = 0; $i < 3; ++$i) {
             $project = ProjectFactory::createDummyNeronProjectForDaedalus($daedalus);
             $this->projectRepository->save($project);
-            $projects[] = $project;
         }
-
-        return $projects;
     }
 }

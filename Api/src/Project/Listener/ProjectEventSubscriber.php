@@ -10,7 +10,7 @@ use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
 use Mush\Project\UseCase\UnproposeCurrentNeronProjectsUseCase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class ProjectEventSubscriber implements EventSubscriberInterface
+final readonly class ProjectEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private EventServiceInterface $eventService,

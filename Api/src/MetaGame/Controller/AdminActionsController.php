@@ -35,6 +35,7 @@ final class AdminActionsController extends AbstractFOSRestController
      * @OA\Tag(name="Admin")
      *
      * @Security(name="Bearer")
+     *
      * @IsGranted("ROLE_ADMIN")
      *
      * @Rest\Post(path="/create-all-projects-for-on-going-daedaluses")

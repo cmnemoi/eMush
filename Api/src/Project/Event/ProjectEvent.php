@@ -13,7 +13,6 @@ final class ProjectEvent extends AbstractGameEvent
 {
     public const string PROJECT_ADVANCED = 'project.advanced';
     public const string PROJECT_FINISHED = 'project.finished';
-
     private Project $project;
 
     public function __construct(
@@ -46,9 +45,14 @@ final class ProjectEvent extends AbstractGameEvent
         return $this->project->getDaedalus();
     }
 
-    public function projectIsFinished(): bool
+    public function isNotAboutFinishedProject(): bool
     {
-        return $this->project->isFinished();
+        return !$this->project->isFinished();
+    }
+
+    public function isNotAboutNeronProject(): bool
+    {
+        return !$this->project->isNeronProject();
     }
 
     public function toArray(): array

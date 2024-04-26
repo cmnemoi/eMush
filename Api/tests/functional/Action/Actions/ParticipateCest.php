@@ -47,6 +47,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->participateAction = $I->grabService(Participate::class);
 
         $this->project = $this->createProject(ProjectName::TRAIL_REDUCER, $I);
+        $this->project->propose();
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
@@ -240,6 +241,42 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         // then Chun's efficiency for the other project should be reduced
         $I->assertEquals(new PlayerEfficiency(0, 0), $this->chun->getEfficiencyForProject($otherProject));
+    }
+
+    public function shouldMakeCurrentProjectsUnproposedWhenAProjectIsFinished(FunctionalTester $I): void
+    {
+        // given I have another proposed project
+        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+        $otherProject->propose();
+
+        // given project progress is 99%
+        $this->project->makeProgress(99);
+
+        // when Chun participates in the project to finish it
+        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->execute();
+
+        // then project should be unproposed
+        $I->assertFalse($this->project->isProposed());
+
+        // then other project should be unproposed
+        $I->assertFalse($otherProject->isProposed());
+    }
+
+    public function shouldProposeNewProjectsWhenAProjectIsFinished(FunctionalTester $I): void
+    {
+        // given I have an available (unproposed) project in stock
+        $project = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+
+        // given PILGRED progress is 99%
+        $this->project->makeProgress(99);
+
+        // when Chun participates in the project to finish it
+        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->execute();
+
+        // then the new project should be proposed
+        $I->assertTrue($project->isProposed());
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

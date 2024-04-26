@@ -1,5 +1,5 @@
 <template>
-    <AdminBanner></AdminBanner>
+    <AdminBanner />
     <div class="admin-container">
         <div class="box-container">
             <router-view></router-view>

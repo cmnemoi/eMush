@@ -1,5 +1,20 @@
 import { ActionTree, MutationTree } from "vuex";
 
+export type Error = {
+    message: string;
+    status: number;
+    statusText: string;
+    request: {
+        url: string;
+        params: any;
+        method: string;
+    };
+    response: {
+        details: string;
+        class: string;
+    };
+};
+
 const state =  {
     error: null
 };

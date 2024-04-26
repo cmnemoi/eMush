@@ -28,6 +28,7 @@ import { adminConfigRoutes } from "@/router/adminConfigPages";
 import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
 import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
 import Rules from "@/components/Rules.vue";
+import AdminActionsPage from "@/components/Admin/Actions/AdminActionsPage.vue";
 
 const routes = [
     {
@@ -180,6 +181,11 @@ const routes = [
                         redirect: { name: 'UserPage' }
                     }
                 ]
+            },
+            {
+                name: "AdminActionsPage",
+                path: 'actions',
+                component: AdminActionsPage
             }
         ]
     },

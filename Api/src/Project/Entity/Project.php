@@ -37,7 +37,7 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 
     #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
     private int $progress = 0;
-    
+
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $available = true;
 

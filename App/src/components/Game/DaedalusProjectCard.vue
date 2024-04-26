@@ -1,6 +1,6 @@
 <template>
     <Tippy tag="li" class="project-card">
-        <span v-html="formatText(project.name)"></span>
+        <span v-html="formatText(project.type)"></span>
         <img :src="getProjectImage(project)" :alt="project.name">
         <template #content>
             <h1 v-html="formatText(project.name)"></h1>

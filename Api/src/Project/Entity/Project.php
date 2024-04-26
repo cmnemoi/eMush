@@ -190,4 +190,9 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     {
         return $this->isNeronProject() && $this->isProposed();
     }
+
+    public function isFinishedNeronProject(): bool
+    {
+        return $this->isNeronProject() && $this->isFinished();
+    }
 }

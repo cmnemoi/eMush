@@ -66,7 +66,7 @@ final class ProjectFactory
         );
     }
 
-    public static function createPilgredProjectWithDaedalus(Daedalus $daedalus): Project
+    public static function createPilgredProjectForDaedalus(Daedalus $daedalus): Project
     {
         return new Project(
             config: ProjectConfigFactory::createPilgredConfig(),

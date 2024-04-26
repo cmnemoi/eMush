@@ -1,8 +1,9 @@
 <template>
     <ul class="projects">
+        <DaedalusProjectCard v-for="project in projects.neronProjects" :key="project.key" :project="project" />
     </ul>
-    <ul class="pilgred" v-if="pilgred">
-        <DaedalusProjectCard :project="pilgred" />
+    <ul class="pilgred" v-if="projects.pilgred">
+        <DaedalusProjectCard :project="projects.pilgred" />
     </ul>
 </template>
 
@@ -20,18 +21,14 @@ type DaedalusProject = {
 }
 
 type DaedalusProjects = {
-    pilgred: DaedalusProject;
+    pilgred: DaedalusProject|undefined;
+    neronProjects: DaedalusProject[];
 }
 
 export default defineComponent ({
     name: "ProjectsPanel",
     components: {
         DaedalusProjectCard
-    },
-    computed: {
-        pilgred() {
-            return this.projects.pilgred;
-        }
     },
     props: {
         projects: {

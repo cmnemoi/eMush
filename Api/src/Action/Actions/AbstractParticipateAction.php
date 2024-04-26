@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class AbstractParticipateAction extends AbstractAction
 {
     protected string $name;
-
     protected AdvanceProjectUseCase $advanceProjectUseCase;
 
     public function __construct(

@@ -34,7 +34,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 {
     private Action $actionConfig;
     private RepairPilgred $repairPilgredAction;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;

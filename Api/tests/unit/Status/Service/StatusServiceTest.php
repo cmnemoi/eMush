@@ -48,13 +48,12 @@ final class StatusServiceTest extends TestCase
     protected EventServiceInterface|Mockery\Mock $eventService;
     private EntityManagerInterface|Mockery\Mock $entityManager;
     private Mockery\Mock|StatusRepository $repository;
-
     private StatusService $service;
 
     /**
      * @before
      */
-    public function before()
+    public function before(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
@@ -70,12 +69,12 @@ final class StatusServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    public function after(): void
     {
         \Mockery::close();
     }
 
-    public function testGetMostRecent()
+    public function testGetMostRecent(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -108,7 +107,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame('item 2', $mostRecent->getName());
     }
 
-    public function testChangeCharge()
+    public function testChangeCharge(): void
     {
         $time = new \DateTime();
         $place = new Place();
@@ -149,7 +148,7 @@ final class StatusServiceTest extends TestCase
         self::assertNull($result);
     }
 
-    public function testCreateStatusFromConfig()
+    public function testCreateStatusFromConfig(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());
@@ -172,7 +171,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($result->getVisibility(), VisibilityEnum::MUSH);
     }
 
-    public function testCreateChargeStatusFromConfig()
+    public function testCreateChargeStatusFromConfig(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());
@@ -205,7 +204,7 @@ final class StatusServiceTest extends TestCase
         self::assertTrue($result->isAutoRemove());
     }
 
-    public function testCreateStatusAlreadyHaveStatus()
+    public function testCreateStatusAlreadyHaveStatus(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());
@@ -228,7 +227,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($newStatus, $status);
     }
 
-    public function testShouldCreateStatusWithDifferentTargetIfAlreadyExists()
+    public function testShouldCreateStatusWithDifferentTargetIfAlreadyExists(): void
     {
         // given a player
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
@@ -259,7 +258,7 @@ final class StatusServiceTest extends TestCase
         self::assertNotSame($newStatus, $projectParticipationStatus);
     }
 
-    public function testHandleAttemptStatusOnFail()
+    public function testHandleAttemptStatusOnFail(): void
     {
         $attemptConfig = new ChargeStatusConfig();
         $attemptConfig->setStatusName(StatusEnum::ATTEMPT);
@@ -290,7 +289,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
-    public function testHandleAttemptStatusSameAction()
+    public function testHandleAttemptStatusSameAction(): void
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -320,7 +319,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::DISASSEMBLE);
     }
 
-    public function testHandleAttemptStatusNewAction()
+    public function testHandleAttemptStatusNewAction(): void
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -349,7 +348,7 @@ final class StatusServiceTest extends TestCase
         self::assertSame($player->getStatuses()->first()->getAction(), ActionEnum::INSTALL_CAMERA);
     }
 
-    public function testHandleAttemptStatusSuccess()
+    public function testHandleAttemptStatusSuccess(): void
     {
         $player = new Player();
         $player->setDaedalus(new Daedalus());
@@ -373,7 +372,7 @@ final class StatusServiceTest extends TestCase
         self::assertCount(0, $player->getStatuses());
     }
 
-    public function testCreateContentStatusFromConfig()
+    public function testCreateContentStatusFromConfig(): void
     {
         $place = new Place();
         $place->setDaedalus(new Daedalus());

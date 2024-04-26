@@ -34,9 +34,7 @@ final class ParticipateCest extends AbstractFunctionalTest
 {
     private Action $actionConfig;
     private Participate $participateAction;
-
     private Project $project;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;

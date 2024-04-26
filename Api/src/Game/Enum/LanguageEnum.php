@@ -10,35 +10,35 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 class LanguageEnum
 {
     // languages
-    public const FRENCH = 'fr';
-    public const ENGLISH = 'en';
-    public const SPANISH = 'es';
+    public const string FRENCH = 'fr';
+    public const string ENGLISH = 'en';
+    public const string SPANISH = 'es';
 
     // translation parameters keys
-    public const CHARACTER = 'character';
-    public const TARGET_CHARACTER = 'target_character';
-    public const END_CAUSE = 'end_cause';
-    public const STATUS = 'status';
-    public const EQUIPMENT = 'equipment';
-    public const TARGET_EQUIPMENT = 'target_equipment';
-    public const ITEM = 'item';
-    public const TARGET_ITEM = 'target_item';
-    public const DISEASE = 'disease';
-    public const ROOMS = 'rooms';
-    public const DISEASE_MESSAGE = 'disease_message';
-    public const HUNTER = 'hunter';
-    public const PLACE = 'place';
-    public const ACTION = 'actions';
-    public const ACTION_NAME = 'action_name';
-    public const PROJECT = 'project';
-    public const TARGET_PROJECT = 'target_project';
+    public const string CHARACTER = 'character';
+    public const string TARGET_CHARACTER = 'target_character';
+    public const string END_CAUSE = 'end_cause';
+    public const string STATUS = 'status';
+    public const string EQUIPMENT = 'equipment';
+    public const string TARGET_EQUIPMENT = 'target_equipment';
+    public const string ITEM = 'item';
+    public const string TARGET_ITEM = 'target_item';
+    public const string DISEASE = 'disease';
+    public const string ROOMS = 'rooms';
+    public const string DISEASE_MESSAGE = 'disease_message';
+    public const string HUNTER = 'hunter';
+    public const string PLACE = 'place';
+    public const string ACTION = 'actions';
+    public const string ACTION_NAME = 'action_name';
+    public const string PROJECT = 'project';
+    public const string TARGET_PROJECT = 'target_project';
 
     // translation domains
-    public const CHARACTERS = 'characters';
-    public const ITEMS = 'items';
-    public const EQUIPMENTS = 'equipments';
+    public const string CHARACTERS = 'characters';
+    public const string ITEMS = 'items';
+    public const string EQUIPMENTS = 'equipments';
 
-    public const COPROLALIA_PARAMETERS = [
+    public const array COPROLALIA_PARAMETERS = [
         LogDeclinationEnum::BALLS_COPROLALIA,
         LogDeclinationEnum::PREFIX_COPROLALIA,
         LogDeclinationEnum::ADJECTIVE_COPROLALIA,
@@ -46,7 +46,7 @@ class LanguageEnum
         LogDeclinationEnum::WORD_COPROLALIA,
     ];
 
-    public const PARAMETER_KEY_TO_DOMAIN = [
+    public const array PARAMETER_KEY_TO_DOMAIN = [
         self::TARGET_EQUIPMENT => self::EQUIPMENTS,
         self::EQUIPMENT => self::EQUIPMENTS,
         self::TARGET_ITEM => self::ITEMS,
@@ -69,7 +69,7 @@ class LanguageEnum
         LogDeclinationEnum::WORD_COPROLALIA => self::DISEASE_MESSAGE,
     ];
 
-    public const TRANSLATE_PARAMETERS = [
+    public const array TRANSLATE_PARAMETERS = [
         self::FRENCH => [
             self::EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural_name'],
             self::TARGET_EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural_name'],
@@ -128,15 +128,10 @@ class LanguageEnum
 
     public static function convertParameterKeyToTranslationKey(string $key): string
     {
-        switch ($key) {
-            case self::ITEM:
-                return self::EQUIPMENT;
-
-            case self::TARGET_ITEM:
-                return self::TARGET_EQUIPMENT;
-
-            default:
-                return $key;
-        }
+        return match ($key) {
+            self::ITEM => self::EQUIPMENT,
+            self::TARGET_ITEM => self::TARGET_EQUIPMENT,
+            default => $key,
+        };
     }
 }

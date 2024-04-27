@@ -34,6 +34,7 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -296,19 +297,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $I->assertCount(4, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX));
 
         // when another travel is launched and finished
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
-
-        $daedalusEvent = new DaedalusEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
+        $this->launchAndFinishesTravel();
 
         // then 3 hunters are spawn
         $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
@@ -336,6 +325,59 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // given daedalus has no points to spawn hunters
         $this->daedalus->setHunterPoints(0);
+
+        // when travel is launched and finished
+        $this->launchAndFinishesTravel();
+
+        // then 1 hunter is spawn
+        $I->assertCount(1, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+    }
+
+    public function testTravelFinishedSpawnsMinus75PercentOfPreviousWaveWithTrailReducer(FunctionalTester $I): void
+    {
+        // given there are 10 hunters
+        for ($i = 0; $i < 10; ++$i) {
+            $this->createHunterFromName($I, $this->daedalus, HunterEnum::HUNTER);
+        }
+
+        // given the trail reducer project is finished
+        $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
+        $trailReducer->makeProgress(100);
+
+        // when travel is launched and finished
+        $this->launchAndFinishesTravel();
+
+        // then 3 hunters are spawn
+        $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+    }
+
+    public function testTravelFinishedSpawnsAThreeQuartersPowerWaveWithTrailReducerIfThereWereNoHunterToFleeFrom(FunctionalTester $I): void
+    {
+        // given daedalus has enough points to spawn 10 hunters
+        $this->daedalus->setHunterPoints(100);
+
+        // given the trail reducer project is finished
+        $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
+        $trailReducer->makeProgress(100);
+
+        // when travel is launched and finished
+        $this->launchAndFinishesTravel();
+
+        // then 3 hunters are spawn
+        $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+    }
+
+    public function testTravelFinishedSpawnsOneHunterWithTrailReducerIfThereWasNoHunterToFleeFromAndNoEnoughPower(FunctionalTester $I): void
+    {
+        // given there are no attacking hunters
+        $I->assertEquals(0, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count());
+
+        // given daedalus has no points to spawn hunters
+        $this->daedalus->setHunterPoints(0);
+
+        // given the trail reducer project is finished
+        $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
+        $trailReducer->makeProgress(100);
 
         // when travel is launched and finished
         $this->launchAndFinishesTravel();

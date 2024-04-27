@@ -9,7 +9,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\DataFixtures\ProjectModifierConfigFixtures;
 use Mush\Project\ConfigData\ProjectConfigData;
 use Mush\Project\Entity\ProjectConfig;
 
@@ -24,8 +23,6 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         $projectConfigs = [];
 
         foreach (ProjectConfigData::getAll() as $data) {
-            $data = $this->getConfigDataWithModifierConfigs($data, $manager);
-
             $projectConfig = new ProjectConfig(...$data);
             $projectConfigs[] = $projectConfig;
 
@@ -40,23 +37,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
     public function getDependencies(): array
     {
         return [
-            ProjectModifierConfigFixtures::class,
+            GameConfigFixtures::class,
         ];
-    }
-
-    private function getConfigDataWithModifierConfigs(array $projectConfigData, ObjectManager $manager): array
-    {
-        $newProjectConfigData = $projectConfigData;
-        $newProjectConfigData['modifierConfigs'] = [];
-
-        foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
-            $modifierConfig = $this->getReference($modifierConfigName);
-            if (!$modifierConfig) {
-                throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found");
-            }
-            $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
-        }
-
-        return $newProjectConfigData;
     }
 }

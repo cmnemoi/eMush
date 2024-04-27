@@ -10,9 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Modifier\Entity\Collection\ModifierCollection;
-use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -23,7 +20,7 @@ use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface, ModifierHolderInterface
+class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface
 {
     use TargetStatusTrait;
 
@@ -52,9 +49,6 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
-
-    #[ORM\ManyToMany(targetEntity: GameModifier::class, cascade: ['ALL'])]
-    private Collection $modifiers;
 
     public function __construct(ProjectConfig $config, Daedalus $daedalus)
     {
@@ -205,24 +199,5 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     public function isFinishedNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isFinished();
-    }
-
-    public function getModifiers(): ModifierCollection
-    {
-        return new ModifierCollection($this->modifiers->toArray());
-    }
-
-    public function getAllModifiers(): ModifierCollection
-    {
-        $allModifiers = new ModifierCollection($this->modifiers->toArray());
-
-        return $allModifiers->addModifiers($this->daedalus->getModifiers());
-    }
-
-    public function addModifier(GameModifier $modifier): static
-    {
-        $this->modifiers->add($modifier);
-
-        return $this;
     }
 }

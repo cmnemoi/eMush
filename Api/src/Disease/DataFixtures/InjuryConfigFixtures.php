@@ -527,6 +527,9 @@ class InjuryConfigFixtures extends Fixture implements DependentFixtureInterface
             DiseaseModifierConfigFixtures::class,
             DisorderModifierConfigFixtures::class,
             InjuryModifierConfigFixtures::class,
+            InjuryModifierConfigFixtures::class,
+            InjuryModifierConfigFixtures::class,
+            InjuryModifierConfigFixtures::class,
         ];
     }
 }

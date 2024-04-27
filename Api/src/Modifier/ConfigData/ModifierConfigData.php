@@ -1975,24 +1975,5 @@ class ModifierConfigData
                 PlanetSectorEnum::CAVE => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
-        [
-            'name' => 'modifier_for_daedalus_-25percentage_following_hunters_on_daedalus_travel',
-            'modifierName' => null,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
-            'modifierRange' => 'daedalus',
-            'type' => 'variable_event_modifier',
-            'visibility' => null,
-            'delta' => 0.75,
-            'targetVariable' => DaedalusStatusEnum::FOLLOWING_HUNTERS,
-            'mode' => 'multiplicative',
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::ADVANCE_DAEDALUS => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::LEAVE_ORBIT => ModifierRequirementEnum::ANY_TAGS,
-            ],
-        ],
     ];
 }

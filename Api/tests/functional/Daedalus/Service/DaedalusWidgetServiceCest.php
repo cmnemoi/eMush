@@ -50,10 +50,6 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
             ->setName(ItemEnum::ITRACKIE)
             ->setEquipment($iTrackieConfig);
         $I->haveInRepository($iTrackie);
-
-        $this->createProject(ProjectName::EQUIPMENT_SENSOR, $I);
-        $this->createProject(ProjectName::DOOR_SENSOR, $I);
-        $this->createProject(ProjectName::FIRE_SENSOR, $I);
     }
 
     public function testGetMinimap(FunctionalTester $I): void

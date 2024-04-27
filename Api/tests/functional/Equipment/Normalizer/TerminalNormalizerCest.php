@@ -127,7 +127,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->createProject(ProjectName::TRAIL_REDUCER, $I)->propose();
 
         // given I have 1 not proposed NERON project
-        $this->createProject(ProjectName::FISSION_COFFEE_ROASTER, $I);
+        $this->createProject(ProjectName::FIRE_SENSOR, $I);
 
         // given I have a NERON's core terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -168,7 +168,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeWithExtraInfosIfThereAreNoProposedProjects(FunctionalTester $I): void
     {
         // given I have 1 not proposed NERON project
-        $this->createProject(ProjectName::FISSION_COFFEE_ROASTER, $I);
+        $this->createProject(ProjectName::FIRE_SENSOR, $I);
 
         // given I have a NERON's core terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -215,7 +215,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->createProject(ProjectName::TRAIL_REDUCER, $I)->propose();
 
         // given I have 1 not proposed NERON project
-        $this->createProject(ProjectName::FISSION_COFFEE_ROASTER, $I);
+        $this->createProject(ProjectName::FIRE_SENSOR, $I);
 
         // given I have a NERON's core terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(

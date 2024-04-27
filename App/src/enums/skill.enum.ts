@@ -48,7 +48,7 @@ export enum SkillEnum {
     POLYMATH = 'polymath',
     POLYVALENT = 'polyvalent',
     PREMONITION = 'premonition',
-    RADIO_EXPERT = ' radio_expert',
+    RADIO_EXPERT = 'radio_expert',
     REBEL = 'rebel',
     ROBOTICS_EXPERT = 'robotics_expert',
     SELF_SACRIFICE = 'self_sacrifice',
@@ -137,7 +137,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.FIREFIGHTER]: {
-        'icon': getImgUrl('skills/human/firefighter.png')
+        'icon': getImgUrl('skills/human/fireman.png')
     },
 
     [SkillEnum.FRUGIVORE]: {
@@ -257,7 +257,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.RADIO_EXPERT]: {
-        'icon': getImgUrl('skills/human/radio_expert.png')
+        'icon': getImgUrl('skills/human/communication.png')
     },
 
     [SkillEnum.REBEL]: {
@@ -265,7 +265,7 @@ export const SkillIconRecord: {[index: string]: any} = {
     },
 
     [SkillEnum.ROBOTICS_EXPERT]: {
-        'icon': getImgUrl('skills/human/robotics_expert.png')
+        'icon': getImgUrl('skills/human/robotics.png')
     },
 
     [SkillEnum.SELF_SACRIFICE]: {

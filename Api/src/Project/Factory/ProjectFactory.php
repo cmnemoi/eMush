@@ -7,6 +7,7 @@ namespace Mush\Project\Factory;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 
 final class ProjectFactory
 {
@@ -86,6 +87,14 @@ final class ProjectFactory
     {
         return new Project(
             config: ProjectConfigFactory::createTrailReducerConfig(),
+            daedalus: $daedalus,
+        );
+    }
+
+    public static function createNeronProjectByNameForDaedalus(ProjectName $name, Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createNeronProjectConfigByName($name),
             daedalus: $daedalus,
         );
     }

@@ -10,7 +10,7 @@
     <unit id="auto_watering">
         <segment id="auto_watering.type" state="translated">
             <source>auto_watering.type</source>
-            <target>Proj.</target>
+            <target>Projet</target>
         </segment>
         <segment id="auto_watering.name" state="translated">
             <source>auto_watering.name</source>
@@ -24,7 +24,7 @@
     <unit id="dismantling">
         <segment id="dismantling.type" state="translated">
             <source>dismantling.type</source>
-            <target>Proj.</target>
+            <target>Projet</target>
         </segment>
         <segment id="dismantling.name" state="translated">
             <source>dismantling.name</source>
@@ -35,10 +35,52 @@
             <target>Génère 5 Débris métalliques dans la Salle des Moteurs.</target>
         </segment>
     </unit>
+    <unit id="door_sensor">
+        <segment id="door_sensor.type" state="translated">
+            <source>door_sensor.type</source>
+            <target>Projet</target>
+        </segment>
+        <segment id="door_sensor.name" state="translated">
+            <source>door_sensor.name</source>
+            <target>Détecteurs de pistons défectueux</target>
+        </segment>
+        <segment id="door_sensor.description" state="translated">
+            <source>door_sensor.description</source>
+            <target>Les portes bloquées sont reportées sur vos modules persos.</target>
+        </segment>
+    </unit>
+    <unit id="equipment_sensor">
+        <segment id="equipment_sensor.type" state="translated">
+            <source>equipment_sensor.type</source>
+            <target>Projet</target>
+        </segment>
+        <segment id="equipment_sensor.name" state="translated">
+            <source>equipment_sensor.name</source>
+            <target>Détecteur d'anomalies</target>
+        </segment>
+        <segment id="equipment_sensor.description" state="translated">
+            <source>equipment_sensor.description</source>
+            <target>Les équipement touchés sont reportés sur vos modules persos.</target>
+        </segment>
+    </unit>
+    <unit id="fire_sensor">
+        <segment id="fire_sensor.type" state="translated">
+            <source>fire_sensor.type</source>
+            <target>Projet</target>
+        </segment>
+        <segment id="fire_sensor.name" state="translated">
+            <source>fire_sensor.name</source>
+            <target>Détecteur d'incendies</target>
+        </segment>
+        <segment id="fire_sensor.description" state="translated">
+            <source>fire_sensor.description</source>
+            <target>Les incendies sont reportés sur vos modules persos.</target>
+        </segment>
+    </unit>
     <unit id="parasite_elim">
         <segment id="parasite_elim.type" state="translated">
             <source>parasite_elim.type</source>
-            <target>Proj.</target>
+            <target>Projet</target>
         </segment>
         <segment id="parasite_elim.name" state="translated">
             <source>parasite_elim.name</source>

@@ -27,10 +27,10 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
 
         // given I have 3 proposed NERON projects
         for ($i = 0; $i < 2; ++$i) {
-            $project = $this->createProject(ProjectName::PATROL_SHIP_BLASTER_GUN, $I);
+            $project = $this->createProject(ProjectName::AUTO_WATERING, $I);
             $project->propose();
         }
-        $this->projectToFinish = $this->createProject(ProjectName::PATROL_SHIP_BLASTER_GUN, $I);
+        $this->projectToFinish = $this->createProject(ProjectName::AUTO_WATERING, $I);
         $this->projectToFinish->propose();
     }
 

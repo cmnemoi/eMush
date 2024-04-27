@@ -49,7 +49,7 @@ class SkillEnum
     public const POLYMATH = 'polymath';
     public const POLYVALENT = 'polyvalent';
     public const PREMONITION = 'premonition';
-    public const RADIO_EXPERT = ' radio_expert';
+    public const RADIO_EXPERT = 'radio_expert';
     public const REBEL = 'rebel';
     public const ROBOTICS_EXPERT = 'robotics_expert';
     public const SELF_SACRIFICE = 'self_sacrifice';

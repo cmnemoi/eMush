@@ -126,7 +126,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     }
 
     private function normalizeDaedalusVariable(Daedalus $daedalus, string $variable, string $language): ?array
-    {   
+    {
         if ($variable === DaedalusVariableEnum::SHIELD && !$daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
             return null;
         }

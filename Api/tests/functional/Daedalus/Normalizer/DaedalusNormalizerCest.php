@@ -10,12 +10,15 @@ use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+/**
+ * @internal
+ */
 final class DaedalusNormalizerCest extends AbstractFunctionalTest
 {
     private DaedalusNormalizer $normalizer;
 
     public function _before(FunctionalTester $I): void
-    {   
+    {
         parent::_before($I);
 
         $this->normalizer = $I->grabService(DaedalusNormalizer::class);

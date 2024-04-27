@@ -25,6 +25,8 @@ use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterService;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -380,7 +382,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // given I have one hunter
         $this->createHunterTargetingDaedalus($I);
 
-        // given plasma shiled project is finished
+        // given plasma shield project is finished
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $this->finishProject($plasmaShield, $this->chun, $I);
 
@@ -399,7 +401,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // given I have one hunter
         $this->createHunterTargetingDaedalus($I);
 
-        // given plasma shiled project is finished
+        // given plasma shield project is finished
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $this->finishProject($plasmaShield, $this->chun, $I);
         $initShield = $this->daedalus->getShield();
@@ -410,6 +412,32 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // then the shield should be damaged
         $I->assertLessThan(
             expected: $initShield,
+            actual: $this->daedalus->getShield(),
+        );
+    }
+
+    public function shouldReduceHullAndShieldIfShieldIsInsufficient(FunctionalTester $I): void
+    {
+        // given I have one hunter
+        $this->createHunterTargetingDaedalus($I);
+
+        // given plasma shield project is finished
+        $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $this->finishProject($plasmaShield, $this->chun, $I);
+        $this->daedalus->setShield(1);
+
+        // when I make the hunter shoot
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then the hull should be damaged
+        $I->assertLessThan(
+            expected: $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull(),
+            actual: $this->daedalus->getHull(),
+        );
+
+        // then the shield should be damaged
+        $I->assertEquals(
+            expected: 0,
             actual: $this->daedalus->getShield(),
         );
     }
@@ -426,6 +454,14 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
             ->setCycleStartedAt(new \DateTime());
+
+        $I->haveInRepository($daedalus);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+
+        $this->daedalus->addProject($project);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -490,6 +526,14 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
             ->setDaedalusVariables($daedalusConfig)
             ->setCycleStartedAt(new \DateTime());
 
+        $I->haveInRepository($daedalus);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+
+        $this->daedalus->addProject($project);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only D1000 can spawn
@@ -549,6 +593,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $hunter = new Hunter($hunterConfig, $this->daedalus);
         $hunter->setHunterVariables($hunterConfig);
         $hunter->setHitChance(100);
+        $hunter->getHunterConfig()->setDamageRange([6 => 1]);
 
         $this->daedalus->addHunter($hunter);
 

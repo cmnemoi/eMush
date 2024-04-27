@@ -160,11 +160,6 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
             $numberOfCatchingUpHunters = (int) (ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
         }
-
-        if ($daedalus->hasFinishedProject(ProjectName::TRAIL_REDUCER)) {
-            $numberOfCatchingUpHunters = (int) ceil($numberOfCatchingUpHunters / 2) ?: 1;
-        }
-
         return $numberOfCatchingUpHunters;
     }
 }

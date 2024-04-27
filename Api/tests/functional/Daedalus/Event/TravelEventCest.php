@@ -342,7 +342,7 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // given the trail reducer project is finished
         $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
-        $trailReducer->makeProgress(100);
+        $this->finishProject($trailReducer, $this->chun, $I);
 
         // when travel is launched and finished
         $this->launchAndFinishesTravel();
@@ -358,7 +358,7 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // given the trail reducer project is finished
         $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
-        $trailReducer->makeProgress(100);
+        $this->finishProject($trailReducer, $this->chun, $I);
 
         // when travel is launched and finished
         $this->launchAndFinishesTravel();
@@ -377,7 +377,7 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // given the trail reducer project is finished
         $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
-        $trailReducer->makeProgress(100);
+        $this->finishProject($trailReducer, $this->chun, $I);
 
         // when travel is launched and finished
         $this->launchAndFinishesTravel();
@@ -509,16 +509,18 @@ final class TravelEventCest extends AbstractFunctionalTest
     {
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [],
+            tags: [ActionEnum::ADVANCE_DAEDALUS],
             time: new \DateTime()
         );
+        $daedalusEvent->setAuthor($this->chun);
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
 
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [],
+            tags: [ActionEnum::ADVANCE_DAEDALUS],
             time: new \DateTime()
         );
+        $daedalusEvent->setAuthor($this->chun);
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
     }
 }

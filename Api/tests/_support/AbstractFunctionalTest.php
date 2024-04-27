@@ -25,6 +25,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Project\ConfigData\ProjectConfigData;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Event\ProjectEvent;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -200,6 +201,19 @@ class AbstractFunctionalTest
         $eventService->callEvent($conversionEvent, PlayerEvent::CONVERSION_PLAYER);
 
         return $player;
+    }
+
+    protected function finishProject(Project $project, Player $author, FunctionalTester $I): void
+    {
+        $project->makeProgress(100);
+        $I->haveInRepository($project);
+
+        $eventService = $I->grabService(EventServiceInterface::class);
+        $projectEvent = new ProjectEvent(
+            project: $project,
+            author: $author,
+        );
+        $eventService->callEvent($projectEvent, ProjectEvent::PROJECT_FINISHED);
     }
 
     private function createAllProjects(FunctionalTester $I): void

@@ -11,7 +11,6 @@ use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
-use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -160,6 +159,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
             $numberOfCatchingUpHunters = (int) (ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
         }
+
         return $numberOfCatchingUpHunters;
     }
 }

@@ -344,8 +344,8 @@ final class TravelEventCest extends AbstractFunctionalTest
         $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
         $this->finishProject($trailReducer, $this->chun, $I);
 
-        // given trail reducer modifier is present
-        $I->assertNotEmpty($trailReducer->getModifiers());
+        // then daedalus should have 1 modifier
+        $I->assertCount(1, $this->daedalus->getModifiers());
 
         // when travel is launched and finished
         $this->launchAndFinishesTravel();
@@ -381,6 +381,9 @@ final class TravelEventCest extends AbstractFunctionalTest
         // given the trail reducer project is finished
         $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
         $this->finishProject($trailReducer, $this->chun, $I);
+
+        // then daedalus should have 1 modifier
+        $I->assertCount(1, $this->daedalus->getModifiers());
 
         // when travel is launched and finished
         $this->launchAndFinishesTravel();

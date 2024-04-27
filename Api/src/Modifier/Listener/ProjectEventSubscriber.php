@@ -10,7 +10,7 @@ use Mush\Project\Event\ProjectEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ProjectEventSubscriber implements EventSubscriberInterface
-{   
+{
     public function __construct(private ModifierCreationServiceInterface $modifierCreationService) {}
 
     public static function getSubscribedEvents(): array
@@ -21,14 +21,14 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     }
 
     public function onProjectFinished(ProjectEvent $event): void
-    {   
+    {
         $project = $event->getProject();
 
         /** @var AbstractModifierConfig $modifierConfig */
         foreach ($project->getModifierConfigs() as $modifierConfig) {
             $this->modifierCreationService->createModifier(
                 $modifierConfig,
-                $project,
+                $project->getDaedalus(),
                 $event->getTags(),
                 $event->getTime()
             );

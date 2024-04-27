@@ -47,7 +47,7 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'projects')]
     private Daedalus $daedalus;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $statuses;
 
     public function __construct(ProjectConfig $config, Daedalus $daedalus)

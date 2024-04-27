@@ -143,7 +143,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // and I have the plasma shield project
-        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+        $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
 
         // when Chun repairs the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);

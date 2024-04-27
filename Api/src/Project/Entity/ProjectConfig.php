@@ -28,16 +28,21 @@ class ProjectConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $bonusSkills;
 
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 100])]
+    private int $activationRate;
+
     public function __construct(
-        ProjectName $name,
-        ProjectType $type,
-        int $efficiency,
-        array $bonusSkills,
+        ProjectName $name = ProjectName::NULL,
+        ProjectType $type = ProjectType::NULL,
+        int $efficiency = 0,
+        array $bonusSkills = [],
+        int $activationRate = 100
     ) {
         $this->name = $name;
         $this->type = $type;
         $this->efficiency = $efficiency;
         $this->bonusSkills = $bonusSkills;
+        $this->activationRate = $activationRate;
     }
 
     public function getId(): int
@@ -65,11 +70,17 @@ class ProjectConfig
         return $this->bonusSkills;
     }
 
+    public function getActivationRate(): int
+    {
+        return $this->activationRate;
+    }
+
     public function updateFromConfigData(array $configData): void
     {
         $this->name = $configData['name'];
         $this->type = $configData['type'];
         $this->efficiency = $configData['efficiency'];
         $this->bonusSkills = $configData['bonusSkills'];
+        $this->activationRate = $configData['activationRate'];
     }
 }

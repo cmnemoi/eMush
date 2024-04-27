@@ -18,6 +18,7 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
 {
     private ProjectEventSubscriber $projectEventSubscriber;
     private Project $projectToFinish;
+    private array $currentlyProposedProjects;
 
     public function _before(FunctionalTester $I): void
     {
@@ -26,12 +27,14 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
         $this->projectEventSubscriber = $I->grabService(ProjectEventSubscriber::class);
 
         // given I have 3 proposed NERON projects
-        for ($i = 0; $i < 2; ++$i) {
-            $project = $this->createProject(ProjectName::AUTO_WATERING, $I);
+        $this->currentlyProposedProjects = [];
+        $this->currentlyProposedProjects[] = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        $this->currentlyProposedProjects[] = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $this->currentlyProposedProjects[] = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
+        $this->projectToFinish = $this->currentlyProposedProjects[0];
+        foreach ($this->currentlyProposedProjects as $project) {
             $project->propose();
         }
-        $this->projectToFinish = $this->createProject(ProjectName::AUTO_WATERING, $I);
-        $this->projectToFinish->propose();
     }
 
     public function shouldUnproposeCurrentProjectsIfFinishedProjectIsANeronOne(FunctionalTester $I): void
@@ -45,11 +48,10 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
         // when I call onProjectFinished method
         $this->projectEventSubscriber->onProjectFinished($projectEvent);
 
-        // then all NERON projects should be unproposed
-        $I->assertCount(
-            expectedCount: 0,
-            haystack: $this->daedalus->getProposedNeronProjects(),
-        );
+        // then all currently NERON projects should be unproposed
+        foreach ($this->currentlyProposedProjects as $project) {
+            $I->assertFalse($project->isProposed());
+        }
     }
 
     public function shouldProposeNewProjectsIfFinishedProjectIsANeronOne(FunctionalTester $I): void
@@ -60,20 +62,28 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
             author: $this->chun,
         );
 
-        // given I have 1 unproposed NERON project in stock
-        $plasmaShieldProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
-
         // when I call onProjectFinished method
         $this->projectEventSubscriber->onProjectFinished($projectEvent);
 
-        // then plasma shield should be proposed
-        $I->assertTrue($plasmaShieldProject->isProposed());
+        $newProjects = $this->daedalus->getProposedNeronProjects();
+
+        // then new projects should be proposed
+        $I->assertCount(
+            expectedCount: $this->daedalus->getNumberOfProjectsByBatch(),
+            haystack: $newProjects,
+        );
+
+        // then new proposed projects are different from the previous ones
+        $I->assertNotEquals(
+            $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING),
+            $newProjects[0],
+        );
     }
 
     public function shouldNotUnproposedProjectsIfFinishedProjectIsNotANeronOne(FunctionalTester $I): void
     {
         // given I have the PILGRED project
-        $pilgred = $this->createProject(ProjectName::PILGRED, $I);
+        $pilgred = $this->daedalus->getProjectByName(ProjectName::PILGRED);
 
         // given I have a project event
         $projectEvent = new ProjectEvent(

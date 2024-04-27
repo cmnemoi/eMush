@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Project\Factory;
 
-use Mush\Game\Enum\SkillEnum;
 use Mush\Project\ConfigData\ProjectConfigData;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
@@ -34,51 +33,42 @@ final class ProjectConfigFactory
 
     public static function createNeronProjectConfigByName(ProjectName $name): ProjectConfig
     {
-        $projectConfigData = current(array_filter(
-            ProjectConfigData::getAll(),
-            static fn ($config) => $config['name'] === $name
-        ));
-
-        return new ProjectConfig(...$projectConfigData);
+        return new ProjectConfig(...self::getConfigDataFromName($name));
     }
 
     public static function createPilgredConfig(): ProjectConfig
     {
         return new ProjectConfig(
-            name: ProjectName::PILGRED,
-            type: ProjectType::NERON_PROJECT,
-            efficiency: 1,
-            bonusSkills: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN]
+            ...self::getConfigDataFromName(ProjectName::PILGRED)
         );
     }
 
     public static function createPlasmaShieldConfig(): ProjectConfig
     {
         return new ProjectConfig(
-            name: ProjectName::PLASMA_SHIELD,
-            type: ProjectType::NERON_PROJECT,
-            efficiency: 1,
-            bonusSkills: [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN]
+            ...self::getConfigDataFromName(ProjectName::PLASMA_SHIELD)
         );
     }
 
     public static function createTrailReducerConfig(): ProjectConfig
     {
         return new ProjectConfig(
-            name: ProjectName::TRAIL_REDUCER,
-            type: ProjectType::NERON_PROJECT,
-            efficiency: 6,
-            bonusSkills: [SkillEnum::PILOT, SkillEnum::TECHNICIAN]
+            ...self::getConfigDataFromName(ProjectName::TRAIL_REDUCER)
         );
     }
 
     public static function createAutoWateringConfig(): ProjectConfig
     {
         return new ProjectConfig(
-            name: ProjectName::AUTO_WATERING,
-            type: ProjectType::NERON_PROJECT,
-            efficiency: 3,
-            bonusSkills: [SkillEnum::TECHNICIAN, SkillEnum::FIREFIGHTER]
+            ...self::getConfigDataFromName(ProjectName::AUTO_WATERING)
         );
+    }
+
+    private static function getConfigDataFromName(ProjectName $name): array
+    {
+        return current(array_filter(
+            ProjectConfigData::getAll(),
+            static fn ($config) => $config['name'] === $name
+        ));
     }
 }

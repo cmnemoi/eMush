@@ -20,6 +20,9 @@ use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterCycleEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -316,6 +319,10 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         $I->haveInRepository($daedalus);
 
+        $autoWateringConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::AUTO_WATERING]);
+        $project = new Project($autoWateringConfig, $daedalus);
+        $I->haveInRepository($project);
+
         return $daedalus;
     }
 
@@ -364,6 +371,10 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $daedalus->setDaedalusVariables($daedalusConfig);
 
         $I->haveInRepository($daedalus);
+
+        $autoWateringConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::AUTO_WATERING]);
+        $project = new Project($autoWateringConfig, $daedalus);
+        $I->haveInRepository($project);
 
         return $daedalus;
     }

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
@@ -21,11 +22,13 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -87,17 +90,21 @@ final class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleFireEvents()
     {
+        $daedalus = new Daedalus();
+
+        $autoWatering = ProjectFactory::createAutoWateringProjectForDaedalus($daedalus);
+
         $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
         $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
 
-        $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
 
         self::assertSame(0, $fires);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $room1 = new Place();
-        $room1->setDaedalus(new Daedalus());
+        $room1->setDaedalus($daedalus);
 
         $this->randomService
             ->shouldReceive('getRandomElements')
@@ -106,7 +113,7 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
 
         self::assertSame(1, $fires);
     }
@@ -142,10 +149,14 @@ final class DaedalusIncidentServiceTest extends TestCase
 
     public function testHandleElectricArcEvents()
     {
+        $daedalus = new Daedalus();
+
+        $autoWatering = ProjectFactory::createAutoWateringProjectForDaedalus($daedalus);
+
         $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
         $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
 
-        $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
+        $fires = $this->service->handleElectricArcEvents($daedalus, new \DateTime());
 
         self::assertSame(0, $fires);
 
@@ -178,8 +189,9 @@ final class DaedalusIncidentServiceTest extends TestCase
         $gameConfig->setDifficultyConfig($difficultyConfig);
 
         $daedalus = new Daedalus();
-
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
+        $autoWatering = ProjectFactory::createAutoWateringProjectForDaedalus($daedalus);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
 
@@ -229,8 +241,9 @@ final class DaedalusIncidentServiceTest extends TestCase
         $gameConfig->setDifficultyConfig($difficultyConfig);
 
         $daedalus = new Daedalus();
-
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+
+        $autoWatering = ProjectFactory::createAutoWateringProjectForDaedalus($daedalus);
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
@@ -418,6 +431,7 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
         $daedalus = new Daedalus();
+
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
         $player->setPlayerInfo($playerInfo);
@@ -436,5 +450,63 @@ final class DaedalusIncidentServiceTest extends TestCase
         $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
 
         self::assertSame(1, $metalPlates);
+    }
+
+    public function testAutoWateringProjectShouldPreventFiresToStartWhenTriggered(): void
+    {
+        // given I have a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a place in this Daedalus
+        $place = new Place();
+        $place
+            ->setType(PlaceTypeEnum::ROOM)
+            ->setDaedalus($daedalus);
+
+        // given Auto Watering project is finished
+        $autoWatering = ProjectFactory::createAutoWateringProjectForDaedalus($daedalus);
+        $autoWatering->makeProgress(100);
+
+        // setup universe so one fire should start
+        $this->randomService->shouldReceive('poissonRandom')->once()->andReturn(1);
+        $this->randomService->shouldReceive('getRandomElements')->never();
+        $this->statusService->shouldReceive('createStatusFromName')->never();
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->randomService->shouldReceive('isSuccessful')->once()->with($autoWatering->getActivationRate())->andReturn(true);
+
+        // when I call the handleFireEvents method
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
+
+        // then no fire should start
+        self::assertSame(0, $fires);
+    }
+
+    public function testAutoWateringProjectShouldNotPreventFiresToStartIfNotTriggered(): void
+    {
+        // given I have a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a place in this Daedalus
+        $place = new Place();
+        $place
+            ->setType(PlaceTypeEnum::ROOM)
+            ->setDaedalus($daedalus);
+
+        // given Auto Watering project is finished
+        $autoWatering = ProjectFactory::createAutoWateringProjectForDaedalus($daedalus);
+        $autoWatering->makeProgress(100);
+
+        // setup universe so one fire should start
+        $this->randomService->shouldReceive('isSuccessful')->once()->with($autoWatering->getActivationRate())->andReturn(false);
+        $this->randomService->shouldReceive('poissonRandom')->once()->andReturn(1);
+        $this->randomService->shouldReceive('getRandomElements')->once()->andReturn([$place]);
+        $this->eventService->shouldReceive('callEvent')->never();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // when I call the handleFireEvents method
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
+
+        // then one fire starts
+        self::assertSame(1, $fires);
     }
 }

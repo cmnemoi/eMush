@@ -16,6 +16,8 @@ use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Event\AutoWateringWorkedEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -50,8 +52,16 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $numberOfNewFire = $this->getNumberOfIncident($daedalus);
 
-        $rooms = $daedalus->getRooms()->filter(static fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
+        // If Auto-watering is finished and activates, we prevent all fires and tell other modules with an event (mostly for NERON announcement)
+        $autoWateringProject = $daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        if ($autoWateringProject->isFinished() && $this->randomService->isSuccessful($autoWateringProject->getActivationRate())) {
+            $event = new AutoWateringWorkedEvent($numberOfNewFire, daedalus: $daedalus, time: $date);
+            $this->eventService->callEvent($event, AutoWateringWorkedEvent::AUTO_WATERING_WORKED);
 
+            return 0;
+        }
+
+        $rooms = $daedalus->getRooms();
         $newFireRooms = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewFire);
 
         /** @var Place $room */

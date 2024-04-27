@@ -46,7 +46,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::PARTICIPATE]);
         $this->participateAction = $I->grabService(Participate::class);
 
-        $this->project = $this->createProject(ProjectName::TRAIL_REDUCER, $I);
+        $this->project = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
         $this->project->propose();
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -137,7 +137,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldNotReduceEfficiencyForOtherProjects(FunctionalTester $I): void
     {
         // and I have the plasma shield project
-        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+        $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
 
         // when Chun participates in the project
         $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
@@ -235,7 +235,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->participateAction->execute();
 
         // when Chun participates in another project
-        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+        $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $this->participateAction->loadParameters($this->actionConfig, $this->chun, $otherProject);
         $this->participateAction->execute();
 
@@ -246,7 +246,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldMakeCurrentProjectsUnproposedWhenAProjectIsFinished(FunctionalTester $I): void
     {
         // given I have another proposed project
-        $otherProject = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
+        $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $otherProject->propose();
 
         // given project progress is 99%
@@ -265,9 +265,6 @@ final class ParticipateCest extends AbstractFunctionalTest
 
     public function shouldProposeNewProjectsWhenAProjectIsFinished(FunctionalTester $I): void
     {
-        // given I have an available (unproposed) project in stock
-        $project = $this->createProject(ProjectName::PLASMA_SHIELD, $I);
-
         // given PILGRED progress is 99%
         $this->project->makeProgress(99);
 
@@ -275,8 +272,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
         $this->participateAction->execute();
 
-        // then the new project should be proposed
-        $I->assertTrue($project->isProposed());
+        // then new NERON projects should be proposed
+        $I->assertCount(
+            expectedCount: $this->daedalus->getNumberOfProjectsByBatch(),
+            haystack: $this->daedalus->getProposedNeronProjects(),
+        );
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

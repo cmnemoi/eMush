@@ -33,11 +33,13 @@ This will create a new workspace in the cloud with all the dependencies installe
 
 #### Windows Users:
 
-Windows users first need to install [WSL2](https://learn.microsoft.com/fr-fr/windows/wsl/install) and [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/).
+Windows users first need to install WSL2 and Docker Desktop.
 
-WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --help` in a Powershell terminal. If it doesn't work, follow the link above to install it.
+Docker Desktop for Windows can be downloaded [here](https://docs.docker.com/desktop/install/windows-install/)
 
-Install [Debian](https://apps.microsoft.com/store/detail/Debian/9PDXGNCFSCZV?hl=fr-fr&gl=fr&rtc=1) with WSL2 : `wsl --install -d Debian`
+WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --help` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
+
+Install [Debian](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Debian`
 
 Then launch it : `wsl -d Debian`
 
@@ -52,19 +54,32 @@ sudo -s
 apt update -y
 apt install build-essential curl git -y
 ```
-
-- Install Docker and Docker Compose in command line (alternative to Docker Desktop for WSL2 users) :
+- For native Debian-like users, install Docker and Docker Compose in command line :
 
 ```bash
-apt install lsb-release -y
-mkdir -m 0755 -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 apt update -y
-apt install docker docker-compose docker-compose-plugin -y
+apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 exit # Quit root mode
 cd ~ # Go back to your home directory
 ```
+Then, add your user to the Docker group :
+
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+Run `docker run hello-world` to check if Docker is correctly installed. If not :
+- try to run it in a new terminal ;
+- log off and log in again ;
+- restart your computer and try again.
 
 #### Install the project
 
@@ -189,7 +204,7 @@ To use different port modify the docker/docker-compose.dev.yml file
 
 #### Changing front port:
 in docker/docker-compose.dev.yml
-Change line 55: `- "80:8080"` by `- "new_port:8080"` where new_port is the desired port
+Change line 55: `- "80:5173"` by `- "new_port:5173"` where new_port is the desired port
 Change the `App/.env`
 `VITE_APP_URL=http://localhost` by `VITE_APP_URL=http://localhost:new_port`
 Run `make docker-start` (`make gitpod-start` on Gitpod) so that the changes are taken into account

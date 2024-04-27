@@ -62,6 +62,8 @@ class GameModifier
             $this->gameEquipment = $holder;
         } elseif ($holder instanceof Hunter) {
             $this->hunter = $holder;
+        } elseif ($holder instanceof Project) {
+            $this->project = $holder;
         } else {
             throw new LogicException("this modifier don't have any valid holder");
         }
@@ -95,6 +97,9 @@ class GameModifier
         }
         if ($this->hunter) {
             return $this->hunter;
+        }
+        if ($this->project) {
+            return $this->project;
         }
 
         throw new LogicException("this modifier don't have any valid holder");

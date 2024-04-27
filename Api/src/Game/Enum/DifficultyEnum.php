@@ -2,9 +2,9 @@
 
 namespace Mush\Game\Enum;
 
-class DifficultyEnum
+abstract class DifficultyEnum
 {
-    public const NORMAL = 'normal';
-    public const HARD = 'hard';
-    public const VERY_HARD = 'very_hard';
+    public const string NORMAL = 'normal';
+    public const string HARD = 'hard';
+    public const string VERY_HARD = 'very_hard';
 }

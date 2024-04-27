@@ -2,27 +2,27 @@
 
 namespace Mush\Game\Enum;
 
-class CharacterEnum
+abstract class CharacterEnum
 {
-    public const ANDIE = 'andie';
-    public const DEREK = 'derek';
-    public const ELEESHA = 'eleesha';
-    public const FINOLA = 'finola';
-    public const FRIEDA = 'frieda';
-    public const GIOELE = 'gioele';
-    public const IAN = 'ian';
-    public const JANICE = 'janice';
-    public const HUA = 'hua';
-    public const JIN_SU = 'jin_su';
-    public const KUAN_TI = 'kuan_ti';
-    public const PAOLA = 'paola';
-    public const RALUCA = 'raluca';
-    public const ROLAND = 'roland';
-    public const STEPHEN = 'stephen';
-    public const TERRENCE = 'terrence';
-    public const CHAO = 'chao';
-    public const CHUN = 'chun';
-    public const NERON = 'neron';
+    public const string ANDIE = 'andie';
+    public const string DEREK = 'derek';
+    public const string ELEESHA = 'eleesha';
+    public const string FINOLA = 'finola';
+    public const string FRIEDA = 'frieda';
+    public const string GIOELE = 'gioele';
+    public const string IAN = 'ian';
+    public const string JANICE = 'janice';
+    public const string HUA = 'hua';
+    public const string JIN_SU = 'jin_su';
+    public const string KUAN_TI = 'kuan_ti';
+    public const string PAOLA = 'paola';
+    public const string RALUCA = 'raluca';
+    public const string ROLAND = 'roland';
+    public const string STEPHEN = 'stephen';
+    public const string TERRENCE = 'terrence';
+    public const string CHAO = 'chao';
+    public const string CHUN = 'chun';
+    public const string NERON = 'neron';
 
     public static function getAll(): array
     {

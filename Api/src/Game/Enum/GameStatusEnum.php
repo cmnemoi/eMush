@@ -12,11 +12,11 @@ namespace Mush\Game\Enum;
  * FINISHED: the game is finished all players are dead or on Sol. But player still need to validate their death.
  * CLOSED: all player have validated their death.
  */
-class GameStatusEnum
+abstract class GameStatusEnum
 {
-    public const STANDBY = 'standby';
-    public const STARTING = 'starting';
-    public const CURRENT = 'in_game';
-    public const FINISHED = 'finished';
-    public const CLOSED = 'closed';
+    public const string STANDBY = 'standby';
+    public const string STARTING = 'starting';
+    public const string CURRENT = 'in_game';
+    public const string FINISHED = 'finished';
+    public const string CLOSED = 'closed';
 }

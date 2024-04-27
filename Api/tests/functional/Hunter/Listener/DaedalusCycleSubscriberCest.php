@@ -283,6 +283,12 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
             ->setDaedalusVariables($daedalusConfig)
             ->setCycleStartedAt(new \DateTime());
 
+        $I->haveInRepository($daedalus);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only asteroids can spawn
@@ -331,6 +337,12 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
             ->setCycleStartedAt(new \DateTime());
+
+        $I->haveInRepository($daedalus);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);

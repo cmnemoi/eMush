@@ -19,6 +19,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -75,6 +76,7 @@ final class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('getAttackingHunters')->andReturn(new HunterCollection());
         $daedalus->shouldReceive('getLanguage')->andReturn(LanguageEnum::FRENCH);
         $daedalus->shouldReceive('isPilgredFinished')->andReturn(false);
+        $daedalus->shouldReceive('hasFinishedProject')->with(ProjectName::PLASMA_SHIELD)->andReturn(false);
         $daedalus->shouldReceive('getFinishedNeronProjects')->andReturn(new ArrayCollection());
         $daedalus->makePartial();
         $daedalus->setPlayers(new ArrayCollection());
@@ -145,16 +147,6 @@ final class DaedalusNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with('hull.description', [], 'daedalus', LanguageEnum::FRENCH)
-            ->andReturn('translated two')
-            ->once();
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('shield.name', ['quantity' => 100, 'maximum' => 100], 'daedalus', LanguageEnum::FRENCH)
-            ->andReturn('translated one')
-            ->once();
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('shield.description', [], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once();
         $this->translationService
@@ -265,11 +257,7 @@ final class DaedalusNormalizerTest extends TestCase
                 'name' => 'translated one',
                 'description' => 'translated two',
             ],
-            'shield' => [
-                'quantity' => 100,
-                'name' => 'translated one',
-                'description' => 'translated two',
-            ],
+            'shield' => null,
             'timer' => [
                 'name' => 'translated one',
                 'description' => 'translated current cycle description',
@@ -312,10 +300,11 @@ final class DaedalusNormalizerTest extends TestCase
 
     public function testShouldNormalizeFinishedPilgred(): void
     {
-        // given I have a finishedPILGRED project
+        // given I have a finishedP ILGRED project
         $pilgred = ProjectFactory::createPilgredProject();
         $pilgred->makeProgress(100);
         $daedalus = $pilgred->getDaedalus();
+        ProjectFactory::createPlasmaShieldProjectForDaedalus($daedalus);
 
         $this->planetService->shouldIgnoreMissing();
         $this->translationService->shouldIgnoreMissing();
@@ -355,6 +344,7 @@ final class DaedalusNormalizerTest extends TestCase
 
         // setup
         ProjectFactory::createPilgredProjectForDaedalus($daedalus);
+        ProjectFactory::createPlasmaShieldProjectForDaedalus($daedalus);
         $this->planetService->shouldIgnoreMissing();
         $this->translationService->shouldIgnoreMissing();
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn(new \DateTime());

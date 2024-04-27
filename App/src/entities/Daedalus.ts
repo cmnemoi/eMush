@@ -69,7 +69,7 @@ export class Daedalus {
             if (typeof object.hull !== 'undefined') {
                 this.hull = (new QuantityPoint()).load(object.hull);
             }
-            if (typeof object.shield !== 'undefined') {
+            if (object.shield) {
                 this.shield = (new QuantityPoint()).load(object.shield);
             }
             if (typeof object.timer !== 'undefined') {

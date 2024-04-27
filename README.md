@@ -54,7 +54,7 @@ sudo -s
 apt update -y
 apt install build-essential curl git -y
 ```
-- For native Debian-like users, install Docker and Docker Compose in command line :
+- Install Docker and Docker Compose in command line :
 
 ```bash
 install -m 0755 -d /etc/apt/keyrings

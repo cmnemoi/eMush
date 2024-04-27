@@ -10,12 +10,15 @@ use Mush\Project\Event\ProjectEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class ProjectEventSubscriberCest extends AbstractFunctionalTest
 {
     private ProjectEventSubscriber $projectEventSubscriber;
 
     public function _before(FunctionalTester $I): void
-    {   
+    {
         parent::_before($I);
 
         $this->projectEventSubscriber = $I->grabService(ProjectEventSubscriber::class);
@@ -36,5 +39,4 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
         // then I should see a modifier created
         $I->assertNotEmpty($this->daedalus->getModifiers());
     }
-    
 }

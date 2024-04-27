@@ -369,7 +369,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         // then 3 hunters are spawn
         $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
     }
-    
+
     // TODO: Fix this test
     // public function testTravelFinishedSpawnsOneHunterWithTrailReducerIfThereWasNoHunterToFleeFromAndNoEnoughPower(FunctionalTester $I): void
     // {

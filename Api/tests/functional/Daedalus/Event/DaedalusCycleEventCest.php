@@ -36,7 +36,7 @@ use Mush\User\Entity\User;
 /**
  * @internal
  */
-final class CycleEventCest extends AbstractFunctionalTest
+final class DaedalusCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -226,5 +226,29 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         // then Daedalus has 4 spores
         $I->assertEquals(4, $this->daedalus->getSpores());
+    }
+
+    public function shouldImproveDaedalusShieldByFiveIfPlasmaShieldProjectIsFinished(FunctionalTester $I): void
+    {
+        // given Plasma Shield project is finished
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD),
+            $this->chun,
+            $I
+        );
+
+        // given Daedalus has 50 shield
+        $I->assertEquals(50, $this->daedalus->getShield());
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Daedalus has 55 shield
+        $I->assertEquals(55, $this->daedalus->getShield());
     }
 }

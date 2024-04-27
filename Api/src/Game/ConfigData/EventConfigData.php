@@ -624,5 +624,13 @@ class EventConfigData
             'eventName' => VariableEventInterface::SET_VALUE,
             'name' => 'set.value_daedalus_shield_50',
         ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 5,
+            'targetVariable' => DaedalusVariableEnum::SHIELD,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_daedalus_shield_+5',
+        ],
     ];
 }

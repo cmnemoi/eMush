@@ -2002,5 +2002,19 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
         ],
+        [
+            'name' => 'modifier_for_daedalus_+5shield_on_new_cycle',
+            'modifierName' => '',
+            'targetEvent' => 'daedalus.new.cycle',
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => 'daedalus',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_daedalus_shield_+5',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 }

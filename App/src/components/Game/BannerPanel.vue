@@ -22,7 +22,7 @@
         <div class="daedalus-banner">
             <Alerts :daedalus="daedalus" />
 
-            <div class="daedalus-info">
+            <div class="daedalus-info" v-if="daedalus">
                 <ul>
                     <Tippy tag="li">
                         <span>{{ daedalus.oxygen.quantity }} <img :src="getImgUrl('o2.png')"></span>
@@ -45,7 +45,7 @@
                             <p v-html="formatContent(daedalus.hull.description)" />
                         </template>
                     </Tippy>
-                    <Tippy tag="li">
+                    <Tippy tag="li" v-if="daedalus.shield">
                         <span>{{ daedalus.shield.quantity }} <img :src="getImgUrl('plasma.png')"></span>
                         <template #content>
                             <h1 v-html="formatContent(daedalus.shield.name)" />

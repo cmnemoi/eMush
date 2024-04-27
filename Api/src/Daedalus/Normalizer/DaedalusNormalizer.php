@@ -12,6 +12,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -124,8 +125,12 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         ];
     }
 
-    private function normalizeDaedalusVariable(Daedalus $daedalus, string $variable, string $language): array
-    {
+    private function normalizeDaedalusVariable(Daedalus $daedalus, string $variable, string $language): ?array
+    {   
+        if ($variable === DaedalusVariableEnum::SHIELD && !$daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
+            return null;
+        }
+
         $gameVariable = $daedalus->getVariableByName($variable);
         $maxValue = $gameVariable->getMaxValue();
         $quantity = $gameVariable->getValue();

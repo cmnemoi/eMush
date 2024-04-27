@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,6 +11,7 @@ use Mush\Hunter\Entity\Hunter;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
 use Mush\Status\Entity\ChargeStatus;
 use Symfony\Component\Validator\Exception\LogicException;
 
@@ -41,6 +44,9 @@ class GameModifier
 
     #[ORM\ManyToOne(targetEntity: ChargeStatus::class)]
     private ?ChargeStatus $charge = null;
+
+    #[ORM\ManyToOne(targetEntity: Project::class)]
+    private ?Project $project = null;
 
     public function __construct(ModifierHolderInterface $holder, AbstractModifierConfig $modifierConfig)
     {

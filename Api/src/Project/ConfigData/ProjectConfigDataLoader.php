@@ -7,17 +7,20 @@ namespace Mush\Project\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Entity\ProjectConfig;
 
-class ProjectConfigDataLoader extends ConfigDataLoader
+final class ProjectConfigDataLoader extends ConfigDataLoader
 {
     private EntityRepository $projectConfigRepository;
+    private EntityRepository $modifierConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
     ) {
         parent::__construct($entityManager);
         $this->projectConfigRepository = $entityManager->getRepository(ProjectConfig::class);
+        $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -25,6 +28,8 @@ class ProjectConfigDataLoader extends ConfigDataLoader
         foreach (ProjectConfigData::getAll() as $projectConfigData) {
             /** @var ProjectConfig $projectConfig */
             $projectConfig = $this->projectConfigRepository->findOneBy(['name' => $projectConfigData['name']]);
+
+            $projectConfigData = $this->getConfigDataWithModifierConfigs($projectConfigData);
 
             if (!$projectConfig) {
                 $projectConfig = new ProjectConfig(...$projectConfigData);
@@ -36,5 +41,21 @@ class ProjectConfigDataLoader extends ConfigDataLoader
         }
 
         $this->entityManager->flush();
+    }
+
+    private function getConfigDataWithModifierConfigs(array $projectConfigData): array
+    {
+        $newProjectConfigData = $projectConfigData;
+        $newProjectConfigData['modifierConfigs'] = [];
+
+        foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
+            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
+            if (!$modifierConfig) {
+                throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found");
+            }
+            $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
+        }
+
+        return $newProjectConfigData;
     }
 }

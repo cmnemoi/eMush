@@ -1568,9 +1568,11 @@
         <source>poc_pilot_skill.description</source>
         <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.
 //
-**Chances doublées** de toucher en Patrouilleur.
+:point: **Chances doublées** de toucher en Patrouilleur.
 //
-**Ne rate jamais** les atterrissages et décollages.</target>
+:point: **Ne rate jamais** les atterrissages et décollages.
+//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="poc_shooter_skill">
@@ -1582,9 +1584,11 @@
         <source>poc_shooter_skill.description</source>
         <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.
 //
-+2 **Tirs gratuits** :pa_shoot: par jour.
+:point: +2 **Tirs gratuits** :pa_shoot: par jour.
 //
-Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.</target>
+:point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.
+//
+:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
   </file>

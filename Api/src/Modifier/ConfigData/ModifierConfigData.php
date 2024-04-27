@@ -1989,10 +1989,7 @@ class ModifierConfigData
             'targetVariable' => DaedalusStatusEnum::FOLLOWING_HUNTERS,
             'mode' => 'multiplicative',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::ADVANCE_DAEDALUS => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::LEAVE_ORBIT => ModifierRequirementEnum::ANY_TAGS,
-            ],
+            'tagConstraints' => [],
         ],
     ];
 }

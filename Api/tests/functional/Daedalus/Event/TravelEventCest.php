@@ -516,14 +516,14 @@ final class TravelEventCest extends AbstractFunctionalTest
     {
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [ActionEnum::ADVANCE_DAEDALUS],
+            tags: [],
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
 
         $daedalusEvent = new DaedalusEvent(
             daedalus: $this->daedalus,
-            tags: [ActionEnum::ADVANCE_DAEDALUS],
+            tags: [],
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);

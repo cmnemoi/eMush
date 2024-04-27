@@ -6,12 +6,10 @@ namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 
@@ -26,10 +24,7 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
-            ->setTagConstraints([
-                ActionEnum::ADVANCE_DAEDALUS => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::LEAVE_ORBIT => ModifierRequirementEnum::ANY_TAGS,
-            ])
+            ->setTagConstraints([])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($trailReducerModifier);
         $this->addReference($trailReducerModifier->getName(), $trailReducerModifier);

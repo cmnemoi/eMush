@@ -6,6 +6,16 @@
         <source>pilot.name</source>
         <target>Pilote</target>
       </segment>
+      <segment id="pilot.description" state="translated">
+        <source>pilot.description</source>
+        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.
+//
+:point: **Chances doublées** de toucher en Patrouilleur.
+//
+:point: **Ne rate jamais** les atterrissages et décollages.
+//
+:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
     </unit>
     <unit id="firefighter">
       <segment id="firefighter.name" state="translated">
@@ -14,7 +24,7 @@
       </segment>
       <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
-        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur... et il peut aussi s'en sortir sans extincteur !//:point: L'action **Éteindre le feu** est toujours réussie.//:point: Donne l'action **Éteindre manuellement**.//:point: Bonus pour développer certains Projets NERON.</target>
+        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur... et il peut aussi s'en sortir sans extincteur !//:point: L'action **Éteindre le feu** est toujours réussie.//:point: Donne l'action **Éteindre manuellement**.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="radio_expert">

@@ -105,5 +105,19 @@
             <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
         </segment>
     </unit>
+    <unit id="trail_reducer">
+        <segment id="trail_reducer.type" state="translated">
+            <source>trail_reducer.type</source>
+            <target>Projet</target>
+        </segment>
+        <segment id="trail_reducer.name" state="translated">
+            <source>trail_reducer.name</source>
+            <target>Réducteur de trainée</target>
+        </segment>
+        <segment id="trail_reducer.description" state="translated">
+            <source>trail_reducer.description</source>
+            <target>Le nombre d'assaillants qui vous rejoint après un voyage est réduit de 50%.</target>
+        </segment>
+    </unit>
   </file>
 </xliff>

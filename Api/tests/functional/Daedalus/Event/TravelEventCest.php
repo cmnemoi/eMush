@@ -333,7 +333,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $I->assertCount(1, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
-    public function testTravelFinishedSpawnsMinus75PercentOfPreviousWaveWithTrailReducer(FunctionalTester $I): void
+    public function testTravelFinishedSpawnsMinusSeventyFivePercentsOfPreviousWaveWithTrailReducer(FunctionalTester $I): void
     {
         // given there are 10 hunters
         for ($i = 0; $i < 10; ++$i) {
@@ -354,7 +354,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
-    public function testTravelFinishedSpawnsAThreeQuartersPowerWaveWithTrailReducerIfThereWereNoHunterToFleeFrom(FunctionalTester $I): void
+    public function testTravelFinishedSpawnsAQuarterPowerWaveWithTrailReducerIfThereWereNoHunterToFleeFrom(FunctionalTester $I): void
     {
         // given daedalus has enough points to spawn 10 hunters
         $this->daedalus->setHunterPoints(100);
@@ -519,7 +519,6 @@ final class TravelEventCest extends AbstractFunctionalTest
             tags: [ActionEnum::ADVANCE_DAEDALUS],
             time: new \DateTime()
         );
-        $daedalusEvent->setAuthor($this->chun);
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
 
         $daedalusEvent = new DaedalusEvent(
@@ -527,7 +526,6 @@ final class TravelEventCest extends AbstractFunctionalTest
             tags: [ActionEnum::ADVANCE_DAEDALUS],
             time: new \DateTime()
         );
-        $daedalusEvent->setAuthor($this->chun);
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_FINISHED);
     }
 }

@@ -21,30 +21,40 @@ final class ProjectConfigData
                 'type' => ProjectType::PILGRED,
                 'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
             ],
             [
                 'name' => ProjectName::FIRE_SENSOR,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::FIREFIGHTER],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
             ],
             [
                 'name' => ProjectName::DOOR_SENSOR,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::ROBOTICS_EXPERT],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
             ],
             [
                 'name' => ProjectName::EQUIPMENT_SENSOR,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
             ],
             [
                 'name' => ProjectName::PLASMA_SHIELD,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
             ],
             [
                 'name' => ProjectName::AUTO_WATERING,
@@ -52,12 +62,17 @@ final class ProjectConfigData
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::FIREFIGHTER],
                 'activationRate' => 25,
+                'modifierConfigs' => [],
             ],
             [
                 'name' => ProjectName::TRAIL_REDUCER,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::TECHNICIAN],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_-25percentage_following_hunters_on_daedalus_travel',
+                ],
             ],
         ];
     }

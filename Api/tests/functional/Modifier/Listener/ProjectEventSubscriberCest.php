@@ -34,7 +34,7 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
         $this->projectEventSubscriber->onProjectFinished($projectEvent);
 
         // then I should see a modifier created
-        $I->assertNotEmpty($trailReducer->getModifiers());
+        $I->assertNotEmpty($this->daedalus->getModifiers());
     }
     
 }

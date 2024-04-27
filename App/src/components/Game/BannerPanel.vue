@@ -46,6 +46,13 @@
                         </template>
                     </Tippy>
                     <Tippy tag="li">
+                        <span>{{ daedalus.shield.quantity }} <img :src="getImgUrl('plasma.png')"></span>
+                        <template #content>
+                            <h1 v-html="formatContent(daedalus.shield.name)" />
+                            <p v-html="formatContent(daedalus.shield.description)" />
+                        </template>
+                    </Tippy>
+                    <Tippy tag="li">
                         <span>{{ player.triumph?.quantity }} <img :src="getImgUrl('triumph.png')"></span>
                         <template #content>
                             <h1 v-html="player?.triumph?.name" />

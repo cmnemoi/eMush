@@ -1,7 +1,12 @@
 {
   "name": "mush-front",
   "version": "0.8.0",
-  "private": true,
+  "licenses": [
+    {
+      "type": "AGPL-3.0-or-later",
+      "url": "https://spdx.org/licenses/AGPL-3.0-or-later.html"
+    }
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",

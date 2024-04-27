@@ -90,8 +90,6 @@ Run `docker run hello-world` to check if Docker is correctly installed. If not :
 
 - Clone the repository and move to it : `git clone git@gitlab.com:eternaltwin/mush/mush.git && cd mush`
 
-- Checkout on main : `git checkout main`
-
 - Build the project : `make install`
 
 That's it! 

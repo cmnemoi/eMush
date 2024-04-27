@@ -22,9 +22,9 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\ConfigData\ProjectConfigData;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
-use Mush\Project\Enum\ProjectName;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -51,7 +51,7 @@ class AbstractFunctionalTest
         $this->chun = $this->player1;
         $this->kuanTi = $this->player2;
 
-        $this->createProject(ProjectName::PILGRED, $I);
+        $this->createAllProjects($I);
     }
 
     protected function createDaedalus(FunctionalTester $I): Daedalus
@@ -202,18 +202,14 @@ class AbstractFunctionalTest
         return $player;
     }
 
-    protected function createProject(ProjectName $projectName, FunctionalTester $I): Project
+    private function createAllProjects(FunctionalTester $I): void
     {
-        if ($this->daedalus->getAllAvailableProjects()->map(static fn (Project $project) => $project->getName())->contains($projectName->value)) {
-            return $this->daedalus->getProjectByName($projectName);
+        foreach (ProjectConfigData::getAll() as $projectConfigData) {
+            $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $projectConfigData['name']]);
+            $project = new Project($projectConfig, $this->daedalus);
+            $I->haveInRepository($project);
+
+            $this->daedalus->addProject($project);
         }
-
-        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $projectName->value]);
-        $project = new Project($projectConfig, $this->daedalus);
-
-        $I->haveInRepository($project);
-        $this->daedalus->addProject($project);
-
-        return $project;
     }
 }

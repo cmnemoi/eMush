@@ -9,7 +9,7 @@
 
 ### eMush Api
 
-A REST Api developed using [Symfony 6.2](https://symfony.com/doc/6.2/index.html) that manage the eMush game.
+A REST Api developed using [Symfony 6.2](https://symfony.com/doc/6.2/index.html) that manages the eMush game.
 
 Please read [API.md](./Api/README.md) for details on the API architecture.
 
@@ -31,75 +31,68 @@ This will create a new workspace in the cloud with all the dependencies installe
 
 ### Installing with Docker
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-See endpoints for information on the different endpoints available.
-
-### Prerequisites
-
-To have a working development environment you will need to install:
-* [Docker](https://docs.docker.com/get-docker/)
-  * _(Windows)_ during installation follow instruction to install WSL2
-* [Docker-compose](https://docs.docker.com/compose/install/)
-
-Optional:
-* [Postman](https://docs.docker.com/get-docker/) - Postman requests are exported in this file : mush.postman_collection.json
-
 #### Windows Users:
-* Start powershell and create a new Debian distrib
-	```powershell
-	wsl --install -d Debian
-	```
-* WSL2 linux distro (tested on Debian: https://www.microsoft.com/en-us/p/debian/9msvkqc78pk6)
-  * Enable Docker's WSL integration (Settings -> Resources -> WSL Integration)
-  * install build tools:
-    ```bash
-    > wsl -d Debian
-    sudo -s
-    apt-get update
-    apt-get install build-essential curl git
-    ```
-  * install docker and docker-compose
-	```bash
-	apt-get install lsb-release
-	mkdir -m 0755 -p /etc/apt/keyrings
-	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-	apt-get update
-	apt-get install docker docker-compose docker-compose-plugin
-	```
 
-Although, it is possible to run application checked out in Windows and mounted to WSL2, it will be very slow, so I recommend checking out repo inside WSL and then work with sources either by vscode's WSL remote https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl or accessing files through SMB (e.g. `\\wsl$\Debian\root\mush`).
+Windows users first need to install WSL2 and Docker Desktop.
 
+Docker Desktop for Windows can be downloaded [here](https://docs.docker.com/desktop/install/windows-install/)
 
-### Installing
+WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --help` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
 
-To have a working dev environment, follow the following steps
+Install [Debian](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Debian`
 
-Generate SSH Key and add it to your gitlab profile
+Then launch it : `wsl -d Debian`
+
+After configuring your Debian account, you can install the project following the instructions below.
+
+#### Install build tools and Docker
+
+- Install build tools and Git :
+
 ```bash
-ssh-keygen -t rsa -b 2048 -C "SSH Key for mush repository (https://gitlab.com/eternaltwin/mush/mush)"
+sudo -s
+apt update -y
+apt install build-essential curl git -y
 ```
-On your real machine (windows) go to the folder `\\wsl$\Debian\root\.ssh` and copy the content of id_rsa.pub then past it in the SSH Keys settings of your gitlab profile (https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair)
+- Install Docker and Docker Compose in command line :
 
-Clone the project
 ```bash
-git clone git@gitlab.com:eternaltwin/mush/mush.git
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt update -y
+apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+exit # Quit root mode
+cd ~ # Go back to your home directory
 ```
-Checkout to `develop`:
+Then, add your user to the Docker group :
+
 ```bash
-git checkout develop
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
 ```
 
-Start docker service
-```
-service docker start
-```
+Run `docker run hello-world` to check if Docker is correctly installed. If not :
+- try to run it in a new terminal ;
+- log off and log in again ;
+- restart your computer and try again.
 
-Build the docker containers:
-```bash
-make install
-```
+#### Install the project
+
+- If not done yet, generate a SSH key and add it to your GitLab profile :
+  - Generate the key : `ssh-keygen -t rsa -b 2048 -C "SSH Key for eMush repository (https://gitlab.com/eternaltwin/mush/mush)"`
+  - Display the key : `cat ~/.ssh/id_rsa.pub`
+  - Copy the key and add it to your GitLab profile here : https://gitlab.com/-/profile/keys
+
+- Clone the repository and move to it : `git clone git@gitlab.com:eternaltwin/mush/mush.git && cd mush`
+
+- Build the project : `make install`
+
+That's it! 
 
 If everything went well you should be able to access:
   - Swagger API documentation : http://localhost:8080/swagger/
@@ -116,6 +109,9 @@ password : 1234567891
 You should land in a fully working Daedalus!
 
 ### Installing without Docker
+
+TODO : write a Bash and a Powershell script because I hate typing multiple commands to install a project
+
 Clone repository https://gitlab.com/eternaltwin/mush/mush.git
 
 Install NVM and yarn https://github.com/coreybutler/nvm-windows/releases
@@ -125,7 +121,7 @@ nvm use latest
 npm install -g yarn
 ```
 	
-Download the last version of PHP https://windows.php.net/download#php-8.2
+Download the last version of PHP https://windows.php.net/download#php-8.3
 Add the folder containing php.exe to PATH
 In php.ini
     activate extension=pdo_pgsql
@@ -206,7 +202,7 @@ To use different port modify the docker/docker-compose.dev.yml file
 
 #### Changing front port:
 in docker/docker-compose.dev.yml
-Change line 55: `- "80:8080"` by `- "new_port:8080"` where new_port is the desired port
+Change line 55: `- "80:5173"` by `- "new_port:5173"` where new_port is the desired port
 Change the `App/.env`
 `VITE_APP_URL=http://localhost` by `VITE_APP_URL=http://localhost:new_port`
 Run `make docker-start` (`make gitpod-start` on Gitpod) so that the changes are taken into account

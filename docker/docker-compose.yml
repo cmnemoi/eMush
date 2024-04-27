@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   mush_apache:
     build: Api/apache

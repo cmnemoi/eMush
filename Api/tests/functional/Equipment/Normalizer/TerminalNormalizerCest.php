@@ -122,12 +122,12 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeNeronCoreTerminal(FunctionalTester $I): void
     {
         // given I have 3 proposed NERON projects
-        $this->createProject(ProjectName::AUTO_WATERING, $I)->propose();
-        $this->createProject(ProjectName::PLASMA_SHIELD, $I)->propose();
-        $this->createProject(ProjectName::TRAIL_REDUCER, $I)->propose();
+        $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING)->propose();
+        $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD)->propose();
+        $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER)->propose();
 
         // given I have 1 not proposed NERON project
-        $this->createProject(ProjectName::FIRE_SENSOR, $I);
+        $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR);
 
         // given I have a NERON's core terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -168,7 +168,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeWithExtraInfosIfThereAreNoProposedProjects(FunctionalTester $I): void
     {
         // given I have 1 not proposed NERON project
-        $this->createProject(ProjectName::FIRE_SENSOR, $I);
+        $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR, $I);
 
         // given I have a NERON's core terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -210,12 +210,12 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeAuxiliaryTerminal(FunctionalTester $I): void
     {
         // given I have 3 proposed NERON projects
-        $this->createProject(ProjectName::AUTO_WATERING, $I)->propose();
-        $this->createProject(ProjectName::PLASMA_SHIELD, $I)->propose();
-        $this->createProject(ProjectName::TRAIL_REDUCER, $I)->propose();
+        $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING)->propose();
+        $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD)->propose();
+        $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER)->propose();
 
         // given I have 1 not proposed NERON project
-        $this->createProject(ProjectName::FIRE_SENSOR, $I);
+        $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR);
 
         // given I have a NERON's core terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(

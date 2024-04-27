@@ -88,6 +88,11 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
         return $this->config->getBonusSkills();
     }
 
+    public function getActivationRate(): int
+    {
+        return $this->config->getActivationRate();
+    }
+
     public function getProgress(): int
     {
         return $this->progress;

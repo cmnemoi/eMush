@@ -111,7 +111,7 @@ final class PlayerTest extends TestCase
      */
     public static function provideShouldReturnPlayerEfficiencyWithCpuPriorityCases(): iterable
     {
-        $plasmaShield = ProjectFactory::createPilgredProject();
+        $plasmaShield = ProjectFactory::createPlasmaShieldProject();
         $trailReducer = ProjectFactory::createTrailReducerProject();
         $autoWatering = ProjectFactory::createAutoWateringProject();
 

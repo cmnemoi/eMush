@@ -1051,7 +1051,6 @@ class StatusConfigData
             'type' => 'status_config',
             'modifierConfigs' => [
                 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
-                'modifier_for_daedalus_-1action_point_on_action_analyze_planet',
             ],
         ],
         [

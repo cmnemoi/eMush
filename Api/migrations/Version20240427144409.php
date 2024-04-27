@@ -28,7 +28,6 @@ final class Version20240427144409 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('CREATE TABLE project_game_modifier (project_id INT NOT NULL, game_modifier_id INT NOT NULL, PRIMARY KEY(project_id, game_modifier_id))');
         $this->addSql('CREATE INDEX idx_d46ab1dde2cb751 ON project_game_modifier (game_modifier_id)');
         $this->addSql('CREATE INDEX idx_d46ab1dd166d1f9c ON project_game_modifier (project_id)');

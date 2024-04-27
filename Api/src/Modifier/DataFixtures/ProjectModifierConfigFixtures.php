@@ -6,7 +6,9 @@ namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
@@ -28,6 +30,16 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($trailReducerModifier);
         $this->addReference($trailReducerModifier->getName(), $trailReducerModifier);
+
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference('set.value_daedalus_shield_50');
+        $plasmaShieldInitModifier = new DirectModifierConfig('modifier_for_daedalus_set_daedalus_shield_to_50');
+        $plasmaShieldInitModifier
+            ->setRevertOnRemove(true)
+            ->setTriggeredEvent($eventConfig)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($plasmaShieldInitModifier);
+        $this->addReference($plasmaShieldInitModifier->getName(), $plasmaShieldInitModifier);
 
         $manager->flush();
     }

@@ -1991,5 +1991,16 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => 'modifier_for_daedalus_set_daedalus_shield_to_50',
+            'modifierName' => null,
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'modifierRange' => 'daedalus',
+            'type' => 'direct_modifier',
+            'triggeredEvent' => 'set.value_daedalus_shield_50',
+            'visibility' => null,
+            'modifierActivationRequirements' => [],
+            'revertOnRemove' => true,
+        ],
     ];
 }

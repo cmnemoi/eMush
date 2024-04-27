@@ -54,7 +54,9 @@ final class ProjectConfigData
                 'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_set_daedalus_shield_to_50',
+                ],
             ],
             [
                 'name' => ProjectName::HEAT_LAMP,

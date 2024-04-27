@@ -93,7 +93,7 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         if (!$player->isAlive()) {
-            throw new AccessDeniedException('Player is dead');
+            return $this->view(['canCreate' => false], 200);
         }
 
         $daedalus = $player->getDaedalus();
@@ -139,7 +139,7 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         if (!$player->isAlive()) {
-            throw new AccessDeniedException('Player is dead');
+            return $this->view(['canCreate' => false], 200);
         }
 
         $daedalus = $player->getDaedalus();

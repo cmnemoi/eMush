@@ -1,5 +1,3 @@
-import { ShootHunterActionsEnum } from "@/enums/action.enum";
-
 export class Action {
     public iri: string|null;
     public id: number|null;

@@ -18,12 +18,14 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Service\HunterService;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -373,6 +375,45 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->assertCount(1, $daedalus->getAttackingHunters()); // asteroid should not be destroyed
     }
 
+    public function shouldNotReduceHullIfPlasmaShieldIfFinished(FunctionalTester $I): void
+    {
+        // given I have one hunter
+        $this->createHunterTargetingDaedalus($I);
+
+        // given plasma shiled project is finished
+        $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $this->finishProject($plasmaShield, $this->chun, $I);
+
+        // when I make the hunter shoot
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then the hull should not be damaged
+        $I->assertEquals(
+            expected: $this->daedalus->getGameConfig()->getDaedalusConfig()->getInitHull(),
+            actual: $this->daedalus->getHull(),
+        );
+    }
+
+    public function shouldReduceShieldIfPlasmaShieldIfFinished(FunctionalTester $I): void
+    {
+        // given I have one hunter
+        $this->createHunterTargetingDaedalus($I);
+
+        // given plasma shiled project is finished
+        $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $this->finishProject($plasmaShield, $this->chun, $I);
+        $initShield = $this->daedalus->getShield();
+
+        // when I make the hunter shoot
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
+
+        // then the shield should be damaged
+        $I->assertLessThan(
+            expected: $initShield,
+            actual: $this->daedalus->getShield(),
+        );
+    }
+
     private function createDaedalusForAsteroidTest(FunctionalTester $I): Daedalus
     {
         /** @var DaedalusConfig $daedalusConfig */
@@ -498,5 +539,22 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($d1000);
 
         return $daedalus;
+    }
+
+    private function createHunterTargetingDaedalus(FunctionalTester $I): Hunter
+    {
+        /** @var HunterConfig $hunterConfig */
+        $hunterConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter('hunter');
+
+        $hunter = new Hunter($hunterConfig, $this->daedalus);
+        $hunter->setHunterVariables($hunterConfig);
+        $hunter->setHitChance(100);
+
+        $this->daedalus->addHunter($hunter);
+
+        $I->haveInRepository($hunter);
+        $I->haveInRepository($this->daedalus);
+
+        return $hunter;
     }
 }

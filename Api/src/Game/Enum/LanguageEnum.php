@@ -7,7 +7,7 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 /**
  * String needed for the translation service.
  */
-class LanguageEnum
+abstract class LanguageEnum
 {
     // languages
     public const string FRENCH = 'fr';

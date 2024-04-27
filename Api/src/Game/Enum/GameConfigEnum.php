@@ -2,12 +2,12 @@
 
 namespace Mush\Game\Enum;
 
-class GameConfigEnum
+abstract class GameConfigEnum
 {
-    public const LEGACY = 'legacy';
-    public const DEFAULT = 'default';
-    public const DEV = 'dev';
-    public const BLITZ = 'blitz';
-    public const ALPHA = 'alpha';
-    public const TEST = 'test';
+    public const string LEGACY = 'legacy';
+    public const string DEFAULT = 'default';
+    public const string DEV = 'dev';
+    public const string BLITZ = 'blitz';
+    public const string ALPHA = 'alpha';
+    public const string TEST = 'test';
 }

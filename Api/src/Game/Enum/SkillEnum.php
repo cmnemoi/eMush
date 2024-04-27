@@ -2,7 +2,7 @@
 
 namespace Mush\Game\Enum;
 
-class SkillEnum
+abstract class SkillEnum
 {
     public const ANTIQUE_PERFUME = 'antique_perfume';
     public const APPRENTICE = 'apprentice';

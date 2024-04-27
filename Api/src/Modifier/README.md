@@ -23,6 +23,15 @@ The choice of [priority](./Enum/PriorityEnum) depends on the type of eventModifi
 - PreventEvent: remove all the event with a priority higher than the modifier one. E.g. to prevent the initial event, chose -50.
 - Variable modifiers: On which order is the initial event quantity modified? Overall, multiplicative modifiers should have a lower priority than additive ones. By default, use priority between -1 to -20.
 
+### As a dev what should/can I modify in this module ?
+- First of all, you can add as much config as you want with existing handler (eg you want to change an existing modifier or create a new modifier for disease)
+- Maybe you need to implement new handlers to implement specific skills or project. In that case, you probably need to add this handler in Modifier/ModifierHandler (the EFFECT of the modifier need more logic than what is currently available)
+- You want to implement a new feature that can create GameModifier (let say skills) :
+  - You should have a new entity holding ModifierConfigs (eg Skill)
+  - When your entity is created or deleted (eg Player pick a skill) dispatch an event
+  - In Modifier/Listener/ add a new listener. Here you must call the function ModifierService->createModifierFromConfig. This function require a modifierHolder, hence in your listener you must have logic to find the GameModifierHolder from your event and the modifierConfig->getModifierRange().
+- Adding a new ModifierHolder : In theory you should not do that unless you implement a new core entity
+
 # Architecture 
 
 ## Directory Tree:

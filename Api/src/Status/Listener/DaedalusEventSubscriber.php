@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Mush\Status\Listener;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -110,14 +112,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             $followingHuntersStatus = $this->createDaedalusStatusFromName(DaedalusStatusEnum::FOLLOWING_HUNTERS, $event);
         }
 
-        // by default, spawn half of the attacking hunters after travel
-        // if there are no attacking hunters, spawn a wave with half of the hunter points the daedalus has
-        // if there are not enough hunter points, spawn at least one hunter
-        $numberOfCatchingUpHunters = (int) ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2);
-        if ($numberOfCatchingUpHunters <= 0) {
-            $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
-            $numberOfCatchingUpHunters = (int) (ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
-        }
+        $numberOfCatchingUpHunters = $this->getNumberOfCatchingUpHunters($daedalus);
 
         $this->statusService->updateCharge(
             chargeStatus: $followingHuntersStatus,
@@ -151,5 +146,25 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             tags: $event->getTags(),
             time: $event->getTime()
         );
+    }
+
+    /**
+     * By default, spawn half of the attacking hunters after travel.
+     * If there are no attacking hunters, spawn a wave with half of the hunter points the daedalus has.
+     * If there are not enough hunter points, spawn at least one hunter.
+     */
+    private function getNumberOfCatchingUpHunters(Daedalus $daedalus): int
+    {
+        $numberOfCatchingUpHunters = (int) ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2);
+        if ($numberOfCatchingUpHunters <= 0) {
+            $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
+            $numberOfCatchingUpHunters = (int) (ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
+        }
+
+        if ($daedalus->hasFinishedProject(ProjectName::TRAIL_REDUCER)) {
+            $numberOfCatchingUpHunters = (int) ceil($numberOfCatchingUpHunters / 2) ?: 1;
+        }
+
+        return $numberOfCatchingUpHunters;
     }
 }

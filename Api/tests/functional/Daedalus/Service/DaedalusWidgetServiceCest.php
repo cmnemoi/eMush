@@ -34,7 +34,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -56,7 +56,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $this->createProject(ProjectName::FIRE_SENSOR, $I);
     }
 
-    public function testGetMinimap(FunctionalTester $I)
+    public function testGetMinimap(FunctionalTester $I): void
     {
         $gravitySimulatorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR . '_default']);
         $gravitySimulator = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));

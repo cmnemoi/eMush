@@ -83,7 +83,7 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
 
     const response = await ActionService.executeTargetAction(target, action, params);
 
-    if (action.isShootHunterAction()) {
+    if (isShootAction(action)) {
         handleShootHunterAction(response, commit);
     }
 
@@ -106,4 +106,8 @@ function handleShootHunterAction(axiosResponse: AxiosResponse<any, any>, commit:
     commit("setIsHunterBeenHit", actionIsSuccessful);
     commit("setIsHunterBeenKilled", hunterIsDead);
     commit("setTargetedHunterId", targetedHunterId);
+}
+
+function isShootAction(action: Action): boolean {
+    return Object.values(ShootHunterActionsEnum).includes(action.key as ShootHunterActionsEnum);
 }

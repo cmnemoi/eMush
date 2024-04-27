@@ -62,7 +62,4 @@ export class Action {
 
         return this;
     }
-    isShootHunterAction() : boolean {
-        return Object.values(ShootHunterActionsEnum).includes(this?.key as ShootHunterActionsEnum);
-    }
 }

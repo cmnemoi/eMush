@@ -95,13 +95,13 @@ Store the strings, ex : key for the equipments
 #### Event
 Events declaration.
 
-### Factory
+#### Factory
 Factory classes, there are mostly used to easily create entities with some default values for unit tests (but can be used in production code too).
 
 #### Listener
 Event listeners and suscribers.
 
-Events are used to share information between services. For example, when a project is finished, the event `PROJECT_FINISHED` is triggered from the `Project` module, so it can be handled by the `Communication` module to create a NERON announcement.
+Events are used to share information between modules. For example, when a project is finished, the event `PROJECT_FINISHED` is triggered from the `Project` module, so it can be handled by the `Communication` module to create a NERON announcement.
 
 Documentation : https://symfony.com/doc/6.2/components/event_dispatcher.html#introduction
 
@@ -169,9 +169,9 @@ Obvious example:
 ## Module documentation
 - [Action](./src/Action/README.md): handles actions performed by the player
 - [Alert](./src/Alert/README.md): track Daedalus and crew critical points
-- [Communication](./src/Communication/README.md): handle chat between players
-- [Daedalus](./src/Daedalus/README.md) : handles the Daedalus
-- [Disease](./src/Disease/README.md) : handles diseases (physical, troubles, injuries)
+- [Communication](./src/Communication/README.md): handle chat between players and NERON announcements
+- [Daedalus](./src/Daedalus/README.md) : handles the Daedalus cycle of life
+- [Disease](./src/Disease/README.md) : handles diseases (physical diseases, troubles, injuries)
 - [Equipment](./src/Equipment/README.md) : handles equipment, items and doors
 - [Exploration](./src/Exploration/README.md) : handles exploration and planets gameplay
 - [Game](./src/Game/README.md) : common logic for other modules
@@ -219,7 +219,7 @@ I highly suggest you use a GUI client like [DBeaver](https://dbeaver.io/) or [SQ
 ## Tests with Codeception
 The test folder is a mirror of the src directory.
 
-You can mock classes/services with [Mockery](https://github.com/mockery/mockery) but I **highly recommend to use the real classes and services** as much as possible, with **Fake** or **InMemory** implementations (example : [Fake](./src/Game/Service/FakeGetRandomIntegerService.php?ref_type=heads), [InMemory](./src/Project/Repository/InMemoryProjectRepository.php?ref_type=heads) and [usage](./tests/unit/Project/UseCase/AdvanceProjectUseCaseTest.php?ref_type=heads)).
+You can mock classes/services with [Mockery](https://github.com/mockery/mockery) but I **highly recommend to use real classes and services** as much as possible, with **Fake** or **InMemory** implementations (example : [Fake](./src/Game/Service/FakeGetRandomIntegerService.php), [InMemory](./src/Project/Repository/InMemoryProjectRepository.php) and [usage](./tests/unit/Project/UseCase/AdvanceProjectUseCaseTest.php)).
 
 This will be easier to setup and way less prone to break the tests when we refactor the code.
 

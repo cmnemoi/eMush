@@ -12,13 +12,13 @@ use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
@@ -205,7 +205,7 @@ class ActionNormalizer implements NormalizerInterface
         }
 
         /** @var ?ChargeStatus $shooterSkill */
-        $shooterSkill = $currentPlayer->getSkillByName(PlayerStatusEnum::POC_SHOOTER_SKILL);
+        $shooterSkill = $currentPlayer->getSkillByName(SkillEnum::SHOOTER);
         if ($shooterSkill?->getCharge() > 0) {
             return 1;
         }

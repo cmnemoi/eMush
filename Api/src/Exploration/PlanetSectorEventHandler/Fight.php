@@ -17,6 +17,7 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -28,7 +29,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 final class Fight extends AbstractPlanetSectorEventHandler
 {
@@ -124,7 +124,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
             // If fighter is also a Shooter, add 1 point to the expedition strength if they have a loaded gun
             if (
-                $fighter->hasSkill(PlayerStatusEnum::POC_SHOOTER_SKILL)
+                $fighter->hasSkill(SkillEnum::SHOOTER)
                 && $fighterWeapons->filter(static fn (GameItem $weapon) => ItemEnum::getGuns()->contains($weapon->getName()))->count() > 0
             ) {
                 ++$expeditionStrength;

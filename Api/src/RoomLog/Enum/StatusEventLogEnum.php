@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Enum;
 
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Event\HunterEvent;
@@ -49,7 +50,7 @@ class StatusEventLogEnum
 
     public const CHARGE_STATUS_UPDATED_LOGS = [
         self::GAIN => [
-            PlayerStatusEnum::POC_SHOOTER_SKILL => self::GAIN_SHOOT_POINT,
+            SkillEnum::SHOOTER => self::GAIN_SHOOT_POINT,
         ],
         self::LOSS => [],
     ];

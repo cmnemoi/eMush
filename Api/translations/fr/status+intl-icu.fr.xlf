@@ -1559,13 +1559,13 @@
         <target>Cette pièce est en flammes !</target>
       </segment>
     </unit>
-    <unit id="poc_pilot_skill">
+    <unit id="pilot">
       <segment id="name" state="translated">
-        <source>poc_pilot_skill.name</source>
+        <source>pilot.name</source>
         <target>Pilote</target>
       </segment>
       <segment id="description" state="translated">
-        <source>poc_pilot_skill.description</source>
+        <source>pilot.description</source>
         <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.
 //
 :point: **Chances doublées** de toucher en Patrouilleur.
@@ -1575,13 +1575,13 @@
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
-    <unit id="poc_shooter_skill">
+    <unit id="shooter">
       <segment id="name" state="translated">
-        <source>poc_shooter_skill.name</source>
+        <source>shooter.name</source>
         <target>Tireur</target>
       </segment>
       <segment id="description" state="translated">
-        <source>poc_shooter_skill.description</source>
+        <source>shooter.description</source>
         <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.
 //
 :point: +2 **Tirs gratuits** :pa_shoot: par jour.

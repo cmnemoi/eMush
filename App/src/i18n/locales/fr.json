@@ -202,6 +202,7 @@
 	"admin": {
 		"actions": {
 			"createProjects": "Créer les projets pour les Daedalus en cours",
+			"proposeProjects": "Proposer des projets pour les Daedalus en cours",
 			"title": "Actions administratives"
 		},
 		"banner": {

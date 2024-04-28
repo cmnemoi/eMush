@@ -21,6 +21,7 @@ const actions: ActionTree<any, any> = {
         commit('setLoading', false);
     },
     async createProjectsForOnGoingDaedaluses({ dispatch }): Promise<void> {
+        await dispatch('admin/displayLoading', null, { root: true });
         try {
             const response: SuccessReponse = await AdminActionsService.createProjectsForOnGoingDaedaluses();
             await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
@@ -28,6 +29,18 @@ const actions: ActionTree<any, any> = {
             await dispatch('error/setError', error, { root: true });
             await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
+        await dispatch('admin/endLoading', null, { root: true });
+    },
+    async proposeNewNeronProjectsForOnGoingDaedaluses({ dispatch }): Promise<void> {
+        await dispatch('admin/displayLoading', null, { root: true });
+        try {
+            const response: SuccessReponse = await AdminActionsService.proposeNewNeronProjectsForOnGoingDaedaluses();
+            await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
+        } catch (error) {
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+        }
+        await dispatch('admin/endLoading', null, { root: true });
     }
 };
 

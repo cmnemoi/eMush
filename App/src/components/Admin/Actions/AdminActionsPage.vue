@@ -4,6 +4,9 @@
         <button class="action-button" @click="createProjects">
             {{ $t('admin.actions.createProjects') }}
         </button>
+        <button class="action-button" @click="proposeProjects">
+            {{ $t('admin.actions.proposeProjects') }}
+        </button>
     </div>
 </template>
 
@@ -15,7 +18,8 @@ export default defineComponent ({
     name: 'AdminActionsPage',
     methods: {
         ...mapActions({
-            createProjects: 'adminActions/createProjectsForOnGoingDaedaluses'
+            createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
+            proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
         })
     }
 });

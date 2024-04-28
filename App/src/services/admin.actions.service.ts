@@ -7,6 +7,9 @@ const ADMIN_ACTIONS_ENDPOINT = urlJoin(API_URL, "admin/actions");
 const AdminActionsService = {
     createProjectsForOnGoingDaedaluses: async(): Promise<any> => {
         return await ApiService.post(ADMIN_ACTIONS_ENDPOINT + '/create-all-projects-for-on-going-daedaluses');
+    },
+    proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
+        return await ApiService.post(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
     }
 };
 export default AdminActionsService;

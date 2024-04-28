@@ -11,6 +11,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
+use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -27,6 +28,7 @@ final class AdminActionsController extends AbstractFOSRestController
     public function __construct(
         private readonly CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
         private readonly DaedalusRepository $daedalusRepository,
+        private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase
     ) {}
 
     /**
@@ -52,6 +54,27 @@ final class AdminActionsController extends AbstractFOSRestController
             }
         }
 
-        return $this->view(['detail' => 'Projects created successfully.'], Response::HTTP_OK);
+        return $this->view(['detail' => 'Projects created successfully.'], Response::HTTP_CREATED);
+    }
+
+    /**
+     * Propose new Neron projects for on-going Daedaluses.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @Rest\Put(path="/propose-new-neron-projects-for-on-going-daedaluses")
+     */
+    public function proposeNewNeronProjectsForDaedaluses(): View
+    {   
+        /** @var Daedalus $daedalus */
+        foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
+            $this->proposeNewNeronProjectsUseCase->execute($daedalus, $daedalus->getNumberOfProjectsByBatch());
+        }
+
+        return $this->view(['detail' => 'Neron projects proposed successfully.'], Response::HTTP_OK);
     }
 }

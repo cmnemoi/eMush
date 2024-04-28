@@ -28,6 +28,15 @@ const actions: ActionTree<any, any> = {
             await dispatch('error/setError', error, { root: true });
             await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
+    },
+    async proposeNewNeronProjectsForOnGoingDaedaluses({ dispatch }): Promise<void> {
+        try {
+            const response: SuccessReponse = await AdminActionsService.proposeNewNeronProjectsForOnGoingDaedaluses();
+            await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
+        } catch (error) {
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+        }
     }
 };
 

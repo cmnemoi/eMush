@@ -10,7 +10,7 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 
 final class ProjectFactory
-{   
+{
     public static function createNeronProjectByName(ProjectName $name): Project
     {
         return new Project(
@@ -51,7 +51,7 @@ final class ProjectFactory
         );
     }
 
-    public static function createHeatLampProjectWithDaedalus(Daedalus $daedalus): Project
+    public static function createHeatLampProjectForDaedalus(Daedalus $daedalus): Project
     {
         return new Project(
             config: ProjectConfigFactory::createHeatLampConfig(),

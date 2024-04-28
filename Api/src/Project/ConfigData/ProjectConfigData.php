@@ -61,7 +61,7 @@ final class ProjectConfigData
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
-                'activationRate' => 100,
+                'activationRate' => 50,
                 'modifierConfigs' => [],
             ],
             [

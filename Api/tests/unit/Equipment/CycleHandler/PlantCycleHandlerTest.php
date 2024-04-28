@@ -6,10 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
@@ -18,12 +19,13 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -48,6 +50,10 @@ final class PlantCycleHandlerTest extends TestCase
 
     private PlantCycleHandler $plantCycleHandler;
 
+    private Daedalus $daedalus;
+
+    private Project $heatLamps;
+
     /**
      * @before
      */
@@ -66,6 +72,9 @@ final class PlantCycleHandlerTest extends TestCase
             $this->equipmentEffectService,
             $this->statusService,
         );
+
+        $this->daedalus = DaedalusFactory::createDaedalus();
+        $this->heatLamps = ProjectFactory::createHeatLampProjectForDaedalus($this->daedalus);
     }
 
     /**
@@ -89,11 +98,10 @@ final class PlantCycleHandlerTest extends TestCase
         $difficultyConfig->setPlantDiseaseRate(50);
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $this->daedalus->getDaedalusInfo()->setGameConfig($gameConfig);
 
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($this->daedalus);
 
         $gamePlant = new GameItem($place);
         $gamePlant->setEquipment($plant);
@@ -136,11 +144,10 @@ final class PlantCycleHandlerTest extends TestCase
         $difficultyConfig->setPlantDiseaseRate(50);
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $this->daedalus->getDaedalusInfo()->setGameConfig($gameConfig);
 
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($this->daedalus);
 
         $gamePlant = new GameItem($place);
         $gamePlant->setEquipment($plant);
@@ -178,11 +185,10 @@ final class PlantCycleHandlerTest extends TestCase
         $difficultyConfig->setPlantDiseaseRate(50);
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $this->daedalus->getDaedalusInfo()->setGameConfig($gameConfig);
 
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place->setDaedalus($this->daedalus);
 
         $gamePlant = new GameItem($place);
         $gamePlant->setEquipment($plant);
@@ -209,13 +215,12 @@ final class PlantCycleHandlerTest extends TestCase
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
-        $daedalus = new Daedalus();
-        $daedalus->setDaedalusVariables($daedalusConfig);
+        $this->daedalus->setDaedalusVariables($daedalusConfig);
         $player = new Player();
-        $player->setDaedalus($daedalus);
+        $player->setDaedalus($this->daedalus);
         $room = new Place();
         $room->addPlayer($player);
-        $room->setDaedalus($daedalus);
+        $room->setDaedalus($this->daedalus);
 
         $time = new \DateTime();
 
@@ -250,8 +255,8 @@ final class PlantCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->never();
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
-                && $event->getDaedalus() === $daedalus
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
+                && $event->getDaedalus() === $this->daedalus
                 && $event->getRoundedQuantity() === 10)
             ->once();
 
@@ -267,13 +272,13 @@ final class PlantCycleHandlerTest extends TestCase
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
-        $daedalus = new Daedalus();
-        $daedalus->setDaedalusVariables($daedalusConfig);
+        $this->daedalus = new Daedalus();
+        $this->daedalus->setDaedalusVariables($daedalusConfig);
         $player = new Player();
-        $player->setDaedalus($daedalus);
+        $player->setDaedalus($this->daedalus);
         $room = new Place();
         $room->addPlayer($player);
-        $room->setDaedalus($daedalus);
+        $room->setDaedalus($this->daedalus);
 
         $newFruit = new ItemConfig();
         $newFruit->setEquipmentName('fruit name');
@@ -306,8 +311,8 @@ final class PlantCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('removeStatus')->once();
 
         $this->eventService->shouldReceive('callEvent')
-            ->withArgs(static fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
-                && $event->getDaedalus() === $daedalus
+            ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
+                && $event->getDaedalus() === $this->daedalus
                 && $event->getRoundedQuantity() === 10)
             ->once();
 
@@ -323,13 +328,13 @@ final class PlantCycleHandlerTest extends TestCase
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
-        $daedalus = new Daedalus();
-        $daedalus->setDaedalusVariables($daedalusConfig);
+        $this->daedalus = new Daedalus();
+        $this->daedalus->setDaedalusVariables($daedalusConfig);
         $player = new Player();
-        $player->setDaedalus($daedalus);
+        $player->setDaedalus($this->daedalus);
         $room = new Place();
         $room->addPlayer($player);
-        $room->setDaedalus($daedalus);
+        $room->setDaedalus($this->daedalus);
 
         $time = new \DateTime();
 
@@ -373,5 +378,65 @@ final class PlantCycleHandlerTest extends TestCase
 
         self::assertCount(1, $room->getEquipments());
         self::assertNotContains($plant, $room->getEquipments());
+    }
+
+    public function testShouldCreateAnExtraFruitIfHeatLampsProjectIsFinished(): void
+    {
+        $place = new Place();
+        $place->setDaedalus($this->daedalus);
+
+        // given I have a plant
+        $gamePlant = $this->createPlant($place);
+
+        // given Heat Lamps project is finished
+        $this->heatLamps->makeProgress(100);
+
+        // Setup universe state
+        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($this->getPlantEffect());
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // Given universe is a state in which Heat Lamps will be activated
+        $this->randomService->shouldReceive('isSuccessful')->with($this->heatLamps->getActivationRate())->andReturn(true);
+
+        // Then I expect 2 fruits to be created
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->twice();
+
+        // When a new day comes for the plant
+        $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
+    }
+
+    private function createPlant(EquipmentHolderInterface $holder): GameItem
+    {
+        $newFruit = new ItemConfig();
+        $newFruit->setEquipmentName('fruit name');
+
+        $gameFruit = new GameItem(new Place());
+        $gameFruit->setEquipment($newFruit);
+
+        $plant = new ItemConfig();
+        $plant
+            ->setEquipmentName('plant name');
+        $plantType = new Plant();
+        $plantType->setFruitName($newFruit->getEquipmentName());
+
+        $plant->setMechanics(new ArrayCollection([$plantType]));
+
+        $gamePlant = new GameItem($holder);
+        $gamePlant
+            ->setName('plant name')
+            ->setEquipment($plant);
+
+        return $gamePlant;
+    }
+
+    private function getPlantEffect(): PlantEffect
+    {
+        $plantEffect = new PlantEffect();
+        $plantEffect
+            ->setMaturationTime(10)
+            ->setOxygen(10);
+
+        return $plantEffect;
     }
 }

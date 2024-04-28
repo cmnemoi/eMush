@@ -29,7 +29,7 @@
                 <div class="actions">
                     <ActionButton
                         v-if="analyzeAction(planet)"
-                        :css-class="'wide'"
+                        :css-class="'medium'"
                         :key="analyzeAction(planet)?.key"
                         :action="analyzeAction(planet)"
                         @click="executeTargetAction(planet, analyzeAction(planet))"

@@ -54,6 +54,9 @@ export default defineComponent ({
     display: block;
     margin: 0.2rem;
 }
+.medium {
+    min-width: 10em;
+}
 .wide {
     min-width: 15em;
 }

@@ -27,6 +27,7 @@ use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -410,14 +411,25 @@ class HunterService implements HunterServiceInterface
 
     private function shootAtDaedalus(Daedalus $daedalus, int $damage): void
     {
+        $damageOnShield = $daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD) ? min($damage, $daedalus->getShield()) : 0;
+        $damageOnHull = $damage - $damageOnShield;
+
         $daedalusVariableEvent = new DaedalusVariableEvent(
             daedalus: $daedalus,
-            variableName: DaedalusVariableEnum::HULL,
-            quantity: -$damage,
+            variableName: DaedalusVariableEnum::SHIELD,
+            quantity: -$damageOnShield,
             tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
+        $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
+        $daedalusVariableEvent = new DaedalusVariableEvent(
+            daedalus: $daedalus,
+            variableName: DaedalusVariableEnum::HULL,
+            quantity: -$damageOnHull,
+            tags: [HunterEvent::HUNTER_SHOT],
+            time: new \DateTime()
+        );
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 

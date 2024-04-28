@@ -59,5 +59,7 @@ interface DaedalusServiceInterface
 
     public function changeVariable(string $variableName, Daedalus $daedalus, int $change, \DateTime $date): Daedalus;
 
+    public function setVariable(string $variableName, Daedalus $daedalus, int $value, \DateTime $date): Daedalus;
+
     public function attributeTitles(Daedalus $daedalus, \DateTime $date): Daedalus;
 }

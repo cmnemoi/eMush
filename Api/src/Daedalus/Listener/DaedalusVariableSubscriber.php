@@ -22,6 +22,7 @@ class DaedalusVariableSubscriber implements EventSubscriberInterface
         return [
             VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
             VariableEventInterface::CHANGE_VALUE_MAX => 'onChangeMaxValue',
+            VariableEventInterface::SET_VALUE => 'onSetValue',
         ];
     }
 
@@ -51,5 +52,18 @@ class DaedalusVariableSubscriber implements EventSubscriberInterface
         $variable->changeMaxValue($delta);
 
         $this->daedalusService->persist($daedalus);
+    }
+
+    public function onSetValue(VariableEventInterface $daedalusEvent): void
+    {
+        if (!$daedalusEvent instanceof DaedalusVariableEvent) {
+            return;
+        }
+
+        $daedalus = $daedalusEvent->getDaedalus();
+        $variable = $daedalusEvent->getVariable();
+        $value = $daedalusEvent->getRoundedQuantity();
+
+        $this->daedalusService->setVariable($variable->getName(), $daedalus, $value, $daedalusEvent->getTime());
     }
 }

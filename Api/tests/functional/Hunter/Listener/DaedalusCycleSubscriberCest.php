@@ -20,6 +20,9 @@ use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterCycleEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -283,6 +286,12 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
             ->setDaedalusVariables($daedalusConfig)
             ->setCycleStartedAt(new \DateTime());
 
+        $I->haveInRepository($daedalus);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only asteroids can spawn
@@ -331,6 +340,12 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
             ->setCycle(0)
             ->setDaedalusVariables($daedalusConfig)
             ->setCycleStartedAt(new \DateTime());
+
+        $I->haveInRepository($daedalus);
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
+        $project = new Project($projectConfig, $daedalus);
+        $I->haveInRepository($project);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);

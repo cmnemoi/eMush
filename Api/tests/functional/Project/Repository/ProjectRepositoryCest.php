@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Project\Repository;
 
 use Mush\Project\Entity\Project;
-use Mush\Project\Factory\ProjectConfigFactory;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Repository\ProjectRepository;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Tests\AbstractFunctionalTest;
@@ -30,8 +31,9 @@ final class ProjectRepositoryCest extends AbstractFunctionalTest
     public function shouldFindByName(FunctionalTester $I)
     {
         // given I have a project
-        $projectConfig = ProjectConfigFactory::createPlasmaShieldConfig();
-        $I->haveInRepository($projectConfig);
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, [
+            'name' => ProjectName::PLASMA_SHIELD,
+        ]);
 
         $this->createProjectFromConfigForDaedalusUseCase->execute(
             $projectConfig,
@@ -51,8 +53,9 @@ final class ProjectRepositoryCest extends AbstractFunctionalTest
     public function shouldClear(FunctionalTester $I)
     {
         // given I have a project
-        $projectConfig = ProjectConfigFactory::createPlasmaShieldConfig();
-        $I->haveInRepository($projectConfig);
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, [
+            'name' => ProjectName::PLASMA_SHIELD,
+        ]);
 
         $this->createProjectFromConfigForDaedalusUseCase->execute(
             $projectConfig,

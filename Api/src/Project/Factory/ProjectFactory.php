@@ -83,7 +83,7 @@ final class ProjectFactory
         );
     }
 
-    public static function createPlasmaShieldProjectWithDaedalus(Daedalus $daedalus): Project
+    public static function createPlasmaShieldProjectForDaedalus(Daedalus $daedalus): Project
     {
         return new Project(
             config: ProjectConfigFactory::createPlasmaShieldConfig(),

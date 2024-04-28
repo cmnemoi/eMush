@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -614,6 +615,22 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::EQUIPMENT,
             'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
             'name' => 'change.variable_turret_max_charge_+2',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 50,
+            'targetVariable' => DaedalusVariableEnum::SHIELD,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::SET_VALUE,
+            'name' => 'set.value_daedalus_shield_50',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 5,
+            'targetVariable' => DaedalusVariableEnum::SHIELD,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_daedalus_shield_+5',
         ],
     ];
 }

@@ -407,6 +407,30 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
+    public function setVariable(string $variableName, Daedalus $daedalus, int $value, \DateTime $date): Daedalus
+    {
+        $gameVariable = $daedalus->getVariableByName($variableName);
+
+        $maxVariableValuePoint = $gameVariable->getMaxValue();
+        $value = $this->getValueInInterval($value, 0, $maxVariableValuePoint);
+
+        $daedalus->setVariableValueByName($value, $variableName);
+
+        if ($variableName === DaedalusVariableEnum::HULL && $value === 0) {
+            $daedalusEvent = new DaedalusEvent(
+                $daedalus,
+                [EndCauseEnum::DAEDALUS_DESTROYED],
+                $date
+            );
+
+            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+        }
+
+        $this->persist($daedalus);
+
+        return $daedalus;
+    }
+
     public function findAllFinishedDaedaluses(): DaedalusCollection
     {
         return new DaedalusCollection($this->daedalusRepository->findFinishedDaedaluses());

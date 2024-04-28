@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="skill.ext">
+    <unit id="botanist">
+      <segment id="botanist.name" state="translated">
+        <source>botanist.name</source>
+        <target>Botaniste</target>
+      </segment>
+      <segment id="botanist.description" state="translated">
+        <source>botanist.description</source>
+        <target>Le botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également redoutablement efficace dans la maintenance du Jardin.//:point: Peut lire les **propriétés des fruits**.//
+:point: Peut lire les **propriétés des plantes**.//
+:point: Peut effectuer des **greffes**.//
+:point: +2 :pa_garden: par jour (points d'action **Jardinage**).//
+:point: Expédition : L'évènement **Récolte** donne un fruit de plus.//
+:point: Bonus pour développer certains **Projets NERON**.//</target>
+      </segment>
+    </unit>
+    <unit id="firefighter">
+      <segment id="firefighter.name" state="translated">
+        <source>firefighter.name</source>
+        <target>Pompier</target>
+      </segment>
+      <segment id="firefighter.description" state="translated">
+        <source>firefighter.description</source>
+        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur... et il peut aussi s'en sortir sans extincteur !//:point: L'action **Éteindre le feu** est toujours réussie.//:point: Donne l'action **Éteindre manuellement**.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
     <unit id="pilot">
       <segment id="pilot.name" state="translated">
         <source>pilot.name</source>
@@ -15,16 +40,6 @@
 :point: **Ne rate jamais** les atterrissages et décollages.
 //
 :point: Bonus pour développer certains **Projets NERON**.</target>
-      </segment>
-    </unit>
-    <unit id="firefighter">
-      <segment id="firefighter.name" state="translated">
-        <source>firefighter.name</source>
-        <target>Pompier</target>
-      </segment>
-      <segment id="firefighter.description" state="translated">
-        <source>firefighter.description</source>
-        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur... et il peut aussi s'en sortir sans extincteur !//:point: L'action **Éteindre le feu** est toujours réussie.//:point: Donne l'action **Éteindre manuellement**.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="radio_expert">

@@ -23,6 +23,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Factory\ProjectFactory;
@@ -101,7 +102,9 @@ final class PlantCycleHandlerTest extends TestCase
         $this->daedalus->getDaedalusInfo()->setGameConfig($gameConfig);
 
         $place = new Place();
-        $place->setDaedalus($this->daedalus);
+        $place
+            ->setDaedalus($this->daedalus)
+            ->setName(RoomEnum::LABORATORY);
 
         $gamePlant = new GameItem($place);
         $gamePlant->setEquipment($plant);
@@ -147,7 +150,9 @@ final class PlantCycleHandlerTest extends TestCase
         $this->daedalus->getDaedalusInfo()->setGameConfig($gameConfig);
 
         $place = new Place();
-        $place->setDaedalus($this->daedalus);
+        $place
+            ->setDaedalus($this->daedalus)
+            ->setName(RoomEnum::LABORATORY);
 
         $gamePlant = new GameItem($place);
         $gamePlant->setEquipment($plant);
@@ -188,7 +193,9 @@ final class PlantCycleHandlerTest extends TestCase
         $this->daedalus->getDaedalusInfo()->setGameConfig($gameConfig);
 
         $place = new Place();
-        $place->setDaedalus($this->daedalus);
+        $place
+            ->setDaedalus($this->daedalus)
+            ->setName(RoomEnum::LABORATORY);
 
         $gamePlant = new GameItem($place);
         $gamePlant->setEquipment($plant);
@@ -219,6 +226,7 @@ final class PlantCycleHandlerTest extends TestCase
         $player = new Player();
         $player->setDaedalus($this->daedalus);
         $room = new Place();
+        $room->setName(RoomEnum::LABORATORY);
         $room->addPlayer($player);
         $room->setDaedalus($this->daedalus);
 
@@ -253,6 +261,7 @@ final class PlantCycleHandlerTest extends TestCase
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->statusService->shouldReceive('removeStatus')->never();
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
@@ -380,10 +389,12 @@ final class PlantCycleHandlerTest extends TestCase
         self::assertNotContains($plant, $room->getEquipments());
     }
 
-    public function testShouldCreateAnExtraFruitIfHeatLampsProjectIsFinished(): void
+    public function testShouldCreateAnExtraFruitInGardenIfHeatLampsProjectIsFinished(): void
     {
         $place = new Place();
-        $place->setDaedalus($this->daedalus);
+        $place
+            ->setDaedalus($this->daedalus)
+            ->setName(RoomEnum::HYDROPONIC_GARDEN);
 
         // given I have a plant
         $gamePlant = $this->createPlant($place);
@@ -401,6 +412,34 @@ final class PlantCycleHandlerTest extends TestCase
 
         // Then I expect 2 fruits to be created
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->twice();
+
+        // When a new day comes for the plant
+        $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
+    }
+
+    public function testShouldNotCreateAnExtraFruitWithHeatLampsProjectIfNotInGarden(): void
+    {
+        $place = new Place();
+        $place
+            ->setDaedalus($this->daedalus)
+            ->setName(RoomEnum::LABORATORY);
+
+        // given I have a plant
+        $gamePlant = $this->createPlant($place);
+
+        // given Heat Lamps project is finished
+        $this->heatLamps->makeProgress(100);
+
+        // Setup universe state
+        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($this->getPlantEffect());
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // Given universe is a state in which Heat Lamps will be activated
+        $this->randomService->shouldReceive('isSuccessful')->with($this->heatLamps->getActivationRate())->andReturn(true);
+
+        // Then I expect 1 fruits to be created
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
         // When a new day comes for the plant
         $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());

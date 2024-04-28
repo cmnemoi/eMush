@@ -11,10 +11,18 @@ use Mush\Project\Enum\ProjectName;
 
 final class ProjectFactory
 {
-    public static function createAutoWateringProject(): Project
+    public static function createNeronProjectByName(ProjectName $name): Project
     {
         return new Project(
-            config: ProjectConfigFactory::createAutoWateringConfig(),
+            config: ProjectConfigFactory::createNeronProjectConfigByName($name),
+            daedalus: DaedalusFactory::createDaedalus(),
+        );
+    }
+
+    public static function createHeatLampProject(): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createHeatLampConfig(),
             daedalus: DaedalusFactory::createDaedalus(),
         );
     }
@@ -43,10 +51,10 @@ final class ProjectFactory
         );
     }
 
-    public static function createAutoWateringProjectWithDaedalus(Daedalus $daedalus): Project
+    public static function createHeatLampProjectForDaedalus(Daedalus $daedalus): Project
     {
         return new Project(
-            config: ProjectConfigFactory::createAutoWateringConfig(),
+            config: ProjectConfigFactory::createHeatLampConfig(),
             daedalus: $daedalus,
         );
     }

@@ -28,7 +28,7 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
 
         // given I have 3 proposed NERON projects
         $this->currentlyProposedProjects = [];
-        $this->currentlyProposedProjects[] = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        $this->currentlyProposedProjects[] = $this->daedalus->getProjectByName(ProjectName::HEAT_LAMP);
         $this->currentlyProposedProjects[] = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
         $this->currentlyProposedProjects[] = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
         $this->projectToFinish = $this->currentlyProposedProjects[0];
@@ -75,7 +75,7 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
 
         // then new proposed projects are different from the previous ones
         $I->assertNotEquals(
-            $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING),
+            $this->daedalus->getProjectByName(ProjectName::HEAT_LAMP),
             $newProjects[0],
         );
     }

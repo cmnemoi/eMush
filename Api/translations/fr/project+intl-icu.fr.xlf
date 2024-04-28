@@ -77,6 +77,20 @@
             <target>Les incendies sont reportés sur vos modules persos.</target>
         </segment>
     </unit>
+    <unit id="heat_lamp">
+        <segment id="heat_lamp.type" state="translated">
+            <source>heat_lamp.type</source>
+            <target>Projet</target>
+        </segment>
+        <segment id="heat_lamp.name" state="translated">
+            <source>heat_lamp.name</source>
+            <target>Lampes à chaleur</target>
+        </segment>
+        <segment id="heat_lamp.description" state="translated">
+            <source>heat_lamp.description</source>
+            <target>Dans le jardin, 50% de chances de produire un fruit supplémentaire.</target>
+        </segment>
+    </unit>
     <unit id="parasite_elim">
         <segment id="parasite_elim.type" state="translated">
             <source>parasite_elim.type</source>

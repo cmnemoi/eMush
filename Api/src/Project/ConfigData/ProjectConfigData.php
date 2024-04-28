@@ -57,11 +57,11 @@ final class ProjectConfigData
                 'modifierConfigs' => [],
             ],
             [
-                'name' => ProjectName::AUTO_WATERING,
+                'name' => ProjectName::HEAT_LAMP,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::FIREFIGHTER],
-                'activationRate' => 25,
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
+                'activationRate' => 50,
                 'modifierConfigs' => [],
             ],
             [

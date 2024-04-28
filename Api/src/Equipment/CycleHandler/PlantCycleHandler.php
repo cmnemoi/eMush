@@ -19,6 +19,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -152,6 +154,22 @@ class PlantCycleHandler extends AbstractCycleHandler
             $dateTime,
             VisibilityEnum::PUBLIC
         );
+
+        $heatLamps = $gamePlant->getDaedalus()->getProjectByName(ProjectName::HEAT_LAMP);
+
+        $isPlantInGarden = $gamePlant->getPlace()->getName() === RoomEnum::HYDROPONIC_GARDEN;
+        $heatLampsAreFinished = $heatLamps->isFinished();
+        $heatLampsAreActivated = $this->randomService->isSuccessful($heatLamps->getActivationRate());
+
+        if ($isPlantInGarden && $heatLampsAreFinished && $heatLampsAreActivated) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                $plantType->getFruitName(),
+                $gamePlant->getPlace(),
+                [EventEnum::PLANT_PRODUCTION],
+                $dateTime,
+                VisibilityEnum::PUBLIC
+            );
+        }
     }
 
     private function addOxygen(GameEquipment $gamePlant, PlantEffect $plantEffect, \DateTime $date): void

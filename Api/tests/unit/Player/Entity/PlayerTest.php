@@ -10,6 +10,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -124,20 +125,31 @@ final class PlayerTest extends TestCase
     {
         $pilgred = ProjectFactory::createPilgredProject();
         $trailReducer = ProjectFactory::createTrailReducerProject();
-        $autoWatering = ProjectFactory::createAutoWateringProject();
+        $heatLamp = ProjectFactory::createHeatLampProject();
+        $fireSensor = ProjectFactory::createNeronProjectByName(ProjectName::FIRE_SENSOR);
 
         return [
-            [$pilgred, 0, new PlayerEfficiency(1, 1)],
-            [$pilgred, 1, new PlayerEfficiency(0, 0)],
-            [$pilgred, 2, new PlayerEfficiency(0, 0)],
-            [$pilgred, 3, new PlayerEfficiency(0, 0)],
-            [$trailReducer, 0, new PlayerEfficiency(6, 9)],
-            [$trailReducer, 1, new PlayerEfficiency(4, 6)],
-            [$trailReducer, 2, new PlayerEfficiency(2, 3)],
-            [$trailReducer, 3, new PlayerEfficiency(0, 0)],
-            [$autoWatering, 0, new PlayerEfficiency(3, 4)],
-            [$autoWatering, 1, new PlayerEfficiency(1, 1)],
-            [$autoWatering, 2, new PlayerEfficiency(0, 0)],
+            'PILGRED, 0 participations' => [$pilgred, 0, new PlayerEfficiency(1, 1)],
+            'PILGRED, 1 participations' => [$pilgred, 1, new PlayerEfficiency(0, 0)],
+            'PILGRED, 2 participations' => [$pilgred, 2, new PlayerEfficiency(0, 0)],
+            'PILGRED, 3 participations' => [$pilgred, 3, new PlayerEfficiency(0, 0)],
+            'Heat Lamps, 0 participations' => [$heatLamp, 0, new PlayerEfficiency(3, 4)],
+            'Heat Lamps, 1 participations' => [$heatLamp, 1, new PlayerEfficiency(1, 1)],
+            'Heat Lamps, 2 participations' => [$heatLamp, 2, new PlayerEfficiency(0, 0)],
+            'Trail Reducer, 0 participations' => [$trailReducer, 0, new PlayerEfficiency(6, 9)],
+            'Trail Reducer, 1 participations' => [$trailReducer, 1, new PlayerEfficiency(4, 6)],
+            'Trail Reducer, 2 participations' => [$trailReducer, 2, new PlayerEfficiency(2, 3)],
+            'Trail Reducer, 3 participations' => [$trailReducer, 3, new PlayerEfficiency(0, 0)],
+            'Fire sensors, 0 participations' => [$fireSensor, 0, new PlayerEfficiency(18, 27)],
+            'Fire sensors, 1 participations' => [$fireSensor, 1, new PlayerEfficiency(16, 24)],
+            'Fire sensors, 2 participations' => [$fireSensor, 2, new PlayerEfficiency(14, 21)],
+            'Fire sensors, 3 participations' => [$fireSensor, 3, new PlayerEfficiency(12, 18)],
+            'Fire sensors, 4 participations' => [$fireSensor, 4, new PlayerEfficiency(10, 15)],
+            'Fire sensors, 5 participations' => [$fireSensor, 5, new PlayerEfficiency(8, 12)],
+            'Fire sensors, 6 participations' => [$fireSensor, 6, new PlayerEfficiency(6, 9)],
+            'Fire sensors, 7 participations' => [$fireSensor, 7, new PlayerEfficiency(4, 6)],
+            'Fire sensors, 8 participations' => [$fireSensor, 8, new PlayerEfficiency(2, 3)],
+            'Fire sensors, 9 participations' => [$fireSensor, 9, new PlayerEfficiency(0, 0)],
         ];
     }
 
@@ -152,22 +164,34 @@ final class PlayerTest extends TestCase
     public static function provideShouldReturnPlayerEfficiencyWithCpuPriorityCases(): iterable
     {
         $plasmaShield = ProjectFactory::createPlasmaShieldProject();
+        $heatLamp = ProjectFactory::createHeatLampProject();
         $trailReducer = ProjectFactory::createTrailReducerProject();
-        $autoWatering = ProjectFactory::createAutoWateringProject();
+        $fireSensor = ProjectFactory::createNeronProjectByName(ProjectName::FIRE_SENSOR);
 
         return [
-            [$plasmaShield, 0, new PlayerEfficiency(2, 3)],
-            [$plasmaShield, 1, new PlayerEfficiency(1, 1)],
-            [$plasmaShield, 2, new PlayerEfficiency(1, 1)],
-            [$trailReducer, 0, new PlayerEfficiency(7, 10)],
-            [$trailReducer, 1, new PlayerEfficiency(5, 7)],
-            [$trailReducer, 2, new PlayerEfficiency(3, 4)],
-            [$trailReducer, 3, new PlayerEfficiency(1, 1)],
-            [$trailReducer, 4, new PlayerEfficiency(1, 1)],
-            [$autoWatering, 0, new PlayerEfficiency(4, 6)],
-            [$autoWatering, 1, new PlayerEfficiency(2, 3)],
-            [$autoWatering, 2, new PlayerEfficiency(1, 1)],
-            [$autoWatering, 3, new PlayerEfficiency(1, 1)],
+            'PILGRED, 0 participations' => [$plasmaShield, 0, new PlayerEfficiency(2, 3)],
+            'PILGRED, 1 participations' => [$plasmaShield, 1, new PlayerEfficiency(1, 1)],
+            'PILGRED, 2 participations' => [$plasmaShield, 2, new PlayerEfficiency(1, 1)],
+            'Heat Lamps, 0 participations' => [$heatLamp, 0, new PlayerEfficiency(4, 6)],
+            'Heat Lamps, 1 participations' => [$heatLamp, 1, new PlayerEfficiency(2, 3)],
+            'Heat Lamps, 2 participations' => [$heatLamp, 2, new PlayerEfficiency(1, 1)],
+            'Heat Lamps, 3 participations' => [$heatLamp, 3, new PlayerEfficiency(1, 1)],
+            'Trail Reducer, 0 participations' => [$trailReducer, 0, new PlayerEfficiency(7, 10)],
+            'Trail Reducer, 1 participations' => [$trailReducer, 1, new PlayerEfficiency(5, 7)],
+            'Trail Reducer, 2 participations' => [$trailReducer, 2, new PlayerEfficiency(3, 4)],
+            'Trail Reducer, 3 participations' => [$trailReducer, 3, new PlayerEfficiency(1, 1)],
+            'Trail Reducer, 4 participations' => [$trailReducer, 4, new PlayerEfficiency(1, 1)],
+            'Fire sensors, 0 participations' => [$fireSensor, 0, new PlayerEfficiency(19, 28)],
+            'Fire sensors, 1 participations' => [$fireSensor, 1, new PlayerEfficiency(17, 25)],
+            'Fire sensors, 2 participations' => [$fireSensor, 2, new PlayerEfficiency(15, 22)],
+            'Fire sensors, 3 participations' => [$fireSensor, 3, new PlayerEfficiency(13, 19)],
+            'Fire sensors, 4 participations' => [$fireSensor, 4, new PlayerEfficiency(11, 16)],
+            'Fire sensors, 5 participations' => [$fireSensor, 5, new PlayerEfficiency(9, 13)],
+            'Fire sensors, 6 participations' => [$fireSensor, 6, new PlayerEfficiency(7, 10)],
+            'Fire sensors, 7 participations' => [$fireSensor, 7, new PlayerEfficiency(5, 7)],
+            'Fire sensors, 8 participations' => [$fireSensor, 8, new PlayerEfficiency(3, 4)],
+            'Fire sensors, 9 participations' => [$fireSensor, 9, new PlayerEfficiency(1, 1)],
+            'Fire sensors, 10 participations' => [$fireSensor, 10, new PlayerEfficiency(1, 1)],
         ];
     }
 

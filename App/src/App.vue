@@ -1,6 +1,6 @@
 <template>
     <div class="main-container">
-        <Spinner :loading="userLoading || playerLoading || configLoading" />
+        <Spinner :loading="userLoading || playerLoading || configLoading || adminLoading"/>
         <ToastContainer />
         <Banner />
         <MaintenancePage v-if="gameInMaintenance && !userIsAdmin"/>
@@ -59,6 +59,7 @@ export default defineComponent({
             userWarnings: 'moderation/userWarnings',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
+            adminLoading: 'admin/isLoading',
             userIsAdmin: 'auth/isAdmin'
         }),
         baseUrl() {

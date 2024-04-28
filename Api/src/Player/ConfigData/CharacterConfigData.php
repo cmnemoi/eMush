@@ -2,7 +2,7 @@
 
 namespace Mush\Player\ConfigData;
 
-use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Game\Enum\SkillEnum;
 
 class CharacterConfigData
 {
@@ -51,7 +51,7 @@ class CharacterConfigData
                 'itrackie_default',
             ],
             'initStatuses' => [
-                'poc_pilot_skill_alpha',
+                SkillEnum::PILOT . '_alpha',
             ],
         ],
         [
@@ -192,7 +192,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'first_time_default',
-                PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
+                SkillEnum::SHOOTER . '_alpha',
             ],
         ],
         [
@@ -330,7 +330,7 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [PlayerStatusEnum::POC_PILOT_SKILL . '_alpha'],
+            'initStatuses' => [SkillEnum::PILOT . '_alpha'],
         ],
         [
             'name' => 'gioele',
@@ -420,7 +420,7 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [PlayerStatusEnum::POC_PILOT_SKILL . '_alpha'],
+            'initStatuses' => [SkillEnum::PILOT . '_alpha'],
         ],
         [
             'name' => 'ian',
@@ -559,7 +559,7 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [PlayerStatusEnum::POC_PILOT_SKILL . '_alpha', PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha'],
+            'initStatuses' => [SkillEnum::PILOT . '_alpha', SkillEnum::SHOOTER . '_alpha'],
         ],
         [
             'name' => 'kuan_ti',
@@ -599,6 +599,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                'motivational_speech',
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -649,7 +650,7 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha'],
+            'initStatuses' => [SkillEnum::SHOOTER . '_alpha'],
         ],
         [
             'name' => 'raluca',
@@ -742,7 +743,7 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [PlayerStatusEnum::POC_PILOT_SKILL . '_alpha', PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha'],
+            'initStatuses' => [SkillEnum::PILOT . '_alpha', SkillEnum::SHOOTER . '_alpha'],
         ],
         [
             'name' => 'stephen',
@@ -787,7 +788,7 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha'],
+            'initStatuses' => [SkillEnum::SHOOTER . '_alpha'],
         ],
         [
             'name' => 'terrence',
@@ -834,8 +835,8 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'disabled_default',
-                PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
-                'poc_shooter_skill_alpha',
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::SHOOTER . '_alpha',
             ],
         ],
     ];

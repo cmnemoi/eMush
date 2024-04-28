@@ -6,6 +6,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -305,7 +306,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         // given I have a Shooter player
         /** @var ChargeStatus $shooterSkill * */
         $shooterSkill = $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::POC_SHOOTER_SKILL,
+            statusName: SkillEnum::SHOOTER,
             holder: $this->player,
             tags: [],
             time: new \DateTime()

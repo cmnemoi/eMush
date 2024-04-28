@@ -26,6 +26,7 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
 
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;
+    public const int SKILL_BONUS = 4;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

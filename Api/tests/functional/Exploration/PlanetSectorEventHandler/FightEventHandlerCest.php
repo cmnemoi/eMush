@@ -12,6 +12,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\PlanetSectorEventHandler\Fight;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -139,7 +140,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // given Chun and kuan-ti have the shooter skill
         foreach ([$this->chun, $this->kuanTi] as $player) {
             $this->statusService->createStatusFromName(
-                statusName: PlayerStatusEnum::POC_SHOOTER_SKILL,
+                statusName: SkillEnum::SHOOTER,
                 holder: $player,
                 tags: [],
                 time: new \DateTime(),
@@ -254,7 +255,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     {
         // given Chun is a pilot to avoid damage at landing
         $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            statusName: SkillEnum::PILOT,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
@@ -305,7 +306,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     {
         // given Chun is a pilot to avoid damage at landing
         $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            statusName: SkillEnum::PILOT,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
@@ -352,7 +353,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     {
         // given Chun is a pilot to avoid damage at landing
         $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            statusName: SkillEnum::PILOT,
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),

@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -209,7 +210,7 @@ class Exploration
 
     public function hasAPilotAlive(): bool
     {
-        return $this->getAliveExplorators()->filter(static fn (Player $player) => $player->hasSkill(PlayerStatusEnum::POC_PILOT_SKILL))->count() > 0;
+        return $this->getAliveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::PILOT))->count() > 0;
     }
 
     public function getEstimatedDuration(): int

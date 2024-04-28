@@ -14,6 +14,7 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -42,7 +43,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     {
         // given explorator is a pilot
         $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::POC_PILOT_SKILL,
+            statusName: SkillEnum::PILOT,
             holder: $this->player,
             tags: [],
             time: new \DateTime(),

@@ -3,6 +3,7 @@
 namespace Mush\Status\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
@@ -1025,8 +1026,8 @@ class StatusConfigData
             'modifierConfigs' => [],
         ],
         [
-            'name' => PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
-            'statusName' => PlayerStatusEnum::POC_SHOOTER_SKILL,
+            'name' => SkillEnum::SHOOTER . '_alpha',
+            'statusName' => SkillEnum::SHOOTER,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::PRIVATE,
@@ -1038,8 +1039,8 @@ class StatusConfigData
             'modifierConfigs' => ['modifier_shooter_specialist_point'],
         ],
         [
-            'name' => PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
-            'statusName' => PlayerStatusEnum::POC_PILOT_SKILL,
+            'name' => SkillEnum::PILOT . '_alpha',
+            'statusName' => SkillEnum::PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'status_config',
             'modifierConfigs' => ['modifier_pilot_always_critical_success_piloting', 'modifier_pilot_increased_shoot_hunter_chances'],

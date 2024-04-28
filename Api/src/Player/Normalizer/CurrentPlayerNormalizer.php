@@ -19,6 +19,7 @@ use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -304,7 +305,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getNormalizedShootPoints(Player $player, string $language): ?array
     {
         /** @var ?ChargeStatus $shooterSkill */
-        $shooterSkill = $player->getSkillByName(PlayerStatusEnum::POC_SHOOTER_SKILL);
+        $shooterSkill = $player->getSkillByName(SkillEnum::SHOOTER);
         if ($shooterSkill === null) {
             return null;
         }

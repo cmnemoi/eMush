@@ -41,8 +41,6 @@ abstract class PlayerStatusEnum
     public const string TALKIE_SCREWED = 'talkie_screwed';
     public const string ALREADY_WASHED_IN_THE_SINK = 'already_washed_in_the_sink';
     public const string HAS_REJUVENATED = 'has_rejuvenated';
-    public const string POC_PILOT_SKILL = 'poc_pilot_skill';
-    public const string POC_SHOOTER_SKILL = 'poc_shooter_skill';
     public const string CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
     public const string PROJECT_PARTICIPATIONS = 'project_participations';
 }

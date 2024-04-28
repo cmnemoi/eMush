@@ -3,6 +3,7 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use Mush\Game\Enum\SkillEnum;
 
 trait TargetStatusTrait
 {
@@ -15,7 +16,7 @@ trait TargetStatusTrait
         // temporary filter to exclude PoC skills
         /** @var Status $status */
         foreach ($statuses as $status) {
-            if (str_contains($status->getName(), 'skill')) {
+            if (SkillEnum::getAll()->contains($status->getName())) {
                 $statuses->removeElement($status);
             }
         }
@@ -107,7 +108,7 @@ trait TargetStatusTrait
         // temporary filter to get only PoC skills
         /** @var Status $status */
         foreach ($statuses as $status) {
-            if (!str_contains($status->getName(), 'skill')) {
+            if (!SkillEnum::getAll()->contains($status->getName())) {
                 $statuses->removeElement($status);
             }
         }

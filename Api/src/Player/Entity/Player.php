@@ -672,7 +672,8 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getMinEfficiencyForProject(Project $project): int
     {
-        $efficiency = $this->getEfficiencyWithParticipationMalus($project->getEfficiency(), $project);
+        $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
+        $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
 
         return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
     }
@@ -680,6 +681,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private function getMaxEfficiencyForProject(Project $project): int
     {
         return (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
+    }
+
+    private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int
+    {
+        $playerSkills = $this->getSkills()->map(static fn (Status $status) => $status->getName())->toArray();
+        $numberOfSkillsMatching = \count(array_intersect($playerSkills, $project->getBonusSkills()));
+
+        return $efficiency + $numberOfSkillsMatching * Project::SKILL_BONUS;
     }
 
     private function getEfficiencyWithParticipationMalus(int $efficiency, Project $project): int

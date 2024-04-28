@@ -20,8 +20,8 @@ export enum StatusPlayerNameEnum {
     GAGGED = "gagged",
     FOCUSED = "focused",
     STUCK_IN_THE_SHIP = "stuck_in_the_ship",
-    POC_SHOOTER_SKILL = "poc_shooter_skill",
-    POC_PILOT_SKILL = "poc_pilot_skill",
+    SHOOTER = "shooter",
+    PILOT = "pilot",
     LOST = "lost"
 };
 
@@ -83,10 +83,10 @@ export const statusPlayerEnum: {[index: string]: any} = {
     [StatusPlayerNameEnum.STUCK_IN_THE_SHIP]: {
         'icon': getImgUrl('status/stuck_in_ship.png')
     },
-    [StatusPlayerNameEnum.POC_PILOT_SKILL]: {
+    [StatusPlayerNameEnum.PILOT]: {
         'icon': getImgUrl('skills/human/pilot.png')
     },
-    [StatusPlayerNameEnum.POC_SHOOTER_SKILL]: {
+    [StatusPlayerNameEnum.SHOOTER]: {
         'icon': getImgUrl('skills/human/gunman.png')
     },
     [StatusPlayerNameEnum.LOST]: {

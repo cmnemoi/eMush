@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
@@ -452,7 +453,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $shooterSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::SHOOTER_SPECIALIST_POINT);
         $shooterSkillPoc = new ChargeStatusConfig();
         $shooterSkillPoc
-            ->setStatusName(PlayerStatusEnum::POC_SHOOTER_SKILL)
+            ->setStatusName(SkillEnum::SHOOTER)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setChargeVisibility(VisibilityEnum::PRIVATE)
             ->setStartCharge(2)

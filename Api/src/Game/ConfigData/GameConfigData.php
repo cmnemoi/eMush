@@ -3,6 +3,7 @@
 namespace Mush\Game\ConfigData;
 
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Enum\ProjectName;
@@ -417,8 +418,8 @@ class GameConfigData
                 'exploration_oxygen_default',
                 'exploration_fuel_default',
                 'following_hunters_default',
-                PlayerStatusEnum::POC_PILOT_SKILL . '_alpha',
-                PlayerStatusEnum::POC_SHOOTER_SKILL . '_alpha',
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::SHOOTER . '_alpha',
                 'astronavigation_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',

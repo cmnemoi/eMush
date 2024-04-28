@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
@@ -425,7 +426,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
 
         $pocPilotSkill = new StatusConfig();
         $pocPilotSkill
-            ->setStatusName(PlayerStatusEnum::POC_PILOT_SKILL)
+            ->setStatusName(SkillEnum::PILOT)
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pocPilotSkill);

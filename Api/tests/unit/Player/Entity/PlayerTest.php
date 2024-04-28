@@ -6,6 +6,7 @@ namespace Mush\Tests\unit\Player\Entity;
 
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Entity\Project;
@@ -68,6 +69,45 @@ final class PlayerTest extends TestCase
         // Then I should get the expected efficiency
         self::assertEquals(
             expected: $expectedEfficiency,
+            actual: $actualEfficiency
+        );
+    }
+
+    public function testShouldReturnPlayerEfficiencyWithOneBonusSkill(): void
+    {
+        // Given I have a player
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+
+        // Given player has the Pilot skill
+        StatusFactory::createStatusByNameForHolder(SkillEnum::PILOT, holder: $player);
+
+        // when I ask for the player's efficiency in Trail Reducer project
+        $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createTrailReducerProject());
+
+        // Then I should get the expected efficiency
+        self::assertEquals(
+            expected: new PlayerEfficiency(10, 15),
+            actual: $actualEfficiency
+        );
+    }
+
+    public function testShouldReturnPlayerEfficiencyWithTwoBonusSkills(): void
+    {
+        // Given I have a player
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+
+        // Given player has the Pilot and Technician skills
+        StatusFactory::createStatusByNameForHolder(SkillEnum::PILOT, holder: $player);
+        StatusFactory::createStatusByNameForHolder(SkillEnum::TECHNICIAN, holder: $player);
+
+        // when I ask for the player's efficiency in Trail Reducer project
+        $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createTrailReducerProject());
+
+        // Then I should get the expected efficiency
+        self::assertEquals(
+            expected: new PlayerEfficiency(14, 21),
             actual: $actualEfficiency
         );
     }

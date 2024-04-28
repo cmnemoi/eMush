@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="project.ext">
     <unit id="efficiency">
       <segment id="efficiency" state="translated">
         <source>efficiency</source>
-        <target>Efficacité : {min_efficiency}-{max_efficiency}%</target>
+        <target>Efficiency: {min_efficiency}-{max_efficiency}%</target>
       </segment>
     </unit>
     <unit id="auto_watering">
       <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="auto_watering.name" state="translated">
         <source>auto_watering.name</source>
-        <target>Arroseurs automatiques</target>
+        <target>Automatic Sprinklers</target>
       </segment>
       <segment id="auto_watering.description" state="translated">
         <source>auto_watering.description</source>
-        <target>Chaque incendie a 25% de chance de s'éteindre automatiquement à chaque cycle.</target>
+        <target>Every fire has a 25% chance of burning itself out every cycle.</target>
       </segment>
     </unit>
     <unit id="dismantling">
@@ -28,11 +28,11 @@
       </segment>
       <segment id="dismantling.name" state="translated">
         <source>dismantling.name</source>
-        <target>Démantèlement</target>
+        <target>Dismantler</target>
       </segment>
       <segment id="dismantling.description" state="translated">
         <source>dismantling.description</source>
-        <target>Génère 5 Débris métalliques dans la Salle des Moteurs.</target>
+        <target>Generates 5 pieces of scrap metal in the Engine Room.</target>
       </segment>
     </unit>
     <unit id="door_sensor">
@@ -42,11 +42,11 @@
       </segment>
       <segment id="door_sensor.name" state="translated">
         <source>door_sensor.name</source>
-        <target>Détecteurs de pistons défectueux</target>
+        <target>Defective piston sensors</target>
       </segment>
       <segment id="door_sensor.description" state="translated">
         <source>door_sensor.description</source>
-        <target>Les portes bloquées sont reportées sur vos modules persos.</target>
+        <target>Blocked doors are reported on your PDA.</target>
       </segment>
     </unit>
     <unit id="equipment_sensor">
@@ -56,53 +56,53 @@
       </segment>
       <segment id="equipment_sensor.name" state="translated">
         <source>equipment_sensor.name</source>
-        <target>Détecteur d'anomalies</target>
+        <target>Anomaly Detector</target>
       </segment>
       <segment id="equipment_sensor.description" state="translated">
         <source>equipment_sensor.description</source>
-        <target>Les équipements touchés sont reportés sur vos modules persos.</target>
+        <target>Equipment that has been interfered with is reported on your PDA.</target>
       </segment>
     </unit>
     <unit id="fire_sensor">
       <segment id="fire_sensor.type" state="translated">
         <source>fire_sensor.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="fire_sensor.name" state="translated">
         <source>fire_sensor.name</source>
-        <target>Détecteur d'incendies</target>
+        <target>Fire Detector</target>
       </segment>
       <segment id="fire_sensor.description" state="translated">
         <source>fire_sensor.description</source>
-        <target>Les incendies sont reportés sur vos modules persos.</target>
+        <target>Fires are reported on your PDA.</target>
       </segment>
     </unit>
     <unit id="heat_lamp">
       <segment id="heat_lamp.type" state="translated">
         <source>heat_lamp.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="heat_lamp.name" state="translated">
         <source>heat_lamp.name</source>
-        <target>Lampes à chaleur</target>
+        <target>Heat Lamps</target>
       </segment>
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>Dans le jardin, 50% de chances de produire un fruit supplémentaire.</target>
+        <target>In the garden, you have a 50% chance of growing an additional fruit.</target>
       </segment>
     </unit>
     <unit id="parasite_elim">
       <segment id="parasite_elim.type" state="translated">
         <source>parasite_elim.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="parasite_elim.name" state="translated">
         <source>parasite_elim.name</source>
-        <target>Nano-Coccinnelles</target>
+        <target>Nano-Ladybugs</target>
       </segment>
       <segment id="parasite_elim.description" state="translated">
         <source>parasite_elim.description</source>
-        <target>Les jeunes plantes dans le Jardin voient leur durée de croissance diminuée de 4 cycles.</target>
+        <target>Growth duration of young plants in the garden will be reduced by 2.</target>
       </segment>
     </unit>
     <unit id="pilgred">
@@ -116,35 +116,35 @@
       </segment>
       <segment id="pilgred.description" state="translated">
         <source>pilgred.description</source>
-        <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
+        <target>Repairing PILGRED gives you access to new space routes, including the route to Earth.</target>
       </segment>
     </unit>
     <unit id="plasma_shield">
       <segment id="plasma_shield.type" state="translated">
         <source>plasma_shield.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="plasma_shield.name" state="translated">
         <source>plasma_shield.name</source>
-        <target>Bouclier plasma</target>
+        <target>Plasma Shield</target>
       </segment>
       <segment id="plasma_shield.description" state="translated">
         <source>plasma_shield.description</source>
-        <target>La coque du Daedalus est désormais protégé par un bouclier auto-régénérant.</target>
+        <target>The hull of the Daedalus is now protected by an automatically regenerating shield.</target>
       </segment>
     </unit>
     <unit id="trail_reducer">
       <segment id="trail_reducer.type" state="translated">
         <source>trail_reducer.type</source>
-        <target>Projet</target>
+        <target>Project</target>
       </segment>
       <segment id="trail_reducer.name" state="translated">
         <source>trail_reducer.name</source>
-        <target>Réducteur de trainée</target>
+        <target>Trail Minimizer</target>
       </segment>
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>Le nombre d'assaillants qui vous rejoint après un voyage est réduit de 50%.</target>
+        <target>The number of assailants joining you after a trip is reduced by 25%.</target>
       </segment>
     </unit>
   </file>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="project.ext">
+    <unit id="efficiency">
+      <segment id="efficiency" state="initial">
+        <source>efficiency</source>
+        <target>efficiency</target>
+      </segment>
+    </unit>
+    <unit id="auto_watering">
+      <segment id="auto_watering.type" state="initial">
+        <source>auto_watering.type</source>
+        <target>auto_watering.type</target>
+      </segment>
+      <segment id="auto_watering.name" state="initial">
+        <source>auto_watering.name</source>
+        <target>auto_watering.name</target>
+      </segment>
+      <segment id="auto_watering.description" state="initial">
+        <source>auto_watering.description</source>
+        <target>auto_watering.description</target>
+      </segment>
+    </unit>
+    <unit id="dismantling">
+      <segment id="dismantling.type" state="initial">
+        <source>dismantling.type</source>
+        <target>dismantling.type</target>
+      </segment>
+      <segment id="dismantling.name" state="initial">
+        <source>dismantling.name</source>
+        <target>dismantling.name</target>
+      </segment>
+      <segment id="dismantling.description" state="initial">
+        <source>dismantling.description</source>
+        <target>dismantling.description</target>
+      </segment>
+    </unit>
+    <unit id="door_sensor">
+      <segment id="door_sensor.type" state="initial">
+        <source>door_sensor.type</source>
+        <target>door_sensor.type</target>
+      </segment>
+      <segment id="door_sensor.name" state="initial">
+        <source>door_sensor.name</source>
+        <target>door_sensor.name</target>
+      </segment>
+      <segment id="door_sensor.description" state="initial">
+        <source>door_sensor.description</source>
+        <target>door_sensor.description</target>
+      </segment>
+    </unit>
+    <unit id="equipment_sensor">
+      <segment id="equipment_sensor.type" state="initial">
+        <source>equipment_sensor.type</source>
+        <target>equipment_sensor.type</target>
+      </segment>
+      <segment id="equipment_sensor.name" state="initial">
+        <source>equipment_sensor.name</source>
+        <target>equipment_sensor.name</target>
+      </segment>
+      <segment id="equipment_sensor.description" state="initial">
+        <source>equipment_sensor.description</source>
+        <target>equipment_sensor.description</target>
+      </segment>
+    </unit>
+    <unit id="fire_sensor">
+      <segment id="fire_sensor.type" state="initial">
+        <source>fire_sensor.type</source>
+        <target>fire_sensor.type</target>
+      </segment>
+      <segment id="fire_sensor.name" state="initial">
+        <source>fire_sensor.name</source>
+        <target>fire_sensor.name</target>
+      </segment>
+      <segment id="fire_sensor.description" state="initial">
+        <source>fire_sensor.description</source>
+        <target>fire_sensor.description</target>
+      </segment>
+    </unit>
+    <unit id="heat_lamp">
+      <segment id="heat_lamp.type" state="initial">
+        <source>heat_lamp.type</source>
+        <target>heat_lamp.type</target>
+      </segment>
+      <segment id="heat_lamp.name" state="initial">
+        <source>heat_lamp.name</source>
+        <target>heat_lamp.name</target>
+      </segment>
+      <segment id="heat_lamp.description" state="initial">
+        <source>heat_lamp.description</source>
+        <target>heat_lamp.description</target>
+      </segment>
+    </unit>
+    <unit id="parasite_elim">
+      <segment id="parasite_elim.type" state="initial">
+        <source>parasite_elim.type</source>
+        <target>parasite_elim.type</target>
+      </segment>
+      <segment id="parasite_elim.name" state="initial">
+        <source>parasite_elim.name</source>
+        <target>parasite_elim.name</target>
+      </segment>
+      <segment id="parasite_elim.description" state="initial">
+        <source>parasite_elim.description</source>
+        <target>parasite_elim.description</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="pilgred.type" state="initial">
+        <source>pilgred.type</source>
+        <target>pilgred.type</target>
+      </segment>
+      <segment id="pilgred.name" state="initial">
+        <source>pilgred.name</source>
+        <target>pilgred.name</target>
+      </segment>
+      <segment id="pilgred.description" state="initial">
+        <source>pilgred.description</source>
+        <target>pilgred.description</target>
+      </segment>
+    </unit>
+    <unit id="plasma_shield">
+      <segment id="plasma_shield.type" state="initial">
+        <source>plasma_shield.type</source>
+        <target>plasma_shield.type</target>
+      </segment>
+      <segment id="plasma_shield.name" state="initial">
+        <source>plasma_shield.name</source>
+        <target>plasma_shield.name</target>
+      </segment>
+      <segment id="plasma_shield.description" state="initial">
+        <source>plasma_shield.description</source>
+        <target>plasma_shield.description</target>
+      </segment>
+    </unit>
+    <unit id="trail_reducer">
+      <segment id="trail_reducer.type" state="initial">
+        <source>trail_reducer.type</source>
+        <target>trail_reducer.type</target>
+      </segment>
+      <segment id="trail_reducer.name" state="initial">
+        <source>trail_reducer.name</source>
+        <target>trail_reducer.name</target>
+      </segment>
+      <segment id="trail_reducer.description" state="initial">
+        <source>trail_reducer.description</source>
+        <target>trail_reducer.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

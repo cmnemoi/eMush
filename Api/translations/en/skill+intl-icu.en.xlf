@@ -1,10 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="skill.ext">
+    <unit id="botanist">
+      <segment id="botanist.name" state="translated">
+        <source>botanist.name</source>
+        <target>Botanist</target>
+      </segment>
+      <segment id="botanist.description" state="translated">
+        <source>botanist.description</source>
+        <target>Capable of distinguishing the characteristics of the various plants and fruits. They are also equally effective when maintaining the garden.//
+:point: Can read **fruit nutrition information**.//
+:point: Can read **plant properties**.//
+:point: Can carry out **transplants**.//
+:point: +2 :pa_garden: per day (**Gardening** Action Points).//
+:point: Expedition: The **Harvest** event yields an additional fruit.//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="firefighter">
+      <segment id="firefighter.name" state="translated">
+        <source>firefighter.name</source>
+        <target>Firefighter</target>
+      </segment>
+      <segment id="firefighter.description" state="translated">
+        <source>firefighter.description</source>
+        <target>The Firefighter has great experience which means they will always succeed when using the extinguisher... and they can also make it without an extinguisher!//
+:point: The **Extinguish Fire** action is always successful.//
+:point: Enables the action **Extinguish Manually**.//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
     <unit id="pilot">
       <segment id="pilot.name" state="translated">
         <source>pilot.name</source>
         <target>Pilot</target>
+      </segment>
+      <segment id="pilot.description" state="translated">
+        <source>pilot.description</source>
+        <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
+//
+:point: **Doubled** chance of Patroller hit.
+//
+:point: **Never misses** landings and take-offs.
+//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="radio_expert">
+      <segment id="radio_expert.name" state="translated">
+        <source>radio_expert.name</source>
+        <target>Radio Expert</target>
+      </segment>
+      <segment id="radio_expert.description" state="translated">
+        <source>radio_expert.description</source>
+        <target>The radio expert can decode the most complicated jumble of spatial waves in order to rebuild or send messages to the other end of the universe.//
+:point: **Twice as effective** at establishing **contact** with Sol.//
+:point: Improves the quality of teammates' attempts to **contact** Sol by 50% when they’re in the same room.//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="robotics_expert">
+      <segment id="robotics_expert.name" state="translated">
+        <source>robotics_expert.name</source>
+        <target>Robotics Expert</target>
+      </segment>
+      <segment id="robotics_expert.description" state="translated">
+        <source>robotics_expert.description</source>
+        <target>The robotics expert can create and operate drones in any way they see fit.//
+:point: Starts out with a **drone blueprint**.//
+:point: Can **upgrade drones**.//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="physicist">
+      <segment id="physicist.name" state="translated">
+        <source>physicist.name</source>
+        <target>Physicist</target>
+      </segment>
+      <segment id="physicist.description" state="translated">
+        <source>physicist.description</source>
+        <target>The physicist is a high flier in the field of physics research. Their understanding of quantum mechanics and even the essence of the strings that make up our universe is their major talent. They also have the advantage when repairing PILGRED.//
+:point: +1 :pa_pilgred: per day (**PILGRED repair** Action Point).//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="technician">
+      <segment id="technician.name" state="translated">
+        <source>technician.name</source>
+        <target>Technician</target>
+      </segment>
+      <segment id="technician.description" state="translated">
+        <source>technician.description</source>
+        <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
+:point: +1 :pa_eng: per day (**Repair** Action Point).//
+:point: Can **Reinforce** and **Dismantle** objects.//
+:point: Chance to perform successful **Repairs** doubled.//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
   </file>

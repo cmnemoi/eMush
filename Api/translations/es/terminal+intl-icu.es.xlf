@@ -28,29 +28,33 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>command_terminal.general_informations</source>
         <target>command_terminal.general_informations</target>
       </segment>
-      <segment id="difficulty_normal" state="initial">
-        <source>command_terminal.difficulty_normal</source>
+      <segment id="pilgred" state="translated">
+        <source>command_terminal.pilgred</source>
         <target>command_terminal.difficulty_normal</target>
       </segment>
-      <segment id="difficulty_hard" state="initial">
-        <source>command_terminal.difficulty_hard</source>
+      <segment id="difficulty_normal" state="translated">
+        <source>command_terminal.difficulty_normal</source>
         <target>command_terminal.difficulty_hard</target>
       </segment>
-      <segment id="difficulty_very_hard" state="initial">
-        <source>command_terminal.difficulty_very_hard</source>
+      <segment id="difficulty_hard" state="translated">
+        <source>command_terminal.difficulty_hard</source>
         <target>command_terminal.difficulty_very_hard</target>
       </segment>
-      <segment id="advance_daedalus_status_ok" state="initial">
-        <source>command_terminal.advance_daedalus_status_ok</source>
+      <segment id="difficulty_very_hard" state="translated">
+        <source>command_terminal.difficulty_very_hard</source>
         <target>command_terminal.advance_daedalus_status_ok</target>
       </segment>
-      <segment id="advance_daedalus_status_no_fuel" state="initial">
-        <source>command_terminal.advance_daedalus_status_no_fuel</source>
+      <segment id="advance_daedalus_status_ok" state="translated">
+        <source>command_terminal.advance_daedalus_status_ok</source>
         <target>command_terminal.advance_daedalus_status_no_fuel</target>
       </segment>
-      <segment id="advance_daedalus_status_emergency_reactor_broken" state="initial">
-        <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
+      <segment id="advance_daedalus_status_no_fuel" state="translated">
+        <source>command_terminal.advance_daedalus_status_no_fuel</source>
         <target>command_terminal.advance_daedalus_status_emergency_reactor_broken</target>
+      </segment>
+      <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
+        <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
+        <target>command_terminal.orientation</target>
       </segment>
       <segment id="orientation" state="initial">
         <source>command_terminal.orientation</source>
@@ -150,9 +154,59 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>bios_terminal.cpu_priority_defence</source>
         <target>bios_terminal.cpu_priority_defence</target>
       </segment>
+      <segment id="cpu_priority.pilgred" state="translated">
+        <source>bios_terminal.cpu_priority_pilgred</source>
+        <target>bios_terminal.cpu_priority_none</target>
+      </segment>
+      <segment id="cpu_priority.projects" state="initial">
+        <source>bios_terminal.cpu_priority_projects</source>
+        <target>bios_terminal.cpu_priority_projects</target>
+      </segment>
       <segment id="cpu_priority.none" state="initial">
         <source>bios_terminal.cpu_priority_none</source>
         <target>bios_terminal.cpu_priority_none</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="name" state="initial">
+        <source>pilgred.name</source>
+        <target>pilgred.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>pilgred.tips</source>
+        <target>pilgred.tips</target>
+      </segment>
+      <segment id="pilgred_finished_description" state="initial">
+        <source>pilgred.pilgred_finished_description</source>
+        <target>pilgred.pilgred_finished_description</target>
+      </segment>
+    </unit>
+    <unit id="neron_core">
+      <segment id="name" state="initial">
+        <source>neron_core.name</source>
+        <target>neron_core.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>neron_core.tips</source>
+        <target>neron_core.tips</target>
+      </segment>
+      <segment id="no_proposed_neron_projects_description" state="initial">
+        <source>neron_core.no_proposed_neron_projects_description</source>
+        <target>neron_core.no_proposed_neron_projects_description</target>
+      </segment>
+    </unit>
+    <unit id="auxiliary_terminal">
+      <segment id="name" state="initial">
+        <source>auxiliary_terminal.name</source>
+        <target>auxiliary_terminal.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>auxiliary_terminal.tips</source>
+        <target>auxiliary_terminal.tips</target>
+      </segment>
+      <segment id="no_proposed_neron_projects_description" state="initial">
+        <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
+        <target>auxiliary_terminal.no_proposed_neron_projects_description</target>
       </segment>
     </unit>
   </file>

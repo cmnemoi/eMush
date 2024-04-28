@@ -1041,5 +1041,39 @@
         <target>takeoff_to_planet_patrol_ship.confirmation</target>
       </segment>
     </unit>
+    <unit id="repair_pilgred">
+      <segment id="name" state="initial">
+        <source>repair_pilgred.name</source>
+        <target>repair_pilgred.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>repair_pilgred.description</source>
+        <target>repair_pilgred.description</target>
+      </segment>
+    </unit>
+    <unit id="return_to_sol">
+      <segment id="name" state="initial">
+        <source>return_to_sol.name</source>
+        <target>return_to_sol.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>return_to_sol.description</source>
+        <target>return_to_sol.description</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>return_to_sol.confirmation</source>
+        <target>return_to_sol.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="participate">
+      <segment id="name" state="initial">
+        <source>participate.name</source>
+        <target>participate.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>participate.description</source>
+        <target>participate.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

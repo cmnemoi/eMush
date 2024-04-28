@@ -1,10 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
   <file id="skill.ext">
+    <unit id="botanist">
+      <segment id="botanist.name" state="initial">
+        <source>botanist.name</source>
+        <target>botanist.name</target>
+      </segment>
+      <segment id="botanist.description" state="initial">
+        <source>botanist.description</source>
+        <target>botanist.description</target>
+      </segment>
+    </unit>
+    <unit id="firefighter">
+      <segment id="firefighter.name" state="initial">
+        <source>firefighter.name</source>
+        <target>firefighter.name</target>
+      </segment>
+      <segment id="firefighter.description" state="initial">
+        <source>firefighter.description</source>
+        <target>firefighter.description</target>
+      </segment>
+    </unit>
     <unit id="pilot">
       <segment id="pilot.name" state="initial">
         <source>pilot.name</source>
         <target>pilot.name</target>
+      </segment>
+      <segment id="pilot.description" state="initial">
+        <source>pilot.description</source>
+        <target>pilot.description</target>
+      </segment>
+    </unit>
+    <unit id="radio_expert">
+      <segment id="radio_expert.name" state="initial">
+        <source>radio_expert.name</source>
+        <target>radio_expert.name</target>
+      </segment>
+      <segment id="radio_expert.description" state="initial">
+        <source>radio_expert.description</source>
+        <target>radio_expert.description</target>
+      </segment>
+    </unit>
+    <unit id="robotics_expert">
+      <segment id="robotics_expert.name" state="initial">
+        <source>robotics_expert.name</source>
+        <target>robotics_expert.name</target>
+      </segment>
+      <segment id="robotics_expert.description" state="initial">
+        <source>robotics_expert.description</source>
+        <target>robotics_expert.description</target>
+      </segment>
+    </unit>
+    <unit id="physicist">
+      <segment id="physicist.name" state="initial">
+        <source>physicist.name</source>
+        <target>physicist.name</target>
+      </segment>
+      <segment id="physicist.description" state="initial">
+        <source>physicist.description</source>
+        <target>physicist.description</target>
+      </segment>
+    </unit>
+    <unit id="technician">
+      <segment id="technician.name" state="initial">
+        <source>technician.name</source>
+        <target>technician.name</target>
+      </segment>
+      <segment id="technician.description" state="initial">
+        <source>technician.description</source>
+        <target>technician.description</target>
       </segment>
     </unit>
   </file>

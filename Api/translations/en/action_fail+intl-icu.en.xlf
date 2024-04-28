@@ -613,5 +613,17 @@
         <target>An expedition is already in the field.</target>
       </segment>
     </unit>
+    <unit id="no_efficiency">
+      <segment state="translated">
+        <source>no_efficiency.description</source>
+        <target>You're completely ineffective on this project, so participating again would be pointless...</target>
+      </segment>
+    </unit>
+    <unit id="cycle_limit">
+      <segment id="description" state="translated">
+        <source>cycle_limit.description</source>
+        <target>This action can only be carried out once per cycle. It will be available again next cycle.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

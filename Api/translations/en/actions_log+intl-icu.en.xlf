@@ -921,5 +921,17 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>You have changed one of NERON's parameters.</target>
       </segment>
     </unit>
+    <unit id="repair_pilgred_success">
+      <segment id="repair_pilgred_success" state="translated">
+        <source>repair_pilgred_success</source>
+        <target>**{character}** has advanced the PILGRED repairs.</target>
+      </segment>
+    </unit>
+    <unit id="participate_success">
+      <segment id="participate_success" state="translated">
+        <source>participate_success</source>
+        <target>Research into « **{target_project}** » : progress recorded.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

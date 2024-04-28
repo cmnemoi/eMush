@@ -1559,30 +1559,33 @@
         <target>This room is on fire !</target>
       </segment>
     </unit>
-    <unit id="poc_pilot_skill">
+    <unit id="pilot">
       <segment id="name" state="translated">
-        <source>poc_pilot_skill.name</source>
+        <source>pilot.name</source>
         <target>Pilot</target>
       </segment>
       <segment id="description" state="translated">
-        <source>poc_pilot_skill.description</source>
-        <target>An expert in manoeuvring the Icarus, Pasiphae and patrol ships. Their aerial mastery is impressive.
+        <source>pilot.description</source>
+        <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
-**Doubled chances** to hit in patrol ships.
+:point: **Doubled** chance of Patroller hit.
 //
-**Never fails** landings and takeoffs.</target>
+:point: **Never misses** landings and take-offs.
+//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
-    <unit id="poc_shooter_skill">
+    <unit id="shooter">
       <segment id="name" state="translated">
-        <source>poc_shooter_skill.name</source>
+        <source>shooter.name</source>
         <target>Shooter</target>
       </segment>
       <segment id="description" state="translated">
-        <source>poc_shooter_skill.description</source>
-        <target>At ease handling all kinds of weapons.
-//
-+2 :pa_shoot: per day (**Shoot** Action Points).</target>
+        <source>shooter.description</source>
+        <target>At ease handling all kinds of weapons.//
+:point: +2 :pa_shoot: per day (**Shoot** Action Points).//
+:point: Expedition: +1 to combat strength, if you have a gun.//
+:point: Bonus for developing certain ** NERON projects **.</target>
       </segment>
     </unit>
   </file>

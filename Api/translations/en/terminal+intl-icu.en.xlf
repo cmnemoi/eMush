@@ -28,6 +28,10 @@ If the job has been done properly, the Daedalus will put itself into a planet's 
         <source>command_terminal.general_informations</source>
         <target>General Information</target>
       </segment>
+      <segment id="pilgred" state="translated">
+        <source>command_terminal.pilgred</source>
+        <target>Pilgred</target>
+      </segment>
       <segment id="difficulty_normal" state="translated">
         <source>command_terminal.difficulty_normal</source>
         <target>We are currently traveling in **Close Space**.</target>
@@ -159,9 +163,71 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>bios_terminal.cpu_priority_defence</source>
         <target>Defense system</target>
       </segment>
+      <segment id="cpu_priority.pilgred" state="translated">
+        <source>bios_terminal.cpu_priority_pilgred</source>
+        <target>None</target>
+      </segment>
+      <segment id="cpu_priority.projects" state="translated">
+        <source>bios_terminal.cpu_priority_projects</source>
+        <target>Projects</target>
+      </segment>
       <segment id="cpu_priority.none" state="translated">
         <source>bios_terminal.cpu_priority_none</source>
         <target>None</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="name" state="translated">
+        <source>pilgred.name</source>
+        <target>PILGRED reactor</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>pilgred.tips</source>
+        <target>Getting PILGRED back online requires considerable skills. You must be fully stocked with patience and survive awhile to get the job done. Once it has been repaired, the possibility of returning to Sol will be open to you. What will you do then?</target>
+      </segment>
+      <segment id="pilgred_finished_description" state="translated">
+        <source>pilgred.pilgred_finished_description</source>
+        <target>PILGRED is fully operational.</target>
+      </segment>
+    </unit>
+    <unit id="neron_core">
+      <segment id="name" state="translated">
+        <source>neron_core.name</source>
+        <target>NERON's Core</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>neron_core.tips</source>
+        <target>You are in the NERON's Core. Here you can run updates and **unblock features** which will benefit the whole crew. These features were originally destined for the Magellan project.//
+//
+Projects will advance more quickly if you have **the appropriate skills**.//
+//
+A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. **Working with a crewmate is the key!**//
+//
+That's not all: if more than one project is advancing in parallel, the first project completed will wipe out any progress made in the other.</target>
+      </segment>
+      <segment id="no_proposed_neron_projects_description" state="translated">
+        <source>neron_core.no_proposed_neron_projects_description</source>
+        <target>There are no more projects to be completed.</target>
+      </segment>
+    </unit>
+    <unit id="auxiliary_terminal">
+      <segment id="name" state="translated">
+        <source>auxiliary_terminal.name</source>
+        <target>NERON's Core</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>auxiliary_terminal.tips</source>
+        <target>You are in the NERON's Core. Here you can run updates and **unblock features** which will benefit the whole crew. These features were originally destined for the Magellan project.//
+//
+Projects will advance more quickly if you have **the appropriate skills**.//
+//
+A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. **Working with a crewmate is the key!**//
+//
+That's not all: if more than one project is advancing in parallel, the first project completed will wipe out any progress made in the other.</target>
+      </segment>
+      <segment id="no_proposed_neron_projects_description" state="translated">
+        <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
+        <target>There are no more projects to be completed.</target>
       </segment>
     </unit>
   </file>

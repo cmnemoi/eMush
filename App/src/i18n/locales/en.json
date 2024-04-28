@@ -1,5 +1,9 @@
 {
-	"title": "eMush - Cooperative multiplayer game: betrayal and survival in space!",
+	"title": {
+		"endOfAdventure": "eMush - End of the adventure!",
+		"headline": "eMush - Cooperative multiplayer game: betrayal and survival in space!",
+		"youAreDead": "eMush - You are dead!"
+	},
 	"alpha": {
 		"homepage": "<em>eMush</em> is not currently open to the public as the game is not fully finished and is infested with <em class='red'>Mushs</em><em>!!!</em><br><br>If you are interested in the game, feel free to join us on <a href='https://discord.gg/ERc3svy'>Discord</a> and on the <a href='https://eternal-twin.net/forum'>Eternaltwin forums</a>. All information is available on <a href='https://eternal-twin.net'>Eternaltwin</a>.<br><br>About the eMush alpha, private ships are regularly being launched with the help of volunteers on <a href='https://discord.gg/ERc3svy'>Discord</a>. To be part of an alpha ship, you will have to register on <a href='https://eternal-twin.net'>Eternaltwin</a> and join the list of volunteers on <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>If you are not shortlisted for an alpha ship, don't worry!</em> The selection list rotates for each ship to offer everyone a chance.",
 		"valide": "Submit",
@@ -19,7 +23,7 @@
 		"developers": "Development",
 		"coreTeam": "The eMush team:",
 		"contributors": "Thanks to our contributors:",
-		"alpha-testers": "and all alpha testers :)",
+		"translatorsAndAlphaTesters": "to our translators and all alpha testers :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush is a non-commercial website operated by volunteers. It belongs to the <a href=https://eternaltwin.org/>Eternaltwin</a> project, whose purpose is to preserve Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>.",
 		"legal": "Legal notice",
@@ -156,7 +160,6 @@
 	"login": "Login",
 	"logout": "Logout",
 	"deathpage": {
-		"title": "eMush - You are dead!",
 		"name": "Name",
 		"death": "Death",
 		"reason": "Reason",
@@ -197,6 +200,13 @@
 		"rearBravoStorage": "Rear Bravo Storage"
 	},
 	"admin": {
+		"actions": {
+			"createProjects": "Create projects for ongoing Daedaluses",
+			"title": "Administrative actions"
+		},
+		"banner": {
+			"actions": "Actions"
+		},
 		"user": {
 			"username": "Username",
 			"roles": "Roles"
@@ -578,13 +588,20 @@
 			"newCycle": "New cycle",
 			"myMessageHere": "My message here!",
 			"bookmark": "Favorite",
+			"bookmarkDescription": "Bookmark this thread.",
 			"invite": "Invite",
+			"inviteDescription": "Invite players to this channel.",
 			"leave": "Quit",
+			"leaveDescription": "Exit the channel.",
 			"refresh": "Refresh",
+			"refreshDescription": "Refresh channel.",
 			"reply": "Reply",
+			"replyDescription": "Reply to this message.",
 			"report": "Report",
 			"loadMoreMessages": "Load more messages",
-			"markChannelAsRead": "Mark channel as read"
+			"markChannelAsRead": "Mark channel as read",
+			"unbookmark": "No more favorite",
+			"unbookmarkDescription": "Remove this thread from your favorites."
 		},
 		"exploration": {
 			"newStep": "New step"

@@ -613,5 +613,17 @@
         <target>exploration_already_ongoing.description</target>
       </segment>
     </unit>
+    <unit id="no_efficiency">
+      <segment state="initial">
+        <source>no_efficiency.description</source>
+        <target>no_efficiency.description</target>
+      </segment>
+    </unit>
+    <unit id="cycle_limit">
+      <segment id="description" state="initial">
+        <source>cycle_limit.description</source>
+        <target>cycle_limit.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

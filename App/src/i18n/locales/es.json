@@ -1,5 +1,9 @@
 {
-	"title": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
+	"title": {
+		"endOfAdventure": "eMush - Fin de l'aventure !",
+		"headline": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
+		"youAreDead": "eMush - Vous êtes mort !"
+	},
 	"alpha": {
 		"homepage": "<em>eMush</em> no está abierto al público en este momento ya que el juego no está completamente terminado y está lleno de <em class='red'>Mush</em><em>!!!</em><br><br>Si estás interesado en el juego, no dudes en unirte a nosotros en <a href='https://discord.gg/ERc3svy'>Discord</a> y a los <a href='https://eternal-twin.net/forum'>foros de Eternal-Twin</a>. Toda la información está disponible en <a href='https://eternal-twin.net'>Eternal-Twin</a>.<br><br>Acerca del alfa de eMush, las naves privadas se lanzan regularmente con la ayuda de voluntarios en <a href='https://discord.gg/ERc3svy'>Discord</a>. Para ser parte de una nave alfa, tendrás que registrarte en <a href='https://eternal-twin.net'>Eternal-Twin</a> y unirte a la lista de voluntarios de <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si no estás preseleccionado para una nave alfa, ¡no te preocupes!</em> La lista de selección rota para cada barco para ofrecer a todos una oportunidad.",
 		"valide": "Valider",
@@ -19,7 +23,7 @@
 		"developers": "Développement",
 		"coreTeam": "L'équipe d'eMush :",
 		"contributors": "Merci à nos contributeurs :",
-		"alpha-testers": "Tous les alpha testeurs :)",
+		"translatorsAndAlphaTesters": "à nos traducteurs et tous les alpha testeurs :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush es un sitio web no comercial operado por aficionados. Pertenece al proyecto <a href=https://eternaltwin.org/>Eternaltwin</a> cuyo objetivo es archivar los juegos de Motion Twin. Esto significa que queremos asegurarnos de que permanezcan disponibles incluso si el sitio web oficial cierra. <strong>No estamos relacionados con Motion Twin</strong>.\n",
 		"legal": "Mentions légales",
@@ -156,7 +160,6 @@
 	"login": "Conectarse",
 	"logout": "Desconectarse",
 	"deathpage": {
-		"title": "Vous êtes mort !",
 		"name": "nom",
 		"death": "mort",
 		"reason": "cause",
@@ -197,6 +200,13 @@
 		"rearBravoStorage": "Stockage Beta Arrière"
 	},
 	"admin": {
+		"actions": {
+			"createProjects": "Créer les projets pour les Daedalus en cours",
+			"title": "Actions administratives"
+		},
+		"banner": {
+			"actions": "Actions"
+		},
 		"user": {
 			"username": "Username",
 			"roles": "Rôles"
@@ -578,13 +588,20 @@
 			"newCycle": "Nouveau cycle",
 			"myMessageHere": "Mon message ici !",
 			"bookmark": "Favori",
+			"bookmarkDescription": "Mettre ce fil de discussion en favori.",
 			"invite": "Inviter",
+			"inviteDescription": "Inviter des joueurs dans ce canal.",
 			"leave": "Quitter",
+			"leaveDescription": "Quitter le canal.",
 			"refresh": "Rafr.",
+			"refreshDescription": "Rafraîchir le canal.",
 			"reply": "Répondre",
+			"replyDescription": "Répondre à ce message.",
 			"report": "Plainte",
 			"loadMoreMessages": "Charger plus de messages",
-			"markChannelAsRead": "Marquer le canal comme lu"
+			"markChannelAsRead": "Marquer le canal comme lu",
+			"unbookmark": "Plus favori",
+			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

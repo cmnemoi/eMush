@@ -691,5 +691,17 @@
         <target>change_neron_cpu_priority_success</target>
       </segment>
     </unit>
+    <unit id="repair_pilgred_success">
+      <segment id="repair_pilgred_success" state="initial">
+        <source>repair_pilgred_success</source>
+        <target>repair_pilgred_success</target>
+      </segment>
+    </unit>
+    <unit id="participate_success">
+      <segment id="participate_success" state="initial">
+        <source>participate_success</source>
+        <target>participate_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

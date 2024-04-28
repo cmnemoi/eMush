@@ -1068,5 +1068,39 @@ Or you simply need some fresh air.... or not.</target>
         <target>Exploration requires preparation, and if the planet has no breathable atmosphere or is inhabited by hostile organisms, you should make arrangements. Are you sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="repair_pilgred">
+      <segment id="name" state="translated">
+        <source>repair_pilgred.name</source>
+        <target>Participate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>repair_pilgred.description</source>
+        <target>Repairing PILGRED allows you to return to Sol.</target>
+      </segment>
+    </unit>
+    <unit id="return_to_sol">
+      <segment id="name" state="translated">
+        <source>return_to_sol.name</source>
+        <target>Travel to Sol</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>return_to_sol.description</source>
+        <target>After all this time, maybe it's time we took a look at what's happening on Sol.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>return_to_sol.confirmation</source>
+        <target>This action has far-reaching consequences. Are you sure you want to continue?</target>
+      </segment>
+    </unit>
+    <unit id="participate">
+      <segment id="name" state="translated">
+        <source>participate.name</source>
+        <target>Participate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>participate.description</source>
+        <target>Advance a project if you are cappable of doing so.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

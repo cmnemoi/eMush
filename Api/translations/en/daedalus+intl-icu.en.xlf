@@ -24,13 +24,11 @@
     <unit id="shield">
       <segment id="name" state="translated">
         <source>shield.name</source>
-        <target>Armor : {quantity}</target>
+        <target>Plasma shield : {quantity}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shield.description</source>
-        <target>The plasma shield has been deactivated by the NERON administrator.
-//
-The armor indicator shows you the overall state of the hull of the vessel. When it hits **0 the vessel will be destroyed** because the hull will be no more than a pitted, punctured shell...</target>
+        <target>The armor indicator shows you the overall state of the hull of the vessel. When it hits **0 the vessel will be destroyed** because the hull will be no more than a pitted, punctured shell...</target>
       </segment>
     </unit>
     <unit id="hull">

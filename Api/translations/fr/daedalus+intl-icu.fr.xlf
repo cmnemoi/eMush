@@ -22,11 +22,11 @@
       </segment>
     </unit>
     <unit id="shield">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>shield.name</source>
         <target>Bouclier plasma : {quantity}</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>shield.description</source>
         <target>L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
       </segment>

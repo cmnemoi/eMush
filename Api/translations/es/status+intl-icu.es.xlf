@@ -1559,24 +1559,24 @@
         <target>fire.description</target>
       </segment>
     </unit>
-    <unit id="poc_pilot_skill">
+    <unit id="pilot">
       <segment id="name" state="initial">
-        <source>poc_pilot_skill.name</source>
-        <target>poc_pilot_skill.name</target>
+        <source>pilot.name</source>
+        <target>pilot.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>poc_pilot_skill.description</source>
-        <target>poc_pilot_skill.description</target>
+        <source>pilot.description</source>
+        <target>pilot.description</target>
       </segment>
     </unit>
-    <unit id="poc_shooter_skill">
+    <unit id="shooter">
       <segment id="name" state="initial">
-        <source>poc_shooter_skill.name</source>
-        <target>poc_shooter_skill.name</target>
+        <source>shooter.name</source>
+        <target>shooter.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>poc_shooter_skill.description</source>
-        <target>poc_shooter_skill.description</target>
+        <source>shooter.description</source>
+        <target>shooter.description</target>
       </segment>
     </unit>
   </file>

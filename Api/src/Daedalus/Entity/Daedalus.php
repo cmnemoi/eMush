@@ -35,6 +35,7 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
@@ -190,6 +191,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $place = $this->getPlaces()->filter(static fn (Place $place) => $place->getName() === $name)->first();
 
         return $place === false ? null : $place;
+    }
+
+    public function getRoomsInFire(): Collection
+    {
+        return $this->getRooms()->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE));
     }
 
     public function setPlaces(Collection $places): static

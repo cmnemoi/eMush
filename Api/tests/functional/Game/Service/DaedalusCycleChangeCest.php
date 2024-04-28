@@ -24,8 +24,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Project\Entity\Project;
-use Mush\Project\Factory\ProjectConfigFactory;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -142,11 +140,6 @@ class DaedalusCycleChangeCest
         $I->haveInRepository($playerInfo);
         $this->player->setPlayerInfo($playerInfo);
         $I->haveInRepository($this->player);
-
-        $autoWateringProject = ProjectConfigFactory::createAutoWateringConfig();
-        $I->haveInRepository($autoWateringProject);
-        $project = new Project($autoWateringProject, $this->daedalus);
-        $I->haveInRepository($project);
     }
 
     public function testChangeManyCyclesSubscriber(FunctionalTester $I)

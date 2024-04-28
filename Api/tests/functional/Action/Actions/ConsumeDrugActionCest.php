@@ -35,9 +35,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Project\Entity\Project;
-use Mush\Project\Entity\ProjectConfig;
-use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -92,10 +89,6 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             ->setNeron($neron)
             ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
-
-        $autoWateringConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::AUTO_WATERING]);
-        $project = new Project($autoWateringConfig, $daedalus);
-        $I->haveInRepository($project);
 
         $channel = new Channel();
         $channel

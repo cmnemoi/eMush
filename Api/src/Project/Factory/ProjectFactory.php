@@ -43,7 +43,7 @@ final class ProjectFactory
         );
     }
 
-    public static function createAutoWateringProjectForDaedalus(Daedalus $daedalus): Project
+    public static function createAutoWateringProjectWithDaedalus(Daedalus $daedalus): Project
     {
         return new Project(
             config: ProjectConfigFactory::createAutoWateringConfig(),

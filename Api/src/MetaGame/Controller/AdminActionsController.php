@@ -69,7 +69,7 @@ final class AdminActionsController extends AbstractFOSRestController
      * @Rest\Put(path="/propose-new-neron-projects-for-on-going-daedaluses")
      */
     public function proposeNewNeronProjectsForDaedaluses(): View
-    {   
+    {
         /** @var Daedalus $daedalus */
         foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
             $this->proposeNewNeronProjectsUseCase->execute($daedalus, $daedalus->getNumberOfProjectsByBatch());

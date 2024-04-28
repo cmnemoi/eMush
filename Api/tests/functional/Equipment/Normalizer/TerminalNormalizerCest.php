@@ -122,7 +122,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeNeronCoreTerminal(FunctionalTester $I): void
     {
         // given I have 3 proposed NERON projects
-        $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING)->propose();
+        $this->daedalus->getProjectByName(ProjectName::HEAT_LAMP)->propose();
         $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD)->propose();
         $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER)->propose();
 
@@ -210,7 +210,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeAuxiliaryTerminal(FunctionalTester $I): void
     {
         // given I have 3 proposed NERON projects
-        $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING)->propose();
+        $this->daedalus->getProjectByName(ProjectName::HEAT_LAMP)->propose();
         $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD)->propose();
         $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER)->propose();
 

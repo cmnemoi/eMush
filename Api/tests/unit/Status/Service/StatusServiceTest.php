@@ -232,12 +232,12 @@ final class StatusServiceTest extends TestCase
         // given a player
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
-        $autoWateringProject = ProjectFactory::createAutoWateringProject();
+        $heatLampProject = ProjectFactory::createHeatLampProject();
         $plasmaShieldProject = ProjectFactory::createPlasmaShieldProject();
 
         // given this player has a project participation status for Auto Watering project
         $projectParticipationStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $projectParticipationStatus->setTarget($autoWateringProject);
+        $projectParticipationStatus->setTarget($heatLampProject);
 
         // setup universe state
         $this->entityManager->shouldReceive('persist')->once();

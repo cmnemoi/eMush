@@ -509,7 +509,7 @@ class GameConfigData
                 TitleEnum::COM_MANAGER,
             ],
             'projectConfigs' => [
-                ProjectName::AUTO_WATERING,
+                ProjectName::HEAT_LAMP,
                 ProjectName::DOOR_SENSOR,
                 ProjectName::EQUIPMENT_SENSOR,
                 ProjectName::FIRE_SENSOR,

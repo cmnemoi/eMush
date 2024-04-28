@@ -57,10 +57,10 @@ final class ProjectConfigFactory
         );
     }
 
-    public static function createAutoWateringConfig(): ProjectConfig
+    public static function createHeatLampConfig(): ProjectConfig
     {
         return new ProjectConfig(
-            ...self::getConfigDataFromName(ProjectName::AUTO_WATERING)
+            ...self::getConfigDataFromName(ProjectName::HEAT_LAMP)
         );
     }
 

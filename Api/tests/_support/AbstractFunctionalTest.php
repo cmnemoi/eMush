@@ -24,7 +24,6 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
-use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;

@@ -165,7 +165,7 @@ To leave orbit, the Commander in charge must give this order from the Command Te
       </segment>
       <segment id="cpu_priority.pilgred" state="translated">
         <source>bios_terminal.cpu_priority_pilgred</source>
-        <target>None</target>
+        <target>PILGRED</target>
       </segment>
       <segment id="cpu_priority.projects" state="translated">
         <source>bios_terminal.cpu_priority_projects</source>

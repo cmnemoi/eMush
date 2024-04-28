@@ -151,9 +151,9 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         // then I should get the normalized terminal
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
-        $I->assertEquals(expected: 'Coeur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
@@ -192,9 +192,9 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         // then I should get the normalized terminal
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
-        $I->assertEquals(expected: 'Coeur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
@@ -239,9 +239,9 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         // then I should get the normalized terminal
         $I->assertEquals(expected: EquipmentEnum::AUXILIARY_TERMINAL, actual: $normalizedTerminal['key']);
-        $I->assertEquals(expected: 'Coeur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Coeur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour toute l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(

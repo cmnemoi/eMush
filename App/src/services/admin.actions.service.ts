@@ -9,7 +9,7 @@ const AdminActionsService = {
         return await ApiService.post(ADMIN_ACTIONS_ENDPOINT + '/create-all-projects-for-on-going-daedaluses');
     },
     proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
-        return await ApiService.post(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
+        return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
     }
 };
 export default AdminActionsService;

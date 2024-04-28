@@ -20,6 +20,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -191,6 +192,8 @@ class PlantCycleEventCest
         $daedalus = $I->have(Daedalus::class, ['cycle' => 8]);
         $daedalus->setDaedalusVariables($daedalusConfig);
         $daedalus->setOxygen(10);
+
+        ProjectFactory::createHeatLampProjectForDaedalus($daedalus);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);

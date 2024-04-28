@@ -30,6 +30,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -154,6 +155,8 @@ class PlantNewDayCest
             ->setNeron($neron)
             ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
+
+        ProjectFactory::createHeatLampProjectForDaedalus($daedalus);
 
         $channel = new Channel();
         $channel
@@ -841,6 +844,8 @@ class PlantNewDayCest
             ->setNeron($neron)
             ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
+
+        ProjectFactory::createHeatLampProjectForDaedalus($daedalus);
 
         $channel = new Channel();
         $channel

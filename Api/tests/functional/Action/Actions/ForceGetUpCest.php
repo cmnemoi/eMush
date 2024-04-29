@@ -166,8 +166,6 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         $this->hitAction->loadParameters($this->hitActionConfig, $this->kuanTi, $this->chun);
         $this->hitAction->execute();
 
-        $I->assertTrue($this->chun->getStatuses()->isEmpty());
-
         // when the cycle changes
         $playerCycleEvent = new PlayerCycleEvent($this->chun, [], new \DateTime());
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);

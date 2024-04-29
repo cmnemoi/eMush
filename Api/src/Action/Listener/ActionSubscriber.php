@@ -25,7 +25,6 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -122,13 +121,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->actionSideEffectsService->handleActionSideEffect($action, $player, $actionTarget);
         $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
         $player->getDaedalus()->addDailyActionPointsSpent($action->getActionCost());
-
-        if ($actionTarget instanceof Player
-            && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
-            && $lyingDownStatus = $actionTarget->getStatusByName(PlayerStatusEnum::LYING_DOWN)
-        ) {
-            $actionTarget->removeStatus($lyingDownStatus);
-        }
 
         $changingRoomPatrolshipActions = ActionEnum::getChangingRoomPatrolshipActions()->toArray();
         if ($event->hasAnyTag($changingRoomPatrolshipActions)

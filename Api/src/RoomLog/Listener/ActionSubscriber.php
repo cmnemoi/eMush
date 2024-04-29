@@ -14,7 +14,7 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ActionSubscriber implements EventSubscriberInterface
+final class ActionSubscriber implements EventSubscriberInterface
 {
     private RoomLogServiceInterface $roomLogService;
 
@@ -36,7 +36,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResult();
         $player = $event->getAuthor();
-        $actionSupport = $event->getActionTarget();
+        $actionTarget = $event->getActionTarget();
 
         if ($actionResult === null) {
             throw new \LogicException('$actionResult should not be null');
@@ -44,24 +44,23 @@ class ActionSubscriber implements EventSubscriberInterface
 
         $actionName = $event->getAction()->getActionName();
 
-        $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionSupport, $event->getTime());
+        $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionTarget, $event->getTime());
     }
 
     public function onPostAction(ActionEvent $event): void
     {
         $action = $event->getAction();
-        $actionSupport = $event->getActionTarget();
+        $actionTarget = $event->getActionTarget();
         $player = $event->getAuthor();
 
         /** @var ActionResult $actionResult */
         $actionResult = $event->getActionResult();
 
-        if ($actionSupport instanceof Player
+        if ($actionTarget instanceof Player
             && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
-            && $lyingDownStatus = $actionSupport->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+            && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $actionSupport->removeStatus($lyingDownStatus);
-            $this->createForceGetUpLog($actionSupport);
+            $this->createForceGetUpLog($actionTarget);
         }
 
         if ($action->getActionName() === ActionEnum::MOVE) {

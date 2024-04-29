@@ -84,7 +84,6 @@ const actions: ActionTree<any, any> = {
 
         try {
             const channels = await CommunicationService.loadAlivePlayerChannels();
-
             const sortedChannels = sortChannels(channels);
 
             commit('setChannels', sortedChannels);
@@ -254,7 +253,7 @@ const actions: ActionTree<any, any> = {
         if (state.currentChannel.scope !== ChannelType.ROOM_LOG) {
             throw new Error('Current channel is not a room log');
         }
-        
+
         await CommunicationService.markAllRoomLogsAsRead();
         getters.messages.forEach((roomLog: RoomLog) => {
             roomLog.isUnread = false;

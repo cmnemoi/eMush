@@ -30,7 +30,6 @@ export type ErrorResponse = {
 };
 
 const ApiService = {
-
     _errorInterceptor: 0,
 
     init(baseURL: string): void {

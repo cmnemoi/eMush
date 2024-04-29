@@ -193,7 +193,6 @@ const CommunicationService = {
     },
 
     sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {
-
         let parentId = null;
         if (typeof parent !== "undefined") {
             parentId = parent.id;

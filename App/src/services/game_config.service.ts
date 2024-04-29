@@ -108,10 +108,10 @@ const EVENT_CONFIG_ENDPOINTS: Map<string, string> = new Map([
 
 const GameConfigService = {
     loadGameConfig: async(gameConfigId: number): Promise<GameConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const gameConfigData = await ApiService.get(GAME_CONFIG_ENDPOINT + '/' + gameConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
         let gameConfig = null;
         if (gameConfigData.data) {
             gameConfig = (new GameConfig()).load(gameConfigData.data);
@@ -121,14 +121,14 @@ const GameConfigService = {
     },
 
     updateGameConfig: async(gameConfig: GameConfig): Promise<GameConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const gameConfigData = await ApiService.put(GAME_CONFIG_ENDPOINT + '/' + gameConfig.id, gameConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (gameConfigData.data) {
             gameConfig = (new GameConfig()).load(gameConfigData.data);
@@ -138,7 +138,7 @@ const GameConfigService = {
     },
 
     createModifierConfig: async(modifierConfig: ModifierConfig): Promise<ModifierConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierType = modifierConfig.type?.toLocaleLowerCase();
         if (modifierType === undefined) {
             throw new Error('Mechanics type is not defined');
@@ -157,7 +157,7 @@ const GameConfigService = {
     },
 
     loadModifierConfig: async(modifierConfigId: number): Promise<ModifierConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
 
         const modifierConfigData = await ApiService.get(MODIFIER_CONFIG_ENDPOINT + '/' + modifierConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
@@ -171,7 +171,7 @@ const GameConfigService = {
     },
 
     updateModifierConfig: async(modifierConfig: ModifierConfig): Promise<ModifierConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierType = modifierConfig.type?.toLocaleLowerCase();
         if (modifierType === undefined) {
             throw new Error('Mechanics type is not defined');
@@ -184,7 +184,7 @@ const GameConfigService = {
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (modifierConfigData.data) {
             modifierConfig = (new ModifierConfig()).load(modifierConfigData.data);
@@ -194,7 +194,7 @@ const GameConfigService = {
     },
 
     createModifierActivationRequirement: async(modifierRequirement: ModifierActivationRequirement): Promise<ModifierActivationRequirement | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierRequirementRecord: Record<string, any> = modifierRequirement.jsonEncode();
 
         const modifierRequirementData = await ApiService.post(MODIFIER_REQUIREMENT_ENDPOINT, modifierRequirementRecord)
@@ -209,7 +209,7 @@ const GameConfigService = {
     },
 
     loadModifierActivationRequirement: async(modifierRequirementId: number): Promise<ModifierActivationRequirement | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierRequirementData = await ApiService.get(MODIFIER_REQUIREMENT_ENDPOINT + '/' + modifierRequirementId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -222,14 +222,14 @@ const GameConfigService = {
     },
 
     updateModifierActivationRequirement: async(modifierRequirement: ModifierActivationRequirement): Promise<ModifierActivationRequirement | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const modifierRequirementData = await ApiService.put(MODIFIER_REQUIREMENT_ENDPOINT + '/' + modifierRequirement.id, modifierRequirement)
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (modifierRequirementData.data) {
             modifierRequirement = (new ModifierActivationRequirement()).load(modifierRequirementData.data);
@@ -239,7 +239,7 @@ const GameConfigService = {
     },
 
     createStatusConfig: async(statusConfig: StatusConfig): Promise<StatusConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const statusConfigRecord: Record<string, any> = statusConfig.jsonEncode();
 
         const statusConfigData = await ApiService.post(CONFIG_STATUS_ENDPOINT, statusConfigRecord)
@@ -254,7 +254,7 @@ const GameConfigService = {
     },
 
     loadStatusConfig: async(statusConfigId: number): Promise<StatusConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const statusConfigData = await ApiService.get(CONFIG_STATUS_ENDPOINT + '/' + statusConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -267,14 +267,14 @@ const GameConfigService = {
     },
 
     updateStatusConfig: async(statusConfig: StatusConfig): Promise<StatusConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const statusConfigData = await ApiService.put(CONFIG_STATUS_ENDPOINT + '/' + statusConfig.id, statusConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (statusConfigData.data) {
             statusConfig = (new StatusConfig()).load(statusConfigData.data);
@@ -284,7 +284,7 @@ const GameConfigService = {
     },
 
     createActionConfig: async(actionConfig: ActionConfig): Promise<ActionConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const actionConfigRecord : Record<string, any> = actionConfig.jsonEncode();
 
         const actionConfigData = await ApiService.post(ACTION_CONFIG_ENDPOINT, actionConfigRecord)
@@ -298,7 +298,7 @@ const GameConfigService = {
     },
 
     loadActionConfig: async(actionConfigId: number): Promise<ActionConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const actionConfigData = await ApiService.get(ACTION_CONFIG_ENDPOINT + '/' + actionConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -311,14 +311,14 @@ const GameConfigService = {
     },
 
     updateActionConfig: async(actionConfig: ActionConfig): Promise<ActionConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const actionConfigData = await ApiService.put(ACTION_CONFIG_ENDPOINT + '/' + actionConfig.id, actionConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (actionConfigData.data) {
             actionConfig = (new ActionConfig()).load(actionConfigData.data);
@@ -328,7 +328,7 @@ const GameConfigService = {
     },
 
     createDaedalusConfig: async(daedalusConfig: DaedalusConfig): Promise<DaedalusConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const daedalusConfigRecord: Record<string, any> = daedalusConfig.jsonEncode();
 
         const daedalusConfigData = await ApiService.post(CONFIG_DAEDALUS_CONFIG_ENDPOINT, daedalusConfigRecord)
@@ -342,7 +342,7 @@ const GameConfigService = {
     },
 
     loadDaedalusConfig: async(daedalusConfigId: number): Promise<DaedalusConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const daedalusConfigData = await ApiService.get(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '/' + daedalusConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -355,14 +355,14 @@ const GameConfigService = {
     },
 
     updateDaedalusConfig: async(daedalusConfig: DaedalusConfig): Promise<DaedalusConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const daedalusConfigData = await ApiService.put(CONFIG_DAEDALUS_CONFIG_ENDPOINT + '/' + daedalusConfig.id, daedalusConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (daedalusConfigData.data) {
             daedalusConfig = (new DaedalusConfig()).load(daedalusConfigData.data);
@@ -372,7 +372,7 @@ const GameConfigService = {
     },
 
     loadDifficultyConfig: async(difficultyConfigId: number): Promise<DifficultyConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const difficultyConfigData = await ApiService.get(DIFFICULTY_CONFIG_ENDPOINT + '/' + difficultyConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -385,14 +385,14 @@ const GameConfigService = {
     },
 
     updateDifficultyConfig: async(difficultyConfig: DifficultyConfig): Promise<DifficultyConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const difficultyConfigData = await ApiService.put(DIFFICULTY_CONFIG_ENDPOINT + '/' + difficultyConfig.id, difficultyConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (difficultyConfigData.data) {
             difficultyConfig = (new DifficultyConfig()).load(difficultyConfigData.data);
@@ -402,7 +402,7 @@ const GameConfigService = {
     },
 
     createCharacterConfig: async(characterConfig: CharacterConfig): Promise<CharacterConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const characterConfigRecord: Record<string, any> = characterConfig.jsonEncode();
 
         const characterConfigData = await ApiService.post(CHARACTER_CONFIG_ENDPOINT, characterConfigRecord)
@@ -417,7 +417,7 @@ const GameConfigService = {
     },
 
     loadCharacterConfig: async(characterConfigId: number): Promise<CharacterConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const characterConfigData = await ApiService.get(CHARACTER_CONFIG_ENDPOINT + '/' + characterConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -430,14 +430,14 @@ const GameConfigService = {
     },
 
     updateCharacterConfig: async(characterConfig: CharacterConfig): Promise<CharacterConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const characterConfigData = await ApiService.put(CHARACTER_CONFIG_ENDPOINT + '/' + characterConfig.id, characterConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (characterConfigData.data) {
             characterConfig = (new CharacterConfig()).load(characterConfigData.data);
@@ -447,7 +447,7 @@ const GameConfigService = {
     },
 
     createEquipmentConfig: async(equipmentConfig: EquipmentConfig): Promise<EquipmentConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const characterConfigRecord : Record<string, any> = equipmentConfig.jsonEncode();
 
         const equipmentConfigData = await ApiService.post(EQUIPMENT_CONFIG_ENDPOINT, characterConfigRecord)
@@ -462,7 +462,7 @@ const GameConfigService = {
     },
 
     loadEquipmentConfig: async(equipmentConfigId: number): Promise<EquipmentConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const equipmentConfigData = await ApiService.get(EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -475,14 +475,14 @@ const GameConfigService = {
     },
 
     updateEquipmentConfig: async(equipmentConfig: EquipmentConfig): Promise<EquipmentConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const equipmentConfigData = await ApiService.put(EQUIPMENT_CONFIG_ENDPOINT + '/' + equipmentConfig.id, equipmentConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (equipmentConfigData.data) {
             equipmentConfig = (new EquipmentConfig()).load(equipmentConfigData.data);
@@ -492,7 +492,7 @@ const GameConfigService = {
     },
 
     createDiseaseConfig: async (diseaseConfig: DiseaseConfig): Promise<DiseaseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const diseaseConfigRecord: Record<string, any> = diseaseConfig.jsonEncode();
 
         const diseaseConfigData = await ApiService.post(DISEASE_CONFIG_ENDPOINT, diseaseConfigRecord)
@@ -506,7 +506,7 @@ const GameConfigService = {
     },
 
     loadDiseaseConfig: async(diseaseConfigId: number): Promise<DiseaseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const diseaseConfigData = await ApiService.get(DISEASE_CONFIG_ENDPOINT + '/' + diseaseConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -519,14 +519,14 @@ const GameConfigService = {
     },
 
     updateDiseaseConfig: async(diseaseConfig: DiseaseConfig): Promise<DiseaseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const diseaseConfigData = await ApiService.put(DISEASE_CONFIG_ENDPOINT + '/' + diseaseConfig.id, diseaseConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (diseaseConfigData.data) {
             diseaseConfig = (new DiseaseConfig()).load(diseaseConfigData.data);
@@ -536,7 +536,7 @@ const GameConfigService = {
     },
 
     createMechanics: async (mechanics: Mechanics): Promise<Mechanics | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const mechanicsType = mechanics.mechanicsType?.toLocaleLowerCase();
         if (mechanicsType === undefined) {
             throw new Error('Mechanics type is not defined');
@@ -555,7 +555,7 @@ const GameConfigService = {
     },
 
     loadMechanics: async(mechanicsId: number): Promise<Mechanics | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const mechanicsData = await ApiService.get(MECHANICS_ENDPOINT + '/' + mechanicsId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -568,14 +568,14 @@ const GameConfigService = {
     },
 
     updateMechanics: async(mechanics: Mechanics): Promise<Mechanics | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const mechanicsData = await ApiService.put(MECHANICS_ENDPOINT + '/' + mechanics.id, mechanics.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (mechanicsData.data) {
             mechanics = (new Mechanics()).load(mechanicsData.data);
@@ -585,7 +585,7 @@ const GameConfigService = {
     },
 
     createPlaceConfig: async (placeConfig: PlaceConfig): Promise<PlaceConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const placeConfigRecord: Record<string, any> = placeConfig.jsonEncode();
 
         const placeConfigData = await ApiService.post(PLACE_CONFIG_ENDPOINT, placeConfigRecord)
@@ -600,7 +600,7 @@ const GameConfigService = {
     },
 
     loadPlaceConfig: async(placeConfigId: number): Promise<PlaceConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const placeConfigData = await ApiService.get(PLACE_CONFIG_ENDPOINT + '/' + placeConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -613,14 +613,14 @@ const GameConfigService = {
     },
 
     updatePlaceConfig: async(placeConfig: PlaceConfig): Promise<PlaceConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const placeConfigData = await ApiService.put(PLACE_CONFIG_ENDPOINT + '/' + placeConfig.id, placeConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (placeConfigData.data) {
             placeConfig = (new PlaceConfig()).load(placeConfigData.data);
@@ -630,7 +630,7 @@ const GameConfigService = {
     },
 
     createRandomItemPlaces: async (randomItemPlaces: RandomItemPlaces): Promise<RandomItemPlaces | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const randomItemPlacesRecord: Record<string, any> = randomItemPlaces.jsonEncode();
 
         const randomItemPlacesData = await ApiService.post(RANDOM_ITEM_PLACES_ENDPOINT, randomItemPlacesRecord)
@@ -645,7 +645,7 @@ const GameConfigService = {
     },
 
     loadRandomItemPlaces: async(randomItemPlacesId: number): Promise<RandomItemPlaces | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const randomItemPlacesData = await ApiService.get(RANDOM_ITEM_PLACES_ENDPOINT + '/' + randomItemPlacesId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -658,14 +658,14 @@ const GameConfigService = {
     },
 
     updateRandomItemPlaces: async(randomItemPlaces: RandomItemPlaces): Promise<RandomItemPlaces | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const randomItemPlacesData = await ApiService.put(RANDOM_ITEM_PLACES_ENDPOINT + '/' + randomItemPlaces.id, randomItemPlaces.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (randomItemPlacesData.data) {
             randomItemPlaces = (new RandomItemPlaces()).load(randomItemPlacesData.data);
@@ -675,7 +675,7 @@ const GameConfigService = {
     },
 
     createConsumableDiseaseConfig: async(consumableDiseaseConfig: ConsumableDiseaseConfig): Promise<ConsumableDiseaseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const consumableDiseaseRecord : Record<string, any> = consumableDiseaseConfig.jsonEncode();
 
         const consumableDiseaseConfigData = await ApiService.post(CONSUMABLE_DISEASE_CONFIG_ENDPOINT, consumableDiseaseRecord)
@@ -690,7 +690,7 @@ const GameConfigService = {
     },
 
     loadConsumableDiseaseConfig: async(consumableDiseaseConfigId: number): Promise<ConsumableDiseaseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const consumableDiseaseConfigData = await ApiService.get(CONSUMABLE_DISEASE_CONFIG_ENDPOINT + '/' + consumableDiseaseConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -703,14 +703,14 @@ const GameConfigService = {
     },
 
     updateConsumableDiseaseConfig: async(consumableDiseaseConfig: ConsumableDiseaseConfig): Promise<ConsumableDiseaseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const consumableDiseaseConfigData = await ApiService.put(CONSUMABLE_DISEASE_CONFIG_ENDPOINT + '/' + consumableDiseaseConfig.id, consumableDiseaseConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (consumableDiseaseConfigData.data) {
             consumableDiseaseConfig = (new ConsumableDiseaseConfig()).load(consumableDiseaseConfigData.data);
@@ -720,7 +720,7 @@ const GameConfigService = {
     },
 
     loadConsumableDiseaseAttribute: async(consumableDiseaseAttributeId: number): Promise<ConsumableDiseaseAttribute | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const consumableDiseaseAttributeData = await ApiService.get(CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT + '/' + consumableDiseaseAttributeId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -733,14 +733,14 @@ const GameConfigService = {
     },
 
     updateConsumableDiseaseAttribute: async(consumableDiseaseAttribute: ConsumableDiseaseAttribute): Promise<ConsumableDiseaseAttribute | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const consumableDiseaseAttributeData = await ApiService.put(CONSUMABLE_DISEASE_ATTRIBUTE_ENDPOINT + '/' + consumableDiseaseAttribute.id, consumableDiseaseAttribute.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (consumableDiseaseAttributeData.data) {
             consumableDiseaseAttribute = (new ConsumableDiseaseAttribute()).load(consumableDiseaseAttributeData.data);
@@ -750,7 +750,7 @@ const GameConfigService = {
     },
 
     createDiseaseCauseConfig: async(diseaseCauseConfig: DiseaseCauseConfig): Promise<DiseaseCauseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const diseaseCauseRecord : Record<string, any> = diseaseCauseConfig.jsonEncode();
 
         const diseaseCauseConfigData = await ApiService.post(DISEASE_CAUSE_CONFIG_ENDPOINT, diseaseCauseRecord)
@@ -765,7 +765,7 @@ const GameConfigService = {
     },
 
     loadDiseaseCauseConfig: async(diseaseCauseConfigId: number): Promise<DiseaseCauseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const diseaseCauseConfigData = await ApiService.get(DISEASE_CAUSE_CONFIG_ENDPOINT + '/' + diseaseCauseConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -778,14 +778,14 @@ const GameConfigService = {
     },
 
     updateDiseaseCauseConfig: async(diseaseCauseConfig: DiseaseCauseConfig): Promise<DiseaseCauseConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const diseaseCauseConfigData = await ApiService.put(DISEASE_CAUSE_CONFIG_ENDPOINT + '/' + diseaseCauseConfig.id, diseaseCauseConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (diseaseCauseConfigData.data) {
             diseaseCauseConfig = (new DiseaseCauseConfig()).load(diseaseCauseConfigData.data);
@@ -795,13 +795,13 @@ const GameConfigService = {
     },
 
     createTriumphConfig: async(triumphConfig: TriumphConfig): Promise<TriumphConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const triumphConfigRecord : Record<string, any> = triumphConfig.jsonEncode();
 
         const triumphConfigData = await ApiService.post(TRIUMPH_CONFIG_ENDPOINT, triumphConfigRecord)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (triumphConfigData.data) {
             triumphConfig = (new TriumphConfig()).load(triumphConfigData.data);
@@ -811,7 +811,7 @@ const GameConfigService = {
     },
 
     loadTriumphConfig: async(triumphConfigId: number): Promise<TriumphConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const triumphConfigData = await ApiService.get(TRIUMPH_CONFIG_ENDPOINT + '/' + triumphConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
@@ -824,14 +824,14 @@ const GameConfigService = {
     },
 
     updateTriumphConfig: async(triumphConfig: TriumphConfig): Promise<TriumphConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const triumphConfigData = await ApiService.put(TRIUMPH_CONFIG_ENDPOINT + '/' + triumphConfig.id, triumphConfig.jsonEncode())
             .catch((e) => {
                 store.dispatch('gameConfig/setLoading', { loading: false });
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (triumphConfigData.data) {
             triumphConfig = (new TriumphConfig()).load(triumphConfigData.data);
@@ -841,7 +841,7 @@ const GameConfigService = {
     },
 
     createEventConfig: async(eventConfig: EventConfig): Promise<EventConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const eventType = eventConfig.type?.toLocaleLowerCase();
         if (eventType === undefined) {
             throw new Error('eventConfig type is not defined');
@@ -860,7 +860,7 @@ const GameConfigService = {
     },
 
     loadEventConfig: async(eventConfigId: number): Promise<EventConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
 
         const eventConfigData = await ApiService.get(EVENT_CONFIG_ENDPOINT + '/' + eventConfigId)
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
@@ -874,7 +874,7 @@ const GameConfigService = {
     },
 
     updateEventConfig: async(eventConfig: EventConfig): Promise<EventConfig | null> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         const eventType = eventConfig.type?.toLocaleLowerCase();
         if (eventType === undefined) {
             throw new Error('Event type is not defined');
@@ -886,7 +886,7 @@ const GameConfigService = {
                 throw e;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
 
         if (eventConfigData.data) {
             eventConfig = (new EventConfig()).load(eventConfigData.data);

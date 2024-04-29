@@ -126,7 +126,7 @@ const UserService = {
         if (user.userId != null) {
             const uri = urlJoin(userEndPoint, user.userId);
 
-            store.dispatch('gameConfig/setLoading', { loading: true });
+            await store.dispatch('gameConfig/setLoading', { loading: true });
             const response = await ApiService.patch(uri, { roles: user.roles } )
                 .catch((e) => {
                     store.dispatch('gameConfig/setLoading', { loading: false });
@@ -136,7 +136,7 @@ const UserService = {
             if (response.data) {
                 user.load(response.data);
             }
-            store.dispatch('gameConfig/setLoading', { loading: false });
+            await store.dispatch('gameConfig/setLoading', { loading: false });
         }
 
         return user;
@@ -150,7 +150,7 @@ const UserService = {
 
         const uri = urlJoin(userEndPoint, 'accept-rules');
 
-        store.dispatch('gameConfig/setLoading', { loading: true });
+        await store.dispatch('gameConfig/setLoading', { loading: true });
         await ApiService.patch(uri)
             .then(() => {
                 store.dispatch('auth/userInfo');
@@ -160,7 +160,7 @@ const UserService = {
                 throw error;
             });
 
-        store.dispatch('gameConfig/setLoading', { loading: false });
+        await store.dispatch('gameConfig/setLoading', { loading: false });
     }
 };
 

@@ -1,8 +1,8 @@
 services:
   mush_apache:
     ports:
-      - "8080:80"
-      - "8443:8443"
+      - 8080:80
+      - 8443:8443
 
   mush_php:
     build:
@@ -12,19 +12,20 @@ services:
 
   mush_database:
     ports:
-      - "5432:5432"
+      - 5432:5432
 
   mush_front:
     ports:
-      - "80:5173"
+      - 80:5173
     build:
       args:
         - UID=1000
         - GID=1000
 
-  eternal_twin:
+  eternaltwin:
     ports:
-      - "50320:50320"
+      - 50320:50320
+      - 50321:50321
     build:
       args:
         - UID=1000

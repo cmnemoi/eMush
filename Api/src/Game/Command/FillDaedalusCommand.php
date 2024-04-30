@@ -155,6 +155,7 @@ class FillDaedalusCommand extends Command
                     "{$this->identityServerUri}/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush@clients&scope=base&state=http://localhost:8081/token",
                     ['max_redirects' => 0]
                 );
+                dd($getTokenETResponse->getContent());
                 $location = $getTokenETResponse->getHeaders(false)['location'];
                 $queryResult = [];
 

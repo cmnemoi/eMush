@@ -20,3 +20,4 @@ yarn.lock
 # Local configuration                                                         #
 ###############################################################################
 etwin.toml
+eternaltwin.local.toml

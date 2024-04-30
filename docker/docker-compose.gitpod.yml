@@ -22,7 +22,7 @@ services:
         - UID=33333
         - GID=33333
 
-  eternaltwin:
+  mush_eternaltwin:
     ports:
       - 50320:50320
       - 50321:50321

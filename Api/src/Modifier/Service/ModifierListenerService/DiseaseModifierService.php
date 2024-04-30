@@ -53,7 +53,6 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
                 return $player->getPlace();
 
             case ModifierHolderClassEnum::PLAYER:
-            case ModifierHolderClassEnum::TARGET_PLAYER:
                 return $player;
         }
 

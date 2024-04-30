@@ -221,7 +221,7 @@ final class EquipmentModifierServiceTest extends TestCase
         // gear with player GameModifier
         $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig1
-            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)
@@ -293,7 +293,7 @@ final class EquipmentModifierServiceTest extends TestCase
         // gear with player GameModifier
         $modifierConfig2 = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifierConfig2
-            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setTargetEvent('action')
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(1)

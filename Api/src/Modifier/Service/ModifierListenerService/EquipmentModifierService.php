@@ -38,7 +38,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
         $this->createGearModifiers(
             $gameEquipment,
-            ModifierHolderClassEnum::getAllReaches(),
+            ModifierHolderClassEnum::getAllModifierHolderClass(),
             $tags,
             $time,
             $player
@@ -54,7 +54,7 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
         $this->deleteGearModifiers(
             $gameEquipment,
-            ModifierHolderClassEnum::getAllReaches(),
+            ModifierHolderClassEnum::getAllModifierHolderClass(),
             $tags,
             $time,
             $player
@@ -69,14 +69,14 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
         $this->createGearModifiers(
             $gameEquipment,
-            [ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER],
+            [ModifierHolderClassEnum::PLAYER],
             $tags,
             $time,
             $player
         );
         $this->createEquipmentStatusModifiers(
             $gameEquipment,
-            [ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER],
+            [ModifierHolderClassEnum::PLAYER],
             $tags,
             $time,
             $player
@@ -91,14 +91,14 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
         $this->deleteGearModifiers(
             $gameEquipment,
-            [ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER],
+            [ModifierHolderClassEnum::PLAYER],
             $tags,
             $time,
             $player
         );
         $this->deleteEquipmentStatusModifiers(
             $gameEquipment,
-            [ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER],
+            [ModifierHolderClassEnum::PLAYER],
             $tags,
             $time,
             $player
@@ -222,7 +222,8 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
 
             foreach ($statusConfig->getModifierConfigs() as $modifierConfig) {
                 if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
-                    $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
+                    $holder = $gameEquipment->getModifierHolderFromConfig()
+                        $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
                     if ($holder === null) {
                         return;
                     }
@@ -239,13 +240,12 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         GameEquipment $gameEquipment,
         array $tags,
         \DateTime $time,
-        ?Player $player
     ): void {
         foreach ($modifiers as $modifierConfig) {
             if (\in_array($modifierConfig->getModifierRange(), $reaches, true)) {
                 $charge = $this->getChargeStatus($modifierConfig->getModifierName(), $gameEquipment);
 
-                $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig, $player);
+                $holder = $gameEquipment->getModifierHolderFromConfig($modifierConfig->getModifierRange());
                 if ($holder === null) {
                     return;
                 }
@@ -259,28 +259,5 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
                 );
             }
         }
-    }
-
-    private function getModifierHolderFromConfig(GameEquipment $gameEquipment, AbstractModifierConfig $modifierConfig, ?Player $player): ?ModifierHolderInterface
-    {
-        switch ($modifierConfig->getModifierRange()) {
-            case ModifierHolderClassEnum::DAEDALUS:
-                return $gameEquipment->getDaedalus();
-
-            case ModifierHolderClassEnum::PLACE:
-                return $gameEquipment->getPlace();
-
-            case ModifierHolderClassEnum::EQUIPMENT:
-                return $gameEquipment;
-
-            case ModifierHolderClassEnum::PLAYER:
-            case ModifierHolderClassEnum::TARGET_PLAYER:
-                $player = $player ?: $gameEquipment->getHolder();
-                if ($player instanceof Player) {
-                    return $player;
-                }
-        }
-
-        return null;
     }
 }

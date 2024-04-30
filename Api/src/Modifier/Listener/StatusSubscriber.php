@@ -145,7 +145,7 @@ class StatusSubscriber implements EventSubscriberInterface
         return match ($modifierConfig->getModifierRange()) {
             ModifierHolderClassEnum::DAEDALUS => $this->getDaedalus($statusHolder),
             ModifierHolderClassEnum::PLACE => $this->getPlace($statusHolder),
-            ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $this->getPlayer($statusHolder),
+            ModifierHolderClassEnum::PLAYER => $this->getPlayer($statusHolder),
             ModifierHolderClassEnum::EQUIPMENT => $this->getEquipment($statusHolder),
             default => null,
         };

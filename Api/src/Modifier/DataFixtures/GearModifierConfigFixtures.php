@@ -87,7 +87,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ])
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setApplyOnTarget(true)
-            ->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($armorModifier);
 
         $wrenchModifier = new VariableEventModifierConfig('modifier_for_player_x1.5percentageSuccess_on_roll.technician');

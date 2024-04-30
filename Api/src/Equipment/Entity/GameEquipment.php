@@ -10,11 +10,15 @@ use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
+use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Entity\ModifierProviderTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
@@ -36,8 +40,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'door' => Door::class,
     'game_item' => GameItem::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionTargetInterface
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionTargetInterface, ModifierProviderInterface
 {
+    use ModifierProviderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -291,5 +296,16 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return ActionTargetName::EQUIPMENT->value;
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        $gear = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::GEAR);
+
+        if ($gear instanceof Gear) {
+            return $gear->getModifierConfigs();
+        }
+
+        return new ArrayCollection([]);
     }
 }

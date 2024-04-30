@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Entity\ModifierProviderTrait;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -20,8 +22,9 @@ use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface
+class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface, ModifierProviderInterface
 {
+    use ModifierProviderTrait;
     use TargetStatusTrait;
 
     public const int CPU_PRIORITY_BONUS = 1;

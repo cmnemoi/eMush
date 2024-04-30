@@ -2,11 +2,14 @@
 
 namespace Mush\Status\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Entity\ModifierProviderTrait;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
@@ -21,8 +24,9 @@ use Mush\Status\Entity\Config\StatusConfig;
     'attempt' => Attempt::class,
     'content_status' => ContentStatus::class,
 ])]
-class Status
+class Status implements ModifierProviderInterface
 {
+    use ModifierProviderTrait;
     use TimestampableEntity;
 
     #[ORM\Id]
@@ -187,6 +191,56 @@ class Status
         }
 
         return $this;
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        return $this->statusConfig->getModifierConfigs();
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->getOwner()->getDaedalus();
+    }
+
+    public function getPlace(): ?Place
+    {
+        $statusHolder = $this->getOwner();
+        if ($statusHolder instanceof Place) {
+            return $statusHolder;
+        }
+        if ($statusHolder instanceof Player) {
+            return $statusHolder->getPlace();
+        }
+        if ($statusHolder instanceof GameEquipment) {
+            return $statusHolder->getPlace();
+        }
+
+        return null;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        $statusHolder = $this->getOwner();
+        if ($statusHolder instanceof Player) {
+            return $statusHolder;
+        }
+        if ($statusHolder instanceof GameEquipment) {
+            return $statusHolder->getPlayer();
+        }
+
+        return null;
+    }
+
+    public function getGameEquipment(): ?GameEquipment
+    {
+        $statusHolder = $this->getOwner();
+
+        if ($statusHolder instanceof GameEquipment) {
+            return $statusHolder;
+        }
+
+        return null;
     }
 
     private function setOwner(StatusHolderInterface $owner): self

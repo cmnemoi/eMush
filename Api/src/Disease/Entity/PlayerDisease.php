@@ -2,16 +2,22 @@
 
 namespace Mush\Disease\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Entity\ModifierProviderTrait;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_player')]
-class PlayerDisease
+class PlayerDisease implements ModifierProviderInterface
 {
+    use ModifierProviderTrait;
     use TimestampableEntity;
 
     #[ORM\Id]
@@ -107,5 +113,20 @@ class PlayerDisease
     public function isActive(): bool
     {
         return $this->status === DiseaseStatusEnum::ACTIVE;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->player->getPlace();
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->player->getDaedalus();
+    }
+
+    public function getModifierConfigs(): Collection
+    {
+        return $this->diseaseConfig->getModifierConfigs();
     }
 }

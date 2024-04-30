@@ -128,7 +128,7 @@ final class ModifierCreationServiceTest extends TestCase
         // create a player GameModifier
         $player = new Player();
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
-        $modifierConfig->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
+        $modifierConfig->setModifierRange(ModifierHolderClassEnum::PLAYER);
 
         $this->entityManager
             ->shouldReceive('persist')
@@ -148,7 +148,7 @@ final class ModifierCreationServiceTest extends TestCase
         $charge = new ChargeStatus($player, $statusConfig);
 
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
-        $modifierConfig->setModifierRange(ModifierHolderClassEnum::TARGET_PLAYER);
+        $modifierConfig->setModifierRange(ModifierHolderClassEnum::PLAYER);
 
         $this->entityManager
             ->shouldReceive('persist')

@@ -469,7 +469,7 @@ class ModifierConfigData
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
             'applyOnTarget' => true,
-            'modifierRange' => 'target_player',
+            'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
             'triggeredEvent' => null,
             'visibility' => null,

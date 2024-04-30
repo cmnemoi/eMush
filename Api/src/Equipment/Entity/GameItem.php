@@ -86,6 +86,10 @@ class GameItem extends GameEquipment
 
     public function getActionTargetName(array $context): string
     {
+        if (\array_key_exists(ActionTargetName::TERMINAL->value, $context) && $context[ActionTargetName::TERMINAL->value] === $this) {
+            return ActionTargetName::TERMINAL->value;
+        }
+
         return ActionTargetName::ITEM->value;
     }
 }

@@ -19,17 +19,19 @@ bash-mysql:
 build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_front chown -R node:node /www
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_eternaltwin chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root eternaltwin chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start
 
 create-crew: docker-start
 	@echo "Waiting for ET server to start..."
 	@sleep 3
+	@echo "Waiting for ET server to start..."
+	@sleep 3
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:create-crew
 
 docker-fresh-start: docker-stop
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --remove-orphans
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --force-recreate --remove-orphans
 
 docker-start: docker-stop
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate --remove-orphans
@@ -54,9 +56,9 @@ install-api:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php ./reset.sh --init
 
 install-eternaltwin:
-	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn install
-	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db reset
-	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db sync
+	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn install
+	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db reset
+	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db sync
 
 install-front:
 	docker compose -f docker/docker-compose.yml run -u node mush_front yarn install &&\
@@ -68,8 +70,8 @@ remove-all: #Warning, it will remove EVERY container, images, volumes and networ
 reset-dependencies: install-api install-front install-eternaltwin
 
 reset-eternaltwin-database: 
-	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db reset
-	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin db sync
+	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db reset
+	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin db sync
 
 setup-env-variables:
 	cp ./Api/.env.dist ./Api/.env
@@ -82,14 +84,14 @@ setup-JWT-certificates:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php chmod go+r config/jwt/private.pem
 
 start-eternaltwin-server:
-	docker compose -f docker/docker-compose.yml run -u node mush_eternaltwin yarn etwin start
+	docker compose -f docker/docker-compose.yml run -u node eternaltwin yarn etwin start
 
 gitpod-install: gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates create-crew fill-daedalus
 
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_front chown -R node:node /www
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_eternaltwin chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root eternaltwin chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-start
 

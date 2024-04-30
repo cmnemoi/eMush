@@ -19,6 +19,7 @@ use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use OpenTelemetry\API\Globals;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -68,7 +69,11 @@ class PlayerController extends AbstractGameController
      * @Rest\Get(path="/{id}")
      */
     public function getPlayerAction(Player $player): View
-    {
+    {   
+        $tracer = Globals::tracerProvider()->getTracer('demo');
+
+        $span = $tracer->spanBuilder('getPlayerAction')->startSpan();
+
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
         }
@@ -80,6 +85,9 @@ class PlayerController extends AbstractGameController
 
         $view = $this->view($player, Response::HTTP_OK);
         $view->setContext($context);
+
+        $span->addEvent('getPlayerAction', ['player' => $player->getId()]);
+        $span->end();
 
         return $view;
     }

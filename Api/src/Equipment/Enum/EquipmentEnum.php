@@ -102,6 +102,7 @@ class EquipmentEnum
             self::ASTRO_TERMINAL,
             self::AUXILIARY_TERMINAL,
             self::BIOS_TERMINAL,
+            ToolItemEnum::BLOCK_OF_POST_IT,
             self::COMMAND_TERMINAL,
             self::NERON_CORE,
             self::PILGRED,

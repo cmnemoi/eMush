@@ -152,7 +152,7 @@ class FillDaedalusCommand extends Command
                 ]);
                 $getTokenETResponse = $client->request(
                     'GET',
-                    "{$this->identityServerUri}/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush@clients&scope=base&state=http://localhost:8081/token",
+                    "{$this->identityServerUri}/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush_dev@clients&scope=base&state=http://localhost:8081/token",
                     ['max_redirects' => 0]
                 );
                 $location = $getTokenETResponse->getHeaders(false)['location'];

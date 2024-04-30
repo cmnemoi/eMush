@@ -69,6 +69,7 @@ reset-eternaltwin-database:
 setup-env-variables:
 	cp ./Api/.env.dist ./Api/.env
 	cp ./App/.env.dist ./App/.env
+	cp ./Eternaltwin/eternaltwin.toml ./Eternaltwin/eternaltwin.local.toml
 
 setup-JWT-certificates:
 	docker compose -f docker/docker-compose.yml run -u dev mush_php openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096

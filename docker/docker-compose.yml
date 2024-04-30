@@ -27,7 +27,7 @@ services:
 
   #Database container
   mush_database:
-    image: postgres:16.2
+    image: postgres:15.1
     container_name: mush_database
     volumes:
       - ./Database:/docker-entrypoint-initdb.d

@@ -4,7 +4,7 @@
             v-for="(actionWithTarget, key) in getActionsWithTargets"
             :key="key"
             :action="actionWithTarget.action"
-            @mousedown="executeActionWithTarget(actionWithTarget)"
+            @click="executeActionWithTarget(actionWithTarget)"
         />
     </div>
 </template>

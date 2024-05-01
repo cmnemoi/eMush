@@ -100,7 +100,8 @@ echo "Installing PHP build dependencies..."
 sudo apt-get install ca-certificates apt-transport-https software-properties-common lsb-release openssl -yq >> install.log
 
 echo "Setup PHP repositories..."
-sudo add-apt-repository ppa:ondrej/php -y >> install.log
+sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg >> install.log
+sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'og
 sudo apt-get update -yq >> install.log && sudo apt-get upgrade -yq >> install.log
 
 echo "Installing PHP ${PHP_VERSION}..."

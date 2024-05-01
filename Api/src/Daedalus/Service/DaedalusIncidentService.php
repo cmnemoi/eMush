@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -259,8 +260,9 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
             // and therefore can't be broken : we skip it.
             try {
+                /** @var ?GameEquipment $equipment */
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
-                if ($equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+                if ($equipment === null || $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;
 
                     continue;

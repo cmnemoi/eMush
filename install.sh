@@ -97,7 +97,7 @@ cd ..
 #####################
 
 echo "Installing PHP build dependencies..."
-sudo apt-get install ca-certificates apt-transport-https software-properties-common lsb-release openssl -yq >> install.log
+sudo apt-get wget install ca-certificates apt-transport-https software-properties-common lsb-release openssl -yq >> install.log
 
 echo "Setup PHP repositories..."
 sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg >> install.log

@@ -25,6 +25,7 @@ final class DaedalusFactory
         $daedalusInfo->setNeron(new Neron());
 
         self::createSpacePlace($daedalus);
+        self::createLaboratoryPlace($daedalus);
         self::setId($daedalus);
 
         return $daedalus;
@@ -36,6 +37,15 @@ final class DaedalusFactory
         $space
             ->setName(RoomEnum::SPACE)
             ->setType(PlaceTypeEnum::SPACE)
+            ->setDaedalus($daedalus);
+    }
+
+    private static function createLaboratoryPlace(Daedalus $daedalus): void
+    {
+        $laboratory = new Place();
+        $laboratory
+            ->setName(RoomEnum::LABORATORY)
+            ->setType(PlaceTypeEnum::ROOM)
             ->setDaedalus($daedalus);
     }
 

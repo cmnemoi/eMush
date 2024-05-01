@@ -24,12 +24,13 @@ use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use Mush\Game\Service\Random\FakeGetRandomPoissonIntegerService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -98,12 +99,6 @@ final class DaedalusIncidentServiceTest extends TestCase
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
 
-        // given a room in this Daedalus
-        $place = new Place();
-        $place
-            ->setType(PlaceTypeEnum::ROOM)
-            ->setDaedalus($daedalus);
-
         // setup universe state
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
@@ -114,25 +109,16 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(1, $fires);
     }
 
-    public function testShouldHandleFireEventsNotPutFireInBurningRoom(): void
+    public function testNotShouldHandleFireEventsInBurningRoom(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
 
-        // given a room in this Daedalus
-        $place = new Place();
-        $place
-            ->setType(PlaceTypeEnum::ROOM)
-            ->setDaedalus($daedalus);
-
-        // given this room is already burning
+        // given laboratory is burning
         StatusFactory::createStatusByNameForHolder(
             name: StatusEnum::FIRE,
-            holder: $place,
+            holder: $daedalus->getPlaceByName(RoomEnum::LABORATORY),
         );
-
-        // setup universe state
-        $this->statusService->shouldReceive('createStatusFromName')->never();
 
         // when we handle fire events
         $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
@@ -141,33 +127,66 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(0, $fires);
     }
 
-    public function testHandleTremorEvents()
+    public function testShouldHandleTremorEventsInRoomWithAlivePlayers()
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
+        // given a room in this Daedalus
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
 
-        self::assertSame(0, $fires);
+        // given a player in this room
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $player->changePlace($room);
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $room1 = new Place();
-        $room1->setDaedalus(new Daedalus());
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$room1])
-            ->once();
-
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
+            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once();
 
-        $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
+        // when we handle tremor events
+        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
 
-        self::assertSame(1, $fires);
+        // then we should have one tremor event
+        self::assertSame(1, $tremorEvents);
+    }
+
+    public function testShouldNotHandleTremorEventsInRoomWithDeadPlayers()
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a room in this Daedalus
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
+
+        // given a player in this room
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $player->changePlace($room);
+
+        // given player is dead
+        $player->kill();
+
+        // when we handle tremor events
+        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
+
+        // then we should have 0 tremor event
+        self::assertSame(0, $tremorEvents);
+    }
+
+    public function testShouldNotHandleTremorEventsInRoomWithoutPlayer()
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a room in this Daedalus
+        Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
+
+        // when we handle tremor events
+        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
+
+        // then we should have 0 tremor event
+        self::assertSame(0, $tremorEvents);
     }
 
     public function testHandleElectricArcEvents()
@@ -219,9 +238,9 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $place = new Place();
-        $place->setDaedalus($daedalus);
-        $equipment = new GameEquipment($place);
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $equipment = new GameEquipment($room);
 
         self::isFalse($equipment->isBroken());
 
@@ -264,9 +283,9 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $place = new Place();
-        $place->setDaedalus($daedalus);
-        $equipment = new GameEquipment($place);
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $equipment = new GameEquipment($room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $brokenStatus = new Status($equipment, $brokenConfig);
@@ -309,10 +328,10 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $place = new Place();
-        $place->setDaedalus($daedalus);
-        $equipment = new GameEquipment($place);
-        $item = new GameItem($place);
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+        $equipment = new GameEquipment($room);
+        $item = new GameItem($room);
 
         $this->gameEquipmentRepository
             ->shouldReceive('findByNameAndDaedalus')
@@ -348,9 +367,9 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
 
-        $place = new Place();
-        $place->setDaedalus(new Daedalus());
-        $door = new Door($place);
+        $room = new Place();
+        $room->setDaedalus(new Daedalus());
+        $door = new Door($room);
         $door->setRooms(new ArrayCollection([new Place(), new Place()]));
         $door->setName('Door');
 

@@ -420,6 +420,7 @@ class GameConfigData
                 'following_hunters_default',
                 SkillEnum::PILOT . '_alpha',
                 SkillEnum::SHOOTER . '_alpha',
+                SkillEnum::TECHNICIAN,
                 'astronavigation_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',

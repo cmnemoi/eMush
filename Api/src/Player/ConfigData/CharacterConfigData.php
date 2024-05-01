@@ -2,6 +2,7 @@
 
 namespace Mush\Player\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\SkillEnum;
 
 class CharacterConfigData
@@ -45,6 +46,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -92,6 +94,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -137,6 +140,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -185,6 +189,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -233,6 +238,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -282,6 +288,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [],
@@ -327,6 +334,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -372,6 +380,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -417,6 +426,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -465,6 +475,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -513,6 +524,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -559,6 +571,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -607,6 +620,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
                 'motivational_speech',
             ],
             'initDiseases' => [],
@@ -655,6 +669,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -700,6 +715,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -749,6 +765,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -797,6 +814,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -842,6 +860,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [

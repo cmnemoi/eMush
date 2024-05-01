@@ -286,7 +286,24 @@
 //
 Uniquement valable pendant l'alpha.
 //
-Merci de nous aider !</target>
+Merci de nous aider !
+        </target>
+      </segment>
+    </unit>
+    <unit id="reset_specialist_points">
+      <segment id="reset_specialist_points" state="final">
+        <source>reset_specialist_points.name</source>
+        <target>Reset Points Spé.</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>reset_specialist_points.description</source>
+        <target>
+        Permet de récupérer ses points spécialistes :pa_eng:, :pa_shoot:
+        //
+        Uniquement valable pendant l'alpha.
+        //
+        Merci de nous aider !
+        </target>
       </segment>
     </unit>
     <unit id="shred">

@@ -262,7 +262,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             try {
                 /** @var ?GameEquipment $equipment */
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
-                if ($equipment?->isBroken() || $equipment?->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+                if ($equipment === null && $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;
 
                     continue;

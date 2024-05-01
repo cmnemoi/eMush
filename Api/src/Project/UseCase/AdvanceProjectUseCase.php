@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\UseCase;
 
-use Mush\Game\Service\GetRandomIntegerServiceInterface;
+use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Repository\ProjectRepositoryInterface;

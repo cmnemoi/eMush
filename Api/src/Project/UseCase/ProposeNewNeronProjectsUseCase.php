@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\UseCase;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Service\GetRandomElementsFromArrayServiceInterface;
+use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Repository\ProjectRepositoryInterface;
 

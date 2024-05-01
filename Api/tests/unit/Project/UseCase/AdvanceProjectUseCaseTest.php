@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\unit\Project\UseCase;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Game\Service\FakeGetRandomIntegerService;
+use Mush\Game\Service\Random\FakeGetRandomIntegerService;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\Repository\InMemoryProjectRepository;

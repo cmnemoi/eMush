@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Game\Service;
 
-use Mush\Game\Service\FakeGetRandomElementsFromArrayService;
+use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use PHPUnit\Framework\TestCase;
 
 /**

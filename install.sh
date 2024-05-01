@@ -122,8 +122,8 @@ openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public
 chmod go+r config/jwt/private.pem
 
 echo "Setup back-end env variables..."
-cp .env.bare-metal .env
-cp .env.bare-metal.test .env.test
+cp .env.bare-metal .env.local
+cp .env.bare-metal.test .env.test.local
 
 echo "Installing back-end dependencies..."
 composer install

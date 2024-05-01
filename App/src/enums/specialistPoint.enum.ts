@@ -1,10 +1,10 @@
 import { getImgUrl } from "@/utils/getImgUrl";
 
 export enum SpecialistPointEnum {
+    BOTANIST = "gardenPoint",
     COMPUTER_SCIENTIST = "computerScientistPoint",
     COOKER = "cookerPoint",
-    BOTANIST = "botanistPoint",
-    DESIGNER = "designerPoint", // aka Neron project point
+    DESIGNER = "pilgredPoint",
     ENGINEER = "engineerPoint",
     HEALER = "healerPoint",
     PHYSICAN = "physicanPoint",
@@ -12,10 +12,19 @@ export enum SpecialistPointEnum {
 }
 
 export const specialistPointEnum: {[index: string]: any} = {
-    [SpecialistPointEnum.SHOOTER]: {
-        'icon': getImgUrl('pa_shoot.png')
+    [SpecialistPointEnum.BOTANIST]: {
+        'icon': getImgUrl('action_points/pa_garden.png')
+    },
+    [SpecialistPointEnum.COOKER]: {
+        'icon': getImgUrl('action_points/pa_cook.png')
+    },
+    [SpecialistPointEnum.DESIGNER]: {
+        'icon': getImgUrl('action_points/pa_pilgred.png')
     },
     [SpecialistPointEnum.ENGINEER]: {
-        'icon': getImgUrl('pa_eng.png')
-    }
+        'icon': getImgUrl('action_points/pa_eng.png')
+    },
+    [SpecialistPointEnum.SHOOTER]: {
+        'icon': getImgUrl('action_points/pa_shoot.png')
+    },
 };

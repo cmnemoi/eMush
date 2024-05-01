@@ -22,6 +22,7 @@ class ActionsFixtures extends Fixture
     public const SUICIDE = 'suicide';
     public const AUTO_DESTROY = 'auto.destruction';
     public const KILL_PLAYER = 'kill.player';
+    public const RESET_SPECIALIST_POINT = ActionEnum::RESET_SPECIALIST_POINTS;
 
     public const REJUVENATE_ALPHA = 'rejuvenate.alpha';
     public const UPDATING_TALKIE = 'updating.talkie';
@@ -143,6 +144,13 @@ class ActionsFixtures extends Fixture
             ->setScope(ActionScopeEnum::SELF)
             ->buildName(GameConfigEnum::ALPHA);
         $manager->persist($rejuvenateAlpha);
+
+        $resetSpecializationPoint = new Action();
+        $resetSpecializationPoint
+            ->setActionName(ActionEnum::RESET_SPECIALIST_POINTS)
+            ->setScope(ActionScopeEnum::SELF)
+            ->buildName(GameConfigEnum::ALPHA);
+        $manager->persist($resetSpecializationPoint);
 
         $updatingTalkie = new Action();
         $updatingTalkie
@@ -1069,6 +1077,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::KILL_PLAYER, $killPlayer);
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
+        $this->addReference(self::RESET_SPECIALIST_POINT, $resetSpecializationPoint);
         $this->addReference(self::UPDATING_TALKIE, $updatingTalkie);
 
         $this->addReference(self::MOVE_DEFAULT, $moveAction);

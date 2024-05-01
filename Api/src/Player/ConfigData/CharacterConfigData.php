@@ -240,7 +240,9 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                SkillEnum::TECHNICIAN,
+            ],
         ],
         [
             'name' => 'finola',
@@ -420,7 +422,10 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha'],
+            'initStatuses' => [
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::TECHNICIAN,
+            ],
         ],
         [
             'name' => 'ian',
@@ -559,7 +564,10 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha', SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::SHOOTER . '_alpha'
+            ],
         ],
         [
             'name' => 'kuan_ti',
@@ -605,7 +613,9 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                SkillEnum::TECHNICIAN,
+            ],
         ],
         [
             'name' => 'paola',
@@ -697,6 +707,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'antisocial_default',
+                SkillEnum::TECHNICIAN,
             ],
         ],
         [
@@ -743,7 +754,10 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha', SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::SHOOTER . '_alpha'
+            ],
         ],
         [
             'name' => 'stephen',
@@ -837,6 +851,7 @@ class CharacterConfigData
                 'disabled_default',
                 SkillEnum::PILOT . '_alpha',
                 SkillEnum::SHOOTER . '_alpha',
+                SkillEnum::TECHNICIAN,
             ],
         ],
     ];

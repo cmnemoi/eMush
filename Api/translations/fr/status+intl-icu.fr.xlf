@@ -1591,5 +1591,23 @@
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
+    <unit id="technician">
+      <segment id="name" state="translated">
+        <source>technician.name</source>
+        <target>Technicien</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>technician.description</source>
+        <target>
+        +1 :pa_eng: (point d'action **Réparation**) par jour.
+        //
+        Chances de réussites doublées pour les **Réparations**.
+        //
+        Chances de réussites doublées pour les **Rénovations**.
+        //
+        Bonus pour développer certains Projets NERON.
+        </target>
+      </segment>
+    </unit>
   </file>
 </xliff>

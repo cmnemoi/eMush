@@ -303,6 +303,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     private function getSpecialistPointsForPlayer(Player $player, string $language): array
     {
+        // TODO Rename cookerPoint as cookPoint
         $skillsList = [
             SkillEnum::BOTANIST => 'gardenPoint',
             SkillEnum::CHEF => 'cookerPoint',

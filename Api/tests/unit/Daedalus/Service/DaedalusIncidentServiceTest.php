@@ -22,9 +22,9 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use Mush\Game\Service\Random\FakeGetRandomPoissonIntegerService;
-use Mush\Game\Service\Random\GetRandomPoissonIntegerServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -34,6 +34,8 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
@@ -91,14 +93,16 @@ final class DaedalusIncidentServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testShouldHandleFireEvents(): void
+    public function testShouldHandleFireEventsPutFireInNotBurningRoom(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
 
-        // given a Place in this Daedalus
+        // given a room in this Daedalus
         $place = new Place();
-        $place->setDaedalus($daedalus);
+        $place
+            ->setType(PlaceTypeEnum::ROOM)
+            ->setDaedalus($daedalus);
 
         // setup universe state
         $this->statusService->shouldReceive('createStatusFromName')->once();
@@ -108,6 +112,33 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // then we should have one fire event
         self::assertSame(1, $fires);
+    }
+
+    public function testShouldHandleFireEventsNotPutFireInBurningRoom(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a room in this Daedalus
+        $place = new Place();
+        $place
+            ->setType(PlaceTypeEnum::ROOM)
+            ->setDaedalus($daedalus);
+
+        // given this room is already burning
+        StatusFactory::createStatusByNameForHolder(
+            name: StatusEnum::FIRE,
+            holder: $place,
+        );
+
+        // setup universe state
+        $this->statusService->shouldReceive('createStatusFromName')->never();
+
+        // when we handle fire events
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
+
+        // then we should have no fire event
+        self::assertSame(0, $fires);
     }
 
     public function testHandleTremorEvents()

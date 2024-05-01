@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Game\Service\Random;
 
 final class GetRandomPoissonIntegerService implements GetRandomPoissonIntegerServiceInterface
-{   
+{
     private function __construct(private GetRandomIntegerServiceInterface $random) {}
 
     public function execute(float $lambda): int

@@ -35,7 +35,6 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     private StatusServiceInterface $statusService;
     private LoggerInterface $logger;
 
-
     public function __construct(
         GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
         GetRandomPoissonIntegerServiceInterface $getRandomPoissonInteger,
@@ -57,7 +56,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
     {
         $newFireRooms = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getRoomsWithoutFire()->toArray(), 
+            elements: $daedalus->getRoomsWithoutFire()->toArray(),
             number: $this->getNumberOfIncident($daedalus)
         );
 

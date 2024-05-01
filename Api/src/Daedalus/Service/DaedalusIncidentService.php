@@ -56,8 +56,10 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
     {
-        $rooms = $daedalus->getRoomsOnFire();
-        $newFireRooms = $this->getRandomElementsFromArray->execute($rooms->toArray(), $this->getNumberOfIncident($daedalus));
+        $newFireRooms = $this->getRandomElementsFromArray->execute(
+            elements: $daedalus->getRoomsWithoutFire()->toArray(), 
+            number: $this->getNumberOfIncident($daedalus)
+        );
 
         /** @var Place $room */
         foreach ($newFireRooms as $room) {

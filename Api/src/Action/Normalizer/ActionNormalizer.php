@@ -106,6 +106,7 @@ class ActionNormalizer implements NormalizerInterface
                     PlayerVariableEnum::MORAL_POINT,
                 ),
                 'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $object),
+                'specialistPointCosts' => $this->getNormalizedSpecialistPointCosts($currentPlayer, $object),
             ];
 
             if ($actionClass instanceof AttemptAction) {
@@ -216,5 +217,63 @@ class ActionNormalizer implements NormalizerInterface
     private function isShootAction(Action $action): bool
     {
         return \in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes(), true) || \in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes(), true);
+    }
+
+    private function getNormalizedSpecialistPointCosts(Player $currentPlayer, Action $action): array
+    {
+        $specialistPointCostRules = [
+            'shootPoint' => [
+                'Skill' => SkillEnum::SHOOTER,
+                'CompatibleActionTypes' => [ ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER ]
+            ],
+            'engineerPoint' => [
+                'Skill' => SkillEnum::TECHNICIAN,
+                'CompatibleActionTypes' => [ ActionTypeEnum::ACTION_TECHNICIAN ]
+            ]
+        ];
+
+        $specialistPointCosts = [];
+        foreach ($specialistPointCostRules as $key => $value)
+        {
+            $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $value);
+            if ($specialistPointCost)
+            {
+                $specialistPointCosts[] = $key;
+            }
+        }
+
+        return $specialistPointCosts;
+    }
+
+    private function getSpecialistPointCost(Player $currentPlayer, Action $action, array $specialistPointCostRule): ?int
+    {
+        if (!$this->isActionTypeMatchingWith($action, $specialistPointCostRule['CompatibleActionTypes'])) {
+            return null;
+        }
+
+        /** @var ?ChargeStatus $shooterSkill */
+        $skill = $currentPlayer->getSkillByName($specialistPointCostRule['Skill']);
+        if ($skill?->getCharge() > 0) {
+            return 1;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Action $action
+     * @param array<string> $types
+     * @return bool
+     */
+    private function isActionTypeMatchingWith(Action $action, array $types): bool
+    {
+        foreach ($types as $type)
+        {
+            if (\in_array($type, $action->getTypes(), true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

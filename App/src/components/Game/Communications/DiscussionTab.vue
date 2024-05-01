@@ -5,7 +5,7 @@
                 :message="message"
                 :is-root="true"
                 :is-replyable="true"
-                @click="replyTo(message)" />
+                @reply="replyTo(message)" />
             <button class="toggle-children" @click="message.toggleChildren()">
                 {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
             </button>
@@ -14,7 +14,7 @@
                 :key="id"
                 :message="child"
                 :is-replyable="true"
-                @click="replyTo(message)"
+                @reply="replyTo(message)"
             />
             <MessageInput v-if="messageToReply === message && newMessagesAllowed" :channel="channel" :parent="message" />
         </section>

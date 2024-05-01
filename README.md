@@ -110,62 +110,9 @@ You should land in a fully working Daedalus!
 
 ### Installing without Docker
 
-TODO : write a Bash and a Powershell script because I hate typing multiple commands to install a project
+Run `chmod +x install.sh && ./install.sh` to install the project.
 
-Clone repository https://gitlab.com/eternaltwin/mush/mush.git
-
-Install NVM and yarn https://github.com/coreybutler/nvm-windows/releases
-```
-nvm install latest
-nvm use latest
-npm install -g yarn
-```
-	
-Download the last version of PHP https://windows.php.net/download#php-8.3
-Add the folder containing php.exe to PATH
-In php.ini
-    activate extension=pdo_pgsql
-    activate extension=intl
-
-Download Composer https://getcomposer.org/download/
-Add the fold containing composer.bat to PATH
-
-Download and install Postgresql https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-Create new user identified by mysql with password password
-Create database mush with user mysql as owner
-Create database etwin.dev with user mysql as owner
-
-Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
-```bash
-openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-chmod go+r config/jwt/private.pem
-```
-Use `mush` as passphrase or update the `.env` with your passphrase
-
-
-In folder `Api/`
-```
-cp .env.dist .env
-composer update
-php bin/console mush:migrate --dev
-php -S localhost:8080 -t public
-```
-     
-In folder `App/`
-```
-cp .env.dist .env
-yarn install
-yarn serve
-```
-
-In folder `EternalTwin/`
-```
-cp .etwin.toml.example .etwin.toml
-yarn install
-yarn etwin db create
-yarn etwin start
-```
+In the future, you can just run `make start` to start the project.
 
 ## Contributing
 

@@ -109,7 +109,7 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(1, $fires);
     }
 
-    public function testNotShouldHandleFireEventsInBurningRoom(): void
+    public function testShouldNotHandleFireEventsInBurningRoom(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
@@ -174,7 +174,7 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(0, $tremorEvents);
     }
 
-    public function testShouldNotHandleTremorEventsInRoomWithoutPlayer()
+    public function testShouldNotHandleTremorEventsInRoomWithoutPlayers()
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
@@ -189,33 +189,25 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(0, $tremorEvents);
     }
 
-    public function testHandleElectricArcEvents()
+    public function testShouldHandleElectricArcEvents()
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
+        // given laboratory
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        self::assertSame(0, $fires);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $room1 = new Place();
-        $room1->setDaedalus(new Daedalus());
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$room1])
-            ->once();
-
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
+            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $laboratory && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once();
 
-        $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
+        // when we handle electric arc events
+        $electricArcs = $this->service->handleElectricArcEvents($daedalus, new \DateTime());
 
-        self::assertSame(1, $fires);
+        // then we should have one fire event
+        self::assertSame(1, $electricArcs);
     }
 
     public function testHandleEquipmentBreakEvents()
@@ -357,38 +349,76 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(1, $broken);
     }
 
-    public function testHandleDoorBreakEvents()
+    public function testShouldHandleDoorBreakWithBreakableDoor(): void
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
+        $medlab = Place::createRoomByNameInDaedalus(RoomEnum::MEDLAB, $daedalus);
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        self::assertSame(0, $broken);
+        // given a door
+        $door = Door::createFromRooms($medlab, $laboratory);
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $room = new Place();
-        $room->setDaedalus(new Daedalus());
-        $door = new Door($room);
-        $door->setRooms(new ArrayCollection([new Place(), new Place()]));
-        $door->setName('Door');
-
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByCriteria')
-            ->withArgs(static fn (GameEquipmentCriteria $criteria) => $criteria->getInstanceOf() === [Door::class])
-            ->andReturn([$door])
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$door])
-            ->once();
-
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
+        // when we handle door break events
+        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
 
-        self::assertSame(1, $broken);
+        // then we should have one door break event
+        self::assertSame(1, $doorBreaks);
+    }
+
+    public function testShouldNotHandleDoorBreakWithNotBreakableDoor(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        $medlab = Place::createRoomByNameInDaedalus(RoomEnum::MEDLAB, $daedalus);
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+
+        // given a door
+        $door = Door::createFromRooms($medlab, $laboratory);
+        
+        // given this door is broken
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $door
+        );
+
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
+        $this->statusService->shouldReceive('createStatusFromName')->never();
+
+        // when we handle door break events
+        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
+
+        // then we should have one door break event
+        self::assertSame(0, $doorBreaks);
+    }
+
+    public function testShouldNotHandleDoorBreakIfBreakableDoorIsAlreadyBroken(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        $frontCorridor = Place::createRoomByNameInDaedalus(RoomEnum::FRONT_CORRIDOR, $daedalus);
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+
+        // given a door
+        $door = Door::createFromRooms($frontCorridor, $laboratory);
+
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
+        $this->statusService->shouldReceive('createStatusFromName')->never();
+
+        // when we handle door break events
+        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
+
+        // then we should have one door break event
+        self::assertSame(0, $doorBreaks);
     }
 
     public function testHandlePanicCrisisEvents()

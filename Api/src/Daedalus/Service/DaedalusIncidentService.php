@@ -145,11 +145,12 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleDoorBreak(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfDoorBroken = $this->getNumberOfIncident($daedalus);
-
         $breakableDoors = $this->getBreakableDoors($daedalus);
 
-        $doorsToBreak = $this->getRandomElementsFromArray->execute($breakableDoors, $numberOfDoorBroken);
+        $doorsToBreak = $this->getRandomElementsFromArray->execute(
+            elements: $breakableDoors, 
+            number: $this->getNumberOfIncident($daedalus)
+        );
 
         foreach ($doorsToBreak as $door) {
             $this->statusService->createStatusFromName(
@@ -160,7 +161,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             );
         }
 
-        return $numberOfDoorBroken;
+        return \count($doorsToBreak);
     }
 
     public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Mush\tests\unit\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Game\Service\FakeGetRandomIntegerService;
-use Mush\Game\Service\GetRandomElementsFromArrayService;
+use Mush\Game\Service\Random\FakeGetRandomIntegerService;
+use Mush\Game\Service\Random\GetRandomElementsFromArrayService;
 use PHPUnit\Framework\TestCase;
 
 /**

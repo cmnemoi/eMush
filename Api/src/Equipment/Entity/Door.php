@@ -23,6 +23,19 @@ class Door extends GameEquipment
         parent::__construct($equipmentHolder);
     }
 
+    public static function createFromRooms(Place $room1, Place $room2): self
+    {
+        $door = new self($room1);
+        $room1->addDoor($door);
+
+        $door->addRoom($room2);
+        $room2->addDoor($door);
+
+        $door->setName($door->buildName());
+
+        return $door;
+    }
+
     public function getRooms(): Collection
     {
         return $this->rooms;
@@ -70,5 +83,10 @@ class Door extends GameEquipment
     public function getActionTargetName(array $context): string
     {
         return ActionTargetName::DOOR->value;
+    }
+
+    private function buildName(): string
+    {
+        return implode('_', $this->getRooms()->map(static fn (Place $room) => $room->getName())->toArray());
     }
 }

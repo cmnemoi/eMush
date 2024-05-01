@@ -26,6 +26,7 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -668,6 +669,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function efficiencyIsZeroForProject(Project $project): bool
     {
         return $this->getEfficiencyForProject($project)->max === 0;
+    }
+
+    public function kill(): static
+    {
+        $this->playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+
+        return $this;
     }
 
     private function getMinEfficiencyForProject(Project $project): int

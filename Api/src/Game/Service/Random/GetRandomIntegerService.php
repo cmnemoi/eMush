@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Game\Service;
+namespace Mush\Game\Service\Random;
 
 final class GetRandomIntegerService implements GetRandomIntegerServiceInterface
 {

@@ -6,6 +6,8 @@ namespace Mush\Player\Factory;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameStatusEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -25,15 +27,17 @@ final class PlayerFactory
         $characterConfig->setCharacterName(CharacterEnum::CHUN);
 
         $player = new Player();
-        new PlayerInfo($player, $user, $characterConfig);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
 
         return $player;
     }
 
-    public static function createPlayerWithDaedalus(Daedalus $daedmlus): Player
+    public static function createPlayerWithDaedalus(Daedalus $daedalus): Player
     {
         $player = self::createPlayer();
-        $player->setDaedalus($daedmlus);
+        $player->setDaedalus($daedalus);
+        $player->setPlace($daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
 
         return $player;
     }

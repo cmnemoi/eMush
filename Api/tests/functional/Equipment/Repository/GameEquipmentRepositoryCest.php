@@ -15,7 +15,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Tests\FunctionalTester;
 
-class GameEquipmentRepositoryCest
+final class GameEquipmentRepositoryCest
 {
     private GameEquipmentRepository $repository;
 

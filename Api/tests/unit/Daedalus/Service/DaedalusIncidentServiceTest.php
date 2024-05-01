@@ -2,36 +2,30 @@
 
 namespace Mush\Tests\unit\Daedalus\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
-use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Game\Entity\Collection\ProbaCollection;
-use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
+use Mush\Game\Service\Random\FakeGetRandomPoissonIntegerService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -69,11 +63,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new DaedalusIncidentService(
+            new FakeGetRandomElementsFromArrayService(),
+            new FakeGetRandomPoissonIntegerService(1), // always one incident
             $this->randomService,
             $this->eventService,
             $this->gameEquipmentRepository,
-            $this->logger,
             $this->statusService,
+            $this->logger,
         );
     }
 
@@ -85,356 +81,317 @@ final class DaedalusIncidentServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testHandleFireEvents()
+    public function testShouldHandleFireEventsPutFireInNotBurningRoom(): void
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
-
-        self::assertSame(0, $fires);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $room1 = new Place();
-        $room1->setDaedalus(new Daedalus());
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$room1])
-            ->once();
-
+        // setup universe state
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
+        // when we handle fire events
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
 
+        // then we should have one fire event
         self::assertSame(1, $fires);
     }
 
-    public function testHandleTremorEvents()
+    public function testShouldNotHandleFireEventsInBurningRoom(): void
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
+        // given laboratory is burning
+        StatusFactory::createStatusByNameForHolder(
+            name: StatusEnum::FIRE,
+            holder: $daedalus->getPlaceByName(RoomEnum::LABORATORY),
+        );
 
+        // when we handle fire events
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
+
+        // then we should have no fire event
         self::assertSame(0, $fires);
+    }
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
+    public function testShouldHandleTremorEventsInRoomWithAlivePlayers()
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $room1 = new Place();
-        $room1->setDaedalus(new Daedalus());
+        // given a room in this Daedalus
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
 
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$room1])
-            ->once();
+        // given a player in this room
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $player->changePlace($room);
 
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
+            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once();
 
-        $fires = $this->service->handleTremorEvents(new Daedalus(), new \DateTime());
+        // when we handle tremor events
+        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
 
-        self::assertSame(1, $fires);
+        // then we should have one tremor event
+        self::assertSame(1, $tremorEvents);
     }
 
-    public function testHandleElectricArcEvents()
+    public function testShouldNotHandleTremorEventsInRoomWithDeadPlayers()
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
+        // given a room in this Daedalus
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
 
-        self::assertSame(0, $fires);
+        // given a player in this room
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $player->changePlace($room);
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
+        // given player is dead
+        $player->kill();
 
-        $room1 = new Place();
-        $room1->setDaedalus(new Daedalus());
+        // when we handle tremor events
+        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
 
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$room1])
-            ->once();
+        // then we should have 0 tremor event
+        self::assertSame(0, $tremorEvents);
+    }
 
+    public function testShouldNotHandleTremorEventsInRoomWithoutPlayers()
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a room in this Daedalus
+        Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
+
+        // when we handle tremor events
+        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
+
+        // then we should have 0 tremor event
+        self::assertSame(0, $tremorEvents);
+    }
+
+    public function testShouldHandleElectricArcEvents()
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given laboratory
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room1 && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
+            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $laboratory && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once();
 
-        $fires = $this->service->handleElectricArcEvents(new Daedalus(), new \DateTime());
+        // when we handle electric arc events
+        $electricArcs = $this->service->handleElectricArcEvents($daedalus, new \DateTime());
 
-        self::assertSame(1, $fires);
+        // then we should have one fire event
+        self::assertSame(1, $electricArcs);
     }
 
-    public function testHandleEquipmentBreakEvents()
+    public function testShouldHandleEquipmentBreakWithEquipmentToBreak(): void
     {
-        $difficultyConfig = new DifficultyConfig();
-        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $lab = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $mycoscan = $lab->getEquipmentByName(EquipmentEnum::MYCOSCAN);
 
-        $daedalus = new Daedalus();
-
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
-
-        self::assertSame(0, $broken);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $place = new Place();
-        $place->setDaedalus($daedalus);
-        $equipment = new GameEquipment($place);
-
-        self::isFalse($equipment->isBroken());
-
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->withArgs(['communication_center', $daedalus])
-            ->andReturn([$equipment])
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->withArgs(static fn ($probaArray, $number, $funcDaedalus) => (
-                $probaArray instanceof ProbaCollection
-                && $probaArray->toArray() === ['communication_center' => 1]
-                && $number === 1
-                && $funcDaedalus === $daedalus
-            ))
-            ->andReturn([$equipment])
-            ->once();
-
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$mycoscan]);
+        $this->randomService->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')->once()->andReturn([$mycoscan]);
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
+        // when we handle equipment break events
+        $equipmentBreaks = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        self::isTrue($equipment->isBroken());
-        self::assertSame(1, $broken);
+        // then we should have one equipment break event
+        self::assertSame(1, $equipmentBreaks);
     }
 
-    public function testEquipmentBreakAlreadyBrokenEvent()
+    public function testShouldNotHandleEquipementBreakWithEquipmentAlreadyBroken(): void
     {
-        $difficultyConfig = new DifficultyConfig();
-        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $lab = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $mycoscan = $lab->getEquipmentByName(EquipmentEnum::MYCOSCAN);
 
-        $daedalus = new Daedalus();
+        // given this equipment is broken
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+        );
 
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$mycoscan]);
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
+        // when we handle equipment break events
+        $equipmentBreaks = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        $place = new Place();
-        $place->setDaedalus($daedalus);
-        $equipment = new GameEquipment($place);
-        $brokenConfig = new StatusConfig();
-        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
-        $brokenStatus = new Status($equipment, $brokenConfig);
+        // then we should have no equipment break event
+        self::assertSame(0, $equipmentBreaks);
+    }
 
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->withArgs(['communication_center', $daedalus])
-            ->andReturn([$equipment])
-            ->once();
+    public function testShouldHandleDoorBreakWithBreakableDoor(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->andReturn([$equipment])
-            ->never();
+        $medlab = Place::createRoomByNameInDaedalus(RoomEnum::MEDLAB, $daedalus);
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
+        // given a door
+        $door = Door::createFromRooms($medlab, $laboratory);
+
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // when we handle door break events
+        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
+
+        // then we should have one door break event
+        self::assertSame(1, $doorBreaks);
+    }
+
+    public function testShouldNotHandleDoorBreakWithNotBreakableDoor(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        $medlab = Place::createRoomByNameInDaedalus(RoomEnum::MEDLAB, $daedalus);
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+
+        // given a door
+        $door = Door::createFromRooms($medlab, $laboratory);
+
+        // given this door is broken
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $door
+        );
+
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
         $this->statusService->shouldReceive('createStatusFromName')->never();
 
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
+        // when we handle door break events
+        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
 
-        self::assertSame(0, $broken);
+        // then we should have one door break event
+        self::assertSame(0, $doorBreaks);
     }
 
-    public function testNotBreakingGameItems()
+    public function testShouldNotHandleDoorBreakIfBreakableDoorIsAlreadyBroken(): void
     {
-        $difficultyConfig = new DifficultyConfig();
-        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $frontCorridor = Place::createRoomByNameInDaedalus(RoomEnum::FRONT_CORRIDOR, $daedalus);
+        $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        $daedalus = new Daedalus();
+        // given a door
+        $door = Door::createFromRooms($frontCorridor, $laboratory);
 
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
+        $this->statusService->shouldReceive('createStatusFromName')->never();
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
+        // when we handle door break events
+        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
 
-        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
-
-        self::assertSame(0, $broken);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $place = new Place();
-        $place->setDaedalus($daedalus);
-        $equipment = new GameEquipment($place);
-        $item = new GameItem($place);
-
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->withArgs(['communication_center', $daedalus])
-            ->andReturn([$equipment])
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->withArgs(static fn ($probaArray, $number, $funcDaedalus) => (
-                $probaArray instanceof ProbaCollection
-                && $probaArray->toArray() === ['communication_center' => 1]
-                && $number === 1
-                && $funcDaedalus === $daedalus
-            ))
-            ->andReturn([$equipment])
-            ->once();
-
-        $this->statusService->shouldReceive('createStatusFromName')->once();
-
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
-
-        self::assertSame(1, $broken);
+        // then we should have one door break event
+        self::assertSame(0, $doorBreaks);
     }
 
-    public function testHandleDoorBreakEvents()
+    public function testShouldHandlePanicCrisisWithHumanPlayer(): void
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
+        // given a player in this Daedalus
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
-        self::assertSame(0, $broken);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $place = new Place();
-        $place->setDaedalus(new Daedalus());
-        $door = new Door($place);
-        $door->setRooms(new ArrayCollection([new Place(), new Place()]));
-        $door->setName('Door');
-
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByCriteria')
-            ->withArgs(static fn (GameEquipmentCriteria $criteria) => $criteria->getInstanceOf() === [Door::class])
-            ->andReturn([$door])
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$door])
-            ->once();
-
-        $this->statusService->shouldReceive('createStatusFromName')->once();
-
-        $broken = $this->service->handleDoorBreak(new Daedalus(), new \DateTime());
-
-        self::assertSame(1, $broken);
-    }
-
-    public function testHandlePanicCrisisEvents()
-    {
-        $daedalus = new Daedalus();
-
-        $panicCrisis = $this->service->handlePanicCrisis($daedalus, new \DateTime());
-
-        self::assertSame(0, $panicCrisis);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-
-        $daedalus->addPlayer($player);
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once();
 
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$player])
-            ->once();
+        // when we handle panic crisis events
+        $panics = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
-        $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
-
-        self::assertSame(1, $broken);
+        // then we should have one panic event
+        self::assertSame(1, $panics);
     }
 
-    public function testHandlePanicCrisisEventsMushNotConcerned()
+    public function testShouldNotHandlePanicCrisisWithMushPlayer(): void
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(2)->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
+        // given a player in this Daedalus
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
-        $mushPlayer = new Player();
-        $mushPlayerInfo = new PlayerInfo($mushPlayer, new User(), new CharacterConfig());
-        $mushPlayer->setPlayerInfo($mushPlayerInfo);
+        // given this player is Mush
+        StatusFactory::createStatusByNameForHolder(
+            name: PlayerStatusEnum::MUSH,
+            holder: $player,
+        );
 
-        $mushConfig = new StatusConfig();
-        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
-        $mush = new Status($mushPlayer, $mushConfig);
+        // when we handle panic crisis events
+        $panics = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
-        $daedalus->addPlayer($mushPlayer);
-        $daedalus->addPlayer($player);
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->withArgs(static fn (array $humans, int $pick) => \count($humans) === 1 && \in_array($player, $humans, true))
-            ->andReturn([$player])
-            ->once();
-
-        $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
-
-        self::assertSame(1, $broken);
+        // then we should not have any panic event
+        self::assertSame(0, $panics);
     }
 
-    public function testHandleMetalPlatesEvents()
+    public function testShouldHandleMetalPlatesWithPlayersInRoom(): void
     {
-        $metalPlates = $this->service->handleMetalPlates(new Daedalus(), new \DateTime());
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        self::assertSame(0, $metalPlates);
+        // given a room in this Daedalus
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
+        // given a player in this room
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $player->changePlace($room);
 
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-
-        $daedalus->addPlayer($player);
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(static fn (PlayerEvent $event) => $event->getPlace() === $room && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once();
 
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$player])
-            ->once();
-
+        // when we handle metal plates events
         $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
 
+        // then we should have one metal plates event
         self::assertSame(1, $metalPlates);
+    }
+
+    public function testShouldNotHandleMetalPlatesWithNoPlayersInRoom(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a room in this Daedalus
+        Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
+
+        // when we handle metal plates events
+        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+
+        // then we should not have any metal plates event
+        self::assertSame(0, $metalPlates);
     }
 }

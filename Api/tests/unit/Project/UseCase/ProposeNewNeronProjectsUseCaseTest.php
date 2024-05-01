@@ -6,7 +6,7 @@ namespace Mush\tests\unit\Project\UseCase;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Game\Service\FakeGetRandomElementsFromArrayService;
+use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\Repository\InMemoryProjectRepository;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;

@@ -97,7 +97,7 @@ cd ..
 #####################
 
 echo "Installing PHP build dependencies..."
-sudo apt-get install ca-certificates apt-transport-https software-properties-common lsb-release openssl -yq >> install.log
+sudo apt-get install ca-certificates apt-transport-https software-properties-common lsb-release openssl zip unzip -yq >> install.log
 
 echo "Setup PHP repositories..."
 curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
@@ -109,7 +109,7 @@ sudo apt-get install php${PHP_VERSION} -yq >> install.log
 
 echo "Installing PHP extensions..."
 sudo apt-get install php${PHP_VERSION}-common php${PHP_VERSION}-pgsql php${PHP_VERSION}-curl php${PHP_VERSION}-opcache \
-    php${PHP_VERSION}-intl php${PHP_VERSION}-xml php${PHP_VERSION}-dom -yq >> install.log
+    php${PHP_VERSION}-intl php${PHP_VERSION}-xml php${PHP_VERSION}-dom php${PHP_VERSION}-zip -yq >> install.log
 
 echo "Installing Composer..."
 curl -sS https://getcomposer.org/installer | php

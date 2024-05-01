@@ -2,14 +2,12 @@
 
 namespace Mush\Tests\unit\Daedalus\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
-use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -26,9 +24,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\RoomEvent;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -38,7 +34,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -381,7 +376,7 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // given a door
         $door = Door::createFromRooms($medlab, $laboratory);
-        
+
         // given this door is broken
         StatusFactory::createStatusByNameForHolder(
             name: EquipmentStatusEnum::BROKEN,
@@ -463,32 +458,43 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(0, $panics);
     }
 
-    public function testHandleMetalPlatesEvents()
+    public function testShouldHandleMetalPlatesWithPlayersInRoom(): void
     {
-        $metalPlates = $this->service->handleMetalPlates(new Daedalus(), new \DateTime());
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        self::assertSame(0, $metalPlates);
+        // given a room in this Daedalus
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
+        // given a player in this room
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $player->changePlace($room);
 
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-
-        $daedalus->addPlayer($player);
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
-            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
+            ->withArgs(static fn (PlayerEvent $event) => $event->getPlace() === $room && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
             ->once();
 
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$player])
-            ->once();
-
+        // when we handle metal plates events
         $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
 
+        // then we should have one metal plates event
         self::assertSame(1, $metalPlates);
+    }
+
+    public function testShouldNotHandleMetalPlatesWithNoPlayersInRoom(): void
+    {
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a room in this Daedalus
+        Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
+
+        // when we handle metal plates events
+        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+
+        // then we should not have any metal plates event
+        self::assertSame(0, $metalPlates);
     }
 }

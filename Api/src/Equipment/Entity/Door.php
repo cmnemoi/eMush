@@ -86,7 +86,7 @@ class Door extends GameEquipment
     }
 
     private function buildName(): string
-    {   
-        return join('_', $this->getRooms()->map(static fn (Place $room) => $room->getName())->toArray());
+    {
+        return implode('_', $this->getRooms()->map(static fn (Place $room) => $room->getName())->toArray());
     }
 }

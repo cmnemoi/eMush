@@ -148,7 +148,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $breakableDoors = $this->getBreakableDoors($daedalus);
 
         $doorsToBreak = $this->getRandomElementsFromArray->execute(
-            elements: $breakableDoors, 
+            elements: $breakableDoors,
             number: $this->getNumberOfIncident($daedalus)
         );
 
@@ -190,9 +190,10 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $alivePlayers = $daedalus->getPlayers()->getPlayerAlive();
 
-        $numberOfMetalPlates = $this->getNumberOfIncident($daedalus);
-
-        $metalPlatesPlayers = $this->getRandomElementsFromArray->execute($alivePlayers->toArray(), $numberOfMetalPlates);
+        $metalPlatesPlayers = $this->getRandomElementsFromArray->execute(
+            elements: $alivePlayers->toArray(),
+            number: $this->getNumberOfIncident($daedalus)
+        );
 
         foreach ($metalPlatesPlayers as $player) {
             $playerEvent = new PlayerEvent(
@@ -203,7 +204,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             $this->eventService->callEvent($playerEvent, PlayerEvent::METAL_PLATE);
         }
 
-        return $numberOfMetalPlates;
+        return \count($metalPlatesPlayers);
     }
 
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int

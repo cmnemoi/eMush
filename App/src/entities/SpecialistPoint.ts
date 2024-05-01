@@ -1,22 +1,19 @@
 import { QuantityPoint } from "@/entities/QuantityPoint";
 
 export class SpecialistPoint {
-    public name : string|null;
-    public description : string|null;
+    public key : string|null;
     public charge: QuantityPoint|null;
 
     constructor() {
-        this.name = null;
-        this.description = null;
+        this.key = null;
         this.charge = null;
     }
 
     load(object: any): SpecialistPoint {
         if (typeof object !== "undefined") {
-            this.name = object.name;
-            this.description = object.description;
-            if (object.quantity) {
-                this.charge = (new QuantityPoint()).load(object.quantity);
+            this.key = object.key;
+            if (object.quantityPoint) {
+                this.charge = (new QuantityPoint()).load(object.quantityPoint);
             }
         }
         return this;

@@ -33,7 +33,6 @@ export class Player {
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
     public skills: Array<Status>;
-    public shootPoint: QuantityPoint|null;
     public specialistPoints: Array<SpecialistPoint>;
     public isSeated: boolean;
 
@@ -56,7 +55,6 @@ export class Player {
         this.titles = [];
         this.exploration = null;
         this.skills = [];
-        this.shootPoint = null;
         this.specialistPoints = [];
         this.isSeated = false;
     }
@@ -137,9 +135,6 @@ export class Player {
                     const skill = (new Status()).load(skillObject);
                     this.skills.push(skill);
                 });
-            }
-            if (object.shootPoint) {
-                this.shootPoint = (new QuantityPoint()).load(object.shootPoint);
             }
             if (object.specialistPoints) {
                 object.specialistPoints.forEach((specialistPointObject: any) => {

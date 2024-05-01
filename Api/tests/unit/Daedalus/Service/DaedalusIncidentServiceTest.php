@@ -421,71 +421,46 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(0, $doorBreaks);
     }
 
-    public function testHandlePanicCrisisEvents()
+    public function testShouldHandlePanicCrisisWithHumanPlayer(): void
     {
-        $daedalus = new Daedalus();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $panicCrisis = $this->service->handlePanicCrisis($daedalus, new \DateTime());
+        // given a player in this Daedalus
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
-        self::assertSame(0, $panicCrisis);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
-
-        $daedalus->addPlayer($player);
+        // setup universe state
         $this->eventService
             ->shouldReceive('callEvent')
             ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
             ->once();
 
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$player])
-            ->once();
+        // when we handle panic crisis events
+        $panics = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
-        $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
-
-        self::assertSame(1, $broken);
+        // then we should have one panic event
+        self::assertSame(1, $panics);
     }
 
-    public function testHandlePanicCrisisEventsMushNotConcerned()
+    public function testShouldNotHandlePanicCrisisWithMushPlayer(): void
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(2)->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $daedalus = new Daedalus();
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
+        // given a player in this Daedalus
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
-        $mushPlayer = new Player();
-        $mushPlayerInfo = new PlayerInfo($mushPlayer, new User(), new CharacterConfig());
-        $mushPlayer->setPlayerInfo($mushPlayerInfo);
+        // given this player is Mush
+        StatusFactory::createStatusByNameForHolder(
+            name: PlayerStatusEnum::MUSH,
+            holder: $player,
+        );
 
-        $mushConfig = new StatusConfig();
-        $mushConfig->setStatusName(PlayerStatusEnum::MUSH);
-        $mush = new Status($mushPlayer, $mushConfig);
+        // when we handle panic crisis events
+        $panics = $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
-        $daedalus->addPlayer($mushPlayer);
-        $daedalus->addPlayer($player);
-
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->withArgs(static fn (array $humans, int $pick) => \count($humans) === 1 && \in_array($player, $humans, true))
-            ->andReturn([$player])
-            ->once();
-
-        $broken = $this->service->handlePanicCrisis($daedalus, new \DateTime());
-
-        self::assertSame(1, $broken);
+        // then we should not have any panic event
+        self::assertSame(0, $panics);
     }
 
     public function testHandleMetalPlatesEvents()

@@ -98,3 +98,10 @@ gitpod-stop:
 
 gitpod-watch:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-recreate --remove-orphans
+
+start:
+	php -S localhost:8080 -t Api/public > /dev/null 2>&1 &
+	cd App && yarn dev > /dev/null 2>&1 &
+	cd EternalTwin && yarn etwin start > /dev/null 2>&1 &
+	@echo "eMush is now running at http://localhost:5173"
+

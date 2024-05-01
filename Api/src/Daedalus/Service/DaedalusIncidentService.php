@@ -10,6 +10,8 @@ use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
+use Mush\Game\Service\Random\GetRandomPoissonIntegerServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\DoorEnum;
@@ -21,24 +23,30 @@ use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Psr\Log\LoggerInterface;
 
-class DaedalusIncidentService implements DaedalusIncidentServiceInterface
+final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 {
     private const ALPHA_MULTIPLIER = 3;
 
+    private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray;
+    private GetRandomPoissonIntegerServiceInterface $getRandomPoissonInteger;
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
     private GameEquipmentRepository $gameEquipmentRepository;
+    private StatusServiceInterface $statusService;
     private LoggerInterface $logger;
 
-    private StatusServiceInterface $statusService;
 
     public function __construct(
+        GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
+        GetRandomPoissonIntegerServiceInterface $getRandomPoissonInteger,
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
         GameEquipmentRepository $gameEquipmentRepository,
+        StatusServiceInterface $statusService,
         LoggerInterface $logger,
-        StatusServiceInterface $statusService
     ) {
+        $this->getRandomElementsFromArray = $getRandomElementsFromArray;
+        $this->getRandomPoissonInteger = $getRandomPoissonInteger;
         $this->randomService = $randomService;
         $this->eventService = $eventService;
         $this->gameEquipmentRepository = $gameEquipmentRepository;
@@ -49,7 +57,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
     {
         $rooms = $daedalus->getRoomsOnFire();
-        $newFireRooms = $this->randomService->getRandomElements($rooms->toArray(), $this->getNumberOfIncident($daedalus));
+        $newFireRooms = $this->getRandomElementsFromArray->execute($rooms->toArray(), $this->getNumberOfIncident($daedalus));
 
         /** @var Place $room */
         foreach ($newFireRooms as $room) {
@@ -67,7 +75,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleTremorEvents(Daedalus $daedalus, \DateTime $date): int
     {
         $rooms = $daedalus->getRoomsWithAlivePlayers();
-        $newTremorRooms = $this->randomService->getRandomElements($rooms->toArray(), $this->getNumberOfIncident($daedalus));
+        $newTremorRooms = $this->getRandomElementsFromArray->execute($rooms->toArray(), $this->getNumberOfIncident($daedalus));
 
         /** @var Place $room */
         foreach ($newTremorRooms as $room) {
@@ -85,7 +93,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleElectricArcEvents(Daedalus $daedalus, \DateTime $date): int
     {
         $rooms = $daedalus->getRooms();
-        $newElectricArcs = $this->randomService->getRandomElements($rooms->toArray(), $this->getNumberOfIncident($daedalus));
+        $newElectricArcs = $this->getRandomElementsFromArray->execute($rooms->toArray(), $this->getNumberOfIncident($daedalus));
 
         /** @var Place $room */
         foreach ($newElectricArcs as $room) {
@@ -140,7 +148,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         $breakableDoors = $this->getBreakableDoors($daedalus);
 
-        $doorsToBreak = $this->randomService->getRandomElements($breakableDoors, $numberOfDoorBroken);
+        $doorsToBreak = $this->getRandomElementsFromArray->execute($breakableDoors, $numberOfDoorBroken);
 
         foreach ($doorsToBreak as $door) {
             $this->statusService->createStatusFromName(
@@ -159,8 +167,8 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         // If there is no human player alive, no panic crisis can happen
         $humanPlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
 
-        $humansCrisis = $this->randomService->getRandomElements(
-            array: $humanPlayers->toArray(),
+        $humansCrisis = $this->getRandomElementsFromArray->execute(
+            elements: $humanPlayers->toArray(),
             number: $this->getNumberOfIncident($daedalus)
         );
 
@@ -182,7 +190,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         $numberOfMetalPlates = $this->getNumberOfIncident($daedalus);
 
-        $metalPlatesPlayers = $this->randomService->getRandomElements($alivePlayers->toArray(), $numberOfMetalPlates);
+        $metalPlatesPlayers = $this->getRandomElementsFromArray->execute($alivePlayers->toArray(), $numberOfMetalPlates);
 
         foreach ($metalPlatesPlayers as $player) {
             $playerEvent = new PlayerEvent(
@@ -202,7 +210,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
         $numberOfDiseasedPlayers = $this->getNumberOfIncident($daedalus);
 
-        $diseasedPlayers = $this->randomService->getRandomElements($humanAlivePlayers->toArray(), $numberOfDiseasedPlayers);
+        $diseasedPlayers = $this->getRandomElementsFromArray->execute($humanAlivePlayers->toArray(), $numberOfDiseasedPlayers);
 
         foreach ($diseasedPlayers as $player) {
             $playerEvent = new PlayerEvent(
@@ -226,7 +234,7 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         $averageIncidentsPerCycle = self::ALPHA_MULTIPLIER * 3.3 * 10 ** (-3) * $daedalus->getDay() ** 1.7;
 
-        return $this->randomService->poissonRandom($averageIncidentsPerCycle);
+        return $this->getRandomPoissonInteger->execute($averageIncidentsPerCycle);
     }
 
     /**

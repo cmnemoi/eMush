@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
@@ -19,6 +20,9 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
+use Mush\Game\Service\Random\FakeGetRandomPoissonIntegerService;
+use Mush\Game\Service\Random\GetRandomPoissonIntegerServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Event\RoomEvent;
@@ -69,11 +73,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new DaedalusIncidentService(
+            new FakeGetRandomElementsFromArrayService(),
+            new FakeGetRandomPoissonIntegerService(1), // always one incident
             $this->randomService,
             $this->eventService,
             $this->gameEquipmentRepository,
-            $this->logger,
             $this->statusService,
+            $this->logger,
         );
     }
 
@@ -85,29 +91,22 @@ final class DaedalusIncidentServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testHandleFireEvents()
+    public function testShouldHandleFireEvents(): void
     {
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn([])->once();
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
+        // given a Place in this Daedalus
+        $place = new Place();
+        $place->setDaedalus($daedalus);
 
-        self::assertSame(0, $fires);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $room1 = new Place();
-        $room1->setDaedalus(new Daedalus());
-
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->andReturn([$room1])
-            ->once();
-
+        // setup universe state
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $fires = $this->service->handleFireEvents(new Daedalus(), new \DateTime());
+        // when we handle fire events
+        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
 
+        // then we should have one fire event
         self::assertSame(1, $fires);
     }
 

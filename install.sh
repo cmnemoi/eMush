@@ -150,4 +150,13 @@ yarn etwin db create
 yarn etwin start > /dev/null 2>&1 &
 cd ..
 
-echo "Project launched successfully. You can access it at http://localhost:5173"
+echo "Create Eternaltwin accounts..."
+php Api/bin/console mush:create-crew
+
+echo "Filling a Daedalus with players..."
+php Api/bin/console mush:fill-daedalus
+
+echo "Project installed successfully! You can access it at http://localhost:5173"
+echo "Use the following credentials to login:"
+echo "Username: chun"
+echo "Password: 1234567891"

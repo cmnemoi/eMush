@@ -53,6 +53,7 @@ EOSQL
 #####################
 
 echo "Installing nvm ${NVM_VERSION}..."
+sudo apt-get install curl -yq >> install.log
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
 
 echo "Loading nvm..."

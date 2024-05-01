@@ -224,11 +224,11 @@ class ActionNormalizer implements NormalizerInterface
         $specialistPointCostRules = [
             'shootPoint' => [
                 'Skill' => SkillEnum::SHOOTER,
-                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]
+                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER],
             ],
             'engineerPoint' => [
                 'Skill' => SkillEnum::TECHNICIAN,
-                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_TECHNICIAN]
+                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_TECHNICIAN],
             ],
         ];
 
@@ -259,14 +259,11 @@ class ActionNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param Action $action
      * @param array<string> $types
-     * @return bool
      */
     private function isActionTypeMatchingWith(Action $action, array $types): bool
     {
-        foreach ($types as $type)
-        {
+        foreach ($types as $type) {
             if (\in_array($type, $action->getTypes(), true)) {
                 return true;
             }

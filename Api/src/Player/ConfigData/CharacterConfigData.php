@@ -579,7 +579,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha'
+                SkillEnum::SHOOTER . '_alpha',
             ],
         ],
         [
@@ -773,7 +773,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 SkillEnum::PILOT . '_alpha',
-                SkillEnum::SHOOTER . '_alpha'
+                SkillEnum::SHOOTER . '_alpha',
             ],
         ],
         [

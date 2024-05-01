@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Entity\DifficultyConfig;
@@ -27,7 +26,6 @@ final class DaedalusFactory
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig(new DaedalusConfig());
-
 
         $daedalus->setDaedalusVariables($gameConfig->getDaedalusConfig());
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, self::getFrenchLocalizationConfig());
@@ -64,7 +62,7 @@ final class DaedalusFactory
     private static function createMycoscanEquipment(Daedalus $daedalus): void
     {
         GameEquipmentFactory::createEquipmentByNameForHolder(
-            name: EquipmentEnum::MYCOSCAN, 
+            name: EquipmentEnum::MYCOSCAN,
             holder: $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
         );
     }

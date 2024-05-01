@@ -4,21 +4,12 @@ namespace Mush\Tests\unit\Daedalus\Service;
 
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Service\DaedalusIncidentService;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Game\Entity\Collection\ProbaCollection;
-use Mush\Game\Entity\DifficultyConfig;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
@@ -30,8 +21,6 @@ use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -226,7 +215,6 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // then we should have one equipment break event
         self::assertSame(1, $equipmentBreaks);
-
     }
 
     public function testShouldNotHandleEquipementBreakWithEquipmentAlreadyBroken(): void

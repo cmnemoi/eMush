@@ -47,7 +47,7 @@ final class GameEquipmentFactory
         return $equipment;
     }
 
-    public static function createItemByNameForHolder(string $name = EquipmentEnum::PILGRED, EquipmentHolderInterface $holder): GameItem
+    public static function createItemByNameForHolder(string $name, EquipmentHolderInterface $holder): GameItem
     {
         $itemConfig = new ItemConfig();
         $itemConfig

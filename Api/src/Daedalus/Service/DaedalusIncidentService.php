@@ -260,7 +260,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             // and therefore can't be broken : we skip it.
             try {
                 $equipment = $this->gameEquipmentRepository->findByNameAndDaedalusWithoutGameItems($equipmentName, $daedalus)[0];
-                if ($equipment?->isBroken() || $equipment?->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+                if ($equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;
 
                     continue;

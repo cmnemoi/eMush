@@ -304,8 +304,11 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getSpecialistPointsForPlayer(Player $player, string $language): array
     {
         $skillsList = [
-            SkillEnum::SHOOTER => 'engineerPoint',
+            SkillEnum::BOTANIST => 'gardenPoint',
+            SkillEnum::CHEF => 'cookerPoint',
+            SkillEnum::DESIGNER => 'pilgredPoint',
             SkillEnum::TECHNICIAN => 'engineerPoint',
+            SkillEnum::SHOOTER => 'shootPoint',
         ];
 
         $specialistPoints = [];

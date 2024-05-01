@@ -81,14 +81,44 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Les Points de Tir vous donnent des **actions gratuites** pour toutes les actions de tir en vol ou à bord.</target>
       </segment>
     </unit>
+    <unit id="cookerPoint">
+      <segment id="name" state="final">
+        <source>cookerPoint.name</source>
+        <target>Points de Cuisine</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>cookerPoint.description</source>
+        <target>Les Points de Cuisine vous donnent des **actions gratuites** pour toutes les *actions de la cuisine*.</target>
+      </segment>
+    </unit>
     <unit id="engineerPoint">
       <segment id="name" state="final">
         <source>engineerPoint.name</source>
-        <target>Point de Réparation</target>
+        <target>Points de Mécanique</target>
       </segment>
       <segment id="description" state="final">
         <source>engineerPoint.description</source>
-        <target>Les points de Réparation vous donnent des *actions gratuites* pour toutes les *réparations techniques*.</target>
+        <target>Les points de Mécanique vous donnent des **actions gratuites** pour toutes les *réparations techniques*.</target>
+      </segment>
+    </unit>
+    <unit id="gardenPoint">
+      <segment id="name" state="final">
+        <source>gardenPoint.name</source>
+        <target>Points de Jardinage</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>gardenPoint.description</source>
+        <target>Les points de Jardinage vous donnent des **actions gratuites** dans le *Jardin Hydroponique*.</target>
+      </segment>
+    </unit>
+    <unit id="pilgredPoint">
+      <segment id="name" state="final">
+        <source>pilgredPoint.name</source>
+        <target>Points de PILGRED</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>pilgredPoint.description</source>
+        <target>Les Points de PILGRED vous donnent des **actions gratuites** pour *réparer PILGRED*.</target>
       </segment>
     </unit>
   </file>

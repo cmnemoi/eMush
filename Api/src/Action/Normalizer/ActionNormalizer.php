@@ -249,7 +249,7 @@ class ActionNormalizer implements NormalizerInterface
             return null;
         }
 
-        /** @var ?ChargeStatus $shooterSkill */
+        /** @var ?ChargeStatus $skill */
         $skill = $currentPlayer->getSkillByName($specialistPointCostRule['Skill']);
         if ($skill?->getCharge() > 0) {
             return 1;

@@ -114,6 +114,26 @@ export default defineComponent ({
         font-size: 0.93em;
         font-weight: 600;
         text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
+
+        animation: poke 0.25s 1.5s 2;
+    }
+}
+
+@keyframes poke {
+    0% {
+        transform: translateY(0);
+    }
+
+    33% {
+        transform: translateY(-0.2em);
+    }
+
+    67% {
+        transform: translateY(0.2em);
+    }
+
+    100% {
+        transform: translateY(0);
     }
 }
 </style>

@@ -23,7 +23,6 @@ rm -rf ~/.npm
 rm -rf ~/.bower
 
 echo "Uninstalling PHP ${PHP_VERSION}..."
-sudo add-apt-repository -y ppa:ondrej/php >> uninstall.log
 sudo apt-get -yq purge php${PHP_VERSION} >> uninstall.log
 sudo rm -rf /usr/local/bin/composer
 

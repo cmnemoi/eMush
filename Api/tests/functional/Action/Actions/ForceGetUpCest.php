@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Action\Actions\Flirt;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
@@ -172,5 +173,28 @@ final class ForceGetUpCest extends AbstractFunctionalTest
 
         // then Chun should have 2 AP (1 AP + 1 from cycle change)
         $I->assertEquals(2, $this->chun->getActionPoint());
+    }
+
+    public function shouldNotHappenIfTheActionIsNotOnTheList(FunctionalTester $I): void
+    {
+        // given Chun has the Lying Down status
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun has 1 AP
+        $this->chun->setActionPoint(1);
+
+        // when KT flirts with Chun
+        $flirtAction = $I->grabService(Flirt::class);
+        $flirtActionConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::FLIRT]);
+        $flirtAction->loadParameters($flirtActionConfig, $this->kuanTi, $this->chun);
+        $flirtAction->execute();
+
+        // then Chun should still have her Lying Down status
+        $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::LYING_DOWN));
     }
 }

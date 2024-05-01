@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -52,7 +53,10 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $actionTarget = $event->getActionTarget();
 
-        if ($actionTarget instanceof Player && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN)) {
+        $isPlayerLaidDown = $actionTarget instanceof Player && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN);
+        $actionShouldRemoveLaidDownStatus = \in_array($event->getAction()->getActionName(), ActionEnum::getForceGetUpActions(), true);
+
+        if ($isPlayerLaidDown && $actionShouldRemoveLaidDownStatus) {
             $this->statusService->removeStatus(
                 statusName: PlayerStatusEnum::LYING_DOWN,
                 holder: $actionTarget,

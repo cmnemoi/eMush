@@ -15,6 +15,6 @@ services:
       - '../Kernel.php'
       - '../Tests/'
 
-  Mush\Game\Service\GetRandomElementsFromArrayServiceInterface: '@Mush\Game\Service\GetRandomElementsFromArrayService'
-  Mush\Game\Service\GetRandomIntegerServiceInterface: '@Mush\Game\Service\GetRandomIntegerService'
-  Mush\Game\Service\TranslationServiceInterface: '@Mush\Game\Service\TranslationService'
+  Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface: '@Mush\Game\Service\GetRandomElementsFromArrayService'
+  Mush\Game\Service\Random\GetRandomIntegerServiceInterface: '@Mush\Game\Service\GetRandomIntegerService'
+  Mush\Game\Service\Random\TranslationServiceInterface: '@Mush\Game\Service\TranslationService'

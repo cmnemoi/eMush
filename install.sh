@@ -151,6 +151,7 @@ cd EternalTwin
 yarn etwin db create
 yarn etwin start > /dev/null 2>&1 &
 cd ..
+sleep 3
 
 echo "Create Eternaltwin accounts..."
 php Api/bin/console mush:create-crew

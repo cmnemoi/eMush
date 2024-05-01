@@ -103,9 +103,6 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleEquipmentBreak(Daedalus $daedalus, \DateTime $date): int
     {
         $numberOfEquipmentToBreak = $this->getNumberOfIncident($daedalus);
-        if ($numberOfEquipmentToBreak === 0) {
-            return 0;
-        }
 
         $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);
 
@@ -140,9 +137,6 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleDoorBreak(Daedalus $daedalus, \DateTime $date): int
     {
         $numberOfDoorBroken = $this->getNumberOfIncident($daedalus);
-        if ($numberOfDoorBroken === 0) {
-            return 0;
-        }
 
         $breakableDoors = $this->getBreakableDoors($daedalus);
 
@@ -164,13 +158,10 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         // If there is no human player alive, no panic crisis can happen
         $humanPlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
-        if ($humanPlayers->count() === 0) {
-            return 0;
-        }
 
         $humansCrisis = $this->randomService->getRandomElements(
-            $humanPlayers->toArray(),
-            $this->getNumberOfIncident($daedalus)
+            array: $humanPlayers->toArray(),
+            number: $this->getNumberOfIncident($daedalus)
         );
 
         foreach ($humansCrisis as $player) {
@@ -188,11 +179,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int
     {
         $alivePlayers = $daedalus->getPlayers()->getPlayerAlive();
-        if ($alivePlayers->count() === 0) {
-            return 0;
-        }
 
         $numberOfMetalPlates = $this->getNumberOfIncident($daedalus);
+
         $metalPlatesPlayers = $this->randomService->getRandomElements($alivePlayers->toArray(), $numberOfMetalPlates);
 
         foreach ($metalPlatesPlayers as $player) {
@@ -210,11 +199,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): int
     {
         $humanAlivePlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
-        if ($humanAlivePlayers->count() === 0) {
-            return 0;
-        }
 
         $numberOfDiseasedPlayers = $this->getNumberOfIncident($daedalus);
+
         $diseasedPlayers = $this->randomService->getRandomElements($humanAlivePlayers->toArray(), $numberOfDiseasedPlayers);
 
         foreach ($diseasedPlayers as $player) {

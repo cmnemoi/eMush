@@ -224,20 +224,18 @@ class ActionNormalizer implements NormalizerInterface
         $specialistPointCostRules = [
             'shootPoint' => [
                 'Skill' => SkillEnum::SHOOTER,
-                'CompatibleActionTypes' => [ ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER ]
+                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]
             ],
             'engineerPoint' => [
                 'Skill' => SkillEnum::TECHNICIAN,
-                'CompatibleActionTypes' => [ ActionTypeEnum::ACTION_TECHNICIAN ]
-            ]
+                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_TECHNICIAN]
+            ],
         ];
 
         $specialistPointCosts = [];
-        foreach ($specialistPointCostRules as $key => $value)
-        {
+        foreach ($specialistPointCostRules as $key => $value) {
             $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $value);
-            if ($specialistPointCost)
-            {
+            if ($specialistPointCost) {
                 $specialistPointCosts[] = $key;
             }
         }

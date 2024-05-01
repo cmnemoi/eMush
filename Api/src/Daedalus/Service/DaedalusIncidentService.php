@@ -259,8 +259,8 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             // If the equipment is not found, it means it hasn't been build yet (Calculator, Thalasso, etc.)
             // and therefore can't be broken : we skip it.
             try {
-                $equipment = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus)[0];
-                if ($equipment === null || $equipment->isBroken() || $equipment->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+                $equipment = $this->gameEquipmentRepository->findByNameAndDaedalusWithoutGameItems($equipmentName, $daedalus)[0];
+                if ($equipment?->isBroken() || $equipment?->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
                     $absentEquipments[] = $equipmentName;
 
                     continue;

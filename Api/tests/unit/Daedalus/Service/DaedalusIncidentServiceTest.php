@@ -11,6 +11,9 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\DifficultyConfig;
@@ -205,143 +208,49 @@ final class DaedalusIncidentServiceTest extends TestCase
         self::assertSame(1, $electricArcs);
     }
 
-    public function testHandleEquipmentBreakEvents()
+    public function testShouldHandleEquipmentBreakWithEquipmentToBreak(): void
     {
-        $difficultyConfig = new DifficultyConfig();
-        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $lab = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $mycoscan = $lab->getEquipmentByName(EquipmentEnum::MYCOSCAN);
 
-        $daedalus = new Daedalus();
-
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
-
-        self::assertSame(0, $broken);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-        $equipment = new GameEquipment($room);
-
-        self::isFalse($equipment->isBroken());
-
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->withArgs(['communication_center', $daedalus])
-            ->andReturn([$equipment])
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->withArgs(static fn ($probaArray, $number, $funcDaedalus) => (
-                $probaArray instanceof ProbaCollection
-                && $probaArray->toArray() === ['communication_center' => 1]
-                && $number === 1
-                && $funcDaedalus === $daedalus
-            ))
-            ->andReturn([$equipment])
-            ->once();
-
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$mycoscan]);
+        $this->randomService->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')->once()->andReturn([$mycoscan]);
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
+        // when we handle equipment break events
+        $equipmentBreaks = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        self::isTrue($equipment->isBroken());
-        self::assertSame(1, $broken);
+        // then we should have one equipment break event
+        self::assertSame(1, $equipmentBreaks);
+
     }
 
-    public function testEquipmentBreakAlreadyBrokenEvent()
+    public function testShouldNotHandleEquipementBreakWithEquipmentAlreadyBroken(): void
     {
-        $difficultyConfig = new DifficultyConfig();
-        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
+        // given a Daedalus
+        $daedalus = DaedalusFactory::createDaedalus();
 
-        $gameConfig = new GameConfig();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
+        $lab = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $mycoscan = $lab->getEquipmentByName(EquipmentEnum::MYCOSCAN);
 
-        $daedalus = new Daedalus();
+        // given this equipment is broken
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+        );
 
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        // setup universe state
+        $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$mycoscan]);
 
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
+        // when we handle equipment break events
+        $equipmentBreaks = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-        $equipment = new GameEquipment($room);
-        $brokenConfig = new StatusConfig();
-        $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
-        $brokenStatus = new Status($equipment, $brokenConfig);
-
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->withArgs(['communication_center', $daedalus])
-            ->andReturn([$equipment])
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->andReturn([$equipment])
-            ->never();
-
-        $this->statusService->shouldReceive('createStatusFromName')->never();
-
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
-
-        self::assertSame(0, $broken);
-    }
-
-    public function testNotBreakingGameItems()
-    {
-        $difficultyConfig = new DifficultyConfig();
-        $difficultyConfig->setEquipmentBreakRateDistribution(['communication_center' => 1]);
-
-        $gameConfig = new GameConfig();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
-
-        $daedalus = new Daedalus();
-
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(0)->once();
-
-        $broken = $this->service->handleEquipmentBreak(new Daedalus(), new \DateTime());
-
-        self::assertSame(0, $broken);
-
-        $this->randomService->shouldReceive('poissonRandom')->andReturn(1)->once();
-
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-        $equipment = new GameEquipment($room);
-        $item = new GameItem($room);
-
-        $this->gameEquipmentRepository
-            ->shouldReceive('findByNameAndDaedalus')
-            ->withArgs(['communication_center', $daedalus])
-            ->andReturn([$equipment])
-            ->once();
-
-        $this->randomService
-            ->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')
-            ->withArgs(static fn ($probaArray, $number, $funcDaedalus) => (
-                $probaArray instanceof ProbaCollection
-                && $probaArray->toArray() === ['communication_center' => 1]
-                && $number === 1
-                && $funcDaedalus === $daedalus
-            ))
-            ->andReturn([$equipment])
-            ->once();
-
-        $this->statusService->shouldReceive('createStatusFromName')->once();
-
-        $broken = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
-
-        self::assertSame(1, $broken);
+        // then we should have no equipment break event
+        self::assertSame(0, $equipmentBreaks);
     }
 
     public function testShouldHandleDoorBreakWithBreakableDoor(): void

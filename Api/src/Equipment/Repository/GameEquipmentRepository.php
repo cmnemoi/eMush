@@ -94,6 +94,18 @@ class GameEquipmentRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function findByNameAndDaedalusWithoutGameItems(string $name, Daedalus $daedalus): array
+    {
+        $queryBuilder = $this->createQueryBuilder('equipment');
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->eq('equipment.name', ':name'))
+            ->setParameter(':daedalus', $daedalus)
+            ->setParameter(':name', $name);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function findByDaedalus(Daedalus $daedalus): array
     {
         $queryBuilder = $this->createQueryBuilder('equipment');

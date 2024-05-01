@@ -10,18 +10,25 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class GameEquipmentRepositoryCest
+final class GameEquipmentRepositoryCest extends AbstractFunctionalTest
 {
     private GameEquipmentRepository $repository;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
-    {
+    {   
+        parent::_before($I);
+
         $this->repository = $I->grabService(GameEquipmentRepository::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function testFindByDaedalus(FunctionalTester $I)
@@ -369,5 +376,10 @@ class GameEquipmentRepositoryCest
 
         $result = $this->repository->findByNameAndDaedalus('equipment2', $daedalus2);
         $I->assertIsEmpty($result);
+    }
+
+    public function testFindByNameAndDaedalusWithoutGameItems(FunctionalTester $I): void
+    {
+        $I->markTestIncomplete('This test has not been implemented yet.');
     }
 }

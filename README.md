@@ -37,7 +37,7 @@ Windows users first need to install WSL2 and Docker Desktop.
 
 Docker Desktop for Windows can be downloaded [here](https://docs.docker.com/desktop/install/windows-install/)
 
-WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --help` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
+WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --set-default-version 2` in a PowerShell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
 
 Install [Debian](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Debian`
 

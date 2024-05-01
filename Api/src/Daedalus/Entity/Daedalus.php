@@ -193,9 +193,19 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $place === false ? null : $place;
     }
 
-    public function getRoomsInFire(): Collection
+    public function getRoomsOnFire(): Collection
     {
         return $this->getRooms()->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE));
+    }
+
+    public function getRoomsWithoutFire(): Collection
+    {
+        return $this->getRooms()->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
+    }
+
+    public function getRoomsWithAlivePlayers(): Collection
+    {
+        return $this->getRooms()->filter(static fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0);
     }
 
     public function setPlaces(Collection $places): static

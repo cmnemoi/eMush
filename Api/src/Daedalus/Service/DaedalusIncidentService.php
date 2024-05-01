@@ -48,22 +48,18 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleFireEvents(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfNewFire = $this->getNumberOfIncident($daedalus);
-
-        $rooms = $daedalus->getRoomsInFire();
-
-        $newFireRooms = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewFire);
+        $rooms = $daedalus->getRoomsOnFire();
+        $newFireRooms = $this->randomService->getRandomElements($rooms->toArray(), $this->getNumberOfIncident($daedalus));
+        $numberOfNewFire = \count($newFireRooms);
 
         /** @var Place $room */
         foreach ($newFireRooms as $room) {
-            if (!$room->hasStatus(StatusEnum::FIRE)) {
-                $this->statusService->createStatusFromName(
-                    StatusEnum::FIRE,
-                    $room,
-                    [EventEnum::NEW_CYCLE, StatusEnum::FIRE],
-                    $date
-                );
-            }
+            $this->statusService->createStatusFromName(
+                StatusEnum::FIRE,
+                $room,
+                [EventEnum::NEW_CYCLE, StatusEnum::FIRE],
+                $date
+            );
         }
 
         return $numberOfNewFire;
@@ -71,14 +67,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleTremorEvents(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfNewTremor = $this->getNumberOfIncident($daedalus);
-
-        $isARoom = static fn (Place $place): bool => $place->getType() === PlaceTypeEnum::ROOM;
-        $hasPlayersInside = static fn (Place $place): bool => $place->getPlayers()->getPlayerAlive()->count() > 0;
-
-        $rooms = $daedalus->getRooms()->filter($isARoom)->filter($hasPlayersInside);
-
-        $newTremorRooms = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewTremor);
+        $rooms = $daedalus->getRoomsWithAlivePlayers();
+        $newTremorRooms = $this->randomService->getRandomElements($rooms->toArray(), $this->getNumberOfIncident($daedalus));
+        $numberOfNewTremor = \count($newTremorRooms);
 
         /** @var Place $room */
         foreach ($newTremorRooms as $room) {
@@ -95,11 +86,9 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleElectricArcEvents(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfNewElectricArcs = $this->getNumberOfIncident($daedalus);
-
-        $rooms = $daedalus->getRooms()->filter(static fn (Place $place) => ($place->getType() === PlaceTypeEnum::ROOM));
-
-        $newElectricArcs = $this->randomService->getRandomElements($rooms->toArray(), $numberOfNewElectricArcs);
+        $rooms = $daedalus->getRooms();
+        $newElectricArcs = $this->randomService->getRandomElements($rooms->toArray(), $this->getNumberOfIncident($daedalus));
+        $numberOfNewElectricArcs = \count($newElectricArcs);
 
         /** @var Place $room */
         foreach ($newElectricArcs as $room) {
@@ -116,37 +105,36 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleEquipmentBreak(Daedalus $daedalus, \DateTime $date): int
     {
-        $numberOfEquipmentBroken = $this->getNumberOfIncident($daedalus);
+        $numberOfEquipmentToBreak = $this->getNumberOfIncident($daedalus);
+        if ($numberOfEquipmentToBreak === 0) {
+            return 0;
+        }
 
-        if ($numberOfEquipmentBroken > 0) {
-            $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);
+        $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);
 
-            // If there is no working equipment, we don't have to break anything, so we return 0
-            if ($workingEquipmentBreakRateDistribution->isEmpty()) {
-                return 0;
-            }
-            // If there is less working equipment than the number of equipment we want to break
-            // we break the number of working equipment instead to avoid an error
-            $numberOfEquipmentBroken = min($numberOfEquipmentBroken, $workingEquipmentBreakRateDistribution->count());
+        // If there is no working equipment, we don't have to break anything, so we return 0
+        if ($workingEquipmentBreakRateDistribution->isEmpty()) {
+            return 0;
+        }
 
-            $brokenEquipments = $this
-                ->randomService
-                ->getRandomDaedalusEquipmentFromProbaCollection(
-                    $workingEquipmentBreakRateDistribution,
-                    $numberOfEquipmentBroken,
-                    $daedalus
-                );
+        // If there is less working equipment than the number of equipment we want to break
+        // we break the number of working equipment instead to avoid an error
+        $numberOfEquipmentBroken = min($numberOfEquipmentToBreak, $workingEquipmentBreakRateDistribution->count());
+        $equipmentToBreak = $this
+            ->randomService
+            ->getRandomDaedalusEquipmentFromProbaCollection(
+                $workingEquipmentBreakRateDistribution,
+                $numberOfEquipmentBroken,
+                $daedalus
+            );
 
-            foreach ($brokenEquipments as $gameEquipment) {
-                if (!$gameEquipment->isBroken()) {
-                    $this->statusService->createStatusFromName(
-                        EquipmentStatusEnum::BROKEN,
-                        $gameEquipment,
-                        [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
-                        new \DateTime()
-                    );
-                }
-            }
+        foreach ($equipmentToBreak as $gameEquipment) {
+            $this->statusService->createStatusFromName(
+                EquipmentStatusEnum::BROKEN,
+                $gameEquipment,
+                [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
+                new \DateTime()
+            );
         }
 
         return $numberOfEquipmentBroken;
@@ -186,28 +174,26 @@ class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     }
 
     public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): int
-    {
+    {   
+        // If there is no human player alive, no panic crisis can happen
         $humanPlayers = $daedalus->getPlayers()->getPlayerAlive()->getHumanPlayer();
-        if ($humanPlayers->count() > 0) {
-            $numberOfPanicCrisis = min($this->getNumberOfIncident($daedalus), $humanPlayers->count());
+        if ($humanPlayers->count() === 0) {
+            return 0;
+        }
+        
+        $numberOfPanicCrisis = $this->getNumberOfIncident($daedalus);
 
-            if ($numberOfPanicCrisis > 0) {
-                $humansCrisis = $this->randomService->getRandomElements($humanPlayers->toArray(), $numberOfPanicCrisis);
-
-                foreach ($humansCrisis as $player) {
-                    $playerEvent = new PlayerEvent(
-                        $player,
-                        [EventEnum::NEW_CYCLE, PlayerEvent::PANIC_CRISIS],
-                        $date
-                    );
-                    $this->eventService->callEvent($playerEvent, PlayerEvent::PANIC_CRISIS);
-                }
-            }
-
-            return $numberOfPanicCrisis;
+        $humansCrisis = $this->randomService->getRandomElements($humanPlayers->toArray(), $numberOfPanicCrisis);
+        foreach ($humansCrisis as $player) {
+            $playerEvent = new PlayerEvent(
+                $player,
+                [EventEnum::NEW_CYCLE, PlayerEvent::PANIC_CRISIS],
+                $date
+            );
+            $this->eventService->callEvent($playerEvent, PlayerEvent::PANIC_CRISIS);
         }
 
-        return 0;
+        return $numberOfPanicCrisis;
     }
 
     public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): int

@@ -315,8 +315,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $specialistPoints = [];
         foreach ($skillsList as $key => $value) {
             $specialistPoint = $this->getNormalizedSpecialistPoints($player, $language, $key, $value);
-            if ($specialistPoint)
-            {
+            if ($specialistPoint) {
                 $specialistPoints[] = $specialistPoint;
             }
         }
@@ -336,10 +335,10 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return [
             'key' => $skillId,
             'quantityPoint' => [
-                'name' => $this->translationService->translate($skillId.'.name', [], 'player', $language),
-                'description' => $this->translationService->translate($skillId.'.description', [], 'player', $language),
+                'name' => $this->translationService->translate($skillId . '.name', [], 'player', $language),
+                'description' => $this->translationService->translate($skillId . '.description', [], 'player', $language),
                 'quantity' => $skill->getCharge(),
-            ]
+            ],
         ];
     }
 

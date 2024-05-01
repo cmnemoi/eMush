@@ -105,7 +105,6 @@ class ActionNormalizer implements NormalizerInterface
                     $actionTarget,
                     PlayerVariableEnum::MORAL_POINT,
                 ),
-                'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $object),
                 'specialistPointCosts' => $this->getNormalizedSpecialistPointCosts($currentPlayer, $object),
             ];
 
@@ -198,27 +197,6 @@ class ActionNormalizer implements NormalizerInterface
         return $translationParameters;
     }
 
-    /** @TODO: generalize this for all specialist points. */
-    private function getActionShootPointCost(Player $currentPlayer, Action $action): ?int
-    {
-        if (!$this->isShootAction($action)) {
-            return null;
-        }
-
-        /** @var ?ChargeStatus $shooterSkill */
-        $shooterSkill = $currentPlayer->getSkillByName(SkillEnum::SHOOTER);
-        if ($shooterSkill?->getCharge() > 0) {
-            return 1;
-        }
-
-        return null;
-    }
-
-    private function isShootAction(Action $action): bool
-    {
-        return \in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes(), true) || \in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes(), true);
-    }
-
     private function getNormalizedSpecialistPointCosts(Player $currentPlayer, Action $action): array
     {
         $specialistPointCostRules = [
@@ -245,7 +223,7 @@ class ActionNormalizer implements NormalizerInterface
 
     private function getSpecialistPointCost(Player $currentPlayer, Action $action, array $specialistPointCostRule): ?int
     {
-        if (!$this->isActionTypeMatchingWith($action, $specialistPointCostRule['CompatibleActionTypes'])) {
+        if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule['CompatibleActionTypes'])) {
             return null;
         }
 
@@ -261,7 +239,7 @@ class ActionNormalizer implements NormalizerInterface
     /**
      * @param array<string> $types
      */
-    private function isActionTypeMatchingWith(Action $action, array $types): bool
+    private function doesActionTypeMatchArray(Action $action, array $types): bool
     {
         foreach ($types as $type) {
             if (\in_array($type, $action->getTypes(), true)) {

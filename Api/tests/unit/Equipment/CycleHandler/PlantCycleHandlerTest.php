@@ -41,24 +41,18 @@ use PHPUnit\Framework\TestCase;
 final class PlantCycleHandlerTest extends TestCase
 {
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
-
     private Mockery\Mock|RandomServiceInterface $randomService;
-
     private EventServiceInterface|Mockery\Mock $eventService;
-
     private EquipmentEffectServiceInterface|Mockery\Mock $equipmentEffectService;
     private Mockery\Mock|StatusServiceInterface $statusService;
-
     private PlantCycleHandler $plantCycleHandler;
-
     private Daedalus $daedalus;
-
     private Project $heatLamps;
 
     /**
      * @before
      */
-    public function before()
+    public function before(): void
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
@@ -81,12 +75,12 @@ final class PlantCycleHandlerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    public function after(): void
     {
         \Mockery::close();
     }
 
-    public function testNewCycle()
+    public function testNewCycle(): void
     {
         $plant = new ItemConfig();
 
@@ -136,7 +130,7 @@ final class PlantCycleHandlerTest extends TestCase
         );
     }
 
-    public function testNewCycleGetDiseaseAndGrow()
+    public function testNewCycleGetDiseaseAndGrow(): void
     {
         $plant = new ItemConfig();
 
@@ -179,7 +173,7 @@ final class PlantCycleHandlerTest extends TestCase
         self::assertCount(1, $gamePlant->getStatuses());
     }
 
-    public function testNewCycleAlreadyDiseased()
+    public function testNewCycleAlreadyDiseased(): void
     {
         $plant = new ItemConfig();
 
@@ -218,7 +212,7 @@ final class PlantCycleHandlerTest extends TestCase
         self::assertCount(1, $gamePlant->getStatuses());
     }
 
-    public function testNewDayPlantHealthy()
+    public function testNewDayPlantHealthy(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
@@ -277,7 +271,7 @@ final class PlantCycleHandlerTest extends TestCase
         self::assertCount(1, $room->getEquipments());
     }
 
-    public function testNewDayPlantThirsty()
+    public function testNewDayPlantThirsty(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);
@@ -333,7 +327,7 @@ final class PlantCycleHandlerTest extends TestCase
         $this->gameEquipmentService->shouldReceive('createEquipment')->andReturn(new GameItem(new Place()));
     }
 
-    public function testNewDayPlantDry()
+    public function testNewDayPlantDry(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxOxygen(32)->setInitOxygen(10);

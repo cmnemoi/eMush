@@ -33,7 +33,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
 /** @codeCoverageIgnore */
-class ModifierConfigData
+abstract class ModifierConfigData
 {
     public static array $dataArray = [
         [

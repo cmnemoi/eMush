@@ -340,7 +340,7 @@ final class DaedalusNormalizerTest extends TestCase
             ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
             ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
         ];
-        $projects = array_map(static fn ($project) => $project->makeProgress(100), $projects);
+        array_map(static fn ($project) => $project->makeProgress(100), $projects);
 
         // setup
         ProjectFactory::createPilgredProjectForDaedalus($daedalus);

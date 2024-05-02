@@ -64,6 +64,13 @@ final class ProjectConfigFactory
         );
     }
 
+    public static function createCpuOverclockingConfig(): ProjectConfig
+    {
+        return new ProjectConfig(
+            ...self::getConfigDataFromName(ProjectName::CPU_OVERCLOCKING)
+        );
+    }
+
     private static function getConfigDataFromName(ProjectName $name): array
     {
         return current(array_filter(

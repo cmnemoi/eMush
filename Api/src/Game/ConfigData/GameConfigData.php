@@ -509,6 +509,7 @@ class GameConfigData
                 TitleEnum::COM_MANAGER,
             ],
             'projectConfigs' => [
+                ProjectName::CPU_OVERCLOCKING,
                 ProjectName::HEAT_LAMP,
                 ProjectName::DOOR_SENSOR,
                 ProjectName::EQUIPMENT_SENSOR,

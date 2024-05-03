@@ -18,8 +18,8 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
     use NormalizerAwareTrait;
 
     public function __construct(
-        private GearToolServiceInterface $gearToolService,
-        private TranslationServiceInterface $translationService
+        private readonly GearToolServiceInterface $gearToolService,
+        private readonly TranslationServiceInterface $translationService
     ) {}
 
     public function supportsNormalization($data, ?string $format = null): bool

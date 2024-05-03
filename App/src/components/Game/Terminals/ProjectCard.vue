@@ -19,9 +19,7 @@
                 <span class="completion">{{ project.progress }}</span>
             </div>
         </div>
-        <p class="description">
-            {{ project.description }}
-        </p>
+        <p class="description" v-html="formatText(project.description)"></p>
         <p class="efficiency">
             {{ project.efficiency }}
         </p>
@@ -49,10 +47,12 @@ import { Action } from "@/entities/Action";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { Project } from "@/entities/Project";
 import { mapActions } from "vuex";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "ProjectCard",
     components: {
+        Tippy,
         ActionButton
     },
     props: {

@@ -158,7 +158,7 @@
       </segment>
       <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>
-        <target>Searching for a planet costs 1 AP less.</target>
+        <target>Searching for a planet costs 1 :pa: less.</target>
       </segment>
     </unit>
   </file>

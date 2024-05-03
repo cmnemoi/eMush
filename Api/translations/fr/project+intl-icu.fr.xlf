@@ -154,11 +154,11 @@
       </segment>
       <segment id="chipset_acceleration.name" state="translated">
         <source>chipset_acceleration.name</source>
-        <target>Accéleration de CPU</target>
+        <target>Acceleration du processeur</target>
       </segment>
       <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>
-        <target>Le coût de recherche pour un secteur de planète descends de 1.</target>
+        <target>L'action recherche d'une planète coûte 1 :pa: de moins.</target>
       </segment>
     </unit>
   </file>

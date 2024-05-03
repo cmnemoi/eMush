@@ -31,7 +31,7 @@
                 @click="executeTargetAction(project, repairPilgredAction)"
             />
         </div>
-        <div class="repair-pilgred-action" v-else-if="participateAction">
+        <div class="neron-project-action" v-else-if="participateAction">
             <ActionButton
                 :action="participateAction"
                 @click="executeTargetAction(project, participateAction)"

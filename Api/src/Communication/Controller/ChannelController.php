@@ -4,7 +4,6 @@ namespace Mush\Communication\Controller;
 
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Dto\CreateMessage;
@@ -241,7 +240,7 @@ class ChannelController extends AbstractGameController
             return $view;
         }
 
-        return $this->view([]);
+        return $this->view([], Response::HTTP_NO_CONTENT);
     }
 
     /**

@@ -3,7 +3,7 @@
         :moderation-dialog-visible="moderationDialogVisible"
         :action="{ key: 'moderation.sanction.delete_message', value: 'delete_message' }"
         @close="closeModerationDialog"
-        @submitSanction="deleteMessage" />
+        @submit-sanction="deleteMessage" />
     <div
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
@@ -13,7 +13,7 @@
         <div class="character-body">
             <img :src="characterPortrait">
         </div>
-        <p :class="['text', { unread: message.isUnread }]">
+        <p :class="['text', { unread: message.isUnread, read: !message.isUnread }]">
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
@@ -86,13 +86,12 @@ import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import { formatText } from "@/utils/formatText";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { fr } from 'date-fns/locale';
-import { mapGetters, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
-import { ChannelType } from "@/enums/communication.enum";
 
 export default defineComponent ({
     name: "Message",
@@ -223,7 +222,6 @@ export default defineComponent ({
     flex-direction: row;
 
     .actions { flex-direction: row; }
-
 }
 
 .character-body {
@@ -254,8 +252,14 @@ export default defineComponent ({
         color: $red; // Make italics and links red
     }
 
+    &.read {
+        border-left: 2px solid transparent;
+        transition: 0.1s ease-in-out border-left;
+    }
+
     &.unread { // unread messages styling
         border-left: 2px solid #ea9104;
+        transition: none;
 
         &::after {
             content: "";

@@ -42,7 +42,7 @@ import PrivateTab from "@/components/Game/Communications/PrivateTab.vue";
 import MushTab from "@/components/Game/Communications/MushTab.vue";
 import Tab from "@/components/Game/Communications/Tab.vue";
 import { Room } from "@/entities/Room";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Channel } from "@/entities/Channel";
 import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
@@ -86,7 +86,6 @@ export default defineComponent ({
                     return PrivateTab;
                 case ChannelType.FAVORITES:
                     return FavouritesTab;
-
                 case ChannelType.PUBLIC:
                 default:
                     return DiscussionTab;
@@ -109,7 +108,7 @@ export default defineComponent ({
             loadDeadPlayerChannels: 'communication/loadDeadPlayerChannels',
             loadMoreMessages: 'communication/loadMoreMessages',
             markAllRoomLogsAsRead: 'communication/markAllRoomLogsAsRead',
-            markCurrentChannelAsRead: 'communication/markCurrentChannelAsRead',
+            markCurrentChannelAsRead: 'communication/markCurrentChannelAsRead'
         }),
         canLoadMoreMessages(): boolean {
             return this.currentChannel.isChannelWithPagination() &&

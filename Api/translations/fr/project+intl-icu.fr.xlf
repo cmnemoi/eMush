@@ -150,11 +150,11 @@
     <unit id="chipset_acceleration">
       <segment id="chipset_acceleration.type" state="translated">
         <source>chipset_acceleration.type</source>
-        <target>Project</target>
+        <target>Projet</target>
       </segment>
       <segment id="chipset_acceleration.name" state="translated">
         <source>chipset_acceleration.name</source>
-        <target>Acceleration du processeur</target>
+        <target>Accélération du processeur</target>
       </segment>
       <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>

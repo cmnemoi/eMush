@@ -35,7 +35,6 @@ final class PlanetServiceTest extends TestCase
 
     /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
-
     private PlanetService $service;
     private Player $player;
     private Daedalus $daedalus;
@@ -44,7 +43,7 @@ final class PlanetServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    public function before(): void
     {
         $this->planetRepository = \Mockery::mock(PlanetRepository::class);
         $this->entityManager = \Mockery::mock(EntityManager::class);
@@ -75,12 +74,12 @@ final class PlanetServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    public function after(): void
     {
         \Mockery::close();
     }
 
-    public function testSimpleGeneration()
+    public function testSimpleGeneration(): void
     {
         // Given a single planet sector
         $planetSectorConfig1 = new PlanetSectorConfig();
@@ -118,7 +117,7 @@ final class PlanetServiceTest extends TestCase
         self::assertCount(4, $planet->getSectors());
     }
 
-    public function testMaxSectorPerPlanetTest()
+    public function testMaxSectorPerPlanetTest(): void
     {
         // Given two planet sector
         $planetSectorConfig1 = new PlanetSectorConfig();

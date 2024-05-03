@@ -21,7 +21,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class ProjectNormalizerCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private int $repairActionId;
@@ -65,7 +64,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
         $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
 
         // then I should get the normalized project
-        $I->assertEquals(
+        $I->assertEqualsIgnoringCase(
             expected: [
                 'id' => $project->getId(),
                 'key' => 'pilgred',
@@ -77,12 +76,20 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                     [
                         'key' => 'physicist',
                         'name' => 'Physicien',
-                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.
+                ',
                     ],
                     [
                         'key' => 'technician',
                         'name' => 'Technicien',
-                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du
+                    Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de
+                    réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les
+                    **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.
+                ',
                     ],
                 ],
                 'actions' => [

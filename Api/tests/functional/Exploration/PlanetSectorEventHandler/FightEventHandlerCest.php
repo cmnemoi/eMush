@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Exploration\PlanetSectorEventHandler;
+namespace Mush\Tests\functional\Exploration\PlanetSectorEventHandler;
 
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -29,10 +29,8 @@ use Mush\Tests\FunctionalTester;
 final class FightEventHandlerCest extends AbstractExplorationTester
 {
     private Fight $fightEventHandler;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-
     private Player $derek;
     private Player $janice;
 

@@ -16,7 +16,7 @@ use Mush\Project\Entity\ProjectConfig;
 /** @codeCoverageIgnore */
 final class ProjectConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
@@ -24,7 +24,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         $projectConfigs = [];
 
         foreach (ProjectConfigData::getAll() as $data) {
-            $data = $this->getConfigDataWithModifierConfigs($data, $manager);
+            $data = $this->getConfigDataWithModifierConfigs($data);
 
             $projectConfig = new ProjectConfig(...$data);
             $projectConfigs[] = $projectConfig;
@@ -44,7 +44,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         ];
     }
 
-    private function getConfigDataWithModifierConfigs(array $projectConfigData, ObjectManager $manager): array
+    private function getConfigDataWithModifierConfigs(array $projectConfigData): array
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];

@@ -6,6 +6,8 @@ namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
@@ -14,7 +16,9 @@ use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 
 final class ProjectModifierConfigFixtures extends Fixture
@@ -36,7 +40,6 @@ final class ProjectModifierConfigFixtures extends Fixture
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('set.value_daedalus_shield_50');
-
         $plasmaShieldInitModifier = new DirectModifierConfig('modifier_for_daedalus_set_daedalus_shield_to_50');
         $plasmaShieldInitModifier
             ->setRevertOnRemove(true)
@@ -59,6 +62,19 @@ final class ProjectModifierConfigFixtures extends Fixture
 
         $manager->persist($plasmaShieldNewCycleModifier);
         $this->addReference($plasmaShieldNewCycleModifier->getName(), $plasmaShieldNewCycleModifier);
+
+        $cpuOverclock = new VariableEventModifierConfig('modifier_for_daedalus_-1actionPoint_on_action_scan_planet');
+        $cpuOverclock
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+
+        $manager->persist($cpuOverclock);
+        $this->addReference($cpuOverclock->getName(), $cpuOverclock);
 
         $manager->flush();
     }

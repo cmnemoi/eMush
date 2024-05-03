@@ -11,7 +11,7 @@ use Mush\Project\Enum\ProjectType;
 /**
  * @codeCoverageIgnore
  */
-final class ProjectConfigData
+abstract class ProjectConfigData
 {
     public static function getAll(): array
     {
@@ -75,6 +75,16 @@ final class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     'modifier_for_daedalus_-25percentage_following_hunters_on_daedalus_travel',
+                ],
+            ],
+            [
+                'name' => ProjectName::CHIPSET_ACCELERATION,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::ASTROPHYSICIST, SkillEnum::IT_EXPERT],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    'modifier_for_daedalus_-1actionPoint_on_action_scan_planet',
                 ],
             ],
         ];

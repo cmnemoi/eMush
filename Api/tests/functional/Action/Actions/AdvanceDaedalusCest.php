@@ -23,7 +23,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         $this->moveDaedalusAction = $I->grabService(AdvanceDaedalus::class);
     }
 
-    public function testAdvanceDaedalusIsNotVisibleIfDaedalusIsInOribit(FunctionalTester $I): void
+    public function testAdvanceDaedalusIsNotVisibleIfDaedalusIsInOrbit(FunctionalTester $I): void
     {
         // given daedalus is in orbit
         $this->statusService->createStatusFromName(

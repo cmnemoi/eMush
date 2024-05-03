@@ -147,5 +147,19 @@
         <target>The number of assailants joining you after a trip is reduced by 25%.</target>
       </segment>
     </unit>
+    <unit id="chipset_acceleration">
+      <segment id="chipset_acceleration.type" state="translated">
+        <source>chipset_acceleration.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="chipset_acceleration.name" state="translated">
+        <source>chipset_acceleration.name</source>
+        <target>CPU Overclocking</target>
+      </segment>
+      <segment id="chipset_acceleration.description" state="translated">
+        <source>chipset_acceleration.description</source>
+        <target>Searching for a planet costs 1 :pa: less.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Exploration\Service;
+namespace Mush\Tests\functional\Exploration\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Config\EquipmentConfig;

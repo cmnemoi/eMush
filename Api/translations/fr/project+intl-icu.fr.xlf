@@ -147,5 +147,19 @@
         <target>Le nombre d'assaillants qui vous rejoint après un voyage est réduit de 50%.</target>
       </segment>
     </unit>
+    <unit id="chipset_acceleration">
+      <segment id="chipset_acceleration.type" state="translated">
+        <source>chipset_acceleration.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="chipset_acceleration.name" state="translated">
+        <source>chipset_acceleration.name</source>
+        <target>Accélération du processeur</target>
+      </segment>
+      <segment id="chipset_acceleration.description" state="translated">
+        <source>chipset_acceleration.description</source>
+        <target>L'action recherche d'une planète coûte 1 :pa: de moins.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

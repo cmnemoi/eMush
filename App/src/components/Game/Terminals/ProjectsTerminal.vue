@@ -46,7 +46,6 @@ export default defineComponent ({
     align-items: stretch;
     padding-bottom: .3em;
     min-height: 276px;
-    overflow: auto;
 
     scroll-snap-type: x mandatory; // scroll will snap to projects
 
@@ -54,7 +53,7 @@ export default defineComponent ({
     --thumbBG: rgba(0, 116, 223, 1);
     --border-radius: 6px;
 
-    scrollbar-width: medium;
+    scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 
     &::-webkit-scrollbar {

@@ -33,7 +33,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
 /** @codeCoverageIgnore */
-class ModifierConfigData
+abstract class ModifierConfigData
 {
     public static array $dataArray = [
         [
@@ -1739,6 +1739,25 @@ class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_for_daedalus_-1actionPoint_on_action_scan_planet',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -1.0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [

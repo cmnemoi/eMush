@@ -147,5 +147,19 @@
         <target>trail_reducer.description</target>
       </segment>
     </unit>
+    <unit id="chipset_acceleration">
+      <segment id="chipset_acceleration.type" state="initial">
+        <source>chipset_acceleration.type</source>
+        <target>chipset_acceleration.type</target>
+      </segment>
+      <segment id="chipset_acceleration.name" state="initial">
+        <source>chipset_acceleration.name</source>
+        <target>chipset_acceleration.name</target>
+      </segment>
+      <segment id="chipset_acceleration.description" state="initial">
+        <source>chipset_acceleration.description</source>
+        <target>chipset_acceleration.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

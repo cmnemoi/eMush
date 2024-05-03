@@ -1,5 +1,5 @@
 <template>
-    <Tippy tag="div" v-if=action>
+    <Tippy tag="div" :class="['action-button-flex-v2']" v-if=action>
         <a
             :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
@@ -25,8 +25,10 @@ import { Action } from "@/entities/Action";
 import { Player } from "@/entities/Player";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
+    components: { Tippy },
     props: {
         action: Action,
         cssClass: String,
@@ -51,8 +53,8 @@ export default defineComponent ({
 <style lang="scss" scoped>
 .action-button {
     @include button-style();
-    display: block;
-    margin: 0.2rem;
+    margin: 0.2rem !important;
+    flex-flow: row wrap;
 }
 .medium {
     min-width: 10em;

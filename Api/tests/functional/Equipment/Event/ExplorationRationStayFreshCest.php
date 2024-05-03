@@ -8,7 +8,6 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -35,14 +34,12 @@ use Mush\Tests\FunctionalTester;
 final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-
     private ExplorationServiceInterface $explorationService;
-
     private GameEquipment $icarus;
     private Planet $planet;
     private Place $icarusBay;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -97,7 +94,7 @@ final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
         );
     }
 
-    public function testSteakStayFresh(FunctionalTester $I)
+    public function testSteakStayFresh(FunctionalTester $I): void
     {
         $alienSTeakConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GameRationEnum::ALIEN_STEAK]);
 

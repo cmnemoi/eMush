@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AnalyzePlanet;
 use Mush\Action\Entity\Action;
@@ -40,7 +40,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     private Place $bridge;
     private Planet $planet;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->analyzePlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ANALYZE_PLANET]);

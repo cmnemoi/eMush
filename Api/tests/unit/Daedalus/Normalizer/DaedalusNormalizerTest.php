@@ -46,7 +46,7 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    public function before(): void
     {
         $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
@@ -61,12 +61,12 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    public function after(): void
     {
         \Mockery::close();
     }
 
-    public function testNormalizer()
+    public function testNormalizer(): void
     {
         $nextCycle = new \DateTime();
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);
@@ -340,7 +340,7 @@ final class DaedalusNormalizerTest extends TestCase
             ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
             ProjectFactory::createDummyNeronProjectForDaedalus($daedalus),
         ];
-        $projects = array_map(static fn ($project) => $project->makeProgress(100), $projects);
+        array_map(static fn ($project) => $project->makeProgress(100), $projects);
 
         // setup
         ProjectFactory::createPilgredProjectForDaedalus($daedalus);

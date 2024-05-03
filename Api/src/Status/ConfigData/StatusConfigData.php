@@ -12,7 +12,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 /** @codeCoverageIgnore */
-class StatusConfigData
+abstract class StatusConfigData
 {
     public static array $dataArray = [
         [

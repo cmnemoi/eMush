@@ -2,16 +2,15 @@
 
 namespace Mush\Player\Enum;
 
-class PlayerVariableEnum
+abstract class PlayerVariableEnum
 {
-    public const ACTION_POINT = 'actionPoint';
-    public const MOVEMENT_POINT = 'movementPoint';
-    public const HEALTH_POINT = 'healthPoint';
-    public const MORAL_POINT = 'moralPoint';
-    public const SATIETY = 'satiety';
-    public const TRIUMPH = 'triumph';
-
-    public const SPORE = 'spore';
+    public const string ACTION_POINT = 'actionPoint';
+    public const string MOVEMENT_POINT = 'movementPoint';
+    public const string HEALTH_POINT = 'healthPoint';
+    public const string MORAL_POINT = 'moralPoint';
+    public const string SATIETY = 'satiety';
+    public const string TRIUMPH = 'triumph';
+    public const string SPORE = 'spore';
 
     public static function getCappedPlayerVariables(): array
     {

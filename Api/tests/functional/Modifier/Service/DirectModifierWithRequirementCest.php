@@ -20,13 +20,13 @@ final class DirectModifierWithRequirementCest extends AbstractFunctionalTest
 {
     private ModifierCreationServiceInterface $modifierCreationService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->modifierCreationService = $I->grabService(ModifierCreationServiceInterface::class);
     }
 
-    public function testAppliesDirectModifierWithModifierRequirement(FunctionalTester $I)
+    public function testAppliesDirectModifierWithModifierRequirement(FunctionalTester $I): void
     {
         $initMoralPoint = $this->player1->getMoralPoint();
 

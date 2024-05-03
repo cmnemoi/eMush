@@ -509,6 +509,7 @@ class GameConfigData
                 TitleEnum::COM_MANAGER,
             ],
             'projectConfigs' => [
+                ProjectName::CHIPSET_ACCELERATION,
                 ProjectName::HEAT_LAMP,
                 ProjectName::DOOR_SENSOR,
                 ProjectName::EQUIPMENT_SENSOR,

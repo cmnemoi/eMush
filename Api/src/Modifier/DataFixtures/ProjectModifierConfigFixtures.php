@@ -6,6 +6,8 @@ namespace Mush\Modifier\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
@@ -14,6 +16,7 @@ use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -38,11 +41,11 @@ final class ProjectModifierConfigFixtures extends Fixture
         $cpuOverclock = new VariableEventModifierConfig('modifier_for_daedalus_-1actionPoint_on_action_analyze_planet');
         $cpuOverclock
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(1)
+            ->setDelta(-1)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
-            ->setTagConstraints([])
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($cpuOverclock);
         $this->addReference($cpuOverclock->getName(), $cpuOverclock);

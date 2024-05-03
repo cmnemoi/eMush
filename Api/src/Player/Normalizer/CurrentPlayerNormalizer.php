@@ -303,13 +303,16 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     private function getSpecialistPointsForPlayer(Player $player, string $language): array
     {
-        // TODO Rename cookerPoint as cookPoint
+        // TODO Move that in the skill config data
         $skillsList = [
-            SkillEnum::BOTANIST => 'gardenPoint',
-            SkillEnum::CHEF => 'cookerPoint',
-            SkillEnum::DESIGNER => 'pilgredPoint',
-            SkillEnum::TECHNICIAN => 'engineerPoint',
-            SkillEnum::SHOOTER => 'shootPoint',
+            SkillEnum::BOTANIST => 'garden',
+            SkillEnum::CHEF => 'cook',
+            SkillEnum::DESIGNER => 'core',
+            SkillEnum::PHYSICIST => 'pilgred',
+            SkillEnum::IT_EXPERT => 'computer',
+            SkillEnum::NURSE => 'heal',
+            SkillEnum::TECHNICIAN => 'engineer',
+            SkillEnum::SHOOTER => 'shoot',
         ];
 
         $specialistPoints = [];
@@ -323,7 +326,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         return $specialistPoints;
     }
 
-    /** @TODO: generalize this for all specialist points. Move to a SkillNormalizer */
+    /** @TODO: Move to a SkillNormalizer? */
     private function getNormalizedSpecialistPoints(Player $player, string $language, string $skill, string $skillId): ?array
     {
         /** @var ?ChargeStatus $skill */

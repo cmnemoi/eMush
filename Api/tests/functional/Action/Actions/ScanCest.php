@@ -225,7 +225,6 @@ final class ScanCest extends AbstractFunctionalTest
         $I->assertCount(1, $planet->getRevealedSectors());
     }
 
-
     public function testCpuChipsetReduceCostScan(FunctionalTester $I): void
     {
         $I->assertEquals(8, $this->player->getActionPoint());

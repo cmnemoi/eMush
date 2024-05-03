@@ -89,7 +89,7 @@ gitpod-install: gitpod-setup-env-variables gitpod-build install-api install-fron
 gitpod-build:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml build
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_front chown -R node:node /www
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root eternaltwin chown -R node:node /www
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_eternaltwin chown -R node:node /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml run -u root mush_php chown -R dev:dev /www
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.gitpod.yml up --no-start
 

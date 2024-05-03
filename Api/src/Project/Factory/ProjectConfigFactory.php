@@ -67,7 +67,7 @@ final class ProjectConfigFactory
     public static function createCpuOverclockingConfig(): ProjectConfig
     {
         return new ProjectConfig(
-            ...self::getConfigDataFromName(ProjectName::CPU_OVERCLOCKING)
+            ...self::getConfigDataFromName(ProjectName::CHIPSET_ACCELERATION)
         );
     }
 

@@ -16,7 +16,6 @@ enum ProjectName: string
     case BRIC_BROC = 'bric_broc';
     case CALL_OF_DIRTY = 'call_of_dirty';
     case CHIPSET_ACCELERATION = 'chipset_acceleration';
-    case CPU_OVERCLOCKING = 'cpu_overclocking';
     case DISMANTLING = 'dismantling';
     case DOOR_SENSOR = 'door_sensor';
     case EQUIPMENT_SENSOR = 'equipment_sensor';

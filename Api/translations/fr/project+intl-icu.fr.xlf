@@ -147,5 +147,19 @@
         <target>Le nombre d'assaillants qui vous rejoint après un voyage est réduit de 50%.</target>
       </segment>
     </unit>
+    <unit id="chipset_acceleration">
+      <segment id="chipset_acceleration.type" state="translated">
+        <source>chipset_acceleration.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="chipset_acceleration.name" state="translated">
+        <source>chipset_acceleration.name</source>
+        <target>Accéleration de CPU</target>
+      </segment>
+      <segment id="chipset_acceleration.description" state="translated">
+        <source>chipset_acceleration.description</source>
+        <target>Le coût de recherche pour un secteur de planète descends de 1.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

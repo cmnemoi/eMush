@@ -78,7 +78,7 @@ abstract class ProjectConfigData
                 ],
             ],
             [
-                'name' => ProjectName::CPU_OVERCLOCKING,
+                'name' => ProjectName::CHIPSET_ACCELERATION,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::ASTROPHYSICIST, SkillEnum::IT_EXPERT],

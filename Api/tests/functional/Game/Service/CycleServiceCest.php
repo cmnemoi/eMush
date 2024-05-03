@@ -7,14 +7,14 @@ namespace Mush\Tests\functional\Game\Service;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Service\ExplorationServiceInterface;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
-use Mush\Tests\functional\Exploration\Service\ExplorationServiceInterface;
-use Mush\Tests\functional\Exploration\Service\PlanetServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 /**

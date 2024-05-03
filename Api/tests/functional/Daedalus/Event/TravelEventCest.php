@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Daedalus\Event;
+namespace Mush\Tests\functional\Daedalus\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
@@ -22,6 +22,7 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -39,7 +40,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
-use Mush\Tests\functional\Exploration\Service\ExplorationServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 /**
@@ -51,7 +51,7 @@ final class TravelEventCest extends AbstractFunctionalTest
     private ExplorationServiceInterface $explorationService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);

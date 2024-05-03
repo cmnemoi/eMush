@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Normalizer\DaedalusNormalizer;
 use Mush\Exploration\Entity\Exploration;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
@@ -20,7 +21,6 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
-use Mush\Tests\functional\Exploration\Service\PlanetServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -46,7 +46,7 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    public function before(): void
     {
         $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
@@ -61,12 +61,12 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    public function after(): void
     {
         \Mockery::close();
     }
 
-    public function testNormalizer()
+    public function testNormalizer(): void
     {
         $nextCycle = new \DateTime();
         $this->cycleService->shouldReceive('getDateStartNextCycle')->andReturn($nextCycle);

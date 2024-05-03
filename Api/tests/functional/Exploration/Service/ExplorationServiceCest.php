@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Exploration\Service;
+namespace Mush\Tests\functional\Exploration\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -19,6 +19,7 @@ use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -30,7 +31,6 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
-use Mush\Tests\functional\Exploration\Service\PlanetServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 final class ExplorationServiceCest extends AbstractExplorationTester

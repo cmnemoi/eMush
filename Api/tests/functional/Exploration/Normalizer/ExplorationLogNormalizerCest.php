@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Exploration\Normalizer;
+namespace Mush\Tests\functional\Exploration\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -24,7 +24,6 @@ use Mush\Tests\FunctionalTester;
 final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 {
     private ExplorationLogNormalizer $explorationLogNormalizer;
-
     private Exploration $exploration;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;

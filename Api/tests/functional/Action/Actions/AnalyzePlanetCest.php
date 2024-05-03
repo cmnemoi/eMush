@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AnalyzePlanet;
 use Mush\Action\Entity\Action;
@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -23,7 +24,6 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
-use Mush\Tests\functional\Exploration\Service\PlanetServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 /**
@@ -40,7 +40,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     private Place $bridge;
     private Planet $planet;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->analyzePlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ANALYZE_PLANET]);

@@ -1,7 +1,7 @@
 <template>
     <section
         v-if="roomLog"
-        :class="[`log ${roomLog.visibility}`, { unread: roomLog.isUnread }]"
+        :class="[`log ${roomLog.visibility}`, { unread: roomLog.isUnread, read: !roomLog.isUnread }]"
         @mouseover="read(roomLog)"
     >
         <p class='text-log'>
@@ -130,8 +130,14 @@ export default defineComponent ({
         background: url('/src/assets/images/comms/spotted.png') center no-repeat;
     }
 
+    &.read {
+        border-left: 0 solid transparent;
+        transition: 0.1s ease-in-out border-left;
+    }
+
     &.unread { // unread messages styling
         border-left: 2px solid #ea9104;
+        transition: none;
 
         &::after {
             content: "";

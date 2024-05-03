@@ -18,10 +18,7 @@ services:
   monolog.processor.requestProcessor:
     class: Mush\Logger\Processor\RequestProcessor
     tags:
-        - { name: monolog.processor, handler: Mush\Logger\Handler\MonologPostgresHandler }
-
-  monolog.handler.Mush\Logger\Handler\MonologPostgresHandler:
-    class: Mush\Logger\Handler\MonologPostgresHandler
+        - { name: monolog.processor, handler: Mush\Logger\Handler\MonologDiscordWebHookHandler }
 
   Mush\Logger\Handler\MonologDiscordWebHookHandler:
     calls:

@@ -15,6 +15,7 @@ use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 
 final class ProjectModifierConfigFixtures extends Fixture
@@ -34,9 +35,20 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($trailReducerModifier);
         $this->addReference($trailReducerModifier->getName(), $trailReducerModifier);
 
+        $cpuOverclock = new VariableEventModifierConfig('modifier_for_daedalus_-1actionPoint_on_action_analyze_planet');
+        $cpuOverclock
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($cpuOverclock);
+        $this->addReference($cpuOverclock->getName(), $cpuOverclock);
+
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('set.value_daedalus_shield_50');
-
         $plasmaShieldInitModifier = new DirectModifierConfig('modifier_for_daedalus_set_daedalus_shield_to_50');
         $plasmaShieldInitModifier
             ->setRevertOnRemove(true)

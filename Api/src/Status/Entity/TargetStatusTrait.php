@@ -38,6 +38,16 @@ trait TargetStatusTrait
         return $status ?: null;
     }
 
+    public function getStatusByNameOrThrow(string $name): Status
+    {
+        $status = $this->getStatusByName($name);
+        if (!$status) {
+            throw new \RuntimeException("Status with name '{$name}' not found for '{$this->getName()}'");
+        }
+
+        return $status;
+    }
+
     public function getStatusByNameAndTarget(string $name, StatusHolderInterface $target): ?Status
     {
         $status = $this->getStatuses()

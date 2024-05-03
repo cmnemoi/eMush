@@ -316,7 +316,7 @@ class HunterService implements HunterServiceInterface
         return $minCost;
     }
 
-    private function getHunterDamage(Hunter $hunter): ?int
+    private function getHunterDamage(Hunter $hunter): int
     {
         if ($hunter->getName() === HunterEnum::ASTEROID) {
             return $hunter->getHealth();
@@ -332,27 +332,22 @@ class HunterService implements HunterServiceInterface
      */
     private function makeHunterShoot(Hunter $hunter): void
     {
-        $damage = $this->getHunterDamage($hunter);
-        if (!$damage) {
-            return;
-        }
-
         $hunterTarget = $hunter->getTarget()?->getTargetEntity();
 
         // @TODO: handle hunter and merchant targets in the future
         switch ($hunterTarget) {
             case $hunterTarget instanceof Daedalus:
-                $this->shootAtDaedalus($hunterTarget, $damage);
+                $this->shootAtDaedalus($hunter);
 
                 break;
 
             case $hunterTarget instanceof GameEquipment:
-                $this->shootAtPatrolShip($hunterTarget, $damage, $hunter);
+                $this->shootAtPatrolShip($hunter);
 
                 break;
 
             case $hunterTarget instanceof Player:
-                $this->shootAtPlayer($hunterTarget, $damage);
+                $this->shootAtPlayer($hunter);
 
                 break;
 
@@ -382,38 +377,38 @@ class HunterService implements HunterServiceInterface
         $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         if (!$patrolShipsInBattle->isEmpty()) {
-            $successRate = $targetProbabilities?->get(HunterTargetEnum::PATROL_SHIP);
-            if ($successRate === null) {
-                throw new \LogicException('Patrol ship target probability should not be null');
-            }
+            $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PATROL_SHIP);
             if ($this->randomService->isSuccessful($successRate)) {
-                $draw = $this->randomService->getRandomElements($patrolShipsInBattle->toArray(), number: 1);
-                $patrolShip = reset($draw);
+                $patrolShip = $this->randomService->getRandomElement($patrolShipsInBattle->toArray());
                 $selectedTarget->setTargetEntity($patrolShip);
 
                 return;
             }
         }
 
-        $playersInBattle = $hunter->getDaedalus()->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->isInSpaceBattle());
+        // if there is no player in battle, remove player target from probabilities to draw
+        $playersInBattle = $hunter->getDaedalus()->getAlivePlayersInSpaceBattle();
         if (!$playersInBattle->isEmpty()) {
-            $successRate = $targetProbabilities?->get(HunterTargetEnum::PLAYER);
-            if ($successRate === null) {
-                throw new \LogicException('Player target probability should not be null');
-            }
+            $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PLAYER);
             if ($this->randomService->isSuccessful($successRate)) {
-                $draw = $this->randomService->getRandomElements($playersInBattle->toArray(), number: 1);
-                $player = reset($draw);
+                $player = $this->randomService->getRandomElement($playersInBattle->toArray());
                 $selectedTarget->setTargetEntity($player);
             }
         }
     }
 
-    private function shootAtDaedalus(Daedalus $daedalus, int $damage): void
+    private function shootAtDaedalus(Hunter $hunter): void
     {
-        $damageOnShield = $daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD) ? min($damage, $daedalus->getShield()) : 0;
+        /** @var Daedalus $daedalus */
+        $daedalus = $hunter->getTarget()?->getTargetEntity();
+
+        $shouldHurtShield = $daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD) && $hunter->isNotAnAsteroid();
+        $damage = $this->getHunterDamage($hunter);
+
+        $damageOnShield = $shouldHurtShield ? min($damage, $daedalus->getShield()) : 0;
         $damageOnHull = $damage - $damageOnShield;
 
+        // shoot at shield first
         $daedalusVariableEvent = new DaedalusVariableEvent(
             daedalus: $daedalus,
             variableName: DaedalusVariableEnum::SHIELD,
@@ -423,6 +418,7 @@ class HunterService implements HunterServiceInterface
         );
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
+        // then shoot at hull
         $daedalusVariableEvent = new DaedalusVariableEvent(
             daedalus: $daedalus,
             variableName: DaedalusVariableEnum::HULL,
@@ -433,13 +429,13 @@ class HunterService implements HunterServiceInterface
         $this->eventService->callEvent($daedalusVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function shootAtPatrolShip(GameEquipment $patrolShip, int $damage, Hunter $hunter): void
+    private function shootAtPatrolShip(Hunter $hunter): void
     {
-        /** @var ?ChargeStatus $patrolShipArmor */
-        $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-        if (!$patrolShipArmor) {
-            throw new \LogicException("Patrol ship {$patrolShip->getName()} should have a patrol ship armor status");
-        }
+        /** @var GameEquipment $patrolShip */
+        $patrolShip = $hunter->getTarget()?->getTargetEntity();
+
+        /** @var ChargeStatus $patrolShipArmor */
+        $patrolShipArmor = $patrolShip->getStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         // temporary reset the target in case patrolShip is destroyed
         /** @var HunterTarget $patrolShipTarget */
@@ -448,27 +444,28 @@ class HunterService implements HunterServiceInterface
 
         $chargeStatus = $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
-            delta: -$damage,
+            delta: -$this->getHunterDamage($hunter),
             tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );
 
         // if patrol ship is not destroyed, put it back as hunter target
-        if ($chargeStatus !== null
-            && !$chargeStatus->getVariableByName($chargeStatus->getName())->isMin()
-        ) {
+        if ($chargeStatus?->getVariableByName($chargeStatus->getName())->isMin() === false) {
             $hunter->setTarget($patrolShipTarget);
         }
 
         $this->persist([$hunter]);
     }
 
-    private function shootAtPlayer(Player $player, int $damage): void
+    private function shootAtPlayer(Hunter $hunter): void
     {
+        /** @var Player $player */
+        $player = $hunter->getTarget()?->getTargetEntity();
+
         $playerVariableEvent = new PlayerVariableEvent(
             player: $player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
-            quantity: -$damage,
+            quantity: -$this->getHunterDamage($hunter),
             tags: [HunterEvent::HUNTER_SHOT],
             time: new \DateTime()
         );

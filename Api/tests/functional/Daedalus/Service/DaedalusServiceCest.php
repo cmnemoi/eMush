@@ -13,7 +13,6 @@ use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
-use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -30,6 +29,7 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\functional\Exploration\Service\ExplorationServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 /**

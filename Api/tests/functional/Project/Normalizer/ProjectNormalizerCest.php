@@ -21,7 +21,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class ProjectNormalizerCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private int $repairActionId;

@@ -84,7 +84,7 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::ASTROPHYSICIST, SkillEnum::IT_EXPERT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
-                    'modifier_for_daedalus_-1actionPoint_on_action_analyze_planet',
+                    'modifier_for_daedalus_-1actionPoint_on_action_scan_planet',
                 ],
             ],
         ];

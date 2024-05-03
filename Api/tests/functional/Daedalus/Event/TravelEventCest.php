@@ -22,7 +22,6 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
-use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -40,6 +39,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\functional\Exploration\Service\ExplorationServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 /**

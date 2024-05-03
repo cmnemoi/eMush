@@ -15,7 +15,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
-use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -24,6 +23,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\functional\Exploration\Service\PlanetServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 /**

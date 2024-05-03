@@ -100,6 +100,15 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
         return $this->target;
     }
 
+    public function getTargetEntityOrThrow(): HunterTargetEntityInterface
+    {
+        if ($this->target === null) {
+            throw new \RuntimeException('Hunter has no target');
+        }
+
+        return $this->target->getTargetEntity();
+    }
+
     public function setTarget(HunterTarget $target): self
     {
         $this->target = $target;

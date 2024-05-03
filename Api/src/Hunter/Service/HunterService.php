@@ -332,7 +332,7 @@ class HunterService implements HunterServiceInterface
      */
     private function makeHunterShoot(Hunter $hunter): void
     {
-        $hunterTarget = $hunter->getTarget()?->getTargetEntity();
+        $hunterTarget = $hunter->getTargetEntityOrThrow();
 
         // @TODO: handle hunter and merchant targets in the future
         switch ($hunterTarget) {
@@ -400,7 +400,7 @@ class HunterService implements HunterServiceInterface
     private function shootAtDaedalus(Hunter $hunter): void
     {
         /** @var Daedalus $daedalus */
-        $daedalus = $hunter->getTarget()?->getTargetEntity();
+        $daedalus = $hunter->getTargetEntityOrThrow();
 
         $shouldHurtShield = $daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD) && $hunter->isNotAnAsteroid();
         $damage = $this->getHunterDamage($hunter);
@@ -433,7 +433,7 @@ class HunterService implements HunterServiceInterface
     private function shootAtPatrolShip(Hunter $hunter): void
     {
         /** @var GameEquipment $patrolShip */
-        $patrolShip = $hunter->getTarget()?->getTargetEntity();
+        $patrolShip = $hunter->getTargetEntityOrThrow();
 
         /** @var ChargeStatus $patrolShipArmor */
         $patrolShipArmor = $patrolShip->getStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
@@ -461,7 +461,7 @@ class HunterService implements HunterServiceInterface
     private function shootAtPlayer(Hunter $hunter): void
     {
         /** @var Player $player */
-        $player = $hunter->getTarget()?->getTargetEntity();
+        $player = $hunter->getTargetEntityOrThrow();
 
         $playerVariableEvent = new PlayerVariableEvent(
             player: $player,

@@ -6,6 +6,7 @@
             <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
             <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap"></span>
             <span v-else-if="action.actionPointCost > 0 && action.movementPointCost > 0" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
+            <!-- @TODO -> Handle multiple specialist cost action, if that's the case display the most prioritized point -->
             <span v-if="action.specialistPointCosts.length > 0" class="cost">
                 1<img :src="specialistPointImage(action)" alt="{{ action.specialistPointCosts[0] }}">
             </span>

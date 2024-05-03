@@ -109,13 +109,13 @@ export default defineComponent ({
         width: 100%;
         min-height: 42px;
         margin: 0;
-        padding-bottom: .25em;
+        padding: 0 5px .04em;
         background: #89e8fa;
         text-align: center;
         font-size: 1em;
         font-weight: normal;
         font-variant: small-caps;
-        line-height: 1em;
+        line-height: 1.1em;
     }
 
     .card {

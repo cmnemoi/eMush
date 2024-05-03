@@ -47,12 +47,10 @@ import { Action } from "@/entities/Action";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { Project } from "@/entities/Project";
 import { mapActions } from "vuex";
-import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "ProjectCard",
     components: {
-        Tippy,
         ActionButton
     },
     props: {

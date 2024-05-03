@@ -404,7 +404,8 @@ class HunterService implements HunterServiceInterface
 
         $shouldHurtShield = $daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD) && $hunter->isNotAnAsteroid();
         $damage = $this->getHunterDamage($hunter);
-
+       
+        // Get the lowest value between the shield or the damage given to it if this one is lower.
         $damageOnShield = $shouldHurtShield ? min($damage, $daedalus->getShield()) : 0;
         $damageOnHull = $damage - $damageOnShield;
 

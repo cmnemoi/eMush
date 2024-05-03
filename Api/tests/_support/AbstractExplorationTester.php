@@ -13,17 +13,16 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\functional\Exploration\Service\ExplorationServiceInterface;
 
 abstract class AbstractExplorationTester extends AbstractFunctionalTest
 {
     protected ExplorationServiceInterface $explorationService;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private GameEquipment $icarus;

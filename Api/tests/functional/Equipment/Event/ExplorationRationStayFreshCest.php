@@ -17,6 +17,7 @@ use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -25,7 +26,6 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
-use Mush\Tests\functional\Exploration\Service\ExplorationServiceInterface;
 use Mush\Tests\FunctionalTester;
 
 /**
@@ -34,14 +34,12 @@ use Mush\Tests\FunctionalTester;
 final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-
     private ExplorationServiceInterface $explorationService;
-
     private GameEquipment $icarus;
     private Planet $planet;
     private Place $icarusBay;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -96,7 +94,7 @@ final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
         );
     }
 
-    public function testSteakStayFresh(FunctionalTester $I)
+    public function testSteakStayFresh(FunctionalTester $I): void
     {
         $alienSTeakConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GameRationEnum::ALIEN_STEAK]);
 

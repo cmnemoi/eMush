@@ -38,18 +38,6 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($trailReducerModifier);
         $this->addReference($trailReducerModifier->getName(), $trailReducerModifier);
 
-        $cpuOverclock = new VariableEventModifierConfig('modifier_for_daedalus_-1actionPoint_on_action_scan_planet');
-        $cpuOverclock
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-        $manager->persist($cpuOverclock);
-        $this->addReference($cpuOverclock->getName(), $cpuOverclock);
-
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('set.value_daedalus_shield_50');
         $plasmaShieldInitModifier = new DirectModifierConfig('modifier_for_daedalus_set_daedalus_shield_to_50');
@@ -74,6 +62,19 @@ final class ProjectModifierConfigFixtures extends Fixture
 
         $manager->persist($plasmaShieldNewCycleModifier);
         $this->addReference($plasmaShieldNewCycleModifier->getName(), $plasmaShieldNewCycleModifier);
+
+        $cpuOverclock = new VariableEventModifierConfig('modifier_for_daedalus_-1actionPoint_on_action_scan_planet');
+        $cpuOverclock
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(-1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+
+        $manager->persist($cpuOverclock);
+        $this->addReference($cpuOverclock->getName(), $cpuOverclock);
 
         $manager->flush();
     }

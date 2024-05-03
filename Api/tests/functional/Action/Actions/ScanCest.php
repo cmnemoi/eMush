@@ -239,7 +239,6 @@ final class ScanCest extends AbstractFunctionalTest
 
         $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::CHIPSET_ACCELERATION]);
         $I->canSeeInRepository(Project::class, ['config' => $projectConfig]);
-        $I->refreshEntities($this->scanActionConfig);
 
         // when player scans
         $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);

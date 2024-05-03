@@ -370,7 +370,7 @@ class HunterService implements HunterServiceInterface
 
         $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
 
-        // if there is no patrol ship in battle, remove patrol ship target from probabilities to draw
+        // First, try to aim at one patrol ship in battle
         $patrolShips = EquipmentEnum::getPatrolShips()
             ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
             ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
@@ -386,7 +386,7 @@ class HunterService implements HunterServiceInterface
             }
         }
 
-        // if there is no player in battle, remove player target from probabilities to draw
+        // If we fail to aim at a patrol ship, try to aim at a player in battle
         $playersInBattle = $hunter->getDaedalus()->getAlivePlayersInSpaceBattle();
         if (!$playersInBattle->isEmpty()) {
             $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PLAYER);

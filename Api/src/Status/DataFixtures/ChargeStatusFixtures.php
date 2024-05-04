@@ -475,7 +475,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($changedCpuPriority);
-        
+
         /** @var VariableEventModifierConfig $technicianSpecialistPointModifier */
         $technicianSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_SPECIALIST_POINT);
         $technicianSkillPoc = new ChargeStatusConfig();

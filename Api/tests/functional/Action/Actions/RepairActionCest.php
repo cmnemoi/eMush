@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionScopeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -15,8 +16,10 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -27,119 +30,99 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class RepairActionCest
-{
+final class RepairActionCest extends AbstractFunctionalTest
+{   
+    private Action $repairActionConfig;
     private Repair $repairAction;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
+
     public function _before(FunctionalTester $I)
-    {
+    {   
+        parent::_before($I);
+
+        $this->repairActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR . '_percent_12']);
         $this->repairAction = $I->grabService(Repair::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->repairActionConfig->setSuccessRate(100);
     }
 
-    public function testRepair(FunctionalTester $I)
+    public function shoudlRepairBrokenEquipment(FunctionalTester $I): void
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
+        // given I have a Mycoscan in the room
+        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        // and the Mycoscan is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+            tags: [],
+            time: new \DateTime()
+        );
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        // when Chun repairs the Mycoscan
+        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
+        $result = $this->repairAction->execute();
+        $I->assertInstanceOf(Success::class, $result);
 
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables(new CharacterConfig());
-        $player
-            ->setActionPoint(2);
+        // then the Mycoscan is no longer broken
+        $I->assertFalse($mycoscan->hasStatus(EquipmentStatusEnum::BROKEN));
+    }
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+    public function shouldSuccessRateBeBoostedByWrench(FunctionalTester $I): void
+    {   
+        // given I have a Mycoscan in the room
+        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
 
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        // given the Mycoscan is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+            tags: [],
+            time: new \DateTime()
+        );
 
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        // given Chun has a wrench
+        $wrench = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::ADJUSTABLE_WRENCH,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime()
+        );
 
-        $action = new Action();
-        $action
-            ->setActionName(ActionEnum::REPAIR)
-            ->setActionCost(1)
-            ->setSuccessRate(25)
-            ->setScope(ActionScopeEnum::CURRENT)
-            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($action);
+        // given repair action has a 25% success rate
+        $this->repairActionConfig->setSuccessRate(25);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
+        // when Chun tries to repair the Mycoscan
+        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan); 
 
-        $equipmentConfig->setActions(new ArrayCollection([$action]));
-
-        $gameEquipment = new GameItem($room);
-
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('some name');
-        $I->haveInRepository($gameEquipment);
-
-        $this->repairAction->loadParameters($action, $player, $gameEquipment);
-
-        $I->assertFalse($this->repairAction->isVisible());
-
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setStatusName(EquipmentStatusEnum::BROKEN)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($statusConfig);
-        $status = new Status($gameEquipment, $statusConfig);
-        $I->haveInRepository($status);
-
-        $I->assertEquals(25, $this->repairAction->getSuccessRate());
-
-        $I->assertTrue($this->repairAction->isVisible());
-
-        $modifierConfig = new VariableEventModifierConfig('increaseTechnicianActionSuccessModifierTest');
-        $modifierConfig
-            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
-            ->setDelta(1.5)
-            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setTagConstraints([ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ReachEnum::INVENTORY)
-            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE);
-
-        $I->haveInRepository($modifierConfig);
-
-        $modifier = new GameModifier($player, $modifierConfig);
-
-        $I->haveInRepository($modifier);
-        $I->refreshEntities($player);
-
-        $wrenchGear = new Gear();
-        $wrenchGear->setModifierConfigs(new ArrayCollection([$modifierConfig]));
-
-        $wrench = new ItemConfig();
-        $wrench
-            ->setEquipmentName(GearItemEnum::ADJUSTABLE_WRENCH)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setMechanics(new ArrayCollection([$wrenchGear]));
-
+        // then the success rate of the Repair action is boosted by 25%
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }
 }

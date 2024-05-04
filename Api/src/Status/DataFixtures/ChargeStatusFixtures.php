@@ -510,7 +510,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hunterTruceCycles)
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($shooterSkillPoc)
-            ->addStatusConfig($changedCpuPriority)
+            ->addStatusConfig($changedCpuPriority);
 
         $manager->persist($gameConfig);
 

@@ -6,7 +6,7 @@ namespace Mush\Tests\Functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\TakeoffToPlanet;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -43,7 +43,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class TakeoffToPlanetCest extends AbstractFunctionalTest
 {
-    private Action $takeoffToPlanetConfig;
+    private ActionConfig $takeoffToPlanetConfig;
     private TakeoffToPlanet $takeoffToPlanetAction;
 
     private EventServiceInterface $eventService;
@@ -56,7 +56,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->takeoffToPlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKEOFF_TO_PLANET]);
+        $this->takeoffToPlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKEOFF_TO_PLANET]);
         $this->takeoffToPlanetAction = $I->grabService(TakeoffToPlanet::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);

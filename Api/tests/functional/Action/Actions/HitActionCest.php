@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Hit;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -17,13 +17,13 @@ use Mush\Tests\FunctionalTester;
 final class HitActionCest extends AbstractFunctionalTest
 {
     private Hit $hitAction;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::HIT]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);
         $this->action->setDirtyRate(0);
 
         $I->refreshEntities($this->action);

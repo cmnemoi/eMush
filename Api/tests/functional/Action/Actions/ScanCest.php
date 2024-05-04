@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\Functional\Action\Actions;
 
 use Mush\Action\Actions\Scan;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -28,7 +28,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ScanCest extends AbstractFunctionalTest
 {
-    private Action $scanActionConfig;
+    private ActionConfig $scanActionConfig;
     private Scan $scanAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -41,7 +41,7 @@ final class ScanCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->scanActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SCAN]);
+        $this->scanActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SCAN]);
         $this->scanAction = $I->grabService(Scan::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);

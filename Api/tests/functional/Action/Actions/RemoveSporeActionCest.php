@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\RemoveSpore;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -79,10 +79,10 @@ class RemoveSporeActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::REMOVE_SPORE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST);

@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class FakeDisease extends AbstractAction
 {
-    protected string $name = ActionEnum::FAKE_DISEASE;
+    protected ActionEnum $name = ActionEnum::FAKE_DISEASE;
     protected DiseaseCauseServiceInterface $diseaseCauseService;
 
     public function __construct(

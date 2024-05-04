@@ -5,6 +5,7 @@ namespace Mush\Status\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 
@@ -35,9 +36,13 @@ class StatusConfig
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
+    #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
+    private Collection $actionConfigs;
+
     public function __construct()
     {
         $this->modifierConfigs = new ArrayCollection();
+        $this->actionConfigs = new ArrayCollection();
     }
 
     public function getId(): int
@@ -107,6 +112,25 @@ class StatusConfig
         }
 
         $this->modifierConfigs = $modifierConfigs;
+
+        return $this;
+    }
+
+    public function getActionConfig(): Collection
+    {
+        return $this->actionConfigs;
+    }
+
+    /**
+     * @param array<int, ActionConfig>|Collection<int, ActionConfig> $actionConfigs
+     */
+    public function setActionConfig(array|Collection $actionConfigs): static
+    {
+        if (\is_array($actionConfigs)) {
+            $actionConfigs = new ArrayCollection($actionConfigs);
+        }
+
+        $this->{$actionConfigs} = $actionConfigs;
 
         return $this;
     }

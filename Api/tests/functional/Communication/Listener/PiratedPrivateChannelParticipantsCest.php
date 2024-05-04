@@ -5,7 +5,7 @@ namespace Mush\Tests\functional\Communication\Listener;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Move;
 use Mush\Action\Actions\ScrewTalkie;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
@@ -102,9 +102,9 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
     // This test aims to reproduce a bug reported by users
     public function testPirateThenDieThenDropTalkie(FunctionalTester $I)
     {
-        $pirateActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
-        $dropActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::DROP]);
-        $moveActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
+        $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
+        $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
+        $moveActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
 
         // Given player1 pirates player2
         $this->pirateAction->loadParameters($pirateActionEntity, $this->player1, $this->player2);
@@ -149,9 +149,9 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
 
     public function testPirateThenMoveThenDieThenDropTalkie(FunctionalTester $I)
     {
-        $pirateActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
-        $dropActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::DROP]);
-        $moveActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
+        $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
+        $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
+        $moveActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
 
         // Given player1 pirates player2
         $this->pirateAction->loadParameters($pirateActionEntity, $this->player1, $this->player2);
@@ -213,9 +213,9 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
 
     public function testPirate(FunctionalTester $I)
     {
-        $pirateActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
-        $moveActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
-        $dropActionEntity = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::DROP]);
+        $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
+        $moveActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
+        $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
 
         // Create a third player
         $player3 = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FINOLA);

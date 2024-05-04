@@ -7,7 +7,7 @@ namespace Mush\Tests\functional\Status\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Actions\Sabotage;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
@@ -283,8 +283,8 @@ final class StatusServiceCest extends AbstractFunctionalTest
         );
 
         // given it is sabotaged by a player
-        /** @var Action $sabotageConfig */
-        $sabotageConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SABOTAGE . '_percent_12']);
+        /** @var ActionConfig $sabotageConfig */
+        $sabotageConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SABOTAGE . '_percent_12']);
         $sabotageConfig->setSuccessRate(101);
 
         /** @var Sabotage $sabotageAction */
@@ -294,8 +294,8 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $sabotageAction->execute();
 
         // given broken mycoscan is reported
-        /** @var Action $reportConfig */
-        $reportConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPORT_EQUIPMENT]);
+        /** @var ActionConfig $reportConfig */
+        $reportConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REPORT_EQUIPMENT]);
         $reportConfig->setSuccessRate(101);
 
         /** @var ReportEquipment $reportAction */

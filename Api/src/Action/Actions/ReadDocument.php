@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ReadDocument extends AbstractAction
 {
-    protected string $name = ActionEnum::READ_DOCUMENT;
+    protected ActionEnum $name = ActionEnum::READ_DOCUMENT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

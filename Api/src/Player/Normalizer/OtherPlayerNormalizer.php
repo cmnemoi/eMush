@@ -2,9 +2,7 @@
 
 namespace Mush\Player\Normalizer;
 
-use Doctrine\Common\Collections\Collection;
-use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -101,39 +99,10 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
             $playerData['statuses'] = $statuses;
             $playerData['skills'] = $this->getNormalizedPlayerSkills($player, $format, $context);
             $playerData['titles'] = $titles;
-            $playerData['actions'] = $this->getActions($player, $format, $context);
+            $playerData['actions'] = $this->getNormalizedActions($player, ActionHolderEnum::OTHER_PLAYER, $currentPlayer, $format, $context);
         }
 
         return $playerData;
-    }
-
-    private function getActions(Player $player, ?string $format, array $context): array
-    {
-        $contextualActions = $this->getContextActions($context['currentPlayer'])->toArray();
-        $targetActions = $player->getTargetActions()->toArray();
-
-        $actionsToNormalize = array_merge($contextualActions, $targetActions);
-
-        $actions = [];
-
-        /** @var Action $action */
-        foreach ($actionsToNormalize as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, array_merge($context, ['player' => $player]));
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-
-        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
-    }
-
-    private function getContextActions(Player $currentPlayer): Collection
-    {
-        $scope = [ActionScopeEnum::OTHER_PLAYER];
-
-        return $this->gearToolService->getActionsTools($currentPlayer, $scope);
     }
 
     private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array

@@ -79,7 +79,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             -1,
-            $this->action->getAction()->getActionTags(),
+            $this->action->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
@@ -128,7 +128,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
             $player,
             PlayerVariableEnum::MORAL_POINT,
             2,
-            $this->action->getAction()->getActionTags(),
+            $this->action->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);

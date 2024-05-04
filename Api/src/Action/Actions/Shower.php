@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Shower extends AbstractAction
 {
-    protected string $name = ActionEnum::SHOWER;
+    protected ActionEnum $name = ActionEnum::SHOWER;
 
     protected StatusServiceInterface $statusService;
 
@@ -68,7 +68,7 @@ class Shower extends AbstractAction
             $this->statusService->removeStatus(
                 PlayerStatusEnum::DIRTY,
                 $this->player,
-                $this->action->getActionTags(),
+                $this->actionConfig->getActionTags(),
                 new \DateTime()
             );
         }

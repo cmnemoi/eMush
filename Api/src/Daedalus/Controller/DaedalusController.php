@@ -52,7 +52,7 @@ class DaedalusController extends AbstractGameController
     public function __construct(
         AdminServiceInterface $adminService,
         DaedalusServiceInterface $daedalusService,
-        DaedalusWidgetServiceInterface $daedalusWidgetService,
+        DaedalusWidgetServiceInterface $daedalusWidgetStrategyService,
         TranslationServiceInterface $translationService,
         PlayerInfoRepository $playerInfoRepository,
         ValidatorInterface $validator,
@@ -62,7 +62,7 @@ class DaedalusController extends AbstractGameController
     ) {
         parent::__construct($adminService);
         $this->daedalusService = $daedalusService;
-        $this->daedalusWidgetService = $daedalusWidgetService;
+        $this->daedalusWidgetService = $daedalusWidgetStrategyService;
         $this->translationService = $translationService;
         $this->playerInfoRepository = $playerInfoRepository;
         $this->validator = $validator;

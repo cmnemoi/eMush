@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests;
 
 use Mush\Action\Actions\AbstractTurnDaedalusAction;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
@@ -21,7 +21,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 {
-    protected Action $turnDaedalusConfig;
+    protected ActionConfig $turnDaedalusConfig;
     protected AbstractTurnDaedalusAction $turnDaedalusAction;
     protected GameEquipment $commandTerminal;
     protected GameEquipment $alphaLateralReactor;
@@ -32,7 +32,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->turnDaedalusConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TURN_DAEDALUS_LEFT]);
+        $this->turnDaedalusConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TURN_DAEDALUS_LEFT]);
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
         // given there is a command terminal in player's room
@@ -101,7 +101,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -123,7 +123,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -145,7 +145,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
 
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -159,7 +159,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
     {
         // when player turns daedalus
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
             player: $this->player,
             target: $this->commandTerminal
         );

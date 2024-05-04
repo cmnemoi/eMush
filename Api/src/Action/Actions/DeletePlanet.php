@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class DeletePlanet extends AbstractAction
 {
-    protected string $name = ActionEnum::DELETE_PLANET;
+    protected ActionEnum $name = ActionEnum::DELETE_PLANET;
 
     private PlanetServiceInterface $planetService;
 

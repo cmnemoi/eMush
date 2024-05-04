@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Services\ChannelServiceInterface;
@@ -28,7 +28,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class MoveCest extends AbstractFunctionalTest
 {
-    private Action $moveConfig;
+    private ActionConfig $moveConfig;
     private Move $moveAction;
     private Player $derek;
 
@@ -50,7 +50,7 @@ final class MoveCest extends AbstractFunctionalTest
         // given there is an Icarus Bay in this Daedalus
         $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
 
-        $this->moveConfig = $I->grabEntityFromRepository(Action::class, ['name' => 'move']);
+        $this->moveConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'move']);
         $this->moveAction = $I->grabService(Move::class);
 
         $this->channelService = $I->grabService(ChannelServiceInterface::class);

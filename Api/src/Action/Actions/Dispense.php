@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Dispense extends AbstractAction
 {
-    protected string $name = ActionEnum::DISPENSE;
+    protected ActionEnum $name = ActionEnum::DISPENSE;
 
     protected RandomServiceInterface $randomService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
@@ -75,7 +75,7 @@ class Dispense extends AbstractAction
         $drug = $this->gameEquipmentService->createGameEquipmentFromName(
             $drugName,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PUBLIC
         );

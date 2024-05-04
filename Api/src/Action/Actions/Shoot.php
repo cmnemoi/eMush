@@ -41,7 +41,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class Shoot extends AttemptAction
 {
-    protected string $name = ActionEnum::SHOOT;
+    protected ActionEnum $name = ActionEnum::SHOOT;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
 
@@ -129,7 +129,7 @@ class Shoot extends AttemptAction
             $damageEvent = $this->createDamageEvent($damage, $target);
 
             if ($result instanceof OneShot) {
-                $reasons = $this->getAction()->getActionTags();
+                $reasons = $this->getActionConfig()->getActionTags();
                 $reasons[] = EndCauseEnum::BLED;
                 $reasons[] = ActionOutputEnum::ONE_SHOT;
                 $deathEvent = new PlayerEvent(
@@ -178,7 +178,8 @@ class Shoot extends AttemptAction
     private function rollCriticalChances(int $percentage): bool
     {
         $criticalRollEvent = new ActionVariableEvent(
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             $percentage,
             $this->player,
@@ -197,7 +198,7 @@ class Shoot extends AttemptAction
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Consume extends AbstractAction
 {
-    protected string $name = ActionEnum::CONSUME;
+    protected ActionEnum $name = ActionEnum::CONSUME;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -67,7 +67,7 @@ class Consume extends AbstractAction
             $this->player,
             $target,
             VisibilityEnum::PRIVATE,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($consumeEquipment, ApplyEffectEvent::CONSUME);

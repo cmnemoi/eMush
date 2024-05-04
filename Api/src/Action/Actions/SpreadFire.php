@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SpreadFire extends AbstractAction
 {
-    protected string $name = ActionEnum::SPREAD_FIRE;
+    protected ActionEnum $name = ActionEnum::SPREAD_FIRE;
 
     protected StatusServiceInterface $statusService;
 
@@ -56,7 +56,7 @@ class SpreadFire extends AbstractAction
         $this->statusService->createStatusFromName(
             StatusEnum::FIRE,
             $this->player->getPlace(),
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\MakeSick;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -79,10 +79,10 @@ class MakeSickActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::MAKE_SICK)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::OTHER_PLAYER)
             ->setActionCost(1)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::COVERT)
             ->buildName(GameConfigEnum::TEST);

@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Move extends AbstractAction
 {
-    protected string $name = ActionEnum::MOVE;
+    protected ActionEnum $name = ActionEnum::MOVE;
 
     private PlayerServiceInterface $playerService;
 

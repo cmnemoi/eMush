@@ -6,7 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\CollectScrap;
 use Mush\Action\Actions\Land;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -38,8 +38,8 @@ use Mush\Tests\FunctionalTester;
  */
 final class CollectScrapCest extends AbstractFunctionalTest
 {
-    private Action $collectScrapActionConfig;
-    private Action $landActionConfig;
+    private ActionConfig $collectScrapActionConfig;
+    private ActionConfig $landActionConfig;
     private CollectScrap $collectScrapAction;
     private EventServiceInterface $eventService;
     private GameEquipment $pasiphae;
@@ -56,8 +56,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
 
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
 
-        $this->collectScrapActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::COLLECT_SCRAP]);
-        $this->landActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::LAND]);
+        $this->collectScrapActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COLLECT_SCRAP]);
+        $this->landActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::LAND]);
 
         $this->collectScrapAction = $I->grabService(CollectScrap::class);
         $this->landAction = $I->grabService(Land::class);

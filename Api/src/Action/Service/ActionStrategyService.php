@@ -5,15 +5,22 @@ namespace Mush\Action\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Error;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Service\HunterServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Entity\Project;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Entity\Status;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionStrategyService implements ActionStrategyServiceInterface
@@ -44,69 +51,85 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         $this->actions[$action->getActionName()] = $action;
     }
 
-    public function getAction(string $actionName): ?AbstractAction
+    public function getAction(ActionEnum $actionName): ?AbstractAction
     {
-        if (!isset($this->actions[$actionName])) {
+        if (!isset($this->actions[$actionName->value])) {
             return null;
         }
 
-        return $this->actions[$actionName];
+        return $this->actions[$actionName->value];
     }
 
     public function executeAction(Player $player, int $actionId, array $params): ActionResult
     {
-        /** @var Action $action */
-        $action = $this->entityManager->getRepository(Action::class)->find($actionId);
+        /** @var ActionConfig $actionConfig */
+        $actionConfig = $this->entityManager->getRepository(ActionConfig::class)->find($actionId);
 
-        if (!$action) {
-            throw new NotFoundHttpException('This action does not exist');
+        if (!$actionConfig) {
+            throw new NotFoundHttpException('This actionConfig does not exist');
         }
 
-        $actionService = $this->getAction($action->getActionName());
+        $actionName = $actionConfig->getActionName();
+        $actionService = $this->getAction($actionName);
 
         if (null === $actionService) {
-            return new Error('Action do not exist');
+            throw new \Exception("this action is not implemented ({$actionName->value})");
         }
 
-        $target = $this->loadActionTarget($params['target']);
+        /** @var ?LogParameterInterface $target */
+        $target = $this->loadGameEntity($params['target']);
+
+        /** @var ActionProviderInterface $actionProvider */
+        $actionProvider = $this->loadGameEntity($params['actionProvider']);
+
+        $action = new Action();
+        $action->setActionConfig($actionConfig)->setActionProvider($actionProvider);
+
         $actionService->loadParameters($action, $player, $target, $params);
 
         return $actionService->execute();
     }
 
-    private function loadActionTarget(?array $actionTarget): ?LogParameterInterface
+    private function loadGameEntity(?array $entityParameters): null|ActionProviderInterface|LogParameterInterface
     {
-        if ($actionTarget !== null) {
-            if ($player = $this->getPlayerActionTarget($actionTarget)) {
+        if ($entityParameters !== null) {
+            if ($player = $this->getPlayerEntity($entityParameters)) {
                 return $player;
             }
 
-            if ($equipment = $this->getEquipmentActionTarget($actionTarget)) {
+            if ($equipment = $this->getEquipmentEntity($entityParameters)) {
                 return $equipment;
             }
 
-            if ($hunter = $this->getHunterActionTarget($actionTarget)) {
+            if ($hunter = $this->getHunterEntity($entityParameters)) {
                 return $hunter;
             }
 
-            if ($planet = $this->getPlanetActionTarget($actionTarget)) {
+            if ($planet = $this->getPlanetEntity($entityParameters)) {
                 return $planet;
             }
 
-            if ($project = $this->getProjectActionTarget($actionTarget)) {
+            if ($project = $this->getProjectEntity($entityParameters)) {
                 return $project;
+            }
+            if ($status = $this->getStatusEntity($entityParameters)) {
+                return $status;
+            }
+
+            if ($place = $this->getPlaceEntity($entityParameters)) {
+                return $place;
             }
         }
 
         return null;
     }
 
-    private function getEquipmentActionTarget(array $actionTarget): ?LogParameterInterface
+    private function getEquipmentEntity(array $entityParameter): ?GameEquipment
     {
-        if (($equipmentId = $actionTarget['door'] ?? null)
-            || ($equipmentId = $actionTarget['item'] ?? null)
-            || ($equipmentId = $actionTarget['equipment'] ?? null)
-            || ($equipmentId = $actionTarget['terminal'] ?? null)
+        if (($equipmentId = $entityParameter['door'] ?? null)
+            || ($equipmentId = $entityParameter['item'] ?? null)
+            || ($equipmentId = $entityParameter['equipment'] ?? null)
+            || ($equipmentId = $entityParameter['terminal'] ?? null)
         ) {
             return $this->equipmentService->findById($equipmentId);
         }
@@ -114,37 +137,55 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         return null;
     }
 
-    private function getPlayerActionTarget(array $actionTarget): ?LogParameterInterface
+    private function getPlayerEntity(array $entityParameter): ?Player
     {
-        if ($playerId = $actionTarget['player'] ?? null) {
+        if ($playerId = $entityParameter['player'] ?? null) {
             return $this->playerService->findById($playerId);
         }
 
         return null;
     }
 
-    private function getHunterActionTarget(array $actionTarget): ?LogParameterInterface
+    private function getHunterEntity(array $entityParameter): ?Hunter
     {
-        if ($hunterId = $actionTarget['hunter'] ?? null) {
+        if ($hunterId = $entityParameter['hunter'] ?? null) {
             return $this->hunterService->findById($hunterId);
         }
 
         return null;
     }
 
-    private function getPlanetActionTarget(array $actionTarget): ?LogParameterInterface
+    private function getPlanetEntity(array $entityParameter): ?Planet
     {
-        if ($planetId = $actionTarget['planet'] ?? null) {
+        if ($planetId = $entityParameter['planet'] ?? null) {
             return $this->planetService->findById($planetId);
         }
 
         return null;
     }
 
-    private function getProjectActionTarget(array $actionTarget): ?LogParameterInterface
+    private function getProjectEntity(array $entityParameter): ?Project
     {
-        if ($projectId = $actionTarget['project'] ?? null) {
+        if ($projectId = $entityParameter['project'] ?? null) {
             return $this->entityManager->getRepository(Project::class)->find($projectId);
+        }
+
+        return null;
+    }
+
+    private function getPlaceEntity(array $entityParameter): ?Place
+    {
+        if ($placeId = $entityParameter['place'] ?? null) {
+            return $this->entityManager->getRepository(Place::class)->find($placeId);
+        }
+
+        return null;
+    }
+
+    private function getStatusEntity(array $entityParameter): ?Status
+    {
+        if ($statusId = $entityParameter['status'] ?? null) {
+            return $this->entityManager->getRepository(Status::class)->find($statusId);
         }
 
         return null;

@@ -32,12 +32,12 @@ class ActionSubscriber implements EventSubscriberInterface
             throw new \LogicException('actionResult should be provided');
         }
 
-        $actionPaCost = $event->getAction()->getGameVariables()->getValueByName(PlayerVariableEnum::ACTION_POINT);
+        $actionPaCost = $event->getActionConfig()->getGameVariables()->getValueByName(PlayerVariableEnum::ACTION_POINT);
 
         if ($actionPaCost > 0) {
             $this->statusService->handleAttempt(
                 $player,
-                $event->getAction()->getActionName(),
+                $event->getActionConfig()->getActionName(),
                 $actionResult,
                 $event->getTags(),
                 $event->getTime()

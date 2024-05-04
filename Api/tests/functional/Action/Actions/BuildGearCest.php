@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Build;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -55,7 +55,7 @@ final class BuildGearCest extends AbstractFunctionalTest
         $I->assertEmpty($this->player1->getEquipments());
         $I->assertCount(3, $this->player1->getPlace()->getEquipments());
 
-        $buildActionEntity = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::BUILD]);
+        $buildActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::BUILD]);
 
         $this->buildAction->loadParameters($buildActionEntity, $this->player1, $sniperHelmetBlueprint);
 

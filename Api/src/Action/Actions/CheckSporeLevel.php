@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class CheckSporeLevel extends AbstractAction
 {
-    protected string $name = ActionEnum::CHECK_SPORE_LEVEL;
+    protected ActionEnum $name = ActionEnum::CHECK_SPORE_LEVEL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

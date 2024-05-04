@@ -3,7 +3,7 @@
 namespace Mush\Tests\unit\Action\Service;
 
 use Mockery;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
@@ -75,7 +75,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 1
             ))
             ->once();
@@ -86,7 +86,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MORAL_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 5
             ))
             ->once();
@@ -105,7 +105,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 3
             ))
             ->once();
@@ -143,7 +143,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->once();
@@ -153,7 +153,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MORAL_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->once();
@@ -172,7 +172,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 1
             ))
             ->once();
@@ -195,7 +195,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $convertActionToMovement
+                && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === -2
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
@@ -214,7 +214,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $convertActionToMovement
+                && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === 1
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
@@ -260,7 +260,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->once();
@@ -270,7 +270,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MORAL_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->once();
@@ -289,7 +289,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 1
             ))
             ->once();
@@ -312,7 +312,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $convertActionToMovement
+                && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === -2
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
@@ -331,7 +331,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $convertActionToMovement
+                && $actionEvent->getActionConfig() === $convertActionToMovement
                 && $actionEvent->getRoundedQuantity() === 1
                 && \in_array(ActionEnum::CONVERT_ACTION_TO_MOVEMENT, $actionEvent->getTags(), true)
             ))
@@ -378,7 +378,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::ROLL_ACTION_PERCENTAGE
                 && $actionEvent->getVariableName() === ActionVariableEnum::PERCENTAGE_SUCCESS
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 20
             ))
             ->andReturn($actionModifiedEvent)
@@ -405,7 +405,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::ROLL_ACTION_PERCENTAGE
                 && $actionEvent->getVariableName() === ActionVariableEnum::PERCENTAGE_SUCCESS
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 20
             ))
             ->andReturn($actionModifiedEvent)
@@ -439,7 +439,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 2
             ))
             ->andReturn($actionModifiedEvent)
@@ -468,7 +468,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::MOVEMENT_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->andReturn($actionModifiedEvent)
@@ -500,7 +500,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->andReturn($actionModifiedEvent)
@@ -546,7 +546,7 @@ final class ActionServiceTest extends TestCase
                 $eventName === ActionVariableEvent::APPLY_COST
                 && $actionEvent->getVariableName() === PlayerVariableEnum::ACTION_POINT
                 && $actionEvent->getAuthor() === $player
-                && $actionEvent->getAction() === $action
+                && $actionEvent->getActionConfig() === $action
                 && $actionEvent->getRoundedQuantity() === 0
             ))
             ->andReturn($actionModifiedEvent)
@@ -582,9 +582,9 @@ final class ActionServiceTest extends TestCase
         return $player;
     }
 
-    private function createAction(int $actionPointCost, int $movementPointCost, int $moralPointCost, int $successRate = 100): Action
+    private function createAction(int $actionPointCost, int $movementPointCost, int $moralPointCost, int $successRate = 100): ActionConfig
     {
-        $action = new Action();
+        $action = new ActionConfig();
 
         $action
             ->setActionCost($actionPointCost)

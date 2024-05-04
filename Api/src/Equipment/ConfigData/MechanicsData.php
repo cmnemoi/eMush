@@ -3193,8 +3193,8 @@ class MechanicsData
             'failedManoeuvrePatrolShipDamage' => null,
             'failedManoeuvrePlayerDamage' => null,
             'actions' => [
-                ActionEnum::SHOOT_HUNTER . '_turret',
-                ActionEnum::SHOOT_RANDOM_HUNTER . '_turret',
+                ActionEnum::SHOOT_HUNTER->value . '_turret',
+                ActionEnum::SHOOT_RANDOM_HUNTER->value . '_turret',
             ],
             'modifierConfigs' => [],
         ],

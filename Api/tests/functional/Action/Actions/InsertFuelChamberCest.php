@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\Functional\Action\Actions;
 
 use Mush\Action\Actions\InsertFuelChamber;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -31,7 +31,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class InsertFuelChamberCest extends AbstractFunctionalTest
 {
-    private Action $insertFuelChamberActionConfig;
+    private ActionConfig $insertFuelChamberActionConfig;
     private InsertFuelChamber $insertFuelChamberAction;
 
     public function _before(FunctionalTester $I)
@@ -40,7 +40,7 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
         $this->player->changePlace($engineRoom);
-        $this->insertFuelChamberActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::INSERT_FUEL_CHAMBER]);
+        $this->insertFuelChamberActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSERT_FUEL_CHAMBER]);
         $this->insertFuelChamberAction = $I->grabService(InsertFuelChamber::class);
     }
 

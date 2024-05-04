@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\RepairPilgred;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
@@ -32,7 +32,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class RepairPilgredCest extends AbstractFunctionalTest
 {
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private RepairPilgred $repairPilgredAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
@@ -42,7 +42,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR_PILGRED]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REPAIR_PILGRED]);
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);

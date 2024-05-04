@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Land;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
@@ -33,7 +33,7 @@ use Mush\Tests\FunctionalTester;
 final class LandActionCest extends AbstractFunctionalTest
 {
     private Land $landAction;
-    private Action $action;
+    private ActionConfig $action;
     private GameEquipment $pasiphae;
     private ChargeStatus $pasiphaeArmor;
 
@@ -64,7 +64,7 @@ final class LandActionCest extends AbstractFunctionalTest
 
         $this->pasiphaeArmor = $pasiphaeArmor;
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::LAND]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::LAND]);
 
         $this->landAction = $I->grabService(Land::class);
     }

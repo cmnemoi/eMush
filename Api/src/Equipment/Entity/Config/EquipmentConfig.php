@@ -5,7 +5,8 @@ namespace Mush\Equipment\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
@@ -49,7 +50,7 @@ class EquipmentConfig
     #[ORM\Column(type: 'array', nullable: false)]
     private array $dismountedProducts = [];
 
-    #[ORM\ManyToMany(targetEntity: Action::class)]
+    #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
     private Collection $actions;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
@@ -204,7 +205,7 @@ class EquipmentConfig
     }
 
     /**
-     * @param array<int, Action>|Collection<int<0, max>, Action> $actions
+     * @param array<int, ActionConfig>|Collection<int<0, max>, ActionConfig> $actions
      */
     public function setActions(array|Collection $actions): static
     {
@@ -248,9 +249,9 @@ class EquipmentConfig
         return $this->initStatuses;
     }
 
-    public function hasAction(string $actionName): bool
+    public function hasAction(ActionEnum $actionName): bool
     {
-        return $this->getActions()->exists(static fn (int $id, Action $action) => $action->getActionName() === $actionName);
+        return $this->getActions()->exists(static fn (int $id, ActionConfig $action) => $action->getActionName() === $actionName);
     }
 
     public function getDismountedProducts(): array

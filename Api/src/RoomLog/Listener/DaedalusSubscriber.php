@@ -42,7 +42,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
     public function onTravelLaunched(DaedalusEvent $event): void
     {
-        if ($event->hasTag(ActionEnum::LEAVE_ORBIT)) {
+        if ($event->hasTag(ActionEnum::LEAVE_ORBIT->value)) {
             $this->hideOldPlanetExplorationLogs($event->getDaedalus());
         }
     }

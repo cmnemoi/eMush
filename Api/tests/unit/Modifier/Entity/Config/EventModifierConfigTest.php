@@ -2,7 +2,7 @@
 
 namespace Mush\Tests\unit\Modifier\Entity\Config;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
@@ -64,7 +64,7 @@ final class EventModifierConfigTest extends TestCase
         $modifier
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTargetVariable(DaedalusVariableEnum::FUEL);
-        $action = new Action();
+        $action = new ActionConfig();
         $action->setActionName('test');
         $player = new Player();
         $player->setDaedalus(new Daedalus());

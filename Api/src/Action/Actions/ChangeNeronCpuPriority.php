@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ChangeNeronCpuPriority extends AbstractAction
 {
-    protected string $name = ActionEnum::CHANGE_NERON_CPU_PRIORITY;
+    protected ActionEnum $name = ActionEnum::CHANGE_NERON_CPU_PRIORITY;
 
     private NeronServiceInterface $neronService;
 
@@ -80,7 +80,7 @@ final class ChangeNeronCpuPriority extends AbstractAction
         $this->neronService->changeCpuPriority(
             $neron,
             $cpuPriority,
-            reasons: $this->action->getActionTags(),
+            reasons: $this->actionConfig->getActionTags(),
             author: $this->player
         );
     }

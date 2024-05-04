@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class Participate extends AbstractParticipateAction
 {
-    protected string $name = ActionEnum::PARTICIPATE;
+    protected ActionEnum $name = ActionEnum::PARTICIPATE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

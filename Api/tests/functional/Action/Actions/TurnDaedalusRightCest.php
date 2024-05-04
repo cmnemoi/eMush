@@ -32,7 +32,7 @@ final class TurnDaedalusRightCest extends AbstractTurnDaedalusActionCest
 
         // when player turns daedalus right
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -48,7 +48,7 @@ final class TurnDaedalusRightCest extends AbstractTurnDaedalusActionCest
 
         // when player turns daedalus right
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -59,7 +59,7 @@ final class TurnDaedalusRightCest extends AbstractTurnDaedalusActionCest
 
         // when player turns daedalus right again
         $this->turnDaedalusAction->loadParameters(
-            action: $this->turnDaedalusConfig,
+            actionConfig: $this->turnDaedalusConfig,
             player: $this->player,
             target: $this->commandTerminal
         );

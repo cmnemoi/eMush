@@ -14,7 +14,7 @@ imports:
     - { resource: ../src/Place/config/services.yaml }
     - { resource: ../src/RoomLog/config/services.yaml }
     - { resource: ../src/User/config/services.yaml }
-    - { resource: ../src/Action/config/services.yaml }
+    - { resource: ../src/ActionConfig/config/services.yaml }
     - { resource: ../src/Status/config/services.yaml }
     - { resource: ../src/Communication/config/services.yaml }
     - { resource: ../src/Disease/config/services.yaml }

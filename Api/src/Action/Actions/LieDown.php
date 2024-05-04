@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class LieDown extends AbstractAction
 {
-    protected string $name = ActionEnum::LIE_DOWN;
+    protected ActionEnum $name = ActionEnum::LIE_DOWN;
 
     protected StatusServiceInterface $statusService;
 
@@ -79,7 +79,7 @@ class LieDown extends AbstractAction
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LYING_DOWN,
             holder: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
             target: $target,
         );

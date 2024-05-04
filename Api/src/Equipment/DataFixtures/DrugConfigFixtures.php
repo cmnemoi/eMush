@@ -6,7 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
@@ -21,19 +21,19 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var Action $takeAction */
+        /** @var ActionConfig $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
 
-        /** @var Action $dropAction */
+        /** @var ActionConfig $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
-        /** @var Action $consumeDrugAction */
+        /** @var ActionConfig $consumeDrugAction */
         $consumeDrugAction = $this->getReference(ActionsFixtures::DRUG_CONSUME);
 
-        /** @var Action $hideAction */
+        /** @var ActionConfig $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        /** @var Action $examineAction */
+        /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         $actions = [$takeAction, $dropAction, $hideAction, $examineAction];

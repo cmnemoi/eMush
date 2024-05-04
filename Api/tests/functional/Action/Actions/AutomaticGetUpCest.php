@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Disassemble;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -80,10 +80,10 @@ class AutomaticGetUpCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $getUpAction = new Action();
+        $getUpAction = new ActionConfig();
         $getUpAction
             ->setActionName(ActionEnum::GET_UP)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($getUpAction);
 
@@ -107,10 +107,10 @@ class AutomaticGetUpCest
         $lyingDownStatus = new Status($player, $statusConfig);
         $I->haveInRepository($lyingDownStatus);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::DISASSEMBLE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);

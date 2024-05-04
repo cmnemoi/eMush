@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -64,10 +64,10 @@ class MoveSubscriberCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 

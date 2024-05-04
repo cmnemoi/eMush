@@ -6,11 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Action\Entity\ActionTargetInterface;
-use Mush\Action\Enum\ActionTargetName;
+use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionHolderInterface;
+use Mush\Action\Entity\ActionProviderInterface;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -36,7 +41,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'door' => Door::class,
     'game_item' => GameItem::class,
 ])]
-class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionTargetInterface
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
 {
     use TargetStatusTrait;
     use TimestampableEntity;
@@ -84,11 +89,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     public function getClassName(): string
     {
         return static::class;
-    }
-
-    public function getActions(): Collection
-    {
-        return $this->equipment->getActions();
     }
 
     public function addStatus(Status $status): static
@@ -221,7 +221,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             }
             if (($status->getStatusConfig()->getStatusName() === EquipmentStatusEnum::ELECTRIC_CHARGES)
                 && $status instanceof ChargeStatus
-                && $status->getCharge() === 0
+                && $status->isCharged()
             ) {
                 return false;
             }
@@ -280,16 +280,81 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->isInAPatrolShip() || $this->isInSpace();
     }
 
-    public function getActionTargetName(array $context): string
+    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
     {
-        if (EquipmentEnum::equipmentToNormalizeAsItems()->contains($this->name)) {
-            return ActionTargetName::ITEM->value;
+        if ($this->isBroken()) {
+            return ActionProviderOperationalStateEnum::BROKEN;
         }
 
-        if (\array_key_exists(ActionTargetName::TERMINAL->value, $context) && $context[ActionTargetName::TERMINAL->value] === $this) {
-            return ActionTargetName::TERMINAL->value;
+        $charge = $this->getUsedCharge($actionName);
+        if ($charge !== null && !$charge->isCharged()) {
+            return ActionProviderOperationalStateEnum::DISCHARGED;
         }
 
-        return ActionTargetName::EQUIPMENT->value;
+        return ActionProviderOperationalStateEnum::OPERATIONAL;
+    }
+
+    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    {
+        $charges = $this->statuses->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+
+        $charge = $charges->first();
+        if (!$charge instanceof ChargeStatus) {
+            return null;
+        }
+
+        return $charge;
+    }
+
+    // return actions provided by this entity and the other actionProviders it bears
+    public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection
+    {
+        $actions = [];
+
+        /** @var ActionConfig $actionConfig */
+        foreach ($this->getEquipment()->getActions() as $actionConfig) {
+            if (
+                $actionConfig->getDisplayHolder() === $actionTarget
+                && \in_array($actionConfig->getRange(), $actionRanges, true)
+            ) {
+                $action = new Action();
+                $action->setActionProvider($this)->setActionConfig($actionConfig);
+                $actions[] = $action;
+            }
+        }
+
+        // add actions provided by the statuses
+        /** @var Status $status */
+        foreach ($this->statuses as $status) {
+            $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        return new ArrayCollection($actions);
+    }
+
+    // return action available for this target $actionTarget should be set to game_equipment
+    public function getActions(ActionHolderEnum $actionTarget, Player $activePlayer): Collection
+    {
+        // first actions provided by the gameEquipment itself
+        $actions = $this->getProvidedActions(ActionHolderEnum::EQUIPMENT, [ActionRangeEnum::SELF])->toArray();
+
+        // then actions provided by the room
+        $actions = array_merge($actions, $this->getPlace()->getProvidedActions(
+            ActionHolderEnum::EQUIPMENT,
+            [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]
+        )->toArray());
+
+        // then actions provided by the active player
+        $actions = array_merge($actions, $activePlayer->getProvidedActions(
+            ActionHolderEnum::EQUIPMENT,
+            [ActionRangeEnum::PLAYER]
+        )->toArray());
+
+        return new ArrayCollection($actions);
+    }
+
+    public function canPlayerReach(Player $player): bool
+    {
+        return $this->getPlace() === $player->getPlace();
     }
 }

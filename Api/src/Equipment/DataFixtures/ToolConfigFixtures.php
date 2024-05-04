@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Tool;
@@ -32,43 +32,43 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var Action $takeAction */
+        /** @var ActionConfig $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
 
-        /** @var Action $dropAction */
+        /** @var ActionConfig $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
-        /** @var Action $hideAction */
+        /** @var ActionConfig $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        /** @var Action $examineAction */
+        /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        /** @var Action $reportAction */
+        /** @var ActionConfig $reportAction */
         $reportAction = $this->getReference(ActionsFixtures::REPORT_EQUIPMENT);
 
-        /** @var Action $repair3 */
+        /** @var ActionConfig $repair3 */
         $repair3 = $this->getReference(TechnicianFixtures::REPAIR_3);
 
-        /** @var Action $repair6 */
+        /** @var ActionConfig $repair6 */
         $repair6 = $this->getReference(TechnicianFixtures::REPAIR_6);
 
-        /** @var Action $repair25 */
+        /** @var ActionConfig $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
-        /** @var Action $repair50 */
+        /** @var ActionConfig $repair50 */
         $repair50 = $this->getReference(TechnicianFixtures::REPAIR_50);
 
-        /** @var Action $sabotage3 */
+        /** @var ActionConfig $sabotage3 */
         $sabotage3 = $this->getReference(TechnicianFixtures::SABOTAGE_3);
 
-        /** @var Action $sabotage6 */
+        /** @var ActionConfig $sabotage6 */
         $sabotage6 = $this->getReference(TechnicianFixtures::SABOTAGE_6);
 
-        /** @var Action $sabotage25 */
+        /** @var ActionConfig $sabotage25 */
         $sabotage25 = $this->getReference(TechnicianFixtures::SABOTAGE_25);
 
-        /** @var Action $sabotage50 */
+        /** @var ActionConfig $sabotage50 */
         $sabotage50 = $this->getReference(TechnicianFixtures::SABOTAGE_50);
 
         /** @var StatusConfig $alienArtifactStatus */
@@ -77,13 +77,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $heavyStatus */
         $heavyStatus = $this->getReference(StatusFixtures::HEAVY_STATUS);
 
-        /** @var Action $dismantle12 */
+        /** @var ActionConfig $dismantle12 */
         $dismantle12 = $this->getReference(TechnicianFixtures::DISMANTLE_3_12);
 
-        /** @var Action $dismantle325 */
+        /** @var ActionConfig $dismantle325 */
         $dismantle325 = $this->getReference(TechnicianFixtures::DISMANTLE_3_25);
 
-        /** @var Action $dismantle425 */
+        /** @var ActionConfig $dismantle425 */
         $dismantle425 = $this->getReference(TechnicianFixtures::DISMANTLE_4_25);
 
         /** @TODO */
@@ -111,10 +111,10 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($hackerKit);
         $manager->persist($hackerKitMechanic);
 
-        /** @var Action $writeAction */
+        /** @var ActionConfig $writeAction */
         $writeAction = $this->getReference(ActionsFixtures::WRITE);
 
-        /** @var Action $exitTerminalAction */
+        /** @var ActionConfig $exitTerminalAction */
         $exitTerminalAction = $this->getReference(ActionsFixtures::EXIT_TERMINAL);
 
         $blockOfPostIt = new ItemConfig();
@@ -127,7 +127,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($blockOfPostIt);
 
-        /** @var Action $installCamera */
+        /** @var ActionConfig $installCamera */
         $installCamera = $this->getReference(ActionsFixtures::INSTALL_CAMERA);
         $cameraActions = [
             $takeAction,
@@ -150,7 +150,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($camera);
 
-        /** @var Action $extinguishAction */
+        /** @var ActionConfig $extinguishAction */
         $extinguishAction = $this->getReference(ActionsFixtures::EXTINGUISH_DEFAULT);
 
         $extinguisher = new ItemConfig();
@@ -169,7 +169,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($extinguisher);
 
-        /** @var Action $gagAction */
+        /** @var ActionConfig $gagAction */
         $gagAction = $this->getReference(ActionsFixtures::GAG_DEFAULT);
         $ductTapeMechanic = new Tool();
         $ductTapeMechanic
@@ -189,7 +189,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($ductTape);
         $manager->persist($ductTapeMechanic);
 
-        /** @var Action $tryKubeAction */
+        /** @var ActionConfig $tryKubeAction */
         $tryKubeAction = $this->getReference(ActionsFixtures::TRY_KUBE);
 
         $madKube = new ItemConfig();
@@ -208,7 +208,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             $dismantle425, $repair50, $sabotage50, $reportAction,
         ];
 
-        /** @var Action $expressCookAction */
+        /** @var ActionConfig $expressCookAction */
         $expressCookAction = $this->getReference(ActionsFixtures::COOK_EXPRESS);
 
         $microwaveMechanic = new Tool();
@@ -235,7 +235,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($microwave);
         $manager->persist($microwaveMechanic);
 
-        /** @var Action $hyperfreezeAction */
+        /** @var ActionConfig $hyperfreezeAction */
         $hyperfreezeAction = $this->getReference(ActionsFixtures::HYPERFREEZE_DEFAULT);
 
         $superFreezerMechanic = new Tool();
@@ -264,7 +264,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($superFreezer);
         $manager->persist($superFreezerMechanic);
 
-        /** @var Action $alienHolographicTVAction */
+        /** @var ActionConfig $alienHolographicTVAction */
         $alienHolographicTVAction = $this->getReference(ActionsFixtures::PUBLIC_BROADCAST);
 
         $alienHolographicTV = new ItemConfig();
@@ -294,7 +294,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($medikit);
 
-        /** @var Action $removeSporeAction */
+        /** @var ActionConfig $removeSporeAction */
         $removeSporeAction = $this->getReference(ActionsFixtures::REMOVE_SPORE);
 
         $sporeSucker = new ItemConfig();
@@ -311,7 +311,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($sporeSucker);
 
-        /** @var Action $ultraHealAction */
+        /** @var ActionConfig $ultraHealAction */
         $ultraHealAction = $this->getReference(ActionsFixtures::HEAL_ULTRA);
 
         $alienModifierGear = new Gear();
@@ -323,7 +323,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setName('alien_oil_gear_default');
         $manager->persist($alienModifierGear);
 
-        /** @var Action $insertFuelChamber */
+        /** @var ActionConfig $insertFuelChamber */
         $insertFuelChamber = $this->getReference(ActionsFixtures::INSERT_FUEL_CHAMBER);
         $jarOfAlienOil = new ItemConfig();
         $jarOfAlienOil
@@ -337,7 +337,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($jarOfAlienOil);
 
-        /** @var Action $bandageAction */
+        /** @var ActionConfig $bandageAction */
         $bandageAction = $this->getReference(ActionsFixtures::BANDAGE_DEFAULT);
 
         $bandage = new ItemConfig();
@@ -350,7 +350,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($bandage);
 
-        /** @var Action $serumAction */
+        /** @var ActionConfig $serumAction */
         $serumAction = $this->getReference(ActionsFixtures::INJECT_SERUM);
 
         $retroFungalSerumMechanic = new Tool();
@@ -371,7 +371,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($retroFungalSerum);
         $manager->persist($retroFungalSerumMechanic);
 
-        /** @var Action $spaceCapsuleAction */
+        /** @var ActionConfig $spaceCapsuleAction */
         $spaceCapsuleAction = $this->getReference(ActionsFixtures::OPEN_SPACE_CAPSULE);
 
         $spaceCapsule = new ItemConfig();
@@ -385,7 +385,7 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($spaceCapsule);
 
-        /** @var Action $autoEjectAction */
+        /** @var ActionConfig $autoEjectAction */
         $autoEjectAction = $this->getReference(ActionsFixtures::AUTO_EJECT);
 
         $spaceSuitMechanic = new Tool();

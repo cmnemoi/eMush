@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ReadBook extends AbstractAction
 {
-    protected string $name = ActionEnum::READ_BOOK;
+    protected ActionEnum $name = ActionEnum::READ_BOOK;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -48,7 +48,7 @@ class ReadBook extends AbstractAction
             $target,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

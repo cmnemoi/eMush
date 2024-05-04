@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ConsumeDrug extends Consume
 {
-    protected string $name = ActionEnum::CONSUME_DRUG;
+    protected ActionEnum $name = ActionEnum::CONSUME_DRUG;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

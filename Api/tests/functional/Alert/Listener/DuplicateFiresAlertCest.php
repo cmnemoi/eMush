@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Alert\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ReportEquipment;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
@@ -110,10 +110,10 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
 
     public function testAddFireAndInRoomWithBrokenEquipment(FunctionalTester $I)
     {
-        $reportAction = $action = new Action();
+        $reportAction = $action = new ActionConfig();
         $reportAction
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
@@ -145,7 +145,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(AlertElement::class, ['place' => $room]);
         $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
 
-        // player report Action
+        // player report ActionConfig
         $this->reportAction->loadParameters($reportAction, $this->player, $gameEquipment);
         $this->reportAction->execute();
 

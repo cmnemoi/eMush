@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Examine extends AbstractAction
 {
-    protected string $name = ActionEnum::EXAMINE;
+    protected ActionEnum $name = ActionEnum::EXAMINE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

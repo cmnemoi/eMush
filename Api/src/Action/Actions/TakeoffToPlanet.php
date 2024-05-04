@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TakeoffToPlanet extends AbstractAction
 {
-    protected string $name = ActionEnum::TAKEOFF_TO_PLANET;
+    protected ActionEnum $name = ActionEnum::TAKEOFF_TO_PLANET;
 
     private ExplorationServiceInterface $explorationService;
     private RandomServiceInterface $randomService;
@@ -99,7 +99,7 @@ class TakeoffToPlanet extends AbstractAction
             players: new PlayerCollection($explorators),
             explorationShip: $explorationShip,
             numberOfSectorsToVisit: $this->getPatrolShipMechanic($explorationShip)->getNumberOfExplorationSteps(),
-            reasons: $this->action->getActionTags(),
+            reasons: $this->actionConfig->getActionTags(),
         );
     }
 

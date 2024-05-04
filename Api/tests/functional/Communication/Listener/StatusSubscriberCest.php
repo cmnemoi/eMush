@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Communication\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
@@ -147,7 +147,7 @@ class StatusSubscriberCest
 
         $I->refreshEntities($publicChannel);
 
-        $dropAction = new Action();
+        $dropAction = new ActionConfig();
         $dropAction->setActionName(ActionEnum::DROP);
 
         $time = new \DateTime();

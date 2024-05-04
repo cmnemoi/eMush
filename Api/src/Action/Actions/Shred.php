@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Shred extends AbstractAction
 {
-    protected string $name = ActionEnum::SHRED;
+    protected ActionEnum $name = ActionEnum::SHRED;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -50,7 +50,7 @@ class Shred extends AbstractAction
             $target,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

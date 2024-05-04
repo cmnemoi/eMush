@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Disassemble extends AttemptAction
 {
-    protected string $name = ActionEnum::DISASSEMBLE;
+    protected ActionEnum $name = ActionEnum::DISASSEMBLE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -78,7 +78,7 @@ class Disassemble extends AttemptAction
                 $product = $this->gameEquipmentService->createGameEquipmentFromName(
                     $productString,
                     $this->player,
-                    $this->getAction()->getActionTags(),
+                    $this->getActionConfig()->getActionTags(),
                     new \DateTime(),
                     VisibilityEnum::HIDDEN
                 );
@@ -90,7 +90,7 @@ class Disassemble extends AttemptAction
             $gameEquipment,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

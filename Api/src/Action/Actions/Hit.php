@@ -23,7 +23,7 @@ class Hit extends AttemptAction
 {
     private const MIN_DAMAGE = 1;
     private const MAX_DAMAGE = 3;
-    protected string $name = ActionEnum::HIT;
+    protected ActionEnum $name = ActionEnum::HIT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -48,7 +48,7 @@ class Hit extends AttemptAction
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
 

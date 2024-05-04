@@ -114,7 +114,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCausesBacterialContact = new DiseaseCauseConfig();
         $diseaseCausesBacterialContact
-            ->setCauseName(ActionEnum::MAKE_SICK)
+            ->setCauseName(ActionEnum::MAKE_SICK->value)
             ->setDiseases([
                 DiseaseEnum::COLD => 1,
                 DiseaseEnum::FUNGIC_INFECTION => 1,
@@ -126,7 +126,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCausesFakeDisease = new DiseaseCauseConfig();
         $diseaseCausesFakeDisease
-            ->setCauseName(ActionEnum::FAKE_DISEASE)
+            ->setCauseName(ActionEnum::FAKE_DISEASE->value)
             ->setDiseases(
                 [
                     DiseaseEnum::CAT_ALLERGY => 1,
@@ -191,7 +191,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
 
         $diseaseCauseFailedSurgery = new DiseaseCauseConfig();
         $diseaseCauseFailedSurgery
-            ->setCauseName(ActionEnum::SURGERY)
+            ->setCauseName(ActionEnum::SURGERY->value)
             ->setDiseases([DiseaseEnum::SEPSIS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($diseaseCauseFailedSurgery);

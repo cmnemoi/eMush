@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Status\Listener;
 
 use Mush\Action\Actions\Repair;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Entity\Status;
@@ -18,7 +18,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class RepairScrewedTalkieCest extends AbstractFunctionalTest
 {
-    private Action $repairConfig;
+    private ActionConfig $repairConfig;
     private Repair $repairAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -27,7 +27,7 @@ final class RepairScrewedTalkieCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->repairConfig = $I->grabEntityFromRepository(Action::class, [
+        $this->repairConfig = $I->grabEntityFromRepository(ActionConfig::class, [
             'name' => 'repair_percent_25',
         ]);
         $this->repairConfig->setSuccessRate(101);

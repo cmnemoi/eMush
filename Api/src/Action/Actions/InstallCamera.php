@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InstallCamera extends AbstractAction
 {
-    protected string $name = ActionEnum::INSTALL_CAMERA;
+    protected ActionEnum $name = ActionEnum::INSTALL_CAMERA;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -78,7 +78,7 @@ class InstallCamera extends AbstractAction
             EquipmentEnum::CAMERA_EQUIPMENT,
             $itemCamera,
             $this->player->getPlace(),
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PUBLIC
         );

@@ -23,9 +23,9 @@ class EquipmentSubscriber implements EventSubscriberInterface
 {
     private const CREATION_LOG_MAP = [
         EventEnum::PLANT_PRODUCTION => PlantLogEnum::PLANT_NEW_FRUIT,
-        ActionEnum::BUILD => ActionLogEnum::BUILD_SUCCESS,
-        ActionEnum::TRANSPLANT => ActionLogEnum::TRANSPLANT_SUCCESS,
-        ActionEnum::OPEN => ActionLogEnum::OPEN_SUCCESS,
+        ActionEnum::BUILD->value => ActionLogEnum::BUILD_SUCCESS,
+        ActionEnum::TRANSPLANT->value => ActionLogEnum::TRANSPLANT_SUCCESS,
+        ActionEnum::OPEN->value => ActionLogEnum::OPEN_SUCCESS,
         LogEnum::FOUND_ITEM_IN_EXPLORATION => LogEnum::FOUND_ITEM_IN_EXPLORATION,
     ];
 
@@ -38,7 +38,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     ];
 
     private const MOVE_EQUIPMENT_LOG_MAP = [
-        ActionEnum::COLLECT_SCRAP => LogEnum::SCRAP_COLLECTED,
+        ActionEnum::COLLECT_SCRAP->value => LogEnum::SCRAP_COLLECTED,
     ];
     private RoomLogServiceInterface $roomLogService;
 

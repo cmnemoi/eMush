@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Build extends AbstractAction
 {
-    protected string $name = ActionEnum::BUILD;
+    protected ActionEnum $name = ActionEnum::BUILD;
 
     protected GearToolServiceInterface $gearToolService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
@@ -112,7 +112,7 @@ class Build extends AbstractAction
                     $ingredient,
                     $this->player,
                     VisibilityEnum::HIDDEN,
-                    $this->getAction()->getActionTags(),
+                    $this->getActionConfig()->getActionTags(),
                     $time
                 );
 
@@ -124,7 +124,7 @@ class Build extends AbstractAction
             $target,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -133,7 +133,7 @@ class Build extends AbstractAction
         $blueprintResult = $this->gameEquipmentService->createGameEquipmentFromName(
             $blueprintMechanic->getCraftedEquipmentName(),
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PRIVATE
         );

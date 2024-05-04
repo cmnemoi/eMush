@@ -21,7 +21,7 @@ class TryKube extends AbstractAction
 {
     private const KUBE_SUCCESS_RATE = 4;
 
-    protected string $name = ActionEnum::TRY_KUBE;
+    protected ActionEnum $name = ActionEnum::TRY_KUBE;
 
     private RandomServiceInterface $randomService;
 

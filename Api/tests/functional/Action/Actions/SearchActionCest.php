@@ -5,11 +5,11 @@ namespace Mush\Tests\functional\Action\Actions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Actions\Search;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -48,18 +48,18 @@ class SearchActionCest
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hiddenConfig);
 
-        $searchAction = new Action();
+        $searchAction = new ActionConfig();
         $searchAction
             ->setActionName(ActionEnum::SEARCH)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
-        $hideAction = new Action();
+        $hideAction = new ActionConfig();
         $hideAction
             ->setActionName(ActionEnum::HIDE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
@@ -156,18 +156,18 @@ class SearchActionCest
         $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hiddenConfig);
 
-        $searchAction = new Action();
+        $searchAction = new ActionConfig();
         $searchAction
             ->setActionName(ActionEnum::SEARCH)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);
 
-        $hideAction = new Action();
+        $hideAction = new ActionConfig();
         $hideAction
             ->setActionName(ActionEnum::HIDE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setActionCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($searchAction);

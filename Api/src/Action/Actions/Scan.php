@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Scan extends AttemptAction
 {
-    protected string $name = ActionEnum::SCAN;
+    protected ActionEnum $name = ActionEnum::SCAN;
     private PlanetServiceInterface $planetService;
 
     public function __construct(

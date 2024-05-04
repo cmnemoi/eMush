@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Coffee;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -68,10 +68,10 @@ class ConsumeChargeOnActionCest
             ->setStartCharge(2);
         $I->haveInRepository($statusConfig);
 
-        $actionEntity = new Action();
+        $actionEntity = new ActionConfig();
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
@@ -165,10 +165,10 @@ class ConsumeChargeOnActionCest
 
         $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
 
-        $actionEntity = new Action();
+        $actionEntity = new ActionConfig();
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
@@ -288,18 +288,18 @@ class ConsumeChargeOnActionCest
 
     public function testGearMovementActionConversionCharge(FunctionalTester $I)
     {
-        $actionEntity = new Action();
+        $actionEntity = new ActionConfig();
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->setMovementCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);

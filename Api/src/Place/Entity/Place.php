@@ -6,10 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionProviderInterface;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -21,6 +27,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -28,7 +35,7 @@ use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
-class Place implements StatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface
+class Place implements StatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface
 {
     use TargetStatusTrait;
     use TimestampableEntity;
@@ -353,5 +360,58 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     public function getLogName(): string
     {
         return $this->getName();
+    }
+
+    // return actions provided by this entity and the other action provider it bears $actionRange should always be set to ROOM
+    public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection
+    {
+        $actions = [];
+
+        // then actions provided by the statuses
+        /** @var Status $status */
+        foreach ($this->statuses as $status) {
+            $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        // then actions provided by the equipment in shelve
+        /** @var GameItem $equipment */
+        foreach ($this->getEquipments() as $equipment) {
+            $actions = array_merge($actions, $equipment->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        // then players in the room
+        /** @var Player $player */
+        foreach ($this->getPlayers() as $player) {
+            $actions = array_merge($actions, $player->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        return new ArrayCollection($actions);
+    }
+
+    public function canPlayerReach(Player $player): bool
+    {
+        return $this === $player->getPlace();
+    }
+
+    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    {
+        $charge = $this->getUsedCharge($actionName);
+        if ($charge !== null && !$charge->isCharged()) {
+            return ActionProviderOperationalStateEnum::DISCHARGED;
+        }
+
+        return ActionProviderOperationalStateEnum::OPERATIONAL;
+    }
+
+    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    {
+        $charges = $this->statuses->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+
+        $charge = $charges->first();
+        if (!$charge instanceof ChargeStatus) {
+            return null;
+        }
+
+        return $charge;
     }
 }

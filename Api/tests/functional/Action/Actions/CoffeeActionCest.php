@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Coffee;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -37,7 +37,7 @@ use Mush\User\Entity\User;
  */
 final class CoffeeActionCest extends AbstractFunctionalTest
 {
-    private Action $coffeeActionConfig;
+    private ActionConfig $coffeeActionConfig;
     private Coffee $coffeeAction;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -46,7 +46,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->coffeeActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::COFFEE]);
+        $this->coffeeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COFFEE]);
         $this->coffeeAction = $I->grabService(Coffee::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -62,7 +62,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $gameEquipment = $this->createEquipment('coffee_machine', $room2);
 
-        $coffeeActionEntity = new Action();
+        $coffeeActionEntity = new ActionConfig();
         $coffeeActionEntity
             ->setActionName(ActionEnum::COFFEE);
 
@@ -85,7 +85,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 
-        $coffeeActionEntity = new Action();
+        $coffeeActionEntity = new ActionConfig();
         $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
@@ -107,7 +107,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 
-        $coffeeActionEntity = new Action();
+        $coffeeActionEntity = new ActionConfig();
         $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);
@@ -134,7 +134,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $gameEquipment = $this->createEquipment('coffee_machine', $room);
 
-        $coffeeActionEntity = new Action();
+        $coffeeActionEntity = new ActionConfig();
         $coffeeActionEntity->setActionName(ActionEnum::COFFEE);
 
         $this->coffeeAction->loadParameters($coffeeActionEntity, $player, $gameEquipment);

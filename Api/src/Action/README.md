@@ -32,7 +32,7 @@ Actions with a success rate extend [AttemptAction](./Actions/AttemptAction.php).
   - injuryRate: chances to get hurt doing the action
   - dirtyRate: chances to get dirty
   - successRate: if necessary
-  - [scope](./Enum/ActionScopeEnum.php): the relation between the active player and the entity that provide the action.
+  - [scope](./Enum/ActionRangeEnum.php): the relation between the active player and the entity that provide the action.
   - target: (only apply on action provided by tools) describe which entity is targeted by the tool.
 
 ### Event

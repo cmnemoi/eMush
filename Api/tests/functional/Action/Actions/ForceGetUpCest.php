@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Hit;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -65,10 +65,10 @@ class ForceGetUpCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::HIT)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::OTHER_PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 

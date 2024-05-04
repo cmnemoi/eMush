@@ -5,9 +5,9 @@ namespace Mush\Tests\functional\Communication\Listener;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\ChannelPlayer;
 use Mush\Communication\Entity\Message;
@@ -53,10 +53,10 @@ class PrivateChannelAuthorizationCest
 
     public function testDropTalkie(FunctionalTester $I)
     {
-        $dropActionEntity = new Action();
+        $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
 
@@ -166,16 +166,16 @@ class PrivateChannelAuthorizationCest
 
     public function testDropTalkieCanWisperMove(FunctionalTester $I)
     {
-        $dropActionEntity = new Action();
+        $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -312,16 +312,16 @@ class PrivateChannelAuthorizationCest
 
     public function testDropTalkieCanWisperOtherPlayerMove(FunctionalTester $I)
     {
-        $dropActionEntity = new Action();
+        $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -458,10 +458,10 @@ class PrivateChannelAuthorizationCest
 
     public function testDropTalkieThenDie(FunctionalTester $I)
     {
-        $dropActionEntity = new Action();
+        $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
 
@@ -608,16 +608,16 @@ class PrivateChannelAuthorizationCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
-        $dropActionEntity = new Action();
+        $dropActionEntity = new ActionConfig();
         $dropActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dropActionEntity);
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 

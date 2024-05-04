@@ -79,10 +79,10 @@ export default defineComponent ({
                 const b = action2.action;
 
                 if (a.actionPointCost === null || b.actionPointCost === null) {
-                    throw new Error('Action point cost is null');
+                    throw new Error('ActionConfig point cost is null');
                 }
                 if (a.name === null || b.name === null) {
-                    throw new Error('Action name is null');
+                    throw new Error('ActionConfig name is null');
                 }
 
                 if (a.actionPointCost === b.actionPointCost) {

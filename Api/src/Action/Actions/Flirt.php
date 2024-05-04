@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Flirt extends AbstractAction
 {
-    protected string $name = ActionEnum::FLIRT;
+    protected ActionEnum $name = ActionEnum::FLIRT;
 
     private PlayerServiceInterface $playerService;
 

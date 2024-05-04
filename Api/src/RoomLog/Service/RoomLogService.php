@@ -59,7 +59,7 @@ class RoomLogService implements RoomLogServiceInterface
     }
 
     public function createLogFromActionResult(
-        string $actionName,
+        ActionEnum $actionName,
         ActionResult $actionResult,
         Player $player,
         ?LogParameterInterface $actionParameter,
@@ -70,7 +70,7 @@ class RoomLogService implements RoomLogServiceInterface
             return $this->createExamineLog($player, $actionParameter);
         }
 
-        $logMapping = ActionLogEnum::ACTION_LOGS[$actionName] ?? null;
+        $logMapping = ActionLogEnum::ACTION_LOGS[$actionName->value] ?? null;
 
         if (!$logMapping) {
             return null;

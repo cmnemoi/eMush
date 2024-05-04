@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Land extends AbstractAction
 {
-    protected string $name = ActionEnum::LAND;
+    protected ActionEnum $name = ActionEnum::LAND;
 
     private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
@@ -71,7 +71,8 @@ final class Land extends AbstractAction
         // a successful landing still create damage to the hull, only critical success avoid any damage
         $criticalSuccessRate = $this->actionService->getActionModifiedActionVariable(
             $this->player,
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $this->target,
             ActionVariableEnum::PERCENTAGE_CRITICAL
         );
@@ -102,7 +103,7 @@ final class Land extends AbstractAction
             newHolder: $patrolShipDockingPlace,
             author: $this->player,
             visibility: VisibilityEnum::HIDDEN,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);

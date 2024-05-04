@@ -32,7 +32,7 @@ class MakeSick extends AbstractAction
     public const MAKE_SICK_DELAY_MIN = 1;
     public const MAKE_SICK_DELAY_LENGTH = 4;
 
-    protected string $name = ActionEnum::MAKE_SICK;
+    protected ActionEnum $name = ActionEnum::MAKE_SICK;
     protected DiseaseCauseServiceInterface $diseaseCauseService;
 
     public function __construct(

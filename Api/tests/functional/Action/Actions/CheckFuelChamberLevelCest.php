@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\CheckFuelChamberLevel;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -24,7 +24,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
 {
-    private Action $checkFuelChamberLevelActionConfig;
+    private ActionConfig $checkFuelChamberLevelActionConfig;
     private CheckFuelChamberLevel $checkFuelChamberLevelAction;
 
     public function _before(FunctionalTester $I): void
@@ -32,7 +32,7 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
         parent::_before($I);
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
-        $this->checkFuelChamberLevelActionConfig = $I->grabEntityFromRepository(Action::class, [
+        $this->checkFuelChamberLevelActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
             'name' => ActionEnum::CHECK_FUEL_CHAMBER_LEVEL,
         ]);
         $this->checkFuelChamberLevelAction = $I->grabService(CheckFuelChamberLevel::class);

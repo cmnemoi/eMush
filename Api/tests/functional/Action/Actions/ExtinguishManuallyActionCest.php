@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ExtinguishManually;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -35,14 +35,14 @@ class ExtinguishManuallyActionCest
 {
     private ExtinguishManually $extinguishManually;
     private StatusServiceInterface $statusService;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->extinguishManually = $I->grabService(ExtinguishManually::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::EXTINGUISH_MANUALLY]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXTINGUISH_MANUALLY]);
         $this->action->setSuccessRate(101);
     }
 

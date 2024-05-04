@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * Implement heal action using medikit or the ship medlab
- * For 2 Action Points, the player gives back 3 health points to another player.
+ * For 2 ActionConfig Points, the player gives back 3 health points to another player.
  *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
  *  - +2 health point if the player has the Medic skill (@TODO).
  *
@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class Heal extends AbstractAction
 {
-    protected string $name = ActionEnum::HEAL;
+    protected ActionEnum $name = ActionEnum::HEAL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -79,7 +79,7 @@ class Heal extends AbstractAction
                 $target,
                 PlayerVariableEnum::HEALTH_POINT,
                 $quantity,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime(),
             );
             $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
@@ -90,7 +90,7 @@ class Heal extends AbstractAction
             $this->player,
             $target,
             VisibilityEnum::PUBLIC,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($healEvent, ApplyEffectEvent::HEAL);

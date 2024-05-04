@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class CheckFuelChamberLevel extends AbstractAction
 {
-    protected string $name = ActionEnum::CHECK_FUEL_CHAMBER_LEVEL;
+    protected ActionEnum $name = ActionEnum::CHECK_FUEL_CHAMBER_LEVEL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\PlayDynarcade;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionVariableEnum;
@@ -34,12 +34,12 @@ use Mush\User\Entity\User;
 class PlayDynarcadeCest
 {
     private PlayDynarcade $playDynarcadeAction;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->playDynarcadeAction = $I->grabService(PlayDynarcade::class);
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::PLAY_ARCADE]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PLAY_ARCADE]);
     }
 
     public function testActionIsVisible(FunctionalTester $I)

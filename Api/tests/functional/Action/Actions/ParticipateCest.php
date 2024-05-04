@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Participate;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
@@ -32,7 +32,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ParticipateCest extends AbstractFunctionalTest
 {
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private Participate $participateAction;
     private Project $project;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -43,7 +43,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::PARTICIPATE]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PARTICIPATE]);
         $this->participateAction = $I->grabService(Participate::class);
 
         $this->project = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);

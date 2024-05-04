@@ -40,7 +40,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CollectScrap extends AbstractAction
 {
-    protected string $name = ActionEnum::COLLECT_SCRAP;
+    protected ActionEnum $name = ActionEnum::COLLECT_SCRAP;
 
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
@@ -126,7 +126,7 @@ final class CollectScrap extends AbstractAction
             player: $this->player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: -$damage,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime()
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -151,7 +151,7 @@ final class CollectScrap extends AbstractAction
         $this->statusService->updateCharge(
             chargeStatus: $patrolShipArmor,
             delta: -$damage,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime()
         );
 
@@ -173,7 +173,7 @@ final class CollectScrap extends AbstractAction
             newHolder: $patrolShipPlace,
             author: $this->player,
             visibility: VisibilityEnum::PUBLIC,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime()
         );
         $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);

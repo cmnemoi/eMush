@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ReadDocument;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -26,7 +26,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ReadDocumentCest extends AbstractFunctionalTest
 {
-    private Action $readDocumentActionConfig;
+    private ActionConfig $readDocumentActionConfig;
     private ReadDocument $readDocumentAction;
 
     private StatusServiceInterface $statusService;
@@ -40,7 +40,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->readDocumentActionConfig = $I->grabEntityFromRepository(Action::class, [
+        $this->readDocumentActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
             'name' => ActionEnum::READ_DOCUMENT,
         ]);
         $this->readDocumentAction = $I->grabService(ReadDocument::class);

@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Build;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -32,7 +32,7 @@ use Mush\User\Entity\User;
  */
 final class BuildActionCest extends AbstractFunctionalTest
 {
-    private Action $buildConfig;
+    private ActionConfig $buildConfig;
     private Build $buildAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -40,7 +40,7 @@ final class BuildActionCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->buildConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::BUILD]);
+        $this->buildConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::BUILD]);
         $this->buildAction = $I->grabService(Build::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -53,7 +53,7 @@ final class BuildActionCest extends AbstractFunctionalTest
 
         $player = $this->createPlayer(new Daedalus(), $room1);
 
-        $buildActionEntity = new Action();
+        $buildActionEntity = new ActionConfig();
         $buildActionEntity->setActionName(ActionEnum::BUILD);
 
         $gameEquipment = $this->createEquipment('blueprint', $room2);
@@ -79,7 +79,7 @@ final class BuildActionCest extends AbstractFunctionalTest
 
         $gameEquipment = $this->createEquipment('blueprint', $room);
 
-        $buildActionEntity = new Action();
+        $buildActionEntity = new ActionConfig();
         $buildActionEntity->setActionName(ActionEnum::BUILD);
 
         $this->buildAction->loadParameters($buildActionEntity, $player, $gameEquipment);
@@ -209,7 +209,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         return $gameEquipment;
     }
 
-    private function createBlueprint(array $ingredients, Action $buildAction, ?EquipmentConfig $product = null): Blueprint
+    private function createBlueprint(array $ingredients, ActionConfig $buildAction, ?EquipmentConfig $product = null): Blueprint
     {
         if ($product === null) {
             $product = new ItemConfig();

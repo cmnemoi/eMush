@@ -18,14 +18,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * implement ungag action.
- * For 1 Action Points, a player with gag status can ungag
+ * For 1 ActionConfig Points, a player with gag status can ungag
  *  - remove gagged status of the current player.
  *
  * More info: http://mushpedia.com/wiki/Duct_Tape
  */
 class Ungag extends AbstractAction
 {
-    protected string $name = ActionEnum::UNGAG;
+    protected ActionEnum $name = ActionEnum::UNGAG;
 
     protected StatusServiceInterface $statusService;
 
@@ -66,7 +66,7 @@ class Ungag extends AbstractAction
         $this->statusService->removeStatus(
             PlayerStatusEnum::GAGGED,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
     }

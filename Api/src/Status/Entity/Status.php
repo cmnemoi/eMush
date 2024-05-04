@@ -2,8 +2,16 @@
 
 namespace Mush\Status\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
@@ -21,7 +29,7 @@ use Mush\Status\Entity\Config\StatusConfig;
     'attempt' => Attempt::class,
     'content_status' => ContentStatus::class,
 ])]
-class Status
+class Status implements ActionProviderInterface
 {
     use TimestampableEntity;
 
@@ -187,6 +195,55 @@ class Status
         }
 
         return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return static::class;
+    }
+
+    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    {
+        return null;
+    }
+
+    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    {
+        return ActionProviderOperationalStateEnum::OPERATIONAL;
+    }
+
+    public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection
+    {
+        $actions = [];
+
+        /** @var ActionConfig $actionConfig */
+        foreach ($this->statusConfig->getActionConfig() as $actionConfig) {
+            if (
+                $actionConfig->getDisplayHolder() === $actionTarget
+                && \in_array($actionConfig->getRange(), $actionRanges, true)
+            ) {
+                $action = new Action();
+                $action->setActionProvider($this)->setActionConfig($actionConfig);
+
+                $actions[] = $action;
+            }
+        }
+
+        return new ArrayCollection($actions);
+    }
+
+    public function canPlayerReach(Player $player): bool
+    {
+        $holder = $this->getOwner();
+
+        if ($holder instanceof Daedalus) {
+            return true;
+        }
+        if ($holder instanceof ActionProviderInterface) {
+            return $holder->canPlayerReach($player);
+        }
+
+        return false;
     }
 
     private function setOwner(StatusHolderInterface $owner): self

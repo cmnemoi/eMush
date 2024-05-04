@@ -28,7 +28,7 @@ class KillPlayer extends AbstractAction
     private const NB_ORGANIC_WASTE_MIN = 3;
     private const NB_ORGANIC_WASTE_MAX = 4;
 
-    protected string $name = ActionEnum::KILL_PLAYER;
+    protected ActionEnum $name = ActionEnum::KILL_PLAYER;
     protected GameEquipmentServiceInterface $gameEquipmentService;
     protected RandomServiceInterface $randomService;
 

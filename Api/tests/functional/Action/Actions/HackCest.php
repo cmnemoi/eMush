@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Hack;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -31,7 +31,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class HackCest extends AbstractFunctionalTest
 {
-    private Action $hackActionConfig;
+    private ActionConfig $hackActionConfig;
     private Hack $hackAction;
 
     public function _before(FunctionalTester $I): void
@@ -43,7 +43,7 @@ final class HackCest extends AbstractFunctionalTest
 
         $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::FOCUSED]);
 
-        $this->hackActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::HACK]);
+        $this->hackActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HACK]);
         $this->hackAction = $I->grabService(Hack::class);
     }
 

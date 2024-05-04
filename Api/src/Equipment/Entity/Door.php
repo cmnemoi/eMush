@@ -5,7 +5,6 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionTargetName;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -65,10 +64,5 @@ class Door extends GameEquipment
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::EQUIPMENT;
-    }
-
-    public function getActionTargetName(array $context): string
-    {
-        return ActionTargetName::DOOR->value;
     }
 }

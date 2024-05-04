@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -94,7 +94,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setInjuryRate(100)
             ->setActionName(ActionEnum::TAKE)
@@ -159,7 +159,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE)
@@ -225,7 +225,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE)
@@ -279,7 +279,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setDirtyRate(100)
             ->setActionName(ActionEnum::TAKE);
@@ -337,7 +337,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
@@ -392,7 +392,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
@@ -446,7 +446,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);
@@ -485,7 +485,7 @@ final class ActionSubscriberCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::LAND)
             ->setCriticalRate(100);

@@ -114,7 +114,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setDelta(1)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($moveIncreaseMovement);
 
@@ -324,8 +324,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($consume1ActionLoss);
@@ -336,8 +336,8 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($consume2ActionLoss);
@@ -360,7 +360,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTriggeredEvent($eventConfig)
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setTagConstraints([ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS, ActionEnum::TAKE => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS, ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($takeCat6HealthLost);
 
@@ -383,7 +383,7 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTagConstraints([
-                ActionEnum::SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($shootAction10PercentAccuracyLost);

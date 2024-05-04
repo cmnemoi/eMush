@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ChangeNeronCpuPriority;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
@@ -30,7 +30,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 {
-    private Action $changeNeronCpuPriorityConfig;
+    private ActionConfig $changeNeronCpuPriorityConfig;
     private ChangeNeronCpuPriority $changeNeronCpuPriorityAction;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -40,7 +40,7 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->changeNeronCpuPriorityConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY]);
+        $this->changeNeronCpuPriorityConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY]);
         $this->changeNeronCpuPriorityAction = $I->grabService(ChangeNeronCpuPriority::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);

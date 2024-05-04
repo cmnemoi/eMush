@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class RetrieveFuelChamber extends RetrieveAction
 {
-    protected string $name = ActionEnum::RETRIEVE_FUEL_CHAMBER;
+    protected ActionEnum $name = ActionEnum::RETRIEVE_FUEL_CHAMBER;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

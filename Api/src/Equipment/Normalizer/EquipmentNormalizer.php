@@ -2,9 +2,7 @@
 
 namespace Mush\Equipment\Normalizer;
 
-use Doctrine\Common\Collections\Collection;
-use Mush\Action\Entity\Action;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
@@ -94,7 +92,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'name' => $this->translationService->translate($key . '.name', $nameParameters, $type, $language),
             'description' => $definition,
             'statuses' => $statuses,
-            'actions' => $this->getActions($object, $currentPlayer, $format, $context),
+            'actions' => $this->getNormalizedActions($object, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
             'effects' => $this->getRationsEffect($object, $currentPlayer->getDaedalus()),
         ];
 
@@ -132,44 +130,6 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return $nameParameters;
-    }
-
-    private function getActions(GameEquipment $gameEquipment, Player $currentPlayer, ?string $format, array $context): array
-    {
-        $actions = [];
-
-        $contextActions = $this->getContextActions($gameEquipment, $currentPlayer);
-        $currentScopeActions = $gameEquipment->getEquipment()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::CURRENT);
-
-        $actionsToNormalize = array_merge($contextActions->toArray(), $currentScopeActions->toArray());
-
-        /** @var Action $action */
-        foreach ($actionsToNormalize as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-        $actions = $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
-
-        return $actions;
-    }
-
-    private function getContextActions(GameEquipment $gameEquipment, Player $currentPlayer): Collection
-    {
-        $scopes = [ActionScopeEnum::ROOM];
-        $scopes[] = ($gameEquipment->isInShelf()) ? ActionScopeEnum::SHELVE : ActionScopeEnum::INVENTORY;
-
-        if ($gameEquipment instanceof GameItem) {
-            $target = GameItem::class;
-        } else {
-            $target = GameEquipment::class;
-        }
-
-        return $this->gearToolService->getActionsTools($currentPlayer, $scopes, $target);
     }
 
     private function getRationsEffect(GameEquipment $gameEquipment, Daedalus $daedalus): array

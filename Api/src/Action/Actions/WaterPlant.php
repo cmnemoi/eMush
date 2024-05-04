@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WaterPlant extends AbstractAction
 {
-    protected string $name = ActionEnum::WATER_PLANT;
+    protected ActionEnum $name = ActionEnum::WATER_PLANT;
 
     protected StatusServiceInterface $statusService;
 
@@ -66,7 +66,7 @@ class WaterPlant extends AbstractAction
         $this->statusService->removeStatus(
             $status->getName(),
             $target,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

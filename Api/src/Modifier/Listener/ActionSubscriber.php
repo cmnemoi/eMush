@@ -38,7 +38,7 @@ class ActionSubscriber implements EventSubscriberInterface
         if ($actionResult === null) {
             return;
         }
-        $actionName = $event->getAction()->getActionName();
+        $actionName = $event->getActionConfig()->getActionName();
 
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionTarget();
@@ -62,7 +62,7 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         $player = $event->getAuthor();
-        $actionName = $event->getAction()->getActionName();
+        $actionName = $event->getActionConfig()->getActionName();
 
         /** @var GameEquipment $actionEquipment */
         $actionEquipment = $event->getActionTarget();

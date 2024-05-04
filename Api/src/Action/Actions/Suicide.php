@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class Suicide extends AbstractAction
 {
-    protected string $name = ActionEnum::SUICIDE;
+    protected ActionEnum $name = ActionEnum::SUICIDE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -35,7 +35,7 @@ class Suicide extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $deathEvent = new PlayerEvent($this->player, $this->getAction()->getActionTags(), new \DateTime());
+        $deathEvent = new PlayerEvent($this->player, $this->getActionConfig()->getActionTags(), new \DateTime());
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
     }
 }

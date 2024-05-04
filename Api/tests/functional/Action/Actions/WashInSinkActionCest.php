@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\WashInSink;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -23,7 +23,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class WashInSinkActionCest extends AbstractFunctionalTest
 {
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private WashInSink $washInSinkAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -33,7 +33,7 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::WASH_IN_SINK]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::WASH_IN_SINK]);
         $this->washInSinkAction = $I->grabService(WashInSink::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);

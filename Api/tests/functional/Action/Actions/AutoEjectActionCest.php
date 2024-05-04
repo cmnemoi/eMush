@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AutoEject;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -34,7 +34,7 @@ use Mush\Tests\FunctionalTester;
 final class AutoEjectActionCest extends AbstractFunctionalTest
 {
     private AutoEject $autoEjectAction;
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private GameEquipment $pasiphae;
     private StatusServiceInterface $statusService;
 
@@ -61,7 +61,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::AUTO_EJECT]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::AUTO_EJECT]);
 
         $this->autoEjectAction = $I->grabService(AutoEject::class);
     }

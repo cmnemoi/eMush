@@ -66,7 +66,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(StatusEvent::STATUS_APPLIED)
             ->setTagConstraints([
                 PlayerStatusEnum::DIRTY => ModifierRequirementEnum::ALL_TAGS,
-                ActionTypeEnum::ACTION_SUPER_DIRTY => ModifierRequirementEnum::NONE_TAGS,
+                ActionTypeEnum::ACTION_SUPER_DIRTY->value => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
@@ -81,7 +81,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints([
-                ActionEnum::HIT => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
             ])
@@ -97,7 +97,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionTypeEnum::ACTION_TECHNICIAN->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($wrenchModifier);
 
@@ -119,8 +119,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setTagConstraints([
-                ActionEnum::WASH_IN_SINK => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -133,7 +133,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([
-                ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -146,7 +146,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setTagConstraints([
-                ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -159,7 +159,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER);
         $manager->persist($antiGravScooterModifier);
@@ -177,7 +177,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->addModifierRequirement($evenCyclesActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($rollingBoulderModifier);
@@ -188,7 +188,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(1.5)
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setTagConstraints([ActionEnum::STRENGTHEN_HULL => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::STRENGTHEN_HULL->value => ModifierRequirementEnum::ANY_TAGS])
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($oscilloscopeSuccessModifier);
@@ -200,7 +200,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::RENOVATE->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($oscilloscopeSuccessModifierRenovateAction);
 
@@ -211,7 +211,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
-            ->setTagConstraints([ActionEnum::STRENGTHEN_HULL => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::STRENGTHEN_HULL->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($oscilloscopeRepairModifier);
 
@@ -233,7 +233,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($gravityConversionModifier);
 
@@ -268,7 +268,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($planetScannerModifier);
 
@@ -280,7 +280,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::LIQUID_MAP_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
@@ -298,7 +298,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTagConstraints([
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
                 ModifierNameEnum::LIQUID_MAP_MODIFIER . '_random_50' => ModifierRequirementEnum::NONE_TAGS,
             ])
@@ -316,8 +316,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([
-                ActionEnum::INSERT_FUEL_CHAMBER => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::INSERT_FUEL => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSERT_FUEL_CHAMBER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSERT_FUEL->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($alienOilIncreaseFuelInjected);
@@ -331,8 +331,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionEnum::SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOOT_RANDOM_HUNTER => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLACE);
         $manager->persist($invertebrateShellDoublesDamage);

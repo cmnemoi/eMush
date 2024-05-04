@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ExtractSpore extends AbstractAction
 {
-    protected string $name = ActionEnum::EXTRACT_SPORE;
+    protected ActionEnum $name = ActionEnum::EXTRACT_SPORE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -60,7 +60,7 @@ class ExtractSpore extends AbstractAction
             $player,
             PlayerVariableEnum::SPORE,
             1,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -69,7 +69,7 @@ class ExtractSpore extends AbstractAction
             $player->getDaedalus(),
             DaedalusVariableEnum::SPORE,
             -1,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($daedalusModifierEvent, VariableEventInterface::CHANGE_VARIABLE);

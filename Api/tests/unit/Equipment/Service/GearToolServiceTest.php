@@ -4,9 +4,9 @@ namespace Mush\Tests\unit\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
@@ -153,10 +153,10 @@ final class GearToolServiceTest extends TestCase
         $room = new Place();
         $player = new Player();
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::SHOWER)
-            ->setScope(ActionScopeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::CURRENT);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$action]));
@@ -174,25 +174,25 @@ final class GearToolServiceTest extends TestCase
         $room
             ->addPlayer($player);
 
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
+        $actions = $this->service->getActionsTools($player, [ActionRangeEnum::ROOM]);
         self::assertEmpty($actions);
 
-        $action->setScope(ActionScopeEnum::ROOM);
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
+        $action->setRange(ActionRangeEnum::ROOM);
+        $actions = $this->service->getActionsTools($player, [ActionRangeEnum::ROOM]);
         self::assertNotEmpty($actions);
 
-        $action->setScope(ActionScopeEnum::INVENTORY);
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM]);
+        $action->setRange(ActionRangeEnum::INVENTORY);
+        $actions = $this->service->getActionsTools($player, [ActionRangeEnum::ROOM]);
         self::assertEmpty($actions);
 
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
+        $actions = $this->service->getActionsTools($player, [ActionRangeEnum::ROOM, ActionRangeEnum::INVENTORY]);
         self::assertNotEmpty($actions);
 
-        $action->setTarget(GameItem::class);
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY]);
+        $action->setDisplayHolder(GameItem::class);
+        $actions = $this->service->getActionsTools($player, [ActionRangeEnum::ROOM, ActionRangeEnum::INVENTORY]);
         self::assertEmpty($actions);
 
-        $actions = $this->service->getActionsTools($player, [ActionScopeEnum::ROOM, ActionScopeEnum::INVENTORY], GameItem::class);
+        $actions = $this->service->getActionsTools($player, [ActionRangeEnum::ROOM, ActionRangeEnum::INVENTORY], GameItem::class);
         self::assertNotEmpty($actions);
     }
 
@@ -201,10 +201,10 @@ final class GearToolServiceTest extends TestCase
         $room = new Place();
         $player = new Player();
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::SHOWER)
-            ->setScope(ActionScopeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::CURRENT);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$action]));
@@ -222,10 +222,10 @@ final class GearToolServiceTest extends TestCase
         $room
             ->addPlayer($player);
 
-        $action2 = new Action();
+        $action2 = new ActionConfig();
         $action2
             ->setActionName(ActionEnum::REPAIR)
-            ->setScope(ActionScopeEnum::ROOM);
+            ->setRange(ActionRangeEnum::ROOM);
 
         $tool2 = new Tool();
         $tool2->setActions(new ArrayCollection([$action2]));
@@ -272,10 +272,10 @@ final class GearToolServiceTest extends TestCase
         $room = new Place();
         $player = new Player();
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::REPAIR)
-            ->setScope(ActionScopeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::CURRENT);
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$action]));
         $toolConfig = new ItemConfig();

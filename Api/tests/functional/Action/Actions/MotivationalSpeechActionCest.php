@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\MotivationalSpeech;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -26,13 +26,13 @@ use Mush\User\Entity\User;
 class MotivationalSpeechActionCest
 {
     private MotivationalSpeech $motivationalSpeechAction;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->motivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->action = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
     }
 
     public function testMotivationalSpeech(FunctionalTester $I)

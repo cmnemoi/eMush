@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Move;
 use Mush\Action\Actions\Take;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -92,10 +92,10 @@ class ActionSubscriberCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -211,10 +211,10 @@ class ActionSubscriberCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $takeActionEntity = new Action();
+        $takeActionEntity = new ActionConfig();
         $takeActionEntity
             ->setActionName(ActionEnum::TAKE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($takeActionEntity);
 
@@ -315,10 +315,10 @@ class ActionSubscriberCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -424,10 +424,10 @@ class ActionSubscriberCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -534,10 +534,10 @@ class ActionSubscriberCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -649,24 +649,24 @@ class ActionSubscriberCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
-        $consumeDrugActionEntity = new Action();
+        $consumeDrugActionEntity = new ActionConfig();
         $consumeDrugActionEntity
             ->setActionName(ActionEnum::CONSUME_DRUG)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeDrugActionEntity);
 
@@ -832,10 +832,10 @@ class ActionSubscriberCest
 
         $I->haveInRepository($cat);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
@@ -861,7 +861,7 @@ class ActionSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActions(new ArrayCollection([$moveActionEntity]));
+        $characterConfig->setActionsConfig(new ArrayCollection([$moveActionEntity]));
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -987,17 +987,17 @@ class ActionSubscriberCest
             ->setScope(ChannelScopeEnum::PUBLIC);
         $I->haveInRepository($channel);
 
-        $attackAction = new Action();
+        $attackAction = new ActionConfig();
         $attackAction
             ->setActionName(ActionEnum::ATTACK)
-            ->setScope(ActionScopeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::OTHER_PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($attackAction);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 

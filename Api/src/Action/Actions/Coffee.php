@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Coffee extends AbstractAction
 {
-    protected string $name = ActionEnum::COFFEE;
+    protected ActionEnum $name = ActionEnum::COFFEE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -60,7 +60,7 @@ class Coffee extends AbstractAction
         $this->gameEquipmentService->createGameEquipmentFromName(
             GameRationEnum::COFFEE,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
     }

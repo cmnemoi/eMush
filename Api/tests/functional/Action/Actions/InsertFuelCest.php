@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\InsertFuel;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -28,7 +28,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
     private InsertFuel $insertFuelAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
 
     public function _before(FunctionalTester $I)
     {
@@ -36,7 +36,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
 
         $storageRoom = $this->createExtraPlace(RoomEnum::REAR_ALPHA_STORAGE, $I, $this->daedalus);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::INSERT_FUEL]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSERT_FUEL]);
 
         $this->player->changePlace($storageRoom);
 

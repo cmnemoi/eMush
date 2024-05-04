@@ -3,7 +3,7 @@
 namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
@@ -69,7 +69,7 @@ final class EventModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName('action')
             ->setTypes(['type1', 'type2'])
@@ -115,7 +115,7 @@ final class EventModifierServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus)->setPlace($room);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName('action')
             ->setTypes(['type1', 'type2'])

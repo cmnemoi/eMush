@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RemoveCamera extends AbstractAction
 {
-    protected string $name = ActionEnum::REMOVE_CAMERA;
+    protected ActionEnum $name = ActionEnum::REMOVE_CAMERA;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -69,7 +69,7 @@ class RemoveCamera extends AbstractAction
             ItemEnum::CAMERA_ITEM,
             $equipmentCamera,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime()
         );
     }

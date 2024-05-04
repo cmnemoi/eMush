@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Takeoff;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -39,14 +39,14 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 {
     private StatusServiceInterface $statusService;
     private Takeoff $takeoffAction;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKEOFF]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKEOFF]);
 
         $this->takeoffAction = $I->grabService(Takeoff::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);

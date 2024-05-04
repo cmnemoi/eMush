@@ -3,6 +3,7 @@
 namespace Mush\RoomLog\Service;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -23,7 +24,7 @@ interface RoomLogServiceInterface
     ): RoomLog;
 
     public function createLogFromActionResult(
-        string $actionName,
+        ActionEnum $actionName,
         ActionResult $actionResult,
         Player $player,
         ?LogParameterInterface $actionParameter,

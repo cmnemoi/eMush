@@ -68,7 +68,7 @@ abstract class AbstractCook extends AbstractAction
                 GameRationEnum::COOKED_RATION,
                 $target,
                 $this->player,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime(),
                 VisibilityEnum::PUBLIC
             );
@@ -76,7 +76,7 @@ abstract class AbstractCook extends AbstractAction
             $this->statusService->removeStatus(
                 EquipmentStatusEnum::FROZEN,
                 $target,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 $time
             );
         }

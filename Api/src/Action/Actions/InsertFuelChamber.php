@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class InsertFuelChamber extends InsertAction
 {
-    protected string $name = ActionEnum::INSERT_FUEL_CHAMBER;
+    protected ActionEnum $name = ActionEnum::INSERT_FUEL_CHAMBER;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

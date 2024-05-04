@@ -4,23 +4,14 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Service\GearToolServiceInterface;
-use Mush\Player\Entity\Player;
-use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class HasActionValidator extends ConstraintValidator
 {
-    private GearToolServiceInterface $gearToolService;
-
-    public function __construct(GearToolServiceInterface $gearToolService)
-    {
-        $this->gearToolService = $gearToolService;
-    }
-
     public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
@@ -31,33 +22,23 @@ class HasActionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, HasAction::class);
         }
 
-        $actionTarget = $value->getTarget();
-        $action = $value->getAction();
+        $actionConfig = $value->getActionConfig();
+        $actionProvider = $value->getActionProvider();
+
         $player = $value->getPlayer();
 
-        if (($this->isPlayerAction($actionTarget, $player, $action) || $this->isActionSupportAction($actionTarget, $action))
-            && $this->gearToolService->getUsedTool($player, $value->getActionName()) === null
+        if ($this->providerHasActionConfig($actionProvider, $actionConfig)
+            && $actionProvider->canPlayerReach($player)
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
     }
 
-    /**
-     * no action support and player do not have action.
-     */
-    private function isPlayerAction(?LogParameterInterface $actionTarget, Player $player, Action $action): bool
+    private function providerHasActionConfig(ActionProviderInterface $actionProvider, ActionConfig $actionConfig): bool
     {
-        return $actionTarget === null && !$player->getSelfActions()->contains($action);
-    }
+        $providerActions = $actionProvider->getProvidedActions($actionConfig->getDisplayHolder(), [$actionConfig->getRange()]);
 
-    /**
-     * action support is player but does not have action or
-     * action support is equipment and does not have action.
-     */
-    private function isActionSupportAction(?LogParameterInterface $actionTarget, Action $action): bool
-    {
-        return ($actionTarget instanceof Player && !$actionTarget->getTargetActions()->contains($action))
-            || ($actionTarget instanceof GameEquipment && !$actionTarget->getActions()->contains($action));
+        return $providerActions->filter(static fn (Action $action) => $action->getActionConfig()->getActionName() === $actionConfig->getActionName())->count() > 0;
     }
 }

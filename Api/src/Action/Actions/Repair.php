@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Repair extends AttemptAction
 {
-    protected string $name = ActionEnum::REPAIR;
+    protected ActionEnum $name = ActionEnum::REPAIR;
 
     private StatusServiceInterface $statusService;
 
@@ -64,7 +64,7 @@ class Repair extends AttemptAction
             $this->statusService->removeStatus(
                 EquipmentStatusEnum::BROKEN,
                 $target,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime()
             );
         }

@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Service;
 
 use Mush\Action\Actions\Search;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -26,14 +26,14 @@ use Mush\Tests\FunctionalTester;
 final class ActionSideEffectServiceCest extends AbstractFunctionalTest
 {
     private Search $searchAction;
-    private Action $action;
+    private ActionConfig $action;
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SEARCH]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SEARCH]);
 
         $this->searchAction = $I->grabService(Search::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);

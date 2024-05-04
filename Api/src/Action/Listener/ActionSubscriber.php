@@ -6,6 +6,7 @@ namespace Mush\Action\Listener;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -19,7 +20,6 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -43,7 +43,6 @@ final class ActionSubscriber implements EventSubscriberInterface
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private ActionStrategyServiceInterface $actionStrategyService;
-    private GearToolServiceInterface $gearToolService;
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
@@ -53,7 +52,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         EventServiceInterface $eventService,
         GameEquipmentServiceInterface $gameEquipmentService,
         ActionStrategyServiceInterface $actionStrategyService,
-        GearToolServiceInterface $gearToolService,
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService
@@ -62,7 +60,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->eventService = $eventService;
         $this->actionStrategyService = $actionStrategyService;
         $this->gameEquipmentService = $gameEquipmentService;
-        $this->gearToolService = $gearToolService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
@@ -79,7 +76,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onExecuteAction(ActionEvent $event): void
     {
-        $actionConfig = $event->getAction();
+        $actionConfig = $event->getActionConfig();
         $player = $event->getAuthor();
         $actionName = $actionConfig->getActionName();
 
@@ -87,44 +84,61 @@ final class ActionSubscriber implements EventSubscriberInterface
         $action = $this->actionStrategyService->getAction($actionName);
 
         if ($action === null) {
-            throw new \Exception("this action is not implemented ({$actionName})");
+            throw new \Exception("this action is not implemented ({$actionName->value})");
         }
 
-        $action->loadParameters($actionConfig, $player, $event->getActionTarget(), $event->getActionParameters());
+        $actionEntity = new Action();
+        $actionEntity->setActionProvider($event->getActionProvider())->setActionConfig($actionConfig);
+
+        $action->loadParameters($actionEntity, $player, $event->getActionTarget(), $event->getActionParameters());
         $action->execute();
     }
 
     public function onPreAction(ActionEvent $event): void
     {
-        $action = $event->getAction();
+        $action = $event->getActionConfig();
         $player = $event->getAuthor();
+        $status = $player->getStatusByName(PlayerStatusEnum::LYING_DOWN);
 
         if ($action->getActionName() !== ActionEnum::GET_UP
-            && $player->getStatusByName(PlayerStatusEnum::LYING_DOWN)
+            && $status
         ) {
-            /** @var Action $getUpActionConfig */
+            /** @var ActionConfig $getUpActionConfig */
             $getUpActionConfig = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
 
             /** @var AbstractAction $getUpAction */
             $getUpAction = $this->actionStrategyService->getAction(ActionEnum::GET_UP);
 
-            $getUpAction->loadParameters($getUpActionConfig, $player);
+            $getUpActionEntity = new Action();
+            $getUpActionEntity->setActionProvider($status)->setActionConfig($getUpActionConfig);
+
+            $getUpAction->loadParameters($getUpActionEntity, $player);
             $getUpAction->execute();
         }
     }
 
     public function onPostAction(ActionEvent $event): void
     {
-        $action = $event->getAction();
+        $actionConfig = $event->getActionConfig();
         $player = $event->getAuthor();
         $actionTarget = $event->getActionTarget();
 
-        $this->actionSideEffectsService->handleActionSideEffect($action, $player, $actionTarget);
-        $this->gearToolService->applyChargeCost($player, $action->getActionName(), $action->getTypes());
-        $player->getDaedalus()->addDailyActionPointsSpent($action->getActionCost());
+        $this->actionSideEffectsService->handleActionSideEffect(
+            $actionConfig,
+            $event->getActionProvider(),
+            $player,
+            $actionTarget
+        );
+
+        $charge = $event->getActionProvider()->getUsedCharge($actionConfig->getActionName());
+        if ($charge !== null) {
+            $this->statusService->updateCharge($charge, -1, $event->getTags(), $event->getTime());
+        }
+
+        $player->getDaedalus()->addDailyActionPointsSpent($actionConfig->getActionCost());
 
         if ($actionTarget instanceof Player
-            && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
+            && \in_array($actionConfig->getActionName(), ActionEnum::getForceGetUpActions(), true)
             && $lyingDownStatus = $actionTarget->getStatusByName(PlayerStatusEnum::LYING_DOWN)
         ) {
             $actionTarget->removeStatus($lyingDownStatus);
@@ -137,13 +151,13 @@ final class ActionSubscriber implements EventSubscriberInterface
             $this->handlePatrolshipManoeuvreDamage($event);
         }
 
-        if ($event->getAction()->getActionName() === ActionEnum::LAND) {
+        if ($event->getActionConfig()->getActionName() === ActionEnum::LAND) {
             /** @var GameEquipment $patrolShip */
             $patrolShip = $event->getActionTarget();
 
             /** @var ?ChargeStatus $patrolShipArmor */
             $patrolShipArmor = $patrolShip->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-            if ($patrolShipArmor instanceof ChargeStatus && $patrolShipArmor->getCharge() > 0) {
+            if ($patrolShipArmor instanceof ChargeStatus && $patrolShipArmor->isCharged()) {
                 $this->moveScrapToPatrolShipDockingPlace($event);
             }
         }
@@ -216,7 +230,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             dateTime: new \DateTime()
         );
 
-        if ($patrolShipArmor->getCharge() <= 0) {
+        if (!$patrolShipArmor->isCharged()) {
             $this->gameEquipmentService->handlePatrolShipDestruction($patrolShip, $event->getAuthor(), $event->getTags());
         }
     }

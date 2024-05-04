@@ -4,7 +4,7 @@ namespace Mush\Tests\unit\Action\Validator;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlayerCanAffordPoints;
 use Mush\Action\Validator\PlayerCanAffordPointsValidator;
@@ -65,7 +65,7 @@ final class ActionPointValidatorTest extends TestCase
             ]);
         $action
             ->shouldReceive([
-                'getAction' => new Action(),
+                'getAction' => new ActionConfig(),
             ]);
         $action
             ->shouldReceive([
@@ -99,7 +99,7 @@ final class ActionPointValidatorTest extends TestCase
             ]);
         $action
             ->shouldReceive([
-                'getAction' => new Action(),
+                'getAction' => new ActionConfig(),
             ]);
         $action
             ->shouldReceive([

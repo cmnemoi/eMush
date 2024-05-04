@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Disease\Service;
 
 use Mush\Action\Actions\Move;
 use Mush\Action\Actions\Search;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -20,10 +20,10 @@ use Mush\Tests\FunctionalTester;
  */
 final class AgoraphobiaActionCest extends AbstractFunctionalTest
 {
-    private Action $searchConfig;
+    private ActionConfig $searchConfig;
     private Search $searchAction;
 
-    private Action $moveConfig;
+    private ActionConfig $moveConfig;
     private Move $moveAction;
 
     private Door $door;
@@ -34,10 +34,10 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->searchConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::SEARCH]);
+        $this->searchConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
         $this->searchAction = $I->grabService(Search::class);
 
-        $this->moveConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::MOVE]);
+        $this->moveConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
         $this->moveAction = $I->grabService(Move::class);
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);

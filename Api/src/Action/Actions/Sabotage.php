@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Sabotage extends AttemptAction
 {
-    protected string $name = ActionEnum::SABOTAGE;
+    protected ActionEnum $name = ActionEnum::SABOTAGE;
 
     private StatusServiceInterface $statusService;
 
@@ -76,7 +76,7 @@ class Sabotage extends AttemptAction
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::BROKEN,
                 $target,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime()
             );
         }

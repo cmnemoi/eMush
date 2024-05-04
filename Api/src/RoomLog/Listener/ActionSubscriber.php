@@ -42,14 +42,14 @@ class ActionSubscriber implements EventSubscriberInterface
             throw new \LogicException('$actionResult should not be null');
         }
 
-        $actionName = $event->getAction()->getActionName();
+        $actionName = $event->getActionConfig()->getActionName();
 
         $this->roomLogService->createLogFromActionResult($actionName, $actionResult, $player, $actionSupport, $event->getTime());
     }
 
     public function onPostAction(ActionEvent $event): void
     {
-        $action = $event->getAction();
+        $action = $event->getActionConfig();
         $actionSupport = $event->getActionTarget();
         $player = $event->getAuthor();
 

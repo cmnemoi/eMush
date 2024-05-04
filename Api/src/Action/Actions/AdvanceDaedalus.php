@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class AdvanceDaedalus extends AbstractMoveDaedalusAction
 {
-    protected string $name = ActionEnum::ADVANCE_DAEDALUS;
+    protected ActionEnum $name = ActionEnum::ADVANCE_DAEDALUS;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

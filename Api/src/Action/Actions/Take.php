@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Take extends AbstractAction
 {
-    protected string $name = ActionEnum::TAKE;
+    protected ActionEnum $name = ActionEnum::TAKE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -43,7 +43,7 @@ class Take extends AbstractAction
         /** @var GameItem $target */
         $target = $this->target;
 
-        $tags = $this->getAction()->getActionTags();
+        $tags = $this->getActionConfig()->getActionTags();
         $tags[] = $target->getName();
 
         $equipmentEvent = new MoveEquipmentEvent(

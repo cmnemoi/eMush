@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractParticipateAction extends AbstractAction
 {
-    protected string $name;
     protected AdvanceProjectUseCase $advanceProjectUseCase;
 
     public function __construct(
@@ -67,7 +66,7 @@ abstract class AbstractParticipateAction extends AbstractAction
         $projectEvent = new ProjectEvent(
             $project,
             author: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
         );
 
         $this->eventService->callEvent($projectEvent, ProjectEvent::PROJECT_ADVANCED);

@@ -4,7 +4,7 @@ namespace Mush\Tests\unit\Equipment\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
@@ -112,7 +112,7 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameEquipment::class)
+            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameEquipment::class)
             ->andReturn(new ArrayCollection([]))
             ->once();
 
@@ -172,7 +172,7 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
+            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameItem::class)
             ->andReturn(new ArrayCollection([]))
             ->once();
 
@@ -251,7 +251,7 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameEquipment::class)
+            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameEquipment::class)
             ->andReturn(new ArrayCollection([]))
             ->once();
 
@@ -318,7 +318,7 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
+            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameItem::class)
             ->andReturn(new ArrayCollection([]))
             ->once();
 
@@ -386,7 +386,7 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->gearToolService
             ->shouldReceive('getActionsTools')
-            ->with($player, [ActionScopeEnum::ROOM, ActionScopeEnum::SHELVE], GameItem::class)
+            ->with($player, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELVE], GameItem::class)
             ->andReturn(new ArrayCollection([]))
             ->once();
 

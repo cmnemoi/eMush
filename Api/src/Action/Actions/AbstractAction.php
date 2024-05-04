@@ -3,8 +3,11 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Error;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
@@ -23,12 +26,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractAction
 {
-    protected Action $action;
+    protected ActionConfig $actionConfig;
     protected Player $player;
     protected ?LogParameterInterface $target = null;
     protected ?array $parameters = [];
+    protected ActionProviderInterface $actionProvider;
 
-    protected string $name;
+    protected ActionEnum $name;
 
     protected EventServiceInterface $eventService;
     protected ActionServiceInterface $actionService;
@@ -44,16 +48,21 @@ abstract class AbstractAction
         $this->validator = $validator;
     }
 
-    public function loadParameters(Action $action, Player $player, ?LogParameterInterface $target = null, array $parameters = []): void
-    {
+    public function loadParameters(
+        Action $action,
+        Player $player,
+        ?LogParameterInterface $target = null,
+        array $parameters = []
+    ): void {
         if (!$this->support($target, $parameters)) {
             $parameters = [];
             $parameters['parameters'] = json_encode($parameters);
 
-            throw new \InvalidArgumentException('Invalid action parameters : one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');
+            throw new \InvalidArgumentException('Invalid action parameters: one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');
         }
 
-        $this->action = $action;
+        $this->actionConfig = $action->getActionConfig();
+        $this->actionProvider = $action->getActionProvider();
         $this->player = $player;
         $this->target = $target;
         $this->parameters = $parameters;
@@ -100,21 +109,27 @@ abstract class AbstractAction
             return new Error($reason);
         }
 
-        $preActionEvent = new ActionEvent($this->action, $this->player, $this->target);
+        $preActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
         $this->eventService->callEvent($preActionEvent, ActionEvent::PRE_ACTION);
 
         $result = $this->checkResult();
-        $result->setVisibility($this->action->getVisibility($result->getName()));
+        $result->setVisibility($this->actionConfig->getVisibility($result->getName()));
 
-        $this->actionService->applyCostToPlayer($this->player, $this->action, $this->target, $result);
+        $this->actionService->applyCostToPlayer(
+            $this->player,
+            $this->actionConfig,
+            $this->actionProvider,
+            $this->target,
+            $result
+        );
 
-        $resultActionEvent = new ActionEvent($this->action, $this->player, $this->target);
+        $resultActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
         $resultActionEvent->setActionResult($result);
         $this->eventService->callEvent($resultActionEvent, ActionEvent::RESULT_ACTION);
 
         $this->applyEffect($result);
 
-        $postActionEvent = new ActionEvent($this->action, $this->player, $this->target);
+        $postActionEvent = new ActionEvent($this->actionConfig, $this->actionProvider, $this->player, $this->target);
         $postActionEvent->setActionResult($result);
 
         $this->eventService->callEvent($postActionEvent, ActionEvent::POST_ACTION);
@@ -124,14 +139,20 @@ abstract class AbstractAction
 
     public function getActionName(): string
     {
-        return $this->name;
+        return $this->name->value;
+    }
+
+    public function getActionProvider(): ActionProviderInterface
+    {
+        return $this->actionProvider;
     }
 
     public function getActionPointCost(): int
     {
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $this->target,
             PlayerVariableEnum::ACTION_POINT
         );
@@ -141,7 +162,8 @@ abstract class AbstractAction
     {
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $this->target,
             PlayerVariableEnum::MOVEMENT_POINT
         );
@@ -151,7 +173,8 @@ abstract class AbstractAction
     {
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $this->target,
             PlayerVariableEnum::MORAL_POINT
         );
@@ -161,7 +184,8 @@ abstract class AbstractAction
     {
         return $this->actionService->getActionModifiedActionVariable(
             $this->player,
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             $this->target,
             ActionVariableEnum::OUTPUT_QUANTITY,
         );
@@ -182,9 +206,9 @@ abstract class AbstractAction
         return $this->target;
     }
 
-    public function getAction(): Action
+    public function getActionConfig(): ActionConfig
     {
-        return $this->action;
+        return $this->actionConfig;
     }
 
     abstract protected function support(?LogParameterInterface $target, array $parameters): bool;

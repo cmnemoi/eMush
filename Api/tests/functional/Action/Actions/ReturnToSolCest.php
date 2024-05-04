@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ReturnToSol;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
@@ -26,7 +26,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ReturnToSolCest extends AbstractFunctionalTest
 {
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
     private ReturnToSol $returnToSolAction;
 
     private GameEquipment $commandTerminal;
@@ -35,7 +35,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::RETURN_TO_SOL]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::RETURN_TO_SOL]);
         $this->returnToSolAction = $I->grabService(ReturnToSol::class);
 
         /** @var GameEquipmentServiceInterface $gameEquipmentService */

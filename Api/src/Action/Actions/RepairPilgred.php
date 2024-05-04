@@ -8,5 +8,5 @@ use Mush\Action\Enum\ActionEnum;
 
 final class RepairPilgred extends AbstractParticipateAction
 {
-    protected string $name = ActionEnum::REPAIR_PILGRED;
+    protected ActionEnum $name = ActionEnum::REPAIR_PILGRED;
 }

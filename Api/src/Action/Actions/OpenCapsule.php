@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class OpenCapsule extends AbstractAction
 {
-    protected string $name = ActionEnum::OPEN;
+    protected ActionEnum $name = ActionEnum::OPEN;
 
     protected RandomServiceInterface $randomService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
@@ -80,7 +80,7 @@ class OpenCapsule extends AbstractAction
             $target,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -95,7 +95,7 @@ class OpenCapsule extends AbstractAction
         $this->gameEquipmentService->createGameEquipmentFromName(
             $contentName,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PUBLIC
         );

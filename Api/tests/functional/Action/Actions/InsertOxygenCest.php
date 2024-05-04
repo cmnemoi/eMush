@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\Action\Actions;
 
 use Mush\Action\Actions\InsertOxygen;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -22,7 +22,7 @@ final class InsertOxygenCest extends AbstractFunctionalTest
     private InsertOxygen $insertOxygenAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private Action $actionConfig;
+    private ActionConfig $actionConfig;
 
     public function _before(FunctionalTester $I)
     {
@@ -30,7 +30,7 @@ final class InsertOxygenCest extends AbstractFunctionalTest
 
         $storageRoom = $this->createExtraPlace(RoomEnum::CENTER_ALPHA_STORAGE, $I, $this->daedalus);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->actionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::INSERT_OXYGEN]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSERT_OXYGEN]);
 
         $this->player->changePlace($storageRoom);
 

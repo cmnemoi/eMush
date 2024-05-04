@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Hack extends AttemptAction
 {
-    protected string $name = ActionEnum::HACK;
+    protected ActionEnum $name = ActionEnum::HACK;
 
     private StatusServiceInterface $statusService;
 
@@ -87,7 +87,7 @@ final class Hack extends AttemptAction
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::FOCUSED,
             holder: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
             target: $terminalToHack
         );

@@ -23,8 +23,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractTurnDaedalusAction extends AbstractAction
 {
-    protected string $name;
-
     protected DaedalusTravelServiceInterface $daedalusTravelService;
 
     public function __construct(

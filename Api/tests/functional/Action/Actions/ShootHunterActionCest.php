@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ShootHunter;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -36,7 +36,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private ShootHunter $shootHunterAction;
-    private Action $action;
+    private ActionConfig $action;
     private GameEquipment $turret;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -48,7 +48,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::SHOOT_HUNTER . '_turret']);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_HUNTER . '_turret']);
         $this->action->setDirtyRate(0)->setSuccessRate(100);
 
         $I->haveInRepository($this->action);

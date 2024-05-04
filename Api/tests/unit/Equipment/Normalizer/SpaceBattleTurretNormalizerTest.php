@@ -62,7 +62,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turretOccupiers = $this->createMock(PlayerCollection::class);
 
-        $chargeStatus->method('getCharge')->willReturn(4);
+        $chargeStatus->method('getUsedCharge')->willReturn(4);
 
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
@@ -110,7 +110,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turretOccupiers = $this->createMock(PlayerCollection::class);
 
-        $chargeStatus->method('getCharge')->willReturn(4);
+        $chargeStatus->method('getUsedCharge')->willReturn(4);
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $place->method('getName')->willReturn(RoomEnum::REAR_ALPHA_TURRET);
@@ -151,7 +151,7 @@ final class SpaceBattleTurretNormalizerTest extends TestCase
         $turret = $this->createMock(GameEquipment::class);
         $turretOccupiers = $this->createMock(PlayerCollection::class);
 
-        $chargeStatus->method('getCharge')->willReturn(4);
+        $chargeStatus->method('getUsedCharge')->willReturn(4);
 
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 

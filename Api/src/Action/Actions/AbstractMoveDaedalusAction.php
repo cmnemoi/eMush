@@ -54,8 +54,6 @@ abstract class AbstractMoveDaedalusAction extends AbstractAction
         ],
     ];
 
-    protected string $name;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -141,7 +139,7 @@ abstract class AbstractMoveDaedalusAction extends AbstractAction
 
         $travelLaunchedEvent = new DaedalusEvent(
             daedalus: $this->player->getDaedalus(),
-            tags: $this->action->getActionTags(),
+            tags: $this->actionConfig->getActionTags(),
             time: new \DateTime(),
         );
         $this->eventService->callEvent($travelLaunchedEvent, DaedalusEvent::TRAVEL_LAUNCHED);

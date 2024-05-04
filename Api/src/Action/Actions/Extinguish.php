@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Extinguish extends AttemptAction
 {
-    protected string $name = ActionEnum::EXTINGUISH;
+    protected ActionEnum $name = ActionEnum::EXTINGUISH;
     private StatusServiceInterface $statusService;
 
     public function __construct(
@@ -65,7 +65,7 @@ class Extinguish extends AttemptAction
             $this->statusService->removeStatus(
                 StatusEnum::FIRE,
                 $this->player->getPlace(),
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime()
             );
         }

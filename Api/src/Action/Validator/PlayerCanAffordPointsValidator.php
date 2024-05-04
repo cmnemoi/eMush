@@ -30,7 +30,13 @@ class PlayerCanAffordPointsValidator extends ConstraintValidator
 
         $player = $value->getPlayer();
         $message = $constraint->message;
-        if (!$this->actionService->playerCanAffordPoints($player, $value->getAction(), $value->getTarget())) {
+        if (!$this->actionService->playerCanAffordPoints(
+            $player,
+            $value->getActionConfig(),
+            $value->getActionProvider(),
+            $value->getTarget()
+        )
+        ) {
             if ($player->isMush()) {
                 $message = ActionImpossibleCauseEnum::INSUFFICIENT_ACTION_POINT_MUSH;
             }

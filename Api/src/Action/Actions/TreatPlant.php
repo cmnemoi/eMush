@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TreatPlant extends AbstractAction
 {
-    protected string $name = ActionEnum::TREAT_PLANT;
+    protected ActionEnum $name = ActionEnum::TREAT_PLANT;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 

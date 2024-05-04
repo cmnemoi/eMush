@@ -3,7 +3,7 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Enum\SymptomEnum;
@@ -53,8 +53,8 @@ class FearCats extends AbstractSymptomHandler
         $selectedDoor = $this->randomService->getRandomElements($availableDoors, 1);
         $randomDoor = reset($selectedDoor);
 
-        /** @var Action $moveActionEntity */
-        $moveActionEntity = $randomDoor->getActions()->filter(static function (Action $action) {
+        /** @var ActionConfig $moveActionEntity */
+        $moveActionEntity = $randomDoor->getActions()->filter(static function (ActionConfig $action) {
             return $action->getActionName() === ActionEnum::MOVE;
         })->first();
 

@@ -2,7 +2,7 @@
 
 namespace Mush\Tests\functional\RoomLog\Listener;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -63,7 +63,7 @@ class ActionSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action->setActionName(ActionEnum::GET_UP);
 
         $actionEvent = new ActionEvent($action, $player, null);

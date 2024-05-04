@@ -4,9 +4,10 @@ namespace Mush\Action\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -36,155 +37,168 @@ class TechnicianFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $repair1 = new Action();
+        $repair1 = new ActionConfig();
         $repair1
-            ->setName(ActionEnum::REPAIR . '_percent_1')
+            ->setName(ActionEnum::REPAIR->value . '_percent_1')
             ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
             ->setSuccessRate(1);
         $manager->persist($repair1);
 
-        $repair3 = new Action();
+        $repair3 = new ActionConfig();
         $repair3
-            ->setName(ActionEnum::REPAIR . '_percent_3')
+            ->setName(ActionEnum::REPAIR->value . '_percent_3')
             ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
             ->setSuccessRate(3);
         $manager->persist($repair3);
 
-        $repair6 = new Action();
+        $repair6 = new ActionConfig();
         $repair6
-            ->setName(ActionEnum::REPAIR . '_percent_6')
+            ->setName(ActionEnum::REPAIR->value . '_percent_6')
             ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
             ->setSuccessRate(6);
         $manager->persist($repair6);
 
-        $repair12 = new Action();
+        $repair12 = new ActionConfig();
         $repair12
-            ->setName(ActionEnum::REPAIR . '_percent_12')
+            ->setName(ActionEnum::REPAIR->value . '_percent_12')
             ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
             ->setSuccessRate(12);
         $manager->persist($repair12);
 
-        $repair25 = new Action();
+        $repair25 = new ActionConfig();
         $repair25
-            ->setName(ActionEnum::REPAIR . '_percent_25')
+            ->setName(ActionEnum::REPAIR->value . '_percent_25')
             ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
             ->setSuccessRate(25);
         $manager->persist($repair25);
 
-        $repair50 = new Action();
+        $repair50 = new ActionConfig();
         $repair50
-            ->setName(ActionEnum::REPAIR . '_percent_50')
+            ->setName(ActionEnum::REPAIR->value . '_percent_50')
             ->setActionName(ActionEnum::REPAIR)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(1)
             ->setDirtyRate(20)
             ->setInjuryRate(4)
             ->setSuccessRate(50);
         $manager->persist($repair50);
 
-        $dismantle312 = new Action();
+        $dismantle312 = new ActionConfig();
         $dismantle312
-            ->setName(ActionEnum::DISASSEMBLE . '_percent_12_cost_3')
+            ->setName(ActionEnum::DISASSEMBLE->value . '_percent_12_cost_3')
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(3)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
             ->setSuccessRate(12);
         $manager->persist($dismantle312);
 
-        $dismantle325 = new Action();
+        $dismantle325 = new ActionConfig();
         $dismantle325
-            ->setName(ActionEnum::DISASSEMBLE . '_percent_25_cost_3')
+            ->setName(ActionEnum::DISASSEMBLE->value . '_percent_25_cost_3')
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(3)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
             ->setSuccessRate(25);
         $manager->persist($dismantle325);
 
-        $dismantle350 = new Action();
+        $dismantle350 = new ActionConfig();
         $dismantle350
-            ->setName(ActionEnum::DISASSEMBLE . '_percent_50_cost_3')
+            ->setName(ActionEnum::DISASSEMBLE->value . '_percent_50_cost_3')
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(3)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
             ->setSuccessRate(50);
         $manager->persist($dismantle350);
 
-        $dismantle46 = new Action();
+        $dismantle46 = new ActionConfig();
         $dismantle46
-            ->setName(ActionEnum::DISASSEMBLE . '_percent_6_cost_4')
+            ->setName(ActionEnum::DISASSEMBLE->value . '_percent_6_cost_4')
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(4)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
             ->setSuccessRate(6);
         $manager->persist($dismantle46);
 
-        $dismantle412 = new Action();
+        $dismantle412 = new ActionConfig();
         $dismantle412
-            ->setName(ActionEnum::DISASSEMBLE . '_percent_12_cost_4')
+            ->setName(ActionEnum::DISASSEMBLE->value . '_percent_12_cost_4')
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(4)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
             ->setSuccessRate(12);
         $manager->persist($dismantle412);
 
-        $dismantle425 = new Action();
+        $dismantle425 = new ActionConfig();
         $dismantle425
-            ->setName(ActionEnum::DISASSEMBLE . '_percent_25_cost_4')
+            ->setName(ActionEnum::DISASSEMBLE->value . '_percent_25_cost_4')
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(4)
             ->setDirtyRate(25)
             ->setInjuryRate(5)
             ->setSuccessRate(25);
         $manager->persist($dismantle425);
 
-        $sabotageAction1 = new Action();
+        $sabotageAction1 = new ActionConfig();
         $sabotageAction1
-            ->setName(ActionEnum::SABOTAGE . '_percent_1')
+            ->setName(ActionEnum::SABOTAGE->value . '_percent_1')
             ->setActionName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(1)
@@ -192,11 +206,12 @@ class TechnicianFixtures extends Fixture
 
         $manager->persist($sabotageAction1);
 
-        $sabotageAction3 = new Action();
+        $sabotageAction3 = new ActionConfig();
         $sabotageAction3
-            ->setName(ActionEnum::SABOTAGE . '_percent_3')
+            ->setName(ActionEnum::SABOTAGE->value . '_percent_3')
             ->setActionName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(3)
@@ -204,11 +219,12 @@ class TechnicianFixtures extends Fixture
 
         $manager->persist($sabotageAction3);
 
-        $sabotageAction6 = new Action();
+        $sabotageAction6 = new ActionConfig();
         $sabotageAction6
-            ->setName(ActionEnum::SABOTAGE . '_percent_6')
+            ->setName(ActionEnum::SABOTAGE->value . '_percent_6')
             ->setActionName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(6)
@@ -216,11 +232,12 @@ class TechnicianFixtures extends Fixture
 
         $manager->persist($sabotageAction6);
 
-        $sabotageAction12 = new Action();
+        $sabotageAction12 = new ActionConfig();
         $sabotageAction12
-            ->setName(ActionEnum::SABOTAGE . '_percent_12')
+            ->setName(ActionEnum::SABOTAGE->value . '_percent_12')
             ->setActionName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(12)
@@ -228,11 +245,12 @@ class TechnicianFixtures extends Fixture
 
         $manager->persist($sabotageAction12);
 
-        $sabotageAction25 = new Action();
+        $sabotageAction25 = new ActionConfig();
         $sabotageAction25
-            ->setName(ActionEnum::SABOTAGE . '_percent_25')
+            ->setName(ActionEnum::SABOTAGE->value . '_percent_25')
             ->setActionName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(25)
@@ -240,11 +258,12 @@ class TechnicianFixtures extends Fixture
 
         $manager->persist($sabotageAction25);
 
-        $sabotageAction50 = new Action();
+        $sabotageAction50 = new ActionConfig();
         $sabotageAction50
-            ->setName(ActionEnum::SABOTAGE . '_percent_50')
+            ->setName(ActionEnum::SABOTAGE->value . '_percent_50')
             ->setActionName(ActionEnum::SABOTAGE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setDirtyRate(25)
             ->setSuccessRate(50)

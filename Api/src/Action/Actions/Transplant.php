@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Transplant extends AbstractAction
 {
-    protected string $name = ActionEnum::TRANSPLANT;
+    protected ActionEnum $name = ActionEnum::TRANSPLANT;
 
     protected GearToolServiceInterface $gearToolService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
@@ -84,7 +84,7 @@ class Transplant extends AbstractAction
             $hydropot,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -93,7 +93,7 @@ class Transplant extends AbstractAction
             $target,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
@@ -101,7 +101,7 @@ class Transplant extends AbstractAction
         $this->gameEquipmentService->createGameEquipmentFromName(
             $fruitType->getPlantName(),
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::PUBLIC
         );

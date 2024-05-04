@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class AutoDestroy extends AbstractAction
 {
-    protected string $name = ActionEnum::AUTO_DESTROY;
+    protected ActionEnum $name = ActionEnum::AUTO_DESTROY;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -35,7 +35,7 @@ class AutoDestroy extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $deathEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getAction()->getActionTags(), new \DateTime());
+        $deathEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getActionConfig()->getActionTags(), new \DateTime());
 
         $this->eventService->callEvent($deathEvent, DaedalusEvent::FINISH_DAEDALUS);
     }

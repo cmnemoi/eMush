@@ -49,7 +49,7 @@ final readonly class Fire extends AbstractStatusCycleHandler
         }
 
         // Make sure the fire will be set only on Rooms.
-        if ($statusHolder->getType() !== PlaceTypeEnum::ROOM || $status->getCharge() === 0) {
+        if ($statusHolder->getType() !== PlaceTypeEnum::ROOM || !$status->isCharged()) {
             return;
         }
 

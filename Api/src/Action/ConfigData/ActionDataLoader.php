@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Action\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Repository\ActionRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
@@ -29,15 +29,15 @@ final class ActionDataLoader extends ConfigDataLoader
             $action = $this->actionRepository->findOneBy(['name' => $actionData['name']]);
 
             if ($action === null) {
-                $action = new Action();
+                $action = new ActionConfig();
             }
 
             $action
                 ->setName($actionData['name'])
                 ->setActionName($actionData['action_name'])
                 ->setTypes($actionData['types'])
-                ->setTarget($actionData['target'])
-                ->setScope($actionData['scope']);
+                ->setDisplayHolder($actionData['target'])
+                ->setRange($actionData['scope']);
             $this->setActionVariables($action, $actionData);
             $this->setActionVisibilities($action, $actionData['visibilities']);
 
@@ -47,7 +47,7 @@ final class ActionDataLoader extends ConfigDataLoader
         $this->entityManager->flush();
     }
 
-    private function setActionVariables(Action $action, array $actionData): void
+    private function setActionVariables(ActionConfig $action, array $actionData): void
     {
         $gameVariables = $action->getGameVariables();
         $gameVariables->setValuesByName($actionData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
@@ -65,7 +65,7 @@ final class ActionDataLoader extends ConfigDataLoader
         }
     }
 
-    private function setActionVisibilities(Action $action, array $visibilityData): void
+    private function setActionVisibilities(ActionConfig $action, array $visibilityData): void
     {
         foreach ($visibilityData as $visibilityType => $visibility) {
             $action->setVisibility($visibilityType, $visibility);

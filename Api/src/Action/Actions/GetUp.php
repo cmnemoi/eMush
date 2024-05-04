@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GetUp extends AbstractAction
 {
-    protected string $name = ActionEnum::GET_UP;
+    protected ActionEnum $name = ActionEnum::GET_UP;
 
     protected StatusServiceInterface $statusService;
 
@@ -59,7 +59,7 @@ class GetUp extends AbstractAction
         $this->statusService->removeStatus(
             $lyingDownStatus->getName(),
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

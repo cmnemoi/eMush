@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class RetrieveFuel extends RetrieveAction
 {
-    protected string $name = ActionEnum::RETRIEVE_FUEL;
+    protected ActionEnum $name = ActionEnum::RETRIEVE_FUEL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {

@@ -2,7 +2,8 @@
 
 namespace Mush\Action\Event;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Event\VariableEventInterface;
@@ -31,7 +32,8 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
     private string $variableName;
 
     public function __construct(
-        Action $action,
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
         string $variableName,
         float $quantity,
         Player $player,
@@ -41,9 +43,10 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         $this->quantity = $quantity;
 
         parent::__construct(
-            $action,
+            $actionConfig,
+            $actionProvider,
             $player,
-            $actionTarget
+            $actionTarget,
         );
     }
 
@@ -71,6 +74,6 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 
     public function getVariable(): GameVariable
     {
-        return $this->getAction()->getVariableByName($this->variableName);
+        return $this->getActionConfig()->getVariableByName($this->variableName);
     }
 }

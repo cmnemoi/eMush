@@ -37,7 +37,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class PublicBroadcast extends AbstractAction
 {
-    protected string $name = ActionEnum::PUBLIC_BROADCAST;
+    protected ActionEnum $name = ActionEnum::PUBLIC_BROADCAST;
 
     protected StatusServiceInterface $statusService;
 
@@ -98,7 +98,7 @@ class PublicBroadcast extends AbstractAction
             $player,
             PlayerVariableEnum::MORAL_POINT,
             $morale_points,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
 
@@ -111,7 +111,7 @@ class PublicBroadcast extends AbstractAction
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST,
             $player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

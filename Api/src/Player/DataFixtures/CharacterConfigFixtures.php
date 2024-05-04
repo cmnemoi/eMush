@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\MushActionFixtures;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
 use Mush\Disease\DataFixtures\DisorderConfigFixtures;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -362,88 +362,88 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
     private function buildDefaultCharacterConfig(): CharacterConfig
     {
         // ADMIN ONLY
-        /** @var Action $suicideAction */
+        /** @var ActionConfig $suicideAction */
         $suicideAction = $this->getReference(ActionsFixtures::SUICIDE);
 
-        /** @var Action $autoDestroyAction */
+        /** @var ActionConfig $autoDestroyAction */
         $autoDestroyAction = $this->getReference(ActionsFixtures::AUTO_DESTROY);
 
-        /** @var Action $killPlayerAction */
+        /** @var ActionConfig $killPlayerAction */
         $killPlayerAction = $this->getReference(ActionsFixtures::KILL_PLAYER);
 
         // @TODO: remove when the game is ready
-        /** @var Action $rejuvenateAlphaAction */
+        /** @var ActionConfig $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
 
-        /** @var Action $fakeDiseaseAction */
+        /** @var ActionConfig $fakeDiseaseAction */
         $fakeDiseaseAction = $this->getReference(MushActionFixtures::FAKE_DISEASE);
 
-        /** @var Action $hitAction */
+        /** @var ActionConfig $hitAction */
         $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
 
-        /** @var Action $hideAction */
+        /** @var ActionConfig $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
-        /** @var Action $searchAction */
+        /** @var ActionConfig $searchAction */
         $searchAction = $this->getReference(ActionsFixtures::SEARCH_DEFAULT);
 
-        /** @var Action $phagocyteAction */
+        /** @var ActionConfig $phagocyteAction */
         $phagocyteAction = $this->getReference(MushActionFixtures::PHAGOCYTE);
 
-        /** @var Action $reportFireAction */
+        /** @var ActionConfig $reportFireAction */
         $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
 
-        /** @var Action $getUpAction */
+        /** @var ActionConfig $getUpAction */
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
 
-        /** @var Action $flirtAction */
+        /** @var ActionConfig $flirtAction */
         $flirtAction = $this->getReference(ActionsFixtures::FLIRT_DEFAULT);
 
-        /** @var Action $doTheThingAction */
+        /** @var ActionConfig $doTheThingAction */
         $doTheThingAction = $this->getReference(ActionsFixtures::DO_THE_THING);
 
-        /** @var Action $ungag */
+        /** @var ActionConfig $ungag */
         $ungag = $this->getReference(ActionsFixtures::UNGAG_DEFAULT);
 
-        /** @var Action $healAction */
+        /** @var ActionConfig $healAction */
         $healAction = $this->getReference(ActionsFixtures::HEAL);
 
-        /** @var Action $selfHealAction */
+        /** @var ActionConfig $selfHealAction */
         $selfHealAction = $this->getReference(ActionsFixtures::SELF_HEAL);
 
-        /** @var Action $extractSporeAction */
+        /** @var ActionConfig $extractSporeAction */
         $extractSporeAction = $this->getReference(MushActionFixtures::EXTRACT_SPORE);
 
-        /** @var Action $infectAction */
+        /** @var ActionConfig $infectAction */
         $infectAction = $this->getReference(MushActionFixtures::SPREAD_FIRE);
 
         // Skills actions
         // @TODO: after skill implementation, action will be given by skills
-        /** @var Action $comfortAction */
+        /** @var ActionConfig $comfortAction */
         $comfortAction = $this->getReference(ActionsFixtures::COMFORT_DEFAULT);
 
-        /** @var Action $motivationalSpeechAction */
+        /** @var ActionConfig $motivationalSpeechAction */
         $motivationalSpeechAction = $this->getReference(ActionsFixtures::MOTIVATIONAL_SPEECH);
 
-        /** @var Action $boringSpeechAction */
+        /** @var ActionConfig $boringSpeechAction */
         $boringSpeechAction = $this->getReference(ActionsFixtures::BORING_SPEECH);
 
-        /** @var Action $extinguishManuallyAction */
+        /** @var ActionConfig $extinguishManuallyAction */
         $extinguishManuallyAction = $this->getReference(ActionsFixtures::EXTINGUISH_MANUALLY);
 
-        /** @var Action $surgeryAction */
+        /** @var ActionConfig $surgeryAction */
         $surgeryAction = $this->getReference(ActionsFixtures::SURGERY);
 
-        /** @var Action $makeSickAction */
+        /** @var ActionConfig $makeSickAction */
         $makeSickAction = $this->getReference(MushActionFixtures::MAKE_SICK);
 
-        /** @var Action $spreadFireAction */
+        /** @var ActionConfig $spreadFireAction */
         $spreadFireAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
 
-        /** @var Action $screwTalkieAction */
+        /** @var ActionConfig $screwTalkieAction */
         $screwTalkieAction = $this->getReference(MushActionFixtures::SCREW_TALKIE);
 
-        /** @var ArrayCollection<array-key, Action> $defaultActions */
+        /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
             $hitAction,
             $hideAction,
@@ -488,7 +488,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMaxMovementPoint(12)
             ->setMaxItemInInventory(3)
             ->setMaxDiscoverablePlanets(2)
-            ->setActions($defaultActions);
+            ->setActionsConfig($defaultActions);
 
         return $characterConfig;
     }

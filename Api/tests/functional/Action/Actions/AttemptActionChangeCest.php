@@ -5,9 +5,9 @@ namespace Mush\Tests\functional\Action\Actions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Disassemble;
 use Mush\Action\Actions\Repair;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -81,22 +81,22 @@ class AttemptActionChangeCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionRepair = new Action();
+        $actionRepair = new ActionConfig();
         $actionRepair
             ->setName(ActionEnum::REPAIR)
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setScope(ActionScopeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::CURRENT);
         $I->haveInRepository($actionRepair);
 
-        $actionDisassemble = new Action();
+        $actionDisassemble = new ActionConfig();
         $actionDisassemble
             ->setName(ActionEnum::DISASSEMBLE)
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setScope(ActionScopeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::CURRENT);
         $I->haveInRepository($actionDisassemble);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -187,13 +187,13 @@ class AttemptActionChangeCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionRepair = new Action();
+        $actionRepair = new ActionConfig();
         $actionRepair
             ->setName(ActionEnum::REPAIR)
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setScope(ActionScopeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::CURRENT);
         $I->haveInRepository($actionRepair);
 
         /** @var EquipmentConfig $equipmentConfig */
@@ -278,21 +278,21 @@ class AttemptActionChangeCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionRepair = new Action();
+        $actionRepair = new ActionConfig();
         $actionRepair
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionRepair);
 
-        $actionDisassemble = new Action();
+        $actionDisassemble = new ActionConfig();
         $actionDisassemble
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setActionCost(1)
             ->setSuccessRate(75)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionDisassemble);
 

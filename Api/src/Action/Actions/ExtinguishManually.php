@@ -19,13 +19,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * Class implementing the Manual Extinguish action.
  * This action is granted by the Firefighter skill. (@TODO).
  *
- * For 1 Action Point, this action gives a 10% chance to extinguish a fire.
+ * For 1 ActionConfig Point, this action gives a 10% chance to extinguish a fire.
  *
  * More info : https://mushpedia.com/wiki/Firefighter
  */
 class ExtinguishManually extends AttemptAction
 {
-    protected string $name = ActionEnum::EXTINGUISH_MANUALLY;
+    protected ActionEnum $name = ActionEnum::EXTINGUISH_MANUALLY;
 
     private StatusServiceInterface $statusService;
 
@@ -67,7 +67,7 @@ class ExtinguishManually extends AttemptAction
             $this->statusService->removeStatus(
                 StatusEnum::FIRE,
                 $this->player->getPlace(),
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime()
             );
         }

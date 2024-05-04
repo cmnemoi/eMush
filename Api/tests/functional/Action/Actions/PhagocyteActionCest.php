@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Phagocyte;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -50,17 +50,17 @@ class PhagocyteActionCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $phagocyteActionEntity = new Action();
+        $phagocyteActionEntity = new ActionConfig();
         $phagocyteActionEntity
             ->setActionName(ActionEnum::PHAGOCYTE)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($phagocyteActionEntity);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActions(new ArrayCollection([$phagocyteActionEntity]));
+        $characterConfig->setActionsConfig(new ArrayCollection([$phagocyteActionEntity]));
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,

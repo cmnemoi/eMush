@@ -5,7 +5,7 @@ namespace Mush\Tests\unit\Action\Validator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\HasActionValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -50,7 +50,7 @@ final class ParameterHasActionValidatorTest extends TestCase
 
     public function testValid()
     {
-        $actionEntity = new Action();
+        $actionEntity = new ActionConfig();
 
         $itemConfig = new ItemConfig();
         $itemConfig->setActions(new ArrayCollection([$actionEntity]));
@@ -83,7 +83,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getAction' => new Action(),
+                'getAction' => new ActionConfig(),
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
@@ -108,7 +108,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getAction' => new Action(),
+                'getAction' => new ActionConfig(),
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),
@@ -133,7 +133,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getAction' => new Action(),
+                'getAction' => new ActionConfig(),
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
                 'getPlayer' => new Player(),

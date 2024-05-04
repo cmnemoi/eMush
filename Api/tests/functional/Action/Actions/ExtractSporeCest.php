@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ExtractSpore;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -18,7 +18,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class ExtractSporeCest extends AbstractFunctionalTest
 {
-    private Action $extractSporeActionConfig;
+    private ActionConfig $extractSporeActionConfig;
     private ExtractSpore $extractSporeAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -29,7 +29,7 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->extractSporeAction = $I->grabService(ExtractSpore::class);
-        $this->extractSporeActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => 'extract_spore']);
+        $this->extractSporeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'extract_spore']);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);

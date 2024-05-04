@@ -164,7 +164,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $explorators = $event->getExploration()->getActiveExplorators();
 
         // Dirtiness should not be prevented by stainproof apron
-        $event->addTag(ActionTypeEnum::ACTION_SUPER_DIRTY);
+        $event->addTag(ActionTypeEnum::ACTION_SUPER_DIRTY->value);
 
         /** @var Player $explorator */
         foreach ($explorators as $explorator) {

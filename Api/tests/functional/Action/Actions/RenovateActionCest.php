@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Renovate;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
@@ -34,7 +34,7 @@ use Mush\Tests\FunctionalTester;
 final class RenovateActionCest extends AbstractFunctionalTest
 {
     private Renovate $renovateAction;
-    private Action $action;
+    private ActionConfig $action;
     private Place $alphaBay2;
 
     private StatusServiceInterface $statusService;
@@ -48,7 +48,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         $this->player1->changePlace($this->alphaBay2);
 
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::RENOVATE]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::RENOVATE]);
         $this->renovateAction = $I->grabService(Renovate::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }

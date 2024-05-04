@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Flirt;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -25,12 +25,12 @@ use Mush\User\Entity\User;
 class FlirtActionCest
 {
     private Flirt $flirtAction;
-    private Action $action;
+    private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
     {
         $this->flirtAction = $I->grabService(Flirt::class);
-        $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::FLIRT]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::FLIRT]);
     }
 
     public function testFlirt(FunctionalTester $I)

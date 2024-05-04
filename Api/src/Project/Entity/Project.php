@@ -7,9 +7,11 @@ namespace Mush\Project\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Entity\ActionTargetInterface;
-use Mush\Action\Enum\ActionTargetName;
+use Mush\Action\Entity\ActionHolderInterface;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -20,7 +22,7 @@ use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface
+class Project implements LogParameterInterface, ActionHolderInterface, StatusHolderInterface
 {
     use TargetStatusTrait;
 
@@ -158,11 +160,6 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
         return LogParameterKeyEnum::PROJECT;
     }
 
-    public function getActionTargetName(array $context): string
-    {
-        return ActionTargetName::PROJECT->value;
-    }
-
     public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {
@@ -205,5 +202,10 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     public function isFinishedNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isFinished();
+    }
+
+    public function getActions(ActionHolderEnum $actionTarget, Player $activePlayer): Collection
+    {
+        return $activePlayer->getPlace()->getProvidedActions(ActionHolderEnum::PROJECT, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]);
     }
 }

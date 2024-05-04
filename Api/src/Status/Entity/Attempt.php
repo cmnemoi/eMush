@@ -3,19 +3,20 @@
 namespace Mush\Status\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionEnum;
 
 #[ORM\Entity]
 class Attempt extends ChargeStatus
 {
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $action = null;
+    #[ORM\Column(type: 'string', nullable: false, enumType: ActionEnum::class)]
+    private ActionEnum $action;
 
-    public function getAction(): ?string
+    public function getAction(): ActionEnum
     {
         return $this->action;
     }
 
-    public function setAction(?string $action): static
+    public function setAction(ActionEnum $action): static
     {
         $this->action = $action;
 

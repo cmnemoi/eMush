@@ -17,10 +17,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DiseaseEventSubscriber implements EventSubscriberInterface
 {
     private const array CURE_LOG_MAP = [
-        ActionEnum::HEAL => LogEnum::DISEASE_CURED_PLAYER,
-        ActionEnum::SELF_HEAL => LogEnum::DISEASE_CURED_PLAYER,
-        ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_CURED_PLAYER,
-        ActionEnum::CONSUME => LogEnum::DISEASE_CURED_DRUG,
+        ActionEnum::HEAL->value => LogEnum::DISEASE_CURED_PLAYER,
+        ActionEnum::SELF_HEAL->value => LogEnum::DISEASE_CURED_PLAYER,
+        ActionTypeEnum::ACTION_HEAL->value => LogEnum::DISEASE_CURED_PLAYER,
+        ActionEnum::CONSUME->value => LogEnum::DISEASE_CURED_DRUG,
         LogEnum::SURGERY_CRITICAL_SUCCESS => LogEnum::SURGERY_CRITICAL_SUCCESS,
         LogEnum::SURGERY_SUCCESS => LogEnum::SURGERY_SUCCESS,
         LogEnum::SELF_SURGERY_CRITICAL_SUCCESS => LogEnum::SELF_SURGERY_CRITICAL_SUCCESS,
@@ -30,11 +30,11 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
     ];
 
     private const array TREAT_LOG_MAP = [
-        ActionEnum::HEAL => LogEnum::DISEASE_TREATED_PLAYER,
-        ActionEnum::SELF_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
-        ActionTypeEnum::ACTION_HEAL => LogEnum::DISEASE_TREATED_PLAYER,
-        ActionEnum::CONSUME => LogEnum::DISEASE_TREATED_DRUG,
-        ActionEnum::CONSUME_DRUG => LogEnum::DISEASE_TREATED_DRUG,
+        ActionEnum::HEAL->value => LogEnum::DISEASE_TREATED_PLAYER,
+        ActionEnum::SELF_HEAL->value => LogEnum::DISEASE_TREATED_PLAYER,
+        ActionTypeEnum::ACTION_HEAL->value => LogEnum::DISEASE_TREATED_PLAYER,
+        ActionEnum::CONSUME->value => LogEnum::DISEASE_TREATED_DRUG,
+        ActionEnum::CONSUME_DRUG->value => LogEnum::DISEASE_TREATED_DRUG,
     ];
     private RoomLogServiceInterface $roomLogService;
 

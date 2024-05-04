@@ -37,11 +37,11 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class implementing the attack Action.
+ * Class implementing the attack ActionConfig.
  */
 class Attack extends AttemptAction
 {
-    protected string $name = ActionEnum::ATTACK;
+    protected ActionEnum $name = ActionEnum::ATTACK;
     protected RandomServiceInterface $randomService;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
@@ -121,7 +121,7 @@ class Attack extends AttemptAction
             $damageEvent = $this->createDamageEvent($damage, $target, $player);
 
             if ($result instanceof OneShot) {
-                $tags = $this->getAction()->getActionTags();
+                $tags = $this->getActionConfig()->getActionTags();
                 $tags[] = EndCauseEnum::BLED;
                 $tags[] = ActionOutputEnum::ONE_SHOT;
                 $deathEvent = new PlayerEvent(
@@ -171,7 +171,8 @@ class Attack extends AttemptAction
     private function rollCriticalChances(int $percentage): bool
     {
         $criticalRollEvent = new ActionVariableEvent(
-            $this->action,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             $percentage,
             $this->player,
@@ -190,7 +191,7 @@ class Attack extends AttemptAction
             $target,
             PlayerVariableEnum::HEALTH_POINT,
             -$damage,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $damageEvent->setAuthor($author);

@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Drop extends AbstractAction
 {
-    protected string $name = ActionEnum::DROP;
+    protected ActionEnum $name = ActionEnum::DROP;
 
     public static function LoadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -46,7 +46,7 @@ class Drop extends AbstractAction
             $this->player->getPlace(),
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::CHANGE_HOLDER);

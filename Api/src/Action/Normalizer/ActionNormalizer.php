@@ -5,6 +5,7 @@ namespace Mush\Action\Normalizer;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
 use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -23,8 +24,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
 {
-    private const ACTION_TYPE_DESCRIPTION_MAP = [
-        ActionTypeEnum::ACTION_AGGRESSIVE => ActionTypeEnum::ACTION_AGGRESSIVE,
+    private const array ACTION_TYPE_DESCRIPTION_MAP = [
+        ActionTypeEnum::ACTION_AGGRESSIVE->value => ActionTypeEnum::ACTION_AGGRESSIVE->value,
         VisibilityEnum::COVERT => VisibilityEnum::COVERT,
         VisibilityEnum::SECRET => VisibilityEnum::SECRET,
     ];
@@ -55,12 +56,14 @@ class ActionNormalizer implements NormalizerInterface
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
-        $actionClass = $this->actionStrategyService->getAction($object->getActionName());
+        $actionConfig = $object->getActionConfig();
+        $actionProvider = $object->getActionProvider();
+        $actionClass = $this->actionStrategyService->getAction($actionConfig->getActionName());
         if (!$actionClass) {
             return [];
         }
 
-        $actionName = $object->getActionName();
+        $actionName = $actionConfig->getActionName();
 
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -79,33 +82,40 @@ class ActionNormalizer implements NormalizerInterface
 
         if ($actionClass->isVisible()) {
             $normalizedAction = [
-                'id' => $object->getId(),
-                'key' => $object->getActionName(),
+                'id' => $actionConfig->getId(),
+                'key' => $actionConfig->getActionName(),
                 'name' => $this->translationService->translate(
                     "{$actionName}.name",
                     $translationParameters,
                     'actions',
                     $language
                 ),
+                'actionProvider' => [
+                    'id' => $actionProvider->getId(),
+                    'class' => $actionProvider->getClassName(),
+                ],
                 'actionPointCost' => $this->actionService->getActionModifiedActionVariable(
                     $currentPlayer,
-                    $object,
+                    $actionConfig,
+                    $actionProvider,
                     $actionTarget,
                     PlayerVariableEnum::ACTION_POINT,
                 ),
                 'movementPointCost' => $this->actionService->getActionModifiedActionVariable(
                     $currentPlayer,
-                    $object,
+                    $actionConfig,
+                    $actionProvider,
                     $actionTarget,
                     PlayerVariableEnum::MOVEMENT_POINT,
                 ),
                 'moralPointCost' => $this->actionService->getActionModifiedActionVariable(
                     $currentPlayer,
-                    $object,
+                    $actionConfig,
+                    $actionProvider,
                     $actionTarget,
                     PlayerVariableEnum::MORAL_POINT,
                 ),
-                'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $object),
+                'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $actionConfig),
             ];
 
             if ($actionClass instanceof AttemptAction) {
@@ -129,11 +139,11 @@ class ActionNormalizer implements NormalizerInterface
                     'actions',
                     $language
                 );
-                $description = $this->getTypesDescriptions($description, $object->getTypes(), $language);
+                $description = $this->getTypesDescriptions($description, $actionConfig->getTypes(), $language);
                 $normalizedAction['description'] = $description;
                 $normalizedAction['canExecute'] = true;
                 $normalizedAction['confirmation'] =
-                    \in_array(ActionTypeEnum::ACTION_CONFIRM, $object->getTypes(), true)
+                    \in_array(ActionTypeEnum::ACTION_CONFIRM->value, $actionConfig->getTypes(), true)
                     ? $this->translationService->translate(
                         "{$actionName}.confirmation",
                         $translationParameters,
@@ -176,7 +186,7 @@ class ActionNormalizer implements NormalizerInterface
 
         $translationParameters = [$currentPlayer->getLogKey() => $currentPlayer->getLogName()];
 
-        if ($actionName === ActionEnum::EXTRACT_SPORE) {
+        if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
             $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
         }
         if ($actionTarget instanceof Player) {
@@ -198,7 +208,7 @@ class ActionNormalizer implements NormalizerInterface
     }
 
     /** @TODO: generalize this for all specialist points. */
-    private function getActionShootPointCost(Player $currentPlayer, Action $action): ?int
+    private function getActionShootPointCost(Player $currentPlayer, ActionConfig $action): ?int
     {
         if (!$this->isShootAction($action)) {
             return null;
@@ -206,14 +216,14 @@ class ActionNormalizer implements NormalizerInterface
 
         /** @var ?ChargeStatus $shooterSkill */
         $shooterSkill = $currentPlayer->getSkillByName(SkillEnum::SHOOTER);
-        if ($shooterSkill?->getCharge() > 0) {
+        if ($shooterSkill?->isCharged()) {
             return 1;
         }
 
         return null;
     }
 
-    private function isShootAction(Action $action): bool
+    private function isShootAction(ActionConfig $action): bool
     {
         return \in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes(), true) || \in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes(), true);
     }

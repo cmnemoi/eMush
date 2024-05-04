@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\AccessTerminal;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -24,7 +24,7 @@ use Mush\Tests\FunctionalTester;
 final class AccessTerminalActionCest extends AbstractFunctionalTest
 {
     private AccessTerminal $accessTerminal;
-    private Action $accessTerminalConfig;
+    private ActionConfig $accessTerminalConfig;
     private GameEquipment $astroTerminal;
     private GameEquipment $commandTerminal;
     private StatusServiceInterface $statusService;
@@ -34,7 +34,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         parent::_before($I);
         $bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
 
-        $this->accessTerminalConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ACCESS_TERMINAL]);
+        $this->accessTerminalConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::ACCESS_TERMINAL]);
         $this->accessTerminal = $I->grabService(AccessTerminal::class);
 
         // Astro terminal

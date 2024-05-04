@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -28,19 +28,19 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        /** @var Action $takeAction */
+        /** @var ActionConfig $takeAction */
         $takeAction = $this->getReference(ActionsFixtures::DEFAULT_TAKE);
 
-        /** @var Action $dropAction */
+        /** @var ActionConfig $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
-        /** @var Action $updateTalkieAction */
+        /** @var ActionConfig $updateTalkieAction */
         $updateTalkieAction = $this->getReference(ActionsFixtures::UPDATING_TALKIE);
 
-        /** @var Action $examineAction */
+        /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
-        /** @var Action $repair25 */
+        /** @var ActionConfig $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
         /** @var StatusConfig $updatingStatus */

@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Consume;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -39,7 +39,7 @@ use Mush\User\Entity\User;
  */
 final class ConsumeActionCest extends AbstractFunctionalTest
 {
-    private Action $consumeConfig;
+    private ActionConfig $consumeConfig;
     private Consume $consumeAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -49,7 +49,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME]);
+        $this->consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME]);
         $this->consumeAction = $I->grabService(Consume::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -93,10 +93,10 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
@@ -187,10 +187,10 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
@@ -300,10 +300,10 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($consumeActionEntity);
 
@@ -369,7 +369,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
         // when player consumes the ration
         $this->consumeAction->loadParameters(
-            action: $this->consumeConfig,
+            actionConfig: $this->consumeConfig,
             player: $this->player,
             target: $ration,
         );

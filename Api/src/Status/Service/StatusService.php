@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
@@ -184,7 +185,7 @@ class StatusService implements StatusServiceInterface
 
     public function handleAttempt(
         Player $player,
-        string $actionName,
+        ActionEnum $actionName,
         ActionResult $result,
         array $tags,
         \DateTime $time
@@ -202,7 +203,7 @@ class StatusService implements StatusServiceInterface
     public function handleAttemptOnFailure(
         ?Attempt $attempt,
         Player $player,
-        string $actionName,
+        ActionEnum $actionName,
         array $tags,
         \DateTime $time
     ): void {
@@ -292,7 +293,7 @@ class StatusService implements StatusServiceInterface
         return $chargeStatus;
     }
 
-    private function createAttemptStatus(string $action, Player $player): Attempt
+    private function createAttemptStatus(ActionEnum $action, Player $player): Attempt
     {
         /** @var ChargeStatusConfig $attemptConfig */
         $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $player->getDaedalus());

@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AccessTerminal extends AbstractAction
 {
-    protected string $name = ActionEnum::ACCESS_TERMINAL;
+    protected ActionEnum $name = ActionEnum::ACCESS_TERMINAL;
 
     protected StatusServiceInterface $statusService;
 
@@ -78,7 +78,7 @@ final class AccessTerminal extends AbstractAction
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::FOCUSED,
             holder: $this->player,
-            tags: $this->getAction()->getActionTags(),
+            tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
             target: $terminal,
         );

@@ -4,7 +4,7 @@ namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -28,7 +28,7 @@ abstract class AbstractActionTest extends TestCase
     protected Mockery\Mock|ValidatorInterface $validator;
 
     protected AbstractAction $action;
-    protected Action $actionEntity;
+    protected ActionConfig $actionEntity;
 
     /**
      * @before
@@ -40,7 +40,7 @@ abstract class AbstractActionTest extends TestCase
             ->shouldReceive('callEvent')
             ->withArgs(
                 fn (AbstractGameEvent $event) => $event instanceof ActionEvent
-                && $event->getAction() === $this->actionEntity
+                && $event->getActionConfig() === $this->actionEntity
             )
             ->times(3);
 
@@ -59,9 +59,9 @@ abstract class AbstractActionTest extends TestCase
         \Mockery::close();
     }
 
-    protected function createActionEntity(string $name, int $actionPointCost = 0, int $movementPoint = 0): Action
+    protected function createActionEntity(string $name, int $actionPointCost = 0, int $movementPoint = 0): ActionConfig
     {
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionCost($actionPointCost)
             ->setMovementCost($movementPoint)

@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Comfort extends AbstractAction
 {
-    protected string $name = ActionEnum::COMFORT;
+    protected ActionEnum $name = ActionEnum::COMFORT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -55,7 +55,7 @@ class Comfort extends AbstractAction
             $target,
             PlayerVariableEnum::MORAL_POINT,
             $this->getOutputQuantity(),
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);

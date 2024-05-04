@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class StrengthenHull extends AttemptAction
 {
-    protected string $name = ActionEnum::STRENGTHEN_HULL;
+    protected ActionEnum $name = ActionEnum::STRENGTHEN_HULL;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -55,7 +55,7 @@ class StrengthenHull extends AttemptAction
                 $this->player->getDaedalus(),
                 DaedalusVariableEnum::HULL,
                 $quantity,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 $time
             );
 
@@ -66,7 +66,7 @@ class StrengthenHull extends AttemptAction
                 $target,
                 $this->player,
                 VisibilityEnum::HIDDEN,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 $time
             );
             $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

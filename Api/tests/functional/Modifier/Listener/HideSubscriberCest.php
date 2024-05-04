@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Hide;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -75,10 +75,10 @@ class HideSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $hideActionEntity = new Action();
+        $hideActionEntity = new ActionConfig();
         $hideActionEntity
             ->setActionName(ActionEnum::HIDE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
@@ -156,10 +156,10 @@ class HideSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $hideActionEntity = new Action();
+        $hideActionEntity = new ActionConfig();
         $hideActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
@@ -240,10 +240,10 @@ class HideSubscriberCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $hideActionEntity = new Action();
+        $hideActionEntity = new ActionConfig();
         $hideActionEntity
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 

@@ -4,6 +4,7 @@ namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
@@ -51,7 +52,7 @@ interface StatusServiceInterface
 
     public function handleAttempt(
         Player $player,
-        string $actionName,
+        ActionEnum $actionName,
         ActionResult $result,
         array $tags,
         \DateTime $time

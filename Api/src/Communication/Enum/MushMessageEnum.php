@@ -16,9 +16,9 @@ class MushMessageEnum
     public const MUSH_CONVERT_EVENT = 'mush_convert_event';
 
     public const PLAYER_INFECTION_LOGS = [
-        ActionEnum::INFECT => self::INFECT_ACTION,
-        ActionEnum::DO_THE_THING => self::INFECT_STD,
-        ActionEnum::TRAP_CLOSET => self::INFECT_TRAP,
+        ActionEnum::INFECT->value => self::INFECT_ACTION,
+        ActionEnum::DO_THE_THING->value => self::INFECT_STD,
+        ActionEnum::TRAP_SHELF->value => self::INFECT_TRAP,
         PlanetSectorEvent::MUSH_TRAP => self::INFECT_MUSH_RAID,
     ];
 }

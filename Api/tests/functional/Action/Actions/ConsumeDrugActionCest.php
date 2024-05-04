@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ConsumeDrug;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -46,7 +46,7 @@ use Mush\User\Entity\User;
  */
 final class ConsumeDrugActionCest extends AbstractFunctionalTest
 {
-    private Action $consumeConfig;
+    private ActionConfig $consumeConfig;
     private ConsumeDrug $consumeAction;
 
     private EventServiceInterface $eventService;
@@ -58,7 +58,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->consumeConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::CONSUME_DRUG]);
+        $this->consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME_DRUG]);
         $this->consumeAction = $I->grabService(ConsumeDrug::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -124,10 +124,10 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
         $I->haveInRepository($player);
 
-        $consumeActionEntity = new Action();
+        $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);

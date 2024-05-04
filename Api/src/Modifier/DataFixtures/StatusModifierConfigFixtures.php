@@ -69,7 +69,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS])
             ->setApplyOnTarget(true)
             ->setModifierRange(ModifierHolderClassEnum::EQUIPMENT);
         $manager->persist($frozenModifier);
@@ -81,7 +81,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($disabledConversionModifier);
 
@@ -98,7 +98,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS])
             ->addModifierRequirement($notAloneActivationRequirement)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $disabledNotAloneModifier->buildName();
@@ -111,7 +111,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionTypeEnum::ACTION_AGGRESSIVE => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLACE);
         $manager->persist($pacifistModifier);
 
@@ -122,7 +122,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::MOVE => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::MOVE->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $burdenedModifier->buildName();
         $manager->persist($burdenedModifier);
@@ -205,8 +205,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
-                ActionEnum::SHOWER => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::WASH_IN_SINK => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
@@ -221,8 +221,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([
-                ActionEnum::CONSUME => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::CONSUME_DRUG => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::MUSH_CONSUME);
@@ -234,7 +234,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setApplyOnTarget(true)
             ->setTagConstraints([
-                ActionEnum::CONSUME => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ANY_TAGS,
                 PlayerVariableEnum::MORAL_POINT => ModifierRequirementEnum::ANY_TAGS,
                 PlayerVariableEnum::MOVEMENT_POINT => ModifierRequirementEnum::ANY_TAGS,
@@ -253,8 +253,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionTypeEnum::ACTION_SHOOT_HUNTER => ModifierRequirementEnum::ANY_TAGS,
-                ActionTypeEnum::ACTION_SHOOT => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::SHOOTER_SPECIALIST_POINT);
@@ -282,7 +282,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($astronavigationNeronCpuPriorityModifierPlus1Section);
 
@@ -293,7 +293,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::ANALYZE_PLANET => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::ANALYZE_PLANET->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
 

@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AutoEject extends AbstractAction
 {
-    protected string $name = ActionEnum::AUTO_EJECT;
+    protected ActionEnum $name = ActionEnum::AUTO_EJECT;
 
     private PlayerServiceInterface $playerService;
 

@@ -3,7 +3,6 @@
 namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Action\Enum\ActionTargetName;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -82,10 +81,5 @@ class GameItem extends GameEquipment
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::ITEM;
-    }
-
-    public function getActionTargetName(array $context): string
-    {
-        return ActionTargetName::ITEM->value;
     }
 }

@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Cook;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -37,7 +37,7 @@ class CookActionCest
 
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room2);
 
-        $cookActionEntity = new Action();
+        $cookActionEntity = new ActionConfig();
         $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $tool = new Tool();
@@ -65,7 +65,7 @@ class CookActionCest
 
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
-        $cookActionEntity = new Action();
+        $cookActionEntity = new ActionConfig();
         $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $this->cookAction->loadParameters($cookActionEntity, $player, $gameEquipment);
@@ -89,7 +89,7 @@ class CookActionCest
 
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
-        $cookActionEntity = new Action();
+        $cookActionEntity = new ActionConfig();
         $cookActionEntity->setActionName(ActionEnum::COOK);
 
         $tool = new Tool();

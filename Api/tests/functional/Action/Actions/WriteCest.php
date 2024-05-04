@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Write;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
@@ -23,7 +23,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class WriteCest extends AbstractFunctionalTest
 {
-    private Action $writeActionConfig;
+    private ActionConfig $writeActionConfig;
     private Write $writeAction;
 
     private StatusServiceInterface $statusService;
@@ -36,7 +36,7 @@ final class WriteCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->writeActionConfig = $I->grabEntityFromRepository(Action::class, [
+        $this->writeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
             'name' => ActionEnum::WRITE,
         ]);
         $this->writeAction = $I->grabService(Write::class);

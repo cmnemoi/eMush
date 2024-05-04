@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests;
 
 use Mush\Action\Actions\AbstractMoveDaedalusAction;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Alert\Service\AlertServiceInterface;
@@ -33,7 +33,7 @@ use Mush\Status\Service\StatusServiceInterface;
 
 abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 {
-    protected Action $moveDaedalusActionConfig;
+    protected ActionConfig $moveDaedalusActionConfig;
     protected AbstractMoveDaedalusAction $moveDaedalusAction;
     protected GameEquipment $commandTerminal;
     protected GameEquipment $emergencyReactor;
@@ -158,7 +158,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -345,7 +345,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -373,7 +373,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -392,7 +392,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -417,7 +417,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -450,7 +450,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -464,7 +464,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     {
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
-            action: $this->moveDaedalusActionConfig,
+            actionConfig: $this->moveDaedalusActionConfig,
             player: $this->player,
             target: $this->commandTerminal
         );

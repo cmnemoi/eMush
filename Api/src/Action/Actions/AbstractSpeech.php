@@ -17,7 +17,6 @@ use Mush\RoomLog\Entity\LogParameterInterface;
  */
 abstract class AbstractSpeech extends AbstractAction
 {
-    protected string $name;
     protected string $playerVariable;
 
     protected function support(?LogParameterInterface $target, array $parameters): bool
@@ -31,7 +30,7 @@ abstract class AbstractSpeech extends AbstractAction
             $player,
             $playerVariable,
             $points,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
 

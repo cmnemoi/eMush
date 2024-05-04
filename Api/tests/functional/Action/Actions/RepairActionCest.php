@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Repair;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
@@ -74,12 +74,12 @@ class RepairActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(25)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);

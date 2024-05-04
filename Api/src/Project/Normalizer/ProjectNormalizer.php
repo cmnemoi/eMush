@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Project\Normalizer;
 
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -15,6 +16,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
     public function __construct(
@@ -68,6 +70,8 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     private function getNormalizedProjectForTerminalContext(Project $project, ?string $format, array $context): array
     {
+        $context['project'] = $project;
+
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
         $language = $project->getDaedalus()->getLanguage();
@@ -99,30 +103,8 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 language: $language
             ),
             'bonusSkills' => $this->getTranslatedSkills($project->getBonusSkills(), $language),
-            'actions' => $this->getNormalizedProjectActions($project, $format, $context),
+            'actions' => $this->getNormalizedActions($project, ActionHolderEnum::PROJECT, $currentPlayer, $format, $context),
         ];
-    }
-
-    private function getNormalizedProjectActions(Project $project, ?string $format = null, array $context = []): array
-    {
-        $actions = [];
-        $currentPlayer = $context['currentPlayer'];
-        $context['project'] = $project;
-
-        $toolsActions = $this->gearToolService->getActionsTools(
-            player: $currentPlayer,
-            scopes: [ActionScopeEnum::TERMINAL],
-            target: Project::class,
-        );
-
-        foreach ($toolsActions as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        return $actions;
     }
 
     private function getTranslatedSkills(array $skills, string $language): array

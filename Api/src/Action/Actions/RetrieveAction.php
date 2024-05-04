@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class RetrieveAction extends AbstractAction
 {
-    protected string $name = ActionEnum::RETRIEVE_FUEL;
+    protected ActionEnum $name = ActionEnum::RETRIEVE_FUEL;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     public function __construct(
@@ -49,7 +49,7 @@ abstract class RetrieveAction extends AbstractAction
         $this->gameEquipmentService->createGameEquipmentFromName(
             $this->getItemName(),
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             VisibilityEnum::HIDDEN
         );
@@ -58,7 +58,7 @@ abstract class RetrieveAction extends AbstractAction
             $this->player->getDaedalus(),
             $this->getDaedalusVariable(),
             -1,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time
         );
         $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);

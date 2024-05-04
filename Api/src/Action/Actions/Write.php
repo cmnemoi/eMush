@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Write extends AbstractAction
 {
-    protected string $name = ActionEnum::WRITE;
+    protected ActionEnum $name = ActionEnum::WRITE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -73,7 +73,7 @@ class Write extends AbstractAction
         $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::POST_IT,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             $time,
             VisibilityEnum::HIDDEN
         );
@@ -85,7 +85,7 @@ class Write extends AbstractAction
         $contentStatus = $this->statusService->createStatusFromName(
             EquipmentStatusEnum::DOCUMENT_CONTENT,
             $postIt,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
 

@@ -6,9 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Hide;
 use Mush\Action\Actions\Take;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -81,15 +81,15 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionTake = new Action();
+        $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
-        $actionDrop = new Action();
+        $actionDrop = new ActionConfig();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
@@ -125,7 +125,7 @@ class TakeDropActionCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        // drop Action
+        // drop ActionConfig
         $this->takeAction->loadParameters($actionTake, $player, $gameItem);
         $this->dropAction->loadParameters($actionDrop, $player, $gameItem);
 
@@ -192,15 +192,15 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionTake = new Action();
+        $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
-        $actionDrop = new Action();
+        $actionDrop = new ActionConfig();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
@@ -245,7 +245,7 @@ class TakeDropActionCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        // drop Action
+        // drop ActionConfig
         $this->takeAction->loadParameters($actionTake, $player, $gameItem);
         $this->dropAction->loadParameters($actionDrop, $player, $gameItem);
 
@@ -313,10 +313,10 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionTake = new Action();
+        $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionTake);
 
@@ -404,10 +404,10 @@ class TakeDropActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $actionHide = new Action();
+        $actionHide = new ActionConfig();
         $actionHide
             ->setActionName(ActionEnum::HIDE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionHide);
 

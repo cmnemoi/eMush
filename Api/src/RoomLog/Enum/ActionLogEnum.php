@@ -130,309 +130,309 @@ abstract class ActionLogEnum
     public const string PARTICIPATE_SUCCESS = 'participate_success';
 
     public const array ACTION_LOGS = [
-        ActionEnum::DISASSEMBLE => [
+        ActionEnum::DISASSEMBLE->value => [
             ActionOutputEnum::SUCCESS => self::DISASSEMBLE_SUCCESS,
             ActionOutputEnum::FAIL => self::DISASSEMBLE_FAIL,
         ],
-        ActionEnum::TAKE => [
+        ActionEnum::TAKE->value => [
             ActionOutputEnum::SUCCESS => self::TAKE,
         ],
-        ActionEnum::HIDE => [
+        ActionEnum::HIDE->value => [
             ActionOutputEnum::SUCCESS => self::HIDE_SUCCESS,
         ],
-        ActionEnum::DROP => [
+        ActionEnum::DROP->value => [
             ActionOutputEnum::SUCCESS => self::DROP,
         ],
-        ActionEnum::REPAIR => [
+        ActionEnum::REPAIR->value => [
             ActionOutputEnum::SUCCESS => self::REPAIR_SUCCESS,
             ActionOutputEnum::FAIL => self::REPAIR_FAIL,
         ],
-        ActionEnum::SEARCH => [
+        ActionEnum::SEARCH->value => [
             ActionOutputEnum::SUCCESS => self::SEARCH_SUCCESS,
             ActionOutputEnum::FAIL => self::SEARCH_FAIL,
         ],
-        ActionEnum::EXTRACT_SPORE => [
+        ActionEnum::EXTRACT_SPORE->value => [
             ActionOutputEnum::SUCCESS => self::EXTRACT_SPORE_SUCCESS,
         ],
-        ActionEnum::INFECT => [
+        ActionEnum::INFECT->value => [
             ActionOutputEnum::SUCCESS => self::INFECT_SUCCESS,
         ],
-        ActionEnum::SABOTAGE => [
+        ActionEnum::SABOTAGE->value => [
             ActionOutputEnum::SUCCESS => self::SABOTAGE_SUCCESS,
             ActionOutputEnum::FAIL => self::SABOTAGE_FAIL,
         ],
-        ActionEnum::READ_DOCUMENT => [
+        ActionEnum::READ_DOCUMENT->value => [
             ActionOutputEnum::SUCCESS => self::READ_DOCUMENT,
         ],
-        ActionEnum::READ_BOOK => [
+        ActionEnum::READ_BOOK->value => [
             ActionOutputEnum::SUCCESS => self::READ_BOOK,
         ],
-        ActionEnum::SHRED => [
+        ActionEnum::SHRED->value => [
             ActionOutputEnum::SUCCESS => self::SHRED_SUCCESS,
         ],
-        ActionEnum::CONSUME => [
+        ActionEnum::CONSUME->value => [
             ActionOutputEnum::SUCCESS => self::CONSUME_SUCCESS,
         ],
-        ActionEnum::CONSUME_DRUG => [
+        ActionEnum::CONSUME_DRUG->value => [
             ActionOutputEnum::SUCCESS => self::CONSUME_DRUG,
         ],
-        ActionEnum::PHAGOCYTE => [
+        ActionEnum::PHAGOCYTE->value => [
             ActionOutputEnum::SUCCESS => self::PHAGOCYTE_SUCCESS,
         ],
-        ActionEnum::WATER_PLANT => [
+        ActionEnum::WATER_PLANT->value => [
             ActionOutputEnum::SUCCESS => self::WATER_PLANT_SUCCESS,
         ],
-        ActionEnum::TREAT_PLANT => [
+        ActionEnum::TREAT_PLANT->value => [
             ActionOutputEnum::SUCCESS => self::TREAT_PLANT_SUCCESS,
         ],
-        ActionEnum::TRY_KUBE => [
+        ActionEnum::TRY_KUBE->value => [
             ActionOutputEnum::SUCCESS => self::TRY_KUBE,
         ],
-        ActionEnum::HYBRIDIZE => [
+        ActionEnum::HYBRIDIZE->value => [
             ActionOutputEnum::SUCCESS => self::HYBRIDIZE_SUCCESS,
             ActionOutputEnum::FAIL => self::HYBRIDIZE_FAIL,
         ],
-        ActionEnum::EXTINGUISH => [
+        ActionEnum::EXTINGUISH->value => [
             ActionOutputEnum::SUCCESS => self::EXTINGUISH_SUCCESS,
             ActionOutputEnum::FAIL => self::EXTINGUISH_FAIL,
         ],
-        ActionEnum::HYPERFREEZE => [
+        ActionEnum::HYPERFREEZE->value => [
             ActionOutputEnum::SUCCESS => self::HYPERFREEZE_SUCCESS,
         ],
-        ActionEnum::EXPRESS_COOK => [
+        ActionEnum::EXPRESS_COOK->value => [
             ActionOutputEnum::SUCCESS => self::COOK_SUCCESS,
         ],
-        ActionEnum::INSERT_OXYGEN => [
+        ActionEnum::INSERT_OXYGEN->value => [
             ActionOutputEnum::SUCCESS => self::INSERT_OXYGEN,
         ],
-        ActionEnum::RETRIEVE_OXYGEN => [
+        ActionEnum::RETRIEVE_OXYGEN->value => [
             ActionOutputEnum::SUCCESS => self::RETRIEVE_OXYGEN,
         ],
-        ActionEnum::INSERT_FUEL => [
+        ActionEnum::INSERT_FUEL->value => [
             ActionOutputEnum::SUCCESS => self::INSERT_FUEL,
         ],
-        ActionEnum::RETRIEVE_FUEL => [
+        ActionEnum::RETRIEVE_FUEL->value => [
             ActionOutputEnum::SUCCESS => self::RETRIEVE_FUEL,
         ],
-        ActionEnum::COOK => [
+        ActionEnum::COOK->value => [
             ActionOutputEnum::SUCCESS => self::COOK_SUCCESS,
         ],
-        ActionEnum::COFFEE => [
+        ActionEnum::COFFEE->value => [
             ActionOutputEnum::SUCCESS => self::COFFEE_SUCCESS,
         ],
-        ActionEnum::DISPENSE => [
+        ActionEnum::DISPENSE->value => [
             ActionOutputEnum::SUCCESS => self::DISPENSE_SUCCESS,
         ],
-        ActionEnum::SHOWER => [
+        ActionEnum::SHOWER->value => [
             ActionOutputEnum::SUCCESS => self::SHOWER_HUMAN,
             ActionOutputEnum::FAIL => self::SHOWER_MUSH,
         ],
-        ActionEnum::WASH_IN_SINK => [
+        ActionEnum::WASH_IN_SINK->value => [
             ActionOutputEnum::SUCCESS => self::WASH_IN_SINK_HUMAN,
             ActionOutputEnum::FAIL => self::WASH_IN_SINK_MUSH,
         ],
-        ActionEnum::LIE_DOWN => [
+        ActionEnum::LIE_DOWN->value => [
             ActionOutputEnum::SUCCESS => self::LIE_DOWN,
         ],
-        ActionEnum::GET_UP => [
+        ActionEnum::GET_UP->value => [
             ActionOutputEnum::SUCCESS => self::GET_UP,
         ],
-        ActionEnum::HIT => [
+        ActionEnum::HIT->value => [
             ActionOutputEnum::SUCCESS => self::HIT_SUCCESS,
             ActionOutputEnum::FAIL => self::HIT_FAIL,
             ActionOutputEnum::CRITICAL_SUCCESS => self::HIT_CRITICAL_SUCCESS,
         ],
-        ActionEnum::COMFORT => [
+        ActionEnum::COMFORT->value => [
             ActionOutputEnum::SUCCESS => self::COMFORT_SUCCESS,
         ],
-        ActionEnum::HEAL => [
+        ActionEnum::HEAL->value => [
             ActionOutputEnum::SUCCESS => self::HEAL_SUCCESS,
         ],
-        ActionEnum::SELF_HEAL => [
+        ActionEnum::SELF_HEAL->value => [
             ActionOutputEnum::SUCCESS => self::SELF_HEAL,
         ],
-        ActionEnum::ULTRAHEAL => [
+        ActionEnum::ULTRAHEAL->value => [
             ActionOutputEnum::SUCCESS => self::ULTRAHEAL_SUCCESS,
         ],
-        ActionEnum::USE_BANDAGE => [
+        ActionEnum::USE_BANDAGE->value => [
             ActionOutputEnum::SUCCESS => self::SELF_HEAL,
         ],
-        ActionEnum::SPREAD_FIRE => [
+        ActionEnum::SPREAD_FIRE->value => [
             ActionOutputEnum::SUCCESS => self::SPREAD_FIRE_SUCCESS,
         ],
-        ActionEnum::INSTALL_CAMERA => [
+        ActionEnum::INSTALL_CAMERA->value => [
             ActionOutputEnum::SUCCESS => self::INSTALL_CAMERA,
         ],
-        ActionEnum::REMOVE_CAMERA => [
+        ActionEnum::REMOVE_CAMERA->value => [
             ActionOutputEnum::SUCCESS => self::REMOVE_CAMERA,
         ],
 
-        ActionEnum::STRENGTHEN_HULL => [
+        ActionEnum::STRENGTHEN_HULL->value => [
             ActionOutputEnum::SUCCESS => self::STRENGTHEN_SUCCESS,
             ActionOutputEnum::FAIL => self::DEFAULT_FAIL,
         ],
 
-        ActionEnum::FLIRT => [
+        ActionEnum::FLIRT->value => [
             ActionOutputEnum::SUCCESS => self::FLIRT_SUCCESS,
         ],
 
-        ActionEnum::MOVE => [
+        ActionEnum::MOVE->value => [
             ActionOutputEnum::SUCCESS => self::EXIT_ROOM,
         ],
 
-        ActionEnum::DO_THE_THING => [
+        ActionEnum::DO_THE_THING->value => [
             ActionOutputEnum::SUCCESS => self::DO_THE_THING_SUCCESS,
             ActionOutputEnum::FAIL => self::DO_THE_THING_BREAKS_SOFA,
         ],
 
-        ActionEnum::CHECK_SPORE_LEVEL => [
+        ActionEnum::CHECK_SPORE_LEVEL->value => [
             ActionOutputEnum::SUCCESS => self::CHECK_SPORE_LEVEL,
         ],
 
-        ActionEnum::REMOVE_SPORE => [
+        ActionEnum::REMOVE_SPORE->value => [
             ActionOutputEnum::SUCCESS => self::REMOVE_SPORE_SUCCESS,
             ActionOutputEnum::FAIL => self::REMOVE_SPORE_FAIL,
         ],
-        ActionEnum::PUBLIC_BROADCAST => [
+        ActionEnum::PUBLIC_BROADCAST->value => [
             ActionOutputEnum::SUCCESS => self::PUBLIC_BROADCAST,
         ],
-        ActionEnum::EXTINGUISH_MANUALLY => [
+        ActionEnum::EXTINGUISH_MANUALLY->value => [
             ActionOutputEnum::SUCCESS => self::EXTINGUISH_SUCCESS,
             ActionOutputEnum::FAIL => self::EXTINGUISH_FAIL,
         ],
-        ActionEnum::MOTIVATIONAL_SPEECH => [
+        ActionEnum::MOTIVATIONAL_SPEECH->value => [
             ActionOutputEnum::SUCCESS => self::MOTIVATIONAL_SPEECH,
         ],
-        ActionEnum::BORING_SPEECH => [
+        ActionEnum::BORING_SPEECH->value => [
             ActionOutputEnum::SUCCESS => self::BORING_SPEECH,
         ],
-        ActionEnum::MAKE_SICK => [
+        ActionEnum::MAKE_SICK->value => [
             ActionOutputEnum::SUCCESS => self::MAKE_SICK,
         ],
-        ActionEnum::FAKE_DISEASE => [
+        ActionEnum::FAKE_DISEASE->value => [
             ActionOutputEnum::SUCCESS => self::FAKE_DISEASE,
         ],
-        ActionEnum::SURGERY => [
+        ActionEnum::SURGERY->value => [
             ActionOutputEnum::FAIL => self::FAIL_SURGERY,
         ],
-        ActionEnum::SELF_SURGERY => [
+        ActionEnum::SELF_SURGERY->value => [
             ActionOutputEnum::FAIL => self::FAIL_SELF_SURGERY,
         ],
-        ActionEnum::SCREW_TALKIE => [
+        ActionEnum::SCREW_TALKIE->value => [
             ActionOutputEnum::SUCCESS => self::SCREW_TALKIE_SUCCESS,
         ],
-        ActionEnum::UPDATE_TALKIE => [
+        ActionEnum::UPDATE_TALKIE->value => [
             ActionOutputEnum::SUCCESS => self::UPDATE_TALKIE_SUCCESS,
         ],
-        ActionEnum::ATTACK => [
+        ActionEnum::ATTACK->value => [
             ActionOutputEnum::SUCCESS => self::ATTACK_SUCCESS,
             ActionOutputEnum::FAIL => self::ATTACK_FAIL,
             ActionOutputEnum::CRITICAL_FAIL => self::ATTACK_CRITICAL_FAIL,
             ActionOutputEnum::CRITICAL_SUCCESS => self::ATTACK_CRITICAL_SUCCESS,
             ActionOutputEnum::ONE_SHOT => self::ATTACK_ONE_SHOT,
         ],
-        ActionEnum::SHOOT => [
+        ActionEnum::SHOOT->value => [
             ActionOutputEnum::SUCCESS => self::SHOOT_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_FAIL,
             ActionOutputEnum::CRITICAL_FAIL => self::SHOOT_CRITICAL_FAIL,
             ActionOutputEnum::CRITICAL_SUCCESS => self::SHOOT_CRITICAL_SUCCESS,
             ActionOutputEnum::ONE_SHOT => self::SHOOT_ONE_SHOT,
         ],
-        ActionEnum::SUICIDE => [
+        ActionEnum::SUICIDE->value => [
             ActionOutputEnum::SUCCESS => self::SUICIDE_SUCCESS,
         ],
-        ActionEnum::GAG => [
+        ActionEnum::GAG->value => [
             ActionOutputEnum::SUCCESS => self::GAG_SUCCESS,
         ],
-        ActionEnum::UNGAG => [
+        ActionEnum::UNGAG->value => [
             ActionOutputEnum::SUCCESS => self::UNGAG_SUCCESS,
         ],
-        ActionEnum::PLAY_ARCADE => [
+        ActionEnum::PLAY_ARCADE->value => [
             ActionOutputEnum::SUCCESS => self::PLAY_ARCADE_SUCCESS,
             ActionOutputEnum::FAIL => self::PLAY_ARCADE_FAIL,
         ],
-        ActionEnum::SHOOT_HUNTER => [
+        ActionEnum::SHOOT_HUNTER->value => [
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_FAIL,
         ],
-        ActionEnum::SHOOT_RANDOM_HUNTER => [
+        ActionEnum::SHOOT_RANDOM_HUNTER->value => [
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_FAIL,
         ],
-        ActionEnum::ACCESS_TERMINAL => [
+        ActionEnum::ACCESS_TERMINAL->value => [
             ActionOutputEnum::SUCCESS => self::ACCESS_TERMINAL_SUCCESS,
         ],
-        ActionEnum::TAKEOFF => [
+        ActionEnum::TAKEOFF->value => [
             ActionOutputEnum::CRITICAL_SUCCESS => self::TAKEOFF_SUCCESS,
             ActionOutputEnum::SUCCESS => self::TAKEOFF_NO_PILOT,
         ],
-        ActionEnum::LAND => [
+        ActionEnum::LAND->value => [
             ActionOutputEnum::CRITICAL_SUCCESS => self::LAND_SUCCESS,
             ActionOutputEnum::SUCCESS => self::LAND_NO_PILOT,
         ],
-        ActionEnum::SHOOT_HUNTER_PATROL_SHIP => [
+        ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => [
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_PATROL_SHIP_FAIL,
         ],
-        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP => [
+        ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => [
             ActionOutputEnum::SUCCESS => self::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_HUNTER_PATROL_SHIP_FAIL,
         ],
-        ActionEnum::RENOVATE => [
+        ActionEnum::RENOVATE->value => [
             ActionOutputEnum::SUCCESS => self::RENOVATE_SUCCESS,
             ActionOutputEnum::FAIL => self::RENOVATE_FAIL,
         ],
-        ActionEnum::AUTO_EJECT => [
+        ActionEnum::AUTO_EJECT->value => [
             ActionOutputEnum::SUCCESS => self::AUTO_EJECT_SUCCESS,
         ],
-        ActionEnum::INSERT_FUEL_CHAMBER => [
+        ActionEnum::INSERT_FUEL_CHAMBER->value => [
             ActionOutputEnum::SUCCESS => self::INSERT_FUEL_CHAMBER_SUCCESS,
         ],
-        ActionEnum::RETRIEVE_FUEL_CHAMBER => [
+        ActionEnum::RETRIEVE_FUEL_CHAMBER->value => [
             ActionOutputEnum::SUCCESS => self::RETRIEVE_FUEL_CHAMBER_SUCCESS,
         ],
-        ActionEnum::CHECK_FUEL_CHAMBER_LEVEL => [
+        ActionEnum::CHECK_FUEL_CHAMBER_LEVEL->value => [
             ActionOutputEnum::SUCCESS => self::CHECK_FUEL_CHAMBER_LEVEL_SUCCESS,
         ],
-        ActionEnum::HACK => [
+        ActionEnum::HACK->value => [
             ActionOutputEnum::SUCCESS => self::HACK_SUCCESS,
             ActionOutputEnum::FAIL => self::HACK_FAIL,
         ],
-        ActionEnum::ADVANCE_DAEDALUS => [
+        ActionEnum::ADVANCE_DAEDALUS->value => [
             ActionOutputEnum::SUCCESS => self::ADVANCE_DAEDALUS_SUCCESS,
             ActionOutputEnum::FAIL => self::ADVANCE_DAEDALUS_FAIL,
             ActionOutputEnum::ARACK_PREVENTS_TRAVEL => self::ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL,
             ActionOutputEnum::NO_FUEL => self::ADVANCE_DAEDALUS_NO_FUEL,
         ],
-        ActionEnum::SCAN => [
+        ActionEnum::SCAN->value => [
             ActionOutputEnum::SUCCESS => self::SCAN_SUCCESS,
             ActionOutputEnum::FAIL => self::SCAN_FAIL,
         ],
-        ActionEnum::ANALYZE_PLANET => [
+        ActionEnum::ANALYZE_PLANET->value => [
             ActionOutputEnum::SUCCESS => self::ANALYZE_PLANET_SUCCESS,
         ],
-        ActionEnum::DELETE_PLANET => [
+        ActionEnum::DELETE_PLANET->value => [
             ActionOutputEnum::SUCCESS => self::DELETE_PLANET_SUCCESS,
         ],
-        ActionEnum::LEAVE_ORBIT => [
+        ActionEnum::LEAVE_ORBIT->value => [
             ActionOutputEnum::SUCCESS => self::ADVANCE_DAEDALUS_SUCCESS,
             ActionOutputEnum::FAIL => self::ADVANCE_DAEDALUS_FAIL,
             ActionOutputEnum::ARACK_PREVENTS_TRAVEL => self::ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL,
             ActionOutputEnum::NO_FUEL => self::ADVANCE_DAEDALUS_NO_FUEL,
         ],
-        ActionEnum::TAKEOFF_TO_PLANET => [
+        ActionEnum::TAKEOFF_TO_PLANET->value => [
             ActionOutputEnum::SUCCESS => self::TAKEOFF_TO_PLANET_SUCCESS,
         ],
-        ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP => [
+        ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP->value => [
             ActionOutputEnum::SUCCESS => self::TAKEOFF_TO_PLANET_PATROL_SHIP_SUCCESS,
         ],
-        ActionEnum::CHANGE_NERON_CPU_PRIORITY => [
+        ActionEnum::CHANGE_NERON_CPU_PRIORITY->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_CPU_PRIORITY_SUCCESS,
         ],
-        ActionEnum::REPAIR_PILGRED => [
+        ActionEnum::REPAIR_PILGRED->value => [
             ActionOutputEnum::SUCCESS => self::REPAIR_PILGRED_SUCCESS,
         ],
-        ActionEnum::PARTICIPATE => [
+        ActionEnum::PARTICIPATE->value => [
             ActionOutputEnum::SUCCESS => self::PARTICIPATE_SUCCESS,
         ],
     ];

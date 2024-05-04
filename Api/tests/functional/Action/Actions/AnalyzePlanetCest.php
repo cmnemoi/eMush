@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\Functional\Action\Actions;
 
 use Mush\Action\Actions\AnalyzePlanet;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
@@ -31,7 +31,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class AnalyzePlanetCest extends AbstractFunctionalTest
 {
-    private Action $analyzePlanetConfig;
+    private ActionConfig $analyzePlanetConfig;
     private AnalyzePlanet $analyzePlanetAction;
     private NeronServiceInterface $neronService;
     private PlanetServiceInterface $planetService;
@@ -43,7 +43,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->analyzePlanetConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::ANALYZE_PLANET]);
+        $this->analyzePlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::ANALYZE_PLANET]);
         $this->analyzePlanetAction = $I->grabService(AnalyzePlanet::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);

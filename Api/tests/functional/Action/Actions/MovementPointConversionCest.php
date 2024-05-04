@@ -4,9 +4,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -53,18 +53,18 @@ class MovementPointConversionCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setMovementCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -135,18 +135,18 @@ class MovementPointConversionCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setMovementCost(2)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -218,18 +218,18 @@ class MovementPointConversionCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setMovementCost(5)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -300,18 +300,18 @@ class MovementPointConversionCest
         /** @var Place $icarusBay */
         $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
 
-        $moveActionEntity = new Action();
+        $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setScope(ActionScopeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::CURRENT)
             ->setMovementCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);

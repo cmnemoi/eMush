@@ -15,7 +15,7 @@ oauth:
     type: annotation
     prefix: /oauth
 action:
-    resource: ../../src/Action/Controller/
+    resource: ../../src/ActionConfig/Controller/
     type: annotation
     prefix: /api/v1
 room-log:

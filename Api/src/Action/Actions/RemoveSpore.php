@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class RemoveSpore extends AbstractAction
 {
-    protected string $name = ActionEnum::REMOVE_SPORE;
+    protected ActionEnum $name = ActionEnum::REMOVE_SPORE;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -57,7 +57,7 @@ class RemoveSpore extends AbstractAction
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
             -3,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
 
@@ -68,7 +68,7 @@ class RemoveSpore extends AbstractAction
             $this->player,
             PlayerVariableEnum::SPORE,
             -1,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($sporeLossEvent, VariableEventInterface::CHANGE_VARIABLE);

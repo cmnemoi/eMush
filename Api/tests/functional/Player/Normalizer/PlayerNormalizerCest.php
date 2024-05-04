@@ -6,7 +6,7 @@ namespace Mush\Tests\functional\Player\Normalizer;
 
 use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Take;
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -26,10 +26,10 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private Action $dropConfig;
+    private ActionConfig $dropConfig;
     private Drop $dropAction;
 
-    private Action $takeConfig;
+    private ActionConfig $takeConfig;
     private Take $takeAction;
 
     public function _before(FunctionalTester $I): void
@@ -40,10 +40,10 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->normalizer = $I->grabService(NormalizerInterface::class);
 
-        $this->dropConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::DROP]);
+        $this->dropConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DROP]);
         $this->dropAction = $I->grabService(Drop::class);
 
-        $this->takeConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::TAKE]);
+        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE]);
         $this->takeAction = $I->grabService(Take::class);
 
         $this->currentPlayerNormalizer->setNormalizer($this->normalizer);

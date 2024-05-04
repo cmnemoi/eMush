@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WashInSink extends AbstractAction
 {
-    protected string $name = ActionEnum::WASH_IN_SINK;
+    protected ActionEnum $name = ActionEnum::WASH_IN_SINK;
 
     protected StatusServiceInterface $statusService;
 
@@ -79,7 +79,7 @@ class WashInSink extends AbstractAction
         $this->statusService->removeStatus(
             PlayerStatusEnum::DIRTY,
             $this->player,
-            $this->getAction()->getActionTags(),
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
     }

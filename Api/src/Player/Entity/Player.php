@@ -9,9 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Entity\Action;
-use Mush\Action\Entity\ActionTargetInterface;
-use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Action\Enum\ActionTargetName;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionHolderInterface;
+use Mush\Action\Entity\ActionProviderInterface;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
@@ -52,7 +56,7 @@ use Mush\User\Entity\User;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionTargetInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface
 {
     use TargetStatusTrait;
     use TimestampableEntity;
@@ -135,6 +139,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->playerInfo = $playerInfo;
 
         return $this;
+    }
+
+    public function getCharacterConfig(): CharacterConfig
+    {
+        return $this->playerInfo->getCharacterConfig();
     }
 
     public function getUser(): User
@@ -525,18 +534,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return static::class;
     }
 
-    public function getSelfActions(): Collection
-    {
-        return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::SELF);
-    }
-
-    public function getTargetActions(): Collection
-    {
-        return $this->playerInfo->getCharacterConfig()->getActions()
-            ->filter(static fn (Action $action) => $action->getScope() === ActionScopeEnum::OTHER_PLAYER);
-    }
-
     public function getLogName(): string
     {
         return $this->playerInfo->getName();
@@ -588,7 +585,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
      */
     public function getFocusedTerminal(): ?GameEquipment
     {
-        // @var ?GameEquipment $terminal
         return $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
     }
 
@@ -647,11 +643,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->favoriteMessages;
     }
 
-    public function getActionTargetName(array $context): string
-    {
-        return ActionTargetName::PLAYER->value;
-    }
-
     public function isFocusedOnTerminalByName(string $terminalName): bool
     {
         return $this->getFocusedTerminal()?->getName() === $terminalName;
@@ -668,6 +659,81 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function efficiencyIsZeroForProject(Project $project): bool
     {
         return $this->getEfficiencyForProject($project)->max === 0;
+    }
+
+    public function getOperationalStatus(ActionEnum $actionName): ActionProviderOperationalStateEnum
+    {
+        $charge = $this->getUsedCharge($actionName);
+        if ($charge !== null && !$charge->isCharged()) {
+            return ActionProviderOperationalStateEnum::DISCHARGED;
+        }
+
+        return ActionProviderOperationalStateEnum::OPERATIONAL;
+    }
+
+    public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
+    {
+        $charges = $this->statuses->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+
+        $charge = $charges->first();
+        if (!$charge instanceof ChargeStatus) {
+            return null;
+        }
+
+        return $charge;
+    }
+
+    // return action available for this target $actionTarget can either be set to player or target_player
+    public function getActions(ActionHolderEnum $actionTarget, self $activePlayer): Collection
+    {
+        // first actions provided by the player entity
+        $actions = $this->getProvidedActions($actionTarget, [ActionRangeEnum::SELF])->toArray();
+
+        // then actions provided by the room
+        $actions = array_merge($actions, $this->getProvidedActions($actionTarget, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF])->toArray());
+
+        // then actions provided by the current player
+        $actions = array_merge($actions, $activePlayer->getProvidedActions($actionTarget, [ActionRangeEnum::PLAYER, ActionRangeEnum::SHELF])->toArray());
+
+        return new ArrayCollection($actions);
+    }
+
+    // return actions provided by this entity and the other actionProviders it bears
+    public function getProvidedActions(ActionHolderEnum $actionTarget, array $actionRanges): Collection
+    {
+        $actions = [];
+
+        // first actions given by the character config
+        /** @var ActionConfig $actionConfig */
+        foreach ($this->getCharacterConfig()->getActionsConfig() as $actionConfig) {
+            if (
+                $actionConfig->getDisplayHolder() === $actionTarget
+                && \in_array($actionConfig->getRange(), $actionRanges, true)
+            ) {
+                $action = new Action();
+                $action->setActionProvider($this)->setActionConfig($actionConfig);
+                $actions[] = $action;
+            }
+        }
+
+        // then actions provided by the statuses
+        /** @var Status $status */
+        foreach ($this->statuses as $status) {
+            $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        // then actions provided by the inventory
+        /** @var GameItem $equipment */
+        foreach ($this->getEquipments() as $equipment) {
+            $actions = array_merge($actions, $equipment->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        return new ArrayCollection($actions);
+    }
+
+    public function canPlayerReach(self $player): bool
+    {
+        return $this->getPlace() === $player->getPlace();
     }
 
     private function getMinEfficiencyForProject(Project $project): int

@@ -2,10 +2,10 @@
 
 namespace Mush\Tests\functional\Action\Service;
 
-use Mush\Action\Entity\Action;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Service\ActionService;
 use Mush\Action\Service\ActionServiceInterface;
@@ -75,7 +75,7 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName('some name')
             ->setActionCost(6);
@@ -126,7 +126,7 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action
             ->setActionName('some name')
             ->setActionCost(0);
@@ -142,10 +142,10 @@ class ActionServiceCest
         $I->flushToDatabase();
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -180,7 +180,7 @@ class ActionServiceCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action->setActionName('some name');
         $action->setMovementCost(1);
 
@@ -196,10 +196,10 @@ class ActionServiceCest
         $I->flushToDatabase();
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
 
-        $convertActionEntity = new Action();
+        $convertActionEntity = new ActionConfig();
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setScope(ActionScopeEnum::SELF)
+            ->setRange(ActionRangeEnum::SELF)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -249,7 +249,7 @@ class ActionServiceCest
 
         $I->haveInRepository($disabledModifier);
 
-        $action = new Action();
+        $action = new ActionConfig();
         $action->setActionName('some name');
         $action->setMovementCost(1);
 

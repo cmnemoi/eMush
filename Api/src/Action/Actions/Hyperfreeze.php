@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Hyperfreeze extends AbstractAction
 {
-    protected string $name = ActionEnum::HYPERFREEZE;
+    protected ActionEnum $name = ActionEnum::HYPERFREEZE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
     protected StatusServiceInterface $statusService;
 
@@ -71,7 +71,7 @@ class Hyperfreeze extends AbstractAction
                 GameRationEnum::STANDARD_RATION,
                 $target,
                 $this->player,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 new \DateTime(),
                 VisibilityEnum::PUBLIC
             );
@@ -79,7 +79,7 @@ class Hyperfreeze extends AbstractAction
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::FROZEN,
                 $target,
-                $this->getAction()->getActionTags(),
+                $this->getActionConfig()->getActionTags(),
                 $time
             );
         }

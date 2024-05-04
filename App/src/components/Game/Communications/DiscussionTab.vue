@@ -5,8 +5,9 @@
                 :message="message"
                 :is-root="true"
                 :is-replyable="true"
-                @reply="replyTo(message)" />
-                <button
+                @reply="replyTo(message)"
+            />
+            <button
                 v-if="message.hasChildrenToDisplay()"
                 class="toggle-children"
                 @click="message.toggleChildren()"

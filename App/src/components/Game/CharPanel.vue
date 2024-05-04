@@ -123,11 +123,10 @@
                 <ul class="specials">
                     <Tippy
                         tag="li"
-                        v-for="(point) in player.specialistPoints"
+                        v-for="(point) in getRelevantSpecialistPoints"
                         :key="point.key"
                         class="specialistPoint"
                     >
-                        <!-- only display if quantity > 0 v-if="point.charge.quantity > 0" -->
                         <img :src="specialistPointImg(point)" :alt="point.key">x{{ point.charge.quantity }}
                         <template #content>
                             <h1 v-html="formatContent(point.charge.name)" />
@@ -188,6 +187,9 @@ export default defineComponent ({
         },
         getTargetItem(): Item | null {
             return this.selectedItem;
+        },
+        getRelevantSpecialistPoints(): Array<SpecialistPoint> {
+            return this.player.specialistPoints.filter(p => p.charge.quantity > 0);
         }
     },
     methods: {

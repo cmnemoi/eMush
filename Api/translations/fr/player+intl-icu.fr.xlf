@@ -71,53 +71,53 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Le Responsable des Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
       </segment>
     </unit>
-    <unit id="shootPoint">
+    <unit id="shoot">
       <segment id="name" state="translated">
-        <source>shootPoint.name</source>
+        <source>shoot.name</source>
         <target>Points de Tir</target>
       </segment>
       <segment id="description" state="translated">
-        <source>shootPoint.description</source>
+        <source>shoot.description</source>
         <target>Les Points de Tir vous donnent des **actions gratuites** pour toutes les actions de tir en vol ou à bord.</target>
       </segment>
     </unit>
-    <unit id="cookerPoint">
+    <unit id="cook">
       <segment id="name" state="final">
-        <source>cookerPoint.name</source>
+        <source>cook.name</source>
         <target>Points de Cuisine</target>
       </segment>
       <segment id="description" state="final">
-        <source>cookerPoint.description</source>
+        <source>cook.description</source>
         <target>Les Points de Cuisine vous donnent des **actions gratuites** pour toutes les *actions de la cuisine*.</target>
       </segment>
     </unit>
-    <unit id="engineerPoint">
+    <unit id="engineer">
       <segment id="name" state="final">
-        <source>engineerPoint.name</source>
+        <source>engineer.name</source>
         <target>Points de Mécanique</target>
       </segment>
       <segment id="description" state="final">
-        <source>engineerPoint.description</source>
+        <source>engineer.description</source>
         <target>Les points de Mécanique vous donnent des **actions gratuites** pour toutes les *réparations techniques*.</target>
       </segment>
     </unit>
-    <unit id="gardenPoint">
+    <unit id="garden">
       <segment id="name" state="final">
-        <source>gardenPoint.name</source>
+        <source>garden.name</source>
         <target>Points de Jardinage</target>
       </segment>
       <segment id="description" state="final">
-        <source>gardenPoint.description</source>
+        <source>garden.description</source>
         <target>Les points de Jardinage vous donnent des **actions gratuites** dans le *Jardin Hydroponique*.</target>
       </segment>
     </unit>
-    <unit id="pilgredPoint">
+    <unit id="pilgred">
       <segment id="name" state="final">
-        <source>pilgredPoint.name</source>
+        <source>pilgred.name</source>
         <target>Points de PILGRED</target>
       </segment>
       <segment id="description" state="final">
-        <source>pilgredPoint.description</source>
+        <source>pilgred.description</source>
         <target>Les Points de PILGRED vous donnent des **actions gratuites** pour *réparer PILGRED*.</target>
       </segment>
     </unit>

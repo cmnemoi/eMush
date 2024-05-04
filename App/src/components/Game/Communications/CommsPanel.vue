@@ -1,5 +1,14 @@
 <template>
-    <div id="comms-panel">
+    <div id="comms-panel" :class="{toomany: channels.length > 8}" >
+        <Tippy tag="div" class="cycle-time">
+            <img :src="getImgUrl('comms/calendar.png')">
+            <span>{{ calendar?.dayName }} {{ calendar?.day }} - <br />{{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
+            <span class="mobile">{{ calendar?.day }}-{{ calendar?.cycle }}</span>
+            <template #content>
+                <h1 v-html="formatContent(calendar.name)" />
+                <p v-html="formatContent(calendar.description)" />
+            </template>
+        </Tippy>
         <ul class="tabs">
             <Tab
                 v-for="(channel, id) in channels"
@@ -14,15 +23,6 @@
                 @select="changeChannel({ channel })"
             />
         </ul>
-        <Tippy tag="div" class="cycle-time">
-            <img :src="getImgUrl('comms/calendar.png')">
-            <span>{{ calendar?.dayName }} {{ calendar?.day }} - <br />{{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
-            <span class="mobile">{{ calendar?.day }}-{{ calendar?.cycle }}</span>
-            <template #content>
-                <h1 v-html="formatContent(calendar.name)" />
-                <p v-html="formatContent(calendar.description)" />
-            </template>
-        </Tippy>
         <component :is="currentTabComponent" :channel="currentChannel" :calendar="calendar" />
         <button class="action-button" @click="loadMoreMessages()" v-if="canLoadMoreMessages()">
             {{ $t('game.communications.loadMoreMessages') }}
@@ -192,6 +192,7 @@ export default defineComponent ({
 
     .tabs {
         float: left;
+        max-width: 70%;
 
         .new-tab {
             opacity: 0.3;
@@ -206,6 +207,14 @@ export default defineComponent ({
                 opacity: 1;
             }
         }
+    }
+
+    &.toomany .tabs {
+        flex-wrap: wrap;
+        padding-bottom: 0.8em;
+        gap:.5em 0;
+
+        &:deep(.tab::after) { @include corner-bezel(4.5px); }
     }
 
     @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { width: 100%; }

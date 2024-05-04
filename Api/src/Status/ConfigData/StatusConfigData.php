@@ -1051,7 +1051,7 @@ abstract class StatusConfigData
             'type' => 'status_config',
             'modifierConfigs' => [
                 'modifier_pilot_always_critical_success_piloting',
-                'modifier_pilot_increased_shoot_hunter_chances'
+                'modifier_pilot_increased_shoot_hunter_chances',
             ],
         ],
         [

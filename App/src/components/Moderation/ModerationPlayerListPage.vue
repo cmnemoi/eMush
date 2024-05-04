@@ -97,8 +97,7 @@ export default defineComponent({
     },
     computed: {
         ...mapGetters({
-            isAdmin: 'auth/isAdmin',
-            isModerator: 'auth/isModerator'
+            isAdmin: 'auth/isAdmin'
         })
     },
     data() {

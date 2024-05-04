@@ -92,7 +92,6 @@ export default defineComponent ({
         font-size: .9em;
         cursor: pointer;
         text-decoration: underline;
-        border: 2px solid red;
     }
 }
 

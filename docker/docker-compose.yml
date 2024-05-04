@@ -1,3 +1,5 @@
+name: mush
+
 services:
   mush_apache:
     build: Api/apache

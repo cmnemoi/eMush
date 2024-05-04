@@ -4,7 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
-use Mush\Action\DTO\ActionSpecialistPointRules;
+use Mush\Action\DTO\ActionSpecialistPointRule;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -152,10 +152,9 @@ class ActionNormalizer implements NormalizerInterface
 
     private function loadParameters(array $context): array
     {
-        $parameters = [];
-        $parameters['actionTarget'] = $this->getActionTargetFromContextService->execute($context);
-
-        return $parameters;
+        return [
+            'actionTarget' => $this->getActionTargetFromContextService->execute($context),
+        ];
     }
 
     private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
@@ -200,10 +199,10 @@ class ActionNormalizer implements NormalizerInterface
 
     private function getNormalizedSpecialistPointCosts(Player $currentPlayer, Action $action): array
     {
-        /** @var ActionSpecialistPointRules[] $specialistPointCostRules */
+        /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
         $specialistPointCostRules = [
-            new ActionSpecialistPointRules('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]),
-            new ActionSpecialistPointRules('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN]),
+            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]),
+            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN]),
         ];
 
         $specialistPointCosts = [];
@@ -217,7 +216,10 @@ class ActionNormalizer implements NormalizerInterface
         return $specialistPointCosts;
     }
 
-    private function getSpecialistPointCost(Player $currentPlayer, Action $action, ActionSpecialistPointRules $specialistPointCostRule): ?int
+    /**
+     * Check how many specialist points the user will be charged for.
+     */
+    private function getSpecialistPointCost(Player $currentPlayer, Action $action, ActionSpecialistPointRule $specialistPointCostRule): ?int
     {
         if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule->actionTypes)) {
             return null;
@@ -225,7 +227,8 @@ class ActionNormalizer implements NormalizerInterface
 
         /** @var ?ChargeStatus $skill */
         $skill = $currentPlayer->getSkillByName($specialistPointCostRule->skill);
-        if ($skill?->getCharge() > 0) {
+
+        if ($skill?->getCharge() > 0 && $currentPlayer->hasSkill($specialistPointCostRule->skill)) {
             return 1;
         }
 

@@ -11,7 +11,7 @@ namespace Mush\Action\DTO;
  *
  * @version 1.0.0
  */
-final class ActionSpecialistPointRules extends \stdClass
+final class ActionSpecialistPointRule extends \stdClass
 {
     public function __construct(
         public string $name,

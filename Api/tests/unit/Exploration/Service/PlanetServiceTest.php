@@ -29,8 +29,10 @@ final class PlanetServiceTest extends TestCase
 {
     /** @var Mockery\Mock|PlanetRepository */
     private PlanetRepository $planetRepository;
+
     /** @var EntityManager|Mockery\Mock */
     private EntityManager $entityManager;
+
     /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
     private PlanetService $service;

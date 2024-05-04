@@ -2,51 +2,26 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionScopeEnum;
-use Mush\Action\Enum\ActionTypeEnum;
-use Mush\Action\Enum\ActionVariableEnum;
-use Mush\Action\Event\ActionVariableEvent;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\SkillEnum;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
-use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
+/**
+ * @internal
+ */
 final class RepairActionCest extends AbstractFunctionalTest
-{   
+{
     private Action $repairActionConfig;
     private Repair $repairAction;
 
@@ -54,7 +29,7 @@ final class RepairActionCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
-    {   
+    {
         parent::_before($I);
 
         $this->repairActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR . '_percent_12']);
@@ -94,7 +69,7 @@ final class RepairActionCest extends AbstractFunctionalTest
     }
 
     public function shouldSuccessRateBeBoostedByWrench(FunctionalTester $I): void
-    {   
+    {
         // given I have a Mycoscan in the room
         $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::MYCOSCAN,
@@ -123,7 +98,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->repairActionConfig->setSuccessRate(25);
 
         // when Chun tries to repair the Mycoscan
-        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan); 
+        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
 
         // then the success rate of the Repair action is boosted by 25%
         $I->assertEquals(37, $this->repairAction->getSuccessRate());

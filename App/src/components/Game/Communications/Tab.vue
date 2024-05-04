@@ -6,7 +6,13 @@
         @click="$emit('select')"
     >
         <img :src="icon">
-        <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
+        <span
+            v-if="numberOfNewMessages"
+            :key="numberOfNewMessagesDisplayed"
+            class="new-messages-number"
+        >
+            {{ numberOfNewMessagesDisplayed }}
+        </span>
         <template #content>
             <h1 v-html="formatContent(name)" />
             <p v-html="formatContent(description)" />

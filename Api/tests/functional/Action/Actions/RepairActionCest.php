@@ -35,6 +35,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -155,13 +156,15 @@ final class RepairActionCest extends AbstractFunctionalTest
         );
 
         // given Chun has one Technician point
-        $this->chun->getSkills()[0]->setCharge(1);
+        /** @var ChargeStatus $skill */
+        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
+        $skill->setCharge(1);
 
         // when Chun repairs the Mycoscan
         $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
         $this->repairAction->execute();
 
         // then one of Chun's Technician points is consumed
-        $I->assertEquals(0, $this->chun->getSkills()[0]->getCharge());
+        $I->assertEquals(0, $skill->getCharge());
     }
 }

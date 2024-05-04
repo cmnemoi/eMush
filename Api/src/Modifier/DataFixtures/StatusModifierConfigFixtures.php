@@ -59,6 +59,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE = 'defence_neron_cpu_priority_modifier_increased_turret_max_charge';
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
+    public const string TECHNICIAN_SPECIALIST_POINT = 'technician_specialist_point';
 
     public function load(ObjectManager $manager): void
     {
@@ -344,6 +345,21 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
+        $technicianSpecialist = new VariableEventModifierConfig('modifier_specialist_point_engineer');
+        $technicianSpecialist
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(0)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setApplyOnTarget(false)
+            ->setTagConstraints([
+                ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_ENGINEER);
+        $manager->persist($technicianSpecialist);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -369,6 +385,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE, $defenceCpuPriorityIncreaseTurretRecharge);
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
+        $this->addReference(self::TECHNICIAN_SPECIALIST_POINT, $technicianSpecialist);
     }
 
     public function getDependencies(): array

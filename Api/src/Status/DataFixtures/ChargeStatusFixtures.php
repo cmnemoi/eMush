@@ -475,6 +475,22 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setAutoRemove(true)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($changedCpuPriority);
+        
+        /** @var VariableEventModifierConfig $technicianSpecialistPointModifier */
+        $technicianSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_SPECIALIST_POINT);
+        $technicianSkillPoc = new ChargeStatusConfig();
+        $technicianSkillPoc
+            ->setStatusName(SkillEnum::TECHNICIAN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PRIVATE)
+            ->setStartCharge(1)
+            ->setMaxCharge(2)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT)
+            ->setDischargeStrategies([ModifierNameEnum::SPECIALIST_POINT_ENGINEER])
+            ->setAutoRemove(false)
+            ->setModifierConfigs([$technicianSpecialistPointModifier])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($technicianSkillPoc);
 
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
@@ -510,7 +526,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hunterTruceCycles)
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($shooterSkillPoc)
-            ->addStatusConfig($changedCpuPriority);
+            ->addStatusConfig($changedCpuPriority)
+            ->addStatusConfig($technicianSkillPoc);
 
         $manager->persist($gameConfig);
 
@@ -549,6 +566,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::FOLLOWING_HUNTERS_STATUS, $followingHuntersStatus);
         $this->addReference(self::SHOOTER_SKILL_POC, $shooterSkillPoc);
         $this->addReference(self::CHANGED_CPU_PRIORITY, $changedCpuPriority);
+        $this->addReference(SkillEnum::TECHNICIAN, $technicianSkillPoc);
     }
 
     public function getDependencies(): array

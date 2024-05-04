@@ -8,12 +8,12 @@
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"
             @keyup="resize()"
-            @focusout ="updateTypedMessage(text);"
+            @focusout ="updateTypedMessage(text)"
             @keyup.enter.exact.prevent="clearTypedMessage"
         />
         <button
             class="submit-button"
-            :disabled="typedMessage.length <= 0"
+            :disabled="text <= 0"
             @click="sendNewMessage"
             @click.stop="clearTypedMessage">
             <img :src="getImgUrl('comms/submit.gif')" alt="submit">
@@ -115,7 +115,7 @@ export default defineComponent ({
         max-height: 348px;
         padding: 3px 5px;
         font-style: italic;
-        opacity: 0.85;
+        opacity: 0.75;
         box-shadow: 0 1px 0 white;
         border: 1px solid #aad4e5;
         border-radius: 3px;

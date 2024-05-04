@@ -88,7 +88,7 @@ final class AdvanceProjectUseCaseTest extends TestCase
         // when player advances the project
         $this->advanceProjectUseCase->execute($player, $project);
 
-        // then player3 should have no participation in the project
+        // then player should have no participation in the project
         $project = $this->projectRepository->findByName($project->getName());
         self::assertEquals(0, $project->getPlayerParticipations($player2));
     }

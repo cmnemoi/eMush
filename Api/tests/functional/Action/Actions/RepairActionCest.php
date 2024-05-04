@@ -24,6 +24,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
@@ -37,6 +38,7 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -124,5 +126,42 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then the success rate of the Repair action is boosted by 25%
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
+    }
+
+    public function shouldConsumeEngineerPoint(FunctionalTester $I): void
+    {
+        // given I have a Mycoscan in the room
+        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given the Mycoscan is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is a technician
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun has one Technician point
+        $this->chun->getSkills()[0]->setCharge(1);
+
+        // when Chun repairs the Mycoscan
+        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
+        $this->repairAction->execute();
+
+        // then one of Chun's Technician points is consumed
+        $I->assertEquals(0, $this->chun->getSkills()[0]->getCharge());
     }
 }

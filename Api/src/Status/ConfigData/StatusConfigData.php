@@ -336,7 +336,9 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => ['mute_modifier'],
+            'modifierConfigs' => [
+                'mute_modifier',
+            ],
         ],
         [
             'name' => 'germaphobe_default',
@@ -401,7 +403,9 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => ['modifier_for_player_set_0spore_on_change.variable'],
+            'modifierConfigs' => [
+                'modifier_for_player_set_0spore_on_change.variable',
+            ],
         ],
         [
             'name' => 'inactive_default',
@@ -1036,14 +1040,19 @@ abstract class StatusConfigData
             'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
             'autoRemove' => true,
-            'modifierConfigs' => ['modifier_shooter_specialist_point'],
+            'modifierConfigs' => [
+                'modifier_shooter_specialist_point',
+            ],
         ],
         [
             'name' => SkillEnum::PILOT . '_alpha',
             'statusName' => SkillEnum::PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'status_config',
-            'modifierConfigs' => ['modifier_pilot_always_critical_success_piloting', 'modifier_pilot_increased_shoot_hunter_chances'],
+            'modifierConfigs' => [
+                'modifier_pilot_always_critical_success_piloting',
+                'modifier_pilot_increased_shoot_hunter_chances'
+            ],
         ],
         [
             'name' => 'astronavigation_neron_cpu_priority_default',
@@ -1088,7 +1097,10 @@ abstract class StatusConfigData
             'startCharge' => 2,
             'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_ENGINEER],
             'autoRemove' => true,
-            'modifierConfigs' => ['modifier_specialist_point_engineer'],
+            'modifierConfigs' => [
+                'modifier_specialist_point_engineer',
+                'modifier_technician_double_repair_and_renovate_chance',
+            ],
         ],
     ];
 }

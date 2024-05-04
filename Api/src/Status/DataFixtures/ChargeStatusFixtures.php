@@ -478,6 +478,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $technicianSpecialistPointModifier */
         $technicianSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_SPECIALIST_POINT);
+        $technicianDoubleRepairChanceModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_DOUBLE_REPAIR_CHANCE);
         $technicianSkillPoc = new ChargeStatusConfig();
         $technicianSkillPoc
             ->setStatusName(SkillEnum::TECHNICIAN)
@@ -488,7 +489,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setChargeStrategy(ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT)
             ->setDischargeStrategies([ModifierNameEnum::SPECIALIST_POINT_ENGINEER])
             ->setAutoRemove(false)
-            ->setModifierConfigs([$technicianSpecialistPointModifier])
+            ->setModifierConfigs([
+                $technicianSpecialistPointModifier,
+                $technicianDoubleRepairChanceModifier,
+            ])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($technicianSkillPoc);
 

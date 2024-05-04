@@ -23,5 +23,5 @@ abstract class ModifierNameEnum
     public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string ROPE_MODIFIER = 'rope_modifier';
-    public const string SPECIALIST_POINT_ENGINEER = 'specialist_point_engineeer';
+    public const string SPECIALIST_POINT_ENGINEER = 'specialist_point_engineer';
 }

@@ -7,6 +7,7 @@ use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -50,21 +51,8 @@ final class RepairActionCest extends AbstractFunctionalTest
 
     public function shoudlRepairBrokenEquipment(FunctionalTester $I): void
     {
-        // given I have a Mycoscan in the room
-        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::MYCOSCAN,
-            equipmentHolder: $this->chun->getPlace(),
-            reasons: [],
-            time: new \DateTime()
-        );
-
-        // and the Mycoscan is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $mycoscan,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // when Chun repairs the Mycoscan
         $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
@@ -77,24 +65,11 @@ final class RepairActionCest extends AbstractFunctionalTest
 
     public function shouldSuccessRateBeBoostedByWrench(FunctionalTester $I): void
     {
-        // given I have a Mycoscan in the room
-        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::MYCOSCAN,
-            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
-            reasons: [],
-            time: new \DateTime()
-        );
-
-        // given the Mycoscan is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $mycoscan,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // given Chun has a wrench
-        $wrench = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GearItemEnum::ADJUSTABLE_WRENCH,
             equipmentHolder: $this->chun,
             reasons: [],
@@ -111,23 +86,33 @@ final class RepairActionCest extends AbstractFunctionalTest
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }
 
-    public function shouldConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
+    public function shouldSuccessRateBeDoubledByTechnicianSkill(FunctionalTester $I): void
     {
-        // given I have a Mycoscan in the room
-        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::MYCOSCAN,
-            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
-            reasons: [],
-            time: new \DateTime()
-        );
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // given the Mycoscan is broken
+        // given Chun has a wrench
         $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $mycoscan,
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $this->chun,
             tags: [],
             time: new \DateTime()
         );
+
+        // given repair action has a 25% success rate
+        $this->repairActionConfig->setSuccessRate(25);
+
+        // when Chun tries to repair the Mycoscan
+        $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
+
+        // then the success rate of the Repair action is boosted by 50%
+        $I->assertEquals(50, $this->repairAction->getSuccessRate());
+    }
+
+    public function shouldConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
+    {
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // given Chun is a technician
         $this->statusService->createStatusFromName(
@@ -152,21 +137,8 @@ final class RepairActionCest extends AbstractFunctionalTest
 
     public function shouldNotConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
     {
-        // given I have a Mycoscan in the room
-        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::MYCOSCAN,
-            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
-            reasons: [],
-            time: new \DateTime()
-        );
-
-        // given the Mycoscan is broken
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $mycoscan,
-            tags: [],
-            time: new \DateTime()
-        );
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // given Chun is a technician
         $this->statusService->createStatusFromName(
@@ -187,5 +159,28 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then Chun's Technician should not change.
         $I->assertEquals(1, $skill->getCharge());
+    }
+
+    private function prepareBrokenEquipmentInRoom(): GameEquipment
+    {
+        // Note : we could definitely add a parameter to specify what is the equipment if needed!
+
+        // given I have a Mycoscan in the room
+        $equipment = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // and this Mycoscan is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $equipment,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        return $equipment;
     }
 }

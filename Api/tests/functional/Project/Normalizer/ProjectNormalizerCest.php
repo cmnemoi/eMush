@@ -100,7 +100,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                         'actionPointCost' => 2,
                         'movementPointCost' => 0,
                         'moralPointCost' => 0,
-                        'shootPointCost' => null,
+                        'specialistPointCosts' => [],
                         'successRate' => 100,
                         'description' => 'Réparer PILGRED vous permettra de revenir sur Sol.',
                         'canExecute' => true,

@@ -6,7 +6,10 @@
             <span v-if="action.movementPointCost > 0 && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
             <span v-else-if="action.actionPointCost > 0 && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap"></span>
             <span v-else-if="action.actionPointCost > 0 && action.movementPointCost > 0" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getImgUrl('pm.png')" alt="mp"></span>
-            <span v-if="action.shootPointCost" class="cost">{{ action.shootPointCost }}<img :src="getImgUrl('pa_shoot.png')" alt="pa_shoot"></span>
+            <!-- @TODO -> Handle multiple specialist cost action, if that's the case display the most prioritized point -->
+            <span v-if="action.specialistPointCosts.length > 0" class="cost">
+                1<img :src="specialistPointImage(action)" alt="{{ action.specialistPointCosts[0] }}">
+            </span>
             <span v-if="action.canExecute">{{ action.name }}</span>
             <span v-else><s>{{ action.name }}</s></span>
             <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
@@ -25,6 +28,7 @@ import { Action } from "@/entities/Action";
 import { Player } from "@/entities/Player";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { SpecialistPointEnum, specialistPointEnum } from "@/enums/specialistPoint.enum";
 import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
@@ -40,7 +44,10 @@ export default defineComponent ({
         }
     },
     methods: {
-        getImgUrl
+        getImgUrl,
+        specialistPointImage(action: Action): string {
+            return specialistPointEnum[action.specialistPointCosts[0]].icon ?? '';
+        }
     },
     data() {
         return {

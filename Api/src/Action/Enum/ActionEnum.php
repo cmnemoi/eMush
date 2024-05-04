@@ -12,6 +12,7 @@ abstract class ActionEnum
     public const string SUICIDE = 'suicide';
     public const string AUTO_DESTROY = 'auto_destroy';
     public const string KILL_PLAYER = 'kill_player';
+    public const string RESET_SPECIALIST_POINTS = 'reset_specialist_points';
 
     // alpha actions
     public const string REJUVENATE = 'rejuvenate';
@@ -225,6 +226,7 @@ abstract class ActionEnum
         return [
             self::REJUVENATE,
             self::SUICIDE,
+            self::RESET_SPECIALIST_POINTS,
             self::AUTO_DESTROY,
             self::KILL_PLAYER,
             self::EXIT_TERMINAL,

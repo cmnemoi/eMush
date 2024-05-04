@@ -18,7 +18,10 @@ abstract class ModifierNameEnum
     public const string LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const string ANTIGRAV_SCOOTER_CONVERSION_MODIFIER = 'antigrav_scooter_conversion_modifier';
     public const string LIQUID_MAP_MODIFIER = 'liquid_map_modifier';
+
+    /** @TODO Rename that SPECIALIST_POINT_SHOOTER */
     public const string SHOOTER_SPECIALIST_POINT = 'shooter_specialist_point';
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string ROPE_MODIFIER = 'rope_modifier';
+    public const string SPECIALIST_POINT_ENGINEER = 'specialist_point_engineeer';
 }

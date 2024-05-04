@@ -2035,5 +2035,23 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => 'modifier_specialist_point_engineer',
+            'modifierName' => ModifierNameEnum::SPECIALIST_POINT_ENGINEER,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 }

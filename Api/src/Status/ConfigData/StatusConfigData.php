@@ -1077,5 +1077,18 @@ abstract class StatusConfigData
             'autoRemove' => true,
             'modifierConfigs' => [],
         ],
+        [
+            'name' => SkillEnum::TECHNICIAN,
+            'statusName' => SkillEnum::TECHNICIAN,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_ENGINEER],
+            'autoRemove' => true,
+            'modifierConfigs' => ['modifier_specialist_point_engineer'],
+        ],
     ];
 }

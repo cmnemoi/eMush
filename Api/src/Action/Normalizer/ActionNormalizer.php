@@ -105,7 +105,7 @@ class ActionNormalizer implements NormalizerInterface
                     $actionTarget,
                     PlayerVariableEnum::MORAL_POINT,
                 ),
-                'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $object),
+                'specialistPointCosts' => $this->getNormalizedSpecialistPointCosts($currentPlayer, $object),
             ];
 
             if ($actionClass instanceof AttemptAction) {
@@ -197,24 +197,56 @@ class ActionNormalizer implements NormalizerInterface
         return $translationParameters;
     }
 
-    /** @TODO: generalize this for all specialist points. */
-    private function getActionShootPointCost(Player $currentPlayer, Action $action): ?int
+    private function getNormalizedSpecialistPointCosts(Player $currentPlayer, Action $action): array
     {
-        if (!$this->isShootAction($action)) {
+        $specialistPointCostRules = [
+            'shoot' => [
+                'Skill' => SkillEnum::SHOOTER,
+                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER],
+            ],
+            'engineer' => [
+                'Skill' => SkillEnum::TECHNICIAN,
+                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_TECHNICIAN],
+            ],
+        ];
+
+        $specialistPointCosts = [];
+        foreach ($specialistPointCostRules as $key => $value) {
+            $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $value);
+            if ($specialistPointCost) {
+                $specialistPointCosts[] = $key;
+            }
+        }
+
+        return $specialistPointCosts;
+    }
+
+    private function getSpecialistPointCost(Player $currentPlayer, Action $action, array $specialistPointCostRule): ?int
+    {
+        if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule['CompatibleActionTypes'])) {
             return null;
         }
 
-        /** @var ?ChargeStatus $shooterSkill */
-        $shooterSkill = $currentPlayer->getSkillByName(SkillEnum::SHOOTER);
-        if ($shooterSkill?->getCharge() > 0) {
+        /** @var ?ChargeStatus $skill */
+        $skill = $currentPlayer->getSkillByName($specialistPointCostRule['Skill']);
+        if ($skill?->getCharge() > 0) {
             return 1;
         }
 
         return null;
     }
 
-    private function isShootAction(Action $action): bool
+    /**
+     * @param array<string> $types
+     */
+    private function doesActionTypeMatchArray(Action $action, array $types): bool
     {
-        return \in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes(), true) || \in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes(), true);
+        foreach ($types as $type) {
+            if (\in_array($type, $action->getTypes(), true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

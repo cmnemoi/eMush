@@ -18,7 +18,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ResetSpecialistPoints extends AbstractAction
 {
     protected string $name = ActionEnum::RESET_SPECIALIST_POINTS;
-
     protected StatusServiceInterface $statusService;
 
     public function __construct(

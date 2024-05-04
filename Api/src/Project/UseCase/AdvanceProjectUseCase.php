@@ -23,7 +23,6 @@ final class AdvanceProjectUseCase
 
         $project->makeProgress($progress);
         $project->addPlayerParticipation($player);
-        $project->resetOtherPlayersParticipations($player);
 
         $this->projectRepository->save($project);
     }

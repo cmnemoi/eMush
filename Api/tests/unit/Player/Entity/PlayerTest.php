@@ -206,7 +206,7 @@ final class PlayerTest extends TestCase
 
     private function setPlayerNumberOfParticipations(Player $player, Project $project, int $number): void
     {
-        $project->removeAllPlayerParticipations($player);
+        $project->resetPlayerParticipations($player);
         for ($i = 0; $i < $number; ++$i) {
             $project->addPlayerParticipation($player);
         }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Project\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
@@ -43,14 +42,16 @@ class Project implements LogParameterInterface, ActionTargetInterface
     #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'projects')]
     private Daedalus $daedalus;
 
-    #[ORM\ManyToMany(targetEntity: Player::class)]
-    private Collection $participants;
+    #[ORM\ManyToOne(targetEntity: Player::class)]
+    private ?Player $lastParticipant = null;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $lastParticipantNumberOfParticipations = 0;
 
     public function __construct(ProjectConfig $config, Daedalus $daedalus)
     {
         $this->config = $config;
         $this->daedalus = $daedalus;
-        $this->participants = new ArrayCollection();
 
         $this->daedalus->addProject($this);
 
@@ -190,31 +191,28 @@ class Project implements LogParameterInterface, ActionTargetInterface
 
     public function getPlayerParticipations(Player $player): int
     {
-        return $this->participants->filter(
-            static fn (Player $participant) => $participant->getId() === $player->getId()
-        )->count();
+        if ($this->lastParticipant?->getId() !== $player->getId()) {
+            return 0;
+        }
+
+        return $this->lastParticipantNumberOfParticipations;
     }
 
     public function addPlayerParticipation(Player $player): void
     {
-        $this->participants->add($player);
-    }
-
-    public function resetOtherPlayersParticipations(Player $player): void
-    {
-        foreach ($this->participants as $participant) {
-            if ($participant->getId() !== $player->getId()) {
-                $this->participants->removeElement($participant);
-            }
+        if ($this->lastParticipant?->getId() !== $player->getId()) {
+            $this->lastParticipant = $player;
+            $this->lastParticipantNumberOfParticipations = 1;
+        } else {
+            ++$this->lastParticipantNumberOfParticipations;
         }
     }
 
-    public function removeAllPlayerParticipations(Player $player): void
+    public function resetPlayerParticipations(Player $player): void
     {
-        foreach ($this->participants as $participant) {
-            if ($participant->getId() === $player->getId()) {
-                $this->participants->removeElement($participant);
-            }
+        if ($this->lastParticipant?->getId() === $player->getId()) {
+            $this->lastParticipant = null;
+            $this->lastParticipantNumberOfParticipations = 0;
         }
     }
 }

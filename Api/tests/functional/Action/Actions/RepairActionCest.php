@@ -2,6 +2,7 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Action\Actions\Examine;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionResult\Success;
@@ -25,6 +26,9 @@ final class RepairActionCest extends AbstractFunctionalTest
     private Action $repairActionConfig;
     private Repair $repairAction;
 
+    private Action $examineActionConfig;
+    private Examine $examineAction;
+
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -34,6 +38,9 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         $this->repairActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::REPAIR . '_percent_12']);
         $this->repairAction = $I->grabService(Repair::class);
+
+        $this->examineActionConfig = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::EXAMINE]);
+        $this->examineAction = $I->grabService(Examine::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -104,7 +111,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $I->assertEquals(37, $this->repairAction->getSuccessRate());
     }
 
-    public function shouldConsumeEngineerPoint(FunctionalTester $I): void
+    public function shouldConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
     {
         // given I have a Mycoscan in the room
         $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -141,5 +148,44 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then one of Chun's Technician points is consumed
         $I->assertEquals(0, $skill->getCharge());
+    }
+
+    public function shouldNotConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
+    {
+        // given I have a Mycoscan in the room
+        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given the Mycoscan is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is a technician
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun has one Technician point
+        /** @var ChargeStatus $skill */
+        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
+        $skill->setCharge(1);
+
+        // when Chun examines the Mycoscan
+        $this->examineAction->loadParameters($this->examineActionConfig, $this->chun, $mycoscan);
+        $this->examineAction->execute();
+
+        // then Chun's Technician should not change.
+        $I->assertEquals(1, $skill->getCharge());
     }
 }

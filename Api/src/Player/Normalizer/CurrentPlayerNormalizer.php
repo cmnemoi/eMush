@@ -317,7 +317,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $specialistPoints = [];
         foreach ($skillsList as $key => $value) {
-            $specialistPoint = $this->getNormalizedSpecialistPoints($player, $language, $key, $value);
+            $specialistPoint = $this->getNormalizedSpecialistPoint($player, $language, $key, $value);
             if ($specialistPoint) {
                 $specialistPoints[] = $specialistPoint;
             }
@@ -327,7 +327,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     }
 
     /** @TODO: Move to a SkillNormalizer? */
-    private function getNormalizedSpecialistPoints(Player $player, string $language, string $skill, string $skillId): ?array
+    private function getNormalizedSpecialistPoint(Player $player, string $language, string $skill, string $skillId): ?array
     {
         /** @var ?ChargeStatus $skill */
         $skill = $player->getSkillByName($skill);

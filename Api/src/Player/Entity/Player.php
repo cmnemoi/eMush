@@ -109,9 +109,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[OrderBy(['updatedAt' => Criteria::DESC])]
     private Collection $favoriteMessages;
 
-    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'participants')]
-    private Collection $participatedProjects;
-
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -121,7 +118,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $this->modifiers = new ModifierCollection();
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
-        $this->participatedProjects = new ArrayCollection();
     }
 
     public function getId(): int

@@ -1,4 +1,4 @@
-Mush\Action\Entity\Action:
+Mush\Action\Entity\ActionConfig:
   shortName: 'ActionConfig'
   description: 'eMush Actions'
   attributes:

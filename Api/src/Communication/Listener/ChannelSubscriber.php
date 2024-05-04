@@ -19,8 +19,8 @@ class ChannelSubscriber implements EventSubscriberInterface
     private const PLAYER_LEAVE_CHANNEL = [
         CommunicationActionEnum::EXIT => NeronMessageEnum::PLAYER_LEAVE_CHAT,
         PlayerEvent::DEATH_PLAYER => NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH,
-        ActionEnum::DROP => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
-        ActionEnum::MOVE => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
+        ActionEnum::DROP->value => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
+        ActionEnum::MOVE->value => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
         EquipmentStatusEnum::BROKEN => NeronMessageEnum::PLAYER_LEAVE_CHAT_TALKY,
         PlayerStatusEnum::LOST => NeronMessageEnum::PLAYER_LEAVE_CHAT_LOST,
     ];

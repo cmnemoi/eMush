@@ -27,6 +27,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'heavy_default',
@@ -40,6 +41,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'module_access_default',
@@ -53,6 +55,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'hidden_default',
@@ -66,6 +69,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'broken_default',
@@ -79,6 +83,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'unstable_default',
@@ -92,6 +97,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'hazardous_default',
@@ -105,6 +111,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'decomposing_default',
@@ -118,6 +125,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'frozen_default',
@@ -133,6 +141,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_equipment_+1actionPoint_on_consume',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'plant_thirsty_default',
@@ -146,6 +155,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'plant_dry_default',
@@ -159,6 +169,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'plant_diseased_default',
@@ -172,6 +183,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'document_content_default',
@@ -185,6 +197,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'reinforced_default',
@@ -198,6 +211,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'antisocial_default',
@@ -213,6 +227,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'antisocial_modifier_for_player_-1moralPoint_on_new_cycle_if_player_in_room_not_alone',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'berzerk_default',
@@ -226,6 +241,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'brainsync_default',
@@ -239,6 +255,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'burdened_default',
@@ -254,6 +271,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_player_+2movementPoint_on_move',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'demoralized_default',
@@ -269,6 +287,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_player_+30percentage_on_cycle_disease',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'dirty_default',
@@ -282,6 +301,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'disabled_default',
@@ -298,6 +318,7 @@ class StatusConfigData
                 'modifier_for_player_-1movementPoint_on_move_if_player_in_room_not_alone',
                 'modifier_for_player_-2movementPoint_on_event_action_movement_conversion',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'focused_default',
@@ -311,6 +332,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'full_stomach_default',
@@ -324,6 +346,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'gagged_default',
@@ -337,6 +360,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => ['mute_modifier'],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'germaphobe_default',
@@ -350,6 +374,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'guardian_default',
@@ -363,6 +388,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'highly_inactive_default',
@@ -376,6 +402,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'hyperactive_default',
@@ -389,6 +416,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'immunized_default',
@@ -402,6 +430,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => ['modifier_for_player_set_0spore_on_change.variable'],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'inactive_default',
@@ -415,6 +444,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'lost_default',
@@ -430,6 +460,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'lost_modifier_for_player_-2moralPoint_on_new_cycle',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'lying_down_default',
@@ -445,6 +476,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'lying_down_modifier_for_player_+1actionPoint_on_new_cycle',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'multi_teamster_default',
@@ -458,6 +490,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'outcast_default',
@@ -471,6 +504,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'pacifist_default',
@@ -486,6 +520,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_place_+2actionPoint_on_action_aggressive',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'pregnant_default',
@@ -499,6 +534,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'starving_default',
@@ -514,6 +550,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'starving_for_player_-1healthPoint_on_new_cycle',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'starving_warning_default',
@@ -527,6 +564,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'stuck_in_the_ship_default',
@@ -540,6 +578,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'suicidal_default',
@@ -555,6 +594,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_player_+30percentage_on_cycle_disease',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'WATCHED_PUBLIC_BROADCAST_default',
@@ -568,6 +608,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'talkie_screwed_default',
@@ -581,6 +622,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'attempt_default',
@@ -594,6 +636,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_microwave_default',
@@ -607,6 +650,7 @@ class StatusConfigData
             'dischargeStrategies' => ['express_cook'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_antigrav_scooter_default',
@@ -620,6 +664,7 @@ class StatusConfigData
             'dischargeStrategies' => [ModifierNameEnum::ANTIGRAV_SCOOTER_CONVERSION_MODIFIER],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_blaster_default',
@@ -633,6 +678,7 @@ class StatusConfigData
             'dischargeStrategies' => ['shoot'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_old_faithful_default',
@@ -646,6 +692,7 @@ class StatusConfigData
             'dischargeStrategies' => ['shoot'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_rocket_launcher_default',
@@ -659,6 +706,7 @@ class StatusConfigData
             'dischargeStrategies' => ['shoot'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_narcotic_distiller_default',
@@ -672,6 +720,7 @@ class StatusConfigData
             'dischargeStrategies' => ['dispense'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_coffee_machine_default',
@@ -685,6 +734,7 @@ class StatusConfigData
             'dischargeStrategies' => ['coffee'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_turret_command_default',
@@ -698,6 +748,7 @@ class StatusConfigData
             'dischargeStrategies' => ['shoot_hunter', ActionEnum::SHOOT_RANDOM_HUNTER],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'electric_charges_patrol_ship_default',
@@ -711,6 +762,7 @@ class StatusConfigData
             'dischargeStrategies' => ['shoot_hunter_patrol_ship', ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'sink_charge_default',
@@ -724,6 +776,7 @@ class StatusConfigData
             'dischargeStrategies' => ['wash_in_sink'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'fire_default',
@@ -737,6 +790,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'plant_young_default',
@@ -750,6 +804,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'eureka_moment_default',
@@ -763,6 +818,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'first_time_default',
@@ -776,6 +832,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'mush_default',
@@ -794,6 +851,7 @@ class StatusConfigData
                 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
                 'modifier_for_player_set_0moralPoint_on_change.variable',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'contaminated_default',
@@ -807,6 +865,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'drug_eaten_default',
@@ -820,6 +879,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'did_the_thing_default',
@@ -833,6 +893,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'did_boring_speech_default',
@@ -846,6 +907,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'already_washed_in_the_sink_default',
@@ -859,6 +921,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'updating_default',
@@ -872,6 +935,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => HunterStatusEnum::ASTEROID_TRUCE_CYCLES . '_default',
@@ -885,6 +949,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => PlayerStatusEnum::HAS_REJUVENATED . '_default',
@@ -898,6 +963,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default',
@@ -911,6 +977,7 @@ class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default',
@@ -924,6 +991,7 @@ class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'traveling_default',
@@ -937,6 +1005,7 @@ class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'no_gravity_repaired_default',
@@ -952,6 +1021,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'no_gravity_default',
@@ -962,6 +1032,7 @@ class StatusConfigData
                 'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
                 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'in_orbit_default',
@@ -972,6 +1043,7 @@ class StatusConfigData
                 'modifier_for_daedalus_-1actionPoint_on_action_analyze_planet',
                 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'exploration_oxygen_default',
@@ -985,6 +1057,7 @@ class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'exploration_fuel_default',
@@ -998,6 +1071,7 @@ class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => HunterStatusEnum::TRUCE_CYCLES . '_default',
@@ -1011,6 +1085,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'following_hunters_default',
@@ -1024,6 +1099,7 @@ class StatusConfigData
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => false,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => SkillEnum::SHOOTER . '_alpha',
@@ -1037,6 +1113,7 @@ class StatusConfigData
             'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
             'autoRemove' => true,
             'modifierConfigs' => ['modifier_shooter_specialist_point'],
+            'actionConfigs' => [],
         ],
         [
             'name' => SkillEnum::PILOT . '_alpha',
@@ -1044,6 +1121,7 @@ class StatusConfigData
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'status_config',
             'modifierConfigs' => ['modifier_pilot_always_critical_success_piloting', 'modifier_pilot_increased_shoot_hunter_chances'],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'astronavigation_neron_cpu_priority_default',
@@ -1053,6 +1131,7 @@ class StatusConfigData
             'modifierConfigs' => [
                 'modifier_for_daedalus_+1sector_revealed_on_action_analyze_planet',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'defence_neron_cpu_priority_default',
@@ -1063,6 +1142,7 @@ class StatusConfigData
                 'modifier_for_daedalus_random50_+1_charge_turret_on_recharge',
                 'modifier_for_daedalus_increase_turret_max_charges',
             ],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'changed_cpu_priority_default',
@@ -1076,6 +1156,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => 'project_participations_default',
@@ -1089,6 +1170,7 @@ class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => true,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
     ];
 }

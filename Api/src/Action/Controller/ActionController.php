@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Class UsersController.
+ * Class ActionController.
  */
 class ActionController extends AbstractGameController
 {
@@ -43,123 +43,78 @@ class ActionController extends AbstractGameController
      *
      * @OA\RequestBody (
      *      description="Input data format",
-     *
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *
-     *      @OA\Schema(
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
      *              type="object",
-     *
-     *                 @OA\Property(
-     *                     property="action",
-     *                     description="The action id to perform",
-     *                     type="integer",
-     *                 ),
-     *                  @OA\Property(
+     *              @OA\Property(
+     *                  property="action",
+     *                  description="The action id to perform",
+     *                  type="integer",
+     *              ),
+     *              @OA\Property(
      *                  property="params",
      *                  description="Informations to execute the action",
      *                  type="object",
-     *                      @OA\Property(
-     *                          property="target",
-     *                          description="The target of the action",
-     *                          type="object",
-     *                          oneOf={
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="door",
-     *                                      description="The id of the door targeted",
-     *                                      type="integer",
-     *                                  ),
-     *                              ),
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="item",
-     *                                      description="The id of the item targeted",
-     *                                      type="integer",
-     *                                  ),
-     *                              ),
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="player",
-     *                                      description="The id of the player targeted",
-     *                                      type="integer",
-     *                                  ),
-     *                              ),
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="hunter",
-     *                                      description="The id of the hunter targeted",
-     *                                      type="integer",
-     *                                   ),
-     *                               ),
-     *                      @OA\Property(
-     *                          property="content",
-     *                          description="A message writen by the user",
-     *                          type="string",
-     *                      ),
-     *                      @OA\Property(
-     *                          property="actionProvider",
-     *                          description="The actionProvider",
-     *                          type="object",
-     *                          oneOf={
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="equipment",
-     *                                      description="The id of the equipment provider",
-     *                                      type="integer",
-     *                                  ),
-     *                              ),
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="status",
-     *                                      description="The id of the status provider",
-     *                                      type="integer",
-     *                                  ),
-     *                              ),
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="player",
-     *                                      description="The id of the player provider",
-     *                                      type="integer",
-     *                                  ),
-     *                              ),
-     *
-     *                              @OA\Schema(
-     *                                  type="object",
-     *
-     *                                  @OA\Property(
-     *                                      property="place",
-     *                                      description="The id of the place provider",
-     *                                      type="integer",
-     *                                  ),
-     *                              ),
-     *                      ),
-     *                 )
-     *             )
-     *         )
-     *     )
-     *
+     *                  @OA\Property(
+     *                      property="target",
+     *                      description="The target of the action",
+     *                      type="object",
+     *                          @OA\Property(
+     *                              property="door",
+     *                              description="The id of the door targeted",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="item",
+     *                              description="The id of the item targeted",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="player",
+     *                              description="The id of the player targeted",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="hunter",
+     *                              description="The id of the hunter targeted",
+     *                              type="integer",
+     *                          )
+     *                  ),
+     *                  @OA\Property(
+     *                      property="content",
+     *                      description="A message written by the user",
+     *                      type="string",
+     *                  ),
+     *                  @OA\Property(
+     *                      property="actionProvider",
+     *                      description="The actionProvider",
+     *                      type="object",
+     *                          @OA\Property(
+     *                              property="equipment",
+     *                              description="The id of the equipment provider",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="status",
+     *                              description="The id of the status provider",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="player",
+     *                              description="The id of the player provider",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="place",
+     *                              description="The id of the place provider",
+     *                              type="integer",
+     *                          )
+     *                  )
+     *              )
+     *          )
+     *      )
+     *   )
      * @OA\Tag(name="Player")
      *
      * @Security(name="Bearer")

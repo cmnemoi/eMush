@@ -1,4 +1,4 @@
-Mush\Action\Entity\Action:
+Mush\Action\Entity\ActionConfig:
   attributes:                          # optional
     id:
       groups: [ 'action_read' ]
@@ -8,9 +8,9 @@ Mush\Action\Entity\Action:
       groups: [ 'action_read', 'action_write' ]
     types:
       groups: [ 'action_read', 'action_write' ]
-    target:
+    displayHolder:
       groups: [ 'action_read', 'action_write' ]
-    scope:
+    range:
       groups: [ 'action_read', 'action_write' ]
     actionVariablesArray:
       groups: [ 'action_read', 'action_write' ]

@@ -124,7 +124,7 @@ class StatusConfig
     /**
      * @param array<int, ActionConfig>|Collection<int, ActionConfig> $actionConfigs
      */
-    public function setActionConfig(array|Collection $actionConfigs): static
+    public function setActionConfigs(array|Collection $actionConfigs): static
     {
         if (\is_array($actionConfigs)) {
             $actionConfigs = new ArrayCollection($actionConfigs);

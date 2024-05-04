@@ -21,7 +21,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -165,7 +164,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->kuanTi, $pilgredProject);
         $this->repairPilgredAction->execute();
 
-        // then Chun's efficiency should be reset to 1
+        // then Chun's efficiency should be reset to 1-1%
         $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
@@ -220,25 +219,14 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
         $this->repairPilgredAction->execute();
 
-        // then Chun's efficiency should be 1
+        // then Chun's efficiency should be 1-1%
         $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
     {
-        /** @var ChargeStatus $status */
-        $status = $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::PROJECT_PARTICIPATIONS,
-            holder: $player,
-            tags: [],
-            time: new \DateTime(),
-            target: $project,
-        );
-        $this->statusService->updateCharge(
-            chargeStatus: $status,
-            delta: 10000,
-            tags: [],
-            time: new \DateTime(),
-        );
+        for ($i = 0; $i < $player->getEfficiencyForProject($project)->max; ++$i) {
+            $project->addPlayerParticipation($player);
+        }
     }
 }

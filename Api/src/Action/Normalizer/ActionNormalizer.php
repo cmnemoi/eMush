@@ -200,11 +200,11 @@ class ActionNormalizer implements NormalizerInterface
     private function getNormalizedSpecialistPointCosts(Player $currentPlayer, Action $action): array
     {
         $specialistPointCostRules = [
-            'shootPoint' => [
+            'shoot' => [
                 'Skill' => SkillEnum::SHOOTER,
                 'CompatibleActionTypes' => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER],
             ],
-            'engineerPoint' => [
+            'engineer' => [
                 'Skill' => SkillEnum::TECHNICIAN,
                 'CompatibleActionTypes' => [ActionTypeEnum::ACTION_TECHNICIAN],
             ],

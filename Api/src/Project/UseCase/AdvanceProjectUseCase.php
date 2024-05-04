@@ -19,9 +19,11 @@ final class AdvanceProjectUseCase
     public function execute(Player $player, Project $project): void
     {
         $efficiency = $player->getEfficiencyForProject($project);
-
         $progress = $this->getRandomIntegerService->execute($efficiency->min, $efficiency->max);
+
         $project->makeProgress($progress);
+        $project->addPlayerParticipation($player);
+        $project->resetOtherPlayersParticipations($player);
 
         $this->projectRepository->save($project);
     }

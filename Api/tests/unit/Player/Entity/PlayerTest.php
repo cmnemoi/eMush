@@ -13,7 +13,6 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use Mush\Project\ValueObject\PlayerEfficiency;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -32,6 +31,7 @@ final class PlayerTest extends TestCase
     ): void {
         // Given I have a player
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+        $this->setPlayerId($player, 1);
 
         // Given this player has a certain number of participations in a project
         $this->setPlayerNumberOfParticipations($player, $project, $numberOfParticipations);
@@ -57,6 +57,7 @@ final class PlayerTest extends TestCase
         // Given I have a player
         $daedalus = DaedalusFactory::createDaedalus();
         $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $this->setPlayerId($player, 1);
 
         // Given this player has a certain number of participations in a project
         $this->setPlayerNumberOfParticipations($player, $project, $numberOfParticipations);
@@ -79,6 +80,7 @@ final class PlayerTest extends TestCase
         // Given I have a player
         $daedalus = DaedalusFactory::createDaedalus();
         $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $this->setPlayerId($player, 1);
 
         // Given player has the Pilot skill
         StatusFactory::createStatusByNameForHolder(SkillEnum::PILOT, holder: $player);
@@ -98,6 +100,7 @@ final class PlayerTest extends TestCase
         // Given I have a player
         $daedalus = DaedalusFactory::createDaedalus();
         $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
+        $this->setPlayerId($player, 1);
 
         // Given player has the Pilot and Technician skills
         StatusFactory::createStatusByNameForHolder(SkillEnum::PILOT, holder: $player);
@@ -195,11 +198,17 @@ final class PlayerTest extends TestCase
         ];
     }
 
-    private function setPlayerNumberOfParticipations(Player $player, Project $project, int $charge): void
+    private function setPlayerId(Player $player, int $id): void
     {
-        $numberOfParticipationsStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $numberOfParticipationsStatus
-            ->setTarget($project)
-            ->setCharge($charge);
+        $reflection = new \ReflectionClass($player);
+        $reflection->getProperty('id')->setValue($player, $id);
+    }
+
+    private function setPlayerNumberOfParticipations(Player $player, Project $project, int $number): void
+    {
+        $project->removeAllPlayerParticipations($player);
+        for ($i = 0; $i < $number; ++$i) {
+            $project->addPlayerParticipation($player);
+        }
     }
 }

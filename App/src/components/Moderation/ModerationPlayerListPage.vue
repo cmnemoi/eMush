@@ -72,6 +72,7 @@
             <template #row-actions="player">
                 <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
                 <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+                <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
                 <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
             </template>
         </Datatable>
@@ -96,7 +97,8 @@ export default defineComponent({
     },
     computed: {
         ...mapGetters({
-            isAdmin: 'auth/isAdmin'
+            isAdmin: 'auth/isAdmin',
+            isModerator: 'auth/isModerator'
         })
     },
     data() {

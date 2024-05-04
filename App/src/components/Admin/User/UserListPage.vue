@@ -42,22 +42,20 @@
                 Actions
             </template>
             <template #row-actions="user">
-                <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }" v-if="isAdmin">{{ $t('moderation.sanctionList') }}</router-link>
+                <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
+                <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
+                <Tippy
+                    tag="button"
+                    class="action-button"
+                    v-if="!user.isBanned"
+                    @click="openModerationDialog(user)">
+                    {{ $t('moderation.sanction.ban_user') }}
+                    <template #content>
+                        <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
+                        <p>{{ $t('moderation.sanction.banDescription') }}</p>
+                    </template>
+                </Tippy>
                 <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
-                <div v-if="isModerator">
-                    <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
-                    <Tippy
-                        tag="button"
-                        class="action-button"
-                        v-if="!user.isBanned"
-                        @click="openModerationDialog(user)">
-                        {{ $t('moderation.sanction.ban_user') }}
-                        <template #content>
-                            <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
-                            <p>{{ $t('moderation.sanction.banDescription') }}</p>
-                        </template>
-                    </Tippy>
-                </div>
             </template>
         </Datatable>
     </div>

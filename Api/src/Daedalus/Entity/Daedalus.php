@@ -733,4 +733,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     {
         return $this->getDaedalusConfig()->getNumberOfProjectsByBatch();
     }
+
+    public function getAlivePlayersInSpaceBattle(): Collection
+    {
+        return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->isInSpaceBattle());
+    }
 }

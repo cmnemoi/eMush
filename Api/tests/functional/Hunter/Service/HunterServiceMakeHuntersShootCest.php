@@ -380,7 +380,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     public function shouldNotReduceHullIfPlasmaShieldIfFinished(FunctionalTester $I): void
     {
         // given I have one hunter
-        $this->createHunterTargetingDaedalus($I);
+        $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
 
         // given plasma shield project is finished
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
@@ -399,7 +399,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     public function shouldReduceShieldIfPlasmaShieldIfFinished(FunctionalTester $I): void
     {
         // given I have one hunter
-        $this->createHunterTargetingDaedalus($I);
+        $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
 
         // given plasma shield project is finished
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
@@ -419,7 +419,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     public function shouldReduceHullAndShieldIfShieldIsInsufficient(FunctionalTester $I): void
     {
         // given I have one hunter
-        $this->createHunterTargetingDaedalus($I);
+        $this->createHunterTargetingDaedalusByName($I, HunterEnum::HUNTER);
 
         // given plasma shield project is finished
         $plasmaShield = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
@@ -439,6 +439,37 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 0,
             actual: $this->daedalus->getShield(),
+        );
+    }
+
+    public function shouldNotReduceShieldIfHunterShootingIsAsteroid(FunctionalTester $I): void
+    {
+        // given I have one asteroid
+        $daedalus = $this->createDaedalusForAsteroidTest($I);
+
+        // remove asteroid truce status
+        $asteroid = $daedalus->getAttackingHunters()->first();
+        $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
+        $asteroid->removeStatus($truceStatus);
+
+        // given plasma shield project is finished
+        $plasmaShield = $daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $plasmaShield->makeProgress(100);
+        $daedalus->setShield(5);
+
+        // when I make the asteroid shoot
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
+
+        // then the hull should be damaged
+        $I->assertLessThan(
+            expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull(),
+            actual: $daedalus->getHull(),
+        );
+
+        // then the shield should not be damaged
+        $I->assertEquals(
+            expected: 5,
+            actual: $daedalus->getShield(),
         );
     }
 
@@ -585,10 +616,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         return $daedalus;
     }
 
-    private function createHunterTargetingDaedalus(FunctionalTester $I): Hunter
+    private function createHunterTargetingDaedalusByName(FunctionalTester $I, string $hunterName): Hunter
     {
         /** @var HunterConfig $hunterConfig */
-        $hunterConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter('hunter');
+        $hunterConfig = $this->daedalus->getGameConfig()->getHunterConfigs()->getHunter($hunterName);
 
         $hunter = new Hunter($hunterConfig, $this->daedalus);
         $hunter->setHunterVariables($hunterConfig);

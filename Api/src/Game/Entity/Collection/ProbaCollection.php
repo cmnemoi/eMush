@@ -12,9 +12,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 final class ProbaCollection extends ArrayCollection
 {
-    public function getElementProbability(int|string $key): ?int
+    public function getElementProbability(int|string $key): int
     {
-        return $this->get($key);
+        $probability = $this->get($key);
+        if ($probability === null) {
+            throw new \RuntimeException("Probability for element '{$key}' not found");
+        }
+
+        return $probability;
     }
 
     public function setElementProbability(int|string $key, int $value): self

@@ -264,10 +264,10 @@ class HunterConfig
         return $this;
     }
 
-    public function getTargetProbabilities(): ?ProbaCollection
+    public function getTargetProbabilities(): ProbaCollection
     {
         if ($this->targetProbabilities === null) {
-            return null;
+            return new ProbaCollection();
         }
 
         return new ProbaCollection($this->targetProbabilities);

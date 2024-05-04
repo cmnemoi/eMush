@@ -11,6 +11,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -97,6 +98,15 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     public function getTarget(): ?HunterTarget
     {
         return $this->target;
+    }
+
+    public function getTargetEntityOrThrow(): HunterTargetEntityInterface
+    {
+        if ($this->target === null) {
+            throw new \RuntimeException('Hunter has no target');
+        }
+
+        return $this->target->getTargetEntity();
     }
 
     public function setTarget(HunterTarget $target): self
@@ -275,5 +285,10 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Modi
     public function getActionTargetName(array $context): string
     {
         return ActionTargetName::HUNTER->value;
+    }
+
+    public function isNotAnAsteroid(): bool
+    {
+        return $this->getHunterConfig()->getHunterName() !== HunterEnum::ASTEROID;
     }
 }

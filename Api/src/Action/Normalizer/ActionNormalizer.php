@@ -4,6 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
+use Mush\Action\DTO\ActionSpecialistPointRule;
 use Mush\Action\Entity\Action;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -23,7 +24,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
 {
-    private const ACTION_TYPE_DESCRIPTION_MAP = [
+    private const array ACTION_TYPE_DESCRIPTION_MAP = [
         ActionTypeEnum::ACTION_AGGRESSIVE => ActionTypeEnum::ACTION_AGGRESSIVE,
         VisibilityEnum::COVERT => VisibilityEnum::COVERT,
         VisibilityEnum::SECRET => VisibilityEnum::SECRET,
@@ -151,10 +152,9 @@ class ActionNormalizer implements NormalizerInterface
 
     private function loadParameters(array $context): array
     {
-        $parameters = [];
-        $parameters['actionTarget'] = $this->getActionTargetFromContextService->execute($context);
-
-        return $parameters;
+        return [
+            'actionTarget' => $this->getActionTargetFromContextService->execute($context),
+        ];
     }
 
     private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
@@ -162,7 +162,7 @@ class ActionNormalizer implements NormalizerInterface
         foreach ($types as $type) {
             if (\array_key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
                 $key = self::ACTION_TYPE_DESCRIPTION_MAP[$type];
-                $description = $description . '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
+                $description .= '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
             }
         }
 
@@ -199,37 +199,36 @@ class ActionNormalizer implements NormalizerInterface
 
     private function getNormalizedSpecialistPointCosts(Player $currentPlayer, Action $action): array
     {
+        /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
         $specialistPointCostRules = [
-            'shoot' => [
-                'Skill' => SkillEnum::SHOOTER,
-                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER],
-            ],
-            'engineer' => [
-                'Skill' => SkillEnum::TECHNICIAN,
-                'CompatibleActionTypes' => [ActionTypeEnum::ACTION_TECHNICIAN],
-            ],
+            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]),
+            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN]),
         ];
 
         $specialistPointCosts = [];
-        foreach ($specialistPointCostRules as $key => $value) {
-            $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $value);
+        foreach ($specialistPointCostRules as $specialistPointCostRule) {
+            $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $specialistPointCostRule);
             if ($specialistPointCost) {
-                $specialistPointCosts[] = $key;
+                $specialistPointCosts[] = $specialistPointCostRule->name;
             }
         }
 
         return $specialistPointCosts;
     }
 
-    private function getSpecialistPointCost(Player $currentPlayer, Action $action, array $specialistPointCostRule): ?int
+    /**
+     * Check how many specialist points the user will be charged for.
+     */
+    private function getSpecialistPointCost(Player $currentPlayer, Action $action, ActionSpecialistPointRule $specialistPointCostRule): ?int
     {
-        if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule['CompatibleActionTypes'])) {
+        if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule->actionTypes)) {
             return null;
         }
 
         /** @var ?ChargeStatus $skill */
-        $skill = $currentPlayer->getSkillByName($specialistPointCostRule['Skill']);
-        if ($skill?->getCharge() > 0) {
+        $skill = $currentPlayer->getSkillByName($specialistPointCostRule->skill);
+
+        if ($skill?->getCharge() > 0 && $currentPlayer->hasSkill($specialistPointCostRule->skill)) {
             return 1;
         }
 

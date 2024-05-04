@@ -7,7 +7,8 @@
             @keydown.enter.exact.prevent="sendNewMessage"
             @keydown.enter.ctrl.exact.prevent="breakLine"
             @keydown.enter.shift.exact.prevent="breakLine"
-            @keyup="updateTypedMessage(text); resize()"
+            @keyup="resize()"
+            @focusout ="updateTypedMessage(text);"
             @keyup.enter.exact.prevent="clearTypedMessage"
         />
         <button
@@ -76,11 +77,13 @@ export default defineComponent ({
         }
     },
     mounted() {
-        this.text = this.typedMessage;
+        this.text = this.$refs.input.value = this.typedMessage;
+        this.resize();
     },
     watch: {
         typedMessage() {
-            this.text = this.typedMessage;
+            this.text = this.$refs.input.value = this.typedMessage;
+            this.resize();
         }
     }
 });

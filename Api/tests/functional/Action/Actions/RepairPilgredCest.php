@@ -79,7 +79,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $pilgredProject = $this->daedalus->getPilgred();
 
         // and Chun's efficiency is 0
-        $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject, $I);
+        $this->setPlayerProjectEfficiencyToZero($this->chun, $pilgredProject);
 
         // when Chun tries to repair the PILGRED project
         $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);

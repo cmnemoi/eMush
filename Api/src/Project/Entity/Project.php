@@ -10,20 +10,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
-use Mush\Status\Entity\Status;
-use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Entity\StatusTarget;
-use Mush\Status\Entity\TargetStatusTrait;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionTargetInterface, StatusHolderInterface
+class Project implements LogParameterInterface, ActionTargetInterface
 {
-    use TargetStatusTrait;
-
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;
     public const int SKILL_BONUS = 4;
@@ -48,14 +43,14 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'projects')]
     private Daedalus $daedalus;
 
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
-    private Collection $statuses;
+    #[ORM\ManyToMany(targetEntity: Player::class)]
+    private Collection $participants;
 
     public function __construct(ProjectConfig $config, Daedalus $daedalus)
     {
         $this->config = $config;
         $this->daedalus = $daedalus;
-        $this->statuses = new ArrayCollection();
+        $this->participants = new ArrayCollection();
 
         $this->daedalus->addProject($this);
 
@@ -163,20 +158,6 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
         return ActionTargetName::PROJECT->value;
     }
 
-    public function addStatus(Status $status): static
-    {
-        if (!$this->getStatuses()->contains($status)) {
-            if (!$statusTarget = $status->getStatusTargetTarget()) {
-                $statusTarget = new StatusTarget();
-            }
-            $statusTarget->setOwner($status);
-            $statusTarget->setProject($this);
-            $this->statuses->add($statusTarget);
-        }
-
-        return $this;
-    }
-
     public function isFinished(): bool
     {
         return $this->progress >= 100;
@@ -205,5 +186,35 @@ class Project implements LogParameterInterface, ActionTargetInterface, StatusHol
     public function isFinishedNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isFinished();
+    }
+
+    public function getPlayerParticipations(Player $player): int
+    {
+        return $this->participants->filter(
+            static fn (Player $participant) => $participant->getId() === $player->getId()
+        )->count();
+    }
+
+    public function addPlayerParticipation(Player $player): void
+    {
+        $this->participants->add($player);
+    }
+
+    public function resetOtherPlayersParticipations(Player $player): void
+    {
+        foreach ($this->participants as $participant) {
+            if ($participant->getId() !== $player->getId()) {
+                $this->participants->removeElement($participant);
+            }
+        }
+    }
+
+    public function removeAllPlayerParticipations(Player $player): void
+    {
+        foreach ($this->participants as $participant) {
+            if ($participant->getId() === $player->getId()) {
+                $this->participants->removeElement($participant);
+            }
+        }
     }
 }

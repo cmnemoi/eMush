@@ -9,7 +9,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Project\Entity\Project;
 use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
@@ -86,9 +85,6 @@ class Status
         if ($daedalus = $this->owner->getDaedalus()) {
             return $daedalus;
         }
-        if ($project = $this->owner->getProject()) {
-            return $project;
-        }
 
         throw new \LogicException('There should always be a target on a status target');
     }
@@ -115,9 +111,6 @@ class Status
         if ($place = $this->target->getPlace()) {
             return $place;
         }
-        if ($project = $this->target->getProject()) {
-            return $project;
-        }
 
         throw new \LogicException('There should always be a target on a status target');
     }
@@ -136,8 +129,6 @@ class Status
             $statusTarget->setGameEquipment($target);
         } elseif ($target instanceof Place) {
             $statusTarget->setPlace($target);
-        } elseif ($target instanceof Project) {
-            $statusTarget->setProject($target);
         } else {
             $statusTarget = null;
         }
@@ -203,8 +194,6 @@ class Status
             $statusOwner->setHunter($owner);
         } elseif ($owner instanceof Daedalus) {
             $statusOwner->setDaedalus($owner);
-        } elseif ($owner instanceof Project) {
-            $statusOwner->setProject($owner);
         }
 
         $this->owner = $statusOwner;

@@ -8,7 +8,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Project\Entity\Project;
 
 #[ORM\Entity]
 class StatusTarget
@@ -38,9 +37,6 @@ class StatusTarget
 
     #[ORM\ManyToOne(targetEntity: Hunter::class, inversedBy: 'statuses')]
     private ?Hunter $hunter = null;
-
-    #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'statuses')]
-    private ?Project $project = null;
 
     public function getId(): ?int
     {
@@ -150,19 +146,6 @@ class StatusTarget
         return $this;
     }
 
-    public function getProject(): ?Project
-    {
-        return $this->project;
-    }
-
-    public function setProject(Project $project): self
-    {
-        $this->project = $project;
-        $project->addStatusTarget($this);
-
-        return $this;
-    }
-
     public function removeStatusLinksTarget(): void
     {
         $this->owner = null;
@@ -172,6 +155,5 @@ class StatusTarget
         $this->place = null;
         $this->daedalus = null;
         $this->hunter = null;
-        $this->project = null;
     }
 }

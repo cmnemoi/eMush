@@ -232,6 +232,7 @@ export default defineComponent ({
 
         ul {
             flex-wrap: wrap;
+            justify-content: center;
             gap: 0.2em 1.2em;
             margin: auto auto 0.8em;
         }

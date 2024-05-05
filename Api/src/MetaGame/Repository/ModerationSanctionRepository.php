@@ -31,10 +31,10 @@ final class ModerationSanctionRepository extends ServiceEntityRepository
      */
     public function findAllUserActiveWarnings(User $user): array
     {
-        $sql = <<<EOD
-        SELECT * 
-        FROM moderationSanction 
-        WHERE user_id = :userId 
+        $sql = <<<'EOD'
+        SELECT *
+        FROM moderationSanction
+        WHERE user_id = :userId
         AND moderation_action = :moderationAction
         AND end_date > NOW()
         EOD;

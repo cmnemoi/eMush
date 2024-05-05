@@ -77,7 +77,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
     public function shouldNotReturnUserInactiveWarnings(FunctionalTester $I): void
     {
         $yesterday = (new \DateTime())->sub(new \DateInterval('P1D'));
-        
+
         // given Chun's user is warned
         $this->moderationService->warnUser(
             user: $this->chun->getUser(),

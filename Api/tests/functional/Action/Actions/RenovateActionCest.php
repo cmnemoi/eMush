@@ -15,6 +15,8 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
@@ -37,6 +39,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
     private Action $action;
     private Place $alphaBay2;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
@@ -50,6 +53,8 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
         $this->action = $I->grabEntityFromRepository(Action::class, ['name' => ActionEnum::RENOVATE]);
         $this->renovateAction = $I->grabService(Renovate::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -307,6 +312,78 @@ final class RenovateActionCest extends AbstractFunctionalTest
             expected: $this->renovateAction->cannotExecuteReason(),
             actual: ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
         );
+    }
+
+    public function shouldSuccessRateBeDoubledByTechnicianSkill(FunctionalTester $I): void
+    {
+        // given I have a Pasiphae in the room
+        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $this->alphaBay2,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is a technician
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given renovate action has a 25% success rate
+        $this->action->setSuccessRate(25);
+
+        // when Chun tries to renovate the Pasiphae
+        $this->renovateAction->loadParameters($this->action, $this->chun, $pasiphae);
+
+        // then the success rate of the Repair action is boosted to 50%
+        $I->assertEquals(50, $this->renovateAction->getSuccessRate());
+    }
+
+    public function shouldConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
+    {
+        // given I have a Pasiphae in the room
+        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $this->alphaBay2,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Pasiphae has one armor point
+        /** @var ChargeStatus $pasiphaeArmor */
+        $pasiphaeArmor = $pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $pasiphaeArmor->setCharge(1);
+
+        // given some metal scraps are available
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->alphaBay2,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Chun is a technician
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun has one Technician point
+        /** @var ChargeStatus $skill */
+        $skill = $this->chun->getSkillByName(SkillEnum::TECHNICIAN);
+        $skill->setCharge(1);
+
+        // when Chun renovates the Pasiphae
+        $this->renovateAction->loadParameters($this->action, $this->chun, $pasiphae);
+        $result = $this->renovateAction->execute();
+
+        // then one of Chun's Technician points is consumed
+        $I->assertEquals(0, $skill->getCharge());
     }
 
     private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void

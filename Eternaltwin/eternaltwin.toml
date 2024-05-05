@@ -1,0 +1,15 @@
+[backend]
+store = "Postgres"
+
+[postgres]
+host = "mush_database"
+port = 5432
+name = "etwin.dev"
+user = "mysql"
+password = "password"
+
+[seed.app.emush_dev]
+display_name = "eMush"
+uri = "http://localhost/"
+oauth_callback = "http://localhost:8080/oauth/callback"
+secret = "dev_secret"

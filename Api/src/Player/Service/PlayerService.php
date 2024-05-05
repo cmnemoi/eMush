@@ -346,8 +346,12 @@ class PlayerService implements PlayerServiceInterface
     {
         $currentRoom = $player->getPlace();
         foreach ($player->getEquipments() as $item) {
-            $item->setHolder($currentRoom);
-            $this->gameEquipmentService->persist($item);
+            if ($player->isExploringOrIsLostOnPlanet()) {
+                $this->gameEquipmentService->delete($item);
+            } else {
+                $item->setHolder($currentRoom);
+                $this->gameEquipmentService->persist($item);
+            }           
         }
 
         if ($endReason === EndCauseEnum::QUARANTINE) {

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\ClosedExploration;
@@ -437,5 +438,43 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // then desert sector still has again event
         $I->assertEquals(PHP_INT_MAX - 1, $desertSector->getExplorationEvents()[PlanetSectorEvent::AGAIN]);
+    }
+
+    public function testCloseExplorationDoesNotReturnDeadPlayerEquipmentInDaedalus(FunctionalTester $I): void
+    {
+        // given a planet with 1 desert sector
+        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
+
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );        
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $planet,
+            explorators: new PlayerCollection([$this->chun, $this->kuanTi]),
+        );
+
+        // given Chun dies
+        $deathEvent = new PlayerEvent(
+            $this->chun,
+            [PlanetSectorEvent::PLANET_SECTOR_EVENT, EndCauseEnum::INJURY], 
+            new \DateTime()
+        );
+        $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);
+
+        // when exploration is closed
+        $this->explorationService->closeExploration($exploration, ['test']);
+
+        // then I should not see the spacesuit in Icarus Bay
+        $I->assertFalse(
+            $this->daedalus
+                ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
+                ->hasEquipmentByName(GearItemEnum::SPACESUIT)
+        );
     }
 }

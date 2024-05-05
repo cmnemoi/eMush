@@ -15,6 +15,7 @@ class UserVoter extends Voter
     public const string IS_NOT_BANNED = 'IS_NOT_BANNED';
     public const string NOT_IN_GAME = 'NOT_IN_GAME';
     public const string USER_IN_GAME = 'user_in_game';
+    public const string IS_REQUEST_USER = 'IS_REQUEST_USER';
 
     private RoleHierarchyInterface $roleHierarchy;
 
@@ -33,6 +34,7 @@ class UserVoter extends Voter
             self::IS_NOT_BANNED,
             self::NOT_IN_GAME,
             self::USER_IN_GAME,
+            self::IS_REQUEST_USER,
         ], true)) {
             return false;
         }
@@ -67,6 +69,9 @@ class UserVoter extends Voter
 
             case self::IS_CONNECTED:
                 return $user instanceof User;
+
+            case self::IS_REQUEST_USER:
+                return $user->getUserId() === $subject->getUserId();
         }
 
         throw new \LogicException('This code should not be reached!');

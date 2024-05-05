@@ -7,6 +7,7 @@ use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
+use Mush\User\Factory\UserFactory;
 use Mush\User\Voter\UserVoter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -94,6 +95,21 @@ final class UserVoterTest extends TestCase
         $user = new User();
 
         $this->testVote(UserVoter::IS_CONNECTED, $user, $user, Voter::ACCESS_GRANTED);
+    }
+
+    public function testShouldGiveAccessToRequestUser(): void
+    {
+        $user = UserFactory::createUser();
+
+        $this->testVote(UserVoter::IS_REQUEST_USER, $user, $user, Voter::ACCESS_GRANTED);
+    }
+
+    public function testShouldDenyAccessToNotRequestUser(): void
+    {
+        $user = UserFactory::createUser();
+        $otherUser = UserFactory::createUser();
+
+        $this->testVote(UserVoter::IS_REQUEST_USER, $otherUser, $user, Voter::ACCESS_DENIED);
     }
 
     private function banUser(User $user): void

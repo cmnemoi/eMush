@@ -15,6 +15,10 @@ security:
             stateless: true
             jwt: ~
 
+        main:
+            entry_point: Mush\Game\Security\AuthenticationEntryPoint
+            access_denied_handler: Mush\Game\Security\AccessDeniedHandler
+
     access_control:
         - { path: ^/oauth, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: PUBLIC_ACCESS }

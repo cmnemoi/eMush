@@ -29,9 +29,15 @@ final class ModerationSanctionRepository extends ServiceEntityRepository
     /**
      * @return ModerationSanction[]
      */
-    public function findAllUserWarnings(User $user): array
+    public function findAllUserActiveWarnings(User $user): array
     {
-        $sql = 'SELECT moderationSanction.* FROM moderationSanction WHERE moderationSanction.user_id = :userId AND moderationSanction.moderation_action = :moderationAction';
+        $sql = <<<EOD
+        SELECT moderationSanction.* 
+        FROM moderationSanction 
+        WHERE moderationSanction.user_id = :userId 
+        AND moderationSanction.moderation_action = :moderationAction
+        AND moderationSanction.end_date > NOW()
+        EOD;
 
         $rsm = new ResultSetMappingBuilder($this->entityManager);
         $rsm->addRootEntityFromClassMetadata(ModerationSanction::class, 'moderation_sanction');

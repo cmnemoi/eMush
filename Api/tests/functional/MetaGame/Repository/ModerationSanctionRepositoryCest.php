@@ -28,7 +28,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         $this->moderationService = $I->grabService(ModerationService::class);
     }
 
-    public function shouldReturnUserWarnings(FunctionalTester $I): void
+    public function shouldReturnUserActiveWarnings(FunctionalTester $I): void
     {
         $now = new \DateTime();
         $oneDayLater = (clone $now)->add(new \DateInterval('P1D'));
@@ -43,7 +43,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         );
 
         // when I get the user warnings from the repository
-        $warnings = $this->moderationSanctionRepository->findAllUserWarnings($this->chun->getUser());
+        $warnings = $this->moderationSanctionRepository->findAllUserActiveWarnings($this->chun->getUser());
 
         // then I should see the user warning
         $I->assertCount(1, $warnings);
@@ -54,7 +54,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         $I->assertEquals($oneDayLater, $warnings[0]->getEndDate());
     }
 
-    public function shouldNotReturnOtherUserWarnings(FunctionalTester $I): void
+    public function shouldNotReturnOtherUserActiveWarnings(FunctionalTester $I): void
     {
         $now = new \DateTime();
 
@@ -68,9 +68,29 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         );
 
         // when I get Chun'swarnings from the repository
-        $warnings = $this->moderationSanctionRepository->findAllUserWarnings($this->chun->getUser());
+        $warnings = $this->moderationSanctionRepository->findAllUserActiveWarnings($this->chun->getUser());
 
         // then I should not see any warning
+        $I->assertCount(0, $warnings);
+    }
+
+    public function shouldNotReturnUserInactiveWarnings(FunctionalTester $I): void
+    {
+        $yesterday = (new \DateTime())->sub(new \DateInterval('P1D'));
+        
+        // given Chun's user is warned
+        $this->moderationService->warnUser(
+            user: $this->chun->getUser(),
+            duration: new \DateInterval('PT1S'),
+            reason: 'flood',
+            message: 'hello, world!',
+            startingDate: $yesterday
+        );
+
+        // when I get the user warnings from the repository
+        $warnings = $this->moderationSanctionRepository->findAllUserActiveWarnings($this->chun->getUser());
+
+        // then I should not see the user warning
         $I->assertCount(0, $warnings);
     }
 }

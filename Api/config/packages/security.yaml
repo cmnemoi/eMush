@@ -14,8 +14,6 @@ security:
             pattern:   ^/api
             stateless: true
             jwt: ~
-
-        main:
             entry_point: Mush\Game\Security\AuthenticationEntryPoint
             access_denied_handler: Mush\Game\Security\AccessDeniedHandler
 

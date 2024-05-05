@@ -91,7 +91,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         // given I have a broken Mycoscan in the room
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
-        // given Chun has a wrench
+        // given Chun is a technician
         $this->statusService->createStatusFromName(
             statusName: SkillEnum::TECHNICIAN,
             holder: $this->chun,
@@ -105,7 +105,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         // when Chun tries to repair the Mycoscan
         $this->repairAction->loadParameters($this->repairActionConfig, $this->chun, $mycoscan);
 
-        // then the success rate of the Repair action is boosted by 50%
+        // then the success rate of the Repair action is boosted to 50%
         $I->assertEquals(50, $this->repairAction->getSuccessRate());
     }
 

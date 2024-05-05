@@ -478,7 +478,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var VariableEventModifierConfig $technicianSpecialistPointModifier */
         $technicianSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_SPECIALIST_POINT);
+
+        /** @var VariableEventModifierConfig $technicianDoubleRepairChanceModifier */
         $technicianDoubleRepairChanceModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_DOUBLE_REPAIR_CHANCE);
+
         $technicianSkillPoc = new ChargeStatusConfig();
         $technicianSkillPoc
             ->setStatusName(SkillEnum::TECHNICIAN)

@@ -32,11 +32,11 @@ final class ModerationSanctionRepository extends ServiceEntityRepository
     public function findAllUserActiveWarnings(User $user): array
     {
         $sql = <<<EOD
-        SELECT moderationSanction.* 
+        SELECT * 
         FROM moderationSanction 
-        WHERE moderationSanction.user_id = :userId 
-        AND moderationSanction.moderation_action = :moderationAction
-        AND moderationSanction.end_date > NOW()
+        WHERE user_id = :userId 
+        AND moderation_action = :moderationAction
+        AND end_date > NOW()
         EOD;
 
         $rsm = new ResultSetMappingBuilder($this->entityManager);

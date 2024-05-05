@@ -27,6 +27,16 @@ export default defineComponent ({
             'getUserInfo',
             'userId'
         ])
+    },
+    methods: {
+        ...mapActions({
+            loadUserWarnings: 'moderation/loadUserWarnings'
+        })
+    },
+    beforeMount(): void {
+        if (this.userId) {
+            this.loadUserWarnings(this.userId);
+        }
     }
 });
 </script>

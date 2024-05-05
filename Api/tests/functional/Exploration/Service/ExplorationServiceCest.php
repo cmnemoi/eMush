@@ -451,7 +451,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime(),
-        );        
+        );
 
         // given an exploration is created
         $exploration = $this->createExploration(
@@ -462,7 +462,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         // given Chun dies
         $deathEvent = new PlayerEvent(
             $this->chun,
-            [PlanetSectorEvent::PLANET_SECTOR_EVENT, EndCauseEnum::INJURY], 
+            [PlanetSectorEvent::PLANET_SECTOR_EVENT, EndCauseEnum::INJURY],
             new \DateTime()
         );
         $this->eventService->callEvent($deathEvent, PlayerEvent::DEATH_PLAYER);

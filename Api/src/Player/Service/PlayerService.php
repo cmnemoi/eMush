@@ -351,7 +351,7 @@ class PlayerService implements PlayerServiceInterface
             } else {
                 $item->setHolder($currentRoom);
                 $this->gameEquipmentService->persist($item);
-            }           
+            }
         }
 
         if ($endReason === EndCauseEnum::QUARANTINE) {

@@ -29,7 +29,7 @@ create-crew: docker-start
 	docker compose -f docker/docker-compose.yml run -u dev mush_php php bin/console mush:create-crew
 
 docker-fresh-start: docker-stop
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --force-recreate --remove-orphans
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --remove-orphans
 
 docker-start: docker-stop
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up -d --no-recreate --remove-orphans

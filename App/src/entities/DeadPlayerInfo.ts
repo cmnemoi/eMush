@@ -11,7 +11,6 @@ export class DeadPlayerInfo {
     public likes: integer;
     public players: Array<DeadPlayerInfo>;
 
-
     constructor() {
         this.character = new Character();
         this.deathDay = null;

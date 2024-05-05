@@ -58,7 +58,7 @@ export default defineComponent({
         ...mapGetters({
             gameInMaintenance: 'admin/gameInMaintenance',
             userLoading: 'auth/isLoading',
-            userId: 'auth/userId',
+            user: 'auth/getUserInfo',
             userWarnings: 'moderation/userWarnings',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
@@ -77,8 +77,8 @@ export default defineComponent({
     },
     beforeMount() {
         this.loadGameMaintenanceStatus();
-        if (this.userId) {
-            this.loadUserWarnings(this.userId);
+        if (this.user) {
+            this.loadUserWarnings(this.user.id);
         }
     }
 });

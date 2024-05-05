@@ -34,8 +34,8 @@ export default defineComponent ({
         })
     },
     beforeMount(): void {
-        if (this.userId) {
-            this.loadUserWarnings(this.userId);
+        if (this.getUserInfo) {
+            this.loadUserWarnings(this.getUserInfo.id);
         }
     }
 });

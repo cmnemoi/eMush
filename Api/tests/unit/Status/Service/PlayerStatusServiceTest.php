@@ -155,7 +155,7 @@ final class PlayerStatusServiceTest extends TestCase
         $starvingConfig->setStatusName(PlayerStatusEnum::STARVING);
         $starvingStatus = new Status($player, $starvingConfig);
 
-        $this->statusService->shouldReceive('removeStatus')->twice();
+        $this->statusService->shouldReceive('removeStatus')->times(4);
         $this->statusService->shouldReceive('createStatusFromName')->never();
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
 
@@ -223,7 +223,7 @@ final class PlayerStatusServiceTest extends TestCase
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player->setSatiety(40);
 
-        $this->statusService->shouldReceive('removeStatus')->once();
+        $this->statusService->shouldReceive('removeStatus')->twice();
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
@@ -242,7 +242,7 @@ final class PlayerStatusServiceTest extends TestCase
         $starvingConfig->setStatusName(PlayerStatusEnum::STARVING);
         new Status($player, $starvingConfig);
 
-        $this->statusService->shouldReceive('removeStatus')->once();
+        $this->statusService->shouldReceive('removeStatus')->twice();
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());
@@ -257,7 +257,7 @@ final class PlayerStatusServiceTest extends TestCase
         $fullStomachConfig->setStatusName(PlayerStatusEnum::FULL_STOMACH);
         new Status($player, $fullStomachConfig);
 
-        $this->statusService->shouldReceive('removeStatus')->once();
+        $this->statusService->shouldReceive('removeStatus')->twice();
         $this->statusService->shouldReceive('createStatusFromName')->never();
 
         $this->playerStatusService->handleSatietyStatus($player, new \DateTime());

@@ -122,6 +122,13 @@ class PlayerStatusService implements PlayerStatusServiceInterface
             );
         } elseif ($player->getSatiety() >= self::STARVING_WARNING_STATUS_THRESHOLD) {
             $this->statusService->removeStatus(
+                PlayerStatusEnum::STARVING_WARNING,
+                $player,
+                [EventEnum::NEW_CYCLE],
+                $dateTime,
+                VisibilityEnum::PRIVATE
+            );
+            $this->statusService->removeStatus(
                 PlayerStatusEnum::STARVING,
                 $player,
                 [EventEnum::NEW_CYCLE],

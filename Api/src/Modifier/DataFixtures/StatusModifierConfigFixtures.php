@@ -60,6 +60,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
     public const string TECHNICIAN_SPECIALIST_POINT = 'technician_specialist_point';
+    public const string TECHNICIAN_DOUBLE_REPAIR_CHANCE = 'technician_double_repair_chance';
 
     public function load(ObjectManager $manager): void
     {
@@ -360,6 +361,20 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_ENGINEER);
         $manager->persist($technicianSpecialist);
 
+        $technicianDoubleRepairChance = new VariableEventModifierConfig('modifier_technician_double_repair_and_renovate_chance');
+        $technicianDoubleRepairChance
+            ->setTargetVariable(ActionVariableEnum::PERCENTAGE_SUCCESS)
+            ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                ActionEnum::REPAIR => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($technicianDoubleRepairChance);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -386,6 +401,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
         $this->addReference(self::TECHNICIAN_SPECIALIST_POINT, $technicianSpecialist);
+        $this->addReference(self::TECHNICIAN_DOUBLE_REPAIR_CHANCE, $technicianDoubleRepairChance);
     }
 
     public function getDependencies(): array

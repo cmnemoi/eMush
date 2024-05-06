@@ -398,7 +398,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // given I have a standard ration in player inventory
+        // given Chun has a standard ration in her inventory
         $ration = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GameRationEnum::STANDARD_RATION,
             equipmentHolder: $this->chun,
@@ -414,7 +414,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         );
         $this->consumeAction->execute();
 
-        // then I should not have any starving statuses
+        // then Chun should not have any starving statuses
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::STARVING_WARNING));
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::STARVING));
     }

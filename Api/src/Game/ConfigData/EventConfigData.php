@@ -15,6 +15,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 /** @codeCoverageIgnore */
 class EventConfigData
 {
+    // Use that once all constructors are refactored
     public static function getAllEventConfig(): array
     {
         return array_merge(

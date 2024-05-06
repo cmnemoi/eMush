@@ -3,9 +3,7 @@
 namespace Mush\Game\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Game\Entity\SpawnEquipmentEventConfig;
-use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Repository\EventConfigRepository;
 
 class SpawnEquipmentEventConfigDataLoader extends ConfigDataLoader

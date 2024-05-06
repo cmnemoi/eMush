@@ -15,6 +15,7 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 #[ORM\DiscriminatorMap([
     'variable_event_config' => VariableEventConfig::class,
     'planet_sector_event_config' => PlanetSectorEventConfig::class,
+    'spawn_equipment_event_config' => SpawnEquipmentEventConfig::class,
 ])]
 abstract class AbstractEventConfig
 {

@@ -30,6 +30,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
@@ -274,25 +275,30 @@ final class CycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(1, $electricCharges->getCharge());
     }
 
-    public function testStarvingDoesNotTriggerTheCycleItAppears(FunctionalTester $I): void
+    public function shouldMakeStarvingStatusAppearAfterThreeDays(FunctionalTester $I): void
     {
-        // given Chun has -23 satiety, so they will start starving at next cycle
-        $this->chun->setSatiety(-23);
+        $this->daedalus->setDay(1)->setCycle(1);
 
-        // given a new cycle passes, so starving status should appear
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        // when 24 cycles pass
+        for ($i = 0; $i < 24; ++$i) {
+            $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+            $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        }
 
-        // when a new cycle passes with starving status
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        // then Chun should have Starving warning status
+        $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::STARVING_WARNING));
+    }
 
-        // then Chun should not have lost any health point
-        $I->assertEquals(14, $this->chun->getHealthPoint());
+    public function shouldMakePlayerStarvingAfterThreeDaysAndOneCycle(FunctionalTester $I): void
+    {
+        // when 25 cycles pass
+        for ($i = 0; $i < 25; ++$i) {
+            $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+            $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        }
 
-        // when another cycle passes with starving status
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        // then Chun should have Starving status
+        $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::STARVING));
 
         // then Chun should have lost 1 health point
         $I->assertEquals(13, $this->chun->getHealthPoint());

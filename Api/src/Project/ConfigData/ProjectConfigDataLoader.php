@@ -29,7 +29,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
             /** @var ProjectConfig $projectConfig */
             $projectConfig = $this->projectConfigRepository->findOneBy(['name' => $projectConfigData['name']]);
 
-            $projectConfigData = $this->getConfigDataWithModifierConfigs($projectConfigData);
+            $projectConfigData = $this->getConfigDataWithAllSubConfigs($projectConfigData);
 
             if (!$projectConfig) {
                 $projectConfig = new ProjectConfig(...$projectConfigData);
@@ -43,10 +43,11 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         $this->entityManager->flush();
     }
 
-    private function getConfigDataWithModifierConfigs(array $projectConfigData): array
+    private function getConfigDataWithAllSubConfigs(array $projectConfigData): array
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
+        // TODO Add activationEvents
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);

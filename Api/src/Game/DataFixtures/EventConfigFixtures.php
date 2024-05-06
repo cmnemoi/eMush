@@ -40,7 +40,7 @@ class EventConfigFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach (EventConfigData::$dataArray as $rawEventConfig) {
+        foreach (EventConfigData::getAllEventConfig() as $rawEventConfig) {
             switch ($rawEventConfig['type']) {
                 case 'variable_event_config':
                     $eventConfig = new VariableEventConfig();

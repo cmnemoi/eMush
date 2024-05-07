@@ -158,6 +158,10 @@
         <source>pilgred.description</source>
         <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
       </segment>
+      <segment id="pilgred.lore" state="translated">
+        <source>pilgred.lore</source>
+        <target></target>
+      </segment>
     </unit>
     <unit id="plasma_shield">
       <segment id="plasma_shield.type" state="translated">

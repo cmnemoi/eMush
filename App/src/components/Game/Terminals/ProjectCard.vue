@@ -3,8 +3,8 @@
         <h3>{{ project.name }}</h3>
         <div class="card">
             <Tippy>
-                <img :src="getImgUrl(`projects/${project.key}.png`)">
-                <template #content>
+                <img :src="getImgUrl(`projects/${project.key}.png`)" alt="{{ project.key }}">
+                <template #content v-if="project.lore != ''">
                     <h1 v-html="formatText(project.name)"></h1>
                     <p v-html="formatText(project.lore)"></p>
                 </template>
@@ -15,7 +15,7 @@
                         tag="div"
                         v-for="skill in project.bonusSkills"
                         :key="skill.name">
-                        <img :src="skillIcons[skill.key].icon">
+                        <img :src="skillIcons[skill.key].icon" alt="{{ skill.key }}">
                         <template #content>
                             <h1 v-html="formatText(skill.name)"></h1>
                             <p v-html="formatText(skill.description)"></p>

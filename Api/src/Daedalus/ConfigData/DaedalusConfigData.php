@@ -13,7 +13,7 @@ class DaedalusConfigData
             'initOxygen' => 32,
             'initFuel' => 20,
             'initHull' => 100,
-            'initShield' => 0,
+            'initShield' => 50,
             'initHunterPoints' => 40,
             'initCombustionChamberFuel' => 0,
             'maxOxygen' => 32,

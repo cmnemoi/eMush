@@ -133,6 +133,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
+                'lore' => 'pilgred.lore',
             ],
             actual: $normalizedProject
         );

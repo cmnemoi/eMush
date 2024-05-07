@@ -152,6 +152,15 @@ abstract class ProjectConfigData
                     'replace_all_showers_by_thalasso',
                 ],
             ],
+            [
+                'name' => ProjectName::BRIC_BROC,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::DESIGNER, SkillEnum::CREATIVE],
+                'activationRate' => 15,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+            ],
         ];
     }
 }

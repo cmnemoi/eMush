@@ -3,7 +3,9 @@
 namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Communication\Entity\Channel;
+use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
@@ -28,6 +30,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -251,5 +256,99 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // then Daedalus has 55 shield
         $I->assertEquals(55, $this->daedalus->getShield());
+    }
+
+    public function shouldPreventAllIncidentsIfBricBrocProjectIsActivated(FunctionalTester $I): void
+    {
+        // given Bric Broc project is finished
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::BRIC_BROC),
+            $this->chun,
+            $I
+        );
+
+        // given bric broc project activation rate is 100%
+        $bricBroc = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
+        $config = $bricBroc->getConfig();
+        (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
+
+        // given Daedalus is Day 50 so a lot of incidents should happen
+        $this->daedalus->setDay(50);
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then I should see no incidents in logs
+
+        // no panic crisis
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => PlayerModifierLogEnum::PANIC_CRISIS,
+            ]
+        );
+
+        // nor fires
+        $I->dontSeeInRepository(
+            entity: Message::class,
+            params: [
+                'message' => NeronMessageEnum::NEW_FIRE,
+            ]
+        );
+
+        // nor metal plates
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::METAL_PLATE,
+            ]
+        );
+
+        // nor tremors
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::TREMOR_NO_GRAVITY,
+            ]
+        );
+    }
+
+    public function shouldCreateANeronAnnouncementWhenBricBrocIsActivated(FunctionalTester $I): void
+    {
+        // given Bric Broc project is finished
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::BRIC_BROC),
+            $this->chun,
+            $I
+        );
+
+        // given bric broc project activation rate is 100%
+        $bricBroc = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
+        $config = $bricBroc->getConfig();
+        (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
+
+        // given Daedalus is Day 50 so a lot of incidents should happen
+        $this->daedalus->setDay(50);
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then I should see a neron announcement
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'message' => NeronMessageEnum::PATCHING_UP,
+            ]
+        );
     }
 }

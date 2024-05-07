@@ -15,7 +15,10 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\DifficultyServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Event\BricBrocProjectWorkedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Lock\LockFactory;
 
@@ -30,19 +33,22 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     private DifficultyServiceInterface $difficultyService;
     private EventServiceInterface $eventService;
     private LockFactory $lockFactory;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
         DaedalusIncidentServiceInterface $daedalusIncidentService,
         DifficultyServiceInterface $difficultyService,
         EventServiceInterface $eventService,
-        LockFactory $lockFactory
+        LockFactory $lockFactory,
+        RandomServiceInterface $randomService
     ) {
         $this->daedalusService = $daedalusService;
         $this->daedalusIncidentService = $daedalusIncidentService;
         $this->difficultyService = $difficultyService;
         $this->eventService = $eventService;
         $this->lockFactory = $lockFactory;
+        $this->randomService = $randomService;
     }
 
     public static function getSubscribedEvents(): array
@@ -157,6 +163,14 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $time = $event->getTime();
 
         if ($this->handleDaedalusEnd($daedalus, $time)) {
+            return;
+        }
+
+        $bricBroc = $daedalus->getProjectByName(ProjectName::BRIC_BROC);
+        if ($bricBroc->isFinished() && $this->randomService->isSuccessful($bricBroc->getActivationRate())) {
+            $bricBrocWorkedEvent = new BricBrocProjectWorkedEvent($daedalus, $event->getTags(), $event->getTime());
+            $this->eventService->callEvent($bricBrocWorkedEvent, BricBrocProjectWorkedEvent::class);
+
             return;
         }
 

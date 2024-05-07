@@ -7,6 +7,7 @@ namespace Mush\Project\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Equipment\DataFixtures\SpawnEquipmentConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\ProjectModifierConfigFixtures;
@@ -41,6 +42,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
     {
         return [
             ProjectModifierConfigFixtures::class,
+            SpawnEquipmentConfigFixtures::class,
         ];
     }
 
@@ -48,7 +50,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
-        $newProjectConfigData['activationEvents'] = [];
+        $newProjectConfigData['spawnEquipmentConfigs'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->getReference($modifierConfigName);
@@ -58,12 +60,12 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
             $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
         }
 
-        foreach ($projectConfigData['activationEvents'] as $activationEvent) {
-            $eventConfig = $this->getReference($activationEvent);
-            if (!$eventConfig) {
-                throw new \RuntimeException("ModifierConfig {$eventConfig->getName()} not found");
+        foreach ($projectConfigData['spawnEquipmentConfigFixtures'] as $spawnEquipmentConfigName) {
+            $spawnEquipmentConfig = $this->getReference($spawnEquipmentConfigName);
+            if (!$spawnEquipmentConfig) {
+                throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentConfig->getName()} not found");
             }
-            $newProjectConfigData['activationEvents'][] = $eventConfig;
+            $newProjectConfigData['spawnEquipmentConfigs'][] = $spawnEquipmentConfig;
         }
 
         return $newProjectConfigData;

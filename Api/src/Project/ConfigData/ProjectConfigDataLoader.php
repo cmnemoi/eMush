@@ -15,7 +15,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
 {
     private EntityRepository $projectConfigRepository;
     private EntityRepository $modifierConfigRepository;
-    private EntityRepository $eventConfigRepository;
+    private EntityRepository $spawnEquipmentConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -23,7 +23,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         parent::__construct($entityManager);
         $this->projectConfigRepository = $entityManager->getRepository(ProjectConfig::class);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
-        $this->eventConfigRepository = $entityManager->getRepository(AbstractEventConfig::class);
+        $this->spawnEquipmentConfigRepository = $entityManager->getRepository(AbstractEventConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -50,7 +50,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
-        $newProjectConfigData['activationEvents'] = [];
+        $newProjectConfigData['spawnEquipmentConfigs'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
@@ -60,12 +60,12 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
             $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
         }
 
-        foreach ($projectConfigData['activationEvents'] as $activationEvent) {
-            $event = $this->eventConfigRepository->findOneBy(['name' => $activationEvent]);
-            if (!$event) {
-                throw new \RuntimeException("EventConfig {$activationEvent} not found");
+        foreach ($projectConfigData['spawnEquipmentConfigs'] as $spawnEquipmentName) {
+            $spawnEquipmentConfig = $this->spawnEquipmentConfigRepository->findOneBy(['name' => $spawnEquipmentName]);
+            if (!$spawnEquipmentConfig) {
+                throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentName} not found");
             }
-            $newProjectConfigData['activationEvents'][] = $event;
+            $newProjectConfigData['spawnEquipmentConfigs'][] = $spawnEquipmentConfig;
         }
 
         return $newProjectConfigData;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentService;
-use Mush\Game\Entity\SpawnEquipmentEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Project\Event\ProjectEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,12 +27,12 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     {
         $project = $projectEvent->getProject();
 
-        /** @var SpawnEquipmentEventConfig $spawnEventConfig */
-        foreach ($project->getActivationEventConfigs() as $spawnEventConfig) {
-            for ($i = 0; $i < $spawnEventConfig->getQuantity(); ++$i) {
+        /** @var SpawnEquipmentConfig $spawnEquipmentConfig */
+        foreach ($project->getSpawnEquipmentConfigs() as $spawnEquipmentConfig) {
+            for ($i = 0; $i < $spawnEquipmentConfig->getQuantity(); ++$i) {
                 $this->equipmentService->createGameEquipmentFromName(
-                    $spawnEventConfig->getEquipmentName(),
-                    $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEventConfig->getRoomName()),
+                    $spawnEquipmentConfig->getEquipmentName(),
+                    $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEquipmentConfig->getPlaceName()),
                     $projectEvent->getTags(),
                     new \DateTime(),
                     VisibilityEnum::PUBLIC

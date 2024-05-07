@@ -6,6 +6,7 @@ namespace Mush\Equipment\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Dto\SpawnEquipmentConfigDto;
+use Mush\Project\Entity\ProjectConfig;
 
 #[ORM\Entity]
 class SpawnEquipmentConfig
@@ -26,6 +27,9 @@ class SpawnEquipmentConfig
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $quantity;
+
+    #[ORM\ManyToOne(targetEntity: ProjectConfig::class, inversedBy: 'spawnEquipmentConfigs')]
+    private ProjectConfig $projectConfig;
 
     public function __construct(
         string $name = '',

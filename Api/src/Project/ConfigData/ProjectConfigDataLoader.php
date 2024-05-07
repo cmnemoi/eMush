@@ -6,8 +6,8 @@ namespace Mush\Project\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Game\ConfigData\ConfigDataLoader;
-use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Entity\ProjectConfig;
 
@@ -23,7 +23,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         parent::__construct($entityManager);
         $this->projectConfigRepository = $entityManager->getRepository(ProjectConfig::class);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
-        $this->spawnEquipmentConfigRepository = $entityManager->getRepository(AbstractEventConfig::class);
+        $this->spawnEquipmentConfigRepository = $entityManager->getRepository(SpawnEquipmentConfig::class);
     }
 
     public function loadConfigsData(): void

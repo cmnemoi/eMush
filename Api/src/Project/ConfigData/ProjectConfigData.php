@@ -22,8 +22,8 @@ abstract class ProjectConfigData
                 'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
-                'activationEvents' => [],
                 'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::FIRE_SENSOR,
@@ -31,8 +31,8 @@ abstract class ProjectConfigData
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::FIREFIGHTER],
                 'activationRate' => 100,
-                'activationEvents' => [],
                 'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::DOOR_SENSOR,
@@ -40,8 +40,8 @@ abstract class ProjectConfigData
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::ROBOTICS_EXPERT],
                 'activationRate' => 100,
-                'activationEvents' => [],
                 'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::EQUIPMENT_SENSOR,
@@ -49,8 +49,8 @@ abstract class ProjectConfigData
                 'efficiency' => 18,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
-                'activationEvents' => [],
                 'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::PLASMA_SHIELD,
@@ -58,11 +58,11 @@ abstract class ProjectConfigData
                 'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
-                'activationEvents' => [],
                 'modifierConfigs' => [
                     'modifier_for_daedalus_set_daedalus_shield_to_50',
                     'modifier_for_daedalus_+5shield_on_new_cycle',
                 ],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::HEAT_LAMP,
@@ -70,8 +70,8 @@ abstract class ProjectConfigData
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
                 'activationRate' => 50,
-                'activationEvents' => [],
                 'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::TRAIL_REDUCER,
@@ -79,10 +79,10 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
-                'activationEvents' => [],
                 'modifierConfigs' => [
                     'modifier_for_daedalus_-25percentage_following_hunters_on_daedalus_travel',
                 ],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::CHIPSET_ACCELERATION,
@@ -90,10 +90,10 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::ASTROPHYSICIST, SkillEnum::IT_EXPERT],
                 'activationRate' => 100,
-                'activationEvents' => [],
                 'modifierConfigs' => [
                     'modifier_for_daedalus_-1actionPoint_on_action_scan_planet',
                 ],
+                'spawnEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::DISMANTLING,
@@ -101,10 +101,10 @@ abstract class ProjectConfigData
                 'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::ROBOTICS_EXPERT],
                 'activationRate' => 100,
-                'activationEvents' => [
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
                     '5_metal_scraps_in_engine_room',
                 ],
-                'modifierConfigs' => [],
             ],
             [
                 'name' => ProjectName::EXTRA_HYDROPONPOTS,
@@ -112,10 +112,10 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
                 'activationRate' => 100,
-                'activationEvents' => [
-                    '3_hydropot_in_garden',
-                ],
                 'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '3_hydropots_in_hydroponic_garden',
+                ],
             ],
             [
                 'name' => ProjectName::AUXILIARY_TERMINAL,
@@ -123,11 +123,11 @@ abstract class ProjectConfigData
                 'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::RADIO_EXPERT, SkillEnum::IT_EXPERT],
                 'activationRate' => 100,
-                'activationEvents' => [
-                    '1_auxiliary_neron_core_in_medlab',
-                    '1_auxiliary_neron_core_in_engine_room',
-                ],
                 'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '1_auxiliary_terminal_in_medlab',
+                    '1_auxiliary_terminal_in_engine_room',
+                ],
             ],
         ];
     }

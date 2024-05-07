@@ -25,14 +25,13 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         $projectConfigs = [];
 
         foreach (ProjectConfigData::getAll() as $data) {
-            $data = $this->getConfigDataWithModifierConfigs($data);
+            $data = $this->getConfigDataWithSubConfigs($data);
 
             $projectConfig = new ProjectConfig(...$data);
             $projectConfigs[] = $projectConfig;
 
             $manager->persist($projectConfig);
         }
-
         $gameConfig->setProjectConfigs($projectConfigs);
 
         $manager->flush();
@@ -46,7 +45,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         ];
     }
 
-    private function getConfigDataWithModifierConfigs(array $projectConfigData): array
+    private function getConfigDataWithSubConfigs(array $projectConfigData): array
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
@@ -60,7 +59,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
             $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
         }
 
-        foreach ($projectConfigData['spawnEquipmentConfigFixtures'] as $spawnEquipmentConfigName) {
+        foreach ($projectConfigData['spawnEquipmentConfigs'] as $spawnEquipmentConfigName) {
             $spawnEquipmentConfig = $this->getReference($spawnEquipmentConfigName);
             if (!$spawnEquipmentConfig) {
                 throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentConfig->getName()} not found");

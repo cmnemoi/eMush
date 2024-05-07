@@ -13,13 +13,14 @@ final class SpawnEquipmentConfigFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $projectConfigs = [];
+        $spawnEquipmentConfigs = [];
 
         foreach (SpawnEquipmentConfigData::getAll() as $data) {
-            $projectConfig = $data->toEntity();
-            $projectConfigs[] = $projectConfig;
+            $spawnEquipmentConfig = $data->toEntity();
+            $spawnEquipmentConfigs[] = $spawnEquipmentConfig;
 
-            $manager->persist($projectConfig);
+            $manager->persist($spawnEquipmentConfig);
+            $this->addReference($spawnEquipmentConfig->getName(), $spawnEquipmentConfig);
         }
 
         $manager->flush();

@@ -6,7 +6,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Game\ConfigData\EventConfigData;
-use Mush\Game\Entity\SpawnEquipmentEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
 
 /** @codeCoverageIgnore */
@@ -63,12 +62,6 @@ class EventConfigFixtures extends Fixture
                 ->setEventName($rawEventConfig['eventName'])
                 ->setName($rawEventConfig['name']);
 
-            $this->addReference($eventConfig->getName(), $eventConfig);
-            $manager->persist($eventConfig);
-        }
-
-        foreach (EventConfigData::$spawnEquipmentEventConfigData as $rawEventConfig) {
-            $eventConfig = new SpawnEquipmentEventConfig(...$rawEventConfig);
             $this->addReference($eventConfig->getName(), $eventConfig);
             $manager->persist($eventConfig);
         }

@@ -70,7 +70,7 @@
       </segment>
       <segment id="door_sensor.lore" state="translated">
         <source>door_sensor.lore</source>
-        <target>En analysant les fumées provenants des pistons defectueux des portes automatiques, NERON peut desormais determiner avec exactitude leurs positions sur les modules persos.</target>
+        <target>En analysant les fumées provenants des pistons defectueux des portes automatiques, NERON peut désormais determiner avec exactitude leurs positions sur les modules persos.</target>
       </segment>
     </unit>
     <unit id="equipment_sensor">
@@ -124,7 +124,7 @@
       </segment>
       <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
-        <target>Equipée avec nos ampoules "douceurs de printemps" ces lampes font des merveilles sur les plantes extraterrestres. Elles immitent à la perfection le rayonnement de notre bon vieux soleil.</target>
+        <target>Equipée avec nos ampoules "douceurs de printemps" ces lampes font des merveilles sur les plantes extraterrestres. Elles imitent à la perfection le rayonnement de notre bon vieux soleil.</target>
       </segment>
     </unit>
     <unit id="parasite_elim">

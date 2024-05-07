@@ -271,5 +271,23 @@
         <target>Votre arthrose vous fait souffrir ? Les lombagos vous torturent ? SNC peut vous aider.</target>
       </segment>
     </unit>
+    <unit id="bric_broc">
+      <segment id="bric_broc.type" state="translated">
+        <source>bric_broc.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="bric_broc.name" state="translated">
+        <source>bric_broc.name</source>
+        <target>Rafistolage Général</target>
+      </segment>
+      <segment id="bric_broc.description" state="translated">
+        <source>bric_broc.description</source>
+        <target>À chaque cycle, le Daedalus a 15% de chance de ne pas partir en miette...</target>
+      </segment>
+      <segment id="bric_broc.lore" state="translated">
+        <source>bric_broc.lore</source>
+        <target>Quelqu'un a pensé à REVISSER les plaques de tôles ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -212,7 +212,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
     <unit id="auxiliary_terminal">
       <segment id="name" state="final">
         <source>auxiliary_terminal.name</source>
-        <target>Cœur de NERON</target>
+        <target>Cœur de NERON auxiliaire</target>
       </segment>
       <segment id="tips" state="final">
         <source>auxiliary_terminal.tips</source>

@@ -517,6 +517,9 @@ class GameConfigData
                 ProjectName::PILGRED,
                 ProjectName::PLASMA_SHIELD,
                 ProjectName::TRAIL_REDUCER,
+                ProjectName::DISMANTLING,
+                ProjectName::EXTRA_HYDROPONPOTS,
+                ProjectName::AUXILIARY_TERMINAL,
             ],
         ],
     ];

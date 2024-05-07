@@ -7,6 +7,7 @@ namespace Mush\Project\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
@@ -37,13 +38,17 @@ class ProjectConfig
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
+    #[ORM\ManyToMany(targetEntity: SpawnEquipmentConfig::class)]
+    private Collection $spawnEquipmentConfigs;
+
     public function __construct(
         ProjectName $name = ProjectName::NULL,
         ProjectType $type = ProjectType::NULL,
         int $efficiency = 0,
         array $bonusSkills = [],
         int $activationRate = 100,
-        array $modifierConfigs = []
+        array $modifierConfigs = [],
+        array $spawnEquipmentConfigs = []
     ) {
         $this->name = $name;
         $this->type = $type;
@@ -51,6 +56,7 @@ class ProjectConfig
         $this->bonusSkills = $bonusSkills;
         $this->activationRate = $activationRate;
         $this->modifierConfigs = new ArrayCollection($modifierConfigs);
+        $this->spawnEquipmentConfigs = new ArrayCollection($spawnEquipmentConfigs);
     }
 
     public function getId(): int
@@ -88,6 +94,11 @@ class ProjectConfig
         return $this->modifierConfigs;
     }
 
+    public function getSpawnEquipmentConfigs(): Collection
+    {
+        return $this->spawnEquipmentConfigs;
+    }
+
     public function updateFromConfigData(array $configData): void
     {
         $this->name = $configData['name'];
@@ -96,5 +107,6 @@ class ProjectConfig
         $this->bonusSkills = $configData['bonusSkills'];
         $this->activationRate = $configData['activationRate'];
         $this->modifierConfigs = new ArrayCollection($configData['modifierConfigs']);
+        $this->spawnEquipmentConfigs = new ArrayCollection($configData['spawnEquipmentConfigs']);
     }
 }

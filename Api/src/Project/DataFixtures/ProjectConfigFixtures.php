@@ -7,6 +7,7 @@ namespace Mush\Project\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Equipment\DataFixtures\SpawnEquipmentConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\ProjectModifierConfigFixtures;
@@ -24,14 +25,13 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         $projectConfigs = [];
 
         foreach (ProjectConfigData::getAll() as $data) {
-            $data = $this->getConfigDataWithModifierConfigs($data);
+            $data = $this->getConfigDataWithSubConfigs($data);
 
             $projectConfig = new ProjectConfig(...$data);
             $projectConfigs[] = $projectConfig;
 
             $manager->persist($projectConfig);
         }
-
         $gameConfig->setProjectConfigs($projectConfigs);
 
         $manager->flush();
@@ -41,13 +41,15 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
     {
         return [
             ProjectModifierConfigFixtures::class,
+            SpawnEquipmentConfigFixtures::class,
         ];
     }
 
-    private function getConfigDataWithModifierConfigs(array $projectConfigData): array
+    private function getConfigDataWithSubConfigs(array $projectConfigData): array
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
+        $newProjectConfigData['spawnEquipmentConfigs'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->getReference($modifierConfigName);
@@ -55,6 +57,14 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
                 throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found");
             }
             $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
+        }
+
+        foreach ($projectConfigData['spawnEquipmentConfigs'] as $spawnEquipmentConfigName) {
+            $spawnEquipmentConfig = $this->getReference($spawnEquipmentConfigName);
+            if (!$spawnEquipmentConfig) {
+                throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentConfig->getName()} not found");
+            }
+            $newProjectConfigData['spawnEquipmentConfigs'][] = $spawnEquipmentConfig;
         }
 
         return $newProjectConfigData;

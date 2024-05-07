@@ -40,35 +40,29 @@ class EventConfigFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach (EventConfigData::$dataArray as $rawEventConfig) {
-            switch ($rawEventConfig['type']) {
-                case 'variable_event_config':
-                    $eventConfig = new VariableEventConfig();
-                    $eventConfig
-                        ->setQuantity($rawEventConfig['quantity'])
-                        ->setTargetVariable($rawEventConfig['targetVariable'])
-                        ->setVariableHolderClass($rawEventConfig['variableHolderClass']);
-
-                    break;
-
-                case 'planet_sector_event_config':
-                    $eventConfig = new PlanetSectorEventConfig();
-                    $eventConfig
-                        ->setOutputTable($rawEventConfig['outputTable'])
-                        ->setOutputQuantity($rawEventConfig['outputQuantity']);
-
-                    break;
-
-                default:
-                    throw new \Exception('Unknown event config type');
-            }
-
+        // TODO Replace constructor to be able to merge all those for loops!
+        foreach (EventConfigData::$variableEventConfigData as $rawEventConfig) {
+            $eventConfig = new VariableEventConfig();
             $eventConfig
+                ->setQuantity($rawEventConfig['quantity'])
+                ->setTargetVariable($rawEventConfig['targetVariable'])
+                ->setVariableHolderClass($rawEventConfig['variableHolderClass'])
                 ->setEventName($rawEventConfig['eventName'])
                 ->setName($rawEventConfig['name']);
 
             $this->addReference($eventConfig->getName(), $eventConfig);
+            $manager->persist($eventConfig);
+        }
 
+        foreach (EventConfigData::$planetSectorEventConfigData as $rawEventConfig) {
+            $eventConfig = new PlanetSectorEventConfig();
+            $eventConfig
+                ->setOutputTable($rawEventConfig['outputTable'])
+                ->setOutputQuantity($rawEventConfig['outputQuantity'])
+                ->setEventName($rawEventConfig['eventName'])
+                ->setName($rawEventConfig['name']);
+
+            $this->addReference($eventConfig->getName(), $eventConfig);
             $manager->persist($eventConfig);
         }
 

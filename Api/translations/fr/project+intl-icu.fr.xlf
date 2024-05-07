@@ -34,6 +34,10 @@
         <source>dismantling.description</source>
         <target>Génère 5 Débris métalliques dans la Salle des Moteurs.</target>
       </segment>
+      <segment id="dismantling.lore" state="translated">
+        <source>dismantling.lore</source>
+        <target>En démontant toutes les expériences ratées de Raluca sur le PILGRED il y a moyen de récupérer un paquet de pièces usagées qui nous serviront à renforcer la coque ou réparer les patrouilleurs !</target>
+      </segment>
     </unit>
     <unit id="door_sensor">
       <segment id="door_sensor.type" state="translated">
@@ -159,6 +163,42 @@
       <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>
         <target>L'action recherche d'une planète coûte 1 :pa: de moins.</target>
+      </segment>
+    </unit>
+    <unit id="extra_hydroponpots">
+      <segment id="extra_hydroponpots.type" state="translated">
+        <source>extra_hydroponpots.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="extra_hydroponpots.name" state="translated">
+        <source>extra_hydroponpots.name</source>
+        <target>Hydropots supplémentaires</target>
+      </segment>
+      <segment id="extra_hydroponpots.description" state="translated">
+        <source>extra_hydroponpots.description</source>
+        <target>Ajoute 3 pots pour faire pousser de nouvelles plantes.</target>
+      </segment>
+      <segment id="extra_hydroponpots.lore" state="translated">
+        <source>extra_hydroponpots.lore</source>
+        <target>NERON a retrouvé les plans des pots hydroponiques du jardin, en récupérant les materiaux de la couveuse il devrait être possible de créer 3 pots supplémentaires.</target>
+      </segment>
+    </unit>
+    <unit id="auxiliary_terminal">
+      <segment id="auxiliary_terminal.type" state="translated">
+        <source>auxiliary_terminal.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="auxiliary_terminal.name" state="translated">
+        <source>auxiliary_terminal.name</source>
+        <target>Terminaux auxiliaires</target>
+      </segment>
+      <segment id="auxiliary_terminal.description" state="translated">
+        <source>auxiliary_terminal.description</source>
+        <target>Le cœur de NERON est désormais accessible depuis l'infirmerie ainsi que la salle des moteurs.</target>
+      </segment>
+      <segment id="auxiliary_terminal.lore" state="translated">
+        <source>auxiliary_terminal.lore</source>
+        <target>Ça serait pratique si on faisait moins de marche pour arriver jusqu'ici... En détournant la prise 100V pour les rasoirs, vous montez un bridge SCCS vers NERON</target>
       </segment>
     </unit>
   </file>

@@ -20,6 +20,7 @@ use Mush\Equipment\ConfigData\ItemConfigDataLoader;
 use Mush\Equipment\ConfigData\PatrolShipDataLoader;
 use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
+use Mush\Equipment\ConfigData\SpawnEquipmentConfigDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
@@ -85,9 +86,10 @@ class ConfigDataLoaderService
         ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader,
         HunterConfigDataLoader $hunterConfigDataLoader,
         PlanetSectorConfigDataLoader $planetSectorConfigDataLoader,
+        SpawnEquipmentConfigDataLoader $spawnEquipmentConfigDataLoader,
         ProjectConfigDataLoader $projectConfigDataLoader,
         GameConfigDataLoader $gameConfigDataLoader,
-        LocalizationConfigDataLoader $localizationConfigDataLoader
+        LocalizationConfigDataLoader $localizationConfigDataLoader,
     ) {
         // add data loaders in order of dependencies
         /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */
@@ -129,6 +131,7 @@ class ConfigDataLoaderService
                 $consumableDiseaseConfigDataLoader,
                 $hunterConfigDataLoader,
                 $planetSectorConfigDataLoader,
+                $spawnEquipmentConfigDataLoader,
                 $projectConfigDataLoader,
                 $gameConfigDataLoader,
                 $localizationConfigDataLoader,

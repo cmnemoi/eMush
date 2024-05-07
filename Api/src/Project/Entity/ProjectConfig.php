@@ -44,11 +44,11 @@ class ProjectConfig
     public function __construct(
         ProjectName $name = ProjectName::NULL,
         ProjectType $type = ProjectType::NULL,
-        int         $efficiency = 0,
-        array       $bonusSkills = [],
-        int         $activationRate = 100,
-        array       $activationEvents = [],
-        array       $modifierConfigs = [],
+        int $efficiency = 0,
+        array $bonusSkills = [],
+        int $activationRate = 100,
+        array $activationEvents = [],
+        array $modifierConfigs = [],
     ) {
         $this->name = $name;
         $this->type = $type;

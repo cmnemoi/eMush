@@ -48,6 +48,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
+        $newProjectConfigData['activationEvents'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->getReference($modifierConfigName);
@@ -55,6 +56,14 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
                 throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found");
             }
             $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
+        }
+
+        foreach ($projectConfigData['activationEvents'] as $activationEvent) {
+            $eventConfig = $this->getReference($activationEvent);
+            if (!$eventConfig) {
+                throw new \RuntimeException("ModifierConfig {$eventConfig} not found");
+            }
+            $newProjectConfigData['activationEvents'][] = $eventConfig;
         }
 
         return $newProjectConfigData;

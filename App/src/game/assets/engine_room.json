@@ -1416,23 +1416,13 @@
                 {
                  "gid":46,
                  "height":64,
-                 "id":35,
-                 "name":"neron_terminal_object",
+                 "id":36,
+                 "name":"auxiliary_terminal_inactive",
                  "properties":[
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":20
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1444,7 +1434,7 @@
                 {
                  "gid":45,
                  "height":64,
-                 "id":32,
+                 "id":37,
                  "name":"auxiliary_terminal",
                  "properties":[
                         {
@@ -1626,7 +1616,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":36,
+ "nextobjectid":38,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

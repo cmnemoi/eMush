@@ -18,10 +18,10 @@ final readonly class SpawnEquipmentConfigDto
     public function toEntity(): SpawnEquipmentConfig
     {
         return new SpawnEquipmentConfig(
-            $this->name,
-            $this->equipmentName,
-            $this->placeName,
-            $this->quantity
+            name: $this->name,
+            equipmentName: $this->equipmentName,
+            placeName: $this->placeName,
+            quantity: $this->quantity,
         );
     }
 }

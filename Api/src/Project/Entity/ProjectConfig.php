@@ -38,7 +38,7 @@ class ProjectConfig
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
-    #[ORM\OneToMany(targetEntity: SpawnEquipmentConfig::class, mappedBy: 'projectConfig')]
+    #[ORM\ManyToMany(targetEntity: SpawnEquipmentConfig::class)]
     private Collection $spawnEquipmentConfigs;
 
     public function __construct(

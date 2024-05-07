@@ -34,7 +34,7 @@ class SpawnEquipmentEventConfig extends AbstractEventConfig
         string $equipmentName,
         string $roomName,
         int $quantity = 1,
-        string $replacedEquipment = null,
+        ?string $replacedEquipment = null,
     ) {
         $this->name = $name;
         $this->eventName = $eventName;
@@ -113,7 +113,7 @@ class SpawnEquipmentEventConfig extends AbstractEventConfig
         $this->equipmentName = $configData['equipmentName'];
         $this->roomName = $configData['roomName'];
         $this->quantity = $configData['quantity'];
-        $this->replacedEquipment = array_key_exists('replacedEquipment', $configData) ?
+        $this->replacedEquipment = \array_key_exists('replacedEquipment', $configData) ?
             $configData['replacedEquipment'] : null;
     }
 }

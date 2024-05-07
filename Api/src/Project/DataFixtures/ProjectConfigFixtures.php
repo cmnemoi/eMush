@@ -61,7 +61,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         foreach ($projectConfigData['activationEvents'] as $activationEvent) {
             $eventConfig = $this->getReference($activationEvent);
             if (!$eventConfig) {
-                throw new \RuntimeException("ModifierConfig {$eventConfig} not found");
+                throw new \RuntimeException("ModifierConfig {$eventConfig->getName()} not found");
             }
             $newProjectConfigData['activationEvents'][] = $eventConfig;
         }

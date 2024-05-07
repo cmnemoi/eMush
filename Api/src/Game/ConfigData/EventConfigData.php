@@ -15,16 +15,6 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 /** @codeCoverageIgnore */
 class EventConfigData
 {
-    // Use that once all constructors are refactored
-    public static function getAllEventConfig(): array
-    {
-        return array_merge(
-            self::$variableEventConfigData,
-            self::$planetSectorEventConfigData,
-            self::$spawnEquipmentEventConfigData,
-        );
-    }
-
     public static array $variableEventConfigData = [
         [
             'type' => 'variable_event_config',
@@ -656,14 +646,14 @@ class EventConfigData
             'eventName' => 'spawn',
             'equipmentName' => ItemEnum::METAL_SCRAPS,
             'roomName' => RoomEnum::ENGINE_ROOM,
-            'quantity' => 5
+            'quantity' => 5,
         ],
         [
             'name' => '3_hydropot_in_garden',
             'eventName' => 'spawn',
             'equipmentName' => ItemEnum::HYDROPOT,
             'roomName' => RoomEnum::HYDROPONIC_GARDEN,
-            'quantity' => 3
+            'quantity' => 3,
         ],
         [
             'name' => '1_thalasso_in_alpha_dorm',
@@ -671,7 +661,7 @@ class EventConfigData
             'equipmentName' => EquipmentEnum::THALASSO,
             'replacedEquipment' => EquipmentEnum::SHOWER,
             'roomName' => RoomEnum::ALPHA_DORM,
-            'quantity' => 1
+            'quantity' => 1,
         ],
         [
             'name' => '1_thalasso_in_bravo_dorm',
@@ -679,21 +669,31 @@ class EventConfigData
             'equipmentName' => EquipmentEnum::THALASSO,
             'replacedEquipment' => EquipmentEnum::SHOWER,
             'roomName' => RoomEnum::BRAVO_DORM,
-            'quantity' => 1
+            'quantity' => 1,
         ],
         [
             'name' => '1_auxiliary_neron_core_in_medlab',
             'eventName' => 'spawn',
             'equipmentName' => EquipmentEnum::AUXILIARY_TERMINAL,
             'roomName' => RoomEnum::MEDLAB,
-            'quantity' => 1
+            'quantity' => 1,
         ],
         [
             'name' => '1_auxiliary_neron_core_in_engine_room',
             'eventName' => 'spawn',
             'equipmentName' => EquipmentEnum::AUXILIARY_TERMINAL,
             'roomName' => RoomEnum::ENGINE_ROOM,
-            'quantity' => 1
+            'quantity' => 1,
         ],
     ];
+
+    // Use that once all constructors are refactored
+    public static function getAllEventConfig(): array
+    {
+        return array_merge(
+            self::$variableEventConfigData,
+            self::$planetSectorEventConfigData,
+            self::$spawnEquipmentEventConfigData,
+        );
+    }
 }

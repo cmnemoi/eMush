@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\Event;
 
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -18,7 +17,7 @@ use Mush\Tests\FunctionalTester;
 final class ProjectFinishedEventCest extends AbstractFunctionalTest
 {
     public function shouldCreateEquipmentWhenProjectIsFinished(FunctionalTester $I): void
-    {   
+    {
         // given Daedalus has an engine room
         $engineRoom = $this->createExtraPlace(
             placeName: RoomEnum::ENGINE_ROOM,
@@ -37,7 +36,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         $I->assertCount(
             expectedCount: 5,
             haystack: $engineRoom->getEquipments()->filter(
-                fn (GameItem $item) => $item->getName() === ItemEnum::METAL_SCRAPS
+                static fn (GameItem $item) => $item->getName() === ItemEnum::METAL_SCRAPS
             )
         );
     }

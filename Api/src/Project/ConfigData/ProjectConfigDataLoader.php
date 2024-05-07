@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\Entity\AbstractEventConfig;
-use Mush\Game\Entity\SpawnEquipmentEventConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Entity\ProjectConfig;
 

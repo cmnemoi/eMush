@@ -122,7 +122,7 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
         $equipments = [];
-        for ($i = 0; $i < $quantity; $i++) {
+        for ($i = 0; $i < $quantity; ++$i) {
             $equipments[] = $this->createGameEquipment($config, $equipmentHolder, $reasons, $time, $visibility, $author);
         }
 

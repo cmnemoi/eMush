@@ -107,6 +107,28 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $this->createGameEquipment($config, $equipmentHolder, $reasons, $time, $visibility, $author);
     }
 
+    /**
+     * @return array<GameEquipment>
+     */
+    public function createGameEquipmentsFromName(
+        string $equipmentName,
+        EquipmentHolderInterface $equipmentHolder,
+        array $reasons,
+        \DateTime $time,
+        int $quantity,
+        string $visibility = VisibilityEnum::HIDDEN,
+        ?Player $author = null
+    ): array {
+        $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
+
+        $equipments = [];
+        for ($i = 0; $i < $quantity; $i++) {
+            $equipments[] = $this->createGameEquipment($config, $equipmentHolder, $reasons, $time, $visibility, $author);
+        }
+
+        return $equipments;
+    }
+
     public function createGameEquipment(
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,

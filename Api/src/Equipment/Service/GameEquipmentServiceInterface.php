@@ -31,6 +31,19 @@ interface GameEquipmentServiceInterface
         ?Player $author = null
     ): GameEquipment;
 
+    /**
+     * @return array<GameEquipment>
+     */
+    public function createGameEquipmentsFromName(
+        string $equipmentName,
+        EquipmentHolderInterface $equipmentHolder,
+        array $reasons,
+        \DateTime $time,
+        int $quantity,
+        string $visibility = VisibilityEnum::PRIVATE,
+        ?Player $author = null
+    ): array;
+
     public function createGameEquipment(
         EquipmentConfig $equipmentConfig,
         EquipmentHolderInterface $holder,

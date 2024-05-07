@@ -28,14 +28,13 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
 
         /** @var SpawnEquipmentConfig $spawnEquipmentConfig */
         foreach ($project->getSpawnEquipmentConfigs() as $spawnEquipmentConfig) {
-            for ($i = 0; $i < $spawnEquipmentConfig->getQuantity(); ++$i) {
-                $this->equipmentService->createGameEquipmentFromName(
-                    $spawnEquipmentConfig->getEquipmentName(),
-                    $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEquipmentConfig->getPlaceName()),
-                    $projectEvent->getTags(),
-                    $projectEvent->getTime(),
-                );
-            }
+            $this->equipmentService->createGameEquipmentsFromName(
+                $spawnEquipmentConfig->getEquipmentName(),
+                $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEquipmentConfig->getPlaceName()),
+                $projectEvent->getTags(),
+                $projectEvent->getTime(),
+                $spawnEquipmentConfig->getQuantity()
+            );
         }
     }
 }

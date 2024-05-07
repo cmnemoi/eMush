@@ -2,14 +2,20 @@
     <div class="project" v-if="project">
         <h3>{{ project.name }}</h3>
         <div class="card">
-            <img :src="getImgUrl(`projects/${project.key}.png`)">
+            <Tippy>
+                <img :src="getImgUrl(`projects/${project.key}.png`)" alt="{{ project.key }}">
+                <template #content v-if="project.lore != ''">
+                    <h1 v-html="formatText(project.name)"></h1>
+                    <p v-html="formatText(project.lore)"></p>
+                </template>
+            </Tippy>
             <div class="progress-container">
                 <div >
                     <Tippy
                         tag="div"
                         v-for="skill in project.bonusSkills"
                         :key="skill.name">
-                        <img :src="skillIcons[skill.key].icon">
+                        <img :src="skillIcons[skill.key].icon" alt="{{ skill.key }}">
                         <template #content>
                             <h1 v-html="formatText(skill.name)"></h1>
                             <p v-html="formatText(skill.description)"></p>
@@ -20,9 +26,15 @@
             </div>
         </div>
         <p class="description" v-html="formatText(project.description)"></p>
-        <p class="efficiency">
-            {{ project.efficiency }}
-        </p>
+        <Tippy>
+            <p class="efficiency">
+                {{ project.efficiency }}
+            </p>
+            <template #content>
+                <h1 v-html="formatText(project.efficiencyTooltipHeader)"></h1>
+                <p v-html="formatText(project.efficiencyTooltipText)"></p>
+            </template>
+        </Tippy>
         <div class="repair-pilgred-action" v-if="repairPilgredAction">
             <ActionButton
                 :action="repairPilgredAction"
@@ -47,10 +59,12 @@ import { Action } from "@/entities/Action";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { Project } from "@/entities/Project";
 import { mapActions } from "vuex";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "ProjectCard",
     components: {
+        Tippy,
         ActionButton
     },
     props: {

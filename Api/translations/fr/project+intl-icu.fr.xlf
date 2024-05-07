@@ -7,6 +7,18 @@
         <target>Efficacité : {min_efficiency}-{max_efficiency}%</target>
       </segment>
     </unit>
+    <unit id="efficiencyTooltipHeader">
+      <segment id="efficiencyTooltipHeader" state="translated">
+        <source>efficiency.tooltip.header</source>
+        <target>Efficacité</target>
+      </segment>
+    </unit>
+    <unit id="efficiencyTooltipText">
+      <segment id="efficiencyTooltipText" state="translated">
+        <source>efficiency.tooltip.text</source>
+        <target>Pour garder une efficacité optimale, alternez le travail avec un autre collègue.</target>
+      </segment>
+    </unit>
     <unit id="auto_watering">
       <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>
@@ -19,6 +31,10 @@
       <segment id="auto_watering.description" state="translated">
         <source>auto_watering.description</source>
         <target>Chaque incendie a 25% de chance de s'éteindre automatiquement à chaque cycle.</target>
+      </segment>
+      <segment id="auto_watering.lore" state="translated">
+        <source>auto_watering.lore</source>
+        <target>Après quelques heures de négociations avec NERON, vous pourriez le convaincre d'utiliser le dispositif anti-cigarette pour les incendies également.</target>
       </segment>
     </unit>
     <unit id="dismantling">
@@ -52,6 +68,10 @@
         <source>door_sensor.description</source>
         <target>Les portes bloquées sont reportées sur vos modules persos.</target>
       </segment>
+      <segment id="door_sensor.lore" state="translated">
+        <source>door_sensor.lore</source>
+        <target>En analysant les fumées provenants des pistons defectueux des portes automatiques, NERON peut désormais determiner avec exactitude leurs positions sur les modules persos.</target>
+      </segment>
     </unit>
     <unit id="equipment_sensor">
       <segment id="equipment_sensor.type" state="translated">
@@ -65,6 +85,10 @@
       <segment id="equipment_sensor.description" state="translated">
         <source>equipment_sensor.description</source>
         <target>Les équipements touchés sont reportés sur vos modules persos.</target>
+      </segment>
+      <segment id="equipment_sensor.lore" state="translated">
+        <source>equipment_sensor.lore</source>
+        <target>Rien de tel qu'une petite cure de défragmentation de NERON. Comble du bonheur il en profite pour allouer plus de bande passante aux modules Persos.</target>
       </segment>
     </unit>
     <unit id="fire_sensor">
@@ -80,6 +104,10 @@
         <source>fire_sensor.description</source>
         <target>Les incendies sont reportés sur vos modules persos.</target>
       </segment>
+      <segment id="fire_sensor.lore" state="translated">
+        <source>fire_sensor.lore</source>
+        <target>Après avoir passé quelques heures à convaincre NERON que le feu peut être préjudiciable pour lui-même, il cède et vous accorde plus de CPU... Il est quand même très contrarié.</target>
+      </segment>
     </unit>
     <unit id="heat_lamp">
       <segment id="heat_lamp.type" state="translated">
@@ -93,6 +121,10 @@
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
         <target>Dans le jardin, 50% de chances de produire un fruit supplémentaire.</target>
+      </segment>
+      <segment id="heat_lamp.lore" state="translated">
+        <source>heat_lamp.lore</source>
+        <target>Equipée avec nos ampoules "douceurs de printemps" ces lampes font des merveilles sur les plantes extraterrestres. Elles imitent à la perfection le rayonnement de notre bon vieux soleil.</target>
       </segment>
     </unit>
     <unit id="parasite_elim">
@@ -108,6 +140,10 @@
         <source>parasite_elim.description</source>
         <target>Les jeunes plantes dans le Jardin voient leur durée de croissance diminuée de 4 cycles.</target>
       </segment>
+      <segment id="parasite_elim.lore" state="translated">
+        <source>parasite_elim.lore</source>
+        <target>Des nano-coccinelles à vapeur. Pourquoi n'y avoir pas pensé plus tôt !</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="pilgred.type" state="translated">
@@ -121,6 +157,10 @@
       <segment id="pilgred.description" state="translated">
         <source>pilgred.description</source>
         <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
+      </segment>
+      <segment id="pilgred.lore" state="translated">
+        <source>pilgred.lore</source>
+        <target></target>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -136,6 +176,10 @@
         <source>plasma_shield.description</source>
         <target>La coque du Daedalus est désormais protégé par un bouclier auto-régénérant.</target>
       </segment>
+      <segment id="plasma_shield.lore" state="translated">
+        <source>plasma_shield.lore</source>
+        <target>Vous n'aviez jamais eu le temps de le finir, mais ce maudit bouclier à plasma vous aurait bien servi. En téléchargeant un nouveau noyau et en redémarrant le pilote de la tabulatrice à particule, ça devrait le faire.</target>
+      </segment>
     </unit>
     <unit id="trail_reducer">
       <segment id="trail_reducer.type" state="translated">
@@ -150,6 +194,10 @@
         <source>trail_reducer.description</source>
         <target>Le nombre d'assaillants qui vous rejoint après un voyage est réduit de 50%.</target>
       </segment>
+      <segment id="trail_reducer.lore" state="translated">
+        <source>trail_reducer.lore</source>
+        <target>On ne peut pas rendre le Daedalus furtif mais en ajoutant un cache flamme sur les fusées latérales, on le rend moins facile à suivre.</target>
+      </segment>
     </unit>
     <unit id="chipset_acceleration">
       <segment id="chipset_acceleration.type" state="translated">
@@ -163,6 +211,10 @@
       <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>
         <target>L'action recherche d'une planète coûte 1 :pa: de moins.</target>
+      </segment>
+      <segment id="chipset_acceleration.lore" state="translated">
+        <source>chipset_acceleration.lore</source>
+        <target>NERON est un peu maniaque de l'optimisation de scalabilité, mais du coup il en a fait une foireuse, vous découplez sa BDD d'array de bool en bit Arrays. Quel gros naze ce NERON...</target>
       </segment>
     </unit>
     <unit id="extra_hydroponpots">
@@ -198,7 +250,7 @@
       </segment>
       <segment id="auxiliary_terminal.lore" state="translated">
         <source>auxiliary_terminal.lore</source>
-        <target>Ça serait pratique si on faisait moins de marche pour arriver jusqu'ici... En détournant la prise 100V pour les rasoirs, vous montez un bridge SCCS vers NERON</target>
+        <target>Ça serait pratique si on faisait moins de marche pour arriver jusqu'ici... En détournant la prise 100V pour les rasoirs, vous montez un bridge SCCS vers NERON.</target>
       </segment>
     </unit>
   </file>

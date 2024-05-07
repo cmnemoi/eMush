@@ -652,6 +652,13 @@ class EventConfigData
 
     public static array $spawnEquipmentEventConfigData = [
         [
+            'name' => '5_metal_scraps_in_engine_room',
+            'eventName' => 'spawn',
+            'equipmentName' => ItemEnum::METAL_SCRAPS,
+            'roomName' => RoomEnum::ENGINE_ROOM,
+            'quantity' => 5
+        ],
+        [
             'name' => '3_hydropot_in_garden',
             'eventName' => 'spawn',
             'equipmentName' => ItemEnum::HYDROPOT,
@@ -672,6 +679,20 @@ class EventConfigData
             'equipmentName' => EquipmentEnum::THALASSO,
             'replacedEquipment' => EquipmentEnum::SHOWER,
             'roomName' => RoomEnum::BRAVO_DORM,
+            'quantity' => 1
+        ],
+        [
+            'name' => '1_auxiliary_neron_core_in_medlab',
+            'eventName' => 'spawn',
+            'equipmentName' => EquipmentEnum::AUXILIARY_TERMINAL,
+            'roomName' => RoomEnum::MEDLAB,
+            'quantity' => 1
+        ],
+        [
+            'name' => '1_auxiliary_neron_core_in_engine_room',
+            'eventName' => 'spawn',
+            'equipmentName' => EquipmentEnum::AUXILIARY_TERMINAL,
+            'roomName' => RoomEnum::ENGINE_ROOM,
             'quantity' => 1
         ],
     ];

@@ -28,6 +28,7 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\ConfigData\GameConfigDataLoader;
 use Mush\Game\ConfigData\LocalizationConfigDataLoader;
+use Mush\Game\ConfigData\SpawnEquipmentEventConfigDataLoader;
 use Mush\Game\ConfigData\TitleConfigDataLoader;
 use Mush\Game\ConfigData\TriumphConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
@@ -56,6 +57,7 @@ class ConfigDataLoaderService
         DirectModifierConfigDataLoader $directModifierConfigDataLoader,
         VariableEventConfigDataLoader $variableEventConfigDataLoader,
         PlanetSectorEventConfigDataLoader $planetSectorEventConfigDataLoader,
+        SpawnEquipmentEventConfigDataLoader $spawnEquipmentEventConfigDataLoader,
         ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
         ContentStatusConfigDataLoader $contentStatusConfigDataLoader,
         StatusConfigDataLoader $statusConfigDataLoader,
@@ -87,7 +89,7 @@ class ConfigDataLoaderService
         PlanetSectorConfigDataLoader $planetSectorConfigDataLoader,
         ProjectConfigDataLoader $projectConfigDataLoader,
         GameConfigDataLoader $gameConfigDataLoader,
-        LocalizationConfigDataLoader $localizationConfigDataLoader
+        LocalizationConfigDataLoader $localizationConfigDataLoader,
     ) {
         // add data loaders in order of dependencies
         /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */
@@ -99,6 +101,7 @@ class ConfigDataLoaderService
                 $variableEventModifierConfigDataLoader,
                 $planetSectorEventConfigDataLoader,
                 $triggerEventModifierConfigDataLoader,
+                $spawnEquipmentEventConfigDataLoader,
                 $directModifierConfigDataLoader,
                 $chargeStatusConfigDataLoader,
                 $contentStatusConfigDataLoader,

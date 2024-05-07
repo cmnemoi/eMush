@@ -90,6 +90,11 @@ class Project implements LogParameterInterface, ActionTargetInterface
         return $this->config->getActivationRate();
     }
 
+    public function getActivationEventConfigs(): Collection
+    {
+        return $this->config->getActivationEventsConfigs();
+    }
+
     public function getModifierConfigs(): Collection
     {
         return $this->config->getModifierConfigs();

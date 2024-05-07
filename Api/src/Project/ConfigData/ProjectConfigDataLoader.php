@@ -7,6 +7,8 @@ namespace Mush\Project\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
+use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Game\Entity\SpawnEquipmentEventConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Entity\ProjectConfig;
 
@@ -14,6 +16,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
 {
     private EntityRepository $projectConfigRepository;
     private EntityRepository $modifierConfigRepository;
+    private EntityRepository $eventConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -21,6 +24,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         parent::__construct($entityManager);
         $this->projectConfigRepository = $entityManager->getRepository(ProjectConfig::class);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
+        $this->eventConfigRepository = $entityManager->getRepository(AbstractEventConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -47,7 +51,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
-        // TODO Add activationEvents
+        $newProjectConfigData['activationEvents'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
@@ -55,6 +59,14 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
                 throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found");
             }
             $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
+        }
+
+        foreach ($projectConfigData['activationEvents'] as $activationEvent) {
+            $event = $this->eventConfigRepository->findOneBy(['name' => $activationEvent]);
+            if (!$event) {
+                throw new \RuntimeException("EventConfig {$activationEvent} not found");
+            }
+            $newProjectConfigData['activationEvents'][] = $event;
         }
 
         return $newProjectConfigData;

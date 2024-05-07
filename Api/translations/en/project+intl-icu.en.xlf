@@ -10,13 +10,13 @@
     <unit id="efficiencyTooltipHeader">
       <segment id="efficiencyTooltipHeader" state="translated">
         <source>efficiency.tooltip.header</source>
-        <target>Efficacité</target>
+        <target>Efficiency</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipText">
       <segment id="efficiencyTooltipText" state="translated">
         <source>efficiency.tooltip.text</source>
-        <target>Pour garder une efficacité optimale, alternez le travail avec un autre collègue.</target>
+        <target>To maintain optimal efficiency, alternate working with a crewmate.</target>
       </segment>
     </unit>
     <unit id="auto_watering">

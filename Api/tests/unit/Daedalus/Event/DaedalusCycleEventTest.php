@@ -15,6 +15,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\DifficultyServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -46,6 +47,9 @@ final class DaedalusCycleEventTest extends TestCase
     /** @var LockFactory|Mockery\Spy */
     private LockFactory $lockFactory;
 
+    /** @var Mockery\Mock|RandomServiceInterface */
+    private RandomServiceInterface $randomService;
+
     private DaedalusCycleSubscriber $daedalusCycleSubscriber;
 
     /**
@@ -58,6 +62,7 @@ final class DaedalusCycleEventTest extends TestCase
         $this->difficultyService = \Mockery::Mock(DifficultyServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->lockFactory = \Mockery::spy(LockFactory::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $lockInterface = \Mockery::mock(LockInterface::class);
         $lockInterface->shouldReceive('acquire')->andReturn(true);
@@ -71,7 +76,8 @@ final class DaedalusCycleEventTest extends TestCase
             $this->daedalusIncidentService,
             $this->difficultyService,
             $this->eventService,
-            $this->lockFactory
+            $this->lockFactory,
+            $this->randomService
         );
     }
 
@@ -113,6 +119,9 @@ final class DaedalusCycleEventTest extends TestCase
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once();
+
+        // bric broc draw
+        $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
 
         $this->daedalusCycleSubscriber->dispatchNewCycleIncidents($event);
     }

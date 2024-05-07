@@ -6,7 +6,7 @@
             <p class="text"> {{ $t( "rules.introduction.textIntro" ) }} </p>
             <div class="alphaLeeway">
                 <span>
-                    <img class="alpha" :src="getImgUrl('pa_core.png')">
+                    <img class="alpha" :src="getImgUrl('action_points/pa_core.png')">
                     {{ $t( "rules.introduction.alphaLeeway" ) }}
                 </span>
             </div>
@@ -18,7 +18,7 @@
             <p class="text"> {{ $t("rules.communication.introText") }} </p>
             <ul class="rulesList">
                 <li class="rule"> <span v-html="$t('rules.communication.courtesy')"></span></li>
-                <li class="rule"><img class="alpha" :src="getImgUrl('pa_core.png')"> <span v-html="$t('rules.communication.spokenLanguage')"></span></li>
+                <li class="rule"><img class="alpha" :src="getImgUrl('action_points/pa_core.png')"> <span v-html="$t('rules.communication.spokenLanguage')"></span></li>
             </ul>
         </div>
 
@@ -28,8 +28,8 @@
             <ul class="rulesList">
                 <li class="rule"> <span v-html="$t('rules.behaviour.multiAccounts')"></span></li>
                 <li class="rule"> <span v-html="$t('rules.behaviour.suicide')"></span></li>
-                <li class="rule"><img class="alpha" :src="getImgUrl('pa_core.png')"> <span v-html="$t('rules.behaviour.spoilingHuman')"></span></li>
-                <li class="rule"><img class="alpha" :src="getImgUrl('pa_core.png')"> <span  v-html="$t('rules.behaviour.spoilingMush')"></span></li>
+                <li class="rule"><img class="alpha" :src="getImgUrl('action_points/pa_core.png')"> <span v-html="$t('rules.behaviour.spoilingHuman')"></span></li>
+                <li class="rule"><img class="alpha" :src="getImgUrl('action_points/pa_core.png')"> <span  v-html="$t('rules.behaviour.spoilingMush')"></span></li>
             </ul>
         </div>
 
@@ -41,7 +41,7 @@
         </div>
 
         <div class="alphaLeeway">
-            <h2 class="subtitle"><img class="alpha" :src="getImgUrl('pa_core.png')"> {{ $t("rules.alphaRules.title") }}</h2>
+            <h2 class="subtitle"><img class="alpha" :src="getImgUrl('action_points/pa_core.png')"> {{ $t("rules.alphaRules.title") }}</h2>
             <p class="text"> {{ $t("rules.alphaRules.introText") }} </p>
             <ul class="rulesList">
                 <li class="rule" v-html="$t('rules.alphaRules.tests')"></li>

@@ -49,7 +49,7 @@
                         </template>
                     </Tippy>
                     <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="openEditDialog(goldNovaPlayer)">
-                        <img :src="getImgUrl('pa_core.png')" alt="Edit message">
+                        <img :src="getImgUrl('action_points/pa_core.png')" alt="Edit message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                             <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -157,7 +157,7 @@
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
-                                <img :src="getImgUrl('pa_core.png')" alt="Edit message">
+                                <img :src="getImgUrl('action_points/pa_core.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -242,7 +242,7 @@
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
-                                <img :src="getImgUrl('pa_core.png')" alt="Edit message">
+                                <img :src="getImgUrl('action_points/pa_core.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>

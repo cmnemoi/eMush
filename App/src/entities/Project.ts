@@ -12,6 +12,7 @@ export class Project {
     public key!: string;
     public name!: string;
     public description!: string;
+    public lore!: string;
     public progress!: string;
     public efficiency!: string;
     public bonusSkills!: BonusSkill[];
@@ -24,6 +25,7 @@ export class Project {
             this.key = object.key;
             this.name = object.name;
             this.description = object.description;
+            this.lore = object.lore;
             this.progress = object.progress;
             this.efficiency = object.efficiency;
             this.bonusSkills = object.bonusSkills;

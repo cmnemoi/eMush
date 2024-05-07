@@ -63,6 +63,12 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 domain: 'project',
                 language: $language
             ),
+            'lore' => $this->translationService->translate(
+                key: "{$project->getName()}.lore",
+                parameters: [],
+                domain: 'project',
+                language: $language
+            ),
         ];
     }
 

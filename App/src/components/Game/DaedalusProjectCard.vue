@@ -4,7 +4,10 @@
         <img :src="getProjectImage(project)" :alt="project.name">
         <template #content>
             <h1 v-html="formatText(project.name)"></h1>
-            <p v-html="formatText(project.description)"></p>
+            <p v-html="formatText(project.lore)"></p>
+            <strong>
+                <p style="font-weight: bold" v-html="formatText(project.description)"></p>
+            </strong>
         </template>
     </Tippy>
 </template>

@@ -2,42 +2,28 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
 /**
  * @internal
@@ -52,98 +38,21 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testOxygenCycleSubscriber(FunctionalTester $I)
+    public function shouldDecreaseOxygen(FunctionalTester $I): void
     {
-        $fireStatusConfig = new ChargeStatusConfig();
-        $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($fireStatusConfig);
+        // given Daedalus has 10 oxygen
+        $this->daedalus->setOxygen(10);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $daedalus->setDaedalusVariables($gameConfig->getDaedalusConfig());
-        $daedalus->setOxygen(1);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::SPACE]);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-        $characterConfig
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig);
-
-        /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
-        $characterConfig2
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig2);
-
-        /** @var Player $player */
-        $player = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
-        );
-        $player->setPlayerVariables($characterConfig);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
-        );
-        $player2->setPlayerVariables($characterConfig);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig2);
-
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
+        // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
-            $daedalus,
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->assertEquals(0, $daedalus->getOxygen());
-        $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
+        // then Daedalus has 7 oxygen (-1 base + 2*-1 per missing / broken oxygen tank)
+        $I->assertEquals(7, $this->daedalus->getOxygen());
     }
 
     public function testOxygenBreakOnCycleChange(FunctionalTester $I)

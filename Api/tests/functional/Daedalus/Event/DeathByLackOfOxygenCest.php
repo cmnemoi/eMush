@@ -2,436 +2,158 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Disease\Entity\Config\DiseaseCauseConfig;
-use Mush\Disease\Entity\Config\DiseaseConfig;
-use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Enum\DiseaseEnum;
-use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\CharacterEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Hunter\Entity\HunterConfig;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-class DeathByLackOfOxygenCest
+/**
+ * @internal
+ */
+final class DeathByLackOfOxygenCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+
+        // given Daedalus has 1 oxygen
+        $this->daedalus->setOxygen(1);
     }
 
-    public function testDeathByOxygen(FunctionalTester $I)
+    public function shouldKillPlayerIfNoMoreOxygen(FunctionalTester $I): void
     {
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseConfig);
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
-            ])
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseCause);
-
-        $fireStatusConfig = new ChargeStatusConfig();
-        $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($fireStatusConfig);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
-        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-            'localizationConfig' => $localizationConfig,
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
-            'hunterConfigs' => new ArrayCollection($hunterConfigs),
-        ]);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalus->setOxygen(1);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-        $characterConfig
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig);
-
-        /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
-        $characterConfig2
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig2);
-
-        /** @var Player $player */
-        $player = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
-        );
-        $player->setPlayerVariables($characterConfig);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
-        );
-        $player2->setPlayerVariables($characterConfig);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig2);
-
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
+        // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
-            $daedalus,
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->assertEquals(0, $daedalus->getOxygen());
-        $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
+        // then Chun or Kuan Ti should be dead
+        if ($this->chun->isAlive()) {
+            $I->assertFalse($this->kuanTi->isAlive());
+            $I->assertEquals(
+                expected: EndCauseEnum::ASPHYXIA,
+                actual: $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getEndCause()
+            );
+        } else {
+            $I->assertFalse($this->chun->isAlive());
+            $I->assertEquals(
+                expected: EndCauseEnum::ASPHYXIA,
+                actual: $this->chun->getPlayerInfo()->getClosedPlayer()->getEndCause()
+            );
+        }
     }
 
-    public function testDeathByOxygenWithCapsule(FunctionalTester $I)
+    public function shouldConsumeOxygenCapsuleIfNoMoreOxygen(FunctionalTester $I): void
     {
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseConfig);
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
-            ])
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseCause);
-
-        $fireStatusConfig = new ChargeStatusConfig();
-        $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($fireStatusConfig);
-
-        /** @var ItemConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['name' => ItemEnum::OXYGEN_CAPSULE]);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
-        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-            'localizationConfig' => $localizationConfig,
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
-            'hunterConfigs' => new ArrayCollection($hunterConfigs),
-        ]);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalus->setOxygen(1);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN, 'name' => 'chun_test']);
-        $characterConfig
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig);
-
-        /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::ANDIE, 'name' => 'andie_test']);
-        $characterConfig2
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig2);
-
-        /** @var Player $player */
-        $player = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
+        // given Chun has an oxygen capsule
+        $oxygenCapsule = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::OXYGEN_CAPSULE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
         );
-        $player->setPlayerVariables($characterConfig);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
+        // given KT has an oxygen capsule
+        $oxygenCapsule = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::OXYGEN_CAPSULE,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
         );
-        $player2->setPlayerVariables($characterConfig);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig2);
 
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $capsule1 = new GameItem($player);
-        $capsule1->setName(ItemEnum::OXYGEN_CAPSULE)->setEquipment($equipmentConfig);
-        $I->haveInRepository($capsule1);
-
+        // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
-            $daedalus,
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->assertEquals(0, $daedalus->getOxygen());
-        $I->assertCount(1, $daedalus->getPlayers()->getPlayerAlive());
-        $I->assertEquals($player2->getPlayerInfo()->getGameStatus(), GameStatusEnum::FINISHED);
-        $I->assertCount(1, $player->getEquipments());
+        // then Chun or KT should have consumed their oxygen capsule
+        if ($this->chun->hasEquipmentByName(ItemEnum::OXYGEN_CAPSULE)) {
+            $I->assertFalse($this->kuanTi->hasEquipmentByName(ItemEnum::OXYGEN_CAPSULE));
+        } else {
+            $I->assertFalse($this->chun->hasEquipmentByName(ItemEnum::OXYGEN_CAPSULE));
+        }
     }
 
-    public function testNoDeathByOxygenWithCapsule(FunctionalTester $I)
+    public function shouldKillPlayerWithoutOxygenCapsule(FunctionalTester $I): void
     {
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseConfig);
-        $diseaseCause = new DiseaseCauseConfig();
-        $diseaseCause
-            ->setCauseName(DiseaseCauseEnum::TRAUMA)
-            ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
-            ])
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseaseCause);
-
-        $fireStatusConfig = new ChargeStatusConfig();
-        $fireStatusConfig->setStatusName(StatusEnum::FIRE)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($fireStatusConfig);
-
-        /** @var ItemConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, ['name' => ItemEnum::OXYGEN_CAPSULE]);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
-        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-            'localizationConfig' => $localizationConfig,
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'statusConfigs' => new ArrayCollection([$fireStatusConfig]),
-            'hunterConfigs' => new ArrayCollection($hunterConfigs),
-        ]);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalus->setOxygen(1);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setNeron($neron)
-            ->setGameStatus(GameStatusEnum::CURRENT);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-        $space = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'space']);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::CHUN, 'name' => 'chun_test']);
-        $characterConfig
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig);
-
-        /** @var CharacterConfig $characterConfig2 */
-        $characterConfig2 = $I->have(CharacterConfig::class, ['characterName' => CharacterEnum::ANDIE, 'name' => 'andie_test']);
-        $characterConfig2
-            ->setInitHealthPoint(99)
-            ->setMaxHealthPoint(99);
-        $I->haveInRepository($characterConfig2);
-
-        /** @var Player $player */
-        $player = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
+        // given Chun has an oxygen capsule
+        $oxygenCapsule = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::OXYGEN_CAPSULE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
         );
-        $player->setPlayerVariables($characterConfig);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(
-            Player::class,
-            [
-                'daedalus' => $daedalus,
-                'place' => $room,
-            ]
-        );
-        $player2->setPlayerVariables($characterConfig);
-        $player2Info = new PlayerInfo($player2, $user, $characterConfig2);
-
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $capsule1 = new GameItem($player);
-        $capsule1->setName(ItemEnum::OXYGEN_CAPSULE)->setEquipment($equipmentConfig);
-        $I->haveInRepository($capsule1);
-
-        $capsule2 = new GameItem($player2);
-        $capsule2->setName(ItemEnum::OXYGEN_CAPSULE)->setEquipment($equipmentConfig);
-        $I->haveInRepository($capsule2);
-
-        $capsule3 = new GameItem($player2);
-        $capsule3->setName(ItemEnum::OXYGEN_CAPSULE)->setEquipment($equipmentConfig);
-        $I->haveInRepository($capsule3);
-
+        // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
-            $daedalus,
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        $I->assertEquals(0, $daedalus->getOxygen());
-        $I->assertCount(2, $daedalus->getPlayers()->getPlayerAlive());
-        $I->assertCount(0, $player->getEquipments());
-        $I->assertCount(2, $player2->getEquipments());
+        // then Chun should be alive
+        $I->assertTrue($this->chun->isAlive());
 
+        // then Chun should have their oxygen capsule
+        $I->assertTrue($this->chun->hasEquipmentByName(ItemEnum::OXYGEN_CAPSULE));
+
+        // then KT should be dead
+        $I->assertFalse($this->kuanTi->isAlive());
+    }
+
+    public function shouldNotKillPlayersWithOxygenCapsule(FunctionalTester $I): void
+    {
+        // given Chun has 2 oxygen capsules
+        $this->gameEquipmentService->createGameEquipmentsFromName(
+            equipmentName: ItemEnum::OXYGEN_CAPSULE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+            quantity: 2,
+        );
+
+        // given KT has 1 oxygen capsule
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::OXYGEN_CAPSULE,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when cycle change event is triggered
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then Chun and KT should be alive
+        $I->assertTrue($this->chun->isAlive());
+        $I->assertTrue($this->kuanTi->isAlive());
+
+        // then there should be a room log telling someone used his oxygen capsule
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo()->getId(),
             'log' => LogEnum::OXY_LOW_USE_CAPSULE,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);

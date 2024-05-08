@@ -10,6 +10,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 
+/**
+ * GameEquipment Service allow us to fetch "RoomEquipment" or GameItem.
+ */
 interface GameEquipmentServiceInterface
 {
     public function persist(GameEquipment $equipment): GameEquipment;
@@ -17,6 +20,8 @@ interface GameEquipmentServiceInterface
     public function delete(GameEquipment $equipment): void;
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection;
+
+    public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection;
 
     public function findByDaedalus(Daedalus $daedalus): ArrayCollection;
 
@@ -54,7 +59,7 @@ interface GameEquipmentServiceInterface
     ): GameEquipment;
 
     public function transformGameEquipmentToEquipmentWithName(
-        string $resultName,
+        string $newEquipmentName,
         GameEquipment $input,
         EquipmentHolderInterface $holder,
         array $reasons,

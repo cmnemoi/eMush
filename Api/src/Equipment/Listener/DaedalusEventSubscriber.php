@@ -57,7 +57,7 @@ class DaedalusEventSubscriber implements EventSubscriberInterface
         $patrolShips = new ArrayCollection();
 
         foreach (EquipmentEnum::getPatrolShips() as $patrolShipName) {
-            $patrolShip = $this->gameEquipmentService->findByNameAndDaedalus($patrolShipName, $daedalus)->first();
+            $patrolShip = $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShipName, $daedalus)->first();
             if ($patrolShip instanceof GameEquipment) {
                 $patrolShips->add($patrolShip);
             }

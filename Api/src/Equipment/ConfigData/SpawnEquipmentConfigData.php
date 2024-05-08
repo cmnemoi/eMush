@@ -41,20 +41,6 @@ abstract class SpawnEquipmentConfigData
                 placeName: RoomEnum::ENGINE_ROOM,
                 quantity: 1,
             ),
-            new SpawnEquipmentConfigDto(
-                name: '1_thalasso_in_dorm_alpha',
-                equipmentName: EquipmentEnum::THALASSO,
-                placeName: RoomEnum::ALPHA_DORM,
-                quantity: 1,
-                replaceEquipment: EquipmentEnum::SHOWER
-            ),
-            new SpawnEquipmentConfigDto(
-                name: '1_thalasso_in_dorm_bravo',
-                equipmentName: EquipmentEnum::THALASSO,
-                placeName: RoomEnum::BRAVO_DORM,
-                quantity: 1,
-                replaceEquipment: EquipmentEnum::SHOWER
-            ),
         ];
     }
 }

@@ -6,6 +6,7 @@ namespace Mush\Project\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
@@ -17,6 +18,8 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
     private EntityRepository $modifierConfigRepository;
     private EntityRepository $spawnEquipmentConfigRepository;
 
+    private EntityRepository $replaceEquipmentConfigRepository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
     ) {
@@ -24,6 +27,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         $this->projectConfigRepository = $entityManager->getRepository(ProjectConfig::class);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
         $this->spawnEquipmentConfigRepository = $entityManager->getRepository(SpawnEquipmentConfig::class);
+        $this->replaceEquipmentConfigRepository = $entityManager->getRepository(ReplaceEquipmentConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -51,6 +55,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
         $newProjectConfigData['spawnEquipmentConfigs'] = [];
+        $newProjectConfigData['replaceEquipmentConfigs'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
@@ -66,6 +71,14 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
                 throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentName} not found");
             }
             $newProjectConfigData['spawnEquipmentConfigs'][] = $spawnEquipmentConfig;
+        }
+
+        foreach ($projectConfigData['replaceEquipmentConfigs'] as $replaceEquipmentConfigName) {
+            $replaceEquipmentConfig = $this->replaceEquipmentConfigRepository->findOneBy(['name' => $replaceEquipmentConfigName]);
+            if (!$replaceEquipmentConfig) {
+                throw new \RuntimeException("ReplaceEquipmentConfig {$replaceEquipmentConfig->getName()} not found");
+            }
+            $newProjectConfigData['replaceEquipmentConfigs'][] = $replaceEquipmentConfig;
         }
 
         return $newProjectConfigData;

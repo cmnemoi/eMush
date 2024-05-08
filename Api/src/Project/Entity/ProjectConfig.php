@@ -7,6 +7,7 @@ namespace Mush\Project\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Enum\ProjectName;
@@ -41,6 +42,9 @@ class ProjectConfig
     #[ORM\ManyToMany(targetEntity: SpawnEquipmentConfig::class)]
     private Collection $spawnEquipmentConfigs;
 
+    #[ORM\ManyToMany(targetEntity: ReplaceEquipmentConfig::class)]
+    private Collection $replaceEquipmentConfigs;
+
     public function __construct(
         ProjectName $name = ProjectName::NULL,
         ProjectType $type = ProjectType::NULL,
@@ -48,7 +52,8 @@ class ProjectConfig
         array $bonusSkills = [],
         int $activationRate = 100,
         array $modifierConfigs = [],
-        array $spawnEquipmentConfigs = []
+        array $spawnEquipmentConfigs = [],
+        array $replaceEquipmentConfigs = []
     ) {
         $this->name = $name;
         $this->type = $type;
@@ -57,6 +62,7 @@ class ProjectConfig
         $this->activationRate = $activationRate;
         $this->modifierConfigs = new ArrayCollection($modifierConfigs);
         $this->spawnEquipmentConfigs = new ArrayCollection($spawnEquipmentConfigs);
+        $this->replaceEquipmentConfigs = new ArrayCollection($replaceEquipmentConfigs);
     }
 
     public function getId(): int
@@ -99,6 +105,11 @@ class ProjectConfig
         return $this->spawnEquipmentConfigs;
     }
 
+    public function getReplaceEquipmentConfigs(): Collection
+    {
+        return $this->replaceEquipmentConfigs;
+    }
+
     public function updateFromConfigData(array $configData): void
     {
         $this->name = $configData['name'];
@@ -108,5 +119,6 @@ class ProjectConfig
         $this->activationRate = $configData['activationRate'];
         $this->modifierConfigs = new ArrayCollection($configData['modifierConfigs']);
         $this->spawnEquipmentConfigs = new ArrayCollection($configData['spawnEquipmentConfigs']);
+        $this->replaceEquipmentConfigs = new ArrayCollection($configData['replaceEquipmentConfigs']);
     }
 }

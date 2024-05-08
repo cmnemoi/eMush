@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Mush\Equipment\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\Dto\SpawnEquipmentConfigDto;
+use Mush\Equipment\Entity\Dto\ReplaceEquipmentConfigDto;
 
 #[ORM\Entity]
-class SpawnEquipmentConfig
+class ReplaceEquipmentConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,21 +22,16 @@ class SpawnEquipmentConfig
     private string $equipmentName;
 
     #[ORM\Column(type: 'string', nullable: false)]
-    private string $placeName;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $quantity;
+    private string $replacedEquipmentName;
 
     public function __construct(
         string $name = '',
         string $equipmentName = '',
-        string $placeName = '',
-        int $quantity = 1,
+        string $replacedEquipmentName = '',
     ) {
         $this->name = $name;
         $this->equipmentName = $equipmentName;
-        $this->placeName = $placeName;
-        $this->quantity = $quantity;
+        $this->replacedEquipmentName = $replacedEquipmentName;
     }
 
     public function getName(): string
@@ -49,22 +44,16 @@ class SpawnEquipmentConfig
         return $this->equipmentName;
     }
 
-    public function getPlaceName(): string
+    public function getReplacedEquipmentName(): string
     {
-        return $this->placeName;
+        return $this->replacedEquipmentName;
     }
 
-    public function getQuantity(): int
-    {
-        return $this->quantity;
-    }
-
-    public function updateFromDto(SpawnEquipmentConfigDto $dto): static
+    public function updateFromDto(ReplaceEquipmentConfigDto $dto): static
     {
         $this->name = $dto->name;
         $this->equipmentName = $dto->equipmentName;
-        $this->placeName = $dto->placeName;
-        $this->quantity = $dto->quantity;
+        $this->replacedEquipmentName = $dto->replaceEquipmentName;
 
         return $this;
     }

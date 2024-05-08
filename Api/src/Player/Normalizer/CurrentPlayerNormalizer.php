@@ -307,7 +307,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $skillsList = [
             SkillEnum::BOTANIST => 'garden',
             SkillEnum::CHEF => 'cook',
-            SkillEnum::DESIGNER => 'core',
+            SkillEnum::CONCEPTOR => 'core',
             SkillEnum::PHYSICIST => 'pilgred',
             SkillEnum::IT_EXPERT => 'computer',
             SkillEnum::NURSE => 'heal',

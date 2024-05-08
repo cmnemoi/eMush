@@ -628,6 +628,7 @@ class CharacterConfigData
                 'itrackie_default',
             ],
             'initStatuses' => [
+                SkillEnum::CONCEPTOR,
                 SkillEnum::TECHNICIAN,
             ],
         ],
@@ -724,6 +725,7 @@ class CharacterConfigData
             'initStatuses' => [
                 'antisocial_default',
                 SkillEnum::TECHNICIAN,
+                SkillEnum::CONCEPTOR,
             ],
         ],
         [

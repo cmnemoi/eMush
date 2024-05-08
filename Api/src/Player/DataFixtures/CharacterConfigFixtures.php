@@ -243,7 +243,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::KUAN_TI)
             ->setSkills([
                 SkillEnum::ASTROPHYSICIST,
-                SkillEnum::DESIGNER,
+                SkillEnum::CONCEPTOR,
                 SkillEnum::LEADER,
                 SkillEnum::POLITICIAN,
                 SkillEnum::TECHNICIAN,
@@ -275,7 +275,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setCharacterName(CharacterEnum::RALUCA)
             ->setInitStatuses([$antisocialStatus])
             ->setSkills([
-                SkillEnum::DESIGNER,
+                SkillEnum::CONCEPTOR,
                 SkillEnum::DETACHED_CREWMEMBER,
                 SkillEnum::GENIUS,
                 SkillEnum::PHYSICIST,

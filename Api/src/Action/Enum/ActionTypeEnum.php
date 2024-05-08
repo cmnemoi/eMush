@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 abstract class ActionTypeEnum
 {
     public const string ACTION_TECHNICIAN = 'action_technician';
+    public const string ACTION_CONCEPTOR = 'action_conceptor';
     public const string ACTION_SHOOT = 'action_shoot';
     public const string ACTION_AGGRESSIVE = 'action_aggressive';
     public const string ACTION_HEAL = 'action_heal';

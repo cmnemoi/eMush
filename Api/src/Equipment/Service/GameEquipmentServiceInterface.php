@@ -11,7 +11,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 
 /**
- * GameEquipment Service allow us to fetch "RoomEquipment" or GameItem
+ * GameEquipment Service allow us to fetch "RoomEquipment" or GameItem.
  */
 interface GameEquipmentServiceInterface
 {
@@ -59,12 +59,12 @@ interface GameEquipmentServiceInterface
     ): GameEquipment;
 
     public function transformGameEquipmentToEquipmentWithName(
-        string                   $newEquipmentName,
-        GameEquipment            $input,
+        string $newEquipmentName,
+        GameEquipment $input,
         EquipmentHolderInterface $holder,
-        array                    $reasons,
-        \DateTime                $time,
-        string                   $visibility = VisibilityEnum::HIDDEN
+        array $reasons,
+        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment;
 
     public function transformGameEquipmentToEquipment(

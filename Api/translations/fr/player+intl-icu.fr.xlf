@@ -94,11 +94,11 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
     <unit id="core">
       <segment id="name" state="final">
         <source>core.name</source>
-        <target>Points de Nexus</target>
+        <target>Points de Conception</target>
       </segment>
       <segment id="description" state="final">
         <source>core.description</source>
-        <target>Les points de Nexus vous donnent des **actions gratuites** dans le *Nexus*</target>
+        <target>Les points de Conception vous donnent des **actions gratuites** pour participer aux *projets NERON*</target>
       </segment>
     </unit>
     <unit id="engineer">

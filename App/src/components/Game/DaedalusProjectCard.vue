@@ -5,7 +5,7 @@
         <template #content>
             <h1 v-html="formatText(project.name)"></h1>
             <p v-if="project.lore != ''" v-html="formatText(project.lore)"></p>
-            <p><strong>{{ project.description }}</strong></p>
+            <strong><p style="font-weight: bold" v-html="formatText(project.description)"></p></strong>
         </template>
     </Tippy>
 </template>

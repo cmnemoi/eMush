@@ -21,7 +21,7 @@ final readonly class SpawnEquipmentConfigDto
             name: $this->name,
             equipmentName: $this->equipmentName,
             placeName: $this->placeName,
-            quantity: $this->quantity,
+            quantity: $this->quantity
         );
     }
 }

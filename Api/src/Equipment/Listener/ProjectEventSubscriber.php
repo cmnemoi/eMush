@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
+use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Project\Event\ProjectEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ProjectEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly GameEquipmentService $equipmentService,
+        private readonly GameEquipmentService $gameEquipmentService,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -26,15 +27,34 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     {
         $project = $projectEvent->getProject();
 
-        /** @var SpawnEquipmentConfig $spawnEquipmentConfig */
         foreach ($project->getSpawnEquipmentConfigs() as $spawnEquipmentConfig) {
-            $this->equipmentService->createGameEquipmentsFromName(
+            $holder = $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEquipmentConfig->getPlaceName());
+            $this->gameEquipmentService->createGameEquipmentsFromName(
                 $spawnEquipmentConfig->getEquipmentName(),
-                $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEquipmentConfig->getPlaceName()),
+                $holder,
                 $projectEvent->getTags(),
                 $projectEvent->getTime(),
                 $spawnEquipmentConfig->getQuantity()
             );
+        }
+
+        foreach ($project->getReplaceEquipmentConfigs() as $replaceEquipmentConfig) {
+            /** @var ArrayCollection<int, GameEquipment> $replacedEquipments */
+            $replacedEquipments = $this->gameEquipmentService->findEquipmentByNameAndDaedalus(
+                $replaceEquipmentConfig->getReplacedEquipmentName(),
+                $projectEvent->getDaedalus()
+            );
+
+            foreach ($replacedEquipments as $replacedEquipment) {
+                $holder = $replacedEquipment->getHolder();
+                $this->gameEquipmentService->transformGameEquipmentToEquipmentWithName(
+                    $replaceEquipmentConfig->getEquipmentName(),
+                    $replacedEquipment,
+                    $holder,
+                    $projectEvent->getTags(),
+                    $projectEvent->getTime(),
+                );
+            }
         }
     }
 }

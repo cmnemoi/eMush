@@ -24,6 +24,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::FIRE_SENSOR,
@@ -33,6 +34,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::DOOR_SENSOR,
@@ -42,6 +44,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::EQUIPMENT_SENSOR,
@@ -51,6 +54,7 @@ abstract class ProjectConfigData
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::PLASMA_SHIELD,
@@ -63,6 +67,7 @@ abstract class ProjectConfigData
                     'modifier_for_daedalus_+5shield_on_new_cycle',
                 ],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::HEAT_LAMP,
@@ -72,6 +77,7 @@ abstract class ProjectConfigData
                 'activationRate' => 50,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::TRAIL_REDUCER,
@@ -83,6 +89,7 @@ abstract class ProjectConfigData
                     'modifier_for_daedalus_-25percentage_following_hunters_on_daedalus_travel',
                 ],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::CHIPSET_ACCELERATION,
@@ -94,6 +101,7 @@ abstract class ProjectConfigData
                     'modifier_for_daedalus_-1actionPoint_on_action_scan_planet',
                 ],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::DISMANTLING,
@@ -102,6 +110,7 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::ROBOTICS_EXPERT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
+                'replaceEquipmentConfigs' => [],
                 'spawnEquipmentConfigs' => [
                     '5_metal_scraps_in_engine_room',
                 ],
@@ -116,6 +125,7 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [
                     '3_hydropots_in_hydroponic_garden',
                 ],
+                'replaceEquipmentConfigs' => [],
             ],
             [
                 'name' => ProjectName::AUXILIARY_TERMINAL,
@@ -127,6 +137,19 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [
                     '1_auxiliary_terminal_in_medlab',
                     '1_auxiliary_terminal_in_engine_room',
+                ],
+                'replaceEquipmentConfigs' => [],
+            ],
+            [
+                'name' => ProjectName::THALASSO,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 18,
+                'bonusSkills' => [],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [
+                    'replace_all_showers_by_thalasso',
                 ],
             ],
         ];

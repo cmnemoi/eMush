@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
@@ -90,9 +92,20 @@ class Project implements LogParameterInterface, ActionTargetInterface
         return $this->config->getActivationRate();
     }
 
+    /**
+     * @return Collection<int, SpawnEquipmentConfig>
+     */
     public function getSpawnEquipmentConfigs(): Collection
     {
         return $this->config->getSpawnEquipmentConfigs();
+    }
+
+    /**
+     * @return Collection<int, ReplaceEquipmentConfig>
+     */
+    public function getReplaceEquipmentConfigs(): Collection
+    {
+        return $this->config->getReplaceEquipmentConfigs();
     }
 
     public function getModifierConfigs(): Collection

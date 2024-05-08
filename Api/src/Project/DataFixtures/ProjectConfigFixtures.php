@@ -7,6 +7,7 @@ namespace Mush\Project\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Equipment\DataFixtures\ReplaceEquipmentConfigFixtures;
 use Mush\Equipment\DataFixtures\SpawnEquipmentConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -42,6 +43,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         return [
             ProjectModifierConfigFixtures::class,
             SpawnEquipmentConfigFixtures::class,
+            ReplaceEquipmentConfigFixtures::class,
         ];
     }
 
@@ -50,6 +52,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
         $newProjectConfigData['spawnEquipmentConfigs'] = [];
+        $newProjectConfigData['replaceEquipmentConfigs'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->getReference($modifierConfigName);
@@ -65,6 +68,14 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
                 throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentConfig->getName()} not found");
             }
             $newProjectConfigData['spawnEquipmentConfigs'][] = $spawnEquipmentConfig;
+        }
+
+        foreach ($projectConfigData['replaceEquipmentConfigs'] as $replaceEquipmentConfigName) {
+            $replaceEquipmentConfig = $this->getReference($replaceEquipmentConfigName);
+            if (!$replaceEquipmentConfig) {
+                throw new \RuntimeException("ReplaceEquipmentConfig {$replaceEquipmentConfig->getName()} not found");
+            }
+            $newProjectConfigData['replaceEquipmentConfigs'][] = $replaceEquipmentConfig;
         }
 
         return $newProjectConfigData;

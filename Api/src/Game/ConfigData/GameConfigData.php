@@ -521,6 +521,7 @@ class GameConfigData
                 ProjectName::DISMANTLING,
                 ProjectName::EXTRA_HYDROPONPOTS,
                 ProjectName::AUXILIARY_TERMINAL,
+                ProjectName::THALASSO,
             ],
         ],
     ];

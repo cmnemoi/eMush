@@ -98,7 +98,7 @@ abstract class AbstractMoveDaedalusAction extends AbstractAction
     public static function getActionStatus(Daedalus $daedalus, GameEquipmentServiceInterface $gameEquipmentService): string
     {
         /** @var false|GameEquipment $emergencyReactor */
-        $emergencyReactor = $gameEquipmentService->findByNameAndDaedalus(
+        $emergencyReactor = $gameEquipmentService->findEquipmentByNameAndDaedalus(
             name: EquipmentEnum::EMERGENCY_REACTOR,
             daedalus: $daedalus,
         )->first();

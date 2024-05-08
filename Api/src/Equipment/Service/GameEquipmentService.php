@@ -84,6 +84,11 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return new ArrayCollection($this->repository->findByNameAndDaedalus($name, $daedalus));
     }
 
+    public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection
+    {
+        return new ArrayCollection($this->repository->findEquipmentByNameAndDaedalus($name, $daedalus));
+    }
+
     public function findByDaedalus(Daedalus $daedalus): ArrayCollection
     {
         return new ArrayCollection($this->repository->findByDaedalus($daedalus));
@@ -153,14 +158,14 @@ class GameEquipmentService implements GameEquipmentServiceInterface
     }
 
     public function transformGameEquipmentToEquipmentWithName(
-        string $resultName,
+        string $newEquipmentName,
         GameEquipment $input,
         EquipmentHolderInterface $holder,
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): GameEquipment {
-        $config = $this->equipmentService->findByNameAndDaedalus($resultName, $holder->getPlace()->getDaedalus());
+        $config = $this->equipmentService->findByNameAndDaedalus($newEquipmentName, $holder->getPlace()->getDaedalus());
 
         return $this->transformGameEquipmentToEquipment($config, $input, $holder, $reasons, $time, $visibility);
     }

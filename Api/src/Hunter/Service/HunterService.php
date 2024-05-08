@@ -372,7 +372,7 @@ class HunterService implements HunterServiceInterface
 
         // First, try to aim at one patrol ship in battle
         $patrolShips = EquipmentEnum::getPatrolShips()
-            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
+            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
             ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
         $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 

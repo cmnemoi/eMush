@@ -22,6 +22,9 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\StatusEnum;
@@ -64,6 +67,9 @@ class NeronMessageCycleCest
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
+        $autoWateringConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::AUTO_WATERING]);
+        $autoWatering = new Project($autoWateringConfig, $daedalus);
+        $I->haveInRepository($autoWatering);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);

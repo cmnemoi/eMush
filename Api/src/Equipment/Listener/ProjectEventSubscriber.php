@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Project\Event\ProjectEvent;

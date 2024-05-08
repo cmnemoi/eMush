@@ -307,7 +307,6 @@ final class ParticipateCest extends AbstractFunctionalTest
         $I->assertEquals(0, $skill->getCharge());
     }
 
-
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
     {
         for ($i = 0; $i < $player->getEfficiencyForProject($project)->max; ++$i) {

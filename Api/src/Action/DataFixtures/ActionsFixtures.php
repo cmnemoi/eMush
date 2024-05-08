@@ -1061,6 +1061,7 @@ class ActionsFixtures extends Fixture
         $participate
             ->setName(ActionEnum::PARTICIPATE)
             ->setActionName(ActionEnum::PARTICIPATE)
+            ->setTypes([ActionTypeEnum::ACTION_CONCEPTOR])
             ->setScope(ActionScopeEnum::TERMINAL)
             ->setTarget(Project::class)
             ->setActionCost(2)

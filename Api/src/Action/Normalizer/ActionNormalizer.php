@@ -203,6 +203,7 @@ class ActionNormalizer implements NormalizerInterface
         $specialistPointCostRules = [
             new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]),
             new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN]),
+            new ActionSpecialistPointRule('core', SkillEnum::CONCEPTOR, [ActionTypeEnum::ACTION_CONCEPTOR]),
         ];
 
         $specialistPointCosts = [];

@@ -91,6 +91,16 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Les Points de Cuisine vous donnent des **actions gratuites** pour toutes les *actions de la cuisine*.</target>
       </segment>
     </unit>
+    <unit id="core">
+      <segment id="name" state="final">
+        <source>core.name</source>
+        <target>Points de Conception</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>core.description</source>
+        <target>Les points de Conception vous donnent des **actions gratuites** pour participer aux *projets NERON*</target>
+      </segment>
+    </unit>
     <unit id="engineer">
       <segment id="name" state="final">
         <source>engineer.name</source>

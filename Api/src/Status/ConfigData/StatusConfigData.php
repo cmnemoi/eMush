@@ -1102,5 +1102,20 @@ abstract class StatusConfigData
                 'modifier_technician_double_repair_and_renovate_chance',
             ],
         ],
+        [
+            'name' => SkillEnum::CONCEPTOR,
+            'statusName' => SkillEnum::CONCEPTOR,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 4,
+            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_CORE],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                'modifier_specialist_point_core',
+            ],
+        ],
     ];
 }

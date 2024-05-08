@@ -1604,5 +1604,19 @@
         </target>
       </segment>
     </unit>
+        <unit id="conceptor">
+          <segment id="conceptor.name" state="translated">
+            <source>conceptor.name</source>
+            <target>Concepteur</target>
+          </segment>
+          <segment id="conceptor.description" state="translated">
+            <source>conceptor.description</source>
+            <target>
+            Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//
+            :point: +2 :pa_core: par jour points d'action *Projets NERON*//
+            :point: Bonus pour développer certains **Projets NERON**.
+            </target>
+          </segment>
+        </unit>
   </file>
 </xliff>

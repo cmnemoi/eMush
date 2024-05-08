@@ -422,6 +422,7 @@ class GameConfigData
                 SkillEnum::PILOT . '_alpha',
                 SkillEnum::SHOOTER . '_alpha',
                 SkillEnum::TECHNICIAN,
+                SkillEnum::CONCEPTOR,
                 'astronavigation_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',

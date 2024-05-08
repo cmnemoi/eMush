@@ -12,7 +12,7 @@ export enum SkillEnum {
     CONFIDENT = 'confident',
     CRAZY_EYE = 'crazy_eye',
     CREATIVE = 'creative',
-    DESIGNER = 'designer',
+    CONCEPTOR = 'conceptor',
     DETACHED_CREWMEMBER = 'detached_crewmember',
     DETERMINED = 'determined',
     DEVOTION = 'devotion',
@@ -112,8 +112,8 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/creative.png')
     },
 
-    [SkillEnum.DESIGNER]: {
-        'icon': getImgUrl('skills/human/designer.png')
+    [SkillEnum.CONCEPTOR]: {
+        'icon': getImgUrl('skills/human/conceptor.png')
     },
 
     [SkillEnum.DETACHED_CREWMEMBER]: {

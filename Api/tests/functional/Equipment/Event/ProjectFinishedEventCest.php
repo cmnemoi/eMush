@@ -123,7 +123,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         // but the room should contain a thalasso
         $I->assertCount(
             expectedCount: 1,
-            haystack:  $room->getEquipments()->filter(
+            haystack: $room->getEquipments()->filter(
                 static fn (GameEquipment $equipment) => $equipment->getName() === EquipmentEnum::THALASSO
             )
         );

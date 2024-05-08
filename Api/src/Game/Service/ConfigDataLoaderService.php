@@ -13,6 +13,7 @@ use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
 use Mush\Equipment\ConfigData\DrugDataLoader;
+use Mush\Equipment\ConfigData\EquipmentCommandConfigDataLoader;
 use Mush\Equipment\ConfigData\EquipmentConfigDataLoader;
 use Mush\Equipment\ConfigData\FruitDataLoader;
 use Mush\Equipment\ConfigData\GearDataLoader;
@@ -20,7 +21,6 @@ use Mush\Equipment\ConfigData\ItemConfigDataLoader;
 use Mush\Equipment\ConfigData\PatrolShipDataLoader;
 use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
-use Mush\Equipment\ConfigData\EquipmentCommandConfigDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
@@ -76,20 +76,20 @@ class ConfigDataLoaderService
         ItemConfigDataLoader $itemConfigDataLoader,
         EquipmentConfigDataLoader $equipmentConfigDataLoader,
         CharacterConfigDataLoader $characterConfigDataLoader,
-        RandomItemPlacesDataLoader        $randomItemPlacesDataLoader,
-        PlaceConfigDataLoader             $placeConfigDataLoader,
-        DaedalusConfigDataLoader          $daedalusConfigDataLoader,
-        DifficultyConfigDataLoader        $difficultyConfigDataLoader,
-        TitleConfigDataLoader             $titleConfigDataLoader,
-        TriumphConfigDataLoader           $triumphConfigDataLoader,
-        DiseaseCauseConfigDataLoader      $diseaseCauseConfigDataLoader,
+        RandomItemPlacesDataLoader $randomItemPlacesDataLoader,
+        PlaceConfigDataLoader $placeConfigDataLoader,
+        DaedalusConfigDataLoader $daedalusConfigDataLoader,
+        DifficultyConfigDataLoader $difficultyConfigDataLoader,
+        TitleConfigDataLoader $titleConfigDataLoader,
+        TriumphConfigDataLoader $triumphConfigDataLoader,
+        DiseaseCauseConfigDataLoader $diseaseCauseConfigDataLoader,
         ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader,
-        HunterConfigDataLoader            $hunterConfigDataLoader,
-        PlanetSectorConfigDataLoader      $planetSectorConfigDataLoader,
-        EquipmentCommandConfigDataLoader  $equipmentCommandConfigDataLoader,
-        ProjectConfigDataLoader           $projectConfigDataLoader,
-        GameConfigDataLoader              $gameConfigDataLoader,
-        LocalizationConfigDataLoader      $localizationConfigDataLoader,
+        HunterConfigDataLoader $hunterConfigDataLoader,
+        PlanetSectorConfigDataLoader $planetSectorConfigDataLoader,
+        EquipmentCommandConfigDataLoader $equipmentCommandConfigDataLoader,
+        ProjectConfigDataLoader $projectConfigDataLoader,
+        GameConfigDataLoader $gameConfigDataLoader,
+        LocalizationConfigDataLoader $localizationConfigDataLoader,
     ) {
         // add data loaders in order of dependencies
         /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */

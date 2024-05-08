@@ -12,8 +12,7 @@ final readonly class ReplaceEquipmentConfigDto
         public string $name,
         public string $equipmentName,
         public string $replaceEquipmentName,
-    ) {
-    }
+    ) {}
 
     public function toEntity(): ReplaceEquipmentConfig
     {

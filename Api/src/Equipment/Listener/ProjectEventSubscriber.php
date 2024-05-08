@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentService;
@@ -16,8 +15,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly GameEquipmentService $gameEquipmentService,
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

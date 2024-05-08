@@ -7,7 +7,6 @@ namespace Mush\Equipment\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Equipment\ConfigData\ReplaceEquipmentConfigData;
-use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 
 /** @codeCoverageIgnore */
 final class ReplaceEquipmentConfigFixtures extends Fixture

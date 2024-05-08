@@ -91,6 +91,7 @@ class EquipmentEnum
     {
         return new ArrayCollection([
             self::NERON_CORE,
+            self::AUXILIARY_TERMINAL,
             self::PILGRED,
             self::RESEARCH_LABORATORY,
         ]);

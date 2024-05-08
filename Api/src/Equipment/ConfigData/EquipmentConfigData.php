@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -2569,6 +2570,29 @@ class EquipmentConfigData
             ],
             'mechanics' => [
                 'tool_neron_core_default',
+            ],
+            'initStatuses' => [],
+        ],
+        [
+            'name' => 'auxiliary_core_default',
+            'equipmentName' => EquipmentEnum::AUXILIARY_TERMINAL,
+            'isBreakable' => true,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => true,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'equipment_config',
+            'isStackable' => null,
+            'actions' => [
+                'repair_percent_6',
+                'sabotage_percent_6',
+                'report_equipment',
+                'examine',
+                'access_terminal',
+                'exit_terminal',
+            ],
+            'mechanics' => [
+                'tool_auxiliary_terminal_default',
             ],
             'initStatuses' => [],
         ],

@@ -274,6 +274,7 @@ class GameConfigData
                 'door_default',
                 'communication_center_default',
                 'neron_core_default',
+                'auxiliary_core_default',
                 'astro_terminal_default',
                 'research_laboratory_default',
                 'pilgred_default',

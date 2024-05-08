@@ -301,6 +301,7 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         // when Chun participates in the project
         $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->execute();
 
         // then one of Chun's Core points is consumed
         $I->assertEquals(0, $skill->getCharge());

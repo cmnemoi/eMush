@@ -1757,7 +1757,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::ADDITIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -2050,7 +2050,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_TECHNICIAN->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -2069,8 +2069,8 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::REPAIR => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::REPAIR->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::RENOVATE->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

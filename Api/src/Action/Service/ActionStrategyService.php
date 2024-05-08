@@ -17,7 +17,6 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Service\HunterServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Entity\Project;
@@ -109,16 +108,22 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             case GameItem::class:
             case Door::class:
                 return $this->equipmentService->findById($entityId);
+
             case Player::class:
                 return $this->playerService->findById($entityId);
+
             case Hunter::class:
-                return $this->hunterService->findById( $entityId);
+                return $this->hunterService->findById($entityId);
+
             case Planet::class:
                 return $this->planetService->findById($entityId);
+
             case Project::class:
                 return $this->entityManager->getRepository(Project::class)->find($entityId);
+
             case Status::class:
-                return $this->entityManager->getRepository(Status::class)->find( $entityId);
+                return $this->entityManager->getRepository(Status::class)->find($entityId);
+
             default:
                 return null;
         }

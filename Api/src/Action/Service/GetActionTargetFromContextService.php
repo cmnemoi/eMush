@@ -23,7 +23,7 @@ final class GetActionTargetFromContextService
         'planet' => Planet::class,
         'project' => Project::class,
         'terminal' => GameEquipment::class,
-        'hunter' => Hunter::class
+        'hunter' => Hunter::class,
     ];
 
     public function execute(array $context): ?ActionHolderInterface

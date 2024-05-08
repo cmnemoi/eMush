@@ -58,7 +58,9 @@ abstract class AbstractAction
             $parameters = [];
             $parameters['parameters'] = json_encode($parameters);
 
-            throw new \InvalidArgumentException("Action {$action->getName()} does not support the target {$target?->getLogName()}, or one of the parameters is missing in {$parameters['parameters']}.");
+            $actionName = $action->getActionConfig()->getActionName()->value;
+
+            throw new \InvalidArgumentException("Action {$actionName} does not support the target {$target?->getLogName()}, or one of the parameters is missing in {$parameters['parameters']}.");
         }
 
         $this->actionConfig = $action->getActionConfig();

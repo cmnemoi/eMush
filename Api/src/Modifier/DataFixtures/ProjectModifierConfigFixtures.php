@@ -70,7 +70,7 @@ final class ProjectModifierConfigFixtures extends Fixture
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS])
+            ->setTagConstraints([ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
         $manager->persist($cpuOverclock);

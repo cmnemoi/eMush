@@ -76,7 +76,6 @@ class ActionNormalizer implements NormalizerInterface
         /** @var ?LogParameterInterface $actionTarget */
         $actionTarget = $parameters['actionTarget'];
 
-
         try {
             $actionClass->loadParameters($object, $currentPlayer, $actionTarget, $parameters);
 
@@ -118,7 +117,7 @@ class ActionNormalizer implements NormalizerInterface
                         $actionTarget,
                         PlayerVariableEnum::MORAL_POINT,
                     ),
-                    'specialistPointCosts' => $this->getNormalizedSpecialistPointCosts($currentPlayer, $object),
+                    'specialistPointCosts' => $this->getNormalizedSpecialistPointCosts($currentPlayer, $actionConfig),
                 ];
 
                 if ($actionClass instanceof AttemptAction) {
@@ -160,7 +159,9 @@ class ActionNormalizer implements NormalizerInterface
             }
 
             return [];
-        } catch (\Exception $e) { return [];}
+        } catch (\Exception $e) {
+            return [];
+        }
     }
 
     private function loadParameters(array $context): array

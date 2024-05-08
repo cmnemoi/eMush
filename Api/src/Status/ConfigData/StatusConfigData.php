@@ -360,7 +360,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [
-                'mute_modifier'
+                'mute_modifier',
             ],
             'actionConfigs' => [],
         ],
@@ -432,7 +432,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [
-                'modifier_for_player_set_0spore_on_change.variable'
+                'modifier_for_player_set_0spore_on_change.variable',
             ],
             'actionConfigs' => [],
         ],
@@ -1117,7 +1117,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
             'autoRemove' => true,
             'modifierConfigs' => [
-                'modifier_shooter_specialist_point'
+                'modifier_shooter_specialist_point',
             ],
             'actionConfigs' => [],
         ],
@@ -1128,7 +1128,7 @@ abstract class StatusConfigData
             'type' => 'status_config',
             'modifierConfigs' => [
                 'modifier_pilot_always_critical_success_piloting',
-                'modifier_pilot_increased_shoot_hunter_chances'
+                'modifier_pilot_increased_shoot_hunter_chances',
             ],
             'actionConfigs' => [],
         ],

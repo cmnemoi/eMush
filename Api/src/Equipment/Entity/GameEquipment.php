@@ -335,6 +335,10 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     // return action available for this target $actionTarget should be set to game_equipment
     public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
+        if ($actionTarget === null) {
+            throw new \Exception('You must specify if the action holder is equipment or terminal');
+        }
+
         // first actions provided by the gameEquipment itself
         $actions = $this->getProvidedActions($actionTarget, [ActionRangeEnum::SELF])->toArray();
 

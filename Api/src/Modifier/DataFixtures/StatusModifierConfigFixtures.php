@@ -355,7 +355,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_TECHNICIAN->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_ENGINEER);
@@ -369,8 +369,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
             ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
             ->setTagConstraints([
-                ActionEnum::REPAIR => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::REPAIR->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::RENOVATE->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($technicianDoubleRepairChance);

@@ -50,17 +50,17 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         $action = $event->getActionConfig();
-        $actionSupport = $event->getActionTarget();
+        $actionHolder = $event->getActionTarget();
         $player = $event->getAuthor();
 
         /** @var ActionResult $actionResult */
         $actionResult = $event->getActionResult();
 
-        if ($actionTarget instanceof Player
+        if ($actionHolder instanceof Player
             && \in_array($action->getActionName(), ActionEnum::getForceGetUpActions(), true)
-            && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN)
+            && $actionHolder->hasStatus(PlayerStatusEnum::LYING_DOWN)
         ) {
-            $this->createForceGetUpLog($actionTarget);
+            $this->createForceGetUpLog($actionHolder);
         }
 
         if ($action->getActionName() === ActionEnum::MOVE) {

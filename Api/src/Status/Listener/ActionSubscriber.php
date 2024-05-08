@@ -54,7 +54,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $actionTarget = $event->getActionTarget();
 
         $isPlayerLaidDown = $actionTarget instanceof Player && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN);
-        $actionShouldRemoveLaidDownStatus = \in_array($event->getAction()->getActionName(), ActionEnum::getForceGetUpActions(), true);
+        $actionShouldRemoveLaidDownStatus = \in_array($event->getActionConfig()->getActionName()->value, ActionEnum::getForceGetUpActions(), true);
 
         if ($isPlayerLaidDown && $actionShouldRemoveLaidDownStatus) {
             $this->statusService->removeStatus(

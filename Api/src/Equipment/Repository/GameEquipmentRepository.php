@@ -100,7 +100,7 @@ class GameEquipmentRepository extends ServiceEntityRepository
 
         $queryBuilder
             ->leftJoin(Place::class, 'equipment_place', Join::WITH, 'equipment.place = equipment_place')
-            ->where('equipment.daedalus = :daedalus')
+            ->where('equipment_place.daedalus = :daedalus')
             ->andWhere('equipment.name = :name')
             ->setParameter(':daedalus', $daedalus)
             ->setParameter(':name', $name);

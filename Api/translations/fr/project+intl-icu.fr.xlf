@@ -253,5 +253,23 @@
         <target>Ça serait pratique si on faisait moins de marche pour arriver jusqu'ici... En détournant la prise 100V pour les rasoirs, vous montez un bridge SCCS vers NERON.</target>
       </segment>
     </unit>
+    <unit id="thalasso">
+      <segment id="thalasso.type" state="translated">
+        <source>thalasso.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="thalasso.name" state="translated">
+        <source>thalasso.name</source>
+        <target>Thalasso</target>
+      </segment>
+      <segment id="thalasso.description" state="translated">
+        <source>thalasso.description</source>
+        <target>Si vous n'êtes pas Mush, chaque douche à 25% de chance de vous rapporter + 1 :hp: OU + 1 :pmo: OU + 2 :pm:</target>
+      </segment>
+      <segment id="thalasso.lore" state="translated">
+        <source>thalasso.lore</source>
+        <target>Votre arthrose vous fait souffrir ? Les lombagos vous torturent ? SNC peut vous aider.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

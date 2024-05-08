@@ -27,16 +27,21 @@ class SpawnEquipmentConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $quantity;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $replacedEquipment = null;
+
     public function __construct(
         string $name = '',
         string $equipmentName = '',
         string $placeName = '',
         int $quantity = 1,
+        ?string $replacedEquipment = null,
     ) {
         $this->name = $name;
         $this->equipmentName = $equipmentName;
         $this->placeName = $placeName;
         $this->quantity = $quantity;
+        $this->replacedEquipment = $replacedEquipment;
     }
 
     public function getName(): string
@@ -59,12 +64,18 @@ class SpawnEquipmentConfig
         return $this->quantity;
     }
 
+    public function getReplacedEquipment(): ?string
+    {
+        return $this->replacedEquipment;
+    }
+
     public function updateFromDto(SpawnEquipmentConfigDto $dto): static
     {
         $this->name = $dto->name;
         $this->equipmentName = $dto->equipmentName;
         $this->placeName = $dto->placeName;
         $this->quantity = $dto->quantity;
+        $this->replacedEquipment = $dto->replaceEquipment;
 
         return $this;
     }

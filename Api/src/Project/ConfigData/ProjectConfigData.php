@@ -129,6 +129,18 @@ abstract class ProjectConfigData
                     '1_auxiliary_terminal_in_engine_room',
                 ],
             ],
+            [
+                'name' => ProjectName::THALASSO,
+                'type' => ProjectType::NERON_PROJECT,
+                'efficiency' => 1,
+                'bonusSkills' => [],
+                'activationRate' => 100,
+                'modifierConfigs' => [],
+                'spawnEquipmentConfigs' => [
+                    '1_thalasso_in_dorm_alpha',
+                    '1_thalasso_in_dorm_bravo',
+                ],
+            ],
         ];
     }
 }

@@ -13,6 +13,7 @@ final readonly class SpawnEquipmentConfigDto
         public string $equipmentName,
         public string $placeName,
         public int $quantity,
+        public ?string $replaceEquipment = null,
     ) {}
 
     public function toEntity(): SpawnEquipmentConfig
@@ -22,6 +23,7 @@ final readonly class SpawnEquipmentConfigDto
             equipmentName: $this->equipmentName,
             placeName: $this->placeName,
             quantity: $this->quantity,
+            replacedEquipment: $this->replaceEquipment
         );
     }
 }

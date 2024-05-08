@@ -143,7 +143,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::THALASSO,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 1,
+                'efficiency' => 18,
                 'bonusSkills' => [],
                 'activationRate' => 100,
                 'modifierConfigs' => [],

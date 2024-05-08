@@ -476,6 +476,17 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($changedCpuPriority);
 
+        $autoWateringFiresKilled = new ChargeStatusConfig();
+        $autoWateringFiresKilled
+            ->setStatusName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::NONE)
+            ->setStartCharge(1)
+            ->setAutoRemove(false)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($autoWateringFiresKilled);
+
         /** @var VariableEventModifierConfig $technicianSpecialistPointModifier */
         $technicianSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_SPECIALIST_POINT);
 
@@ -554,7 +565,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($shooterSkillPoc)
             ->addStatusConfig($changedCpuPriority)
             ->addStatusConfig($technicianSkill)
-            ->addStatusConfig($conceptorSkill);
+            ->addStatusConfig($conceptorSkill)
+            ->addStatusConfig($autoWateringFiresKilled);
 
         $manager->persist($gameConfig);
 
@@ -595,6 +607,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::CHANGED_CPU_PRIORITY, $changedCpuPriority);
         $this->addReference(SkillEnum::TECHNICIAN, $technicianSkill);
         $this->addReference(SkillEnum::CONCEPTOR, $conceptorSkill);
+        $this->addReference(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES, $autoWateringFiresKilled);
     }
 
     public function getDependencies(): array

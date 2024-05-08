@@ -19,6 +19,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -55,12 +56,18 @@ final readonly class Fire extends AbstractStatusCycleHandler
         }
 
         // if Auto Watering project is finished and random draw is successful, the fire is extinguished.
-        $autoWatering = $statusHolder->getDaedalus()->getProjectByName(ProjectName::AUTO_WATERING);
+        $daedalus = $statusHolder->getDaedalus();
+        $autoWatering = $daedalus->getProjectByName(ProjectName::AUTO_WATERING);
         if ($autoWatering->isFinished() && $this->randomService->isSuccessful($autoWatering->getActivationRate())) {
             $this->statusService->removeStatus(
                 statusName: $this->name,
                 holder: $statusHolder,
                 tags: [StatusEnum::FIRE],
+                time: $dateTime
+            );
+            $this->statusService->createOrIncrementChargeStatus(
+                name: DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES,
+                holder: $daedalus,
                 time: $dateTime
             );
 

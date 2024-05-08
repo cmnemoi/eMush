@@ -292,6 +292,27 @@ class StatusService implements StatusServiceInterface
         return $chargeStatus;
     }
 
+    public function createOrIncrementChargeStatus(string $name, StatusHolderInterface $holder, string $visibility = VisibilityEnum::HIDDEN, ?StatusHolderInterface $target = null, array $tags = [], \DateTime $time = new \DateTime()): ChargeStatus
+    {
+        $chargeStatus = $holder->getStatusByName($name);
+        if ($chargeStatus instanceof ChargeStatus) {
+            /** @var ChargeStatus $chargeStatus */
+            $chargeStatus = $this->updateCharge($chargeStatus, 1, $tags, $time);
+        } else {
+            /** @var ChargeStatus $chargeStatus */
+            $chargeStatus = $this->createStatusFromName(
+                $name,
+                $holder,
+                $tags,
+                $time,
+                $target,
+                $visibility
+            );
+        }
+
+        return $chargeStatus;
+    }
+
     private function createAttemptStatus(string $action, Player $player): Attempt
     {
         /** @var ChargeStatusConfig $attemptConfig */

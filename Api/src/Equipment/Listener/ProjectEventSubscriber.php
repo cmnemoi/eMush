@@ -28,7 +28,6 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     {
         $project = $projectEvent->getProject();
 
-        /** @var SpawnEquipmentConfig $spawnEquipmentConfig */
         foreach ($project->getSpawnEquipmentConfigs() as $spawnEquipmentConfig) {
             $holder = $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEquipmentConfig->getPlaceName());
             $this->gameEquipmentService->createGameEquipmentsFromName(
@@ -41,7 +40,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
         }
 
         foreach ($project->getReplaceEquipmentConfigs() as $replaceEquipmentConfig) {
-            /** @var ArrayCollection<GameEquipment> $replacedEquipments */
+            /** @var ArrayCollection<int, GameEquipment> $replacedEquipments */
             $replacedEquipments = $this->gameEquipmentService->findEquipmentByNameAndDaedalus(
                 $replaceEquipmentConfig->getReplacedEquipmentName(),
                 $projectEvent->getDaedalus()

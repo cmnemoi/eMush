@@ -1909,7 +1909,7 @@ class ActionData
         [
             'name' => ActionEnum::PARTICIPATE,
             'action_name' => ActionEnum::PARTICIPATE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONCEPTOR],
             'target' => Project::class,
             'scope' => ActionScopeEnum::TERMINAL,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

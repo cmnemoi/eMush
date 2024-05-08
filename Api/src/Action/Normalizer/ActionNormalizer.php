@@ -63,7 +63,7 @@ class ActionNormalizer implements NormalizerInterface
             return [];
         }
 
-        $actionName = $actionConfig->getActionName();
+        $actionName = $actionConfig->getActionName()->value;
 
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
@@ -75,88 +75,91 @@ class ActionNormalizer implements NormalizerInterface
         /** @var ?LogParameterInterface $actionTarget */
         $actionTarget = $parameters['actionTarget'];
 
-        $actionClass->loadParameters($object, $currentPlayer, $actionTarget, $parameters);
 
-        // translation parameters
-        $translationParameters = $this->getTranslationParameters($actionClass, $currentPlayer, $actionTarget);
+        try {
+            $actionClass->loadParameters($object, $currentPlayer, $actionTarget, $parameters);
 
-        if ($actionClass->isVisible()) {
-            $normalizedAction = [
-                'id' => $actionConfig->getId(),
-                'key' => $actionConfig->getActionName(),
-                'name' => $this->translationService->translate(
-                    "{$actionName}.name",
-                    $translationParameters,
-                    'actions',
-                    $language
-                ),
-                'actionProvider' => [
-                    'id' => $actionProvider->getId(),
-                    'class' => $actionProvider->getClassName(),
-                ],
-                'actionPointCost' => $this->actionService->getActionModifiedActionVariable(
-                    $currentPlayer,
-                    $actionConfig,
-                    $actionProvider,
-                    $actionTarget,
-                    PlayerVariableEnum::ACTION_POINT,
-                ),
-                'movementPointCost' => $this->actionService->getActionModifiedActionVariable(
-                    $currentPlayer,
-                    $actionConfig,
-                    $actionProvider,
-                    $actionTarget,
-                    PlayerVariableEnum::MOVEMENT_POINT,
-                ),
-                'moralPointCost' => $this->actionService->getActionModifiedActionVariable(
-                    $currentPlayer,
-                    $actionConfig,
-                    $actionProvider,
-                    $actionTarget,
-                    PlayerVariableEnum::MORAL_POINT,
-                ),
-                'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $actionConfig),
-            ];
+            // translation parameters
+            $translationParameters = $this->getTranslationParameters($actionClass, $currentPlayer, $actionTarget);
 
-            if ($actionClass instanceof AttemptAction) {
-                $normalizedAction['successRate'] = $actionClass->getSuccessRate();
-            } else {
-                $normalizedAction['successRate'] = 100;
-            }
-
-            if ($reason = $actionClass->cannotExecuteReason()) {
-                $normalizedAction['description'] = $this->translationService->translate(
-                    "{$reason}.description",
-                    $translationParameters,
-                    'action_fail',
-                    $language
-                );
-                $normalizedAction['canExecute'] = false;
-            } else {
-                $description = $this->translationService->translate(
-                    "{$actionName}.description",
-                    $translationParameters,
-                    'actions',
-                    $language
-                );
-                $description = $this->getTypesDescriptions($description, $actionConfig->getTypes(), $language);
-                $normalizedAction['description'] = $description;
-                $normalizedAction['canExecute'] = true;
-                $normalizedAction['confirmation'] =
-                    \in_array(ActionTypeEnum::ACTION_CONFIRM->value, $actionConfig->getTypes(), true)
-                    ? $this->translationService->translate(
-                        "{$actionName}.confirmation",
+            if ($actionClass->isVisible()) {
+                $normalizedAction = [
+                    'id' => $actionConfig->getId(),
+                    'key' => $actionConfig->getActionName(),
+                    'name' => $this->translationService->translate(
+                        "{$actionName}.name",
                         $translationParameters,
                         'actions',
                         $language
-                    )
-                    : null;
+                    ),
+                    'actionProvider' => [
+                        'id' => $actionProvider->getId(),
+                        'class' => $actionProvider->getClassName(),
+                    ],
+                    'actionPointCost' => $this->actionService->getActionModifiedActionVariable(
+                        $currentPlayer,
+                        $actionConfig,
+                        $actionProvider,
+                        $actionTarget,
+                        PlayerVariableEnum::ACTION_POINT,
+                    ),
+                    'movementPointCost' => $this->actionService->getActionModifiedActionVariable(
+                        $currentPlayer,
+                        $actionConfig,
+                        $actionProvider,
+                        $actionTarget,
+                        PlayerVariableEnum::MOVEMENT_POINT,
+                    ),
+                    'moralPointCost' => $this->actionService->getActionModifiedActionVariable(
+                        $currentPlayer,
+                        $actionConfig,
+                        $actionProvider,
+                        $actionTarget,
+                        PlayerVariableEnum::MORAL_POINT,
+                    ),
+                    'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $actionConfig),
+                ];
+
+                if ($actionClass instanceof AttemptAction) {
+                    $normalizedAction['successRate'] = $actionClass->getSuccessRate();
+                } else {
+                    $normalizedAction['successRate'] = 100;
+                }
+
+                if ($reason = $actionClass->cannotExecuteReason()) {
+                    $normalizedAction['description'] = $this->translationService->translate(
+                        "{$reason}.description",
+                        $translationParameters,
+                        'action_fail',
+                        $language
+                    );
+                    $normalizedAction['canExecute'] = false;
+                } else {
+                    $description = $this->translationService->translate(
+                        "{$actionName}.description",
+                        $translationParameters,
+                        'actions',
+                        $language
+                    );
+                    $description = $this->getTypesDescriptions($description, $actionConfig->getTypes(), $language);
+                    $normalizedAction['description'] = $description;
+                    $normalizedAction['canExecute'] = true;
+                    $normalizedAction['confirmation'] =
+                        \in_array(ActionTypeEnum::ACTION_CONFIRM->value, $actionConfig->getTypes(), true)
+                        ? $this->translationService->translate(
+                            "{$actionName}.confirmation",
+                            $translationParameters,
+                            'actions',
+                            $language
+                        )
+                        : null;
+                }
+
+                return $normalizedAction;
             }
 
-            return $normalizedAction;
-        }
-
-        return [];
+            return [];
+        } catch (\Exception $e) { return [];}
     }
 
     private function loadParameters(array $context): array

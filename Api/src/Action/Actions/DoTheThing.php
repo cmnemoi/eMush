@@ -136,7 +136,7 @@ class DoTheThing extends AbstractAction
             $this->statusService->createStatusFromName(
                 statusName: EquipmentStatusEnum::BROKEN,
                 holder: $sofaInRoom,
-                tags: $this->actionConfig->getActionTags(),
+                tags: $this->getActionConfig()->getActionTags(),
                 time: new \DateTime(),
                 visibility: VisibilityEnum::PUBLIC,
             );

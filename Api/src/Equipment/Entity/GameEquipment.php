@@ -296,7 +296,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
     {
-        $charges = $this->statuses->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
 
         $charge = $charges->first();
         if (!$charge instanceof ChargeStatus) {
@@ -325,7 +325,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
         // add actions provided by the statuses
         /** @var Status $status */
-        foreach ($this->statuses as $status) {
+        foreach ($this->getStatuses() as $status) {
             $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
 
@@ -333,10 +333,10 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     }
 
     // return action available for this target $actionTarget should be set to game_equipment
-    public function getActions(ActionHolderEnum $actionTarget, Player $activePlayer): Collection
+    public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
         // first actions provided by the gameEquipment itself
-        $actions = $this->getProvidedActions(ActionHolderEnum::EQUIPMENT, [ActionRangeEnum::SELF])->toArray();
+        $actions = $this->getProvidedActions($actionTarget, [ActionRangeEnum::SELF])->toArray();
 
         // then actions provided by the room
         $actions = array_merge($actions, $this->getPlace()->getProvidedActions(

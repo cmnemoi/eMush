@@ -73,25 +73,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             ),
             'health' => $hunterHealth,
             'charges' => $asteroidTruceCycles,
-            'actions' => $this->getActions($hunter, $currentPlayer, $format, $context),
+            'actions' => $this->getNormalizedActions($hunter, ActionHolderEnum::HUNTER, $currentPlayer, $format, $context),
         ];
-    }
-
-    private function getActions(Hunter $hunter, Player $currentPlayer, ?string $format, array $context): array
-    {
-        $actions = [];
-
-        $actionToNormalize = $hunter->getActions(ActionHolderEnum::HUNTER, $currentPlayer);
-
-        foreach ($actionToNormalize as $action) {
-            $normedAction = $this->normalizer->normalize($action, $format, $context);
-            if (\is_array($normedAction) && \count($normedAction) > 0) {
-                $actions[] = $normedAction;
-            }
-        }
-
-        $actions = $this->getNormalizedActionsSortedBy('name', $actions);
-
-        return $this->getNormalizedActionsSortedBy('actionPointCost', $actions);
     }
 }

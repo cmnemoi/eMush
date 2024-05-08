@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
@@ -64,5 +65,10 @@ class Door extends GameEquipment
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::EQUIPMENT;
+    }
+
+    public function canPlayerReach(Player $player): bool
+    {
+        return $this->getRooms()->contains($player->getPlace());
     }
 }

@@ -168,86 +168,86 @@ enum ActionEnum: string
     public static function getPermanentItemActions(): array
     {
         return [
-            self::TAKE,
-            self::DROP,
-            self::HIDE,
+            self::TAKE->value,
+            self::DROP->value,
+            self::HIDE->value,
         ];
     }
 
     public static function getPermanentEquipmentActions(): array
     {
         return [
-            self::EXAMINE,
-            self::REPAIR,
-            self::REPORT_EQUIPMENT,
+            self::EXAMINE->value,
+            self::REPAIR->value,
+            self::REPORT_EQUIPMENT->value,
         ];
     }
 
     public static function getPermanentSelfActions(): array
     {
         return [
-            self::UNGAG,
-            self::GET_UP,
-            self::GUARD,
-            self::SEARCH,
-            self::EXTRACT_SPORE,
-            self::GO_BERSERK,
-            self::REPORT_FIRE,
+            self::UNGAG->value,
+            self::GET_UP->value,
+            self::GUARD->value,
+            self::SEARCH->value,
+            self::EXTRACT_SPORE->value,
+            self::GO_BERSERK->value,
+            self::REPORT_FIRE->value,
         ];
     }
 
     public static function getPermanentPlayerActions(): array
     {
         return [
-            self::HIT,
-            self::WHISPER,
-            self::HEAL,
-            self::SELF_HEAL,
+            self::HIT->value,
+            self::WHISPER->value,
+            self::HEAL->value,
+            self::SELF_HEAL->value,
         ];
     }
 
     public static function getForceGetUpActions(): array
     {
         return [
-            self::HIT,
-            self::ATTACK,
-            self::SHOOT,
+            self::HIT->value,
+            self::ATTACK->value,
+            self::SHOOT->value,
         ];
     }
 
     public static function getActionPointModifierProtectedActions(): array
     {
         return [
-            self::REJUVENATE,
-            self::SUICIDE,
-            self::AUTO_DESTROY,
-            self::KILL_PLAYER,
-            self::EXIT_TERMINAL,
+            self::REJUVENATE->value,
+            self::SUICIDE->value,
+            self::AUTO_DESTROY->value,
+            self::KILL_PLAYER->value,
+            self::EXIT_TERMINAL->value,
         ];
     }
 
     public static function getChangingRoomActions(): ArrayCollection
     {
         return new ArrayCollection([
-            self::MOVE,
-            self::LAND,
-            self::TAKEOFF,
+            self::MOVE->value,
+            self::LAND->value,
+            self::TAKEOFF->value,
         ]);
     }
 
     public static function getChangingRoomPatrolshipActions(): ArrayCollection
     {
         return new ArrayCollection([
-            self::LAND,
-            self::TAKEOFF,
+            self::LAND->value,
+            self::TAKEOFF->value,
         ]);
     }
 
     public static function getTakeOffToPlanetActions(): ArrayCollection
     {
         return new ArrayCollection([
-            self::TAKEOFF_TO_PLANET,
-            self::TAKEOFF_TO_PLANET_PATROL_SHIP,
+            self::TAKEOFF_TO_PLANET->value,
+            self::TAKEOFF_TO_PLANET_PATROL_SHIP->value,
         ]);
     }
 

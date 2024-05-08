@@ -191,8 +191,9 @@ class Planet implements LogParameterInterface, ActionHolderInterface
         return $this->name->toString();
     }
 
-    public function getActions(ActionHolderEnum $actionTarget, Player $activePlayer): Collection
+    public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
+        // first action provided by the room
         return $activePlayer->getPlace()->getProvidedActions(ActionHolderEnum::PLANET, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]);
     }
 }

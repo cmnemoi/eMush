@@ -61,7 +61,7 @@ final class GetActionTargetFromContextServiceTest extends TestCase
         $expectedActionTarget = GameEquipmentFactory::createEquipmentByName(EquipmentEnum::TABULATRIX);
         $context = [
             'currentPlayer' => new Player(),
-            'item' => $expectedActionTarget,
+            'equipment' => $expectedActionTarget,
         ];
 
         $service = new GetActionTargetFromContextService();

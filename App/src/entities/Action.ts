@@ -9,6 +9,8 @@ export class Action {
     public movementPointCost: number|null;
     public successRate: number|null;
     public confirmation: string|null;
+    public actionProviderId: number|null;
+    public actionProviderClass: string|null;
     public shootPointCost: number|null;
 
     constructor() {
@@ -23,6 +25,8 @@ export class Action {
         this.successRate = null;
         this.confirmation = null;
         this.shootPointCost = null;
+        this.actionProviderId = null;
+        this.actionProviderClass = null;
     }
     load(object:any) : Action {
         if (typeof object !== "undefined") {
@@ -37,6 +41,8 @@ export class Action {
             this.successRate = object.successRate;
             this.confirmation = object.confirmation;
             this.shootPointCost = object.shootPointCost;
+            this.actionProviderId = object.actionProvider.id;
+            this.actionProviderClass = object.actionProvider.class;
         }
         return this;
     }
@@ -56,6 +62,8 @@ export class Action {
             this.successRate = object.successRate;
             this.confirmation = object.confirmation;
             this.shootPointCost = object.shootPointCost;
+            this.actionProviderId = object.actionProvider.id;
+            this.actionProviderClass = object.actionProvider.class;
         }
 
         return this;

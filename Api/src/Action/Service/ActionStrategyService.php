@@ -9,7 +9,9 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\PlanetServiceInterface;
@@ -92,102 +94,33 @@ class ActionStrategyService implements ActionStrategyServiceInterface
 
     private function loadGameEntity(?array $entityParameters): null|ActionProviderInterface|LogParameterInterface
     {
-        if ($entityParameters !== null) {
-            if ($player = $this->getPlayerEntity($entityParameters)) {
-                return $player;
-            }
-
-            if ($equipment = $this->getEquipmentEntity($entityParameters)) {
-                return $equipment;
-            }
-
-            if ($hunter = $this->getHunterEntity($entityParameters)) {
-                return $hunter;
-            }
-
-            if ($planet = $this->getPlanetEntity($entityParameters)) {
-                return $planet;
-            }
-
-            if ($project = $this->getProjectEntity($entityParameters)) {
-                return $project;
-            }
-            if ($status = $this->getStatusEntity($entityParameters)) {
-                return $status;
-            }
-
-            if ($place = $this->getPlaceEntity($entityParameters)) {
-                return $place;
-            }
+        if ($entityParameters === null) {
+            return null;
         }
 
-        return null;
-    }
-
-    private function getEquipmentEntity(array $entityParameter): ?GameEquipment
-    {
-        if (($equipmentId = $entityParameter['door'] ?? null)
-            || ($equipmentId = $entityParameter['item'] ?? null)
-            || ($equipmentId = $entityParameter['equipment'] ?? null)
-            || ($equipmentId = $entityParameter['terminal'] ?? null)
-        ) {
-            return $this->equipmentService->findById($equipmentId);
+        $className = $entityParameters['className'];
+        $entityId = $entityParameters['id'];
+        if ($entityId === null) {
+            return null;
         }
 
-        return null;
-    }
-
-    private function getPlayerEntity(array $entityParameter): ?Player
-    {
-        if ($playerId = $entityParameter['player'] ?? null) {
-            return $this->playerService->findById($playerId);
+        switch ($className) {
+            case GameEquipment::class:
+            case GameItem::class:
+            case Door::class:
+                return $this->equipmentService->findById($entityId);
+            case Player::class:
+                return $this->playerService->findById($entityId);
+            case Hunter::class:
+                return $this->hunterService->findById( $entityId);
+            case Planet::class:
+                return $this->planetService->findById($entityId);
+            case Project::class:
+                return $this->entityManager->getRepository(Project::class)->find($entityId);
+            case Status::class:
+                return $this->entityManager->getRepository(Status::class)->find( $entityId);
+            default:
+                return null;
         }
-
-        return null;
-    }
-
-    private function getHunterEntity(array $entityParameter): ?Hunter
-    {
-        if ($hunterId = $entityParameter['hunter'] ?? null) {
-            return $this->hunterService->findById($hunterId);
-        }
-
-        return null;
-    }
-
-    private function getPlanetEntity(array $entityParameter): ?Planet
-    {
-        if ($planetId = $entityParameter['planet'] ?? null) {
-            return $this->planetService->findById($planetId);
-        }
-
-        return null;
-    }
-
-    private function getProjectEntity(array $entityParameter): ?Project
-    {
-        if ($projectId = $entityParameter['project'] ?? null) {
-            return $this->entityManager->getRepository(Project::class)->find($projectId);
-        }
-
-        return null;
-    }
-
-    private function getPlaceEntity(array $entityParameter): ?Place
-    {
-        if ($placeId = $entityParameter['place'] ?? null) {
-            return $this->entityManager->getRepository(Place::class)->find($placeId);
-        }
-
-        return null;
-    }
-
-    private function getStatusEntity(array $entityParameter): ?Status
-    {
-        if ($statusId = $entityParameter['status'] ?? null) {
-            return $this->entityManager->getRepository(Status::class)->find($statusId);
-        }
-
-        return null;
     }
 }

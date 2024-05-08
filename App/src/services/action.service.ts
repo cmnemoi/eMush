@@ -11,45 +11,71 @@ import { Hunter } from "@/entities/Hunter";
 import { Terminal } from "@/entities/Terminal";
 import { Planet } from "@/entities/Planet";
 import { Project } from "@/entities/Project";
+import { Status } from "@/entities/Status";
+import { Room } from "@/entities/Room";
 
 // @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 // @ts-ignore
 const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "actions");
 
+const EquipmentClassName = "Mush\\Equipment\\Entity\\GameEquipment"
+const PlayerClassName = "Mush\\Player\\Entity\\Player"
+const HunterClassName = "Mush\\Hunter\\Entity\\Hunter"
+const PlanetClassName = "Mush\\Exploration\\Entity\\Planet"
+const ProjectClassName = "Mush\\Project\\Entity\\Project"
+
 const ActionService = {
-    executeTargetAction(target: Item | Equipment | Player | Hunter | Terminal | Planet | Project | null, action: Action, otherParams: object = {}): Promise<AxiosResponse> {
+    executeTargetAction(
+        target: Item | Equipment | Player | Hunter | Terminal | Planet | Project | null,
+        action: Action,
+        otherParams: object = {}
+    ): Promise<AxiosResponse> {
         const currentPlayer = store.getters["player/player"];
+
+        console.log(buildActionProvider());
         return ApiService.post(urlJoin(PLAYER_ENDPOINT, String(currentPlayer.id),'action'), {
             action: action.id,
             params: {
                 target: buildTarget(),
+                actionProvider: buildActionProvider(),
                 ...otherParams
             }
         });
 
         function buildTarget(): Record<string, unknown> | undefined | null {
-            if (target instanceof Door) {
-                return { door: target.id };
-            } else if (target instanceof Item) {
-                return { item: target.id };
-            } else if (target instanceof Equipment) {
-                return { equipment: target.id };
+            if (
+                target instanceof Door
+                || target instanceof Item
+                || target instanceof Equipment
+                || target instanceof Terminal
+            ) {
+                return { className: EquipmentClassName, id: target.id };
             } else if (target instanceof Player) {
-                return { player: target.id };
+                return { className: PlayerClassName, id: target.id };
             } else if (target instanceof Hunter) {
-                return { hunter: target.id };
-            } else if (target instanceof Terminal) {
-                return { terminal: target.id };
+                return { className: HunterClassName , id: target.id };
             } else if (target instanceof Planet) {
-                return { planet: target.id };
+                return { className: PlanetClassName, id: target.id };
             } else if (target instanceof Project) {
-                return { project: target.id };
+                return { className: ProjectClassName, id: target.id };
             } else {
                 return null;
             }
         }
+
+        function buildActionProvider(): Record<string, unknown> | undefined | null {
+            const className = action.actionProviderClass;
+
+            if (typeof className === 'string'){
+                return { className: className, id: action.actionProviderId };
+            }
+
+            return null;
+        }
     },
+
+
     loadAction: async(actionId: number): Promise<Action | null> => {
         store.dispatch('action/setLoading', { loading: true });
         const actionData = await ApiService.get(ACTION_ENDPOINT + '/' + actionId)

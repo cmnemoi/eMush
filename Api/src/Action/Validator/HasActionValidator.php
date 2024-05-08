@@ -27,8 +27,9 @@ class HasActionValidator extends ConstraintValidator
 
         $player = $value->getPlayer();
 
-        if ($this->providerHasActionConfig($actionProvider, $actionConfig)
-            && $actionProvider->canPlayerReach($player)
+
+        if (!($this->providerHasActionConfig($actionProvider, $actionConfig)
+            && $actionProvider->canPlayerReach($player))
         ) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();

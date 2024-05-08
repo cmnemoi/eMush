@@ -43,17 +43,20 @@ class ActionController extends AbstractGameController
      *
      * @OA\RequestBody (
      *      description="Input data format",
+     *
      *      @OA\MediaType(
      *          mediaType="application/json",
+     *
      *          @OA\Schema(
      *              type="object",
+     *
      *              @OA\Property(
      *                  property="action",
      *                  description="The action id to perform",
      *                  type="integer",
      *              ),
      *              @OA\Property(
-     *                  property="params",
+     *                  property="parameters",
      *                  description="Informations to execute the action",
      *                  type="object",
      *                  @OA\Property(
@@ -115,6 +118,7 @@ class ActionController extends AbstractGameController
      *          )
      *      )
      *   )
+     *
      * @OA\Tag(name="Player")
      *
      * @Security(name="Bearer")

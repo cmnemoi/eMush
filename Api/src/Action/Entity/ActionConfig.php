@@ -32,10 +32,10 @@ class ActionConfig implements GameVariableHolderInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $types = [];
 
-    #[ORM\Column(type: 'string', nullable: false, enumType: ActionHolderEnum::class)]
+    #[ORM\Column(type: 'string', enumType: ActionHolderEnum::class)]
     private ActionHolderEnum $displayHolder;
 
-    #[ORM\Column(type: 'string', nullable: false, enumType: ActionRangeEnum::class)]
+    #[ORM\Column(type: 'string', enumType: ActionRangeEnum::class)]
     private ActionRangeEnum $range;
 
     #[ORM\Column(type: 'array', nullable: false)]
@@ -90,7 +90,10 @@ class ActionConfig implements GameVariableHolderInterface
 
     public function getTypes(): array
     {
-        $types = $this->types;
+        $types = [];
+        foreach ($this->types as $type) {
+            $types[] = $type->value;
+        }
 
         if (\in_array($this->visibilities[ActionOutputEnum::SUCCESS], [VisibilityEnum::SECRET, VisibilityEnum::COVERT], true)) {
             $types[] = $this->visibilities[ActionOutputEnum::SUCCESS];
@@ -102,7 +105,7 @@ class ActionConfig implements GameVariableHolderInterface
     public function getActionTags(): array
     {
         $tags = $this->getTypes();
-        $tags[] = $this->actionName;
+        $tags[] = $this->actionName->value;
 
         return $tags;
     }

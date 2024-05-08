@@ -12,6 +12,9 @@ interface ActionHolderInterface
 {
     public function getClassName(): string;
 
-    // This function retrieve the possible actions on this target. Logic should be implemented in the class
-    public function getActions(ActionHolderEnum $actionTarget, Player $activePlayer): Collection;
+    /**
+     * This function retrieve the possible actions on this action holder.
+     * Logic should be implemented in the class.
+     */
+    public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection;
 }

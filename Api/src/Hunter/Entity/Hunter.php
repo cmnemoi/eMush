@@ -250,8 +250,9 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
         return $this;
     }
 
-    public function getActions(ActionHolderEnum $actionTarget, Player $activePlayer): Collection
+    public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
+        // first action provided by the room
         return $activePlayer->getPlace()->getProvidedActions(ActionHolderEnum::HUNTER, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]);
     }
 }

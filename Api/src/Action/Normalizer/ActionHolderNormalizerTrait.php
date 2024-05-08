@@ -25,12 +25,12 @@ trait ActionHolderNormalizerTrait
         ?string $format,
         array $context = []
     ): array {
-        $terminalActions = $actionDisplayer->getActions($actionDisplayerClass, $currentPlayer);
+        $availableActions = $actionDisplayer->getActions($currentPlayer, $actionDisplayerClass);
 
         $normalizedActions = [];
 
         /** @var ActionConfig $action */
-        foreach ($terminalActions as $action) {
+        foreach ($availableActions as $action) {
             $normedAction = $this->normalizer->normalize($action, $format, $context);
             if (\is_array($normedAction) && \count($normedAction) > 0) {
                 $normalizedActions[] = $normedAction;

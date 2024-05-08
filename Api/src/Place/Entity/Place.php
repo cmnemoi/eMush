@@ -369,7 +369,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
 
         // then actions provided by the statuses
         /** @var Status $status */
-        foreach ($this->statuses as $status) {
+        foreach ($this->getStatuses() as $status) {
             $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
 

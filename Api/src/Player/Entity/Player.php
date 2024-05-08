@@ -673,7 +673,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function getUsedCharge(ActionEnum $actionName): ?ChargeStatus
     {
-        $charges = $this->statuses->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
+        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus && $status->hasDischargeStrategy($actionName->value));
 
         $charge = $charges->first();
         if (!$charge instanceof ChargeStatus) {
@@ -684,8 +684,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     }
 
     // return action available for this target $actionTarget can either be set to player or target_player
-    public function getActions(ActionHolderEnum $actionTarget, self $activePlayer): Collection
+    public function getActions(self $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection
     {
+        if ($actionTarget === null) {
+            throw new \Exception('You must specify if the action holder is the current player or another player');
+        }
         // first actions provided by the player entity
         $actions = $this->getProvidedActions($actionTarget, [ActionRangeEnum::SELF])->toArray();
 
@@ -718,7 +721,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
         // then actions provided by the statuses
         /** @var Status $status */
-        foreach ($this->statuses as $status) {
+        foreach ($this->getStatuses() as $status) {
             $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
 

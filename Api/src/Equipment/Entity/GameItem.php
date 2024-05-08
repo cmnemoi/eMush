@@ -82,4 +82,9 @@ class GameItem extends GameEquipment
     {
         return LogParameterKeyEnum::ITEM;
     }
+
+    public function canPlayerReach(Player $player): bool
+    {
+        return $this->getPlayer() === $player || $this->getHolder() === $player->getPlace();
+    }
 }

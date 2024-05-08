@@ -58,7 +58,7 @@ abstract class AbstractAction
             $parameters = [];
             $parameters['parameters'] = json_encode($parameters);
 
-            throw new \InvalidArgumentException('Invalid action parameters: one of the passed parameters from ' . json_encode($parameters) . ' is not supported.');
+            throw new \InvalidArgumentException('Invalid action parameters: one of the passed parameters from ' . json_encode($parameters) . ' is not supported fot this action ' . $this->getActionName() . '.');
         }
 
         $this->actionConfig = $action->getActionConfig();

@@ -499,7 +499,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($technicianSkill);
 
-        /** @var VariableEventModifierConfig $technicianSpecialistPointModifier */
+        /** @var VariableEventModifierConfig $conceptorSpecialistPointModifier */
         $conceptorSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::CONCEPTOR_SPECIALIST_POINT);
 
         $conceptorSkill = new ChargeStatusConfig();

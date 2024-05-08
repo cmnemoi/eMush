@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -23,7 +24,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -232,12 +232,13 @@ final class StatusServiceTest extends TestCase
         // given a player
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
-        $heatLampProject = ProjectFactory::createHeatLampProject();
-        $plasmaShieldProject = ProjectFactory::createPlasmaShieldProject();
+        // given two beds
+        $bed1 = GameEquipmentFactory::createEquipmentByName('bed', $player->getPlace());
+        $bed2 = GameEquipmentFactory::createEquipmentByName('bed', $player->getPlace());
 
-        // given this player has a project participation status for Auto Watering project
-        $projectParticipationStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $player);
-        $projectParticipationStatus->setTarget($heatLampProject);
+        // given this player has a lying down status on bed1
+        $lyingDownStatus = StatusFactory::createChargeStatusWithName(PlayerStatusEnum::LYING_DOWN, $player);
+        $lyingDownStatus->setTarget($bed1);
 
         // setup universe state
         $this->entityManager->shouldReceive('persist')->once();
@@ -245,17 +246,17 @@ final class StatusServiceTest extends TestCase
         $this->eventService->shouldReceive('callEvent')->once();
         $this->eventService->shouldReceive('computeEventModifications')->once()->andReturn(new AbstractGameEvent([], new \DateTime()));
 
-        // when the player participates in Plasma Shield project
+        // when the player tries to lie down on bed2
         $newStatus = $this->service->createStatusFromConfig(
-            $projectParticipationStatus->getStatusConfig(),
+            $lyingDownStatus->getStatusConfig(),
             $player,
             [],
             new \DateTime(),
-            $plasmaShieldProject
+            $bed2
         );
 
         // then a new status should be created for the Plasma Shield project
-        self::assertNotSame($newStatus, $projectParticipationStatus);
+        self::assertNotSame($newStatus, $lyingDownStatus);
     }
 
     public function testHandleAttemptStatusOnFail(): void

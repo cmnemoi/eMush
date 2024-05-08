@@ -2,6 +2,7 @@
 
 namespace Mush\Player\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\SkillEnum;
 
 class CharacterConfigData
@@ -45,6 +46,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -92,6 +94,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -137,6 +140,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -185,6 +189,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -233,6 +238,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -240,7 +246,9 @@ class CharacterConfigData
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                SkillEnum::TECHNICIAN,
+            ],
         ],
         [
             'name' => 'finola',
@@ -280,6 +288,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [],
@@ -325,6 +334,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -370,6 +380,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -415,12 +426,16 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha'],
+            'initStatuses' => [
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::TECHNICIAN,
+            ],
         ],
         [
             'name' => 'ian',
@@ -460,6 +475,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -508,6 +524,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -554,12 +571,16 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha', SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::SHOOTER . '_alpha',
+            ],
         ],
         [
             'name' => 'kuan_ti',
@@ -599,13 +620,16 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
                 'motivational_speech',
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [],
+            'initStatuses' => [
+                SkillEnum::TECHNICIAN,
+            ],
         ],
         [
             'name' => 'paola',
@@ -645,6 +669,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -690,6 +715,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -697,6 +723,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'antisocial_default',
+                SkillEnum::TECHNICIAN,
             ],
         ],
         [
@@ -738,12 +765,16 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
                 'itrackie_default',
             ],
-            'initStatuses' => [SkillEnum::PILOT . '_alpha', SkillEnum::SHOOTER . '_alpha'],
+            'initStatuses' => [
+                SkillEnum::PILOT . '_alpha',
+                SkillEnum::SHOOTER . '_alpha',
+            ],
         ],
         [
             'name' => 'stephen',
@@ -783,6 +814,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -828,6 +860,7 @@ class CharacterConfigData
                 'surgery',
                 'kill_player',
                 'rejuvenate_alpha',
+                ActionEnum::RESET_SPECIALIST_POINTS,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -837,6 +870,7 @@ class CharacterConfigData
                 'disabled_default',
                 SkillEnum::PILOT . '_alpha',
                 SkillEnum::SHOOTER . '_alpha',
+                SkillEnum::TECHNICIAN,
             ],
         ],
     ];

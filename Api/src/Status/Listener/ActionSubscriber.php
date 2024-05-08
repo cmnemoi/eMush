@@ -2,12 +2,15 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ActionSubscriber implements EventSubscriberInterface
+final class ActionSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
 
@@ -21,6 +24,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::RESULT_ACTION => 'onResultAction',
+            ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
 
@@ -41,6 +45,23 @@ class ActionSubscriber implements EventSubscriberInterface
                 $actionResult,
                 $event->getTags(),
                 $event->getTime()
+            );
+        }
+    }
+
+    public function onPostAction(ActionEvent $event): void
+    {
+        $actionTarget = $event->getActionTarget();
+
+        $isPlayerLaidDown = $actionTarget instanceof Player && $actionTarget->hasStatus(PlayerStatusEnum::LYING_DOWN);
+        $actionShouldRemoveLaidDownStatus = \in_array($event->getAction()->getActionName(), ActionEnum::getForceGetUpActions(), true);
+
+        if ($isPlayerLaidDown && $actionShouldRemoveLaidDownStatus) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::LYING_DOWN,
+                holder: $actionTarget,
+                tags: $event->getTags(),
+                time: $event->getTime()
             );
         }
     }

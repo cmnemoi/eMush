@@ -30,6 +30,7 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\GameModifier;
@@ -45,7 +46,6 @@ use Mush\Project\Entity\Project;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -739,6 +739,13 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->getPlace() === $player->getPlace();
     }
 
+    public function kill(): static
+    {
+        $this->playerInfo->setGameStatus(GameStatusEnum::FINISHED);
+
+        return $this;
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
@@ -762,7 +769,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getEfficiencyWithParticipationMalus(int $efficiency, Project $project): int
     {
-        $efficiency -= $this->getNumberOfParticipationToProject($project) * Project::PARTICIPATION_MALUS;
+        $efficiency -= $project->getPlayerParticipations($this) * Project::PARTICIPATION_MALUS;
 
         return max(0, $efficiency);
     }
@@ -777,13 +784,5 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $efficiency;
-    }
-
-    private function getNumberOfParticipationToProject(Project $project): int
-    {
-        /** @var ?ChargeStatus $numberOfParticipationStatus */
-        $numberOfParticipationStatus = $this->getStatusByNameAndTarget(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $project);
-
-        return $numberOfParticipationStatus?->getCharge() ?? 0;
     }
 }

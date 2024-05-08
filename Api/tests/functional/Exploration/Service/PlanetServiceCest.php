@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mush\Exploration\Service;
+namespace Mush\Tests\functional\Exploration\Service;
 
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 

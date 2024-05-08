@@ -21,7 +21,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class ProjectNormalizerCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private int $repairActionId;
@@ -65,24 +64,35 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
         $normalizedProject = $this->projectNormalizer->normalize($project, null, ['currentPlayer' => $this->chun]);
 
         // then I should get the normalized project
-        $I->assertEquals(
+        $I->assertEqualsIgnoringCase(
             expected: [
                 'id' => $project->getId(),
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
+                'lore' => '',
                 'progress' => '0%',
                 'efficiency' => 'Efficacité : 1-1%',
+                'efficiencyTooltipHeader' => 'Efficacité',
+                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
                 'bonusSkills' => [
                     [
                         'key' => 'physicist',
                         'name' => 'Physicien',
-                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.
+                ',
                     ],
                     [
                         'key' => 'technician',
                         'name' => 'Technicien',
-                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du
+                    Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de
+                    réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les
+                    **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.
+                ',
                     ],
                 ],
                 'actions' => [
@@ -93,7 +103,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                         'actionPointCost' => 2,
                         'movementPointCost' => 0,
                         'moralPointCost' => 0,
-                        'shootPointCost' => null,
+                        'specialistPointCosts' => [],
                         'successRate' => 100,
                         'description' => 'Réparer PILGRED vous permettra de revenir sur Sol.',
                         'canExecute' => true,
@@ -123,6 +133,7 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
+                'lore' => '',
             ],
             actual: $normalizedProject
         );

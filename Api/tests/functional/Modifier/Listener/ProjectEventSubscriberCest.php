@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Modifier\Listener;
+namespace Mush\Tests\functional\Modifier\Listener;
 
 use Mush\Modifier\Listener\ProjectEventSubscriber;
 use Mush\Project\Enum\ProjectName;

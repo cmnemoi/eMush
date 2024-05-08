@@ -7,6 +7,18 @@
         <target>Efficiency: {min_efficiency}-{max_efficiency}%</target>
       </segment>
     </unit>
+    <unit id="efficiencyTooltipHeader">
+      <segment id="efficiencyTooltipHeader" state="translated">
+        <source>efficiency.tooltip.header</source>
+        <target>Efficiency</target>
+      </segment>
+    </unit>
+    <unit id="efficiencyTooltipText">
+      <segment id="efficiencyTooltipText" state="translated">
+        <source>efficiency.tooltip.text</source>
+        <target>To maintain optimal efficiency, alternate working with a crewmate.</target>
+      </segment>
+    </unit>
     <unit id="auto_watering">
       <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>
@@ -145,6 +157,20 @@
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
         <target>The number of assailants joining you after a trip is reduced by 25%.</target>
+      </segment>
+    </unit>
+    <unit id="chipset_acceleration">
+      <segment id="chipset_acceleration.type" state="translated">
+        <source>chipset_acceleration.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="chipset_acceleration.name" state="translated">
+        <source>chipset_acceleration.name</source>
+        <target>CPU Overclocking</target>
+      </segment>
+      <segment id="chipset_acceleration.description" state="translated">
+        <source>chipset_acceleration.description</source>
+        <target>Searching for a planet costs 1 :pa: less.</target>
       </segment>
     </unit>
   </file>

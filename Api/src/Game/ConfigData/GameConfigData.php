@@ -274,6 +274,7 @@ class GameConfigData
                 'door_default',
                 'communication_center_default',
                 'neron_core_default',
+                'auxiliary_core_default',
                 'astro_terminal_default',
                 'research_laboratory_default',
                 'pilgred_default',
@@ -420,10 +421,10 @@ class GameConfigData
                 'following_hunters_default',
                 SkillEnum::PILOT . '_alpha',
                 SkillEnum::SHOOTER . '_alpha',
+                SkillEnum::TECHNICIAN,
                 'astronavigation_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
-                PlayerStatusEnum::PROJECT_PARTICIPATIONS . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -509,6 +510,7 @@ class GameConfigData
                 TitleEnum::COM_MANAGER,
             ],
             'projectConfigs' => [
+                ProjectName::CHIPSET_ACCELERATION,
                 ProjectName::HEAT_LAMP,
                 ProjectName::DOOR_SENSOR,
                 ProjectName::EQUIPMENT_SENSOR,
@@ -516,6 +518,9 @@ class GameConfigData
                 ProjectName::PILGRED,
                 ProjectName::PLASMA_SHIELD,
                 ProjectName::TRAIL_REDUCER,
+                ProjectName::DISMANTLING,
+                ProjectName::EXTRA_HYDROPONPOTS,
+                ProjectName::AUXILIARY_TERMINAL,
             ],
         ],
     ];

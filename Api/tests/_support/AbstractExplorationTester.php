@@ -23,7 +23,6 @@ use Mush\Status\Service\StatusServiceInterface;
 abstract class AbstractExplorationTester extends AbstractFunctionalTest
 {
     protected ExplorationServiceInterface $explorationService;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private GameEquipment $icarus;

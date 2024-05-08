@@ -37,10 +37,10 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     protected AbstractMoveDaedalusAction $moveDaedalusAction;
     protected GameEquipment $commandTerminal;
     protected GameEquipment $emergencyReactor;
-    protected Place $bridge;
     protected StatusServiceInterface $statusService;
-    protected AlertServiceInterface $alertService;
     protected PlanetServiceInterface $planetService;
+    private AlertServiceInterface $alertService;
+    private Place $bridge;
 
     public function _before(FunctionalTester $I): void
     {

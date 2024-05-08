@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\LeaveOrbit;
 use Mush\Action\Entity\ActionConfig;

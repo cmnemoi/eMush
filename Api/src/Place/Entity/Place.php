@@ -82,6 +82,24 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         $this->hunters = new ArrayCollection();
     }
 
+    public static function createRoomByName(string $name): self
+    {
+        $place = new self();
+        $place
+            ->setName($name)
+            ->setType(PlaceTypeEnum::ROOM);
+
+        return $place;
+    }
+
+    public static function createRoomByNameInDaedalus(string $name, Daedalus $daedalus): self
+    {
+        $place = self::createRoomByName($name);
+        $place->setDaedalus($daedalus);
+
+        return $place;
+    }
+
     public function getId(): int
     {
         return $this->id;

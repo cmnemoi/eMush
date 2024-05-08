@@ -20,8 +20,8 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
     use NormalizerAwareTrait;
 
     public function __construct(
-        private GearToolServiceInterface $gearToolService,
-        private TranslationServiceInterface $translationService
+        private readonly GearToolServiceInterface $gearToolService,
+        private readonly TranslationServiceInterface $translationService
     ) {}
 
     public function supportsNormalization($data, ?string $format = null): bool
@@ -65,6 +65,12 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 domain: 'project',
                 language: $language
             ),
+            'lore' => $this->translationService->translate(
+                key: "{$project->getName()}.lore",
+                parameters: [],
+                domain: 'project',
+                language: $language
+            ),
         ];
     }
 
@@ -92,6 +98,12 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 domain: 'project',
                 language: $language
             ),
+            'lore' => $this->translationService->translate(
+                key: "{$project->getName()}.lore",
+                parameters: [],
+                domain: 'project',
+                language: $language
+            ),
             'progress' => "{$project->getProgress()}%",
             'efficiency' => $this->translationService->translate(
                 key: 'efficiency',
@@ -99,6 +111,18 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                     'min_efficiency' => $playerEfficiency->min,
                     'max_efficiency' => $playerEfficiency->max,
                 ],
+                domain: 'project',
+                language: $language
+            ),
+            'efficiencyTooltipHeader' => $this->translationService->translate(
+                key: 'efficiency.tooltip.header',
+                parameters: [],
+                domain: 'project',
+                language: $language
+            ),
+            'efficiencyTooltipText' => $this->translationService->translate(
+                key: 'efficiency.tooltip.text',
+                parameters: [],
                 domain: 'project',
                 language: $language
             ),

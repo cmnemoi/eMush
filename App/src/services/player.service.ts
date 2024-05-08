@@ -11,13 +11,12 @@ const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
 const CLOSED_PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "closed_players");
 
 const PlayerService = {
-    addLikeToPlayer: (player: Player): Promise<void> => {
+    addLikeToPlayer: async (player: Player): Promise<void> => {
         const params = {
             'player': player.id
         };
-        return ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/like', params).then(() => {
-            store.dispatch('auth/userInfo');
-        });
+        await ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/like', params);
+        await store.dispatch('auth/userInfo');
     },
     loadPlayer: async(playerId: number): Promise<Player | null> => {
         const playerData = await ApiService.get(PLAYER_ENDPOINT + '/' + playerId);
@@ -31,7 +30,7 @@ const PlayerService = {
     },
 
     loadDeadPlayerInfo: async(playerId: number): Promise<DeadPlayerInfo | null> => {
-        store.dispatch('player/setLoading', { loading: true });
+        await store.dispatch('player/setLoading', { loading: true });
         const deadPlayerData = await ApiService.get(PLAYER_ENDPOINT + '/' + playerId);
 
         let deadPlayer = null;
@@ -39,26 +38,26 @@ const PlayerService = {
             deadPlayer = (new DeadPlayerInfo()).load(deadPlayerData.data);
         }
 
-        store.dispatch('player/setLoading', { loading: false });
+        await store.dispatch('player/setLoading', { loading: false });
 
         return deadPlayer;
     },
 
-    sendEndGameRequest: (player: Player, message: string, likedPlayers: number[]): Promise<void> => {
+    sendEndGameRequest: async (player: Player, message: string, likedPlayers: number[]): Promise<void> => {
         const data = {
             message: message,
             likedPlayers: likedPlayers
         };
 
-        return ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/end', data)
+        return await ApiService.post(PLAYER_ENDPOINT + '/' + player.id + '/end', data)
             .then(() => {
                 store.dispatch('player/clearPlayer');
                 store.dispatch('auth/userInfo');
             });
     },
 
-    selectCharacter: (userId: number, daedalusId: number, character: string): Promise<void> => {
-        return ApiService.post('player', { 'user' : userId, 'daedalus' : daedalusId, 'character': character })
+    selectCharacter: async (userId: number, daedalusId: number, character: string): Promise<void> => {
+        return await ApiService.post('player', { 'user' : userId, 'daedalus' : daedalusId, 'character': character })
             .then((response) => {
                 const player = (new Player()).load(response.data);
                 store.dispatch('player/storePlayer', { player: player });
@@ -80,7 +79,7 @@ const PlayerService = {
     },
 
     triggerCycleChange: async (player: Player): Promise<void> => {
-        store.dispatch('player/setLoading', { loading: true });
+        await store.dispatch('player/setLoading', { loading: true });
         return ApiService.get(PLAYER_ENDPOINT + '/' + player.id + '/cycle-change')
             .then(async () => {
                 await store.dispatch("communication/clearRoomLogs", null, { root: true });
@@ -96,7 +95,7 @@ const PlayerService = {
     },
 
     triggerExplorationCycleChange: async (player: Player): Promise<void> => {
-        store.dispatch('player/setLoading', { loading: true });
+        await store.dispatch('player/setLoading', { loading: true });
         return ApiService.get(PLAYER_ENDPOINT + '/' + player.id + '/exploration-cycle-change')
             .then(async () => {
                 await store.dispatch("communication/clearRoomLogs", null, { root: true });

@@ -13,11 +13,6 @@ use Mush\Tests\FunctionalTester;
  */
 final class ProjectFinishedEventCest extends AbstractFunctionalTest
 {
-    public function _before(FunctionalTester $I): void
-    {
-        parent::_before($I);
-    }
-
     public function shouldPutDaedalusShieldToFiftyPoints(FunctionalTester $I): void
     {
         // when Plasma Shield project is finished

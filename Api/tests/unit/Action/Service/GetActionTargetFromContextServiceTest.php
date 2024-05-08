@@ -6,6 +6,7 @@ namespace Mush\Action\Service;
 
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
+use Mush\Equipment\Factory\GameItemFactory;
 use Mush\Player\Entity\Player;
 use Mush\Project\Factory\ProjectFactory;
 use PHPUnit\Framework\TestCase;
@@ -62,6 +63,20 @@ final class GetActionTargetFromContextServiceTest extends TestCase
         $context = [
             'currentPlayer' => new Player(),
             'equipment' => $expectedActionTarget,
+        ];
+
+        $service = new GetActionTargetFromContextService();
+        $loadedActionTarget = $service->execute($context);
+
+        self::assertSame($expectedActionTarget, $loadedActionTarget);
+    }
+
+    public function testShouldLoadTerminalForGameItemFromContext(): void
+    {
+        $expectedActionTarget = GameItemFactory::createBlockOfPostIt();
+        $context = [
+            'currentPlayer' => new Player(),
+            'terminal' => $expectedActionTarget,
         ];
 
         $service = new GetActionTargetFromContextService();

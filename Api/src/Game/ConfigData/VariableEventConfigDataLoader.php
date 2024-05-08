@@ -20,18 +20,13 @@ class VariableEventConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (EventConfigData::$dataArray as $variableEventConfigData) {
-            if ($variableEventConfigData['type'] !== 'variable_event_config') {
-                continue;
-            }
-
+        foreach (EventConfigData::$variableEventConfigData as $variableEventConfigData) {
+            /** @var null|VariableEventConfig $variableEventConfig */
             $variableEventConfig = $this->variableEventConfigRepository->findOneBy(['name' => $variableEventConfigData['name']]);
-
-            if ($variableEventConfig !== null) {
-                continue;
+            if ($variableEventConfig === null) {
+                $variableEventConfig = new VariableEventConfig();
             }
 
-            $variableEventConfig = new VariableEventConfig();
             $variableEventConfig
                 ->setQuantity($variableEventConfigData['quantity'])
                 ->setTargetVariable($variableEventConfigData['targetVariable'])

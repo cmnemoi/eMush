@@ -476,15 +476,28 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($changedCpuPriority);
 
-        $projectParticipations = new ChargeStatusConfig();
-        $projectParticipations
-            ->setStatusName(PlayerStatusEnum::PROJECT_PARTICIPATIONS)
-            ->setVisibility(VisibilityEnum::HIDDEN)
-            ->setChargeVisibility(VisibilityEnum::HIDDEN)
+        /** @var VariableEventModifierConfig $technicianSpecialistPointModifier */
+        $technicianSpecialistPointModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_SPECIALIST_POINT);
+
+        /** @var VariableEventModifierConfig $technicianDoubleRepairChanceModifier */
+        $technicianDoubleRepairChanceModifier = $this->getReference(StatusModifierConfigFixtures::TECHNICIAN_DOUBLE_REPAIR_CHANCE);
+
+        $technicianSkillPoc = new ChargeStatusConfig();
+        $technicianSkillPoc
+            ->setStatusName(SkillEnum::TECHNICIAN)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setChargeVisibility(VisibilityEnum::PRIVATE)
             ->setStartCharge(1)
-            ->setAutoRemove(true)
+            ->setMaxCharge(2)
+            ->setChargeStrategy(ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT)
+            ->setDischargeStrategies([ModifierNameEnum::SPECIALIST_POINT_ENGINEER])
+            ->setAutoRemove(false)
+            ->setModifierConfigs([
+                $technicianSpecialistPointModifier,
+                $technicianDoubleRepairChanceModifier,
+            ])
             ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($projectParticipations);
+        $manager->persist($technicianSkillPoc);
 
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
@@ -521,7 +534,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($followingHuntersStatus)
             ->addStatusConfig($shooterSkillPoc)
             ->addStatusConfig($changedCpuPriority)
-            ->addStatusConfig($projectParticipations);
+            ->addStatusConfig($technicianSkillPoc);
 
         $manager->persist($gameConfig);
 
@@ -560,7 +573,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::FOLLOWING_HUNTERS_STATUS, $followingHuntersStatus);
         $this->addReference(self::SHOOTER_SKILL_POC, $shooterSkillPoc);
         $this->addReference(self::CHANGED_CPU_PRIORITY, $changedCpuPriority);
-        $this->addReference(PlayerStatusEnum::PROJECT_PARTICIPATIONS, $projectParticipations);
+        $this->addReference(SkillEnum::TECHNICIAN, $technicianSkillPoc);
     }
 
     public function getDependencies(): array

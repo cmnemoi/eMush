@@ -71,14 +71,54 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Le Responsable des Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
       </segment>
     </unit>
-    <unit id="shootPoint">
+    <unit id="shoot">
       <segment id="name" state="translated">
-        <source>shootPoint.name</source>
+        <source>shoot.name</source>
         <target>Points de Tir</target>
       </segment>
       <segment id="description" state="translated">
-        <source>shootPoint.description</source>
+        <source>shoot.description</source>
         <target>Les Points de Tir vous donnent des **actions gratuites** pour toutes les actions de tir en vol ou à bord.</target>
+      </segment>
+    </unit>
+    <unit id="cook">
+      <segment id="name" state="final">
+        <source>cook.name</source>
+        <target>Points de Cuisine</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>cook.description</source>
+        <target>Les Points de Cuisine vous donnent des **actions gratuites** pour toutes les *actions de la cuisine*.</target>
+      </segment>
+    </unit>
+    <unit id="engineer">
+      <segment id="name" state="final">
+        <source>engineer.name</source>
+        <target>Points de Mécanique</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>engineer.description</source>
+        <target>Les points de Mécanique vous donnent des **actions gratuites** pour toutes les *réparations techniques*.</target>
+      </segment>
+    </unit>
+    <unit id="garden">
+      <segment id="name" state="final">
+        <source>garden.name</source>
+        <target>Points de Jardinage</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>garden.description</source>
+        <target>Les points de Jardinage vous donnent des **actions gratuites** dans le *Jardin Hydroponique*.</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="name" state="final">
+        <source>pilgred.name</source>
+        <target>Points de PILGRED</target>
+      </segment>
+      <segment id="description" state="final">
+        <source>pilgred.description</source>
+        <target>Les Points de PILGRED vous donnent des **actions gratuites** pour *réparer PILGRED*.</target>
       </segment>
     </unit>
   </file>

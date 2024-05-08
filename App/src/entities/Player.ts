@@ -11,6 +11,7 @@ import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { Terminal } from "@/entities/Terminal";
 import { Exploration } from "@/entities/Exploration";
 import { TerminalEnum } from "@/enums/terminal.enum";
+import { SpecialistPoint } from "@/entities/SpecialistPoint";
 
 export class Player {
     public id!: number;
@@ -32,7 +33,7 @@ export class Player {
     public titles: Array<NameDescObject>;
     public exploration: Exploration|null;
     public skills: Array<Status>;
-    public shootPoint: QuantityPoint|null;
+    public specialistPoints: Array<SpecialistPoint>;
     public isSeated: boolean;
 
     public constructor() {
@@ -54,7 +55,7 @@ export class Player {
         this.titles = [];
         this.exploration = null;
         this.skills = [];
-        this.shootPoint = null;
+        this.specialistPoints = [];
         this.isSeated = false;
     }
 
@@ -135,8 +136,11 @@ export class Player {
                     this.skills.push(skill);
                 });
             }
-            if (object.shootPoint) {
-                this.shootPoint = (new QuantityPoint()).load(object.shootPoint);
+            if (object.specialistPoints) {
+                object.specialistPoints.forEach((specialistPointObject: any) => {
+                    const point = (new SpecialistPoint()).load(specialistPointObject);
+                    this.specialistPoints.push(point);
+                });
             }
         }
 
@@ -234,6 +238,27 @@ export class Player {
         }
 
         return skill.charge;
+    }
+
+    public getSpecialistPointByKey(key: string): SpecialistPoint|null {
+        const points = this.specialistPoints.filter((point: SpecialistPoint) => {
+            return point.name === key;
+        });
+
+        if (points.length === 0) {
+            return null;
+        }
+
+        return points[0];
+    }
+
+    public getSpecialistPointChargeByKey(key: string): number | null {
+        const specialistPoint = this.getSpecialistPointByKey(key);
+        if (!specialistPoint || !specialistPoint.charge) {
+            return null;
+        }
+
+        return specialistPoint.charge.quantity;
     }
 
     public isDead(): boolean {

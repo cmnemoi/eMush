@@ -6,6 +6,7 @@ namespace Mush\Project\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Entity\ProjectConfig;
@@ -14,6 +15,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
 {
     private EntityRepository $projectConfigRepository;
     private EntityRepository $modifierConfigRepository;
+    private EntityRepository $spawnEquipmentConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -21,6 +23,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         parent::__construct($entityManager);
         $this->projectConfigRepository = $entityManager->getRepository(ProjectConfig::class);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
+        $this->spawnEquipmentConfigRepository = $entityManager->getRepository(SpawnEquipmentConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -29,7 +32,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
             /** @var ProjectConfig $projectConfig */
             $projectConfig = $this->projectConfigRepository->findOneBy(['name' => $projectConfigData['name']]);
 
-            $projectConfigData = $this->getConfigDataWithModifierConfigs($projectConfigData);
+            $projectConfigData = $this->getConfigDataWithAllSubConfigs($projectConfigData);
 
             if (!$projectConfig) {
                 $projectConfig = new ProjectConfig(...$projectConfigData);
@@ -43,10 +46,11 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         $this->entityManager->flush();
     }
 
-    private function getConfigDataWithModifierConfigs(array $projectConfigData): array
+    private function getConfigDataWithAllSubConfigs(array $projectConfigData): array
     {
         $newProjectConfigData = $projectConfigData;
         $newProjectConfigData['modifierConfigs'] = [];
+        $newProjectConfigData['spawnEquipmentConfigs'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
@@ -54,6 +58,14 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
                 throw new \RuntimeException("ModifierConfig {$modifierConfigName} not found");
             }
             $newProjectConfigData['modifierConfigs'][] = $modifierConfig;
+        }
+
+        foreach ($projectConfigData['spawnEquipmentConfigs'] as $spawnEquipmentName) {
+            $spawnEquipmentConfig = $this->spawnEquipmentConfigRepository->findOneBy(['name' => $spawnEquipmentName]);
+            if (!$spawnEquipmentConfig) {
+                throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentName} not found");
+            }
+            $newProjectConfigData['spawnEquipmentConfigs'][] = $spawnEquipmentConfig;
         }
 
         return $newProjectConfigData;

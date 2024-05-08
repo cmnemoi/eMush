@@ -4,7 +4,8 @@
         <img :src="getProjectImage(project)" :alt="project.name">
         <template #content>
             <h1 v-html="formatText(project.name)"></h1>
-            <p v-html="formatText(project.description)"></p>
+            <p v-if="project.lore != ''" v-html="formatText(project.lore)"></p>
+            <p><strong>{{ project.description }}</strong></p>
         </template>
     </Tippy>
 </template>
@@ -13,16 +14,19 @@
 import { PropType, defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
+import { Tippy } from "vue-tippy";
 
 type DaedalusProject = {
     type: string;
     key: string;
     name: string;
     description: string;
+    lore: string;
 }
 
 export default defineComponent ({
     name: "DaedalusProjectCard",
+    components: { Tippy },
     props: {
         project: {
             type: Object as PropType<DaedalusProject>,

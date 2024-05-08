@@ -14,11 +14,6 @@ monolog:
             type: console
             process_psr_3_messages: false
             channels: ["!event", "!doctrine"]
-        Mush\Logger\Handler\MonologPostgresHandler:
-            id: Mush\Logger\Handler\MonologPostgresHandler
-            type: service
-            level: notice
-            channels: ["!event", "!doctrine"]
         Mush\Logger\Handler\MonologDiscordWebHookHandler:
             id: Mush\Logger\Handler\MonologDiscordWebHookHandler
             type: service

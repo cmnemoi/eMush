@@ -78,8 +78,8 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
         return;
     }
 
-    dispatch("player/setLoading", { loading: true }, { root: true });
-    dispatch("communication/clearRoomLogs", null, { root: true });
+    await dispatch("player/setLoading", { loading: true }, { root: true });
+    await dispatch("communication/clearRoomLogs", null, { root: true });
 
     const response = await ActionService.executeTargetAction(target, action, params);
 

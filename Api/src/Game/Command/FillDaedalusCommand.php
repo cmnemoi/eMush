@@ -40,6 +40,8 @@ class FillDaedalusCommand extends Command
     private LoginService $loginService;
     private PlayerServiceInterface $playerService;
     private string $identityServerUri;
+    private string $oAuthCallback;
+    private string $oAuthClientId;
 
     public function __construct(
         HttpClientInterface $httpClient,
@@ -57,6 +59,8 @@ class FillDaedalusCommand extends Command
         $this->loginService = $loginService;
         $this->playerService = $playerService;
         $this->identityServerUri = $_ENV['IDENTITY_SERVER_URI'];
+        $this->oAuthCallback = $_ENV['OAUTH_CALLBACK'];
+        $this->oAuthClientId = $_ENV['OAUTH_CLIENT_ID'];
     }
 
     public function isAndieOrDerek(string $name): bool
@@ -152,7 +156,7 @@ class FillDaedalusCommand extends Command
                 ]);
                 $getTokenETResponse = $client->request(
                     'GET',
-                    "{$this->identityServerUri}/oauth/authorize?access_type=offline&response_type=code&redirect_uri=http://localhost:8080/oauth/callback&client_id=emush@clients&scope=base&state=http://localhost:8081/token",
+                    "{$this->identityServerUri}/oauth/authorize?access_type=offline&response_type=code&redirect_uri={$this->oAuthCallback}&client_id={$this->oAuthClientId}&scope=base&state=http://localhost:8081/token",
                     ['max_redirects' => 0]
                 );
                 $location = $getTokenETResponse->getHeaders(false)['location'];

@@ -177,15 +177,14 @@ const CommunicationService = {
         await ApiService.post(urlJoin(CHANNELS_ENDPOINT, 'favorite-message', String(message.id)));
     },
 
-
     readMessage: async (message: Message): Promise<void> => {
-        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read-message', String(message.id)));
         message.isUnread = false;
+        await ApiService.patch(urlJoin(CHANNELS_ENDPOINT, 'read-message', String(message.id)));
     },
 
     readRoomLog: async (roomLog: RoomLog): Promise<void> => {
-        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read', String(roomLog.id)));
         roomLog.isUnread = false;
+        await ApiService.patch(urlJoin(ROOM_LOGS_ENDPOINT, 'read', String(roomLog.id)));
     },
 
     removeMessageFromFavorite: async (message: Message): Promise<void> => {
@@ -193,7 +192,6 @@ const CommunicationService = {
     },
 
     sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {
-
         let parentId = null;
         if (typeof parent !== "undefined") {
             parentId = parent.id;

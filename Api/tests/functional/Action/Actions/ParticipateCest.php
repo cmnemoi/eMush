@@ -21,7 +21,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -281,19 +280,8 @@ final class ParticipateCest extends AbstractFunctionalTest
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void
     {
-        /** @var ChargeStatus $status */
-        $status = $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::PROJECT_PARTICIPATIONS,
-            holder: $player,
-            tags: [],
-            time: new \DateTime(),
-            target: $project,
-        );
-        $this->statusService->updateCharge(
-            chargeStatus: $status,
-            delta: 10000,
-            tags: [],
-            time: new \DateTime(),
-        );
+        for ($i = 0; $i < $player->getEfficiencyForProject($project)->max; ++$i) {
+            $project->addPlayerParticipation($player);
+        }
     }
 }

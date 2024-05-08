@@ -1,3 +1,5 @@
+name: mush
+
 services:
   mush_apache:
     build: Api/apache
@@ -58,13 +60,13 @@ services:
       - CHOKIDAR_INTERVAL=100
       - YOUR_APP_WEB_HTTP_PORT=8080
 
-  eternal_twin:
-    container_name: eternal_twin
+  mush_eternaltwin:
+    container_name: mush_eternaltwin
     build:
-      context: ./EternalTwin
+      context: ./Eternaltwin
       dockerfile: Dockerfile
     volumes:
-      - ../EternalTwin:/www
+      - ../Eternaltwin:/www
     networks:
       - mush_network
     stdin_open: true

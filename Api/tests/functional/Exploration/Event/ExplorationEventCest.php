@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Exploration\Event;
+namespace Mush\Tests\functional\Exploration\Event;
 
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -52,7 +52,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
         // given I have an exploration on this planet
         $exploration = $this->createExploration($planet, $this->players);
 
-        $explorationCurrrentCycleBeforeCycleChange = $exploration->getCycle();
+        $explorationCurrentCycleBeforeCycleChange = $exploration->getCycle();
 
         // when I have two exploration cycle changes
         for ($i = 0; $i < 2; ++$i) {
@@ -66,7 +66,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         // then exploration cycles are incremented
         $I->assertEquals(
-            $explorationCurrrentCycleBeforeCycleChange + 2,
+            $explorationCurrentCycleBeforeCycleChange + 2,
             $exploration->getCycle(),
         );
     }

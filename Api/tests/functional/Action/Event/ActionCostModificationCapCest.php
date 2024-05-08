@@ -35,7 +35,7 @@ final class ActionCostModificationCapCest extends AbstractFunctionalTest
         $I->refreshEntities($this->action);
     }
 
-    public function testCostGoNegative(FunctionalTester $I)
+    public function testCostGoNegative(FunctionalTester $I): void
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
@@ -65,7 +65,7 @@ final class ActionCostModificationCapCest extends AbstractFunctionalTest
         $this->showerAction->loadParameters($this->action, $this->player2, $gameEquipment);
 
         $initActionPoints = $this->player2->getPlayerInfo()->getCharacterConfig()->getInitActionPoint();
-        $actionCost = $this->action->getActionCost();
+        $this->action->getActionCost();
 
         $I->assertTrue($this->showerAction->isVisible());
         $I->assertNull($this->showerAction->cannotExecuteReason());

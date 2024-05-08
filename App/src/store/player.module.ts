@@ -42,9 +42,8 @@ const actions: ActionTree<any, any> = {
                     this.dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle });
                 }
                 commit('updateSelectedItem');
-                this.dispatch("daedalus/loadAlerts", { player: player });
-                this.dispatch("daedalus/loadMinimap", { player: player });
                 this.dispatch("room/loadRoom", { room: player?.room });
+                this.dispatch("daedalus/loadAlerts", { player: player });
                 this.dispatch("room/updateSelectedItemPile");
                 this.dispatch("daedalus/loadMinimap", { player: player });
             }
@@ -56,14 +55,14 @@ const actions: ActionTree<any, any> = {
         }
     },
     async reloadPlayer({ state, dispatch }) {
-        return dispatch("loadPlayer", { playerId: state.player.id });
+        return await dispatch("loadPlayer", { playerId: state.player.id });
     },
     async clearPlayer({ commit }) {
         commit("clearPlayer");
-        this.dispatch("room/clearRoom");
-        this.dispatch("daedalus/clearDaedalus");
-        this.dispatch("communication/clearRoomLogs");
-        this.dispatch("communication/clearChannels");
+        await this.dispatch("room/clearRoom");
+        await this.dispatch("daedalus/clearDaedalus");
+        await this.dispatch("communication/clearRoomLogs");
+        await this.dispatch("communication/clearChannels");
     },
     setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
@@ -71,7 +70,7 @@ const actions: ActionTree<any, any> = {
     selectTarget({ commit }, { target }) {
         commit('setSelectedItem', target);
     },
-    async openConfirmPopup({ commit }, { message, acceptCallback, refuseCallback = () => {} }) {
+    openConfirmPopup({ commit }, { message, acceptCallback, refuseCallback = () => {} }) {
         commit('openConfirmPopup', { message, acceptCallback, refuseCallback });
     },
     closeConfirmPopup({ commit }) {

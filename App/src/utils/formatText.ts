@@ -4,8 +4,8 @@ import { getImgUrl } from './getImgUrl';
 
 import { AlertEnum, AlertsIcons } from '@/enums/alerts.enum';
 import { CharacterEnum, characterEnum } from '@/enums/character';
-import { StatusPlayerNameEnum, statusPlayerEnum } from '@/enums/status.player.enum';
-import { StatusItemNameEnum, statusItemEnum } from '@/enums/status.item.enum';
+import { statusPlayerEnum, StatusPlayerNameEnum } from '@/enums/status.player.enum';
+import { statusItemEnum, StatusItemNameEnum } from '@/enums/status.item.enum';
 import { titleEnum, TitleEnum } from '@/enums/title.enum';
 
 export const helpers = {
@@ -40,13 +40,13 @@ export const helpers = {
         case "mush":
             return `<img src="${getImgUrl('status/mush.png')}" alt="mush">`;
         case "pa_cook":
-            return `<img src="${getImgUrl('pa_cook.png')}" alt="pa_cook">`;
+            return `<img src="${getImgUrl('action_points/pa_cook.png')}" alt="pa_cook">`;
         case "hunter":
             return `<img src="${getImgUrl('alerts/hunter.png')}" alt="hunter">`;
         case "pa_shoot":
-            return `<img src="${getImgUrl('pa_shoot.png')}" alt="pa_shoot">`;
+            return `<img src="${getImgUrl('action_points/pa_shoot.png')}" alt="pa_shoot">`;
         case "pa_core":
-            return `<img src="${getImgUrl('pa_core.png')}" alt="pa_core">`;
+            return `<img src="${getImgUrl('action_points/pa_core.png')}" alt="pa_core">`;
         case "planet":
             return `<img src="${getImgUrl('planet.png')}" alt="planet">`;
         case "fuel":
@@ -59,6 +59,8 @@ export const helpers = {
             return `<img src="${getImgUrl('action_points/pa_eng.png')}" alt="pa_eng">`;
         case "pa_garden":
             return `<img src="${getImgUrl('action_points/pa_garden.png')}" alt="pa_garden">`;
+        case "pa_comp":
+            return `<img src="${getImgUrl('action_points/pa_comp.png')}" alt="pa_computer">`;
         default:
             throw Error(`Unexpected key for replaced image: ${key}`);
         }
@@ -98,7 +100,6 @@ export const helpers = {
 
         return `<img src="${titleEnum[key].image}" alt="${key}">`;
     }
-
 };
 
 export function formatText(text: string|null): string {
@@ -138,6 +139,7 @@ export function formatText(text: string|null): string {
     formattedText = formattedText.replaceAll(/:point:/g, helpers.computeImageHtml("point"));
     formattedText = formattedText.replaceAll(/:pa_pilgred:/g, helpers.computeImageHtml("pa_pilgred"));
     formattedText = formattedText.replaceAll(/:pa_eng:/g, helpers.computeImageHtml("pa_eng"));
+    formattedText = formattedText.replaceAll(/:pa_comp:/g, helpers.computeImageHtml("pa_comp"));
     formattedText = formattedText.replaceAll(/:pa_garden:/g, helpers.computeImageHtml("pa_garden"));
     Object.values(CharacterEnum).forEach((character: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${character}:`, 'g'), helpers.computeCharacterImageHtmlByKey(character));

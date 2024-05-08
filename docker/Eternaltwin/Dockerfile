@@ -10,4 +10,4 @@ RUN groupmod -g $GID node && usermod -u $UID -g $GID node
 USER node
 
 # switch to npm if you chose it as package manager
-CMD ["yarn", "etwin"]
+CMD ["yarn", "etwin", "start"]

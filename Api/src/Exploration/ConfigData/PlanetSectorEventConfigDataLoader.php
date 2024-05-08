@@ -22,11 +22,7 @@ class PlanetSectorEventConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (EventConfigData::$dataArray as $planetSectorEventConfigData) {
-            if ($planetSectorEventConfigData['type'] !== 'planet_sector_event_config') {
-                continue;
-            }
-
+        foreach (EventConfigData::$planetSectorEventConfigData as $planetSectorEventConfigData) {
             /** @var null|PlanetSectorEventConfig $planetSectorEventConfig */
             $planetSectorEventConfig = $this->planetSectorEventConfigRepository->findOneBy(['name' => $planetSectorEventConfigData['name']]);
             if ($planetSectorEventConfig === null) {

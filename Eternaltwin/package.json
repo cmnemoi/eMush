@@ -1,18 +1,13 @@
 {
   "name": "@eternal-twin/emush-monorepo",
   "version": "0.0.1",
-  "licenses": [
-    {
-      "type": "AGPL-3.0-or-later",
-      "url": "https://spdx.org/licenses/AGPL-3.0-or-later.html"
-    }
-  ],
+  "license": "AGPL-3.0-or-later",
   "private": true,
   "scripts": {
-    "etwin": "etwin"
+    "etwin": "eternaltwin"
   },
   "devDependencies": {
-    "@eternal-twin/cli": "^0.10.3"
+    "@eternaltwin/cli": "^0.14.3"
   },
   "workspaces": {
     "packages": [

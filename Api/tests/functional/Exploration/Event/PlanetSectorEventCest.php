@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Exploration\Event;
+namespace Mush\Tests\functional\Exploration\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Alert\Entity\Alert;
@@ -44,7 +44,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
-
     private Player $derek;
     private Player $janice;
 

@@ -121,11 +121,16 @@
                     </template>
                 </Tippy>
                 <ul class="specials">
-                    <Tippy tag="li" v-if="player.shootPoint && player.shootPoint.quantity > 0">
-                        <img :src="getImgUrl('pa_shoot.png')">x{{ player.shootPoint.quantity }}
+                    <Tippy
+                        tag="li"
+                        v-for="(point) in getRelevantSpecialistPoints"
+                        :key="point.key"
+                        class="specialistPoint"
+                    >
+                        <img :src="specialistPointImg(point)" :alt="point.key">x{{ point.charge.quantity }}
                         <template #content>
-                            <h1 v-html="formatContent(player.shootPoint.name)" />
-                            <p v-html="formatContent(player.shootPoint.description)" />
+                            <h1 v-html="formatContent(point.charge.name)" />
+                            <p v-html="formatContent(point.charge.description)" />
                         </template>
                     </Tippy>
                 </ul>
@@ -150,6 +155,8 @@ import { Status } from "@/entities/Status";
 import { StatusPlayerNameEnum, statusPlayerEnum } from "@/enums/status.player.enum";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { SpecialistPoint } from "@/entities/SpecialistPoint";
+import { SpecialistPointEnum, specialistPointEnum } from "@/enums/specialistPoint.enum";
 
 interface CharPanelState {
     selectedItem: Item | Player | null
@@ -180,6 +187,9 @@ export default defineComponent ({
         },
         getTargetItem(): Item | null {
             return this.selectedItem;
+        },
+        getRelevantSpecialistPoints(): Array<SpecialistPoint> {
+            return this.player.specialistPoints.filter(p => p.charge.quantity > 0);
         }
     },
     methods: {
@@ -197,6 +207,9 @@ export default defineComponent ({
         formatText,
         skillImage(skill: Status): string {
             return statusPlayerEnum[skill.key].icon ?? '';
+        },
+        specialistPointImg(point: SpecialistPoint): string {
+            return specialistPointEnum[point.key].icon ?? '';
         },
         toggleItemSelection(item: Item | null): void {
             if (this.selectedItem === item) {

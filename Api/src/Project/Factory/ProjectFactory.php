@@ -51,6 +51,14 @@ final class ProjectFactory
         );
     }
 
+    public static function createCpuPriorityProject(): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createCpuOverclockingConfig(),
+            daedalus: DaedalusFactory::createDaedalus(),
+        );
+    }
+
     public static function createHeatLampProjectForDaedalus(Daedalus $daedalus): Project
     {
         return new Project(
@@ -103,6 +111,14 @@ final class ProjectFactory
     {
         return new Project(
             config: ProjectConfigFactory::createNeronProjectConfigByName($name),
+            daedalus: $daedalus,
+        );
+    }
+
+    public static function creatCpuPriorityProjectWithDaedalus(Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createCpuOverclockingConfig(),
             daedalus: $daedalus,
         );
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Project\Repository;
+namespace Mush\Tests\functional\Project\Repository;
 
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectConfig;
@@ -28,7 +28,7 @@ final class ProjectRepositoryCest extends AbstractFunctionalTest
         $this->createProjectFromConfigForDaedalusUseCase = $I->grabService(CreateProjectFromConfigForDaedalusUseCase::class);
     }
 
-    public function shouldFindByName(FunctionalTester $I)
+    public function shouldFindByName(FunctionalTester $I): void
     {
         // given I have a project
         $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, [
@@ -50,7 +50,7 @@ final class ProjectRepositoryCest extends AbstractFunctionalTest
         $I->assertEquals($project, $foundProject);
     }
 
-    public function shouldClear(FunctionalTester $I)
+    public function shouldClear(FunctionalTester $I): void
     {
         // given I have a project
         $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, [

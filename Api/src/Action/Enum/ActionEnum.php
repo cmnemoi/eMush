@@ -12,6 +12,7 @@ enum ActionEnum: string
     case SUICIDE = 'suicide';
     case AUTO_DESTROY = 'auto_destroy';
     case KILL_PLAYER = 'kill_player';
+    case RESET_SPECIALIST_POINTS = 'reset_specialist_points';
 
     // alpha actions
     case REJUVENATE = 'rejuvenate';
@@ -221,6 +222,7 @@ enum ActionEnum: string
             self::REJUVENATE->value,
             self::SUICIDE->value,
             self::AUTO_DESTROY->value,
+            self::RESET_SPECIALIST_POINTS->value,
             self::KILL_PLAYER->value,
             self::EXIT_TERMINAL->value,
         ];

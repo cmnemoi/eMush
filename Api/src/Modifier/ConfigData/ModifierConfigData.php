@@ -33,7 +33,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 
 /** @codeCoverageIgnore */
-class ModifierConfigData
+abstract class ModifierConfigData
 {
     public static array $dataArray = [
         [
@@ -1742,6 +1742,25 @@ class ModifierConfigData
             ],
         ],
         [
+            'name' => 'modifier_for_daedalus_-1actionPoint_on_action_scan_planet',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -1.0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::SCAN => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
             'name' => 'modifier_for_place_+1sector_revealed_on_action_scan_planet',
             'modifierName' => ModifierNameEnum::LIQUID_MAP_MODIFIER,
             'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
@@ -2015,6 +2034,44 @@ class ModifierConfigData
             'triggeredEvent' => 'change.variable_daedalus_shield_+5',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
+        ],
+        [
+            'name' => 'modifier_specialist_point_engineer',
+            'modifierName' => ModifierNameEnum::SPECIALIST_POINT_ENGINEER,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_TECHNICIAN => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_technician_double_repair_and_renovate_chance',
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 2,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::REPAIR => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::RENOVATE => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
     ];
 }

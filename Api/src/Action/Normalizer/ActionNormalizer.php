@@ -4,6 +4,7 @@ namespace Mush\Action\Normalizer;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Actions\AttemptAction;
+use Mush\Action\DTO\ActionSpecialistPointRule;
 use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -117,7 +118,7 @@ class ActionNormalizer implements NormalizerInterface
                         $actionTarget,
                         PlayerVariableEnum::MORAL_POINT,
                     ),
-                    'shootPointCost' => $this->getActionShootPointCost($currentPlayer, $actionConfig),
+                    'specialistPointCosts' => $this->getNormalizedSpecialistPointCosts($currentPlayer, $object),
                 ];
 
                 if ($actionClass instanceof AttemptAction) {
@@ -164,10 +165,9 @@ class ActionNormalizer implements NormalizerInterface
 
     private function loadParameters(array $context): array
     {
-        $parameters = [];
-        $parameters['actionTarget'] = $this->getActionTargetFromContextService->execute($context);
-
-        return $parameters;
+        return [
+            'actionTarget' => $this->getActionTargetFromContextService->execute($context),
+        ];
     }
 
     private function getTypesDescriptions(string $description, array $types, ?string $language = null): string
@@ -175,7 +175,7 @@ class ActionNormalizer implements NormalizerInterface
         foreach ($types as $type) {
             if (\array_key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
                 $key = self::ACTION_TYPE_DESCRIPTION_MAP[$type];
-                $description = $description . '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
+                $description .= '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
             }
         }
 
@@ -210,24 +210,55 @@ class ActionNormalizer implements NormalizerInterface
         return $translationParameters;
     }
 
-    /** @TODO: generalize this for all specialist points. */
-    private function getActionShootPointCost(Player $currentPlayer, ActionConfig $action): ?int
+    private function getNormalizedSpecialistPointCosts(Player $currentPlayer, ActionConfig $action): array
     {
-        if (!$this->isShootAction($action)) {
+        /** @var ActionSpecialistPointRule[] $specialistPointCostRules */
+        $specialistPointCostRules = [
+            new ActionSpecialistPointRule('shoot', SkillEnum::SHOOTER, [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER]),
+            new ActionSpecialistPointRule('engineer', SkillEnum::TECHNICIAN, [ActionTypeEnum::ACTION_TECHNICIAN]),
+        ];
+
+        $specialistPointCosts = [];
+        foreach ($specialistPointCostRules as $specialistPointCostRule) {
+            $specialistPointCost = $this->getSpecialistPointCost($currentPlayer, $action, $specialistPointCostRule);
+            if ($specialistPointCost) {
+                $specialistPointCosts[] = $specialistPointCostRule->name;
+            }
+        }
+
+        return $specialistPointCosts;
+    }
+
+    /**
+     * Check how many specialist points the user will be charged for.
+     */
+    private function getSpecialistPointCost(Player $currentPlayer, ActionConfig $action, ActionSpecialistPointRule $specialistPointCostRule): ?int
+    {
+        if (!$this->doesActionTypeMatchArray($action, $specialistPointCostRule->actionTypes)) {
             return null;
         }
 
-        /** @var ?ChargeStatus $shooterSkill */
-        $shooterSkill = $currentPlayer->getSkillByName(SkillEnum::SHOOTER);
-        if ($shooterSkill?->isCharged()) {
+        /** @var ?ChargeStatus $skill */
+        $skill = $currentPlayer->getSkillByName($specialistPointCostRule->skill);
+
+        if ($skill?->getCharge() > 0 && $currentPlayer->hasSkill($specialistPointCostRule->skill)) {
             return 1;
         }
 
         return null;
     }
 
-    private function isShootAction(ActionConfig $action): bool
+    /**
+     * @param array<string> $types
+     */
+    private function doesActionTypeMatchArray(ActionConfig $action, array $types): bool
     {
-        return \in_array(ActionTypeEnum::ACTION_SHOOT, $action->getTypes(), true) || \in_array(ActionTypeEnum::ACTION_SHOOT_HUNTER, $action->getTypes(), true);
+        foreach ($types as $type) {
+            if (\in_array($type, $action->getTypes(), true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

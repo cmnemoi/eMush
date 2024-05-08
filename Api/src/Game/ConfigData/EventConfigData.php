@@ -12,7 +12,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 /** @codeCoverageIgnore */
 class EventConfigData
 {
-    public static array $dataArray = [
+    public static array $variableEventConfigData = [
         [
             'type' => 'variable_event_config',
             'quantity' => -1,
@@ -229,6 +229,33 @@ class EventConfigData
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => 'change.variable_player_1_satiety',
         ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 2,
+            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+            'variableHolderClass' => ModifierHolderClassEnum::EQUIPMENT,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => 'change.variable_turret_max_charge_+2',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 50,
+            'targetVariable' => DaedalusVariableEnum::SHIELD,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::SET_VALUE,
+            'name' => 'set.value_daedalus_shield_50',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 5,
+            'targetVariable' => DaedalusVariableEnum::SHIELD,
+            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_daedalus_shield_+5',
+        ],
+    ];
+
+    public static array $planetSectorEventConfigData = [
         [
             'type' => 'planet_sector_event_config',
             'name' => PlanetSectorEvent::ACCIDENT_3_5,
@@ -608,29 +635,14 @@ class EventConfigData
             'outputQuantity' => [],
             'outputTable' => [],
         ],
-        [
-            'type' => 'variable_event_config',
-            'quantity' => 2,
-            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
-            'variableHolderClass' => ModifierHolderClassEnum::EQUIPMENT,
-            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
-            'name' => 'change.variable_turret_max_charge_+2',
-        ],
-        [
-            'type' => 'variable_event_config',
-            'quantity' => 50,
-            'targetVariable' => DaedalusVariableEnum::SHIELD,
-            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
-            'eventName' => VariableEventInterface::SET_VALUE,
-            'name' => 'set.value_daedalus_shield_50',
-        ],
-        [
-            'type' => 'variable_event_config',
-            'quantity' => 5,
-            'targetVariable' => DaedalusVariableEnum::SHIELD,
-            'variableHolderClass' => ModifierHolderClassEnum::DAEDALUS,
-            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
-            'name' => 'change.variable_daedalus_shield_+5',
-        ],
     ];
+
+    // Use that once all constructors are refactored
+    public static function getAllEventConfig(): array
+    {
+        return array_merge(
+            self::$variableEventConfigData,
+            self::$planetSectorEventConfigData,
+        );
+    }
 }

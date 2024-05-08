@@ -35,25 +35,25 @@
                         @click="executeTargetAction(planet, analyzeAction(planet))"
                     />
                     <Tippy
-                        v-if="deleteAction(planet)"
                         tag="button"
-                        class="delete"
-                        @click="executeTargetAction(planet, deleteAction(planet))">
-                        <template #content>
-                            <h1 v-html="formatText(deleteAction(planet)?.name)" />
-                            <p v-html="formatText(deleteAction(planet)?.description)" />
-                        </template>
-                        <img :src="getImgUrl('bin.png')">
-                    </Tippy>
-                    <Tippy
-                        tag="button"
-                        class="delete"
+                        class="icon share"
                         @click="sharePlanet(planet)">
                         <template #content>
                             <h1 v-html="formatText(terminal.buttons.sharePlanet.name)" />
                             <p v-html="formatText(terminal.buttons.sharePlanet.description)" />
                         </template>
                         <img :src="getImgUrl('planet.png')">
+                    </Tippy>
+                    <Tippy
+                        v-if="deleteAction(planet)"
+                        tag="button"
+                        class="icon delete"
+                        @click="executeTargetAction(planet, deleteAction(planet))">
+                        <template #content>
+                            <h1 v-html="formatText(deleteAction(planet)?.name)" />
+                            <p v-html="formatText(deleteAction(planet)?.description)" />
+                        </template>
+                        <img :src="getImgUrl('bin.png')">
                     </Tippy>
                 </div>
             </div>
@@ -227,13 +227,14 @@ export default defineComponent ({
 
     .analysis {
         flex: 1;
-        padding: 1em 2em;
+        padding: 1em 1.6em;
         text-align: center;
 
         ul {
             flex-wrap: wrap;
+            justify-content: center;
             gap: 0.2em 1.2em;
-            margin-bottom: 0.8em;
+            margin: auto auto 0.8em;
         }
     }
 
@@ -243,9 +244,9 @@ export default defineComponent ({
 
         button {
             @include button-style;
-            margin: 1px 4px;
+            margin: .2rem;
 
-            &:not(.delete) { min-width: 10em; }
+            &.icon { padding: 1px 4px; }
         }
     }
 }

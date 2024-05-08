@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Scan;
 use Mush\Action\Entity\ActionConfig;
@@ -16,6 +16,9 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -30,10 +33,8 @@ final class ScanCest extends AbstractFunctionalTest
 {
     private ActionConfig $scanActionConfig;
     private Scan $scanAction;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-
     private Place $bridge;
     private GameEquipment $astroTerminal;
 
@@ -222,5 +223,27 @@ final class ScanCest extends AbstractFunctionalTest
         /** @var Planet $planet */
         $planet = $I->grabEntityFromRepository(Planet::class);
         $I->assertCount(1, $planet->getRevealedSectors());
+    }
+
+    public function testCpuChipsetReduceCostScan(FunctionalTester $I): void
+    {
+        $I->assertEquals(8, $this->player->getActionPoint());
+        $I->assertCount(0, $this->player->getPlanets());
+
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::CHIPSET_ACCELERATION),
+            $this->chun,
+            $I
+        );
+        $I->assertCount(1, $this->daedalus->getModifiers());
+
+        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::CHIPSET_ACCELERATION]);
+        $I->canSeeInRepository(Project::class, ['config' => $projectConfig]);
+
+        // when player scans
+        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->execute();
+
+        $I->assertEquals(8 - 2, $this->player->getActionPoint());
     }
 }

@@ -12,7 +12,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 /** @codeCoverageIgnore */
-class StatusConfigData
+abstract class StatusConfigData
 {
     public static array $dataArray = [
         [
@@ -359,7 +359,9 @@ class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => ['mute_modifier'],
+            'modifierConfigs' => [
+                'mute_modifier'
+            ],
             'actionConfigs' => [],
         ],
         [
@@ -429,7 +431,9 @@ class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => ['modifier_for_player_set_0spore_on_change.variable'],
+            'modifierConfigs' => [
+                'modifier_for_player_set_0spore_on_change.variable'
+            ],
             'actionConfigs' => [],
         ],
         [
@@ -1112,7 +1116,9 @@ class StatusConfigData
             'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SHOOTER_SPECIALIST_POINT],
             'autoRemove' => true,
-            'modifierConfigs' => ['modifier_shooter_specialist_point'],
+            'modifierConfigs' => [
+                'modifier_shooter_specialist_point'
+            ],
             'actionConfigs' => [],
         ],
         [
@@ -1120,7 +1126,10 @@ class StatusConfigData
             'statusName' => SkillEnum::PILOT,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'status_config',
-            'modifierConfigs' => ['modifier_pilot_always_critical_success_piloting', 'modifier_pilot_increased_shoot_hunter_chances'],
+            'modifierConfigs' => [
+                'modifier_pilot_always_critical_success_piloting',
+                'modifier_pilot_increased_shoot_hunter_chances'
+            ],
             'actionConfigs' => [],
         ],
         [
@@ -1159,17 +1168,20 @@ class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => 'project_participations_default',
-            'statusName' => 'project_participations',
-            'visibility' => 'hidden',
+            'name' => SkillEnum::TECHNICIAN,
+            'statusName' => SkillEnum::TECHNICIAN,
+            'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'charge_status_config',
-            'chargeVisibility' => 'hidden',
-            'chargeStrategy' => 'none',
-            'maxCharge' => null,
-            'startCharge' => 1,
-            'dischargeStrategies' => ['none'],
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_ENGINEER],
             'autoRemove' => true,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                'modifier_specialist_point_engineer',
+                'modifier_technician_double_repair_and_renovate_chance',
+            ],
             'actionConfigs' => [],
         ],
     ];

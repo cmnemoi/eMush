@@ -98,5 +98,31 @@
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
+      <unit id="astrophysicist">
+          <segment id="astrophysicist.name" state="translated">
+              <source>astrophysicist.name</source>
+              <target>Astrophysicist</target>
+          </segment>
+          <segment id="astrophysicist.description" state="translated">
+              <source>astrophysicist.description</source>
+              <target>L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou
+                  déterminer leur composition.//:point: L'action *Scanner Une Planète* coûte 1 :pa: de moins.//:point:
+                  +1 Secteur découvert lors des analyses de surface.
+              </target>
+          </segment>
+      </unit>
+      <unit id="computer">
+          <segment id="it_expert.name" state="translated">
+              <source>it_expert.name</source>
+              <target>IT Expert</target>
+          </segment>
+          <segment id="it_expert.description" state="translated">
+              <source>it_expert.description</source>
+              <target>L'informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les
+                  interfaces des terminaux du nexus, de navigation, communication.//:point: +2 :pa_comp: (points
+                  d'action **Informatique**) par jour.//:point: Bonus pour développer certains projets NERON.
+              </target>
+          </segment>
+      </unit>
   </file>
 </xliff>

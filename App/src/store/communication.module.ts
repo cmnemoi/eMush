@@ -79,12 +79,12 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
+
     async loadAlivePlayerChannels({ getters, dispatch, commit }) {
         commit('setLoadingOfChannels', true);
 
         try {
             const channels = await CommunicationService.loadAlivePlayerChannels();
-
             const sortedChannels = sortChannels(channels);
 
             commit('setChannels', sortedChannels);
@@ -101,7 +101,7 @@ const actions: ActionTree<any, any> = {
                 }
             }
 
-            await dispatch('loadMessages', { channel: state.currentChannel });
+            await dispatch('loadMessages', { channel: getters.currentChannel });
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -110,6 +110,7 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
+
     async loadDeadPlayerChannels({ commit, dispatch }) {
         commit('setLoadingOfChannels', true);
         try {
@@ -126,6 +127,7 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
+
     async loadMessages({ commit }, { channel }) {
         commit('setLoadingForChannel', { channel, newStatus: true });
         try {
@@ -173,6 +175,7 @@ const actions: ActionTree<any, any> = {
             return false;
         }
     },
+
     async leavePrivateChannel({ getters, commit, dispatch }, channel) {
         commit('setLoadingOfChannels', true);
         try {
@@ -212,6 +215,7 @@ const actions: ActionTree<any, any> = {
     clearRoomLogs({ getters, commit }) {
         commit('setChannelMessages', { channel: getters.roomChannel, messages: [] });
     },
+
     async loadRoomLogs({ getters, dispatch }) {
         await dispatch('loadMessages', { channel: getters.roomChannel });
     },
@@ -239,14 +243,14 @@ const actions: ActionTree<any, any> = {
     },
 
     async readMessage({ commit }, message) {
-        await CommunicationService.readMessage(message);
         // @FIXME: if you reload the page by clicking on eMush logo, the number of new messages is not updated...
+        await CommunicationService.readMessage(message);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 });
     },
 
     async readRoomLog({ commit }, roomLog) {
-        await CommunicationService.readRoomLog(roomLog);
         // @FIXME: if you do an action, the number of new messages is not updated...
+        await CommunicationService.readRoomLog(roomLog);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 });
     },
 
@@ -254,20 +258,20 @@ const actions: ActionTree<any, any> = {
         if (state.currentChannel.scope !== ChannelType.ROOM_LOG) {
             throw new Error('Current channel is not a room log');
         }
-        
-        await CommunicationService.markAllRoomLogsAsRead();
+
         getters.messages.forEach((roomLog: RoomLog) => {
             roomLog.isUnread = false;
         });
+        await CommunicationService.markAllRoomLogsAsRead();
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });
     },
 
     async markCurrentChannelAsRead({ getters, commit }) {
-        await CommunicationService.markChannelAsRead(state.currentChannel);
         getters.messages.forEach((message: Message) => {
             message.isUnread = false;
         });
 
+        await CommunicationService.markChannelAsRead(state.currentChannel);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });
     }
 };

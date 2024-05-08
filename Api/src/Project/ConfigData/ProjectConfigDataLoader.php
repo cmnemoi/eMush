@@ -76,7 +76,7 @@ final class ProjectConfigDataLoader extends ConfigDataLoader
         foreach ($projectConfigData['replaceEquipmentConfigs'] as $replaceEquipmentConfigName) {
             $replaceEquipmentConfig = $this->replaceEquipmentConfigRepository->findOneBy(['name' => $replaceEquipmentConfigName]);
             if (!$replaceEquipmentConfig) {
-                throw new \RuntimeException("ReplaceEquipmentConfig {$replaceEquipmentConfig->getName()} not found");
+                throw new \RuntimeException("ReplaceEquipmentConfig {$replaceEquipmentConfigName} not found");
             }
             $newProjectConfigData['replaceEquipmentConfigs'][] = $replaceEquipmentConfig;
         }

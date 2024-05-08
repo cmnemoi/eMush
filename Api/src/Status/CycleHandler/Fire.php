@@ -15,6 +15,7 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
@@ -50,6 +51,19 @@ final readonly class Fire extends AbstractStatusCycleHandler
 
         // Make sure the fire will be set only on Rooms.
         if ($statusHolder->getType() !== PlaceTypeEnum::ROOM || $status->getCharge() === 0) {
+            return;
+        }
+
+        // if Auto Watering project is finished and random draw is successful, the fire is extinguished.
+        $autoWatering = $statusHolder->getDaedalus()->getProjectByName(ProjectName::AUTO_WATERING);
+        if ($autoWatering->isFinished() && $this->randomService->isSuccessful($autoWatering->getActivationRate())) {
+            $this->statusService->removeStatus(
+                statusName: $this->name,
+                holder: $statusHolder,
+                tags: [StatusEnum::FIRE],
+                time: $dateTime
+            );
+
             return;
         }
 

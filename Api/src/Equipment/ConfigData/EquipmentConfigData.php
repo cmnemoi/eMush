@@ -1634,7 +1634,6 @@ class EquipmentConfigData
                 'hide',
                 'repair_percent_6',
                 'sabotage_percent_6',
-
                 'examine',
             ],
             'mechanics' => [

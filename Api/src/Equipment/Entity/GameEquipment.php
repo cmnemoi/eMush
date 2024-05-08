@@ -344,13 +344,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
         // then actions provided by the room
         $actions = array_merge($actions, $this->getPlace()->getProvidedActions(
-            ActionHolderEnum::EQUIPMENT,
+            $actionTarget,
             [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]
         )->toArray());
 
         // then actions provided by the active player
         $actions = array_merge($actions, $activePlayer->getProvidedActions(
-            ActionHolderEnum::EQUIPMENT,
+            $actionTarget,
             [ActionRangeEnum::PLAYER]
         )->toArray());
 

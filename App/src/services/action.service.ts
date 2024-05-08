@@ -67,7 +67,7 @@ const ActionService = {
         function buildActionProvider(): Record<string, unknown> | undefined | null {
             const className = action.actionProviderClass;
 
-            if (typeof className === 'string'){
+            if ( className !== null){
                 return { className: className, id: action.actionProviderId };
             }
 

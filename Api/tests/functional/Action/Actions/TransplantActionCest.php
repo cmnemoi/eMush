@@ -10,9 +10,8 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GamePlantEnum;
@@ -57,14 +56,14 @@ class TransplantActionCest
             ->setPlantName(GamePlantEnum::BANANA_TREE);
         $I->haveInRepository($fruitMechanic);
 
-        /** @var EquipmentConfig $hydropotConfig */
-        $hydropotConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $hydropotConfig */
+        $hydropotConfig = $I->have(ItemConfig::class, [
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
 
-        /** @var EquipmentConfig $fruitConfig */
-        $fruitConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $fruitConfig */
+        $fruitConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
         ]);
@@ -106,7 +105,7 @@ class TransplantActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $fruit = new GameEquipment($room);
+        $fruit = new GameItem($room);
         $fruit
             ->setEquipment($fruitConfig)
             ->setName('fruit');
@@ -116,7 +115,7 @@ class TransplantActionCest
 
         $I->assertFalse($this->transplantAction->isVisible());
 
-        $hydropot = new GameEquipment($room);
+        $hydropot = new GameItem($room);
         $hydropot
             ->setEquipment($hydropotConfig)
             ->setName(ItemEnum::HYDROPOT);
@@ -129,12 +128,12 @@ class TransplantActionCest
         $I->assertCount(0, $room->getEquipments());
         $I->assertCount(1, $player->getEquipments());
 
-        $I->seeInRepository(GameEquipment::class, ['name' => GamePlantEnum::BANANA_TREE]);
+        $I->seeInRepository(GameItem::class, ['name' => GamePlantEnum::BANANA_TREE]);
     }
 
     public function testTransplantCreatePlant(FunctionalTester $I)
     {
-        $plantYoung = $plantYoung = $I->grabEntityFromRepository(ChargeStatusConfig::class, [
+        $plantYoung = $I->grabEntityFromRepository(ChargeStatusConfig::class, [
             'statusName' => EquipmentStatusEnum::PLANT_YOUNG,
         ]);
 
@@ -160,20 +159,20 @@ class TransplantActionCest
             ->setMaturationTime([15 => 1]);
         $I->haveInRepository($plantMechanic);
 
-        /** @var EquipmentConfig $hydropotConfig */
-        $hydropotConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $hydropotConfig */
+        $hydropotConfig = $I->have(ItemConfig::class, [
             'name' => 'hydropot_test',
             'equipmentName' => ItemEnum::HYDROPOT,
         ]);
 
-        /** @var EquipmentConfig $fruitConfig */
-        $fruitConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $fruitConfig */
+        $fruitConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$fruitMechanic]),
             'name' => 'fruit',
         ]);
 
-        /** @var EquipmentConfig $plantConfig */
-        $plantConfig = $I->have(EquipmentConfig::class, [
+        /** @var ItemConfig $plantConfig */
+        $plantConfig = $I->have(ItemConfig::class, [
             'mechanics' => new ArrayCollection([$plantMechanic]),
             'name' => 'banana_test',
             'equipmentName' => GamePlantEnum::BANANA_TREE,
@@ -211,7 +210,7 @@ class TransplantActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $fruit = new GameEquipment($room);
+        $fruit = new GameItem($room);
         $fruit
             ->setEquipment($fruitConfig)
             ->setName('fruit');
@@ -221,7 +220,7 @@ class TransplantActionCest
 
         $I->assertFalse($this->transplantAction->isVisible());
 
-        $hydropot = new GameEquipment($room);
+        $hydropot = new GameItem($room);
         $hydropot
             ->setEquipment($hydropotConfig)
             ->setName(ItemEnum::HYDROPOT);
@@ -231,13 +230,12 @@ class TransplantActionCest
 
         $this->transplantAction->execute();
 
-        $I->assertCount(1, $room->getEquipments());
-        $I->assertCount(0, $player->getEquipments());
+        $I->assertCount(1, $player->getEquipments());
 
-        $I->seeInRepository(GameEquipment::class, ['name' => GamePlantEnum::BANANA_TREE]);
+        $I->seeInRepository(GameItem::class, ['name' => GamePlantEnum::BANANA_TREE]);
 
-        $tree = $room->getEquipments()->first();
-        $I->assertInstanceOf(GameEquipment::class, $tree);
+        $tree = $player->getEquipments()->first();
+        $I->assertInstanceOf(GameItem::class, $tree);
         $I->assertTrue($tree->hasStatus(EquipmentStatusEnum::PLANT_YOUNG));
 
         $status = $tree->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);

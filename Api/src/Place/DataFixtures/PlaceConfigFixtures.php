@@ -394,6 +394,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
                 DoorEnum::FRONT_CORRIDOR_MEDLAB,
                 DoorEnum::FRONT_CORRIDOR_CENTRAL_CORRIDOR,
             ])
+            ->setItems([ItemEnum::SUPPORT_DRONE])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($frontCorridor);
 

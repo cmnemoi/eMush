@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -82,7 +81,7 @@ class ConsumeChargeOnActionCest
         $tool->addAction($actionEntity)->buildName(ItemEnum::FUEL_CAPSULE, GameConfigEnum::TEST);
         $I->haveInRepository($tool);
 
-        $equipment = new EquipmentConfig();
+        $equipment = new ItemConfig();
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setMechanics(new ArrayCollection([$tool]))
@@ -130,7 +129,7 @@ class ConsumeChargeOnActionCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
@@ -164,7 +163,7 @@ class ConsumeChargeOnActionCest
 
     public function testGearCharge(FunctionalTester $I)
     {
-        $equipmentCoffee = new EquipmentConfig();
+        $equipmentCoffee = new ItemConfig();
         $equipmentCoffee
             ->setEquipmentName(GameRationEnum::COFFEE)
             ->buildName(GameConfigEnum::TEST);
@@ -181,7 +180,7 @@ class ConsumeChargeOnActionCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
 
-        $equipment = new EquipmentConfig();
+        $equipment = new ItemConfig();
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setActionConfigs(new ArrayCollection([$actionEntity]))
@@ -242,15 +241,15 @@ class ConsumeChargeOnActionCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
-        $gameEquipment = new GameEquipment($room);
+        $gameEquipment = new GameItem($room);
         $gameEquipment
             ->setEquipment($equipment)
             ->setName(ItemEnum::FUEL_CAPSULE);
         $I->haveInRepository($gameEquipment);
 
-        $I->refreshEntities($room);
+        $I->haveInRepository($room);
 
         $gameGear = new GameItem($player);
         $gameGear
@@ -258,7 +257,7 @@ class ConsumeChargeOnActionCest
             ->setEquipment($gearConfig);
         $I->haveInRepository($gameGear);
 
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $statusConfig = new ChargeStatusConfig();
         $statusConfig
@@ -320,12 +319,12 @@ class ConsumeChargeOnActionCest
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
         $I->haveInRepository($convertActionEntity);
 
-        $equipmentCoffee = new EquipmentConfig();
+        $equipmentCoffee = new ItemConfig();
         $equipmentCoffee
             ->setEquipmentName(GameRationEnum::COFFEE)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipmentCoffee);
-        $equipment = new EquipmentConfig();
+        $equipment = new ItemConfig();
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
             ->setActionConfigs(new ArrayCollection([$actionEntity]))
@@ -399,7 +398,7 @@ class ConsumeChargeOnActionCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
@@ -408,7 +407,7 @@ class ConsumeChargeOnActionCest
 
         $I->haveInRepository($gameEquipment);
 
-        $I->refreshEntities($room);
+        $I->haveInRepository($room);
 
         $gameGear = new GameItem($player);
         $gameGear
@@ -416,7 +415,7 @@ class ConsumeChargeOnActionCest
             ->setEquipment($gearConfig);
         $I->haveInRepository($gameGear);
 
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         /** @var ChargeStatus $chargeStatus */
         $chargeStatus = $this->statusService->createStatusFromConfig(

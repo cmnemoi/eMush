@@ -6,13 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\DroneInfo;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Enum\DroneNicknameEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -242,22 +244,41 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         $this->movePatrolShipContentToSpace($patrolShip, $player, $tags);
     }
 
+    public function moveEquipmentTo(
+        GameEquipment $equipment,
+        EquipmentHolderInterface $newHolder,
+        string $visibility = VisibilityEnum::HIDDEN,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+        ?Player $author = null
+    ): void {
+        $moveEquipmentEvent = new MoveEquipmentEvent(
+            equipment: $equipment,
+            newHolder: $newHolder,
+            author: $author,
+            visibility: $visibility,
+            tags: $tags,
+            time: $time,
+        );
+        $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
+    }
+
     private function getEquipmentFromConfig(
         EquipmentConfig $config,
         EquipmentHolderInterface $holder,
         array $reasons
     ): GameEquipment {
-        if ($config instanceof ItemConfig) {
-            $gameEquipment = $config->createGameItem($holder);
-        } else {
-            $gameEquipment = $config->createGameEquipment($holder->getPlace());
-        }
+        $gameEquipment = $config->createGameEquipment($holder);
 
         if ($config->isPersonal()) {
             if (!$holder instanceof Player) {
                 throw new \Exception("holder of this gameEquipment {$gameEquipment->getName()} should be a player");
             }
             $gameEquipment->setOwner($holder);
+        }
+
+        if ($gameEquipment instanceof Drone) {
+            $this->initDrone($gameEquipment);
         }
 
         $this->persist($gameEquipment);
@@ -345,16 +366,22 @@ class GameEquipmentService implements GameEquipmentServiceInterface
         return $gameEquipment;
     }
 
+    private function initDrone(Drone $drone): Drone
+    {
+        $droneInfo = new DroneInfo(
+            $drone,
+            nickName: $this->randomService->random(1, \count(DroneNicknameEnum::cases())),
+            serialNumber: $this->randomService->random(1, 99)
+        );
+        $this->entityManager->persist($droneInfo);
+
+        $drone->setDroneInfo($droneInfo);
+
+        return $drone;
+    }
+
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getHolder()->getDaedalus()->getGameConfig();
-    }
-
-    private function persistEntities(array $entities): void
-    {
-        foreach ($entities as $entity) {
-            $this->entityManager->persist($entity);
-        }
-        $this->entityManager->flush();
     }
 }

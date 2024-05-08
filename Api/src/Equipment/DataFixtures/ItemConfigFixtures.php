@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\Entity\Config\DroneConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
@@ -16,7 +17,9 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -42,6 +45,9 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
 
         /** @var ArrayCollection $hideableActions */
         $hideableActions = new ArrayCollection([$takeAction, $dropAction, $hideAction, $examineAction]);
+
+        /** @var ActionConfig $repair12 */
+        $repair12 = $this->getReference(TechnicianFixtures::REPAIR_12);
 
         /** @var ActionConfig $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
@@ -205,6 +211,20 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($fuelCapsule);
 
+        /** @var ChargeStatusConfig $droneCharges */
+        $droneCharges = $this->getReference(EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE);
+
+        $drone = new DroneConfig();
+        $drone
+            ->setEquipmentName(ItemEnum::SUPPORT_DRONE)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            ->setActionConfigs([$takeAction, $examineAction, $dropAction, $repair12])
+            ->setInitStatuses([$droneCharges])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($drone);
+
         // @TODO add drones, cat, coffee thermos, lunchbox, survival kit
 
         $gameConfig
@@ -219,7 +239,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($waterStick)
             ->addEquipmentConfig($hydropot)
             ->addEquipmentConfig($oxygenCapsule)
-            ->addEquipmentConfig($fuelCapsule);
+            ->addEquipmentConfig($fuelCapsule)
+            ->addEquipmentConfig($drone);
         $manager->persist($gameConfig);
 
         $manager->flush();

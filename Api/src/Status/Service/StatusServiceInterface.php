@@ -9,7 +9,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -51,7 +50,7 @@ interface StatusServiceInterface
     ): Status;
 
     public function handleAttempt(
-        Player $player,
+        StatusHolderInterface $holder,
         ActionEnum $actionName,
         ActionResult $result,
         array $tags,

@@ -21,6 +21,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 #[ORM\DiscriminatorMap([
     'equipment_config' => EquipmentConfig::class,
     'item_config' => ItemConfig::class,
+    'drone_config' => DroneConfig::class,
 ])]
 class EquipmentConfig
 {

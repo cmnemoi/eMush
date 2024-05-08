@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -184,25 +183,25 @@ class StatusService implements StatusServiceInterface
     }
 
     public function handleAttempt(
-        Player $player,
+        StatusHolderInterface $holder,
         ActionEnum $actionName,
         ActionResult $result,
         array $tags,
         \DateTime $time
     ): void {
         /** @var Attempt $attempt */
-        $attempt = $player->getStatusByName(StatusEnum::ATTEMPT);
+        $attempt = $holder->getStatusByName(StatusEnum::ATTEMPT);
 
         if ($result instanceof Success) {
             $this->handleAttemptOnSuccess($attempt);
         } else {
-            $this->handleAttemptOnFailure($attempt, $player, $actionName, $tags, $time);
+            $this->handleAttemptOnFailure($attempt, $holder, $actionName, $tags, $time);
         }
     }
 
     public function handleAttemptOnFailure(
         ?Attempt $attempt,
-        Player $player,
+        StatusHolderInterface $holder,
         ActionEnum $actionName,
         array $tags,
         \DateTime $time
@@ -215,7 +214,7 @@ class StatusService implements StatusServiceInterface
         } elseif ($attempt === null) { // Create Attempt
             $attempt = $this->createAttemptStatus(
                 $actionName,
-                $player
+                $holder
             );
         }
         $this->persist($attempt);
@@ -314,12 +313,12 @@ class StatusService implements StatusServiceInterface
         return $chargeStatus;
     }
 
-    private function createAttemptStatus(ActionEnum $action, Player $player): Attempt
+    private function createAttemptStatus(ActionEnum $action, StatusHolderInterface $holder): Attempt
     {
         /** @var ChargeStatusConfig $attemptConfig */
-        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $player->getDaedalus());
+        $attemptConfig = $this->getStatusConfigByNameAndDaedalus(StatusEnum::ATTEMPT, $holder->getDaedalus());
 
-        $attempt = new Attempt($player, $attemptConfig);
+        $attempt = new Attempt($holder, $attemptConfig);
         $attempt->setAction($action);
 
         return $attempt;

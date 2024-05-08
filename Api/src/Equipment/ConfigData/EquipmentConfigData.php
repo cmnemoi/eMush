@@ -4,6 +4,7 @@ namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -3891,6 +3892,27 @@ class EquipmentConfigData
                 'swedish_sofa_blueprint_default',
             ],
             'initStatuses' => [],
+        ],
+        [
+            'name' => ItemEnum::SUPPORT_DRONE . '_default',
+            'equipmentName' => ItemEnum::SUPPORT_DRONE,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => true,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'drone_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'examine',
+                'repair_percent_12',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [
+                EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
+            ],
         ],
     ];
 }

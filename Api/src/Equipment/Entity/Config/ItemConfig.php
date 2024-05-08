@@ -13,7 +13,7 @@ class ItemConfig extends EquipmentConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isStackable;
 
-    public function createGameItem(
+    public function createGameEquipment(
         EquipmentHolderInterface $holder,
     ): GameItem {
         $gameItem = new GameItem($holder);

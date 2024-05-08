@@ -29,7 +29,7 @@ final class NewFruitNotHazardousCest extends AbstractFunctionalTest
     {
         $bananaTreeConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GamePlantEnum::BANANA_TREE]);
 
-        $bananaTree = $bananaTreeConfig->createGameItem($this->player1);
+        $bananaTree = $bananaTreeConfig->createGameEquipment($this->player1);
 
         $I->haveInRepository($bananaTree);
         $this->player1->addEquipment($bananaTree);

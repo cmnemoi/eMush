@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\TitleEnum;
@@ -341,6 +342,7 @@ class GameConfigData
                 'oscilloscope_blueprint_default',
                 'sniper_helmet_blueprint_default',
                 'swedish_sofa_blueprint_default',
+                ItemEnum::SUPPORT_DRONE . '_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',
@@ -426,6 +428,7 @@ class GameConfigData
                 'astronavigation_neron_cpu_priority_default',
                 'defence_neron_cpu_priority_default',
                 'changed_cpu_priority_default',
+                'electric_charges_support_drone_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

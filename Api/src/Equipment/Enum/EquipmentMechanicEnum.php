@@ -2,20 +2,20 @@
 
 namespace Mush\Equipment\Enum;
 
-class EquipmentMechanicEnum
+abstract class EquipmentMechanicEnum
 {
-    public const RATION = 'ration';
-    public const GEAR = 'gear';
-    public const TOOL = 'tools';
-    public const WEAPON = 'weapon';
-    public const EXPLORATION = 'exploration';
-    public const FRUIT = 'fruit';
-    public const PLANT = 'plant';
-    public const DRUG = 'drug';
-    public const BOOK = 'book';
-    public const BLUEPRINT = 'blueprint';
-    public const DOCUMENT = 'document';
-    public const ENTITY = 'entity';
-    public const PRIVATE_EQUIPMENT = 'private_equipment';  // equipment that only the owner can see
-    public const PATROL_SHIP = 'patrol_ship';
+    public const string BLUEPRINT = 'blueprint';
+    public const string BOOK = 'book';
+    public const string DOCUMENT = 'document';
+    public const string DRUG = 'drug';
+    public const string ENTITY = 'entity';
+    public const string EXPLORATION = 'exploration';
+    public const string FRUIT = 'fruit';
+    public const string GEAR = 'gear';
+    public const string PATROL_SHIP = 'patrol_ship';
+    public const string PLANT = 'plant';
+    public const string PRIVATE_EQUIPMENT = 'private_equipment';  // equipment that only the owner can see
+    public const string RATION = 'ration';
+    public const string TOOL = 'tools';
+    public const string WEAPON = 'weapon';
 }

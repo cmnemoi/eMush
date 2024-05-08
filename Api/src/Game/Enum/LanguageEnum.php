@@ -32,6 +32,8 @@ abstract class LanguageEnum
     public const string ACTION_NAME = 'action_name';
     public const string PROJECT = 'project';
     public const string TARGET_PROJECT = 'target_project';
+    public const string DRONE = 'drone';
+    public const string TARGET_DRONE = 'target_drone';
 
     // translation domains
     public const string CHARACTERS = 'characters';
@@ -62,6 +64,8 @@ abstract class LanguageEnum
         self::ACTION_NAME => self::ACTION,
         self::PROJECT => self::PROJECT,
         self::TARGET_PROJECT => self::PROJECT,
+        self::DRONE => self::ITEMS,
+        self::TARGET_DRONE => self::ITEMS,
         LogDeclinationEnum::BALLS_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::PREFIX_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::ADJECTIVE_COPROLALIA => self::DISEASE_MESSAGE,
@@ -131,6 +135,8 @@ abstract class LanguageEnum
         return match ($key) {
             self::ITEM => self::EQUIPMENT,
             self::TARGET_ITEM => self::TARGET_EQUIPMENT,
+            self::DRONE => self::EQUIPMENT,
+            self::TARGET_DRONE => self::TARGET_EQUIPMENT,
             default => $key,
         };
     }

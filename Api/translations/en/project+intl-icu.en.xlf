@@ -7,18 +7,6 @@
         <target>Efficiency: {min_efficiency}-{max_efficiency}%</target>
       </segment>
     </unit>
-    <unit id="efficiencyTooltipHeader">
-      <segment id="efficiencyTooltipHeader" state="translated">
-        <source>efficiency.tooltip.header</source>
-        <target>Efficiency</target>
-      </segment>
-    </unit>
-    <unit id="efficiencyTooltipText">
-      <segment id="efficiencyTooltipText" state="translated">
-        <source>efficiency.tooltip.text</source>
-        <target>To maintain optimal efficiency, alternate working with a crewmate.</target>
-      </segment>
-    </unit>
     <unit id="auto_watering">
       <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>

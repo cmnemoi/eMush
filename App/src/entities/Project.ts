@@ -12,11 +12,8 @@ export class Project {
     public key!: string;
     public name!: string;
     public description!: string;
-    public lore!: string;
     public progress!: string;
     public efficiency!: string;
-    public efficiencyTooltipHeader!: string;
-    public efficiencyTooltipText!: string;
     public bonusSkills!: BonusSkill[];
     public repairPilgredAction: Action|null = null;
     public participateAction: Action|null = null;
@@ -27,11 +24,8 @@ export class Project {
             this.key = object.key;
             this.name = object.name;
             this.description = object.description;
-            this.lore = object.lore;
             this.progress = object.progress;
             this.efficiency = object.efficiency;
-            this.efficiencyTooltipHeader = object.efficiencyTooltipHeader;
-            this.efficiencyTooltipText = object.efficiencyTooltipText;
             this.bonusSkills = object.bonusSkills;
             const repairPilgredActionData = object.actions.filter((action: any) => action.key === ActionEnum.REPAIR_PILGRED)[0];
             const participateActionData = object.actions.filter((action: any) => action.key === ActionEnum.PARTICIPATE)[0];

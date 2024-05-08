@@ -70,11 +70,8 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
-                'lore' => '',
                 'progress' => '0%',
                 'efficiency' => 'Efficacité : 1-1%',
-                'efficiencyTooltipHeader' => 'Efficacité',
-                'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
                 'bonusSkills' => [
                     [
                         'key' => 'physicist',
@@ -133,7 +130,6 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
-                'lore' => '',
             ],
             actual: $normalizedProject
         );

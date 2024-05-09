@@ -70,4 +70,13 @@ interface StatusServiceInterface
         \DateTime $time,
         string $mode = VariableEventInterface::CHANGE_VARIABLE
     ): ?ChargeStatus;
+
+    public function createOrIncrementChargeStatus(
+        string $name,
+        StatusHolderInterface $holder,
+        string $visibility = VisibilityEnum::HIDDEN,
+        ?StatusHolderInterface $target = null,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+    ): ChargeStatus;
 }

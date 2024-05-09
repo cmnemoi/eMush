@@ -34,6 +34,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
@@ -737,5 +738,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getAlivePlayersInSpaceBattle(): Collection
     {
         return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->isInSpaceBattle());
+    }
+
+    public function getNumberOfFiresKilledByAutoWateringProject(): int
+    {
+        return $this->getChargeStatusByName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)?->getCharge() ?? 0;
     }
 }

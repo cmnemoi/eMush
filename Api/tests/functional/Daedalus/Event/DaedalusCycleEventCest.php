@@ -4,8 +4,6 @@ namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -22,6 +20,8 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,11 +31,13 @@ use Mush\Tests\FunctionalTester;
 final class DaedalusCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldDecreaseOxygen(FunctionalTester $I): void
@@ -165,6 +167,108 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // then Daedalus has 55 shield
         $I->assertEquals(55, $this->daedalus->getShield());
+    }
+
+    public function shouldCreateANeronAnnouncementWhenAutoWateringRemovesFires(FunctionalTester $I): void
+    {
+        // given Daedalus is at Day 0 so no incidents are triggered
+        $this->daedalus->setDay(0);
+
+        // given auto watering project is finished
+        $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        $this->finishProject(
+            project: $autoWatering,
+            author: $this->chun,
+            I: $I
+        );
+
+        // given it has a 100% activation rate
+        $autoWateringConfig = $autoWatering->getConfig();
+        $reflection = new \ReflectionClass($autoWateringConfig);
+        $reflection->getProperty('activationRate')->setValue($autoWateringConfig, 100);
+
+        // given Chun's room is on fire
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when a new cycle passes
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then a Neron announcement should have been created
+        $announcement = $I->grabEntityFromRepository(
+            entity: Message::class,
+            params: [
+                'message' => NeronMessageEnum::AUTOMATIC_SPRINKLERS,
+            ]
+        );
+
+        // then the announcement should have the number of fires extinguished
+        $I->assertEquals(1, $announcement->getTranslationParameters()['quantity']);
+    }
+
+    public function shouldNotCreateANeronAnnouncementWhenAutoWateringDoesNotRemoveFire(FunctionalTester $I): void
+    {
+        // given Daedalus is at Day 0 so no incidents are triggered
+        $this->daedalus->setDay(0);
+
+        // given auto watering project is finished
+        $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        $this->finishProject(
+            project: $autoWatering,
+            author: $this->chun,
+            I: $I
+        );
+
+        // given it has a 100% activation rate
+        $autoWateringConfig = $autoWatering->getConfig();
+        $reflection = new \ReflectionClass($autoWateringConfig);
+        $reflection->getProperty('activationRate')->setValue($autoWateringConfig, 100);
+
+        // given Chun's room is on fire
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given a new cycle passes
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // given the fire is extinguished
+        $I->assertFalse($this->chun->getPlace()->hasStatus(StatusEnum::FIRE));
+
+        // when a new cycle passes
+        $oneHourLater = (new \DateTime())->modify('+1 hour');
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            $oneHourLater
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then I should not have created a Neron announcement
+        $I->dontSeeInRepository(
+            entity: Message::class,
+            params: [
+                'message' => NeronMessageEnum::AUTOMATIC_SPRINKLERS,
+                'createdAt' => $oneHourLater,
+            ]
+        );
     }
 
     public function shouldPreventAllIncidentsIfBricBrocProjectIsActivated(FunctionalTester $I): void

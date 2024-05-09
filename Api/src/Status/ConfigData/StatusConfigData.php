@@ -7,6 +7,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -1116,6 +1117,19 @@ abstract class StatusConfigData
             'modifierConfigs' => [
                 'modifier_specialist_point_core',
             ],
+        ],
+        [
+            'name' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
+            'statusName' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES,
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => null,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
         ],
     ];
 }

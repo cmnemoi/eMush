@@ -65,7 +65,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         foreach ($projectConfigData['spawnEquipmentConfigs'] as $spawnEquipmentConfigName) {
             $spawnEquipmentConfig = $this->getReference($spawnEquipmentConfigName);
             if (!$spawnEquipmentConfig) {
-                throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentConfig->getName()} not found");
+                throw new \RuntimeException("SpawnEquipmentConfig {$spawnEquipmentConfigName} not found");
             }
             $newProjectConfigData['spawnEquipmentConfigs'][] = $spawnEquipmentConfig;
         }
@@ -73,7 +73,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         foreach ($projectConfigData['replaceEquipmentConfigs'] as $replaceEquipmentConfigName) {
             $replaceEquipmentConfig = $this->getReference($replaceEquipmentConfigName);
             if (!$replaceEquipmentConfig) {
-                throw new \RuntimeException("ReplaceEquipmentConfig {$replaceEquipmentConfig->getName()} not found");
+                throw new \RuntimeException("ReplaceEquipmentConfig {$replaceEquipmentConfigName} not found");
             }
             $newProjectConfigData['replaceEquipmentConfigs'][] = $replaceEquipmentConfig;
         }

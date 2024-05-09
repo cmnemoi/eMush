@@ -173,7 +173,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(55, $this->daedalus->getShield());
     }
 
-    public function shouldCreateANeronAnnouncementWhenAutoWateringKillsFires(FunctionalTester $I): void
+    public function shouldCreateANeronAnnouncementWhenAutoWateringRemovesFires(FunctionalTester $I): void
     {
         // given Daedalus is at Day 0 so no incidents are triggered
         $this->daedalus->setDay(0);
@@ -219,7 +219,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(1, $announcement->getTranslationParameters()['quantity']);
     }
 
-    public function shouldNotCreateANeronAnnouncementWhenNoFiresToKill(FunctionalTester $I): void
+    public function shouldNotCreateANeronAnnouncementWhenAutoWateringDoesNotRemoveFire(FunctionalTester $I): void
     {
         // given Daedalus is at Day 0 so no incidents are triggered
         $this->daedalus->setDay(0);

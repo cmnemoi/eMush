@@ -98,7 +98,7 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
       <segment id="description" state="final">
         <source>core.description</source>
-        <target>Les points de Conception vous donnent des **actions gratuites** pour participer aux *projets NERON*</target>
+        <target>Les points de Conception vous donnent des **actions gratuites** pour participer aux *projets NERON*.</target>
       </segment>
     </unit>
     <unit id="engineer">

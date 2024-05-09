@@ -156,7 +156,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::BRIC_BROC,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::DESIGNER, SkillEnum::CREATIVE],
+                'bonusSkills' => [SkillEnum::CONCEPTOR, SkillEnum::CREATIVE],
                 'activationRate' => 15,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],

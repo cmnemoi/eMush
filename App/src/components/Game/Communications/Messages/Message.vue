@@ -7,7 +7,7 @@
     <div
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
-        @click="$emit('click')"
+        @click="$emit('reply')"
         @mouseover="read(message)"
     >
         <div class="character-body">
@@ -17,16 +17,18 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <div class="actions">
+        <div class="actions" @click.stop>
             <ActionButtons
                 v-if="isPlayerAlive && isReplyable && !channel.isFavorite()"
                 :actions="['reply', 'favorite', 'report']"
+                @reply="$emit('reply')"
                 @favorite="favorite(message)"
                 @report="openReportPopup()"
             />
             <ActionButtons
                 v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
                 :actions="['reply', 'unfavorite', 'report']"
+                @reply="$emit('reply')"
                 @unfavorite="unfavorite(message)"
                 @report="openReportPopup()"
             />
@@ -40,7 +42,7 @@
     <div
         v-if="isRoot && isSystemMessage"
         class="log"
-        @click="$emit('click')"
+        @click="$emit('reply')"
         @mouseover="readMessage(message);"
     >
         <p :class="['text', { unread: message.isUnread }]">
@@ -51,7 +53,7 @@
     <div
         v-else-if="!isRoot"
         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
-        @click="$emit('click')"
+        @click="$emit('reply')"
         @mouseover="read(message)"
     >
         <p :class="['text', { unread: message.isUnread }]">
@@ -59,16 +61,18 @@
             <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
-        <div class="actions">
+        <div class="actions" @click.stop>
             <ActionButtons
                 v-if="isPlayerAlive && isReplyable && !channel.isFavorite()"
                 :actions="['reply', 'favorite', 'report']"
+                @reply="$emit('reply')"
                 @favorite="favorite(message)"
                 @report="openReportPopup()"
             />
             <ActionButtons
                 v-if="isPlayerAlive && isReplyable && channel.isFavorite()"
                 :actions="['reply', 'unfavorite', 'report']"
+                @reply="$emit('reply')"
                 @unfavorite="unfavorite(message)"
                 @report="openReportPopup()"
             />
@@ -450,7 +454,7 @@ export default defineComponent ({
         transform: rotate(180deg);
     }
 
-    &.new p::before { border-right-color: white; }
+    &.new p::before, &.unread p::before { border-right-color: white; }
 }
 
 </style>

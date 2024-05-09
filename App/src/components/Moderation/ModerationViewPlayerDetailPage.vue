@@ -153,8 +153,12 @@
                         :is-replyable="false"
                         :admin-mode = "true"
                     />
-                    <button class="toggle-children" @click="message.toggleChildren()">
-                        {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
+                    <button
+                        v-if="message.hasChildrenToDisplay()"
+                        class="toggle-children"
+                        @click="message.toggleChildren()"
+                    >
+                        {{ ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) }}
                     </button>
                     <Message
                         v-for="(child, id) in message.children"

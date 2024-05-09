@@ -5,16 +5,21 @@
                 :message="message"
                 :is-root="true"
                 :is-replyable="true"
-                @click="replyTo(message)" />
-            <button class="toggle-children" @click="message.toggleChildren()">
-                {{ message.hasChildrenToDisplay() ? ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) : '' }}
+                @reply="replyTo(message)"
+            />
+            <button
+                v-if="message.hasChildrenToDisplay()"
+                class="toggle-children"
+                @click="message.toggleChildren()"
+            >
+                {{ ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) }}
             </button>
             <Message
                 v-for="(child, id) in message.children"
                 :key="id"
                 :message="child"
                 :is-replyable="true"
-                @click="replyTo(message)"
+                @reply="replyTo(message)"
             />
             <MessageInput v-if="messageToReply === message && newMessagesAllowed" :channel="channel" :parent="message" />
         </section>

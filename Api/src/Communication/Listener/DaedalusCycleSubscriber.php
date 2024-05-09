@@ -7,8 +7,6 @@ namespace Mush\Communication\Listener;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusCycleSubscriber implements EventSubscriberInterface

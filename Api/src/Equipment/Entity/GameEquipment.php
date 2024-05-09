@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionTargetInterface;
 use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
@@ -291,5 +292,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return ActionTargetName::EQUIPMENT->value;
+    }
+
+    public function getMechanicActionByNameOrThrow(string $actionName): Action
+    {
+        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
+            foreach ($mechanic->getActions() as $action) {
+                if ($action->getName() === $actionName) {
+                    return $action;
+                }
+            }
+        }
+
+        throw new \RuntimeException("Action {$actionName} not found in the mechanics of {$this->name} equipment.");
     }
 }

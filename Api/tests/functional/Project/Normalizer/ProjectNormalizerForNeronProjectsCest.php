@@ -67,32 +67,24 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         $I->assertEqualsIgnoringCase(
             expected: [
                 'id' => $project->getId(),
-                'key' => 'pilgred',
-                'name' => 'PILGRED',
-                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
-                'lore' => '',
+                'key' => 'bric_broc',
+                'name' => 'Rafistolage Général',
+                'description' => 'À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...',
+                'lore' => 'Quelqu\'un a pensé à REVISSER les plaques de tôles ?',
                 'progress' => '0%',
-                'efficiency' => 'Efficacité : 1-1%',
+                'efficiency' => 'Efficacité : 6-9%',
                 'efficiencyTooltipHeader' => 'Efficacité',
                 'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un autre collègue.',
                 'bonusSkills' => [
                     [
-                        'key' => 'physicist',
-                        'name' => 'Physicien',
-                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
-                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
-                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
-                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.
-                ',
+                        'key' => 'conceptor',
+                        'name' => 'Concepteur',
+                        'description' => 'Le concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point:+2 :pa_core: par jour points d\'action *Projets NERON*.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                     [
-                        'key' => 'technician',
-                        'name' => 'Technicien',
-                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du
-                    Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de
-                    réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les
-                    **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.
-                ',
+                        'key' => 'creative',
+                        'name' => 'Créatif',
+                        'description' => 'Parfois il faut savoir renverser le problème.//Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.',
                     ],
                 ],
                 'actions' => [
@@ -117,8 +109,8 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
 
     public function shouldNormalizeBricBrocProjectInDaedalusNormalizationContext(FunctionalTester $I): void
     {
-        // given I have a project
-        $project = $this->daedalus->getPilgred();
+        // given I have Bric Broc project
+        $project = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
 
         // when I normalize the project in daedalus normalization context
         $normalizedProject = $this->projectNormalizer->normalize($project, null, [
@@ -129,11 +121,11 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
         // then I should get the normalized project
         $I->assertEquals(
             expected: [
-                'type' => 'PILGRED',
-                'key' => 'pilgred',
-                'name' => 'PILGRED',
-                'description' => 'Avance le Projet en fonction de vos capacités.',
-                'lore' => '',
+                'type' => 'Projet',
+                'key' => 'bric_broc',
+                'name' => 'Rafistolage Général',
+                'description' => 'À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...',
+                'lore' => 'Quelqu\'un a pensé à REVISSER les plaques de tôles ?',
             ],
             actual: $normalizedProject
         );

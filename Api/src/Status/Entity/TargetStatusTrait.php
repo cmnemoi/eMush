@@ -48,6 +48,25 @@ trait TargetStatusTrait
         return $status;
     }
 
+    public function getChargeStatusByName(string $name): ?ChargeStatus
+    {
+        $status = $this->getStatuses()
+            ->filter(static fn (Status $status) => ($status instanceof ChargeStatus && $status->getName() === $name))
+            ->first();
+
+        return $status ?: null;
+    }
+
+    public function getChargeStatusByNameOrThrow(string $name): ChargeStatus
+    {
+        $status = $this->getChargeStatusByName($name);
+        if (!$status) {
+            throw new \RuntimeException("Charge status with name '{$name}' not found for '{$this->getName()}'");
+        }
+
+        return $status;
+    }
+
     public function getStatusByNameAndTarget(string $name, StatusHolderInterface $target): ?Status
     {
         $status = $this->getStatuses()

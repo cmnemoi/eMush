@@ -31,10 +31,7 @@ final class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
 
-        /** @var ChargeStatus $autoWateringStatus */
-        $autoWateringStatus = $daedalus->getStatusByName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES);
-
-        $numberOfFiresKilledByAutoWatering = $autoWateringStatus?->getCharge() ?? 0;
+        $numberOfFiresKilledByAutoWatering = $daedalus->getNumberOfFiresKilledByAutoWateringProject();
         // If no fire was killed, no need to create message
         if ($numberOfFiresKilledByAutoWatering === 0) {
             return;

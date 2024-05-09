@@ -6,7 +6,6 @@ namespace Mush\Tests\functional\Project\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Normalizer\ProjectNormalizer;
@@ -19,13 +18,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * @internal
  */
-final class ProjectNormalizerCest extends AbstractFunctionalTest
+final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private int $participateActionId;
-
 
     public function _before(FunctionalTester $I): void
     {

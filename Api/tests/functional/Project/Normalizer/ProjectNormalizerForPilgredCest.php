@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * @internal
  */
-final class ProjectNormalizerCest extends AbstractFunctionalTest
+final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
     private GameEquipmentServiceInterface $gameEquipmentService;

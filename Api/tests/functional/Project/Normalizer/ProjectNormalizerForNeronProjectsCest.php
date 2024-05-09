@@ -79,7 +79,7 @@ final class ProjectNormalizerForNeronProjectsCest extends AbstractFunctionalTest
                     [
                         'key' => 'conceptor',
                         'name' => 'Concepteur',
-                        'description' => 'Le concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: par jour points d\'action *Projets NERON*.//:point: Bonus pour développer certains **Projets NERON**.',
+                        'description' => 'Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d\'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                     [
                         'key' => 'creative',

@@ -166,6 +166,8 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             return;
         }
 
+        // If Bric broc project works, do not trigger cycle incidents and tell other modules with an event
+        // (mostly for NERON announcement)
         $bricBroc = $daedalus->getProjectByName(ProjectName::BRIC_BROC);
         if ($bricBroc->isFinished() && $this->randomService->isSuccessful($bricBroc->getActivationRate())) {
             $bricBrocWorkedEvent = new BricBrocProjectWorkedEvent($daedalus, $event->getTags(), $event->getTime());

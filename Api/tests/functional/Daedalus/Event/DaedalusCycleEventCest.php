@@ -181,8 +181,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $config = $bricBroc->getConfig();
         (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
 
-        // given Daedalus is Day 50 so a lot of incidents should happen
-        $this->daedalus->setDay(50);
+        // given Daedalus is Day 100 so a lot of incidents should happen
+        $this->daedalus->setDay(100);
 
         // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
@@ -241,8 +241,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $config = $bricBroc->getConfig();
         (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
 
-        // given Daedalus is Day 50 so a lot of incidents should happen
-        $this->daedalus->setDay(50);
+        // given Daedalus is Day 100 so a lot of incidents should happen
+        $this->daedalus->setDay(100);
 
         // when cycle change event is triggered
         $event = new DaedalusCycleEvent(

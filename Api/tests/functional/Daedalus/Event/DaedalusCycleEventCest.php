@@ -2,12 +2,8 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Mush\Communication\Entity\Channel;
 use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -24,6 +20,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -41,7 +38,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-
     }
 
     public function shouldDecreaseOxygen(FunctionalTester $I): void

@@ -63,7 +63,6 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
                 'modifierConfigs' => [
-                    'modifier_for_daedalus_set_daedalus_shield_to_50',
                     'modifier_for_daedalus_+5shield_on_new_cycle',
                 ],
                 'spawnEquipmentConfigs' => [],

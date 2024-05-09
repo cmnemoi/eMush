@@ -2,32 +2,21 @@
 
 namespace Mush\Tests\functional\Hunter\Listener;
 
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterCycleEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Project\Entity\Project;
-use Mush\Project\Entity\ProjectConfig;
-use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Symfony\Component\Uid\Uuid;
 
 /**
  * @internal
@@ -148,7 +137,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
     public function testAsteroidTruceCycles(FunctionalTester $I): void
     {
-        $daedalus = $this->createDaedalusForAsteroidTest($I);
+        $daedalus = $this->getDaedalusForAsteroidTest($I);
         $daedalus->setHunterPoints(25);
         $poolEvent = new HunterPoolEvent($daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
@@ -182,7 +171,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
     public function testAsteroidShootAfterDefinedCycles(FunctionalTester $I): void
     {
-        $daedalus = $this->createDaedalusForAsteroidTest($I);
+        $daedalus = $this->getDaedalusForAsteroidTest($I);
         $daedalus->setHunterPoints(25);
         $poolEvent = new HunterPoolEvent($daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
@@ -216,7 +205,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
     public function testMakeHuntersShootD1000ActsThreeTimesACycleOnTwoConsecutiveCycles(FunctionalTester $I): void
     {
         // given D1000 is spawned
-        $daedalus = $this->createDaedalusForD1000Test($I);
+        $daedalus = $this->getDaedalusForD1000Test($I);
         $daedalus->setHunterPoints(30);
         $poolEvent = new HunterPoolEvent($daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
@@ -273,24 +262,13 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         );
     }
 
-    private function createDaedalusForAsteroidTest(FunctionalTester $I): Daedalus
+    private function getDaedalusForAsteroidTest(FunctionalTester $I): Daedalus
     {
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-
         /** @var Daedalus $daedalus */
-        $daedalus = new Daedalus();
+        $daedalus = $this->daedalus;
         $daedalus
             ->setDay(5) // so asteroid can spawn
-            ->setCycle(0)
-            ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime());
-
-        $I->haveInRepository($daedalus);
-
-        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
-        $project = new Project($projectConfig, $daedalus);
-        $I->haveInRepository($project);
+            ->setCycle(0);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -299,53 +277,18 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
             $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
         );
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $neron = new Neron();
-        $I->haveInRepository($neron);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        $I->refreshEntities($daedalusInfo);
-
-        $places = $this->createPlaces($I, $daedalus);
-        $daedalus->setPlaces($places);
-
-        $daedalus->setDaedalusVariables($daedalusConfig);
-
-        $I->haveInRepository($daedalus);
-
         return $daedalus;
     }
 
-    private function createDaedalusForD1000Test(FunctionalTester $I): Daedalus
+    private function getDaedalusForD1000Test(FunctionalTester $I): Daedalus
     {
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-
         /** @var Daedalus $daedalus */
-        $daedalus = new Daedalus();
+        $daedalus = $this->daedalus;
         $daedalus
             ->setDay(10) // so D1000 can spawn
-            ->setCycle(0)
-            ->setDaedalusVariables($daedalusConfig)
-            ->setCycleStartedAt(new \DateTime());
+            ->setCycle(0);
 
         $I->haveInRepository($daedalus);
-
-        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
-        $project = new Project($projectConfig, $daedalus);
-        $I->haveInRepository($project);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -353,32 +296,6 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $gameConfig->setHunterConfigs(
             $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $neron = new Neron();
-        $I->haveInRepository($neron);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setName(Uuid::v4()->toRfc4122())
-            ->setNeron($neron);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        $I->haveInRepository($daedalusInfo);
-
-        $places = $this->createPlaces($I, $daedalus);
-        $daedalus->setPlaces($places);
-
-        $daedalus->setDaedalusVariables($daedalusConfig);
-
-        $I->haveInRepository($daedalus);
 
         return $daedalus;
     }

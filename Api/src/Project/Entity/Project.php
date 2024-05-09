@@ -67,6 +67,11 @@ class Project implements LogParameterInterface, ActionTargetInterface
         return $this->id;
     }
 
+    public function getConfig(): ProjectConfig
+    {
+        return $this->config;
+    }
+
     public function getName(): string
     {
         return $this->config->getName()->value;

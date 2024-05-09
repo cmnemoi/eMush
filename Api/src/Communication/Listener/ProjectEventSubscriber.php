@@ -6,6 +6,7 @@ namespace Mush\Communication\Listener;
 
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Project\Event\BricBrocProjectWorkedEvent;
 use Mush\Project\Event\ProjectEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -21,8 +22,19 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            BricBrocProjectWorkedEvent::class => 'onBricBrocProjectWorked',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
         ];
+    }
+
+    public function onBricBrocProjectWorked(BricBrocProjectWorkedEvent $event): void
+    {
+        $this->neronMessageService->createNeronMessage(
+            messageKey: NeronMessageEnum::PATCHING_UP,
+            daedalus: $event->getDaedalus(),
+            parameters: [],
+            dateTime: $event->getTime(),
+        );
     }
 
     public function onProjectFinished(ProjectEvent $event): void

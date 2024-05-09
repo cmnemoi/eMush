@@ -513,6 +513,7 @@ class GameConfigData
             'projectConfigs' => [
                 ProjectName::AUTO_WATERING,
                 ProjectName::AUXILIARY_TERMINAL,
+                ProjectName::BRIC_BROC,
                 ProjectName::CHIPSET_ACCELERATION,
                 ProjectName::DISMANTLING,
                 ProjectName::DOOR_SENSOR,

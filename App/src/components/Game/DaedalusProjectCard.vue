@@ -3,9 +3,12 @@
         <span v-html="formatText(project.type)"></span>
         <img :src="getProjectImage(project)" :alt="project.name">
         <template #content>
-            <h1 v-html="formatText(project.name)"></h1>
-            <p v-if="project.lore != ''" v-html="formatText(project.lore)"></p>
-            <strong><p style="font-weight: bold" v-html="formatText(project.description)"></p></strong>
+            <h1 v-html="formatText(project.name)"/>
+            <p v-if="project.lore" v-html="formatText(project.lore)"/>
+            <strong v-if="project.lore">
+                <p style="font-weight: bold" v-html="formatText(project.description)"/>
+            </strong>
+            <p v-else v-html="formatText(project.description)"/>
         </template>
     </Tippy>
 </template>

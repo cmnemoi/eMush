@@ -742,6 +742,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getNumberOfFiresKilledByAutoWateringProject(): int
     {
-        return $this->getChargeStatusByNameOrThrow(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)->getCharge();
+        return $this->getChargeStatusByName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)?->getCharge() ?? 0;
     }
 }

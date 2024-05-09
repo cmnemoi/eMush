@@ -42,7 +42,7 @@ trait TargetStatusTrait
     {
         $status = $this->getStatusByName($name);
         if (!$status) {
-            throw new \RuntimeException("Status with name '{$name}' not found for '{$this->getName()}'");
+            throw new \RuntimeException("Status {$name} not found for {$this->getClassName()} {$this->getName()}");
         }
 
         return $status;
@@ -61,7 +61,7 @@ trait TargetStatusTrait
     {
         $status = $this->getChargeStatusByName($name);
         if (!$status) {
-            throw new \RuntimeException("Charge status with name '{$name}' not found for '{$this->getName()}'");
+            throw new \RuntimeException("Charge status {$name} not found for {$this->getClassName()} {$this->getName()}");
         }
 
         return $status;

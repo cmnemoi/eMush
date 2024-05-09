@@ -454,7 +454,7 @@ export default defineComponent ({
         transform: rotate(180deg);
     }
 
-    &.new p::before { border-right-color: white; }
+    &.new p::before, &.unread p::before { border-right-color: white; }
 }
 
 </style>

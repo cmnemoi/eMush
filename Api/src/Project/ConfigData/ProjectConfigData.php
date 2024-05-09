@@ -170,6 +170,7 @@ abstract class ProjectConfigData
                 'activationRate' => 25,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
             ],
         ];
     }

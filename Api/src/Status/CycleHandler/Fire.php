@@ -51,7 +51,7 @@ final readonly class Fire extends AbstractStatusCycleHandler
         }
 
         // Make sure the fire will be set only on Rooms.
-        if ($statusHolder->getType() !== PlaceTypeEnum::ROOM || $status->getCharge() === 0) {
+        if ($statusHolder->getType() !== PlaceTypeEnum::ROOM) {
             return;
         }
 
@@ -71,6 +71,11 @@ final readonly class Fire extends AbstractStatusCycleHandler
                 time: $dateTime
             );
 
+            return;
+        }
+
+        // Only active fires should propagate and damage.
+        if ($status->getCharge() === 0) {
             return;
         }
 

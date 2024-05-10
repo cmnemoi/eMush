@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
@@ -45,10 +46,8 @@ final class Disassemble extends AttemptAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(
-            new HasStatus([
-                'status' => SkillEnum::TECHNICIAN,
-                'target' => HasStatus::PLAYER,
-                'contain' => true,
+            new HasSkill([
+                'skill' => SkillEnum::TECHNICIAN,
                 'groups' => ['visibility'],
             ])
         );

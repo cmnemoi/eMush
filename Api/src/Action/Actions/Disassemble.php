@@ -15,6 +15,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -23,7 +24,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Disassemble extends AttemptAction
+final class Disassemble extends AttemptAction
 {
     protected string $name = ActionEnum::DISASSEMBLE;
     protected GameEquipmentServiceInterface $gameEquipmentService;
@@ -42,8 +43,15 @@ class Disassemble extends AttemptAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        // @TODO add validator on technician skill ?
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(
+            new HasStatus([
+                'status' => SkillEnum::TECHNICIAN,
+                'target' => HasStatus::PLAYER,
+                'contain' => true,
+                'groups' => ['visibility'],
+            ])
+        );
         $metadata->addConstraint(new HasStatus([
             'status' => EquipmentStatusEnum::REINFORCED,
             'contain' => false,

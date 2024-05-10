@@ -82,7 +82,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::ACTION_POINT,
                 $delta,
-                [ActionEnum::CONSUME],
+                [ActionEnum::CONSUME->value],
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -92,7 +92,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::MOVEMENT_POINT,
                 $delta,
-                [ActionEnum::CONSUME],
+                [ActionEnum::CONSUME->value],
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -102,7 +102,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::HEALTH_POINT,
                 $delta,
-                [ActionEnum::CONSUME],
+                [ActionEnum::CONSUME->value],
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -113,7 +113,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::MORAL_POINT,
                 $delta,
-                [ActionEnum::CONSUME],
+                [ActionEnum::CONSUME->value],
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -123,7 +123,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
                 $player,
                 PlayerVariableEnum::SATIETY,
                 $delta,
-                [ActionEnum::CONSUME],
+                [ActionEnum::CONSUME->value],
                 new \DateTime()
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -136,7 +136,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             $player,
             PlayerVariableEnum::SATIETY,
             4,
-            [ActionEnum::CONSUME],
+            [ActionEnum::CONSUME->value],
             new \DateTime()
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);

@@ -37,13 +37,13 @@ final class TreatPlantActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::TREAT_PLANT, 2);
+        $this->createActionEntity(ActionEnum::TREAT_PLANT, 2);
 
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new TreatPlant(
+        $this->actionHandler = new TreatPlant(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -70,19 +70,19 @@ final class TreatPlantActionTest extends AbstractActionTest
             ->setName('plant');
 
         $plant = new Plant();
-        $plant->addAction($this->actionEntity);
+        $plant->addAction($this->actionConfig);
         $item->setMechanics(new ArrayCollection([$plant]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('persist');
         $this->playerService->shouldReceive('persist');
         $this->statusService->shouldReceive('delete');
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

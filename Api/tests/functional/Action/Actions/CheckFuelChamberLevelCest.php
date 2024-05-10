@@ -33,7 +33,7 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
         $this->checkFuelChamberLevelActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
-            'name' => ActionEnum::CHECK_FUEL_CHAMBER_LEVEL,
+            'actionName' => ActionEnum::CHECK_FUEL_CHAMBER_LEVEL,
         ]);
         $this->checkFuelChamberLevelAction = $I->grabService(CheckFuelChamberLevel::class);
 
@@ -67,7 +67,11 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
         $I->haveInRepository($brokenStatus);
 
         // when action is loaded
-        $this->checkFuelChamberLevelAction->loadParameters($this->checkFuelChamberLevelActionConfig, $this->player, $combustionChamber);
+        $this->checkFuelChamberLevelAction->loadParameters(
+            actionConfig: $this->checkFuelChamberLevelActionConfig,
+            actionProvider: $combustionChamber,
+            player: $this->player,
+            target: $combustionChamber);
 
         // then action is not visible
         $I->assertEquals(
@@ -90,7 +94,11 @@ final class CheckFuelChamberLevelCest extends AbstractFunctionalTest
 
     private function whenPlayerChecksFuelLevelOnCombustionChamber(GameEquipment $combustionChamber): void
     {
-        $this->checkFuelChamberLevelAction->loadParameters($this->checkFuelChamberLevelActionConfig, $this->player, $combustionChamber);
+        $this->checkFuelChamberLevelAction->loadParameters(
+            actionConfig: $this->checkFuelChamberLevelActionConfig,
+            actionProvider: $combustionChamber,
+            player: $this->player,
+            target: $combustionChamber);
         $this->checkFuelChamberLevelAction->execute();
     }
 }

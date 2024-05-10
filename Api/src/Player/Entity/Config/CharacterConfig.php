@@ -30,7 +30,7 @@ class CharacterConfig
     private Collection $initStatuses;
 
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
-    private Collection $actionsConfig;
+    private Collection $actionConfigs;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $skills;
@@ -80,7 +80,7 @@ class CharacterConfig
     public function __construct()
     {
         $this->initStatuses = new ArrayCollection();
-        $this->actionsConfig = new ArrayCollection();
+        $this->actionConfigs = new ArrayCollection();
         $this->startingItems = new ArrayCollection();
         $this->initDiseases = new ArrayCollection();
         $this->skills = [];
@@ -134,28 +134,28 @@ class CharacterConfig
         return $this;
     }
 
-    public function getActionsConfig(): Collection
+    public function getActionConfigs(): Collection
     {
-        return $this->actionsConfig;
+        return $this->actionConfigs;
     }
 
     public function getActionByName(ActionEnum $name): ?ActionConfig
     {
-        $actions = $this->actionsConfig->filter(static fn (ActionConfig $action) => $action->getActionName() === $name);
+        $actions = $this->actionConfigs->filter(static fn (ActionConfig $action) => $action->getActionName() === $name);
 
         return $actions->isEmpty() ? null : $actions->first();
     }
 
     /**
-     * @param array<int, ActionConfig>|Collection<array-key, ActionConfig> $actionsConfig
+     * @param array<int, ActionConfig>|Collection<array-key, ActionConfig> $actionConfigs
      */
-    public function setActionsConfig(array|Collection $actionsConfig): static
+    public function setActionConfigs(array|Collection $actionConfigs): static
     {
-        if (\is_array($actionsConfig)) {
-            $actionsConfig = new ArrayCollection($actionsConfig);
+        if (\is_array($actionConfigs)) {
+            $actionConfigs = new ArrayCollection($actionConfigs);
         }
 
-        $this->actionsConfig = $actionsConfig;
+        $this->actionConfigs = $actionConfigs;
 
         return $this;
     }

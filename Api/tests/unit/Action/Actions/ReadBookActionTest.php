@@ -26,11 +26,11 @@ final class ReadBookActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::READ_BOOK, 2);
+        $this->createActionEntity(ActionEnum::READ_BOOK, 2);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new ReadBook(
+        $this->actionHandler = new ReadBook(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -64,9 +64,9 @@ final class ReadBookActionTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertEmpty($player->getEquipments());

@@ -46,7 +46,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);
 
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKEOFF]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF]);
 
         $this->takeoffAction = $I->grabService(Takeoff::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);

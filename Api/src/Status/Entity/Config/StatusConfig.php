@@ -130,7 +130,7 @@ class StatusConfig
             $actionConfigs = new ArrayCollection($actionConfigs);
         }
 
-        $this->{$actionConfigs} = $actionConfigs;
+        $this->actionConfigs = $actionConfigs;
 
         return $this;
     }

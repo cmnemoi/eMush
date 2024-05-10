@@ -7,6 +7,7 @@ use Mush\Action\Actions\Flirt;
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -39,7 +40,7 @@ use Mush\User\Entity\User;
 final class ForceGetUpCest extends AbstractFunctionalTest
 {
     private Hit $hitAction;
-    private Action $hitActionConfig;
+    private ActionConfig $hitActionConfig;
 
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
@@ -49,7 +50,7 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->hitAction = $I->grabService(Hit::class);
-        $this->hitActionConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::HIT]);
+        $this->hitActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HIT]);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -86,14 +87,15 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::HIT)
-            ->setRange(ActionRangeEnum::OTHER_PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
             'name' => 'testForceGetUp',
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $player */
@@ -164,7 +166,11 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         $this->chun->setActionPoint(1);
 
         // given KT hits Chun so she gets up
-        $this->hitAction->loadParameters($this->hitActionConfig, $this->kuanTi, $this->chun);
+        $this->hitAction->loadParameters(
+            actionConfig: $this->hitActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: $this->chun);
         $this->hitAction->execute();
 
         // when the cycle changes
@@ -190,7 +196,7 @@ final class ForceGetUpCest extends AbstractFunctionalTest
 
         // when KT flirts with Chun
         $flirtAction = $I->grabService(Flirt::class);
-        $flirtActionConfig = $I->grabEntityFromRepository(Action::class, ['actionName' => ActionEnum::FLIRT]);
+        $flirtActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::FLIRT]);
         $flirtAction->loadParameters($flirtActionConfig, $this->kuanTi, $this->chun);
         $flirtAction->execute();
 

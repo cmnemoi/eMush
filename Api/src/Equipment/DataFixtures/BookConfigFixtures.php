@@ -77,7 +77,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics([$apprentonMechanic])
-                ->setActions($actions)
+                ->setActionConfigs($actions)
                 ->buildName(GameConfigEnum::DEFAULT);
 
             $manager->persist($apprentonMechanic);
@@ -101,7 +101,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$documentMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($documentMechanic);
@@ -121,7 +121,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$commandersManualMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($commandersManualMechanic);
@@ -141,7 +141,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$mushResearchMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($mushResearchMechanic);
@@ -161,7 +161,7 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$postItMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($postItMechanic);

@@ -23,6 +23,7 @@ final class GetActionTargetFromContextService
         'planet' => Planet::class,
         'project' => Project::class,
         'terminal' => GameEquipment::class,
+        'terminalItem' => GameItem::class,
         'hunter' => Hunter::class,
     ];
 

@@ -21,7 +21,7 @@ use Mush\Place\Entity\Place;
  */
 final class BuildActionTest extends AbstractActionTest
 {
-    protected AbstractAction $action;
+    protected AbstractAction $actionHandler;
     private GearToolServiceInterface|Mockery\Mock $gearToolService;
 
     private GameEquipmentServiceInterface|Mockery\Mock $gameEquipmentService;
@@ -36,9 +36,9 @@ final class BuildActionTest extends AbstractActionTest
         $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
+        $this->createActionEntity(ActionEnum::BUILD);
 
-        $this->action = new Build(
+        $this->actionHandler = new Build(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -89,7 +89,7 @@ final class BuildActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gearToolService->shouldReceive('getEquipmentsOnReachByName')->andReturn(new ArrayCollection([$gameIngredient]))->once();
@@ -97,7 +97,7 @@ final class BuildActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->eventService->shouldReceive('callEvent')->times(2);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

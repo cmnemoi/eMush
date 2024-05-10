@@ -16,6 +16,7 @@ class HasStatus extends ClassConstraint
 {
     public const PLAYER = 'player';
     public const PARAMETER = 'parameter';
+    public const ACTION_PROVIDER = 'action_provider';
     public const PLAYER_ROOM = 'player_room';
     public const DAEDALUS = 'daedalus';
 

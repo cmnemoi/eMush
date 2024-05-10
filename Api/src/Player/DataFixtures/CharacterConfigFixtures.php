@@ -390,9 +390,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $phagocyteAction */
         $phagocyteAction = $this->getReference(MushActionFixtures::PHAGOCYTE);
 
-        /** @var ActionConfig $reportFireAction */
-        $reportFireAction = $this->getReference(ActionsFixtures::REPORT_FIRE);
-
         /** @var ActionConfig $getUpAction */
         $getUpAction = $this->getReference(ActionsFixtures::GET_UP);
 
@@ -449,7 +446,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $hideAction,
             $searchAction,
             $phagocyteAction,
-            $reportFireAction,
             $infectAction,
             $extractSporeAction,
             $getUpAction,
@@ -488,7 +484,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setMaxMovementPoint(12)
             ->setMaxItemInInventory(3)
             ->setMaxDiscoverablePlanets(2)
-            ->setActionsConfig($defaultActions);
+            ->setActionConfigs($defaultActions);
 
         return $characterConfig;
     }

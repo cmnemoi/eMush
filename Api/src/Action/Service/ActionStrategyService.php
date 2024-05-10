@@ -4,7 +4,6 @@ namespace Mush\Action\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Actions\AbstractAction;
-use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -83,10 +82,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         /** @var ActionProviderInterface $actionProvider */
         $actionProvider = $this->loadGameEntity($params['actionProvider']);
 
-        $action = new Action();
-        $action->setActionConfig($actionConfig)->setActionProvider($actionProvider);
-
-        $actionService->loadParameters($action, $player, $target, $params);
+        $actionService->loadParameters($actionConfig, $actionProvider, $player, $target, $params);
 
         return $actionService->execute();
     }

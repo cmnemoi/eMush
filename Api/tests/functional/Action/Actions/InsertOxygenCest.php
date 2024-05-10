@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\InsertOxygen;
 use Mush\Action\Entity\ActionConfig;
@@ -30,7 +30,7 @@ final class InsertOxygenCest extends AbstractFunctionalTest
 
         $storageRoom = $this->createExtraPlace(RoomEnum::CENTER_ALPHA_STORAGE, $I, $this->daedalus);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSERT_OXYGEN]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::INSERT_OXYGEN]);
 
         $this->player->changePlace($storageRoom);
 
@@ -43,7 +43,7 @@ final class InsertOxygenCest extends AbstractFunctionalTest
         $this->daedalus->setOxygen(3);
 
         // given there is a oxygen tank in the room
-        $this->gameEquipmentService->createGameEquipmentFromName(
+        $oxygenTank = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::OXYGEN_TANK,
             equipmentHolder: $this->player->getPlace(),
             reasons: [],
@@ -59,7 +59,11 @@ final class InsertOxygenCest extends AbstractFunctionalTest
         );
 
         // when player inserts the oxygen capsule into the oxygen tank
-        $this->insertOxygenAction->loadParameters($this->actionConfig, $this->player, $gameCapsule);
+        $this->insertOxygenAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $oxygenTank,
+            player: $this->player,
+            target: $gameCapsule);
         $this->insertOxygenAction->execute();
 
         // then the oxygen level of Daedalus should be increased by 1

@@ -134,7 +134,7 @@ class PrivateChannelAuthorizationCest
             'equipmentName' => ItemEnum::WALKIE_TALKIE,
             'name' => 'talkie_test',
         ]);
-        $equipmentConfig->setActions(new ArrayCollection([$dropActionEntity]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$dropActionEntity]));
 
         $talkie1 = new GameItem($player);
         $talkie1
@@ -268,7 +268,7 @@ class PrivateChannelAuthorizationCest
             'equipmentName' => ItemEnum::WALKIE_TALKIE,
             'name' => 'talkie_test',
         ]);
-        $equipmentConfig->setActions(new ArrayCollection([$dropActionEntity]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$dropActionEntity]));
 
         $talkie1 = new GameItem($player);
         $talkie1
@@ -414,7 +414,7 @@ class PrivateChannelAuthorizationCest
             'equipmentName' => ItemEnum::WALKIE_TALKIE,
             'name' => 'talkie_test',
         ]);
-        $equipmentConfig->setActions(new ArrayCollection([$dropActionEntity]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$dropActionEntity]));
 
         $talkie1 = new GameItem($player);
         $talkie1
@@ -549,7 +549,7 @@ class PrivateChannelAuthorizationCest
             'equipmentName' => ItemEnum::WALKIE_TALKIE,
             'name' => 'talkie_test',
         ]);
-        $equipmentConfig->setActions(new ArrayCollection([$dropActionEntity]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$dropActionEntity]));
 
         $talkie1 = new GameItem($player);
         $talkie1
@@ -723,7 +723,7 @@ class PrivateChannelAuthorizationCest
             'equipmentName' => ItemEnum::WALKIE_TALKIE,
             'name' => 'talkie_test',
         ]);
-        $equipmentConfig->setActions(new ArrayCollection([$dropActionEntity]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$dropActionEntity]));
 
         $talkie1 = new GameItem($player);
         $talkie1

@@ -58,7 +58,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$standardRationMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($standardRationMechanic);
         $manager->persist($standardRation);
@@ -80,7 +80,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$cookedRationMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($cookedRationMechanic);
         $manager->persist($cookedRation);
@@ -102,7 +102,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$alienSteackMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($alienSteackMechanic);
         $manager->persist($alienSteak);
@@ -124,7 +124,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$coffeeMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($coffeeMechanic);
         $manager->persist($coffee);
@@ -146,7 +146,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$anabolicMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($anabolicMechanic);
         $manager->persist($anabolic);
@@ -169,7 +169,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$lombrickBarMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($lombrickBarMechanic);
         $manager->persist($lombrickBar);
@@ -192,7 +192,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$organicWasteMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($organicWasteMechanic);
         $manager->persist($organicWaste);
@@ -216,7 +216,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$proactivePuffedRiceMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($proactivePuffedRiceMechanic);
         $manager->persist($proactivePuffedRice);
@@ -239,7 +239,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$spacePotatoMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($spacePotatoMechanic);
         $manager->persist($spacePotato);
@@ -262,7 +262,7 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$supervitaminBarMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($supervitaminBarMechanic);
         $manager->persist($supervitaminBar);

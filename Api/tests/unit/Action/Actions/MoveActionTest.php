@@ -26,11 +26,11 @@ final class MoveActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::MOVE, 0, 1);
+        $this->createActionEntity(ActionEnum::MOVE, 0, 1);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new Move(
+        $this->actionHandler = new Move(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -61,10 +61,10 @@ final class MoveActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $roomStart);
 
-        $this->action->loadParameters($this->actionEntity, $player, $door);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $door);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertSame($player->getPlace(), $roomEnd);
@@ -72,7 +72,7 @@ final class MoveActionTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
         $this->eventService->shouldReceive('callEvent')->times(3);
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertSame($player->getPlace(), $roomStart);

@@ -37,9 +37,9 @@ final class DispenseActionTest extends AbstractActionTest
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
+        $this->createActionEntity(ActionEnum::BUILD);
 
-        $this->action = new Dispense(
+        $this->actionHandler = new Dispense(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -67,13 +67,13 @@ final class DispenseActionTest extends AbstractActionTest
             ->setEquipment($distillerMachine)
             ->setName(EquipmentEnum::COFFEE_MACHINE);
 
-        $distillerMachine->setActions(new ArrayCollection([$this->actionEntity]));
+        $distillerMachine->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $daedalus = new Daedalus();
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameDistillerMachine);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameDistillerMachine);
 
         $gameDrug = new GameItem(new Place());
         $drug = new ItemConfig();
@@ -87,7 +87,7 @@ final class DispenseActionTest extends AbstractActionTest
         $this->randomService->shouldReceive('getRandomElements')->andReturn([GameDrugEnum::PHUXX])->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

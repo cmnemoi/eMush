@@ -55,7 +55,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsFireDestroyable(true)
                 ->setIsFireBreakable(false)
                 ->setMechanics([$drugMechanic])
-                ->setActions($actions)
+                ->setActionConfigs($actions)
                 ->buildName(GameConfigEnum::DEFAULT);
             $manager->persist($drug);
             $gameConfig->addEquipmentConfig($drug);
@@ -71,7 +71,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(true)
             ->setIsFireBreakable(false)
             ->setMechanics([$drugMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::TEST);
         $manager->persist($prozacTest);
         $gameConfig->addEquipmentConfig($prozacTest);

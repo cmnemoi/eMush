@@ -56,8 +56,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
 
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
 
-        $this->collectScrapActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COLLECT_SCRAP]);
-        $this->landActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::LAND]);
+        $this->collectScrapActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::COLLECT_SCRAP]);
+        $this->landActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::LAND]);
 
         $this->collectScrapAction = $I->grabService(CollectScrap::class);
         $this->landAction = $I->grabService(Land::class);
@@ -92,7 +92,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
 
     public function testCollectScrapActionNoScrapToCollect(FunctionalTester $I): void
     {
-        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
 
         $I->assertFalse($this->collectScrapAction->isVisible());
     }
@@ -112,7 +116,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
 
         // when player tries to collect scrap
-        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->patrolShip);
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->patrolShip,
+            player: $this->player1,
+            target: $this->patrolShip);
 
         // then collect scrap action should not be visible
         $I->assertFalse($this->collectScrapAction->isVisible());
@@ -144,7 +152,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // when player tries to collect scrap
-        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->patrolShip);
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->patrolShip,
+            player: $this->player1,
+            target: $this->patrolShip);
 
         // then collect scrap action should be visible
         $I->assertTrue($this->collectScrapAction->isVisible());
@@ -161,7 +173,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
             visibility: VisibilityEnum::HIDDEN
         );
 
-        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
         $I->assertTrue($this->collectScrapAction->isVisible());
         $I->assertNull($this->collectScrapAction->cannotExecuteReason());
 
@@ -215,7 +231,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
 
         $I->assertNotEmpty($this->daedalus->getAttackingHunters());
 
-        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
         $I->assertTrue($this->collectScrapAction->isVisible());
         $I->assertNull($this->collectScrapAction->cannotExecuteReason());
 
@@ -229,7 +249,9 @@ final class CollectScrapCest extends AbstractFunctionalTest
             expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
             actual: $this->player1->getHealthPoint(),
         );
-        $this->pasiphaeArmor = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        /** @var ChargeStatus $status */
+        $status = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $this->pasiphaeArmor = $status;
         $I->assertNotEquals(
             $this->pasiphaeArmor->getThreshold(),
             $this->pasiphaeArmor->getCharge()
@@ -301,7 +323,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $I->assertEmpty($this->daedalus->getAttackingHunters()->getAllHuntersExcept(HunterEnum::ASTEROID));
 
         // when player collects scrap
-        $this->collectScrapAction->loadParameters($this->collectScrapActionConfig, $this->player1, $this->pasiphae);
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
         $this->collectScrapAction->execute();
 
         // then player should not be damaged
@@ -310,7 +336,9 @@ final class CollectScrapCest extends AbstractFunctionalTest
             actual: $this->player1->getHealthPoint(),
         );
         // then pasiphae should not be damaged
-        $this->pasiphaeArmor = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        /** @var ChargeStatus $status */
+        $status = $this->pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
+        $this->pasiphaeArmor = $status;
         $I->assertEquals(
             $this->pasiphaeArmor->getThreshold(),
             $this->pasiphaeArmor->getCharge()
@@ -325,7 +353,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
 
         $this->landActionConfig->setCriticalRate(100); // 100% critical rate so landing is always successful
-        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->landActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
         $this->landAction->execute();
 
         $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
@@ -343,14 +375,18 @@ final class CollectScrapCest extends AbstractFunctionalTest
         // given we collected scrap successfully
         $this->testCollectScrapActionSuccess($I);
 
-        // given land action has a 0% critical rate so it will fail and pasiphae will be damaged
+        // given land action has a 0% critical rate it will fail and pasiphae will be damaged
         $this->landActionConfig->setCriticalRate(0);
 
         // given pasiphae has 1 armor so it will be destroyed at landing
         $this->pasiphaeArmor->setCharge(1);
 
         // when player lands
-        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->landActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
         $this->landAction->execute();
 
         // then there should not be scrap in alpha bay 2
@@ -363,7 +399,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $alphaBay2 = $this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY_2);
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
 
-        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->landActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
         $this->landAction->execute();
 
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
@@ -384,7 +424,11 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $I->assertFalse($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
 
         $this->landActionConfig->setCriticalRate(0); // 0% critical rate so landing will fail
-        $this->landAction->loadParameters($this->landActionConfig, $this->player1, $this->pasiphae);
+        $this->landAction->loadParameters(
+            actionConfig: $this->landActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae);
         $this->landAction->execute();
 
         $I->assertTrue($alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS));

@@ -23,7 +23,7 @@ final class HitActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HIT]);
         $this->action->setDirtyRate(0);
 
         $I->refreshEntities($this->action);
@@ -36,7 +36,11 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->action->setSuccessRate(101);
         $I->refreshEntities($this->action);
 
-        $this->hitAction->loadParameters($this->action, $this->player1, $this->player2);
+        $this->hitAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2);
 
         $this->hitAction->execute();
 
@@ -52,7 +56,11 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->action->setSuccessRate(0);
         $I->refreshEntities($this->action);
 
-        $this->hitAction->loadParameters($this->action, $this->player1, $this->player2);
+        $this->hitAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2);
 
         $this->hitAction->execute();
 
@@ -69,7 +77,11 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->action->setCriticalRate(0);
         $I->refreshEntities($this->action);
 
-        $this->hitAction->loadParameters($this->action, $this->player1, $this->player2);
+        $this->hitAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2);
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
         $armorModifierConfig = $I->grabEntityFromRepository(
@@ -101,7 +113,11 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->action->setCriticalRate(101);
         $I->refreshEntities($this->action);
 
-        $this->hitAction->loadParameters($this->action, $this->player1, $this->player2);
+        $this->hitAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2);
 
         /** @var VariableEventModifierConfig $armorModifierConfig */
         $armorModifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [

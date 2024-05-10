@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Heal;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -66,7 +67,8 @@ final class HealCest extends AbstractFunctionalTest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::HEAL)
-            ->setRange(ActionRangeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST)
             ->setOutputQuantity(3);
@@ -76,13 +78,13 @@ final class HealCest extends AbstractFunctionalTest
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActionConfigs(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $healerPlayer */
@@ -112,7 +114,11 @@ final class HealCest extends AbstractFunctionalTest
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
         $I->refreshEntities($healedPlayer);
 
-        $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
+        $this->healAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $healerPlayer,
+            player: $healerPlayer,
+            target: $healedPlayer);
 
         $I->assertTrue($this->healAction->isVisible());
         $I->assertNull($this->healAction->cannotExecuteReason());
@@ -146,7 +152,8 @@ final class HealCest extends AbstractFunctionalTest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::HEAL)
-            ->setRange(ActionRangeEnum::OTHER_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -155,13 +162,13 @@ final class HealCest extends AbstractFunctionalTest
         $itemConfig = $I->have(ItemConfig::class);
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActionConfigs(new ArrayCollection([$action]));
 
         $I->haveInRepository($itemConfig);
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $healerPlayer */
@@ -191,7 +198,11 @@ final class HealCest extends AbstractFunctionalTest
         $healedPlayer->setPlayerInfo($healedPlayerInfo);
         $I->refreshEntities($healedPlayer);
 
-        $this->healAction->loadParameters($action, $healerPlayer, $healedPlayer);
+        $this->healAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $healerPlayer,
+            player: $healerPlayer,
+            target: $healedPlayer);
 
         $I->assertFalse($this->healAction->isVisible());
     }
@@ -212,7 +223,11 @@ final class HealCest extends AbstractFunctionalTest
         );
 
         // when player 1 heals player 2
-        $this->healAction->loadParameters($this->healConfig, $this->player1, $this->player2);
+        $this->healAction->loadParameters(
+            actionConfig: $this->healConfig,
+            actionProvider: $this->player1,
+            player: $this->player1,
+            target: $this->player2);
         $this->healAction->execute();
 
         // then I don't see a log about health gained

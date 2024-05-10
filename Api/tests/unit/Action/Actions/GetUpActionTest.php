@@ -30,11 +30,11 @@ final class GetUpActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::GET_UP);
+        $this->createActionEntity(ActionEnum::GET_UP);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new GetUp(
+        $this->actionHandler = new GetUp(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -70,12 +70,12 @@ final class GetUpActionTest extends AbstractActionTest
         $status
             ->setTarget($gameItem);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('removeStatus')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

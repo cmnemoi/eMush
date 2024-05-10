@@ -92,7 +92,7 @@ class PsychoticAttack extends AbstractSymptomHandler
         }
 
         /** @var ActionConfig $attackActionEntity */
-        $attackActionEntity = $knife->getEquipment()->getActions()->filter(
+        $attackActionEntity = $knife->getEquipment()->getActionConfigs()->filter(
             static fn (ActionConfig $action) => $action->getActionName() === ActionEnum::ATTACK
         )->first();
 
@@ -123,7 +123,7 @@ class PsychoticAttack extends AbstractSymptomHandler
         }
 
         /** @var ActionConfig $shootActionEntity */
-        $shootActionEntity = $blaster->getEquipment()->getActions()->filter(
+        $shootActionEntity = $blaster->getEquipment()->getActionConfigs()->filter(
             static fn (ActionConfig $action) => $action->getActionName() === ActionEnum::SHOOT
         )->first();
 

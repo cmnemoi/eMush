@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Validator\Charged;
 use Mush\Action\Validator\ChargedValidator;
@@ -50,8 +51,11 @@ final class ChargedValidatorTest extends TestCase
         $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
 
+        $actionConfig = new ActionConfig();
+        $actionConfig->setActionName(ActionEnum::EXPRESS_COOK);
+
         $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK]);
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK->value]);
         $chargeStatus = new ChargeStatus($target, $statusConfig);
 
         $chargeStatus->setCharge(1);
@@ -60,10 +64,8 @@ final class ChargedValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getTarget' => $target,
-            ]);
-        $action
-            ->shouldReceive([
-                'getActionName' => ActionEnum::EXPRESS_COOK,
+                'getActionConfig' => $actionConfig,
+                'getActionProvider' => $chargeStatus,
             ]);
 
         $this->initValidator();
@@ -81,24 +83,25 @@ final class ChargedValidatorTest extends TestCase
         $place = new Place();
         $place->setDaedalus($daedalus);
 
+        $actionConfig = new ActionConfig();
+        $actionConfig->setActionName(ActionEnum::EXPRESS_COOK);
+
         $target = new GameItem($place);
         $target->setEquipment($itemConfig);
+
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK->value]);
+        $chargeStatus = new ChargeStatus($target, $statusConfig);
+        $chargeStatus
+            ->setCharge(0);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
                 'getTarget' => $target,
+                'getActionConfig' => $actionConfig,
+                'getActionProvider' => $chargeStatus,
             ]);
-        $action
-            ->shouldReceive([
-                'getActionName' => ActionEnum::EXPRESS_COOK,
-            ]);
-
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::GUARDIAN)->setDischargeStrategies([ActionEnum::EXPRESS_COOK]);
-        $chargeStatus = new ChargeStatus($target, $statusConfig);
-        $chargeStatus
-            ->setCharge(0);
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint);

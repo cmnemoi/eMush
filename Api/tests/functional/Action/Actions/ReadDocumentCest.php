@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ReadDocument;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -41,7 +42,7 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->readDocumentActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
-            'name' => ActionEnum::READ_DOCUMENT,
+            'actionName' => ActionEnum::READ_DOCUMENT,
         ]);
         $this->readDocumentAction = $I->grabService(ReadDocument::class);
 
@@ -118,9 +119,14 @@ final class ReadDocumentCest extends AbstractFunctionalTest
         ]);
     }
 
-    private function whenPlayerReadsDocument(GameItem $postIt): Success
+    private function whenPlayerReadsDocument(GameItem $postIt): ActionResult
     {
-        $this->readDocumentAction->loadParameters($this->readDocumentActionConfig, $this->player, $postIt);
+        $this->readDocumentAction->loadParameters(
+            actionConfig: $this->readDocumentActionConfig,
+            actionProvider: $postIt,
+            player: $this->player,
+            target: $postIt
+        );
 
         return $this->readDocumentAction->execute();
     }

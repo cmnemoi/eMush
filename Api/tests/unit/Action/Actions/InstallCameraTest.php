@@ -31,10 +31,10 @@ final class InstallCameraTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::INSTALL_CAMERA);
+        $this->createActionEntity(ActionEnum::INSTALL_CAMERA);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->action = new InstallCamera(
+        $this->actionHandler = new InstallCamera(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -61,11 +61,11 @@ final class InstallCameraTest extends AbstractActionTest
             ->setEquipment($cameraItemConfig)
             ->setName(ItemEnum::CAMERA_ITEM);
 
-        $cameraItemConfig->setActions(new ArrayCollection([$this->actionEntity]));
+        $cameraItemConfig->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $cameraItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $cameraItem);
 
         $cameraEquipment = new GameEquipment(new Place());
         $cameraEquipmentConfig = new ItemConfig();
@@ -78,7 +78,7 @@ final class InstallCameraTest extends AbstractActionTest
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

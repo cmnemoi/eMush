@@ -109,7 +109,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setMechanics([$blasterMechanic])
             ->setInitStatuses([$blasterCharge])
-            ->setActions($actions25)
+            ->setActionConfigs($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -141,7 +141,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(false)
             ->setIsBreakable(false)
             ->setMechanics([$knifeMechanic])
-            ->setActions($actions25)
+            ->setActionConfigs($actions25)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -163,7 +163,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setMechanics([$grenadeMechanic])
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($grenade);
@@ -193,7 +193,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setMechanics([$natamyMechanic])
             ->setInitStatuses([$blasterCharge])
-            ->setActions($actions12)
+            ->setActionConfigs($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -229,7 +229,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
             ->setMechanics([$oldFaithfulMechanic])
-            ->setActions($oldFaithfulActions)
+            ->setActionConfigs($oldFaithfulActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setInitStatuses([$heavyStatus, $oldFaithfulCharge])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -257,7 +257,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsBreakable(true)
             ->setMechanics([$lizaroJungleMechanic])
             ->setInitStatuses([$bigWeaponCharge])
-            ->setActions($actions12)
+            ->setActionConfigs($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -281,7 +281,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setActions($actions12)
+            ->setActionConfigs($actions12)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 

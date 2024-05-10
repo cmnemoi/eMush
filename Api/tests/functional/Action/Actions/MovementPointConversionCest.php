@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -56,7 +57,8 @@ class MovementPointConversionCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setMovementCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
@@ -65,6 +67,7 @@ class MovementPointConversionCest
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -102,7 +105,11 @@ class MovementPointConversionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $this->moveAction->loadParameters($moveActionEntity, $player, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $moveActionEntity,
+            actionProvider: $door,
+            player: $player,
+            target: $door);
 
         $I->assertEquals(1, $this->moveAction->getMovementPointCost());
         $I->assertEquals(0, $this->moveAction->getActionPointCost());
@@ -138,7 +145,8 @@ class MovementPointConversionCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setMovementCost(2)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
@@ -147,6 +155,7 @@ class MovementPointConversionCest
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -184,7 +193,11 @@ class MovementPointConversionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $this->moveAction->loadParameters($moveActionEntity, $player, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $moveActionEntity,
+            actionProvider: $door,
+            player: $player,
+            target: $door);
 
         $I->assertNull($this->moveAction->cannotExecuteReason());
         $I->assertEquals(2, $this->moveAction->getMovementPointCost());
@@ -221,7 +234,8 @@ class MovementPointConversionCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setMovementCost(5)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
@@ -230,6 +244,7 @@ class MovementPointConversionCest
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -267,7 +282,11 @@ class MovementPointConversionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $this->moveAction->loadParameters($moveActionEntity, $player, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $moveActionEntity,
+            actionProvider: $door,
+            player: $player,
+            target: $door);
 
         $I->assertEquals(5, $this->moveAction->getMovementPointCost());
         $I->assertEquals(0, $this->moveAction->getActionPointCost());
@@ -303,7 +322,8 @@ class MovementPointConversionCest
         $moveActionEntity = new ActionConfig();
         $moveActionEntity
             ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setMovementCost(1)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($moveActionEntity);
@@ -312,6 +332,7 @@ class MovementPointConversionCest
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -349,7 +370,11 @@ class MovementPointConversionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $this->moveAction->loadParameters($moveActionEntity, $player, $door);
+        $this->moveAction->loadParameters(
+            actionConfig: $moveActionEntity,
+            actionProvider: $door,
+            player: $player,
+            target: $door);
 
         $I->assertNotNull($this->moveAction->cannotExecuteReason());
     }

@@ -794,7 +794,7 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
-            'actionConfigs' => [],
+            'actionConfigs' => ['report_fire'],
         ],
         [
             'name' => 'plant_young_default',

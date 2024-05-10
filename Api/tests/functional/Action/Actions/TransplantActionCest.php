@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -45,7 +46,8 @@ class TransplantActionCest
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
             ->setRange(ActionRangeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST);
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
@@ -110,7 +112,7 @@ class TransplantActionCest
             ->setName('fruit');
         $I->haveInRepository($fruit);
 
-        $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
+        $this->transplantAction->loadParameters($transplantAction, $fruit, $player, $fruit);
 
         $I->assertFalse($this->transplantAction->isVisible());
 
@@ -140,7 +142,8 @@ class TransplantActionCest
         $transplantAction
             ->setActionName(ActionEnum::TRANSPLANT)
             ->setRange(ActionRangeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST);
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($transplantAction);
 
         $fruitMechanic = new Fruit();
@@ -214,7 +217,7 @@ class TransplantActionCest
             ->setName('fruit');
         $I->haveInRepository($fruit);
 
-        $this->transplantAction->loadParameters($transplantAction, $player, $fruit);
+        $this->transplantAction->loadParameters($transplantAction, $fruit, $player, $fruit);
 
         $I->assertFalse($this->transplantAction->isVisible());
 

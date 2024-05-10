@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\CheckSporeLevel;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -73,7 +74,8 @@ class CheckSporeLevelActionCest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::CHECK_SPORE_LEVEL)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
@@ -81,7 +83,7 @@ class CheckSporeLevelActionCest
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::MYCOSCAN,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         $gameEquipment = new GameEquipment($room);
@@ -90,7 +92,7 @@ class CheckSporeLevelActionCest
             ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
-        $this->checkSporeLevel->loadParameters($action, $player, $gameEquipment);
+        $this->checkSporeLevel->loadParameters($action, $gameEquipment, $player, $gameEquipment);
 
         $I->assertTrue($this->checkSporeLevel->isVisible());
 

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Examine;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -71,7 +72,8 @@ class ExamineActionCest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::EXAMINE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
@@ -79,7 +81,7 @@ class ExamineActionCest
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::NARCOTIC_DISTILLER,
             'equipmentName' => EquipmentEnum::NARCOTIC_DISTILLER . '_' . GameConfigEnum::TEST,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         $gameEquipment = new GameEquipment($room);
@@ -88,7 +90,11 @@ class ExamineActionCest
             ->setEquipment($equipmentConfig);
         $I->haveInRepository($gameEquipment);
 
-        $this->examine->loadParameters($action, $player, $gameEquipment);
+        $this->examine->loadParameters(
+            actionConfig: $action,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertTrue($this->examine->isVisible());
 

@@ -29,11 +29,11 @@ final class LieDownActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::LIE_DOWN);
+        $this->createActionEntity(ActionEnum::LIE_DOWN);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new LieDown(
+        $this->actionHandler = new LieDown(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -58,7 +58,7 @@ final class LieDownActionTest extends AbstractActionTest
 
         $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
-        $tool->setActions(new ArrayCollection([$this->actionEntity]));
+        $tool->setActions(new ArrayCollection([$this->actionConfig]));
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::BED)
@@ -70,9 +70,9 @@ final class LieDownActionTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

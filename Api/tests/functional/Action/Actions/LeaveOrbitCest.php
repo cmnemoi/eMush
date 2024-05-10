@@ -19,7 +19,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
     {
         parent::_before($I);
 
-        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::LEAVE_ORBIT]);
+        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::LEAVE_ORBIT]);
         $this->moveDaedalusAction = $I->grabService(LeaveOrbit::class);
 
         // given daedalus is in orbit
@@ -44,6 +44,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -58,6 +59,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -81,6 +83,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -101,6 +104,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -123,6 +127,7 @@ final class LeaveOrbitCest extends AbstractMoveDaedalusActionCest
         // when player leaves orbit
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );

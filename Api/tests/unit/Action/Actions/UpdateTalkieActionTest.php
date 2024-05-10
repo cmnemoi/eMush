@@ -28,10 +28,10 @@ final class UpdateTalkieActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::UPDATE_TALKIE);
+        $this->createActionEntity(ActionEnum::UPDATE_TALKIE);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->action = new UpdateTalkie(
+        $this->actionHandler = new UpdateTalkie(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -68,13 +68,13 @@ final class UpdateTalkieActionTest extends AbstractActionTest
             ->setName(EquipmentEnum::NERON_CORE)
             ->setHolder($room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $talkie);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $talkie);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('transformGameEquipmentToEquipmentWithName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

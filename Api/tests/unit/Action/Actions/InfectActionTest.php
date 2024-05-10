@@ -31,11 +31,11 @@ final class InfectActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::INFECT, 1);
+        $this->createActionEntity(ActionEnum::INFECT, 1);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Infect(
+        $this->actionHandler = new Infect(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -70,13 +70,13 @@ final class InfectActionTest extends AbstractActionTest
         $mushStatus
             ->setCharge(1);
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent')->times(2);
         $this->statusService->shouldReceive('updateCharge')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $player->getStatuses());

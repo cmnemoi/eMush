@@ -23,9 +23,9 @@ final class DropActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::DROP);
+        $this->createActionEntity(ActionEnum::DROP);
 
-        $this->action = new Drop(
+        $this->actionHandler = new Drop(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -46,7 +46,7 @@ final class DropActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
 
         $item = new ItemConfig();
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $gameItem->setEquipment($item);
 
@@ -58,11 +58,11 @@ final class DropActionTest extends AbstractActionTest
         $gameItem
             ->setName('itemName')
             ->setHolder($player);
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->eventService->shouldReceive('callEvent')->once();
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

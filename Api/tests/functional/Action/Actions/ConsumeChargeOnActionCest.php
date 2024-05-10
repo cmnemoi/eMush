@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
@@ -63,7 +64,7 @@ class ConsumeChargeOnActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies([ActionEnum::COFFEE])
+            ->setDischargeStrategies([ActionEnum::COFFEE->value])
             ->buildName(GameConfigEnum::TEST)
             ->setStartCharge(2);
         $I->haveInRepository($statusConfig);
@@ -72,6 +73,7 @@ class ConsumeChargeOnActionCest
         $actionEntity
             ->setActionName(ActionEnum::COFFEE)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
@@ -144,7 +146,11 @@ class ConsumeChargeOnActionCest
             new \DateTime()
         );
 
-        $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $actionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertEquals(0, $this->coffeeAction->getMovementPointCost());
         $I->assertEquals(2, $this->coffeeAction->getActionPointCost());
@@ -170,13 +176,14 @@ class ConsumeChargeOnActionCest
             ->setActionName(ActionEnum::COFFEE)
             ->setRange(ActionRangeEnum::SELF)
             ->setActionCost(2)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
 
         $equipment = new EquipmentConfig();
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
-            ->setActions(new ArrayCollection([$actionEntity]))
+            ->setActionConfigs(new ArrayCollection([$actionEntity]))
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipment);
         $modifierConfig = new VariableEventModifierConfig('modifierForTestConsumeChargeOnAction');
@@ -256,7 +263,7 @@ class ConsumeChargeOnActionCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies([ActionEnum::COFFEE])
+            ->setDischargeStrategies([ActionEnum::COFFEE->value])
             ->buildName(GameConfigEnum::TEST)
             ->setStartCharge(1);
         $I->haveInRepository($statusConfig);
@@ -273,7 +280,11 @@ class ConsumeChargeOnActionCest
         $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 
-        $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $actionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertEquals(0, $this->coffeeAction->getMovementPointCost());
         $I->assertEquals(1, $this->coffeeAction->getActionPointCost());
@@ -293,6 +304,7 @@ class ConsumeChargeOnActionCest
             ->setActionName(ActionEnum::COFFEE)
             ->setRange(ActionRangeEnum::SELF)
             ->setMovementCost(1)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($actionEntity);
 
@@ -300,6 +312,7 @@ class ConsumeChargeOnActionCest
         $convertActionEntity
             ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
             ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->buildName(GameConfigEnum::TEST);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
         $convertActionEntity->getGameVariables()->setValuesByName(['value' => -2, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
@@ -313,7 +326,7 @@ class ConsumeChargeOnActionCest
         $equipment = new EquipmentConfig();
         $equipment
             ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
-            ->setActions(new ArrayCollection([$actionEntity]))
+            ->setActionConfigs(new ArrayCollection([$actionEntity]))
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($equipment);
         $modifierConfig = new VariableEventModifierConfig('modifierForTestConsumeChargeOnAction');
@@ -321,7 +334,7 @@ class ConsumeChargeOnActionCest
             ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
             ->setDelta(-1)
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT => ModifierRequirementEnum::ALL_TAGS])
+            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ReachEnum::INVENTORY)
             ->setMode(VariableModifierModeEnum::ADDITIVE);
 
@@ -415,7 +428,11 @@ class ConsumeChargeOnActionCest
         $modifier->setCharge($chargeStatus);
         $I->haveInRepository($modifier);
 
-        $this->coffeeAction->loadParameters($actionEntity, $player, $gameEquipment);
+        $this->coffeeAction->loadParameters(
+            actionConfig: $actionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertEquals(1, $this->coffeeAction->getMovementPointCost());
         $I->assertEquals(0, $this->coffeeAction->getActionPointCost());

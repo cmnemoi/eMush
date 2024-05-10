@@ -19,7 +19,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
     {
         parent::_before($I);
 
-        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::ADVANCE_DAEDALUS]);
+        $this->moveDaedalusActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::ADVANCE_DAEDALUS]);
         $this->moveDaedalusAction = $I->grabService(AdvanceDaedalus::class);
     }
 
@@ -36,6 +36,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -59,6 +60,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -79,6 +81,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -102,6 +105,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -125,6 +129,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );
@@ -154,6 +159,7 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         // when player advances daedalus
         $this->moveDaedalusAction->loadParameters(
             actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
             player: $this->player,
             target: $this->commandTerminal
         );

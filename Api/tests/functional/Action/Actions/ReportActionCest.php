@@ -7,6 +7,7 @@ use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Actions\ReportFire;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -97,14 +98,15 @@ class ReportActionCest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::REPORT_EQUIPMENT)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($action);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, [
             'name' => EquipmentEnum::NARCOTIC_DISTILLER,
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         $gameEquipment = new GameEquipment($room);
@@ -134,7 +136,11 @@ class ReportActionCest
 
         $I->haveInRepository($alertBroken);
 
-        $this->reportEquipment->loadParameters($action, $player, $gameEquipment);
+        $this->reportEquipment->loadParameters(
+            actionConfig: $action,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertTrue($this->reportEquipment->isVisible());
 
@@ -184,7 +190,7 @@ class ReportActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActionsConfig(new ArrayCollection([$action]));
+        $characterConfig->setActionConfigs(new ArrayCollection([$action]));
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -224,7 +230,10 @@ class ReportActionCest
 
         $I->haveInRepository($alertFire);
 
-        $this->reportFire->loadParameters($action, $player);
+        $this->reportFire->loadParameters(
+            actionConfig: $action,
+            actionProvider: $status,
+            player: $player);
 
         $I->assertTrue($this->reportFire->isVisible());
 

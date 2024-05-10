@@ -51,7 +51,7 @@ class EquipmentConfig
     private array $dismountedProducts = [];
 
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
-    private Collection $actions;
+    private Collection $actionConfigs;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initStatuses;
@@ -62,7 +62,7 @@ class EquipmentConfig
     public function __construct()
     {
         $this->mechanics = new ArrayCollection();
-        $this->actions = new ArrayCollection();
+        $this->actionConfigs = new ArrayCollection();
         $this->initStatuses = new ArrayCollection();
     }
 
@@ -205,22 +205,22 @@ class EquipmentConfig
     }
 
     /**
-     * @param array<int, ActionConfig>|Collection<int<0, max>, ActionConfig> $actions
+     * @param array<int, ActionConfig>|Collection<int<0, max>, ActionConfig> $actionConfigs
      */
-    public function setActions(array|Collection $actions): static
+    public function setActionConfigs(array|Collection $actionConfigs): static
     {
-        if (\is_array($actions)) {
-            $actions = new ArrayCollection($actions);
+        if (\is_array($actionConfigs)) {
+            $actionConfigs = new ArrayCollection($actionConfigs);
         }
 
-        $this->actions = $actions;
+        $this->actionConfigs = $actionConfigs;
 
         return $this;
     }
 
-    public function getActions(): Collection
+    public function getActionConfigs(): Collection
     {
-        $actions = $this->actions->toArray();
+        $actions = $this->actionConfigs->toArray();
 
         /** @var EquipmentMechanic $mechanic */
         foreach ($this->getMechanics() as $mechanic) {
@@ -251,7 +251,7 @@ class EquipmentConfig
 
     public function hasAction(ActionEnum $actionName): bool
     {
-        return $this->getActions()->exists(static fn (int $id, ActionConfig $action) => $action->getActionName() === $actionName);
+        return $this->getActionConfigs()->exists(static fn (int $id, ActionConfig $action) => $action->getActionName() === $actionName);
     }
 
     public function getDismountedProducts(): array

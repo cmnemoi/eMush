@@ -844,7 +844,7 @@ class ActionSubscriberCest
         $doorConfig
             ->setEquipmentName('door')
             ->setName('door')
-            ->setActions(new ArrayCollection([$moveActionEntity]));
+            ->setActionConfigs(new ArrayCollection([$moveActionEntity]));
         $I->haveInRepository($doorConfig);
 
         $door = new Door($room2);
@@ -861,7 +861,7 @@ class ActionSubscriberCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActionsConfig(new ArrayCollection([$moveActionEntity]));
+        $characterConfig->setActionConfigs(new ArrayCollection([$moveActionEntity]));
 
         /** @var Player $player */
         $player = $I->have(Player::class, [
@@ -1016,7 +1016,7 @@ class ActionSubscriberCest
         $doorConfig
             ->setEquipmentName('door')
             ->setName('door')
-            ->setActions(new ArrayCollection([$moveActionEntity]));
+            ->setActionConfigs(new ArrayCollection([$moveActionEntity]));
         $I->haveInRepository($doorConfig);
         $door = new Door($room2);
         $door

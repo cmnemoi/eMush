@@ -43,7 +43,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->analyzePlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::ANALYZE_PLANET]);
+        $this->analyzePlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::ANALYZE_PLANET]);
         $this->analyzePlanetAction = $I->grabService(AnalyzePlanet::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
@@ -83,7 +83,12 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->player->changePlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
 
         // when player tries to analyze planet
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->analyzePlanetAction->execute();
 
         // the action is not visible
@@ -101,7 +106,12 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to analyze planet
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->analyzePlanetAction->execute();
 
         // the action is not visible
@@ -114,7 +124,12 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->planet->getSectors()->map(static fn (PlanetSector $sector) => $sector->reveal());
 
         // when player tries to analyze planet
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->analyzePlanetAction->execute();
 
         // the action is not visible
@@ -132,7 +147,12 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to analyze planet
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->analyzePlanetAction->execute();
 
         // the action is not executable
@@ -153,7 +173,12 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
 
         // when player tries to analyze planet
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->analyzePlanetAction->execute();
 
         // then the action is not executable
@@ -169,7 +194,12 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->planet->getRevealedSectors()->count());
 
         // when player scans
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->analyzePlanetAction->execute();
 
         // then an expected amount of planet sections are revealed
@@ -189,7 +219,12 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         );
 
         // when player scans
-        $this->analyzePlanetAction->loadParameters($this->analyzePlanetConfig, $this->player, $this->planet);
+        $this->analyzePlanetAction->loadParameters(
+            actionConfig: $this->analyzePlanetConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->planet
+        );
         $this->analyzePlanetAction->execute();
 
         // then an expected amount of planet sections are revealed

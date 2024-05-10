@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mush\Action\Service;
+namespace Mush\Tests\unit\Action\Service;
 
+use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Factory\GameItemFactory;
@@ -76,7 +77,7 @@ final class GetActionTargetFromContextServiceTest extends TestCase
         $expectedActionTarget = GameItemFactory::createBlockOfPostIt();
         $context = [
             'currentPlayer' => new Player(),
-            'terminal' => $expectedActionTarget,
+            'terminalItem' => $expectedActionTarget,
         ];
 
         $service = new GetActionTargetFromContextService();

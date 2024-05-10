@@ -70,7 +70,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($compass);
 
@@ -81,7 +81,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->setMechanics([$ropeGear])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($rope);
@@ -99,7 +99,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
-            ->setActions($drillActions)
+            ->setActionConfigs($drillActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
@@ -111,7 +111,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($babelModule);
 
@@ -121,7 +121,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($echolocator);
 
@@ -138,7 +138,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(true)
             ->setIsBreakable(true)
-            ->setActions($thermosensorActions)
+            ->setActionConfigs($thermosensorActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($thermosensor);
@@ -149,7 +149,7 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
-            ->setActions($actions)
+            ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($whiteFlag);
 

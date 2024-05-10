@@ -14,6 +14,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Action\Validator\Mechanic;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
@@ -312,7 +313,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         $actions = [];
 
         /** @var ActionConfig $actionConfig */
-        foreach ($this->getEquipment()->getActions() as $actionConfig) {
+        foreach ($this->getEquipment()->getActionConfigs() as $actionConfig) {
             if (
                 $actionConfig->getDisplayHolder() === $actionTarget
                 && \in_array($actionConfig->getRange(), $actionRanges, true)
@@ -326,6 +327,12 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         // add actions provided by the statuses
         /** @var Status $status */
         foreach ($this->getStatuses() as $status) {
+            $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
+        }
+
+        // add actions provided by the mechanics
+        /** @var EquipmentMechanic $mechanic */
+        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
             $actions = array_merge($actions, $status->getProvidedActions($actionTarget, $actionRanges)->toArray());
         }
 

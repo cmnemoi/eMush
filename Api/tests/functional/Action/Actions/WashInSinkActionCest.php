@@ -33,7 +33,7 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::WASH_IN_SINK]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::WASH_IN_SINK]);
         $this->washInSinkAction = $I->grabService(WashInSink::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -62,7 +62,7 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
         );
 
         // when Chun washes in the sink
-        $this->washInSinkAction->loadParameters($this->actionConfig, $this->chun, $kitchen);
+        $this->washInSinkAction->loadParameters($this->actionConfig, $kitchen, $this->chun, $kitchen);
         $this->washInSinkAction->execute();
 
         // then Chun has 3 action points
@@ -98,11 +98,11 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
         );
 
         // when Chun takes a shower
-        $this->washInSinkAction->loadParameters($this->actionConfig, $this->chun, $kitchen);
+        $this->washInSinkAction->loadParameters($this->actionConfig, $kitchen, $this->chun, $kitchen);
         $this->washInSinkAction->execute();
 
         // then Chun cannot take a shower again
-        $this->washInSinkAction->loadParameters($this->actionConfig, $this->chun, $kitchen);
+        $this->washInSinkAction->loadParameters($this->actionConfig, $kitchen, $this->chun, $kitchen);
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
             actual: $this->washInSinkAction->cannotExecuteReason()

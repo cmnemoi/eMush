@@ -65,7 +65,7 @@ final class ActionSideEffectsServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')->twice();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, null);
+        $player = $this->actionService->handleActionSideEffect($action, new Player(), $player, null);
 
         self::assertCount(0, $player->getStatuses());
     }
@@ -87,7 +87,7 @@ final class ActionSideEffectsServiceTest extends TestCase
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $player = $this->actionService->handleActionSideEffect($action, $player, null);
+        $player = $this->actionService->handleActionSideEffect($action, new Player(), $player, null);
 
         self::assertCount(1, $player->getStatuses());
     }

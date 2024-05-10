@@ -27,10 +27,10 @@ final class ShowerActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SHOWER, 2);
+        $this->createActionEntity(ActionEnum::SHOWER, 2);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Shower(
+        $this->actionHandler = new Shower(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -56,16 +56,16 @@ final class ShowerActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setName('item');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('removeStatus');
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

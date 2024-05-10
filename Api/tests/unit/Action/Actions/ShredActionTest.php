@@ -24,9 +24,9 @@ final class ShredActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SHRED);
+        $this->createActionEntity(ActionEnum::SHRED);
 
-        $this->action = new Shred(
+        $this->actionHandler = new Shred(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -59,10 +59,10 @@ final class ShredActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertEmpty($player->getEquipments());

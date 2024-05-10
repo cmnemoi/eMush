@@ -148,6 +148,7 @@ class ActionsFixtures extends Fixture
         $resetSpecializationPoint
             ->setActionName(ActionEnum::RESET_SPECIALIST_POINTS)
             ->setDisplayHolder(ActionHolderEnum::PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
             ->buildName(GameConfigEnum::ALPHA);
         $manager->persist($resetSpecializationPoint);
 
@@ -985,7 +986,7 @@ class ActionsFixtures extends Fixture
         $hack
             ->setName(ActionEnum::HACK->value)
             ->setActionName(ActionEnum::HACK)
-            ->setRange(ActionRangeEnum::PLAYER)
+            ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);

@@ -54,7 +54,10 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         );
 
         // when Kuan Ti extracts spore
-        $this->extractSporeAction->loadParameters($this->extractSporeActionConfig, $this->kuanTi);
+        $this->extractSporeAction->loadParameters(
+            actionConfig: $this->extractSporeActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi);
         $this->extractSporeAction->execute();
 
         // then Kuan Ti should have the dirty status

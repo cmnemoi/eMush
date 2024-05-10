@@ -96,7 +96,11 @@ class ExtinguishManuallyActionCest
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
 
-        $this->extinguishManually->loadParameters($this->action, $player);
+        $this->extinguishManually->loadParameters(
+            $this->action,
+            $player,
+            $player
+        );
 
         $I->assertTrue($this->extinguishManually->isVisible());
         $I->assertNull($this->extinguishManually->cannotExecuteReason());

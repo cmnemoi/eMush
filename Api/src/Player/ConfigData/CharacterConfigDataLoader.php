@@ -88,7 +88,7 @@ class CharacterConfigDataLoader extends ConfigDataLoader
             }
             $actions[] = $action;
         }
-        $characterConfig->setActionsConfig($actions);
+        $characterConfig->setActionConfigs($actions);
     }
 
     private function setCharacterConfigInitDiseases(CharacterConfig $characterConfig, array $characterConfigData): void

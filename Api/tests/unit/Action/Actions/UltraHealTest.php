@@ -32,11 +32,11 @@ final class UltraHealTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::ULTRAHEAL);
+        $this->createActionEntity(ActionEnum::ULTRAHEAL);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
 
-        $this->action = new UltraHeal(
+        $this->actionHandler = new UltraHeal(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -70,12 +70,12 @@ final class UltraHealTest extends AbstractActionTest
             ->with($player, PlayerVariableEnum::HEALTH_POINT);
         $this->playerService->shouldReceive('persist');
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

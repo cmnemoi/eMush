@@ -11,6 +11,7 @@ use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
@@ -54,7 +55,11 @@ final class TerminalNormalizer implements NormalizerInterface, NormalizerAwareIn
         /** @var ?GameEquipment $terminal */
         $terminal = $object;
 
-        $context['terminal'] = $terminal;
+        if ($terminal instanceof GameItem) {
+            $context['terminalItem'] = $terminal;
+        } else {
+            $context['terminal'] = $terminal;
+        }
 
         if ($terminal === null) {
             return [];

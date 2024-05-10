@@ -35,10 +35,10 @@ final class ScrewTalkieActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SCREW_TALKIE, 2);
+        $this->createActionEntity(ActionEnum::SCREW_TALKIE, 2);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new ScrewTalkie(
+        $this->actionHandler = new ScrewTalkie(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -75,13 +75,13 @@ final class ScrewTalkieActionTest extends AbstractActionTest
         $mushConfig->setStatusName('mush');
         $mushStatus = new ChargeStatus($player, $mushConfig);
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
         $this->statusService->shouldReceive('createStatusFromName')->twice();
         // Success
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $targetPlayer->getEquipments());
@@ -113,13 +113,13 @@ final class ScrewTalkieActionTest extends AbstractActionTest
         $mushConfig->setStatusName('mush');
         $mushStatus = new ChargeStatus($player, $mushConfig);
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
         // Success
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $targetPlayer->getEquipments());

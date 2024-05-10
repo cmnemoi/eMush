@@ -2,7 +2,6 @@
 
 namespace Mush\Action\Actions;
 
-use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -49,7 +48,8 @@ abstract class AbstractAction
     }
 
     public function loadParameters(
-        Action $action,
+        ActionConfig $actionConfig,
+        ActionProviderInterface $actionProvider,
         Player $player,
         ?LogParameterInterface $target = null,
         array $parameters = []
@@ -58,13 +58,13 @@ abstract class AbstractAction
             $parameters = [];
             $parameters['parameters'] = json_encode($parameters);
 
-            $actionName = $action->getActionConfig()->getActionName()->value;
+            $actionName = $actionConfig->getActionName()->value;
 
             throw new \InvalidArgumentException("Action {$actionName} does not support the target {$target?->getLogName()}, or one of the parameters is missing in {$parameters['parameters']}.");
         }
 
-        $this->actionConfig = $action->getActionConfig();
-        $this->actionProvider = $action->getActionProvider();
+        $this->actionConfig = $actionConfig;
+        $this->actionProvider = $actionProvider;
         $this->player = $player;
         $this->target = $target;
         $this->parameters = $parameters;

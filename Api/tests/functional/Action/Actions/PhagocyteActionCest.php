@@ -60,7 +60,7 @@ class PhagocyteActionCest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActionsConfig(new ArrayCollection([$phagocyteActionEntity]));
+        $characterConfig->setActionConfigs(new ArrayCollection([$phagocyteActionEntity]));
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus,
@@ -90,7 +90,11 @@ class PhagocyteActionCest
         $mushStatus = new Status($player, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $this->phagocyteAction->loadParameters($phagocyteActionEntity, $player);
+        $this->phagocyteAction->loadParameters(
+            actionConfig: $phagocyteActionEntity,
+            actionProvider: $player,
+            player: $player
+        );
         $this->phagocyteAction->execute();
 
         $I->assertEquals(0, $player->getSpores());

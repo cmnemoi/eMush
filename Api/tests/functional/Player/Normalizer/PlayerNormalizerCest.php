@@ -40,10 +40,10 @@ final class PlayerNormalizerCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->normalizer = $I->grabService(NormalizerInterface::class);
 
-        $this->dropConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DROP]);
+        $this->dropConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
         $this->dropAction = $I->grabService(Drop::class);
 
-        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE]);
+        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]);
         $this->takeAction = $I->grabService(Take::class);
 
         $this->currentPlayerNormalizer->setNormalizer($this->normalizer);

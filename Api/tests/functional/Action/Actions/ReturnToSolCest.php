@@ -35,7 +35,7 @@ final class ReturnToSolCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::RETURN_TO_SOL]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::RETURN_TO_SOL]);
         $this->returnToSolAction = $I->grabService(ReturnToSol::class);
 
         /** @var GameEquipmentServiceInterface $gameEquipmentService */
@@ -67,7 +67,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         // given Pilgred is not finished (default)
 
         // when Chun tries to execute ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
 
         // then the action should not be executable
         $I->assertEquals(
@@ -83,7 +87,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $pilgred->makeProgress(100);
 
         // when Chun executes ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
         $this->returnToSolAction->execute();
 
         // then all Daedalus players should be dead
@@ -99,7 +107,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $pilgred->makeProgress(100);
 
         // when Chun executes ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
         $this->returnToSolAction->execute();
 
         // then all Daedalus players should be dead with Sol Return end cause
@@ -118,7 +130,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $pilgred->makeProgress(100);
 
         // when Chun executes ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
         $this->returnToSolAction->execute();
 
         // then no public death logs should be printed
@@ -138,7 +154,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $pilgred->makeProgress(100);
 
         // when Chun executes ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
         $this->returnToSolAction->execute();
 
         // then the game should be finished
@@ -152,7 +172,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $pilgred->makeProgress(100);
 
         // when Chun executes ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
         $this->returnToSolAction->execute();
 
         // then no death announcements should be created
@@ -171,7 +195,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $pilgred->makeProgress(100);
 
         // when Chun executes ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
         $this->returnToSolAction->execute();
 
         // then no player should lose morale points
@@ -190,7 +218,11 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $pilgred->makeProgress(100);
 
         // when Chun executes ReturnToSol action
-        $this->returnToSolAction->loadParameters($this->actionConfig, $this->chun, $this->commandTerminal);
+        $this->returnToSolAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->chun,
+            target: $this->commandTerminal);
         $this->returnToSolAction->execute();
 
         // then no trauma diseases should be triggered

@@ -33,7 +33,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SEARCH]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
 
         $this->searchAction = $I->grabService(Search::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);

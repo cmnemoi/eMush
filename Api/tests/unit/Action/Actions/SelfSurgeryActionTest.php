@@ -42,11 +42,11 @@ final class SelfSurgeryActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SELF_SURGERY);
+        $this->createActionEntity(ActionEnum::SELF_SURGERY);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
 
-        $this->action = new SelfSurgery(
+        $this->actionHandler = new SelfSurgery(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -70,7 +70,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
         $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
-        $tool->setActions(new ArrayCollection([$this->actionEntity]));
+        $tool->setActions(new ArrayCollection([$this->actionConfig]));
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
@@ -93,7 +93,8 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $player->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
@@ -104,7 +105,8 @@ final class SelfSurgeryActionTest extends AbstractActionTest
             ->andReturn($actionVariableEvent)
             ->once();
         $actionVariableEventCritical = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
@@ -122,11 +124,11 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
     }
@@ -138,7 +140,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
         $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
-        $tool->setActions(new ArrayCollection([$this->actionEntity]));
+        $tool->setActions(new ArrayCollection([$this->actionConfig]));
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
@@ -161,7 +163,8 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $player->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
@@ -172,7 +175,8 @@ final class SelfSurgeryActionTest extends AbstractActionTest
             ->andReturn($actionVariableEvent)
             ->once();
         $actionVariableEventCritical = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
@@ -190,11 +194,11 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertNotInstanceOf(CriticalSuccess::class, $result);
@@ -207,7 +211,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
         $gameEquipment = new GameEquipment($room);
         $tool = new Tool();
-        $tool->setActions(new ArrayCollection([$this->actionEntity]));
+        $tool->setActions(new ArrayCollection([$this->actionConfig]));
         $item = new EquipmentConfig();
         $item
             ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
@@ -230,7 +234,8 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         $player->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
@@ -241,7 +246,8 @@ final class SelfSurgeryActionTest extends AbstractActionTest
             ->andReturn($actionVariableEvent)
             ->once();
         $actionVariableEventCritical = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
@@ -259,11 +265,11 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(CriticalSuccess::class, $result);
     }

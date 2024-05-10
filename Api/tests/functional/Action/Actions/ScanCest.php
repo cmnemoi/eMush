@@ -42,7 +42,7 @@ final class ScanCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->scanActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SCAN]);
+        $this->scanActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCAN]);
         $this->scanAction = $I->grabService(Scan::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -83,7 +83,11 @@ final class ScanCest extends AbstractFunctionalTest
         );
 
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
         $this->scanAction->execute();
 
         // then the action is not visible
@@ -93,7 +97,11 @@ final class ScanCest extends AbstractFunctionalTest
     public function testScanSuccessCreatesAPlanet(FunctionalTester $I): void
     {
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
         $this->scanAction->execute();
 
         // then a planet is created
@@ -103,7 +111,11 @@ final class ScanCest extends AbstractFunctionalTest
     public function testScanSuccessPlanetHasADistanceBetweenTwoAndNine(FunctionalTester $I): void
     {
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
         $this->scanAction->execute();
 
         // then a planet is created
@@ -128,7 +140,11 @@ final class ScanCest extends AbstractFunctionalTest
         );
 
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
 
         // then success rate is improved by the right amount
         $I->assertEquals(
@@ -151,7 +167,11 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanActionConfig->setSuccessRate(100);
 
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
         $this->scanAction->execute();
 
         // then the scanned planet should have some sections revealed
@@ -185,7 +205,11 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanActionConfig->setSuccessRate(0);
 
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
         $this->scanAction->execute();
 
         // then I should not see a public log to tell that the map worked
@@ -216,7 +240,11 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanActionConfig->setSuccessRate(100);
 
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
         $this->scanAction->execute();
 
         // then the scanned planet should have 1 sector revealed
@@ -241,7 +269,11 @@ final class ScanCest extends AbstractFunctionalTest
         $I->canSeeInRepository(Project::class, ['config' => $projectConfig]);
 
         // when player scans
-        $this->scanAction->loadParameters($this->scanActionConfig, $this->player, $this->astroTerminal);
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal);
         $this->scanAction->execute();
 
         $I->assertEquals(8 - 2, $this->player->getActionPoint());

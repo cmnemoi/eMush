@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ConsumeDrug;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Communication\Entity\Channel;
 use Mush\Communication\Enum\ChannelScopeEnum;
@@ -68,7 +69,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
-    public function testConsumeDrug(FunctionalTester $I)
+    public function testConsumeDrug(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -127,7 +128,8 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $consumeActionEntity = new ActionConfig();
         $consumeActionEntity
             ->setActionName(ActionEnum::CONSUME)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($consumeActionEntity);
@@ -172,7 +174,11 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             ->setName('ration');
         $I->haveInRepository($gameItem2);
 
-        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $consumeActionEntity,
+            actionProvider: $gameItem,
+            player: $player,
+            target: $gameItem);
 
         $this->consumeAction->execute();
 
@@ -184,7 +190,11 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $I->assertEquals(10, $player->getHealthPoint());
         $I->assertEquals(1, $room->getEquipments()->count());
 
-        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem2);
+        $this->consumeAction->loadParameters(
+            actionConfig: $consumeActionEntity,
+            actionProvider: $gameItem2,
+            player: $player,
+            target: $gameItem2);
         $I->assertNotNull($this->consumeAction->cannotExecuteReason());
 
         // prevent player to die at cycle change
@@ -202,7 +212,11 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
 
         $I->assertEquals(0, $player->getStatuses()->count());
 
-        $this->consumeAction->loadParameters($consumeActionEntity, $player, $gameItem2);
+        $this->consumeAction->loadParameters(
+            actionConfig: $consumeActionEntity,
+            actionProvider: $gameItem2,
+            player: $player,
+            target: $gameItem2);
 
         $I->assertNull($this->consumeAction->cannotExecuteReason());
     }
@@ -229,7 +243,11 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $depression->setDiseasePoint(0);
 
         // when player consumes one drug
-        $this->consumeAction->loadParameters($this->consumeConfig, $this->player, $drug);
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $drug,
+            player: $this->player,
+            target: $drug);
         $this->consumeAction->execute();
 
         // then the depression should still be there

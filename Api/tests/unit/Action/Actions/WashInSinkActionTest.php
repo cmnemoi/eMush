@@ -28,9 +28,9 @@ final class WashInSinkActionTest extends AbstractActionTest
         parent::before();
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
-        $this->actionEntity = $this->createActionEntity(ActionEnum::WASH_IN_SINK, 3);
+        $this->createActionEntity(ActionEnum::WASH_IN_SINK, 3);
 
-        $this->action = new WashInSink(
+        $this->actionHandler = new WashInSink(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -55,16 +55,16 @@ final class WashInSinkActionTest extends AbstractActionTest
         $sinkEquipment
             ->setEquipment($sinkConfig)
             ->setName('sink');
-        $sinkConfig->setActions(new ArrayCollection([$this->actionEntity]));
+        $sinkConfig->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $sinkEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $sinkEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('removeStatus')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\TryKube;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -52,9 +53,10 @@ class TryKubeCest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::TRY_KUBE)
-            ->setRange(ActionRangeEnum::CURRENT)
+            ->setRange(ActionRangeEnum::SELF)
             ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST);
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($action);
 
         /** @var CharacterConfig $characterConfig */
@@ -81,7 +83,7 @@ class TryKubeCest
 
         $itemConfig
             ->setEquipmentName(ToolItemEnum::MAD_KUBE)
-            ->setActions(new ArrayCollection([$action]));
+            ->setActionConfigs(new ArrayCollection([$action]));
 
         $gameItem = new GameItem($room);
         $gameItem
@@ -89,7 +91,7 @@ class TryKubeCest
             ->setEquipment($itemConfig);
         $I->haveInRepository($gameItem);
 
-        $this->tryKube->loadParameters($action, $player, $gameItem);
+        $this->tryKube->loadParameters($action, $gameItem, $player, $gameItem);
 
         $I->assertTrue($this->tryKube->isVisible());
         $I->assertNull($this->tryKube->cannotExecuteReason());

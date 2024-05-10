@@ -31,7 +31,6 @@ class MotivationalSpeechActionCest
     public function _before(FunctionalTester $I)
     {
         $this->motivationalSpeechAction = $I->grabService(MotivationalSpeech::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
     }
 
@@ -85,7 +84,11 @@ class MotivationalSpeechActionCest
         $listener->setPlayerInfo($listenerInfo);
         $I->refreshEntities($listener);
 
-        $this->motivationalSpeechAction->loadParameters($this->action, $speaker);
+        $this->motivationalSpeechAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $speaker,
+            player: $speaker
+        );
 
         $I->assertTrue($this->motivationalSpeechAction->isVisible());
         $I->assertNull($this->motivationalSpeechAction->cannotExecuteReason());

@@ -40,7 +40,7 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->changeNeronCpuPriorityConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY]);
+        $this->changeNeronCpuPriorityConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CHANGE_NERON_CPU_PRIORITY]);
         $this->changeNeronCpuPriorityAction = $I->grabService(ChangeNeronCpuPriority::class);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -68,7 +68,12 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         // given player is not focused on the bios terminal
 
         // when I try to change neron cpu priority to astronavigation
-        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal, ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
         $this->changeNeronCpuPriorityAction->execute();
 
         // then the action should not be visible
@@ -87,7 +92,12 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         );
 
         // when I try to change neron cpu priority to astronavigation
-        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal, ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
         $this->changeNeronCpuPriorityAction->execute();
 
         // then NERON CPU priority should be set to astronavigation
@@ -120,11 +130,21 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         );
 
         // given I change neron cpu priority to astronavigation
-        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal, ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
         $this->changeNeronCpuPriorityAction->execute();
 
         // when I try to change neron cpu priority to astronavigation again
-        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal, ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
 
         // then the action should not be executable
         $I->assertEquals(
@@ -141,7 +161,12 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerEvent, PlayerEvent::PLAYER_NEW_CYCLE);
 
         // when I try to change neron cpu priority to astronavigation again
-        $this->changeNeronCpuPriorityAction->loadParameters($this->changeNeronCpuPriorityConfig, $this->player, $this->biosTerminal, ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
+        $this->changeNeronCpuPriorityAction->loadParameters(
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::ASTRONAVIGATION]);
 
         // then the action should be executable
         $I->assertNull($this->changeNeronCpuPriorityAction->cannotExecuteReason());
@@ -163,10 +188,11 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 
         // when CPU priority is set to PILGRED
         $this->changeNeronCpuPriorityAction->loadParameters(
-            $this->changeNeronCpuPriorityConfig,
-            $this->chun,
-            $this->biosTerminal,
-            ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->player,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
         );
         $this->changeNeronCpuPriorityAction->execute();
 
@@ -199,19 +225,21 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 
         // given CPU priority is set to PILGRED
         $this->changeNeronCpuPriorityAction->loadParameters(
-            $this->changeNeronCpuPriorityConfig,
-            $this->chun,
-            $this->biosTerminal,
-            ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->chun,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
         );
         $this->changeNeronCpuPriorityAction->execute();
 
         // when CPU priority is set to None
         $this->changeNeronCpuPriorityAction->loadParameters(
-            $this->changeNeronCpuPriorityConfig,
-            $this->kuanTi,
-            $this->biosTerminal,
-            ['cpuPriority' => NeronCpuPriorityEnum::NONE]
+            actionConfig: $this->changeNeronCpuPriorityConfig,
+            actionProvider: $this->biosTerminal,
+            player: $this->kuanTi,
+            target: $this->biosTerminal,
+            parameters: ['cpuPriority' => NeronCpuPriorityEnum::NONE]
         );
         $this->changeNeronCpuPriorityAction->execute();
 

@@ -804,7 +804,7 @@ class ActionData
             'action_name' => ActionEnum::REPORT_FIRE,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
-            'scope' => ActionRangeEnum::SELF,
+            'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
             'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

@@ -32,7 +32,7 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->turnDaedalusConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TURN_DAEDALUS_LEFT]);
+        $this->turnDaedalusConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TURN_DAEDALUS_LEFT]);
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
         // given there is a command terminal in player's room

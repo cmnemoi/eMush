@@ -37,9 +37,9 @@ final class OpenCapsuleActionTest extends AbstractActionTest
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::BUILD);
+        $this->createActionEntity(ActionEnum::BUILD);
 
-        $this->action = new OpenCapsule(
+        $this->actionHandler = new OpenCapsule(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -69,11 +69,11 @@ final class OpenCapsuleActionTest extends AbstractActionTest
             ->setEquipment($spaceCapsule)
             ->setName(EquipmentEnum::COFFEE_MACHINE);
 
-        $spaceCapsule->setActions(new ArrayCollection([$this->actionEntity]));
+        $spaceCapsule->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameSpaceCapsule);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameSpaceCapsule);
 
         $gameMetalScrap = new GameItem(new Place());
         $metalScrap = new ItemConfig();
@@ -92,7 +92,7 @@ final class OpenCapsuleActionTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(0, $player->getStatuses());

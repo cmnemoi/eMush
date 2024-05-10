@@ -27,11 +27,11 @@ final class FlirtActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::FLIRT);
+        $this->createActionEntity(ActionEnum::FLIRT);
 
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new Flirt(
+        $this->actionHandler = new Flirt(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -60,12 +60,12 @@ final class FlirtActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->playerService->shouldReceive('persist')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertTrue($player->HasFlirtedWith($targetPlayer));

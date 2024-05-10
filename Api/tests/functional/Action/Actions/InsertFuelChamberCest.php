@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\InsertFuelChamber;
 use Mush\Action\Entity\ActionConfig;
@@ -40,7 +40,7 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
 
         $this->player->changePlace($engineRoom);
-        $this->insertFuelChamberActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSERT_FUEL_CHAMBER]);
+        $this->insertFuelChamberActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::INSERT_FUEL_CHAMBER]);
         $this->insertFuelChamberAction = $I->grabService(InsertFuelChamber::class);
     }
 
@@ -89,7 +89,11 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
 
         // when action is loaded
         $fuelCapsule = $this->player->getEquipmentByName(ItemEnum::FUEL_CAPSULE);
-        $this->insertFuelChamberAction->loadParameters($this->insertFuelChamberActionConfig, $this->player, $fuelCapsule);
+        $this->insertFuelChamberAction->loadParameters(
+            actionConfig: $this->insertFuelChamberActionConfig,
+            actionProvider: $fuelCapsule,
+            player: $this->player,
+            target: $fuelCapsule);
 
         // then action is not visible
         $I->assertFalse($this->insertFuelChamberAction->isVisible());
@@ -107,7 +111,11 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
 
         // when action is loaded
         $fuelCapsule = $this->player->getEquipmentByName(ItemEnum::FUEL_CAPSULE);
-        $this->insertFuelChamberAction->loadParameters($this->insertFuelChamberActionConfig, $this->player, $fuelCapsule);
+        $this->insertFuelChamberAction->loadParameters(
+            actionConfig: $this->insertFuelChamberActionConfig,
+            actionProvider: $fuelCapsule,
+            player: $this->player,
+            target: $fuelCapsule);
 
         // then action is not visible
         $I->assertFalse($this->insertFuelChamberAction->isVisible());
@@ -123,7 +131,11 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
 
         // when action is loaded
         $fuelCapsule = $this->player->getEquipmentByName(ItemEnum::FUEL_CAPSULE);
-        $this->insertFuelChamberAction->loadParameters($this->insertFuelChamberActionConfig, $this->player, $fuelCapsule);
+        $this->insertFuelChamberAction->loadParameters(
+            actionConfig: $this->insertFuelChamberActionConfig,
+            actionProvider: $fuelCapsule,
+            player: $this->player,
+            target: $fuelCapsule);
 
         // then action is not executable
         $I->assertEquals(
@@ -150,7 +162,11 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
         );
 
         // when player inserts jar of alien oil in fuel tank
-        $this->insertFuelChamberAction->loadParameters($this->insertFuelChamberActionConfig, $this->player, $jarOfAlienOil);
+        $this->insertFuelChamberAction->loadParameters(
+            actionConfig: $this->insertFuelChamberActionConfig,
+            actionProvider: $jarOfAlienOil,
+            player: $this->player,
+            target: $jarOfAlienOil);
         $I->assertTrue($this->insertFuelChamberAction->isVisible());
 
         $this->insertFuelChamberAction->execute();
@@ -188,7 +204,12 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
 
     private function whenPlayerInsertsFuelCapsuleInCombustionChamber(GameItem $fuelCapsule): void
     {
-        $this->insertFuelChamberAction->loadParameters($this->insertFuelChamberActionConfig, $this->player, $fuelCapsule);
+        $this->insertFuelChamberAction->loadParameters(
+            actionConfig: $this->insertFuelChamberActionConfig,
+            actionProvider: $fuelCapsule,
+            player: $this->player,
+            target: $fuelCapsule);
+
         $this->insertFuelChamberAction->execute();
     }
 }

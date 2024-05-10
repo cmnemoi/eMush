@@ -7,8 +7,6 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Action\Service\ActionService;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -30,6 +28,8 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\unit\Action\Service\ActionService;
+use Mush\Tests\unit\Action\Service\ActionServiceInterface;
 use Mush\User\Entity\User;
 
 class ActionServiceCest

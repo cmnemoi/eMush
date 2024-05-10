@@ -62,14 +62,9 @@ final class ActionPointValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ]);
-        $action
-            ->shouldReceive([
-                'getAction' => new ActionConfig(),
-            ]);
-        $action
-            ->shouldReceive([
+                'getActionConfig' => new ActionConfig(),
                 'getTarget' => null,
+                'getActionProvider' => new Player(),
             ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(true);
@@ -96,14 +91,9 @@ final class ActionPointValidatorTest extends TestCase
         $action
             ->shouldReceive([
                 'getPlayer' => $player,
-            ]);
-        $action
-            ->shouldReceive([
-                'getAction' => new ActionConfig(),
-            ]);
-        $action
-            ->shouldReceive([
+                'getActionConfig' => new ActionConfig(),
                 'getTarget' => null,
+                'getActionProvider' => new Player(),
             ]);
 
         $this->actionService->shouldReceive('playerCanAffordPoints')->andReturn(false);

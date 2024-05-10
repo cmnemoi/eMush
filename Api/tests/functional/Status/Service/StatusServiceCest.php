@@ -284,7 +284,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
 
         // given it is sabotaged by a player
         /** @var ActionConfig $sabotageConfig */
-        $sabotageConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SABOTAGE . '_percent_12']);
+        $sabotageConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SABOTAGE . '_percent_12']);
         $sabotageConfig->setSuccessRate(101);
 
         /** @var Sabotage $sabotageAction */
@@ -295,7 +295,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
 
         // given broken mycoscan is reported
         /** @var ActionConfig $reportConfig */
-        $reportConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REPORT_EQUIPMENT]);
+        $reportConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::REPORT_EQUIPMENT]);
         $reportConfig->setSuccessRate(101);
 
         /** @var ReportEquipment $reportAction */

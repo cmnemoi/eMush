@@ -98,7 +98,11 @@ class PublicBroadcastActionCest
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $this->publicBroadcastAction->loadParameters($this->action, $player1, $gameItem);
+        $this->publicBroadcastAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameItem,
+            player: $player1,
+            target: $gameItem);
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());
@@ -178,7 +182,11 @@ class PublicBroadcastActionCest
         $player2->setPlayerInfo($player2Info);
         $I->refreshEntities($player2);
 
-        $this->publicBroadcastAction->loadParameters($this->action, $player1, $gameItem);
+        $this->publicBroadcastAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $gameItem,
+            player: $player1,
+            target: $gameItem);
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());

@@ -74,7 +74,7 @@ final class SelfHealCest extends AbstractFunctionalTest
 
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class, [
-            'actions' => new ArrayCollection([$action]),
+            'actionConfigs' => new ArrayCollection([$action]),
         ]);
 
         /** @var Player $healerPlayer */
@@ -94,7 +94,10 @@ final class SelfHealCest extends AbstractFunctionalTest
         $healerPlayer->setPlayerInfo($playerInfo);
         $I->refreshEntities($healerPlayer);
 
-        $this->selfHealAction->loadParameters($action, $healerPlayer);
+        $this->selfHealAction->loadParameters(
+            actionConfig: $action,
+            actionProvider: $healerPlayer,
+            player: $healerPlayer);
 
         $I->assertTrue($this->selfHealAction->isVisible());
         $I->assertNull($this->selfHealAction->cannotExecuteReason());
@@ -126,7 +129,10 @@ final class SelfHealCest extends AbstractFunctionalTest
         );
 
         // when player heals themselves
-        $this->selfHealAction->loadParameters($this->selfHealConfig, $this->player);
+        $this->selfHealAction->loadParameters(
+            actionConfig: $this->selfHealConfig,
+            actionProvider: $this->player,
+            player: $this->player);
         $this->selfHealAction->execute();
 
         // then I don't see a log about health gained

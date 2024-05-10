@@ -34,12 +34,12 @@ final class PlayDynarcadeTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::PLAY_ARCADE);
-        $this->actionEntity->setOutputQuantity(2);
+        $this->createActionEntity(ActionEnum::PLAY_ARCADE);
+        $this->actionConfig->setOutputQuantity(2);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $this->action = new PlayDynarcade(
+        $this->actionHandler = new PlayDynarcade(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -67,9 +67,9 @@ final class PlayDynarcadeTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('dynarcarde');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(false)->once();
@@ -79,7 +79,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
             $player,
             PlayerVariableEnum::HEALTH_POINT,
             -1,
-            $this->action->getActionConfig()->getActionTags(),
+            $this->actionHandler->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
@@ -94,7 +94,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
             }), VariableEventInterface::CHANGE_VARIABLE])
             ->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
     }
@@ -111,15 +111,15 @@ final class PlayDynarcadeTest extends AbstractActionTest
         $item = new ItemConfig();
         $gameItem->setEquipment($item)->setName('dynarcarde');
 
-        $item->setActions(new ArrayCollection([$this->actionEntity]));
+        $item->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameItem);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isActionSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
         $this->actionService->shouldReceive('getActionModifiedActionVariable')
-            ->with($player, $this->actionEntity, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
+            ->with($player, $this->actionConfig, $this->actionProvider, $gameItem, ActionVariableEnum::OUTPUT_QUANTITY)
             ->andReturn(2)
             ->once();
         $this->actionService->shouldIgnoreMissing();
@@ -128,7 +128,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
             $player,
             PlayerVariableEnum::MORAL_POINT,
             2,
-            $this->action->getActionConfig()->getActionTags(),
+            $this->actionHandler->getActionConfig()->getActionTags(),
             new \DateTime()
         );
         $expectedPlayerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
@@ -143,7 +143,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
             }), VariableEventInterface::CHANGE_VARIABLE])
             ->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

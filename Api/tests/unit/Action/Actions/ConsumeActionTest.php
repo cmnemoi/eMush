@@ -29,10 +29,10 @@ final class ConsumeActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::CONSUME);
+        $this->createActionEntity(ActionEnum::CONSUME);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
 
-        $this->action = new Consume(
+        $this->actionHandler = new Consume(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -76,11 +76,11 @@ final class ConsumeActionTest extends AbstractActionTest
 
         $player = $this->createPlayer($daedalus, $room);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameEquipment);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameEquipment);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

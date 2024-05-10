@@ -7,6 +7,7 @@ use Mush\Action\Actions\Disassemble;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -83,26 +84,28 @@ class AttemptActionChangeCest
 
         $actionRepair = new ActionConfig();
         $actionRepair
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR->value)
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setRange(ActionRangeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($actionRepair);
 
         $actionDisassemble = new ActionConfig();
         $actionDisassemble
-            ->setName(ActionEnum::DISASSEMBLE)
+            ->setName(ActionEnum::DISASSEMBLE->value)
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setRange(ActionRangeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($actionDisassemble);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
 
-        $equipmentConfig->setActions(new ArrayCollection([$actionDisassemble, $actionRepair]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$actionDisassemble, $actionRepair]));
 
         $gameEquipment = new GameItem($room);
 
@@ -114,7 +117,7 @@ class AttemptActionChangeCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair,$gameEquipment, $player, $gameEquipment);
 
         // Execute repair
         $this->repairAction->execute();
@@ -123,14 +126,14 @@ class AttemptActionChangeCest
         $I->assertEquals(ActionEnum::REPAIR, $player->getStatuses()->first()->getAction());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair, $gameEquipment, $player, $gameEquipment);
 
         // Execute repair a second time
         $this->repairAction->execute();
 
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 
-        $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
+        $this->disassembleAction->loadParameters($actionDisassemble, $gameEquipment, $player, $gameEquipment);
 
         // Now execute the other action
         $this->disassembleAction->execute();
@@ -139,7 +142,7 @@ class AttemptActionChangeCest
         $I->assertEquals(ActionEnum::DISASSEMBLE, $player->getStatuses()->first()->getAction());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
-        $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
+        $this->disassembleAction->loadParameters($actionDisassemble, $gameEquipment, $player, $gameEquipment);
         $this->disassembleAction->execute();
         $I->assertEquals(ActionEnum::DISASSEMBLE, $player->getStatuses()->first()->getAction());
         $I->assertCount(1, $player->getStatuses());
@@ -189,17 +192,18 @@ class AttemptActionChangeCest
 
         $actionRepair = new ActionConfig();
         $actionRepair
-            ->setName(ActionEnum::REPAIR)
+            ->setName(ActionEnum::REPAIR->value)
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setRange(ActionRangeEnum::CURRENT);
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($actionRepair);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
 
-        $equipmentConfig->setActions(new ArrayCollection([$actionRepair]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$actionRepair]));
 
         $gameEquipment = new GameItem($room);
 
@@ -211,7 +215,7 @@ class AttemptActionChangeCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair, $gameEquipment, $player, $gameEquipment);
         $I->assertEquals(0, $this->repairAction->getSuccessRate());
 
         // Execute repair
@@ -221,7 +225,7 @@ class AttemptActionChangeCest
         $I->assertEquals(ActionEnum::REPAIR, $player->getStatuses()->first()->getAction());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair, $gameEquipment, $player, $gameEquipment);
 
         // Execute repair a second and third time
         $this->repairAction->execute();
@@ -230,7 +234,7 @@ class AttemptActionChangeCest
         // now up the success chances
         $actionRepair->setSuccessRate(80);
         $I->flushToDatabase($actionRepair);
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair, $gameEquipment, $player, $gameEquipment);
 
         $I->assertEquals(99, $this->repairAction->getSuccessRate());
     }
@@ -283,8 +287,9 @@ class AttemptActionChangeCest
             ->setActionName(ActionEnum::REPAIR)
             ->setActionCost(1)
             ->setSuccessRate(0)
-            ->setRange(ActionRangeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST);
+            ->setRange(ActionRangeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($actionRepair);
 
         $actionDisassemble = new ActionConfig();
@@ -292,14 +297,15 @@ class AttemptActionChangeCest
             ->setActionName(ActionEnum::DISASSEMBLE)
             ->setActionCost(1)
             ->setSuccessRate(75)
-            ->setRange(ActionRangeEnum::CURRENT)
-            ->buildName(GameConfigEnum::TEST);
+            ->setRange(ActionRangeEnum::SELF)
+            ->buildName(GameConfigEnum::TEST)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
         $I->haveInRepository($actionDisassemble);
 
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
 
-        $equipmentConfig->setActions(new ArrayCollection([$actionDisassemble, $actionRepair]));
+        $equipmentConfig->setActionConfigs(new ArrayCollection([$actionDisassemble, $actionRepair]));
 
         $gameEquipment = new GameItem($room);
 
@@ -311,7 +317,7 @@ class AttemptActionChangeCest
         $status = new Status($gameEquipment, $statusConfig);
         $I->haveInRepository($status);
 
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair, $gameEquipment, $player, $gameEquipment);
 
         // Execute repair
         $this->repairAction->execute();
@@ -320,12 +326,12 @@ class AttemptActionChangeCest
         $I->assertEquals(ActionEnum::REPAIR, $player->getStatuses()->first()->getAction());
         $I->assertEquals(1, $player->getStatuses()->first()->getCharge());
 
-        $this->repairAction->loadParameters($actionRepair, $player, $gameEquipment);
+        $this->repairAction->loadParameters($actionRepair, $gameEquipment, $player, $gameEquipment);
         // Execute repair a second time
         $this->repairAction->execute();
         $I->assertEquals(2, $player->getStatuses()->first()->getCharge());
 
-        $this->disassembleAction->loadParameters($actionDisassemble, $player, $gameEquipment);
+        $this->disassembleAction->loadParameters($actionDisassemble, $gameEquipment, $player, $gameEquipment);
 
         $I->assertEquals(75, $this->disassembleAction->getSuccessRate());
 

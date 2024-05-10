@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Cook;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -38,15 +40,23 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room2);
 
         $cookActionEntity = new ActionConfig();
-        $cookActionEntity->setActionName(ActionEnum::COOK);
+        $cookActionEntity
+            ->setActionName(ActionEnum::COOK)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+        ;
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$cookActionEntity]));
         $toolEquipment->getEquipment()->setMechanics(new ArrayCollection([$tool]));
 
-        $gameEquipment->getEquipment()->setActions(new ArrayCollection([$cookActionEntity]));
+        $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$cookActionEntity]));
 
-        $this->cookAction->loadParameters($cookActionEntity, $player, $gameEquipment);
+        $this->cookAction->loadParameters(
+            actionConfig: $cookActionEntity,
+            actionProvider:  $gameEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertFalse($this->cookAction->isVisible());
 
@@ -66,9 +76,17 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
         $cookActionEntity = new ActionConfig();
-        $cookActionEntity->setActionName(ActionEnum::COOK);
+        $cookActionEntity
+            ->setActionName(ActionEnum::COOK)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::ROOM)
+        ;
 
-        $this->cookAction->loadParameters($cookActionEntity, $player, $gameEquipment);
+        $this->cookAction->loadParameters(
+            actionConfig: $cookActionEntity,
+            actionProvider: $toolEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertFalse($this->cookAction->isVisible());
 
@@ -90,13 +108,20 @@ class CookActionCest
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
         $cookActionEntity = new ActionConfig();
-        $cookActionEntity->setActionName(ActionEnum::COOK);
+        $cookActionEntity
+            ->setRange(ActionRangeEnum::ROOM)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setActionName(ActionEnum::COOK);
 
         $tool = new Tool();
         $tool->setActions(new ArrayCollection([$cookActionEntity]));
         $toolEquipment->getEquipment()->setMechanics(new ArrayCollection([$tool]));
 
-        $this->cookAction->loadParameters($cookActionEntity, $player, $gameEquipment);
+        $this->cookAction->loadParameters(
+            actionConfig: $cookActionEntity,
+            actionProvider: $toolEquipment,
+            player: $player,
+            target: $gameEquipment);
 
         $I->assertTrue($this->cookAction->isVisible());
 

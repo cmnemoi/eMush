@@ -86,7 +86,7 @@ class BoringSpeechActionCest
         $listener->setPlayerInfo($listenerInfo);
         $I->refreshEntities($listener);
 
-        $this->BoringSpeechAction->loadParameters($action, $speaker);
+        $this->BoringSpeechAction->loadParameters($action, $speaker, $speaker);
 
         $I->assertTrue($this->BoringSpeechAction->isVisible());
         $I->assertNull($this->BoringSpeechAction->cannotExecuteReason());

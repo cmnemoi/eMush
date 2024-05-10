@@ -45,7 +45,11 @@ final class SabotageCest extends AbstractFunctionalTest
         $this->player->changePlace($pasiphae->getPlace());
 
         // when player try to sabotage pasiphae
-        $this->sabotageAction->loadParameters($this->sabotageActionConfig, $this->player, $pasiphae);
+        $this->sabotageAction->loadParameters(
+            actionConfig: $this->sabotageActionConfig,
+            actionProvider: $pasiphae,
+            player: $this->player,
+            target: $pasiphae);
 
         // then sabotage is not executable
         $I->assertEquals(ActionImpossibleCauseEnum::NOT_A_ROOM, $this->sabotageAction->cannotExecuteReason());

@@ -27,11 +27,11 @@ final class GagActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::GAG, 1);
+        $this->createActionEntity(ActionEnum::GAG, 1);
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Gag(
+        $this->actionHandler = new Gag(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -58,13 +58,13 @@ final class GagActionTest extends AbstractActionTest
         $characterConfig->setCharacterName('playerOne');
         new PlayerInfo($targetPlayer, new User(), $characterConfig);
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
     }

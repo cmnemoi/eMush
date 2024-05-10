@@ -709,7 +709,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
         // first actions given by the character config
         /** @var ActionConfig $actionConfig */
-        foreach ($this->getCharacterConfig()->getActionsConfig() as $actionConfig) {
+        foreach ($this->getCharacterConfig()->getActionConfigs() as $actionConfig) {
             if (
                 $actionConfig->getDisplayHolder() === $actionTarget
                 && \in_array($actionConfig->getRange(), $actionRanges, true)

@@ -30,7 +30,7 @@ class FlirtActionCest
     public function _before(FunctionalTester $I)
     {
         $this->flirtAction = $I->grabService(Flirt::class);
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::FLIRT]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::FLIRT]);
     }
 
     public function testFlirt(FunctionalTester $I)
@@ -85,7 +85,11 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer);
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());
@@ -156,8 +160,11 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
-
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer);
         $I->assertFalse($this->flirtAction->isVisible());
     }
 
@@ -211,8 +218,11 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
-
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer);
         $I->assertFalse($this->flirtAction->isVisible());
     }
 
@@ -266,7 +276,11 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer);
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());
@@ -337,7 +351,11 @@ class FlirtActionCest
         $targetPlayer->setPlayerInfo($targetPlayerInfo);
         $I->refreshEntities($targetPlayer);
 
-        $this->flirtAction->loadParameters($this->action, $player, $targetPlayer);
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer);
 
         $I->assertTrue($this->flirtAction->isVisible());
         $I->assertNull($this->flirtAction->cannotExecuteReason());

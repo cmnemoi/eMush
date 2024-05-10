@@ -79,7 +79,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             }
             $actions[] = $action;
         }
-        $equipmentConfig->setActions($actions);
+        $equipmentConfig->setActionConfigs($actions);
     }
 
     protected function setEquipmentConfigMechanics(EquipmentConfig $equipmentConfig, array $equipmentConfigData): void

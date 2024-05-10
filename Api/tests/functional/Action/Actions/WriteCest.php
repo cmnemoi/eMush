@@ -37,7 +37,7 @@ final class WriteCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->writeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
-            'name' => ActionEnum::WRITE,
+            'actionName' => ActionEnum::WRITE,
         ]);
         $this->writeAction = $I->grabService(Write::class);
 
@@ -94,7 +94,7 @@ final class WriteCest extends AbstractFunctionalTest
     public function testWriteActionNotVisibleIfPlayerNotFocusedOnTerminal(FunctionalTester $I): void
     {
         // when player writes
-        $this->writeAction->loadParameters($this->writeActionConfig, $this->player, $this->blockOfPostIt);
+        $this->writeAction->loadParameters($this->writeActionConfig, $this->blockOfPostIt, $this->player, $this->blockOfPostIt);
         $this->writeAction->execute();
 
         // then the action is not visible
@@ -103,7 +103,7 @@ final class WriteCest extends AbstractFunctionalTest
 
     private function whenPlayerWritesOnBlockOfPostIt(GameItem $blockOfPostIt, array $parameters = []): void
     {
-        $this->writeAction->loadParameters($this->writeActionConfig, $this->player, $blockOfPostIt, $parameters);
+        $this->writeAction->loadParameters($this->writeActionConfig, $this->blockOfPostIt, $this->player, $blockOfPostIt, $parameters);
         $this->writeAction->execute();
     }
 }

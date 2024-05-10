@@ -32,7 +32,7 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CONSUME]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME]);
         $this->action->setDirtyRate(0);
 
         $I->refreshEntities($this->action);
@@ -78,7 +78,11 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
             ->setName('ration');
         $I->haveInRepository($gameItem);
 
-        $this->consumeAction->loadParameters($this->action, $this->player1, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider:  $gameItem,
+            player: $this->player1,
+            target: $gameItem);
 
         $costWithoutFrozen = $this->consumeAction->getActionPointCost();
 
@@ -92,7 +96,11 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
         $I->assertCount(1, $gameItem->getStatuses());
         $I->assertCount(1, $gameItem->getModifiers());
 
-        $this->consumeAction->loadParameters($this->action, $this->player1, $gameItem);
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider:  $gameItem,
+            player: $this->player1,
+            target: $gameItem);
         $costWithFrozen = $this->consumeAction->getActionPointCost();
 
         $I->assertEquals($costWithoutFrozen + 1, $costWithFrozen);

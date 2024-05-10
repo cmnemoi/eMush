@@ -12,6 +12,7 @@ use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Service\NeronServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -35,6 +36,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     private Participate $participateAction;
     private Project $project;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private GameEquipment $terminal;
     private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
 
@@ -42,7 +44,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PARTICIPATE]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PARTICIPATE]);
         $this->participateAction = $I->grabService(Participate::class);
 
         $this->project = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
@@ -53,7 +55,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun is focused on NERON's cored terminal
-        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+        $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::NERON_CORE,
             equipmentHolder: $this->chun->getPlace(),
             reasons: [],
@@ -64,7 +66,7 @@ final class ParticipateCest extends AbstractFunctionalTest
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
-            target: $terminal,
+            target: $this->terminal,
         );
 
         // given KT is focused on PILGRED terminal
@@ -73,7 +75,7 @@ final class ParticipateCest extends AbstractFunctionalTest
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
-            target: $terminal,
+            target: $this->terminal,
         );
     }
 
@@ -83,7 +85,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->setPlayerProjectEfficiencyToZero($this->chun, $this->project);
 
         // when Chun tries to participate in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then the action should not be executable
@@ -96,7 +102,11 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldMakeProjectProgress(FunctionalTester $I): void
     {
         // when Chun participates in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then the project should progress by 6 to 9%
@@ -107,7 +117,11 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldCreateAPrivateLog(FunctionalTester $I): void
     {
         // when Chun participates in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then a private log should be created in Chun's room
@@ -126,7 +140,11 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldReducePlayerEfficiencyForProject(FunctionalTester $I): void
     {
         // when Chun participates in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then Chun's efficiency should be reduced to 4-6%
@@ -139,7 +157,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
 
         // when Chun participates in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then Chun's efficiency for the plasma shield project should not be reduced
@@ -152,7 +174,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->setPlayerProjectEfficiencyToZero($this->chun, $this->project);
 
         // when Kuan-Ti participates in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->kuanTi, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->kuanTi,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then Chun's efficiency should be reset to 6-9%
@@ -165,7 +191,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->project->makeProgress(99);
 
         // when Chun participates in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then a Neron announcement should be created
@@ -183,7 +213,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->project->makeProgress(100);
 
         // when Chun tries to participate in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then the action should not be visible
@@ -199,7 +233,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         );
 
         // when Chun participates in the project with CPU priority
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then Chun's efficiency should be 5-7%
@@ -217,7 +255,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         );
 
         // when Chun tries to participate in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then the action should not be executable
@@ -230,12 +272,20 @@ final class ParticipateCest extends AbstractFunctionalTest
     public function shouldReduceEfficiencyWhenParticpatingToAnotherProject(FunctionalTester $I): void
     {
         // given Chun participates in the project
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // when Chun participates in another project
         $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $otherProject);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then Chun's efficiency for the other project should be reduced
@@ -252,7 +302,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->project->makeProgress(99);
 
         // when Chun participates in the project to finish it
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then project should be unproposed
@@ -268,7 +322,11 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->project->makeProgress(99);
 
         // when Chun participates in the project to finish it
-        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $this->project);
         $this->participateAction->execute();
 
         // then new NERON projects should be proposed

@@ -47,7 +47,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
             $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_PLANET, $daedalus, [], $event->getTime());
         }
 
-        if (\in_array(ActionEnum::LEAVE_ORBIT, $event->getTags(), true)) {
+        if (\in_array(ActionEnum::LEAVE_ORBIT->value, $event->getTags(), true)) {
             $this->neronMessageService->createNeronMessage(NeronMessageEnum::LEAVE_ORBIT, $daedalus, [], $event->getTime());
         } else {
             $this->neronMessageService->createNeronMessage(NeronMessageEnum::TRAVEL_DEFAULT, $daedalus, [], $event->getTime());

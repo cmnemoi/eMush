@@ -93,6 +93,7 @@ final class ActionServiceTest extends TestCase
 
         $movementApplyEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::MOVEMENT_POINT,
             $action->getGameVariables()->getValueByName(PlayerVariableEnum::MOVEMENT_POINT),
             $player,
@@ -121,7 +122,7 @@ final class ActionServiceTest extends TestCase
             ))
             ->once();
 
-        $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
+        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success());
 
         self::assertSame($player, $result);
     }
@@ -160,6 +161,7 @@ final class ActionServiceTest extends TestCase
 
         $movementApplyEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::MOVEMENT_POINT,
             1,
             $player,
@@ -184,6 +186,7 @@ final class ActionServiceTest extends TestCase
             ->once();
         $movementConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
+            new Player(),
             PlayerVariableEnum::MOVEMENT_POINT,
             -2,
             $player,
@@ -203,6 +206,7 @@ final class ActionServiceTest extends TestCase
 
         $actionConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
+            new Player(),
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
@@ -238,7 +242,7 @@ final class ActionServiceTest extends TestCase
             ))
             ->once();
 
-        $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
+        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success());
 
         self::assertSame($player, $result);
     }
@@ -277,6 +281,7 @@ final class ActionServiceTest extends TestCase
 
         $movementApplyEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::MOVEMENT_POINT,
             2,
             $player,
@@ -301,6 +306,7 @@ final class ActionServiceTest extends TestCase
             ->once();
         $movementConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
+            new Player(),
             PlayerVariableEnum::MOVEMENT_POINT,
             -1,
             $player,
@@ -320,6 +326,7 @@ final class ActionServiceTest extends TestCase
 
         $actionConversionEvent = new ActionVariableEvent(
             $convertActionToMovement,
+            new Player(),
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
@@ -355,7 +362,7 @@ final class ActionServiceTest extends TestCase
             ))
             ->once();
 
-        $result = $this->service->applyCostToPlayer($player, $action, null, new Success());
+        $result = $this->service->applyCostToPlayer($player, $action, new Player(), null, new Success());
 
         self::assertSame($player, $result);
     }
@@ -368,6 +375,7 @@ final class ActionServiceTest extends TestCase
 
         $actionModifiedEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             ActionVariableEnum::PERCENTAGE_SUCCESS,
             30,
             $player,
@@ -387,6 +395,7 @@ final class ActionServiceTest extends TestCase
         $result = $this->service->getActionModifiedActionVariable(
             $player,
             $action,
+            new Player(),
             null,
             ActionVariableEnum::PERCENTAGE_SUCCESS
         );
@@ -395,6 +404,7 @@ final class ActionServiceTest extends TestCase
         // more than 99%
         $actionModifiedEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             ActionVariableEnum::PERCENTAGE_SUCCESS,
             234,
             $player,
@@ -414,6 +424,7 @@ final class ActionServiceTest extends TestCase
         $result = $this->service->getActionModifiedActionVariable(
             $player,
             $action,
+            new Player(),
             null,
             ActionVariableEnum::PERCENTAGE_SUCCESS
         );
@@ -429,6 +440,7 @@ final class ActionServiceTest extends TestCase
 
         $actionModifiedEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::ACTION_POINT,
             3,
             $player,
@@ -448,6 +460,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame(3, $this->service->getActionModifiedActionVariable(
             $player,
             $action,
+            new Player(),
             null,
             PlayerVariableEnum::MOVEMENT_POINT
         ));
@@ -458,6 +471,7 @@ final class ActionServiceTest extends TestCase
 
         $actionModifiedEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::MOVEMENT_POINT,
             -1,
             $player,
@@ -477,6 +491,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame(0, $this->service->getActionModifiedActionVariable(
             $player,
             $action,
+            new Player(),
             null,
             PlayerVariableEnum::MOVEMENT_POINT
         ));
@@ -490,6 +505,7 @@ final class ActionServiceTest extends TestCase
 
         $actionModifiedEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
@@ -509,6 +525,7 @@ final class ActionServiceTest extends TestCase
         // Now check if action points are needed for a conversion event
         $actionModifiedEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::MOVEMENT_POINT,
             0,
             $player,
@@ -518,6 +535,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame(1, $this->service->getActionModifiedActionVariable(
             $player,
             $action,
+            new Player(),
             null,
             PlayerVariableEnum::ACTION_POINT
         ));
@@ -536,6 +554,7 @@ final class ActionServiceTest extends TestCase
 
         $actionModifiedEvent = new ActionVariableEvent(
             $action,
+            new Player(),
             PlayerVariableEnum::ACTION_POINT,
             1,
             $player,
@@ -558,6 +577,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame(1, $this->service->getActionModifiedActionVariable(
             $player,
             $action,
+            new Player(),
             null,
             PlayerVariableEnum::ACTION_POINT
         ));

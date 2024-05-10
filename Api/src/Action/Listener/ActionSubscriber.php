@@ -9,6 +9,7 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionSideEffectsServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
@@ -87,10 +88,13 @@ final class ActionSubscriber implements EventSubscriberInterface
             throw new \Exception("this action is not implemented ({$actionName->value})");
         }
 
-        $actionEntity = new Action();
-        $actionEntity->setActionProvider($event->getActionProvider())->setActionConfig($actionConfig);
-
-        $action->loadParameters($actionEntity, $player, $event->getActionTarget(), $event->getActionParameters());
+        $action->loadParameters(
+            $actionConfig,
+            $event->getActionProvider(),
+            $player,
+            $event->getActionTarget(),
+            $event->getActionParameters()
+        );
         $action->execute();
     }
 
@@ -103,17 +107,22 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($action->getActionName() !== ActionEnum::GET_UP
             && $status
         ) {
-            /** @var ActionConfig $getUpActionConfig */
-            $getUpActionConfig = $player->getPlayerInfo()->getCharacterConfig()->getActionByName(ActionEnum::GET_UP);
+            /** @var Action $getUpAction */
+            $getUpAction = $player
+                ->getActions($player, ActionHolderEnum::PLAYER)
+                ->filter(fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::GET_UP)
+                ->first()
+            ;
 
-            /** @var AbstractAction $getUpAction */
-            $getUpAction = $this->actionStrategyService->getAction(ActionEnum::GET_UP);
+            /** @var AbstractAction $getUpActionHandler */
+            $getUpActionHandler = $this->actionStrategyService->getAction(ActionEnum::GET_UP);
 
-            $getUpActionEntity = new Action();
-            $getUpActionEntity->setActionProvider($status)->setActionConfig($getUpActionConfig);
-
-            $getUpAction->loadParameters($getUpActionEntity, $player);
-            $getUpAction->execute();
+            $getUpActionHandler->loadParameters(
+                $getUpAction->getActionConfig(),
+                $getUpAction->getActionProvider(),
+                $player
+            );
+            $getUpActionHandler->execute();
         }
     }
 

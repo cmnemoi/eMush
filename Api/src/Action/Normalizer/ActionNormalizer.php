@@ -77,7 +77,13 @@ class ActionNormalizer implements NormalizerInterface
         $actionTarget = $parameters['actionTarget'];
 
         try {
-            $actionClass->loadParameters($object, $currentPlayer, $actionTarget, $parameters);
+            $actionClass->loadParameters(
+                $actionConfig,
+                $actionProvider,
+                $currentPlayer,
+                $actionTarget,
+                $parameters
+            );
 
             // translation parameters
             $translationParameters = $this->getTranslationParameters($actionClass, $currentPlayer, $actionTarget);

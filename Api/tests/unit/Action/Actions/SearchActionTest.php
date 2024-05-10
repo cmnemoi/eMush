@@ -33,12 +33,12 @@ final class SearchActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SEARCH, 1);
+        $this->createActionEntity(ActionEnum::SEARCH, 1);
 
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
-        $this->action = new Search(
+        $this->actionHandler = new Search(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -62,11 +62,11 @@ final class SearchActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         // No item in the room
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
         self::assertInstanceOf(Fail::class, $result);
     }
 
@@ -78,7 +78,7 @@ final class SearchActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         // No hidden item in the room
         $gameItem = new GameItem($room);
@@ -87,7 +87,7 @@ final class SearchActionTest extends AbstractActionTest
             ->setName('itemName')
             ->setEquipment($item);
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
         self::assertInstanceOf(Fail::class, $result);
     }
 
@@ -112,14 +112,14 @@ final class SearchActionTest extends AbstractActionTest
 
         $room->setDaedalus($player->getDaedalus());
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
         $this->gameEquipmentService->shouldReceive('persist');
         $this->statusService->shouldReceive('removeStatus')->once();
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());
@@ -157,7 +157,7 @@ final class SearchActionTest extends AbstractActionTest
 
         $player = $this->createPlayer(new Daedalus(), $room);
 
-        $this->action->loadParameters($this->actionEntity, $player);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->statusService->shouldReceive('getMostRecent')->andReturn($gameItem)->once();
@@ -165,7 +165,7 @@ final class SearchActionTest extends AbstractActionTest
 
         $this->gameEquipmentService->shouldReceive('persist');
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(2, $room->getEquipments());

@@ -35,9 +35,9 @@ final class WriteTest extends AbstractActionTest
         parent::before();
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
-        $this->actionEntity = $this->createActionEntity(ActionEnum::WRITE);
+        $this->createActionEntity(ActionEnum::WRITE);
 
-        $this->action = new Write(
+        $this->actionHandler = new Write(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -69,7 +69,7 @@ final class WriteTest extends AbstractActionTest
         $player = $this->createPlayer($daedalus, $room);
 
         $blockOfPostIt = new ItemConfig();
-        $blockOfPostIt->setActions(new ArrayCollection([$this->actionEntity]));
+        $blockOfPostIt->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $gameBlockOfPostIt = new GameItem($room);
         $gameBlockOfPostIt->setEquipment($blockOfPostIt)->setName(ToolItemEnum::BLOCK_OF_POST_IT)->setHolder($room);
@@ -84,9 +84,9 @@ final class WriteTest extends AbstractActionTest
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
         $this->statusService->shouldReceive('createStatusFromName')->once()->andReturn($status);
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameBlockOfPostIt, ['content' => 'test content']);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameBlockOfPostIt, ['content' => 'test content']);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

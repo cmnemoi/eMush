@@ -32,9 +32,9 @@ final class RetrieveOxygenTest extends AbstractActionTest
     {
         parent::before();
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
-        $this->actionEntity = $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
+        $this->createActionEntity(ActionEnum::RETRIEVE_OXYGEN);
 
-        $this->action = new RetrieveOxygen(
+        $this->actionHandler = new RetrieveOxygen(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -73,7 +73,7 @@ final class RetrieveOxygenTest extends AbstractActionTest
         $daedalus->setDaedalusVariables($daedalusConfig);
 
         $tank = new EquipmentConfig();
-        $tank->setActions(new ArrayCollection([$this->actionEntity]));
+        $tank->setActionConfigs(new ArrayCollection([$this->actionConfig]));
 
         $gameTank = new GameEquipment($room);
         $gameTank
@@ -85,9 +85,9 @@ final class RetrieveOxygenTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent')->once();
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $gameTank);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameTank);
 
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertCount(1, $room->getEquipments());

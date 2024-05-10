@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
+use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\HasActionValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -13,7 +16,10 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -50,20 +56,34 @@ final class ParameterHasActionValidatorTest extends TestCase
 
     public function testValid()
     {
-        $actionEntity = new ActionConfig();
+        $actionConfig = new ActionConfig();
+        $actionConfig
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setActionName(ActionEnum::ANATHEMA);
+
+        $player = new Player();
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setActionConfigs([$actionConfig]);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+
+        $place = new Place();
+
+        $player->setPlace($place);
 
         $itemConfig = new ItemConfig();
-        $itemConfig->setActions(new ArrayCollection([$actionEntity]));
+        $itemConfig->setActionConfigs(new ArrayCollection([$actionConfig]));
 
-        $gameItem = new GameItem(new Place());
+        $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getAction' => $actionEntity,
+                'getActionConfig' => $actionConfig,
+                'getActionProvider' => $player,
                 'getTarget' => $gameItem,
-                'getPlayer' => new Player(),
+                'getPlayer' => $player,
             ]);
 
         $this->initValidator();
@@ -74,24 +94,36 @@ final class ParameterHasActionValidatorTest extends TestCase
 
     public function testNotValid()
     {
-        $itemConfig = new ItemConfig();
-        $itemConfig->setActions(new ArrayCollection([]));
+        $actionConfig = new ActionConfig();
+        $actionConfig
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setActionName(ActionEnum::ANATHEMA);
 
-        $gameItem = new GameItem(new Place());
+        $player = new Player();
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setActionConfigs([$actionConfig]);
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+
+        $place = new Place();
+
+        $player->setPlace($place);
+
+        $itemConfig = new ItemConfig();
+        $itemConfig->setActionConfigs(new ArrayCollection([$actionConfig]));
+        $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getAction' => new ActionConfig(),
+                'getActionConfig' => $actionConfig,
+                'getActionProvider' => $player,
                 'getTarget' => $gameItem,
-                'getActionName' => 'some_name',
-                'getPlayer' => new Player(),
+                'getPlayer' => $player,
             ]);
 
-        $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);
-
-        $this->initValidator($this->constraint->message);
+        $this->initValidator();
         $this->validator->validate($action, $this->constraint);
 
         self::assertTrue(true);
@@ -99,19 +131,36 @@ final class ParameterHasActionValidatorTest extends TestCase
 
     public function testValidTool()
     {
-        $itemConfig = new ItemConfig();
-        $itemConfig->setActions(new ArrayCollection([]));
+        $place = new Place();
 
-        $gameItem = new GameItem(new Place());
+        $actionConfig = new ActionConfig();
+        $actionConfig
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::ROOM)
+            ->setActionName(ActionEnum::ANATHEMA);
+
+        $player = new Player();
+        $player->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $toolConfig = new ItemConfig();
+        $toolConfig->setActionConfigs([$actionConfig]);
+        $gameTool = new GameItem($place);
+        $gameTool->setEquipment($toolConfig);
+
+        $itemConfig = new ItemConfig();
+        $itemConfig->setActionConfigs(new ArrayCollection([$actionConfig]));
+        $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getAction' => new ActionConfig(),
+                'getActionConfig' => $actionConfig,
+                'getActionProvider' => $gameTool,
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
-                'getPlayer' => new Player(),
+                'getPlayer' => $player,
             ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(new GameEquipment(new Place()));
@@ -124,19 +173,40 @@ final class ParameterHasActionValidatorTest extends TestCase
 
     public function testNotValidTool()
     {
-        $itemConfig = new ItemConfig();
-        $itemConfig->setActions(new ArrayCollection([]));
+        $place = new Place();
 
-        $gameItem = new GameItem(new Place());
+        $actionConfig = new ActionConfig();
+        $actionConfig
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SHELF)
+            ->setActionName(ActionEnum::ANATHEMA);
+
+        $player = new Player();
+        $player->setPlace($place);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+
+        $player2 = new Player();
+        $player2->setPlace($place);
+        $playerInfo2 = new PlayerInfo($player2, new User(), new CharacterConfig());
+
+        $toolConfig = new ItemConfig();
+        $toolConfig->setActionConfigs([$actionConfig]);
+        $gameTool = new GameItem($player2);
+        $gameTool->setEquipment($toolConfig);
+
+        $itemConfig = new ItemConfig();
+        $itemConfig->setActionConfigs(new ArrayCollection([$actionConfig]));
+        $gameItem = new GameItem($place);
         $gameItem->setEquipment($itemConfig);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
             ->shouldReceive([
-                'getAction' => new ActionConfig(),
+                'getActionConfig' => $actionConfig,
+                'getActionProvider' => $gameTool,
                 'getTarget' => $gameItem,
                 'getActionName' => 'some_name',
-                'getPlayer' => new Player(),
+                'getPlayer' => $player,
             ]);
 
         $this->gearToolService->shouldReceive('getUsedTool')->andReturn(null);

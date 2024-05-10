@@ -43,7 +43,7 @@ final class HackCest extends AbstractFunctionalTest
 
         $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::FOCUSED]);
 
-        $this->hackActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HACK]);
+        $this->hackActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HACK]);
         $this->hackAction = $I->grabService(Hack::class);
     }
 
@@ -56,7 +56,12 @@ final class HackCest extends AbstractFunctionalTest
         $this->hackActionConfig->setSuccessRate(100);
 
         // when player hacks the command terminal
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
         $this->hackAction->execute();
 
         // then player has the focused status
@@ -72,7 +77,12 @@ final class HackCest extends AbstractFunctionalTest
         $this->hackActionConfig->setSuccessRate(100);
 
         // when player hacks the command terminal
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
         $this->hackAction->execute();
 
         // then player's focused status targets the command terminal
@@ -92,7 +102,12 @@ final class HackCest extends AbstractFunctionalTest
         $this->hackActionConfig->setSuccessRate(100);
 
         // when player hacks the command terminal
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
         $this->hackAction->execute();
 
         // then a log is printed on the bridge
@@ -114,7 +129,12 @@ final class HackCest extends AbstractFunctionalTest
         $this->hackActionConfig->setSuccessRate(0);
 
         // when player hacks the command terminal
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
         $this->hackAction->execute();
 
         // then player does not have the focused status
@@ -130,7 +150,12 @@ final class HackCest extends AbstractFunctionalTest
         $this->hackActionConfig->setSuccessRate(0);
 
         // when player hacks the command terminal
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
         $this->hackAction->execute();
 
         // then a log is printed on the bridge
@@ -148,7 +173,12 @@ final class HackCest extends AbstractFunctionalTest
         $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
 
         // when loading the hack action
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
 
         // then action is not visible
         $I->assertFalse($this->hackAction->isVisible());
@@ -165,7 +195,12 @@ final class HackCest extends AbstractFunctionalTest
         $I->haveInRepository($brokenStatus);
 
         // when loading the hack action
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
 
         // then action is not executable
         $I->assertEquals(
@@ -183,7 +218,12 @@ final class HackCest extends AbstractFunctionalTest
         $this->player->setTitles([TitleEnum::COMMANDER]);
 
         // when loading the hack action
-        $this->hackAction->loadParameters($this->hackActionConfig, $this->player, $commandTerminal);
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
 
         // then action is not visible
         $I->assertFalse($this->hackAction->isVisible());

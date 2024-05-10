@@ -40,10 +40,10 @@ final class SurgeryActionTest extends AbstractActionTest
     {
         parent::before();
 
-        $this->actionEntity = $this->createActionEntity(ActionEnum::SURGERY);
+        $this->createActionEntity(ActionEnum::SURGERY);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $this->action = new Surgery(
+        $this->actionHandler = new Surgery(
             $this->eventService,
             $this->actionService,
             $this->validator,
@@ -82,7 +82,8 @@ final class SurgeryActionTest extends AbstractActionTest
         $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
@@ -94,7 +95,8 @@ final class SurgeryActionTest extends AbstractActionTest
             ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
@@ -112,11 +114,11 @@ final class SurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
     }
@@ -143,7 +145,8 @@ final class SurgeryActionTest extends AbstractActionTest
         $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
@@ -155,7 +158,8 @@ final class SurgeryActionTest extends AbstractActionTest
             ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
@@ -173,11 +177,11 @@ final class SurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Success::class, $result);
         self::assertNotInstanceOf(CriticalSuccess::class, $result);
@@ -205,7 +209,8 @@ final class SurgeryActionTest extends AbstractActionTest
         $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $actionVariableEvent = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             10,
             $player,
@@ -217,7 +222,8 @@ final class SurgeryActionTest extends AbstractActionTest
             ->once();
 
         $actionVariableEventCritical = new ActionVariableEvent(
-            $this->actionEntity,
+            $this->actionConfig,
+            $this->actionProvider,
             ActionVariableEnum::PERCENTAGE_CRITICAL,
             15,
             $player,
@@ -235,11 +241,11 @@ final class SurgeryActionTest extends AbstractActionTest
 
         $this->eventService->shouldReceive('callEvent')->once();
 
-        $this->action->loadParameters($this->actionEntity, $player, $targetPlayer);
+        $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->eventService->shouldReceive('callEvent');
-        $result = $this->action->execute();
+        $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(CriticalSuccess::class, $result);
     }

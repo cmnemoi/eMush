@@ -362,7 +362,7 @@ abstract class StatusConfigData
             'modifierConfigs' => [
                 'mute_modifier',
             ],
-            'actionConfigs' => [],
+            'actionConfigs' => ['ungag'],
         ],
         [
             'name' => 'germaphobe_default',
@@ -480,7 +480,7 @@ abstract class StatusConfigData
             'modifierConfigs' => [
                 'lying_down_modifier_for_player_+1actionPoint_on_new_cycle',
             ],
-            'actionConfigs' => [],
+            'actionConfigs' => ['get_up'],
         ],
         [
             'name' => 'multi_teamster_default',
@@ -855,7 +855,14 @@ abstract class StatusConfigData
                 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
                 'modifier_for_player_set_0moralPoint_on_change.variable',
             ],
-            'actionConfigs' => [],
+            'actionConfigs' => [
+                'infect',
+                'eat_spore',
+                'extract_spore',
+                'make_sick',
+                'screw_talkie',
+                'spread_fire'
+            ],
         ],
         [
             'name' => 'contaminated_default',

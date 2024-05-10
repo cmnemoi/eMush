@@ -82,17 +82,17 @@ final class ProjectNormalizerCest extends AbstractFunctionalTest
                         'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
                     quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
                     avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
-                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.
-                ',
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                     [
                         'key' => 'technician',
                         'name' => 'Technicien',
-                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du
-                    Daedalus.//:point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//:point: Chances de
-                    réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les
-                    **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.
-                ',
+                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
+        :point: Peut **Renforcer** et **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
                 'actions' => [

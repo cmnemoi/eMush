@@ -172,7 +172,7 @@ final class PlayerTest extends TestCase
         $fireSensor = ProjectFactory::createNeronProjectByName(ProjectName::FIRE_SENSOR);
 
         return [
-            'Plasma shield, 0 participations' => [$plasmaShield, 0, new PlayerEfficiency(2, 3)],
+            'Plasma Shield, 0 participations' => [$plasmaShield, 0, new PlayerEfficiency(2, 3)],
             'Plasma Shield, 1 participations' => [$plasmaShield, 1, new PlayerEfficiency(1, 1)],
             'Plasma Shield, 2 participations' => [$plasmaShield, 2, new PlayerEfficiency(1, 1)],
             'Heat Lamps, 0 participations' => [$heatLamp, 0, new PlayerEfficiency(4, 6)],

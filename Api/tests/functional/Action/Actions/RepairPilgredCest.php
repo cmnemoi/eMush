@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -33,7 +32,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     private Action $actionConfig;
     private RepairPilgred $repairPilgredAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -44,7 +42,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun is focused on PILGRED terminal

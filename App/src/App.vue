@@ -9,6 +9,7 @@
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
+        <ModerationWarningBanner :user-sanctions="userSanctions" />
         <LocaleChange />
     </div>
 </template>
@@ -24,6 +25,7 @@ import { mapGetters, mapActions } from "vuex";
 import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
+import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
 import { defineComponent } from "vue";
 import ToastContainer from "./components/ToastContainer.vue";
 
@@ -41,6 +43,7 @@ export default defineComponent({
         };
     },
     components: {
+        ModerationWarningBanner,
         Spinner,
         Banner,
         ErrorPopup,
@@ -55,8 +58,8 @@ export default defineComponent({
         ...mapGetters({
             gameInMaintenance: 'admin/gameInMaintenance',
             userLoading: 'auth/isLoading',
-            userId: 'auth/userId',
-            userWarnings: 'moderation/userWarnings',
+            user: 'auth/getUserInfo',
+            userSanctions: 'moderation/userSanctions',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
             adminLoading: 'admin/isLoading',
@@ -69,10 +72,14 @@ export default defineComponent({
     methods: {
         ...mapActions({
             loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
+            loadUserSanctions: 'moderation/loadUserSanctions'
         })
     },
     beforeMount() {
         this.loadGameMaintenanceStatus();
+        if (this.user) {
+            this.loadUserSanctions(this.user.id);
+        }
     }
 });
 </script>

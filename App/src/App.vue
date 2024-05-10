@@ -9,7 +9,7 @@
         <ConfirmPopup />
         <ReportPopup />
         <Thanks />
-        <ModerationWarningBanner :user-warnings="userWarnings" />
+        <ModerationWarningBanner :user-sanctions="userSanctions" />
         <LocaleChange />
     </div>
 </template>
@@ -59,7 +59,7 @@ export default defineComponent({
             gameInMaintenance: 'admin/gameInMaintenance',
             userLoading: 'auth/isLoading',
             user: 'auth/getUserInfo',
-            userWarnings: 'moderation/userWarnings',
+            userSanctions: 'moderation/userSanctions',
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
             adminLoading: 'admin/isLoading',
@@ -72,13 +72,13 @@ export default defineComponent({
     methods: {
         ...mapActions({
             loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
-            loadUserWarnings: 'moderation/loadUserWarnings'
+            loadUserSanctions: 'moderation/loadUserSanctions'
         })
     },
     beforeMount() {
         this.loadGameMaintenanceStatus();
         if (this.user) {
-            this.loadUserWarnings(this.user.id);
+            this.loadUserSanctions(this.user.id);
         }
     }
 });

@@ -3,23 +3,23 @@ import ModerationSanctionService from "@/services/moderation_sanction.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 const state = {
-    userWarnings: [] as ModerationSanction[]
+    userSanctions: [] as ModerationSanction[]
 };
 
 const getters: GetterTree<any, any> = {
-    userWarnings: (state: any): ModerationSanction[] => {
-        return state.userWarnings;
+    userSanctions: (state: any): ModerationSanction[] => {
+        return state.userSanctions;
     }
 };
 
 const actions: ActionTree<any, any> = {
-    async loadUserWarnings({ commit }, userId: integer): Promise<boolean> {
+    async loadUserSanctions({ commit }, userId: integer): Promise<boolean> {
         try {
-            const userWarnings = await ModerationSanctionService.getUserActiveWarnings(userId)
+            const userSanctions = await ModerationSanctionService.getUserActiveSanctions(userId)
                 .then((response: ModerationSanction[]) => {
                     return response;
                 });
-            commit('setUserWarnings', userWarnings);
+            commit('setUserSanctions', userSanctions);
             return true;
         } catch (e) {
             console.error(e);
@@ -29,8 +29,8 @@ const actions: ActionTree<any, any> = {
 };
 
 const mutations: MutationTree<any> = {
-    setUserWarnings(state: any, warnings: ModerationSanction[]): void {
-        state.userWarnings = warnings;
+    setUserSanctions(state: any, sanctions: ModerationSanction[]): void {
+        state.userSanctions = sanctions;
     }
 };
 

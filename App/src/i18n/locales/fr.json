@@ -730,7 +730,8 @@
 			"delete_end_message": "Supprimer le message de fin",
 			"hide_end_message": "Cacher le message de fin",
 			"allTypes": "Toutes les sanctions",
-			"until": "jusqu'au"
+			"until": "jusqu'au",
+			"banned": "Banni"
 		},
 		"reason": {
 			"multi_account": "Multicompte",

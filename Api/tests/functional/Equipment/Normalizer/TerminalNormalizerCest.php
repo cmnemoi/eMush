@@ -116,7 +116,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $normalizedPilgredProject = $normalizedTerminal['projects'][0];
         $I->assertEquals(expected: 'PILGRED', actual: $normalizedPilgredProject['name']);
 
-        $I->assertEquals(expected: 'Le PILGRED est pleinement opérationnel.', actual: $normalizedTerminal['infos']['pilgredFinishedDescription']);
+        $I->assertEquals(expected: 'PILGRED est pleinement opérationnel.', actual: $normalizedTerminal['infos']['pilgredFinishedDescription']);
     }
 
     public function testShouldNormalizeNeronCoreTerminal(FunctionalTester $I): void

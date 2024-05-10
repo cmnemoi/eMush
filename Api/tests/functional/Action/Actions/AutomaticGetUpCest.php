@@ -19,6 +19,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -29,6 +30,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
@@ -36,9 +38,13 @@ class AutomaticGetUpCest
 {
     private Disassemble $disassembleAction;
 
+    private StatusServiceInterface $statusService;
+
     public function _before(FunctionalTester $I)
     {
         $this->disassembleAction = $I->grabService(Disassemble::class);
+
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testAutomaticGetUp(FunctionalTester $I)
@@ -50,12 +56,14 @@ class AutomaticGetUpCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($statusConfig);
 
+        $technicianStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
+
         $dirtyConfig = new StatusConfig();
         $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY)->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($dirtyConfig);
 
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setStatusConfigs(new ArrayCollection([$statusConfig, $dirtyConfig]));
+        $gameConfig->setStatusConfigs(new ArrayCollection([$statusConfig, $dirtyConfig, $technicianStatusConfig]));
         $I->flushToDatabase();
 
         $neron = new Neron();
@@ -106,6 +114,13 @@ class AutomaticGetUpCest
 
         $lyingDownStatus = new Status($player, $statusConfig);
         $I->haveInRepository($lyingDownStatus);
+
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
 
         $action = new Action();
         $action

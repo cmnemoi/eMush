@@ -28,7 +28,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>shield.description</source>
-        <target>L'état de l'armure vous indique l'état global de la coque du vaisseau. À **0 le vaisseau sera détruit** car la coque ne sera plus qu'un maigre paravent troué...</target>
+        <target>Le bouclier plasma absorbe les tirs ennemis à la place de la coque du Daedalus. À 0, c'est la coque qui reçoit les dégâts.</target>
       </segment>
     </unit>
     <unit id="hull">

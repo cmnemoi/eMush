@@ -1,156 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-    <file id="skill.ext">
-        <unit id="botanist">
-            <segment id="botanist.name" state="translated">
-                <source>botanist.name</source>
-                <target>Botaniste</target>
-            </segment>
-            <segment id="botanist.description" state="translated">
-                <source>botanist.description</source>
-                <target>Le botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également
+  <file id="skill.ext">
+    <unit id="botanist">
+      <segment id="botanist.name" state="translated">
+        <source>botanist.name</source>
+        <target>Botaniste</target>
+      </segment>
+      <segment id="botanist.description" state="translated">
+        <source>botanist.description</source>
+        <target>Le botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également
                     redoutablement efficace dans la maintenance du Jardin.//:point: Peut lire les **propriétés des
                     fruits**.//
                     :point: Peut lire les **propriétés des plantes**.//
                     :point: Peut effectuer des **greffes**.//
                     :point: +2 :pa_garden: par jour (points d'action **Jardinage**).//
                     :point: Expédition : L'évènement **Récolte** donne un fruit de plus.//
-                    :point: Bonus pour développer certains **Projets NERON**.//
-                </target>
-            </segment>
-        </unit>
-        <unit id="firefighter">
-            <segment id="firefighter.name" state="translated">
-                <source>firefighter.name</source>
-                <target>Pompier</target>
-            </segment>
-            <segment id="firefighter.description" state="translated">
-                <source>firefighter.description</source>
-                <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec
+                    :point: Bonus pour développer certains **Projets NERON**.//</target>
+      </segment>
+    </unit>
+    <unit id="firefighter">
+      <segment id="firefighter.name" state="translated">
+        <source>firefighter.name</source>
+        <target>Pompier</target>
+      </segment>
+      <segment id="firefighter.description" state="translated">
+        <source>firefighter.description</source>
+        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec
                     l'extincteur... et il peut aussi s'en sortir sans extincteur !//:point: L'action **Éteindre le feu**
                     est toujours réussie.//:point: Donne l'action **Éteindre manuellement**.//:point: Bonus pour
-                    développer certains **Projets NERON**.
-                </target>
-            </segment>
-        </unit>
-        <unit id="pilot">
-            <segment id="pilot.name" state="translated">
-                <source>pilot.name</source>
-                <target>Pilote</target>
-            </segment>
-            <segment id="pilot.description" state="translated">
-                <source>pilot.description</source>
-                <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
+                    développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="pilot">
+      <segment id="pilot.name" state="translated">
+        <source>pilot.name</source>
+        <target>Pilote</target>
+      </segment>
+      <segment id="pilot.description" state="translated">
+        <source>pilot.description</source>
+        <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa
                     maîtrise aérienne est impressionnante.
                     //
                     :point: **Chances doublées** de toucher en Patrouilleur.
                     //
                     :point: **Ne rate jamais** les atterrissages et décollages.
                     //
-                    :point: Bonus pour développer certains **Projets NERON**.
-                </target>
-            </segment>
-        </unit>
-        <unit id="radio_expert">
-            <segment id="radio_expert.name" state="translated">
-                <source>radio_expert.name</source>
-                <target>Expert radio</target>
-            </segment>
-            <segment id="radio_expert.description" state="translated">
-                <source>radio_expert.description</source>
-                <target>L'Expert radio peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de
+                    :point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="radio_expert">
+      <segment id="radio_expert.name" state="translated">
+        <source>radio_expert.name</source>
+        <target>Expert radio</target>
+      </segment>
+      <segment id="radio_expert.description" state="translated">
+        <source>radio_expert.description</source>
+        <target>L'Expert radio peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de
                     reconstituer ou envoyer des messages à l'autre bout de l'Univers.//:point: **Double efficacité**
                     pour établir le **contact** vers Sol.//:point: Améliore les tentatives de **contact** de Sol des
-                    équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.
-                </target>
-            </segment>
-        </unit>
-        <unit id="robotics_expert">
-            <segment id="robotics_expert.name" state="translated">
-                <source>robotics_expert.name</source>
-                <target>Robotique</target>
-            </segment>
-            <segment id="robotics_expert.description" state="translated">
-                <source>robotics_expert.description</source>
-                <target>L'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
+                    équipiers dans la même pièce de 50%.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="robotics_expert">
+      <segment id="robotics_expert.name" state="translated">
+        <source>robotics_expert.name</source>
+        <target>Robotique</target>
+      </segment>
+      <segment id="robotics_expert.description" state="translated">
+        <source>robotics_expert.description</source>
+        <target>L'expert en robotique peut créer et manipuler les drones comme bon lui semble.//:point: Commence
                     avec le **plan d'un drone**.//:point: Peut **améliorer les drones**.//:point: Bonus pour développer
-                    certains **Projets NERON**.
-                </target>
-            </segment>
-        </unit>
-        <unit id="physicist">
-            <segment id="physicist.name" state="translated">
-                <source>physicist.name</source>
-                <target>Physicien</target>
-            </segment>
-            <segment id="physicist.description" state="translated">
-                <source>physicist.description</source>
-                <target>Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="physicist">
+      <segment id="physicist.name" state="translated">
+        <source>physicist.name</source>
+        <target>Physicien</target>
+      </segment>
+      <segment id="physicist.description" state="translated">
+        <source>physicist.description</source>
+        <target>Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
                     quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des
                     avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de
-                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.
-                </target>
-            </segment>
-        </unit>
-        <unit id="technician">
-            <segment id="technician.name" state="translated">
-                <source>technician.name</source>
-                <target>Technicien</target>
-            </segment>
-            <segment id="technician.description" state="translated">
-                <source>technician.description</source>
-                <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du
-                    Daedalus.//:point: +1 :pa_eng: (point d'action **Réparation**) par jour.//:point: Chances de
-                    réussites doublées pour les **Réparations**.//:point: Chances de réussites doublées pour les
-                    **Rénovations**.//:point: Bonus pour développer certains **Projets NERON**.
-                </target>
-            </segment>
-        </unit>
-        <unit id="astrophysicist">
-            <segment id="astrophysicist.name" state="translated">
-                <source>astrophysicist.name</source>
-                <target>Astrophysicien</target>
-            </segment>
-            <segment id="astrophysicist.description" state="translated">
-                <source>astrophysicist.description</source>
-                <target>L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou
-                    déterminer leur composition.//:point: L'action *Scanner Une Planète* coûte 1 :pa: de moins.//:point:
-                    +1 Secteur découvert lors des analyses de surface.
-                </target>
-            </segment>
-        </unit>
-        <unit id="computer">
-            <segment id="it_expert.name" state="translated">
-                <source>it_expert.name</source>
-                <target>Informaticien</target>
-            </segment>
-            <segment id="it_expert.description" state="translated">
-                <source>it_expert.description</source>
-                <target>L'informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="technician">
+      <segment id="technician.name" state="translated">
+        <source>technician.name</source>
+        <target>Technicien</target>
+      </segment>
+      <segment id="technician.description" state="translated">
+        <source>technician.description</source>
+        <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        :point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
+        :point: Peut **Renforcer** et **Démonter** des objets.//
+        :point: Chances de réussites doublées pour les **Réparations**.//
+        :point: Chances de réussites doublées pour les **Rénovations**.//
+        :point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="astrophysicist">
+      <segment id="astrophysicist.name" state="translated">
+        <source>astrophysicist.name</source>
+        <target>Astrophysicien</target>
+      </segment>
+      <segment id="astrophysicist.description" state="translated">
+        <source>astrophysicist.description</source>
+        <target>L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou
+                    déterminer leur composition.//:point: L'action **Scanner** coûte 1 :pa: de moins.//:point: L'action **Analyse** révèle une section de planète supplémentaire.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="computer">
+      <segment id="it_expert.name" state="translated">
+        <source>it_expert.name</source>
+        <target>Informaticien</target>
+      </segment>
+      <segment id="it_expert.description" state="translated">
+        <source>it_expert.description</source>
+        <target>L'informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les
                     interfaces des terminaux du nexus, de navigation, communication.//:point: +2 :pa_comp: (points
-                    d'action **Informatique**) par jour.//:point: Bonus pour développer certains projets NERON.
-                </target>
-            </segment>
-        </unit>
-        <unit id="conceptor">
-            <segment id="conceptor.name" state="translated">
-                <source>conceptor.name</source>
-                <target>Concepteur</target>
-            </segment>
-            <segment id="conceptor.description" state="translated">
-                <source>conceptor.description</source>
-                <target>Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.</target>
-            </segment>
-        </unit>
-        <unit id="creative">
-            <segment id="creative.name" state="translated">
-                <source>creative.name</source>
-                <target>Créatif</target>
-            </segment>
-            <segment id="creative.description" state="translated">
-                <source>creative.description</source>
-                <target>Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.</target>
-            </segment>
-        </unit>
-    </file>
+                    d'action **Informatique**) par jour.//:point: Chances de réussites doublées avec le **Bidouilleur**.//:point: Bonus pour développer certains projets NERON.</target>
+      </segment>
+    </unit>
+    <unit id="conceptor">
+      <segment id="conceptor.name" state="translated">
+        <source>conceptor.name</source>
+        <target>Concepteur</target>
+      </segment>
+      <segment id="conceptor.description" state="translated">
+        <source>conceptor.description</source>
+        <target>Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="creative">
+      <segment id="creative.name" state="translated">
+        <source>creative.name</source>
+        <target>Créatif</target>
+      </segment>
+      <segment id="creative.description" state="translated">
+        <source>creative.description</source>
+        <target>Parfois il faut savoir renverser le problème.//:point: Chacun de vos échecs sur une action payante a 50% de chances de vous rendre *1* :pa:.//:point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+  </file>
 </xliff>

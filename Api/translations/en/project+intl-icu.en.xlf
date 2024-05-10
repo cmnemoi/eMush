@@ -32,6 +32,10 @@
         <source>auto_watering.description</source>
         <target>Every fire has a 25% chance of burning itself out every cycle.</target>
       </segment>
+      <segment id="auto_watering.lore" state="translated">
+        <source>auto_watering.lore</source>
+        <target>After several hours of negotiation with NERON, you can convince it to also use the anti-cigarette device for fires.</target>
+      </segment>
     </unit>
     <unit id="dismantling">
       <segment id="dismantling.type" state="translated">
@@ -45,6 +49,10 @@
       <segment id="dismantling.description" state="translated">
         <source>dismantling.description</source>
         <target>Generates 5 pieces of scrap metal in the Engine Room.</target>
+      </segment>
+      <segment id="dismantling.lore" state="translated">
+        <source>dismantling.lore</source>
+        <target>By dismantling all of Raluca's failed PILGRED experiments, you are able to recover a stack of used metal which can then be used to patch up the hull or repair patrol ships!</target>
       </segment>
     </unit>
     <unit id="door_sensor">
@@ -60,6 +68,10 @@
         <source>door_sensor.description</source>
         <target>Blocked doors are reported on your PDA.</target>
       </segment>
+      <segment id="door_sensor.lore" state="translated">
+        <source>door_sensor.lore</source>
+        <target>By analyzing the smoke coming from defective pistons in the automatic doors, NERON can now determine precisely which doors are affected and relay the information to your PDA.</target>
+      </segment>
     </unit>
     <unit id="equipment_sensor">
       <segment id="equipment_sensor.type" state="translated">
@@ -73,6 +85,10 @@
       <segment id="equipment_sensor.description" state="translated">
         <source>equipment_sensor.description</source>
         <target>Equipment that has been interfered with is reported on your PDA.</target>
+      </segment>
+      <segment id="equipment_sensor.lore" state="translated">
+        <source>equipment_sensor.lore</source>
+        <target>Nothing beats a little NERON defragmentation. Filled with happiness it is more than content to pass a little extra info along to your PDA.</target>
       </segment>
     </unit>
     <unit id="fire_sensor">
@@ -88,6 +104,10 @@
         <source>fire_sensor.description</source>
         <target>Fires are reported on your PDA.</target>
       </segment>
+      <segment id="fire_sensor.lore" state="translated">
+        <source>fire_sensor.lore</source>
+        <target>After spending several hours convincing NERON that fire could be detrimental to its own well-being, it gave in and allocates more CPU power to the task... it still seems pretty annoyed though.</target>
+      </segment>
     </unit>
     <unit id="heat_lamp">
       <segment id="heat_lamp.type" state="translated">
@@ -101,6 +121,10 @@
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
         <target>In the garden, you have a 50% chance of growing an additional fruit.</target>
+      </segment>
+      <segment id="heat_lamp.lore" state="translated">
+        <source>heat_lamp.lore</source>
+        <target>Equipped with "spring softness" lightbulbs, these lamps work miracles on extraterrestrial plants. They perfectly imitate the rays from our good old Sun.</target>
       </segment>
     </unit>
     <unit id="parasite_elim">
@@ -116,6 +140,10 @@
         <source>parasite_elim.description</source>
         <target>Growth duration of young plants in the garden will be reduced by 2.</target>
       </segment>
+      <segment id="parasite_elim.lore" state="translated">
+        <source>parasite_elim.lore</source>
+        <target>Vaporized nano-ladybugs. Why on earth did nobody think of this before!</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="pilgred.type" state="translated">
@@ -129,6 +157,10 @@
       <segment id="pilgred.description" state="translated">
         <source>pilgred.description</source>
         <target>Repairing PILGRED gives you access to new space routes, including the route to Earth.</target>
+      </segment>
+      <segment id="pilgred.lore" state="final">
+        <source>pilgred.lore</source>
+        <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -144,6 +176,10 @@
         <source>plasma_shield.description</source>
         <target>The hull of the Daedalus is now protected by an automatically regenerating shield.</target>
       </segment>
+      <segment id="plasma_shield.lore" state="translated">
+        <source>plasma_shield.lore</source>
+        <target>You never had the time to complete it, but this damned plasma shield would have been really handy. By downloading a new core and restarting the particle tabulatrix driver, it should work just fine.</target>
+      </segment>
     </unit>
     <unit id="trail_reducer">
       <segment id="trail_reducer.type" state="translated">
@@ -158,6 +194,10 @@
         <source>trail_reducer.description</source>
         <target>The number of assailants joining you after a trip is reduced by 25%.</target>
       </segment>
+      <segment id="trail_reducer.lore" state="translated">
+        <source>trail_reducer.lore</source>
+        <target>We can't cloak the Daedalus but by adding a flame shield on the lateral jets, we can make it more difficult to follow.</target>
+      </segment>
     </unit>
     <unit id="chipset_acceleration">
       <segment id="chipset_acceleration.type" state="translated">
@@ -171,6 +211,82 @@
       <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>
         <target>Searching for a planet costs 1 :pa: less.</target>
+      </segment>
+      <segment id="chipset_acceleration.lore" state="translated">
+        <source>chipset_acceleration.lore</source>
+        <target>NERON is a little bit OCD when it comes to scalability optimization, but this time it's done a half-assed job, you simply unhook the bool Array DB to bit Arrays. What a halfwit you are NERON...</target>
+      </segment>
+    </unit>
+    <unit id="extra_hydroponpots">
+      <segment id="extra_hydroponpots.type" state="translated">
+        <source>extra_hydroponpots.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="extra_hydroponpots.name" state="translated">
+        <source>extra_hydroponpots.name</source>
+        <target>Extra Hydropots</target>
+      </segment>
+      <segment id="extra_hydroponpots.description" state="translated">
+        <source>extra_hydroponpots.description</source>
+        <target>Adds another three pots for plant-growing purposes.</target>
+      </segment>
+      <segment id="extra_hydroponpots.lore" state="translated">
+        <source>extra_hydroponpots.lore</source>
+        <target>NERON found the hydroponic plant pot blueprints; Retrieving materials from the incubator should make it possible to create three additional pots.</target>
+      </segment>
+    </unit>
+    <unit id="auxiliary_terminal">
+      <segment id="auxiliary_terminal.type" state="translated">
+        <source>auxiliary_terminal.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="auxiliary_terminal.name" state="translated">
+        <source>auxiliary_terminal.name</source>
+        <target>Auxiliary Terminals</target>
+      </segment>
+      <segment id="auxiliary_terminal.description" state="translated">
+        <source>auxiliary_terminal.description</source>
+        <target>NERON's core can now be accessed from medlab as well as from the engine room.</target>
+      </segment>
+      <segment id="auxiliary_terminal.lore" state="translated">
+        <source>auxiliary_terminal.lore</source>
+        <target>It would be practical to be able to get here without having to walk so far... by re-routing the 100V electric razor socket, you make an SCSS bridge to NERON.</target>
+      </segment>
+    </unit>
+    <unit id="thalasso">
+      <segment id="thalasso.type" state="translated">
+        <source>thalasso.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="thalasso.name" state="translated">
+        <source>thalasso.name</source>
+        <target>Thalasso</target>
+      </segment>
+      <segment id="thalasso.description" state="translated">
+        <source>thalasso.description</source>
+        <target>If you are not Mush, each shower has a 25% chance of giving you + 1:hp: OR +1:pmo: OR + 2:pm:.</target>
+      </segment>
+      <segment id="thalasso.lore" state="translated">
+        <source>thalasso.lore</source>
+        <target>Suffering from arthritis? Lumbago making your life a misery? SNC can help.</target>
+      </segment>
+    </unit>
+    <unit id="bric_broc">
+      <segment id="bric_broc.type" state="translated">
+        <source>bric_broc.type</source>
+        <target>Project</target>
+      </segment>
+      <segment id="bric_broc.name" state="translated">
+        <source>bric_broc.name</source>
+        <target>General Patching Up</target>
+      </segment>
+      <segment id="bric_broc.description" state="translated">
+        <source>bric_broc.description</source>
+        <target>Every cycle, the Daedalus has a 15% chance of not falling apart...</target>
+      </segment>
+      <segment id="bric_broc.lore" state="translated">
+        <source>bric_broc.lore</source>
+        <target>Did someone think to SCREW the steel plating back down?</target>
       </segment>
     </unit>
   </file>

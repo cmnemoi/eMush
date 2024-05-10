@@ -1579,5 +1579,25 @@
         <target>shooter.description</target>
       </segment>
     </unit>
+    <unit id="technician">
+      <segment id="technician.name" state="initial">
+        <source>technician.name</source>
+        <target>technician.name</target>
+      </segment>
+      <segment id="technician.description" state="initial">
+        <source>technician.description</source>
+        <target>technician.description</target>
+      </segment>
+    </unit>
+    <unit id="conceptor">
+      <segment id="conceptor.name" state="initial">
+        <source>conceptor.name</source>
+        <target>conceptor.name</target>
+      </segment>
+      <segment id="conceptor.description" state="initial">
+        <source>conceptor.description</source>
+        <target>conceptor.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

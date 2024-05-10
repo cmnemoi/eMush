@@ -920,9 +920,9 @@ Il n'est plus tout jeune mais il fera l'affaire.</target>
         <source>pilgred.short_name</source>
         <target>Pilgred</target>
       </segment>
-      <segment id="plural_name" state="final">
+      <segment id="plural_name" state="translated">
         <source>pilgred.plural_name</source>
-        <target>Pilgreds</target>
+        <target>Réacteurs PILGRED</target>
       </segment>
       <segment id="genre" state="final">
         <source>pilgred.gender</source>

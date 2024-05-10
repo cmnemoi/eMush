@@ -28,7 +28,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         $this->moderationService = $I->grabService(ModerationService::class);
     }
 
-    public function shouldReturnUserActiveSanctions(FunctionalTester $I): void
+    public function shouldReturnUserActiveBansAndWarnings(FunctionalTester $I): void
     {
         $now = new \DateTime();
         $oneDayLater = (clone $now)->add(new \DateInterval('P1D'));
@@ -51,8 +51,15 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
             startingDate: $now
         );
 
+        // given Chun is put in quarantine
+        $this->moderationService->quarantinePlayer(
+            player: $this->chun,
+            reason: 'flood',
+            message: 'hello, world!',
+        );
+
         // when I get the user sanctions from the repository
-        $sanctions = $this->moderationSanctionRepository->findAllUserActiveSanctions($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($this->chun->getUser());
 
         // then I should see the user sanction
         $I->assertCount(2, $sanctions);
@@ -63,7 +70,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         $I->assertEquals($oneDayLater, $sanctions[0]->getEndDate());
     }
 
-    public function shouldNotReturnOtherUserActiveSanctions(FunctionalTester $I): void
+    public function shouldNotReturnOtherUserActiveBansAndWarnings(FunctionalTester $I): void
     {
         $now = new \DateTime();
 
@@ -77,13 +84,13 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         );
 
         // when I get Chun's sanctions from the repository
-        $sanctions = $this->moderationSanctionRepository->findAllUserActiveSanctions($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($this->chun->getUser());
 
         // then I should not see any sanction
         $I->assertCount(0, $sanctions);
     }
 
-    public function shouldNotReturnUserInactiveSanctions(FunctionalTester $I): void
+    public function shouldNotReturnUserInActiveBansAndWarnings(FunctionalTester $I): void
     {
         $yesterday = (new \DateTime())->sub(new \DateInterval('P1D'));
 
@@ -97,7 +104,7 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         );
 
         // when I get the user sanctions from the repository
-        $sanctions = $this->moderationSanctionRepository->findAllUserActiveSanctions($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($this->chun->getUser());
 
         // then I should not see the user sanction
         $I->assertCount(0, $sanctions);

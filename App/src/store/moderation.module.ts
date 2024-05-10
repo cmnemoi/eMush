@@ -15,7 +15,7 @@ const getters: GetterTree<any, any> = {
 const actions: ActionTree<any, any> = {
     async loadUserSanctions({ commit }, userId: integer): Promise<boolean> {
         try {
-            const userSanctions = await ModerationSanctionService.getUserActiveSanctions(userId)
+            const userSanctions = await ModerationSanctionService.getUserActiveBansAndWarnings(userId)
                 .then((response: ModerationSanction[]) => {
                     return response;
                 });

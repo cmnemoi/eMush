@@ -8,10 +8,10 @@ const API_URL = import.meta.env.VITE_APP_API_URL as string;
 const MODERATION_SANCTION_ENDPOINT = urlJoin(API_URL, "moderation_sanctions");
 
 const ModerationSanctionService = {
-    getUserActiveSanctions: async(userId: integer): Promise<ModerationSanction[]> => {
+    getUserActiveBansAndWarnings: async(userId: integer): Promise<ModerationSanction[]> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.get(
-            urlJoin(MODERATION_SANCTION_ENDPOINT, String(userId), 'active-sanctions')
+            urlJoin(MODERATION_SANCTION_ENDPOINT, String(userId), 'active-bans-and-warnings')
         ).then((response) => {
             return response.data;
         }).catch(async (error) => {

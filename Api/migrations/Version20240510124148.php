@@ -22,8 +22,6 @@ final class Version20240510124148 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP SEQUENCE log_id_seq CASCADE');
         $this->addSql('DROP TABLE log');
-        $this->addSql('ALTER TABLE game_equipment DROP nick_name');
-        $this->addSql('ALTER TABLE game_equipment DROP serial_number');
     }
 
     public function down(Schema $schema): void
@@ -31,7 +29,5 @@ final class Version20240510124148 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SEQUENCE log_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE log (id INT NOT NULL, log_record JSON NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('ALTER TABLE game_equipment ADD nick_name INT DEFAULT 0');
-        $this->addSql('ALTER TABLE game_equipment ADD serial_number INT DEFAULT 0');
     }
 }

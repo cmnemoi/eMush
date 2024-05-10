@@ -93,7 +93,7 @@
         <source>technician.description</source>
         <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
 :point: +1 :pa_eng: per day (**Repair** Action Point).//
-:point: Can **Reinforce** and **Dismantle** objects.//
+:point: Can **Dismantle** objects.//
 :point: Chances to perform successful **Repairs** doubled.//
 :point: Chances to perform successful **Renovations** doubled.//
 :point: Bonus for developing certain **NERON projects**.</target>

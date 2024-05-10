@@ -27,7 +27,7 @@ final class ModerationSanctionController extends AbstractFOSRestController
     ) {}
 
     /**
-     * Get user active warnings.
+     * Get user active sanctions.
      *
      * @OA\Parameter(
      *      name="id",
@@ -41,15 +41,15 @@ final class ModerationSanctionController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Get(path="/{id}/active-warnings")
+     * @Rest\Get(path="/{id}/active-sanctions")
      *
      * @Rest\View()
      *
-     * @IsGranted("IS_REQUEST_USER", subject="user", message="You cannot access other player's warnings!")
+     * @IsGranted("IS_REQUEST_USER", subject="user", message="You cannot access other player's sanctions!")
      */
-    public function getUserActiveWarnings(User $user): View
+    public function getUserActiveSanctions(User $user): View
     {
-        $warnings = $this->moderationSanctionRepository->findAllUserActiveWarnings($user);
+        $warnings = $this->moderationSanctionRepository->findAllUserActiveSanctions($user);
 
         return $this->view($warnings, Response::HTTP_OK);
     }

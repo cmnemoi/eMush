@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\MetaGame\Entity\ModerationSanction;
-use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\User\Entity\User;
 
 /**
@@ -29,13 +28,12 @@ final class ModerationSanctionRepository extends ServiceEntityRepository
     /**
      * @return ModerationSanction[]
      */
-    public function findAllUserActiveWarnings(User $user): array
+    public function findAllUserActiveSanctions(User $user): array
     {
         $sql = <<<'EOD'
         SELECT *
         FROM moderationSanction
         WHERE user_id = :userId
-        AND moderation_action = :moderationAction
         AND end_date > NOW()
         EOD;
 
@@ -43,9 +41,7 @@ final class ModerationSanctionRepository extends ServiceEntityRepository
         $rsm->addRootEntityFromClassMetadata(ModerationSanction::class, 'moderation_sanction');
 
         $query = $this->entityManager->createNativeQuery($sql, $rsm);
-        $query
-            ->setParameter('userId', $user->getId())
-            ->setParameter('moderationAction', ModerationSanctionEnum::WARNING);
+        $query->setParameter('userId', $user->getId());
 
         return $query->getResult();
     }

@@ -12,7 +12,6 @@ abstract class NeronCpuPriorityEnum
     public const string NONE = 'none';
     public const string ASTRONAVIGATION = 'astronavigation';
     public const string DEFENCE = 'defence';
-    public const string PILGRED = 'pilgred';
     public const string PROJECTS = 'projects';
 
     public static array $statusMap = [
@@ -26,7 +25,6 @@ abstract class NeronCpuPriorityEnum
             self::NONE,
             self::ASTRONAVIGATION,
             self::DEFENCE,
-            self::PILGRED,
             self::PROJECTS,
         ];
     }

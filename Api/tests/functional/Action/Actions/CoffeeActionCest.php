@@ -216,6 +216,9 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableAfterOneCycleIfPilgredIsNotCompleted(FunctionalTester $I): void
     {
+        // given Daedalus is Day 0 so coffee machine cannot break and make the test fail
+        $this->daedalus->setDay(0);
+
         // given I have a coffee machine in Chun's room
         $coffeeMachine = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::COFFEE_MACHINE,

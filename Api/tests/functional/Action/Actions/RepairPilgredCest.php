@@ -10,7 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -202,25 +201,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // then the action should not be visible
         $I->assertFalse($this->repairPilgredAction->isVisible());
-    }
-
-    public function shouldPutEfficiencyToOneWithCpuPriority(FunctionalTester $I): void
-    {
-        // given I have the PILGRED project
-        $pilgredProject = $this->daedalus->getPilgred();
-
-        // given CPU priority is set on the PILGRED project
-        $this->neronService->changeCpuPriority(
-            neron: $this->daedalus->getDaedalusInfo()->getNeron(),
-            cpuPriority: NeronCpuPriorityEnum::PILGRED,
-        );
-
-        // when Chun repairs the PILGRED project with CPU priority
-        $this->repairPilgredAction->loadParameters($this->actionConfig, $this->chun, $pilgredProject);
-        $this->repairPilgredAction->execute();
-
-        // then Chun's efficiency should be 1-1%
-        $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

@@ -3585,7 +3585,7 @@ class EquipmentConfigData
             'name' => 'starmap_fragment_default',
             'equipmentName' => 'starmap_fragment',
             'isBreakable' => false,
-            'isFireDestroyable' => true,
+            'isFireDestroyable' => false,
             'isFireBreakable' => false,
             'dismountedProducts' => [],
             'isPersonal' => false,

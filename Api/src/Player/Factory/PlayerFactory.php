@@ -29,6 +29,34 @@ final class PlayerFactory
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $player->setPlayerVariables($characterConfig);
+
+        return $player;
+    }
+
+    public static function createPlayerByName(string $name): Player
+    {
+        $user = new User();
+        $user
+            ->setUserId(Uuid::v4()->toRfc4122())
+            ->setUsername(Uuid::v4()->toRfc4122());
+
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName($name);
+
+        $player = new Player();
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
+        $player->setPlayerVariables($characterConfig);
+
+        return $player;
+    }
+
+    public static function createPlayerByNameAndDaedalus(string $characterName, Daedalus $daedalus): Player
+    {
+        $player = self::createPlayerByName($characterName);
+        $player->setDaedalus($daedalus);
+        $player->setPlace($daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
 
         return $player;
     }

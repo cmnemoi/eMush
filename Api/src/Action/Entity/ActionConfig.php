@@ -52,6 +52,38 @@ class ActionConfig implements GameVariableHolderInterface
         $this->actionVariables = new ActionVariables();
     }
 
+    public static function fromConfigData(array $configData): self
+    {
+        $actionConfig = new self();
+        $actionConfig
+            ->setName($configData['name'])
+            ->setActionName($configData['action_name'])
+            ->setTypes($configData['types'])
+            ->setDisplayHolder($configData['target'])
+            ->setRange($configData['scope']);
+
+        $gameVariables = $actionConfig->getGameVariables();
+        $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
+        $gameVariables->setValuesByName($configData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
+        $gameVariables->setValuesByName($configData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
+        $gameVariables->setValuesByName($configData['outputQuantity'], ActionVariableEnum::OUTPUT_QUANTITY);
+
+        $gameVariables->setValuesByName($configData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
+        $gameVariables->setValuesByName($configData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
+        $gameVariables->setValuesByName($configData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+
+        $gameVariables->setValuesByName($configData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
+        if ($configData['percentageDirtiness']['min_value'] >= 100) {
+            $actionConfig->makeSuperDirty();
+        }
+
+        foreach ($configData['visibilities'] as $visibilityType => $visibility) {
+            $actionConfig->setVisibility($visibilityType, $visibility);
+        }
+
+        return $actionConfig;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

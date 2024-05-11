@@ -17,27 +17,5 @@ services:
   Mush\Equipment\CycleHandler\:
     resource: '../CycleHandler/'
     tags: ['mush.equipment.cycle_handler']
-  Mush\Equipment\ConfigData\BlueprintDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\BookDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\DocumentDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\DrugDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\EquipmentConfigDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\FruitDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\GearDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\ItemConfigDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\PlantDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\RationDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\ToolDataLoader:
-    public: true
-  Mush\Equipment\ConfigData\WeaponDataLoader:
-    public: true
+ 
+  Mush\Equipment\Repository\GameEquipmentRepositoryInterface: '@Mush\Equipment\Repository\GameEquipmentRepository'

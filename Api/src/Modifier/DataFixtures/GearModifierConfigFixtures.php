@@ -373,8 +373,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                // ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
-                // ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
             ])
             ->setApplyOnTarget(true)
             ->setModifierName(ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER)

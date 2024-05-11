@@ -5,22 +5,18 @@ namespace Mush\Modifier\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
-class EventCreationService implements EventCreationServiceInterface
+final class EventCreationService implements EventCreationServiceInterface
 {
-    private GameEquipmentRepository $gameEquipmentRepository;
-
     public function __construct(
-        GameEquipmentRepository $gameEquipmentRepository
-    ) {
-        $this->gameEquipmentRepository = $gameEquipmentRepository;
-    }
+        private GameEquipmentRepositoryInterface $gameEquipmentRepository
+    ) {}
 
     public function getEventTargetsFromModifierHolder(
         string $eventTarget,
@@ -60,6 +56,12 @@ class EventCreationService implements EventCreationServiceInterface
 
             if ($holder instanceof Player) {
                 return new PlayerCollection([$holder]);
+            }
+            // This is a non-working Hack for Thalasso modifier.
+            // Thalasso's holder is a place, but I want to apply the modifier on the player
+            // who triggered the event.
+            if ($holder instanceof Place) {
+                return $holder->getPlayers()->getPlayerAlive();
             }
 
             return new PlayerCollection([]);

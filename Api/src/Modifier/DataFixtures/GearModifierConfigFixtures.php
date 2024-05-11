@@ -8,18 +8,21 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -354,6 +357,60 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setModifierName(self::ROPE_MODIFIER);
         $manager->persist($ropeModifier);
 
+        /** @var AbstractEventConfig $eventConfigPlus1HealthPoint */
+        $eventConfigPlus1HealthPoint = $this->getReference('change.variable_player_+1healthPoint');
+
+        /** @var AbstractEventConfig $eventConfigPlus1MoralePoint */
+        $eventConfigPlus1MoralePoint = $this->getReference('change.variable_player_+1moralePoint');
+
+        /** @var AbstractEventConfig $eventConfigPlus2MovementPoint */
+        $eventConfigPlus2MovementPoint = $this->getReference('change.variable_player_+2movementPoint');
+
+        $thalassoHealthPointModifier = new TriggerEventModifierConfig('modifier_for_player_set_+1healthPoint_on_post.action_if_reason_shower');
+        $thalassoHealthPointModifier
+            ->setTriggeredEvent($eventConfigPlus1HealthPoint)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setTagConstraints([
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+            ])
+            ->setApplyOnTarget(true)
+            ->setModifierName(ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($thalassoHealthPointModifier);
+
+        $thalassoMoralePointModifier = new TriggerEventModifierConfig('modifier_for_player_set_+1moralePoint_on_post.action_if_reason_shower');
+        $thalassoMoralePointModifier
+            ->setTriggeredEvent($eventConfigPlus1MoralePoint)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setTagConstraints([
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+            ])
+            ->setApplyOnTarget(true)
+            ->setModifierName(ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($thalassoMoralePointModifier);
+
+        $thalassoMovementPointModifier = new TriggerEventModifierConfig('modifier_for_player_set_+2movementPoint_on_post.action_if_reason_shower');
+        $thalassoMovementPointModifier
+            ->setTriggeredEvent($eventConfigPlus2MovementPoint)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setTagConstraints([
+                ActionEnum::SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
+            ])
+            ->setApplyOnTarget(true)
+            ->setModifierName(ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($thalassoMovementPointModifier);
+
         $manager->flush();
 
         $this->addReference(self::APRON_MODIFIER, $apronModifier);
@@ -378,6 +435,9 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
         $this->addReference(self::ALIEN_OIL_INCREASE_FUEL_INJECTED, $alienOilIncreaseFuelInjected);
         $this->addReference(self::INVERTEBRATE_SHELL_DOUBLES_DAMAGE, $invertebrateShellDoublesDamage);
         $this->addReference(self::ROPE_MODIFIER, $ropeModifier);
+        $this->addReference(ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER, $thalassoHealthPointModifier);
+        $this->addReference(ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER, $thalassoMoralePointModifier);
+        $this->addReference(ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER, $thalassoMovementPointModifier);
     }
 
     public function getDependencies(): array

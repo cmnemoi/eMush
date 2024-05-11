@@ -245,6 +245,30 @@ class EventConfigData
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => 'change.variable_daedalus_shield_+5',
         ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 1,
+            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_player_+1healthPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 1,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_player_+1moralePoint',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 2,
+            'targetVariable' => PlayerVariableEnum::MOVEMENT_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => 'change.variable_player_+2movementPoint',
+        ],
     ];
 
     public static array $planetSectorEventConfigData = [

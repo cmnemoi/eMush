@@ -2871,7 +2871,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['tool_shower_default'],
+            'mechanics' => ['tool_shower_default', 'gear_thalasso_default'],
             'initStatuses' => [],
         ],
         [

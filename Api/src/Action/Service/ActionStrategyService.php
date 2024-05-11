@@ -99,23 +99,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             return null;
         }
 
-        switch ($className) {
-            case GameEquipment::class:
-            case GameItem::class:
-            case Door::class:
-                return $this->equipmentService->findById($entityId);
-
-            case Player::class:
-                return $this->playerService->findById($entityId);
-
-            case Hunter::class:
-                return $this->hunterService->findById($entityId);
-
-            case Planet::class:
-                return $this->planetService->findById($entityId);
-
-            case Project::class:
-                return $this->entityManager->getRepository(Project::class)->find($entityId);
+        $this->entityManager->getRepository($className)->find($entityId);
 
             case Status::class:
                 return $this->entityManager->getRepository(Status::class)->find($entityId);

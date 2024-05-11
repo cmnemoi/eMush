@@ -8,41 +8,18 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Exploration\Entity\Planet;
-use Mush\Exploration\Service\PlanetServiceInterface;
-use Mush\Hunter\Entity\Hunter;
-use Mush\Hunter\Service\HunterServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Project\Entity\Project;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\Status;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionStrategyService implements ActionStrategyServiceInterface
 {
     private array $actions = [];
-    private PlayerServiceInterface $playerService;
-    private GameEquipmentServiceInterface $equipmentService;
-    private HunterServiceInterface $hunterService;
-    private PlanetServiceInterface $planetService;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        PlayerServiceInterface $playerService,
-        GameEquipmentServiceInterface $equipmentService,
-        HunterServiceInterface $hunterService,
-        PlanetServiceInterface $planetService,
         EntityManagerInterface $entityManager
     ) {
-        $this->playerService = $playerService;
-        $this->equipmentService = $equipmentService;
-        $this->hunterService = $hunterService;
-        $this->planetService = $planetService;
         $this->entityManager = $entityManager;
     }
 
@@ -99,13 +76,12 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             return null;
         }
 
-        $this->entityManager->getRepository($className)->find($entityId);
+        $gameEntity = $this->entityManager->getRepository($className)->find($entityId);
 
-            case Status::class:
-                return $this->entityManager->getRepository(Status::class)->find($entityId);
-
-            default:
-                return null;
+        if ($gameEntity instanceof ActionProviderInterface || $gameEntity instanceof LogParameterInterface) {
+            return $gameEntity;
         }
+
+        return null;
     }
 }

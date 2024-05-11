@@ -3,8 +3,8 @@
         <h3>{{ project.name }}</h3>
         <div class="card">
             <Tippy>
-                <img :src="getImgUrl(`projects/${project.key}.png`)" alt="{{ project.key }}">
-                <template #content v-if="project.lore != ''">
+                <img :src="getImgUrl(`projects/${project.key}.png`)" :alt="project.name">
+                <template #content v-if="project.lore">
                     <h1 v-html="formatText(project.name)"></h1>
                     <p v-html="formatText(project.lore)"></p>
                 </template>

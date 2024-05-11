@@ -118,6 +118,17 @@ abstract class EquipmentMechanic
         return $this;
     }
 
+    public function getActionByNameOrThrow(string $name): Action
+    {
+        $action = $this->actions->filter(static fn (Action $action) => $action->getName() === $name)->first() ?: null;
+
+        if ($action === null) {
+            throw new \InvalidArgumentException("Action with name {$name} not found");
+        }
+
+        return $action;
+    }
+
     public function hasAction(ActionEnum $actionName): bool
     {
         return !$this->getActions()->filter(static fn (ActionConfig $actionConfig) => $actionConfig->getActionName() === $actionName)->isEmpty();

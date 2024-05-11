@@ -57,7 +57,7 @@ export default defineComponent ({
 
     &::v-deep(p:not(.timestamp) em)  { color: $red; }
 
-    &.new {
+    &.new, &.unread { // unread messages styling
         border-left: 2px solid #ea9104;
         padding-left: 8px;
 
@@ -133,22 +133,6 @@ export default defineComponent ({
     &.read {
         border-left: 0 solid transparent;
         transition: 0.1s ease-in-out border-left;
-    }
-
-    &.unread { // unread messages styling
-        border-left: 2px solid #ea9104;
-        transition: none;
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: -6px;
-            min-height: 11px;
-            width: 11px;
-            background: transparent url('/src/assets/images/comms/thinklinked.png') center no-repeat;
-        }
     }
 }
 

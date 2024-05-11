@@ -6,14 +6,16 @@
         @submitSanction="applySanction" />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
-            <img :src="getImgUrl('ending-destroyed.png')" alt="destroyed!" >
+            <img :src="getImgUrl('ending-sol.png')" :alt="$t('theEnd.endCause.sol_return')" v-if="closedDaedalus.endCause === 'sol_return'">
+            <img :src="getImgUrl('ending-eden.png')" :alt="$t('theEnd.endCause.eden')" v-else-if="closedDaedalus.endCause === 'eden'">
+            <img :src="getImgUrl('ending-destroyed.png')" :alt="$t(`ranking.endCause.${closedDaedalus.endCause}`)" v-else>
         </div>
         <h2>{{ $t("theEnd.headliner") }}</h2>
         <div class="card star-card" v-if="goldNovaPlayer">
             <div>
-                <img class="avatar" :src="getPlayerCharacterPortrait(goldNovaPlayer)" alt="Janice">
+                <img class="avatar" :src="getPlayerCharacterPortrait(goldNovaPlayer)" :alt="getPlayerCharacterCompleteName(goldNovaPlayer)">
                 <div class="dude">
-                    <img class="body" :src="getPlayerCharacterBody(goldNovaPlayer)" alt="Janice">
+                    <img class="body" :src="getPlayerCharacterBody(goldNovaPlayer)" :alt="getPlayerCharacterCompleteName(goldNovaPlayer)">
                     <div>
                         <h3 class="char-name">
                             {{ getPlayerCharacterCompleteName(goldNovaPlayer) }}
@@ -71,7 +73,8 @@
                         {{ goldNovaPlayer.cyclesSurvived }}
                     </p>
                     <p class="death-cause">
-                        <img :src="getImgUrl('dead.png')" alt="Dead">
+                        <img :src="getImgUrl('dead.png')" alt="Dead" v-if="goldNovaPlayer.hasBadEndCause">
+                        <img :src="getImgUrl('ready.png')" alt="Alive" v-else>
                         {{ $t("theEnd.endCause." + goldNovaPlayer.endCause) }}
                     </p>
                     <p class="nova">
@@ -121,7 +124,8 @@
                             {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
-                            <img :src="getImgUrl('dead.png')" alt="Dead">
+                            <img :src="getImgUrl('dead.png')" alt="Dead" v-if="player.hasBadEndCause">
+                            <img :src="getImgUrl('ready.png')" alt="Alive" v-else>
                             {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
                         <p class="nova" v-if="key === 0">
@@ -215,7 +219,8 @@
                             {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
-                            <img :src="getImgUrl('dead.png')" alt="Dead">
+                            <img :src="getImgUrl('dead.png')" alt="Dead" v-if="player.hasBadEndCause">
+                            <img :src="getImgUrl('ready.png')" alt="Alive" v-else>
                             {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
                         <p class="nova">

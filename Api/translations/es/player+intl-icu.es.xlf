@@ -69,14 +69,64 @@ Actualmente tienes {quantityaction}  :pa: y {quantitymovement} :pm:</target>
         <target>com_manager.desc</target>
       </segment>
     </unit>
-    <unit id="shootPoint">
+    <unit id="shoot">
       <segment id="name" state="initial">
-        <source>shootPoint.name</source>
-        <target>shootPoint.name</target>
+        <source>shoot.name</source>
+        <target>shoot.name</target>
       </segment>
       <segment id="description" state="initial">
-        <source>shootPoint.description</source>
-        <target>shootPoint.description</target>
+        <source>shoot.description</source>
+        <target>shoot.description</target>
+      </segment>
+    </unit>
+    <unit id="cook">
+      <segment id="name" state="initial">
+        <source>cook.name</source>
+        <target>cook.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cook.description</source>
+        <target>cook.description</target>
+      </segment>
+    </unit>
+    <unit id="core">
+      <segment id="name" state="initial">
+        <source>core.name</source>
+        <target>core.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>core.description</source>
+        <target>core.description</target>
+      </segment>
+    </unit>
+    <unit id="engineer">
+      <segment id="name" state="initial">
+        <source>engineer.name</source>
+        <target>engineer.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>engineer.description</source>
+        <target>engineer.description</target>
+      </segment>
+    </unit>
+    <unit id="garden">
+      <segment id="name" state="initial">
+        <source>garden.name</source>
+        <target>garden.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>garden.description</source>
+        <target>garden.description</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="name" state="initial">
+        <source>pilgred.name</source>
+        <target>pilgred.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pilgred.description</source>
+        <target>pilgred.description</target>
       </segment>
     </unit>
   </file>

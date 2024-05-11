@@ -202,6 +202,7 @@
 	"admin": {
 		"actions": {
 			"createProjects": "Create projects for ongoing Daedaluses",
+			"proposeProjects": "Propose projects for on-going Daedaluses",
 			"title": "Administrative actions"
 		},
 		"banner": {
@@ -729,7 +730,8 @@
 			"delete_end_message": "Delete end message",
 			"hide_end_message": "Hide end message",
 			"allTypes": "All sanctions",
-			"until": "until"
+			"until": "until",
+			"banned": "Banned"
 		},
 		"reason": {
 			"multi_account": "Multiaccount",

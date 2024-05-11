@@ -61,6 +61,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
     public const string TECHNICIAN_SPECIALIST_POINT = 'technician_specialist_point';
     public const string TECHNICIAN_DOUBLE_REPAIR_CHANCE = 'technician_double_repair_chance';
+    public const string CONCEPTOR_SPECIALIST_POINT = 'conceptor_specialist_point';
 
     public function load(ObjectManager $manager): void
     {
@@ -375,6 +376,21 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($technicianDoubleRepairChance);
 
+        $coreSpecialistPoint = new VariableEventModifierConfig('modifier_specialist_point_core');
+        $coreSpecialistPoint
+            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
+            ->setDelta(0)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
+            ->setApplyOnTarget(false)
+            ->setTagConstraints([
+                ActionTypeEnum::ACTION_CONCEPTOR => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_CORE);
+        $manager->persist($coreSpecialistPoint);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -402,6 +418,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
         $this->addReference(self::TECHNICIAN_SPECIALIST_POINT, $technicianSpecialist);
         $this->addReference(self::TECHNICIAN_DOUBLE_REPAIR_CHANCE, $technicianDoubleRepairChance);
+        $this->addReference(self::CONCEPTOR_SPECIALIST_POINT, $coreSpecialistPoint);
     }
 
     public function getDependencies(): array

@@ -7,6 +7,7 @@ use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -1190,6 +1191,34 @@ abstract class StatusConfigData
                 'modifier_technician_double_repair_and_renovate_chance',
             ],
             'actionConfigs' => [],
+        ],
+        [
+            'name' => SkillEnum::CONCEPTOR,
+            'statusName' => SkillEnum::CONCEPTOR,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::PRIVATE,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SPECIALIST_POINTS_INCREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 4,
+            'dischargeStrategies' => [ModifierNameEnum::SPECIALIST_POINT_CORE],
+            'autoRemove' => true,
+            'modifierConfigs' => [
+                'modifier_specialist_point_core',
+            ],
+        ],
+        [
+            'name' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES . '_default',
+            'statusName' => DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES,
+            'visibility' => 'hidden',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'hidden',
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => null,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
         ],
     ];
 }

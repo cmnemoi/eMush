@@ -71,5 +71,45 @@
         <target>technician.description</target>
       </segment>
     </unit>
+    <unit id="astrophysicist">
+      <segment id="astrophysicist.name" state="initial">
+        <source>astrophysicist.name</source>
+        <target>astrophysicist.name</target>
+      </segment>
+      <segment id="astrophysicist.description" state="initial">
+        <source>astrophysicist.description</source>
+        <target>astrophysicist.description</target>
+      </segment>
+    </unit>
+    <unit id="computer">
+      <segment id="it_expert.name" state="initial">
+        <source>it_expert.name</source>
+        <target>it_expert.name</target>
+      </segment>
+      <segment id="it_expert.description" state="initial">
+        <source>it_expert.description</source>
+        <target>it_expert.description</target>
+      </segment>
+    </unit>
+    <unit id="conceptor">
+      <segment id="conceptor.name" state="initial">
+        <source>conceptor.name</source>
+        <target>conceptor.name</target>
+      </segment>
+      <segment id="conceptor.description" state="initial">
+        <source>conceptor.description</source>
+        <target>conceptor.description</target>
+      </segment>
+    </unit>
+    <unit id="creative">
+      <segment id="creative.name" state="initial">
+        <source>creative.name</source>
+        <target>creative.name</target>
+      </segment>
+      <segment id="creative.description" state="initial">
+        <source>creative.description</source>
+        <target>creative.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

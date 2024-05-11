@@ -17,6 +17,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -27,6 +28,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
@@ -35,10 +37,14 @@ class AttemptActionChangeCest
     private Repair $repairAction;
     private Disassemble $disassembleAction;
 
+    private StatusServiceInterface $statusService;
+
     public function _before(FunctionalTester $I)
     {
         $this->repairAction = $I->grabService(Repair::class);
         $this->disassembleAction = $I->grabService(Disassemble::class);
+
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testChangeAttemptAction(FunctionalTester $I)
@@ -47,8 +53,10 @@ class AttemptActionChangeCest
 
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
 
+        $technicianSkillStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
+
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]));
+        $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig, $technicianSkillStatusConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -81,6 +89,13 @@ class AttemptActionChangeCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
+
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
 
         $actionRepair = new ActionConfig();
         $actionRepair
@@ -155,8 +170,10 @@ class AttemptActionChangeCest
 
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
 
+        $technicianSkillStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => SkillEnum::TECHNICIAN]);
+
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig]));
+        $gameConfig->setStatusConfigs(new ArrayCollection([$attemptConfig, $statusConfig, $technicianSkillStatusConfig]));
         $I->flushToDatabase();
 
         /** @var Daedalus $daedalus */
@@ -189,6 +206,13 @@ class AttemptActionChangeCest
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
         $I->refreshEntities($player);
+
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::TECHNICIAN,
+            holder: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
 
         $actionRepair = new ActionConfig();
         $actionRepair

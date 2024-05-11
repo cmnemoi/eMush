@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 enum ActionTypeEnum: string
 {
     case ACTION_TECHNICIAN = 'action_technician';
+    case ACTION_CONCEPTOR = 'action_conceptor';
     case ACTION_SHOOT = 'action_shoot';
     case ACTION_AGGRESSIVE = 'action_aggressive';
     case ACTION_HEAL = 'action_heal';

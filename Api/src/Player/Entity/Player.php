@@ -777,9 +777,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getEfficiencyWithCpuPriorityBonus(int $efficiency, Project $project): int
     {
-        if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PILGRED) && $project->isPilgred()) {
-            return $efficiency + Project::CPU_PRIORITY_BONUS;
-        }
         if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PROJECTS) && $project->isNeronProject()) {
             return $efficiency + Project::CPU_PRIORITY_BONUS;
         }

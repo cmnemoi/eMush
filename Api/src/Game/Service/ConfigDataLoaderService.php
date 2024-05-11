@@ -13,6 +13,7 @@ use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
 use Mush\Equipment\ConfigData\DrugDataLoader;
+use Mush\Equipment\ConfigData\EquipmentCommandConfigDataLoader;
 use Mush\Equipment\ConfigData\EquipmentConfigDataLoader;
 use Mush\Equipment\ConfigData\FruitDataLoader;
 use Mush\Equipment\ConfigData\GearDataLoader;
@@ -20,7 +21,6 @@ use Mush\Equipment\ConfigData\ItemConfigDataLoader;
 use Mush\Equipment\ConfigData\PatrolShipDataLoader;
 use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
-use Mush\Equipment\ConfigData\SpawnEquipmentConfigDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
@@ -86,7 +86,7 @@ class ConfigDataLoaderService
         ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader,
         HunterConfigDataLoader $hunterConfigDataLoader,
         PlanetSectorConfigDataLoader $planetSectorConfigDataLoader,
-        SpawnEquipmentConfigDataLoader $spawnEquipmentConfigDataLoader,
+        EquipmentCommandConfigDataLoader $equipmentCommandConfigDataLoader,
         ProjectConfigDataLoader $projectConfigDataLoader,
         GameConfigDataLoader $gameConfigDataLoader,
         LocalizationConfigDataLoader $localizationConfigDataLoader,
@@ -131,7 +131,7 @@ class ConfigDataLoaderService
                 $consumableDiseaseConfigDataLoader,
                 $hunterConfigDataLoader,
                 $planetSectorConfigDataLoader,
-                $spawnEquipmentConfigDataLoader,
+                $equipmentCommandConfigDataLoader,
                 $projectConfigDataLoader,
                 $gameConfigDataLoader,
                 $localizationConfigDataLoader,

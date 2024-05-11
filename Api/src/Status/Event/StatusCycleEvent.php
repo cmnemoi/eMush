@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -35,6 +36,11 @@ class StatusCycleEvent extends AbstractGameEvent
     public function getHolder(): StatusHolderInterface
     {
         return $this->holder;
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->holder->getDaedalus();
     }
 
     public function getModifiersByPriorities(array $priorities): ModifierCollection

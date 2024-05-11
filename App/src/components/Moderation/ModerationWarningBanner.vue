@@ -1,21 +1,20 @@
 <template>
-    <div class="warning-banner-container" v-if="userWarnings.length > 0">
-        <div class="warning-banner" v-for="(warning, index) in (showAll ? userWarnings : userWarnings.slice(0, 1))" :key="index">
+    <div class="sanction-banner-container" v-if="userSanctions.length > 0">
+        <div class="sanction-banner" v-for="(sanction, index) in (showAll ? userSanctions : userSanctions.slice(0, 1))" :key="index">
             <h1 class="banner-title">
-                {{ $t('moderation.sanction.warning') }} {{ $t('moderation.sanction.until') }} {{ warning.endDate.toLocaleDateString() }}
+                {{ getTranslatedSanctionType(sanction) }} {{ $t('moderation.sanction.until') }} {{ sanction.endDate.toLocaleDateString() }} 
             </h1>
             <p class="banner-content">
-                <span>{{ $t('moderation.sanctionReason') }} : {{ $t('moderation.reason.'+ warning.reason) }}</span>
+                <span>{{ $t('moderation.reason.'+ sanction.reason) }}</span>
                 <br><br>
-                <span>{{ warning.message }}</span>
+                <span>{{ sanction.message }}</span>
             </p>
             <button v-if="index === 0" class="button-toggle-show-all" @click="showAll = !showAll">
-                {{ showAll ? $t('moderation.reduce') : $t('moderation.showAll') + ' (' + userWarnings.length + ')' }}
+                {{ showAll ? $t('moderation.reduce') : $t('moderation.showAll') + ' (' + userSanctions.length + ')' }}
             </button>
         </div>
     </div>
-    <div class="dummy_space" v-if="userWarnings.length > 0">
-    </div>
+    <div class="dummy_space" v-if="userSanctions.length > 0" />
 </template>
 
 <script lang="ts">
@@ -23,10 +22,10 @@ import { ModerationSanction } from "@/entities/ModerationSanction";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: 'ModerationWarningBanner',
+    name: 'ModerationSanctionBanner',
     props: {
-        userWarnings: {
-            type: Array,
+        userSanctions: {
+            type: Array as () => ModerationSanction[],
             default: [] as ModerationSanction[],
             required: true
         }
@@ -39,14 +38,19 @@ export default defineComponent({
     computed: {
         bannerHeight() {
             return this.showAll ? 'auto' : '10%'; // Limite la hauteur à 10% si showAll est false
-        }
+        },
+    },
+    methods: {
+        getTranslatedSanctionType(sanction: ModerationSanction) {
+            return sanction.isWarning ? this.$t('moderation.sanction.warning') : this.$t('moderation.player.banned');
+        },
     }
 });
 </script>
 
 
 <style scoped>
-.warning-banner-container {
+.sanction-banner-container {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -69,7 +73,7 @@ export default defineComponent({
     box-sizing: border-box;
 }
 
-.warning-banner {
+.sanction-banner {
     background-color: #f05b76;
     color: black;
     padding: 10px;

@@ -14,6 +14,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Action\Entity\ActionTargetInterface;
+use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -376,5 +378,18 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             ($tool !== null && $tool->hasAction($actionName))
             || ($weapons !== null && $weapons->hasAction($actionName))
             || ($patrolShip !== null && $patrolShip->hasAction($actionName));
+    }
+
+    public function getMechanicActionByNameOrThrow(string $actionName): Action
+    {
+        foreach ($this->getEquipment()->getMechanics() as $mechanic) {
+            foreach ($mechanic->getActions() as $action) {
+                if ($action->getName() === $actionName) {
+                    return $action;
+                }
+            }
+        }
+
+        throw new \RuntimeException("Action {$actionName} not found in the mechanics of {$this->name} equipment.");
     }
 }

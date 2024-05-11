@@ -18,6 +18,7 @@ type DaedalusProject = {
     key: string;
     name: string;
     description: string;
+    lore: string;
 }
 
 type DaedalusProjects = {

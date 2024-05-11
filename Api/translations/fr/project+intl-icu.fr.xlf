@@ -70,7 +70,7 @@
       </segment>
       <segment id="door_sensor.lore" state="translated">
         <source>door_sensor.lore</source>
-        <target>En analysant les fumées provenants des pistons defectueux des portes automatiques, NERON peut désormais determiner avec exactitude leurs positions sur les modules persos.</target>
+        <target>En analysant les fumées provenant des pistons défectueux des portes automatiques, NERON peut désormais déterminer avec exactitude leurs positions sur les modules persos.</target>
       </segment>
     </unit>
     <unit id="equipment_sensor">
@@ -88,7 +88,7 @@
       </segment>
       <segment id="equipment_sensor.lore" state="translated">
         <source>equipment_sensor.lore</source>
-        <target>Rien de tel qu'une petite cure de défragmentation de NERON. Comble du bonheur il en profite pour allouer plus de bande passante aux modules Persos.</target>
+        <target>Rien de tel qu'une petite cure de défragmentation de NERON. Comble du bonheur il en profite pour allouer plus de bande passante aux modules persos.</target>
       </segment>
     </unit>
     <unit id="fire_sensor">
@@ -124,7 +124,7 @@
       </segment>
       <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
-        <target>Equipée avec nos ampoules "douceurs de printemps" ces lampes font des merveilles sur les plantes extraterrestres. Elles imitent à la perfection le rayonnement de notre bon vieux soleil.</target>
+        <target>Équipée avec nos ampoules "douceurs de printemps" ces lampes font des merveilles sur les plantes extraterrestres. Elles imitent à la perfection le rayonnement de notre bon vieux soleil.</target>
       </segment>
     </unit>
     <unit id="parasite_elim">
@@ -158,9 +158,9 @@
         <source>pilgred.description</source>
         <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
       </segment>
-      <segment id="pilgred.lore" state="translated">
+      <segment id="pilgred.lore" state="final">
         <source>pilgred.lore</source>
-        <target></target>
+        <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -196,7 +196,7 @@
       </segment>
       <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>
-        <target>On ne peut pas rendre le Daedalus furtif mais en ajoutant un cache flamme sur les fusées latérales, on le rend moins facile à suivre.</target>
+        <target>On ne peut pas rendre le Daedalus furtif mais en ajoutant un cache-flamme sur les fusées latérales, on le rend moins facile à suivre.</target>
       </segment>
     </unit>
     <unit id="chipset_acceleration">
@@ -232,7 +232,7 @@
       </segment>
       <segment id="extra_hydroponpots.lore" state="translated">
         <source>extra_hydroponpots.lore</source>
-        <target>NERON a retrouvé les plans des pots hydroponiques du jardin, en récupérant les materiaux de la couveuse il devrait être possible de créer 3 pots supplémentaires.</target>
+        <target>NERON a retrouvé les plans des pots hydroponiques du jardin, en récupérant les matériaux de la couveuse il devrait être possible de créer 3 pots supplémentaires.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
@@ -251,6 +251,42 @@
       <segment id="auxiliary_terminal.lore" state="translated">
         <source>auxiliary_terminal.lore</source>
         <target>Ça serait pratique si on faisait moins de marche pour arriver jusqu'ici... En détournant la prise 100V pour les rasoirs, vous montez un bridge SCCS vers NERON.</target>
+      </segment>
+    </unit>
+    <unit id="thalasso">
+      <segment id="thalasso.type" state="translated">
+        <source>thalasso.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="thalasso.name" state="translated">
+        <source>thalasso.name</source>
+        <target>Thalasso</target>
+      </segment>
+      <segment id="thalasso.description" state="translated">
+        <source>thalasso.description</source>
+        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 pmo: OU + 2:pm:.</target>
+      </segment>
+      <segment id="thalasso.lore" state="translated">
+        <source>thalasso.lore</source>
+        <target>Votre arthrose vous fait souffrir ? Les lombagos vous torturent ? SNC peut vous aider.</target>
+      </segment>
+    </unit>
+    <unit id="bric_broc">
+      <segment id="bric_broc.type" state="translated">
+        <source>bric_broc.type</source>
+        <target>Projet</target>
+      </segment>
+      <segment id="bric_broc.name" state="translated">
+        <source>bric_broc.name</source>
+        <target>Rafistolage Général</target>
+      </segment>
+      <segment id="bric_broc.description" state="translated">
+        <source>bric_broc.description</source>
+        <target>À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...</target>
+      </segment>
+      <segment id="bric_broc.lore" state="translated">
+        <source>bric_broc.lore</source>
+        <target>Quelqu'un a pensé à REVISSER les plaques de tôles ?</target>
       </segment>
     </unit>
   </file>

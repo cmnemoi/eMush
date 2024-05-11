@@ -17,7 +17,7 @@ abstract class SkillEnum
     public const string CONFIDENT = 'confident';
     public const string CRAZY_EYE = 'crazy_eye';
     public const string CREATIVE = 'creative';
-    public const string DESIGNER = 'designer';
+    public const string CONCEPTOR = 'conceptor';
     public const string DETACHED_CREWMEMBER = 'detached_crewmember';
     public const string DEVOTION = 'devotion';
     public const string DETERMINED = 'determined';
@@ -85,7 +85,7 @@ abstract class SkillEnum
             self::CONFIDENT,
             self::CRAZY_EYE,
             self::CREATIVE,
-            self::DESIGNER,
+            self::CONCEPTOR,
             self::DETACHED_CREWMEMBER,
             self::DEVOTION,
             self::DETERMINED,

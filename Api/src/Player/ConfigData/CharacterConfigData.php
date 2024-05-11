@@ -150,6 +150,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SPECIALIST_POINTS,
+                ActionEnum::EXTINGUISH_MANUALLY,
             ],
             'initDiseases' => [],
             'startingItems' => [
@@ -189,6 +190,7 @@ class CharacterConfigData
                 'kill_player',
                 'rejuvenate_alpha',
                 ActionEnum::RESET_SPECIALIST_POINTS,
+                ActionEnum::EXTINGUISH_MANUALLY,
             ],
             'initDiseases' => [
                 'chronic_vertigo_default',
@@ -498,6 +500,7 @@ class CharacterConfigData
                 'itrackie_default',
             ],
             'initStatuses' => [
+                SkillEnum::CONCEPTOR,
                 SkillEnum::TECHNICIAN,
             ],
         ],
@@ -574,6 +577,7 @@ class CharacterConfigData
             'initStatuses' => [
                 'antisocial_default',
                 SkillEnum::TECHNICIAN,
+                SkillEnum::CONCEPTOR,
             ],
         ],
         [

@@ -10,6 +10,8 @@ use Mush\Action\Entity\ActionHolderInterface;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
+use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
@@ -66,6 +68,11 @@ class Project implements LogParameterInterface, ActionHolderInterface
         return $this->id;
     }
 
+    public function getConfig(): ProjectConfig
+    {
+        return $this->config;
+    }
+
     public function getName(): string
     {
         return $this->config->getName()->value;
@@ -91,9 +98,20 @@ class Project implements LogParameterInterface, ActionHolderInterface
         return $this->config->getActivationRate();
     }
 
+    /**
+     * @return Collection<int, SpawnEquipmentConfig>
+     */
     public function getSpawnEquipmentConfigs(): Collection
     {
         return $this->config->getSpawnEquipmentConfigs();
+    }
+
+    /**
+     * @return Collection<int, ReplaceEquipmentConfig>
+     */
+    public function getReplaceEquipmentConfigs(): Collection
+    {
+        return $this->config->getReplaceEquipmentConfigs();
     }
 
     public function getModifierConfigs(): Collection

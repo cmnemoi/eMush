@@ -6,7 +6,13 @@
         @click="$emit('select')"
     >
         <img :src="icon">
-        <span v-if="numberOfNewMessages" class="new-messages-number">{{ numberOfNewMessagesDisplayed }}</span>
+        <span
+            v-if="numberOfNewMessages"
+            :key="numberOfNewMessagesDisplayed"
+            class="new-messages-number"
+        >
+            {{ numberOfNewMessagesDisplayed }}
+        </span>
         <template #content>
             <h1 v-html="formatContent(name)" />
             <p v-html="formatContent(description)" />
@@ -114,6 +120,26 @@ export default defineComponent ({
         font-size: 0.93em;
         font-weight: 600;
         text-shadow: 0 0 3px black, 0 0 3px black, 0 0 3px black;
+
+        animation: poke 0.25s 1.5s 2;
+    }
+}
+
+@keyframes poke {
+    0% {
+        transform: translateY(0);
+    }
+
+    33% {
+        transform: translateY(-0.2em);
+    }
+
+    67% {
+        transform: translateY(0.2em);
+    }
+
+    100% {
+        transform: translateY(0);
     }
 }
 </style>

@@ -12,7 +12,7 @@
 <script lang="ts">
 import GameContent from "@/components/Game/GameContent.vue";
 import CharSelection from "@/components/CharSelection.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { defineComponent } from "vue";
 
 export default defineComponent ({
@@ -25,8 +25,7 @@ export default defineComponent ({
         ...mapGetters('auth', [
             'loggedIn',
             'getUserInfo',
-            'userId'
         ])
-    }
+    },
 });
 </script>

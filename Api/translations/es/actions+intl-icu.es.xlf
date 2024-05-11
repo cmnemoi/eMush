@@ -273,6 +273,16 @@
         <target>rejuvenate.description</target>
       </segment>
     </unit>
+    <unit id="reset_specialist_points">
+      <segment id="reset_specialist_points" state="initial">
+        <source>reset_specialist_points.name</source>
+        <target>reset_specialist_points.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>reset_specialist_points.description</source>
+        <target>reset_specialist_points.description</target>
+      </segment>
+    </unit>
     <unit id="shred">
       <segment id="shred" state="initial">
         <source>shred.name</source>

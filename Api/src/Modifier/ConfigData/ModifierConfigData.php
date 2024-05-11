@@ -2011,17 +2011,6 @@ abstract class ModifierConfigData
             'tagConstraints' => [],
         ],
         [
-            'name' => 'modifier_for_daedalus_set_daedalus_shield_to_50',
-            'modifierName' => null,
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'modifierRange' => 'daedalus',
-            'type' => 'direct_modifier',
-            'triggeredEvent' => 'set.value_daedalus_shield_50',
-            'visibility' => null,
-            'modifierActivationRequirements' => [],
-            'revertOnRemove' => true,
-        ],
-        [
             'name' => 'modifier_for_daedalus_+5shield_on_new_cycle',
             'modifierName' => '',
             'targetEvent' => 'daedalus.new.cycle',
@@ -2071,6 +2060,24 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::REPAIR->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::RENOVATE->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'modifier_specialist_point_core',
+            'modifierName' => ModifierNameEnum::SPECIALIST_POINT_CORE,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_CONCEPTOR => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

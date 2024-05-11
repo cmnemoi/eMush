@@ -1278,7 +1278,7 @@
     <unit id="gagged">
       <segment id="name" state="translated">
         <source>gagged.name</source>
-        <target>Bâillonner</target>
+        <target>Bâillonné(e)</target>
       </segment>
       <segment id="description" state="translated">
         <source>gagged.description</source>
@@ -1569,8 +1569,7 @@
         <target>Le pilote est un expert en manœuvre dans les vaisseaux Icarus, Pasiphae et Patrouilleur. Sa maîtrise aérienne est impressionnante.//
         :point: **Chances doublées** de toucher en Patrouilleur.//
         :point: **Ne rate jamais** les atterrissages et décollages.//
-        :point: Bonus pour développer certains **Projets NERON**.
-        </target>
+        :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="shooter">
@@ -1580,12 +1579,10 @@
       </segment>
       <segment id="description" state="translated">
         <source>shooter.description</source>
-        <target>
-        Le tireur manipule les armes de tout type avec beaucoup d'aisance.//
+        <target>Le tireur manipule les armes de tout type avec beaucoup d'aisance.//
         :point: +2 **Tirs gratuits** :pa_shoot: par jour.//
         :point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//
-        :point: Bonus pour développer certains **Projets NERON**.
-        </target>
+        :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
     <unit id="technician">
@@ -1595,13 +1592,22 @@
       </segment>
       <segment id="technician.description" state="translated">
         <source>technician.description</source>
-        <target>
-        Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
         :point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
+        :point: Peut **Démonter** des objets.//
         :point: Chances de réussites doublées pour les **Réparations**.//
         :point: Chances de réussites doublées pour les **Rénovations**.//
-        :point: Bonus pour développer certains **Projets NERON**.
-        </target>
+        :point: Bonus pour développer certains **Projets NERON**.</target>
+      </segment>
+    </unit>
+    <unit id="conceptor">
+      <segment id="conceptor.name" state="translated">
+        <source>conceptor.name</source>
+        <target>Concepteur</target>
+      </segment>
+      <segment id="conceptor.description" state="translated">
+        <source>conceptor.description</source>
+        <target>Le Concepteur dispose de deux actions gratuites chaque jour pour utiliser le Cœur de NERON.//:point: +2 :pa_core: (points d'action **Conception**) par jour.//:point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
   </file>

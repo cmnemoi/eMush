@@ -116,7 +116,7 @@
     <unit id="broken_equipment">
       <segment id="description" state="final">
         <source>broken_equipment.description</source>
-        <target>Vous ne pouvez effectuer cette action car ceci est hors d'usage.</target>
+        <target>Vous ne pouvez effectuer cette action car un équipement essentiel est hors d'usage.</target>
       </segment>
     </unit>
     <unit id="dirty_restriction">

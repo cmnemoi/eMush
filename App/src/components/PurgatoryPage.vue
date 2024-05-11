@@ -31,7 +31,9 @@
                     </div>
                     <div>
                         <p class="death-cause">
-                            <img :src="getImgUrl('dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
+                            <img :src="getImgUrl('ready.png')" alt="alive" v-if="deadPlayerInfo.hasGoodEndCause()"> 
+                            <img :src="getImgUrl('dead.png')" alt="dead" v-else>
+                            {{ deadPlayerInfo.endCauseValue }}
                         </p>
                     </div>
                     <HistoryLogs />

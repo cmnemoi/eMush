@@ -17,7 +17,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -175,80 +174,5 @@ final class ChangeNeronCpuPriorityCest extends AbstractFunctionalTest
 
         // then the action should be executable
         $I->assertNull($this->changeNeronCpuPriorityAction->cannotExecuteReason());
-    }
-
-    public function shouldImproveEfficiencyForPilgredProjectWithPilgredCpuPriority(FunctionalTester $I): void
-    {
-        // given I have the PILGRED project
-        $pilgredProject = $this->daedalus->getPilgred();
-
-        // given Chun is focused on the bios terminal
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::FOCUSED,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-            target: $this->biosTerminal,
-        );
-
-        // when CPU priority is set to PILGRED
-        $this->changeNeronCpuPriorityAction->loadParameters(
-            actionConfig: $this->changeNeronCpuPriorityConfig,
-            actionProvider: $this->biosTerminal,
-            player: $this->player,
-            target: $this->biosTerminal,
-            parameters: ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
-        );
-        $this->changeNeronCpuPriorityAction->execute();
-
-        // then Chun's min efficiency should be 2
-        $I->assertEquals(new PlayerEfficiency(2, 3), $this->chun->getEfficiencyForProject($pilgredProject));
-    }
-
-    public function shouldResetPilgredEfficiencyWhenRemovingPilgredCpuPriority(FunctionalTester $I): void
-    {
-        // given I have the PILGRED project
-        $pilgredProject = $this->daedalus->getPilgred();
-
-        // given Chun is focused on the bios terminal
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::FOCUSED,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-            target: $this->biosTerminal,
-        );
-
-        // given KT is focused on the bios terminal
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::FOCUSED,
-            holder: $this->kuanTi,
-            tags: [],
-            time: new \DateTime(),
-            target: $this->biosTerminal,
-        );
-
-        // given CPU priority is set to PILGRED
-        $this->changeNeronCpuPriorityAction->loadParameters(
-            actionConfig: $this->changeNeronCpuPriorityConfig,
-            actionProvider: $this->biosTerminal,
-            player: $this->chun,
-            target: $this->biosTerminal,
-            parameters: ['cpuPriority' => NeronCpuPriorityEnum::PILGRED]
-        );
-        $this->changeNeronCpuPriorityAction->execute();
-
-        // when CPU priority is set to None
-        $this->changeNeronCpuPriorityAction->loadParameters(
-            actionConfig: $this->changeNeronCpuPriorityConfig,
-            actionProvider: $this->biosTerminal,
-            player: $this->kuanTi,
-            target: $this->biosTerminal,
-            parameters: ['cpuPriority' => NeronCpuPriorityEnum::NONE]
-        );
-        $this->changeNeronCpuPriorityAction->execute();
-
-        // then Chun's min efficiency should be 1
-        $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 }

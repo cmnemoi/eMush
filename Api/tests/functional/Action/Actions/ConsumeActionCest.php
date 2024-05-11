@@ -21,6 +21,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -43,6 +44,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     private ActionConfig $consumeConfig;
     private Consume $consumeAction;
 
+    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -53,6 +55,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME]);
         $this->consumeAction = $I->grabService(Consume::class);
 
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
@@ -403,5 +406,36 @@ final class ConsumeActionCest extends AbstractFunctionalTest
                 'log' => LogEnum::CONSUME_MUSH,
             ]
         );
+    }
+
+    public function shouldMakeStarvingStatusesDisappear(FunctionalTester $I): void
+    {
+        // given Chun is starving
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::STARVING_WARNING,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun has a standard ration in her inventory
+        $ration = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::STANDARD_RATION,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when Chun consumes the ration
+        $this->consumeAction->loadParameters(
+            action: $this->consumeConfig,
+            player: $this->chun,
+            target: $ration,
+        );
+        $this->consumeAction->execute();
+
+        // then Chun should not have any starving statuses
+        $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::STARVING_WARNING));
+        $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::STARVING));
     }
 }

@@ -70,14 +70,64 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
         <target>The Communications Officer can start to contact others once contact with Sol has been re-established.</target>
       </segment>
     </unit>
-    <unit id="shootPoint">
+    <unit id="shoot">
       <segment id="name" state="translated">
-        <source>shootPoint.name</source>
+        <source>shoot.name</source>
         <target>Shooting Points</target>
       </segment>
       <segment id="description" state="translated">
-        <source>shootPoint.description</source>
-        <target>Shooting Points give you *free actions* for use in all shooting activities, either in-flight or onboard.</target>
+        <source>shoot.description</source>
+        <target>Shooting Points give you **free actions** for use in all *shooting actions* either in-flight or onboard.</target>
+      </segment>
+    </unit>
+    <unit id="cook">
+      <segment id="name" state="translated">
+        <source>cook.name</source>
+        <target>Kitchen Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cook.description</source>
+        <target>Kitchen Points give you **free actions** for all *kitchen actions*.</target>
+      </segment>
+    </unit>
+    <unit id="core">
+      <segment id="name" state="translated">
+        <source>core.name</source>
+        <target>Conception Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>core.description</source>
+        <target>Conception Points give you **free actions** to participate in *NERON projects*.</target>
+      </segment>
+    </unit>
+    <unit id="engineer">
+      <segment id="name" state="translated">
+        <source>engineer.name</source>
+        <target>Mechanic Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>engineer.description</source>
+        <target>Mechanic Points give **free actions** for use on *technical repairs*.</target>
+      </segment>
+    </unit>
+    <unit id="garden">
+      <segment id="name" state="translated">
+        <source>garden.name</source>
+        <target>Gardening Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>garden.description</source>
+        <target>Gardening Points give you **free actions** for *gardening*.</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="name" state="translated">
+        <source>pilgred.name</source>
+        <target>PILGRED Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>pilgred.description</source>
+        <target>PILGRED Points give you **free actions** with which to *repair PILGRED*.</target>
       </segment>
     </unit>
   </file>

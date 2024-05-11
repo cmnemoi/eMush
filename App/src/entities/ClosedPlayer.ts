@@ -18,6 +18,7 @@ export class ClosedPlayer {
     public messageIsHidden: boolean|null;
     public messageIsEdited: boolean|null;
     public messageHasBeenModerated: boolean = false;
+    public hasBadEndCause!: boolean;
 
     constructor() {
         this.iri = null;
@@ -60,6 +61,7 @@ export class ClosedPlayer {
             this.messageIsHidden = object.messageIsHidden;
             this.messageIsEdited = object.messageIsEdited;
             this.messageHasBeenModerated = (this.messageIsEdited || this.messageIsHidden) ?? false;
+            this.hasBadEndCause = ['sol_return', 'eden'].includes(this.endCause ?? '') ? false : true;
         }
         return this;
     }
@@ -81,7 +83,9 @@ export class ClosedPlayer {
             'rank': this.rank,
             'language': this.language,
             'messageIsHidden': this.messageIsHidden,
-            'messageIsEdited': this.messageIsEdited
+            'messageIsEdited': this.messageIsEdited,
+            'messageHasBeenModerated': this.messageHasBeenModerated,
+            'hasBadEndCause': this.hasBadEndCause
         };
 
         return data;
@@ -94,6 +98,4 @@ export class ClosedPlayer {
 
         return this;
     }
-
-
 }

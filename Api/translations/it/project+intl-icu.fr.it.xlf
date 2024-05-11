@@ -7,6 +7,18 @@
         <target>efficiency</target>
       </segment>
     </unit>
+    <unit id="efficiencyTooltipHeader">
+      <segment id="efficiencyTooltipHeader" state="initial">
+        <source>efficiency.tooltip.header</source>
+        <target>efficiency.tooltip.header</target>
+      </segment>
+    </unit>
+    <unit id="efficiencyTooltipText">
+      <segment id="efficiencyTooltipText" state="initial">
+        <source>efficiency.tooltip.text</source>
+        <target>efficiency.tooltip.text</target>
+      </segment>
+    </unit>
     <unit id="auto_watering">
       <segment id="auto_watering.type" state="initial">
         <source>auto_watering.type</source>
@@ -19,6 +31,10 @@
       <segment id="auto_watering.description" state="initial">
         <source>auto_watering.description</source>
         <target>auto_watering.description</target>
+      </segment>
+      <segment id="auto_watering.lore" state="initial">
+        <source>auto_watering.lore</source>
+        <target>auto_watering.lore</target>
       </segment>
     </unit>
     <unit id="dismantling">
@@ -34,6 +50,10 @@
         <source>dismantling.description</source>
         <target>dismantling.description</target>
       </segment>
+      <segment id="dismantling.lore" state="initial">
+        <source>dismantling.lore</source>
+        <target>dismantling.lore</target>
+      </segment>
     </unit>
     <unit id="door_sensor">
       <segment id="door_sensor.type" state="initial">
@@ -47,6 +67,10 @@
       <segment id="door_sensor.description" state="initial">
         <source>door_sensor.description</source>
         <target>door_sensor.description</target>
+      </segment>
+      <segment id="door_sensor.lore" state="initial">
+        <source>door_sensor.lore</source>
+        <target>door_sensor.lore</target>
       </segment>
     </unit>
     <unit id="equipment_sensor">
@@ -62,6 +86,10 @@
         <source>equipment_sensor.description</source>
         <target>equipment_sensor.description</target>
       </segment>
+      <segment id="equipment_sensor.lore" state="initial">
+        <source>equipment_sensor.lore</source>
+        <target>equipment_sensor.lore</target>
+      </segment>
     </unit>
     <unit id="fire_sensor">
       <segment id="fire_sensor.type" state="initial">
@@ -75,6 +103,10 @@
       <segment id="fire_sensor.description" state="initial">
         <source>fire_sensor.description</source>
         <target>fire_sensor.description</target>
+      </segment>
+      <segment id="fire_sensor.lore" state="initial">
+        <source>fire_sensor.lore</source>
+        <target>fire_sensor.lore</target>
       </segment>
     </unit>
     <unit id="heat_lamp">
@@ -90,6 +122,10 @@
         <source>heat_lamp.description</source>
         <target>heat_lamp.description</target>
       </segment>
+      <segment id="heat_lamp.lore" state="initial">
+        <source>heat_lamp.lore</source>
+        <target>heat_lamp.lore</target>
+      </segment>
     </unit>
     <unit id="parasite_elim">
       <segment id="parasite_elim.type" state="initial">
@@ -103,6 +139,10 @@
       <segment id="parasite_elim.description" state="initial">
         <source>parasite_elim.description</source>
         <target>parasite_elim.description</target>
+      </segment>
+      <segment id="parasite_elim.lore" state="initial">
+        <source>parasite_elim.lore</source>
+        <target>parasite_elim.lore</target>
       </segment>
     </unit>
     <unit id="pilgred">
@@ -118,6 +158,10 @@
         <source>pilgred.description</source>
         <target>pilgred.description</target>
       </segment>
+      <segment id="pilgred.lore" state="initial">
+        <source>pilgred.lore</source>
+        <target>pilgred.lore</target>
+      </segment>
     </unit>
     <unit id="plasma_shield">
       <segment id="plasma_shield.type" state="initial">
@@ -131,6 +175,10 @@
       <segment id="plasma_shield.description" state="initial">
         <source>plasma_shield.description</source>
         <target>plasma_shield.description</target>
+      </segment>
+      <segment id="plasma_shield.lore" state="initial">
+        <source>plasma_shield.lore</source>
+        <target>plasma_shield.lore</target>
       </segment>
     </unit>
     <unit id="trail_reducer">
@@ -146,6 +194,10 @@
         <source>trail_reducer.description</source>
         <target>trail_reducer.description</target>
       </segment>
+      <segment id="trail_reducer.lore" state="initial">
+        <source>trail_reducer.lore</source>
+        <target>trail_reducer.lore</target>
+      </segment>
     </unit>
     <unit id="chipset_acceleration">
       <segment id="chipset_acceleration.type" state="initial">
@@ -159,6 +211,82 @@
       <segment id="chipset_acceleration.description" state="initial">
         <source>chipset_acceleration.description</source>
         <target>chipset_acceleration.description</target>
+      </segment>
+      <segment id="chipset_acceleration.lore" state="initial">
+        <source>chipset_acceleration.lore</source>
+        <target>chipset_acceleration.lore</target>
+      </segment>
+    </unit>
+    <unit id="extra_hydroponpots">
+      <segment id="extra_hydroponpots.type" state="initial">
+        <source>extra_hydroponpots.type</source>
+        <target>extra_hydroponpots.type</target>
+      </segment>
+      <segment id="extra_hydroponpots.name" state="initial">
+        <source>extra_hydroponpots.name</source>
+        <target>extra_hydroponpots.name</target>
+      </segment>
+      <segment id="extra_hydroponpots.description" state="initial">
+        <source>extra_hydroponpots.description</source>
+        <target>extra_hydroponpots.description</target>
+      </segment>
+      <segment id="extra_hydroponpots.lore" state="initial">
+        <source>extra_hydroponpots.lore</source>
+        <target>extra_hydroponpots.lore</target>
+      </segment>
+    </unit>
+    <unit id="auxiliary_terminal">
+      <segment id="auxiliary_terminal.type" state="initial">
+        <source>auxiliary_terminal.type</source>
+        <target>auxiliary_terminal.type</target>
+      </segment>
+      <segment id="auxiliary_terminal.name" state="initial">
+        <source>auxiliary_terminal.name</source>
+        <target>auxiliary_terminal.name</target>
+      </segment>
+      <segment id="auxiliary_terminal.description" state="initial">
+        <source>auxiliary_terminal.description</source>
+        <target>auxiliary_terminal.description</target>
+      </segment>
+      <segment id="auxiliary_terminal.lore" state="initial">
+        <source>auxiliary_terminal.lore</source>
+        <target>auxiliary_terminal.lore</target>
+      </segment>
+    </unit>
+    <unit id="thalasso">
+      <segment id="thalasso.type" state="initial">
+        <source>thalasso.type</source>
+        <target>thalasso.type</target>
+      </segment>
+      <segment id="thalasso.name" state="initial">
+        <source>thalasso.name</source>
+        <target>thalasso.name</target>
+      </segment>
+      <segment id="thalasso.description" state="initial">
+        <source>thalasso.description</source>
+        <target>thalasso.description</target>
+      </segment>
+      <segment id="thalasso.lore" state="initial">
+        <source>thalasso.lore</source>
+        <target>thalasso.lore</target>
+      </segment>
+    </unit>
+    <unit id="bric_broc">
+      <segment id="bric_broc.type" state="initial">
+        <source>bric_broc.type</source>
+        <target>bric_broc.type</target>
+      </segment>
+      <segment id="bric_broc.name" state="initial">
+        <source>bric_broc.name</source>
+        <target>bric_broc.name</target>
+      </segment>
+      <segment id="bric_broc.description" state="initial">
+        <source>bric_broc.description</source>
+        <target>bric_broc.description</target>
+      </segment>
+      <segment id="bric_broc.lore" state="initial">
+        <source>bric_broc.lore</source>
+        <target>bric_broc.lore</target>
       </segment>
     </unit>
   </file>

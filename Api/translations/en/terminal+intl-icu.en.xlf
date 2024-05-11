@@ -102,9 +102,9 @@ To leave orbit, the Commander in charge must give this order from the Command Te
         <source>block_of_post_it.name</source>
         <target>Block of post-it notes</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
-        <target>&lt;target/&gt;</target>
+        <target/>
       </segment>
     </unit>
     <unit id="exploration">

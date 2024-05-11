@@ -1906,7 +1906,7 @@ class ActionData
         [
             'name' => ActionEnum::PARTICIPATE->value,
             'action_name' => ActionEnum::PARTICIPATE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONCEPTOR],
             'target' => ActionHolderEnum::PROJECT,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

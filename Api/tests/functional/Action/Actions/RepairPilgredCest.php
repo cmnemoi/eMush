@@ -35,7 +35,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private RepairPilgred $repairPilgredAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
     private GameEquipment $terminal;
 
@@ -47,7 +46,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun is focused on PILGRED terminal
@@ -244,30 +242,6 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
         // then the action should not be visible
         $I->assertFalse($this->repairPilgredAction->isVisible());
-    }
-
-    public function shouldPutEfficiencyToOneWithCpuPriority(FunctionalTester $I): void
-    {
-        // given I have the PILGRED project
-        $pilgredProject = $this->daedalus->getPilgred();
-
-        // given CPU priority is set on the PILGRED project
-        $this->neronService->changeCpuPriority(
-            neron: $this->daedalus->getDaedalusInfo()->getNeron(),
-            cpuPriority: NeronCpuPriorityEnum::PILGRED,
-        );
-
-        // when Chun repairs the PILGRED project with CPU priority
-        $this->repairPilgredAction->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->terminal,
-            player: $this->chun,
-            target: $pilgredProject
-        );
-        $this->repairPilgredAction->execute();
-
-        // then Chun's efficiency should be 1-1%
-        $I->assertEquals(new PlayerEfficiency(1, 1), $this->chun->getEfficiencyForProject($pilgredProject));
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

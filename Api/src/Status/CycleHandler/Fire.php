@@ -15,9 +15,11 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEventEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -49,7 +51,31 @@ final readonly class Fire extends AbstractStatusCycleHandler
         }
 
         // Make sure the fire will be set only on Rooms.
-        if ($statusHolder->getType() !== PlaceTypeEnum::ROOM || !$status->isCharged()) {
+        if ($statusHolder->getType() !== PlaceTypeEnum::ROOM) {
+            return;
+        }
+
+        // if Auto Watering project is finished and random draw is successful, the fire is extinguished.
+        $daedalus = $statusHolder->getDaedalus();
+        $autoWatering = $daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        if ($autoWatering->isFinished() && $this->randomService->isSuccessful($autoWatering->getActivationRate())) {
+            $this->statusService->removeStatus(
+                statusName: $this->name,
+                holder: $statusHolder,
+                tags: [StatusEnum::FIRE],
+                time: $dateTime
+            );
+            $this->statusService->createOrIncrementChargeStatus(
+                name: DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES,
+                holder: $daedalus,
+                time: $dateTime
+            );
+
+            return;
+        }
+
+        // Only active fires should propagate and damage.
+        if ($status->getCharge() === 0) {
             return;
         }
 

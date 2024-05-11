@@ -104,7 +104,7 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
       </segment>
       <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
-        <target></target>
+        <target/>
       </segment>
     </unit>
     <unit id="exploration">
@@ -190,9 +190,9 @@ Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis 
         <source>pilgred.tips</source>
         <target>La remise en état de PILGRED demande des compétences énormes. Il vous faudra vous armer de patience et survivre pour y aboutir. Une fois réparé, la possibilité de revenir sur Sol vous sera ouverte. Qu'en ferez-vous ?</target>
       </segment>
-      <segment id="pilgred_finished_description" state="final">
+      <segment id="pilgred_finished_description" state="translated">
         <source>pilgred.pilgred_finished_description</source>
-        <target>Le PILGRED est pleinement opérationnel.</target>
+        <target>PILGRED est pleinement opérationnel.</target>
       </segment>
     </unit>
     <unit id="neron_core">

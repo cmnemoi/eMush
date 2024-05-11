@@ -283,6 +283,20 @@ Available only during the alpha.
 Thanks for your help!</target>
       </segment>
     </unit>
+    <unit id="reset_specialist_points">
+      <segment id="reset_specialist_points" state="translated">
+        <source>reset_specialist_points.name</source>
+        <target>Reset specialist points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>reset_specialist_points.description</source>
+        <target>Recover specialist points :pa_eng:, :pa_shoot:
+        //
+        Only valid during the alpha.
+        //
+        Thanks for your help!</target>
+      </segment>
+    </unit>
     <unit id="shred">
       <segment id="shred" state="final">
         <source>shred.name</source>

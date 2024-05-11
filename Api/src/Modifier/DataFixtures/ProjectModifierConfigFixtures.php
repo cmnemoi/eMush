@@ -11,7 +11,6 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -37,17 +36,6 @@ final class ProjectModifierConfigFixtures extends Fixture
 
         $manager->persist($trailReducerModifier);
         $this->addReference($trailReducerModifier->getName(), $trailReducerModifier);
-
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference('set.value_daedalus_shield_50');
-        $plasmaShieldInitModifier = new DirectModifierConfig('modifier_for_daedalus_set_daedalus_shield_to_50');
-        $plasmaShieldInitModifier
-            ->setRevertOnRemove(true)
-            ->setTriggeredEvent($eventConfig)
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
-
-        $manager->persist($plasmaShieldInitModifier);
-        $this->addReference($plasmaShieldInitModifier->getName(), $plasmaShieldInitModifier);
 
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference('change.variable_daedalus_shield_+5');

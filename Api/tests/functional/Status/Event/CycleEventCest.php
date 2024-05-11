@@ -3,17 +3,12 @@
 namespace Mush\Tests\functional\Status\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
@@ -26,10 +21,12 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerCycleEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
@@ -123,122 +120,119 @@ final class CycleEventCest extends AbstractFunctionalTest
         $I->seeInRepository(ChargeStatus::class, ['id' => $id]);
     }
 
-    public function testFireStatusCycleSubscriber(FunctionalTester $I): void
+    public function fireShouldRemoveHealthPointToPlayer(FunctionalTester $I): void
     {
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setStatusName(StatusEnum::FIRE)
-            ->setModifierConfigs(new ArrayCollection([]))
-            ->buildName(GameConfigEnum::TEST)
-            ->setStartCharge(0);
-        $I->haveInRepository($statusConfig);
+        // given a fire in Chun's room
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime()
+        );
 
-        /** @var DifficultyConfig $difficultyConfig */
-        $difficultyConfig = $I->have(DifficultyConfig::class, [
-            'propagatingFireRate' => 100,
-            'hullFireDamageRate' => 100,
-            'maximumAllowedSpreadingFires' => 2,
-        ]);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'difficultyConfig' => $difficultyConfig,
-            'statusConfigs' => new ArrayCollection([$statusConfig]),
-        ]);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class, ['name' => GameConfigEnum::TEST]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => GameConfigEnum::TEST]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo->setNeron($neron);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var Place $room2 */
-        $room2 = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var Place $icarusBay */
-        $icarusBay = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::ICARUS_BAY]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var EquipmentConfig $doorConfig */
-        $doorConfig = $I->have(EquipmentConfig::class, [
-            'isFireBreakable' => false,
-            'isFireDestroyable' => false,
-            'name' => 'door_test',
-        ]);
-
-        $doorConfig
-            ->setIsFireBreakable(false)
-            ->setIsFireDestroyable(false);
-
-        $door = new Door($room);
-        $door
-            ->setName('door name')
-            ->setEquipment($doorConfig);
-
-        $room->addDoor($door);
-        $room2->addDoor($door);
-
-        $healthPointBefore = $player->getHealthPoint();
-        $moralPointBefore = $player->getMoralPoint();
-        $hullPointBefore = $daedalus->getHull();
-
-        $time = new \DateTime();
-
-        /** @var ChargeStatus $status */
-        $status = $this->statusService->createStatusFromConfig(
-            $statusConfig,
-            $room,
-            [],
+        // when a new cycle passes
+        $cycleEvent = new StatusCycleEvent(
+            $fireStatus,
+            $this->chun->getPlace(),
+            [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $status->setCharge(1);
-
-        $cycleEvent = new StatusCycleEvent($status, $room, [EventEnum::NEW_CYCLE], $time);
-
-        $I->refreshEntities($player, $daedalus);
-
         $this->cycleSubscriber->onNewCycle($cycleEvent);
 
-        $I->assertEquals($healthPointBefore - 2, $player->getHealthPoint());
-        $I->assertEquals($moralPointBefore, $player->getMoralPoint());
-        $I->assertEquals($hullPointBefore - 2, $daedalus->getHull());
+        // then Chun should have lost 2 health points
+        $I->assertEquals(12, $this->chun->getHealthPoint());
+    }
 
-        $I->assertEquals(StatusEnum::FIRE, $room2->getStatuses()->first()->getName());
-        $I->assertEquals(0, $room2->getStatuses()->first()->getCharge());
+    public function fireShouldRemoveHullPointsToDaedalus(FunctionalTester $I): void
+    {
+        // given fire has a 100% chance to damage the hull
+        $difficultyConfig = $this->daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setHullFireDamageRate(100);
+
+        // given fire damage is 2
+        $difficultyConfig->setFireHullDamage([2 => 1]);
+
+        // given a fire in Chun's room
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when a new cycle passes
+        $cycleEvent = new StatusCycleEvent(
+            $fireStatus,
+            $this->chun->getPlace(),
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        // then Daedalus should have lost 2 hull points
+        $I->assertEquals(98, $this->daedalus->getHull());
+    }
+
+    public function fireShouldPropagateToAdjacentRooms(FunctionalTester $I): void
+    {
+        // given fire has a 100% chance to propagate
+        $difficultyConfig = $this->daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setPropagatingFireRate(100);
+
+        // given a fire in Chun's room
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun's room has a door to the Front Corridor
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
+
+        // when a new cycle passes
+        $cycleEvent = new StatusCycleEvent(
+            $fireStatus,
+            $this->chun->getPlace(),
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        // then the fire should have propagated to the Front Corridor
+        $I->assertTrue($frontCorridor->hasStatus(StatusEnum::FIRE));
+    }
+
+    public function propagatedFireShouldBeInactive(FunctionalTester $I): void
+    {
+        // given fire has a 100% chance to propagate
+        $difficultyConfig = $this->daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setPropagatingFireRate(100);
+
+        // given a fire in Chun's room
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun's room has a door to the Front Corridor
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
+
+        // when a new cycle passes
+        $cycleEvent = new StatusCycleEvent(
+            $fireStatus,
+            $this->chun->getPlace(),
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        // then propagated fire should be inactive
+        $I->assertEquals(0, $frontCorridor->getStatusByName(StatusEnum::FIRE)->getCharge());
     }
 
     public function testBrokenEquipmentDoNotGetElectricChargesUpdatesAtCycleChange(FunctionalTester $I): void
@@ -274,27 +268,68 @@ final class CycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(1, $electricCharges->getCharge());
     }
 
-    public function testStarvingDoesNotTriggerTheCycleItAppears(FunctionalTester $I): void
+    public function shouldMakeStarvingStatusAppearAfterThreeDays(FunctionalTester $I): void
     {
-        // given Chun has -23 satiety, so they will start starving at next cycle
-        $this->chun->setSatiety(-23);
+        $this->daedalus->setDay(1)->setCycle(1);
 
-        // given a new cycle passes, so starving status should appear
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        // when 24 cycles pass
+        for ($i = 0; $i < 24; ++$i) {
+            $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+            $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        }
 
-        // when a new cycle passes with starving status
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        // then Chun should have Starving warning status
+        $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::STARVING_WARNING));
+    }
 
-        // then Chun should not have lost any health point
-        $I->assertEquals(14, $this->chun->getHealthPoint());
+    public function shouldMakePlayerStarvingAfterThreeDaysAndOneCycle(FunctionalTester $I): void
+    {
+        // when 25 cycles pass
+        for ($i = 0; $i < 25; ++$i) {
+            $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
+            $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        }
 
-        // when another cycle passes with starving status
-        $cycleEvent = new PlayerCycleEvent($this->chun, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        // then Chun should have Starving status
+        $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::STARVING));
 
         // then Chun should have lost 1 health point
         $I->assertEquals(13, $this->chun->getHealthPoint());
+    }
+
+    public function shouldKillFiresIfAutoWateringProjectIsActivated(FunctionalTester $I): void
+    {
+        // given auto watering project is finished
+        $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        $this->finishProject(
+            project: $autoWatering,
+            author: $this->chun,
+            I: $I
+        );
+
+        // given it has a 100% activation rate
+        $autoWateringConfig = $autoWatering->getConfig();
+        $reflection = new \ReflectionClass($autoWateringConfig);
+        $reflection->getProperty('activationRate')->setValue($autoWateringConfig, 100);
+
+        // given Chun's room is on fire
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $this->chun->getPlace(),
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when a new cycle passes
+        $cycleEvent = new StatusCycleEvent(
+            $fireStatus,
+            $this->chun->getPlace(),
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->cycleSubscriber->onNewCycle($cycleEvent);
+
+        // then the fire should be killed
+        $I->assertFalse($this->chun->getPlace()->hasStatus(StatusEnum::FIRE));
     }
 }

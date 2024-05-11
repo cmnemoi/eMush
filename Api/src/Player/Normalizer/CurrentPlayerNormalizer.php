@@ -219,7 +219,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $daedalus = $player->getDaedalus();
         $patrolShips = $this->getPatrolShipsInBattle($daedalus);
-        $turrets = $this->gameEquipmentService->findByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
+        $turrets = $this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
 
         $huntersToNormalize = $this->hunterNormalizerHelper->getHuntersToNormalize($daedalus);
         $normalizedHunters = [];
@@ -237,7 +237,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getPatrolShipsInBattle(Daedalus $daedalus): ArrayCollection
     {
         $patrolShips = RoomEnum::getPatrolShips()
-            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findByNameAndDaedalus($patrolShip, $daedalus)->first())
+            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $daedalus)->first())
             ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
         $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
@@ -276,7 +276,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $skillsList = [
             SkillEnum::BOTANIST => 'garden',
             SkillEnum::CHEF => 'cook',
-            SkillEnum::DESIGNER => 'core',
+            SkillEnum::CONCEPTOR => 'core',
             SkillEnum::PHYSICIST => 'pilgred',
             SkillEnum::IT_EXPERT => 'computer',
             SkillEnum::NURSE => 'heal',

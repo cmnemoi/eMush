@@ -15,6 +15,7 @@ use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\SkillEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
@@ -22,6 +23,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -351,6 +353,33 @@ final class ParticipateCest extends AbstractFunctionalTest
             expectedCount: $this->daedalus->getNumberOfProjectsByBatch(),
             haystack: $this->daedalus->getProposedNeronProjects(),
         );
+    }
+
+    public function shouldConsumeCoreSpecialistPointWithProject(FunctionalTester $I): void
+    {
+        // given I have another proposed project
+        $project = $this->daedalus->getProjectByName(ProjectName::AUXILIARY_TERMINAL);
+        $project->propose();
+
+        // given Chun is a Conceptor
+        $this->statusService->createStatusFromName(
+            statusName: SkillEnum::CONCEPTOR,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Chun has one Core point
+        /** @var ChargeStatus $skill */
+        $skill = $this->chun->getSkillByName(SkillEnum::CONCEPTOR);
+        $skill->setCharge(1);
+
+        // when Chun participates in the project
+        $this->participateAction->loadParameters($this->actionConfig, $this->chun, $this->project);
+        $this->participateAction->execute();
+
+        // then one of Chun's Core points is consumed
+        $I->assertEquals(0, $skill->getCharge());
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

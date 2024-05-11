@@ -26,6 +26,8 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Factory\ProjectFactory;
 use Mush\Status\CycleHandler\Fire;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -97,6 +99,7 @@ final class FireTest extends TestCase
 
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
+        ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::AUTO_WATERING, $daedalus);
         $gameConfig
             ->setDifficultyConfig($difficultyConfig)
             ->setDaedalusConfig($daedalusConfig);
@@ -192,6 +195,7 @@ final class FireTest extends TestCase
 
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
+        ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::AUTO_WATERING, $daedalus);
         $gameConfig
             ->setDifficultyConfig($difficultyConfig)
             ->setDaedalusConfig($daedalusConfig);
@@ -276,6 +280,7 @@ final class FireTest extends TestCase
 
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
+        ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::AUTO_WATERING, $daedalus);
         $gameConfig
             ->setDifficultyConfig($difficultyConfig)
             ->setDaedalusConfig($daedalusConfig);

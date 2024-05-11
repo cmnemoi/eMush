@@ -191,7 +191,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['bravo_bay_bravo_dorm', 'rear_corridor_bravo_dorm'],
             'items' => [],
-            'equipments' => ['bed', 'bed', 'bed', 'thalasso'],
+            'equipments' => ['bed', 'bed', 'bed', 'shower'],
         ],
         [
             'name' => 'front_storage_default',

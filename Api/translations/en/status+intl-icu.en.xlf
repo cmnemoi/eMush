@@ -1588,5 +1588,32 @@
 :point: Bonus for developing certain ** NERON projects **.</target>
       </segment>
     </unit>
+    <unit id="technician">
+      <segment id="technician.name" state="translated">
+        <source>technician.name</source>
+        <target>Technician</target>
+      </segment>
+      <segment id="technician.description" state="translated">
+        <source>technician.description</source>
+        <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
+:point: +1 :pa_eng: per day (**Repair** Action Point).//
+:point: Can **Dismantle** objects.//
+:point: Chances to perform successful **Repairs** doubled.//
+:point: Chances to perform successful **Renovations** doubled.//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
+    <unit id="conceptor">
+      <segment id="conceptor.name" state="translated">
+        <source>conceptor.name</source>
+        <target>Designer</target>
+      </segment>
+      <segment id="conceptor.description" state="translated">
+        <source>conceptor.description</source>
+        <target>Has access to NERON's core twice per day (Free Actions).//
+:point: +2 :pa_core: per day (**NERON projects** Action Points) .//
+:point: Bonus for developing certain **NERON projects**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

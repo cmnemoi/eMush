@@ -14,8 +14,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Action\Entity\ActionTargetInterface;
-use Mush\Action\Enum\ActionTargetName;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -368,18 +366,6 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getPlace() === $player->getPlace();
     }
 
-    private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
-    {
-        $tool = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
-        $patrolShip = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
-        $weapons = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
-
-        return
-            ($tool !== null && $tool->hasAction($actionName))
-            || ($weapons !== null && $weapons->hasAction($actionName))
-            || ($patrolShip !== null && $patrolShip->hasAction($actionName));
-    }
-
     public function getMechanicActionByNameOrThrow(string $actionName): Action
     {
         foreach ($this->getEquipment()->getMechanics() as $mechanic) {
@@ -391,5 +377,17 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         throw new \RuntimeException("Action {$actionName} not found in the mechanics of {$this->name} equipment.");
+    }
+
+    private function isActionProvidedByToolMechanic(ActionEnum $actionName): bool
+    {
+        $tool = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::TOOL);
+        $patrolShip = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
+        $weapons = $this->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
+
+        return
+            ($tool !== null && $tool->hasAction($actionName))
+            || ($weapons !== null && $weapons->hasAction($actionName))
+            || ($patrolShip !== null && $patrolShip->hasAction($actionName));
     }
 }

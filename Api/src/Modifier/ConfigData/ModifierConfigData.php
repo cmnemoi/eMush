@@ -2077,7 +2077,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionTypeEnum::ACTION_CONCEPTOR => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_CONCEPTOR->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
     ];

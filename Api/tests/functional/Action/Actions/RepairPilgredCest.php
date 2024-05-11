@@ -10,8 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communication\Entity\Message;
 use Mush\Communication\Enum\NeronMessageEnum;
-use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
-use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;

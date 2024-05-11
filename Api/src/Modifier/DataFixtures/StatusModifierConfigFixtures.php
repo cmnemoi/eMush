@@ -385,7 +385,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTargetEvent(ActionVariableEvent::APPLY_COST)
             ->setApplyOnTarget(false)
             ->setTagConstraints([
-                ActionTypeEnum::ACTION_CONCEPTOR => ModifierRequirementEnum::ANY_TAGS,
+                ActionTypeEnum::ACTION_CONCEPTOR->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
             ->setModifierName(ModifierNameEnum::SPECIALIST_POINT_CORE);

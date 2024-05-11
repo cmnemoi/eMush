@@ -6,14 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\ConsumeDrug;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DisorderEnum;
@@ -84,7 +76,8 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             $this->consumeConfig,
             $secondBacta,
             $this->chun,
-            $secondBacta);
+            $secondBacta
+        );
 
         // then the action should not be executable
         $I->assertEquals(

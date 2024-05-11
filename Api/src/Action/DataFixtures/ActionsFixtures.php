@@ -1142,6 +1142,7 @@ class ActionsFixtures extends Fixture
             ->setName(ActionEnum::PARTICIPATE->value)
             ->setActionName(ActionEnum::PARTICIPATE)
             ->setRange(ActionRangeEnum::ROOM)
+            ->setTypes([ActionTypeEnum::ACTION_CONCEPTOR])
             ->setDisplayHolder(ActionHolderEnum::PROJECT)
             ->setActionCost(2)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)

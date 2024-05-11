@@ -56,7 +56,7 @@ class ExtinguishManually extends AttemptAction
         // @TODO validator on Firefighter skill
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }

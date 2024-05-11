@@ -71,7 +71,7 @@ final class CollectScrap extends AbstractAction
         $metadata->addConstraint(new IsPasiphaeDestroyed(['groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }

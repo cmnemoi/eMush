@@ -25,7 +25,7 @@ class ReadDocument extends AbstractAction
         $metadata->addConstraint(new Mechanic(['mechanic' => EquipmentMechanicEnum::DOCUMENT, 'groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }

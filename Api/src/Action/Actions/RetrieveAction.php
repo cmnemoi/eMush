@@ -32,7 +32,7 @@ abstract class RetrieveAction extends AbstractAction
         $this->gameEquipmentService = $gameEquipmentService;
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment && !$target instanceof Door;
     }

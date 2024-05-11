@@ -49,7 +49,7 @@ class Hide extends AbstractAction
         $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameItem;
     }

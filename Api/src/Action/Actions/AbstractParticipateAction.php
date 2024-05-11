@@ -46,7 +46,7 @@ abstract class AbstractParticipateAction extends AbstractAction
         $metadata->addConstraint(new NoEfficiency(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_EFFICIENCY]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Project;
     }

@@ -78,7 +78,7 @@ class Attack extends AttemptAction
         $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => 'room']));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
     }

@@ -76,7 +76,7 @@ class Build extends AbstractAction
         return parent::cannotExecuteReason();
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment && !$target instanceof Door;
     }

@@ -57,7 +57,7 @@ final class Scan extends AttemptAction
         $metadata->addConstraint(new NumberOfDiscoverablePlanets(['groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }

@@ -42,7 +42,7 @@ class RemoveCamera extends AbstractAction
         ]);
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof GameEquipment;
     }

@@ -23,7 +23,7 @@ class ReportFire extends AbstractAction
         $metadata->addConstraint(new IsReported(['groups' => ['visibility']]));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }

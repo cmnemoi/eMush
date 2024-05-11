@@ -46,7 +46,7 @@ class Move extends AbstractAction
         $metadata->addConstraint(new PlaceType(['groups' => ['visible'], 'type' => 'room']));
     }
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Door;
     }

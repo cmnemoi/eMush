@@ -19,7 +19,7 @@ abstract class AbstractSpeech extends AbstractAction
 {
     protected string $playerVariable;
 
-    protected function support(?LogParameterInterface $target, array $parameters): bool
+    public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
     }
